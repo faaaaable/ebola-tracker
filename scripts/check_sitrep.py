@@ -117,14 +117,11 @@ def main():
 
     if not result.get("new_data_found"):
         print("Aucune nouvelle donnée trouvée. Rien à proposer.")
-        # Signale à GitHub Actions qu'il n'y a rien à committer / aucune PR à ouvrir
-        print("::set-output name=has_update::false")
         return
 
     entry = result["entry"]
     if entry["date"] == latest["date"]:
         print("La date la plus récente trouvée correspond déjà aux données existantes.")
-        print("::set-output name=has_update::false")
         return
 
     updated = existing + [entry]
@@ -132,7 +129,6 @@ def main():
         json.dump(updated, f, ensure_ascii=False, indent=2)
 
     print(f"Nouvelle entrée proposée et écrite dans {PROPOSED_PATH}")
-    print("::set-output name=has_update::true")
 
 
 if __name__ == "__main__":
