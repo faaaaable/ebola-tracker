@@ -56,7 +56,7 @@ def load_existing_data():
 def call_claude_api(latest_entry):
     payload = {
         "model": "claude-sonnet-4-6",
-        "max_tokens": 1000,
+        "max_tokens": 4096,
         "system": SYSTEM_PROMPT,
         "messages": [
             {
@@ -79,13 +79,28 @@ def call_claude_api(latest_entry):
         },
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=120) as resp:
+    with urllib.request.urlopen(req, timeout=180) as resp:
         data = json.loads(resp.read().decode("utf-8"))
 
+    stop_reason = data.get("stop_reason")
     text_blocks = [b["text"] for b in data.get("content", []) if b.get("type") == "text"]
     raw = "\n".join(text_blocks).strip()
     raw = raw.replace("```json", "").replace("```", "").strip()
-    return json.loads(raw)
+
+    if not raw:
+        # Réponse sans bloc de texte exploitable (ex : coupée avant la fin, ou
+        # entièrement composée de blocs d'outil). On log le contenu complet pour
+        # diagnostic, et on traite ça comme "rien trouvé" plutôt que de planter.
+        print(f"Réponse sans texte exploitable (stop_reason={stop_reason}). Contenu complet :")
+        print(json.dumps(data.get("content", []), ensure_ascii=False, indent=2))
+        return {"new_data_found": False, "entry": None}
+
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        print(f"Réponse non-JSON reçue (stop_reason={stop_reason}). Contenu brut :")
+        print(raw)
+        return {"new_data_found": False, "entry": None}
 
 
 def main():
