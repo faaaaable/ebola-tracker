@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SITREP — Suivi épidémie Ebola (MVB) RDC 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root{
+    --bg:#12181B;
+    --bg-panel:#1B2327;
+    --bg-panel-raised:#212B30;
+    --ink:#E7E9E4;
+    --ink-dim:#8B968E;
+    --ink-faint:#5C6A64;
+    --line:#2E3A3D;
+    --accent-info:#6F9CEB;      /* cas confirmés */
+    --accent-critical:#E4572E;  /* décès */
+    --accent-stable:#4FA894;    /* guéris */
+    --accent-active:#E3B23C;    /* isolement / actifs */
+    --radius:3px;
+    --font-display:'Barlow Condensed',sans-serif;
+    --font-body:'Inter',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-info);}
+  ::selection{background:var(--accent-info);color:#0A0E10;}
+
+  /* ---------- layout shell ---------- */
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  .hairline{border-top:1px solid var(--line);}
+
+  /* ---------- header ---------- */
+  header.top{
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#141B1E 0%, #12181B 100%);
+  }
+  .top-inner{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    padding:28px 0 20px;flex-wrap:wrap;gap:16px;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent-active);
+    display:flex;align-items:center;gap:8px;margin-bottom:10px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent-active);
+    box-shadow:0 0 0 3px rgba(227,178,60,.18);
+    animation:pulse 2.2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(28px,4.2vw,44px);
+    letter-spacing:-.01em;
+    margin:0;
+    text-transform:uppercase;
+  }
+  h1 span{color:var(--ink-dim);font-weight:500;}
+  .top-meta{
+    font-family:var(--font-mono);
+    font-size:12px;color:var(--ink-dim);
+    text-align:right;
+  }
+  .top-meta strong{color:var(--ink);}
+
+  .top-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+  .lang-switch{display:flex;gap:6px;}
+  .lang-btn{
+    background:var(--bg-panel);border:1px solid var(--line);
+    height:28px;padding:0 9px 0 7px;border-radius:var(--radius);
+    font-size:15px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;gap:6px;
+    opacity:.75;transition:opacity .15s, border-color .15s, background .15s;
+  }
+  .lang-btn span.code{
+    font-family:var(--font-mono);font-size:10.5px;font-weight:600;
+    letter-spacing:.04em;color:var(--ink-dim);
+  }
+  .lang-btn:hover{opacity:1;border-color:var(--ink-faint);}
+  .lang-btn.active{
+    opacity:1;border-color:var(--accent-info);
+    background:rgba(111,156,235,.14);
+  }
+  .lang-btn.active span.code{color:var(--accent-info);}
+  .lang-btn:focus-visible{outline:2px solid var(--accent-info);outline-offset:2px;}
+  .lang-btn .flag{
+    border-radius:2px;display:block;
+    box-shadow:0 0 0 1px rgba(255,255,255,.12);
+  }
+
+  /* ---------- KPI row ---------- */
+  .kpis{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin:28px 0;
+  }
+  .kpi{
+    background:var(--bg-panel);
+    padding:18px 18px 16px;
+    position:relative;
+  }
+  .kpi .label{
+    font-family:var(--font-mono);
+    font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-dim);margin-bottom:10px;
+  }
+  .kpi .value{
+    font-family:var(--font-mono);
+    font-weight:700;
+    font-size:clamp(22px,2.6vw,32px);
+    line-height:1;
+  }
+  .kpi .delta{
+    margin-top:8px;font-size:11.5px;color:var(--ink-faint);
+  }
+  .kpi.confirmed .value{color:var(--accent-info);}
+  .kpi.deaths .value{color:var(--accent-critical);}
+  .kpi.recovered .value{color:var(--accent-stable);}
+  .kpi.active .value{color:var(--accent-active);}
+  .kpi.cfr .value{color:var(--ink);}
+  .kpi::before{
+    content:'';position:absolute;top:0;left:0;width:100%;height:2px;
+    background:var(--accent-info);opacity:.7;
+  }
+  .kpi.deaths::before{background:var(--accent-critical);}
+  .kpi.recovered::before{background:var(--accent-stable);}
+  .kpi.active::before{background:var(--accent-active);}
+  .kpi.cfr::before{background:var(--ink-dim);}
+
+  /* ---------- section titles ---------- */
+  .section{margin:44px 0;}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin-bottom:16px;flex-wrap:wrap;gap:8px;
+  }
+  .section-title{
+    font-family:var(--font-display);
+    text-transform:uppercase;
+    font-size:20px;font-weight:600;letter-spacing:.01em;
+  }
+  .section-sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);}
+
+  /* ---------- panel ---------- */
+  .panel{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    padding:20px;
+  }
+
+  /* ---------- chart ---------- */
+  .chart-panel{height:340px;}
+
+  /* ---------- carte ---------- */
+  .map-panel{padding:0;position:relative;overflow:hidden;}
+  #map{height:520px;width:100%;background:#0E1315;}
+  .leaflet-container{
+    background:#0E1315;
+    font-family:var(--font-body);
+  }
+  .leaflet-popup-content-wrapper{
+    background:var(--bg-panel-raised);color:var(--ink);
+    border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 8px 24px rgba(0,0,0,.4);
+  }
+  .leaflet-popup-tip{background:var(--bg-panel-raised);border:1px solid var(--line);}
+  .leaflet-popup-content{margin:11px 13px;font-size:12.5px;line-height:1.5;}
+  .leaflet-popup-content b{font-family:var(--font-display);font-size:15px;text-transform:uppercase;}
+  .popup-row{display:flex;justify-content:space-between;gap:14px;margin-top:3px;font-family:var(--font-mono);font-size:11.5px;}
+  .popup-row .k{color:var(--ink-dim);}
+  .leaflet-control-zoom a{
+    background:var(--bg-panel-raised)!important;color:var(--ink)!important;
+    border:1px solid var(--line)!important;
+  }
+  .leaflet-control-attribution{
+    background:rgba(18,24,27,.8)!important;color:var(--ink-faint)!important;
+    font-size:10px!important;
+  }
+  .leaflet-control-attribution a{color:var(--ink-dim)!important;}
+
+  .leaflet-tooltip.kinshasa-label{
+    background:transparent;border:none;box-shadow:none;
+    color:var(--accent-critical);
+    font-family:var(--font-display);
+    font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+    text-shadow:0 0 3px rgba(14,19,21,.9), 0 0 8px rgba(14,19,21,.7);
+    padding:0;
+  }
+  .leaflet-tooltip.kinshasa-label::before{ display:none; }
+
+  .map-toolbar{
+    position:absolute;top:14px;left:14px;z-index:500;
+    display:flex;gap:8px;flex-wrap:wrap;max-width:calc(100% - 28px);
+  }
+  .map-btn{
+    background:rgba(27,35,39,.92);border:1px solid var(--line);color:var(--ink);
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.03em;
+    padding:7px 11px;border-radius:var(--radius);cursor:pointer;
+    backdrop-filter:blur(4px);
+  }
+  .map-btn:hover{border-color:var(--accent-info);color:var(--accent-info);}
+  .map-btn.active{border-color:var(--accent-info);color:var(--accent-info);background:rgba(111,156,235,.12);}
+
+  .map-legend{
+    position:absolute;bottom:14px;right:14px;z-index:500;
+    background:rgba(27,35,39,.92);border:1px solid var(--line);
+    padding:12px 14px;border-radius:var(--radius);backdrop-filter:blur(4px);
+    font-family:var(--font-mono);font-size:10.5px;color:var(--ink-dim);
+    min-width:150px;
+  }
+  .map-legend .title{
+    text-transform:uppercase;letter-spacing:.06em;font-size:9.5px;
+    color:var(--ink-faint);margin-bottom:8px;
+  }
+  .legend-scale{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+  .legend-swatch{width:11px;height:11px;border-radius:50%;flex:none;}
+  .legend-gradient{
+    height:6px;border-radius:3px;margin:8px 0 4px;
+    background:linear-gradient(90deg,#6F9CEB,#E3B23C,#E4572E);
+  }
+  .legend-minmax{display:flex;justify-content:space-between;font-size:9.5px;color:var(--ink-faint);}
+  .map-note{
+    font-size:11px;color:var(--ink-faint);line-height:1.6;
+    padding:14px 20px 18px;border-top:1px solid var(--line);
+  }
+
+  .province-note{font-size:11px;color:var(--ink-faint);margin-top:14px;line-height:1.55;}
+
+  /* ---------- kpi cliquable ---------- */
+  .kpi.clickable{cursor:pointer;}
+  .kpi.clickable:hover{background:var(--bg-panel-raised);}
+  .kpi.clickable:focus-visible{outline:2px solid var(--accent-info);outline-offset:-2px;}
+  .kpi-hint{
+    margin-top:8px;font-size:10.5px;font-family:var(--font-mono);
+    color:var(--ink-faint);opacity:0;transition:opacity .15s;
+  }
+  .kpi.clickable:hover .kpi-hint,
+  .kpi.clickable:focus-visible .kpi-hint{opacity:1;}
+
+  /* ---------- table (modal) ---------- */
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{
+    text-align:left;font-family:var(--font-mono);font-size:10.5px;
+    text-transform:uppercase;letter-spacing:.06em;color:var(--ink-dim);
+    padding:0 10px 10px;border-bottom:1px solid var(--line);white-space:nowrap;
+  }
+  tbody td{padding:9px 10px;border-bottom:1px solid var(--line);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody td:first-child{font-weight:600;}
+  td.num{font-family:var(--font-mono);text-align:right;}
+  .table-scroll{overflow-y:auto;}
+  .table-scroll::-webkit-scrollbar{width:8px;}
+  .table-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
+
+  /* ---------- modal ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(10,14,16,.72);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;z-index:1000;
+    opacity:0;pointer-events:none;transition:opacity .15s;
+    backdrop-filter:blur(2px);
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal-panel{
+    background:var(--bg-panel);border:1px solid var(--line);
+    width:100%;max-width:640px;max-height:min(80vh,640px);
+    display:flex;flex-direction:column;
+    padding:22px;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+    transform:translateY(8px);transition:transform .15s;
+  }
+  .modal-overlay.open .modal-panel{transform:translateY(0);}
+  .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px;}
+  .modal-eyebrow{
+    font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-faint);margin-bottom:6px;
+  }
+  .modal-title{font-family:var(--font-display);text-transform:uppercase;font-size:20px;font-weight:600;}
+  .modal-close{
+    flex:none;width:30px;height:30px;
+    background:var(--bg-panel-raised);border:1px solid var(--line);color:var(--ink-dim);
+    border-radius:var(--radius);cursor:pointer;font-size:14px;line-height:1;
+  }
+  .modal-close:hover{color:var(--ink);border-color:var(--accent-critical);}
+  .modal-note{font-size:11.5px;color:var(--ink-faint);line-height:1.6;margin-bottom:16px;}
+
+  footer{
+    margin:60px 0 40px;padding-top:22px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--ink-faint);line-height:1.7;
+  }
+  footer a{color:var(--ink-dim);}
+  footer .sources{font-family:var(--font-mono);font-size:11px;margin-top:10px;}
+  footer .disclaimer{
+    margin-top:20px;padding:14px 16px;
+    border:1px solid var(--line);border-left:2px solid var(--ink-faint);
+    background:var(--bg-panel);
+    color:var(--ink-dim);font-size:11.5px;line-height:1.7;
+  }
+  footer .disclaimer strong{color:var(--ink);font-family:var(--font-display);text-transform:uppercase;letter-spacing:.03em;}
+
+  @media (max-width:760px){
+    .kpis{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <div>
+      <div class="eyebrow"><span class="dot"></span><span data-i18n="eyebrow">Point de situation — épidémie d'Ebola, RDC 2026</span></div>
+      <h1><span data-i18n="h1">Suivi Ebola RDC</span> <span>/ 2026</span></h1>
+    </div>
+    <div class="top-right">
+      <div class="lang-switch" role="group" aria-label="Langue / Language">
+        <button class="lang-btn active" id="langFr" aria-label="Français" title="Français">
+          <svg class="flag" viewBox="0 0 3 2" width="20" height="14" aria-hidden="true">
+            <rect width="1" height="2" x="0" fill="#0055A4"/>
+            <rect width="1" height="2" x="1" fill="#FFFFFF"/>
+            <rect width="1" height="2" x="2" fill="#EF4135"/>
+          </svg>
+          <span class="code">FR</span>
+        </button>
+        <button class="lang-btn" id="langEn" aria-label="English" title="English">
+          <svg class="flag" viewBox="0 0 60 30" width="20" height="14" aria-hidden="true">
+            <rect width="60" height="30" fill="#00247d"/>
+            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#cf142b" stroke-width="2"/>
+            <path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/>
+            <path d="M30,0 V30 M0,15 H60" stroke="#cf142b" stroke-width="6"/>
+          </svg>
+          <span class="code">EN</span>
+        </button>
+      </div>
+      <div class="top-meta" id="topMeta"></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="kpis" id="kpis" aria-label="Indicateurs clés">
+    <div class="kpi confirmed clickable" id="cardConfirmed" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="label" data-i18n="labelConfirmed">Cas confirmés</div>
+      <div class="value" id="kpi-confirmed">—</div>
+      <div class="delta" id="kpi-confirmed-delta"></div>
+      <div class="kpi-hint" data-i18n="hintConfirmed">Voir le détail par zone ↗</div>
+    </div>
+    <div class="kpi deaths clickable" id="cardDeaths" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="label" data-i18n="labelDeaths">Décès</div>
+      <div class="value" id="kpi-deaths">—</div>
+      <div class="delta" id="kpi-deaths-delta"></div>
+      <div class="kpi-hint" data-i18n="hintDeaths">Voir le détail par province ↗</div>
+    </div>
+    <div class="kpi recovered">
+      <div class="label" data-i18n="labelRecovered">Guéris</div>
+      <div class="value" id="kpi-recovered">—</div>
+      <div class="delta" id="kpi-recovered-delta"></div>
+    </div>
+    <div class="kpi active">
+      <div class="label" data-i18n="labelActive">En isolement</div>
+      <div class="value" id="kpi-active">—</div>
+      <div class="delta" id="kpi-zones"></div>
+    </div>
+    <div class="kpi cfr">
+      <div class="label" data-i18n="labelCfr">Taux de létalité</div>
+      <div class="value" id="kpi-cfr">—</div>
+      <div class="delta" data-i18n="cfrDelta">décès / cas confirmés</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title" data-i18n="mapTitle">Carte de propagation</div>
+      <div class="section-sub" data-i18n="mapSub">taille et couleur des cercles = intensité des cas cumulés</div>
+    </div>
+    <div class="panel map-panel">
+      <div id="map"></div>
+      <div class="map-toolbar">
+        <button class="map-btn active" id="btnViewCountry" data-i18n="btnCountry">RDC entière</button>
+        <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">Zoomer sur l'épicentre (Ituri)</button>
+      </div>
+      <div class="map-legend">
+        <div class="title" data-i18n="legendTitle">Cas confirmés cumulés</div>
+        <div class="legend-gradient"></div>
+        <div class="legend-minmax"><span data-i18n="legendLow">faible</span><span data-i18n="legendHigh">élevé</span></div>
+        <div class="legend-scale" style="margin-top:10px;">
+          <span class="legend-swatch" style="background:var(--ink-faint);border:1px dashed var(--ink-dim);"></span>
+          <span data-i18n="legendAgg">estimation agrégée (province)</span>
+        </div>
+        <div class="legend-scale">
+          <span class="legend-swatch" style="background:var(--accent-critical);"></span>
+          <span data-i18n="legendImported">cas importé isolé (Kinshasa)</span>
+        </div>
+      </div>
+      <div class="map-note" data-i18n="mapNote">
+        Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone), à des fins de
+        visualisation de la dynamique géographique — elles ne représentent pas des limites administratives exactes.
+        Les cercles en pointillés correspondent aux quatre provinces pour lesquelles seul un total agrégé est
+        disponible publiquement (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title" data-i18n="chartTitle">Courbe épidémique</div>
+      <div class="section-sub" id="chartSubText">cumul des cas confirmés et décès</div>
+    </div>
+    <div class="panel chart-panel">
+      <canvas id="epiChart"></canvas>
+    </div>
+    <div class="province-note" style="margin-top:10px;" data-i18n="chartNote">
+      Les bulletins officiels ne sont pas publiés à intervalle fixe : la courbe reflète les dates réelles des
+      points de situation disponibles publiquement (environ chaque semaine en juin, plus espacés ensuite). Le
+      point du 15 juillet (marqué ≈) reprend un chiffre arrondi communiqué par l'OMS. Un segment en pointillé sur
+      « Décès » signale une valeur non publiée à cette date.
+    </div>
+  </section>
+
+  <footer>
+    <span id="footerMain"></span>
+    <div class="disclaimer">
+      <strong data-i18n="disclaimerTitle">Avertissement.</strong>
+      <span data-i18n="disclaimerBody">Ce site a une vocation strictement informative. Il compile et met en forme
+      des données publiques déjà publiées par des sources officielles ou des médias, sans analyse ni interprétation
+      indépendante. Il ne constitue en aucun cas un avis médical, épidémiologique ou géopolitique, et ne doit pas
+      être utilisé comme base pour une décision de santé, de voyage ou de sécurité. Pour toute question médicale,
+      consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé de
+      la RDC). Malgré le soin apporté, des erreurs, approximations ou délais de mise à jour sont possibles.</span>
+    </div>
+  </footer>
+
+</div>
+
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-panel">
+    <div class="modal-head">
+      <div>
+        <div class="modal-eyebrow" id="modalEyebrow"></div>
+        <div class="modal-title" id="modalTitle"></div>
+      </div>
+      <button class="modal-close" id="modalClose" data-i18n-aria="closeAria" aria-label="Fermer">✕</button>
+    </div>
+    <div class="modal-note" id="modalNote"></div>
+    <div class="table-scroll" style="max-height:min(50vh,420px);">
+      <table>
+        <thead id="modalTableHead"></thead>
+        <tbody id="modalTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ I18N ============ */
+const I18N = {
+  fr: {
+    eyebrow:"Point de situation — épidémie d'Ebola, RDC 2026",
+    h1:"Suivi Ebola RDC",
+    labelConfirmed:"Cas confirmés",
+    labelDeaths:"Décès",
+    labelRecovered:"Guéris",
+    labelActive:"En isolement",
+    labelCfr:"Taux de létalité",
+    cfrDelta:"décès / cas confirmés",
+    hintConfirmed:"Voir le détail par zone ↗",
+    hintDeaths:"Voir le détail par province ↗",
+    mapTitle:"Carte de propagation",
+    mapSub:"taille et couleur des cercles = intensité des cas cumulés",
+    btnCountry:"RDC entière",
+    btnIturi:"Zoomer sur l'épicentre (Ituri)",
+    legendTitle:"Cas confirmés cumulés",
+    legendLow:"faible",
+    legendHigh:"élevé",
+    legendAgg:"estimation agrégée (province)",
+    legendImported:"cas importé isolé (Kinshasa)",
+    mapNote:"Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone), à des fins de visualisation de la dynamique géographique — elles ne représentent pas des limites administratives exactes. Les cercles en pointillés correspondent aux quatre provinces pour lesquelles seul un total agrégé est disponible publiquement (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
+    chartTitle:"Courbe épidémique",
+    chartSub:"cumul des cas confirmés et décès",
+    chartSubRange:(n,from,to)=>`${n} bulletins, du ${from} au ${to}`,
+    chartNote:"Les bulletins officiels ne sont pas publiés à intervalle fixe : la courbe reflète les dates réelles des points de situation disponibles publiquement (environ chaque semaine en juin, plus espacés ensuite). Le point du 15 juillet (marqué ≈) reprend un chiffre arrondi communiqué par l'OMS. Un segment en pointillé sur « Décès » signale une valeur non publiée à cette date.",
+    chartLoadError:"Chart.js n'a pas pu se charger (connexion internet requise pour ce CDN). Vérifie ta connexion et recharge la page.",
+    footerMain:(date)=>`Ce tracker compile des données publiques (OMS, ministère de la Santé de la RDC, CDC, ECDC) arrêtées au ${date} et n'est pas mis à jour automatiquement.`,
+    disclaimerTitle:"Avertissement.",
+    disclaimerBody:"Ce site a une vocation strictement informative. Il compile et met en forme des données publiques déjà publiées par des sources officielles ou des médias, sans analyse ni interprétation indépendante. Il ne constitue en aucun cas un avis médical, épidémiologique ou géopolitique, et ne doit pas être utilisé comme base pour une décision de santé, de voyage ou de sécurité. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé de la RDC). Malgré le soin apporté, des erreurs, approximations ou délais de mise à jour sont possibles.",
+    closeAria:"Fermer",
+    zonesText:(n)=>`${n} zones de santé · 5 provinces`,
+    sinceText:(d)=>`depuis le ${d}`,
+    startingPoint:"point de départ",
+    topMeta:"17<sup>e</sup> épidémie d'Ebola en RDC · déclarée le <strong>15 mai 2026</strong>",
+    popupProvinceLabel:"Province",
+    popupCumulEstimate:"Estimation cumulée",
+    popupZoneDetail:"Détail par zone",
+    popupNotAvailable:"non disponible",
+    popupStatus:"Statut",
+    popupImportedCase:"Cas importé isolé",
+    popupDetected:"Détecté",
+    popupDetectedDate:"16 mai 2026",
+    popupLocalTransmission:"Transmission locale",
+    popupNotReported:"non signalée",
+    modalConfirmedEyebrow:"Détail par zone de santé",
+    modalConfirmedTitle:(n)=>`Cas confirmés — ${n}`,
+    modalConfirmedNote:"Répartition des cas confirmés cumulés par zone de santé (Ituri). Coordonnées et chiffres à titre illustratif, voir la carte pour le détail géographique.",
+    modalConfirmedTh1:"Zone de santé",
+    modalConfirmedTh2:"Cas confirmés",
+    modalDeathsEyebrow:"Détail par province",
+    modalDeathsTitle:(n)=>`Décès — ${n}`,
+    modalDeathsNote:"Aucune répartition officielle des décès par zone de santé n'est publiée. Seule la part de l'Ituri est communiquée au niveau national (≈ 80 % des décès cumulés, OMS/ONU) ; les quatre autres provinces sont regroupées faute de détail plus fin.",
+    modalDeathsTh1:"Province",
+    modalDeathsTh2:"Décès estimés",
+    modalDeathsTh3:"Part",
+    iturEpicenter:"Ituri (épicentre)",
+    otherProvinces:"Autres provinces (agrégé)",
+    deathsNotPublished:"Décès non publiés pour le dernier bilan disponible.",
+    months:['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'],
+    locale:'fr-FR'
+  },
+  en: {
+    eyebrow:"Situation report — Ebola outbreak, DRC 2026",
+    h1:"DRC Ebola Tracker",
+    labelConfirmed:"Confirmed cases",
+    labelDeaths:"Deaths",
+    labelRecovered:"Recovered",
+    labelActive:"In isolation",
+    labelCfr:"Case fatality rate",
+    cfrDelta:"deaths / confirmed cases",
+    hintConfirmed:"View breakdown by zone ↗",
+    hintDeaths:"View breakdown by province ↗",
+    mapTitle:"Spread map",
+    mapSub:"circle size and colour = intensity of cumulative cases",
+    btnCountry:"Whole DRC",
+    btnIturi:"Zoom to epicentre (Ituri)",
+    legendTitle:"Cumulative confirmed cases",
+    legendLow:"low",
+    legendHigh:"high",
+    legendAgg:"aggregated estimate (province)",
+    legendImported:"isolated imported case (Kinshasa)",
+    mapNote:"Health zones are positioned at approximate coordinates (zone administrative centres), for the purpose of visualising the geographic dynamics — they do not represent exact administrative boundaries. Dashed circles correspond to the four provinces for which only an aggregated total is publicly available (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
+    chartTitle:"Epidemic curve",
+    chartSub:"cumulative confirmed cases and deaths",
+    chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
+    chartNote:"Official bulletins are not published at fixed intervals: the curve reflects the actual dates of publicly available situation reports (roughly weekly in June, more spaced out afterwards). The 15 July point (marked ≈) uses a rounded figure reported by WHO. A dotted segment on \"Deaths\" indicates a value not published on that date.",
+    chartLoadError:"Chart.js failed to load (an internet connection is required for this CDN). Check your connection and reload the page.",
+    footerMain:(date)=>`This tracker compiles public data (WHO, DRC Ministry of Health, CDC, ECDC) as of ${date} and is not updated automatically.`,
+    disclaimerTitle:"Disclaimer.",
+    disclaimerBody:"This site is intended for informational purposes only. It compiles and formats public data already published by official sources or media outlets, without independent analysis or interpretation. It does not constitute medical, epidemiological or geopolitical advice of any kind, and should not be used as a basis for health, travel or security decisions. For any medical question, consult a healthcare professional or the relevant health authorities (WHO, DRC Ministry of Health). Despite our best efforts, errors, approximations or update delays are possible.",
+    closeAria:"Close",
+    zonesText:(n)=>`${n} health zones · 5 provinces`,
+    sinceText:(d)=>`since ${d}`,
+    startingPoint:"starting point",
+    topMeta:"17<sup>th</sup> Ebola outbreak in the DRC · declared <strong>15 May 2026</strong>",
+    popupProvinceLabel:"Province",
+    popupCumulEstimate:"Cumulative estimate",
+    popupZoneDetail:"Detail by zone",
+    popupNotAvailable:"not available",
+    popupStatus:"Status",
+    popupImportedCase:"Isolated imported case",
+    popupDetected:"Detected",
+    popupDetectedDate:"16 May 2026",
+    popupLocalTransmission:"Local transmission",
+    popupNotReported:"not reported",
+    modalConfirmedEyebrow:"Breakdown by health zone",
+    modalConfirmedTitle:(n)=>`Confirmed cases — ${n}`,
+    modalConfirmedNote:"Distribution of cumulative confirmed cases by health zone (Ituri). Coordinates and figures are illustrative — see the map for geographic detail.",
+    modalConfirmedTh1:"Health zone",
+    modalConfirmedTh2:"Confirmed cases",
+    modalDeathsEyebrow:"Breakdown by province",
+    modalDeathsTitle:(n)=>`Deaths — ${n}`,
+    modalDeathsNote:"No official breakdown of deaths by health zone is published. Only Ituri's share is reported at national level (≈ 80% of cumulative deaths, WHO/UN); the four other provinces are grouped together for lack of finer detail.",
+    modalDeathsTh1:"Province",
+    modalDeathsTh2:"Estimated deaths",
+    modalDeathsTh3:"Share",
+    iturEpicenter:"Ituri (epicentre)",
+    otherProvinces:"Other provinces (aggregated)",
+    deathsNotPublished:"Deaths not published for the latest available update.",
+    months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    locale:'en-US'
+  }
+};
+let currentLang = 'fr';
+function tr(key){ return I18N[currentLang][key]; }
+
+/* ============ DONNÉES DE RÉFÉRENCE (au 6 août 2026) ============ */
+const SEED_SITREPS = [
+  { date:"2026-05-16", confirmed:8,    deaths:null, recovered:null },
+  { date:"2026-05-31", confirmed:282,  deaths:null, recovered:null },
+  { date:"2026-06-06", confirmed:515,  deaths:91,   recovered:12  },
+  { date:"2026-06-16", confirmed:827,  deaths:194,  recovered:null },
+  { date:"2026-06-18", confirmed:875,  deaths:202,  recovered:null },
+  { date:"2026-06-22", confirmed:1048, deaths:267,  recovered:112 },
+  { date:"2026-06-24", confirmed:1155, deaths:304,  recovered:null },
+  { date:"2026-07-15", confirmed:2100, deaths:800,  recovered:null, approx:true },
+  { date:"2026-07-19", confirmed:2423, deaths:967,  recovered:469 },
+  { date:"2026-08-01", confirmed:3748, deaths:1657, recovered:708 },
+  { date:"2026-08-03", confirmed:3874, deaths:1751, recovered:749 },
+  { date:"2026-08-06", confirmed:4053, deaths:1850, recovered:793 }
+];
+const ACTIVE_LATEST = 694;   // hospitalisés / en isolement, bilan du 6 août
+const ZONES_LATEST = 53;     // zones de santé affectées, bilan du 6 août
+
+const PROVINCES = [
+  { name:"Ituri",      share:0.869, epicenter:true },
+  { name:"Nord-Kivu",  share:0.055, epicenter:false },
+  { name:"Haut-Uélé",  share:0.04,  epicenter:false },
+  { name:"Tshopo",     share:0.025, epicenter:false },
+  { name:"Sud-Kivu",   share:0.011, epicenter:false }
+];
+
+const HEALTH_ZONES = [
+  ["Bunia",880],["Rwampara",627],["Mongbwalu",541],["Nizi",377],["Lita",131],
+  ["Nyankunde",114],["Mangala",101],["Nia Nia",95],["Bambu",60],["Tchomia",41],
+  ["Komanda",36],["Kilo",29],["Fataki",27],["Damas",17],["Mandima",16],
+  ["Adja",11],["Drodro",10],["Aungba",9],["Logo",9],["Mambasa",9],
+  ["Rimba",9],["Ariwara",7],["Lolwa",7],["Aru",5],["Mahagi",4],
+  ["Kambala",2],["Boga",1],["Gety",1]
+].map(([name,cases])=>({name,cases}));
+
+/* Coordonnées approximatives des chefs-lieux de zone de santé (Ituri), à des fins
+   de visualisation — non issues d'un référentiel géographique officiel. */
+const HEALTH_ZONE_COORDS = {
+  "Bunia":[1.567,30.250], "Mongbwalu":[1.933,30.033], "Rwampara":[1.60,30.10],
+  "Nizi":[1.75,30.35], "Lita":[1.85,30.15], "Nyankunde":[1.30,30.10],
+  "Mangala":[1.95,30.25], "Nia Nia":[1.50,27.68], "Bambu":[1.85,30.05],
+  "Tchomia":[1.40,30.55], "Komanda":[1.383,29.783], "Kilo":[1.90,30.05],
+  "Fataki":[2.10,30.30], "Damas":[1.70,30.25], "Mandima":[1.20,28.90],
+  "Adja":[1.95,30.55], "Drodro":[1.75,30.50], "Aungba":[2.60,31.05],
+  "Logo":[2.60,30.85], "Mambasa":[1.35,29.05], "Rimba":[1.95,30.15],
+  "Ariwara":[3.05,30.75], "Lolwa":[1.30,28.80], "Aru":[3.02,30.85],
+  "Mahagi":[2.32,31.03], "Kambala":[2.10,30.85], "Boga":[0.95,29.95],
+  "Gety":[1.15,29.85]
+};
+/* Chefs-lieux provinciaux, utilisés uniquement pour représenter les totaux
+   agrégés des provinces sans détail public par zone de santé. */
+const PROVINCE_AGG_COORDS = {
+  "Nord-Kivu":[-1.6796,29.2267],
+  "Sud-Kivu":[-2.5085,28.8608],
+  "Haut-Uélé":[2.7833,27.6167],
+  "Tshopo":[0.5167,25.2]
+};
+const KINSHASA_COORDS = [-4.4419,15.2663];
+const ITURI_BOUNDS = [[0.7,27.4],[3.3,31.2]];
+const DRC_BOUNDS = [[-13.459,12.204],[5.386,31.301]];
+
+/* ============ ÉTAT ============ */
+let sitreps = [...SEED_SITREPS];
+
+async function loadRemoteSitreps(){
+  try{
+    const res = await fetch('data/sitreps.json', { cache:'no-store' });
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(Array.isArray(remote) && remote.length){
+      sitreps = remote;
+    }
+  }catch(e){
+    // Pas de connexion, fichier ouvert en local (file://), ou hébergement sans ce
+    // fichier : on garde silencieusement les données de référence intégrées.
+    console.warn('data/sitreps.json indisponible, utilisation des données de référence intégrées.', e);
+  }
+}
+let chart;
+
+function sortedSitreps(){
+  return [...sitreps].sort((a,b)=>a.date.localeCompare(b.date));
+}
+
+/* ============ RENDU KPI ============ */
+function fmt(n){ return n.toLocaleString(tr('locale')); }
+
+function renderKPIs(){
+  const s = sortedSitreps();
+  const latest = s[s.length-1];
+  const prev = s.length>1 ? s[s.length-2] : null;
+
+  document.getElementById('kpi-confirmed').textContent = fmt(latest.confirmed);
+  document.getElementById('kpi-deaths').textContent = fmt(latest.deaths);
+  document.getElementById('kpi-recovered').textContent = fmt(latest.recovered);
+  document.getElementById('kpi-active').textContent = fmt(ACTIVE_LATEST);
+  document.getElementById('kpi-zones').textContent = tr('zonesText')(ZONES_LATEST);
+  const cfr = (latest.confirmed>0 && latest.deaths!==null && latest.deaths!==undefined) ? (latest.deaths/latest.confirmed*100) : null;
+  document.getElementById('kpi-cfr').textContent = cfr!==null ? cfr.toFixed(1)+'%' : '—';
+
+  if(prev && prev.deaths!==null && prev.recovered!==null){
+    document.getElementById('kpi-confirmed-delta').textContent =
+      '+'+fmt(latest.confirmed-prev.confirmed)+' '+tr('sinceText')(frDate(prev.date));
+    document.getElementById('kpi-deaths-delta').textContent =
+      '+'+fmt(latest.deaths-prev.deaths)+' '+tr('sinceText')(frDate(prev.date));
+    document.getElementById('kpi-recovered-delta').textContent =
+      '+'+fmt(latest.recovered-prev.recovered)+' '+tr('sinceText')(frDate(prev.date));
+  } else if(prev){
+    document.getElementById('kpi-confirmed-delta').textContent =
+      '+'+fmt(latest.confirmed-prev.confirmed)+' '+tr('sinceText')(frDate(prev.date));
+    document.getElementById('kpi-deaths-delta').textContent = tr('sinceText')(frDate(prev.date));
+    document.getElementById('kpi-recovered-delta').textContent = tr('sinceText')(frDate(prev.date));
+  } else {
+    document.getElementById('kpi-confirmed-delta').textContent = tr('startingPoint');
+    document.getElementById('kpi-deaths-delta').textContent = tr('startingPoint');
+    document.getElementById('kpi-recovered-delta').textContent = tr('startingPoint');
+  }
+}
+
+function frDate(iso){
+  const [y,m,d] = iso.split('-');
+  const mois = tr('months');
+  return `${parseInt(d,10)} ${mois[parseInt(m,10)-1]}`;
+}
+
+/* ============ GRAPHIQUE ============ */
+function renderChart(){
+  const canvas = document.getElementById('epiChart');
+  if(typeof Chart === 'undefined'){
+    canvas.replaceWith(Object.assign(document.createElement('div'), {
+      style:'display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);',
+      textContent: tr('chartLoadError')
+    }));
+    return;
+  }
+  const s = sortedSitreps();
+  const subEl = document.getElementById('chartSubText');
+  if(subEl && s.length){
+    subEl.textContent = tr('chartSub') + ' · ' + tr('chartSubRange')(s.length, frDate(s[0].date), frDate(s[s.length-1].date));
+  }
+  const labels = s.map(r=> (r.approx?'≈ ':'') + frDate(r.date));
+  const ctx = canvas.getContext('2d');
+  const data = {
+    labels,
+    datasets:[
+      {
+        label:tr('labelConfirmed'),
+        data:s.map(r=>r.confirmed),
+        borderColor:'#6F9CEB', backgroundColor:'rgba(111,156,235,.12)',
+        borderWidth:2, tension:.25, fill:true, pointRadius:3, pointBackgroundColor:'#6F9CEB',
+        spanGaps:true
+      },
+      {
+        label:tr('labelDeaths'),
+        data:s.map(r=> r.deaths===null||r.deaths===undefined ? null : r.deaths),
+        borderColor:'#E4572E', backgroundColor:'rgba(228,87,46,.08)',
+        borderWidth:2, tension:.25, fill:true, pointRadius:3, pointBackgroundColor:'#E4572E',
+        spanGaps:true
+      }
+    ]
+  };
+  const opts = {
+    responsive:true, maintainAspectRatio:false,
+    interaction:{ mode:'index', intersect:false },
+    plugins:{
+      legend:{ labels:{ color:'#8B968E', font:{ family:'JetBrains Mono', size:11 }, boxWidth:10, usePointStyle:true } },
+      tooltip:{
+        backgroundColor:'#1B2327', borderColor:'#2E3A3D', borderWidth:1,
+        titleColor:'#E7E9E4', bodyColor:'#E7E9E4', titleFont:{family:'JetBrains Mono'}, bodyFont:{family:'JetBrains Mono'}
+      }
+    },
+    scales:{
+      x:{ ticks:{ color:'#5C6A64', font:{family:'JetBrains Mono', size:10} }, grid:{ color:'#212B30' } },
+      y:{ ticks:{ color:'#5C6A64', font:{family:'JetBrains Mono', size:10} }, grid:{ color:'#212B30' }, beginAtZero:true }
+    }
+  };
+  if(chart){ chart.data = data; chart.options = opts; chart.update(); }
+  else { chart = new Chart(ctx, { type:'line', data, options:opts }); }
+}
+
+/* ============ CARTE ============ */
+let map, zoneMarkersLayer, provinceMarkersLayer, kinshasaLayer;
+
+function colorForValue(t){
+  // t entre 0 et 1 : bleu (info) -> ambre (active) -> rouge (critique)
+  const stops = [
+    {p:0,   c:[111,156,235]},
+    {p:0.5, c:[227,178,60]},
+    {p:1,   c:[228,87,46]}
+  ];
+  let a=stops[0], b=stops[stops.length-1];
+  for(let i=0;i<stops.length-1;i++){
+    if(t>=stops[i].p && t<=stops[i+1].p){ a=stops[i]; b=stops[i+1]; break; }
+  }
+  const span = (b.p-a.p) || 1;
+  const local = (t-a.p)/span;
+  const rgb = a.c.map((v,i)=>Math.round(v + (b.c[i]-v)*local));
+  return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+}
+
+function initMap(){
+  map = L.map('map', { zoomControl:true, attributionControl:true, scrollWheelZoom:true });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    maxZoom:12, minZoom:4
+  }).addTo(map);
+  map.fitBounds(DRC_BOUNDS);
+
+  zoneMarkersLayer = L.layerGroup().addTo(map);
+  provinceMarkersLayer = L.layerGroup().addTo(map);
+  kinshasaLayer = L.layerGroup().addTo(map);
+
+  document.getElementById('btnViewCountry').addEventListener('click', e=>{
+    map.fitBounds(DRC_BOUNDS);
+    setActiveMapBtn(e.target);
+  });
+  document.getElementById('btnViewIturi').addEventListener('click', e=>{
+    map.fitBounds(ITURI_BOUNDS);
+    setActiveMapBtn(e.target);
+  });
+}
+function setActiveMapBtn(btn){
+  document.querySelectorAll('.map-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function renderMap(){
+  if(!map) return;
+  zoneMarkersLayer.clearLayers();
+  provinceMarkersLayer.clearLayers();
+  kinshasaLayer.clearLayers();
+
+  const maxCases = Math.max(...HEALTH_ZONES.map(z=>z.cases));
+
+  HEALTH_ZONES.forEach(z=>{
+    const coord = HEALTH_ZONE_COORDS[z.name];
+    if(!coord) return;
+    const t = z.cases / maxCases;
+    const radius = 4 + Math.sqrt(z.cases) * 1.15;
+    const marker = L.circleMarker(coord, {
+      radius, color: colorForValue(t), weight:1.5,
+      fillColor: colorForValue(t), fillOpacity:.55
+    });
+    marker.bindPopup(
+      `<b>${z.name}</b>
+       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(z.cases)}</span></div>
+       <div class="popup-row"><span class="k">${tr('popupProvinceLabel')}</span><span>Ituri</span></div>`
+    );
+    marker.addTo(zoneMarkersLayer);
+  });
+
+  const s = sortedSitreps();
+  const total = s[s.length-1].confirmed;
+  PROVINCES.filter(p=>!p.epicenter).forEach(p=>{
+    const coord = PROVINCE_AGG_COORDS[p.name];
+    if(!coord) return;
+    const val = Math.round(total*p.share);
+    const radius = 6 + Math.sqrt(val) * 1.15;
+    const marker = L.circleMarker(coord, {
+      radius, color:'#8B968E', weight:1.5, dashArray:'3,3',
+      fillColor:'#8B968E', fillOpacity:.28
+    });
+    marker.bindPopup(
+      `<b>${p.name}</b>
+       <div class="popup-row"><span class="k">${tr('popupCumulEstimate')}</span><span>${fmt(val)}</span></div>
+       <div class="popup-row"><span class="k">${tr('popupZoneDetail')}</span><span>${tr('popupNotAvailable')}</span></div>`
+    );
+    marker.addTo(provinceMarkersLayer);
+  });
+
+  const kinshasaMarker = L.circleMarker(KINSHASA_COORDS, {
+    radius:7, color:'#E4572E', weight:2,
+    fillColor:'#E4572E', fillOpacity:.85
+  });
+  kinshasaMarker.bindTooltip('KINSHASA', {
+    permanent:true, direction:'top', offset:[0,-8],
+    className:'kinshasa-label'
+  });
+  kinshasaMarker.bindPopup(
+    `<b>Kinshasa</b>
+     <div class="popup-row"><span class="k">${tr('popupStatus')}</span><span>${tr('popupImportedCase')}</span></div>
+     <div class="popup-row"><span class="k">${tr('popupDetected')}</span><span>${tr('popupDetectedDate')}</span></div>
+     <div class="popup-row"><span class="k">${tr('popupLocalTransmission')}</span><span>${tr('popupNotReported')}</span></div>`
+  );
+  kinshasaMarker.addTo(kinshasaLayer);
+}
+
+/* ============ RENDU GLOBAL ============ */
+function safeRun(fn, label){
+  try{ fn(); }catch(e){ console.error('Erreur lors du rendu:', label, e); }
+}
+function renderAll(){
+  safeRun(renderKPIs, 'kpis');
+  safeRun(renderChart, 'chart');
+  safeRun(renderMap, 'map');
+}
+
+/* ============ MODAL DE DÉTAIL ============ */
+const modalOverlay = document.getElementById('modalOverlay');
+const modalEyebrow = document.getElementById('modalEyebrow');
+const modalTitle = document.getElementById('modalTitle');
+const modalNote = document.getElementById('modalNote');
+const modalHead = document.getElementById('modalTableHead');
+const modalBody = document.getElementById('modalTableBody');
+
+let lastModalType = null;
+function openModal(type){
+  lastModalType = type;
+  const s = sortedSitreps();
+  const latest = s[s.length-1];
+
+  if(type === 'confirmed'){
+    modalEyebrow.textContent = tr('modalConfirmedEyebrow');
+    modalTitle.textContent = tr('modalConfirmedTitle')(fmt(latest.confirmed));
+    modalNote.textContent = tr('modalConfirmedNote');
+    modalHead.innerHTML = `<tr><th>${tr('modalConfirmedTh1')}</th><th style="text-align:right;">${tr('modalConfirmedTh2')}</th></tr>`;
+    const rows = [...HEALTH_ZONES].sort((a,b)=>b.cases-a.cases);
+    modalBody.innerHTML = rows.map(z=>
+      `<tr><td>${z.name}</td><td class="num" style="color:var(--accent-info);">${fmt(z.cases)}</td></tr>`
+    ).join('');
+  } else {
+    modalEyebrow.textContent = tr('modalDeathsEyebrow');
+    modalTitle.textContent = tr('modalDeathsTitle')(latest.deaths!==null&&latest.deaths!==undefined ? fmt(latest.deaths) : '—');
+    modalNote.textContent = tr('modalDeathsNote');
+    modalHead.innerHTML = `<tr><th>${tr('modalDeathsTh1')}</th><th style="text-align:right;">${tr('modalDeathsTh2')}</th><th style="text-align:right;">${tr('modalDeathsTh3')}</th></tr>`;
+    if(latest.deaths!==null && latest.deaths!==undefined){
+      const ituri = Math.round(latest.deaths*0.80);
+      const autres = latest.deaths - ituri;
+      modalBody.innerHTML = `
+        <tr><td>${tr('iturEpicenter')}</td><td class="num" style="color:var(--accent-critical);">${fmt(ituri)}</td><td class="num" style="color:var(--ink-dim);">≈ 80 %</td></tr>
+        <tr><td>${tr('otherProvinces')}</td><td class="num" style="color:var(--accent-critical);">${fmt(autres)}</td><td class="num" style="color:var(--ink-dim);">≈ 20 %</td></tr>
+      `;
+    } else {
+      modalBody.innerHTML = `<tr><td colspan="3" style="color:var(--ink-faint);">${tr('deathsNotPublished')}</td></tr>`;
+    }
+  }
+
+  modalOverlay.classList.add('open');
+  modalOverlay.setAttribute('aria-hidden','false');
+  document.getElementById('modalClose').focus();
+}
+function closeModal(){
+  modalOverlay.classList.remove('open');
+  modalOverlay.setAttribute('aria-hidden','true');
+  lastModalType = null;
+}
+
+document.getElementById('cardConfirmed').addEventListener('click', ()=>openModal('confirmed'));
+document.getElementById('cardDeaths').addEventListener('click', ()=>openModal('deaths'));
+document.getElementById('cardConfirmed').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal('confirmed'); } });
+document.getElementById('cardDeaths').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal('deaths'); } });
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e=>{ if(e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modalOverlay.classList.contains('open')) closeModal(); });
+
+/* ============ LANGUE ============ */
+function applyStaticI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    const val = tr(key);
+    if(typeof val === 'string') el.textContent = val;
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
+    el.setAttribute('aria-label', tr(el.getAttribute('data-i18n-aria')));
+  });
+  document.getElementById('topMeta').innerHTML = tr('topMeta');
+  const latestForFooter = sortedSitreps()[sortedSitreps().length-1];
+  const [fy,fm,fd] = latestForFooter.date.split('-');
+  const footerDate = `${parseInt(fd,10)} ${tr('months')[parseInt(fm,10)-1]} ${fy}`;
+  document.getElementById('footerMain').textContent = tr('footerMain')(footerDate);
+  document.documentElement.lang = currentLang;
+  document.title = currentLang==='fr'
+    ? "SITREP — Suivi épidémie Ebola (MVB) RDC 2026"
+    : "SITREP — Ebola (BVD) Outbreak Tracker, DRC 2026";
+}
+
+function setLang(lang){
+  if(lang === currentLang) return;
+  currentLang = lang;
+  document.getElementById('langFr').classList.toggle('active', lang==='fr');
+  document.getElementById('langEn').classList.toggle('active', lang==='en');
+  applyStaticI18n();
+  renderAll();
+  if(map){
+    document.getElementById('btnViewCountry').classList.add('active');
+    document.getElementById('btnViewIturi').classList.remove('active');
+  }
+  if(modalOverlay.classList.contains('open') && lastModalType){
+    openModal(lastModalType);
+  }
+}
+document.getElementById('langFr').addEventListener('click', ()=>setLang('fr'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+
+/* ============ INIT ============ */
+safeRun(initMap, 'initMap');
+applyStaticI18n();
+renderAll(); // premier rendu immédiat avec les données de référence intégrées
+loadRemoteSitreps().then(()=>{
+  applyStaticI18n(); // la date "arrêté au ..." du pied de page peut changer
+  renderAll();        // puis on ré-affiche avec les données à jour si trouvées
+});
+</script>
+</body>
+</html>
