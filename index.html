@@ -168,10 +168,11 @@
   }
 
   /* ---------- chart ---------- */
-  .chart-panel{height:340px;}
+  .chart-panel{height:340px;max-width:920px;margin:0 auto;}
 
   /* ---------- carte ---------- */
   .map-panel{padding:0;position:relative;overflow:hidden;}
+  .map-stage{position:relative;overflow:hidden;}
   #map{height:520px;width:100%;background:#0E1315;}
   .leaflet-container{
     background:#0E1315;
@@ -192,10 +193,12 @@
     border:1px solid var(--line)!important;
   }
   .leaflet-control-attribution{
-    background:rgba(18,24,27,.8)!important;color:var(--ink-faint)!important;
-    font-size:10px!important;
+    background:rgba(18,24,27,.35)!important;color:var(--ink-faint)!important;
+    font-size:8px!important;opacity:.55;line-height:1.3;
+    padding:1px 4px!important;transition:opacity .15s;
   }
-  .leaflet-control-attribution a{color:var(--ink-dim)!important;}
+  .leaflet-control-attribution:hover{opacity:1;}
+  .leaflet-control-attribution a{color:var(--ink-faint)!important;}
 
   .leaflet-tooltip.kinshasa-label{
     background:transparent;border:none;box-shadow:none;
@@ -221,7 +224,7 @@
   .map-btn.active{border-color:var(--accent-info);color:var(--accent-info);background:rgba(111,156,235,.12);}
 
   .map-legend{
-    position:absolute;bottom:34px;right:14px;z-index:500;
+    position:absolute;bottom:14px;right:14px;z-index:500;
     background:rgba(27,35,39,.92);border:1px solid var(--line);
     padding:12px 14px;border-radius:var(--radius);backdrop-filter:blur(4px);
     font-family:var(--font-mono);font-size:10.5px;color:var(--ink-dim);
@@ -392,25 +395,26 @@
   <section class="section">
     <div class="section-head">
       <div class="section-title" data-i18n="mapTitle">Carte de propagation</div>
-      <div class="section-sub" data-i18n="mapSub">taille et couleur des cercles = intensité des cas cumulés</div>
     </div>
     <div class="panel map-panel">
-      <div id="map"></div>
-      <div class="map-toolbar">
-        <button class="map-btn active" id="btnViewCountry" data-i18n="btnCountry">RDC entière</button>
-        <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">Zoomer sur l'épicentre (Ituri)</button>
-      </div>
-      <div class="map-legend">
-        <div class="title" data-i18n="legendTitle">Cas confirmés cumulés</div>
-        <div class="legend-gradient"></div>
-        <div class="legend-minmax"><span data-i18n="legendLow">faible</span><span data-i18n="legendHigh">élevé</span></div>
-        <div class="legend-scale" style="margin-top:10px;">
-          <span class="legend-swatch" style="background:var(--ink-faint);border:1px dashed var(--ink-dim);"></span>
-          <span data-i18n="legendAgg">estimation agrégée (province)</span>
+      <div class="map-stage">
+        <div id="map"></div>
+        <div class="map-toolbar">
+          <button class="map-btn active" id="btnViewCountry" data-i18n="btnCountry">RDC entière</button>
+          <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">Zoomer sur l'épicentre (Ituri)</button>
         </div>
-        <div class="legend-scale">
-          <span class="legend-swatch" style="background:var(--accent-capital);"></span>
-          <span data-i18n="legendImported">Capitale</span>
+        <div class="map-legend">
+          <div class="title" data-i18n="legendTitle">Cas confirmés cumulés</div>
+          <div class="legend-gradient"></div>
+          <div class="legend-minmax"><span data-i18n="legendLow">faible</span><span data-i18n="legendHigh">élevé</span></div>
+          <div class="legend-scale" style="margin-top:10px;">
+            <span class="legend-swatch" style="background:var(--ink-faint);border:1px dashed var(--ink-dim);"></span>
+            <span data-i18n="legendAgg">estimation agrégée (province)</span>
+          </div>
+          <div class="legend-scale">
+            <span class="legend-swatch" style="background:var(--accent-capital);"></span>
+            <span data-i18n="legendImported">Capitale</span>
+          </div>
         </div>
       </div>
       <div class="map-note" data-i18n="mapNote">
@@ -425,7 +429,6 @@
   <section class="section">
     <div class="section-head">
       <div class="section-title" data-i18n="chartTitle">Courbe épidémique</div>
-      <div class="section-sub" id="chartSubText">cumul des cas confirmés et décès</div>
     </div>
     <div class="panel chart-panel">
       <canvas id="epiChart"></canvas>
