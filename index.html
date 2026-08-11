@@ -619,7 +619,14 @@ const I18N = {
     locale:'en-US'
   }
 };
-let currentLang = 'fr';
+function detectBrowserLang(){
+  const langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'fr'];
+  for(const l of langs){
+    if(l && l.toLowerCase().startsWith('fr')) return 'fr';
+  }
+  return 'en';
+}
+let currentLang = detectBrowserLang();
 function tr(key){ return I18N[currentLang][key]; }
 
 /* ============ DONNÉES DE RÉFÉRENCE (au 6 août 2026) ============ */
@@ -1017,6 +1024,8 @@ document.getElementById('langFr').addEventListener('click', ()=>setLang('fr'));
 document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
 
 /* ============ INIT ============ */
+document.getElementById('langFr').classList.toggle('active', currentLang==='fr');
+document.getElementById('langEn').classList.toggle('active', currentLang==='en');
 safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
