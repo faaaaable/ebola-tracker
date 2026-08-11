@@ -1,14 +1,81 @@
 [
-  { "date": "2026-05-16", "confirmed": 8,    "deaths": null, "recovered": null },
-  { "date": "2026-05-31", "confirmed": 282,  "deaths": null, "recovered": null },
-  { "date": "2026-06-06", "confirmed": 515,  "deaths": 91,   "recovered": 12  },
-  { "date": "2026-06-16", "confirmed": 827,  "deaths": 194,  "recovered": null },
-  { "date": "2026-06-18", "confirmed": 875,  "deaths": 202,  "recovered": null },
-  { "date": "2026-06-22", "confirmed": 1048, "deaths": 267,  "recovered": 112 },
-  { "date": "2026-06-24", "confirmed": 1155, "deaths": 304,  "recovered": null },
-  { "date": "2026-07-15", "confirmed": 2100, "deaths": 800,  "recovered": null, "approx": true },
-  { "date": "2026-07-19", "confirmed": 2423, "deaths": 967,  "recovered": 469 },
-  { "date": "2026-08-01", "confirmed": 3748, "deaths": 1657, "recovered": 708 },
-  { "date": "2026-08-03", "confirmed": 3874, "deaths": 1751, "recovered": 749 },
-  { "date": "2026-08-06", "confirmed": 4053, "deaths": 1850, "recovered": 793 }
+  {
+    "date": "2026-05-16",
+    "confirmed": 8,
+    "deaths": null,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-31",
+    "confirmed": 282,
+    "deaths": null,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-06",
+    "confirmed": 515,
+    "deaths": 91,
+    "recovered": 12
+  },
+  {
+    "date": "2026-06-16",
+    "confirmed": 827,
+    "deaths": 194,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-18",
+    "confirmed": 875,
+    "deaths": 202,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-22",
+    "confirmed": 1048,
+    "deaths": 267,
+    "recovered": 112
+  },
+  {
+    "date": "2026-06-24",
+    "confirmed": 1155,
+    "deaths": 304,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-15",
+    "confirmed": 2100,
+    "deaths": 800,
+    "recovered": null,
+    "approx": true
+  },
+  {
+    "date": "2026-07-19",
+    "confirmed": 2423,
+    "deaths": 967,
+    "recovered": 469
+  },
+  {
+    "date": "2026-08-01",
+    "confirmed": 3748,
+    "deaths": 1657,
+    "recovered": 708
+  },
+  {
+    "date": "2026-08-03",
+    "confirmed": 3874,
+    "deaths": 1751,
+    "recovered": 749
+  },
+  {
+    "date": "2026-08-06",
+    "confirmed": 4053,
+    "deaths": 1850,
+    "recovered": 793
+  },
+  {
+    "date": "2026-08-08",
+    "confirmed": 4209,
+    "deaths": 1916,
+    "recovered": 828
+  }
 ]
