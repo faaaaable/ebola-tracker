@@ -22,6 +22,7 @@
     --accent-critical:#E4572E;  /* décès */
     --accent-stable:#4FA894;    /* guéris */
     --accent-active:#E3B23C;    /* isolement / actifs */
+    --accent-capital:#1B5E3C;   /* capitale (Kinshasa) */
     --radius:3px;
     --font-display:'Barlow Condensed',sans-serif;
     --font-body:'Inter',sans-serif;
@@ -198,7 +199,7 @@
 
   .leaflet-tooltip.kinshasa-label{
     background:transparent;border:none;box-shadow:none;
-    color:var(--accent-critical);
+    color:var(--accent-capital);
     font-family:var(--font-display);
     font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
     text-shadow:0 0 3px rgba(14,19,21,.9), 0 0 8px rgba(14,19,21,.7);
@@ -220,7 +221,7 @@
   .map-btn.active{border-color:var(--accent-info);color:var(--accent-info);background:rgba(111,156,235,.12);}
 
   .map-legend{
-    position:absolute;bottom:14px;right:14px;z-index:500;
+    position:absolute;bottom:34px;right:14px;z-index:500;
     background:rgba(27,35,39,.92);border:1px solid var(--line);
     padding:12px 14px;border-radius:var(--radius);backdrop-filter:blur(4px);
     font-family:var(--font-mono);font-size:10.5px;color:var(--ink-dim);
@@ -351,6 +352,7 @@
         </button>
       </div>
       <div class="top-meta" id="topMeta"></div>
+      <div class="top-meta" id="autoUpdateNote" style="font-size:11px;"></div>
     </div>
   </div>
 </header>
@@ -407,8 +409,8 @@
           <span data-i18n="legendAgg">estimation agrégée (province)</span>
         </div>
         <div class="legend-scale">
-          <span class="legend-swatch" style="background:var(--accent-critical);"></span>
-          <span data-i18n="legendImported">cas importé isolé (Kinshasa)</span>
+          <span class="legend-swatch" style="background:var(--accent-capital);"></span>
+          <span data-i18n="legendImported">Capitale</span>
         </div>
       </div>
       <div class="map-note" data-i18n="mapNote">
@@ -437,7 +439,6 @@
   </section>
 
   <footer>
-    <span id="footerMain"></span>
     <div class="disclaimer">
       <strong data-i18n="disclaimerTitle">Avertissement.</strong>
       <span data-i18n="disclaimerBody">Ce site a une vocation strictement informative. Il compile et met en forme
@@ -492,14 +493,13 @@ const I18N = {
     legendLow:"faible",
     legendHigh:"élevé",
     legendAgg:"estimation agrégée (province)",
-    legendImported:"cas importé isolé (Kinshasa)",
+    legendImported:"Capitale",
     mapNote:"Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone), à des fins de visualisation de la dynamique géographique — elles ne représentent pas des limites administratives exactes. Les cercles en pointillés correspondent aux quatre provinces pour lesquelles seul un total agrégé est disponible publiquement (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
     chartTitle:"Courbe épidémique",
     chartSub:"cumul des cas confirmés et décès",
     chartSubRange:(n,from,to)=>`${n} bulletins, du ${from} au ${to}`,
     chartNote:"Les bulletins officiels ne sont pas publiés à intervalle fixe : la courbe reflète les dates réelles des points de situation disponibles publiquement (environ chaque semaine en juin, plus espacés ensuite). Le point du 15 juillet (marqué ≈) reprend un chiffre arrondi communiqué par l'OMS. Un segment en pointillé sur « Décès » signale une valeur non publiée à cette date.",
     chartLoadError:"Chart.js n'a pas pu se charger (connexion internet requise pour ce CDN). Vérifie ta connexion et recharge la page.",
-    footerMain:(date)=>`Ce tracker compile des données publiques (OMS, ministère de la Santé de la RDC, CDC, ECDC) arrêtées au ${date} et n'est pas mis à jour automatiquement.`,
     disclaimerTitle:"Avertissement.",
     disclaimerBody:"Ce site a une vocation strictement informative. Il compile et met en forme des données publiques déjà publiées par des sources officielles ou des médias, sans analyse ni interprétation indépendante. Il ne constitue en aucun cas un avis médical, épidémiologique ou géopolitique, et ne doit pas être utilisé comme base pour une décision de santé, de voyage ou de sécurité. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé de la RDC). Malgré le soin apporté, des erreurs, approximations ou délais de mise à jour sont possibles.",
     closeAria:"Fermer",
@@ -507,6 +507,7 @@ const I18N = {
     sinceText:(d)=>`depuis le ${d}`,
     startingPoint:"point de départ",
     topMeta:"17<sup>e</sup> épidémie d'Ebola en RDC · déclarée le <strong>15 mai 2026</strong>",
+    autoUpdateNote:(date)=>`Ce tracker est vérifié automatiquement chaque jour · Dernières données disponibles : ${date}`,
     popupProvinceLabel:"Province",
     popupCumulEstimate:"Estimation cumulée",
     popupZoneDetail:"Détail par zone",
@@ -553,14 +554,13 @@ const I18N = {
     legendLow:"low",
     legendHigh:"high",
     legendAgg:"aggregated estimate (province)",
-    legendImported:"isolated imported case (Kinshasa)",
+    legendImported:"Capital",
     mapNote:"Health zones are positioned at approximate coordinates (zone administrative centres), for the purpose of visualising the geographic dynamics — they do not represent exact administrative boundaries. Dashed circles correspond to the four provinces for which only an aggregated total is publicly available (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
     chartTitle:"Epidemic curve",
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
     chartNote:"Official bulletins are not published at fixed intervals: the curve reflects the actual dates of publicly available situation reports (roughly weekly in June, more spaced out afterwards). The 15 July point (marked ≈) uses a rounded figure reported by WHO. A dotted segment on \"Deaths\" indicates a value not published on that date.",
     chartLoadError:"Chart.js failed to load (an internet connection is required for this CDN). Check your connection and reload the page.",
-    footerMain:(date)=>`This tracker compiles public data (WHO, DRC Ministry of Health, CDC, ECDC) as of ${date} and is not updated automatically.`,
     disclaimerTitle:"Disclaimer.",
     disclaimerBody:"This site is intended for informational purposes only. It compiles and formats public data already published by official sources or media outlets, without independent analysis or interpretation. It does not constitute medical, epidemiological or geopolitical advice of any kind, and should not be used as a basis for health, travel or security decisions. For any medical question, consult a healthcare professional or the relevant health authorities (WHO, DRC Ministry of Health). Despite our best efforts, errors, approximations or update delays are possible.",
     closeAria:"Close",
@@ -568,6 +568,7 @@ const I18N = {
     sinceText:(d)=>`since ${d}`,
     startingPoint:"starting point",
     topMeta:"17<sup>th</sup> Ebola outbreak in the DRC · declared <strong>15 May 2026</strong>",
+    autoUpdateNote:(date)=>`This tracker is automatically checked every day · Latest data available: ${date}`,
     popupProvinceLabel:"Province",
     popupCumulEstimate:"Cumulative estimate",
     popupZoneDetail:"Detail by zone",
@@ -870,8 +871,8 @@ function renderMap(){
   });
 
   const kinshasaMarker = L.circleMarker(KINSHASA_COORDS, {
-    radius:7, color:'#E4572E', weight:2,
-    fillColor:'#E4572E', fillOpacity:.85
+    radius:7, color:'#1B5E3C', weight:2,
+    fillColor:'#1B5E3C', fillOpacity:.85
   });
   kinshasaMarker.bindTooltip('KINSHASA', {
     permanent:true, direction:'top', offset:[0,-8],
@@ -965,10 +966,10 @@ function applyStaticI18n(){
     el.setAttribute('aria-label', tr(el.getAttribute('data-i18n-aria')));
   });
   document.getElementById('topMeta').innerHTML = tr('topMeta');
-  const latestForFooter = sortedSitreps()[sortedSitreps().length-1];
-  const [fy,fm,fd] = latestForFooter.date.split('-');
-  const footerDate = `${parseInt(fd,10)} ${tr('months')[parseInt(fm,10)-1]} ${fy}`;
-  document.getElementById('footerMain').textContent = tr('footerMain')(footerDate);
+  const latestEntry = sortedSitreps()[sortedSitreps().length-1];
+  const [fy,fm,fd] = latestEntry.date.split('-');
+  const lastUpdateDate = `${parseInt(fd,10)} ${tr('months')[parseInt(fm,10)-1]} ${fy}`;
+  document.getElementById('autoUpdateNote').textContent = tr('autoUpdateNote')(lastUpdateDate);
   document.documentElement.lang = currentLang;
   document.title = currentLang==='fr'
     ? "SITREP — Suivi épidémie Ebola (MVB) RDC 2026"
@@ -998,7 +999,7 @@ safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
 loadRemoteSitreps().then(()=>{
-  applyStaticI18n(); // la date "arrêté au ..." du pied de page peut changer
+  applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
 });
 </script>
