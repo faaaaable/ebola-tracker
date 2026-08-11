@@ -16,6 +16,34 @@
 <meta name="twitter:description" content="Cas confirmés, décès, guéris et carte interactive de l'épidémie d'Ebola en RDC, mis à jour automatiquement chaque jour.">
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="kpbL-xHwtgQ-H61ezgLZEOl2f41_3VXpb2ejZz0R1Og" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Suivi épidémiologique de la 17e épidémie d'Ebola en RDC (2026)",
+  "description": "Cas confirmés, décès, guéris et zones de santé touchées par l'épidémie d'Ebola-Bundibugyo en République démocratique du Congo, compilés à partir des bulletins officiels et mis à jour quotidiennement.",
+  "url": "https://ebola-tracker.org/",
+  "keywords": ["Ebola", "RDC", "République démocratique du Congo", "épidémiologie", "santé publique", "Ituri", "virus Bundibugyo", "SitRep"],
+  "temporalCoverage": "2026-05-16/..",
+  "distribution": {
+    "@type": "DataDownload",
+    "encodingFormat": "application/json",
+    "contentUrl": "https://ebola-tracker.org/data/sitreps.json"
+  },
+  "isBasedOn": [
+    { "@type": "WebSite", "name": "Institut National de Santé Publique (INSP) RDC", "url": "https://insp.cd/" },
+    { "@type": "WebSite", "name": "Organisation mondiale de la Santé", "url": "https://www.who.int/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Ebola RDC 2026 — Suivi de l'épidémie",
+  "url": "https://ebola-tracker.org/"
+}
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -591,7 +619,7 @@ const I18N = {
     chartTitle:"Epidemic curve",
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
-    chartNote:"Dates follow official bulletins, published at irregular intervals. The 15 July point (≈) is rounded (WHO source); a dotted \"Deaths\" segment indicates a value not published on that date.",
+    chartNote:"Dates follow official bulletins, published at irregular intervals.",
     chartLoadError:"Chart.js failed to load (an internet connection is required for this CDN). Check your connection and reload the page.",
     disclaimerTitle:"Disclaimer.",
     disclaimerBody:"Informational site: it compiles public data already published by official sources, without independent analysis. Not medical advice — consult a healthcare professional or the relevant authorities (WHO, DRC Ministry of Health) for any decision. Errors or update delays are possible.",
