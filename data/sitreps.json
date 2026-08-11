@@ -77,5 +77,11 @@
     "confirmed": 4209,
     "deaths": 1916,
     "recovered": 828
+  },
+  {
+    "date": "2026-08-11",
+    "confirmed": 4381,
+    "deaths": 2011,
+    "recovered": null
   }
 ]
