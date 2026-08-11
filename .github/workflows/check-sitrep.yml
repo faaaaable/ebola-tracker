@@ -1,1 +1,54 @@
+name: Vérification quotidienne du bilan Ebola RDC
 
+on:
+  schedule:
+    # Tous les jours à 06:00 UTC (~08:00 à Kinshasa)
+    - cron: '0 6 * * *'
+  workflow_dispatch: {}   # permet de le lancer manuellement depuis l'onglet Actions
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-sitrep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Vérifier les nouveaux bilans officiels
+        id: check
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/check_sitrep.py
+
+      - name: Remplacer les données par la proposition (si trouvée)
+        run: |
+          if [ -f "data/sitreps.proposed.json" ]; then
+            mv data/sitreps.proposed.json data/sitreps.json
+            echo "HAS_UPDATE=true" >> $GITHUB_ENV
+          else
+            echo "HAS_UPDATE=false" >> $GITHUB_ENV
+          fi
+
+      - name: Ouvrir une Pull Request pour validation humaine
+        if: env.HAS_UPDATE == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "Proposition de mise à jour du bilan SITREP"
+          title: "Nouveau bilan Ebola RDC détecté — à valider"
+          body: |
+            Ce PR a été généré automatiquement après détection d'un bilan officiel
+            potentiellement plus récent que les données actuelles.
+
+            **Ne pas fusionner sans avoir vérifié la source manuellement.**
+            Consulte les logs du job "check-sitrep" dans l'onglet Actions pour voir
+            l'URL de la source citée et le niveau de confiance indiqué par le modèle.
+          branch: auto/sitrep-update
+          delete-branch: true
