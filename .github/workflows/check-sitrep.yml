@@ -1,9 +1,10 @@
-name: Vérification quotidienne du bilan Ebola RDC
+name: Vérification bi-quotidienne du bilan Ebola RDC
 
 on:
   schedule:
-    # Tous les jours à 06:00 UTC (~08:00 à Kinshasa)
+    # Deux fois par jour : 06:00 UTC (~08:00 à Kinshasa) et 18:00 UTC (~20:00 à Kinshasa)
     - cron: '0 6 * * *'
+    - cron: '0 18 * * *'
   workflow_dispatch: {}   # permet de le lancer manuellement depuis l'onglet Actions
 
 permissions:
@@ -15,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le dépôt
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Installer Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -39,7 +40,7 @@ jobs:
 
       - name: Ouvrir une Pull Request pour validation humaine
         if: env.HAS_UPDATE == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "Proposition de mise à jour du bilan SITREP"
           title: "Nouveau bilan Ebola RDC détecté — à valider"
