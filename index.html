@@ -289,7 +289,7 @@
   .legend-swatch{width:11px;height:11px;border-radius:50%;flex:none;}
   .legend-gradient{
     height:6px;border-radius:3px;margin:8px 0 4px;
-    background:linear-gradient(90deg,#3568C4,#B4790E,#C24A24);
+    background:linear-gradient(90deg,#F7C784,#D67A2B,#A3301E);
   }
   .legend-minmax{display:flex;justify-content:space-between;font-size:9.5px;color:var(--ink-faint);}
   .map-note{
@@ -468,10 +468,6 @@
           <div class="legend-gradient"></div>
           <div class="legend-minmax"><span data-i18n="legendLow">faible</span><span data-i18n="legendHigh">élevé</span></div>
           <div class="legend-scale" style="margin-top:10px;">
-            <span class="legend-swatch" style="background:var(--ink-faint);border:1px dashed var(--ink-dim);"></span>
-            <span data-i18n="legendAgg">Total estimé par province</span>
-          </div>
-          <div class="legend-scale">
             <span class="legend-swatch" style="background:var(--accent-capital);"></span>
             <span data-i18n="legendImported">Capitale</span>
           </div>
@@ -555,6 +551,7 @@ const I18N = {
     legendLow:"faible",
     legendHigh:"élevé",
     legendAgg:"Total estimé par province",
+    legendDashNote:"Pointillés : donnée agrégée par province, sans détail par zone de santé.",
     legendImported:"Capitale Kinshasa",
     mapNote:"Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone). Elles ne représentent pas des limites administratives exactes. Les cercles en pointillés correspondent aux quatre provinces pour lesquelles seul un total agrégé est disponible publiquement (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
     chartTitle:"Courbe des cas et des décès",
@@ -616,6 +613,7 @@ const I18N = {
     legendLow:"low",
     legendHigh:"high",
     legendAgg:"Estimated province total",
+    legendDashNote:"Dashed: province-level estimate, no health-zone detail.",
     legendImported:"Capital, Kinshasa",
     mapNote:"Health zone coordinates are approximate, for illustrative purposes. Dashed circles: aggregated estimate for provinces without zone-level detail (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
     chartTitle:"Epidemic curve",
@@ -853,11 +851,13 @@ function renderChart(){
 let map, zoneMarkersLayer, provinceMarkersLayer, kinshasaLayer;
 
 function colorForValue(t){
-  // t entre 0 et 1 : bleu (info) -> ambre (active) -> rouge (critique)
+  // t entre 0 et 1 : échelle séquentielle mono-teinte, orange clair -> rouge foncé
+  // (une seule famille de teintes voisines : pas de bleu, donc pas de zone
+  // terne au passage entre deux teintes trop éloignées)
   const stops = [
-    {p:0,   c:[53,104,196]},
-    {p:0.5, c:[180,121,14]},
-    {p:1,   c:[194,74,36]}
+    {p:0,   c:[247,199,132]},
+    {p:0.5, c:[214,122,43]},
+    {p:1,   c:[163,48,30]}
   ];
   let a=stops[0], b=stops[stops.length-1];
   for(let i=0;i<stops.length-1;i++){
@@ -926,10 +926,11 @@ function renderMap(){
     const coord = PROVINCE_AGG_COORDS[p.name];
     if(!coord) return;
     const val = Math.round(total*p.share);
+    const t = Math.min(1, val / maxCases);
     const radius = 6 + Math.sqrt(val) * 1.15;
     const marker = L.circleMarker(coord, {
-      radius, color:'#8B968E', weight:1.5, dashArray:'3,3',
-      fillColor:'#8B968E', fillOpacity:.28
+      radius, color: colorForValue(t), weight:2, dashArray:'5,4',
+      fillColor: colorForValue(t), fillOpacity:.85
     });
     marker.bindPopup(
       `<b>${p.name}</b>
