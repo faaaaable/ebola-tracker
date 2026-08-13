@@ -459,7 +459,7 @@
         <div id="map"></div>
         <div class="map-toolbar">
           <button class="map-btn active" id="btnViewCountry" data-i18n="btnCountry">RDC entière</button>
-          <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">Zoomer sur l'épicentre (Ituri)</button>
+          <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">Zoomer sur l'épicentre</button>
         </div>
         <div class="map-legend">
           <div class="title" data-i18n="legendTitle">Cas confirmés cumulés</div>
@@ -478,8 +478,11 @@
       <div class="map-note" data-i18n="mapNote">
         Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone), à des fins de
         visualisation de la dynamique géographique — elles ne représentent pas des limites administratives exactes.
-        Les cercles en pointillés correspondent aux quatre provinces pour lesquelles seul un total agrégé est
-        disponible publiquement (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).
+        Les cercles en pointillés correspondent aux quatre provinces pour lesquelles seul un cumul provincial officiel
+        est disponible publiquement, sans détail par zone de santé (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).
+        Le détail par zone de santé de l'Ituri date du 4 août 2026 (dernier niveau de détail publié) ; le total
+        provincial affiché ailleurs sur le site est plus récent (10 août), d'où un léger écart entre la somme des
+        zones et ce total.
       </div>
     </div>
   </section>
@@ -547,7 +550,7 @@ const I18N = {
     mapTitle:"Carte de l'épidémie",
     mapSub:"taille et couleur des cercles = intensité des cas cumulés",
     btnCountry:"RDC entière",
-    btnIturi:"Zoomer sur l'épicentre (Ituri)",
+    btnIturi:"Zoomer sur l'épicentre",
     legendTitle:"Cas confirmés cumulés",
     legendLow:"faible",
     legendHigh:"élevé",
@@ -588,12 +591,10 @@ const I18N = {
     modalConfirmedTh2:"Cas confirmés",
     modalDeathsEyebrow:"Détail par province",
     modalDeathsTitle:(n)=>`Décès — ${n}`,
-    modalDeathsNote:"Aucune répartition officielle des décès par zone de santé n'est publiée. Seule la part de l'Ituri est communiquée au niveau national (≈ 80 % des décès cumulés, OMS/ONU) ; les quatre autres provinces sont regroupées faute de détail plus fin.",
+    modalDeathsNote:"Répartition officielle par province (INSP RDC, SitRep N°088 du 10 août 2026). Ces chiffres peuvent différer légèrement du cumul national affiché plus haut, mis à jour plus fréquemment.",
     modalDeathsTh1:"Province",
-    modalDeathsTh2:"Décès estimés",
-    modalDeathsTh3:"Part",
-    iturEpicenter:"Ituri (épicentre)",
-    otherProvinces:"Autres provinces (agrégé)",
+    modalDeathsTh2:"Décès",
+    modalDeathsTh3:"Part du total",
     deathsNotPublished:"Décès non publiés pour le dernier bilan disponible.",
     months:['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'],
     locale:'fr-FR'
@@ -618,7 +619,7 @@ const I18N = {
     legendAgg:"Estimated province total",
     legendDashNote:"Dashed: province-level estimate, no health-zone detail.",
     legendImported:"Capital, Kinshasa",
-    mapNote:"Health zone coordinates are approximate, for illustrative purposes. Dashed circles: aggregated estimate for provinces without zone-level detail (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
+    mapNote:"Health zone coordinates are approximate, for illustrative purposes. Dashed circles: official province-level cumulative totals for provinces without zone-level detail (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo). Ituri's zone-level breakdown dates from 4 August 2026 (last published at this granularity); the province total shown elsewhere on the site is more recent (10 August), hence a small gap between the sum of zones and that total.",
     chartTitle:"Epidemic curve",
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
@@ -652,12 +653,10 @@ const I18N = {
     modalConfirmedTh2:"Confirmed cases",
     modalDeathsEyebrow:"Breakdown by province",
     modalDeathsTitle:(n)=>`Deaths — ${n}`,
-    modalDeathsNote:"No official breakdown of deaths by health zone is published. Only Ituri's share is reported at national level (≈ 80% of cumulative deaths, WHO/UN); the four other provinces are grouped together for lack of finer detail.",
+    modalDeathsNote:"Official province breakdown (DRC INSP, SitRep N°088 of 10 August 2026). These figures may differ slightly from the national cumulative total shown above, which is updated more frequently.",
     modalDeathsTh1:"Province",
-    modalDeathsTh2:"Estimated deaths",
-    modalDeathsTh3:"Share",
-    iturEpicenter:"Ituri (epicentre)",
-    otherProvinces:"Other provinces (aggregated)",
+    modalDeathsTh2:"Deaths",
+    modalDeathsTh3:"Share of total",
     deathsNotPublished:"Deaths not published for the latest available update.",
     months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
     locale:'en-US'
@@ -688,7 +687,7 @@ const SEED_SITREPS = [
   { date:"2026-08-03", confirmed:3874, deaths:1751, recovered:749 },
   { date:"2026-08-06", confirmed:4053, deaths:1850, recovered:793 },
   { date:"2026-08-08", confirmed:4209, deaths:1916, recovered:828 },
-  { date:"2026-08-11", confirmed:4381, deaths:2011, recovered:null }
+  { date:"2026-08-10", confirmed:4449, deaths:2061, recovered:886 }
 ];
 
 const PROVINCES = [
@@ -698,12 +697,32 @@ const PROVINCES = [
   { name:"Tshopo",     share:0.025, epicenter:false },
   { name:"Sud-Kivu",   share:0.011, epicenter:false }
 ];
+/* Répartition par province — INSP RDC, SitRep N°088/MVEBDB du 10/08/2026 (cas et
+   décès cumulés, rapport le plus récent disponible) ; statut de transmission :
+   Ituri, Nord-Kivu et Haut-Uélé ont rapporté des nouveaux cas les 24h précédentes
+   (Ituri +53, Nord-Kivu +15 ; Haut-Uélé n'a transmis aucune donnée ce jour-là) ;
+   Tshopo et Sud-Kivu : aucun nouveau cas signalé. Sud-Kivu : 73 jours sans nouveau
+   cas au 8 août (ONU Info/OMS), soit "inactif" au sens des critères OMS de 42
+   jours, sans être déclaré éradiqué. */
+const PROVINCE_TABLE_DATA = [
+  { name:"Ituri",     confirmed:3814, deaths:1653, status:"active-epicenter" },
+  { name:"Nord-Kivu", confirmed:510,  deaths:354,  status:"active" },
+  { name:"Haut-Uélé", confirmed:113,  deaths:48,   status:"active" },
+  { name:"Tshopo",    confirmed:9,    deaths:5,    status:"stagnant" },
+  { name:"Sud-Kivu",  confirmed:3,    deaths:1,    status:"inactive", daysNoCase:73 }
+];
 
+/* Répartition par zone de santé — INSP RDC, SitRep N°082 du 04/08/2026 (Ituri, cumul).
+   C'est le dernier détail zone par zone publié à ce niveau de granularité ; le
+   SitRep N°088 du 10/08/2026 ne publie que les nouveaux cas du jour par zone, pas
+   les cumuls. Le total de ces zones (3 460) est donc antérieur et inférieur au
+   total province Ituri affiché ailleurs sur le site (3 814, au 10 août) — voir la
+   note sous la carte. */
 const HEALTH_ZONES = [
-  ["Bunia",880],["Rwampara",627],["Mongbwalu",541],["Nizi",377],["Lita",131],
-  ["Nyankunde",114],["Mangala",101],["Nia Nia",95],["Bambu",60],["Tchomia",41],
-  ["Komanda",36],["Kilo",29],["Fataki",27],["Damas",17],["Mandima",16],
-  ["Adja",11],["Drodro",10],["Aungba",9],["Logo",9],["Mambasa",9],
+  ["Bunia",950],["Rwampara",692],["Mongbwalu",558],["Nizi",431],["Lita",151],
+  ["Nyankunde",115],["Mangala",108],["Nia Nia",112],["Bambu",69],["Tchomia",45],
+  ["Komanda",38],["Fataki",40],["Kilo",29],["Damas",18],["Mandima",16],
+  ["Adja",11],["Drodro",11],["Aungba",10],["Logo",10],["Mambasa",10],
   ["Rimba",9],["Ariwara",7],["Lolwa",7],["Aru",5],["Mahagi",4],
   ["Kambala",2],["Boga",1],["Gety",1]
 ].map(([name,cases])=>({name,cases}));
@@ -942,11 +961,11 @@ function renderMap(){
   });
 
   const s = sortedSitreps();
-  const total = s[s.length-1].confirmed;
   PROVINCES.filter(p=>!p.epicenter).forEach(p=>{
     const coord = PROVINCE_AGG_COORDS[p.name];
     if(!coord) return;
-    const val = Math.round(total*p.share);
+    const provData = PROVINCE_TABLE_DATA.find(d=>d.name===p.name);
+    const val = provData ? provData.confirmed : 0;
     const t = Math.min(1, val / maxCases);
     const radius = 6 + Math.sqrt(val) * 1.15;
     const marker = L.circleMarker(coord, {
@@ -955,7 +974,7 @@ function renderMap(){
     });
     marker.bindPopup(
       `<b>${p.name}</b>
-       <div class="popup-row"><span class="k">${tr('popupCumulEstimate')}</span><span>${fmt(val)}</span></div>
+       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(val)}</span></div>
        <div class="popup-row"><span class="k">${tr('popupZoneDetail')}</span><span>${tr('popupNotAvailable')}</span></div>`
     );
     marker.addTo(provinceMarkersLayer);
@@ -992,6 +1011,7 @@ function renderMap(){
 function safeRun(fn, label){
   try{ fn(); }catch(e){ console.error('Erreur lors du rendu:', label, e); }
 }
+
 function renderAll(){
   safeRun(renderKPIs, 'kpis');
   safeRun(renderChart, 'chart');
@@ -1027,12 +1047,11 @@ function openModal(type){
     modalNote.textContent = tr('modalDeathsNote');
     modalHead.innerHTML = `<tr><th>${tr('modalDeathsTh1')}</th><th style="text-align:right;">${tr('modalDeathsTh2')}</th><th style="text-align:right;">${tr('modalDeathsTh3')}</th></tr>`;
     if(latest.deaths!==null && latest.deaths!==undefined){
-      const ituri = Math.round(latest.deaths*0.80);
-      const autres = latest.deaths - ituri;
-      modalBody.innerHTML = `
-        <tr><td>${tr('iturEpicenter')}</td><td class="num" style="color:var(--accent-critical);">${fmt(ituri)}</td><td class="num" style="color:var(--ink-dim);">≈ 80 %</td></tr>
-        <tr><td>${tr('otherProvinces')}</td><td class="num" style="color:var(--accent-critical);">${fmt(autres)}</td><td class="num" style="color:var(--ink-dim);">≈ 20 %</td></tr>
-      `;
+      const rows = [...PROVINCE_TABLE_DATA].sort((a,b)=>b.deaths-a.deaths);
+      modalBody.innerHTML = rows.map(p=>{
+        const pct = (p.deaths/latest.deaths*100).toFixed(1)+' %';
+        return `<tr><td>${p.name}</td><td class="num" style="color:var(--accent-critical);">${fmt(p.deaths)}</td><td class="num" style="color:var(--ink-dim);">${pct}</td></tr>`;
+      }).join('');
     } else {
       modalBody.innerHTML = `<tr><td colspan="3" style="color:var(--ink-faint);">${tr('deathsNotPublished')}</td></tr>`;
     }
