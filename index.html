@@ -430,7 +430,7 @@
       <div class="label" data-i18n="labelConfirmed">Cas confirmés</div>
       <div class="value" id="kpi-confirmed">—</div>
       <div class="delta" id="kpi-confirmed-delta"></div>
-      <div class="kpi-hint" data-i18n="hintConfirmed">Voir le détail par zone ↗</div>
+      <div class="kpi-hint" data-i18n="hintConfirmed">Voir le détail par province ↗</div>
     </div>
     <div class="kpi deaths clickable" id="cardDeaths" tabindex="0" role="button" aria-haspopup="dialog">
       <div class="label" data-i18n="labelDeaths">Décès</div>
@@ -545,7 +545,7 @@ const I18N = {
     labelRecovered:"Guéris",
     labelCfr:"Taux de létalité",
     cfrDelta:"décès / cas confirmés",
-    hintConfirmed:"Voir le détail par zone ↗",
+    hintConfirmed:"Voir le détail par province ↗",
     hintDeaths:"Voir le détail par province ↗",
     mapTitle:"Carte de l'épidémie",
     mapSub:"taille et couleur des cercles = intensité des cas cumulés",
@@ -584,10 +584,10 @@ const I18N = {
     popupLastCase:"Dernier cas",
     popupDeclaredFree:"Déclaré Ebola-free",
     legendClosedFocus:"Foyer clos (aucun nouveau cas)",
-    modalConfirmedEyebrow:"Détail par zone de santé",
+    modalConfirmedEyebrow:"Détail par province",
     modalConfirmedTitle:(n)=>`Cas confirmés — ${n}`,
-    modalConfirmedNote:"Répartition des cas confirmés cumulés par zone de santé (Ituri). Coordonnées et chiffres à titre illustratif, voir la carte pour le détail géographique.",
-    modalConfirmedTh1:"Zone de santé",
+    modalConfirmedNote:"Répartition officielle des cas confirmés cumulés par province (INSP RDC, SitRep N°088 du 10 août 2026).",
+    modalConfirmedTh1:"Province",
     modalConfirmedTh2:"Cas confirmés",
     modalDeathsEyebrow:"Détail par province",
     modalDeathsTitle:(n)=>`Décès — ${n}`,
@@ -607,7 +607,7 @@ const I18N = {
     labelRecovered:"Recovered",
     labelCfr:"Case fatality rate",
     cfrDelta:"deaths / confirmed cases",
-    hintConfirmed:"View breakdown by zone ↗",
+    hintConfirmed:"View breakdown by province ↗",
     hintDeaths:"View breakdown by province ↗",
     mapTitle:"Spread map",
     mapSub:"circle size and colour = intensity of cumulative cases",
@@ -619,7 +619,7 @@ const I18N = {
     legendAgg:"Estimated province total",
     legendDashNote:"Dashed: province-level estimate, no health-zone detail.",
     legendImported:"Capital, Kinshasa",
-    mapNote:"Health zone coordinates are approximate, for illustrative purposes. Dashed circles: official province-level cumulative totals for provinces without zone-level detail (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo). Ituri's zone-level breakdown dates from 4 August 2026 (last published at this granularity); the province total shown elsewhere on the site is more recent (10 August), hence a small gap between the sum of zones and that total.",
+    mapNote:"Health zone coordinates are approximate, for illustrative purposes. Dashed circles: official province-level cumulative totals for provinces without zone-level detail (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
     chartTitle:"Epidemic curve",
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
@@ -646,10 +646,10 @@ const I18N = {
     popupLastCase:"Last case",
     popupDeclaredFree:"Declared Ebola-free",
     legendClosedFocus:"Closed focus (no new cases)",
-    modalConfirmedEyebrow:"Breakdown by health zone",
+    modalConfirmedEyebrow:"Breakdown by province",
     modalConfirmedTitle:(n)=>`Confirmed cases — ${n}`,
-    modalConfirmedNote:"Distribution of cumulative confirmed cases by health zone (Ituri). Coordinates and figures are illustrative — see the map for geographic detail.",
-    modalConfirmedTh1:"Health zone",
+    modalConfirmedNote:"Official breakdown of cumulative confirmed cases by province (DRC INSP, SitRep N°088 of 10 August 2026).",
+    modalConfirmedTh1:"Province",
     modalConfirmedTh2:"Confirmed cases",
     modalDeathsEyebrow:"Breakdown by province",
     modalDeathsTitle:(n)=>`Deaths — ${n}`,
@@ -1037,9 +1037,9 @@ function openModal(type){
     modalTitle.textContent = tr('modalConfirmedTitle')(fmt(latest.confirmed));
     modalNote.textContent = tr('modalConfirmedNote');
     modalHead.innerHTML = `<tr><th>${tr('modalConfirmedTh1')}</th><th style="text-align:right;">${tr('modalConfirmedTh2')}</th></tr>`;
-    const rows = [...HEALTH_ZONES].sort((a,b)=>b.cases-a.cases);
-    modalBody.innerHTML = rows.map(z=>
-      `<tr><td>${z.name}</td><td class="num" style="color:var(--accent-info);">${fmt(z.cases)}</td></tr>`
+    const rows = [...PROVINCE_TABLE_DATA].sort((a,b)=>b.confirmed-a.confirmed);
+    modalBody.innerHTML = rows.map(p=>
+      `<tr><td>${p.name}</td><td class="num" style="color:var(--accent-info);">${fmt(p.confirmed)}</td></tr>`
     ).join('');
   } else {
     modalEyebrow.textContent = tr('modalDeathsEyebrow');
