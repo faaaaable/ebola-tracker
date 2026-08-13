@@ -437,7 +437,8 @@
           </button>
         </div>
       </div>
-      <div class="top-meta" id="topMeta"></div>
+      <div class="top-meta" id="topMeta" style="color:var(--ink);"></div>
+      <div class="top-meta" id="todayUpdateNote" style="font-size:11px;"></div>
       <div class="top-meta" id="autoUpdateNote" style="font-size:11px;"></div>
     </div>
   </div>
@@ -553,7 +554,7 @@
 /* ============ I18N ============ */
 const I18N = {
   fr: {
-    eyebrow:"Point de situation — épidémie d'Ebola, RDC 2026",
+    eyebrow:"Suivi en direct — épidémie d'Ebola, RDC 2026",
     h1:"Suivi Ebola RDC",
     labelConfirmed:"Cas confirmés",
     labelDeaths:"Décès",
@@ -584,8 +585,9 @@ const I18N = {
     closeAria:"Fermer",
     sinceText:(d)=>`depuis le ${d}`,
     startingPoint:"point de départ",
-    topMeta:"17<sup>e</sup> épidémie d'Ebola en RDC · déclarée le <strong>15 mai 2026</strong>",
-    autoUpdateNote:(date)=>`Mises à jour quotidiennes · Dernières données disponibles : ${date}`,
+    topMeta:"17<sup>e</sup> épidémie d'Ebola en RDC",
+    autoUpdateNote:(date)=>`Dernières données disponibles : <strong>${date}</strong>`,
+    todayUpdateNote:(date)=>`Mis à jour le <strong>${date}</strong>`,
     popupProvinceLabel:"Province",
     popupCumulEstimate:"Estimation cumulée",
     popupZoneDetail:"Détail par zone",
@@ -616,7 +618,7 @@ const I18N = {
     locale:'fr-FR'
   },
   en: {
-    eyebrow:"Situation report — Ebola outbreak, DRC 2026",
+    eyebrow:"Live tracking — Ebola outbreak, DRC 2026",
     h1:"DRC Ebola Tracker",
     labelConfirmed:"Confirmed cases",
     labelDeaths:"Deaths",
@@ -647,8 +649,9 @@ const I18N = {
     closeAria:"Close",
     sinceText:(d)=>`since ${d}`,
     startingPoint:"starting point",
-    topMeta:"17<sup>th</sup> Ebola outbreak in the DRC · declared <strong>15 May 2026</strong>",
-    autoUpdateNote:(date)=>`Daily, automatic updates · Latest data available: ${date}`,
+    topMeta:"17<sup>th</sup> Ebola outbreak in the DRC",
+    autoUpdateNote:(date)=>`Latest data available: <strong>${date}</strong>`,
+    todayUpdateNote:(date)=>`Updated on <strong>${date}</strong>`,
     popupProvinceLabel:"Province",
     popupCumulEstimate:"Cumulative estimate",
     popupZoneDetail:"Detail by zone",
@@ -1106,7 +1109,10 @@ function applyStaticI18n(){
   const latestEntry = sortedSitreps()[sortedSitreps().length-1];
   const [fy,fm,fd] = latestEntry.date.split('-');
   const lastUpdateDate = `${parseInt(fd,10)} ${tr('months')[parseInt(fm,10)-1]} ${fy}`;
-  document.getElementById('autoUpdateNote').textContent = tr('autoUpdateNote')(lastUpdateDate);
+  document.getElementById('autoUpdateNote').innerHTML = tr('autoUpdateNote')(lastUpdateDate);
+  const today = new Date();
+  const todayDate = `${today.getDate()} ${tr('months')[today.getMonth()]} ${today.getFullYear()}`;
+  document.getElementById('todayUpdateNote').innerHTML = tr('todayUpdateNote')(todayDate);
   document.documentElement.lang = currentLang;
   document.title = currentLang==='fr'
     ? "Ebola RDC 2026 — Suivi de l'épidémie"
