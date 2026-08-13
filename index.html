@@ -1218,15 +1218,17 @@ async function handleShare(){
   const original = btn.innerHTML;
   btn.disabled = true;
   try{
-    const blob = await generateShareImage();
-    const filename = 'ebola-rdc-' + (sortedSitreps().slice(-1)[0]?.date || 'bilan') + '.png';
+    const response = await fetch('assets/og-image.png');
+    const blob = await response.blob();
+    const filename = 'ebola-rdc-og-image.png';
     const file = new File([blob], filename, { type: 'image/png' });
 
     if(navigator.canShare && navigator.canShare({ files:[file] })){
       await navigator.share({
         files: [file],
         title: tr('h1'),
-        text: tr('eyebrow')
+        text: tr('eyebrow'),
+        url: location.href
       });
     } else {
       const url = URL.createObjectURL(blob);
