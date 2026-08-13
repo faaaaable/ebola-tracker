@@ -129,6 +129,15 @@
   .top-meta strong{color:var(--ink);}
 
   .top-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+  .top-controls{display:flex;align-items:center;gap:10px;}
+  .share-btn{
+    display:flex;align-items:center;gap:6px;
+    background:var(--bg-panel);border:1px solid var(--line);border-radius:20px;
+    padding:6px 12px;font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);
+    cursor:pointer;transition:background .15s,color .15s;
+  }
+  .share-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .share-btn svg{flex:none;}
   .lang-switch{display:flex;gap:6px;}
   .lang-btn{
     background:var(--bg-panel);border:1px solid var(--line);
@@ -397,25 +406,31 @@
       <h1><span data-i18n="h1">Suivi Ebola RDC</span> <span>/ 2026</span></h1>
     </div>
     <div class="top-right">
-      <div class="lang-switch" role="group" aria-label="Langue / Language">
-        <button class="lang-btn active" id="langFr" aria-label="Français" title="Français">
-          <svg class="flag" viewBox="0 0 3 2" width="20" height="14" aria-hidden="true">
-            <rect width="1" height="2" x="0" fill="#0055A4"/>
-            <rect width="1" height="2" x="1" fill="#FFFFFF"/>
-            <rect width="1" height="2" x="2" fill="#EF4135"/>
-          </svg>
-          <span class="code">FR</span>
+      <div class="top-controls">
+        <button class="share-btn" id="btnShare" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="shareBtn">Partager</span>
         </button>
-        <button class="lang-btn" id="langEn" aria-label="English" title="English">
-          <svg class="flag" viewBox="0 0 60 30" width="20" height="14" aria-hidden="true">
-            <rect width="60" height="30" fill="#00247d"/>
-            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
-            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#cf142b" stroke-width="2"/>
-            <path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/>
-            <path d="M30,0 V30 M0,15 H60" stroke="#cf142b" stroke-width="6"/>
-          </svg>
-          <span class="code">EN</span>
-        </button>
+        <div class="lang-switch" role="group" aria-label="Langue / Language">
+          <button class="lang-btn active" id="langFr" aria-label="Français" title="Français">
+            <svg class="flag" viewBox="0 0 3 2" width="20" height="14" aria-hidden="true">
+              <rect width="1" height="2" x="0" fill="#0055A4"/>
+              <rect width="1" height="2" x="1" fill="#FFFFFF"/>
+              <rect width="1" height="2" x="2" fill="#EF4135"/>
+            </svg>
+            <span class="code">FR</span>
+          </button>
+          <button class="lang-btn" id="langEn" aria-label="English" title="English">
+            <svg class="flag" viewBox="0 0 60 30" width="20" height="14" aria-hidden="true">
+              <rect width="60" height="30" fill="#00247d"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#cf142b" stroke-width="2"/>
+              <path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/>
+              <path d="M30,0 V30 M0,15 H60" stroke="#cf142b" stroke-width="6"/>
+            </svg>
+            <span class="code">EN</span>
+          </button>
+        </div>
       </div>
       <div class="top-meta" id="topMeta"></div>
       <div class="top-meta" id="autoUpdateNote" style="font-size:11px;"></div>
@@ -476,13 +491,8 @@
         </div>
       </div>
       <div class="map-note" data-i18n="mapNote">
-        Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone), à des fins de
-        visualisation de la dynamique géographique — elles ne représentent pas des limites administratives exactes.
-        Les cercles en pointillés correspondent aux quatre provinces pour lesquelles seul un cumul provincial officiel
-        est disponible publiquement, sans détail par zone de santé (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).
-        Le détail par zone de santé de l'Ituri date du 4 août 2026 (dernier niveau de détail publié) ; le total
-        provincial affiché ailleurs sur le site est plus récent (10 août), d'où un léger écart entre la somme des
-        zones et ce total.
+        Les cercles en pointillés correspondent aux provinces pour lesquelles les données sont agrégées et non
+        détaillées par zone de santé.
       </div>
     </div>
   </section>
@@ -551,6 +561,7 @@ const I18N = {
     mapSub:"taille et couleur des cercles = intensité des cas cumulés",
     btnCountry:"RDC entière",
     btnIturi:"Zoomer sur l'épicentre",
+    shareBtn:"Partager",
     legendTitle:"Cas confirmés cumulés",
     legendLow:"faible",
     legendHigh:"élevé",
@@ -613,13 +624,14 @@ const I18N = {
     mapSub:"circle size and colour = intensity of cumulative cases",
     btnCountry:"Whole DRC",
     btnIturi:"Zoom to epicentre (Ituri)",
+    shareBtn:"Share",
     legendTitle:"Cumulative confirmed cases",
     legendLow:"low",
     legendHigh:"high",
     legendAgg:"Estimated province total",
     legendDashNote:"Dashed: province-level estimate, no health-zone detail.",
     legendImported:"Capital, Kinshasa",
-    mapNote:"Health zone coordinates are approximate, for illustrative purposes. Dashed circles: official province-level cumulative totals for provinces without zone-level detail (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
+    mapNote:"Dashed circles: provinces with aggregated data only, no health-zone-level detail.",
     chartTitle:"Epidemic curve",
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
@@ -1113,6 +1125,115 @@ function setLang(lang){
 }
 document.getElementById('langFr').addEventListener('click', ()=>setLang('fr'));
 document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+
+/* ============ CARTE-RÉSUMÉ POUR PARTAGE ============ */
+async function generateShareImage(){
+  if(document.fonts && document.fonts.ready) await document.fonts.ready;
+  const s = sortedSitreps();
+  const latest = s[s.length-1];
+  const W = 1080, H = 1350;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  const bg = '#F6F4EF', ink = '#141A17', inkDim = '#5C6A64', inkFaint = '#8B968E';
+  const info = '#3568C4', critical = '#C24A24', stable = '#2E8571', line = '#DDE1D9';
+
+  // fond
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // bandeau haut
+  ctx.fillStyle = ink;
+  ctx.fillRect(0, 0, W, 8);
+
+  const pad = 72;
+  let y = 130;
+
+  // eyebrow
+  ctx.fillStyle = critical;
+  ctx.beginPath(); ctx.arc(pad+6, y-8, 6, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = inkDim;
+  ctx.font = '600 24px "JetBrains Mono", monospace';
+  ctx.fillText(tr('eyebrow').toUpperCase(), pad+24, y);
+
+  // titre
+  y += 76;
+  ctx.fillStyle = ink;
+  ctx.font = '600 76px "Barlow Condensed", sans-serif';
+  ctx.fillText((tr('h1')+' / 2026').toUpperCase(), pad, y);
+
+  // ligne
+  y += 40;
+  ctx.strokeStyle = line; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W-pad, y); ctx.stroke();
+
+  // KPI - grille 2x2
+  const kpis = [
+    { label: tr('labelConfirmed'), value: fmt(latest.confirmed), color: info },
+    { label: tr('labelDeaths'), value: fmt(latest.deaths), color: critical },
+    { label: tr('labelRecovered'), value: latest.recovered!=null ? fmt(latest.recovered) : '—', color: stable },
+    { label: tr('labelCfr'), value: (latest.deaths!=null && latest.confirmed>0) ? (latest.deaths/latest.confirmed*100).toFixed(1)+'%' : '—', color: ink }
+  ];
+  const gridTop = y + 60;
+  const cellW = (W - pad*2) / 2, cellH = 190;
+  kpis.forEach((k, i)=>{
+    const col = i % 2, row = Math.floor(i/2);
+    const cx = pad + col*cellW, cy = gridTop + row*cellH;
+    ctx.fillStyle = inkFaint;
+    ctx.font = '500 24px "JetBrains Mono", monospace';
+    ctx.fillText(k.label.toUpperCase(), cx, cy);
+    ctx.fillStyle = k.color;
+    ctx.font = '600 88px "Barlow Condensed", sans-serif';
+    ctx.fillText(k.value, cx, cy + 90);
+  });
+
+  // ligne basse
+  const lineY = gridTop + cellH*2 - 40;
+  ctx.strokeStyle = line;
+  ctx.beginPath(); ctx.moveTo(pad, lineY); ctx.lineTo(W-pad, lineY); ctx.stroke();
+
+  // date + source
+  ctx.fillStyle = inkDim;
+  ctx.font = '500 26px "Inter", sans-serif';
+  ctx.fillText(frDate(latest.date), pad, lineY + 50);
+  ctx.fillStyle = inkFaint;
+  ctx.font = '400 22px "Inter", sans-serif';
+  ctx.fillText(location.hostname || 'ebola-tracker', pad, lineY + 84);
+
+  return new Promise(resolve=>canvas.toBlob(blob=>resolve(blob), 'image/png'));
+}
+
+async function handleShare(){
+  const btn = document.getElementById('btnShare');
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  try{
+    const blob = await generateShareImage();
+    const filename = 'ebola-rdc-' + (sortedSitreps().slice(-1)[0]?.date || 'bilan') + '.png';
+    const file = new File([blob], filename, { type: 'image/png' });
+
+    if(navigator.canShare && navigator.canShare({ files:[file] })){
+      await navigator.share({
+        files: [file],
+        title: tr('h1'),
+        text: tr('eyebrow')
+      });
+    } else {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    }
+  } catch(err){
+    if(err.name !== 'AbortError') console.error('Partage impossible :', err);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = original;
+  }
+}
+document.getElementById('btnShare').addEventListener('click', handleShare);
 
 /* ============ INIT ============ */
 document.getElementById('langFr').classList.toggle('active', currentLang==='fr');
