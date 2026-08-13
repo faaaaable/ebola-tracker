@@ -156,7 +156,7 @@
   /* ---------- KPI row ---------- */
   .kpis{
     display:grid;
-    grid-template-columns:repeat(5,1fr);
+    grid-template-columns:repeat(4,1fr);
     gap:1px;
     background:var(--line);
     border:1px solid var(--line);
@@ -441,11 +441,6 @@
       <div class="value" id="kpi-recovered">—</div>
       <div class="delta" id="kpi-recovered-delta"></div>
     </div>
-    <div class="kpi active">
-      <div class="label" data-i18n="labelActive">En isolement</div>
-      <div class="value" id="kpi-active">—</div>
-      <div class="delta" id="kpi-zones"></div>
-    </div>
     <div class="kpi cfr">
       <div class="label" data-i18n="labelCfr">Taux de létalité</div>
       <div class="value" id="kpi-cfr">—</div>
@@ -539,7 +534,6 @@ const I18N = {
     labelConfirmed:"Cas confirmés",
     labelDeaths:"Décès",
     labelRecovered:"Guéris",
-    labelActive:"En isolement",
     labelCfr:"Taux de létalité",
     cfrDelta:"décès / cas confirmés",
     hintConfirmed:"Voir le détail par zone ↗",
@@ -563,7 +557,6 @@ const I18N = {
     disclaimerTitle:"Avertissement.",
     disclaimerBody:"Site à vocation informative uniquement qui compile des données publiques déjà publiées par des sources officielles, sans analyse indépendante. Ne constitue pas un avis médical — consultez un professionnel de santé ou les autorités compétentes (OMS, ministère de la Santé RDC...) pour toute décision. Erreurs ou délais de mise à jour possibles.",
     closeAria:"Fermer",
-    zonesText:(n)=>`${n} zones de santé · 5 provinces`,
     sinceText:(d)=>`depuis le ${d}`,
     startingPoint:"point de départ",
     topMeta:"17<sup>e</sup> épidémie d'Ebola en RDC · déclarée le <strong>15 mai 2026</strong>",
@@ -601,7 +594,6 @@ const I18N = {
     labelConfirmed:"Confirmed cases",
     labelDeaths:"Deaths",
     labelRecovered:"Recovered",
-    labelActive:"In isolation",
     labelCfr:"Case fatality rate",
     cfrDelta:"deaths / confirmed cases",
     hintConfirmed:"View breakdown by zone ↗",
@@ -625,7 +617,6 @@ const I18N = {
     disclaimerTitle:"Disclaimer.",
     disclaimerBody:"Informational site: it compiles public data already published by official sources, without independent analysis. Not medical advice — consult a healthcare professional or the relevant authorities (WHO, DRC Ministry of Health) for any decision. Errors or update delays are possible.",
     closeAria:"Close",
-    zonesText:(n)=>`${n} health zones · 5 provinces`,
     sinceText:(d)=>`since ${d}`,
     startingPoint:"starting point",
     topMeta:"17<sup>th</sup> Ebola outbreak in the DRC · declared <strong>15 May 2026</strong>",
@@ -681,10 +672,10 @@ const SEED_SITREPS = [
   { date:"2026-07-19", confirmed:2423, deaths:967,  recovered:469 },
   { date:"2026-08-01", confirmed:3748, deaths:1657, recovered:708 },
   { date:"2026-08-03", confirmed:3874, deaths:1751, recovered:749 },
-  { date:"2026-08-06", confirmed:4053, deaths:1850, recovered:793 }
+  { date:"2026-08-06", confirmed:4053, deaths:1850, recovered:793 },
+  { date:"2026-08-08", confirmed:4209, deaths:1916, recovered:828 },
+  { date:"2026-08-11", confirmed:4381, deaths:2011, recovered:null }
 ];
-const ACTIVE_LATEST = 694;   // hospitalisés / en isolement, bilan du 6 août
-const ZONES_LATEST = 53;     // zones de santé affectées, bilan du 6 août
 
 const PROVINCES = [
   { name:"Ituri",      share:0.869, epicenter:true },
@@ -753,38 +744,45 @@ function sortedSitreps(){
 }
 
 /* ============ RENDU KPI ============ */
-function fmt(n){ return n.toLocaleString(tr('locale')); }
+function fmt(n){ return (n===null||n===undefined) ? '—' : n.toLocaleString(tr('locale')); }
 
 function renderKPIs(){
   const s = sortedSitreps();
   const latest = s[s.length-1];
-  const prev = s.length>1 ? s[s.length-2] : null;
 
-  document.getElementById('kpi-confirmed').textContent = fmt(latest.confirmed);
-  document.getElementById('kpi-deaths').textContent = fmt(latest.deaths);
-  document.getElementById('kpi-recovered').textContent = fmt(latest.recovered);
-  document.getElementById('kpi-active').textContent = fmt(ACTIVE_LATEST);
-  document.getElementById('kpi-zones').textContent = tr('zonesText')(ZONES_LATEST);
-  const cfr = (latest.confirmed>0 && latest.deaths!==null && latest.deaths!==undefined) ? (latest.deaths/latest.confirmed*100) : null;
+  function lastKnown(field){
+    for(let i=s.length-1;i>=0;i--){
+      if(s[i][field]!==null && s[i][field]!==undefined) return s[i];
+    }
+    return null;
+  }
+  function prevKnown(field, fromEntry){
+    const idx = s.indexOf(fromEntry);
+    for(let i=idx-1;i>=0;i--){
+      if(s[i][field]!==null && s[i][field]!==undefined) return s[i];
+    }
+    return null;
+  }
+
+  const confirmedEntry = lastKnown('confirmed');
+  const deathsEntry = lastKnown('deaths');
+  const recoveredEntry = lastKnown('recovered');
+
+  document.getElementById('kpi-confirmed').textContent = confirmedEntry ? fmt(confirmedEntry.confirmed) : '—';
+  document.getElementById('kpi-deaths').textContent = deathsEntry ? fmt(deathsEntry.deaths) : '—';
+  document.getElementById('kpi-recovered').textContent = recoveredEntry ? fmt(recoveredEntry.recovered) : '—';
+  const cfr = (deathsEntry && confirmedEntry && confirmedEntry.confirmed>0) ? (deathsEntry.deaths/confirmedEntry.confirmed*100) : null;
   document.getElementById('kpi-cfr').textContent = cfr!==null ? cfr.toFixed(1)+'%' : '—';
 
-  if(prev && prev.deaths!==null && prev.recovered!==null){
-    document.getElementById('kpi-confirmed-delta').textContent =
-      '+'+fmt(latest.confirmed-prev.confirmed)+' '+tr('sinceText')(frDate(prev.date));
-    document.getElementById('kpi-deaths-delta').textContent =
-      '+'+fmt(latest.deaths-prev.deaths)+' '+tr('sinceText')(frDate(prev.date));
-    document.getElementById('kpi-recovered-delta').textContent =
-      '+'+fmt(latest.recovered-prev.recovered)+' '+tr('sinceText')(frDate(prev.date));
-  } else if(prev){
-    document.getElementById('kpi-confirmed-delta').textContent =
-      '+'+fmt(latest.confirmed-prev.confirmed)+' '+tr('sinceText')(frDate(prev.date));
-    document.getElementById('kpi-deaths-delta').textContent = tr('sinceText')(frDate(prev.date));
-    document.getElementById('kpi-recovered-delta').textContent = tr('sinceText')(frDate(prev.date));
-  } else {
-    document.getElementById('kpi-confirmed-delta').textContent = tr('startingPoint');
-    document.getElementById('kpi-deaths-delta').textContent = tr('startingPoint');
-    document.getElementById('kpi-recovered-delta').textContent = tr('startingPoint');
+  function deltaText(field, entry){
+    if(!entry) return tr('startingPoint');
+    const prev = prevKnown(field, entry);
+    if(!prev) return tr('startingPoint');
+    return '+'+fmt(entry[field]-prev[field])+' '+tr('sinceText')(frDate(prev.date));
   }
+  document.getElementById('kpi-confirmed-delta').textContent = deltaText('confirmed', confirmedEntry);
+  document.getElementById('kpi-deaths-delta').textContent = deltaText('deaths', deathsEntry);
+  document.getElementById('kpi-recovered-delta').textContent = deltaText('recovered', recoveredEntry);
 }
 
 function frDate(iso){
