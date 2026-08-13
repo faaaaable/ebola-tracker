@@ -33,6 +33,7 @@ jobs:
             CONF=$(cat data/confidence.txt 2>/dev/null || echo "n/a")
             mv data/sitreps.proposed.json data/sitreps.json
             rm -f data/confidence.txt
+
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add data/sitreps.json
@@ -41,3 +42,8 @@ jobs:
           else
             echo "Aucune nouvelle donnée à publier."
           fi
+
+      # NOTE : assets/og-image.png est une VRAIE capture d'écran de la carte,
+      # prise manuellement — elle n'est plus régénérée automatiquement ici.
+      # Pense à la remplacer toi-même de temps en temps si tu veux qu'elle
+      # reflète l'évolution de l'épidémie (voir instructions fournies).
