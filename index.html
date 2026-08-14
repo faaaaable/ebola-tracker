@@ -574,7 +574,7 @@ const I18N = {
     legendAgg:"Total estimé par province",
     legendDashNote:"Pointillés : donnée agrégée par province, sans détail par zone de santé.",
     legendImported:"Capitale Kinshasa",
-    mapNote:"Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone). Elles ne représentent pas des limites administratives exactes. Les cercles en pointillés correspondent aux quatre provinces pour lesquelles seul un total agrégé est disponible publiquement (Nord-Kivu, Sud-Kivu, Haut-Uélé, Tshopo).",
+    mapNote:"Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone). Elles ne représentent pas des limites administratives exactes.",
     chartTitle:"Courbe des cas et des décès",
     chartSub:"cumul des cas confirmés et décès",
     chartSubRange:(n,from,to)=>`${n} bulletins, du ${from} au ${to}`,
@@ -604,12 +604,12 @@ const I18N = {
     legendClosedFocus:"Foyer clos (aucun nouveau cas)",
     modalConfirmedEyebrow:"Détail par province",
     modalConfirmedTitle:(n)=>`Cas confirmés — ${n}`,
-    modalConfirmedNote:"Répartition officielle des cas confirmés cumulés par province (INSP RDC, SitRep N°088 du 10 août 2026).",
+    modalConfirmedNote:"Répartition officielle des cas confirmés cumulés par province (INSP RDC, SitRep N°090 du 12 août 2026).",
     modalConfirmedTh1:"Province",
     modalConfirmedTh2:"Cas confirmés",
     modalDeathsEyebrow:"Détail par province",
     modalDeathsTitle:(n)=>`Décès — ${n}`,
-    modalDeathsNote:"Répartition officielle par province (INSP RDC, SitRep N°088 du 10 août 2026). Ces chiffres peuvent différer légèrement du cumul national affiché plus haut, mis à jour plus fréquemment.",
+    modalDeathsNote:"Répartition officielle par province (INSP RDC, SitRep N°090 du 12 août 2026). Ces chiffres peuvent différer légèrement du cumul national affiché plus haut, mis à jour plus fréquemment.",
     modalDeathsTh1:"Province",
     modalDeathsTh2:"Décès",
     modalDeathsTh3:"Part du total",
@@ -639,7 +639,7 @@ const I18N = {
     legendAgg:"Estimated province total",
     legendDashNote:"Dashed: province-level estimate, no health-zone detail.",
     legendImported:"Capital, Kinshasa",
-    mapNote:"Dashed circles: provinces with aggregated data only, no health-zone-level detail.",
+    mapNote:"Health zones are positioned at approximate coordinates (zone administrative centres). They do not represent exact administrative boundaries.",
     chartTitle:"Epidemic curve",
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
@@ -669,12 +669,12 @@ const I18N = {
     legendClosedFocus:"Closed focus (no new cases)",
     modalConfirmedEyebrow:"Breakdown by province",
     modalConfirmedTitle:(n)=>`Confirmed cases — ${n}`,
-    modalConfirmedNote:"Official breakdown of cumulative confirmed cases by province (DRC INSP, SitRep N°088 of 10 August 2026).",
+    modalConfirmedNote:"Official breakdown of cumulative confirmed cases by province (DRC INSP, SitRep N°090 of 12 August 2026).",
     modalConfirmedTh1:"Province",
     modalConfirmedTh2:"Confirmed cases",
     modalDeathsEyebrow:"Breakdown by province",
     modalDeathsTitle:(n)=>`Deaths — ${n}`,
-    modalDeathsNote:"Official province breakdown (DRC INSP, SitRep N°088 of 10 August 2026). These figures may differ slightly from the national cumulative total shown above, which is updated more frequently.",
+    modalDeathsNote:"Official province breakdown (DRC INSP, SitRep N°090 of 12 August 2026). These figures may differ slightly from the national cumulative total shown above, which is updated more frequently.",
     modalDeathsTh1:"Province",
     modalDeathsTh2:"Deaths",
     modalDeathsTh3:"Share of total",
@@ -708,48 +708,62 @@ const SEED_SITREPS = [
   { date:"2026-08-03", confirmed:3874, deaths:1751, recovered:749 },
   { date:"2026-08-06", confirmed:4053, deaths:1850, recovered:793 },
   { date:"2026-08-08", confirmed:4209, deaths:1916, recovered:828 },
-  { date:"2026-08-10", confirmed:4449, deaths:2061, recovered:886 }
+  { date:"2026-08-10", confirmed:4449, deaths:2061, recovered:886 },
+  { date:"2026-08-12", confirmed:4665, deaths:2184, recovered:965 }
 ];
 
 const PROVINCES = [
-  { name:"Ituri",      share:0.869, epicenter:true },
-  { name:"Nord-Kivu",  share:0.055, epicenter:false },
-  { name:"Haut-Uélé",  share:0.04,  epicenter:false },
-  { name:"Tshopo",     share:0.025, epicenter:false },
-  { name:"Sud-Kivu",   share:0.011, epicenter:false }
+  { name:"Ituri",      share:0.853, epicenter:true },
+  { name:"Nord-Kivu",  share:0.119, epicenter:false },
+  { name:"Haut-Uélé",  share:0.026, epicenter:false },
+  { name:"Tshopo",     share:0.002, epicenter:false },
+  { name:"Sud-Kivu",   share:0.001, epicenter:false },
+  { name:"Bas-Uélé",   share:0.0002, epicenter:false }
 ];
-/* Répartition par province — INSP RDC, SitRep N°088/MVEBDB du 10/08/2026 (cas et
+/* Répartition par province — INSP RDC, SitRep N°090/MVEBDB du 12/08/2026 (cas et
    décès cumulés, rapport le plus récent disponible) ; statut de transmission :
-   Ituri, Nord-Kivu et Haut-Uélé ont rapporté des nouveaux cas les 24h précédentes
-   (Ituri +53, Nord-Kivu +15 ; Haut-Uélé n'a transmis aucune donnée ce jour-là) ;
-   Tshopo et Sud-Kivu : aucun nouveau cas signalé. Sud-Kivu : 73 jours sans nouveau
-   cas au 8 août (ONU Info/OMS), soit "inactif" au sens des critères OMS de 42
-   jours, sans être déclaré éradiqué. */
+   Ituri (+67), Nord-Kivu (+25), Haut-Uélé (+6), Tshopo (+1) et Bas-Uélé (+1, nouvelle
+   province touchée le 12/08) ont rapporté des nouveaux cas confirmés au cours des
+   dernières 24h. Sud-Kivu : aucun nouveau cas signalé dans ce SitRep — 73 jours sans
+   nouveau cas au 8 août (ONU Info/OMS) + 4 jours sans nouveau cas supplémentaires
+   d'après ce SitRep = environ 77 jours au 12 août, soit "inactif" au sens des critères
+   OMS de 42 jours, sans être déclaré éradiqué. */
 const PROVINCE_TABLE_DATA = [
-  { name:"Ituri",     confirmed:3814, deaths:1653, status:"active-epicenter" },
-  { name:"Nord-Kivu", confirmed:510,  deaths:354,  status:"active" },
-  { name:"Haut-Uélé", confirmed:113,  deaths:48,   status:"active" },
-  { name:"Tshopo",    confirmed:9,    deaths:5,    status:"stagnant" },
-  { name:"Sud-Kivu",  confirmed:3,    deaths:1,    status:"inactive", daysNoCase:73 }
+  { name:"Ituri",     confirmed:3979, deaths:1726, status:"active-epicenter" },
+  { name:"Nord-Kivu", confirmed:553,  deaths:395,  status:"active" },
+  { name:"Haut-Uélé", confirmed:119,  deaths:55,   status:"active" },
+  { name:"Tshopo",    confirmed:10,   deaths:6,    status:"active" },
+  { name:"Sud-Kivu",  confirmed:3,    deaths:1,    status:"inactive", daysNoCase:77 },
+  { name:"Bas-Uélé",  confirmed:1,    deaths:1,    status:"active" }
 ];
 
-/* Répartition par zone de santé — INSP RDC, SitRep N°082 du 04/08/2026 (Ituri, cumul).
-   C'est le dernier détail zone par zone publié à ce niveau de granularité ; le
-   SitRep N°088 du 10/08/2026 ne publie que les nouveaux cas du jour par zone, pas
-   les cumuls. Le total de ces zones (3 460) est donc antérieur et inférieur au
-   total province Ituri affiché ailleurs sur le site (3 814, au 10 août) — voir la
-   note sous la carte. */
+/* Répartition par zone de santé — INSP RDC, SitRep N°090/MVEBDB du 12/08/2026.
+   Ce SitRep publie pour la première fois le détail cumulé zone par zone pour les
+   6 provinces touchées (pas seulement l'Ituri) : le total de chaque province
+   correspond exactement à son total agrégé affiché ailleurs sur le site. */
 const HEALTH_ZONES = [
-  ["Bunia",950],["Rwampara",692],["Mongbwalu",558],["Nizi",431],["Lita",151],
-  ["Nyankunde",115],["Mangala",108],["Nia Nia",112],["Bambu",69],["Tchomia",45],
-  ["Komanda",38],["Fataki",40],["Kilo",29],["Damas",18],["Mandima",16],
-  ["Adja",11],["Drodro",11],["Aungba",10],["Logo",10],["Mambasa",10],
-  ["Rimba",9],["Ariwara",7],["Lolwa",7],["Aru",5],["Mahagi",4],
-  ["Kambala",2],["Boga",1],["Gety",1]
-].map(([name,cases])=>({name,cases}));
+  ["Bunia",1095,"Ituri"],["Rwampara",818,"Ituri"],["Mongbwalu",581,"Ituri"],["Nizi",509,"Ituri"],["Lita",169,"Ituri"],
+  ["Nia Nia",151,"Ituri"],["Nyankunde",118,"Ituri"],["Mangala",122,"Ituri"],["Bambu",93,"Ituri"],["Tchomia",48,"Ituri"],
+  ["Fataki",59,"Ituri"],["Komanda",42,"Ituri"],["Kilo",30,"Ituri"],["Damas",21,"Ituri"],["Mandima",19,"Ituri"],
+  ["Mambasa",13,"Ituri"],["Drodro",13,"Ituri"],["Lolwa",14,"Ituri"],["Adja",11,"Ituri"],["Logo",11,"Ituri"],
+  ["Aungba",10,"Ituri"],["Rimba",9,"Ituri"],["Ariwara",7,"Ituri"],["Aru",7,"Ituri"],["Mahagi",4,"Ituri"],
+  ["Kambala",2,"Ituri"],["Gety",2,"Ituri"],["Boga",1,"Ituri"],
+  ["Katwa",262,"Nord-Kivu"],["Butembo",107,"Nord-Kivu"],["Beni",85,"Nord-Kivu"],["Musienene",55,"Nord-Kivu"],
+  ["Kyondo",14,"Nord-Kivu"],["Kalunguta",10,"Nord-Kivu"],["Masereka",7,"Nord-Kivu"],["Oicha",5,"Nord-Kivu"],
+  ["Vuhovi",4,"Nord-Kivu"],["Mabalako",2,"Nord-Kivu"],["Goma",1,"Nord-Kivu"],["Lubero",1,"Nord-Kivu"],
+  ["Isiro",37,"Haut-Uélé"],["Wamba",41,"Haut-Uélé"],["Boma Mangbetu",22,"Haut-Uélé"],["Pawa",17,"Haut-Uélé"],
+  ["Rungu",1,"Haut-Uélé"],["Gombari",1,"Haut-Uélé"],
+  ["Kabondo",3,"Tshopo"],["Bafwasende",1,"Tshopo"],["Lubunga",1,"Tshopo"],["Makiso-Kisangani",3,"Tshopo"],
+  ["Mangobo",1,"Tshopo"],["Wanie-Rukula",1,"Tshopo"],
+  ["Miti-Murhesa",3,"Sud-Kivu"],
+  ["Buta",1,"Bas-Uélé"]
+].map(([name,cases,province])=>({name,cases,province}));
 
-/* Coordonnées approximatives des chefs-lieux de zone de santé (Ituri), à des fins
-   de visualisation — non issues d'un référentiel géographique officiel. */
+/* Coordonnées approximatives des chefs-lieux de zone de santé, à des fins de
+   visualisation — non issues d'un référentiel géographique officiel. Les zones
+   d'Ituri sont assez fiables ; celles des autres provinces (ajoutées avec le
+   SitRep N°090) sont des estimations moins précises, notamment pour les petites
+   zones rurales du Haut-Uélé, de la Tshopo et du Sud-Kivu. */
 const HEALTH_ZONE_COORDS = {
   "Bunia":[1.567,30.250], "Mongbwalu":[1.933,30.033], "Rwampara":[1.60,30.10],
   "Nizi":[1.75,30.35], "Lita":[1.85,30.15], "Nyankunde":[1.30,30.10],
@@ -760,7 +774,17 @@ const HEALTH_ZONE_COORDS = {
   "Logo":[2.60,30.85], "Mambasa":[1.35,29.05], "Rimba":[1.95,30.15],
   "Ariwara":[3.05,30.75], "Lolwa":[1.30,28.80], "Aru":[3.02,30.85],
   "Mahagi":[2.32,31.03], "Kambala":[2.10,30.85], "Boga":[0.95,29.95],
-  "Gety":[1.15,29.85]
+  "Gety":[1.15,29.85],
+  "Beni":[-0.4906,29.4664], "Butembo":[0.1500,29.2833], "Goma":[-1.6792,29.2228],
+  "Kalunguta":[-0.4200,29.4300], "Katwa":[0.0800,29.2800], "Kyondo":[0.0200,29.4500],
+  "Lubero":[-0.1667,29.2167], "Mabalako":[-0.2833,29.3667], "Masereka":[0.0500,29.3500],
+  "Musienene":[0.0500,29.2333], "Oicha":[0.6667,29.5167], "Vuhovi":[-0.0200,29.2600],
+  "Isiro":[2.7833,27.6167], "Wamba":[2.1500,27.9833], "Boma Mangbetu":[2.85,28.30],
+  "Pawa":[2.4667,27.55], "Rungu":[2.7667,27.9667], "Gombari":[2.9333,28.4167],
+  "Bafwasende":[1.0833,27.35], "Kabondo":[0.5000,25.1667], "Lubunga":[0.4833,25.15],
+  "Makiso-Kisangani":[0.5167,25.20], "Mangobo":[0.5333,25.2333], "Wanie-Rukula":[0.35,25.75],
+  "Miti-Murhesa":[-2.35,28.75],
+  "Buta":[2.795,24.734]
 };
 /* Chefs-lieux provinciaux, utilisés uniquement pour représenter les totaux
    agrégés des provinces sans détail public par zone de santé. */
@@ -768,7 +792,8 @@ const PROVINCE_AGG_COORDS = {
   "Nord-Kivu":[-1.6796,29.2267],
   "Sud-Kivu":[-2.5085,28.8608],
   "Haut-Uélé":[2.7833,27.6167],
-  "Tshopo":[0.5167,25.2]
+  "Tshopo":[0.5167,25.2],
+  "Bas-Uélé":[2.795,24.734]
 };
 const KINSHASA_COORDS = [-4.4419,15.2663];
 const KAMPALA_COORDS = [0.3476,32.5825];
@@ -963,6 +988,7 @@ function renderMap(){
   closedFociLayer.clearLayers();
 
   const maxCases = Math.max(...HEALTH_ZONES.map(z=>z.cases));
+  const provincesWithZoneDetail = new Set(HEALTH_ZONES.map(z=>z.province));
 
   HEALTH_ZONES.forEach(z=>{
     const coord = HEALTH_ZONE_COORDS[z.name];
@@ -976,13 +1002,16 @@ function renderMap(){
     marker.bindPopup(
       `<b>${z.name}</b>
        <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(z.cases)}</span></div>
-       <div class="popup-row"><span class="k">${tr('popupProvinceLabel')}</span><span>Ituri</span></div>`
+       <div class="popup-row"><span class="k">${tr('popupProvinceLabel')}</span><span>${z.province}</span></div>`
     );
     marker.addTo(zoneMarkersLayer);
   });
 
+  // Repli : cercle agrégé en pointillés, uniquement pour une province qui
+  // n'aurait pas (ou plus) de détail zone par zone dans le SitRep le plus
+  // récent — ce qui n'est le cas d'aucune province au SitRep N°090.
   const s = sortedSitreps();
-  PROVINCES.filter(p=>!p.epicenter).forEach(p=>{
+  PROVINCES.filter(p=>!p.epicenter && !provincesWithZoneDetail.has(p.name)).forEach(p=>{
     const coord = PROVINCE_AGG_COORDS[p.name];
     if(!coord) return;
     const provData = PROVINCE_TABLE_DATA.find(d=>d.name===p.name);
