@@ -25,6 +25,7 @@ PROPOSED_PATH = Path(__file__).resolve().parent.parent / "data" / "sitreps.propo
 SOURCES = [
     "https://sante.gouv.cd/epidemie/ebola-bundibugyo-2026",
     "https://bsp.insp.cd/",
+    "https://insp.cd/sitrep/",
     "https://www.who.int/emergencies/situations/ebola-outbreak---drc-2026",
 ]
 
