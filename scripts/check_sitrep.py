@@ -13,6 +13,7 @@ Variables d'environnement requises :
 """
 import json
 import os
+import re
 import sys
 import urllib.request
 from pathlib import Path
@@ -22,17 +23,37 @@ API_URL = "https://api.anthropic.com/v1/messages"
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "sitreps.json"
 PROPOSED_PATH = Path(__file__).resolve().parent.parent / "data" / "sitreps.proposed.json"
 
+# Page qui liste les SitRep les plus récents en premier (numérotés) — c'est la
+# source la plus fiable pour détecter rapidement l'existence d'un nouveau SitRep.
+PRIMARY_SOURCE = "https://insp.cd/ebola-17eme-epidemie/"
+
 SOURCES = [
+    PRIMARY_SOURCE,
+    "https://insp.cd/sitrep/",
     "https://sante.gouv.cd/epidemie/ebola-bundibugyo-2026",
     "https://bsp.insp.cd/",
-    "https://insp.cd/sitrep/",
     "https://www.who.int/emergencies/situations/ebola-outbreak---drc-2026",
 ]
 
 SYSTEM_PROMPT = f"""Tu es un assistant de veille épidémiologique. Ta seule tâche est de
 vérifier si un nouveau bilan officiel (SITREP) de l'épidémie Ebola-Bundibugyo 2026 en RDC
-a été publié depuis la dernière entrée connue, en consultant en priorité ces sources
-officielles : {', '.join(SOURCES)}.
+a été publié depuis la dernière entrée connue.
+
+ÉTAPE OBLIGATOIRE — à faire en premier, avant toute autre recherche :
+Consulte directement {PRIMARY_SOURCE} (ou {SOURCES[1]} si la première est inaccessible).
+Cette page liste les SitRep numérotés du plus récent au plus ancien (ex: "SitRep
+N°090/MVEBDB/12/08/2026"). Identifie le numéro et la date du SitRep le plus récent qui y
+figure. C'est la référence prioritaire : ignore toute source secondaire (ECDC, CGTN,
+Wikipedia, presse, etc.) tant que tu n'as pas vérifié cette page en premier — ces sources
+secondaires peuvent avoir plusieurs jours de retard sur les SitRep INSP.
+
+Si le SitRep le plus récent trouvé sur insp.cd est plus récent que la dernière entrée
+connue, essaie d'accéder au contenu du PDF correspondant pour en extraire les chiffres
+(cas confirmés, décès, guéris). Si le PDF n'est pas exploitable mais que d'autres sources
+officielles (ministère, OMS) confirment déjà les mêmes chiffres pour cette date, tu peux
+les utiliser en le précisant dans "notes".
+
+Sources officielles à consulter, dans cet ordre de priorité : {', '.join(SOURCES)}.
 
 Réponds UNIQUEMENT avec un objet JSON, sans aucun texte avant ou après, sans balises
 Markdown, au format suivant :
@@ -52,6 +73,21 @@ pas au moins en confiance 'medium', renvoie new_data_found: false et entry: null
 def load_existing_data():
     with open(DATA_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def extract_json_object(text):
+    """Extrait le premier objet JSON valide trouvé dans un texte, même s'il est
+    précédé ou suivi d'autre texte (le modèle ne respecte pas toujours à la
+    lettre la consigne "réponds uniquement en JSON")."""
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r"\{", text):
+        start = match.start()
+        try:
+            obj, _ = decoder.raw_decode(text, start)
+            return obj
+        except json.JSONDecodeError:
+            continue
+    return None
 
 
 def call_claude_api(latest_entry):
@@ -86,22 +122,25 @@ def call_claude_api(latest_entry):
     stop_reason = data.get("stop_reason")
     text_blocks = [b["text"] for b in data.get("content", []) if b.get("type") == "text"]
     raw = "\n".join(text_blocks).strip()
-    raw = raw.replace("```json", "").replace("```", "").strip()
 
     if not raw:
-        # Réponse sans bloc de texte exploitable (ex : coupée avant la fin, ou
-        # entièrement composée de blocs d'outil). On log le contenu complet pour
-        # diagnostic, et on traite ça comme "rien trouvé" plutôt que de planter.
         print(f"Réponse sans texte exploitable (stop_reason={stop_reason}). Contenu complet :")
         print(json.dumps(data.get("content", []), ensure_ascii=False, indent=2))
         return {"new_data_found": False, "entry": None}
 
-    try:
-        return json.loads(raw)
-    except json.JSONDecodeError:
-        print(f"Réponse non-JSON reçue (stop_reason={stop_reason}). Contenu brut :")
+    parsed = extract_json_object(raw)
+    if parsed is None:
+        print(f"Aucun objet JSON exploitable trouvé (stop_reason={stop_reason}). Contenu brut :")
         print(raw)
         return {"new_data_found": False, "entry": None}
+
+    if raw.strip() != json.dumps(parsed, ensure_ascii=False):
+        # Le modèle a ajouté du texte autour du JSON : on le garde quand même,
+        # mais on log le texte complet pour audit / debug.
+        print("Note : la réponse contenait du texte en plus du JSON. Texte complet conservé pour audit :")
+        print(raw)
+
+    return parsed
 
 
 def main():
