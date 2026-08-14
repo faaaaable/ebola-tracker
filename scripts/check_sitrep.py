@@ -2,11 +2,11 @@
 """
 Vérifie quotidiennement si un nouveau bilan officiel (SITREP) de l'épidémie
 Ebola-Bundibugyo en RDC a été publié, en interrogeant les sources officielles
-via l'API Claude (avec l'outil de recherche web).
+via l'API Claude (avec les outils de recherche et de récupération web).
 
-Ce script NE PUBLIE JAMAIS automatiquement de nouvelles données : il écrit
-un fichier de proposition (data/sitreps.proposed.json) qui n'est intégré
-au site qu'après validation humaine, via une Pull Request GitHub.
+Ce script NE PUBLIE JAMAIS de données sans passer par le fichier de sortie
+data/sitreps.proposed.json — c'est le workflow GitHub Actions qui décide
+ensuite s'il publie automatiquement ou non.
 
 Variables d'environnement requises :
   ANTHROPIC_API_KEY : clé API Anthropic (stockée en secret GitHub Actions)
@@ -40,18 +40,24 @@ vérifier si un nouveau bilan officiel (SITREP) de l'épidémie Ebola-Bundibugyo
 a été publié depuis la dernière entrée connue.
 
 ÉTAPE OBLIGATOIRE — à faire en premier, avant toute autre recherche :
-Consulte directement {PRIMARY_SOURCE} (ou {SOURCES[1]} si la première est inaccessible).
-Cette page liste les SitRep numérotés du plus récent au plus ancien (ex: "SitRep
-N°090/MVEBDB/12/08/2026"). Identifie le numéro et la date du SitRep le plus récent qui y
-figure. C'est la référence prioritaire : ignore toute source secondaire (ECDC, CGTN,
-Wikipedia, presse, etc.) tant que tu n'as pas vérifié cette page en premier — ces sources
-secondaires peuvent avoir plusieurs jours de retard sur les SitRep INSP.
+Utilise l'outil web_fetch (pas seulement web_search) pour charger directement le contenu
+réel et à jour de {PRIMARY_SOURCE} (ou {SOURCES[1]} si la première est inaccessible).
+web_search seul peut renvoyer des résultats obsolètes ou pas encore indexés : ne te fie
+JAMAIS uniquement à des extraits de recherche pour cette étape, va chercher la page
+elle-même avec web_fetch. Cette page liste les SitRep numérotés du plus récent au plus
+ancien (ex: "SitRep N°090/MVEBDB/12/08/2026"). Identifie le numéro et la date du SitRep
+le plus récent qui y figure.
+
+C'est la référence prioritaire : ignore toute source secondaire (ECDC, CGTN, Wikipedia,
+presse, etc.) tant que tu n'as pas vérifié cette page en premier avec web_fetch — ces
+sources secondaires peuvent avoir plusieurs jours de retard sur les SitRep INSP, et un
+SitRep peut exister sur insp.cd sans être encore repris ailleurs.
 
 Si le SitRep le plus récent trouvé sur insp.cd est plus récent que la dernière entrée
-connue, essaie d'accéder au contenu du PDF correspondant pour en extraire les chiffres
-(cas confirmés, décès, guéris). Si le PDF n'est pas exploitable mais que d'autres sources
-officielles (ministère, OMS) confirment déjà les mêmes chiffres pour cette date, tu peux
-les utiliser en le précisant dans "notes".
+connue, utilise web_fetch pour accéder au contenu du PDF correspondant et en extraire les
+chiffres (cas confirmés, décès, guéris). Si le PDF n'est pas exploitable mais que d'autres
+sources officielles (ministère, OMS) confirment déjà les mêmes chiffres pour cette date,
+tu peux les utiliser en le précisant dans "notes".
 
 Sources officielles à consulter, dans cet ordre de priorité : {', '.join(SOURCES)}.
 
@@ -104,7 +110,10 @@ def call_claude_api(latest_entry):
                 ),
             }
         ],
-        "tools": [{"type": "web_search_20250305", "name": "web_search"}],
+        "tools": [
+            {"type": "web_search_20250305", "name": "web_search"},
+            {"type": "web_fetch_20250910", "name": "web_fetch", "max_uses": 10},
+        ],
     }
     req = urllib.request.Request(
         API_URL,
@@ -113,6 +122,8 @@ def call_claude_api(latest_entry):
             "Content-Type": "application/json",
             "x-api-key": ANTHROPIC_API_KEY,
             "anthropic-version": "2023-06-01",
+            # Requis pour activer l'outil web_fetch (encore en bêta).
+            "anthropic-beta": "web-fetch-2025-09-10",
         },
         method="POST",
     )
