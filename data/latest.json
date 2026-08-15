@@ -97,7 +97,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 79
+      "daysNoCase": 80
     },
     {
       "name": "Bas-Uélé",
@@ -830,6 +830,222 @@
     "screeningRate": 97.4
   },
   "reports": [
+    {
+      "sitrepNumber": "001",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_001.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "002",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_002.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "004",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_004.pdf",
+      "confirmed": 33,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "005",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_005.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "006",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_006.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "059",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_059.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "060",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_060.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "061",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_061.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "062",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_062.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "064",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_064.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "065",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_065.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "066",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_066.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "067",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_067.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "068",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_068.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "069",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_069.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "070",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_070.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "071",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_071.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "072",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_072.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "073",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_073.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "074",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_074.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "077",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_077.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "078",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_078.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "079",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_079.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "080",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_080.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "081",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_081.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "082",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_082.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "083",
+      "reportingDate": null,
+      "publicationDate": null,
+      "file": "reports/SITREP_MVE_083.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
     {
       "sitrepNumber": "084",
       "reportingDate": "2026-08-06",
