@@ -297,6 +297,127 @@
   .map-btn:hover{border-color:var(--accent-info);color:var(--accent-info);}
   .map-btn.active{border-color:var(--accent-info);color:var(--accent-info);background:rgba(53,104,196,.10);}
 
+  /* ============ ONGLETS ============ */
+  .tab-nav{
+    display:flex;gap:6px;flex-wrap:wrap;
+    padding:10px 0;margin-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  .tab-btn{
+    background:transparent;border:1px solid transparent;color:var(--ink-dim);
+    font-family:var(--font-mono);font-size:12px;letter-spacing:.02em;
+    padding:8px 13px;border-radius:var(--radius);cursor:pointer;
+    white-space:nowrap;
+  }
+  .tab-btn:hover{color:var(--ink);border-color:var(--line);}
+  .tab-btn.active{color:var(--accent-info);border-color:var(--accent-info);background:rgba(53,104,196,.08);}
+  .tab-btn:focus-visible{outline:2px solid var(--accent-info);outline-offset:2px;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+  .tab-soon{
+    padding:48px 20px;text-align:center;
+    font-family:var(--font-mono);font-size:12.5px;color:var(--ink-faint);
+    border:1px dashed var(--line);border-radius:var(--radius);
+  }
+
+  .report-row{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--bg-panel-raised);
+  }
+  .report-row .rr-meta{display:flex;flex-direction:column;gap:3px;}
+  .report-row .rr-sitrep{font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--ink);}
+  .report-row .rr-date{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-dim);}
+  .report-row .rr-stats{font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);}
+  .report-row .rr-download{
+    display:flex;align-items:center;gap:6px;white-space:nowrap;
+    background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:var(--radius);
+    padding:8px 14px;font-family:var(--font-mono);font-size:11.5px;text-decoration:none;
+    transition:opacity .15s;
+  }
+  .report-row .rr-download:hover{opacity:.85;}
+
+  .info-card{
+    padding:18px 20px;border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--bg-panel-raised);margin-bottom:14px;
+  }
+  .info-card:last-child{margin-bottom:0;}
+  .info-card h3{
+    font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--ink);
+    margin-bottom:8px;display:flex;align-items:center;gap:8px;
+  }
+  .info-card h3 .n{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:20px;height:20px;border-radius:50%;background:var(--accent-info);
+    color:#fff;font-size:10.5px;flex:none;
+  }
+  .info-card p{font-size:13.5px;line-height:1.6;color:var(--ink-dim);}
+  .info-card p+p{margin-top:8px;}
+  .info-note{
+    font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);
+    padding:10px 14px;border-left:2px solid var(--line);margin-top:6px;
+  }
+
+  /* ============ ONGLET "LE VIRUS" ============ */
+  .virus-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:16px;align-items:start;
+  }
+  .vcard{
+    background:var(--bg-panel-raised);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 22px 20px;border-top:3px solid var(--ink-faint);
+  }
+  .vcard-species{border-top-color:var(--accent-info);}
+  .vcard-transmission{border-top-color:var(--accent-active);}
+  .vcard-symptoms{border-top-color:var(--accent-critical);}
+  .vcard-compare{border-top-color:var(--accent-stable);grid-column:1/-1;}
+
+  .vcard-icon{
+    width:42px;height:42px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+    background:rgba(53,104,196,.10);color:var(--accent-info);
+  }
+  .vcard-icon svg{width:22px;height:22px;}
+  .vcard-transmission .vcard-icon{background:rgba(180,121,14,.12);color:var(--accent-active);}
+  .vcard-symptoms .vcard-icon{background:rgba(194,74,36,.10);color:var(--accent-critical);}
+
+  .vcard h3{font-family:var(--font-mono);font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:12px;}
+  .vlist{list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .vlist li{
+    position:relative;padding-left:16px;font-size:13px;line-height:1.5;color:var(--ink-dim);
+  }
+  .vlist li::before{
+    content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;
+    background:var(--ink-faint);
+  }
+  .vlist em{color:var(--ink);font-style:normal;font-weight:600;}
+
+  .vphases{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;}
+  .vphase{padding:14px 16px;border-radius:var(--radius);border:1px solid var(--line);}
+  .vincub{
+    display:flex;align-items:center;gap:9px;margin-bottom:14px;
+    padding:10px 14px;border-radius:var(--radius);background:rgba(194,74,36,.05);
+    border:1px solid var(--line);
+  }
+  .vincub svg{width:18px;height:18px;color:var(--accent-critical);flex:none;}
+  .vincub span{font-size:12.5px;line-height:1.5;color:var(--ink-dim);}
+  .vphase-tag{
+    display:inline-block;font-family:var(--font-mono);font-size:10.5px;font-weight:600;
+    padding:3px 9px;border-radius:20px;margin-bottom:8px;
+  }
+  .vphase-dry{background:rgba(53,104,196,.05);}
+  .vphase-dry .vphase-tag{background:rgba(53,104,196,.14);color:var(--accent-info);}
+  .vphase-wet{background:rgba(194,74,36,.05);}
+  .vphase-wet .vphase-tag{background:rgba(194,74,36,.14);color:var(--accent-critical);}
+  .vphase p{font-size:12.5px;line-height:1.55;color:var(--ink-dim);}
+
+  .vcompare-intro{font-size:13.5px;line-height:1.6;color:var(--ink-dim);margin-bottom:12px;}
+  .vcompare-note{font-size:12.5px;line-height:1.6;color:var(--ink-dim);margin-bottom:12px;}
+
+  @media (max-width:560px){
+    .vcard{padding:18px;}
+  }
+
   .map-legend{
     position:absolute;bottom:14px;right:14px;z-index:500;
     background:rgba(255,255,255,.92);border:1px solid var(--line);
@@ -322,19 +443,7 @@
 
   .province-note{font-size:11px;color:var(--ink-faint);margin-top:14px;line-height:1.55;}
 
-  /* ---------- kpi cliquable ---------- */
-  .kpi.clickable{cursor:pointer;}
-  .kpi.clickable:hover{background:var(--bg-panel-raised);}
-  .kpi.clickable:focus-visible{outline:2px solid var(--accent-info);outline-offset:-2px;}
-  .kpi-hint{
-    position:absolute;left:18px;bottom:14px;
-    font-size:10.5px;font-family:var(--font-mono);
-    color:var(--ink-faint);opacity:0;transition:opacity .15s;
-  }
-  .kpi.clickable:hover .kpi-hint,
-  .kpi.clickable:focus-visible .kpi-hint{opacity:1;}
-
-  /* ---------- table (modal) ---------- */
+  /* ---------- table ---------- */
   table{width:100%;border-collapse:collapse;font-size:13px;}
   thead th{
     text-align:left;font-family:var(--font-mono);font-size:10.5px;
@@ -346,40 +455,36 @@
   tbody td:first-child{font-weight:600;}
   td.num{font-family:var(--font-mono);text-align:right;}
   .table-scroll{overflow-y:auto;}
+
+  /* ---------- tableau "Données détaillées" (zones de santé) ---------- */
+  #zonesTableHead th{cursor:pointer;user-select:none;transition:color .15s;}
+  #zonesTableHead th:hover{color:var(--accent-info);}
+  #zonesTableBody tr{transition:background .12s;}
+  #zonesTableBody tr:hover{background:rgba(53,104,196,.05);}
+  #zonesTableBody tr:nth-child(even){background:rgba(140,148,143,.045);}
+  #zonesTableBody tr:nth-child(even):hover{background:rgba(53,104,196,.07);}
+  .zone-name-cell{display:flex;align-items:center;gap:8px;}
+  .zone-name-cell .zdot{width:7px;height:7px;border-radius:50%;flex:none;}
+  .zone-cases-cell{display:flex;align-items:center;gap:9px;min-width:140px;}
+  .zone-cases-num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;min-width:38px;text-align:right;}
+  .zone-bar-track{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden;max-width:110px;}
+  .zone-bar-fill{height:100%;border-radius:3px;background:var(--accent-info);}
+  .zone-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--font-mono);font-size:11px;font-weight:600;
+    padding:3px 9px;border-radius:20px;min-width:48px;
+  }
+  .zone-badge-low{background:rgba(46,133,113,.14);color:var(--accent-stable);}
+  .zone-badge-mid{background:rgba(180,121,14,.14);color:var(--accent-active);}
+  .zone-badge-high{background:rgba(194,74,36,.12);color:var(--accent-critical);}
+  .zone-new-badge{
+    font-family:var(--font-mono);font-size:11.5px;font-weight:600;
+    padding:2px 8px;border-radius:20px;
+  }
+  .zone-new-badge.has-new{background:rgba(180,121,14,.14);color:var(--accent-active);}
+  .zone-new-badge.no-new{color:var(--ink-faint);font-weight:400;}
   .table-scroll::-webkit-scrollbar{width:8px;}
   .table-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
-
-  /* ---------- modal ---------- */
-  .modal-overlay{
-    position:fixed;inset:0;background:rgba(10,14,16,.72);
-    display:flex;align-items:center;justify-content:center;
-    padding:20px;z-index:1000;
-    opacity:0;pointer-events:none;transition:opacity .15s;
-    backdrop-filter:blur(2px);
-  }
-  .modal-overlay.open{opacity:1;pointer-events:auto;}
-  .modal-panel{
-    background:var(--bg-panel);border:1px solid var(--line);
-    width:100%;max-width:640px;max-height:min(80vh,640px);
-    display:flex;flex-direction:column;
-    padding:22px;
-    box-shadow:0 20px 60px rgba(0,0,0,.5);
-    transform:translateY(8px);transition:transform .15s;
-  }
-  .modal-overlay.open .modal-panel{transform:translateY(0);}
-  .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px;}
-  .modal-eyebrow{
-    font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--ink-faint);margin-bottom:6px;
-  }
-  .modal-title{font-family:var(--font-display);text-transform:uppercase;font-size:20px;font-weight:600;}
-  .modal-close{
-    flex:none;width:30px;height:30px;
-    background:var(--bg-panel-raised);border:1px solid var(--line);color:var(--ink-dim);
-    border-radius:var(--radius);cursor:pointer;font-size:14px;line-height:1;
-  }
-  .modal-close:hover{color:var(--ink);border-color:var(--accent-critical);}
-  .modal-note{font-size:11.5px;color:var(--ink-faint);line-height:1.6;margin-bottom:16px;}
 
   footer{
     margin:60px 0 40px;padding-top:22px;border-top:1px solid var(--line);
@@ -452,18 +557,25 @@
 
 <div class="wrap">
 
+  <nav class="tab-nav" id="tabNav" aria-label="Navigation du tableau de bord">
+    <button class="tab-btn active" data-tab="overview" data-i18n="tabOverview">Vue d'ensemble</button>
+    <button class="tab-btn" data-tab="zones" data-i18n="tabZones">Données détaillées</button>
+    <button class="tab-btn" data-tab="reports" data-i18n="tabReports">Rapports de situation</button>
+    <button class="tab-btn" data-tab="virus" data-i18n="tabVirus">Le virus</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-overview">
+
   <section class="kpis" id="kpis" aria-label="Indicateurs clés">
-    <div class="kpi confirmed clickable" id="cardConfirmed" tabindex="0" role="button" aria-haspopup="dialog">
+    <div class="kpi confirmed">
       <div class="label" data-i18n="labelConfirmed">Cas confirmés</div>
       <div class="value" id="kpi-confirmed">—</div>
       <div class="delta" id="kpi-confirmed-delta"></div>
-      <div class="kpi-hint" data-i18n="hintConfirmed">Voir le détail par province ↗</div>
     </div>
-    <div class="kpi deaths clickable" id="cardDeaths" tabindex="0" role="button" aria-haspopup="dialog">
+    <div class="kpi deaths">
       <div class="label" data-i18n="labelDeaths">Décès</div>
       <div class="value" id="kpi-deaths">—</div>
       <div class="delta" id="kpi-deaths-delta"></div>
-      <div class="kpi-hint" data-i18n="hintDeaths">Voir le détail par province ↗</div>
     </div>
     <div class="kpi recovered">
       <div class="label" data-i18n="labelRecovered">Guéris</div>
@@ -523,6 +635,117 @@
     </div>
   </section>
 
+  </div><!-- /tab-overview -->
+
+  <div class="tab-panel" id="tab-zones">
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title" data-i18n="zonesTableTitle">Détail par zone de santé</div>
+      <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">54 zones de santé touchées sur 151 · SitRep N°090 du 12 août 2026</div>
+    </div>
+    <div class="panel" style="padding:16px;">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+        <select id="zonesFilterProvince" style="font-family:var(--font-mono);font-size:11.5px;padding:7px 9px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);"></select>
+        <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="Rechercher une zone…" style="flex:1;min-width:160px;font-family:var(--font-mono);font-size:11.5px;padding:7px 9px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);">
+      </div>
+      <div class="table-scroll" style="max-height:min(60vh,520px);">
+        <table>
+          <thead>
+            <tr id="zonesTableHead"></tr>
+          </thead>
+          <tbody id="zonesTableBody"></tbody>
+        </table>
+      </div>
+      <div id="zonesEmptyState" class="map-note" style="display:none;text-align:center;" data-i18n="zonesEmptyState">Aucune zone ne correspond à ce filtre.</div>
+      <div id="zonesResultCount" style="margin-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);"></div>
+    </div>
+  </section>
+
+  </div><!-- /tab-zones -->
+
+  <div class="tab-panel" id="tab-reports">
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title" data-i18n="reportsTitle">Rapports de situation</div>
+      <div class="section-sub" data-i18n="reportsSub">SitReps publiés par l'INSP RDC, téléchargeables au format PDF</div>
+    </div>
+    <div class="panel" style="padding:16px;">
+      <div id="reportsList" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+  </section>
+
+  </div><!-- /tab-reports -->
+
+  <div class="tab-panel" id="tab-virus">
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title" data-i18n="virusTitle">Le virus Ebola</div>
+      <div class="section-sub" data-i18n="virusSub">Repères scientifiques généraux — espèce, transmission, symptômes, traitements et vaccins</div>
+    </div>
+
+    <div class="virus-grid">
+
+      <div class="vcard vcard-species">
+        <div class="vcard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/><line x1="12" y1="2.5" x2="12" y2="5.4"/><line x1="12" y1="18.6" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="5.4" y2="12"/><line x1="18.6" y1="12" x2="21.5" y2="12"/><line x1="5.5" y1="5.5" x2="7.5" y2="7.5"/><line x1="16.5" y1="16.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="16.5" y2="7.5"/><line x1="7.5" y1="16.5" x2="5.5" y2="18.5"/></svg>
+        </div>
+        <h3 data-i18n="virusSpeciesTitle">Espèce virale</h3>
+        <ul class="vlist">
+          <li data-i18n-html="virusSpeciesLi1">Famille <em>Filoviridae</em>, genre <em>Orthoebolavirus</em></li>
+          <li data-i18n-html="virusSpeciesLi2">Espèce en cause dans cette épidémie : <em>Bundibugyo ebolavirus</em> (BDBV)</li>
+          <li data-i18n="virusSpeciesLi3">3ᵉ épidémie connue causée par cette espèce, après 2007 (Ouganda) et 2012 (RDC)</li>
+          <li data-i18n="virusSpeciesLi4">Létalité historique de 25 à 50 % selon les épidémies passées</li>
+        </ul>
+      </div>
+
+      <div class="vcard vcard-transmission">
+        <div class="vcard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11l-3-3"/><path d="M20 17H9l3 3"/></svg>
+        </div>
+        <h3 data-i18n="virusTransmissionTitle">Transmission</h3>
+        <ul class="vlist">
+          <li data-i18n="virusTransmissionLi1">Contact direct avec le sang, les sécrétions ou les organes d'un animal ou d'une personne infectée, vivante ou décédée</li>
+          <li data-i18n="virusTransmissionLi2">Rites funéraires à risque et transmission en milieu de soins sans protection adaptée</li>
+          <li data-i18n="virusTransmissionLi3">Aucune transmission par voie aérienne</li>
+        </ul>
+      </div>
+
+      <div class="vcard vcard-symptoms">
+        <div class="vcard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+        </div>
+        <h3 data-i18n="virusSymptomsTitle">Symptômes et évolution</h3>
+        <div class="vincub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
+          <span data-i18n="virusIncubationText">Incubation : 2 à 21 jours (en moyenne 8 à 10 jours). Non contagieux avant l'apparition des symptômes.</span>
+        </div>
+        <div class="vphases">
+          <div class="vphase vphase-dry">
+            <div class="vphase-tag" data-i18n="vphaseDryTag">Phase précoce</div>
+            <p data-i18n="vphaseDryText">Fièvre, fatigue intense, douleurs musculaires, maux de tête, mal de gorge — des signes non spécifiques, facilement confondus avec le paludisme ou la typhoïde.</p>
+          </div>
+          <div class="vphase vphase-wet">
+            <div class="vphase-tag" data-i18n="vphaseWetTag">Phase avancée</div>
+            <p data-i18n="vphaseWetText">Vomissements, diarrhées, éruption cutanée, atteintes rénale et hépatique, et parfois hémorragies. Diagnostic confirmé par test RT-PCR sur prélèvement sanguin.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="vcard vcard-compare">
+        <h3 data-i18n="virusCompareTitle">Traitements &amp; vaccins : une différence clé selon l'espèce</h3>
+        <p class="vcompare-intro" data-i18n="virusCompareIntro">Les seuls traitements et le seul vaccin homologués contre Ebola ciblent l'espèce Zaïre — pas l'espèce Bundibugyo, en cause dans cette épidémie.</p>
+        <p class="vcompare-note" data-i18n="virusCompareNote">Pendant cette épidémie, plusieurs candidats sont évalués en essai clinique contre l'espèce Bundibugyo — dont l'anticorps à large spectre MBP134, l'antiviral remdesivir et l'obeldesivir en prophylaxie post-exposition — sous la coordination de l'OMS. En l'absence de traitement ciblé homologué, les soins de support intensifs (réhydratation, oxygénation, surveillance) restent le socle de la prise en charge et améliorent significativement les chances de survie.</p>
+        <div class="info-note" data-i18n="virusNote">Ces informations sont des repères scientifiques généraux et ne remplacent pas les protocoles cliniques officiels. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé RDC).</div>
+      </div>
+
+    </div>
+  </section>
+
+  </div><!-- /tab-virus -->
+
   <footer>
     <div class="disclaimer">
       <strong data-i18n="disclaimerTitle">Avertissement.</strong>
@@ -537,25 +760,6 @@
 
 </div>
 
-<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="modal-panel">
-    <div class="modal-head">
-      <div>
-        <div class="modal-eyebrow" id="modalEyebrow"></div>
-        <div class="modal-title" id="modalTitle"></div>
-      </div>
-      <button class="modal-close" id="modalClose" data-i18n-aria="closeAria" aria-label="Fermer">✕</button>
-    </div>
-    <div class="modal-note" id="modalNote"></div>
-    <div class="table-scroll" style="max-height:min(50vh,420px);">
-      <table>
-        <thead id="modalTableHead"></thead>
-        <tbody id="modalTableBody"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
 <script>
 /* ============ I18N ============ */
 const I18N = {
@@ -567,8 +771,6 @@ const I18N = {
     labelRecovered:"Guéris",
     labelCfr:"Taux de létalité",
     cfrDelta:"décès / cas confirmés",
-    hintConfirmed:"Voir le détail par province ↗",
-    hintDeaths:"Voir le détail par province ↗",
     mapTitle:"Carte de l'épidémie",
     mapSub:"taille et couleur des cercles = intensité des cas cumulés",
     btnCountry:"RDC entière",
@@ -589,7 +791,6 @@ const I18N = {
     chartLoadError:"Chart.js n'a pas pu se charger (connexion internet requise pour ce CDN). Vérifie ta connexion et recharge la page.",
     disclaimerTitle:"Avertissement.",
     disclaimerBody:"Site à vocation informative uniquement qui compile des données publiques déjà publiées par des sources officielles. Ne constitue pas un avis médical — consultez un professionnel de santé ou les autorités compétentes (OMS, ministère de la Santé RDC...) pour toute décision. Erreurs ou délais de mise à jour possibles.",
-    closeAria:"Fermer",
     sinceText:(d)=>`depuis le ${d}`,
     startingPoint:"point de départ",
     topMeta:"17<sup>e</sup> épidémie d'Ebola en RDC",
@@ -609,18 +810,49 @@ const I18N = {
     popupLastCase:"Dernier cas",
     popupDeclaredFree:"Déclaré Ebola-free",
     legendClosedFocus:"Foyer clos (aucun nouveau cas)",
-    modalConfirmedEyebrow:"Détail par province",
-    modalConfirmedTitle:(n)=>`Cas confirmés — ${n}`,
-    modalConfirmedNote:"Répartition officielle des cas confirmés cumulés par province (INSP RDC, SitRep N°090 du 12 août 2026).",
-    modalConfirmedTh1:"Province",
-    modalConfirmedTh2:"Cas confirmés",
-    modalDeathsEyebrow:"Détail par province",
-    modalDeathsTitle:(n)=>`Décès — ${n}`,
-    modalDeathsNote:"Répartition officielle par province (INSP RDC, SitRep N°090 du 12 août 2026). Ces chiffres peuvent différer légèrement du cumul national affiché plus haut, mis à jour plus fréquemment.",
-    modalDeathsTh1:"Province",
-    modalDeathsTh2:"Décès",
-    modalDeathsTh3:"Part du total",
-    deathsNotPublished:"Décès non publiés pour le dernier bilan disponible.",
+    zonesTableTitle:"Détail par zone de santé",
+    zonesTableSub:"54 zones de santé touchées sur 151 · SitRep N°090 du 12 août 2026",
+    zonesFilterAll:"Toutes les provinces",
+    zonesSearchPlaceholder:"Rechercher une zone…",
+    zonesTh1:"Zone de santé",
+    zonesTh2:"Province",
+    zonesTh3:"Cas cumulés",
+    zonesTh4:"Décès",
+    zonesTh5:"Létalité",
+    zonesTh6:"Nouv. cas (24h)",
+    zonesEmptyState:"Aucune zone ne correspond à ce filtre.",
+    zonesResultCount:(n,total)=>`${n} / ${total} zones affichées`,
+    tabOverview:"Vue d'ensemble",
+    tabZones:"Données détaillées",
+    tabReports:"Rapports de situation",
+    reportsTitle:"Rapports de situation",
+    reportsSub:"SitReps publiés par l'INSP RDC, téléchargeables au format PDF",
+    reportsSitrepLabel:(n)=>`SitRep N°${n}`,
+    reportsReportingDate:(d)=>`Situation au ${d}`,
+    reportsDownload:"Télécharger le PDF",
+    reportsEmpty:"Aucun rapport archivé pour le moment.",
+    tabVirus:"Le virus",
+    virusTitle:"Le virus Ebola",
+    virusSub:"Repères scientifiques généraux — espèce, transmission, symptômes, traitements et vaccins",
+    virusSpeciesTitle:"Espèce virale",
+    virusSpeciesLi1:"Famille <em>Filoviridae</em>, genre <em>Orthoebolavirus</em>",
+    virusSpeciesLi2:"Espèce en cause dans cette épidémie : <em>Bundibugyo ebolavirus</em> (BDBV)",
+    virusSpeciesLi3:"3ᵉ épidémie connue causée par cette espèce, après 2007 (Ouganda) et 2012 (RDC)",
+    virusSpeciesLi4:"Létalité historique de 25 à 50 % selon les épidémies passées, contre jusqu'à 90 % pour l'espèce Zaïre",
+    virusTransmissionTitle:"Transmission",
+    virusTransmissionLi1:"Contact direct avec le sang, les sécrétions ou les organes d'un animal ou d'une personne infectée, vivante ou décédée",
+    virusTransmissionLi2:"Rites funéraires à risque et transmission en milieu de soins sans protection adaptée",
+    virusTransmissionLi3:"Aucune transmission par voie aérienne",
+    virusSymptomsTitle:"Symptômes et évolution",
+    virusIncubationText:"Incubation : 2 à 21 jours (en moyenne 8 à 10 jours). Non contagieux avant l'apparition des symptômes.",
+    vphaseDryTag:"Phase précoce",
+    vphaseDryText:"Fièvre, fatigue intense, douleurs musculaires, maux de tête, mal de gorge — des signes non spécifiques, facilement confondus avec le paludisme ou la typhoïde.",
+    vphaseWetTag:"Phase avancée",
+    vphaseWetText:"Vomissements, diarrhées, éruption cutanée, atteintes rénale et hépatique, et parfois hémorragies. Diagnostic confirmé par test RT-PCR sur prélèvement sanguin.",
+    virusCompareTitle:"Traitements & vaccins : une différence clé selon l'espèce",
+    virusCompareIntro:"Les seuls traitements et le seul vaccin homologués contre Ebola ciblent l'espèce Zaïre — pas l'espèce Bundibugyo, en cause dans cette épidémie.",
+    virusCompareNote:"Pendant cette épidémie, plusieurs candidats sont évalués en essai clinique contre l'espèce Bundibugyo — dont l'anticorps à large spectre MBP134, l'antiviral remdesivir et l'obeldesivir en prophylaxie post-exposition — sous la coordination de l'OMS. En l'absence de traitement ciblé homologué, les soins de support intensifs (réhydratation, oxygénation, surveillance) restent le socle de la prise en charge et améliorent significativement les chances de survie.",
+    virusNote:"Ces informations sont des repères scientifiques généraux et ne remplacent pas les protocoles cliniques officiels. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé RDC).",
     months:['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'],
     locale:'fr-FR'
   },
@@ -632,8 +864,6 @@ const I18N = {
     labelRecovered:"Recovered",
     labelCfr:"Case fatality rate",
     cfrDelta:"deaths / confirmed cases",
-    hintConfirmed:"View breakdown by province ↗",
-    hintDeaths:"View breakdown by province ↗",
     mapTitle:"Spread map",
     mapSub:"circle size and colour = intensity of cumulative cases",
     btnCountry:"Whole DRC",
@@ -654,7 +884,6 @@ const I18N = {
     chartLoadError:"Chart.js failed to load (an internet connection is required for this CDN). Check your connection and reload the page.",
     disclaimerTitle:"Disclaimer.",
     disclaimerBody:"Informational site: it compiles public data already published by official sources. Not medical advice — consult a healthcare professional or the relevant authorities (WHO, DRC Ministry of Health) for any decision. Errors or update delays are possible.",
-    closeAria:"Close",
     sinceText:(d)=>`since ${d}`,
     startingPoint:"starting point",
     topMeta:"17<sup>th</sup> Ebola outbreak in the DRC",
@@ -674,18 +903,49 @@ const I18N = {
     popupLastCase:"Last case",
     popupDeclaredFree:"Declared Ebola-free",
     legendClosedFocus:"Closed focus (no new cases)",
-    modalConfirmedEyebrow:"Breakdown by province",
-    modalConfirmedTitle:(n)=>`Confirmed cases — ${n}`,
-    modalConfirmedNote:"Official breakdown of cumulative confirmed cases by province (DRC INSP, SitRep N°090 of 12 August 2026).",
-    modalConfirmedTh1:"Province",
-    modalConfirmedTh2:"Confirmed cases",
-    modalDeathsEyebrow:"Breakdown by province",
-    modalDeathsTitle:(n)=>`Deaths — ${n}`,
-    modalDeathsNote:"Official province breakdown (DRC INSP, SitRep N°090 of 12 August 2026). These figures may differ slightly from the national cumulative total shown above, which is updated more frequently.",
-    modalDeathsTh1:"Province",
-    modalDeathsTh2:"Deaths",
-    modalDeathsTh3:"Share of total",
-    deathsNotPublished:"Deaths not published for the latest available update.",
+    zonesTableTitle:"Detail by health zone",
+    zonesTableSub:"54 health zones affected out of 151 · SitRep N°090 of 12 August 2026",
+    zonesFilterAll:"All provinces",
+    zonesSearchPlaceholder:"Search a zone…",
+    zonesTh1:"Health zone",
+    zonesTh2:"Province",
+    zonesTh3:"Cumulative cases",
+    zonesTh4:"Deaths",
+    zonesTh5:"Fatality rate",
+    zonesTh6:"New cases (24h)",
+    zonesEmptyState:"No zone matches this filter.",
+    zonesResultCount:(n,total)=>`${n} / ${total} zones shown`,
+    tabOverview:"Overview",
+    tabZones:"Detailed data",
+    tabReports:"Situation reports",
+    reportsTitle:"Situation reports",
+    reportsSub:"SitReps published by DRC INSP, downloadable as PDF",
+    reportsSitrepLabel:(n)=>`SitRep N°${n}`,
+    reportsReportingDate:(d)=>`Situation as of ${d}`,
+    reportsDownload:"Download PDF",
+    reportsEmpty:"No report archived yet.",
+    tabVirus:"The virus",
+    virusTitle:"The Ebola virus",
+    virusSub:"General scientific background — species, transmission, symptoms, treatments and vaccines",
+    virusSpeciesTitle:"Viral species",
+    virusSpeciesLi1:"Family <em>Filoviridae</em>, genus <em>Orthoebolavirus</em>",
+    virusSpeciesLi2:"Species behind this outbreak: <em>Bundibugyo ebolavirus</em> (BDBV)",
+    virusSpeciesLi3:"3rd known outbreak caused by this species, after 2007 (Uganda) and 2012 (DRC)",
+    virusSpeciesLi4:"Historical fatality rate of 25 to 50%, versus up to 90% for the Zaire species",
+    virusTransmissionTitle:"Transmission",
+    virusTransmissionLi1:"Direct contact with the blood, secretions or organs of an infected animal or person, alive or deceased",
+    virusTransmissionLi2:"High-risk funeral rites and transmission in healthcare settings without adequate protection",
+    virusTransmissionLi3:"No airborne transmission",
+    virusSymptomsTitle:"Symptoms and clinical course",
+    virusIncubationText:"Incubation: 2 to 21 days (average 8 to 10 days). Not contagious before symptom onset.",
+    vphaseDryTag:"Early phase",
+    vphaseDryText:"Fever, intense fatigue, muscle pain, headache, sore throat — non-specific signs easily mistaken for malaria or typhoid.",
+    vphaseWetTag:"Advanced phase",
+    vphaseWetText:"Vomiting, diarrhea, skin rash, kidney and liver damage, and sometimes bleeding. Diagnosis confirmed by RT-PCR blood test.",
+    virusCompareTitle:"Treatments & vaccines: a key difference by species",
+    virusCompareIntro:"The only licensed Ebola treatments and vaccine target the Zaire species — not the Bundibugyo species behind this outbreak.",
+    virusCompareNote:"During this outbreak, several candidates are being evaluated in clinical trials against the Bundibugyo species — including the broad-spectrum antibody MBP134, the antiviral remdesivir, and obeldesivir for post-exposure prophylaxis — under WHO coordination. In the absence of a licensed targeted treatment, intensive supportive care (rehydration, oxygenation, monitoring) remains the cornerstone of care and significantly improves the chances of survival.",
+    virusNote:"This information is general scientific background and does not replace official clinical protocols. For any medical question, consult a health professional or the relevant health authorities (WHO, DRC Ministry of Health).",
     months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
     locale:'en-US'
   }
@@ -714,9 +974,10 @@ const SEED_SITREPS = [
   { date:"2026-08-01", confirmed:3748, deaths:1657, recovered:708 },
   { date:"2026-08-03", confirmed:3874, deaths:1751, recovered:749 },
   { date:"2026-08-06", confirmed:4053, deaths:1850, recovered:793 },
-  { date:"2026-08-08", confirmed:4209, deaths:1916, recovered:828 },
+  { date:"2026-08-08", confirmed:4294, deaths:1960, recovered:849 },
+  { date:"2026-08-09", confirmed:4381, deaths:2011, recovered:869 },
   { date:"2026-08-10", confirmed:4449, deaths:2061, recovered:886 },
-  { date:"2026-08-11", confirmed:4566, deaths:2128, recovered:null },
+  { date:"2026-08-11", confirmed:4566, deaths:2128, recovered:918 },
   { date:"2026-08-12", confirmed:4665, deaths:2184, recovered:965 }
 ];
 
@@ -737,35 +998,102 @@ const PROVINCES = [
    d'après ce SitRep = environ 77 jours au 12 août, soit "inactif" au sens des critères
    OMS de 42 jours, sans être déclaré éradiqué. */
 const PROVINCE_TABLE_DATA = [
-  { name:"Ituri",     confirmed:3979, deaths:1726, status:"active-epicenter" },
-  { name:"Nord-Kivu", confirmed:553,  deaths:395,  status:"active" },
-  { name:"Haut-Uélé", confirmed:119,  deaths:55,   status:"active" },
-  { name:"Tshopo",    confirmed:10,   deaths:6,    status:"active" },
-  { name:"Sud-Kivu",  confirmed:3,    deaths:1,    status:"inactive", daysNoCase:77 },
-  { name:"Bas-Uélé",  confirmed:1,    deaths:1,    status:"active" }
+  { name:"Ituri",     confirmed:3979, deaths:1726, cfr:43.4,  status:"active-epicenter", healthZonesAffected:{n:28,total:36}, newCases24h:67 },
+  { name:"Nord-Kivu", confirmed:553,  deaths:395,  cfr:71.4,  status:"active",           healthZonesAffected:{n:12,total:34}, newCases24h:25 },
+  { name:"Haut-Uélé", confirmed:119,  deaths:55,   cfr:46.2,  status:"active",           healthZonesAffected:{n:6, total:13}, newCases24h:6  },
+  { name:"Tshopo",    confirmed:10,   deaths:6,    cfr:60.0,  status:"active",           healthZonesAffected:{n:6, total:23}, newCases24h:1  },
+  { name:"Sud-Kivu",  confirmed:3,    deaths:1,    cfr:33.3,  status:"inactive", daysNoCase:77, healthZonesAffected:{n:1,total:34}, newCases24h:0 },
+  { name:"Bas-Uélé",  confirmed:1,    deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:11}, newCases24h:1  }
+];
+
+/* Indicateurs nationaux complémentaires — SitRep N°090/MVEBDB du 12/08/2026.
+   Servent de repli si data/latest.json est indisponible (voir loadRemoteLatest). */
+const NATIONAL_SEED = {
+  inCTE:634, contactsFollowUpRate:84.2, provincesAffected:6,
+  healthZonesAffected:{n:54,total:151}, healthAreasAffected:{n:246,total:3104},
+  newCases24h:100, newDeaths24h:53, newDeathsCommunity24h:28, newDeathsIntraCTE24h:25
+};
+
+/* Occupation des Centres de Traitement Ebola (CTE) par province — même SitRep.
+   Non encore affiché dans l'UI : préparé pour une étape ultérieure. */
+const CTE_SEED = [
+  { province:"Ituri", bedsInstalled:973, bedsConfirmed:496, bedsSuspect:477, occupiedConfirmed:179, occupiedSuspect:259, admissions24h:83, recovered24h:42, saturatedZonesConfirmed:["Bambu","Nizi"], saturatedZonesSuspect:["Nyankunde","Fataki","Rwankole","Kigonze"] },
+  { province:"Nord-Kivu", admissionsCumulative:231, admissions24h:63, admissions24hConfirmed:6, admissions24hSuspect:57, recovered24h:5, deaths24h:10, nonCases24h:36, hospitalized:180, hospitalizedConfirmed:24, hospitalizedSuspect:146 },
+  { province:"Haut-Uélé", admissions24h:11, admissions24hConfirmed:1, admissions24hSuspect:10, recovered24h:4, hospitalized:53, hospitalizedConfirmed:31, hospitalizedSuspect:22, bedsInstalled:78, occupancyRate:67.9 },
+  { province:"Tshopo", admissions24h:2, admissions24hConfirmed:1, admissions24hSuspect:1, hospitalized:5, bedsInstalled:12, occupancyRate:41.7 },
+  { province:"Sud-Kivu", hospitalized:11, hospitalizedDetail:{Katana:7,"Miti-Murhesa":4} }
+];
+
+/* Alertes de surveillance par province — même SitRep. Préparé pour une étape ultérieure. */
+const SURVEILLANCE_SEED = [
+  { province:"Haut-Uélé", alertsReceivedAlive:22, alertsReceivedDead:4, alertsTotal:26, alertsValidatedAlive:17, alertsValidatedDead:4, alertsInvalidatedAlive:5, alertsInvalidatedDead:0, suspectsInvestigated:21, suspectsTransferredCTE:14 },
+  { province:"Ituri", alertsReceivedAlive:529, alertsReceivedDead:39, alertsTotal:568, alertsValidatedAlive:124, alertsValidatedDead:38, alertsInvalidatedAlive:270, alertsInvalidatedDead:0, suspectsInvestigated:122, suspectsTransferredCTE:98 },
+  { province:"Nord-Kivu", alertsReceivedAlive:824, alertsReceivedDead:58, alertsTotal:882, alertsValidatedAlive:76, alertsValidatedDead:58, alertsInvalidatedAlive:741, alertsInvalidatedDead:0, suspectsInvestigated:132, suspectsTransferredCTE:67 },
+  { province:"Sud-Kivu", alertsReceivedAlive:15, alertsReceivedDead:0, alertsTotal:15, alertsValidatedAlive:3, alertsValidatedDead:0, alertsInvalidatedAlive:12, alertsInvalidatedDead:0, suspectsInvestigated:3, suspectsTransferredCTE:3 },
+  { province:"Tshopo", alertsReceivedAlive:39, alertsReceivedDead:1, alertsTotal:40, alertsValidatedAlive:7, alertsValidatedDead:1, alertsInvalidatedAlive:32, alertsInvalidatedDead:0, suspectsInvestigated:8, suspectsTransferredCTE:5 }
+];
+const SURVEILLANCE_TOTAL_SEED = { alertsReceivedAlive:1429, alertsReceivedDead:102, alertsTotal:1531, alertsValidatedAlive:227, alertsValidatedDead:101, alertsInvalidatedAlive:1060, alertsInvalidatedDead:0, suspectsInvestigated:286, suspectsTransferredCTE:187 };
+
+/* Points de contrôle / points d'entrée (PoE/PoC) — même SitRep. Préparé pour une étape ultérieure. */
+const POE_POC_SEED = [
+  { province:"Ituri", travelersScreened:134082, activePoints:1, activePointsTotal:11 },
+  { province:"Haut-Uélé", travelersScreened:18379, screeningRate:99.5, activePoints:10, activePointsTotal:38 },
+  { province:"Tshopo", travelersScreened:6152, activePoints:7, activePointsTotal:20, screeningRate:99.3 }
+];
+const POE_POC_TOTAL_SEED = { travelersScreened:158613, screeningRate:97.4 };
+
+/* Rapports de situation officiels archivés — préparé pour l'onglet "Rapports". */
+const REPORTS_SEED = [
+  { sitrepNumber:"086", reportingDate:"2026-08-08", publicationDate:"2026-08-09", file:"reports/SITREP_MVEBDB_086_080826.pdf", confirmed:4294, deaths:1960 },
+  { sitrepNumber:"087", reportingDate:"2026-08-09", publicationDate:"2026-08-10", file:"reports/SITREP_MVEBDB_087_09_08_2026_VF.pdf", confirmed:4381, deaths:2011 },
+  { sitrepNumber:"088", reportingDate:"2026-08-10", publicationDate:"2026-08-11", file:"reports/SITREP_MVEBDB_088_10_08_2026_11.pdf", confirmed:4449, deaths:2061 },
+  { sitrepNumber:"089", reportingDate:"2026-08-11", publicationDate:"2026-08-12", file:"reports/SITREP_MVEBDB_089_11_08_2026.pdf", confirmed:4566, deaths:2128 },
+  { sitrepNumber:"090", reportingDate:"2026-08-12", publicationDate:"2026-08-13", file:"reports/SITREP_MVEBDB_090_12_08_2026.pdf", confirmed:4665, deaths:2184 }
+];
+
+/* Chronologie des faits clés — même SitRep. Préparé pour une étape ultérieure. */
+const TIMELINE_SEED = [
+  { date:"2026-04-24", label:"Détection des premiers cas suspects" },
+  { date:"2026-05-15", label:"Confirmation biologique du virus Ebola Bundibugyo — déclaration officielle de la 17ᵉ épidémie" },
+  { date:"2026-05-17", label:"Déclaration de l'urgence de santé publique de portée nationale" },
+  { date:"2026-05-18", label:"Déclaration de l'urgence de santé publique de portée continentale" }
 ];
 
 /* Répartition par zone de santé — INSP RDC, SitRep N°090/MVEBDB du 12/08/2026.
    Ce SitRep publie pour la première fois le détail cumulé zone par zone pour les
    6 provinces touchées (pas seulement l'Ituri) : le total de chaque province
    correspond exactement à son total agrégé affiché ailleurs sur le site. */
+/* [nom, cas cumulés, province, décès cumulés, nouveaux cas (24h), décès communautaires (24h), décès intra-CTE (24h)] */
 const HEALTH_ZONES = [
-  ["Bunia",1095,"Ituri"],["Rwampara",818,"Ituri"],["Mongbwalu",581,"Ituri"],["Nizi",509,"Ituri"],["Lita",169,"Ituri"],
-  ["Nia Nia",151,"Ituri"],["Nyankunde",118,"Ituri"],["Mangala",122,"Ituri"],["Bambu",93,"Ituri"],["Tchomia",48,"Ituri"],
-  ["Fataki",59,"Ituri"],["Komanda",42,"Ituri"],["Kilo",30,"Ituri"],["Damas",21,"Ituri"],["Mandima",19,"Ituri"],
-  ["Mambasa",13,"Ituri"],["Drodro",13,"Ituri"],["Lolwa",14,"Ituri"],["Adja",11,"Ituri"],["Logo",11,"Ituri"],
-  ["Aungba",10,"Ituri"],["Rimba",9,"Ituri"],["Ariwara",7,"Ituri"],["Aru",7,"Ituri"],["Mahagi",4,"Ituri"],
-  ["Kambala",2,"Ituri"],["Gety",2,"Ituri"],["Boga",1,"Ituri"],
-  ["Katwa",262,"Nord-Kivu"],["Butembo",107,"Nord-Kivu"],["Beni",85,"Nord-Kivu"],["Musienene",55,"Nord-Kivu"],
-  ["Kyondo",14,"Nord-Kivu"],["Kalunguta",10,"Nord-Kivu"],["Masereka",7,"Nord-Kivu"],["Oicha",5,"Nord-Kivu"],
-  ["Vuhovi",4,"Nord-Kivu"],["Mabalako",2,"Nord-Kivu"],["Goma",1,"Nord-Kivu"],["Lubero",1,"Nord-Kivu"],
-  ["Isiro",37,"Haut-Uélé"],["Wamba",41,"Haut-Uélé"],["Boma Mangbetu",22,"Haut-Uélé"],["Pawa",17,"Haut-Uélé"],
-  ["Rungu",1,"Haut-Uélé"],["Gombari",1,"Haut-Uélé"],
-  ["Kabondo",3,"Tshopo"],["Bafwasende",1,"Tshopo"],["Lubunga",1,"Tshopo"],["Makiso-Kisangani",3,"Tshopo"],
-  ["Mangobo",1,"Tshopo"],["Wanie-Rukula",1,"Tshopo"],
-  ["Miti-Murhesa",3,"Sud-Kivu"],
-  ["Buta",1,"Bas-Uélé"]
-].map(([name,cases,province])=>({name,cases,province}));
+  ["Bunia",1095,"Ituri",333,23,4,4],["Rwampara",818,"Ituri",319,18,2,2],["Mongbwalu",581,"Ituri",282,2,1,1],
+  ["Nizi",509,"Ituri",231,7,0,0],["Lita",169,"Ituri",97,0,0,0],
+  ["Nia Nia",151,"Ituri",88,5,1,1],["Nyankunde",118,"Ituri",35,1,0,0],["Mangala",122,"Ituri",76,2,0,0],
+  ["Bambu",93,"Ituri",22,0,0,0],["Tchomia",48,"Ituri",24,0,0,0],
+  ["Fataki",59,"Ituri",30,4,1,1],["Komanda",42,"Ituri",29,0,0,0],["Kilo",30,"Ituri",12,0,0,0],
+  ["Damas",21,"Ituri",9,1,0,0],["Mandima",19,"Ituri",13,0,0,0],
+  ["Mambasa",13,"Ituri",6,0,0,0],["Drodro",13,"Ituri",6,1,0,0],["Lolwa",14,"Ituri",4,3,0,0],
+  ["Adja",11,"Ituri",1,0,0,0],["Logo",11,"Ituri",5,0,0,0],
+  ["Aungba",10,"Ituri",5,0,0,0],["Rimba",9,"Ituri",4,0,0,0],["Ariwara",7,"Ituri",2,0,0,0],
+  ["Aru",7,"Ituri",6,0,0,0],["Mahagi",4,"Ituri",1,0,0,0],
+  ["Kambala",2,"Ituri",0,0,0,0],["Gety",2,"Ituri",1,0,0,0],["Boga",1,"Ituri",1,0,0,0],
+  ["Katwa",262,"Nord-Kivu",180,13,9,5],["Butembo",107,"Nord-Kivu",91,2,2,3],["Beni",85,"Nord-Kivu",65,5,3,3],
+  ["Musienene",55,"Nord-Kivu",32,2,0,1],
+  ["Kyondo",14,"Nord-Kivu",12,1,1,1],["Kalunguta",10,"Nord-Kivu",4,0,0,0],["Masereka",7,"Nord-Kivu",4,0,0,0],
+  ["Oicha",5,"Nord-Kivu",4,0,0,0],
+  ["Vuhovi",4,"Nord-Kivu",1,1,0,0],["Mabalako",2,"Nord-Kivu",1,1,1,1],["Goma",1,"Nord-Kivu",0,0,0,0],
+  ["Lubero",1,"Nord-Kivu",1,0,0,0],
+  ["Isiro",37,"Haut-Uélé",19,4,1,1],["Wamba",41,"Haut-Uélé",16,0,0,0],["Boma Mangbetu",22,"Haut-Uélé",5,2,0,0],
+  ["Pawa",17,"Haut-Uélé",14,0,0,0],
+  ["Rungu",1,"Haut-Uélé",0,0,0,0],["Gombari",1,"Haut-Uélé",1,0,0,0],
+  ["Kabondo",3,"Tshopo",2,1,1,1],["Bafwasende",1,"Tshopo",0,0,0,0],["Lubunga",1,"Tshopo",0,0,0,0],
+  ["Makiso-Kisangani",3,"Tshopo",3,0,0,0],
+  ["Mangobo",1,"Tshopo",1,0,0,0],["Wanie-Rukula",1,"Tshopo",0,0,0,0],
+  ["Miti-Murhesa",3,"Sud-Kivu",1,0,0,0],
+  ["Buta",1,"Bas-Uélé",1,1,1,0]
+].map(([name,cases,province,deaths,newCases24h,deathsCommunity24h,deathsIntraCTE24h])=>{
+  const cfr = cases>0 ? +(deaths/cases*100).toFixed(1) : 0;
+  return {name,cases,province,deaths,cfr,newCases24h,deathsCommunity24h,deathsIntraCTE24h};
+});
 
 /* Coordonnées approximatives des chefs-lieux de zone de santé, à des fins de
    visualisation — non issues d'un référentiel géographique officiel. Les zones
@@ -830,6 +1158,38 @@ async function loadRemoteSitreps(){
     console.warn('data/sitreps.json indisponible, utilisation des données de référence intégrées.', e);
   }
 }
+/* national/cte/surveillance/poePoc/timeline : variables mutables, écrasées par
+   data/latest.json si disponible, sinon on garde les *_SEED ci-dessus. */
+let national = NATIONAL_SEED;
+let cteData = CTE_SEED;
+let surveillanceData = SURVEILLANCE_SEED;
+let surveillanceTotal = SURVEILLANCE_TOTAL_SEED;
+let poePocData = POE_POC_SEED;
+let poePocTotal = POE_POC_TOTAL_SEED;
+let reportsData = REPORTS_SEED;
+let timelineData = TIMELINE_SEED;
+
+async function loadRemoteLatest(){
+  try{
+    const res = await fetch('/data/latest.json', { cache:'no-store' });
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(remote.national) national = remote.national;
+    if(remote.cte) cteData = remote.cte;
+    if(remote.surveillance) surveillanceData = remote.surveillance;
+    if(remote.surveillanceTotal) surveillanceTotal = remote.surveillanceTotal;
+    if(remote.poePoc) poePocData = remote.poePoc;
+    if(remote.poePocTotal) poePocTotal = remote.poePocTotal;
+    if(remote.reports) reportsData = remote.reports;
+    if(remote.timeline) timelineData = remote.timeline;
+    // provinces et zones de santé restent pilotées par PROVINCE_TABLE_DATA /
+    // HEALTH_ZONES (déjà à jour) tant que les étapes suivantes n'ajoutent pas
+    // leur propre rendu dynamique à partir de ce fichier.
+  }catch(e){
+    console.warn('data/latest.json indisponible, utilisation des données de référence intégrées.', e);
+  }
+}
+
 let chart;
 
 function sortedSitreps(){
@@ -1074,64 +1434,154 @@ function renderAll(){
   safeRun(renderKPIs, 'kpis');
   safeRun(renderChart, 'chart');
   safeRun(renderMap, 'map');
+  safeRun(renderZonesTable, 'zonesTable');
+  safeRun(renderReportsList, 'reportsList');
 }
 
-/* ============ MODAL DE DÉTAIL ============ */
-const modalOverlay = document.getElementById('modalOverlay');
-const modalEyebrow = document.getElementById('modalEyebrow');
-const modalTitle = document.getElementById('modalTitle');
-const modalNote = document.getElementById('modalNote');
-const modalHead = document.getElementById('modalTableHead');
-const modalBody = document.getElementById('modalTableBody');
+/* ============ RAPPORTS DE SITUATION OFFICIELS ============ */
+function renderReportsList(){
+  const container = document.getElementById('reportsList');
+  if(!container) return;
+  if(!reportsData || reportsData.length===0){
+    container.innerHTML = `<div class="map-note" style="text-align:center;">${tr('reportsEmpty')}</div>`;
+    return;
+  }
+  const sorted = [...reportsData].sort((a,b)=>b.reportingDate.localeCompare(a.reportingDate));
+  container.innerHTML = sorted.map(r=>`
+    <div class="report-row">
+      <div class="rr-meta">
+        <div class="rr-sitrep">${tr('reportsSitrepLabel')(r.sitrepNumber)}</div>
+        <div class="rr-date">${tr('reportsReportingDate')(frDate(r.reportingDate))}</div>
+        <div class="rr-stats">${fmt(r.confirmed)} ${tr('labelConfirmed').toLowerCase()} · ${fmt(r.deaths)} ${tr('labelDeaths').toLowerCase()}</div>
+      </div>
+      <a class="rr-download" href="${r.file}" download target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>${tr('reportsDownload')}</span>
+      </a>
+    </div>
+  `).join('');
+}
 
-let lastModalType = null;
-function openModal(type){
-  lastModalType = type;
-  const s = sortedSitreps();
-  const latest = s[s.length-1];
+/* ============ TABLEAU DES ZONES DE SANTÉ ============ */
+let zonesSortKey = 'cases';
+let zonesSortDir = 'desc';
+let zonesFilterProvinceVal = 'all';
+let zonesSearchVal = '';
 
-  if(type === 'confirmed'){
-    modalEyebrow.textContent = tr('modalConfirmedEyebrow');
-    modalTitle.textContent = tr('modalConfirmedTitle')(fmt(latest.confirmed));
-    modalNote.textContent = tr('modalConfirmedNote');
-    modalHead.innerHTML = `<tr><th>${tr('modalConfirmedTh1')}</th><th style="text-align:right;">${tr('modalConfirmedTh2')}</th></tr>`;
-    const rows = [...PROVINCE_TABLE_DATA].sort((a,b)=>b.confirmed-a.confirmed);
-    modalBody.innerHTML = rows.map(p=>
-      `<tr><td>${p.name}</td><td class="num" style="color:var(--accent-info);">${fmt(p.confirmed)}</td></tr>`
+/* Couleurs distinctes par province, pour le point dans le tableau des zones. */
+const PROVINCE_COLORS = {
+  "Ituri":"#3568C4", "Nord-Kivu":"#B4790E", "Haut-Uélé":"#2E8571",
+  "Tshopo":"#8B5CF6", "Sud-Kivu":"#64748B", "Bas-Uélé":"#C24A24"
+};
+function cfrBadgeClass(cfr){
+  if(cfr < 30) return 'zone-badge-low';
+  if(cfr < 50) return 'zone-badge-mid';
+  return 'zone-badge-high';
+}
+
+const ZONES_COLUMNS = [
+  { key:'name',        i18n:'zonesTh1' },
+  { key:'province',    i18n:'zonesTh2' },
+  { key:'cases',       i18n:'zonesTh3', numeric:true },
+  { key:'deaths',      i18n:'zonesTh4', numeric:true },
+  { key:'cfr',         i18n:'zonesTh5', numeric:true },
+  { key:'newCases24h', i18n:'zonesTh6', numeric:true }
+];
+
+function initZonesTableControls(){
+  const provSelect = document.getElementById('zonesFilterProvince');
+  if(provSelect && !provSelect.dataset.built){
+    provSelect.dataset.built = '1';
+    provSelect.addEventListener('change', ()=>{ zonesFilterProvinceVal = provSelect.value; renderZonesTable(); });
+  }
+  const search = document.getElementById('zonesSearch');
+  if(search && !search.dataset.built){
+    search.dataset.built = '1';
+    search.addEventListener('input', ()=>{ zonesSearchVal = search.value.trim().toLowerCase(); renderZonesTable(); });
+  }
+  const headRow = document.getElementById('zonesTableHead');
+  if(headRow && !headRow.dataset.built){
+    headRow.dataset.built = '1';
+    headRow.innerHTML = ZONES_COLUMNS.map(c=>
+      `<th data-key="${c.key}" style="cursor:pointer;user-select:none;white-space:nowrap;" data-i18n="${c.i18n}"></th>`
     ).join('');
-  } else {
-    modalEyebrow.textContent = tr('modalDeathsEyebrow');
-    modalTitle.textContent = tr('modalDeathsTitle')(latest.deaths!==null&&latest.deaths!==undefined ? fmt(latest.deaths) : '—');
-    modalNote.textContent = tr('modalDeathsNote');
-    modalHead.innerHTML = `<tr><th>${tr('modalDeathsTh1')}</th><th style="text-align:right;">${tr('modalDeathsTh2')}</th><th style="text-align:right;">${tr('modalDeathsTh3')}</th></tr>`;
-    if(latest.deaths!==null && latest.deaths!==undefined){
-      const rows = [...PROVINCE_TABLE_DATA].sort((a,b)=>b.deaths-a.deaths);
-      modalBody.innerHTML = rows.map(p=>{
-        const pct = (p.deaths/latest.deaths*100).toFixed(1)+' %';
-        return `<tr><td>${p.name}</td><td class="num" style="color:var(--accent-critical);">${fmt(p.deaths)}</td><td class="num" style="color:var(--ink-dim);">${pct}</td></tr>`;
-      }).join('');
-    } else {
-      modalBody.innerHTML = `<tr><td colspan="3" style="color:var(--ink-faint);">${tr('deathsNotPublished')}</td></tr>`;
-    }
+    headRow.querySelectorAll('th').forEach(th=>{
+      th.addEventListener('click', ()=>{
+        const key = th.getAttribute('data-key');
+        if(zonesSortKey === key){ zonesSortDir = zonesSortDir==='asc' ? 'desc' : 'asc'; }
+        else { zonesSortKey = key; zonesSortDir = ZONES_COLUMNS.find(c=>c.key===key).numeric ? 'desc' : 'asc'; }
+        renderZonesTable();
+      });
+    });
+  }
+}
+
+function renderZonesTable(){
+  initZonesTableControls();
+
+  const provSelect = document.getElementById('zonesFilterProvince');
+  const currentOptions = [...provSelect.options].map(o=>o.value);
+  const provinces = [...new Set(HEALTH_ZONES.map(z=>z.province))];
+  const wantedOptions = ['all', ...provinces];
+  if(JSON.stringify(currentOptions) !== JSON.stringify(wantedOptions)){
+    provSelect.innerHTML = `<option value="all">${tr('zonesFilterAll')}</option>` +
+      provinces.map(p=>`<option value="${p}">${p}</option>`).join('');
+    provSelect.value = zonesFilterProvinceVal;
   }
 
-  modalOverlay.classList.add('open');
-  modalOverlay.setAttribute('aria-hidden','false');
-  document.getElementById('modalClose').focus();
-}
-function closeModal(){
-  modalOverlay.classList.remove('open');
-  modalOverlay.setAttribute('aria-hidden','true');
-  lastModalType = null;
-}
+  // en-têtes (texte + indicateur de tri)
+  document.getElementById('zonesTableHead').querySelectorAll('th').forEach(th=>{
+    const key = th.getAttribute('data-key');
+    const col = ZONES_COLUMNS.find(c=>c.key===key);
+    let label = tr(col.i18n);
+    if(zonesSortKey === key) label += zonesSortDir==='asc' ? ' ▲' : ' ▼';
+    th.textContent = label;
+  });
 
-document.getElementById('cardConfirmed').addEventListener('click', ()=>openModal('confirmed'));
-document.getElementById('cardDeaths').addEventListener('click', ()=>openModal('deaths'));
-document.getElementById('cardConfirmed').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal('confirmed'); } });
-document.getElementById('cardDeaths').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal('deaths'); } });
-document.getElementById('modalClose').addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', e=>{ if(e.target === modalOverlay) closeModal(); });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modalOverlay.classList.contains('open')) closeModal(); });
+  let rows = HEALTH_ZONES.filter(z=>{
+    if(zonesFilterProvinceVal!=='all' && z.province!==zonesFilterProvinceVal) return false;
+    if(zonesSearchVal && !z.name.toLowerCase().includes(zonesSearchVal)) return false;
+    return true;
+  });
+
+  rows = rows.slice().sort((a,b)=>{
+    const col = ZONES_COLUMNS.find(c=>c.key===zonesSortKey);
+    let av = a[zonesSortKey], bv = b[zonesSortKey];
+    if(!col.numeric){ av = String(av).toLowerCase(); bv = String(bv).toLowerCase(); }
+    let cmp = av < bv ? -1 : av > bv ? 1 : 0;
+    return zonesSortDir==='asc' ? cmp : -cmp;
+  });
+
+  const body = document.getElementById('zonesTableBody');
+  const emptyState = document.getElementById('zonesEmptyState');
+  const resultCount = document.getElementById('zonesResultCount');
+
+  if(rows.length===0){
+    body.innerHTML = '';
+    emptyState.style.display = 'block';
+  } else {
+    emptyState.style.display = 'none';
+    const maxCases = Math.max(...HEALTH_ZONES.map(z=>z.cases));
+    body.innerHTML = rows.map(z=>{
+      const barPct = maxCases>0 ? Math.max(2, Math.round(z.cases/maxCases*100)) : 0;
+      const dotColor = PROVINCE_COLORS[z.province] || 'var(--ink-faint)';
+      const newBadge = z.newCases24h>0
+        ? `<span class="zone-new-badge has-new">+${fmt(z.newCases24h)}</span>`
+        : `<span class="zone-new-badge no-new">${fmt(z.newCases24h)}</span>`;
+      return `
+      <tr>
+        <td><div class="zone-name-cell"><span class="zdot" style="background:${dotColor};"></span>${z.name}</div></td>
+        <td>${z.province}</td>
+        <td><div class="zone-cases-cell"><span class="zone-cases-num">${fmt(z.cases)}</span><div class="zone-bar-track"><div class="zone-bar-fill" style="width:${barPct}%;background:${dotColor};"></div></div></div></td>
+        <td>${fmt(z.deaths)}</td>
+        <td><span class="zone-badge ${cfrBadgeClass(z.cfr)}">${z.cfr.toFixed(1)}%</span></td>
+        <td>${newBadge}</td>
+      </tr>
+    `;
+    }).join('');
+  }
+  resultCount.textContent = tr('zonesResultCount')(rows.length, HEALTH_ZONES.length);
+}
 
 /* ============ LANGUE ============ */
 function applyStaticI18n(){
@@ -1140,8 +1590,16 @@ function applyStaticI18n(){
     const val = tr(key);
     if(typeof val === 'string') el.textContent = val;
   });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-html');
+    const val = tr(key);
+    if(typeof val === 'string') el.innerHTML = val;
+  });
   document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
     el.setAttribute('aria-label', tr(el.getAttribute('data-i18n-aria')));
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    el.setAttribute('placeholder', tr(el.getAttribute('data-i18n-placeholder')));
   });
   const latestEntry = sortedSitreps()[sortedSitreps().length-1];
   const [fy,fm,fd] = latestEntry.date.split('-');
@@ -1166,9 +1624,6 @@ function setLang(lang){
   if(map){
     document.getElementById('btnViewCountry').classList.add('active');
     document.getElementById('btnViewIturi').classList.remove('active');
-  }
-  if(modalOverlay.classList.contains('open') && lastModalType){
-    openModal(lastModalType);
   }
 }
 document.getElementById('langFr').addEventListener('click', ()=>setLang('fr'));
@@ -1284,13 +1739,40 @@ async function handleShare(){
 }
 document.getElementById('btnShare').addEventListener('click', handleShare);
 
+/* ============ ONGLETS ============ */
+const TAB_NAMES = ['overview','zones','reports','virus'];
+let currentTab = 'overview';
+
+function switchTab(name, updateHash){
+  if(!TAB_NAMES.includes(name)) name = 'overview';
+  currentTab = name;
+  TAB_NAMES.forEach(t=>{
+    document.getElementById('tab-'+t).classList.toggle('active', t===name);
+  });
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-tab')===name);
+  });
+  if(updateHash!==false && location.hash.replace('#','')!==name){
+    try{ history.replaceState(null, '', '#'+name); }
+    catch(e){ try{ location.hash = name; }catch(e2){ /* environnement restreint : on ignore, l'onglet reste fonctionnel */ } }
+  }
+  if(name==='overview' && map){
+    setTimeout(()=>map.invalidateSize(), 0);
+  }
+}
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>switchTab(btn.getAttribute('data-tab')));
+});
+window.addEventListener('hashchange', ()=>switchTab(location.hash.replace('#',''), false));
+
 /* ============ INIT ============ */
 document.getElementById('langFr').classList.toggle('active', currentLang==='fr');
 document.getElementById('langEn').classList.toggle('active', currentLang==='en');
 safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
-loadRemoteSitreps().then(()=>{
+switchTab(location.hash.replace('#',''), false);
+Promise.all([loadRemoteSitreps(), loadRemoteLatest()]).then(()=>{
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
 });
