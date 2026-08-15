@@ -110,12 +110,38 @@ def extract_kpi_band(page):
     }
 
 
-def extract_meta(full_text):
+def extract_meta(full_text, fallback_number=None):
+    """Extrait la méta d'un SitRep. Tolère plusieurs formats de référence
+    (le format "N°XXX/MVEBDB/DD/MM/YYYY" n'est utilisé qu'à partir d'un
+    certain numéro ; les sitreps plus anciens ont d'autres formats, ou
+    n'ont pas de date de publication au même endroit). Ne lève plus
+    d'exception : renvoie ce qu'elle a pu trouver, avec fallback_number
+    (déduit du nom de fichier par l'appelant) en dernier recours pour le
+    numéro."""
+    sitrep_number = None
+    sitrep_ref = None
+
     m = re.search(r"SitRep N°(\d+)/MVEBDB/(\d{2})/(\d{2})/(\d{4})", full_text)
-    if not m:
-        raise ValueError("Impossible de trouver la référence du SitRep dans le PDF.")
-    sitrep_number = m.group(1)
-    sitrep_ref = m.group(0)
+    if m:
+        sitrep_number = m.group(1)
+        sitrep_ref = m.group(0)
+    else:
+        # formats plus anciens/variables : "SitRep N°016", "SitRep MVE N° 012/2026",
+        # "SitRep_MVE_RDC_N°017_01_06_2026", etc. — on récupère juste le numéro.
+        for pattern in (
+            r"SitRep[_\s]+MVE[_\s]+RDC[_\s]+N[°O]?\s*0*(\d{1,3})",
+            r"SitRep[_\s]+MVE[_\s]+N[°O]?\s*0*(\d{1,3})",
+            r"SitRep\s+N[°O]?\s*0*(\d{1,3})",
+        ):
+            m2 = re.search(pattern, full_text, re.IGNORECASE)
+            if m2:
+                sitrep_number = m2.group(1).zfill(3)
+                sitrep_ref = m2.group(0).strip()
+                break
+
+    if sitrep_number is None:
+        sitrep_number = fallback_number
+        sitrep_ref = f"SitRep N°{fallback_number}" if fallback_number else None
 
     md = re.search(
         r"Date de rapportage\s*:\s*(\d{1,2})\s+(\w+)\s+(\d{4}).*?"
@@ -131,6 +157,23 @@ def extract_meta(full_text):
             reporting_date = f"{y1}-{mo1n}-{int(d1):02d}"
         if mo2n:
             publication_date = f"{y2}-{mo2n}-{int(d2):02d}"
+    else:
+        # repli : une seule date "Date de rapportage" (numérique ou en lettres),
+        # sans ligne "Date de publication" associée.
+        md2 = re.search(r"Date de rapportage\s*:\s*(\d{1,2})\s+(\w+)\s+(\d{4})", full_text)
+        if md2:
+            d1, mo1, y1 = md2.groups()
+            mo1n = MONTHS_FR.get(mo1.lower())
+            if mo1n:
+                reporting_date = f"{y1}-{mo1n}-{int(d1):02d}"
+        else:
+            md3 = re.search(r"Date de rapportage\s*:\s*(\d{1,2})[/.](\d{1,2})[/.](\d{4})", full_text)
+            if md3:
+                d1, mo1, y1 = md3.groups()
+                reporting_date = f"{y1}-{int(mo1):02d}-{int(d1):02d}"
+
+    if sitrep_number is None:
+        raise ValueError("Impossible de trouver la référence du SitRep dans le PDF.")
 
     return {
         "sitrepNumber": sitrep_number,
@@ -305,16 +348,24 @@ def parse_report_summary(pdf_path):
     """Analyse légère d'un SitRep pour la liste des rapports (onglet
     'Rapports de situation') : juste la méta et les totaux nationaux,
     sans le détail des zones de santé (inutile pour cet onglet)."""
+    fallback_number = None
+    m = re.search(r"(\d{3})", os.path.basename(pdf_path))
+    if m:
+        fallback_number = m.group(1)
+
     with pdfplumber.open(pdf_path) as pdf:
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
-        meta = extract_meta(full_text)
-        prov_table = extract_province_summary(pdf)
+        meta = extract_meta(full_text, fallback_number=fallback_number)
         confirmed = deaths = None
-        if prov_table:
-            _, total_row = parse_province_summary(prov_table)
-            if total_row:
-                confirmed = norm_int(total_row[1])
-                deaths = norm_int(total_row[2])
+        try:
+            prov_table = extract_province_summary(pdf)
+            if prov_table:
+                _, total_row = parse_province_summary(prov_table)
+                if total_row:
+                    confirmed = norm_int(total_row[1])
+                    deaths = norm_int(total_row[2])
+        except Exception:
+            pass  # mise en page trop différente pour ce sitrep : on garde juste la méta
     return {
         "sitrepNumber": meta["sitrepNumber"],
         "reportingDate": meta["reportingDate"],
@@ -436,7 +487,7 @@ def main():
 
     with pdfplumber.open(report_path) as pdf:
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
-        meta = extract_meta(full_text)
+        meta = extract_meta(full_text, fallback_number=f"{report_num:03d}")
         kpis = extract_kpi_band(pdf.pages[0])
         sidebar = extract_sidebar_text(pdf.pages[0])
 
