@@ -1193,7 +1193,7 @@ async function loadRemoteLatest(){
 let chart;
 
 function sortedSitreps(){
-  return [...sitreps].sort((a,b)=>a.date.localeCompare(b.date));
+  return [...sitreps].filter(s=>s.date).sort((a,b)=>a.date.localeCompare(b.date));
 }
 
 /* ============ RENDU KPI ============ */
@@ -1239,6 +1239,7 @@ function renderKPIs(){
 }
 
 function frDate(iso){
+  if(!iso) return tr('reportsUnknownDate') || '—';
   const [y,m,d] = iso.split('-');
   const mois = tr('months');
   return `${parseInt(d,10)} ${mois[parseInt(m,10)-1]}`;
@@ -1446,7 +1447,7 @@ function renderReportsList(){
     container.innerHTML = `<div class="map-note" style="text-align:center;">${tr('reportsEmpty')}</div>`;
     return;
   }
-  const sorted = [...reportsData].sort((a,b)=>b.reportingDate.localeCompare(a.reportingDate));
+  const sorted = [...reportsData].sort((a,b)=>(b.reportingDate||'').localeCompare(a.reportingDate||''));
   container.innerHTML = sorted.map(r=>`
     <div class="report-row">
       <div class="rr-meta">
