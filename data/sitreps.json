@@ -1,39 +1,231 @@
 [
   {
-    "date": "2026-05-16",
+    "date": "2026-05-14",
     "confirmed": 8,
+    "deaths": 4,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-17",
+    "confirmed": 13,
     "deaths": null,
     "recovered": null
   },
   {
-    "date": "2026-05-31",
+    "date": "2026-05-19",
+    "confirmed": 33,
+    "deaths": 4,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-19",
+    "confirmed": 51,
+    "deaths": 4,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-20",
+    "confirmed": 64,
+    "deaths": 6,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-21",
+    "confirmed": 83,
+    "deaths": 9,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-22",
+    "confirmed": 91,
+    "deaths": 10,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-23",
+    "confirmed": 101,
+    "deaths": 10,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-24",
+    "confirmed": 105,
+    "deaths": 10,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-25",
+    "confirmed": 106,
+    "deaths": 12,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-26",
+    "confirmed": 121,
+    "deaths": 17,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-27",
+    "confirmed": 125,
+    "deaths": 17,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-28",
+    "confirmed": 210,
+    "deaths": 17,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-29",
+    "confirmed": 263,
+    "deaths": 42,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-30",
     "confirmed": 282,
-    "deaths": null,
+    "deaths": 42,
+    "recovered": null
+  },
+  {
+    "date": "2026-05-31",
+    "confirmed": 321,
+    "deaths": 48,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-01",
+    "confirmed": 344,
+    "deaths": 60,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-02",
+    "confirmed": 363,
+    "deaths": 62,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-03",
+    "confirmed": 381,
+    "deaths": 64,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-04",
+    "confirmed": 452,
+    "deaths": 82,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-05",
+    "confirmed": 488,
+    "deaths": 86,
     "recovered": null
   },
   {
     "date": "2026-06-06",
     "confirmed": 515,
     "deaths": 91,
-    "recovered": 12
-  },
-  {
-    "date": "2026-06-16",
-    "confirmed": 827,
-    "deaths": 194,
     "recovered": null
   },
   {
-    "date": "2026-06-18",
+    "date": "2026-06-07",
+    "confirmed": 550,
+    "deaths": 101,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-08",
+    "confirmed": 598,
+    "deaths": 115,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-09",
+    "confirmed": 635,
+    "deaths": 127,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-10",
+    "confirmed": 676,
+    "deaths": 136,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-11",
+    "confirmed": 689,
+    "deaths": 139,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-13",
+    "confirmed": 782,
+    "deaths": 181,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-14",
+    "confirmed": 808,
+    "deaths": 192,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-15",
+    "confirmed": 837,
+    "deaths": 196,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-16",
     "confirmed": 875,
     "deaths": 202,
     "recovered": null
   },
   {
-    "date": "2026-06-22",
+    "date": "2026-06-17",
+    "confirmed": 896,
+    "deaths": 232,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-18",
+    "confirmed": 933,
+    "deaths": 245,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-19",
+    "confirmed": 956,
+    "deaths": 247,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-20",
+    "confirmed": 1003,
+    "deaths": 254,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-21",
     "confirmed": 1048,
     "deaths": 267,
-    "recovered": 112
+    "recovered": null
+  },
+  {
+    "date": "2026-06-22",
+    "confirmed": 1094,
+    "deaths": 277,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-23",
+    "confirmed": 1118,
+    "deaths": 291,
+    "recovered": null
   },
   {
     "date": "2026-06-24",
@@ -42,47 +234,256 @@
     "recovered": null
   },
   {
+    "date": "2026-06-25",
+    "confirmed": 1203,
+    "deaths": 321,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-27",
+    "confirmed": 1274,
+    "deaths": 360,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-29",
+    "confirmed": 1333,
+    "deaths": 399,
+    "recovered": null
+  },
+  {
+    "date": "2026-06-30",
+    "confirmed": 1406,
+    "deaths": 438,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-01",
+    "confirmed": 1460,
+    "deaths": 452,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-02",
+    "confirmed": 1502,
+    "deaths": 473,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-03",
+    "confirmed": 1528,
+    "deaths": 492,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-04",
+    "confirmed": 1561,
+    "deaths": 506,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-05",
+    "confirmed": 1624,
+    "deaths": 521,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-06",
+    "confirmed": 1708,
+    "deaths": 580,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-07",
+    "confirmed": 1759,
+    "deaths": 600,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-08",
+    "confirmed": 1792,
+    "deaths": 625,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-09",
+    "confirmed": 1830,
+    "deaths": 648,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-10",
+    "confirmed": 1873,
+    "deaths": 672,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-11",
+    "confirmed": 1926,
+    "deaths": 702,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-12",
+    "confirmed": 1963,
+    "deaths": 719,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-13",
+    "confirmed": 2011,
+    "deaths": 754,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-14",
+    "confirmed": 2073,
+    "deaths": 796,
+    "recovered": null
+  },
+  {
     "date": "2026-07-15",
-    "confirmed": 2100,
-    "deaths": 800,
-    "recovered": null,
-    "approx": true
+    "confirmed": 2124,
+    "deaths": 828,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-17",
+    "confirmed": 2267,
+    "deaths": 893,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-18",
+    "confirmed": 2344,
+    "deaths": 930,
+    "recovered": null
   },
   {
     "date": "2026-07-19",
     "confirmed": 2423,
     "deaths": 967,
-    "recovered": 469
+    "recovered": null
+  },
+  {
+    "date": "2026-07-20",
+    "confirmed": 2473,
+    "deaths": 999,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-21",
+    "confirmed": 2536,
+    "deaths": 1033,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-22",
+    "confirmed": 2905,
+    "deaths": 1269,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-23",
+    "confirmed": 2973,
+    "deaths": 1309,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-24",
+    "confirmed": 3075,
+    "deaths": 1354,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-25",
+    "confirmed": 3200,
+    "deaths": 1405,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-26",
+    "confirmed": 3262,
+    "deaths": 1437,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-27",
+    "confirmed": 3360,
+    "deaths": 1487,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-30",
+    "confirmed": 3605,
+    "deaths": 1587,
+    "recovered": null
+  },
+  {
+    "date": "2026-07-31",
+    "confirmed": 3674,
+    "deaths": 1621,
+    "recovered": null
   },
   {
     "date": "2026-08-01",
     "confirmed": 3748,
     "deaths": 1657,
-    "recovered": 708
+    "recovered": null
+  },
+  {
+    "date": "2026-08-02",
+    "confirmed": 3802,
+    "deaths": 1707,
+    "recovered": null
   },
   {
     "date": "2026-08-03",
     "confirmed": 3874,
     "deaths": 1751,
-    "recovered": 749
+    "recovered": null
+  },
+  {
+    "date": "2026-08-04",
+    "confirmed": 3973,
+    "deaths": 1801,
+    "recovered": null
+  },
+  {
+    "date": "2026-08-05",
+    "confirmed": 4053,
+    "deaths": 1850,
+    "recovered": null
   },
   {
     "date": "2026-08-06",
-    "confirmed": 4053,
-    "deaths": 1850,
-    "recovered": 793
+    "confirmed": 4120,
+    "deaths": 1887,
+    "recovered": null
+  },
+  {
+    "date": "2026-08-07",
+    "confirmed": 4209,
+    "deaths": 1916,
+    "recovered": null
   },
   {
     "date": "2026-08-08",
-    "confirmed": 4209,
-    "deaths": 1916,
-    "recovered": 828
+    "confirmed": 4294,
+    "deaths": 1960,
+    "recovered": null
+  },
+  {
+    "date": "2026-08-09",
+    "confirmed": 4381,
+    "deaths": 2011,
+    "recovered": null
   },
   {
     "date": "2026-08-10",
     "confirmed": 4449,
     "deaths": 2061,
-    "recovered": 886
+    "recovered": null
   },
   {
     "date": "2026-08-11",
@@ -94,12 +495,12 @@
     "date": "2026-08-12",
     "confirmed": 4665,
     "deaths": 2184,
-    "recovered": 965
+    "recovered": null
   },
   {
     "date": "2026-08-13",
     "confirmed": 4727,
     "deaths": 2214,
-    "recovered": 976
+    "recovered": null
   }
 ]
