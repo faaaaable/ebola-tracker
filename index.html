@@ -668,10 +668,14 @@
   <section class="section">
     <div class="section-head">
       <div class="section-title" data-i18n="reportsTitle">Rapports de situation</div>
-      <div class="section-sub" data-i18n="reportsSub">SitReps publiés par l'INSP RDC, téléchargeables au format PDF</div>
+      <div class="section-sub" data-i18n="reportsSub">SitReps officiels publiés par l'Institut National de Santé Publique de la RDC</div>
     </div>
     <div class="panel" style="padding:16px;">
-      <div id="reportsList" style="display:flex;flex-direction:column;gap:10px;"></div>
+      <div class="table-scroll" style="max-height:min(70vh,640px);">
+        <table>
+          <tbody id="reportsList"></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -757,7 +761,7 @@ const I18N = {
     tabZones:"Données détaillées",
     tabReports:"Rapports de situation",
     reportsTitle:"Rapports de situation",
-    reportsSub:"SitReps publiés par l'INSP RDC, téléchargeables au format PDF",
+    reportsSub:"SitReps officiels publiés par l'Institut National de Santé Publique de la RDC",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
     reportsReportingDate:(d)=>`Situation au ${d}`,
     reportsDownload:"Télécharger le PDF",
@@ -828,7 +832,7 @@ const I18N = {
     tabZones:"Detailed data",
     tabReports:"Situation reports",
     reportsTitle:"Situation reports",
-    reportsSub:"SitReps published by DRC INSP, downloadable as PDF",
+    reportsSub:"Official SitReps published by the DRC National Institute of Public Health",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
     reportsReportingDate:(d)=>`Situation as of ${d}`,
     reportsDownload:"Download PDF",
@@ -1336,22 +1340,20 @@ function renderReportsList(){
   const container = document.getElementById('reportsList');
   if(!container) return;
   if(!reportsData || reportsData.length===0){
-    container.innerHTML = `<div class="map-note" style="text-align:center;">${tr('reportsEmpty')}</div>`;
+    container.innerHTML = `<tr><td style="text-align:center;padding:24px;color:var(--ink-faint);">${tr('reportsEmpty')}</td></tr>`;
     return;
   }
   const sorted = [...reportsData].sort((a,b)=>(b.sitrepNumber||'').localeCompare(a.sitrepNumber||''));
   container.innerHTML = sorted.map(r=>`
-    <div class="report-row">
-      <div class="rr-meta">
-        <div class="rr-sitrep">${tr('reportsSitrepLabel')(r.sitrepNumber)}</div>
-        <div class="rr-date">${tr('reportsReportingDate')(frDate(r.reportingDate))}</div>
-        <div class="rr-stats">${fmt(r.confirmed)} ${tr('labelConfirmed').toLowerCase()} · ${fmt(r.deaths)} ${tr('labelDeaths').toLowerCase()}</div>
-      </div>
-      <a class="rr-download" href="${r.file}" download target="_blank" rel="noopener">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        <span>${tr('reportsDownload')}</span>
-      </a>
-    </div>
+    <tr>
+      <td style="font-family:var(--font-mono);font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;">${tr('reportsSitrepLabel')(r.sitrepNumber)}</td>
+      <td style="text-align:right;">
+        <a href="${r.file}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap;color:var(--accent-info);font-family:var(--font-mono);font-size:11.5px;text-decoration:none;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>
+          <span>${tr('reportsDownload')}</span>
+        </a>
+      </td>
+    </tr>
   `).join('');
 }
 
