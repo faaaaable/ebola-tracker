@@ -300,6 +300,57 @@ def zone_row_to_dict(province, name, row):
     }
 
 
+def parse_report_summary(pdf_path):
+    """Analyse légère d'un SitRep pour la liste des rapports (onglet
+    'Rapports de situation') : juste la méta et les totaux nationaux,
+    sans le détail des zones de santé (inutile pour cet onglet)."""
+    with pdfplumber.open(pdf_path) as pdf:
+        full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
+        meta = extract_meta(full_text)
+        prov_table = extract_province_summary(pdf)
+        confirmed = deaths = None
+        if prov_table:
+            _, total_row = parse_province_summary(prov_table)
+            if total_row:
+                confirmed = norm_int(total_row[1])
+                deaths = norm_int(total_row[2])
+    return {
+        "sitrepNumber": meta["sitrepNumber"],
+        "reportingDate": meta["reportingDate"],
+        "publicationDate": meta["publicationDate"],
+        "file": pdf_path.replace("\\", "/"),
+        "confirmed": confirmed,
+        "deaths": deaths,
+    }
+
+
+def rebuild_reports_list(current_reports):
+    """Reconstruit la liste complète des rapports à partir de TOUS les PDF
+    présents dans reports/, pas seulement celui du dernier passage. Les
+    rapports déjà connus ne sont pas ré-analysés (juste leur chemin de
+    fichier est rafraîchi) ; seuls les nouveaux PDF sont ouverts."""
+    existing_by_num = {r["sitrepNumber"]: r for r in current_reports}
+    all_pdfs = sorted(glob.glob(os.path.join(REPORTS_DIR, "*.pdf")))
+    reports = []
+    for pdf_path in all_pdfs:
+        m = re.search(r"(\d{3})", os.path.basename(pdf_path))
+        if not m:
+            continue
+        num = m.group(1)
+        if num in existing_by_num:
+            entry = dict(existing_by_num[num])
+            entry["file"] = pdf_path.replace("\\", "/")
+            reports.append(entry)
+        else:
+            try:
+                reports.append(parse_report_summary(pdf_path))
+                print(f"  + nouveau rapport détecté et ajouté : {os.path.basename(pdf_path)}")
+            except Exception as e:
+                print(f"  ! avertissement : impossible d'analyser {pdf_path} ({e}), ignoré.")
+    reports.sort(key=lambda r: r["sitrepNumber"])
+    return reports
+
+
 def main():
     report_path, report_num = find_latest_report()
     if not report_path:
@@ -312,18 +363,16 @@ def main():
     else:
         current = {}
 
-    current_num = None
-    if current.get("meta", {}).get("sitrepNumber"):
-        try:
-            current_num = int(current["meta"]["sitrepNumber"])
-        except ValueError:
-            current_num = None
+    # 1) Liste des rapports (onglet "Rapports de situation") : toujours
+    #    reconstruite à partir de tout ce qui se trouve dans reports/, pour
+    #    qu'un PDF backfillé par le téléchargement automatique apparaisse
+    #    même s'il n'est pas le plus récent.
+    reports = rebuild_reports_list(current.get("reports", []))
 
-    if current_num is not None and report_num <= current_num:
-        print(f"data/latest.json est déjà à jour (SitRep {current_num:03d} >= {report_num:03d}).")
-        return 0
-
-    print(f"Mise à jour depuis {report_path} (SitRep {report_num:03d})...")
+    # 2) KPI nationaux / provinces / zones de santé : toujours régénérés à
+    #    partir du SitRep le plus récent trouvé dans reports/, pour que le
+    #    site reflète systématiquement le dernier rapport collecté.
+    print(f"Régénération des données depuis {report_path} (SitRep {report_num:03d})...")
 
     with pdfplumber.open(report_path) as pdf:
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
@@ -409,23 +458,6 @@ def main():
     result["national"] = national
     result["provinces"] = provinces
     result["healthZones"] = health_zones
-
-    reports = list(current.get("reports", []))
-    reports = [r for r in reports if r.get("sitrepNumber") != meta["sitrepNumber"]]
-    matching_pdf = None
-    for p in glob.glob(os.path.join(REPORTS_DIR, "*.pdf")):
-        if meta["sitrepNumber"] in os.path.basename(p):
-            matching_pdf = p
-            break
-    reports.append({
-        "sitrepNumber": meta["sitrepNumber"],
-        "reportingDate": meta["reportingDate"],
-        "publicationDate": meta["publicationDate"],
-        "file": (matching_pdf or report_path).replace("\\", "/"),
-        "confirmed": national["confirmed"],
-        "deaths": national["deaths"],
-    })
-    reports.sort(key=lambda r: r["sitrepNumber"])
     result["reports"] = reports
 
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
@@ -434,7 +466,8 @@ def main():
         f.write("\n")
 
     print(f"data/latest.json mis à jour : SitRep {meta['sitrepNumber']} "
-          f"({national['confirmed']} cas, {national['deaths']} décès).")
+          f"({national['confirmed']} cas, {national['deaths']} décès) — "
+          f"{len(reports)} rapport(s) listé(s) dans l'onglet.")
     return 0
 
 
