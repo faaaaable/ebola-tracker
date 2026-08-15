@@ -1,0 +1,40 @@
+name: Synchronisation des SitRep Ebola RDC
+
+on:
+  schedule:
+    # Tous les jours à 06h00 UTC (~08h00 Kinshasa). Ajuste si besoin.
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}  # permet de le lancer manuellement depuis l'onglet Actions
+
+permissions:
+  contents: write  # nécessaire pour que le job puisse commit + push
+
+jobs:
+  sync-sitreps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du dépôt
+        uses: actions/checkout@v4
+
+      - name: Installation de Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installation des dépendances
+        run: pip install requests beautifulsoup4
+
+      - name: Téléchargement des nouveaux SitRep
+        run: python scripts/download_all_sitreps.py
+
+      - name: Commit et push si de nouveaux fichiers sont apparus
+        run: |
+          git config user.name "sitrep-bot"
+          git config user.email "sitrep-bot@users.noreply.github.com"
+          git add reports/
+          if git diff --cached --quiet; then
+            echo "Aucun nouveau SitRep — rien à committer."
+          else
+            git commit -m "Sync automatique des SitRep MVE ($(date -u +'%Y-%m-%d'))"
+            git push
+          fi
