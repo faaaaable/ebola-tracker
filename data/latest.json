@@ -97,7 +97,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 78
+      "daysNoCase": 79
     },
     {
       "name": "Bas-Uélé",
@@ -831,10 +831,26 @@
   },
   "reports": [
     {
+      "sitrepNumber": "084",
+      "reportingDate": "2026-08-06",
+      "publicationDate": "2026-08-07",
+      "file": "reports/SITREP_MVE_084.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
+      "sitrepNumber": "085",
+      "reportingDate": "2026-08-07",
+      "publicationDate": "2026-08-08",
+      "file": "reports/SITREP_MVE_085.pdf",
+      "confirmed": null,
+      "deaths": null
+    },
+    {
       "sitrepNumber": "086",
       "reportingDate": "2026-08-08",
       "publicationDate": "2026-08-09",
-      "file": "reports/SITREP_MVEBDB_086_080826.pdf",
+      "file": "reports/SITREP_MVE_086.pdf",
       "confirmed": 4294,
       "deaths": 1960
     },
@@ -842,7 +858,7 @@
       "sitrepNumber": "087",
       "reportingDate": "2026-08-09",
       "publicationDate": "2026-08-10",
-      "file": "reports/SITREP_MVEBDB_087_09_08_2026_VF.pdf",
+      "file": "reports/SITREP_MVE_087.pdf",
       "confirmed": 4381,
       "deaths": 2011
     },
@@ -850,7 +866,7 @@
       "sitrepNumber": "088",
       "reportingDate": "2026-08-10",
       "publicationDate": "2026-08-11",
-      "file": "reports/SITREP_MVEBDB_088_10_08_2026_11.pdf",
+      "file": "reports/SITREP_MVE_088.pdf",
       "confirmed": 4449,
       "deaths": 2061
     },
@@ -858,7 +874,7 @@
       "sitrepNumber": "089",
       "reportingDate": "2026-08-11",
       "publicationDate": "2026-08-12",
-      "file": "reports/SITREP_MVEBDB_089_11_08_2026.pdf",
+      "file": "reports/SITREP_MVE_089.pdf",
       "confirmed": 4566,
       "deaths": 2128
     },
@@ -866,7 +882,7 @@
       "sitrepNumber": "090",
       "reportingDate": "2026-08-12",
       "publicationDate": "2026-08-13",
-      "file": "reports/SITREP_MVEBDB_090_12_08_2026.pdf",
+      "file": "reports/SITREP_MVE_090.pdf",
       "confirmed": 4665,
       "deaths": 2184
     },
@@ -874,7 +890,7 @@
       "sitrepNumber": "091",
       "reportingDate": "2026-08-13",
       "publicationDate": "2026-08-14",
-      "file": "reports/SITREP_MVEBDB_091_13_08_2026.pdf",
+      "file": "reports/SITREP_MVE_091.pdf",
       "confirmed": 4727,
       "deaths": 2214
     }
