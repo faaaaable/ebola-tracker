@@ -561,7 +561,6 @@
     <button class="tab-btn active" data-tab="overview" data-i18n="tabOverview">Vue d'ensemble</button>
     <button class="tab-btn" data-tab="zones" data-i18n="tabZones">Données détaillées</button>
     <button class="tab-btn" data-tab="reports" data-i18n="tabReports">Rapports de situation</button>
-    <button class="tab-btn" data-tab="virus" data-i18n="tabVirus">Le virus</button>
   </nav>
 
   <div class="tab-panel active" id="tab-overview">
@@ -678,74 +677,6 @@
 
   </div><!-- /tab-reports -->
 
-  <div class="tab-panel" id="tab-virus">
-
-  <section class="section">
-    <div class="section-head">
-      <div class="section-title" data-i18n="virusTitle">Le virus Ebola</div>
-      <div class="section-sub" data-i18n="virusSub">Repères scientifiques généraux — espèce, transmission, symptômes, traitements et vaccins</div>
-    </div>
-
-    <div class="virus-grid">
-
-      <div class="vcard vcard-species">
-        <div class="vcard-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/><line x1="12" y1="2.5" x2="12" y2="5.4"/><line x1="12" y1="18.6" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="5.4" y2="12"/><line x1="18.6" y1="12" x2="21.5" y2="12"/><line x1="5.5" y1="5.5" x2="7.5" y2="7.5"/><line x1="16.5" y1="16.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="16.5" y2="7.5"/><line x1="7.5" y1="16.5" x2="5.5" y2="18.5"/></svg>
-        </div>
-        <h3 data-i18n="virusSpeciesTitle">Espèce virale</h3>
-        <ul class="vlist">
-          <li data-i18n-html="virusSpeciesLi1">Famille <em>Filoviridae</em>, genre <em>Orthoebolavirus</em></li>
-          <li data-i18n-html="virusSpeciesLi2">Espèce en cause dans cette épidémie : <em>Bundibugyo ebolavirus</em> (BDBV)</li>
-          <li data-i18n="virusSpeciesLi3">3ᵉ épidémie connue causée par cette espèce, après 2007 (Ouganda) et 2012 (RDC)</li>
-          <li data-i18n="virusSpeciesLi4">Létalité historique de 25 à 50 % selon les épidémies passées</li>
-        </ul>
-      </div>
-
-      <div class="vcard vcard-transmission">
-        <div class="vcard-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11l-3-3"/><path d="M20 17H9l3 3"/></svg>
-        </div>
-        <h3 data-i18n="virusTransmissionTitle">Transmission</h3>
-        <ul class="vlist">
-          <li data-i18n="virusTransmissionLi1">Contact direct avec le sang, les sécrétions ou les organes d'un animal ou d'une personne infectée, vivante ou décédée</li>
-          <li data-i18n="virusTransmissionLi2">Rites funéraires à risque et transmission en milieu de soins sans protection adaptée</li>
-          <li data-i18n="virusTransmissionLi3">Aucune transmission par voie aérienne</li>
-        </ul>
-      </div>
-
-      <div class="vcard vcard-symptoms">
-        <div class="vcard-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
-        </div>
-        <h3 data-i18n="virusSymptomsTitle">Symptômes et évolution</h3>
-        <div class="vincub">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
-          <span data-i18n="virusIncubationText">Incubation : 2 à 21 jours (en moyenne 8 à 10 jours). Non contagieux avant l'apparition des symptômes.</span>
-        </div>
-        <div class="vphases">
-          <div class="vphase vphase-dry">
-            <div class="vphase-tag" data-i18n="vphaseDryTag">Phase précoce</div>
-            <p data-i18n="vphaseDryText">Fièvre, fatigue intense, douleurs musculaires, maux de tête, mal de gorge — des signes non spécifiques, facilement confondus avec le paludisme ou la typhoïde.</p>
-          </div>
-          <div class="vphase vphase-wet">
-            <div class="vphase-tag" data-i18n="vphaseWetTag">Phase avancée</div>
-            <p data-i18n="vphaseWetText">Vomissements, diarrhées, éruption cutanée, atteintes rénale et hépatique, et parfois hémorragies. Diagnostic confirmé par test RT-PCR sur prélèvement sanguin.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="vcard vcard-compare">
-        <h3 data-i18n="virusCompareTitle">Traitements &amp; vaccins : une différence clé selon l'espèce</h3>
-        <p class="vcompare-intro" data-i18n="virusCompareIntro">Les seuls traitements et le seul vaccin homologués contre Ebola ciblent l'espèce Zaïre — pas l'espèce Bundibugyo, en cause dans cette épidémie.</p>
-        <p class="vcompare-note" data-i18n="virusCompareNote">Pendant cette épidémie, plusieurs candidats sont évalués en essai clinique contre l'espèce Bundibugyo — dont l'anticorps à large spectre MBP134, l'antiviral remdesivir et l'obeldesivir en prophylaxie post-exposition — sous la coordination de l'OMS. En l'absence de traitement ciblé homologué, les soins de support intensifs (réhydratation, oxygénation, surveillance) restent le socle de la prise en charge et améliorent significativement les chances de survie.</p>
-        <div class="info-note" data-i18n="virusNote">Ces informations sont des repères scientifiques généraux et ne remplacent pas les protocoles cliniques officiels. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé RDC).</div>
-      </div>
-
-    </div>
-  </section>
-
-  </div><!-- /tab-virus -->
-
   <footer>
     <div class="disclaimer">
       <strong data-i18n="disclaimerTitle">Avertissement.</strong>
@@ -831,28 +762,6 @@ const I18N = {
     reportsReportingDate:(d)=>`Situation au ${d}`,
     reportsDownload:"Télécharger le PDF",
     reportsEmpty:"Aucun rapport archivé pour le moment.",
-    tabVirus:"Le virus",
-    virusTitle:"Le virus Ebola",
-    virusSub:"Repères scientifiques généraux — espèce, transmission, symptômes, traitements et vaccins",
-    virusSpeciesTitle:"Espèce virale",
-    virusSpeciesLi1:"Famille <em>Filoviridae</em>, genre <em>Orthoebolavirus</em>",
-    virusSpeciesLi2:"Espèce en cause dans cette épidémie : <em>Bundibugyo ebolavirus</em> (BDBV)",
-    virusSpeciesLi3:"3ᵉ épidémie connue causée par cette espèce, après 2007 (Ouganda) et 2012 (RDC)",
-    virusSpeciesLi4:"Létalité historique de 25 à 50 % selon les épidémies passées, contre jusqu'à 90 % pour l'espèce Zaïre",
-    virusTransmissionTitle:"Transmission",
-    virusTransmissionLi1:"Contact direct avec le sang, les sécrétions ou les organes d'un animal ou d'une personne infectée, vivante ou décédée",
-    virusTransmissionLi2:"Rites funéraires à risque et transmission en milieu de soins sans protection adaptée",
-    virusTransmissionLi3:"Aucune transmission par voie aérienne",
-    virusSymptomsTitle:"Symptômes et évolution",
-    virusIncubationText:"Incubation : 2 à 21 jours (en moyenne 8 à 10 jours). Non contagieux avant l'apparition des symptômes.",
-    vphaseDryTag:"Phase précoce",
-    vphaseDryText:"Fièvre, fatigue intense, douleurs musculaires, maux de tête, mal de gorge — des signes non spécifiques, facilement confondus avec le paludisme ou la typhoïde.",
-    vphaseWetTag:"Phase avancée",
-    vphaseWetText:"Vomissements, diarrhées, éruption cutanée, atteintes rénale et hépatique, et parfois hémorragies. Diagnostic confirmé par test RT-PCR sur prélèvement sanguin.",
-    virusCompareTitle:"Traitements & vaccins : une différence clé selon l'espèce",
-    virusCompareIntro:"Les seuls traitements et le seul vaccin homologués contre Ebola ciblent l'espèce Zaïre — pas l'espèce Bundibugyo, en cause dans cette épidémie.",
-    virusCompareNote:"Pendant cette épidémie, plusieurs candidats sont évalués en essai clinique contre l'espèce Bundibugyo — dont l'anticorps à large spectre MBP134, l'antiviral remdesivir et l'obeldesivir en prophylaxie post-exposition — sous la coordination de l'OMS. En l'absence de traitement ciblé homologué, les soins de support intensifs (réhydratation, oxygénation, surveillance) restent le socle de la prise en charge et améliorent significativement les chances de survie.",
-    virusNote:"Ces informations sont des repères scientifiques généraux et ne remplacent pas les protocoles cliniques officiels. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé RDC).",
     months:['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'],
     locale:'fr-FR'
   },
@@ -924,28 +833,6 @@ const I18N = {
     reportsReportingDate:(d)=>`Situation as of ${d}`,
     reportsDownload:"Download PDF",
     reportsEmpty:"No report archived yet.",
-    tabVirus:"The virus",
-    virusTitle:"The Ebola virus",
-    virusSub:"General scientific background — species, transmission, symptoms, treatments and vaccines",
-    virusSpeciesTitle:"Viral species",
-    virusSpeciesLi1:"Family <em>Filoviridae</em>, genus <em>Orthoebolavirus</em>",
-    virusSpeciesLi2:"Species behind this outbreak: <em>Bundibugyo ebolavirus</em> (BDBV)",
-    virusSpeciesLi3:"3rd known outbreak caused by this species, after 2007 (Uganda) and 2012 (DRC)",
-    virusSpeciesLi4:"Historical fatality rate of 25 to 50%, versus up to 90% for the Zaire species",
-    virusTransmissionTitle:"Transmission",
-    virusTransmissionLi1:"Direct contact with the blood, secretions or organs of an infected animal or person, alive or deceased",
-    virusTransmissionLi2:"High-risk funeral rites and transmission in healthcare settings without adequate protection",
-    virusTransmissionLi3:"No airborne transmission",
-    virusSymptomsTitle:"Symptoms and clinical course",
-    virusIncubationText:"Incubation: 2 to 21 days (average 8 to 10 days). Not contagious before symptom onset.",
-    vphaseDryTag:"Early phase",
-    vphaseDryText:"Fever, intense fatigue, muscle pain, headache, sore throat — non-specific signs easily mistaken for malaria or typhoid.",
-    vphaseWetTag:"Advanced phase",
-    vphaseWetText:"Vomiting, diarrhea, skin rash, kidney and liver damage, and sometimes bleeding. Diagnosis confirmed by RT-PCR blood test.",
-    virusCompareTitle:"Treatments & vaccines: a key difference by species",
-    virusCompareIntro:"The only licensed Ebola treatments and vaccine target the Zaire species — not the Bundibugyo species behind this outbreak.",
-    virusCompareNote:"During this outbreak, several candidates are being evaluated in clinical trials against the Bundibugyo species — including the broad-spectrum antibody MBP134, the antiviral remdesivir, and obeldesivir for post-exposure prophylaxis — under WHO coordination. In the absence of a licensed targeted treatment, intensive supportive care (rehydration, oxygenation, monitoring) remains the cornerstone of care and significantly improves the chances of survival.",
-    virusNote:"This information is general scientific background and does not replace official clinical protocols. For any medical question, consult a health professional or the relevant health authorities (WHO, DRC Ministry of Health).",
     months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
     locale:'en-US'
   }
@@ -1754,7 +1641,7 @@ async function handleShare(){
 document.getElementById('btnShare').addEventListener('click', handleShare);
 
 /* ============ ONGLETS ============ */
-const TAB_NAMES = ['overview','zones','reports','virus'];
+const TAB_NAMES = ['overview','zones','reports'];
 let currentTab = 'overview';
 
 function switchTab(name, updateHash){
