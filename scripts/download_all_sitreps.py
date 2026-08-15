@@ -48,18 +48,36 @@ def get_soup(url: str) -> BeautifulSoup:
 
 
 def discover_listing_pages() -> list[str]:
-    """Renvoie l'URL de chaque page de pagination de la catégorie SitRep."""
+    """Renvoie l'URL de chaque page de pagination de la catégorie SitRep.
+
+    WordPress n'affiche souvent que quelques liens de pagination autour de
+    la page courante (ex. "1 2 3 … 9"), avec des points de suspension pour
+    les pages du milieu qui ne sont PAS de vrais liens cliquables. Se fier
+    uniquement aux liens présents dans le HTML de la page 1 fait donc
+    sauter des pages entières (ex. 4 à 8 si seuls 1, 2, 3 et 9 sont liés).
+    On détecte plutôt le numéro de page le plus élevé mentionné n'importe
+    où (liens de pagination ET texte "Page X sur Y" éventuel), puis on
+    génère systématiquement TOUTES les URLs de 1 à ce maximum."""
     soup = get_soup(LISTING_URL)
-    pages = {LISTING_URL}
+
+    def page_num(u_or_text) -> int | None:
+        m = re.search(r"/page/(\d+)/?", str(u_or_text))
+        return int(m.group(1)) if m else None
+
+    max_page = 1
     for a in soup.select("a[href*='/category/sitrep/page/']"):
         href = a.get("href")
         if href:
-            pages.add(urljoin(BASE, href))
-    # Trie par numéro de page croissant (LISTING_URL = page 1 en premier)
-    def page_num(u: str) -> int:
-        m = re.search(r"/page/(\d+)/?", u)
-        return int(m.group(1)) if m else 1
-    return sorted(pages, key=page_num)
+            n = page_num(href)
+            if n:
+                max_page = max(max_page, n)
+        # certains thèmes mettent aussi le numéro dans le texte du lien
+        # (utile si un jour le href change de forme)
+        n_text = page_num(a.get_text(strip=True))
+        if n_text:
+            max_page = max(max_page, n_text)
+
+    return [LISTING_URL] + [f"{LISTING_URL}page/{i}/" for i in range(2, max_page + 1)]
 
 
 def article_links_from_listing(url: str) -> list[tuple[str, str]]:
@@ -148,7 +166,10 @@ def main():
     all_articles: list[tuple[str, str]] = []
     for page_url in listing_pages:
         print(f"  -> {page_url}")
-        all_articles.extend(article_links_from_listing(page_url))
+        try:
+            all_articles.extend(article_links_from_listing(page_url))
+        except Exception as e:
+            print(f"  [!] Page inaccessible, ignorée : {page_url} ({e})")
         time.sleep(args.sleep)
 
     print(f"\n{len(all_articles)} article(s) SitRep trouvé(s) au total.\n")
