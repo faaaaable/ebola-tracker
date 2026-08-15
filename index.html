@@ -811,7 +811,7 @@ const I18N = {
     popupDeclaredFree:"Déclaré Ebola-free",
     legendClosedFocus:"Foyer clos (aucun nouveau cas)",
     zonesTableTitle:"Détail par zone de santé",
-    zonesTableSub:"54 zones de santé touchées sur 151 · SitRep N°090 du 12 août 2026",
+    zonesTableSub:(n,total,num,date)=>`${n} zones de santé touchées sur ${total}` + (num?` · SitRep N°${num}`:'') + (date?` du ${date}`:''),
     zonesFilterAll:"Toutes les provinces",
     zonesSearchPlaceholder:"Rechercher une zone…",
     zonesTh1:"Zone de santé",
@@ -904,7 +904,7 @@ const I18N = {
     popupDeclaredFree:"Declared Ebola-free",
     legendClosedFocus:"Closed focus (no new cases)",
     zonesTableTitle:"Detail by health zone",
-    zonesTableSub:"54 health zones affected out of 151 · SitRep N°090 of 12 August 2026",
+    zonesTableSub:(n,total,num,date)=>`${n} health zones affected out of ${total}` + (num?` · SitRep N°${num}`:'') + (date?` of ${date}`:''),
     zonesFilterAll:"All provinces",
     zonesSearchPlaceholder:"Search a zone…",
     zonesTh1:"Health zone",
@@ -997,7 +997,7 @@ const PROVINCES = [
    nouveau cas au 8 août (ONU Info/OMS) + 4 jours sans nouveau cas supplémentaires
    d'après ce SitRep = environ 77 jours au 12 août, soit "inactif" au sens des critères
    OMS de 42 jours, sans être déclaré éradiqué. */
-const PROVINCE_TABLE_DATA = [
+const PROVINCE_TABLE_DATA_SEED = [
   { name:"Ituri",     confirmed:3979, deaths:1726, cfr:43.4,  status:"active-epicenter", healthZonesAffected:{n:28,total:36}, newCases24h:67 },
   { name:"Nord-Kivu", confirmed:553,  deaths:395,  cfr:71.4,  status:"active",           healthZonesAffected:{n:12,total:34}, newCases24h:25 },
   { name:"Haut-Uélé", confirmed:119,  deaths:55,   cfr:46.2,  status:"active",           healthZonesAffected:{n:6, total:13}, newCases24h:6  },
@@ -1064,7 +1064,7 @@ const TIMELINE_SEED = [
    6 provinces touchées (pas seulement l'Ituri) : le total de chaque province
    correspond exactement à son total agrégé affiché ailleurs sur le site. */
 /* [nom, cas cumulés, province, décès cumulés, nouveaux cas (24h), décès communautaires (24h), décès intra-CTE (24h)] */
-const HEALTH_ZONES = [
+const HEALTH_ZONES_SEED = [
   ["Bunia",1095,"Ituri",333,23,4,4],["Rwampara",818,"Ituri",319,18,2,2],["Mongbwalu",581,"Ituri",282,2,1,1],
   ["Nizi",509,"Ituri",231,7,0,0],["Lita",169,"Ituri",97,0,0,0],
   ["Nia Nia",151,"Ituri",88,5,1,1],["Nyankunde",118,"Ituri",35,1,0,0],["Mangala",122,"Ituri",76,2,0,0],
@@ -1143,6 +1143,8 @@ const DRC_BOUNDS = [[-13.459,12.204],[5.386,33.2]];
 
 /* ============ ÉTAT ============ */
 let sitreps = [...SEED_SITREPS];
+let PROVINCE_TABLE_DATA = PROVINCE_TABLE_DATA_SEED;
+let HEALTH_ZONES = HEALTH_ZONES_SEED;
 
 async function loadRemoteSitreps(){
   try{
@@ -1168,6 +1170,7 @@ let poePocData = POE_POC_SEED;
 let poePocTotal = POE_POC_TOTAL_SEED;
 let reportsData = REPORTS_SEED;
 let timelineData = TIMELINE_SEED;
+let currentMeta = null;
 
 async function loadRemoteLatest(){
   try{
@@ -1182,9 +1185,11 @@ async function loadRemoteLatest(){
     if(remote.poePocTotal) poePocTotal = remote.poePocTotal;
     if(remote.reports) reportsData = remote.reports;
     if(remote.timeline) timelineData = remote.timeline;
-    // provinces et zones de santé restent pilotées par PROVINCE_TABLE_DATA /
-    // HEALTH_ZONES (déjà à jour) tant que les étapes suivantes n'ajoutent pas
-    // leur propre rendu dynamique à partir de ce fichier.
+    if(remote.provinces) PROVINCE_TABLE_DATA = remote.provinces;
+    if(remote.healthZones && remote.healthZones.length) HEALTH_ZONES = remote.healthZones;
+    if(remote.meta) currentMeta = remote.meta;
+    // provinces (PROVINCE_TABLE_DATA) et zones de santé (HEALTH_ZONES) sont
+    // désormais elles aussi pilotées par ce fichier quand il est disponible.
   }catch(e){
     console.warn('data/latest.json indisponible, utilisation des données de référence intégrées.', e);
   }
@@ -1447,7 +1452,7 @@ function renderReportsList(){
     container.innerHTML = `<div class="map-note" style="text-align:center;">${tr('reportsEmpty')}</div>`;
     return;
   }
-  const sorted = [...reportsData].sort((a,b)=>(b.reportingDate||'').localeCompare(a.reportingDate||''));
+  const sorted = [...reportsData].sort((a,b)=>(b.sitrepNumber||'').localeCompare(a.sitrepNumber||''));
   container.innerHTML = sorted.map(r=>`
     <div class="report-row">
       <div class="rr-meta">
@@ -1519,6 +1524,14 @@ function initZonesTableControls(){
 
 function renderZonesTable(){
   initZonesTableControls();
+
+  const subEl = document.getElementById('zonesTableSub');
+  if(subEl){
+    const n = (national && national.healthZonesAffected) ? national.healthZonesAffected.n : HEALTH_ZONES.length;
+    const total = (national && national.healthZonesAffected) ? national.healthZonesAffected.total : 151;
+    const dateStr = (currentMeta && currentMeta.reportingDate) ? frDate(currentMeta.reportingDate) : '';
+    subEl.textContent = tr('zonesTableSub')(n, total, currentMeta ? currentMeta.sitrepNumber : '', dateStr);
+  }
 
   const provSelect = document.getElementById('zonesFilterProvince');
   const currentOptions = [...provSelect.options].map(o=>o.value);
