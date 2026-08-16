@@ -82,7 +82,6 @@
     --accent-critical:#C24A24;  /* décès */
     --accent-stable:#2E8571;    /* guéris */
     --accent-active:#B4790E;    /* isolement / actifs */
-    --accent-capital:#2FA35E;   /* capitale (Kinshasa) */
     --radius:3px;
     --font-display:'Barlow Condensed',sans-serif;
     --font-body:'Inter',sans-serif;
@@ -273,16 +272,6 @@
   }
   .leaflet-control-attribution:hover{opacity:.9;}
   .leaflet-control-attribution a{color:var(--ink-faint)!important;}
-
-  .leaflet-tooltip.kinshasa-label{
-    background:transparent;border:none;box-shadow:none;
-    color:var(--accent-capital);
-    font-family:var(--font-display);
-    font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
-    text-shadow:0 0 3px rgba(255,255,255,.9), 0 0 8px rgba(255,255,255,.7);
-    padding:0;
-  }
-  .leaflet-tooltip.kinshasa-label::before{ display:none; }
 
   .map-toolbar{
     position:absolute;top:14px;left:14px;z-index:500;
@@ -501,6 +490,32 @@
     background:linear-gradient(90deg,#F7C784,#D67A2B,#A3301E);
   }
   .legend-minmax{display:flex;justify-content:space-between;font-size:9.5px;color:var(--ink-faint);}
+
+  .map-timeline{
+    padding:14px 20px;border-top:1px solid var(--line);
+    background:var(--bg-panel-raised);
+  }
+  .map-timeline-head{
+    display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;
+  }
+  .map-timeline-label{
+    font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+  .map-timeline-date{
+    font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--ink);
+  }
+  #timelineSlider{
+    width:100%;accent-color:var(--accent-info);cursor:pointer;margin:4px 0 8px;
+  }
+  .map-timeline-foot{
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .map-timeline-foot .map-btn{padding:5px 11px;font-size:10.5px;}
+  .map-timeline-note{
+    font-family:var(--font-mono);font-size:9.5px;color:var(--ink-faint);line-height:1.5;flex:1;min-width:180px;
+  }
+
   .map-note{
     font-size:11px;color:var(--ink-faint);line-height:1.6;
     padding:14px 20px 18px;border-top:1px solid var(--line);
@@ -684,6 +699,18 @@
             <span class="legend-swatch" style="background:#8B968E;"></span>
             <span data-i18n="legendClosedFocus">Foyer clos (aucun nouveau cas)</span>
           </div>
+        </div>
+      </div>
+      <div class="map-timeline" id="mapTimeline" style="display:none;">
+        <div class="map-timeline-head">
+          <span class="map-timeline-label" data-i18n="timelineLabel">Évolution dans le temps</span>
+          <span class="map-timeline-date" id="timelineDate">—</span>
+        </div>
+        <input type="range" id="timelineSlider" min="0" max="0" value="0" step="1">
+        <div class="map-timeline-foot">
+          <button type="button" id="timelinePlay" class="map-btn" data-i18n="timelinePlay">▶ Lecture</button>
+          <button type="button" id="timelineToday" class="map-btn" data-i18n="timelineToday">Aujourd'hui</button>
+          <span class="map-timeline-note" data-i18n="timelineNote">Chaque graduation correspond à un bulletin disponible, pas à un jour calendaire — l'écart entre deux graduations peut varier.</span>
         </div>
       </div>
       <div class="map-note" data-i18n="mapNote">
@@ -938,6 +965,12 @@ const I18N = {
     popupLastCase:"Dernier cas",
     popupDeclaredFree:"Déclaré Ebola-free",
     legendClosedFocus:"Foyer clos (aucun nouveau cas)",
+    timelineLabel:"Évolution dans le temps",
+    timelinePlay:"▶ Lecture",
+    timelinePause:"❚❚ Pause",
+    timelineToday:"Aujourd'hui",
+    timelineNote:"Chaque graduation correspond à un bulletin disponible, pas à un jour calendaire — l'écart entre deux graduations peut varier.",
+    timelineGapNote:"Historique par zone indisponible entre le 16 juin et le 11 juillet, et entre le 6 et le 9 août 2026 (ces bulletins ne publiaient pas ce détail).",
     zonesTableTitle:"Détail par zone de santé et par province",
     zonesTableSub:(n,total,num,date)=>`${n} zones de santé touchées sur ${total}` + (num?` · SitRep N°${num}`:'') + (date?` du ${date}`:''),
     zonesViewProvince:"Par province",
@@ -1033,6 +1066,12 @@ const I18N = {
     popupLastCase:"Last case",
     popupDeclaredFree:"Declared Ebola-free",
     legendClosedFocus:"Closed focus (no new cases)",
+    timelineLabel:"Evolution over time",
+    timelinePlay:"▶ Play",
+    timelinePause:"❚❚ Pause",
+    timelineToday:"Today",
+    timelineNote:"Each tick corresponds to an available bulletin, not a calendar day — the gap between two ticks can vary.",
+    timelineGapNote:"Per-zone history unavailable between 16 June and 11 July, and between 6 and 9 August 2026 (those bulletins did not publish this detail).",
     zonesTableTitle:"Detail by health zone and province",
     zonesTableSub:(n,total,num,date)=>`${n} health zones affected out of ${total}` + (num?` · SitRep N°${num}`:'') + (date?` of ${date}`:''),
     zonesViewProvince:"By province",
@@ -1299,6 +1338,23 @@ let reportsData = REPORTS_SEED;
 let timelineData = TIMELINE_SEED;
 let currentMeta = null;
 
+/* Historique par zone (extraction rétrospective des SitRep archivés) — utilisé
+   uniquement pour le curseur temporel de la carte. Pas de repli intégré : si le
+   fichier est indisponible, le curseur reste simplement masqué. */
+let ZONES_HISTORY = [];
+async function loadZonesHistory(){
+  try{
+    const res = await fetch('data/zones-history.json', { cache:'no-store' });
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(Array.isArray(remote) && remote.length){
+      ZONES_HISTORY = [...remote].sort((a,b)=> a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+    }
+  }catch(e){
+    console.warn('data/zones-history.json indisponible, curseur temporel masqué.', e);
+  }
+}
+
 async function loadRemoteLatest(){
   try{
     const res = await fetch('data/latest.json', { cache:'no-store' });
@@ -1483,6 +1539,7 @@ document.querySelectorAll('#chartModeNav .subtab-btn').forEach(btn=>{
 
 /* ============ CARTE ============ */
 let map, zoneMarkersLayer, provinceMarkersLayer, closedFociLayer;
+let timelineIndex = null; // null = mode "aujourd'hui" (données live) ; sinon index dans ZONES_HISTORY
 
 function colorForValue(t){
   // t entre 0 et 1 : échelle séquentielle mono-teinte, orange clair -> rouge foncé
@@ -1535,10 +1592,14 @@ function renderMap(){
   provinceMarkersLayer.clearLayers();
   closedFociLayer.clearLayers();
 
+  const isHistorical = timelineIndex !== null && ZONES_HISTORY[timelineIndex];
+  const zonesToRender = isHistorical ? ZONES_HISTORY[timelineIndex].zones : HEALTH_ZONES;
+  // échelle de couleur fixe basée sur le maximum ACTUEL, pour que la couleur
+  // d'une zone garde la même signification quelle que soit la date affichée.
   const maxCases = Math.max(...HEALTH_ZONES.map(z=>z.cases));
   const provincesWithZoneDetail = new Set(HEALTH_ZONES.map(z=>z.province));
 
-  HEALTH_ZONES.forEach(z=>{
+  zonesToRender.forEach(z=>{
     const coord = HEALTH_ZONE_COORDS[z.name];
     if(!coord) return;
     const t = z.cases / maxCases;
@@ -1547,15 +1608,26 @@ function renderMap(){
       radius, color: colorForValue(t), weight:1.5,
       fillColor: colorForValue(t), fillOpacity:.55
     });
-    const newDeaths24h = (z.deathsCommunity24h||0) + (z.deathsIntraCTE24h||0);
-    marker.bindPopup(
-      `<b>${z.name}</b>
+    let popupHtml;
+    if(isHistorical){
+      popupHtml = `<b>${z.name}</b>
+       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(z.cases)}</span></div>
+       <div class="popup-row"><span class="k">${tr('labelDeaths')}</span><span>${fmt(z.deaths)}</span></div>
+       <div class="popup-row"><span class="k">${tr('popupProvinceLabel')}</span><span>${z.province}</span></div>`;
+    } else {
+      const newDeaths24h = (z.deathsCommunity24h||0) + (z.deathsIntraCTE24h||0);
+      popupHtml = `<b>${z.name}</b>
        <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(z.cases)} (+${fmt(z.newCases24h||0)})</span></div>
        <div class="popup-row"><span class="k">${tr('labelDeaths')}</span><span>${fmt(z.deaths)} (+${fmt(newDeaths24h)})</span></div>
-       <div class="popup-row"><span class="k">${tr('popupProvinceLabel')}</span><span>${z.province}</span></div>`
-    );
+       <div class="popup-row"><span class="k">${tr('popupProvinceLabel')}</span><span>${z.province}</span></div>`;
+    }
+    marker.bindPopup(popupHtml);
     marker.addTo(zoneMarkersLayer);
   });
+
+  // Le repli agrégé par province et le marqueur de Kampala ne concernent que
+  // la situation actuelle ; on les masque pendant qu'on scrute l'historique.
+  if(isHistorical) return;
 
   // Repli : cercle agrégé en pointillés, uniquement pour une province qui
   // n'aurait pas (ou plus) de détail zone par zone dans le SitRep le plus
@@ -1597,6 +1669,68 @@ function renderMap(){
      <div class="popup-row"><span class="k">${tr('popupDeclaredFree')}</span><span>${frDate(KAMPALA_DATA.declaredFreeDate)}</span></div>`
   );
   kampalaMarker.addTo(closedFociLayer);
+}
+
+let timelinePlayTimer = null;
+function stopTimelinePlay(){
+  if(timelinePlayTimer){ clearInterval(timelinePlayTimer); timelinePlayTimer = null; }
+  const btn = document.getElementById('timelinePlay');
+  if(btn) btn.textContent = tr('timelinePlay');
+}
+function updateTimelineLabel(){
+  const dateLabel = document.getElementById('timelineDate');
+  const slider = document.getElementById('timelineSlider');
+  if(!dateLabel || !slider) return;
+  const v = parseInt(slider.value, 10);
+  if(v >= ZONES_HISTORY.length){
+    dateLabel.textContent = tr('timelineToday');
+  } else {
+    const d = ZONES_HISTORY[v].date;
+    dateLabel.textContent = frDate(d) + ' ' + d.slice(0,4);
+  }
+}
+function setupTimeline(){
+  if(!ZONES_HISTORY.length) return; // pas de données : le curseur reste masqué
+  const wrap = document.getElementById('mapTimeline');
+  const slider = document.getElementById('timelineSlider');
+  const playBtn = document.getElementById('timelinePlay');
+  const todayBtn = document.getElementById('timelineToday');
+  if(!wrap || !slider || slider.dataset.built) return;
+  slider.dataset.built = '1';
+
+  wrap.style.display = 'block';
+  slider.max = String(ZONES_HISTORY.length);
+  slider.value = slider.max;
+  updateTimelineLabel();
+
+  slider.addEventListener('input', ()=>{
+    const v = parseInt(slider.value, 10);
+    timelineIndex = (v >= ZONES_HISTORY.length) ? null : v;
+    updateTimelineLabel();
+    renderMap();
+  });
+
+  todayBtn.addEventListener('click', ()=>{
+    stopTimelinePlay();
+    slider.value = slider.max;
+    timelineIndex = null;
+    updateTimelineLabel();
+    renderMap();
+  });
+
+  playBtn.addEventListener('click', ()=>{
+    if(timelinePlayTimer){ stopTimelinePlay(); return; }
+    playBtn.textContent = tr('timelinePause');
+    timelinePlayTimer = setInterval(()=>{
+      let v = parseInt(slider.value, 10);
+      v = (v >= parseInt(slider.max,10)) ? 0 : v + 1;
+      slider.value = String(v);
+      timelineIndex = (v >= ZONES_HISTORY.length) ? null : v;
+      updateTimelineLabel();
+      renderMap();
+      if(v >= parseInt(slider.max,10)) stopTimelinePlay();
+    }, 700);
+  });
 }
 
 /* ============ RENDU GLOBAL ============ */
@@ -2064,9 +2198,10 @@ safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
 switchTab(location.hash.replace('#',''), false);
-Promise.all([loadRemoteSitreps(), loadRemoteLatest()]).then(()=>{
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory()]).then(()=>{
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
+  safeRun(setupTimeline, 'setupTimeline');
 });
 </script>
 </body>
