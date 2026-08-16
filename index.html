@@ -352,8 +352,12 @@
     padding:8px 10px;border:1px solid var(--line);border-radius:var(--radius);
     background:var(--bg-panel-raised);
   }
+  .report-chip .rc-info{display:flex;flex-direction:column;gap:1px;min-width:0;}
   .report-chip .rc-label{
     font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap;
+  }
+  .report-chip .rc-date{
+    font-family:var(--font-mono);font-size:10.5px;color:var(--ink-faint);white-space:nowrap;
   }
   .report-chip .rc-dl{
     display:flex;align-items:center;justify-content:center;flex:none;
@@ -785,6 +789,7 @@ const I18N = {
     reportsSub:"SitReps officiels publiés par l'Institut National de Santé Publique de la RDC",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
     reportsReportingDate:(d)=>`Situation au ${d}`,
+    reportsUnknownDate:"date inconnue",
     reportsDownload:"Télécharger le PDF",
     reportsEmpty:"Aucun rapport archivé pour le moment.",
     months:['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'],
@@ -856,6 +861,7 @@ const I18N = {
     reportsSub:"Official SitReps published by the DRC National Institute of Public Health",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
     reportsReportingDate:(d)=>`Situation as of ${d}`,
+    reportsUnknownDate:"unknown date",
     reportsDownload:"Download PDF",
     reportsEmpty:"No report archived yet.",
     months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
@@ -1367,7 +1373,10 @@ function renderReportsList(){
   const sorted = [...reportsData].sort((a,b)=>(b.sitrepNumber||'').localeCompare(a.sitrepNumber||''));
   container.innerHTML = sorted.map(r=>`
     <div class="report-chip">
-      <span class="rc-label">${tr('reportsSitrepLabel')(r.sitrepNumber)}</span>
+      <span class="rc-info">
+        <span class="rc-label">${tr('reportsSitrepLabel')(r.sitrepNumber)}</span>
+        <span class="rc-date">${r.reportingDate ? tr('reportsReportingDate')(frDate(r.reportingDate) + ' ' + r.reportingDate.slice(0,4)) : tr('reportsUnknownDate')}</span>
+      </span>
       <a class="rc-dl" href="${r.file}" target="_blank" rel="noopener" title="${tr('reportsDownload')}" aria-label="${tr('reportsDownload')}">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>
       </a>
