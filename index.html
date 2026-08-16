@@ -319,6 +319,42 @@
     font-family:var(--font-mono);font-size:12.5px;color:var(--ink-faint);
     border:1px dashed var(--line);border-radius:var(--radius);
   }
+  .subtab-nav{
+    display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;
+  }
+  .subtab-btn{
+    background:var(--bg-panel);border:1px solid var(--line);color:var(--ink-dim);
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.02em;
+    padding:6px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;
+    display:flex;align-items:center;gap:6px;
+  }
+  .subtab-btn:hover{color:var(--ink);border-color:var(--ink-faint);}
+  .subtab-btn.active{
+    color:var(--accent-info);border-color:var(--accent-info);background:rgba(53,104,196,.08);
+    font-weight:600;
+  }
+  .subtab-btn .dot{width:6px;height:6px;border-radius:50%;flex:none;}
+  .subtab-btn:focus-visible{outline:2px solid var(--accent-info);outline-offset:2px;}
+
+  .tab-btn-group{position:relative;}
+  .tab-dropdown{
+    display:none;flex-direction:column;gap:1px;
+    position:absolute;top:100%;left:0;margin-top:4px;
+    background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 10px 28px rgba(27,35,32,.14);
+    min-width:190px;padding:6px;z-index:60;
+  }
+  .tab-btn-group:hover .tab-dropdown,
+  .tab-btn-group:focus-within .tab-dropdown{display:flex;}
+  .tab-dropdown-item{
+    display:flex;align-items:center;gap:8px;
+    background:transparent;border:none;color:var(--ink-dim);text-align:left;
+    font-family:var(--font-mono);font-size:11.5px;
+    padding:7px 10px;border-radius:var(--radius);cursor:pointer;white-space:nowrap;
+  }
+  .tab-dropdown-item:hover{background:rgba(20,26,23,.05);color:var(--ink);}
+  .tab-dropdown-item .dot{width:6px;height:6px;border-radius:50%;flex:none;}
+  .tab-dropdown-item:focus-visible{outline:2px solid var(--accent-info);outline-offset:-2px;}
 
   .report-row{
     display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
@@ -588,8 +624,12 @@
 
   <nav class="tab-nav" id="tabNav" aria-label="Navigation du tableau de bord">
     <button class="tab-btn active" data-tab="overview" data-i18n="tabOverview">Vue d'ensemble</button>
-    <button class="tab-btn" data-tab="zones" data-i18n="tabZones">Données détaillées</button>
+    <div class="tab-btn-group">
+      <button class="tab-btn" data-tab="zones" data-i18n="tabZones">Données détaillées</button>
+      <div class="tab-dropdown" id="zonesDropdown"></div>
+    </div>
     <button class="tab-btn" data-tab="reports" data-i18n="tabReports">Rapports de situation</button>
+    <button class="tab-btn" data-tab="about" data-i18n="tabAbout">À propos</button>
   </nav>
 
   <div class="tab-panel active" id="tab-overview">
@@ -669,25 +709,54 @@
 
   <section class="section">
     <div class="section-head">
-      <div class="section-title" data-i18n="zonesTableTitle">Détail par zone de santé</div>
+      <div class="section-title" data-i18n="zonesTableTitle">Détail par zone de santé et par province</div>
       <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">54 zones de santé touchées sur 151 · SitRep N°090 du 12 août 2026</div>
     </div>
-    <div class="panel" style="padding:16px;">
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-        <select id="zonesFilterProvince" style="font-family:var(--font-mono);font-size:11.5px;padding:7px 9px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);"></select>
-        <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="Rechercher une zone…" style="flex:1;min-width:160px;font-family:var(--font-mono);font-size:11.5px;padding:7px 9px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);">
+
+    <nav class="subtab-nav" id="zonesViewNav" aria-label="Choisir la vue" style="margin-bottom:16px;">
+      <button type="button" class="subtab-btn active" data-view="province" data-i18n="zonesViewProvince">Par province</button>
+      <button type="button" class="subtab-btn" data-view="zone" data-i18n="zonesViewZone">Par zone de santé</button>
+    </nav>
+
+    <div id="zonesView-province">
+      <div class="panel" style="padding:16px;">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="provinceTh1">Province</th>
+                <th data-i18n="zonesTh3">Cas confirmés</th>
+                <th data-i18n="zonesTh4">Décès</th>
+                <th data-i18n="zonesTh5">Létalité</th>
+                <th data-i18n="provinceTh2">Zones touchées</th>
+                <th data-i18n="zonesTh6">Nouv. cas (24h)</th>
+              </tr>
+            </thead>
+            <tbody id="provinceSummaryBody"></tbody>
+          </table>
+        </div>
       </div>
-      <div class="table-scroll" style="max-height:min(60vh,520px);">
-        <table>
-          <thead>
-            <tr id="zonesTableHead"></tr>
-          </thead>
-          <tbody id="zonesTableBody"></tbody>
-        </table>
-      </div>
-      <div id="zonesEmptyState" class="map-note" style="display:none;text-align:center;" data-i18n="zonesEmptyState">Aucune zone ne correspond à ce filtre.</div>
-      <div id="zonesResultCount" style="margin-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);"></div>
     </div>
+
+    <div id="zonesView-zone" style="display:none;">
+      <div class="panel" style="padding:16px;">
+        <nav class="subtab-nav" id="zonesSubtabNav" aria-label="Filtrer par province"></nav>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+          <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="Rechercher une zone…" style="flex:1;min-width:160px;font-family:var(--font-mono);font-size:11.5px;padding:7px 9px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);">
+        </div>
+        <div class="table-scroll" style="max-height:min(60vh,520px);">
+          <table>
+            <thead>
+              <tr id="zonesTableHead"></tr>
+            </thead>
+            <tbody id="zonesTableBody"></tbody>
+          </table>
+        </div>
+        <div id="zonesEmptyState" class="map-note" style="display:none;text-align:center;" data-i18n="zonesEmptyState">Aucune zone ne correspond à ce filtre.</div>
+        <div id="zonesResultCount" style="margin-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);"></div>
+      </div>
+    </div>
+
   </section>
 
   </div><!-- /tab-zones -->
@@ -705,6 +774,54 @@
   </section>
 
   </div><!-- /tab-reports -->
+
+  <div class="tab-panel" id="tab-about">
+
+  <section class="section" style="max-width:720px;">
+    <div class="section-head">
+      <div class="section-title" data-i18n="aboutTitle">À propos de ce site</div>
+    </div>
+    <div class="panel" style="padding:24px;display:flex;flex-direction:column;gap:22px;">
+      <div>
+        <h2 style="font-family:var(--font-display);text-transform:uppercase;font-size:16px;margin:0 0 8px;" data-i18n="aboutSourcesTitle">Sources des données</h2>
+        <p style="margin:0;font-size:13.5px;line-height:1.7;color:var(--ink-dim);" data-i18n="aboutSourcesBody">
+          Les chiffres affichés proviennent exclusivement des Rapports de Situation (SitRep) publiés par
+          l'Institut National de Santé Publique (INSP) de la RDC. Chaque SitRep est archivé et consultable dans
+          l'onglet Rapports de situation.
+        </p>
+      </div>
+      <div>
+        <h2 style="font-family:var(--font-display);text-transform:uppercase;font-size:16px;margin:0 0 8px;" data-i18n="aboutMethodTitle">Méthodologie</h2>
+        <p style="margin:0;font-size:13.5px;line-height:1.7;color:var(--ink-dim);" data-i18n="aboutMethodBody">
+          Un programme automatisé récupère chaque nouveau SitRep publié, en extrait les chiffres clés (cas
+          confirmés, décès, guéris, détail par province et par zone de santé) et met à jour ce site en
+          conséquence, généralement une fois par jour. Les données peuvent faire l'objet de révisions
+          rétroactives par les autorités sanitaires (harmonisation entre provinces, reclassification de décès
+          communautaires) : ces révisions se répercutent automatiquement sur le site dès leur publication.
+        </p>
+      </div>
+      <div>
+        <h2 style="font-family:var(--font-display);text-transform:uppercase;font-size:16px;margin:0 0 8px;" data-i18n="aboutUpdateTitle">Fréquence de mise à jour</h2>
+        <p style="margin:0;font-size:13.5px;line-height:1.7;color:var(--ink-dim);" data-i18n="aboutUpdateBody">
+          Le site vérifie la parution d'un nouveau SitRep une fois par jour. La date du dernier SitRep
+          officiel intégré est toujours indiquée en haut de chaque page.
+        </p>
+      </div>
+      <div>
+        <h2 style="font-family:var(--font-display);text-transform:uppercase;font-size:16px;margin:0 0 8px;" data-i18n="aboutDisclaimerTitle">Avertissement</h2>
+        <p style="margin:0;font-size:13.5px;line-height:1.7;color:var(--ink-dim);" data-i18n="aboutDisclaimerBody">
+          Ce site a une vocation strictement informative. Il compile et met en forme des données publiques déjà
+          publiées par des sources officielles, sans analyse ni interprétation indépendante. Il ne constitue en
+          aucun cas un avis médical, épidémiologique ou géopolitique, et ne doit pas être utilisé comme base
+          pour une décision de santé, de voyage ou de sécurité. Pour toute question médicale, consulte un
+          professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé de la
+          RDC). Malgré le soin apporté, des erreurs, approximations ou délais de mise à jour sont possibles.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /tab-about -->
 
   <footer>
     <div class="disclaimer">
@@ -770,8 +887,13 @@ const I18N = {
     popupLastCase:"Dernier cas",
     popupDeclaredFree:"Déclaré Ebola-free",
     legendClosedFocus:"Foyer clos (aucun nouveau cas)",
-    zonesTableTitle:"Détail par zone de santé",
+    zonesTableTitle:"Détail par zone de santé et par province",
     zonesTableSub:(n,total,num,date)=>`${n} zones de santé touchées sur ${total}` + (num?` · SitRep N°${num}`:'') + (date?` du ${date}`:''),
+    zonesViewProvince:"Par province",
+    zonesViewZone:"Par zone de santé",
+    provinceSummaryTitle:"Cumul par province",
+    provinceTh1:"Province",
+    provinceTh2:"Zones touchées",
     zonesFilterAll:"Toutes les provinces",
     zonesSearchPlaceholder:"Rechercher une zone…",
     zonesTh1:"Zone de santé",
@@ -785,6 +907,16 @@ const I18N = {
     tabOverview:"Vue d'ensemble",
     tabZones:"Données détaillées",
     tabReports:"Rapports de situation",
+    tabAbout:"À propos",
+    aboutTitle:"À propos de ce site",
+    aboutSourcesTitle:"Sources des données",
+    aboutSourcesBody:"Les chiffres affichés proviennent exclusivement des Rapports de Situation (SitRep) publiés par l'Institut National de Santé Publique (INSP) de la RDC. Chaque SitRep est archivé et consultable dans l'onglet Rapports de situation.",
+    aboutMethodTitle:"Méthodologie",
+    aboutMethodBody:"Un programme automatisé récupère chaque nouveau SitRep publié, en extrait les chiffres clés (cas confirmés, décès, guéris, détail par province et par zone de santé) et met à jour ce site en conséquence, généralement une fois par jour. Les données peuvent faire l'objet de révisions rétroactives par les autorités sanitaires (harmonisation entre provinces, reclassification de décès communautaires) : ces révisions se répercutent automatiquement sur le site dès leur publication.",
+    aboutUpdateTitle:"Fréquence de mise à jour",
+    aboutUpdateBody:"Le site vérifie la parution d'un nouveau SitRep une fois par jour. La date du dernier SitRep officiel intégré est toujours indiquée en haut de chaque page.",
+    aboutDisclaimerTitle:"Avertissement",
+    aboutDisclaimerBody:"Ce site a une vocation strictement informative. Il compile et met en forme des données publiques déjà publiées par des sources officielles, sans analyse ni interprétation indépendante. Il ne constitue en aucun cas un avis médical, épidémiologique ou géopolitique, et ne doit pas être utilisé comme base pour une décision de santé, de voyage ou de sécurité. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé de la RDC). Malgré le soin apporté, des erreurs, approximations ou délais de mise à jour sont possibles.",
     reportsTitle:"Rapports de situation",
     reportsSub:"SitReps officiels publiés par l'Institut National de Santé Publique de la RDC",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
@@ -842,8 +974,13 @@ const I18N = {
     popupLastCase:"Last case",
     popupDeclaredFree:"Declared Ebola-free",
     legendClosedFocus:"Closed focus (no new cases)",
-    zonesTableTitle:"Detail by health zone",
+    zonesTableTitle:"Detail by health zone and province",
     zonesTableSub:(n,total,num,date)=>`${n} health zones affected out of ${total}` + (num?` · SitRep N°${num}`:'') + (date?` of ${date}`:''),
+    zonesViewProvince:"By province",
+    zonesViewZone:"By health zone",
+    provinceSummaryTitle:"Totals by province",
+    provinceTh1:"Province",
+    provinceTh2:"Zones affected",
     zonesFilterAll:"All provinces",
     zonesSearchPlaceholder:"Search a zone…",
     zonesTh1:"Health zone",
@@ -857,6 +994,16 @@ const I18N = {
     tabOverview:"Overview",
     tabZones:"Detailed data",
     tabReports:"Situation reports",
+    tabAbout:"About",
+    aboutTitle:"About this site",
+    aboutSourcesTitle:"Data sources",
+    aboutSourcesBody:"The figures shown come exclusively from the Situation Reports (SitRep) published by the National Institute of Public Health (INSP) of the DRC. Every SitRep is archived and available in the Situation reports tab.",
+    aboutMethodTitle:"Methodology",
+    aboutMethodBody:"An automated program fetches each newly published SitRep, extracts the key figures (confirmed cases, deaths, recoveries, breakdown by province and health zone) and updates this site accordingly, generally once a day. Data may be revised retroactively by health authorities (harmonisation between provinces, reclassification of community deaths): such revisions are reflected on the site automatically as soon as they're published.",
+    aboutUpdateTitle:"Update frequency",
+    aboutUpdateBody:"The site checks for a new SitRep once a day. The date of the latest official SitRep included is always shown at the top of every page.",
+    aboutDisclaimerTitle:"Disclaimer",
+    aboutDisclaimerBody:"This site is strictly informational. It compiles and formats public data already published by official sources, without independent analysis or interpretation. It is not medical, epidemiological, or geopolitical advice of any kind, and should not be used as the basis for a health, travel, or safety decision. For any medical question, consult a health professional or the relevant health authorities (WHO, DRC Ministry of Health). Despite our best efforts, errors, approximations, or update delays are possible.",
     reportsTitle:"Situation reports",
     reportsSub:"Official SitReps published by the DRC National Institute of Public Health",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
@@ -1411,11 +1558,6 @@ const ZONES_COLUMNS = [
 ];
 
 function initZonesTableControls(){
-  const provSelect = document.getElementById('zonesFilterProvince');
-  if(provSelect && !provSelect.dataset.built){
-    provSelect.dataset.built = '1';
-    provSelect.addEventListener('change', ()=>{ zonesFilterProvinceVal = provSelect.value; renderZonesTable(); });
-  }
   const search = document.getElementById('zonesSearch');
   if(search && !search.dataset.built){
     search.dataset.built = '1';
@@ -1438,8 +1580,96 @@ function initZonesTableControls(){
   }
 }
 
+function renderZonesSubtabs(){
+  const nav = document.getElementById('zonesSubtabNav');
+  if(!nav) return;
+  const provinces = [...new Set(HEALTH_ZONES.map(z=>z.province))];
+  // reconstruit seulement si la liste de provinces a changé (nouvelles données)
+  const wanted = ['all', ...provinces].join('|');
+  if(nav.dataset.built !== wanted){
+    nav.dataset.built = wanted;
+    const allBtn = `<button type="button" class="subtab-btn" data-province="all">${tr('zonesFilterAll')}</button>`;
+    const provBtns = provinces.map(p=>{
+      const color = PROVINCE_COLORS[p] || 'var(--ink-faint)';
+      return `<button type="button" class="subtab-btn" data-province="${p}"><span class="dot" style="background:${color};"></span>${p}</button>`;
+    }).join('');
+    nav.innerHTML = allBtn + provBtns;
+    nav.querySelectorAll('.subtab-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        zonesFilterProvinceVal = btn.getAttribute('data-province');
+        renderZonesTable();
+      });
+    });
+  }
+  nav.querySelectorAll('.subtab-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.getAttribute('data-province')===zonesFilterProvinceVal);
+  });
+}
+
+function renderZonesDropdown(){
+  const dd = document.getElementById('zonesDropdown');
+  if(!dd) return;
+  const provinces = [...new Set(HEALTH_ZONES.map(z=>z.province))];
+  const wanted = ['all', ...provinces].join('|');
+  if(dd.dataset.built === wanted) return;
+  dd.dataset.built = wanted;
+  const allItem = `<button type="button" class="tab-dropdown-item" data-province="all">${tr('zonesFilterAll')}</button>`;
+  const provItems = provinces.map(p=>{
+    const color = PROVINCE_COLORS[p] || 'var(--ink-faint)';
+    return `<button type="button" class="tab-dropdown-item" data-province="${p}"><span class="dot" style="background:${color};"></span>${p}</button>`;
+  }).join('');
+  dd.innerHTML = allItem + provItems;
+  dd.querySelectorAll('.tab-dropdown-item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      zonesFilterProvinceVal = item.getAttribute('data-province');
+      renderZonesTable();
+      switchTab('zones');
+      switchZonesView('zone');
+    });
+  });
+}
+
+let zonesActiveView = 'province';
+function switchZonesView(view){
+  zonesActiveView = view;
+  const provinceEl = document.getElementById('zonesView-province');
+  const zoneEl = document.getElementById('zonesView-zone');
+  if(provinceEl) provinceEl.style.display = view==='province' ? 'block' : 'none';
+  if(zoneEl) zoneEl.style.display = view==='zone' ? 'block' : 'none';
+  document.querySelectorAll('#zonesViewNav .subtab-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.getAttribute('data-view')===view);
+  });
+}
+document.querySelectorAll('#zonesViewNav .subtab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>switchZonesView(btn.getAttribute('data-view')));
+});
+
+function renderProvinceSummary(){
+  const body = document.getElementById('provinceSummaryBody');
+  if(!body) return;
+  const rows = [...PROVINCE_TABLE_DATA].sort((a,b)=>b.confirmed-a.confirmed);
+  body.innerHTML = rows.map(p=>{
+    const color = PROVINCE_COLORS[p.name] || 'var(--ink-faint)';
+    const zonesAffected = p.healthZonesAffected ? `${p.healthZonesAffected.n} / ${p.healthZonesAffected.total}` : '—';
+    const newBadge = p.newCases24h>0
+      ? `<span class="zone-new-badge has-new">+${fmt(p.newCases24h)}</span>`
+      : `<span class="zone-new-badge no-new">${fmt(p.newCases24h)}</span>`;
+    return `
+      <tr>
+        <td><div class="zone-name-cell"><span class="zdot" style="background:${color};"></span>${p.name}</div></td>
+        <td>${fmt(p.confirmed)}</td>
+        <td>${fmt(p.deaths)}</td>
+        <td><span class="zone-badge ${cfrBadgeClass(p.cfr)}">${p.cfr.toFixed(1)}%</span></td>
+        <td>${zonesAffected}</td>
+        <td>${newBadge}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
 function renderZonesTable(){
   initZonesTableControls();
+  renderProvinceSummary();
 
   const subEl = document.getElementById('zonesTableSub');
   if(subEl){
@@ -1449,15 +1679,8 @@ function renderZonesTable(){
     subEl.textContent = tr('zonesTableSub')(n, total, currentMeta ? currentMeta.sitrepNumber : '', dateStr);
   }
 
-  const provSelect = document.getElementById('zonesFilterProvince');
-  const currentOptions = [...provSelect.options].map(o=>o.value);
-  const provinces = [...new Set(HEALTH_ZONES.map(z=>z.province))];
-  const wantedOptions = ['all', ...provinces];
-  if(JSON.stringify(currentOptions) !== JSON.stringify(wantedOptions)){
-    provSelect.innerHTML = `<option value="all">${tr('zonesFilterAll')}</option>` +
-      provinces.map(p=>`<option value="${p}">${p}</option>`).join('');
-    provSelect.value = zonesFilterProvinceVal;
-  }
+  renderZonesSubtabs();
+  renderZonesDropdown();
 
   // en-têtes (texte + indicateur de tri)
   document.getElementById('zonesTableHead').querySelectorAll('th').forEach(th=>{
@@ -1670,7 +1893,7 @@ async function handleShare(){
 document.getElementById('btnShare').addEventListener('click', handleShare);
 
 /* ============ ONGLETS ============ */
-const TAB_NAMES = ['overview','zones','reports'];
+const TAB_NAMES = ['overview','zones','reports','about'];
 let currentTab = 'overview';
 
 function switchTab(name, updateHash){
