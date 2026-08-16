@@ -15,7 +15,10 @@ Un fichier reports/_index.json est aussi écrit avec les métadonnées
 générer ensuite la section "reports" de data/latest.json.
 
 Le script est idempotent : un PDF déjà présent dans reports/ n'est pas
-retéléchargé (sauf avec --force).
+retéléchargé (sauf avec --force). Pour un rapport déjà présent, on évite
+même la requête HTTP vers la page de l'article (voir boucle principale) :
+c'était la cause du ralentissement du workflow une fois la plupart des
+rapports déjà archivés.
 """
 
 import argparse
@@ -71,8 +74,6 @@ def discover_listing_pages() -> list[str]:
             n = page_num(href)
             if n:
                 max_page = max(max_page, n)
-        # certains thèmes mettent aussi le numéro dans le texte du lien
-        # (utile si un jour le href change de forme)
         n_text = page_num(a.get_text(strip=True))
         if n_text:
             max_page = max(max_page, n_text)
@@ -102,7 +103,6 @@ def extract_pdf_url_from_article(article_url: str) -> str | None:
     resp.raise_for_status()
     html = resp.text
 
-    # 1) motif pdfemb-data=<base64 json avec "url": "...">
     for m in re.finditer(r"pdfemb-data=([A-Za-z0-9+/=]+)", html):
         token = m.group(1)
         try:
@@ -114,7 +114,6 @@ def extract_pdf_url_from_article(article_url: str) -> str | None:
         except Exception:
             continue
 
-    # 2) repli : lien direct vers un .pdf dans le HTML
     soup = BeautifulSoup(html, "html.parser")
     for a in soup.select("a[href$='.pdf']"):
         return urljoin(BASE, a["href"])
@@ -126,7 +125,6 @@ def guess_sitrep_number(title: str) -> str:
     m = SITREP_NUM_RE.search(title)
     if m:
         return m.group(1).zfill(3)
-    # repli : hash court du titre si aucun numéro trouvé
     return re.sub(r"\W+", "_", title)[:20]
 
 
@@ -178,6 +176,24 @@ def main():
     for title, article_url in all_articles:
         num = guess_sitrep_number(title)
         dest = OUT_DIR / f"SITREP_MVE_{num}.pdf"
+
+        # Si le PDF est déjà présent, on n'a besoin de rien de plus : on
+        # évite complètement la requête vers la page de l'article (et la
+        # pause de politesse qui va avec). Une fois la plupart des rapports
+        # déjà archivés, c'est ce qui faisait durer le workflow plusieurs
+        # minutes pour ne rien trouver de neuf.
+        if dest.exists() and not args.force:
+            if num not in index:
+                index[num] = {
+                    "title": title,
+                    "article_url": article_url,
+                    "pdf_url": None,
+                    "file": str(dest),
+                }
+            print(f"  [=]  {title} -> {dest.name} (déjà présent, requête sautée)")
+            skipped += 1
+            continue
+
         try:
             pdf_url = extract_pdf_url_from_article(article_url)
             if not pdf_url:
