@@ -722,7 +722,7 @@
   <section class="section">
     <div class="section-head">
       <div class="section-title" data-i18n="zonesTableTitle">Détail par zone de santé et par province</div>
-      <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">54 zones de santé touchées sur 151 · SitRep N°090 du 12 août 2026</div>
+      <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">55 zones de santé touchées sur 151 · SitRep N°092 du 14 août 2026</div>
     </div>
 
     <nav class="subtab-nav" id="zonesViewNav" aria-label="Choisir la vue" style="margin-bottom:16px;">
@@ -1110,7 +1110,7 @@ function detectBrowserLang(){
 let currentLang = 'fr';
 function tr(key){ return I18N[currentLang][key]; }
 
-/* ============ DONNÉES DE RÉFÉRENCE (au 6 août 2026) ============ */
+/* ============ DONNÉES DE RÉFÉRENCE (au 14 août 2026) ============ */
 const SEED_SITREPS = [
   { date:"2026-05-16", confirmed:8,    deaths:null, recovered:null },
   { date:"2026-05-31", confirmed:282,  deaths:null, recovered:null },
@@ -1128,7 +1128,9 @@ const SEED_SITREPS = [
   { date:"2026-08-09", confirmed:4381, deaths:2011, recovered:869 },
   { date:"2026-08-10", confirmed:4449, deaths:2061, recovered:886 },
   { date:"2026-08-11", confirmed:4566, deaths:2128, recovered:918 },
-  { date:"2026-08-12", confirmed:4665, deaths:2184, recovered:965 }
+  { date:"2026-08-12", confirmed:4665, deaths:2184, recovered:965 },
+  { date:"2026-08-13", confirmed:4727, deaths:2214, recovered:null },
+  { date:"2026-08-14", confirmed:4843, deaths:2272, recovered:1006 }
 ];
 
 const PROVINCES = [
@@ -1139,29 +1141,27 @@ const PROVINCES = [
   { name:"Sud-Kivu",   share:0.001, epicenter:false },
   { name:"Bas-Uélé",   share:0.0002, epicenter:false }
 ];
-/* Répartition par province — INSP RDC, SitRep N°090/MVEBDB du 12/08/2026 (cas et
+/* Répartition par province — INSP RDC, SitRep N°092/MVEBDB du 14/08/2026 (cas et
    décès cumulés, rapport le plus récent disponible) ; statut de transmission :
-   Ituri (+67), Nord-Kivu (+25), Haut-Uélé (+6), Tshopo (+1) et Bas-Uélé (+1, nouvelle
-   province touchée le 12/08) ont rapporté des nouveaux cas confirmés au cours des
-   dernières 24h. Sud-Kivu : aucun nouveau cas signalé dans ce SitRep — 73 jours sans
-   nouveau cas au 8 août (ONU Info/OMS) + 4 jours sans nouveau cas supplémentaires
-   d'après ce SitRep = environ 77 jours au 12 août, soit "inactif" au sens des critères
-   OMS de 42 jours, sans être déclaré éradiqué. */
+   Ituri (+85), Nord-Kivu (+19), Haut-Uélé (+12) ont rapporté des nouveaux cas
+   confirmés au cours des dernières 24h. Sud-Kivu : aucun nouveau cas signalé —
+   70 jours sans nouveau cas au 14 août, soit "inactif" au sens des critères OMS
+   de 42 jours, sans être déclaré éradiqué. */
 const PROVINCE_TABLE_DATA_SEED = [
-  { name:"Ituri",     confirmed:3979, deaths:1726, cfr:43.4,  status:"active-epicenter", healthZonesAffected:{n:28,total:36}, newCases24h:67 },
-  { name:"Nord-Kivu", confirmed:553,  deaths:395,  cfr:71.4,  status:"active",           healthZonesAffected:{n:12,total:34}, newCases24h:25 },
-  { name:"Haut-Uélé", confirmed:119,  deaths:55,   cfr:46.2,  status:"active",           healthZonesAffected:{n:6, total:13}, newCases24h:6  },
-  { name:"Tshopo",    confirmed:10,   deaths:6,    cfr:60.0,  status:"active",           healthZonesAffected:{n:6, total:23}, newCases24h:1  },
-  { name:"Sud-Kivu",  confirmed:3,    deaths:1,    cfr:33.3,  status:"inactive", daysNoCase:77, healthZonesAffected:{n:1,total:34}, newCases24h:0 },
-  { name:"Bas-Uélé",  confirmed:1,    deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:11}, newCases24h:1  }
+  { name:"Ituri",     confirmed:4105, deaths:1791, cfr:43.6,  status:"active-epicenter", healthZonesAffected:{n:28,total:36}, newCases24h:85 },
+  { name:"Nord-Kivu", confirmed:588,  deaths:411,  cfr:69.9,  status:"active",           healthZonesAffected:{n:12,total:34}, newCases24h:19 },
+  { name:"Haut-Uélé", confirmed:135,  deaths:62,   cfr:45.9,  status:"active",           healthZonesAffected:{n:6, total:13}, newCases24h:12 },
+  { name:"Tshopo",    confirmed:11,   deaths:6,    cfr:54.5,  status:"active",           healthZonesAffected:{n:7, total:23}, newCases24h:0  },
+  { name:"Sud-Kivu",  confirmed:3,    deaths:1,    cfr:33.3,  status:"inactive", daysNoCase:70, healthZonesAffected:{n:1,total:34}, newCases24h:0 },
+  { name:"Bas-Uélé",  confirmed:1,    deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:11}, newCases24h:0  }
 ];
 
-/* Indicateurs nationaux complémentaires — SitRep N°090/MVEBDB du 12/08/2026.
+/* Indicateurs nationaux complémentaires — SitRep N°092/MVEBDB du 14/08/2026.
    Servent de repli si data/latest.json est indisponible (voir loadRemoteLatest). */
 const NATIONAL_SEED = {
-  inCTE:634, contactsFollowUpRate:84.2, provincesAffected:6,
-  healthZonesAffected:{n:54,total:151}, healthAreasAffected:{n:246,total:3104},
-  newCases24h:100, newDeaths24h:53, newDeathsCommunity24h:28, newDeathsIntraCTE24h:25
+  inCTE:777, contactsFollowUpRate:83.2, provincesAffected:6,
+  healthZonesAffected:{n:55,total:151}, healthAreasAffected:{n:246,total:3104},
+  newCases24h:116, newDeaths24h:58, newDeathsCommunity24h:38, newDeathsIntraCTE24h:20
 };
 
 /* Occupation des Centres de Traitement Ebola (CTE) par province — même SitRep.
@@ -1194,11 +1194,12 @@ const POE_POC_TOTAL_SEED = { travelersScreened:158613, screeningRate:97.4 };
 
 /* Rapports de situation officiels archivés — préparé pour l'onglet "Rapports". */
 const REPORTS_SEED = [
-  { sitrepNumber:"086", reportingDate:"2026-08-08", publicationDate:"2026-08-09", file:"reports/SITREP_MVEBDB_086_080826.pdf", confirmed:4294, deaths:1960 },
-  { sitrepNumber:"087", reportingDate:"2026-08-09", publicationDate:"2026-08-10", file:"reports/SITREP_MVEBDB_087_09_08_2026_VF.pdf", confirmed:4381, deaths:2011 },
-  { sitrepNumber:"088", reportingDate:"2026-08-10", publicationDate:"2026-08-11", file:"reports/SITREP_MVEBDB_088_10_08_2026_11.pdf", confirmed:4449, deaths:2061 },
-  { sitrepNumber:"089", reportingDate:"2026-08-11", publicationDate:"2026-08-12", file:"reports/SITREP_MVEBDB_089_11_08_2026.pdf", confirmed:4566, deaths:2128 },
-  { sitrepNumber:"090", reportingDate:"2026-08-12", publicationDate:"2026-08-13", file:"reports/SITREP_MVEBDB_090_12_08_2026.pdf", confirmed:4665, deaths:2184 }
+  { sitrepNumber:"087", reportingDate:"2026-08-09", publicationDate:"2026-08-10", file:"reports/SITREP_MVE_087.pdf", confirmed:4381, deaths:2011 },
+  { sitrepNumber:"088", reportingDate:"2026-08-10", publicationDate:"2026-08-11", file:"reports/SITREP_MVE_088.pdf", confirmed:4449, deaths:2061 },
+  { sitrepNumber:"089", reportingDate:"2026-08-11", publicationDate:"2026-08-12", file:"reports/SITREP_MVE_089.pdf", confirmed:4566, deaths:2128 },
+  { sitrepNumber:"090", reportingDate:"2026-08-12", publicationDate:"2026-08-13", file:"reports/SITREP_MVE_090.pdf", confirmed:4665, deaths:2184 },
+  { sitrepNumber:"091", reportingDate:"2026-08-13", publicationDate:"2026-08-14", file:"reports/SITREP_MVE_091.pdf", confirmed:4727, deaths:2214 },
+  { sitrepNumber:"092", reportingDate:"2026-08-14", publicationDate:"2026-08-15", file:"reports/SITREP_MVE_092.pdf", confirmed:4843, deaths:2272 }
 ];
 
 /* Chronologie des faits clés — même SitRep. Préparé pour une étape ultérieure. */
@@ -1215,31 +1216,24 @@ const TIMELINE_SEED = [
    correspond exactement à son total agrégé affiché ailleurs sur le site. */
 /* [nom, cas cumulés, province, décès cumulés, nouveaux cas (24h), décès communautaires (24h), décès intra-CTE (24h)] */
 const HEALTH_ZONES_SEED = [
-  ["Bunia",1095,"Ituri",333,23,4,4],["Rwampara",818,"Ituri",319,18,2,2],["Mongbwalu",581,"Ituri",282,2,1,1],
-  ["Nizi",509,"Ituri",231,7,0,0],["Lita",169,"Ituri",97,0,0,0],
-  ["Nia Nia",151,"Ituri",88,5,1,1],["Nyankunde",118,"Ituri",35,1,0,0],["Mangala",122,"Ituri",76,2,0,0],
-  ["Bambu",93,"Ituri",22,0,0,0],["Tchomia",48,"Ituri",24,0,0,0],
-  ["Fataki",59,"Ituri",30,4,1,1],["Komanda",42,"Ituri",29,0,0,0],["Kilo",30,"Ituri",12,0,0,0],
-  ["Damas",21,"Ituri",9,1,0,0],["Mandima",19,"Ituri",13,0,0,0],
-  ["Mambasa",13,"Ituri",6,0,0,0],["Drodro",13,"Ituri",6,1,0,0],["Lolwa",14,"Ituri",4,3,0,0],
-  ["Adja",11,"Ituri",1,0,0,0],["Logo",11,"Ituri",5,0,0,0],
-  ["Aungba",10,"Ituri",5,0,0,0],["Rimba",9,"Ituri",4,0,0,0],["Ariwara",7,"Ituri",2,0,0,0],
-  ["Aru",7,"Ituri",6,0,0,0],["Mahagi",4,"Ituri",1,0,0,0],
-  ["Kambala",2,"Ituri",0,0,0,0],["Gety",2,"Ituri",1,0,0,0],["Boga",1,"Ituri",1,0,0,0],
-  ["Katwa",262,"Nord-Kivu",180,13,9,5],["Butembo",107,"Nord-Kivu",91,2,2,3],["Beni",85,"Nord-Kivu",65,5,3,3],
-  ["Musienene",55,"Nord-Kivu",32,2,0,1],
-  ["Kyondo",14,"Nord-Kivu",12,1,1,1],["Kalunguta",10,"Nord-Kivu",4,0,0,0],["Masereka",7,"Nord-Kivu",4,0,0,0],
-  ["Oicha",5,"Nord-Kivu",4,0,0,0],
-  ["Vuhovi",4,"Nord-Kivu",1,1,0,0],["Mabalako",2,"Nord-Kivu",1,1,1,1],["Goma",1,"Nord-Kivu",0,0,0,0],
-  ["Lubero",1,"Nord-Kivu",1,0,0,0],
-  ["Isiro",37,"Haut-Uélé",19,4,1,1],["Wamba",41,"Haut-Uélé",16,0,0,0],["Boma Mangbetu",22,"Haut-Uélé",5,2,0,0],
-  ["Pawa",17,"Haut-Uélé",14,0,0,0],
-  ["Rungu",1,"Haut-Uélé",0,0,0,0],["Gombari",1,"Haut-Uélé",1,0,0,0],
-  ["Kabondo",3,"Tshopo",2,1,1,1],["Bafwasende",1,"Tshopo",0,0,0,0],["Lubunga",1,"Tshopo",0,0,0,0],
-  ["Makiso-Kisangani",3,"Tshopo",3,0,0,0],
-  ["Mangobo",1,"Tshopo",1,0,0,0],["Wanie-Rukula",1,"Tshopo",0,0,0,0],
-  ["Miti-Murhesa",3,"Sud-Kivu",1,0,0,0],
-  ["Buta",1,"Bas-Uélé",1,1,1,0]
+  ["Nyankunde",120,"Ituri",35,0,0,0],["Rimba",9,"Ituri",4,0,0,0],["Rwampara",838,"Ituri",324,15,5,0],
+  ["Tchomia",49,"Ituri",25,0,0,0],["Beni",90,"Nord-Kivu",66,4,1,0],["Butembo",110,"Nord-Kivu",91,2,0,0],
+  ["Kalunguta",12,"Nord-Kivu",5,1,0,0],["Katwa",280,"Nord-Kivu",190,6,1,1],["Kyondo",15,"Nord-Kivu",12,1,0,0],
+  ["Lubero",1,"Nord-Kivu",1,0,0,0],["Mabalako",2,"Nord-Kivu",1,0,0,0],["Masereka",7,"Nord-Kivu",4,0,0,0],
+  ["Musienene",61,"Nord-Kivu",35,5,3,0],["Oicha",5,"Nord-Kivu",4,0,0,0],["Vuhovi",4,"Nord-Kivu",2,0,0,1],
+  ["Boma Mangbetu",22,"Haut-Uélé",8,0,0,2],["Gombari",1,"Haut-Uélé",1,0,0,0],["Isiro",39,"Haut-Uélé",19,0,0,0],
+  ["Pawa",19,"Haut-Uélé",14,0,0,0],["Wamba",53,"Haut-Uélé",20,12,2,1],["Kabondo",3,"Tshopo",2,0,0,0],
+  ["Makiso-Kisangani",3,"Tshopo",3,0,0,0],["Mangobo",1,"Tshopo",1,0,0,0],["Miti-Murhesa",3,"Sud-Kivu",1,0,0,0],
+  ["Buta",1,"Bas-Uélé",1,0,0,0],["Adja",11,"Ituri",1,0,0,0],["Aru",7,"Ituri",6,0,0,0],
+  ["Ariwara",7,"Ituri",2,0,0,0],["Aungba",11,"Ituri",5,1,0,0],["Bambu",109,"Ituri",25,5,3,3],
+  ["Boga",1,"Ituri",1,0,0,0],["Bunia",1116,"Ituri",338,16,5,5],["Damas",23,"Ituri",9,2,0,0],
+  ["Drodro",13,"Ituri",6,0,0,0],["Fataki",63,"Ituri",30,1,0,0],["Gety",4,"Ituri",1,2,0,0],
+  ["Kambala",2,"Ituri",0,0,0,0],["Kilo",31,"Ituri",12,0,0,0],["Komanda",45,"Ituri",31,2,2,2],
+  ["Lita",172,"Ituri",97,3,0,0],["Logo",11,"Ituri",5,0,0,0],["Lolwa",14,"Ituri",4,0,0,0],
+  ["Mahagi",4,"Ituri",1,0,0,0],["Mambasa",13,"Ituri",6,0,0,0],["Mandima",22,"Ituri",13,0,0,0],
+  ["Mangala",141,"Ituri",83,19,7,7],["Mongbwalu",584,"Ituri",282,3,0,0],["Nia Nia",161,"Ituri",96,5,4,4],
+  ["Nizi",524,"Ituri",236,11,5,5],["Goma",1,"Nord-Kivu",0,0,0,0],["Rungu",1,"Haut-Uélé",0,0,0,0],
+  ["Bafwasende",1,"Tshopo",0,0,0,0],["Lubunga",1,"Tshopo",0,0,0,0],["Wanie-Rukula",1,"Tshopo",0,0,0,0]
 ].map(([name,cases,province,deaths,newCases24h,deathsCommunity24h,deathsIntraCTE24h])=>{
   const cfr = cases>0 ? +(deaths/cases*100).toFixed(1) : 0;
   return {name,cases,province,deaths,cfr,newCases24h,deathsCommunity24h,deathsIntraCTE24h};
