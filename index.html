@@ -506,6 +506,13 @@
     padding:14px 20px 18px;border-top:1px solid var(--line);
   }
 
+  .page-intro{
+    font-family:var(--font-body);
+    font-size:14px;line-height:1.7;color:var(--ink-dim);
+    max-width:640px;margin:-10px 0 26px;
+    padding-left:14px;border-left:2px solid var(--accent-info);
+  }
+
   .province-note{font-size:11px;color:var(--ink-faint);margin-top:14px;line-height:1.55;}
 
   /* ---------- table ---------- */
@@ -770,8 +777,12 @@
   <section class="section">
     <div class="section-head">
       <div class="section-title" data-i18n="reportsTitle">Rapports de situation</div>
-      <div class="section-sub" data-i18n="reportsSub">SitReps officiels publiés par l'Institut National de Santé Publique de la RDC</div>
     </div>
+    <p class="page-intro" data-i18n="reportsIntro">
+      Chaque bulletin officiel publié par l'Institut National de Santé Publique de la République Démocratique du
+      Congo est archivé ici dès sa publication, au format PDF original — c'est la source unique de toutes les
+      données affichées sur ce site.
+    </p>
     <div class="panel" style="padding:16px;">
       <div id="reportsList" class="reports-grid"></div>
     </div>
@@ -926,7 +937,7 @@ const I18N = {
     aboutDisclaimerTitle:"Avertissement",
     aboutDisclaimerBody:"Ce site a une vocation strictement informative. Il compile et met en forme des données publiques déjà publiées par des sources officielles, sans analyse ni interprétation indépendante. Il ne constitue en aucun cas un avis médical, épidémiologique ou géopolitique, et ne doit pas être utilisé comme base pour une décision de santé, de voyage ou de sécurité. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé de la RDC). Malgré le soin apporté, des erreurs, approximations ou délais de mise à jour sont possibles.",
     reportsTitle:"Rapports de situation",
-    reportsSub:"SitReps officiels publiés par l'Institut National de Santé Publique de la RDC",
+    reportsIntro:"Chaque bulletin officiel publié par l'Institut National de Santé Publique de la République Démocratique du Congo est archivé ici dès sa publication, au format PDF original — c'est la source unique de toutes les données affichées sur ce site.",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
     reportsReportingDate:(d)=>`Situation au ${d}`,
     reportsUnknownDate:"date inconnue",
@@ -1017,7 +1028,7 @@ const I18N = {
     aboutDisclaimerTitle:"Disclaimer",
     aboutDisclaimerBody:"This site is strictly informational. It compiles and formats public data already published by official sources, without independent analysis or interpretation. It is not medical, epidemiological, or geopolitical advice of any kind, and should not be used as the basis for a health, travel, or safety decision. For any medical question, consult a health professional or the relevant health authorities (WHO, DRC Ministry of Health). Despite our best efforts, errors, approximations, or update delays are possible.",
     reportsTitle:"Situation reports",
-    reportsSub:"Official SitReps published by the DRC National Institute of Public Health",
+    reportsIntro:"Every official bulletin published by the National Institute of Public Health of the Democratic Republic of the Congo is archived here as soon as it's published, in its original PDF form — the single source for all data shown on this site.",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
     reportsReportingDate:(d)=>`Situation as of ${d}`,
     reportsUnknownDate:"unknown date",
