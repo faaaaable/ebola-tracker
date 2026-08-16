@@ -89,10 +89,6 @@ def extract_kpi_band(page):
     se basant sur les positions x des mots, car ces cases se chevauchent
     dans l'extraction de texte linéaire."""
     words = page.extract_words()
-    # Les 6 chiffres clés sont en gros caractères (height ~12) ; les petites
-    # annotations ("Du Jour", parenthèses...) qui se superposent dans la même
-    # zone sont en plus petits caractères (height ~6.5) : on ne garde que les
-    # gros pour éviter toute contamination.
     band = [w for w in words if 245 < w["top"] < 275 and w["height"] > 9]
 
     def collect(xmin, xmax):
@@ -201,17 +197,54 @@ ZONE_LINE_RE = re.compile(
     r"(?P<cas>\d[\d ]*|NA)\s+(?P<deces>\d[\d ]*|NA)\s+(?P<cfr>[\d,]+%|NA)\s*(?P<tail>.*)$"
 )
 
+# Ligne de sous-total de province dans le tableau détaillé (ex :
+# "Ituri 4105 1791 43,6% 85 31 15 46"). Contrairement aux lignes de zone,
+# ces lignes affichent TOUJOURS leurs 4 colonnes du jour explicitement
+# (même à 0), donc pas d'ambiguïté de colonnes manquantes ici.
+PROV_SUBTOTAL_RE = re.compile(
+    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé)\s+"
+    r"(?P<cas>\d[\d ]*)\s+(?P<deces>\d[\d ]*)\s+(?P<cfr>[\d,]+%)\s+"
+    r"(?P<newcases>\d[\d ]*)\s+(?P<deathscomm>\d[\d ]*)\s+"
+    r"(?P<deathsintracte>\d[\d ]*)\s+(?P<total>\d[\d ]*)\s*$"
+)
 
-def gap_fill_missing_zones(full_text, province_subtotals, zones_raw):
-    """pdfplumber peut perdre une ligne de zone quand elle tombe pile sur un
-    saut de page (table détectée sans cette ligne). On comble les trous en
-    relisant le texte brut de la section, ligne par ligne, uniquement pour
-    les zones absentes du résultat basé sur les tableaux."""
+
+def get_zone_section_text(full_text):
     start = full_text.find("Cas et décès confirmés par province et zone de santé")
     end = full_text.find("Situation des alertes notifiées")
     if start == -1 or end == -1 or end <= start:
+        return None
+    return full_text[start:end]
+
+
+def extract_province_subtotals_from_text(full_text):
+    """Relit les lignes de sous-total de province directement dans le texte
+    brut plutôt que dans le tableau pdfplumber : plus fiable, car ces lignes
+    ont un format fixe et toujours complet (voir PROV_SUBTOTAL_RE)."""
+    section = get_zone_section_text(full_text)
+    if not section:
+        return {}
+    out = {}
+    for line in section.split("\n"):
+        line = line.strip()
+        m = PROV_SUBTOTAL_RE.match(line)
+        if m:
+            out[m.group("name")] = {
+                "cas": m.group("cas"), "deces": m.group("deces"), "cfr": m.group("cfr"),
+                "newcases": m.group("newcases"), "deathscomm": m.group("deathscomm"),
+                "deathsintracte": m.group("deathsintracte"), "total": m.group("total"),
+            }
+    return out
+
+
+def gap_fill_missing_zones(full_text, zones_raw):
+    """pdfplumber peut perdre ou mal aligner une ligne de zone (saut de
+    page, colonnes ambiguës). On reconstruit TOUTES les zones absentes (ou
+    marquées non fiables en amont, voir revalidate_zones) en relisant le
+    texte brut de la section, ligne par ligne, avec une regex fiable."""
+    section = get_zone_section_text(full_text)
+    if not section:
         return zones_raw
-    section = full_text[start:end]
 
     already = {(prov, name) for prov, name, _ in zones_raw}
     current_province = None
@@ -221,8 +254,6 @@ def gap_fill_missing_zones(full_text, province_subtotals, zones_raw):
         line = line.strip()
         if not line:
             continue
-        stripped_name_candidate = line.split()[0] if line.split() else ""
-        # détecte les lignes de sous-total de province (ex: "Ituri 4020 1745 43,4% 41 5 14 19")
         matched_province = None
         for pname in PROVINCE_NAMES_MAIN:
             if line.startswith(pname):
@@ -275,6 +306,36 @@ def parse_zone_detail(rows):
         zones.append((current_province, name, row))
 
     return province_subtotals, zones, total_row
+
+
+def zone_row_looks_unreliable(row):
+    """Détecte les lignes où le décalage de colonnes pdfplumber a fait
+    atterrir la létalité (ex: '9,1%' -> 91 une fois les caractères non-
+    numériques supprimés) dans une case qui devrait être vide, tout en
+    laissant les décès/létalité réels à 0. Signature : cas>0 mais décès ET
+    létalité manquants/nuls alors que ce ne devrait pas être le cas."""
+    try:
+        cases = norm_int(row[1])
+        deaths = norm_int(row[2]) if len(row) > 2 else None
+        cfr = norm_pct(row[3]) if len(row) > 3 else None
+    except Exception:
+        return True
+    if cases and cases > 0 and not deaths and cfr in (None, 0.0):
+        return True
+    return False
+
+
+def revalidate_zones(full_text, zones_raw):
+    """Retire du jeu de résultats les lignes suspectes (voir
+    zone_row_looks_unreliable), puis relance gap_fill_missing_zones pour
+    qu'elles soient reconstruites correctement depuis le texte brut, comme
+    si elles avaient été manquantes."""
+    reliable = [(p, n, r) for p, n, r in zones_raw if not zone_row_looks_unreliable(r)]
+    dropped = len(zones_raw) - len(reliable)
+    if dropped:
+        print(f"  ! {dropped} ligne(s) de zone jugée(s) non fiable(s) côté tableau "
+              f"(colonnes décalées) — reconstruites depuis le texte brut.")
+    return gap_fill_missing_zones(full_text, reliable)
 
 
 def zone_row_to_dict(province, name, row):
@@ -363,15 +424,8 @@ def main():
     else:
         current = {}
 
-    # 1) Liste des rapports (onglet "Rapports de situation") : toujours
-    #    reconstruite à partir de tout ce qui se trouve dans reports/, pour
-    #    qu'un PDF backfillé par le téléchargement automatique apparaisse
-    #    même s'il n'est pas le plus récent.
     reports = rebuild_reports_list(current.get("reports", []))
 
-    # 2) KPI nationaux / provinces / zones de santé : toujours régénérés à
-    #    partir du SitRep le plus récent trouvé dans reports/, pour que le
-    #    site reflète systématiquement le dernier rapport collecté.
     print(f"Régénération des données depuis {report_path} (SitRep {report_num:03d})...")
 
     with pdfplumber.open(report_path) as pdf:
@@ -386,23 +440,27 @@ def main():
         provinces, prov_total_row = parse_province_summary(prov_table)
 
         zone_rows = extract_zone_detail_rows(pdf)
-        province_subtotals, zones_raw, detail_total_row = parse_zone_detail(zone_rows)
-        zones_raw = gap_fill_missing_zones(full_text, province_subtotals, zones_raw)
+        _, zones_raw, detail_total_row = parse_zone_detail(zone_rows)
+        # Repère et reconstruit depuis le texte brut toute ligne de zone où
+        # pdfplumber a mal aligné les colonnes (voir zone_row_looks_unreliable).
+        zones_raw = revalidate_zones(full_text, zones_raw)
+        # Sous-totaux de province : toujours relus depuis le texte brut,
+        # plus fiable que les colonnes du tableau pour cette ligne précise.
+        province_subtotals_text = extract_province_subtotals_from_text(full_text)
 
     # Enrichissement des provinces avec le détail décès communautaires/intra-CTE
     old_provinces = {p["name"]: p for p in current.get("provinces", [])}
     for p in provinces:
         canon = p["name"]
         src_name = next((k for k, v in PROVINCE_CANON.items() if v == canon), canon)
-        sub = province_subtotals.get(src_name)
-        if sub and len(sub) > 6:
-            p["newDeathsCommunity24h"] = norm_int(sub[5]) or 0
-            p["newDeathsIntraCTE24h"] = norm_int(sub[6]) or 0
+        sub = province_subtotals_text.get(src_name)
+        if sub:
+            p["newDeathsCommunity24h"] = norm_int(sub["deathscomm"]) or 0
+            p["newDeathsIntraCTE24h"] = norm_int(sub["deathsintracte"]) or 0
 
         old = old_provinces.get(canon)
         has_new_cases = (p["newCases24h"] or 0) > 0
         if has_new_cases:
-            # reste épicentre si elle l'était déjà, redevient "active" sinon
             p["status"] = "active-epicenter" if old and old.get("status") == "active-epicenter" else "active"
         elif old:
             p["status"] = old.get("status", "active")
@@ -413,7 +471,6 @@ def main():
 
     health_zones = [zone_row_to_dict(prov, name, row) for prov, name, row in zones_raw]
 
-    # Aires de santé touchées (colonne de gauche, page 1)
     am = re.search(r"(\d[\d\s]*)\s*Aires de santé.*?Sur\s*(\d[\d\s]*)\s*\(", sidebar)
     health_areas = None
     if am:
@@ -441,8 +498,6 @@ def main():
         "newDeathsIntraCTE24h": norm_int(detail_total_row[5]) if detail_total_row and len(detail_total_row) > 5 else None,
     }
 
-    # Recalcul de secours (plus fiable que le tableau détaillé, dont la mise
-    # en page varie) : on relit directement la phrase des "FAITS SAILLANTS".
     fs = re.search(
         r"(\d[\d\s]*)\s*nouveaux cas confirmés et\s*(\d[\d\s]*)\s*décès\s*\((\d[\d\s]*)\s*décès\s*communautaires?\s*et\s*(\d[\d\s]*)\s*intra",
         full_text,
