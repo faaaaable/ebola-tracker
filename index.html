@@ -868,12 +868,11 @@ const I18N = {
     chartTitle:"Courbe des cas et des décès",
     chartSub:"cumul des cas confirmés et décès",
     chartSubRange:(n,from,to)=>`${n} bulletins, du ${from} au ${to}`,
-    chartNote:"Les dates suivent les bulletins officiels, publiés à intervalles irréguliers.",
     chartModeCumulative:"Cumulé",
     chartModeDaily:"Nouveaux cas par jour",
     dailyChartLabel:"Nouveaux cas",
     dailyDeathsLabel:"Nouveaux décès",
-    chartNoteDaily:"Calculé par différence entre bulletins successifs ; un intervalle de plusieurs jours entre deux bulletins peut donner un pic isolé.",
+    chartNoteDaily:"Certains pics reflètent des rattrapages de données (révisions, bulletins manquants), pas nécessairement une hausse réelle.",
     chartLoadError:"Chart.js n'a pas pu se charger (connexion internet requise pour ce CDN). Vérifie ta connexion et recharge la page.",
     disclaimerTitle:"Avertissement.",
     disclaimerBody:"Site à vocation informative uniquement qui compile des données publiques déjà publiées par des sources officielles. Ne constitue pas un avis médical — consultez un professionnel de santé ou les autorités compétentes (OMS, ministère de la Santé RDC...) pour toute décision. Erreurs ou délais de mise à jour possibles.",
@@ -960,12 +959,11 @@ const I18N = {
     chartTitle:"Epidemic curve",
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
-    chartNote:"Dates follow official bulletins, published at irregular intervals.",
     chartModeCumulative:"Cumulative",
     chartModeDaily:"New cases per day",
     dailyChartLabel:"New cases",
     dailyDeathsLabel:"New deaths",
-    chartNoteDaily:"Computed as the difference between consecutive bulletins; a multi-day gap between two bulletins can show up as a single spike.",
+    chartNoteDaily:"Some spikes reflect data catch-ups (revisions, missing bulletins), not necessarily a real increase.",
     chartLoadError:"Chart.js failed to load (an internet connection is required for this CDN). Check your connection and reload the page.",
     disclaimerTitle:"Disclaimer.",
     disclaimerBody:"Informational site: it compiles public data already published by official sources. Not medical advice — consult a healthcare professional or the relevant authorities (WHO, DRC Ministry of Health) for any decision. Errors or update delays are possible.",
@@ -1346,7 +1344,10 @@ function renderChart(){
     subEl.textContent = tr('chartSub') + ' · ' + tr('chartSubRange')(s.length, frDate(s[0].date), frDate(s[s.length-1].date));
   }
   const noteEl = document.getElementById('chartNote');
-  if(noteEl) noteEl.textContent = chartMode==='daily' ? tr('chartNoteDaily') : tr('chartNote');
+  if(noteEl){
+    if(chartMode==='daily'){ noteEl.textContent = tr('chartNoteDaily'); noteEl.style.display = 'block'; }
+    else { noteEl.textContent = ''; noteEl.style.display = 'none'; }
+  }
 
   const labels = s.map(r=> (r.approx?'≈ ':'') + frDate(r.date));
   const ctx = canvas.getContext('2d');
