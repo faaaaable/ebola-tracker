@@ -637,6 +637,7 @@
     </div>
     <button class="tab-btn" data-tab="reports" data-i18n="tabReports">Rapports de situation</button>
     <button class="tab-btn" data-tab="about" data-i18n="tabAbout">À propos</button>
+    <button class="tab-btn" data-tab="contact" data-i18n="tabContact">Contact</button>
   </nav>
 
   <div class="tab-panel active" id="tab-overview">
@@ -838,6 +839,47 @@
 
   </div><!-- /tab-about -->
 
+  <div class="tab-panel" id="tab-contact">
+
+  <section class="section" style="max-width:560px;">
+    <div class="section-head">
+      <div class="section-title" data-i18n="contactTitle">Contact</div>
+    </div>
+    <p class="page-intro" data-i18n="contactIntro">
+      Une erreur à signaler, une question sur les données, une suggestion ? Écris-moi via ce formulaire.
+    </p>
+    <div class="panel" style="padding:24px;">
+      <form id="contactForm" novalidate>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <label style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.04em;" data-i18n="contactNameLabel">Nom</span>
+            <input type="text" name="name" required style="font-family:var(--font-mono);font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.04em;" data-i18n="contactEmailLabel">Email</span>
+            <input type="email" name="email" required style="font-family:var(--font-mono);font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.04em;" data-i18n="contactMessageLabel">Message</span>
+            <textarea name="message" required rows="5" style="font-family:var(--font-mono);font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);resize:vertical;"></textarea>
+          </label>
+          <input type="text" name="_gotcha" style="position:absolute;left:-9999px;" tabindex="-1" autocomplete="off">
+          <button type="submit" id="contactSubmitBtn" class="share-btn" style="align-self:flex-start;padding:10px 22px;">
+            <span data-i18n="contactSubmitBtn">Envoyer</span>
+          </button>
+          <div id="contactSuccess" style="display:none;font-family:var(--font-mono);font-size:12.5px;color:var(--accent-stable);" data-i18n="contactSuccess">
+            Merci, ton message a bien été envoyé.
+          </div>
+          <div id="contactError" style="display:none;font-family:var(--font-mono);font-size:12.5px;color:var(--accent-critical);" data-i18n="contactError">
+            Une erreur est survenue. Réessaie, ou ouvre une issue sur le dépôt GitHub du projet.
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  </div><!-- /tab-contact -->
+
   <footer>
     <div class="disclaimer">
       <strong data-i18n="disclaimerTitle">Avertissement.</strong>
@@ -927,6 +969,16 @@ const I18N = {
     tabZones:"Données détaillées",
     tabReports:"Rapports de situation",
     tabAbout:"À propos",
+    tabContact:"Contact",
+    contactTitle:"Contact",
+    contactIntro:"Une erreur à signaler, une question sur les données ou sur notre méthodologie ? Écrivez-nous via ce formulaire.",
+    contactNameLabel:"Nom",
+    contactEmailLabel:"Email",
+    contactMessageLabel:"Message",
+    contactSubmitBtn:"Envoyer",
+    contactSubmitBtnSending:"Envoi…",
+    contactSuccess:"Merci, ton message a bien été envoyé.",
+    contactError:"Une erreur est survenue. Réessaie, ou ouvre une issue sur le dépôt GitHub du projet.",
     aboutTitle:"À propos de ce site",
     aboutSourcesTitle:"Sources des données",
     aboutSourcesBody:"Les chiffres affichés proviennent exclusivement des Rapports de Situation (SitRep) publiés par l'Institut National de Santé Publique (INSP) de la RDC. Chaque SitRep est archivé et consultable dans l'onglet Rapports de situation.",
@@ -1018,6 +1070,16 @@ const I18N = {
     tabZones:"Detailed data",
     tabReports:"Situation reports",
     tabAbout:"About",
+    tabContact:"Contact",
+    contactTitle:"Contact",
+    contactIntro:"Found an error, have a question about the data or our methodology? Write to us using this form.",
+    contactNameLabel:"Name",
+    contactEmailLabel:"Email",
+    contactMessageLabel:"Message",
+    contactSubmitBtn:"Send",
+    contactSubmitBtnSending:"Sending…",
+    contactSuccess:"Thanks, your message has been sent.",
+    contactError:"Something went wrong. Try again, or open an issue on the project's GitHub repository.",
     aboutTitle:"About this site",
     aboutSourcesTitle:"Data sources",
     aboutSourcesBody:"The figures shown come exclusively from the Situation Reports (SitRep) published by the National Institute of Public Health (INSP) of the DRC. Every SitRep is archived and available in the Situation reports tab.",
@@ -1603,6 +1665,42 @@ function renderReportsList(){
   `).join('');
 }
 
+/* ============ FORMULAIRE DE CONTACT ============ */
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaewpyqb';
+const contactForm = document.getElementById('contactForm');
+if(contactForm){
+  contactForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn = document.getElementById('contactSubmitBtn');
+    const successEl = document.getElementById('contactSuccess');
+    const errorEl = document.getElementById('contactError');
+    successEl.style.display = 'none';
+    errorEl.style.display = 'none';
+    btn.disabled = true;
+    const btnLabel = btn.querySelector('span');
+    const originalLabel = btnLabel.textContent;
+    btnLabel.textContent = tr('contactSubmitBtnSending');
+    try{
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method:'POST',
+        body:new FormData(contactForm),
+        headers:{ 'Accept':'application/json' }
+      });
+      if(res.ok){
+        successEl.style.display = 'block';
+        contactForm.reset();
+      } else {
+        errorEl.style.display = 'block';
+      }
+    } catch(err){
+      errorEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btnLabel.textContent = originalLabel;
+    }
+  });
+}
+
 /* ============ TABLEAU DES ZONES DE SANTÉ ============ */
 let zonesSortKey = 'cases';
 let zonesSortDir = 'desc';
@@ -1965,7 +2063,7 @@ async function handleShare(){
 document.getElementById('btnShare').addEventListener('click', handleShare);
 
 /* ============ ONGLETS ============ */
-const TAB_NAMES = ['overview','zones','reports','about'];
+const TAB_NAMES = ['overview','zones','reports','about','contact'];
 let currentTab = 'overview';
 
 function switchTab(name, updateHash){
