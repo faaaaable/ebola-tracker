@@ -5102,6 +5102,48 @@
         "province": "Sud-Kivu",
         "cases": 3,
         "deaths": 1
+      },
+      {
+        "name": "Boma Mangbetu",
+        "province": "Haut-Uélé",
+        "cases": 6,
+        "deaths": 2
+      },
+      {
+        "name": "Isiro",
+        "province": "Haut-Uélé",
+        "cases": 8,
+        "deaths": 5
+      },
+      {
+        "name": "Pawa",
+        "province": "Haut-Uélé",
+        "cases": 7,
+        "deaths": 5
+      },
+      {
+        "name": "Wamba",
+        "province": "Haut-Uélé",
+        "cases": 6,
+        "deaths": 3
+      },
+      {
+        "name": "Lubunga",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Makiso-Kisangani",
+        "province": "Tshopo",
+        "cases": 3,
+        "deaths": 3
+      },
+      {
+        "name": "Mangobo",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 1
       }
     ]
   },
@@ -5347,6 +5389,54 @@
         "name": "Miti-Murhesa",
         "province": "Sud-Kivu",
         "cases": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Boma Mangbetu",
+        "province": "Haut-Uélé",
+        "cases": 6,
+        "deaths": 2
+      },
+      {
+        "name": "Isiro",
+        "province": "Haut-Uélé",
+        "cases": 8,
+        "deaths": 5
+      },
+      {
+        "name": "Pawa",
+        "province": "Haut-Uélé",
+        "cases": 7,
+        "deaths": 5
+      },
+      {
+        "name": "Rungu",
+        "province": "Haut-Uélé",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Wamba",
+        "province": "Haut-Uélé",
+        "cases": 7,
+        "deaths": 3
+      },
+      {
+        "name": "Lubunga",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Makiso-Kisangani",
+        "province": "Tshopo",
+        "cases": 3,
+        "deaths": 3
+      },
+      {
+        "name": "Mangobo",
+        "province": "Tshopo",
+        "cases": 1,
         "deaths": 1
       }
     ]
