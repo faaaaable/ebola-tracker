@@ -267,11 +267,11 @@
     border:1px solid var(--line)!important;
   }
   .leaflet-control-attribution{
-    background:rgba(255,255,255,.55)!important;color:var(--ink-faint)!important;
-    font-size:8px!important;opacity:.75;line-height:1.3;
-    padding:1px 4px!important;transition:opacity .15s;
+    background:transparent!important;color:var(--ink-faint)!important;
+    font-size:7px!important;opacity:.35;line-height:1.2;
+    padding:0 3px!important;transition:opacity .15s;
   }
-  .leaflet-control-attribution:hover{opacity:1;}
+  .leaflet-control-attribution:hover{opacity:.9;}
   .leaflet-control-attribution a{color:var(--ink-faint)!important;}
 
   .leaflet-tooltip.kinshasa-label{
@@ -680,10 +680,6 @@
           <div class="title" data-i18n="legendTitle">Cas confirmés cumulés</div>
           <div class="legend-gradient"></div>
           <div class="legend-minmax"><span data-i18n="legendLow">faible</span><span data-i18n="legendHigh">élevé</span></div>
-          <div class="legend-scale" style="margin-top:10px;">
-            <span class="legend-swatch" style="background:var(--accent-capital);"></span>
-            <span data-i18n="legendImported">Capitale</span>
-          </div>
           <div class="legend-scale" style="margin-top:6px;">
             <span class="legend-swatch" style="background:#8B968E;"></span>
             <span data-i18n="legendClosedFocus">Foyer clos (aucun nouveau cas)</span>
@@ -916,7 +912,6 @@ const I18N = {
     legendHigh:"élevé",
     legendAgg:"Total estimé par province",
     legendDashNote:"Pointillés : donnée agrégée par province, sans détail par zone de santé.",
-    legendImported:"Capitale Kinshasa",
     mapNote:"Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone). Elles ne représentent pas des limites administratives exactes.",
     chartTitle:"Courbe des cas et des décès",
     chartSub:"cumul des cas confirmés et décès",
@@ -939,11 +934,6 @@ const I18N = {
     popupZoneDetail:"Détail par zone",
     popupNotAvailable:"non disponible",
     popupStatus:"Statut",
-    popupImportedCase:"Cas importé isolé",
-    popupDetected:"Détecté",
-    popupDetectedDate:"16 mai 2026",
-    popupLocalTransmission:"Transmission locale",
-    popupNotReported:"non signalée",
     popupClosedFocus:"Foyer clos",
     popupLastCase:"Dernier cas",
     popupDeclaredFree:"Déclaré Ebola-free",
@@ -1017,7 +1007,6 @@ const I18N = {
     legendHigh:"high",
     legendAgg:"Estimated province total",
     legendDashNote:"Dashed: province-level estimate, no health-zone detail.",
-    legendImported:"Capital, Kinshasa",
     mapNote:"Health zones are positioned at approximate coordinates (zone administrative centres). They do not represent exact administrative boundaries.",
     chartTitle:"Epidemic curve",
     chartSub:"cumulative confirmed cases and deaths",
@@ -1040,11 +1029,6 @@ const I18N = {
     popupZoneDetail:"Detail by zone",
     popupNotAvailable:"not available",
     popupStatus:"Status",
-    popupImportedCase:"Isolated imported case",
-    popupDetected:"Detected",
-    popupDetectedDate:"16 May 2026",
-    popupLocalTransmission:"Local transmission",
-    popupNotReported:"not reported",
     popupClosedFocus:"Closed focus",
     popupLastCase:"Last case",
     popupDeclaredFree:"Declared Ebola-free",
@@ -1275,7 +1259,6 @@ const PROVINCE_AGG_COORDS = {
   "Tshopo":[0.5167,25.2],
   "Bas-Uélé":[2.795,24.734]
 };
-const KINSHASA_COORDS = [-4.4419,15.2663];
 const KAMPALA_COORDS = [0.3476,32.5825];
 const KAMPALA_DATA = {
   cases: 20, deaths: 2,
@@ -1499,7 +1482,7 @@ document.querySelectorAll('#chartModeNav .subtab-btn').forEach(btn=>{
 });
 
 /* ============ CARTE ============ */
-let map, zoneMarkersLayer, provinceMarkersLayer, kinshasaLayer, closedFociLayer;
+let map, zoneMarkersLayer, provinceMarkersLayer, closedFociLayer;
 
 function colorForValue(t){
   // t entre 0 et 1 : échelle séquentielle mono-teinte, orange clair -> rouge foncé
@@ -1530,7 +1513,6 @@ function initMap(){
 
   zoneMarkersLayer = L.layerGroup().addTo(map);
   provinceMarkersLayer = L.layerGroup().addTo(map);
-  kinshasaLayer = L.layerGroup().addTo(map);
   closedFociLayer = L.layerGroup().addTo(map);
 
   document.getElementById('btnViewCountry').addEventListener('click', e=>{
@@ -1551,7 +1533,6 @@ function renderMap(){
   if(!map) return;
   zoneMarkersLayer.clearLayers();
   provinceMarkersLayer.clearLayers();
-  kinshasaLayer.clearLayers();
   closedFociLayer.clearLayers();
 
   const maxCases = Math.max(...HEALTH_ZONES.map(z=>z.cases));
@@ -1566,9 +1547,11 @@ function renderMap(){
       radius, color: colorForValue(t), weight:1.5,
       fillColor: colorForValue(t), fillOpacity:.55
     });
+    const newDeaths24h = (z.deathsCommunity24h||0) + (z.deathsIntraCTE24h||0);
     marker.bindPopup(
       `<b>${z.name}</b>
-       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(z.cases)}</span></div>
+       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(z.cases)} (+${fmt(z.newCases24h||0)})</span></div>
+       <div class="popup-row"><span class="k">${tr('labelDeaths')}</span><span>${fmt(z.deaths)} (+${fmt(newDeaths24h)})</span></div>
        <div class="popup-row"><span class="k">${tr('popupProvinceLabel')}</span><span>${z.province}</span></div>`
     );
     marker.addTo(zoneMarkersLayer);
@@ -1576,13 +1559,16 @@ function renderMap(){
 
   // Repli : cercle agrégé en pointillés, uniquement pour une province qui
   // n'aurait pas (ou plus) de détail zone par zone dans le SitRep le plus
-  // récent — ce qui n'est le cas d'aucune province au SitRep N°090.
+  // récent — ce qui n'est le cas d'aucune province au SitRep N°092.
   const s = sortedSitreps();
   PROVINCES.filter(p=>!p.epicenter && !provincesWithZoneDetail.has(p.name)).forEach(p=>{
     const coord = PROVINCE_AGG_COORDS[p.name];
     if(!coord) return;
     const provData = PROVINCE_TABLE_DATA.find(d=>d.name===p.name);
     const val = provData ? provData.confirmed : 0;
+    const deathsVal = provData ? provData.deaths : 0;
+    const newCases = provData ? (provData.newCases24h||0) : 0;
+    const newDeaths = provData ? ((provData.newDeathsCommunity24h||0) + (provData.newDeathsIntraCTE24h||0)) : 0;
     const t = Math.min(1, val / maxCases);
     const radius = 6 + Math.sqrt(val) * 1.15;
     const marker = L.circleMarker(coord, {
@@ -1591,23 +1577,12 @@ function renderMap(){
     });
     marker.bindPopup(
       `<b>${p.name}</b>
-       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(val)}</span></div>
+       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(val)} (+${fmt(newCases)})</span></div>
+       <div class="popup-row"><span class="k">${tr('labelDeaths')}</span><span>${fmt(deathsVal)} (+${fmt(newDeaths)})</span></div>
        <div class="popup-row"><span class="k">${tr('popupZoneDetail')}</span><span>${tr('popupNotAvailable')}</span></div>`
     );
     marker.addTo(provinceMarkersLayer);
   });
-
-  const kinshasaMarker = L.circleMarker(KINSHASA_COORDS, {
-    radius:7, color:'#2FA35E', weight:2,
-    fillColor:'#2FA35E', fillOpacity:.85
-  });
-  kinshasaMarker.bindPopup(
-    `<b>Kinshasa</b>
-     <div class="popup-row"><span class="k">${tr('popupStatus')}</span><span>${tr('popupImportedCase')}</span></div>
-     <div class="popup-row"><span class="k">${tr('popupDetected')}</span><span>${tr('popupDetectedDate')}</span></div>
-     <div class="popup-row"><span class="k">${tr('popupLocalTransmission')}</span><span>${tr('popupNotReported')}</span></div>`
-  );
-  kinshasaMarker.addTo(kinshasaLayer);
 
   const kampalaMarker = L.circleMarker(KAMPALA_COORDS, {
     radius:7, color:'#8B968E', weight:2,
