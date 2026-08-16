@@ -17,6 +17,7 @@ REPORTS_DIR = "reports"
 DATA_PATH = "data/latest.json"
 
 PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé"]
+# Nom canonique utilisé côté site (avec tiret pour Bas-Uélé)
 PROVINCE_CANON = {
     "Ituri": "Ituri", "Nord-Kivu": "Nord-Kivu", "Haut-Uélé": "Haut-Uélé",
     "Tshopo": "Tshopo", "Sud-Kivu": "Sud-Kivu", "Bas Uélé": "Bas-Uélé",
@@ -105,15 +106,21 @@ def extract_kpi_band(page):
 
 
 def extract_meta(full_text):
-    m = re.search(r"SitRep N°(\d+)/MVEBDB/(\d{2})/(\d{2})/(\d{4})", full_text)
+    # Le format de la référence a changé plusieurs fois au fil des rapports
+    # ("SitRep MVE N° 001/2026", "SitRep N°010/MVB_25/2026",
+    # "SitRep N°092/MVEBDB/14/08/2026"...) : on ne capture que le numéro,
+    # sans présumer de ce qui le suit.
+    m = re.search(r"SitRep\s+(?:MVE\s+)?N°\s*0*(\d{1,3})", full_text)
     if not m:
         raise ValueError("Impossible de trouver la référence du SitRep dans le PDF.")
-    sitrep_number = m.group(1)
-    sitrep_ref = m.group(0)
+    sitrep_number = m.group(1).zfill(3)
+    line_start = full_text.rfind("\n", 0, m.start()) + 1
+    line_end = full_text.find("\n", m.end())
+    sitrep_ref = full_text[line_start: line_end if line_end != -1 else len(full_text)].strip()
 
     md = re.search(
-        r"Date de rapportage\s*:\s*(\d{1,2})\s+(\w+)\s+(\d{4}).*?"
-        r"Date de publication\s*:\s*(\d{1,2})\s+(\w+)\s+(\d{4})",
+        r"Date de rapportage\s*:?\s*(\d{1,2})\s+(\w+)\s+(\d{4}).*?"
+        r"Date de publication\s*:?\s*(\d{1,2})\s+(\w+)\s+(\d{4})",
         full_text, re.DOTALL,
     )
     reporting_date = publication_date = None
@@ -196,6 +203,10 @@ ZONE_LINE_RE = re.compile(
     r"(?P<cas>\d[\d ]*|NA)\s+(?P<deces>\d[\d ]*|NA)\s+(?P<cfr>[\d,]+%|NA)\s*(?P<tail>.*)$"
 )
 
+# Ligne de sous-total de province dans le tableau détaillé (ex :
+# "Ituri 4105 1791 43,6% 85 31 15 46"). Contrairement aux lignes de zone,
+# ces lignes affichent TOUJOURS leurs 4 colonnes du jour explicitement
+# (même à 0), donc pas d'ambiguïté de colonnes manquantes ici.
 PROV_SUBTOTAL_RE = re.compile(
     r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé)\s+"
     r"(?P<cas>\d[\d ]*)\s+(?P<deces>\d[\d ]*)\s+(?P<cfr>[\d,]+%)\s+"
@@ -334,6 +345,8 @@ def revalidate_zones(full_text, zones_raw):
 
 
 def zone_row_to_dict(province, name, row):
+    # row = [name, cas, deces, letalite, nouv.cas, deces_comm, deces_intracte, (col vide?), total_deces]
+    # la position du total varie selon le nb de colonnes réellement extraites
     cases = norm_int(row[1])
     deaths = norm_int(row[2])
     cfr = norm_pct(row[3]) if len(row) > 3 else None
@@ -381,8 +394,10 @@ def parse_report_summary(pdf_path):
 def rebuild_reports_list(current_reports):
     """Reconstruit la liste complète des rapports à partir de TOUS les PDF
     présents dans reports/, pas seulement celui du dernier passage. Les
-    rapports déjà connus ne sont pas ré-analysés (juste leur chemin de
-    fichier est rafraîchi) ; seuls les nouveaux PDF sont ouverts."""
+    rapports déjà connus ET déjà correctement datés ne sont pas ré-analysés
+    (juste leur chemin de fichier est rafraîchi) ; les nouveaux PDF ET ceux
+    dont la date de rapportage est encore manquante (ex: échec d'extraction
+    lors d'un run précédent, avant correctif) sont (re)analysés."""
     existing_by_num = {r["sitrepNumber"]: r for r in current_reports}
     all_pdfs = sorted(glob.glob(os.path.join(REPORTS_DIR, "*.pdf")))
     reports = []
@@ -391,16 +406,24 @@ def rebuild_reports_list(current_reports):
         if not m:
             continue
         num = m.group(1)
-        if num in existing_by_num:
-            entry = dict(existing_by_num[num])
+        existing = existing_by_num.get(num)
+        needs_parse = existing is None or not existing.get("reportingDate")
+        if existing is not None and not needs_parse:
+            entry = dict(existing)
             entry["file"] = pdf_path.replace("\\", "/")
             reports.append(entry)
         else:
             try:
                 reports.append(parse_report_summary(pdf_path))
-                print(f"  + nouveau rapport détecté et ajouté : {os.path.basename(pdf_path)}")
+                tag = "nouveau rapport détecté et ajouté" if existing is None else \
+                      "date manquante, ré-analysé avec succès"
+                print(f"  + {tag} : {os.path.basename(pdf_path)}")
             except Exception as e:
                 print(f"  ! avertissement : impossible d'analyser {pdf_path} ({e}), ignoré.")
+                if existing is not None:
+                    entry = dict(existing)
+                    entry["file"] = pdf_path.replace("\\", "/")
+                    reports.append(entry)
     reports.sort(key=lambda r: r["sitrepNumber"])
     return reports
 
@@ -434,9 +457,14 @@ def main():
 
         zone_rows = extract_zone_detail_rows(pdf)
         _, zones_raw, detail_total_row = parse_zone_detail(zone_rows)
+        # Repère et reconstruit depuis le texte brut toute ligne de zone où
+        # pdfplumber a mal aligné les colonnes (voir zone_row_looks_unreliable).
         zones_raw = revalidate_zones(full_text, zones_raw)
+        # Sous-totaux de province : toujours relus depuis le texte brut,
+        # plus fiable que les colonnes du tableau pour cette ligne précise.
         province_subtotals_text = extract_province_subtotals_from_text(full_text)
 
+    # Enrichissement des provinces avec le détail décès communautaires/intra-CTE
     old_provinces = {p["name"]: p for p in current.get("provinces", [])}
     for p in provinces:
         canon = p["name"]
