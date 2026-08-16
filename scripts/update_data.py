@@ -105,18 +105,29 @@ def extract_kpi_band(page):
     }
 
 
-def extract_meta(full_text):
+def extract_meta(full_text, fallback_number=None):
     # Le format de la référence a changé plusieurs fois au fil des rapports
     # ("SitRep MVE N° 001/2026", "SitRep N°010/MVB_25/2026",
     # "SitRep N°092/MVEBDB/14/08/2026"...) : on ne capture que le numéro,
-    # sans présumer de ce qui le suit.
-    m = re.search(r"SitRep\s+(?:MVE\s+)?N°\s*0*(\d{1,3})", full_text)
-    if not m:
+    # sans présumer de ce qui le suit. On tolère aussi les espaces parasites
+    # entre chaque lettre que produit un PDF mal fonté (ex: "S it R ep").
+    compact = re.sub(r"\s+", "", full_text)
+    m = re.search(r"SitRep(?:MVE)?N.0*(\d{1,3})", compact)
+    sitrep_number = None
+    sitrep_ref = None
+    if m:
+        sitrep_number = m.group(1).zfill(3)
+        m2 = re.search(r"SitRep\s+(?:MVE\s+)?N°?\s*0*\d{1,3}[^\n]*", full_text)
+        sitrep_ref = m2.group(0).strip() if m2 else f"SitRep N°{sitrep_number}"
+    elif fallback_number:
+        # La ligne de référence est trop corrompue pour être lue de façon
+        # fiable (ex: lettres réordonnées par un problème de police dans le
+        # PDF source) : on retombe sur le numéro déduit du nom de fichier
+        # plutôt que d'abandonner l'analyse de tout le rapport.
+        sitrep_number = fallback_number
+        sitrep_ref = f"SitRep N°{fallback_number} (référence illisible dans le PDF)"
+    else:
         raise ValueError("Impossible de trouver la référence du SitRep dans le PDF.")
-    sitrep_number = m.group(1).zfill(3)
-    line_start = full_text.rfind("\n", 0, m.start()) + 1
-    line_end = full_text.find("\n", m.end())
-    sitrep_ref = full_text[line_start: line_end if line_end != -1 else len(full_text)].strip()
 
     md = re.search(
         r"Date de rapportage\s*:?\s*(\d{1,2})\s+(\w+)\s+(\d{4}).*?"
@@ -371,9 +382,13 @@ def parse_report_summary(pdf_path):
     """Analyse légère d'un SitRep pour la liste des rapports (onglet
     'Rapports de situation') : juste la méta et les totaux nationaux,
     sans le détail des zones de santé (inutile pour cet onglet)."""
+    fallback_num = None
+    fm = re.search(r"(\d{3})", os.path.basename(pdf_path))
+    if fm:
+        fallback_num = fm.group(1)
     with pdfplumber.open(pdf_path) as pdf:
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
-        meta = extract_meta(full_text)
+        meta = extract_meta(full_text, fallback_number=fallback_num)
         prov_table = extract_province_summary(pdf)
         confirmed = deaths = None
         if prov_table:
@@ -446,7 +461,7 @@ def main():
 
     with pdfplumber.open(report_path) as pdf:
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
-        meta = extract_meta(full_text)
+        meta = extract_meta(full_text, fallback_number=f"{report_num:03d}")
         kpis = extract_kpi_band(pdf.pages[0])
         sidebar = extract_sidebar_text(pdf.pages[0])
 
