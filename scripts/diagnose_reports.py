@@ -45,8 +45,15 @@ def diagnose_one(pdf_path):
         "file": fname,
         "numberFromFilename": fallback_num,
         "meta": {"ok": False, "error": None, "sitrepNumber": None, "reportingDate": None},
+        # "kpis" teste ici national confirmed/deaths, EXACTEMENT comme le fait
+        # main() : via le total de la table province (prov_total_row), pas
+        # via extract_kpi_band (qui sert seulement à recovered/cfr/inCTE/
+        # contactsFollowUpRate — jamais à confirmed/deaths).
         "kpis": {"ok": False, "error": None, "confirmed": None, "deaths": None},
         "provinceTable": {"ok": False, "error": None, "rowCount": None},
+        # "zoneDetail" applique désormais la même reconstruction que le vrai
+        # pipeline (revalidate_zones -> gap_fill_missing_zones), pas
+        # seulement l'extraction brute des tableaux pdfplumber.
         "zoneDetail": {"ok": False, "error": None, "zoneCount": None},
     }
 
@@ -64,16 +71,7 @@ def diagnose_one(pdf_path):
             except Exception as e:
                 result["meta"]["error"] = str(e)
 
-            try:
-                kpis = ud.extract_kpi_band(pdf.pages[0])
-                result["kpis"]["ok"] = kpis.get("confirmed") is not None
-                result["kpis"]["confirmed"] = kpis.get("confirmed")
-                result["kpis"]["deaths"] = kpis.get("deaths")
-                if kpis.get("confirmed") is None:
-                    result["kpis"]["error"] = "bande KPI vide ou coordonnées x/y ne correspondent plus"
-            except Exception as e:
-                result["kpis"]["error"] = str(e)
-
+            prov_table = None
             try:
                 prov_table = ud.extract_province_summary(pdf)
                 if prov_table is None:
@@ -84,16 +82,34 @@ def diagnose_one(pdf_path):
                     result["provinceTable"]["rowCount"] = len(provinces)
                     if not result["provinceTable"]["ok"]:
                         result["provinceTable"]["error"] = "table trouvée mais lignes/total non exploitables"
+
+                    # national.confirmed/deaths viennent de CETTE ligne de
+                    # total dans le vrai pipeline (main()), pas de la bande
+                    # KPI en haut de page.
+                    if total_row:
+                        result["kpis"]["confirmed"] = ud.norm_int(total_row[1])
+                        result["kpis"]["deaths"] = ud.norm_int(total_row[2])
+                        result["kpis"]["ok"] = result["kpis"]["confirmed"] is not None
+                        if not result["kpis"]["ok"]:
+                            result["kpis"]["error"] = "ligne de total trouvée mais confirmed illisible"
+                    else:
+                        result["kpis"]["error"] = "pas de ligne de total dans la table province"
             except Exception as e:
                 result["provinceTable"]["error"] = str(e)
+                result["kpis"]["error"] = f"dépend de la table province : {e}"
 
             try:
                 zone_rows = ud.extract_zone_detail_rows(pdf)
                 _, zones_raw, _ = ud.parse_zone_detail(zone_rows)
+                # Réplique exactement l'étape de reconstruction du vrai
+                # pipeline : revalidate_zones() retire les lignes suspectes
+                # PUIS les reconstruit depuis le texte brut (et complète
+                # aussi les zones totalement absentes du tableau).
+                zones_raw = ud.revalidate_zones(full_text, zones_raw)
                 result["zoneDetail"]["ok"] = len(zones_raw) > 0
                 result["zoneDetail"]["zoneCount"] = len(zones_raw)
                 if not result["zoneDetail"]["ok"]:
-                    result["zoneDetail"]["error"] = "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)"
+                    result["zoneDetail"]["error"] = "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)"
             except Exception as e:
                 result["zoneDetail"]["error"] = str(e)
 
