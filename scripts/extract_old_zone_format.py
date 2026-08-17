@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
 """
-Extrait le détail cumulatif par zone de santé pour les SitRep utilisant le
-format "Tableau 2. Répartition des cas et décès confirmés... par province
-et zone de santé" — provinces en MAJUSCULES suivies de leurs zones,
-3 colonnes numériques (Cas confirmés cumulés / Décès confirmés cumulés /
-Létalité %). Voir scan_gap_zone_format.py pour la liste des candidats.
+Extrait le détail cumulatif par zone de santé pour les SitRep identifiés
+comme utilisant l'ancien format "zones groupées par province avec
+Sous total / Total" (voir scan_old_zone_format.py) : 005, 006, 007, 008,
+009, 010, 013, 015.
 
-Contrairement à l'ancien format de mai (plusieurs groupes de colonnes
-mélangés), celui-ci n'a qu'un seul triplet de colonnes par ligne — pas
-d'ambiguïté de position. On valide quand même chaque extraction contre le
-total national déjà connu dans data/sitreps.json avant d'écrire quoi que
-ce soit, par principe (jamais de donnée non vérifiée insérée).
+PRINCIPE DE SÉCURITÉ : ces tables contiennent plusieurs groupes de
+colonnes mélangés (valeurs cumulées ET nouveaux cas du jour), et pdfplumber
+ne permet pas de les distinguer de façon fiable par la seule position. Ce
+script ne DEVINE jamais quelle colonne correspond aux cas confirmés
+cumulés : il compare chaque colonne candidate au total national déjà
+vérifié dans data/sitreps.json (restauré et confirmé par ailleurs) pour
+la même date. Si aucune colonne ne correspond avec certitude, ce SitRep
+est ignoré et signalé — jamais de donnée insérée sans validation.
 
-N'écrit dans data/zones-history.json qu'en fusionnant avec l'existant.
+N'écrit dans data/zones_history.json qu'en fusionnant avec le contenu
+existant (jamais d'écrasement), et seulement pour les SitRep validés.
 
-Usage: python3 scripts/extract_gap_zone_format.py
+Usage: python3 scripts/extract_old_zone_format.py
 """
 import glob
 import json
@@ -25,34 +28,36 @@ import sys
 import pdfplumber
 
 REPORTS_DIR = "reports"
-ZONES_HISTORY_PATH = "data/zones-history.json"
+ZONES_HISTORY_PATH = "data/zones_history.json"
 SITREPS_PATH = "data/sitreps.json"
 
-TARGET_SITREPS = ["033", "034", "035", "036", "037", "038", "039", "040",
-                   "041", "042", "044", "046", "047", "048", "049", "050",
-                   "051", "052", "053", "054", "055", "056", "057", "058"]
+TARGET_SITREPS = ["005", "006", "007", "008", "009", "010", "013", "015"]
 
-PROVINCE_UPPER = ["ITURI", "NORD-KIVU", "SUD-KIVU", "HAUT-UÉLÉ", "TSHOPO", "BAS-UÉLÉ"]
-PROVINCE_CANON = {p: p.title().replace("Uélé", "Uélé") for p in PROVINCE_UPPER}
-PROVINCE_CANON["NORD-KIVU"] = "Nord-Kivu"
-PROVINCE_CANON["SUD-KIVU"] = "Sud-Kivu"
-PROVINCE_CANON["HAUT-UÉLÉ"] = "Haut-Uélé"
-PROVINCE_CANON["BAS-UÉLÉ"] = "Bas-Uélé"
+PROVINCE_NAMES = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas-Uélé", "Nord Kivu", "Sud Kivu"]
+PROVINCE_CANON = {"Nord Kivu": "Nord-Kivu", "Sud Kivu": "Sud-Kivu"}
 
-# Ligne de province : "ITURI 1214 335 27,6%"
-PROVINCE_LINE_RE = re.compile(
-    r"^(?P<prov>ITURI|NORD-KIVU|SUD-KIVU|HAUT-UÉLÉ|TSHOPO|BAS-UÉLÉ)\s+"
-    r"(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%\s*$"
-)
-# Ligne de zone : "Bunia 358 82 22,9%"
 ZONE_LINE_RE = re.compile(
     r"^(?P<name>[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ'\.\- ]*?)\s+"
-    r"(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%\s*$"
+    r"(?P<nums>(?:\d+|ND)(?:\s+(?:\d+|ND))+)\s*$"
 )
-TOTAL_LINE_RE = re.compile(r"^TOTAL\s+(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%\s*$")
+
+
+def norm_num(s):
+    return None if s == "ND" else int(s)
+
+
+def find_report_by_number(number):
+    for p in glob.glob(os.path.join(REPORTS_DIR, "*.pdf")):
+        m = re.search(r"(\d{3})", os.path.basename(p))
+        if m and m.group(1) == number:
+            return p
+    return None
 
 
 def extract_meta_date(full_text):
+    """Cherche 'Date de rapportage : JJ mois AAAA' dans le texte, pour
+    récupérer la date exacte du SitRep sans dupliquer toute la logique de
+    update_data.py."""
     months = {
         "janvier": "01", "février": "02", "mars": "03", "avril": "04",
         "mai": "05", "juin": "06", "juillet": "07", "août": "08",
@@ -68,60 +73,104 @@ def extract_meta_date(full_text):
     return f"{y}-{mon}-{int(d):02d}"
 
 
-def find_report_by_number(number):
-    for p in glob.glob(os.path.join(REPORTS_DIR, "*.pdf")):
-        m = re.search(r"(\d{3})", os.path.basename(p))
-        if m and m.group(1) == number:
-            return p
-    return None
-
-
-def parse_zone_table(full_text):
-    """Repère le bloc entre 'Province / Zone de santé' et 'TOTAL', et
-    associe chaque zone à la province MAJUSCULE la précédant."""
+def parse_zone_blocks(full_text):
+    """Extrait les blocs de zones groupés par province, en s'arrêtant à
+    chaque 'Sous total' (fin de province) puis au 'Total' général."""
     lines = full_text.split("\n")
-    start_idx = None
-    for i, line in enumerate(lines):
-        if re.search(r"Province\s*/\s*Zone de santé", line, re.IGNORECASE):
-            start_idx = i
-            break
-    if start_idx is None:
-        return [], None
-
     current_province = None
-    zones = []
-    total = None
+    zones = []  # (province, name, [numbers])
+    sous_totaux = {}  # province -> [numbers]
+    total_line = None
 
-    for line in lines[start_idx + 1:]:
+    for line in lines:
         line = line.strip()
         if not line:
             continue
 
-        tm = TOTAL_LINE_RE.match(line)
-        if tm:
-            total = (int(tm.group("cases")), int(tm.group("deaths")))
-            break
+        matched_prov = None
+        for pname in PROVINCE_NAMES:
+            if line.startswith(pname):
+                matched_prov = PROVINCE_CANON.get(pname, pname)
+                # La ligne peut être "Nord-Kivu Katwa 0 0 ND ND ND 0" (province
+                # + première zone sur la même ligne) : on retire le préfixe
+                # et on retraite le reste comme une ligne de zone normale.
+                line = line[len(pname):].strip()
+                break
+        if matched_prov:
+            current_province = matched_prov
+            if not line:
+                continue
 
-        pm = PROVINCE_LINE_RE.match(line)
-        if pm:
-            current_province = PROVINCE_CANON.get(pm.group("prov"), pm.group("prov"))
-            # La ligne de province est elle-même un sous-total, pas une
-            # zone : on ne l'ajoute pas à `zones`.
+        if line.lower().startswith("sous total") or line.lower().startswith("sous-total"):
+            if current_province:
+                nums = re.findall(r"\d+|ND", line)
+                sous_totaux[current_province] = [norm_num(n) for n in nums]
             continue
+
+        if line.startswith("Total") and not line.startswith("Total en") and not line.startswith("Total des"):
+            nums = re.findall(r"\d+|ND", line)
+            if nums:
+                total_line = [norm_num(n) for n in nums]
+            # Le "Total" général marque la fin de cette table pour nos besoins.
+            break
 
         if current_province is None:
             continue
 
-        zm = ZONE_LINE_RE.match(line)
-        if not zm:
+        m = ZONE_LINE_RE.match(line)
+        if not m:
             continue
-        zones.append((current_province, zm.group("name").strip(),
-                       int(zm.group("cases")), int(zm.group("deaths"))))
+        name = m.group("name").strip()
+        nums = [norm_num(n) for n in m.group("nums").split()]
+        zones.append((current_province, name, nums))
 
-    return zones, total
+    return zones, sous_totaux, total_line
+
+
+def find_validated_column(zones, sous_totaux, total_line, known_value, label):
+    """Teste chaque colonne candidate : la somme des zones par province
+    doit égaler le sous-total de cette province (cohérence interne), ET
+    le total général sur cette colonne doit correspondre à `known_value`
+    (déjà vérifié dans sitreps.json). Retourne l'index de colonne si une
+    seule correspond sans ambiguïté, sinon None."""
+    if not zones or not total_line:
+        return None
+    n_cols = min(len(z[2]) for z in zones)
+    candidates = []
+    for col in range(n_cols):
+        # Cohérence interne : somme par province == sous-total de cette colonne
+        internally_consistent = True
+        by_province = {}
+        for prov, name, nums in zones:
+            if col >= len(nums) or nums[col] is None:
+                internally_consistent = False
+                break
+            by_province.setdefault(prov, 0)
+            by_province[prov] += nums[col]
+        if not internally_consistent:
+            continue
+        for prov, summed in by_province.items():
+            expected = sous_totaux.get(prov)
+            if expected is None or col >= len(expected) or expected[col] != summed:
+                internally_consistent = False
+                break
+        if not internally_consistent:
+            continue
+        if col >= len(total_line) or total_line[col] != known_value:
+            continue
+        candidates.append(col)
+
+    if len(candidates) == 1:
+        return candidates[0]
+    if len(candidates) > 1:
+        print(f"    ! ambiguïté pour {label} : plusieurs colonnes correspondent ({candidates}), ignoré par prudence")
+    return None
 
 
 def main():
+    # Table de vérité (cas confirmés / décès cumulés par date), issue du
+    # data/sitreps.json déjà restauré et vérifié — sert uniquement à valider
+    # les colonnes, jamais à écrire de nouvelles valeurs directement.
     known_by_date = {}
     if os.path.exists(SITREPS_PATH):
         with open(SITREPS_PATH, encoding="utf-8") as f:
@@ -129,7 +178,7 @@ def main():
                 if entry.get("date"):
                     known_by_date[entry["date"]] = (entry.get("confirmed"), entry.get("deaths"))
     else:
-        print(f"! {SITREPS_PATH} introuvable, arrêt.")
+        print(f"! {SITREPS_PATH} introuvable — impossible de valider quoi que ce soit, arrêt.")
         return 1
 
     validated_entries = []
@@ -150,45 +199,41 @@ def main():
 
         known_confirmed, known_deaths = known_by_date[date]
         if known_confirmed is None:
-            print(f"[{number}] ({date}) : pas de valeur 'confirmed' connue, ignoré.")
+            print(f"[{number}] pas de valeur 'confirmed' connue pour {date}, ignoré.")
             continue
 
-        zones, total = parse_zone_table(full_text)
-        if not zones or not total:
-            print(f"[{number}] ({date}) : table de zones introuvable dans ce format, ignoré.")
+        zones, sous_totaux, total_line = parse_zone_blocks(full_text)
+        if not zones or not total_line:
+            print(f"[{number}] table de zones non trouvée, ignoré.")
             continue
 
-        total_cases, total_deaths = total
-        if total_cases != known_confirmed or total_deaths != known_deaths:
-            print(f"[{number}] ({date}) : TOTAL du tableau ({total_cases}/{total_deaths}) "
-                  f"!= sitreps.json ({known_confirmed}/{known_deaths}), ignoré par prudence.")
-            continue
+        cases_col = find_validated_column(zones, sous_totaux, total_line, known_confirmed, f"{number}/cas confirmés")
+        deaths_col = None
+        if known_deaths is not None:
+            deaths_col = find_validated_column(zones, sous_totaux, total_line, known_deaths, f"{number}/décès")
 
-        # Note : certains bulletins signalent explicitement des "cas non
-        # ventilés par zone de santé" (attribués à la province mais à
-        # aucune zone précise). La somme des zones peut donc légitimement
-        # être inférieure au total — ce n'est pas une erreur d'extraction,
-        # c'est une caractéristique du bulletin source lui-même. On ne
-        # l'exige donc pas ; seule la correspondance du TOTAL général avec
-        # sitreps.json (déjà vérifiée ci-dessus) garantit qu'on lit la
-        # bonne table, à la bonne date.
-        sum_cases = sum(z[2] for z in zones)
-        sum_deaths = sum(z[3] for z in zones)
-        if sum_cases != total_cases or sum_deaths != total_deaths:
-            print(f"    (note : somme des zones {sum_cases}/{sum_deaths} < total {total_cases}/{total_deaths} "
-                  f"— probablement des cas non ventilés par zone, mentionnés dans le bulletin)")
+        if cases_col is None:
+            print(f"[{number}] ({date}) : colonne 'cas confirmés' non validée (attendu {known_confirmed}), ignoré.")
+            continue
+        if deaths_col is None:
+            print(f"[{number}] ({date}) : colonne 'décès' non validée (attendu {known_deaths}), ignoré.")
+            continue
 
         zone_entries = [
-            {"name": name, "province": prov, "cases": cases, "deaths": deaths}
-            for prov, name, cases, deaths in zones
+            {"name": name, "province": prov, "cases": nums[cases_col], "deaths": nums[deaths_col]}
+            for prov, name, nums in zones
         ]
         validated_entries.append({"sitrep": number, "date": date, "zones": zone_entries})
-        print(f"[{number}] ({date}) : VALIDÉ — {len(zone_entries)} zones, total {total_cases}/{total_deaths} confirmé.")
+        print(f"[{number}] ({date}) : VALIDÉ — {len(zone_entries)} zones "
+              f"(colonne cas={cases_col}, colonne décès={deaths_col})")
 
     if not validated_entries:
         print("\nAucun SitRep validé, rien à écrire.")
         return 0
 
+    # Fusion avec l'existant, jamais d'écrasement (même principe que pour
+    # sitreps.json) : on indexe par numéro de sitrep, on complète les
+    # nouvelles entrées, on garde toutes les entrées déjà présentes.
     existing = []
     if os.path.exists(ZONES_HISTORY_PATH):
         with open(ZONES_HISTORY_PATH, encoding="utf-8") as f:
@@ -196,6 +241,7 @@ def main():
     by_sitrep = {e["sitrep"]: e for e in existing}
     for entry in validated_entries:
         by_sitrep[entry["sitrep"]] = entry
+
     merged = sorted(by_sitrep.values(), key=lambda e: e["date"])
 
     os.makedirs(os.path.dirname(ZONES_HISTORY_PATH), exist_ok=True)
