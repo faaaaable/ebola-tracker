@@ -1273,27 +1273,33 @@ const HEALTH_ZONES_SEED = [
    zones gardent leur estimation manuelle d'origine : soit le géocodage a
    renvoyé un homonyme dans une autre province (rejeté), soit un écart trop
    important dans la bonne province pour être appliqué sans vérification
-   manuelle au cas par cas. */
+   manuelle au cas par cas. Corrections du 17/08/2026 (3e passe) : 20 zones
+   recalées sur un point garanti à l'intérieur de leur polygone officiel
+   (HDX/OCHA, 519 zones de santé), uniquement là où ce point confirme le
+   géocodage précédent (écart ≤15 km) — voir
+   scripts/extract_health_zone_polygons.py. Les zones avec un écart
+   important gardent leur position géocodée (probablement plus proche du
+   bourg principal que le centre géométrique d'une grande zone irrégulière). */
 const HEALTH_ZONE_COORDS = {
-  "Bunia":[1.562,30.248], "Mongbwalu":[1.937,30.046], "Rwampara":[1.60,30.10],
-  "Nizi":[1.803,30.378], "Lita":[1.85,30.15], "Nyankunde":[1.30,30.10],
+  "Bunia":[1.600,30.223], "Mongbwalu":[1.937,30.046], "Rwampara":[1.570,30.050],
+  "Nizi":[1.747,30.334], "Lita":[1.85,30.15], "Nyankunde":[1.30,30.10],
   "Mangala":[1.95,30.25], "Nia Nia":[1.50,27.68], "Nia-Nia":[1.50,27.68], "Bambu":[1.85,30.05],
-  "Tchomia":[1.442,30.483], "Komanda":[1.367,29.763], "Kilo":[1.820,30.129],
+  "Tchomia":[1.530,30.585], "Komanda":[1.367,29.763], "Kilo":[1.760,30.082],
   "Fataki":[2.10,30.30], "Damas":[1.70,30.25], "Mandima":[1.20,28.90],
-  "Adja":[1.932,30.676], "Drodro":[1.758,30.556], "Aungba":[2.60,31.05],
+  "Adja":[1.932,30.676], "Drodro":[1.746,30.554], "Aungba":[2.60,31.05],
   "Logo":[2.60,30.85], "Mambasa":[1.35,29.05], "Rimba":[1.95,30.15],
-  "Ariwara":[3.134,30.698], "Lolwa":[1.30,28.80], "Aru":[3.02,30.85],
-  "Mahagi":[2.32,31.03], "Kambala":[2.10,30.85], "Boga":[1.025,29.956],
+  "Ariwara":[3.183,30.713], "Lolwa":[1.30,28.80], "Aru":[3.02,30.85],
+  "Mahagi":[2.302,30.943], "Kambala":[2.10,30.85], "Boga":[0.982,30.030],
   "Gety":[1.15,29.85], "Gethy":[1.15,29.85],
-  "Beni":[-0.4906,29.4664], "Butembo":[0.125,29.292], "Goma":[-1.667,29.226],
-  "Kalunguta":[-0.4200,29.4300], "Katwa":[0.093,29.309], "Kyondo":[0.007,29.397],
+  "Beni":[-0.4906,29.4664], "Butembo":[0.145,29.251], "Goma":[-1.654,29.181],
+  "Kalunguta":[-0.4200,29.4300], "Katwa":[0.140,29.319], "Kyondo":[0.023,29.465],
   "Lubero":[-0.1667,29.2167], "Mabalako":[-0.2833,29.3667], "Masereka":[0.0500,29.3500],
-  "Musienene":[0.0500,29.2333], "Oicha":[0.697,29.517], "Vuhovi":[-0.0200,29.2600],
-  "Isiro":[2.774,27.621], "Wamba":[2.144,27.994], "Boma Mangbetu":[2.85,28.30],
-  "Pawa":[2.4667,27.55], "Rungu":[2.7667,27.9667], "Gombari":[2.9333,28.4167],
+  "Musienene":[0.0500,29.2333], "Oicha":[0.754,29.590], "Vuhovi":[-0.0200,29.2600],
+  "Isiro":[2.774,27.621], "Wamba":[2.096,28.098], "Boma Mangbetu":[2.85,28.30],
+  "Pawa":[2.340,27.559], "Rungu":[2.835,28.080], "Gombari":[2.9333,28.4167],
   "Bafwasende":[1.0833,27.35], "Kabondo":[0.530,25.223], "Lubunga":[0.486,25.188],
-  "Makiso-Kisangani":[0.515,25.190], "Makiso--Kisangani":[0.515,25.190], "Mangobo":[0.541,25.145], "Wanie-Rukula":[0.35,25.75],
-  "Miti-Murhesa":[-2.295,28.785],
+  "Makiso-Kisangani":[0.485,25.278], "Makiso--Kisangani":[0.485,25.278], "Mangobo":[0.599,25.098], "Wanie-Rukula":[0.35,25.75],
+  "Miti-Murhesa":[-2.336,28.836],
   "Buta":[2.793,24.729]
 };
 /* Chefs-lieux provinciaux, utilisés uniquement pour représenter les totaux
