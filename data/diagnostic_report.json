@@ -1,0 +1,2238 @@
+[
+  {
+    "file": "SITREP_MVE_001.pdf",
+    "numberFromFilename": "001",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "001",
+      "reportingDate": "2026-05-14"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 15
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_002.pdf",
+    "numberFromFilename": "002",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "002",
+      "reportingDate": "2026-05-17"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_004.pdf",
+    "numberFromFilename": "004",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "004",
+      "reportingDate": "2026-05-19"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": true,
+      "error": null,
+      "rowCount": 3
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_005.pdf",
+    "numberFromFilename": "005",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "005",
+      "reportingDate": "2026-05-19"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 4,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_006.pdf",
+    "numberFromFilename": "006",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "006",
+      "reportingDate": "2026-05-20"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_007.pdf",
+    "numberFromFilename": "007",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "007",
+      "reportingDate": "2026-05-21"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_008.pdf",
+    "numberFromFilename": "008",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "008",
+      "reportingDate": "2026-05-22"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_009.pdf",
+    "numberFromFilename": "009",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "009",
+      "reportingDate": "2026-05-23"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 14
+    }
+  },
+  {
+    "file": "SITREP_MVE_010.pdf",
+    "numberFromFilename": "010",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "010",
+      "reportingDate": "2026-05-24"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 4
+    }
+  },
+  {
+    "file": "SITREP_MVE_011.pdf",
+    "numberFromFilename": "011",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "011",
+      "reportingDate": "2026-05-25"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_012.pdf",
+    "numberFromFilename": "012",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "012",
+      "reportingDate": "2026-05-26"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_013.pdf",
+    "numberFromFilename": "013",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "013",
+      "reportingDate": "2026-05-27"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_014.pdf",
+    "numberFromFilename": "014",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "014",
+      "reportingDate": "2026-05-28"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_015.pdf",
+    "numberFromFilename": "015",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "015",
+      "reportingDate": "2026-05-29"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_016.pdf",
+    "numberFromFilename": "016",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "016",
+      "reportingDate": "2026-05-30"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_017.pdf",
+    "numberFromFilename": "017",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "017",
+      "reportingDate": "2026-05-31"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_018.pdf",
+    "numberFromFilename": "018",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "018",
+      "reportingDate": "2026-06-01"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_019.pdf",
+    "numberFromFilename": "019",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "019",
+      "reportingDate": "2026-06-02"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_020.pdf",
+    "numberFromFilename": "020",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "020",
+      "reportingDate": "2026-06-03"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_021.pdf",
+    "numberFromFilename": "021",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "021",
+      "reportingDate": "2026-06-04"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_022.pdf",
+    "numberFromFilename": "022",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "022",
+      "reportingDate": "2026-06-05"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_023.pdf",
+    "numberFromFilename": "023",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "023",
+      "reportingDate": "2026-06-06"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_024.pdf",
+    "numberFromFilename": "024",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "024",
+      "reportingDate": "2026-06-07"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_025.pdf",
+    "numberFromFilename": "025",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "025",
+      "reportingDate": "2026-06-08"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_026.pdf",
+    "numberFromFilename": "026",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "026",
+      "reportingDate": "2026-06-09"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_027.pdf",
+    "numberFromFilename": "027",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "027",
+      "reportingDate": "2026-06-10"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 11,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_028.pdf",
+    "numberFromFilename": "028",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "028",
+      "reportingDate": "2026-06-11"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 12,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_030.pdf",
+    "numberFromFilename": "030",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "030",
+      "reportingDate": "2026-06-13"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 14,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_031.pdf",
+    "numberFromFilename": "031",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "031",
+      "reportingDate": "2026-06-14"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 15,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_032.pdf",
+    "numberFromFilename": "032",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "032",
+      "reportingDate": "2026-06-15"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 16,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_033.pdf",
+    "numberFromFilename": "033",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "033",
+      "reportingDate": "2026-06-16"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 17,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_034.pdf",
+    "numberFromFilename": "034",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "034",
+      "reportingDate": "2026-06-17"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 18,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_035.pdf",
+    "numberFromFilename": "035",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "035",
+      "reportingDate": "2026-06-18"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 19,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_036.pdf",
+    "numberFromFilename": "036",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "036",
+      "reportingDate": "2026-06-19"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 20,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_037.pdf",
+    "numberFromFilename": "037",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "037",
+      "reportingDate": "2026-06-20"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 21,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_038.pdf",
+    "numberFromFilename": "038",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "038",
+      "reportingDate": "2026-06-21"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 22,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_039.pdf",
+    "numberFromFilename": "039",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "039",
+      "reportingDate": "2026-06-22"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 23,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_040.pdf",
+    "numberFromFilename": "040",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "040",
+      "reportingDate": "2026-06-23"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 242026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_041.pdf",
+    "numberFromFilename": "041",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "041",
+      "reportingDate": "2026-06-24"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 252026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_042.pdf",
+    "numberFromFilename": "042",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "042",
+      "reportingDate": "2026-06-25"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_044.pdf",
+    "numberFromFilename": "044",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "044",
+      "reportingDate": "2026-06-27"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 282026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_046.pdf",
+    "numberFromFilename": "046",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "046",
+      "reportingDate": "2026-06-29"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 302026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_047.pdf",
+    "numberFromFilename": "047",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "047",
+      "reportingDate": "2026-06-30"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 12026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_048.pdf",
+    "numberFromFilename": "048",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "048",
+      "reportingDate": "2026-07-01"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 1220262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_049.pdf",
+    "numberFromFilename": "049",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "049",
+      "reportingDate": "2026-07-02"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 32026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_050.pdf",
+    "numberFromFilename": "050",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "050",
+      "reportingDate": "2026-07-03"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 42026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_051.pdf",
+    "numberFromFilename": "051",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "051",
+      "reportingDate": "2026-07-04"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 52026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_052.pdf",
+    "numberFromFilename": "052",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "052",
+      "reportingDate": "2026-07-05"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 62026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_053.pdf",
+    "numberFromFilename": "053",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "053",
+      "reportingDate": "2026-07-06"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 72026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_054.pdf",
+    "numberFromFilename": "054",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "054",
+      "reportingDate": "2026-07-07"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 82026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_055.pdf",
+    "numberFromFilename": "055",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "055",
+      "reportingDate": "2026-07-08"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 92026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_056.pdf",
+    "numberFromFilename": "056",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "056",
+      "reportingDate": "2026-07-09"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 102026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_057.pdf",
+    "numberFromFilename": "057",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "057",
+      "reportingDate": "2026-07-10"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 102026323
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_058.pdf",
+    "numberFromFilename": "058",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "058",
+      "reportingDate": "2026-07-11"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 112026323
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_059.pdf",
+    "numberFromFilename": "059",
+    "meta": {
+      "ok": false,
+      "error": "dates non trouvées dans le texte",
+      "sitrepNumber": "058",
+      "reportingDate": null
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 15202612,
+      "deaths": 2026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_060.pdf",
+    "numberFromFilename": "060",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "060",
+      "reportingDate": "2026-07-13"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 142026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_061.pdf",
+    "numberFromFilename": "061",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "061",
+      "reportingDate": "2026-07-14"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 152026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 12
+    }
+  },
+  {
+    "file": "SITREP_MVE_062.pdf",
+    "numberFromFilename": "062",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "062",
+      "reportingDate": "2026-07-15"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 162026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_064.pdf",
+    "numberFromFilename": "064",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "064",
+      "reportingDate": "2026-07-17"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 182026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_065.pdf",
+    "numberFromFilename": "065",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "065",
+      "reportingDate": "2026-07-18"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 192026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_066.pdf",
+    "numberFromFilename": "066",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "066",
+      "reportingDate": "2026-07-19"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 202026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_067.pdf",
+    "numberFromFilename": "067",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "067",
+      "reportingDate": "2026-07-20"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 212026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_068.pdf",
+    "numberFromFilename": "068",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "068",
+      "reportingDate": "2026-07-21"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 212220262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_069.pdf",
+    "numberFromFilename": "069",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "069",
+      "reportingDate": "2026-07-22"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 222320262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_070.pdf",
+    "numberFromFilename": "070",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "070",
+      "reportingDate": "2026-07-23"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 232420262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_071.pdf",
+    "numberFromFilename": "071",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "071",
+      "reportingDate": "2026-07-24"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 242520262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_072.pdf",
+    "numberFromFilename": "072",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "072",
+      "reportingDate": "2026-07-25"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 252620262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_073.pdf",
+    "numberFromFilename": "073",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "073",
+      "reportingDate": "2026-07-26"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 262720262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_074.pdf",
+    "numberFromFilename": "074",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "074",
+      "reportingDate": "2026-07-27"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 272820262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_077.pdf",
+    "numberFromFilename": "077",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "077",
+      "reportingDate": "2026-07-30"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 303120262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_078.pdf",
+    "numberFromFilename": "078",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "078",
+      "reportingDate": "2026-07-31"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 310120262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_079.pdf",
+    "numberFromFilename": "079",
+    "meta": {
+      "ok": false,
+      "error": "dates non trouvées dans le texte",
+      "sitrepNumber": "079",
+      "reportingDate": null
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 10220262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_080.pdf",
+    "numberFromFilename": "080",
+    "meta": {
+      "ok": false,
+      "error": "dates non trouvées dans le texte",
+      "sitrepNumber": "080",
+      "reportingDate": null
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 20320262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_081.pdf",
+    "numberFromFilename": "081",
+    "meta": {
+      "ok": false,
+      "error": "dates non trouvées dans le texte",
+      "sitrepNumber": "081",
+      "reportingDate": null
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 30420262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table trouvée mais lignes/total non exploitables",
+      "rowCount": 0
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 29
+    }
+  },
+  {
+    "file": "SITREP_MVE_082.pdf",
+    "numberFromFilename": "082",
+    "meta": {
+      "ok": false,
+      "error": "dates non trouvées dans le texte",
+      "sitrepNumber": "082",
+      "reportingDate": null
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 40520262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_083.pdf",
+    "numberFromFilename": "083",
+    "meta": {
+      "ok": false,
+      "error": "dates non trouvées dans le texte",
+      "sitrepNumber": "083",
+      "reportingDate": null
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": 50620262026
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_084.pdf",
+    "numberFromFilename": "084",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "084",
+      "reportingDate": "2026-08-06"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_085.pdf",
+    "numberFromFilename": "085",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "085",
+      "reportingDate": "2026-08-07"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_086.pdf",
+    "numberFromFilename": "086",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "086",
+      "reportingDate": "2026-08-08"
+    },
+    "kpis": {
+      "ok": false,
+      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "confirmed": null,
+      "deaths": null
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": false,
+      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "zoneCount": 0
+    }
+  },
+  {
+    "file": "SITREP_MVE_087.pdf",
+    "numberFromFilename": "087",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "087",
+      "reportingDate": "2026-08-09"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 4381,
+      "deaths": 2011
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 1
+    }
+  },
+  {
+    "file": "SITREP_MVE_088.pdf",
+    "numberFromFilename": "088",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "088",
+      "reportingDate": "2026-08-10"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 4449,
+      "deaths": 2061
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 52
+    }
+  },
+  {
+    "file": "SITREP_MVE_089.pdf",
+    "numberFromFilename": "089",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "089",
+      "reportingDate": "2026-08-11"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 4566,
+      "deaths": 2128
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 13
+    }
+  },
+  {
+    "file": "SITREP_MVE_090.pdf",
+    "numberFromFilename": "090",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "090",
+      "reportingDate": "2026-08-12"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 4665,
+      "deaths": 2184
+    },
+    "provinceTable": {
+      "ok": false,
+      "error": "table introuvable (en-tête différent ou absente)",
+      "rowCount": null
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 53
+    }
+  },
+  {
+    "file": "SITREP_MVE_091.pdf",
+    "numberFromFilename": "091",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "091",
+      "reportingDate": "2026-08-13"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 4727,
+      "deaths": 2214
+    },
+    "provinceTable": {
+      "ok": true,
+      "error": null,
+      "rowCount": 6
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 54
+    }
+  },
+  {
+    "file": "SITREP_MVE_092.pdf",
+    "numberFromFilename": "092",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "092",
+      "reportingDate": "2026-08-14"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 4843,
+      "deaths": 2272
+    },
+    "provinceTable": {
+      "ok": true,
+      "error": null,
+      "rowCount": 6
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 54
+    }
+  },
+  {
+    "file": "SITREP_MVE_093.pdf",
+    "numberFromFilename": "093",
+    "meta": {
+      "ok": true,
+      "error": null,
+      "sitrepNumber": "093",
+      "reportingDate": "2026-08-15"
+    },
+    "kpis": {
+      "ok": true,
+      "error": null,
+      "confirmed": 4945,
+      "deaths": 2325
+    },
+    "provinceTable": {
+      "ok": true,
+      "error": null,
+      "rowCount": 6
+    },
+    "zoneDetail": {
+      "ok": true,
+      "error": null,
+      "zoneCount": 54
+    }
+  }
+]
