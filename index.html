@@ -1304,6 +1304,28 @@ const KAMPALA_DATA = {
   lastCaseDate: "2026-06-16",
   declaredFreeDate: "2026-07-28"
 };
+
+/* Les bulletins successifs orthographient parfois la même zone différemment
+   d'un SitRep à l'autre (ex: "Nia Nia" vs "Nia-Nia", "Makiso-Kisangani" vs
+   "Makiso--Kisangani") : espace, tiret simple ou double, casse. Plutôt que de
+   maintenir une liste d'alias qui grandit à chaque nouvelle variante
+   rencontrée, on normalise (espaces/tirets réduits à un seul espace,
+   minuscules) avant toute recherche dans HEALTH_ZONE_COORDS, côté clé du
+   dictionnaire ET côté nom recherché. Un cercle qui "apparaît et disparaît"
+   sur le curseur temporel est presque toujours ce problème : la zone existe
+   bien dans les données, mais son nom exact ne correspondait à aucune clé
+   pour CE SitRep précis. */
+function normalizeZoneName(name){
+  return (name || '').trim().toLowerCase().replace(/[\s-]+/g, ' ');
+}
+const HEALTH_ZONE_COORDS_NORMALIZED = {};
+for(const [key, coord] of Object.entries(HEALTH_ZONE_COORDS)){
+  HEALTH_ZONE_COORDS_NORMALIZED[normalizeZoneName(key)] = coord;
+}
+function lookupZoneCoord(name){
+  return HEALTH_ZONE_COORDS[name] || HEALTH_ZONE_COORDS_NORMALIZED[normalizeZoneName(name)];
+}
+
 const ITURI_BOUNDS = [[0.7,27.4],[3.3,31.2]];
 const DRC_BOUNDS = [[-13.459,12.204],[5.386,33.2]];
 
@@ -1600,7 +1622,7 @@ function renderMap(){
   const provincesWithZoneDetail = new Set(HEALTH_ZONES.map(z=>z.province));
 
   zonesToRender.forEach(z=>{
-    const coord = HEALTH_ZONE_COORDS[z.name];
+    const coord = lookupZoneCoord(z.name);
     if(!coord) return;
     const t = z.cases / maxCases;
     const radius = 4 + Math.sqrt(z.cases) * 1.15;
