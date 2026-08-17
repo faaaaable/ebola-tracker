@@ -16,6 +16,7 @@ import sys
 REPORTS_DIR = "reports"
 DATA_PATH = "data/latest.json"
 SITREPS_PATH = "data/sitreps.json"
+ZONES_HISTORY_PATH = "data/zones-history.json"
 
 PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé"]
 # Nom canonique utilisé côté site (avec tiret pour Bas-Uélé)
@@ -497,6 +498,60 @@ def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
     return sitreps
 
 
+def rebuild_zones_history(meta, health_zones):
+    """Met à jour data/zones-history.json (curseur temporel de la carte)
+    avec le détail par zone du SitRep qu'on vient d'analyser, en FUSIONNANT
+    avec l'existant (même principe que rebuild_sitreps_json : jamais
+    d'écrasement). N'ajoute une entrée que si `health_zones` est non vide —
+    si l'extraction du détail par zone a échoué pour ce SitRep (bulletin
+    trop ancien, format différent, ou simplement PDF sans ce détail), on ne
+    touche pas au fichier plutôt que d'y insérer une liste vide.
+
+    Le format stocké ici est volontairement réduit par rapport à
+    `healthZones` dans latest.json (seulement name/province/cases/deaths) :
+    c'est le format déjà utilisé par toutes les entrées existantes de ce
+    fichier, y compris celles ajoutées manuellement pour l'historique
+    mai-juillet — on reste cohérent avec l'existant plutôt que d'introduire
+    un format à trois vitesses dans le même fichier.
+    """
+    if not health_zones:
+        print("  (pas de détail par zone exploitable pour ce SitRep, "
+              "zones-history.json non modifié)")
+        return
+
+    reporting_date = meta.get("reportingDate")
+    sitrep_number = meta.get("sitrepNumber")
+    if not reporting_date or not sitrep_number:
+        print("  (date ou numéro de SitRep manquant, zones-history.json non modifié)")
+        return
+
+    existing = []
+    if os.path.exists(ZONES_HISTORY_PATH):
+        with open(ZONES_HISTORY_PATH, encoding="utf-8") as f:
+            existing = json.load(f)
+    by_sitrep = {e["sitrep"]: e for e in existing}
+
+    by_sitrep[sitrep_number] = {
+        "sitrep": sitrep_number,
+        "date": reporting_date,
+        "zones": [
+            {"name": z["name"], "province": z["province"],
+             "cases": z["cases"], "deaths": z["deaths"]}
+            for z in health_zones
+        ],
+    }
+
+    merged = sorted(by_sitrep.values(), key=lambda e: e["date"])
+
+    os.makedirs(os.path.dirname(ZONES_HISTORY_PATH), exist_ok=True)
+    with open(ZONES_HISTORY_PATH, "w", encoding="utf-8") as f:
+        json.dump(merged, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+    print(f"  zones-history.json mis à jour : {len(merged)} point(s) au total "
+          f"(SitRep {sitrep_number} ajouté/rafraîchi, {len(health_zones)} zones).")
+
+
 def main():
     report_path, report_num = find_latest_report()
     if not report_path:
@@ -612,6 +667,8 @@ def main():
     # autres dates gardent leur valeur déjà présente dans le fichier existant.
     national_recovered_by_sitrep = {meta["sitrepNumber"]: national["recovered"]}
     sitreps = rebuild_sitreps_json(reports, national_recovered_by_sitrep)
+
+    rebuild_zones_history(meta, health_zones)
 
     print(f"data/latest.json mis à jour : SitRep {meta['sitrepNumber']} "
           f"({national['confirmed']} cas, {national['deaths']} décès) — "
