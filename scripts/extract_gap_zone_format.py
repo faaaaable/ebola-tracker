@@ -39,17 +39,26 @@ PROVINCE_CANON["SUD-KIVU"] = "Sud-Kivu"
 PROVINCE_CANON["HAUT-UÉLÉ"] = "Haut-Uélé"
 PROVINCE_CANON["BAS-UÉLÉ"] = "Bas-Uélé"
 
-# Ligne de province : "ITURI 1214 335 27,6%"
+# Ligne de province : "ITURI 1214 335 27,6%" — le symbole % est parfois
+# absent selon le bulletin (variation d'extraction), donc rendu optionnel.
 PROVINCE_LINE_RE = re.compile(
     r"^(?P<prov>ITURI|NORD-KIVU|SUD-KIVU|HAUT-UÉLÉ|TSHOPO|BAS-UÉLÉ)\s+"
-    r"(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%\s*$"
+    r"(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%?\s*$"
 )
-# Ligne de zone : "Bunia 358 82 22,9%"
+# Ligne de zone : "Bunia 358 82 22,9%" (ou "22,9" sans %)
 ZONE_LINE_RE = re.compile(
     r"^(?P<name>[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ'\.\- ]*?)\s+"
-    r"(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%\s*$"
+    r"(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%?\s*$"
 )
-TOTAL_LINE_RE = re.compile(r"^TOTAL\s+(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%\s*$")
+TOTAL_LINE_RE = re.compile(r"^TOTAL\s+(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%?\s*$")
+
+# Deux formats d'en-tête observés selon les bulletins :
+#  - "Province / Zone de santé ... cumulés (n) cumulés (n)"  (ex: 046, 052)
+#  - "Zone de santé  Cas confirmés cumulés  Décès confirmés cumulés  Létalité (CFR%)"  (ex: 048)
+HEADER_MARKERS = [
+    re.compile(r"Province\s*/\s*Zone de santé", re.IGNORECASE),
+    re.compile(r"Zone de santé\s+Cas confirmés cumulés", re.IGNORECASE),
+]
 
 
 def extract_meta_date(full_text):
@@ -82,7 +91,7 @@ def parse_zone_table(full_text):
     lines = full_text.split("\n")
     start_idx = None
     for i, line in enumerate(lines):
-        if re.search(r"Province\s*/\s*Zone de santé", line, re.IGNORECASE):
+        if any(pattern.search(line) for pattern in HEADER_MARKERS):
             start_idx = i
             break
     if start_idx is None:
