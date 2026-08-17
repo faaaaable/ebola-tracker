@@ -1302,6 +1302,11 @@ const KAMPALA_DATA = {
   lastCaseDate: "2026-06-16",
   declaredFreeDate: "2026-07-28"
 };
+// Date à partir de laquelle Kampala apparaît sur le curseur temporel de la
+// carte : alignée sur la première date disponible pour les autres cercles
+// (SitRep N°007, 21 mai), pas sur la date réelle du 1er cas (15 mai), par
+// souci de cohérence visuelle avec le reste des données historiques.
+const KAMPALA_TIMELINE_START = "2026-05-21";
 
 /* Les bulletins successifs orthographient parfois la même zone différemment
    d'un SitRep à l'autre (ex: "Nia Nia" vs "Nia-Nia", "Makiso-Kisangani" vs
@@ -1656,8 +1661,31 @@ function renderMap(){
     marker.addTo(zoneMarkersLayer);
   });
 
-  // Le repli agrégé par province et le marqueur de Kampala ne concernent que
-  // la situation actuelle ; on les masque pendant qu'on scrute l'historique.
+  // Kampala (foyer clos, Ouganda) : distinct des zones de la RDC, pas
+  // présent dans ZONES_HISTORY. Affiché dès le 21 mai sur le curseur
+  // temporel — première date disponible pour les autres cercles (SitRep
+  // N°007) — pour rester visuellement cohérent avec le reste de la carte,
+  // même si le tout premier cas réel remonte au 15 mai. Toujours affiché
+  // en vue "Aujourd'hui".
+  const currentHistoricalDate = isHistorical ? ZONES_HISTORY[timelineIndex].date : null;
+  if(!isHistorical || currentHistoricalDate >= KAMPALA_TIMELINE_START){
+    const kampalaMarker = L.circleMarker(KAMPALA_COORDS, {
+      radius:7, color:'#8B968E', weight:2,
+      fillColor:'#8B968E', fillOpacity:.55
+    });
+    kampalaMarker.bindPopup(
+      `<b>Kampala</b>
+       <div class="popup-row"><span class="k">${tr('popupStatus')}</span><span>${tr('popupClosedFocus')}</span></div>
+       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(KAMPALA_DATA.cases)}</span></div>
+       <div class="popup-row"><span class="k">${tr('labelDeaths')}</span><span>${fmt(KAMPALA_DATA.deaths)}</span></div>
+       <div class="popup-row"><span class="k">${tr('popupLastCase')}</span><span>${frDate(KAMPALA_DATA.lastCaseDate)}</span></div>
+       <div class="popup-row"><span class="k">${tr('popupDeclaredFree')}</span><span>${frDate(KAMPALA_DATA.declaredFreeDate)}</span></div>`
+    );
+    kampalaMarker.addTo(closedFociLayer);
+  }
+
+  // Le repli agrégé par province ne concerne que la situation actuelle ;
+  // on le masque pendant qu'on scrute l'historique.
   if(isHistorical) return;
 
   // Repli : cercle agrégé en pointillés, uniquement pour une province qui
@@ -1686,20 +1714,6 @@ function renderMap(){
     );
     marker.addTo(provinceMarkersLayer);
   });
-
-  const kampalaMarker = L.circleMarker(KAMPALA_COORDS, {
-    radius:7, color:'#8B968E', weight:2,
-    fillColor:'#8B968E', fillOpacity:.55
-  });
-  kampalaMarker.bindPopup(
-    `<b>Kampala</b>
-     <div class="popup-row"><span class="k">${tr('popupStatus')}</span><span>${tr('popupClosedFocus')}</span></div>
-     <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(KAMPALA_DATA.cases)}</span></div>
-     <div class="popup-row"><span class="k">${tr('labelDeaths')}</span><span>${fmt(KAMPALA_DATA.deaths)}</span></div>
-     <div class="popup-row"><span class="k">${tr('popupLastCase')}</span><span>${frDate(KAMPALA_DATA.lastCaseDate)}</span></div>
-     <div class="popup-row"><span class="k">${tr('popupDeclaredFree')}</span><span>${frDate(KAMPALA_DATA.declaredFreeDate)}</span></div>`
-  );
-  kampalaMarker.addTo(closedFociLayer);
 }
 
 let timelinePlayTimer = null;
