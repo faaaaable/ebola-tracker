@@ -76,6 +76,19 @@ ZONE_PROVINCE = {
 }
 
 
+def normalize_province(s):
+    """Retire les accents pour comparer les noms de province de façon
+    fiable : le shapefile écrit 'Haut-Uele'/'Bas-Uele' sans accent, alors
+    qu'on attend 'Haut-Uélé'/'Bas-Uélé' — sans cette normalisation, la
+    comparaison déclenche une fausse alerte "province différente" sur des
+    provinces en réalité identiques."""
+    import unicodedata
+    return "".join(
+        c for c in unicodedata.normalize("NFD", s.strip().lower())
+        if unicodedata.category(c) != "Mn"
+    )
+
+
 def haversine_km(lat1, lon1, lat2, lon2):
     from math import radians, sin, cos, sqrt, atan2
     R = 6371.0
@@ -145,7 +158,7 @@ def main():
         new_lat, new_lon = point.y, point.x
         dist = haversine_km(old_lat, old_lon, new_lat, new_lon)
         shp_province = row["PROVINCE"]
-        province_ok = shp_province.strip().lower() == expected_province.strip().lower()
+        province_ok = normalize_province(shp_province) == normalize_province(expected_province)
         status = "OK" if province_ok else "! PROVINCE DIFFÉRENTE — à vérifier"
         matched += 1
         print(f"{name:<20}{expected_province:<12}{shp_province:<16}{f'{old_lat:.3f},{old_lon:.3f}':<18}"
