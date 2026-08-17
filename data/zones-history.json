@@ -4654,6 +4654,12 @@
         "deaths": 1
       },
       {
+        "name": "Autres zones non encore identifiées",
+        "province": "Ituri",
+        "cases": 17,
+        "deaths": 0
+      },
+      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 42,
@@ -4718,6 +4724,12 @@
         "province": "Nord-Kivu",
         "cases": 8,
         "deaths": 2
+      },
+      {
+        "name": "Miti-Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 3,
+        "deaths": 1
       }
     ]
   },
