@@ -15,6 +15,7 @@ import sys
 
 REPORTS_DIR = "reports"
 DATA_PATH = "data/latest.json"
+SITREPS_PATH = "data/sitreps.json"
 
 PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé"]
 # Nom canonique utilisé côté site (avec tiret pour Bas-Uélé)
@@ -443,6 +444,55 @@ def rebuild_reports_list(current_reports):
     return reports
 
 
+def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
+    """Régénère data/sitreps.json (courbe épidémique + KPI côté site) à
+    partir de la liste `reports`, qui est déjà reconstruite à chaque run
+    depuis TOUS les PDF présents (voir rebuild_reports_list). Ce fichier
+    était auparavant figé une fois pour toutes lors de sa génération
+    initiale et jamais régénéré par le pipeline automatique — d'où des
+    KPI/graphique bloqués sur le dernier SitRep présent à cette date-là.
+
+    On réutilise les valeurs de `recovered` déjà présentes dans le fichier
+    existant quand on les a (recovered n'est pas extrait par
+    parse_report_summary, seulement par l'analyse complète du SitRep le
+    plus récent dans main()), pour ne pas perdre l'historique déjà connu.
+    """
+    existing_by_date = {}
+    if os.path.exists(SITREPS_PATH):
+        try:
+            with open(SITREPS_PATH, encoding="utf-8") as f:
+                for entry in json.load(f):
+                    if entry.get("date"):
+                        existing_by_date[entry["date"]] = entry
+        except Exception:
+            pass
+
+    sitreps = []
+    for r in reports:
+        date = r.get("reportingDate")
+        if not date or r.get("confirmed") is None:
+            continue
+        recovered = national_recovered_by_sitrep.get(r["sitrepNumber"])
+        if recovered is None:
+            prev = existing_by_date.get(date)
+            recovered = prev.get("recovered") if prev else None
+        sitreps.append({
+            "date": date,
+            "confirmed": r["confirmed"],
+            "deaths": r.get("deaths"),
+            "recovered": recovered,
+        })
+
+    sitreps.sort(key=lambda s: s["date"])
+
+    os.makedirs(os.path.dirname(SITREPS_PATH), exist_ok=True)
+    with open(SITREPS_PATH, "w", encoding="utf-8") as f:
+        json.dump(sitreps, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+    return sitreps
+
+
 def main():
     report_path, report_num = find_latest_report()
     if not report_path:
@@ -551,9 +601,19 @@ def main():
         json.dump(result, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
+    # data/sitreps.json (KPI + courbe épidémique côté site) : régénéré à
+    # chaque run à partir de `reports`, qui contient déjà tous les SitRep
+    # connus avec leurs cas/décès. On ne connaît `recovered` de façon fiable
+    # que pour le SitRep qu'on vient d'analyser en détail (celui-ci) ; les
+    # autres dates gardent leur valeur déjà présente dans le fichier existant.
+    national_recovered_by_sitrep = {meta["sitrepNumber"]: national["recovered"]}
+    sitreps = rebuild_sitreps_json(reports, national_recovered_by_sitrep)
+
     print(f"data/latest.json mis à jour : SitRep {meta['sitrepNumber']} "
           f"({national['confirmed']} cas, {national['deaths']} décès) — "
           f"{len(reports)} rapport(s) listé(s) dans l'onglet.")
+    print(f"data/sitreps.json régénéré : {len(sitreps)} point(s) de données "
+          f"(du {sitreps[0]['date']} au {sitreps[-1]['date']}).")
     return 0
 
 
