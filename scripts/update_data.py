@@ -445,45 +445,49 @@ def rebuild_reports_list(current_reports):
 
 
 def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
-    """Régénère data/sitreps.json (courbe épidémique + KPI côté site) à
-    partir de la liste `reports`, qui est déjà reconstruite à chaque run
-    depuis TOUS les PDF présents (voir rebuild_reports_list). Ce fichier
-    était auparavant figé une fois pour toutes lors de sa génération
-    initiale et jamais régénéré par le pipeline automatique — d'où des
-    KPI/graphique bloqués sur le dernier SitRep présent à cette date-là.
+    """Met à jour data/sitreps.json (courbe épidémique + KPI côté site) en
+    FUSIONNANT avec le contenu existant, plutôt qu'en l'écrasant.
 
-    On réutilise les valeurs de `recovered` déjà présentes dans le fichier
-    existant quand on les a (recovered n'est pas extrait par
-    parse_report_summary, seulement par l'analyse complète du SitRep le
-    plus récent dans main()), pour ne pas perdre l'historique déjà connu.
+    Historique : ce fichier a été construit une première fois manuellement
+    à partir de 84 SitRep archivés (extraction ponctuelle, hors pipeline),
+    donc il contient des dates que `reports` ne connaît pas avec un
+    `confirmed` non nul (parse_report_summary() n'a jamais réussi à
+    extraire les totaux des tout premiers SitRep — table absente ou
+    format différent à l'époque). Écraser entièrement le fichier à partir
+    de `reports` seul (comme le faisait la version précédente de cette
+    fonction) jette donc cet historique. On ne fait maintenant qu'ajouter
+    ou rafraîchir les dates que `reports` connaît avec certitude
+    (confirmed non nul), en laissant toutes les autres entrées existantes
+    intactes.
     """
-    existing_by_date = {}
+    by_date = {}
     if os.path.exists(SITREPS_PATH):
         try:
             with open(SITREPS_PATH, encoding="utf-8") as f:
                 for entry in json.load(f):
                     if entry.get("date"):
-                        existing_by_date[entry["date"]] = entry
+                        by_date[entry["date"]] = entry
         except Exception:
             pass
 
-    sitreps = []
     for r in reports:
         date = r.get("reportingDate")
         if not date or r.get("confirmed") is None:
+            # Rapport trop ancien / non ré-analysé en détail : on ne touche
+            # pas à une éventuelle entrée déjà connue pour cette date.
             continue
         recovered = national_recovered_by_sitrep.get(r["sitrepNumber"])
         if recovered is None:
-            prev = existing_by_date.get(date)
+            prev = by_date.get(date)
             recovered = prev.get("recovered") if prev else None
-        sitreps.append({
+        by_date[date] = {
             "date": date,
             "confirmed": r["confirmed"],
             "deaths": r.get("deaths"),
             "recovered": recovered,
-        })
+        }
 
-    sitreps.sort(key=lambda s: s["date"])
+    sitreps = sorted(by_date.values(), key=lambda s: s["date"])
 
     os.makedirs(os.path.dirname(SITREPS_PATH), exist_ok=True)
     with open(SITREPS_PATH, "w", encoding="utf-8") as f:
