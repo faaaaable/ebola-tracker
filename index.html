@@ -1495,20 +1495,22 @@ function renderChart(){
       }
       return out;
     }
+    // Barres verticales simples : couleur pleine, pas de dégradé ni de
+    // ligne/points, plus lisible pour des valeurs discrètes jour par jour.
     datasets = [
       {
         label:tr('dailyChartLabel'),
         data:diffs('confirmed'),
-        borderColor:'#3568C4', backgroundColor:'rgba(53,104,196,.10)',
-        borderWidth:2, tension:.25, fill:true, pointRadius:3, pointBackgroundColor:'#3568C4',
-        spanGaps:true
+        backgroundColor:'#3568C4',
+        borderRadius:2,
+        maxBarThickness:18
       },
       {
         label:tr('dailyDeathsLabel'),
         data:diffs('deaths'),
-        borderColor:'#C24A24', backgroundColor:'rgba(194,74,36,.08)',
-        borderWidth:2, tension:.25, fill:true, pointRadius:3, pointBackgroundColor:'#C24A24',
-        spanGaps:true
+        backgroundColor:'#C24A24',
+        borderRadius:2,
+        maxBarThickness:18
       }
     ];
   } else {
@@ -1546,8 +1548,17 @@ function renderChart(){
       y:{ ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10} }, grid:{ color:'#EDEFE9' }, beginAtZero:true }
     }
   };
+  // Le type de graphique change selon le mode (barres pour le quotidien,
+  // courbe pour le cumulé) : Chart.js ne permet pas de changer le type
+  // d'une instance existante, donc on la détruit et on la recrée plutôt
+  // que de la mettre à jour en place dans ce cas précis.
+  const wantedType = chartMode==='daily' ? 'bar' : 'line';
+  if(chart && chart.config.type !== wantedType){
+    chart.destroy();
+    chart = null;
+  }
   if(chart){ chart.data = data; chart.options = opts; chart.update(); }
-  else { chart = new Chart(ctx, { type:'line', data, options:opts }); }
+  else { chart = new Chart(ctx, { type:wantedType, data, options:opts }); }
 }
 document.querySelectorAll('#chartModeNav .subtab-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
