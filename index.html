@@ -1709,7 +1709,13 @@ function renderMap(){
     // cercles — sur sa propre échelle (max 20 cas), sinon Kampala resterait
     // toujours pâle comparé aux zones de la RDC qui comptent en milliers.
     const isClosed = !isHistorical || currentHistoricalDate >= KAMPALA_DATA.declaredFreeDate;
-    const kColor = isClosed ? '#8B968E' : colorForValue(Math.min(1, displayedCases / KAMPALA_DATA.cases));
+    // Échelle de couleur PARTAGÉE avec les autres cercles (maxCases, calculé
+    // plus haut sur l'ensemble des zones de la RDC) — pas une échelle propre
+    // à Kampala. Sinon Kampala atteindrait le rouge foncé dès 20 cas alors
+    // que les zones de la RDC ne l'atteignent qu'à leur maximum (souvent
+    // plusieurs centaines de cas), donnant une impression de gravité
+    // trompeuse et incohérente avec le reste de la carte.
+    const kColor = isClosed ? '#8B968E' : colorForValue(Math.min(1, displayedCases / maxCases));
     const kampalaMarker = L.circleMarker(KAMPALA_COORDS, {
       radius:kRadius, color:kColor, weight:2,
       fillColor:kColor, fillOpacity:.55
