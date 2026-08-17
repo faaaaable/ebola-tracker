@@ -962,6 +962,7 @@ const I18N = {
     popupNotAvailable:"non disponible",
     popupStatus:"Statut",
     popupClosedFocus:"Foyer clos",
+    popupActiveFocus:"Foyer actif",
     popupLastCase:"Dernier cas",
     popupDeclaredFree:"Déclaré Ebola-free",
     legendClosedFocus:"Foyer clos (aucun nouveau cas)",
@@ -1062,6 +1063,7 @@ const I18N = {
     popupNotAvailable:"not available",
     popupStatus:"Status",
     popupClosedFocus:"Closed focus",
+    popupActiveFocus:"Active focus",
     popupLastCase:"Last case",
     popupDeclaredFree:"Declared Ebola-free",
     legendClosedFocus:"Closed focus (no new cases)",
@@ -1307,6 +1309,33 @@ const KAMPALA_DATA = {
 // (SitRep N°007, 21 mai), pas sur la date réelle du 1er cas (15 mai), par
 // souci de cohérence visuelle avec le reste des données historiques.
 const KAMPALA_TIMELINE_START = "2026-05-21";
+// Nouveaux cas par date, source : autorités ougandaises. Permet de calculer
+// le cumul réel à afficher (taille du cercle + KPI du popup) selon la date
+// scrutée sur le curseur temporel, plutôt qu'un total fixe. La somme des
+// newCases doit toujours égaler KAMPALA_DATA.cases (20) — vérifié.
+const KAMPALA_CASE_TIMELINE = [
+  { date:"2026-05-15", newCases:2 },
+  { date:"2026-05-22", newCases:3 },
+  { date:"2026-05-23", newCases:2 },
+  { date:"2026-05-29", newCases:2 },
+  { date:"2026-05-31", newCases:2 },
+  { date:"2026-06-02", newCases:4 },
+  { date:"2026-06-04", newCases:1 },
+  { date:"2026-06-06", newCases:3 },
+  { date:"2026-06-16", newCases:1 }
+];
+function kampalaCasesAt(dateStr){
+  return KAMPALA_CASE_TIMELINE
+    .filter(e=>e.date<=dateStr)
+    .reduce((sum,e)=>sum+e.newCases, 0);
+}
+function kampalaDeathsAt(dateStr){
+  // Pas de détail des décès par date disponible : on affiche le total
+  // final uniquement une fois la dernière date connue atteinte, plutôt que
+  // de risquer une létalité trompeuse (ex: "2 cas, 2 décès") en early view.
+  const lastDate = KAMPALA_CASE_TIMELINE[KAMPALA_CASE_TIMELINE.length-1].date;
+  return dateStr >= lastDate ? KAMPALA_DATA.deaths : null;
+}
 
 /* Les bulletins successifs orthographient parfois la même zone différemment
    d'un SitRep à l'autre (ex: "Nia Nia" vs "Nia-Nia", "Makiso-Kisangani" vs
@@ -1669,15 +1698,27 @@ function renderMap(){
   // en vue "Aujourd'hui".
   const currentHistoricalDate = isHistorical ? ZONES_HISTORY[timelineIndex].date : null;
   if(!isHistorical || currentHistoricalDate >= KAMPALA_TIMELINE_START){
+    // En vue historique, la taille du cercle et le compteur de cas suivent
+    // le cumul réel à cette date (pas le total final figé) — même formule
+    // de rayon que les cercles de zone, pour rester visuellement comparable.
+    const displayedCases = isHistorical ? kampalaCasesAt(currentHistoricalDate) : KAMPALA_DATA.cases;
+    const displayedDeaths = isHistorical ? kampalaDeathsAt(currentHistoricalDate) : KAMPALA_DATA.deaths;
+    const kRadius = 4 + Math.sqrt(Math.max(displayedCases, 1)) * 1.15;
+    // Gris "foyer clos" seulement à partir de la déclaration officielle
+    // (28 juillet) ; avant cette date, couleur active comme les autres
+    // cercles — sur sa propre échelle (max 20 cas), sinon Kampala resterait
+    // toujours pâle comparé aux zones de la RDC qui comptent en milliers.
+    const isClosed = !isHistorical || currentHistoricalDate >= KAMPALA_DATA.declaredFreeDate;
+    const kColor = isClosed ? '#8B968E' : colorForValue(Math.min(1, displayedCases / KAMPALA_DATA.cases));
     const kampalaMarker = L.circleMarker(KAMPALA_COORDS, {
-      radius:7, color:'#8B968E', weight:2,
-      fillColor:'#8B968E', fillOpacity:.55
+      radius:kRadius, color:kColor, weight:2,
+      fillColor:kColor, fillOpacity:.55
     });
     kampalaMarker.bindPopup(
       `<b>Kampala</b>
-       <div class="popup-row"><span class="k">${tr('popupStatus')}</span><span>${tr('popupClosedFocus')}</span></div>
-       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(KAMPALA_DATA.cases)}</span></div>
-       <div class="popup-row"><span class="k">${tr('labelDeaths')}</span><span>${fmt(KAMPALA_DATA.deaths)}</span></div>
+       <div class="popup-row"><span class="k">${tr('popupStatus')}</span><span>${isClosed ? tr('popupClosedFocus') : tr('popupActiveFocus')}</span></div>
+       <div class="popup-row"><span class="k">${tr('labelConfirmed')}</span><span>${fmt(displayedCases)}</span></div>
+       <div class="popup-row"><span class="k">${tr('labelDeaths')}</span><span>${fmt(displayedDeaths)}</span></div>
        <div class="popup-row"><span class="k">${tr('popupLastCase')}</span><span>${frDate(KAMPALA_DATA.lastCaseDate)}</span></div>
        <div class="popup-row"><span class="k">${tr('popupDeclaredFree')}</span><span>${frDate(KAMPALA_DATA.declaredFreeDate)}</span></div>`
     );
