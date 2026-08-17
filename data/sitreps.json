@@ -14,13 +14,7 @@
   {
     "date": "2026-05-19",
     "confirmed": 33,
-    "deaths": 4,
-    "recovered": null
-  },
-  {
-    "date": "2026-05-19",
-    "confirmed": 51,
-    "deaths": 4,
+    "deaths": null,
     "recovered": null
   },
   {
@@ -508,5 +502,11 @@
     "confirmed": 4843,
     "deaths": 2272,
     "recovered": 1006
+  },
+  {
+    "date": "2026-08-15",
+    "confirmed": 4945,
+    "deaths": 2325,
+    "recovered": 1040
   }
 ]
