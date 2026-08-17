@@ -1,0 +1,25 @@
+name: Inspection d'un SitRep
+
+on:
+  workflow_dispatch:
+    inputs:
+      numero:
+        description: "Numéro du SitRep à inspecter (ex: 010)"
+        required: true
+        default: "010"
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances
+        run: pip install pdfplumber
+
+      - name: Lancer l'inspection
+        run: python scripts/inspect_report.py "${{ github.event.inputs.numero }}"
