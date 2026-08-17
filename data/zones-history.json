@@ -1,5 +1,413 @@
 [
   {
+    "sitrep": "007",
+    "date": "2026-05-21",
+    "zones": [
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 14,
+        "deaths": null
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 31,
+        "deaths": null
+      },
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 15,
+        "deaths": null
+      },
+      {
+        "name": "Nyankunde",
+        "province": "Ituri",
+        "cases": 11,
+        "deaths": null
+      },
+      {
+        "name": "BAMBU",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Kilo Mission",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Miti Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 1,
+        "deaths": null
+      }
+    ]
+  },
+  {
+    "sitrep": "008",
+    "date": "2026-05-22",
+    "zones": [
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 10,
+        "deaths": null
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 32,
+        "deaths": null
+      },
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 23,
+        "deaths": null
+      },
+      {
+        "name": "Nyankunde",
+        "province": "Ituri",
+        "cases": 9,
+        "deaths": null
+      },
+      {
+        "name": "Kilo",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "ARU",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 3,
+        "deaths": null
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Miti Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 1,
+        "deaths": null
+      }
+    ]
+  },
+  {
+    "sitrep": "009",
+    "date": "2026-05-23",
+    "zones": [
+      {
+        "name": "Aru",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Bambu",
+        "province": "Ituri",
+        "cases": 0,
+        "deaths": null
+      },
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 24,
+        "deaths": null
+      },
+      {
+        "name": "Kilo",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 19,
+        "deaths": null
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Nyankunde",
+        "province": "Ituri",
+        "cases": 9,
+        "deaths": null
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 32,
+        "deaths": null
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 4,
+        "deaths": null
+      },
+      {
+        "name": "Miti Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 1,
+        "deaths": null
+      }
+    ]
+  },
+  {
+    "sitrep": "010",
+    "date": "2026-05-24",
+    "zones": [
+      {
+        "name": "Aru",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Bambu",
+        "province": "Ituri",
+        "cases": 0,
+        "deaths": null
+      },
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 19,
+        "deaths": null
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Nyankunde",
+        "province": "Ituri",
+        "cases": 9,
+        "deaths": null
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 32,
+        "deaths": null
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 3,
+        "deaths": null
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 4,
+        "deaths": null
+      },
+      {
+        "name": "Karissibi",
+        "province": "Nord-Kivu",
+        "cases": 0,
+        "deaths": null
+      },
+      {
+        "name": "Kyondo",
+        "province": "Nord-Kivu",
+        "cases": 0,
+        "deaths": null
+      },
+      {
+        "name": "Oicha**",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Kalunguta**",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Miti Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 1,
+        "deaths": null
+      }
+    ]
+  },
+  {
+    "sitrep": "013",
+    "date": "2026-05-27",
+    "zones": [
+      {
+        "name": "Aru",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Bambu",
+        "province": "Ituri",
+        "cases": 0,
+        "deaths": null
+      },
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 37,
+        "deaths": null
+      },
+      {
+        "name": "Kilo",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 20,
+        "deaths": null
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Nyankunde",
+        "province": "Ituri",
+        "cases": 10,
+        "deaths": null
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 33,
+        "deaths": null
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 5,
+        "deaths": null
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Kalunguta",
+        "province": "Nord-Kivu",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 4,
+        "deaths": null
+      },
+      {
+        "name": "Kyondo",
+        "province": "Nord-Kivu",
+        "cases": 0,
+        "deaths": null
+      },
+      {
+        "name": "Oicha",
+        "province": "Nord-Kivu",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Miti Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 1,
+        "deaths": null
+      }
+    ]
+  },
+  {
     "sitrep": "018",
     "date": "2026-06-01",
     "zones": [
