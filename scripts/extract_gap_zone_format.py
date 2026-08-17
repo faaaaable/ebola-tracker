@@ -41,16 +41,22 @@ PROVINCE_CANON["BAS-UÉLÉ"] = "Bas-Uélé"
 
 # Ligne de province : "ITURI 1214 335 27,6%" — le symbole % est parfois
 # absent selon le bulletin (variation d'extraction), donc rendu optionnel.
+# Un astérisque de renvoi de note peut aussi apparaître collé au nom ou à
+# n'importe quel nombre (ex: "Ituri 1214 335* 27,6%") : toléré partout.
 PROVINCE_LINE_RE = re.compile(
-    r"^(?P<prov>ITURI|NORD-KIVU|SUD-KIVU|HAUT-UÉLÉ|TSHOPO|BAS-UÉLÉ)\s+"
-    r"(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%?\s*$"
+    r"^(?P<prov>ITURI|NORD-KIVU|SUD-KIVU|HAUT-UÉLÉ|TSHOPO|BAS-UÉLÉ)\*?\s+"
+    r"(?P<cases>\d+)\*?\s+(?P<deaths>\d+)\*?\s+[\d,]+%?\*?\s*$"
 )
-# Ligne de zone : "Bunia 358 82 22,9%" (ou "22,9" sans %)
+# Ligne de zone : "Bunia 358 82 22,9%" (ou "22,9" sans %). Certains
+# bulletins accolent un astérisque de renvoi directement au nom de la zone
+# (ex: "Nia-Nia* 12 5 41,7%") : sans cette tolérance, la ligne entière ne
+# matche plus et la zone disparaît silencieusement de l'extraction — c'est
+# ce qui s'est produit avec Nia-Nia sur plusieurs SitRep de fin juin.
 ZONE_LINE_RE = re.compile(
-    r"^(?P<name>[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ'\.\- ]*?)\s+"
-    r"(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%?\s*$"
+    r"^(?P<name>[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ'\.\- ]*?)\*?\s+"
+    r"(?P<cases>\d+)\*?\s+(?P<deaths>\d+)\*?\s+[\d,]+%?\*?\s*$"
 )
-TOTAL_LINE_RE = re.compile(r"^TOTAL\s+(?P<cases>\d+)\s+(?P<deaths>\d+)\s+[\d,]+%?\s*$")
+TOTAL_LINE_RE = re.compile(r"^TOTAL\*?\s+(?P<cases>\d+)\*?\s+(?P<deaths>\d+)\*?\s+[\d,]+%?\*?\s*$")
 
 # Deux formats d'en-tête observés selon les bulletins :
 #  - "Province / Zone de santé ... cumulés (n) cumulés (n)"  (ex: 046, 052)
