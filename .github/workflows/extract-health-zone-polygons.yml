@@ -1,0 +1,20 @@
+name: Extraction polygones zones de santé
+
+on:
+  workflow_dispatch:
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances
+        run: pip install geopandas requests
+
+      - name: Lancer l'extraction
+        run: python scripts/extract_health_zone_polygons.py
