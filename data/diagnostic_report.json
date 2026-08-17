@@ -10,9 +10,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
-      "deaths": 15
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -21,7 +21,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -36,7 +36,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -47,7 +47,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -61,9 +61,9 @@
       "reportingDate": "2026-05-19"
     },
     "kpis": {
-      "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
-      "confirmed": null,
+      "ok": true,
+      "error": null,
+      "confirmed": 33,
       "deaths": null
     },
     "provinceTable": {
@@ -73,7 +73,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -87,9 +87,9 @@
       "reportingDate": "2026-05-19"
     },
     "kpis": {
-      "ok": true,
+      "ok": false,
       "error": null,
-      "confirmed": 4,
+      "confirmed": null,
       "deaths": null
     },
     "provinceTable": {
@@ -99,7 +99,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -114,7 +114,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -125,7 +125,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -140,7 +140,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -151,7 +151,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -166,7 +166,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -177,7 +177,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -192,7 +192,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -218,7 +218,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -244,7 +244,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -255,7 +255,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -270,7 +270,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -281,7 +281,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -296,7 +296,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -307,7 +307,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -322,7 +322,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -333,7 +333,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -348,7 +348,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -359,7 +359,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -374,7 +374,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -385,7 +385,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -400,7 +400,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -411,7 +411,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -426,7 +426,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -437,7 +437,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -452,7 +452,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -463,7 +463,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -478,7 +478,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -489,7 +489,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -504,7 +504,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
       "deaths": null
     },
@@ -515,7 +515,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -530,7 +530,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
       "deaths": null
     },
@@ -541,7 +541,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -556,7 +556,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
       "deaths": null
     },
@@ -567,7 +567,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -582,7 +582,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
       "deaths": null
     },
@@ -593,7 +593,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -608,7 +608,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
       "deaths": null
     },
@@ -619,7 +619,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -634,7 +634,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
       "deaths": null
     },
@@ -645,7 +645,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -659,10 +659,10 @@
       "reportingDate": "2026-06-10"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 11,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -671,7 +671,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -685,10 +685,10 @@
       "reportingDate": "2026-06-11"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 12,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -697,7 +697,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -711,10 +711,10 @@
       "reportingDate": "2026-06-13"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 14,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -723,7 +723,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -737,10 +737,10 @@
       "reportingDate": "2026-06-14"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 15,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -749,7 +749,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -763,10 +763,10 @@
       "reportingDate": "2026-06-15"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 16,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -775,7 +775,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -789,10 +789,10 @@
       "reportingDate": "2026-06-16"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 17,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -801,7 +801,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -815,10 +815,10 @@
       "reportingDate": "2026-06-17"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 18,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -827,7 +827,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -841,10 +841,10 @@
       "reportingDate": "2026-06-18"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 19,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -853,7 +853,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -867,10 +867,10 @@
       "reportingDate": "2026-06-19"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 20,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -879,7 +879,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -893,10 +893,10 @@
       "reportingDate": "2026-06-20"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 21,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -905,7 +905,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -919,10 +919,10 @@
       "reportingDate": "2026-06-21"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 22,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -931,7 +931,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -945,10 +945,10 @@
       "reportingDate": "2026-06-22"
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 23,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -957,7 +957,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -972,9 +972,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 242026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -983,7 +983,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -998,9 +998,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 252026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1009,7 +1009,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1024,9 +1024,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
-      "deaths": 262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1035,7 +1035,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1050,9 +1050,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 282026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1061,7 +1061,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1076,9 +1076,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 302026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1087,7 +1087,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1102,9 +1102,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 12026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1113,7 +1113,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1128,9 +1128,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
-      "deaths": 1220262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1139,7 +1139,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1154,9 +1154,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 32026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1165,7 +1165,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1180,9 +1180,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
-      "deaths": 42026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1191,7 +1191,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1206,9 +1206,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 52026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1217,7 +1217,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1232,9 +1232,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 62026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1243,7 +1243,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1258,9 +1258,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 72026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1269,7 +1269,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1284,9 +1284,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 82026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1295,7 +1295,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1310,9 +1310,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 92026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1321,7 +1321,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1336,9 +1336,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 102026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1347,7 +1347,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1362,9 +1362,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 102026323
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1373,7 +1373,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1388,9 +1388,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 112026323
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1399,7 +1399,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1413,10 +1413,10 @@
       "reportingDate": null
     },
     "kpis": {
-      "ok": true,
-      "error": null,
-      "confirmed": 15202612,
-      "deaths": 2026
+      "ok": false,
+      "error": "pas de ligne de total dans la table province",
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1425,7 +1425,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1440,9 +1440,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 142026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1451,7 +1451,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1466,9 +1466,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 152026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1492,9 +1492,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
-      "deaths": 162026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1503,7 +1503,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1518,9 +1518,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 182026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1529,7 +1529,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1544,9 +1544,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 192026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1555,7 +1555,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1570,9 +1570,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 202026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1581,7 +1581,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1596,9 +1596,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 212026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1607,7 +1607,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1622,9 +1622,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 212220262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1633,7 +1633,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1648,9 +1648,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 222320262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1659,7 +1659,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1674,9 +1674,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 232420262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1685,7 +1685,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1700,9 +1700,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 242520262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1711,7 +1711,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1726,9 +1726,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 252620262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1737,7 +1737,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1752,9 +1752,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 262720262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1763,7 +1763,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1778,9 +1778,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 272820262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1789,7 +1789,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1804,9 +1804,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 303120262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1815,7 +1815,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1830,9 +1830,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
-      "deaths": 310120262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1841,7 +1841,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1856,9 +1856,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
-      "deaths": 10220262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1867,7 +1867,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1882,9 +1882,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 20320262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1893,7 +1893,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1908,9 +1908,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": "pas de ligne de total dans la table province",
       "confirmed": null,
-      "deaths": 30420262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1920,7 +1920,7 @@
     "zoneDetail": {
       "ok": true,
       "error": null,
-      "zoneCount": 29
+      "zoneCount": 26
     }
   },
   {
@@ -1934,9 +1934,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
-      "deaths": 40520262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1945,7 +1945,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1960,9 +1960,9 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
-      "deaths": 50620262026
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -1971,7 +1971,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -1986,7 +1986,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -1997,7 +1997,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -2012,7 +2012,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -2023,7 +2023,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -2038,7 +2038,7 @@
     },
     "kpis": {
       "ok": false,
-      "error": "bande KPI vide ou coordonnées x/y ne correspondent plus",
+      "error": null,
       "confirmed": null,
       "deaths": null
     },
@@ -2049,7 +2049,7 @@
     },
     "zoneDetail": {
       "ok": false,
-      "error": "aucune ligne de zone détectée (bulletin sans ce détail, ou format différent)",
+      "error": "aucune ligne de zone détectée, même après reconstruction texte (bulletin sans ce détail, ou format différent)",
       "zoneCount": 0
     }
   },
@@ -2063,10 +2063,10 @@
       "reportingDate": "2026-08-09"
     },
     "kpis": {
-      "ok": true,
+      "ok": false,
       "error": null,
-      "confirmed": 4381,
-      "deaths": 2011
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -2076,7 +2076,7 @@
     "zoneDetail": {
       "ok": true,
       "error": null,
-      "zoneCount": 1
+      "zoneCount": 26
     }
   },
   {
@@ -2089,10 +2089,10 @@
       "reportingDate": "2026-08-10"
     },
     "kpis": {
-      "ok": true,
+      "ok": false,
       "error": null,
-      "confirmed": 4449,
-      "deaths": 2061
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -2102,7 +2102,7 @@
     "zoneDetail": {
       "ok": true,
       "error": null,
-      "zoneCount": 52
+      "zoneCount": 53
     }
   },
   {
@@ -2115,10 +2115,10 @@
       "reportingDate": "2026-08-11"
     },
     "kpis": {
-      "ok": true,
+      "ok": false,
       "error": null,
-      "confirmed": 4566,
-      "deaths": 2128
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -2128,7 +2128,7 @@
     "zoneDetail": {
       "ok": true,
       "error": null,
-      "zoneCount": 13
+      "zoneCount": 53
     }
   },
   {
@@ -2141,10 +2141,10 @@
       "reportingDate": "2026-08-12"
     },
     "kpis": {
-      "ok": true,
+      "ok": false,
       "error": null,
-      "confirmed": 4665,
-      "deaths": 2184
+      "confirmed": null,
+      "deaths": null
     },
     "provinceTable": {
       "ok": false,
@@ -2154,7 +2154,7 @@
     "zoneDetail": {
       "ok": true,
       "error": null,
-      "zoneCount": 53
+      "zoneCount": 54
     }
   },
   {
