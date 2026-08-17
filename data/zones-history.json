@@ -4408,6 +4408,12 @@
         "deaths": 1
       },
       {
+        "name": "Nia-Nia",
+        "province": "Ituri",
+        "cases": 7,
+        "deaths": 4
+      },
+      {
         "name": "Fataki",
         "province": "Ituri",
         "cases": 1,
@@ -4624,6 +4630,12 @@
         "deaths": 1
       },
       {
+        "name": "Nia-Nia",
+        "province": "Ituri",
+        "cases": 11,
+        "deaths": 5
+      },
+      {
         "name": "Fataki",
         "province": "Ituri",
         "cases": 1,
@@ -4838,6 +4850,12 @@
         "province": "Ituri",
         "cases": 2,
         "deaths": 2
+      },
+      {
+        "name": "Nia-Nia",
+        "province": "Ituri",
+        "cases": 12,
+        "deaths": 5
       },
       {
         "name": "Fataki",
@@ -5060,6 +5078,12 @@
         "province": "Ituri",
         "cases": 2,
         "deaths": 2
+      },
+      {
+        "name": "Nia-Nia",
+        "province": "Ituri",
+        "cases": 12,
+        "deaths": 5
       },
       {
         "name": "Fataki",
@@ -7235,25 +7259,25 @@
       },
       {
         "name": "Wamba",
-        "province": "Sud-Kivu",
+        "province": "Haut-Uélé",
         "cases": 1,
         "deaths": 1
       },
       {
         "name": "Makiso-Kisangani",
-        "province": "Sud-Kivu",
+        "province": "Tshopo",
         "cases": 2,
         "deaths": 2
       },
       {
         "name": "Mangobo",
-        "province": "Sud-Kivu",
+        "province": "Tshopo",
         "cases": 1,
         "deaths": 0
       },
       {
         "name": "Lubunga",
-        "province": "Sud-Kivu",
+        "province": "Tshopo",
         "cases": 1,
         "deaths": 0
       }
