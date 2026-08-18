@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """
 Dump TOUTES les lignes (pas juste l'en-tête) des tableaux détectés par
-pdfplumber sur un SitRep précis, pour évaluer si l'extraction par TABLE
-BRUTE garde mieux l'alignement des colonnes que le texte linéaire (utilisé
+pdfplumber sur un ou plusieurs SitRep, pour évaluer si l'extraction par
+TABLE BRUTE garde mieux l'alignement des colonnes que le texte linéaire
+(utilisé
 par extract_old_zone_format.py, qui avait échoué sur ce format).
 
 Ne filtre que les tableaux dont l'en-tête contient "Province" ou
 "Zones de santé" ou "zone de santé", pour éviter de dumper les tableaux
 sans intérêt (PoE/PoC, laboratoire, etc.).
 
-Usage: python3 scripts/inspect_raw_table.py 007
+Usage: python3 scripts/inspect_raw_table.py 060,074,081,088,093
+       python3 scripts/inspect_raw_table.py 007
 """
 import glob
 import os
@@ -37,18 +39,15 @@ def looks_relevant(table):
     return bool(re.search(r"province|zone.*sant", header_text, re.IGNORECASE))
 
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python3 scripts/inspect_raw_table.py <numéro, ex: 007>")
-        return 1
-
-    number = sys.argv[1]
+def dump_one(number):
     pdf_path = find_report_by_number(number)
     if not pdf_path:
-        print(f"Aucun PDF trouvé pour le numéro {number}.")
-        return 1
+        print(f"### SitRep {number} : aucun PDF trouvé, ignoré.\n")
+        return
 
-    print(f"Dump des tables brutes pertinentes de {pdf_path}\n")
+    print(f"\n{'#' * 80}")
+    print(f"### SitRep {number} — {pdf_path}")
+    print(f"{'#' * 80}\n")
 
     with pdfplumber.open(pdf_path) as pdf:
         for page_num, page in enumerate(pdf.pages, start=1):
@@ -62,6 +61,17 @@ def main():
                 for row_idx, row in enumerate(table):
                     print(f"  [{row_idx:>3}] {row}")
                 print()
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python3 scripts/inspect_raw_table.py <numéro(s), ex: 007 ou 060,074,081>")
+        return 1
+
+    # Accepte un ou plusieurs numéros séparés par des virgules (et/ou espaces).
+    numbers = [n.strip() for n in re.split(r"[,\s]+", sys.argv[1]) if n.strip()]
+    for number in numbers:
+        dump_one(number)
 
     return 0
 
