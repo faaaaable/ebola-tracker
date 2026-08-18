@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       numero:
-        description: "Numéro du SitRep à inspecter (ex: 007)"
+        description: "Numéro(s) du SitRep à inspecter, séparés par des virgules (ex: 007 ou 060,074,081,088,093)"
         required: true
         default: "007"
 
