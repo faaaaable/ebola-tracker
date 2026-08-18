@@ -1992,13 +1992,27 @@ function stopTimelinePlay(){
   const btn = document.getElementById('timelinePlay');
   if(btn) btn.textContent = tr('timelinePlay');
 }
+function latestAvailableDateLabel(){
+  // Date du SitRep le plus récent, pas le jour civil actuel — plus honnête,
+  // puisque le site peut avoir plusieurs jours de retard sur la parution
+  // du dernier bulletin. Repli sur sortedSitreps() si currentMeta n'est pas
+  // encore chargé (avant la réponse de data/latest.json).
+  let latestDate = currentMeta ? currentMeta.reportingDate : null;
+  if(!latestDate){
+    const s = sortedSitreps();
+    latestDate = s.length ? s[s.length-1].date : null;
+  }
+  return latestDate ? (frDate(latestDate) + ' ' + latestDate.slice(0,4)) : tr('timelineToday');
+}
 function updateTimelineLabel(){
   const dateLabel = document.getElementById('timelineDate');
   const slider = document.getElementById('timelineSlider');
   if(!dateLabel || !slider) return;
+  const todayBtn = document.getElementById('timelineToday');
+  if(todayBtn) todayBtn.textContent = latestAvailableDateLabel();
   const v = parseInt(slider.value, 10);
   if(v >= ZONES_HISTORY.length){
-    dateLabel.textContent = tr('timelineToday');
+    dateLabel.textContent = latestAvailableDateLabel();
   } else {
     const d = ZONES_HISTORY[v].date;
     dateLabel.textContent = frDate(d) + ' ' + d.slice(0,4);
@@ -2362,6 +2376,10 @@ function setLang(lang){
   document.getElementById('langEn').classList.toggle('active', lang==='en');
   applyStaticI18n();
   renderAll();
+  safeRun(updateTimelineLabel, 'updateTimelineLabel'); // le bouton "Aujourd'hui"/date du curseur
+                                                         // a data-i18n="timelineToday" : sans cet
+                                                         // appel, applyStaticI18n() vient de l'écraser
+                                                         // avec le texte statique traduit.
   if(map){
     document.getElementById('btnViewCountry').classList.add('active');
     document.getElementById('btnViewIturi').classList.remove('active');
