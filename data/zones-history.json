@@ -5596,6 +5596,12 @@
     "date": "2026-07-02",
     "zones": [
       {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 426,
+        "deaths": 106
+      },
+      {
         "name": "Rwampara",
         "province": "Ituri",
         "cases": 322,
