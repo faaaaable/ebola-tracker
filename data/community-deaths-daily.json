@@ -1,0 +1,110 @@
+[
+  {
+    "sitrep": "061",
+    "date": "2026-07-14",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 23,
+        "intraCteDeaths": 14,
+        "totalDeaths": 37
+      }
+    },
+    "nationalCommunityDeaths": 23,
+    "nationalIntraCteDeaths": 14,
+    "nationalTotalDeaths": 37
+  },
+  {
+    "sitrep": "088",
+    "date": "2026-08-10",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 21,
+        "intraCteDeaths": 12,
+        "totalDeaths": 33
+      },
+      "Nord-Kivu": {
+        "communityDeaths": 10,
+        "intraCteDeaths": 7,
+        "totalDeaths": 17
+      }
+    },
+    "nationalCommunityDeaths": 31,
+    "nationalIntraCteDeaths": 19,
+    "nationalTotalDeaths": 50
+  },
+  {
+    "sitrep": "089",
+    "date": "2026-08-11",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 39,
+        "intraCteDeaths": 10,
+        "totalDeaths": 49
+      },
+      "Nord-Kivu": {
+        "communityDeaths": 9,
+        "intraCteDeaths": 6,
+        "totalDeaths": 15
+      }
+    },
+    "nationalCommunityDeaths": 48,
+    "nationalIntraCteDeaths": 16,
+    "nationalTotalDeaths": 64
+  },
+  {
+    "sitrep": "090",
+    "date": "2026-08-12",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 9,
+        "intraCteDeaths": 15,
+        "totalDeaths": 24
+      }
+    },
+    "nationalCommunityDeaths": 9,
+    "nationalIntraCteDeaths": 15,
+    "nationalTotalDeaths": 24
+  },
+  {
+    "sitrep": "091",
+    "date": "2026-08-13",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 5,
+        "intraCteDeaths": 14,
+        "totalDeaths": 19
+      }
+    },
+    "nationalCommunityDeaths": 5,
+    "nationalIntraCteDeaths": 14,
+    "nationalTotalDeaths": 19
+  },
+  {
+    "sitrep": "092",
+    "date": "2026-08-14",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 31,
+        "intraCteDeaths": 15,
+        "totalDeaths": 46
+      }
+    },
+    "nationalCommunityDeaths": 31,
+    "nationalIntraCteDeaths": 15,
+    "nationalTotalDeaths": 46
+  },
+  {
+    "sitrep": "093",
+    "date": "2026-08-15",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 30,
+        "intraCteDeaths": 17,
+        "totalDeaths": 47
+      }
+    },
+    "nationalCommunityDeaths": 30,
+    "nationalIntraCteDeaths": 17,
+    "nationalTotalDeaths": 47
+  }
+]
