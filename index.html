@@ -774,6 +774,8 @@
                 <th data-i18n="zonesTh5">Létalité</th>
                 <th data-i18n="provinceTh2">Zones touchées</th>
                 <th data-i18n="zonesTh6">Nouv. cas (24h)</th>
+                <th data-i18n="provinceTh3">Décès communautaires (24h)</th>
+                <th data-i18n="provinceTh4">Décès intra-CTE (24h)</th>
               </tr>
             </thead>
             <tbody id="provinceSummaryBody"></tbody>
@@ -938,7 +940,7 @@ const I18N = {
     labelCfr:"Taux de létalité",
     cfrDelta:"décès / cas confirmés",
     labelIsolation:"Patients en isolement",
-    isolationDelta:"en centre de traitement",
+    isolationDelta:"en CTE",
     mapTitle:"Carte de l'épidémie",
     mapSub:"taille et couleur des cercles = intensité des cas cumulés",
     btnCountry:"RDC entière",
@@ -990,6 +992,8 @@ const I18N = {
     provinceSummaryTitle:"Cumul par province",
     provinceTh1:"Province",
     provinceTh2:"Zones touchées",
+    provinceTh3:"Décès communautaires (24h)",
+    provinceTh4:"Décès intra-CTE (24h)",
     zonesFilterAll:"Toutes les provinces",
     zonesSearchPlaceholder:"Rechercher une zone…",
     zonesTh1:"Zone de santé",
@@ -1094,6 +1098,8 @@ const I18N = {
     provinceSummaryTitle:"Totals by province",
     provinceTh1:"Province",
     provinceTh2:"Zones affected",
+    provinceTh3:"Community deaths (24h)",
+    provinceTh4:"Intra-CTE deaths (24h)",
     zonesFilterAll:"All provinces",
     zonesSearchPlaceholder:"Search a zone…",
     zonesTh1:"Health zone",
@@ -2062,6 +2068,14 @@ function renderProvinceSummary(){
     const newBadge = p.newCases24h>0
       ? `<span class="zone-new-badge has-new">+${fmt(p.newCases24h)}</span>`
       : `<span class="zone-new-badge no-new">${fmt(p.newCases24h)}</span>`;
+    const communityDeaths = p.newDeathsCommunity24h || 0;
+    const intraCteDeaths = p.newDeathsIntraCTE24h || 0;
+    const communityBadge = communityDeaths>0
+      ? `<span class="zone-new-badge has-new">+${fmt(communityDeaths)}</span>`
+      : `<span class="zone-new-badge no-new">${fmt(communityDeaths)}</span>`;
+    const intraCteBadge = intraCteDeaths>0
+      ? `<span class="zone-new-badge has-new">+${fmt(intraCteDeaths)}</span>`
+      : `<span class="zone-new-badge no-new">${fmt(intraCteDeaths)}</span>`;
     return `
       <tr>
         <td><div class="zone-name-cell"><span class="zdot" style="background:${color};"></span>${p.name}</div></td>
@@ -2070,6 +2084,8 @@ function renderProvinceSummary(){
         <td><span class="zone-badge ${cfrBadgeClass(p.cfr)}">${p.cfr.toFixed(1)}%</span></td>
         <td>${zonesAffected}</td>
         <td>${newBadge}</td>
+        <td>${communityBadge}</td>
+        <td>${intraCteBadge}</td>
       </tr>
     `;
   }).join('');
