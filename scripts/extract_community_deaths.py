@@ -60,9 +60,10 @@ def report_number(path):
 
 def extract_meta_date(full_text):
     months = {
-        "janvier": "01", "février": "02", "mars": "03", "avril": "04",
-        "mai": "05", "juin": "06", "juillet": "07", "août": "08",
-        "septembre": "09", "octobre": "10", "novembre": "11", "décembre": "12",
+        "janvier": "01", "février": "02", "fevrier": "02", "mars": "03", "avril": "04",
+        "mai": "05", "juin": "06", "juillet": "07", "août": "08", "aout": "08",
+        "septembre": "09", "octobre": "10", "novembre": "11",
+        "décembre": "12", "decembre": "12",
     }
     m = re.search(r"Date de rapportage\s*:?\s*(\d{1,2})\s+(\w+)\s+(\d{4})", full_text, re.IGNORECASE)
     if not m:
@@ -88,43 +89,68 @@ def find_combined_table(pdf):
     return None
 
 
+def _try_extract_last_three(tokens):
+    """À partir d'une liste de tokens (déjà filtrée d'une façon ou d'une
+    autre), tente d'en tirer (communautaires, intra-CTE, total) — les 3
+    dernières valeurs numériques — et vérifie leur cohérence interne.
+    Retourne None si la liste est trop courte ou incohérente."""
+    if len(tokens) < 3:
+        return None
+    try:
+        community = norm_num(tokens[-3])
+        intra_cte = norm_num(tokens[-2])
+        total = norm_num(tokens[-1])
+    except (IndexError, ValueError):
+        return None
+    if community is None or intra_cte is None or total is None:
+        return None
+    if community + intra_cte != total:
+        return None
+    return community, intra_cte, total
+
+
 def parse_province_rows(table):
-    """Ne retient que les lignes dont le premier token compacté correspond
-    à un nom de province connu. Pour chaque ligne retenue, extrait les 3
-    dernières valeurs numériques (communautaires, intra-CTE, total) et
-    valide leur cohérence interne avant de les accepter."""
+    """Ne retient que les lignes contenant un nom de province connu
+    (recherché par position, pas supposé en tête de ligne — le remplissage
+    des cellules vides varie selon les rapports, parfois avec des '' AVANT
+    même le nom). Deux stratégies de compaction sont tentées (retirer
+    seulement les None, ou aussi les '') ; seule celle dont le calcul
+    communautaires + intra-CTE == total est cohérent est retenue."""
     results = {}
     for row in table:
-        # On ne retire QUE les None ici (pas les '', qui peuvent représenter
-        # un vrai zéro affiché comme cellule vide plutôt que comme '0').
-        compact = [v for v in row if v is not None]
-        if not compact:
-            continue
-        name_norm = normalize(compact[0])
-        if name_norm not in PROVINCE_CANON:
-            continue
-
-        # Ne garde que les tokens numériques/pourcentages parmi les
-        # suivants (ignore les '' de remplissage à ce stade).
-        numeric_tokens = [t for t in compact[1:] if str(t).strip() != ""]
-        if len(numeric_tokens) < 7:
-            continue  # ligne incomplète, ignorée par prudence
-
-        # Les 3 dernières valeurs numériques doivent être
-        # [communautaires, intra-CTE, total décès du jour].
-        try:
-            community = norm_num(numeric_tokens[-3])
-            intra_cte = norm_num(numeric_tokens[-2])
-            total = norm_num(numeric_tokens[-1])
-        except (IndexError, ValueError):
+        # Cherche l'index du nom de province dans la ligne brute (pas de
+        # compaction préalable, pour ne pas décaler sa position).
+        name_idx = None
+        province = None
+        for i, v in enumerate(row):
+            if v is None:
+                continue
+            name_norm = normalize(v)
+            if name_norm in PROVINCE_CANON:
+                name_idx = i
+                province = PROVINCE_CANON[name_norm]
+                break
+        if name_idx is None:
             continue
 
-        if community is None or intra_cte is None or total is None:
-            continue
-        if community + intra_cte != total:
-            continue  # incohérence interne : probable décalage de colonnes, ignorée
+        rest = row[name_idx + 1:]
 
-        province = PROVINCE_CANON[name_norm]
+        # Stratégie A : ne retire que les None (les '' peuvent être de
+        # vrais zéros affichés comme cellule vide).
+        tokens_a = [v for v in rest if v is not None]
+        result = _try_extract_last_three(tokens_a)
+
+        # Stratégie B : retire aussi les '' (le remplissage de certains
+        # rapports utilise des chaînes vides comme simple espacement visuel,
+        # sans signification de valeur).
+        if result is None:
+            tokens_b = [v for v in rest if v is not None and str(v).strip() != ""]
+            result = _try_extract_last_three(tokens_b)
+
+        if result is None:
+            continue  # aucune des deux stratégies n'est cohérente, ligne ignorée
+
+        community, intra_cte, total = result
         results[province] = {"communityDeaths": community, "intraCteDeaths": intra_cte, "totalDeaths": total}
 
     return results
