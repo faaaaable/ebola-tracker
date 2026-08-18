@@ -731,12 +731,13 @@
 
   <section class="section">
     <div class="section-head" style="justify-content:center;">
-      <div class="section-title" data-i18n="chartTitle">Courbe des cas et des décès</div>
+      <div class="section-title" data-i18n="chartTitle">Évolution de l'épidémie</div>
     </div>
     <div class="panel chart-panel-wrap" style="padding:0;max-width:820px;margin:0 auto;">
       <nav class="subtab-nav" id="chartModeNav" style="justify-content:center;padding:16px 20px 0;">
         <button type="button" class="subtab-btn active" data-mode="cumulative" data-i18n="chartModeCumulative">Cumulé</button>
         <button type="button" class="subtab-btn" data-mode="daily" data-i18n="chartModeDaily">Nouveaux cas par jour</button>
+        <button type="button" class="subtab-btn" data-mode="communityDeaths" data-i18n="chartModeCommunityDeaths">Origine des décès</button>
       </nav>
       <div class="chart-panel" style="padding:20px;">
         <canvas id="epiChart"></canvas>
@@ -774,8 +775,6 @@
                 <th data-i18n="zonesTh5">Létalité</th>
                 <th data-i18n="provinceTh2">Zones touchées</th>
                 <th data-i18n="zonesTh6">Nouv. cas (24h)</th>
-                <th data-i18n="provinceTh3">Décès communautaires (24h)</th>
-                <th data-i18n="provinceTh4">Décès intra-CTE (24h)</th>
               </tr>
             </thead>
             <tbody id="provinceSummaryBody"></tbody>
@@ -953,14 +952,19 @@ const I18N = {
     legendAgg:"Total estimé par province",
     legendDashNote:"Pointillés : donnée agrégée par province, sans détail par zone de santé.",
     mapNote:"Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone). Elles ne représentent pas des limites administratives exactes.",
-    chartTitle:"Courbe des cas et des décès",
+    chartTitle:"Évolution de l'épidémie",
     chartSub:"cumul des cas confirmés et décès",
     chartSubRange:(n,from,to)=>`${n} bulletins, du ${from} au ${to}`,
-    chartModeCumulative:"Cumulé",
+    chartModeCumulative:"Cas/décès cumulés",
     chartModeDaily:"Nouveaux cas par jour",
+    chartModeCommunityDeaths:"Répartition des décès",
     dailyChartLabel:"Nouveaux cas",
     dailyDeathsLabel:"Nouveaux décès",
     chartNoteDaily:"Certains pics reflètent des rattrapages de données (révisions, bulletins manquants), pas nécessairement une hausse réelle.",
+    chartNoteCommunityDeaths:"Sommes hebdomadaires de deltas quotidiens (pas un cumul). Une semaine avec moins de bulletins disponibles peut paraître plus légère sans amélioration réelle. Fenêtre partielle de l'épidémie, dominée par l'Ituri.",
+    weekOfLabel:(start,end)=>`Semaine du ${start} au ${end}`,
+    communityDeathsLabel:"Communautaires",
+    intraCteDeathsLabel:"Intra-CTE",
     chartLoadError:"Chart.js n'a pas pu se charger (connexion internet requise pour ce CDN). Vérifie ta connexion et recharge la page.",
     disclaimerTitle:"Avertissement.",
     disclaimerBody:"Site à vocation informative uniquement qui compile des données publiques déjà publiées par des sources officielles. Ne constitue pas un avis médical — consultez un professionnel de santé ou les autorités compétentes (OMS, ministère de la Santé RDC...) pour toute décision. Erreurs ou délais de mise à jour possibles.",
@@ -992,8 +996,6 @@ const I18N = {
     provinceSummaryTitle:"Cumul par province",
     provinceTh1:"Province",
     provinceTh2:"Zones touchées",
-    provinceTh3:"Décès communautaires (24h)",
-    provinceTh4:"Décès intra-CTE (24h)",
     zonesFilterAll:"Toutes les provinces",
     zonesSearchPlaceholder:"Rechercher une zone…",
     zonesTh1:"Zone de santé",
@@ -1059,14 +1061,19 @@ const I18N = {
     legendAgg:"Estimated province total",
     legendDashNote:"Dashed: province-level estimate, no health-zone detail.",
     mapNote:"Health zones are positioned at approximate coordinates (zone administrative centres). They do not represent exact administrative boundaries.",
-    chartTitle:"Epidemic curve",
+    chartTitle:"Epidemic overview",
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
-    chartModeCumulative:"Cumulative",
+    chartModeCumulative:"Cumulative cases/deaths",
     chartModeDaily:"New cases per day",
+    chartModeCommunityDeaths:"Death breakdown",
     dailyChartLabel:"New cases",
     dailyDeathsLabel:"New deaths",
     chartNoteDaily:"Some spikes reflect data catch-ups (revisions, missing bulletins), not necessarily a real increase.",
+    chartNoteCommunityDeaths:"Weekly sums of daily deltas (not a cumulative total). A week with fewer available bulletins may look lighter without a real improvement. Partial window of the outbreak, Ituri-dominated.",
+    weekOfLabel:(start,end)=>`Week of ${start} to ${end}`,
+    communityDeathsLabel:"Community",
+    intraCteDeathsLabel:"Intra-ETC",
     chartLoadError:"Chart.js failed to load (an internet connection is required for this CDN). Check your connection and reload the page.",
     disclaimerTitle:"Disclaimer.",
     disclaimerBody:"Informational site: it compiles public data already published by official sources. Not medical advice — consult a healthcare professional or the relevant authorities (WHO, DRC Ministry of Health) for any decision. Errors or update delays are possible.",
@@ -1098,8 +1105,6 @@ const I18N = {
     provinceSummaryTitle:"Totals by province",
     provinceTh1:"Province",
     provinceTh2:"Zones affected",
-    provinceTh3:"Community deaths (24h)",
-    provinceTh4:"Intra-CTE deaths (24h)",
     zonesFilterAll:"All provinces",
     zonesSearchPlaceholder:"Search a zone…",
     zonesTh1:"Health zone",
@@ -1447,6 +1452,51 @@ async function loadZonesHistory(){
   }
 }
 
+/* Décès communautaires vs intra-CTE, deltas quotidiens (pas un cumul —
+   voir scripts/extract_community_deaths.py). Fenêtre partielle de
+   l'épidémie seulement (pas depuis le début) : pas de repli intégré, si le
+   fichier est indisponible l'onglet correspondant affiche un état vide. */
+let COMMUNITY_DEATHS_DAILY = [];
+async function loadCommunityDeathsDaily(){
+  try{
+    const res = await fetch('data/community-deaths-daily.json', { cache:'no-store' });
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(Array.isArray(remote) && remote.length){
+      COMMUNITY_DEATHS_DAILY = [...remote].sort((a,b)=> a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+    }
+  }catch(e){
+    console.warn('data/community-deaths-daily.json indisponible.', e);
+  }
+}
+
+/* Regroupe les deltas quotidiens en semaines calendaires (lundi-dimanche).
+   Un jour manquant dans une semaine réduit juste le total de CETTE semaine
+   (pas d'effet cumulatif sur les semaines suivantes). */
+function aggregateWeeklyCommunityDeaths(){
+  function weekStartOf(dateStr){
+    const d = new Date(dateStr+'T00:00:00');
+    const day = (d.getDay()+6)%7; // lundi=0 ... dimanche=6
+    d.setDate(d.getDate()-day);
+    return d.toISOString().slice(0,10);
+  }
+  const weeks = {};
+  for(const entry of COMMUNITY_DEATHS_DAILY){
+    const ws = weekStartOf(entry.date);
+    if(!weeks[ws]) weeks[ws] = { community:0, intra:0, daysReported:0 };
+    weeks[ws].community += entry.nationalCommunityDeaths || 0;
+    weeks[ws].intra += entry.nationalIntraCteDeaths || 0;
+    weeks[ws].daysReported += 1;
+  }
+  return Object.keys(weeks).sort().map(ws => ({
+    weekStart: ws,
+    community: weeks[ws].community,
+    intra: weeks[ws].intra,
+    total: weeks[ws].community + weeks[ws].intra,
+    daysReported: weeks[ws].daysReported
+  }));
+}
+
 async function loadRemoteLatest(){
   try{
     const res = await fetch('data/latest.json', { cache:'no-store' });
@@ -1545,7 +1595,60 @@ function renderChart(){
   const noteEl = document.getElementById('chartNote');
   if(noteEl){
     if(chartMode==='daily'){ noteEl.textContent = tr('chartNoteDaily'); noteEl.style.display = 'block'; }
+    else if(chartMode==='communityDeaths'){ noteEl.textContent = tr('chartNoteCommunityDeaths'); noteEl.style.display = 'block'; }
     else { noteEl.textContent = ''; noteEl.style.display = 'none'; }
+  }
+
+  // Mode "Origine des décès" : structure de données et échelle (0-100%)
+  // totalement différentes des deux autres modes — traité à part, avant le
+  // reste de la fonction qui suppose des SitRep (s) comme source.
+  if(chartMode==='communityDeaths'){
+    const weekly = aggregateWeeklyCommunityDeaths();
+    const wantedType = 'bar';
+    if(chart && chart.config.type !== wantedType){ chart.destroy(); chart = null; }
+
+    if(!weekly.length){
+      if(chart){ chart.destroy(); chart = null; }
+      const ctx0 = canvas.getContext('2d');
+      ctx0.clearRect(0,0,canvas.width,canvas.height);
+      return;
+    }
+
+    function frWeekLabel(iso){
+      const start = new Date(iso+'T00:00:00');
+      const end = new Date(start); end.setDate(start.getDate()+6);
+      const f = d => frDate(d.toISOString().slice(0,10));
+      return tr('weekOfLabel')(f(start), f(end));
+    }
+    const labels = weekly.map(w => frWeekLabel(w.weekStart));
+    const communityPct = weekly.map(w => w.total>0 ? +(w.community/w.total*100).toFixed(1) : 0);
+    const intraPct = weekly.map(w => w.total>0 ? +(w.intra/w.total*100).toFixed(1) : 0);
+
+    const data = {
+      labels,
+      datasets:[
+        { label:tr('communityDeathsLabel'), data:communityPct, backgroundColor:'#B4790E', stack:'s' },
+        { label:tr('intraCteDeathsLabel'), data:intraPct, backgroundColor:'#C24A24', stack:'s' },
+      ]
+    };
+    const opts = {
+      responsive:true, maintainAspectRatio:false,
+      scales:{
+        x:{ stacked:true, ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10} }, grid:{ display:false } },
+        y:{ stacked:true, min:0, max:100, ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10}, callback:v=>v+'%' }, grid:{ color:'#EDEFE9' } }
+      },
+      plugins:{
+        legend:{ labels:{ color:'#5C6A64', font:{family:'JetBrains Mono', size:11}, boxWidth:10, usePointStyle:true } },
+        tooltip:{
+          backgroundColor:'#FFFFFF', borderColor:'#DDE1D9', borderWidth:1,
+          titleColor:'#1B2320', bodyColor:'#1B2320', titleFont:{family:'JetBrains Mono'}, bodyFont:{family:'JetBrains Mono'},
+          callbacks:{ label: c => `${c.dataset.label} : ${c.parsed.y}%` }
+        }
+      }
+    };
+    if(chart){ chart.data = data; chart.options = opts; chart.update(); }
+    else { chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts }); }
+    return;
   }
 
   const labels = s.map(r=> (r.approx?'≈ ':'') + frDate(r.date));
@@ -1568,18 +1671,13 @@ function renderChart(){
     }
     // Barres verticales simples : couleur pleine, pas de dégradé ni de
     // ligne/points, plus lisible pour des valeurs discrètes jour par jour.
+    // Uniquement les cas ici — le détail des décès vit désormais dans
+    // l'onglet "Origine des décès", plus précis (communautaire/intra-CTE).
     datasets = [
       {
         label:tr('dailyChartLabel'),
         data:diffs('confirmed'),
         backgroundColor:'#3568C4',
-        borderRadius:2,
-        maxBarThickness:18
-      },
-      {
-        label:tr('dailyDeathsLabel'),
-        data:diffs('deaths'),
-        backgroundColor:'#C24A24',
         borderRadius:2,
         maxBarThickness:18
       }
@@ -2068,14 +2166,6 @@ function renderProvinceSummary(){
     const newBadge = p.newCases24h>0
       ? `<span class="zone-new-badge has-new">+${fmt(p.newCases24h)}</span>`
       : `<span class="zone-new-badge no-new">${fmt(p.newCases24h)}</span>`;
-    const communityDeaths = p.newDeathsCommunity24h || 0;
-    const intraCteDeaths = p.newDeathsIntraCTE24h || 0;
-    const communityBadge = communityDeaths>0
-      ? `<span class="zone-new-badge has-new">+${fmt(communityDeaths)}</span>`
-      : `<span class="zone-new-badge no-new">${fmt(communityDeaths)}</span>`;
-    const intraCteBadge = intraCteDeaths>0
-      ? `<span class="zone-new-badge has-new">+${fmt(intraCteDeaths)}</span>`
-      : `<span class="zone-new-badge no-new">${fmt(intraCteDeaths)}</span>`;
     return `
       <tr>
         <td><div class="zone-name-cell"><span class="zdot" style="background:${color};"></span>${p.name}</div></td>
@@ -2084,8 +2174,6 @@ function renderProvinceSummary(){
         <td><span class="zone-badge ${cfrBadgeClass(p.cfr)}">${p.cfr.toFixed(1)}%</span></td>
         <td>${zonesAffected}</td>
         <td>${newBadge}</td>
-        <td>${communityBadge}</td>
-        <td>${intraCteBadge}</td>
       </tr>
     `;
   }).join('');
@@ -2349,7 +2437,7 @@ safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
 switchTab(location.hash.replace('#',''), false);
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory()]).then(()=>{
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily()]).then(()=>{
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
   safeRun(setupTimeline, 'setupTimeline');
