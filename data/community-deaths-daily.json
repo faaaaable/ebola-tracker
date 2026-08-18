@@ -1,5 +1,19 @@
 [
   {
+    "sitrep": "060",
+    "date": "2026-07-13",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 5,
+        "intraCteDeaths": 13,
+        "totalDeaths": 18
+      }
+    },
+    "nationalCommunityDeaths": 5,
+    "nationalIntraCteDeaths": 13,
+    "nationalTotalDeaths": 18
+  },
+  {
     "sitrep": "061",
     "date": "2026-07-14",
     "provinces": {
@@ -12,6 +26,258 @@
     "nationalCommunityDeaths": 23,
     "nationalIntraCteDeaths": 14,
     "nationalTotalDeaths": 37
+  },
+  {
+    "sitrep": "062",
+    "date": "2026-07-15",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 16,
+        "intraCteDeaths": 8,
+        "totalDeaths": 24
+      }
+    },
+    "nationalCommunityDeaths": 16,
+    "nationalIntraCteDeaths": 8,
+    "nationalTotalDeaths": 24
+  },
+  {
+    "sitrep": "064",
+    "date": "2026-07-17",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 14,
+        "intraCteDeaths": 11,
+        "totalDeaths": 25
+      }
+    },
+    "nationalCommunityDeaths": 14,
+    "nationalIntraCteDeaths": 11,
+    "nationalTotalDeaths": 25
+  },
+  {
+    "sitrep": "065",
+    "date": "2026-07-18",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 22,
+        "intraCteDeaths": 9,
+        "totalDeaths": 31
+      }
+    },
+    "nationalCommunityDeaths": 22,
+    "nationalIntraCteDeaths": 9,
+    "nationalTotalDeaths": 31
+  },
+  {
+    "sitrep": "066",
+    "date": "2026-07-19",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 23,
+        "intraCteDeaths": 12,
+        "totalDeaths": 35
+      }
+    },
+    "nationalCommunityDeaths": 23,
+    "nationalIntraCteDeaths": 12,
+    "nationalTotalDeaths": 35
+  },
+  {
+    "sitrep": "067",
+    "date": "2026-07-20",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 13,
+        "intraCteDeaths": 14,
+        "totalDeaths": 27
+      }
+    },
+    "nationalCommunityDeaths": 13,
+    "nationalIntraCteDeaths": 14,
+    "nationalTotalDeaths": 27
+  },
+  {
+    "sitrep": "068",
+    "date": "2026-07-21",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 10,
+        "intraCteDeaths": 16,
+        "totalDeaths": 26
+      }
+    },
+    "nationalCommunityDeaths": 10,
+    "nationalIntraCteDeaths": 16,
+    "nationalTotalDeaths": 26
+  },
+  {
+    "sitrep": "069",
+    "date": "2026-07-22",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 33,
+        "intraCteDeaths": 12,
+        "totalDeaths": 45
+      }
+    },
+    "nationalCommunityDeaths": 33,
+    "nationalIntraCteDeaths": 12,
+    "nationalTotalDeaths": 45
+  },
+  {
+    "sitrep": "070",
+    "date": "2026-07-23",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 18,
+        "intraCteDeaths": 12,
+        "totalDeaths": 30
+      }
+    },
+    "nationalCommunityDeaths": 18,
+    "nationalIntraCteDeaths": 12,
+    "nationalTotalDeaths": 30
+  },
+  {
+    "sitrep": "071",
+    "date": "2026-07-24",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 29,
+        "intraCteDeaths": 6,
+        "totalDeaths": 35
+      }
+    },
+    "nationalCommunityDeaths": 29,
+    "nationalIntraCteDeaths": 6,
+    "nationalTotalDeaths": 35
+  },
+  {
+    "sitrep": "072",
+    "date": "2026-07-25",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 28,
+        "intraCteDeaths": 14,
+        "totalDeaths": 42
+      }
+    },
+    "nationalCommunityDeaths": 28,
+    "nationalIntraCteDeaths": 14,
+    "nationalTotalDeaths": 42
+  },
+  {
+    "sitrep": "073",
+    "date": "2026-07-26",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 14,
+        "intraCteDeaths": 9,
+        "totalDeaths": 23
+      }
+    },
+    "nationalCommunityDeaths": 14,
+    "nationalIntraCteDeaths": 9,
+    "nationalTotalDeaths": 23
+  },
+  {
+    "sitrep": "074",
+    "date": "2026-07-27",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 16,
+        "intraCteDeaths": 15,
+        "totalDeaths": 31
+      }
+    },
+    "nationalCommunityDeaths": 16,
+    "nationalIntraCteDeaths": 15,
+    "nationalTotalDeaths": 31
+  },
+  {
+    "sitrep": "077",
+    "date": "2026-07-30",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 7,
+        "intraCteDeaths": 13,
+        "totalDeaths": 20
+      }
+    },
+    "nationalCommunityDeaths": 7,
+    "nationalIntraCteDeaths": 13,
+    "nationalTotalDeaths": 20
+  },
+  {
+    "sitrep": "078",
+    "date": "2026-07-31",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 15,
+        "intraCteDeaths": 10,
+        "totalDeaths": 25
+      }
+    },
+    "nationalCommunityDeaths": 15,
+    "nationalIntraCteDeaths": 10,
+    "nationalTotalDeaths": 25
+  },
+  {
+    "sitrep": "079",
+    "date": "2026-08-01",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 13,
+        "intraCteDeaths": 10,
+        "totalDeaths": 23
+      }
+    },
+    "nationalCommunityDeaths": 13,
+    "nationalIntraCteDeaths": 10,
+    "nationalTotalDeaths": 23
+  },
+  {
+    "sitrep": "081",
+    "date": "2026-08-03",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 25,
+        "intraCteDeaths": 10,
+        "totalDeaths": 35
+      }
+    },
+    "nationalCommunityDeaths": 25,
+    "nationalIntraCteDeaths": 10,
+    "nationalTotalDeaths": 35
+  },
+  {
+    "sitrep": "082",
+    "date": "2026-08-04",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 35,
+        "intraCteDeaths": 12,
+        "totalDeaths": 47
+      }
+    },
+    "nationalCommunityDeaths": 35,
+    "nationalIntraCteDeaths": 12,
+    "nationalTotalDeaths": 47
+  },
+  {
+    "sitrep": "083",
+    "date": "2026-08-05",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 27,
+        "intraCteDeaths": 11,
+        "totalDeaths": 38
+      }
+    },
+    "nationalCommunityDeaths": 27,
+    "nationalIntraCteDeaths": 11,
+    "nationalTotalDeaths": 38
   },
   {
     "sitrep": "088",
