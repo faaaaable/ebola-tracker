@@ -41,17 +41,30 @@ def report_number(path):
     return m.group(1) if m else "???"
 
 
-def has_community_table(pdf):
-    """Cherche une table dont l'en-tête mentionne explicitement les décès
-    communautaires (signe d'une éventuelle ventilation par province)."""
-    for page in pdf.pages:
+def find_community_tables(pdf):
+    """Cherche TOUTES les tables dont l'en-tête mentionne les décès
+    communautaires (pas seulement la première trouvée — le paragraphe
+    narratif "FAITS SAILLANTS" apparaît tôt dans le document et peut être
+    extrait par pdfplumber comme un pseudo-tableau, masquant le vrai
+    tableau détaillé par zone qui vient plus loin). Distingue la table
+    cumulative structurée (contient aussi "cumulatif" ou "Total décès")
+    du simple paragraphe narratif."""
+    hits = []
+    for page_num, page in enumerate(pdf.pages, start=1):
         for table in page.extract_tables():
             if not table:
                 continue
-            header_blob = " ".join(str(c) for row in table[:3] for c in row if c)
-            if re.search(r"communaut", header_blob, re.IGNORECASE):
-                return header_blob[:200]
-    return None
+            header_blob = " ".join(str(c) for row in table[:4] for c in row if c)
+            if not re.search(r"communaut", header_blob, re.IGNORECASE):
+                continue
+            is_structured = bool(re.search(r"cumulatif|total\s*décès", header_blob, re.IGNORECASE))
+            hits.append({
+                "page": page_num,
+                "structured": is_structured,
+                "header": header_blob[:200],
+                "n_rows": len(table),
+            })
+    return hits
 
 
 def main():
@@ -66,7 +79,7 @@ def main():
         try:
             with pdfplumber.open(path) as pdf:
                 full_text = "\n".join(p.extract_text() or "" for p in pdf.pages)
-                table_hit = has_community_table(pdf)
+                table_hits = find_community_tables(pdf)
         except Exception as e:
             print(f"[{num}] ERREUR d'ouverture : {e}")
             continue
@@ -78,9 +91,15 @@ def main():
         else:
             missing_national.append(num)
 
-        if table_hit:
+        structured_hits = [h for h in table_hits if h["structured"]]
+        if structured_hits:
             found_table.append(num)
-            print(f"[{num}] TABLE avec 'communaut' dans l'en-tête : {table_hit}")
+            best = structured_hits[-1]  # généralement la table détaillée, pas le résumé
+            print(f"[{num}] TABLE CUMULATIVE structurée (page {best['page']}, "
+                  f"{best['n_rows']} lignes) : {best['header']}")
+        elif table_hits:
+            print(f"[{num}] table 'communaut' trouvée mais non structurée "
+                  f"(probablement narrative) : {table_hits[0]['header'][:150]}")
 
     print(f"\n{'=' * 90}")
     print("RÉSUMÉ DE COUVERTURE")
