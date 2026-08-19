@@ -16828,12 +16828,6 @@
         "deaths": 35
       },
       {
-        "name": "BAMBU",
-        "province": "Ituri",
-        "cases": 1,
-        "deaths": null
-      },
-      {
         "name": "Kilo Mission",
         "province": "Ituri",
         "cases": 1,
@@ -16846,7 +16840,7 @@
         "deaths": 0
       },
       {
-        "name": "Miti Murhesa",
+        "name": "Miti-Murhesa",
         "province": "Sud-Kivu",
         "cases": 3,
         "deaths": 1
@@ -16856,12 +16850,6 @@
         "province": "Ituri",
         "cases": 31,
         "deaths": 12
-      },
-      {
-        "name": "ARU",
-        "province": "Ituri",
-        "cases": 1,
-        "deaths": null
       },
       {
         "name": "Aru",
@@ -16882,18 +16870,6 @@
         "deaths": 12
       },
       {
-        "name": "Oicha**",
-        "province": "Nord-Kivu",
-        "cases": 1,
-        "deaths": null
-      },
-      {
-        "name": "Kalunguta**",
-        "province": "Nord-Kivu",
-        "cases": 1,
-        "deaths": null
-      },
-      {
         "name": "Kalunguta",
         "province": "Nord-Kivu",
         "cases": 13,
@@ -16912,12 +16888,6 @@
         "deaths": 5
       },
       {
-        "name": "Gety",
-        "province": "Ituri",
-        "cases": 4,
-        "deaths": 1
-      },
-      {
         "name": "Logo",
         "province": "Ituri",
         "cases": 11,
@@ -16928,12 +16898,6 @@
         "province": "Ituri",
         "cases": 14,
         "deaths": 7
-      },
-      {
-        "name": "Miti-Murhesa",
-        "province": "Sud-Kivu",
-        "cases": 3,
-        "deaths": 1
       },
       {
         "name": "Rimba",
@@ -16964,12 +16928,6 @@
         "province": "Nord-Kivu",
         "cases": 5,
         "deaths": 2
-      },
-      {
-        "name": "Nia Nia",
-        "province": "Ituri",
-        "cases": 161,
-        "deaths": 96
       },
       {
         "name": "Mabalako",
@@ -17114,12 +17072,6 @@
         "province": "Tshopo",
         "cases": 1,
         "deaths": 0
-      },
-      {
-        "name": "Makiso--Kisangani",
-        "province": "Tshopo",
-        "cases": 4,
-        "deaths": 3
       }
     ]
   }
