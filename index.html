@@ -1052,6 +1052,8 @@ const I18N = {
     reportsTitle:"Sources & bulletins",
     reportsIntro:"Chaque bulletin officiel publié par l'Institut National de Santé Publique de la République Démocratique du Congo est archivé ici dès sa publication, au format PDF original — la source principale de ce site.",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
+    reportsSourceMismatch:(n)=>`⚠ numéroté N°${n} dans le document source`,
+    reportsSourceMismatchTitle:"La source (INSP/site officiel) a fait une erreur de numérotation sur ce bulletin précis — le numéro affiché ici a été corrigé pour rester cohérent avec la chronologie du site, mais le PDF original porte bien ce numéro erroné dans son en-tête. Rien d'inhabituel si vous l'ouvrez et voyez ce numéro différent.",
     whoReportsTitle:"Weekly External Situation Report (OMS)",
     whoReportsIntro:"Bulletins hebdomadaires publiés par le Bureau régional Afrique de l'Organisation Mondiale de la Santé sur cette épidémie — une source indépendante de l'INSP, à un rythme hebdomadaire plutôt que quasi quotidien.",
     whoReportsLabel:(n)=>`Rapport N°${n}`,
@@ -1164,6 +1166,8 @@ const I18N = {
     reportsTitle:"Sources & bulletins",
     reportsIntro:"Every official bulletin published by the National Institute of Public Health of the Democratic Republic of the Congo is archived here as soon as it's published, in its original PDF form — the main source for this site.",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
+    reportsSourceMismatch:(n)=>`⚠ numbered N°${n} in the source document`,
+    reportsSourceMismatchTitle:"The source (INSP/official site) made a numbering error on this specific bulletin — the number shown here was corrected to stay consistent with the site's chronology, but the original PDF does carry this mistaken number in its header. Nothing unusual if you open it and see a different number.",
     whoReportsTitle:"Weekly External Situation Report (WHO)",
     whoReportsIntro:"Weekly bulletins published by the WHO Regional Office for Africa on this outbreak — a source independent from INSP, published weekly rather than near-daily.",
     whoReportsLabel:(n)=>`Report N°${n}`,
@@ -2125,7 +2129,16 @@ function setupTimeline(){
   slider.dataset.built = '1';
 
   wrap.style.display = 'block';
-  slider.max = String(ZONES_HISTORY.length);
+  // Une position "Aujourd'hui" distincte n'a de sens que si le dernier
+  // SitRep national est VRAIMENT plus récent que le dernier instantané de
+  // carte (ZONES_HISTORY) — sinon les deux pointent sur la même date et le
+  // curseur affichait deux fois "17 août" à la suite, la seconde avec des
+  // deltas à +0 puisque ZONES_HISTORY ne stocke pas les champs "24h" (vu
+  // le 20/08/2026, une fois le SitRep 094 redevenu à jour et non-exclu).
+  const lastHistoryDate = ZONES_HISTORY[ZONES_HISTORY.length - 1].date;
+  const latestReportDate = currentMeta ? currentMeta.reportingDate : null;
+  const needsTodaySlot = latestReportDate && latestReportDate > lastHistoryDate;
+  slider.max = String(needsTodaySlot ? ZONES_HISTORY.length : ZONES_HISTORY.length - 1);
   slider.value = slider.max;
   updateTimelineLabel();
 
@@ -2139,7 +2152,7 @@ function setupTimeline(){
   todayBtn.addEventListener('click', ()=>{
     stopTimelinePlay();
     slider.value = slider.max;
-    timelineIndex = null;
+    timelineIndex = (parseInt(slider.max,10) >= ZONES_HISTORY.length) ? null : parseInt(slider.max,10);
     updateTimelineLabel();
     renderMap();
   });
@@ -2209,6 +2222,7 @@ function renderReportsList(){
         <span class="rc-info">
           <span class="rc-label">${tr('reportsSitrepLabel')(r.sitrepNumber)}</span>
           <span class="rc-date">${r.reportingDate ? tr('reportsReportingDate')(frDate(r.reportingDate) + ' ' + r.reportingDate.slice(0,4)) : tr('reportsUnknownDate')}</span>
+          ${r.sourceNumberMismatch ? `<span class="rc-mismatch" title="${tr('reportsSourceMismatchTitle')}">${tr('reportsSourceMismatch')(r.sourceNumberMismatch)}</span>` : ''}
         </span>
         <a class="rc-dl" href="${r.file}" target="_blank" rel="noopener" title="${tr('reportsDownload')}" aria-label="${tr('reportsDownload')}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>
