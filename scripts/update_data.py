@@ -676,13 +676,39 @@ def rebuild_zones_history(meta, health_zones):
             existing = json.load(f)
     by_sitrep = {e["sitrep"]: e for e in existing}
 
+    new_zones_by_name = {z["name"]: z for z in health_zones}
+
+    # Reporte la dernière valeur connue pour toute zone absente de CE
+    # rapport mais présente dans un rapport antérieur — un cercle de la
+    # carte ne doit jamais disparaître juste parce qu'un bulletin a cessé
+    # de citer une zone dont les cas restent comptés dans le total
+    # provincial (vu avec le SitRep 095, où le total Ituri ne correspondait
+    # plus à la somme des zones listées : 4309 vs 3961, écart de 348 cas
+    # correspondant exactement aux zones disparues du tableau).
+    previous_entries = [e for e in existing if e.get("date") and e["date"] < reporting_date
+                         and e.get("sitrep") != sitrep_number]
+    if previous_entries:
+        previous_entries.sort(key=lambda e: e["date"])
+        last_known = {}
+        for e in previous_entries:
+            for z in e.get("zones", []):
+                last_known[z["name"]] = z
+        carried_forward = 0
+        for name, z in last_known.items():
+            if name not in new_zones_by_name:
+                new_zones_by_name[name] = z
+                carried_forward += 1
+        if carried_forward:
+            print(f"  {carried_forward} zone(s) absente(s) de ce rapport, "
+                  f"dernière valeur connue reportée (cercle jamais retiré de la carte).")
+
     by_sitrep[sitrep_number] = {
         "sitrep": sitrep_number,
         "date": reporting_date,
         "zones": [
             {"name": z["name"], "province": z["province"],
              "cases": z["cases"], "deaths": z["deaths"]}
-            for z in health_zones
+            for z in new_zones_by_name.values()
         ],
     }
 
@@ -694,7 +720,7 @@ def rebuild_zones_history(meta, health_zones):
         f.write("\n")
 
     print(f"  zones-history.json mis à jour : {len(merged)} point(s) au total "
-          f"(SitRep {sitrep_number} ajouté/rafraîchi, {len(health_zones)} zones).")
+          f"(SitRep {sitrep_number} ajouté/rafraîchi, {len(new_zones_by_name)} zones).")
 
 
 def main():
