@@ -24,8 +24,7 @@ jobs:
         run: pip install pdfplumber
 
       - name: Lancer le rattrapage
-        working-directory: scripts
-        run: python backfill_zones_history.py "../${{ github.event.inputs.fichier }}"
+        run: python scripts/backfill_zones_history.py "${{ github.event.inputs.fichier }}"
 
       - name: Committer les changements
         run: |
