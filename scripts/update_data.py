@@ -720,6 +720,31 @@ def rebuild_zones_history(meta, health_zones):
     # correspondant exactement aux zones disparues du tableau).
     previous_entries = [e for e in existing if e.get("date") and e["date"] < reporting_date
                          and e.get("sitrep") != sitrep_number]
+
+    # Alerte sur toute zone JAMAIS vue dans aucun rapport antérieur — une
+    # vraie nouvelle zone touchée pour la première fois est possible (donc
+    # on ne la bloque pas), mais on préfère un signal visible dans le log
+    # pour vérification manuelle plutôt qu'un ajout silencieux, après avoir
+    # vu passer "Karissibi" et "Kilo Mission" sans explication au SitRep 095.
+    if previous_entries:
+        all_known_keys = set()
+        for e in previous_entries:
+            for z in e.get("zones", []):
+                all_known_keys.add(normalize_zone_key(z["name"]))
+        never_seen = [z["name"] for z in health_zones
+                      if normalize_zone_key(z["name"]) not in all_known_keys]
+        if never_seen:
+            print(f"  ! zone(s) jamais vue(s) dans aucun rapport antérieur, à vérifier "
+                  f"manuellement (vraie nouvelle zone touchée, ou fragment d'extraction "
+                  f"erroné) : {', '.join(never_seen)}")
+
+    # Reporte la dernière valeur connue pour toute zone absente de CE
+    # rapport mais présente dans un rapport antérieur — un cercle de la
+    # carte ne doit jamais disparaître juste parce qu'un bulletin a cessé
+    # de citer une zone dont les cas restent comptés dans le total
+    # provincial (vu avec le SitRep 095, où le total Ituri ne correspondait
+    # plus à la somme des zones listées : 4309 vs 3961, écart de 348 cas
+    # correspondant exactement aux zones disparues du tableau).
     if previous_entries:
         previous_entries.sort(key=lambda e: e["date"])
         last_known = {}
