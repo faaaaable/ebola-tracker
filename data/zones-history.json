@@ -16708,5 +16708,131 @@
         "deaths": 0
       }
     ]
+  },
+  {
+    "sitrep": "095",
+    "date": "2026-08-17",
+    "zones": [
+      {
+        "name": "Ariwara",
+        "province": "Ituri",
+        "cases": 8,
+        "deaths": 2
+      },
+      {
+        "name": "Bambu",
+        "province": "Ituri",
+        "cases": 112,
+        "deaths": 26
+      },
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 1194,
+        "deaths": 372
+      },
+      {
+        "name": "Fataki",
+        "province": "Ituri",
+        "cases": 71,
+        "deaths": 30
+      },
+      {
+        "name": "Gethy",
+        "province": "Ituri",
+        "cases": 5,
+        "deaths": 2
+      },
+      {
+        "name": "Komanda",
+        "province": "Ituri",
+        "cases": 51,
+        "deaths": 35
+      },
+      {
+        "name": "Lita",
+        "province": "Ituri",
+        "cases": 183,
+        "deaths": 104
+      },
+      {
+        "name": "Mangala",
+        "province": "Ituri",
+        "cases": 165,
+        "deaths": 92
+      },
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 591,
+        "deaths": 282
+      },
+      {
+        "name": "Nia-Nia",
+        "province": "Ituri",
+        "cases": 175,
+        "deaths": 103
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 543,
+        "deaths": 240
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 863,
+        "deaths": 332
+      },
+      {
+        "name": "Beni",
+        "province": "Nord-Kivu",
+        "cases": 96,
+        "deaths": 71
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 118,
+        "deaths": 96
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 306,
+        "deaths": 199
+      },
+      {
+        "name": "Musienene",
+        "province": "Nord-Kivu",
+        "cases": 63,
+        "deaths": 35
+      },
+      {
+        "name": "Oicha",
+        "province": "Nord-Kivu",
+        "cases": 6,
+        "deaths": 4
+      },
+      {
+        "name": "Isiro",
+        "province": "Haut-Uélé",
+        "cases": 47,
+        "deaths": 22
+      },
+      {
+        "name": "Bas-Uélé",
+        "province": "Sud-Kivu",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "TOTAL RDC",
+        "province": "Sud-Kivu",
+        "cases": 51052,
+        "deaths": 420
+      }
+    ]
   }
 ]
