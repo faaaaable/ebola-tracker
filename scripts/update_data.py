@@ -27,14 +27,13 @@ ZONES_HISTORY_PATH = "data/zones-history.json"
 # autres chiffres du site (cas/décès nationaux, courbe épidémique...), qui
 # continuent d'utiliser normalement ce même SitRep par ailleurs.
 #
-# "094" ici correspond au fichier auparavant nommé "095" (le second SitRep
-# sante.gouv.cd, avec la pollution de zones qu'on avait corrigée puis jugée
-# encore insuffisamment fiable) — renommé en "094" suite à la correction du
-# doublon "093" à la source (voir échanges du 19-20/08/2026). Exclusion
-# conservée à titre PRÉCAUTION en attendant une nouvelle vérification une
-# fois ce fichier réanalysé sous son nouveau nom avec les correctifs
-# actuels du pipeline — à retirer de cet ensemble si le résultat est propre.
-ZONES_HISTORY_EXCLUDED_SITREPS = {"094"}
+# Anciennement {"094"} : le fichier renommé en "094" (ex-"095", second
+# SitRep sante.gouv.cd) a été revérifié le 20/08/2026 après correction du
+# doublon "093" à la source — 18 zones extraites, aucune pollution (pas de
+# "TOTAL RDC", pas de doublon de province, pas de fragment de type
+# "Karissibi"/"Kilo Mission"). Les correctifs accumulés au pipeline
+# suffisent maintenant à le traiter proprement ; l'exclusion est retirée.
+ZONES_HISTORY_EXCLUDED_SITREPS = set()
 
 PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé"]
 PROVINCE_CANON = {
