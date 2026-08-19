@@ -525,6 +525,13 @@ def parse_report_summary(pdf_path):
         "file": pdf_path.replace("\\", "/"),
         "confirmed": confirmed,
         "deaths": deaths,
+        # Distingue "jamais encore essayé" (confirmedExtractionFailed absent)
+        # de "essayé, table introuvable par aucune des deux méthodes" (True)
+        # — sans ça, rebuild_reports_list() retenterait indéfiniment, à
+        # chaque run, les tout premiers SitRep (format d'époque sans cette
+        # table), qui ne réussiront jamais quel que soit le nombre de
+        # tentatives.
+        "confirmedExtractionFailed": confirmed is None,
     }
 
 
@@ -538,16 +545,16 @@ def rebuild_reports_list(current_reports):
             continue
         num = m.group(1)
         existing = existing_by_num.get(num)
-        # Inclut aussi confirmed manquant, pas seulement reportingDate : vu
-        # avec le SitRep 094 (sante.gouv.cd), où la date était déjà bien
-        # extraite mais confirmed restait vide faute du repli texte brut
-        # (ajouté après coup). Effet de bord accepté : les tout premiers
-        # SitRep (001-003...), dont confirmed ne sera JAMAIS extractible
-        # (table absente de ce format d'époque), seront retentés à chaque
-        # run — coût négligeable, mais volontairement documenté ici plutôt
-        # que laissé implicite.
+        # confirmed manquant ne déclenche une nouvelle tentative que si on
+        # n'a pas déjà marqué cet échec comme définitif (voir
+        # confirmedExtractionFailed dans parse_report_summary) — sinon les
+        # tout premiers SitRep (001-003..., format d'époque sans cette
+        # table) seraient retentés indéfiniment à chaque run, pour rien.
+        confirmed_retry_worthwhile = existing is not None \
+            and existing.get("confirmed") is None \
+            and not existing.get("confirmedExtractionFailed")
         needs_parse = existing is None or not existing.get("reportingDate") \
-            or existing.get("confirmed") is None
+            or confirmed_retry_worthwhile
         if existing is not None and not needs_parse:
             entry = dict(existing)
             entry["file"] = pdf_path.replace("\\", "/")
@@ -556,7 +563,7 @@ def rebuild_reports_list(current_reports):
             try:
                 reports.append(parse_report_summary(pdf_path))
                 tag = "nouveau rapport détecté et ajouté" if existing is None else \
-                      "date manquante, ré-analysé avec succès"
+                      "date/donnée manquante, ré-analysé"
                 print(f"  + {tag} : {os.path.basename(pdf_path)}")
             except Exception as e:
                 print(f"  ! avertissement : impossible d'analyser {pdf_path} ({e}), ignoré.")
