@@ -1,0 +1,41 @@
+name: Rattrapage zones-history
+
+on:
+  workflow_dispatch:
+    inputs:
+      fichier:
+        description: "Chemin du PDF à réintégrer"
+        required: true
+        default: "reports/SITREP_MVE_093.pdf"
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances
+        run: pip install pdfplumber
+
+      - name: Lancer le rattrapage
+        working-directory: scripts
+        run: python backfill_zones_history.py "../${{ github.event.inputs.fichier }}"
+
+      - name: Committer les changements
+        run: |
+          git config user.name "sitrep-bot"
+          git config user.email "sitrep-bot@users.noreply.github.com"
+          git add data/zones-history.json
+          if git diff --cached --quiet; then
+            echo "Aucun changement — rien à committer."
+          else
+            git commit -m "Rattrapage zones-history : ${{ github.event.inputs.fichier }}"
+            git pull --rebase origin main
+            git push
+          fi
