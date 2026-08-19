@@ -1875,7 +1875,12 @@ document.querySelectorAll('#chartModeNav .subtab-btn').forEach(btn=>{
 /* ============ CARTE ============ */
 let map, zoneMarkersLayer, provinceMarkersLayer, closedFociLayer;
 let timelineIndex = null; // null = mode "aujourd'hui" (données live) ; sinon index dans ZONES_HISTORY
-
+let openPopupZoneName = null; // nom de la zone dont le popup est ouvert, pour le rouvrir avec des
+                               // chiffres à jour après chaque redessin (déplacement du curseur)
+                               // plutôt que de le refermer purement et simplement.
+let suppressPopupCloseTracking = false; // true pendant un redessin : clearLayers() ferme aussi
+                                         // l'ancien popup, ce qui déclencherait à tort l'événement
+                                         // de fermeture "normale" (utilisateur) sans ce garde-fou.
 function colorForValue(t){
   // t entre 0 et 1 : échelle séquentielle mono-teinte, orange clair -> rouge foncé
   // (une seule famille de teintes voisines : pas de bleu, donc pas de zone
@@ -1923,6 +1928,8 @@ function setActiveMapBtn(btn){
 
 function renderMap(){
   if(!map) return;
+  suppressPopupCloseTracking = true; // clearLayers() ci-dessous ferme aussi l'ancien popup ;
+                                      // on ne veut pas que ça compte comme une fermeture "normale".
   zoneMarkersLayer.clearLayers();
   provinceMarkersLayer.clearLayers();
   closedFociLayer.clearLayers();
@@ -1987,8 +1994,15 @@ function renderMap(){
        <div class="popup-row"><span class="k">${tr('popupProvinceLabel')}</span><span>${z.province}</span></div>`;
     }
     marker.bindPopup(popupHtml);
+    marker.on('popupopen', ()=>{ openPopupZoneName = z.name; });
+    marker.on('popupclose', ()=>{
+      if(suppressPopupCloseTracking) return;
+      if(openPopupZoneName===z.name) openPopupZoneName = null;
+    });
     marker.addTo(zoneMarkersLayer);
+    if(openPopupZoneName===z.name) marker.openPopup();
   });
+  suppressPopupCloseTracking = false;
 
   // Kampala (foyer clos, Ouganda) : distinct des zones de la RDC, pas
   // présent dans ZONES_HISTORY. Affiché dès le 21 mai sur le curseur
