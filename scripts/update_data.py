@@ -26,7 +26,15 @@ ZONES_HISTORY_PATH = "data/zones-history.json"
 # précédent. Ajouter/retirer un numéro ici n'affecte que la carte, pas les
 # autres chiffres du site (cas/décès nationaux, courbe épidémique...), qui
 # continuent d'utiliser normalement ce même SitRep par ailleurs.
-ZONES_HISTORY_EXCLUDED_SITREPS = {"095"}
+#
+# "094" ici correspond au fichier auparavant nommé "095" (le second SitRep
+# sante.gouv.cd, avec la pollution de zones qu'on avait corrigée puis jugée
+# encore insuffisamment fiable) — renommé en "094" suite à la correction du
+# doublon "093" à la source (voir échanges du 19-20/08/2026). Exclusion
+# conservée à titre PRÉCAUTION en attendant une nouvelle vérification une
+# fois ce fichier réanalysé sous son nouveau nom avec les correctifs
+# actuels du pipeline — à retirer de cet ensemble si le résultat est propre.
+ZONES_HISTORY_EXCLUDED_SITREPS = {"094"}
 
 PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé"]
 PROVINCE_CANON = {
@@ -89,20 +97,39 @@ def norm_pct(s):
     return None
 
 
+# Tolère un suffixe optionnel après les 3 chiffres (bis/ter/quater, avec ou
+# sans tiret/underscore) — pour les cas où la source elle-même a publié un
+# numéro en double par erreur (ex: deux bulletins "N°093" à des dates
+# différentes) : plutôt que de décaler indéfiniment toute la numérotation
+# suivante, on isole l'erreur à cet unique bulletin ("093-bis") et on
+# reprend la vraie numérotation de la source dès le suivant.
+FILENAME_NUMBER_RE = re.compile(r"(\d{3})[-_]?(bis|ter|quater)?", re.IGNORECASE)
+
+
+def extract_number_from_filename(path):
+    """Renvoie le numéro de SitRep tel qu'identifiable depuis le nom de
+    fichier (ex: '094', '093bis' -> '093-bis'), ou None si aucun trouvé.
+    Le tri alphabétique naturel place bien '093' < '093-bis' < '094'."""
+    m = FILENAME_NUMBER_RE.search(os.path.basename(path))
+    if not m:
+        return None
+    num, suffix = m.group(1), m.group(2)
+    return f"{num}-{suffix.lower()}" if suffix else num
+
+
 def find_latest_report():
     """Trouve le SitRep le plus récent (numéro le plus élevé) dans reports/."""
     pdfs = glob.glob(os.path.join(REPORTS_DIR, "*.pdf"))
     best = None
-    best_num = -1
+    best_id = None
     for p in pdfs:
-        m = re.search(r"(\d{3})", os.path.basename(p))
-        if not m:
+        num_id = extract_number_from_filename(p)
+        if num_id is None:
             continue
-        num = int(m.group(1))
-        if num > best_num:
-            best_num = num
+        if best_id is None or num_id > best_id:
+            best_id = num_id
             best = p
-    return best, best_num
+    return best, best_id
 
 
 def extract_sidebar_text(page):
@@ -197,8 +224,15 @@ def extract_meta(full_text, fallback_number=None):
     m = re.search(r"SitRep(?:MVE)?N.0*(\d{1,3})", compact)
     sitrep_number = None
     sitrep_ref = None
+    # Numéro tel qu'imprimé DANS LE PDF, conservé même quand on lui préfère
+    # le nom de fichier — pour pouvoir le signaler honnêtement sur le site
+    # plutôt que de corriger silencieusement une erreur de numérotation de
+    # la source (un visiteur qui télécharge et ouvre le PDF verrait sinon
+    # un numéro différent de celui affiché chez nous, sans explication).
+    source_printed_number = None
     if m:
         sitrep_number = m.group(1).zfill(3)
+        source_printed_number = sitrep_number
         m2 = re.search(r"SitRep\s+(?:MVE\s+)?N°?\s*0*\d{1,3}[^\n]*", full_text)
         sitrep_ref = m2.group(0).strip() if m2 else f"SitRep N°{sitrep_number}"
         # Le nom de fichier (déduit du téléchargement, ex: SITREP_MVE_059.pdf)
@@ -223,6 +257,9 @@ def extract_meta(full_text, fallback_number=None):
     return {
         "sitrepNumber": sitrep_number,
         "sitrepRef": sitrep_ref,
+        # None si les deux concordent (cas normal) — rempli seulement en
+        # cas d'écart, pour ne pas alourdir latest.json/reports.json inutilement.
+        "sourceNumberMismatch": source_printed_number if source_printed_number != sitrep_number else None,
         "reportingDate": reporting_date,
         "publicationDate": publication_date,
         "source": "INSP RDC / Task Force Présidentielle Ebola 17",
@@ -584,10 +621,7 @@ def zone_row_to_dict(province, name, row):
 
 
 def parse_report_summary(pdf_path):
-    fallback_num = None
-    fm = re.search(r"(\d{3})", os.path.basename(pdf_path))
-    if fm:
-        fallback_num = fm.group(1)
+    fallback_num = extract_number_from_filename(pdf_path)
     with pdfplumber.open(pdf_path) as pdf:
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
         meta = extract_meta(full_text, fallback_number=fallback_num)
@@ -610,6 +644,7 @@ def parse_report_summary(pdf_path):
         "file": pdf_path.replace("\\", "/"),
         "confirmed": confirmed,
         "deaths": deaths,
+        "sourceNumberMismatch": meta.get("sourceNumberMismatch"),
         # Distingue "jamais encore essayé" (confirmedExtractionFailed absent)
         # de "essayé, table introuvable par aucune des deux méthodes" (True)
         # — sans ça, rebuild_reports_list() retenterait indéfiniment, à
@@ -625,10 +660,9 @@ def rebuild_reports_list(current_reports):
     all_pdfs = sorted(glob.glob(os.path.join(REPORTS_DIR, "*.pdf")))
     reports = []
     for pdf_path in all_pdfs:
-        m = re.search(r"(\d{3})", os.path.basename(pdf_path))
-        if not m:
+        num = extract_number_from_filename(pdf_path)
+        if num is None:
             continue
-        num = m.group(1)
         existing = existing_by_num.get(num)
         # confirmed manquant ne déclenche une nouvelle tentative que si on
         # n'a pas déjà marqué cet échec comme définitif (voir
@@ -657,6 +691,24 @@ def rebuild_reports_list(current_reports):
                     entry["file"] = pdf_path.replace("\\", "/")
                     reports.append(entry)
     reports.sort(key=lambda r: r["sitrepNumber"])
+
+    # Garde-fou : signale tout numéro de SitRep partagé par deux dates
+    # différentes — la source ayant déjà réutilisé un même numéro par
+    # erreur (voir échanges du 19/08/2026), un mauvais renommage manuel
+    # (ou une nouvelle erreur de la source) provoquerait sinon un
+    # écrasement silencieux d'un rapport par un autre dans by_sitrep,
+    # sans que rien ne le signale ailleurs dans le pipeline.
+    dates_by_number = {}
+    for r in reports:
+        if r.get("reportingDate"):
+            dates_by_number.setdefault(r["sitrepNumber"], set()).add(r["reportingDate"])
+    for num, dates in dates_by_number.items():
+        if len(dates) > 1:
+            print(f"  ! ATTENTION : le numéro de SitRep {num} est partagé par plusieurs dates "
+                  f"différentes ({', '.join(sorted(dates))}) — un des deux rapports écrase "
+                  f"probablement l'autre silencieusement. Vérifier les noms de fichiers dans "
+                  f"reports/.")
+
     return reports
 
 
@@ -810,11 +862,11 @@ def main():
 
     reports = rebuild_reports_list(current.get("reports", []))
 
-    print(f"Régénération des données depuis {report_path} (SitRep {report_num:03d})...")
+    print(f"Régénération des données depuis {report_path} (SitRep {report_num})...")
 
     with pdfplumber.open(report_path) as pdf:
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
-        meta = extract_meta(full_text, fallback_number=f"{report_num:03d}")
+        meta = extract_meta(full_text, fallback_number=report_num)
         kpis = extract_kpi_band(pdf.pages[0])
         # N'importe lequel des 6 champs manquant suffit à déclencher le
         # repli — exiger que confirmed ET inCTE soient vides simultanément
