@@ -64,8 +64,17 @@ def main():
             req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
             with urllib.request.urlopen(req, timeout=60) as resp:
                 content = resp.read()
+                content_type = resp.headers.get("Content-Type", "inconnu")
+                status = resp.status
             if not content.startswith(b"%PDF"):
-                print(f"  [!] Rapport {number} ({date}) : la réponse ne ressemble pas à un PDF, ignoré.")
+                # Diagnostic : affiche ce qui a été reçu à la place d'un PDF
+                # (page de blocage anti-bot, redirection, erreur...) plutôt
+                # que d'ignorer silencieusement — on ne sait pas encore
+                # pourquoi ça échoue, donc pas la peine de deviner.
+                snippet = content[:300].decode("utf-8", errors="replace")
+                print(f"  [!] Rapport {number} ({date}) : pas un PDF. "
+                      f"HTTP {status}, Content-Type: {content_type}")
+                print(f"      Début de la réponse reçue : {snippet!r}")
                 failed += 1
                 continue
             with open(path, "wb") as f:
