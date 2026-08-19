@@ -16498,12 +16498,6 @@
         "deaths": 35
       },
       {
-        "name": "Kilo Mission",
-        "province": "Ituri",
-        "cases": 1,
-        "deaths": null
-      },
-      {
         "name": "Goma",
         "province": "Nord-Kivu",
         "cases": 1,
@@ -16526,12 +16520,6 @@
         "province": "Ituri",
         "cases": 7,
         "deaths": 6
-      },
-      {
-        "name": "Karissibi",
-        "province": "Nord-Kivu",
-        "cases": 0,
-        "deaths": null
       },
       {
         "name": "Kyondo",
@@ -16612,18 +16600,6 @@
         "deaths": 6
       },
       {
-        "name": "Autres zones non encore",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Mandima",
         "province": "Ituri",
         "cases": 23,
@@ -16634,12 +16610,6 @@
         "province": "Ituri",
         "cases": 15,
         "deaths": 4
-      },
-      {
-        "name": "Autres zones non",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
       },
       {
         "name": "Boga",
@@ -16736,12 +16706,6 @@
         "province": "Bas-Uélé",
         "cases": 1,
         "deaths": 1
-      },
-      {
-        "name": "Tshopo (zone non précisée)",
-        "province": "Tshopo",
-        "cases": 1,
-        "deaths": 0
       }
     ]
   }
