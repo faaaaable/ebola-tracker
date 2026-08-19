@@ -19,6 +19,15 @@ DATA_PATH = "data/latest.json"
 SITREPS_PATH = "data/sitreps.json"
 ZONES_HISTORY_PATH = "data/zones-history.json"
 
+# Numéros de SitRep dont le détail par zone est jugé trop peu fiable pour
+# la carte (mise en page source trop différente, extraction trop
+# incertaine malgré les replis) — leur entrée est simplement ignorée par
+# rebuild_zones_history(), la carte s'arrête alors au dernier SitRep fiable
+# précédent. Ajouter/retirer un numéro ici n'affecte que la carte, pas les
+# autres chiffres du site (cas/décès nationaux, courbe épidémique...), qui
+# continuent d'utiliser normalement ce même SitRep par ailleurs.
+ZONES_HISTORY_EXCLUDED_SITREPS = {"095"}
+
 PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé"]
 PROVINCE_CANON = {
     "Ituri": "Ituri", "Nord-Kivu": "Nord-Kivu", "Haut-Uélé": "Haut-Uélé",
@@ -688,13 +697,19 @@ def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
 
 
 def rebuild_zones_history(meta, health_zones):
+    sitrep_number = meta.get("sitrepNumber")
+    if sitrep_number in ZONES_HISTORY_EXCLUDED_SITREPS:
+        print(f"  (SitRep {sitrep_number} exclu de zones-history.json — voir "
+              f"ZONES_HISTORY_EXCLUDED_SITREPS ; les autres chiffres du site "
+              f"restent basés sur ce SitRep normalement.)")
+        return
+
     if not health_zones:
         print("  (pas de détail par zone exploitable pour ce SitRep, "
               "zones-history.json non modifié)")
         return
 
     reporting_date = meta.get("reportingDate")
-    sitrep_number = meta.get("sitrepNumber")
     if not reporting_date or not sitrep_number:
         print("  (date ou numéro de SitRep manquant, zones-history.json non modifié)")
         return
