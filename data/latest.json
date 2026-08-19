@@ -97,7 +97,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 86
+      "daysNoCase": 87
     },
     {
       "name": "Bas-Uélé",
@@ -292,26 +292,6 @@
       "newCases24h": 5,
       "deathsCommunity24h": 1,
       "deathsIntraCTE24h": 1
-    },
-    {
-      "name": "Bas-Uélé",
-      "province": "Sud-Kivu",
-      "cases": 1,
-      "deaths": 1,
-      "cfr": 100.0,
-      "newCases24h": 0,
-      "deathsCommunity24h": 0,
-      "deathsIntraCTE24h": 0
-    },
-    {
-      "name": "TOTAL RDC",
-      "province": "Sud-Kivu",
-      "cases": 51052,
-      "deaths": 420,
-      "cfr": 47.4,
-      "newCases24h": 84,
-      "deathsCommunity24h": 29,
-      "deathsIntraCTE24h": 13
     }
   ],
   "cte": [
