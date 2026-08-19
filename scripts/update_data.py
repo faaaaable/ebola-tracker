@@ -334,8 +334,23 @@ def parse_province_summary(table):
 
 
 def extract_zone_detail_rows(pdf):
+    # Bornée à la section "Cas et décès confirmés par province et zone de
+    # santé" (mêmes repères que get_zone_section_text) : sans ça, la
+    # fonction aspire aussi les tableaux d'autres sections plus loin dans
+    # le document (ex: le tableau des alertes par province, avec ses
+    # colonnes 'DPS'/'Total Général' qui ont accidentellement la même
+    # forme — vu avec le SitRep 094/sante.gouv.cd, qui a fait apparaître
+    # 'DPS' et 'Total Général' comme si c'étaient des zones de santé).
     rows = []
+    in_section = False
     for page in pdf.pages:
+        page_text = page.extract_text() or ""
+        if "Situation des alertes notifiées" in page_text:
+            break
+        if "Cas et décès confirmés par province et zone de santé" in page_text:
+            in_section = True
+        if not in_section:
+            continue
         for t in page.extract_tables():
             for row in t:
                 if not row or len(row) < 7:
