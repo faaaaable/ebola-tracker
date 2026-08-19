@@ -47,6 +47,18 @@ WHO_REPORTS = [
 ]
 
 
+def rest_content_url(download_url):
+    """Convertit une URL de téléchargement IRIS (l'interface Angular/DSpace,
+    qui ne renvoie que la coquille HTML de l'application sans exécution JS)
+    en URL de l'API REST DSpace sous-jacente, qui sert le fichier brut
+    directement — cette dernière est censée fonctionner sans navigateur."""
+    m = re.search(r"/bitstreams/([0-9a-f-]+)/download", download_url)
+    if not m:
+        return download_url
+    bitstream_id = m.group(1)
+    return f"https://iris.who.int/server/api/core/bitstreams/{bitstream_id}/content"
+
+
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     downloaded, skipped, failed = 0, 0, 0
@@ -61,7 +73,7 @@ def main():
             continue
 
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            req = urllib.request.Request(rest_content_url(url), headers={"User-Agent": USER_AGENT})
             with urllib.request.urlopen(req, timeout=60) as resp:
                 content = resp.read()
                 content_type = resp.headers.get("Content-Type", "inconnu")
