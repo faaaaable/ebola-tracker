@@ -417,20 +417,41 @@ def extract_province_subtotals_from_text(full_text):
     return out
 
 
+def normalize_zone_key(name):
+    """Clé de comparaison insensible à la casse, aux tirets/espaces et aux
+    astérisques de note de bas de page — pour dédupliquer correctement les
+    zones même quand leur orthographe varie légèrement (vu dans un même
+    rapport : 'BAMBU' vs 'Bambu', 'Oicha**' vs 'Oicha', 'Nia-Nia' vs
+    'Nia Nia', 'Makiso-Kisangani' vs 'Makiso--Kisangani')."""
+    n = name.strip().rstrip("*").strip()
+    n = re.sub(r"-+", " ", n)
+    n = re.sub(r"\s+", " ", n)
+    n = n.upper()
+    # Variantes orthographiques CONNUES de la même zone réelle (pas une
+    # simple différence de casse/tiret, donc pas couvert par les règles
+    # ci-dessus) — liste explicite plutôt qu'un rapprochement flou
+    # généralisé, pour ne jamais fusionner à tort deux zones différentes
+    # qui se ressembleraient par coïncidence.
+    KNOWN_ALIASES = {
+        "GETHY": "GETY",
+    }
+    return KNOWN_ALIASES.get(n, n)
+
+
 def gap_fill_missing_zones(full_text, zones_raw):
     section = get_zone_section_text(full_text)
     if not section:
         return zones_raw
 
-    # Indexé par NOM SEUL (pas par (province, nom)) : une zone donnée
-    # n'appartient qu'à une seule province, donc si la province déjà
-    # connue pour ce nom diffère de celle lue ici, on REMPLACE plutôt que
-    # d'ajouter un doublon. Sans ça, une erreur de suivi de province côté
-    # tableau (current_province mal mis à jour) laisse coexister une
-    # entrée fausse et une entrée corrigée au lieu que la seconde
-    # remplace la première — vu avec le SitRep 094/sante.gouv.cd (Butembo,
-    # Katwa... dupliqués sous "Ituri" ET sous leur vraie province).
-    by_name = {name: (prov, row) for prov, name, row in zones_raw}
+    # Indexé par une clé NORMALISÉE (voir normalize_zone_key), pas par le
+    # nom brut : une zone donnée n'appartient qu'à une seule province et ne
+    # devrait apparaître qu'une fois, donc les variantes de casse/tiret/
+    # note de bas de page doivent être reconnues comme la même zone plutôt
+    # que de créer un doublon. On garde le premier nom "d'affichage"
+    # rencontré pour chaque clé.
+    by_key = {}
+    for prov, name, row in zones_raw:
+        by_key[normalize_zone_key(name)] = (name, prov, row)
     current_province = None
 
     for line in section.split("\n"):
@@ -451,7 +472,14 @@ def gap_fill_missing_zones(full_text, zones_raw):
             continue
         # Insensible à la casse : ce rapport écrit "TOTAL RDC" tout en
         # majuscules, ce que l'ancienne comparaison ("Total" figé) ratait.
-        if line.upper().startswith("A VENTILER") or line.upper().startswith("TOTAL"):
+        # "Autres zones..." : catégorie fourre-tout pour cas non encore
+        # attribués à une zone précise, pas une vraie zone de santé — vue
+        # dupliquée 3 fois (fragments d'une ligne repliée sur plusieurs
+        # lignes : "Autres zones non" / "... non encore" / "... encore
+        # identifiées").
+        line_upper = line.upper()
+        if line_upper.startswith("A VENTILER") or line_upper.startswith("TOTAL") \
+                or line_upper.startswith("AUTRES ZONES"):
             continue
         if current_province is None:
             continue
@@ -459,15 +487,16 @@ def gap_fill_missing_zones(full_text, zones_raw):
         if not m:
             continue
         name = m.group("name").strip()
-        existing = by_name.get(name)
-        if existing is not None and existing[0] == current_province:
+        key = normalize_zone_key(name)
+        existing = by_key.get(key)
+        if existing is not None and existing[1] == current_province:
             continue
         row = [name, m.group("cas"), m.group("deces"), m.group("cfr")]
         tail_nums = re.findall(r"\d+", m.group("tail"))
         row += tail_nums
-        by_name[name] = (current_province, row)
+        by_key[key] = (name, current_province, row)
 
-    return [(prov, name, row) for name, (prov, row) in by_name.items()]
+    return [(prov, name, row) for name, prov, row in by_key.values()]
 
 
 def parse_zone_detail(rows):
@@ -676,7 +705,11 @@ def rebuild_zones_history(meta, health_zones):
             existing = json.load(f)
     by_sitrep = {e["sitrep"]: e for e in existing}
 
-    new_zones_by_name = {z["name"]: z for z in health_zones}
+    # Indexé par clé normalisée (voir normalize_zone_key), pas par nom brut
+    # — sinon un décalage de casse/tiret entre deux rapports (ex: "Bambu"
+    # ici, "BAMBU" côté report précédent) créerait un doublon au lieu
+    # d'être reconnu comme la même zone.
+    new_zones_by_key = {normalize_zone_key(z["name"]): z for z in health_zones}
 
     # Reporte la dernière valeur connue pour toute zone absente de CE
     # rapport mais présente dans un rapport antérieur — un cercle de la
@@ -692,11 +725,11 @@ def rebuild_zones_history(meta, health_zones):
         last_known = {}
         for e in previous_entries:
             for z in e.get("zones", []):
-                last_known[z["name"]] = z
+                last_known[normalize_zone_key(z["name"])] = z
         carried_forward = 0
-        for name, z in last_known.items():
-            if name not in new_zones_by_name:
-                new_zones_by_name[name] = z
+        for key, z in last_known.items():
+            if key not in new_zones_by_key:
+                new_zones_by_key[key] = z
                 carried_forward += 1
         if carried_forward:
             print(f"  {carried_forward} zone(s) absente(s) de ce rapport, "
@@ -708,7 +741,7 @@ def rebuild_zones_history(meta, health_zones):
         "zones": [
             {"name": z["name"], "province": z["province"],
              "cases": z["cases"], "deaths": z["deaths"]}
-            for z in new_zones_by_name.values()
+            for z in new_zones_by_key.values()
         ],
     }
 
@@ -720,7 +753,7 @@ def rebuild_zones_history(meta, health_zones):
         f.write("\n")
 
     print(f"  zones-history.json mis à jour : {len(merged)} point(s) au total "
-          f"(SitRep {sitrep_number} ajouté/rafraîchi, {len(new_zones_by_name)} zones).")
+          f"(SitRep {sitrep_number} ajouté/rafraîchi, {len(new_zones_by_key)} zones).")
 
 
 def main():
