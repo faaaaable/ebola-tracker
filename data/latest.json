@@ -97,7 +97,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 80
+      "daysNoCase": 81
     },
     {
       "name": "Bas-Uélé",
@@ -1046,7 +1046,8 @@
       "publicationDate": "2026-05-15",
       "file": "reports/SITREP_MVE_001.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "002",
@@ -1054,7 +1055,8 @@
       "publicationDate": "2026-05-18",
       "file": "reports/SITREP_MVE_002.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "004",
@@ -1070,7 +1072,8 @@
       "publicationDate": "2026-05-20",
       "file": "reports/SITREP_MVE_005.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "006",
@@ -1078,7 +1081,8 @@
       "publicationDate": "2026-05-21",
       "file": "reports/SITREP_MVE_006.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "007",
@@ -1086,7 +1090,8 @@
       "publicationDate": "2026-05-22",
       "file": "reports/SITREP_MVE_007.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "008",
@@ -1094,7 +1099,8 @@
       "publicationDate": "2026-05-23",
       "file": "reports/SITREP_MVE_008.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "009",
@@ -1102,7 +1108,8 @@
       "publicationDate": "2026-05-24",
       "file": "reports/SITREP_MVE_009.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "010",
@@ -1110,7 +1117,8 @@
       "publicationDate": "2026-05-25",
       "file": "reports/SITREP_MVE_010.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "011",
@@ -1118,7 +1126,8 @@
       "publicationDate": "2026-05-26",
       "file": "reports/SITREP_MVE_011.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "012",
@@ -1126,7 +1135,8 @@
       "publicationDate": "2026-05-26",
       "file": "reports/SITREP_MVE_012.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "013",
@@ -1134,7 +1144,8 @@
       "publicationDate": "2026-05-28",
       "file": "reports/SITREP_MVE_013.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "014",
@@ -1142,7 +1153,8 @@
       "publicationDate": "2026-05-29",
       "file": "reports/SITREP_MVE_014.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "015",
@@ -1150,7 +1162,8 @@
       "publicationDate": "2026-05-30",
       "file": "reports/SITREP_MVE_015.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "016",
@@ -1158,7 +1171,8 @@
       "publicationDate": "2026-05-31",
       "file": "reports/SITREP_MVE_016.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "017",
@@ -1166,7 +1180,8 @@
       "publicationDate": "2026-06-01",
       "file": "reports/SITREP_MVE_017.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "018",
@@ -1174,7 +1189,8 @@
       "publicationDate": "2026-06-02",
       "file": "reports/SITREP_MVE_018.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "019",
@@ -1182,7 +1198,8 @@
       "publicationDate": "2026-06-03",
       "file": "reports/SITREP_MVE_019.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "020",
@@ -1190,7 +1207,8 @@
       "publicationDate": "2026-06-04",
       "file": "reports/SITREP_MVE_020.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "021",
@@ -1198,7 +1216,8 @@
       "publicationDate": "2026-06-05",
       "file": "reports/SITREP_MVE_021.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "022",
@@ -1206,7 +1225,8 @@
       "publicationDate": "2026-06-06",
       "file": "reports/SITREP_MVE_022.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "023",
@@ -1214,7 +1234,8 @@
       "publicationDate": "2026-06-07",
       "file": "reports/SITREP_MVE_023.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "024",
@@ -1222,7 +1243,8 @@
       "publicationDate": "2026-06-08",
       "file": "reports/SITREP_MVE_024.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "025",
@@ -1230,7 +1252,8 @@
       "publicationDate": "2026-06-09",
       "file": "reports/SITREP_MVE_025.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "026",
@@ -1238,7 +1261,8 @@
       "publicationDate": "2026-06-10",
       "file": "reports/SITREP_MVE_026.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "027",
@@ -1246,7 +1270,8 @@
       "publicationDate": "2026-06-11",
       "file": "reports/SITREP_MVE_027.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "028",
@@ -1254,7 +1279,8 @@
       "publicationDate": "2026-06-12",
       "file": "reports/SITREP_MVE_028.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "030",
@@ -1262,7 +1288,8 @@
       "publicationDate": "2026-06-14",
       "file": "reports/SITREP_MVE_030.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "031",
@@ -1270,7 +1297,8 @@
       "publicationDate": "2026-06-15",
       "file": "reports/SITREP_MVE_031.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "032",
@@ -1278,7 +1306,8 @@
       "publicationDate": "2026-06-16",
       "file": "reports/SITREP_MVE_032.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "033",
@@ -1286,7 +1315,8 @@
       "publicationDate": "2026-06-17",
       "file": "reports/SITREP_MVE_033.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "034",
@@ -1294,7 +1324,8 @@
       "publicationDate": "2026-06-18",
       "file": "reports/SITREP_MVE_034.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "035",
@@ -1302,7 +1333,8 @@
       "publicationDate": "2026-06-19",
       "file": "reports/SITREP_MVE_035.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "036",
@@ -1310,7 +1342,8 @@
       "publicationDate": "2026-06-20",
       "file": "reports/SITREP_MVE_036.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "037",
@@ -1318,7 +1351,8 @@
       "publicationDate": "2026-06-21",
       "file": "reports/SITREP_MVE_037.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "038",
@@ -1326,7 +1360,8 @@
       "publicationDate": "2026-06-22",
       "file": "reports/SITREP_MVE_038.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "039",
@@ -1334,7 +1369,8 @@
       "publicationDate": "2026-06-23",
       "file": "reports/SITREP_MVE_039.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "040",
@@ -1342,7 +1378,8 @@
       "publicationDate": "2026-06-24",
       "file": "reports/SITREP_MVE_040.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "041",
@@ -1350,7 +1387,8 @@
       "publicationDate": "2026-06-25",
       "file": "reports/SITREP_MVE_041.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "042",
@@ -1358,7 +1396,8 @@
       "publicationDate": "2026-06-26",
       "file": "reports/SITREP_MVE_042.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "044",
@@ -1366,7 +1405,8 @@
       "publicationDate": "2026-06-28",
       "file": "reports/SITREP_MVE_044.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "046",
@@ -1374,7 +1414,8 @@
       "publicationDate": "2026-06-30",
       "file": "reports/SITREP_MVE_046.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "047",
@@ -1382,7 +1423,8 @@
       "publicationDate": "2026-07-01",
       "file": "reports/SITREP_MVE_047.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "048",
@@ -1390,7 +1432,8 @@
       "publicationDate": "2026-07-02",
       "file": "reports/SITREP_MVE_048.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "049",
@@ -1398,7 +1441,8 @@
       "publicationDate": "2026-07-03",
       "file": "reports/SITREP_MVE_049.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "050",
@@ -1406,7 +1450,8 @@
       "publicationDate": "2026-07-04",
       "file": "reports/SITREP_MVE_050.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "051",
@@ -1414,7 +1459,8 @@
       "publicationDate": "2026-07-05",
       "file": "reports/SITREP_MVE_051.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "052",
@@ -1422,7 +1468,8 @@
       "publicationDate": "2026-07-06",
       "file": "reports/SITREP_MVE_052.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "053",
@@ -1430,7 +1477,8 @@
       "publicationDate": "2026-07-07",
       "file": "reports/SITREP_MVE_053.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "054",
@@ -1438,7 +1486,8 @@
       "publicationDate": "2026-07-08",
       "file": "reports/SITREP_MVE_054.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "055",
@@ -1446,7 +1495,8 @@
       "publicationDate": "2026-07-09",
       "file": "reports/SITREP_MVE_055.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "056",
@@ -1454,7 +1504,8 @@
       "publicationDate": "2026-07-10",
       "file": "reports/SITREP_MVE_056.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "057",
@@ -1462,7 +1513,8 @@
       "publicationDate": "2026-07-11",
       "file": "reports/SITREP_MVE_057.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "058",
@@ -1470,7 +1522,8 @@
       "publicationDate": "2026-07-12",
       "file": "reports/SITREP_MVE_058.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "059",
@@ -1478,7 +1531,8 @@
       "publicationDate": null,
       "file": "reports/SITREP_MVE_059.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "060",
@@ -1486,7 +1540,8 @@
       "publicationDate": "2026-07-14",
       "file": "reports/SITREP_MVE_060.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "061",
@@ -1494,7 +1549,8 @@
       "publicationDate": "2026-07-15",
       "file": "reports/SITREP_MVE_061.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "062",
@@ -1502,7 +1558,8 @@
       "publicationDate": "2026-07-16",
       "file": "reports/SITREP_MVE_062.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "064",
@@ -1510,7 +1567,8 @@
       "publicationDate": "2026-07-18",
       "file": "reports/SITREP_MVE_064.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "065",
@@ -1518,7 +1576,8 @@
       "publicationDate": "2026-07-19",
       "file": "reports/SITREP_MVE_065.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "066",
@@ -1526,7 +1585,8 @@
       "publicationDate": "2026-07-20",
       "file": "reports/SITREP_MVE_066.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "067",
@@ -1534,7 +1594,8 @@
       "publicationDate": "2026-07-21",
       "file": "reports/SITREP_MVE_067.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "068",
@@ -1542,7 +1603,8 @@
       "publicationDate": "2026-07-22",
       "file": "reports/SITREP_MVE_068.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "069",
@@ -1550,7 +1612,8 @@
       "publicationDate": "2026-07-23",
       "file": "reports/SITREP_MVE_069.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "070",
@@ -1558,7 +1621,8 @@
       "publicationDate": "2026-07-24",
       "file": "reports/SITREP_MVE_070.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "071",
@@ -1566,7 +1630,8 @@
       "publicationDate": "2026-07-25",
       "file": "reports/SITREP_MVE_071.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "072",
@@ -1574,7 +1639,8 @@
       "publicationDate": "2026-07-26",
       "file": "reports/SITREP_MVE_072.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "073",
@@ -1582,7 +1648,8 @@
       "publicationDate": "2026-07-27",
       "file": "reports/SITREP_MVE_073.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "074",
@@ -1590,7 +1657,8 @@
       "publicationDate": "2026-07-28",
       "file": "reports/SITREP_MVE_074.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "077",
@@ -1598,7 +1666,8 @@
       "publicationDate": "2026-07-31",
       "file": "reports/SITREP_MVE_077.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "078",
@@ -1606,7 +1675,8 @@
       "publicationDate": "2026-08-01",
       "file": "reports/SITREP_MVE_078.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "079",
@@ -1614,7 +1684,8 @@
       "publicationDate": "2026-08-02",
       "file": "reports/SITREP_MVE_079.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "080",
@@ -1622,7 +1693,8 @@
       "publicationDate": "2026-08-03",
       "file": "reports/SITREP_MVE_080.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "081",
@@ -1630,7 +1702,8 @@
       "publicationDate": "2026-08-04",
       "file": "reports/SITREP_MVE_081.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "082",
@@ -1638,7 +1711,8 @@
       "publicationDate": "2026-08-05",
       "file": "reports/SITREP_MVE_082.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "083",
@@ -1646,7 +1720,8 @@
       "publicationDate": "2026-08-06",
       "file": "reports/SITREP_MVE_083.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "084",
@@ -1654,7 +1729,8 @@
       "publicationDate": "2026-08-07",
       "file": "reports/SITREP_MVE_084.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "085",
@@ -1662,7 +1738,8 @@
       "publicationDate": "2026-08-08",
       "file": "reports/SITREP_MVE_085.pdf",
       "confirmed": null,
-      "deaths": null
+      "deaths": null,
+      "confirmedExtractionFailed": true
     },
     {
       "sitrepNumber": "086",
