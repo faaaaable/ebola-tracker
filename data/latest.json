@@ -1222,23 +1222,6 @@
       "file": "reports/SITREP_MVE_093.pdf",
       "confirmed": 4945,
       "deaths": 2325
-    },
-    {
-      "sitrepNumber": "094",
-      "reportingDate": "2026-08-16",
-      "publicationDate": "2026-08-17",
-      "file": "reports/SitRep_MVE_094-1608.pdf",
-      "confirmed": 5021,
-      "deaths": 2378
-    },
-    {
-      "sitrepNumber": "095",
-      "reportingDate": "2026-08-17",
-      "publicationDate": "2026-08-18",
-      "file": "reports/SitRep_MVE_095-1708.pdf",
-      "confirmed": 5105,
-      "deaths": 2420,
-      "confirmedExtractionFailed": false
     }
   ],
   "timeline": [
