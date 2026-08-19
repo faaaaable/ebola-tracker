@@ -40,12 +40,6 @@
         "deaths": null
       },
       {
-        "name": "Kilo Mission",
-        "province": "Ituri",
-        "cases": 1,
-        "deaths": null
-      },
-      {
         "name": "Goma",
         "province": "Nord-Kivu",
         "cases": 1,
@@ -277,12 +271,6 @@
         "name": "Katwa",
         "province": "Nord-Kivu",
         "cases": 4,
-        "deaths": null
-      },
-      {
-        "name": "Karissibi",
-        "province": "Nord-Kivu",
-        "cases": 0,
         "deaths": null
       },
       {
@@ -2884,12 +2872,6 @@
         "deaths": 0
       },
       {
-        "name": "Autres zones non encore",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 25,
@@ -3097,12 +3079,6 @@
         "name": "Fataki",
         "province": "Ituri",
         "cases": 1,
-        "deaths": 0
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
         "deaths": 0
       },
       {
@@ -3316,12 +3292,6 @@
         "deaths": 0
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 25,
@@ -3529,12 +3499,6 @@
         "name": "Fataki",
         "province": "Ituri",
         "cases": 1,
-        "deaths": 0
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
         "deaths": 0
       },
       {
@@ -3748,12 +3712,6 @@
         "deaths": 0
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 28,
@@ -3961,12 +3919,6 @@
         "name": "Fataki",
         "province": "Ituri",
         "cases": 1,
-        "deaths": 0
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
         "deaths": 0
       },
       {
@@ -4180,12 +4132,6 @@
         "deaths": 0
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 29,
@@ -4396,12 +4342,6 @@
         "deaths": 0
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 31,
@@ -4609,12 +4549,6 @@
         "name": "Fataki",
         "province": "Ituri",
         "cases": 1,
-        "deaths": 0
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
         "deaths": 0
       },
       {
@@ -4834,12 +4768,6 @@
         "deaths": 0
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 33,
@@ -5053,12 +4981,6 @@
         "name": "Mandima",
         "province": "Ituri",
         "cases": 1,
-        "deaths": 0
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
         "deaths": 0
       },
       {
@@ -5284,12 +5206,6 @@
         "deaths": 1
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 34,
@@ -5510,12 +5426,6 @@
         "province": "Ituri",
         "cases": 1,
         "deaths": 1
-      },
-      {
-        "name": "Autres zones non",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
       },
       {
         "name": "Butembo",
@@ -5740,12 +5650,6 @@
         "deaths": 1
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 38,
@@ -5966,12 +5870,6 @@
         "province": "Ituri",
         "cases": 1,
         "deaths": 1
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
       },
       {
         "name": "Butembo",
@@ -6196,12 +6094,6 @@
         "deaths": 1
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 40,
@@ -6422,12 +6314,6 @@
         "province": "Ituri",
         "cases": 1,
         "deaths": 1
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
       },
       {
         "name": "Butembo",
@@ -6658,12 +6544,6 @@
         "deaths": 1
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 41,
@@ -6890,12 +6770,6 @@
         "province": "Ituri",
         "cases": 1,
         "deaths": 1
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
       },
       {
         "name": "Butembo",
@@ -7126,12 +7000,6 @@
         "deaths": 1
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 42,
@@ -7360,12 +7228,6 @@
         "deaths": 1
       },
       {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
-      },
-      {
         "name": "Butembo",
         "province": "Nord-Kivu",
         "cases": 43,
@@ -7592,12 +7454,6 @@
         "province": "Ituri",
         "cases": 1,
         "deaths": 1
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
       },
       {
         "name": "Butembo",
@@ -7856,12 +7712,6 @@
         "province": "Ituri",
         "cases": 1,
         "deaths": 1
-      },
-      {
-        "name": "Autres zones non encore identifiées",
-        "province": "Ituri",
-        "cases": 17,
-        "deaths": 0
       },
       {
         "name": "Butembo",
@@ -16022,12 +15872,6 @@
         "province": "Tshopo",
         "cases": 1,
         "deaths": 1
-      },
-      {
-        "name": "Tshopo (zone non précisée)",
-        "province": "Tshopo",
-        "cases": 1,
-        "deaths": 0
       },
       {
         "name": "Wanie-Rukula",
