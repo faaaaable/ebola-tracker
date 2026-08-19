@@ -128,6 +128,32 @@ def extract_kpi_band(page):
     }
 
 
+def extract_kpi_band_from_table(page):
+    """Repli quand extract_kpi_band() (positions x/y fixes, calibrées sur
+    la mise en page insp.cd) ne trouve rien — vu avec un PDF sante.gouv.cd
+    où cette bande de chiffres clés est en réalité déjà correctement
+    isolée par pdfplumber comme un TABLEAU à 6 cases (une par indicateur),
+    chaque cellule ayant la forme 'LIBELLÉ\\nSUR PLUSIEURS\\nLIGNES\\nVALEUR'.
+    On prend juste la dernière ligne de chaque cellule."""
+    for t in page.extract_tables():
+        for row in t:
+            cells = [c for c in row if c]
+            if len(cells) < 6:
+                continue
+            joined = " ".join(cells).upper()
+            if "CAS" in joined and ("DÉCÈS" in joined or "DECES" in joined) and "LETALITE" in joined.replace("É", "E"):
+                last_lines = [c.strip().split("\n")[-1] for c in cells[:6]]
+                return {
+                    "confirmed": norm_int(last_lines[0]),
+                    "deaths": norm_int(last_lines[1]),
+                    "cfr": norm_pct(last_lines[2]),
+                    "inCTE": norm_int(last_lines[3]),
+                    "recovered": norm_int(last_lines[4]),
+                    "contactsFollowUpRate": norm_pct(last_lines[5]),
+                }
+    return None
+
+
 def extract_one_date(full_text, label):
     """Cherche UNE date précédée du libellé donné ('Date de rapportage' ou
     'Date de publication'), indépendamment de l'autre. Auparavant, les deux
@@ -637,6 +663,14 @@ def main():
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
         meta = extract_meta(full_text, fallback_number=f"{report_num:03d}")
         kpis = extract_kpi_band(pdf.pages[0])
+        if kpis.get("confirmed") is None and kpis.get("inCTE") is None:
+            # Méthode positionnelle vide : probablement une mise en page
+            # différente (voir extract_kpi_band_from_table pour le détail).
+            fallback_kpis = extract_kpi_band_from_table(pdf.pages[0])
+            if fallback_kpis:
+                print("  ! bande de chiffres clés introuvable via positions x/y, "
+                      "repli sur le tableau détecté par pdfplumber.")
+                kpis = fallback_kpis
         sidebar = extract_sidebar_text(pdf.pages[0])
 
         prov_table = extract_province_summary(pdf)
