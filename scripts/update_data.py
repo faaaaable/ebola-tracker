@@ -232,7 +232,7 @@ def extract_province_summary(pdf):
 
 PROVINCE_SUMMARY_ROW_RE = re.compile(
     r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé|Total)\s+"
-    r"(?P<numbers>[\d ]+?)\s*(?P<cfr>[\d,]+)%\s+"
+    r"(?P<numbers>[\d ]+?)\s*(?P<cfr>[\d,]+)\s*%\s+"
     r"(?P<zn>\d+)/(?P<zt>\d+)\s*\([\d,]+\s*%\)\s+"
     r"(?P<newcases>\d+)\s*$",
     re.MULTILINE,
@@ -369,12 +369,12 @@ def extract_zone_detail_rows(pdf):
 
 ZONE_LINE_RE = re.compile(
     r"^(?P<name>[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ'\.\- ]*?)\s+"
-    r"(?P<cas>\d[\d ]*|NA)\s+(?P<deces>\d[\d ]*|NA)\s+(?P<cfr>[\d,]+%|NA)\s*(?P<tail>.*)$"
+    r"(?P<cas>\d[\d ]*|NA)\s+(?P<deces>\d[\d ]*|NA)\s+(?P<cfr>[\d,]+\s*%|NA)\s*(?P<tail>.*)$"
 )
 
 PROV_SUBTOTAL_RE = re.compile(
     r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé)\s+"
-    r"(?P<cas>\d[\d ]*)\s+(?P<deces>\d[\d ]*)\s+(?P<cfr>[\d,]+%)\s+"
+    r"(?P<cas>\d[\d ]*)\s+(?P<deces>\d[\d ]*)\s+(?P<cfr>[\d,]+\s*%)\s+"
     r"(?P<newcases>\d[\d ]*)\s+(?P<deathscomm>\d[\d ]*)\s+"
     r"(?P<deathsintracte>\d[\d ]*)\s+(?P<total>\d[\d ]*)\s*$"
 )
@@ -382,9 +382,21 @@ PROV_SUBTOTAL_RE = re.compile(
 
 def get_zone_section_text(full_text):
     start = full_text.find("Cas et décès confirmés par province et zone de santé")
-    end = full_text.find("Situation des alertes notifiées")
-    if start == -1 or end == -1 or end <= start:
+    if start == -1:
         return None
+    # Plusieurs libellés candidats pour la fin de section : le texte exact
+    # a légèrement varié d'un rapport à l'autre (ex: "Situation des
+    # alertes notifiées par province" vs "Suivi des indicateurs aux
+    # PoE/PoC"), donc on prend le premier trouvé après le début plutôt que
+    # de dépendre d'un seul libellé figé.
+    end_candidates = [
+        full_text.find(marker, start)
+        for marker in ("Situation des alertes notifiées", "Suivi des indicateurs aux PoE/PoC")
+    ]
+    end_candidates = [e for e in end_candidates if e != -1]
+    if not end_candidates:
+        return None
+    end = min(end_candidates)
     return full_text[start:end]
 
 
