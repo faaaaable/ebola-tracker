@@ -1955,7 +1955,16 @@ function renderMap(){
   const maxCases = Math.max(...HEALTH_ZONES.map(z=>z.cases));
   const provincesWithZoneDetail = new Set(zonesToRender.map(z=>z.province));
 
-  zonesToRender.forEach(z=>{
+  // Tri décroissant par nombre de cas avant dessin : Leaflet empile les
+  // cercles dans leur ordre d'ajout (le dernier ajouté passe au-dessus).
+  // Sans ce tri, l'ordre suit juste celui du SitRep source (par province
+  // puis alphabétique), sans rapport avec la taille — un petit cercle
+  // pouvait alors se retrouver caché par un plus grand ajouté après lui.
+  // En ajoutant les plus grands en premier, les petits cercles restent
+  // toujours visibles par-dessus.
+  const zonesToRenderSorted = [...zonesToRender].sort((a,b) => (b.cases||0) - (a.cases||0));
+
+  zonesToRenderSorted.forEach(z=>{
     const coord = lookupZoneCoord(z.name);
     if(!coord) return;
     const t = z.cases / maxCases;
