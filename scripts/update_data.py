@@ -437,15 +437,21 @@ def gap_fill_missing_zones(full_text, zones_raw):
         line = line.strip()
         if not line:
             continue
+        # Tiret/espace tolérés dans le nom de province ("Bas Uélé" vs
+        # "Bas-Uélé" — vu varier d'un rapport à l'autre) : on compare une
+        # version normalisée (tiret → espace) des deux côtés.
+        line_normalized = line.replace("-", " ")
         matched_province = None
         for pname in PROVINCE_NAMES_MAIN:
-            if line.startswith(pname):
+            if line_normalized.startswith(pname.replace("-", " ")):
                 matched_province = pname
                 break
         if matched_province:
             current_province = matched_province
             continue
-        if line.startswith("A ventiler") or line.startswith("Total"):
+        # Insensible à la casse : ce rapport écrit "TOTAL RDC" tout en
+        # majuscules, ce que l'ancienne comparaison ("Total" figé) ratait.
+        if line.upper().startswith("A VENTILER") or line.upper().startswith("TOTAL"):
             continue
         if current_province is None:
             continue
@@ -471,16 +477,23 @@ def parse_zone_detail(rows):
     current_province = None
     total_row = None
 
+    # Normalisation tiret/espace, même logique que dans gap_fill_missing_zones
+    # (variantes vues d'un rapport à l'autre : "Bas Uélé" / "Bas-Uélé").
+    province_by_normalized = {p.replace("-", " "): p for p in PROVINCE_NAMES_MAIN}
+
     for row in rows:
         name = row[0]
-        if name in PROVINCE_NAMES_MAIN and name not in seen_subtotal:
-            seen_subtotal.add(name)
-            current_province = name
-            province_subtotals[name] = row
+        name_normalized = (name or "").replace("-", " ")
+        canon_province = province_by_normalized.get(name_normalized)
+        if canon_province and canon_province not in seen_subtotal:
+            seen_subtotal.add(canon_province)
+            current_province = canon_province
+            province_subtotals[canon_province] = row
             continue
-        if name == "A ventiler":
+        name_upper = (name or "").upper()
+        if name_upper.startswith("A VENTILER"):
             continue
-        if name == "Total":
+        if name_upper.startswith("TOTAL"):
             total_row = row
             continue
         if current_province is None:
