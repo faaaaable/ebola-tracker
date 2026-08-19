@@ -483,6 +483,26 @@ def normalize_zone_key(name):
     return KNOWN_ALIASES.get(n, n)
 
 
+def is_placeholder_zone_name(name):
+    """Détecte les noms de zone "fourre-tout"/non identifiés (ex: 'Autres
+    zones non encore identifiées', 'Tshopo (zone non précisée)') — pas de
+    vraies zones de santé, mais des libellés génériques pour des cas non
+    ventilés. Existent dans de très vieux rapports (antérieurs à l'ajout de
+    ce filtre côté extraction fraîche) et revenaient sinon indéfiniment via
+    le report de dernière valeur (rebuild_zones_history), malgré leur
+    exclusion de toute nouvelle extraction depuis. 'Karissibi' et 'Kilo
+    Mission' sont aussi exclus par prudence (comptes très faibles, rapports
+    très anciens, jamais confirmés comme de vraies zones — à corriger si
+    une vérification future prouve le contraire)."""
+    n = name.upper()
+    if "AUTRES ZONE" in n or "NON PRÉCISÉE" in n or "NON PRECISEE" in n \
+            or "NON IDENTIFIÉE" in n or "NON IDENTIFIEE" in n:
+        return True
+    if name in ("Karissibi", "Kilo Mission"):
+        return True
+    return False
+
+
 def gap_fill_missing_zones(full_text, zones_raw):
     section = get_zone_section_text(full_text)
     if not section:
@@ -532,6 +552,8 @@ def gap_fill_missing_zones(full_text, zones_raw):
         if not m:
             continue
         name = m.group("name").strip()
+        if is_placeholder_zone_name(name):
+            continue
         key = normalize_zone_key(name)
         existing = by_key.get(key)
         if existing is not None and existing[1] == current_province:
@@ -569,6 +591,8 @@ def parse_zone_detail(rows):
             continue
         if name_upper.startswith("TOTAL"):
             total_row = row
+            continue
+        if is_placeholder_zone_name(name or ""):
             continue
         if current_province is None:
             continue
@@ -811,11 +835,18 @@ def rebuild_zones_history(meta, health_zones):
     # provincial (vu avec le SitRep 095, où le total Ituri ne correspondait
     # plus à la somme des zones listées : 4309 vs 3961, écart de 348 cas
     # correspondant exactement aux zones disparues du tableau).
+    #
+    # Exclut du report les noms de zones "fourre-tout"/non identifiées via
+    # is_placeholder_zone_name() (voir sa docstring) — sans ça, ces noms
+    # reviendraient indéfiniment via ce mécanisme de report, malgré leur
+    # exclusion de toute extraction fraîche depuis.
     if previous_entries:
         previous_entries.sort(key=lambda e: e["date"])
         last_known = {}
         for e in previous_entries:
             for z in e.get("zones", []):
+                if is_placeholder_zone_name(z["name"]):
+                    continue
                 last_known[normalize_zone_key(z["name"])] = z
         carried_forward = 0
         for key, z in last_known.items():
