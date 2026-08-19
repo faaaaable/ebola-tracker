@@ -1029,7 +1029,7 @@ const I18N = {
     contactError:"Une erreur est survenue. Réessaie, ou ouvre une issue sur le dépôt GitHub du projet.",
     aboutTitle:"À propos de ce site",
     aboutSourcesTitle:"Sources des données",
-    aboutSourcesBody:"Les chiffres affichés proviennent exclusivement des Rapports de Situation (SitRep) publiés par l'Institut National de Santé Publique (INSP) de la RDC. Chaque SitRep est archivé et consultable dans l'onglet Rapports de situation.",
+    aboutSourcesBody:"Les chiffres affichés proviennent des Rapports de Situation (SitRep) publiés par l'Institut National de Santé Publique (INSP) de la RDC. Chaque SitRep est archivé et consultable dans l'onglet Rapports de situation. Certaines données sont complétées par les Weekly External Situation Report de l'Organisation Mondiale de la Santé (OMS).",
     aboutMethodTitle:"Méthodologie",
     aboutMethodBody:"Un programme automatisé récupère chaque nouveau SitRep publié, en extrait les chiffres clés (cas confirmés, décès, guéris, détail par province et par zone de santé) et met à jour ce site en conséquence, généralement une fois par jour. Les données peuvent faire l'objet de révisions rétroactives par les autorités sanitaires (harmonisation entre provinces, reclassification de décès communautaires) : ces révisions se répercutent automatiquement sur le site dès leur publication.",
     aboutUpdateTitle:"Fréquence de mise à jour",
@@ -1138,7 +1138,7 @@ const I18N = {
     contactError:"Something went wrong. Try again, or open an issue on the project's GitHub repository.",
     aboutTitle:"About this site",
     aboutSourcesTitle:"Data sources",
-    aboutSourcesBody:"The figures shown come exclusively from the Situation Reports (SitRep) published by the National Institute of Public Health (INSP) of the DRC. Every SitRep is archived and available in the Situation reports tab.",
+    aboutSourcesBody:"The figures shown come from the Situation Reports (SitRep) published by the National Institute of Public Health (INSP) of the DRC. Every SitRep is archived and available in the Situation reports tab. Some data is supplemented by the World Health Organization's (WHO) Weekly External Situation Report.",
     aboutMethodTitle:"Methodology",
     aboutMethodBody:"An automated program fetches each newly published SitRep, extracts the key figures (confirmed cases, deaths, recoveries, breakdown by province and health zone) and updates this site accordingly, generally once a day. Data may be revised retroactively by health authorities (harmonisation between provinces, reclassification of community deaths): such revisions are reflected on the site automatically as soon as they're published.",
     aboutUpdateTitle:"Update frequency",
@@ -1637,9 +1637,23 @@ function renderChart(){
       const f = d => String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0');
       return `${f(start)}–${f(end)}`;
     }
-    const labels = weekly.map(w => frWeekLabel(w.weekStart));
-    const communityPct = weekly.map(w => w.total>0 ? +(w.community/w.total*100).toFixed(1) : 0);
-    const intraPct = weekly.map(w => w.total>0 ? +(w.intra/w.total*100).toFixed(1) : 0);
+
+    // 3 semaines antérieures au 060 (le pipeline INSP n'a pas cette donnée
+    // avant cette date, voir échanges du 19/08/2026), tirées du Weekly
+    // External Situation Report (Figure 3 — semaines épidémio. 26 à 28,
+    // découpage mercredi-mardi propre à ce rapport, différent du
+    // regroupement lundi-dimanche utilisé pour le reste du graphique
+    // ci-dessous). Codées en dur : ce sont 3 points ponctuels lus sur un
+    // graphique publié, pas une extraction automatisée à reproduire.
+    const WEEKLY_REPORT_PREFIX = [
+      { label:"24/06–28/06", community:50.6, intra:49.4 },
+      { label:"29/06–05/07", community:50.0, intra:50.0 },
+      { label:"06/07–12/07", community:65.4, intra:34.6 },
+    ];
+
+    const labels = [...WEEKLY_REPORT_PREFIX.map(w=>w.label), ...weekly.map(w => frWeekLabel(w.weekStart))];
+    const communityPct = [...WEEKLY_REPORT_PREFIX.map(w=>w.community), ...weekly.map(w => w.total>0 ? +(w.community/w.total*100).toFixed(1) : 0)];
+    const intraPct = [...WEEKLY_REPORT_PREFIX.map(w=>w.intra), ...weekly.map(w => w.total>0 ? +(w.intra/w.total*100).toFixed(1) : 0)];
 
     const data = {
       labels,
