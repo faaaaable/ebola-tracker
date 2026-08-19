@@ -204,6 +204,85 @@ def extract_province_summary(pdf):
     return None
 
 
+PROVINCE_SUMMARY_ROW_RE = re.compile(
+    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé|Total)\s+"
+    r"(?P<numbers>[\d ]+?)\s*(?P<cfr>[\d,]+)%\s+"
+    r"(?P<zn>\d+)/(?P<zt>\d+)\s*\([\d,]+\s*%\)\s+"
+    r"(?P<newcases>\d+)\s*$",
+    re.MULTILINE,
+)
+
+
+def _best_cas_deces_split(numbers_str, cfr_target):
+    """Désambiguïse 'cas décès' quand les deux nombres sont collés sans
+    séparateur fiable (ex: '4257 1 878' — impossible de savoir
+    syntaxiquement si c'est cas=4257/décès=1878 ou cas=42571/décès=878).
+    Essaie toutes les coupures possibles de la séquence de tokens et
+    retient celle dont la létalité calculée (décès/cas) colle le mieux à
+    la létalité donnée en toutes lettres dans le texte — un ancrage fiable
+    puisqu'elle n'a pas cette ambiguïté de collage."""
+    tokens = numbers_str.split()
+    best = None
+    for k in range(1, len(tokens)):
+        try:
+            cas = int("".join(tokens[:k]))
+            deces = int("".join(tokens[k:]))
+        except ValueError:
+            continue
+        if cas == 0:
+            continue
+        implied_cfr = deces / cas * 100
+        diff = abs(implied_cfr - cfr_target)
+        if best is None or diff < best[0]:
+            best = (diff, cas, deces)
+    if best is None:
+        return None, None
+    return best[1], best[2]
+
+
+def parse_province_summary_from_text(full_text):
+    """Repli quand extract_province_summary() ne trouve pas la table via
+    pdfplumber (mise en page en colonnes différente selon la source, vu
+    avec un PDF provenant de sante.gouv.cd plutôt que insp.cd — la
+    section très 'Total cas' ne tombe alors plus dans la colonne attendue
+    du tableau). Relit directement le texte brut de la section, ligne par
+    ligne, comme pour les sous-totaux de province du tableau détaillé."""
+    start = full_text.find("Répartition des cas et décès confirmés par province touchée")
+    end = full_text.find("Cas et décès confirmés par province et zone de santé")
+    if start == -1 or end == -1 or end <= start:
+        return None, None
+    section = full_text[start:end]
+
+    provinces = []
+    total_row = None
+    for line in section.split("\n"):
+        line = line.strip()
+        m = PROVINCE_SUMMARY_ROW_RE.match(line)
+        if not m:
+            continue
+        cfr_target = float(m.group("cfr").replace(",", "."))
+        cas, deces = _best_cas_deces_split(m.group("numbers"), cfr_target)
+        if cas is None:
+            continue
+        row_dict = {
+            "name": m.group("name"),
+            "confirmed": cas,
+            "deaths": deces,
+            "cfr": cfr_target,
+            "healthZonesAffected": {"n": int(m.group("zn")), "total": int(m.group("zt"))},
+            "newCases24h": int(m.group("newcases")),
+        }
+        if m.group("name") == "Total":
+            total_row = ["Total", cas, deces, cfr_target, None, int(m.group("newcases"))]
+        else:
+            row_dict["name"] = PROVINCE_CANON.get(m.group("name"), m.group("name"))
+            provinces.append(row_dict)
+
+    if not provinces or total_row is None:
+        return None, None
+    return provinces, total_row
+
+
 def parse_province_summary(table):
     provinces = []
     total_row = None
@@ -547,9 +626,18 @@ def main():
         sidebar = extract_sidebar_text(pdf.pages[0])
 
         prov_table = extract_province_summary(pdf)
-        if prov_table is None:
-            raise ValueError("Table de répartition par province introuvable.")
-        provinces, prov_total_row = parse_province_summary(prov_table)
+        if prov_table is not None:
+            provinces, prov_total_row = parse_province_summary(prov_table)
+        else:
+            # Repli texte brut : vu sur un PDF sante.gouv.cd dont la mise en
+            # page en colonnes diffère de celle d'insp.cd (voir
+            # parse_province_summary_from_text pour le détail).
+            print("  ! table de répartition par province introuvable via pdfplumber, "
+                  "repli sur une lecture du texte brut.")
+            provinces, prov_total_row = parse_province_summary_from_text(full_text)
+            if provinces is None:
+                raise ValueError("Table de répartition par province introuvable "
+                                  "(ni via tableau, ni via texte brut).")
 
         zone_rows = extract_zone_detail_rows(pdf)
         _, zones_raw, detail_total_row = parse_zone_detail(zone_rows)
