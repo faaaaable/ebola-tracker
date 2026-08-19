@@ -1938,7 +1938,18 @@ function renderMap(){
   kinshasaMarker.addTo(closedFociLayer);
 
   const isHistorical = timelineIndex !== null && ZONES_HISTORY[timelineIndex];
-  const zonesToRender = isHistorical ? ZONES_HISTORY[timelineIndex].zones : HEALTH_ZONES;
+  // "Aujourd'hui" (non historique) utilise désormais la DERNIÈRE entrée de
+  // ZONES_HISTORY plutôt que HEALTH_ZONES brut — ce dernier reflète le
+  // SitRep national le plus récent tel quel, sans passer par le
+  // dédoublonnage/report de dernière valeur qu'on applique à
+  // ZONES_HISTORY. Sans ça, exclure un SitRep de ZONES_HISTORY (voir
+  // ZONES_HISTORY_EXCLUDED_SITREPS côté pipeline) ne changeait rien à la
+  // position "Aujourd'hui" de la carte, qui continuait d'afficher les
+  // données brutes non nettoyées de ce même SitRep — vu le 19/08/2026
+  // avec le SitRep 095 (sante.gouv.cd, zones dupliquées/mal attribuées).
+  const latestHistoryEntry = ZONES_HISTORY.length ? ZONES_HISTORY[ZONES_HISTORY.length - 1] : null;
+  const zonesToRender = isHistorical ? ZONES_HISTORY[timelineIndex].zones
+    : (latestHistoryEntry ? latestHistoryEntry.zones : HEALTH_ZONES);
   // échelle de couleur fixe basée sur le maximum ACTUEL, pour que la couleur
   // d'une zone garde la même signification quelle que soit la date affichée.
   const maxCases = Math.max(...HEALTH_ZONES.map(z=>z.cases));
