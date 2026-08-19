@@ -9,10 +9,10 @@
   "national": {
     "confirmed": 5021,
     "deaths": 2378,
-    "recovered": null,
+    "recovered": 1061,
     "cfr": 47.4,
-    "inCTE": null,
-    "contactsFollowUpRate": null,
+    "inCTE": 751,
+    "contactsFollowUpRate": 82.2,
     "provincesAffected": 6,
     "healthZonesAffected": {
       "n": 55,
@@ -97,7 +97,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 81
+      "daysNoCase": 82
     },
     {
       "name": "Bas-Uélé",
