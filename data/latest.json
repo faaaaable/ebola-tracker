@@ -97,7 +97,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 79
+      "daysNoCase": 80
     },
     {
       "name": "Bas-Uélé",
@@ -1603,7 +1603,7 @@
     {
       "sitrepNumber": "078",
       "reportingDate": "2026-07-31",
-      "publicationDate": null,
+      "publicationDate": "2026-08-01",
       "file": "reports/SITREP_MVE_078.pdf",
       "confirmed": null,
       "deaths": null
@@ -1733,8 +1733,8 @@
       "reportingDate": "2026-08-16",
       "publicationDate": "2026-08-17",
       "file": "reports/SitRep_MVE_094-1608.pdf",
-      "confirmed": null,
-      "deaths": null
+      "confirmed": 5021,
+      "deaths": 2378
     }
   ],
   "timeline": [
