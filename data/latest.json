@@ -97,7 +97,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 82
+      "daysNoCase": 83
     },
     {
       "name": "Bas-Uélé",
@@ -564,36 +564,6 @@
       "newCases24h": 0,
       "deathsCommunity24h": 0,
       "deathsIntraCTE24h": 0
-    },
-    {
-      "name": "DPS",
-      "province": "Tshopo",
-      "cases": 0,
-      "deaths": 0,
-      "cfr": 0.0,
-      "newCases24h": 0,
-      "deathsCommunity24h": 0,
-      "deathsIntraCTE24h": 0
-    },
-    {
-      "name": "Ituri",
-      "province": "Bas-Uélé",
-      "cases": 298,
-      "deaths": 42,
-      "cfr": 14.1,
-      "newCases24h": 84,
-      "deathsCommunity24h": 40,
-      "deathsIntraCTE24h": 119
-    },
-    {
-      "name": "Total Général",
-      "province": "Sud-Kivu",
-      "cases": 949,
-      "deaths": 118,
-      "cfr": 12.4,
-      "newCases24h": 156,
-      "deathsCommunity24h": 116,
-      "deathsIntraCTE24h": 685
     },
     {
       "name": "Kambala",
