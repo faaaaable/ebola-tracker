@@ -1953,7 +1953,7 @@ function renderMap(){
   // échelle de couleur fixe basée sur le maximum ACTUEL, pour que la couleur
   // d'une zone garde la même signification quelle que soit la date affichée.
   const maxCases = Math.max(...HEALTH_ZONES.map(z=>z.cases));
-  const provincesWithZoneDetail = new Set(HEALTH_ZONES.map(z=>z.province));
+  const provincesWithZoneDetail = new Set(zonesToRender.map(z=>z.province));
 
   zonesToRender.forEach(z=>{
     const coord = lookupZoneCoord(z.name);
@@ -2061,11 +2061,17 @@ function stopTimelinePlay(){
   if(btn) btn.textContent = tr('timelinePlay');
 }
 function latestAvailableDateLabel(){
-  // Date du SitRep le plus récent, pas le jour civil actuel — plus honnête,
-  // puisque le site peut avoir plusieurs jours de retard sur la parution
-  // du dernier bulletin. Repli sur sortedSitreps() si currentMeta n'est pas
-  // encore chargé (avant la réponse de data/latest.json).
-  let latestDate = currentMeta ? currentMeta.reportingDate : null;
+  // Date du dernier SNAPSHOT DE CARTE disponible (ZONES_HISTORY), pas
+  // forcément celle du dernier SitRep national — les deux peuvent diverger
+  // quand un SitRep est exclu de ZONES_HISTORY (voir
+  // ZONES_HISTORY_EXCLUDED_SITREPS côté pipeline) tout en restant pris en
+  // compte pour les chiffres nationaux. Afficher la date du SitRep exclu
+  // ici serait trompeur : la carte à cette position montre en réalité les
+  // données du dernier SitRep FIABLE précédent, pas celui-là.
+  let latestDate = ZONES_HISTORY.length ? ZONES_HISTORY[ZONES_HISTORY.length - 1].date : null;
+  if(!latestDate){
+    latestDate = currentMeta ? currentMeta.reportingDate : null;
+  }
   if(!latestDate){
     const s = sortedSitreps();
     latestDate = s.length ? s[s.length-1].date : null;
