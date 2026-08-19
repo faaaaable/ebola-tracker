@@ -962,7 +962,6 @@ const I18N = {
     catchupLabel:"Rattrapage (probable)",
     dailyDeathsLabel:"Nouveaux décès",
     chartNoteDaily:"Certains pics reflètent des rattrapages de données (révisions, bulletins manquants), pas nécessairement une hausse réelle.",
-    weekOfLabel:(start,end)=>`Semaine du ${start} au ${end}`,
     communityDeathsLabel:"Communautaires",
     intraCteDeathsLabel:"Intra-CTE",
     chartLoadError:"Chart.js n'a pas pu se charger (connexion internet requise pour ce CDN). Vérifie ta connexion et recharge la page.",
@@ -1071,7 +1070,6 @@ const I18N = {
     catchupLabel:"Catch-up (likely)",
     dailyDeathsLabel:"New deaths",
     chartNoteDaily:"Some spikes reflect data catch-ups (revisions, missing bulletins), not necessarily a real increase.",
-    weekOfLabel:(start,end)=>`Week of ${start} to ${end}`,
     communityDeathsLabel:"Community",
     intraCteDeathsLabel:"Intra-ETC",
     chartLoadError:"Chart.js failed to load (an internet connection is required for this CDN). Check your connection and reload the page.",
@@ -1624,8 +1622,10 @@ function renderChart(){
     function frWeekLabel(iso){
       const start = new Date(iso+'T00:00:00');
       const end = new Date(start); end.setDate(start.getDate()+6);
-      const f = d => frDate(d.toISOString().slice(0,10));
-      return tr('weekOfLabel')(f(start), f(end));
+      // Format JJ/MM compact plutôt que "13 juillet au 19 juillet" — prend
+      // moins de place sur les écrans étroits (mobile).
+      const f = d => String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0');
+      return `${f(start)}–${f(end)}`;
     }
     const labels = weekly.map(w => frWeekLabel(w.weekStart));
     const communityPct = weekly.map(w => w.total>0 ? +(w.community/w.total*100).toFixed(1) : 0);
