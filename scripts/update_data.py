@@ -670,13 +670,18 @@ def main():
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
         meta = extract_meta(full_text, fallback_number=f"{report_num:03d}")
         kpis = extract_kpi_band(pdf.pages[0])
-        if kpis.get("confirmed") is None and kpis.get("inCTE") is None:
-            # Méthode positionnelle vide : probablement une mise en page
-            # différente (voir extract_kpi_band_from_table pour le détail).
+        # N'importe lequel des 6 champs manquant suffit à déclencher le
+        # repli — exiger que confirmed ET inCTE soient vides simultanément
+        # (version précédente) a laissé passer le cas réel du SitRep 094 :
+        # confirmed avait récupéré une valeur non-vide (mais sans rapport,
+        # à une mauvaise position de page), donc inCTE/recovered sont
+        # restés vides sans jamais déclencher le repli.
+        if any(kpis.get(k) is None for k in
+               ("confirmed", "deaths", "cfr", "inCTE", "recovered", "contactsFollowUpRate")):
             fallback_kpis = extract_kpi_band_from_table(pdf.pages[0])
             if fallback_kpis:
-                print("  ! bande de chiffres clés introuvable via positions x/y, "
-                      "repli sur le tableau détecté par pdfplumber.")
+                print("  ! au moins un champ de la bande de chiffres clés manquant via "
+                      "positions x/y, repli sur le tableau détecté par pdfplumber.")
                 kpis = fallback_kpis
         sidebar = extract_sidebar_text(pdf.pages[0])
 
