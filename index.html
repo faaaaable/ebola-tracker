@@ -2310,16 +2310,18 @@ function renderProvinceSummary(){
   const body = document.getElementById('provinceSummaryBody');
   if(!body) return;
   const rows = [...PROVINCE_TABLE_DATA].sort((a,b)=>b.confirmed-a.confirmed);
+  const nationalTotal = national && national.confirmed ? national.confirmed : null;
   body.innerHTML = rows.map(p=>{
     const color = PROVINCE_COLORS[p.name] || 'var(--ink-faint)';
     const zonesAffected = p.healthZonesAffected ? `${p.healthZonesAffected.n} / ${p.healthZonesAffected.total}` : '—';
     const newBadge = p.newCases24h>0
       ? `<span class="zone-new-badge has-new">+${fmt(p.newCases24h)}</span>`
       : `<span class="zone-new-badge no-new">${fmt(p.newCases24h)}</span>`;
+    const pctOfTotal = nationalTotal ? ` <span style="color:var(--ink-faint);">(${(p.confirmed/nationalTotal*100).toFixed(1)}%)</span>` : '';
     return `
       <tr>
         <td><div class="zone-name-cell"><span class="zdot" style="background:${color};"></span>${p.name}</div></td>
-        <td>${fmt(p.confirmed)}</td>
+        <td>${fmt(p.confirmed)}${pctOfTotal}</td>
         <td>${fmt(p.deaths)}</td>
         <td><span class="zone-badge ${cfrBadgeClass(p.cfr)}">${p.cfr.toFixed(1)}%</span></td>
         <td>${zonesAffected}</td>
