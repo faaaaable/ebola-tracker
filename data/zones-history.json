@@ -15895,7 +15895,7 @@
   },
   {
     "sitrep": "093",
-    "date": "2026-08-15",
+    "date": "2026-08-16",
     "zones": [
       {
         "name": "Adja",
@@ -15936,13 +15936,13 @@
       {
         "name": "Bunia",
         "province": "Ituri",
-        "cases": 1157,
-        "deaths": 352
+        "cases": 1174,
+        "deaths": 358
       },
       {
         "name": "Damas",
         "province": "Ituri",
-        "cases": 23,
+        "cases": 25,
         "deaths": 9
       },
       {
@@ -15954,7 +15954,7 @@
       {
         "name": "Fataki",
         "province": "Ituri",
-        "cases": 64,
+        "cases": 69,
         "deaths": 30
       },
       {
@@ -15978,8 +15978,8 @@
       {
         "name": "Lita",
         "province": "Ituri",
-        "cases": 173,
-        "deaths": 98
+        "cases": 181,
+        "deaths": 102
       },
       {
         "name": "Logo",
@@ -16014,25 +16014,31 @@
       {
         "name": "Mangala",
         "province": "Ituri",
-        "cases": 156,
-        "deaths": 88
+        "cases": 162,
+        "deaths": 92
       },
       {
         "name": "Mongbwalu",
         "province": "Ituri",
-        "cases": 585,
+        "cases": 590,
         "deaths": 282
+      },
+      {
+        "name": "Nia-Nia",
+        "province": "Ituri",
+        "cases": 170,
+        "deaths": 100
       },
       {
         "name": "Nizi",
         "province": "Ituri",
-        "cases": 534,
-        "deaths": 239
+        "cases": 539,
+        "deaths": 240
       },
       {
         "name": "Nyankunde",
         "province": "Ituri",
-        "cases": 120,
+        "cases": 121,
         "deaths": 35
       },
       {
@@ -16042,40 +16048,28 @@
         "deaths": 4
       },
       {
-        "name": "Rwampara",
-        "province": "Ituri",
-        "cases": 849,
-        "deaths": 328
-      },
-      {
         "name": "Tchomia",
         "province": "Ituri",
-        "cases": 49,
+        "cases": 50,
         "deaths": 25
-      },
-      {
-        "name": "Beni",
-        "province": "Nord-Kivu",
-        "cases": 91,
-        "deaths": 68
       },
       {
         "name": "Butembo",
         "province": "Nord-Kivu",
-        "cases": 111,
-        "deaths": 92
+        "cases": 112,
+        "deaths": 95
       },
       {
         "name": "Kalunguta",
         "province": "Nord-Kivu",
-        "cases": 12,
-        "deaths": 5
+        "cases": 13,
+        "deaths": 6
       },
       {
         "name": "Katwa",
         "province": "Nord-Kivu",
-        "cases": 285,
-        "deaths": 193
+        "cases": 291,
+        "deaths": 198
       },
       {
         "name": "Kyondo",
@@ -16116,7 +16110,7 @@
       {
         "name": "Vuhovi",
         "province": "Nord-Kivu",
-        "cases": 4,
+        "cases": 5,
         "deaths": 2
       },
       {
@@ -16132,15 +16126,9 @@
         "deaths": 1
       },
       {
-        "name": "Isiro",
-        "province": "Haut-Uélé",
-        "cases": 42,
-        "deaths": 19
-      },
-      {
         "name": "Pawa",
         "province": "Haut-Uélé",
-        "cases": 19,
+        "cases": 20,
         "deaths": 14
       },
       {
@@ -16156,10 +16144,10 @@
         "deaths": 2
       },
       {
-        "name": "Makiso--Kisangani",
+        "name": "Makiso-Kisangani",
         "province": "Tshopo",
-        "cases": 4,
-        "deaths": 3
+        "cases": 5,
+        "deaths": 4
       },
       {
         "name": "Mangobo",
@@ -16186,16 +16174,28 @@
         "deaths": 0
       },
       {
-        "name": "Nia-Nia",
+        "name": "Rwampara",
         "province": "Ituri",
-        "cases": 164,
-        "deaths": 96
+        "cases": 856,
+        "deaths": 331
+      },
+      {
+        "name": "Beni",
+        "province": "Nord-Kivu",
+        "cases": 93,
+        "deaths": 70
       },
       {
         "name": "Goma",
         "province": "Nord-Kivu",
         "cases": 1,
         "deaths": 0
+      },
+      {
+        "name": "Isiro",
+        "province": "Haut-Uélé",
+        "cases": 42,
+        "deaths": 20
       },
       {
         "name": "Rungu",
