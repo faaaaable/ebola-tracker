@@ -2677,11 +2677,39 @@ window.addEventListener('hashchange', ()=>switchTab(location.hash.replace('#',''
 /* ============ INIT ============ */
 document.getElementById('langFr').classList.toggle('active', currentLang==='fr');
 document.getElementById('langEn').classList.toggle('active', currentLang==='en');
+function mergeHealthZonesWithHistory(){
+  // Complète HEALTH_ZONES (données riches du SitRep le plus récent) avec
+  // toute zone présente dans la dernière entrée de ZONES_HISTORY mais
+  // absente de HEALTH_ZONES — même principe que côté pipeline
+  // (rebuild_zones_history) : un SitRep qui cesse de citer une zone ne
+  // doit jamais la faire disparaître, ni de la carte, ni du tableau
+  // détaillé. Les champs "du jour" (nouveaux cas 24h, décès 24h) sont mis
+  // à 0 pour ces zones reportées, faute de vraie donnée plus récente.
+  if(!ZONES_HISTORY.length) return;
+  const known = new Set(HEALTH_ZONES.map(z=>z.name));
+  const lastEntry = ZONES_HISTORY[ZONES_HISTORY.length - 1];
+  let carriedForward = 0;
+  lastEntry.zones.forEach(z=>{
+    if(known.has(z.name)) return;
+    const cfr = z.cases>0 ? +((z.deaths||0)/z.cases*100).toFixed(1) : 0;
+    HEALTH_ZONES.push({
+      name:z.name, province:z.province, cases:z.cases, deaths:z.deaths||0, cfr,
+      newCases24h:0, deathsCommunity24h:0, deathsIntraCTE24h:0
+    });
+    known.add(z.name);
+    carriedForward++;
+  });
+  if(carriedForward){
+    console.info(`${carriedForward} zone(s) reportée(s) depuis l'historique dans le tableau détaillé (absentes du SitRep le plus récent).`);
+  }
+}
+
 safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
 switchTab(location.hash.replace('#',''), false);
 Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports()]).then(()=>{
+  safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
   safeRun(setupTimeline, 'setupTimeline');
