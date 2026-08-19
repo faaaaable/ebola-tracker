@@ -410,9 +410,16 @@ def gap_fill_missing_zones(full_text, zones_raw):
     if not section:
         return zones_raw
 
-    already = {(prov, name) for prov, name, _ in zones_raw}
+    # Indexé par NOM SEUL (pas par (province, nom)) : une zone donnée
+    # n'appartient qu'à une seule province, donc si la province déjà
+    # connue pour ce nom diffère de celle lue ici, on REMPLACE plutôt que
+    # d'ajouter un doublon. Sans ça, une erreur de suivi de province côté
+    # tableau (current_province mal mis à jour) laisse coexister une
+    # entrée fausse et une entrée corrigée au lieu que la seconde
+    # remplace la première — vu avec le SitRep 094/sante.gouv.cd (Butembo,
+    # Katwa... dupliqués sous "Ituri" ET sous leur vraie province).
+    by_name = {name: (prov, row) for prov, name, row in zones_raw}
     current_province = None
-    extra = []
 
     for line in section.split("\n"):
         line = line.strip()
@@ -434,15 +441,15 @@ def gap_fill_missing_zones(full_text, zones_raw):
         if not m:
             continue
         name = m.group("name").strip()
-        if (current_province, name) in already:
+        existing = by_name.get(name)
+        if existing is not None and existing[0] == current_province:
             continue
         row = [name, m.group("cas"), m.group("deces"), m.group("cfr")]
         tail_nums = re.findall(r"\d+", m.group("tail"))
         row += tail_nums
-        extra.append((current_province, name, row))
-        already.add((current_province, name))
+        by_name[name] = (current_province, row)
 
-    return zones_raw + extra
+    return [(prov, name, row) for name, (prov, row) in by_name.items()]
 
 
 def parse_zone_detail(rows):
