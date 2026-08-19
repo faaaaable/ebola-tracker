@@ -830,6 +830,19 @@
     </div>
   </section>
 
+  <section class="section" id="who-reports-section" style="display:none;">
+    <div class="section-head">
+      <div class="section-title" data-i18n="whoReportsTitle">Weekly External Situation Report (OMS)</div>
+    </div>
+    <p class="page-intro" data-i18n="whoReportsIntro">
+      Bulletins hebdomadaires publiés par le Bureau régional Afrique de l'Organisation Mondiale de la Santé sur
+      cette épidémie — une source indépendante de l'INSP, à un rythme hebdomadaire plutôt que quasi quotidien.
+    </p>
+    <div class="panel" style="padding:16px;">
+      <div id="whoReportsList" class="reports-grid"></div>
+    </div>
+  </section>
+
   </div><!-- /tab-reports -->
 
   <div class="tab-panel" id="tab-about">
@@ -1039,6 +1052,9 @@ const I18N = {
     reportsTitle:"Rapports de situation",
     reportsIntro:"Chaque bulletin officiel publié par l'Institut National de Santé Publique de la République Démocratique du Congo est archivé ici dès sa publication, au format PDF original — c'est la source unique de toutes les données affichées sur ce site.",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
+    whoReportsTitle:"Weekly External Situation Report (OMS)",
+    whoReportsIntro:"Bulletins hebdomadaires publiés par le Bureau régional Afrique de l'Organisation Mondiale de la Santé sur cette épidémie — une source indépendante de l'INSP, à un rythme hebdomadaire plutôt que quasi quotidien.",
+    whoReportsLabel:(n)=>`Rapport N°${n}`,
     reportsReportingDate:(d)=>`Situation au ${d}`,
     reportsUnknownDate:"date inconnue",
     reportsSearchPlaceholder:"Rechercher (N°, mois, année)…",
@@ -1148,6 +1164,9 @@ const I18N = {
     reportsTitle:"Situation reports",
     reportsIntro:"Every official bulletin published by the National Institute of Public Health of the Democratic Republic of the Congo is archived here as soon as it's published, in its original PDF form — the single source for all data shown on this site.",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
+    whoReportsTitle:"Weekly External Situation Report (WHO)",
+    whoReportsIntro:"Weekly bulletins published by the WHO Regional Office for Africa on this outbreak — a source independent from INSP, published weekly rather than near-daily.",
+    whoReportsLabel:(n)=>`Report N°${n}`,
     reportsReportingDate:(d)=>`Situation as of ${d}`,
     reportsUnknownDate:"unknown date",
     reportsSearchPlaceholder:"Search (N°, month, year)…",
@@ -1440,6 +1459,7 @@ let surveillanceTotal = SURVEILLANCE_TOTAL_SEED;
 let poePocData = POE_POC_SEED;
 let poePocTotal = POE_POC_TOTAL_SEED;
 let reportsData = REPORTS_SEED;
+let whoReportsData = [];
 let timelineData = TIMELINE_SEED;
 let currentMeta = null;
 
@@ -1525,6 +1545,19 @@ async function loadRemoteLatest(){
     // désormais elles aussi pilotées par ce fichier quand il est disponible.
   }catch(e){
     console.warn('data/latest.json indisponible, utilisation des données de référence intégrées.', e);
+  }
+}
+
+async function loadRemoteWhoReports(){
+  // Source distincte de latest.json (donc fichier séparé) : ne doit jamais
+  // être mélangée avec reportsData (INSP) dans le même tableau — deux
+  // organismes différents, deux rythmes de publication différents.
+  try{
+    const res = await fetch('data/who-reports.json', { cache:'no-store' });
+    if(!res.ok) return;
+    whoReportsData = await res.json();
+  }catch(e){
+    console.warn('data/who-reports.json indisponible.', e);
   }
 }
 
@@ -2097,6 +2130,7 @@ function renderAll(){
   safeRun(renderMap, 'map');
   safeRun(renderZonesTable, 'zonesTable');
   safeRun(renderReportsList, 'reportsList');
+  safeRun(renderWhoReportsList, 'whoReportsList');
 }
 
 /* ============ RAPPORTS DE SITUATION OFFICIELS ============ */
@@ -2170,6 +2204,29 @@ function applyReportsFilter(){
   });
 }
 document.getElementById('reportsSearch')?.addEventListener('input', applyReportsFilter);
+
+function renderWhoReportsList(){
+  const section = document.getElementById('who-reports-section');
+  const container = document.getElementById('whoReportsList');
+  if(!container || !section) return;
+  if(!whoReportsData || whoReportsData.length===0){
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = 'block';
+  const sorted = [...whoReportsData].sort((a,b)=>(b.number||'').localeCompare(a.number||''));
+  container.innerHTML = sorted.map(r=>`
+    <div class="report-chip">
+      <span class="rc-info">
+        <span class="rc-label">${tr('whoReportsLabel')(r.number)}</span>
+        <span class="rc-date">${r.date ? tr('reportsReportingDate')(frDate(r.date) + ' ' + r.date.slice(0,4)) : tr('reportsUnknownDate')}</span>
+      </span>
+      <a class="rc-dl" href="${r.file}" target="_blank" rel="noopener" title="${tr('reportsDownload')}" aria-label="${tr('reportsDownload')}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>
+      </a>
+    </div>
+  `).join('');
+}
 
 /* ============ FORMULAIRE DE CONTACT ============ */
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaewpyqb';
@@ -2607,7 +2664,7 @@ safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
 switchTab(location.hash.replace('#',''), false);
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily()]).then(()=>{
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports()]).then(()=>{
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
   safeRun(setupTimeline, 'setupTimeline');
