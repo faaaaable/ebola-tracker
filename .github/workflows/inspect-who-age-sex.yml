@@ -1,0 +1,25 @@
+name: Inspection âge/sexe OMS
+
+on:
+  workflow_dispatch:
+    inputs:
+      fichier:
+        description: "Chemin du PDF à inspecter"
+        required: true
+        default: "reports/who/WHO_WeeklyExtSitRep_06_2026-06-21.pdf"
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances
+        run: pip install pdfplumber
+
+      - name: Lancer l'inspection
+        run: python scripts/inspect_who_age_sex.py "${{ github.event.inputs.fichier }}"
