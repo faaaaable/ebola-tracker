@@ -484,9 +484,14 @@ def parse_report_summary(pdf_path):
         confirmed = deaths = None
         if prov_table:
             _, total_row = parse_province_summary(prov_table)
-            if total_row:
-                confirmed = norm_int(total_row[1])
-                deaths = norm_int(total_row[2])
+        else:
+            # Même repli que dans main() : certains PDF (ex: sante.gouv.cd
+            # plutôt qu'insp.cd) ont une mise en page en colonnes que
+            # pdfplumber ne détecte pas comme la table attendue.
+            _, total_row = parse_province_summary_from_text(full_text)
+        if total_row:
+            confirmed = norm_int(total_row[1])
+            deaths = norm_int(total_row[2])
     return {
         "sitrepNumber": meta["sitrepNumber"],
         "reportingDate": meta["reportingDate"],
@@ -507,7 +512,16 @@ def rebuild_reports_list(current_reports):
             continue
         num = m.group(1)
         existing = existing_by_num.get(num)
-        needs_parse = existing is None or not existing.get("reportingDate")
+        # Inclut aussi confirmed manquant, pas seulement reportingDate : vu
+        # avec le SitRep 094 (sante.gouv.cd), où la date était déjà bien
+        # extraite mais confirmed restait vide faute du repli texte brut
+        # (ajouté après coup). Effet de bord accepté : les tout premiers
+        # SitRep (001-003...), dont confirmed ne sera JAMAIS extractible
+        # (table absente de ce format d'époque), seront retentés à chaque
+        # run — coût négligeable, mais volontairement documenté ici plutôt
+        # que laissé implicite.
+        needs_parse = existing is None or not existing.get("reportingDate") \
+            or existing.get("confirmed") is None
         if existing is not None and not needs_parse:
             entry = dict(existing)
             entry["file"] = pdf_path.replace("\\", "/")
