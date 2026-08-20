@@ -355,14 +355,20 @@
   },
   {
     "date": "2026-08-16",
-    "sitrepNumber": "093-bis",
+    "sitrepNumber": "094",
     "contactsFollowUpRate": 82.2,
     "source": "SitRep INSP (automatique)"
   },
   {
     "date": "2026-08-17",
-    "sitrepNumber": "094",
+    "sitrepNumber": "095",
     "contactsFollowUpRate": 84.1,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-08-18",
+    "sitrepNumber": "096",
+    "contactsFollowUpRate": 84.0,
     "source": "SitRep INSP (automatique)"
   }
 ]

@@ -38,7 +38,7 @@
         "n": 28,
         "total": 36
       },
-      "newCases24h": null,
+      "newCases24h": 82,
       "newDeathsCommunity24h": 29,
       "newDeathsIntraCTE24h": 14,
       "status": "active-epicenter"
@@ -52,7 +52,7 @@
         "n": 12,
         "total": 34
       },
-      "newCases24h": null,
+      "newCases24h": 12,
       "newDeathsCommunity24h": 5,
       "newDeathsIntraCTE24h": 4,
       "status": "active"
@@ -66,7 +66,7 @@
         "n": 6,
         "total": 13
       },
-      "newCases24h": null,
+      "newCases24h": 8,
       "newDeathsCommunity24h": 1,
       "newDeathsIntraCTE24h": 3,
       "status": "active"
@@ -80,7 +80,7 @@
         "n": 7,
         "total": 23
       },
-      "newCases24h": null,
+      "newCases24h": 0,
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "active"
@@ -94,11 +94,11 @@
         "n": 1,
         "total": 34
       },
-      "newCases24h": null,
+      "newCases24h": 0,
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 97
+      "daysNoCase": 98
     },
     {
       "name": "Bas-Uélé",
@@ -109,7 +109,7 @@
         "n": 2,
         "total": 11
       },
-      "newCases24h": null,
+      "newCases24h": 1,
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "active"
