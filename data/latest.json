@@ -98,7 +98,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 96
+      "daysNoCase": 97
     },
     {
       "name": "Bas-Uélé",
@@ -116,16 +116,6 @@
     }
   ],
   "healthZones": [
-    {
-      "name": "Ituri",
-      "province": "Bas-Uélé",
-      "cases": 4391,
-      "deaths": 1958,
-      "cfr": 44.6,
-      "newCases24h": 82,
-      "deathsCommunity24h": 29,
-      "deathsIntraCTE24h": 0
-    },
     {
       "name": "Adja",
       "province": "Ituri",
@@ -194,7 +184,7 @@
       "cfr": 31.5,
       "newCases24h": 25,
       "deathsCommunity24h": 12,
-      "deathsIntraCTE24h": 12
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Damas",
@@ -254,7 +244,7 @@
       "cfr": 69.8,
       "newCases24h": 2,
       "deathsCommunity24h": 2,
-      "deathsIntraCTE24h": 2
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Lita",
@@ -264,7 +254,7 @@
       "cfr": 57.0,
       "newCases24h": 3,
       "deathsCommunity24h": 2,
-      "deathsIntraCTE24h": 2
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Logo",
@@ -314,7 +304,7 @@
       "cfr": 64.0,
       "newCases24h": 2,
       "deathsCommunity24h": 2,
-      "deathsIntraCTE24h": 2
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Mangala",
@@ -324,7 +314,7 @@
       "cfr": 57.2,
       "newCases24h": 8,
       "deathsCommunity24h": 7,
-      "deathsIntraCTE24h": 7
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Mongbwalu",
@@ -344,7 +334,7 @@
       "cfr": 58.4,
       "newCases24h": 3,
       "deathsCommunity24h": 1,
-      "deathsIntraCTE24h": 1
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Nizi",
@@ -354,7 +344,7 @@
       "cfr": 43.5,
       "newCases24h": 15,
       "deathsCommunity24h": 3,
-      "deathsIntraCTE24h": 3
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Rimba",
@@ -387,16 +377,6 @@
       "deathsIntraCTE24h": 0
     },
     {
-      "name": "Nord-Kivu",
-      "province": "Bas-Uélé",
-      "cases": 645,
-      "deaths": 440,
-      "cfr": 68.2,
-      "newCases24h": 12,
-      "deathsCommunity24h": 5,
-      "deathsIntraCTE24h": 4
-    },
-    {
       "name": "Beni",
       "province": "Nord-Kivu",
       "cases": 98,
@@ -414,7 +394,7 @@
       "cfr": 79.0,
       "newCases24h": 6,
       "deathsCommunity24h": 2,
-      "deathsIntraCTE24h": 2
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Kalunguta",
@@ -482,9 +462,9 @@
       "cases": 63,
       "deaths": 37,
       "cfr": 58.7,
-      "newCases24h": 2,
-      "deathsCommunity24h": 2,
-      "deathsIntraCTE24h": 0
+      "newCases24h": 0,
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 2
     },
     {
       "name": "Oicha",
@@ -507,24 +487,14 @@
       "deathsIntraCTE24h": 0
     },
     {
-      "name": "Haut-Uélé",
-      "province": "Bas-Uélé",
-      "cases": 153,
-      "deaths": 69,
-      "cfr": 45.1,
-      "newCases24h": 8,
-      "deathsCommunity24h": 1,
-      "deathsIntraCTE24h": 3
-    },
-    {
       "name": "Boma Mangbetu",
       "province": "Haut-Uélé",
       "cases": 23,
       "deaths": 9,
       "cfr": 39.1,
-      "newCases24h": 1,
-      "deathsCommunity24h": 1,
-      "deathsIntraCTE24h": 0
+      "newCases24h": 0,
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 1
     },
     {
       "name": "Gombari",
@@ -562,19 +532,9 @@
       "cases": 53,
       "deaths": 21,
       "cfr": 39.6,
-      "newCases24h": 1,
-      "deathsCommunity24h": 1,
-      "deathsIntraCTE24h": 0
-    },
-    {
-      "name": "Tshopo",
-      "province": "Bas-Uélé",
-      "cases": 14,
-      "deaths": 7,
-      "cfr": 50.0,
       "newCases24h": 0,
       "deathsCommunity24h": 0,
-      "deathsIntraCTE24h": 0
+      "deathsIntraCTE24h": 1
     },
     {
       "name": "Kabondo",
@@ -588,7 +548,7 @@
     },
     {
       "name": "Makiso--Kisangani",
-      "province": "Bas-Uélé",
+      "province": "Tshopo",
       "cases": 5,
       "deaths": 4,
       "cfr": 80.0,
@@ -607,32 +567,12 @@
       "deathsIntraCTE24h": 0
     },
     {
-      "name": "Sud-Kivu",
-      "province": "Bas-Uélé",
-      "cases": 3,
-      "deaths": 1,
-      "cfr": 33.3,
-      "newCases24h": 0,
-      "deathsCommunity24h": 0,
-      "deathsIntraCTE24h": 0
-    },
-    {
       "name": "Miti-Murhesa",
       "province": "Sud-Kivu",
       "cases": 3,
       "deaths": 1,
       "cfr": 33.3,
       "newCases24h": 0,
-      "deathsCommunity24h": 0,
-      "deathsIntraCTE24h": 0
-    },
-    {
-      "name": "Bas Uélé",
-      "province": "Bas-Uélé",
-      "cases": 2,
-      "deaths": 1,
-      "cfr": 50.0,
-      "newCases24h": 1,
       "deathsCommunity24h": 0,
       "deathsIntraCTE24h": 0
     },

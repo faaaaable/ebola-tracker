@@ -16228,12 +16228,6 @@
     "date": "2026-08-18",
     "zones": [
       {
-        "name": "Ituri",
-        "province": "Bas-Uélé",
-        "cases": 4391,
-        "deaths": 1958
-      },
-      {
         "name": "Adja",
         "province": "Ituri",
         "cases": 11,
@@ -16390,12 +16384,6 @@
         "deaths": 25
       },
       {
-        "name": "Nord-Kivu",
-        "province": "Bas-Uélé",
-        "cases": 645,
-        "deaths": 440
-      },
-      {
         "name": "Beni",
         "province": "Nord-Kivu",
         "cases": 98,
@@ -16462,12 +16450,6 @@
         "deaths": 2
       },
       {
-        "name": "Haut-Uélé",
-        "province": "Bas-Uélé",
-        "cases": 153,
-        "deaths": 69
-      },
-      {
         "name": "Boma Mangbetu",
         "province": "Haut-Uélé",
         "cases": 23,
@@ -16498,12 +16480,6 @@
         "deaths": 21
       },
       {
-        "name": "Tshopo",
-        "province": "Bas-Uélé",
-        "cases": 14,
-        "deaths": 7
-      },
-      {
         "name": "Kabondo",
         "province": "Tshopo",
         "cases": 3,
@@ -16511,7 +16487,7 @@
       },
       {
         "name": "Makiso--Kisangani",
-        "province": "Bas-Uélé",
+        "province": "Tshopo",
         "cases": 5,
         "deaths": 4
       },
@@ -16522,21 +16498,9 @@
         "deaths": 1
       },
       {
-        "name": "Sud-Kivu",
-        "province": "Bas-Uélé",
-        "cases": 3,
-        "deaths": 1
-      },
-      {
         "name": "Miti-Murhesa",
         "province": "Sud-Kivu",
         "cases": 3,
-        "deaths": 1
-      },
-      {
-        "name": "Bas Uélé",
-        "province": "Bas-Uélé",
-        "cases": 2,
         "deaths": 1
       },
       {
