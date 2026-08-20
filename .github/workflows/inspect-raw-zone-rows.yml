@@ -1,0 +1,26 @@
+name: Inspection lignes brutes tableau
+
+on:
+  workflow_dispatch:
+    inputs:
+      fichier:
+        description: "Chemin du PDF à inspecter"
+        required: true
+        default: "reports/SITREP_MVE_096.pdf"
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances
+        run: pip install pdfplumber
+
+      - name: Lancer l'inspection
+        working-directory: scripts
+        run: python inspect_raw_zone_rows.py "../${{ github.event.inputs.fichier }}"
