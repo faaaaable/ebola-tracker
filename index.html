@@ -1883,13 +1883,20 @@ function renderChart(){
 
     // Série calendaire jour par jour (pas juste les dates connues) pour que
     // les trous de données aient leur vraie largeur proportionnelle.
+    // Entièrement en UTC (Date.UTC / getUTCDate / toISOString) : mélanger
+    // dates locales et toISOString() (toujours en UTC) décale le calendrier
+    // d'un jour pour tout visiteur dans un fuseau horaire positif — ex.
+    // Kinshasa (UTC+1) — et fait silencieusement disparaître le tout
+    // dernier point du graphique (vu le 20/08/2026 avec le SitRep 096).
     const byDate = {};
     CONTACTS_FOLLOWUP.forEach(r => { byDate[r.date] = r.contactsFollowUpRate; });
-    const start = new Date(CONTACTS_FOLLOWUP[0].date + 'T00:00:00');
-    const end = new Date(CONTACTS_FOLLOWUP[CONTACTS_FOLLOWUP.length-1].date + 'T00:00:00');
+    const [sy,sm,sd] = CONTACTS_FOLLOWUP[0].date.split('-').map(Number);
+    const [ey,em,ed] = CONTACTS_FOLLOWUP[CONTACTS_FOLLOWUP.length-1].date.split('-').map(Number);
+    const start = new Date(Date.UTC(sy, sm-1, sd));
+    const end = new Date(Date.UTC(ey, em-1, ed));
     const labels = [];
     const values = [];
-    for(let d = new Date(start); d <= end; d.setDate(d.getDate()+1)){
+    for(let d = new Date(start); d <= end; d.setUTCDate(d.getUTCDate()+1)){
       const iso = d.toISOString().slice(0,10);
       labels.push(frDate(iso));
       values.push(byDate[iso] !== undefined ? byDate[iso] : null);
