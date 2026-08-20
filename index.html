@@ -809,7 +809,6 @@
         </div>
         <div id="zonesEmptyState" class="map-note" style="display:none;text-align:center;" data-i18n="zonesEmptyState">Aucune zone ne correspond à ce filtre.</div>
         <div id="zonesResultCount" style="margin-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);"></div>
-        <div class="map-note" style="text-align:center;margin-top:8px;" data-i18n="zonesProvinceMismatchNote">Les zones de santé ne couvrent pas toujours 100% du total provincial : certains SitRep ne détaillent pas tous les cas par zone.</div>
       </div>
     </div>
 
@@ -862,6 +861,12 @@
           Les chiffres affichés proviennent exclusivement des Rapports de Situation (SitRep) publiés par
           l'Institut National de Santé Publique (INSP) de la RDC. Chaque SitRep est archivé et consultable dans
           l'onglet Rapports de situation.
+        </p>
+      </div>
+      <div>
+        <h2 style="font-family:var(--font-display);text-transform:uppercase;font-size:16px;margin:0 0 8px;" data-i18n="aboutLimitationsTitle">Limites connues</h2>
+        <p style="margin:0;font-size:13.5px;line-height:1.7;color:var(--ink-dim);" data-i18n="aboutLimitationsBody">
+          Les zones de santé ne couvrent pas toujours 100% du total provincial : certains SitRep ne détaillent pas tous les cas par zone.
         </p>
       </div>
       <div>
@@ -1032,7 +1037,6 @@ const I18N = {
     zonesTh5:"Létalité",
     zonesTh6:"Nouv. cas (24h)",
     zonesEmptyState:"Aucune zone ne correspond à ce filtre.",
-    zonesProvinceMismatchNote:"Les zones de santé ne couvrent pas toujours 100% du total provincial : certains SitRep ne détaillent pas tous les cas par zone.",
     zonesResultCount:(n,total)=>`${n} / ${total} zones affichées`,
     tabOverview:"Vue d'ensemble",
     tabZones:"Données détaillées",
@@ -1051,6 +1055,8 @@ const I18N = {
     aboutTitle:"À propos de ce site",
     aboutSourcesTitle:"Sources des données",
     aboutSourcesBody:"Les chiffres affichés proviennent des Rapports de Situation (SitRep) publiés par l'Institut National de Santé Publique (INSP) de la RDC. Chaque SitRep est archivé et consultable dans l'onglet Rapports de situation. Certaines données sont complétées par les Weekly External Situation Report de l'Organisation Mondiale de la Santé (OMS).",
+    aboutLimitationsTitle:"Limites connues",
+    aboutLimitationsBody:"Les zones de santé ne couvrent pas toujours 100% du total provincial : certains SitRep ne détaillent pas tous les cas par zone.",
     aboutMethodTitle:"Méthodologie",
     aboutMethodBody:"Un programme automatisé récupère chaque nouveau SitRep publié, en extrait les chiffres clés (cas confirmés, décès, guéris, détail par province et par zone de santé) et met à jour ce site en conséquence, généralement une fois par jour. Les données peuvent faire l'objet de révisions rétroactives par les autorités sanitaires (harmonisation entre provinces, reclassification de décès communautaires) : ces révisions se répercutent automatiquement sur le site dès leur publication.",
     aboutUpdateTitle:"Fréquence de mise à jour",
@@ -1150,7 +1156,6 @@ const I18N = {
     zonesTh5:"Fatality rate",
     zonesTh6:"New cases (24h)",
     zonesEmptyState:"No zone matches this filter.",
-    zonesProvinceMismatchNote:"Health zones don't always add up to 100% of the provincial total: some SitReps don't break down every case by zone.",
     zonesResultCount:(n,total)=>`${n} / ${total} zones shown`,
     tabOverview:"Overview",
     tabZones:"Detailed data",
@@ -1169,6 +1174,8 @@ const I18N = {
     aboutTitle:"About this site",
     aboutSourcesTitle:"Data sources",
     aboutSourcesBody:"The figures shown come from the Situation Reports (SitRep) published by the National Institute of Public Health (INSP) of the DRC. Every SitRep is archived and available in the Situation reports tab. Some data is supplemented by the World Health Organization's (WHO) Weekly External Situation Report.",
+    aboutLimitationsTitle:"Known limitations",
+    aboutLimitationsBody:"Health zones don't always add up to 100% of the provincial total: some SitReps don't break down every case by zone.",
     aboutMethodTitle:"Methodology",
     aboutMethodBody:"An automated program fetches each newly published SitRep, extracts the key figures (confirmed cases, deaths, recoveries, breakdown by province and health zone) and updates this site accordingly, generally once a day. Data may be revised retroactively by health authorities (harmonisation between provinces, reclassification of community deaths): such revisions are reflected on the site automatically as soon as they're published.",
     aboutUpdateTitle:"Update frequency",
