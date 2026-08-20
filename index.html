@@ -683,7 +683,7 @@
     <div class="kpi active">
       <div class="label" data-i18n="labelIsolation">Patients en isolement</div>
       <div class="value" id="kpi-isolation">—</div>
-      <div class="delta" data-i18n="isolationDelta">en centre de traitement</div>
+      <div class="delta" id="kpi-isolation-delta"></div>
     </div>
     <div class="kpi recovered">
       <div class="label" data-i18n="labelRecovered">Guéris</div>
@@ -969,7 +969,6 @@ const I18N = {
     labelCfr:"Taux de létalité",
     cfrDelta:"décès / cas confirmés",
     labelIsolation:"Patients en isolement",
-    isolationDelta:"en CTE",
     mapTitle:"Carte de l'épidémie",
     mapSub:"taille et couleur des cercles = intensité des cas cumulés",
     btnCountry:"RDC entière",
@@ -1088,7 +1087,6 @@ const I18N = {
     labelCfr:"Case fatality rate",
     cfrDelta:"deaths / confirmed cases",
     labelIsolation:"Patients in isolation",
-    isolationDelta:"in treatment centres",
     mapTitle:"Spread map",
     mapSub:"circle size and colour = intensity of cumulative cases",
     btnCountry:"Whole DRC",
@@ -1177,7 +1175,7 @@ const I18N = {
     aboutLimitationsTitle:"Known limitations",
     aboutLimitationsBody:"Official reports mix data at different levels of detail (national, provincial, health zone), sometimes in different formats, which can occasionally produce minor inconsistencies or approximations.",
     aboutMethodTitle:"Methodology",
-    aboutMethodBody:"An automated program fetches each newly published SitRep, extracts the key figures (confirmed cases, deaths, recoveries, breakdown by province and health zone) and updates this site accordingly, generally once a day. Data may be revised retroactively by health authorities (harmonisation between provinces, reclassification of community deaths): such revisions are reflected on the site automatically as soon as they're published.",
+    aboutMethodBody:"This site is powered by a tool that's actively developed and supervised: it fetches each newly published SitRep and extracts the key figures (confirmed cases, deaths, recoveries, breakdown by province and health zone), generally once a day. The reliability of these extractions is checked regularly, with manual intervention when needed (a bulletin's layout changing, fixing a numbering error, etc.). Data may be revised retroactively by health authorities (harmonisation between provinces, reclassification of community deaths): such revisions are reflected on the site automatically as soon as they're published.",
     aboutUpdateTitle:"Update frequency",
     aboutUpdateBody:"The site checks for a new SitRep once a day. The date of the latest official SitRep included is always shown at the top of every page.",
     aboutDisclaimerTitle:"Disclaimer",
@@ -1373,7 +1371,7 @@ const HEALTH_ZONE_COORDS = {
   "Musienene":[0.012396,29.253853], "Oicha":[0.697529,29.518461], "Vuhovi":[0.142500,29.406111],
   "Isiro":[2.774,27.621], "Wamba":[2.147109,27.983079], "Boma Mangbetu":[2.85,28.30],
   "Pawa":[2.411152,27.611239], "Rungu":[3.189322,27.872400], "Gombari":[2.705090,29.039446],
-  "Bafwasende":[1.099271,27.168542], "Kabondo":[0.530,25.223], "Lubunga":[0.486,25.188],
+  "Bafwasende":[0.9995547589572337,27.15772063308612], "Kabondo":[0.530,25.223], "Lubunga":[0.486,25.188],
   "Makiso-Kisangani":[0.485,25.278], "Makiso--Kisangani":[0.485,25.278], "Mangobo":[0.523217,25.147176], "Wanie-Rukula":[0.199287,25.530352],
   "Miti-Murhesa":[-2.336,28.836],
   "Buta":[2.793,24.729],
@@ -1683,6 +1681,7 @@ function renderKPIs(){
   const confirmedEntry = lastKnown('confirmed');
   const deathsEntry = lastKnown('deaths');
   const recoveredEntry = lastKnown('recovered');
+  const isolationEntry = lastKnown('inCTE');
 
   // Les 4 cases ci-dessous préfèrent le point de situation X/Twitter le
   // plus récent s'il est POSTÉRIEUR au dernier SitRep PDF (voir
@@ -1727,6 +1726,7 @@ function renderKPIs(){
   document.getElementById('kpi-confirmed-delta').textContent = usingSocial ? deltaTextSocial('confirmed') : deltaText('confirmed', confirmedEntry);
   document.getElementById('kpi-deaths-delta').textContent = usingSocial ? deltaTextSocial('deaths') : deltaText('deaths', deathsEntry);
   document.getElementById('kpi-recovered-delta').textContent = usingSocial ? deltaTextSocial('recovered') : deltaText('recovered', recoveredEntry);
+  document.getElementById('kpi-isolation-delta').textContent = usingSocial ? deltaTextSocial('inCTE') : deltaText('inCTE', isolationEntry);
 }
 
 function frDate(iso){
