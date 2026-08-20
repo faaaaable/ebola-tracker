@@ -60,7 +60,7 @@ def main():
         m1 = CONTACTS_RE.search(full_text)
         if m1:
             found_contacts += 1
-            if len(sample_contacts) < 5:
+            if len(sample_contacts) < 15:
                 sample_contacts.append((num, m1.group(1)))
         else:
             missing_contacts.append(num)
@@ -68,7 +68,7 @@ def main():
         m2 = POEPOC_RE.search(full_text)
         if m2:
             found_poepoc += 1
-            if len(sample_poepoc) < 5:
+            if len(sample_poepoc) < 15:
                 sample_poepoc.append((num, m2.group(1).replace(" ", "")))
         else:
             missing_poepoc.append(num)
@@ -78,14 +78,12 @@ def main():
     print(f"Taux de suivi des contacts : trouvé dans {found_contacts}/{total} rapports")
     print(f"  Échantillon : {sample_contacts}")
     if missing_contacts:
-        print(f"  Absent pour {len(missing_contacts)} rapport(s) : "
-              f"{missing_contacts[:15]}{'...' if len(missing_contacts) > 15 else ''}")
+        print(f"  Absent pour {len(missing_contacts)} rapport(s) : {missing_contacts}")
     print()
     print(f"PoE/PoC (personnes dépistées) : trouvé dans {found_poepoc}/{total} rapports")
     print(f"  Échantillon : {sample_poepoc}")
     if missing_poepoc:
-        print(f"  Absent pour {len(missing_poepoc)} rapport(s) : "
-              f"{missing_poepoc[:15]}{'...' if len(missing_poepoc) > 15 else ''}")
+        print(f"  Absent pour {len(missing_poepoc)} rapport(s) : {missing_poepoc}")
     print("=" * 70)
 
 
