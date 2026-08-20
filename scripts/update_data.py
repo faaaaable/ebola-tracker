@@ -568,7 +568,6 @@ def gap_fill_missing_zones(full_text, zones_raw):
 
 def parse_zone_detail(rows):
     province_subtotals = {}
-    seen_subtotal = set()
     zones = []
     current_province = None
     total_row = None
@@ -581,8 +580,17 @@ def parse_zone_detail(rows):
         name = row[0]
         name_normalized = (name or "").replace("-", " ")
         canon_province = province_by_normalized.get(name_normalized)
-        if canon_province and canon_province not in seen_subtotal:
-            seen_subtotal.add(canon_province)
+        if canon_province:
+            # Pas de garde "vu une seule fois" : certains PDF incluent DEUX
+            # tableaux distincts avec un sous-total par province chacun (le
+            # résumé "Répartition par province touchée" ET le détail "Cas et
+            # décès confirmés par province et zone de santé") — sans ça, la
+            # deuxième occurrence légitime d'un nom de province (celle du
+            # bon tableau) tombait à travers cette protection et se
+            # retrouvait traitée comme une fausse zone (vu avec le SitRep
+            # 096 : Ituri, Nord-Kivu, Haut-Uélé, Tshopo, Sud-Kivu, Bas Uélé
+            # tous remontés comme "zones jamais vues"). Le sous-total gardé
+            # est simplement celui de la DERNIÈRE occurrence rencontrée.
             current_province = canon_province
             province_subtotals[canon_province] = row
             continue
@@ -754,6 +762,17 @@ def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
         if recovered is None:
             prev = by_date.get(date)
             recovered = prev.get("recovered") if prev else None
+        existing = by_date.get(date)
+        # Deux rapports peuvent partager la même date (ex: SitRep 004 et 005,
+        # tous deux datés du 19 mai 2026) — si les DEUX ont un "confirmed"
+        # exploitable, celui traité en second écraserait silencieusement
+        # l'autre sans ce signalement, sans fusion ni avertissement.
+        if existing and existing.get("confirmed") is not None and existing["confirmed"] != r["confirmed"]:
+            print(f"  ! ATTENTION : plusieurs SitRep partagent la date {date} avec des "
+                  f"valeurs de \"confirmed\" DIFFÉRENTES ({existing['confirmed']} puis "
+                  f"{r['confirmed']} pour le SitRep {r['sitrepNumber']}) — seule la "
+                  f"dernière valeur est conservée dans sitreps.json, l'autre est perdue "
+                  f"pour la courbe épidémique (mais reste visible dans l'onglet Rapports).")
         by_date[date] = {
             "date": date,
             "confirmed": r["confirmed"],
