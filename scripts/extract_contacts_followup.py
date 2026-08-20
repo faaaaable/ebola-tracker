@@ -23,6 +23,12 @@ from update_data import extract_meta, extract_number_from_filename
 REPORTS_DIR = "reports"
 OUTPUT_PATH = "data/contacts-followup.json"
 
+# SitRep dont la valeur extraite est jugée trop isolée pour être fiable
+# (chacune entourée d'un grand trou de données des deux côtés, sans point
+# voisin pour la remettre en contexte) — écartés du graphique sur demande,
+# le 20/08/2026 : "038" (95,0%, 21 juin) et "048" (67,3%, 1er juillet).
+CONTACTS_EXCLUDED_SITREPS = {"038", "048"}
+
 CONTACTS_RE = re.compile(
     r"(?:taux de suivi des contacts|suivi des contacts|proportion des contacts suivis)"
     r".{0,80}?(\d[\d,]*)\s*%",
@@ -40,6 +46,7 @@ def main():
 
     results = []
     found = 0
+    excluded = 0
     missing = []
 
     for pdf_path in pdfs:
@@ -52,6 +59,9 @@ def main():
             continue
 
         meta = extract_meta(full_text, fallback_number=fallback_num)
+        if meta.get("sitrepNumber") in CONTACTS_EXCLUDED_SITREPS:
+            excluded += 1
+            continue
         m = CONTACTS_RE.search(full_text)
         if m and meta.get("reportingDate"):
             results.append({
@@ -83,7 +93,8 @@ def main():
         f.write("\n")
 
     print(f"\n{OUTPUT_PATH} écrit : {len(final)} point(s) de données "
-          f"({found}/{len(pdfs)} rapports exploitables).")
+          f"({found}/{len(pdfs)} rapports exploitables, {excluded} exclu(s) "
+          f"volontairement — voir CONTACTS_EXCLUDED_SITREPS).")
     if missing:
         print(f"Rapports sans cette donnée ({len(missing)}) : {missing}")
 
