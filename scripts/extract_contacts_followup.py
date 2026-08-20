@@ -68,6 +68,7 @@ def main():
                 "date": meta["reportingDate"],
                 "sitrepNumber": meta["sitrepNumber"],
                 "contactsFollowUpRate": norm_pct(m.group(1)),
+                "source": "SitRep INSP (automatique)",
             })
             found += 1
         else:
@@ -85,6 +86,24 @@ def main():
                   f"{r['contactsFollowUpRate']}% pour le SitRep {r['sitrepNumber']})")
         by_date[r["date"]] = r
 
+    # Préserve tout point déjà présent dans le fichier qui ne vient PAS de
+    # cette extraction automatique (ex: lecture manuelle des rapports OMS,
+    # marquée par un "source" différent) — sans ce garde-fou, exécuter ce
+    # script automatiquement chaque jour effacerait silencieusement ces
+    # ajouts manuels à chaque régénération. Une vraie donnée INSP fraîche
+    # reste toujours prioritaire si elle existe pour la même date (source
+    # primaire), le point manuel n'intervient qu'en comblement de trou.
+    preserved = 0
+    if os.path.exists(OUTPUT_PATH):
+        with open(OUTPUT_PATH, encoding="utf-8") as f:
+            previous = json.load(f)
+        for e in previous:
+            if "INSP" in (e.get("source") or "") :
+                continue  # sera régénéré fraîchement ci-dessus si toujours valide
+            if e["date"] not in by_date:
+                by_date[e["date"]] = e
+                preserved += 1
+
     final = sorted(by_date.values(), key=lambda r: r["date"])
 
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
@@ -94,7 +113,8 @@ def main():
 
     print(f"\n{OUTPUT_PATH} écrit : {len(final)} point(s) de données "
           f"({found}/{len(pdfs)} rapports exploitables, {excluded} exclu(s) "
-          f"volontairement — voir CONTACTS_EXCLUDED_SITREPS).")
+          f"volontairement, {preserved} point(s) manuel(s) préservé(s) — voir "
+          f"CONTACTS_EXCLUDED_SITREPS).")
     if missing:
         print(f"Rapports sans cette donnée ({len(missing)}) : {missing}")
 
