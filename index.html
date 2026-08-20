@@ -746,6 +746,7 @@
       <nav class="subtab-nav" id="chartModeNav" style="justify-content:center;padding:16px 20px 0;">
         <button type="button" class="subtab-btn active" data-mode="cumulative" data-i18n="chartModeCumulative">Cumulé</button>
         <button type="button" class="subtab-btn" data-mode="daily" data-i18n="chartModeDaily">Nouveaux cas par jour</button>
+        <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">Suivi des contacts</button>
         <button type="button" class="subtab-btn" data-mode="communityDeaths" data-i18n="chartModeCommunityDeaths">Origine des décès</button>
       </nav>
       <div class="chart-panel" style="padding:20px;">
@@ -980,11 +981,13 @@ const I18N = {
     chartSubRange:(n,from,to)=>`${n} bulletins, du ${from} au ${to}`,
     chartModeCumulative:"Cas/décès cumulés",
     chartModeDaily:"Nouveaux cas par jour",
+    chartModeContactsFollowUp:"Suivi des contacts",
     chartModeCommunityDeaths:"Répartition des décès",
     dailyChartLabel:"Nouveaux cas",
     catchupLabel:"Rattrapage (probable)",
     dailyDeathsLabel:"Nouveaux décès",
     chartNoteDaily:"Certains pics reflètent des rattrapages de données (révisions, bulletins manquants), pas nécessairement une hausse réelle.",
+    chartNoteContactsGap:"Pointillés : période sans donnée disponible — tracé purement illustratif, aucune valeur réelle sous-jacente.",
     communityDeathsLabel:"Communautaires",
     intraCteDeathsLabel:"Intra-CTE",
     chartLoadError:"Chart.js n'a pas pu se charger (connexion internet requise pour ce CDN). Vérifie ta connexion et recharge la page.",
@@ -1095,11 +1098,13 @@ const I18N = {
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
     chartModeCumulative:"Cumulative cases/deaths",
     chartModeDaily:"New cases per day",
+    chartModeContactsFollowUp:"Contact follow-up",
     chartModeCommunityDeaths:"Death breakdown",
     dailyChartLabel:"New cases",
     catchupLabel:"Catch-up (likely)",
     dailyDeathsLabel:"New deaths",
     chartNoteDaily:"Some spikes reflect data catch-ups (revisions, missing bulletins), not necessarily a real increase.",
+    chartNoteContactsGap:"Dashed line: period with no data available — purely illustrative, no real value underneath.",
     communityDeathsLabel:"Community",
     intraCteDeathsLabel:"Intra-ETC",
     chartLoadError:"Chart.js failed to load (an internet connection is required for this CDN). Check your connection and reload the page.",
@@ -1526,6 +1531,25 @@ async function loadSocialUpdates(){
   }
 }
 
+/* Taux de suivi des contacts (%) — extrait des SitRep INSP, complété
+   ponctuellement par une lecture manuelle des rapports hebdomadaires OMS
+   quand le SitRep INSP correspondant n'a pas cette donnée (voir le champ
+   "source" de chaque entrée). Affiché sans distinction visuelle entre les
+   deux origines — inutile pour la lecture du graphique lui-même. */
+let CONTACTS_FOLLOWUP = [];
+async function loadContactsFollowup(){
+  try{
+    const res = await fetch('data/contacts-followup.json', { cache:'no-store' });
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(Array.isArray(remote) && remote.length){
+      CONTACTS_FOLLOWUP = [...remote].sort((a,b)=> a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+    }
+  }catch(e){
+    console.warn('data/contacts-followup.json indisponible.', e);
+  }
+}
+
 /* Détermine la source la plus récente pour les 4 chiffres nationaux
    affichés en cases d'en-tête : le dernier SitRep PDF (currentMeta) ou le
    dernier point de situation X/Twitter, selon lequel est postérieur.
@@ -1823,6 +1847,118 @@ function renderChart(){
       chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts, plugins:[percentLabelsPlugin] });
     }
     lastChartMode = 'communityDeaths';
+    return;
+  }
+
+  // Mode "Suivi des contacts" : source de données dédiée
+  // (CONTACTS_FOLLOWUP), avec un pont en pointillés atténué et ondulé sur
+  // les périodes sans donnée — jamais une vraie valeur, juste un repère
+  // visuel pour ne pas casser la lecture (voir tr('chartNoteContactsGap')
+  // pour l'explication affichée à l'utilisateur).
+  if(chartMode==='contactsFollowUp'){
+    const wantedType = 'line';
+    if(chart && (chart.config.type !== wantedType || lastChartMode === 'communityDeaths')){
+      chart.destroy();
+      chart = null;
+    }
+
+    if(!CONTACTS_FOLLOWUP.length){
+      if(chart){ chart.destroy(); chart = null; }
+      lastChartMode = 'contactsFollowUp';
+      const ctx0 = canvas.getContext('2d');
+      ctx0.clearRect(0,0,canvas.width,canvas.height);
+      return;
+    }
+
+    // Série calendaire jour par jour (pas juste les dates connues) pour que
+    // les trous de données aient leur vraie largeur proportionnelle.
+    const byDate = {};
+    CONTACTS_FOLLOWUP.forEach(r => { byDate[r.date] = r.contactsFollowUpRate; });
+    const start = new Date(CONTACTS_FOLLOWUP[0].date + 'T00:00:00');
+    const end = new Date(CONTACTS_FOLLOWUP[CONTACTS_FOLLOWUP.length-1].date + 'T00:00:00');
+    const labels = [];
+    const values = [];
+    for(let d = new Date(start); d <= end; d.setDate(d.getDate()+1)){
+      const iso = d.toISOString().slice(0,10);
+      labels.push(frDate(iso));
+      values.push(byDate[iso] !== undefined ? byDate[iso] : null);
+    }
+
+    function seededRand(i){
+      const x = Math.sin(i * 12.9898) * 43758.5453;
+      return x - Math.floor(x);
+    }
+    function buildBridge(vals){
+      const out = vals.slice();
+      let i = 0;
+      while(i < vals.length){
+        if(vals[i] === null){
+          let start = i - 1, end = i;
+          while(end < vals.length && vals[end] === null) end++;
+          if(start >= 0 && end < vals.length){
+            const v0 = vals[start], v1 = vals[end], span = end - start;
+            for(let j = start + 1; j < end; j++){
+              const t = (j - start) / span;
+              const linear = v0 + (v1 - v0) * t;
+              const wiggle = (seededRand(j) - 0.5) * 6;
+              out[j] = Math.max(0, Math.min(100, linear + wiggle));
+            }
+          }
+          i = end;
+        } else { i++; }
+      }
+      return out;
+    }
+    const bridgeValues = buildBridge(values);
+
+    const data = {
+      labels,
+      datasets: [
+        {
+          data: bridgeValues,
+          borderColor: 'rgba(237,161,0,0.35)',
+          borderWidth: 1.5,
+          borderDash: [4,4],
+          pointRadius: 0,
+          fill: false,
+          spanGaps: false,
+          tension: 0.4,
+          order: 2,
+        },
+        {
+          data: values,
+          borderColor: '#eda100',
+          borderWidth: 2,
+          pointRadius: 2,
+          pointHoverRadius: 5,
+          pointBackgroundColor: '#eda100',
+          fill: false,
+          tension: 0.15,
+          spanGaps: false,
+          order: 1,
+        },
+      ],
+    };
+    const opts = {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor:'#FFFFFF', borderColor:'#DDE1D9', borderWidth:1,
+          titleColor:'#1B2320', bodyColor:'#1B2320', titleFont:{family:'JetBrains Mono'}, bodyFont:{family:'JetBrains Mono'},
+          filter: (item) => item.datasetIndex === 1,
+          callbacks: { label: c => (c.parsed.y!==null ? c.parsed.y+'%' : '') },
+        },
+      },
+      scales: {
+        y: { min:0, max:100, ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10}, callback:v=>v+'%' }, grid:{ color:'#EDEFE9' } },
+        x: { ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10}, maxRotation:0, autoSkip:true, maxTicksLimit:10 }, grid:{ display:false } },
+      },
+    };
+    if(chart){ chart.data = data; chart.options = opts; chart.update(); }
+    else { chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts }); }
+    lastChartMode = 'contactsFollowUp';
+    if(noteEl){ noteEl.textContent = tr('chartNoteContactsGap'); noteEl.style.display = 'block'; }
     return;
   }
 
@@ -2823,7 +2959,7 @@ safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
 switchTab(location.hash.replace('#',''), false);
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates()]).then(()=>{
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
