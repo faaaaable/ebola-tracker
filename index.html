@@ -809,6 +809,7 @@
         </div>
         <div id="zonesEmptyState" class="map-note" style="display:none;text-align:center;" data-i18n="zonesEmptyState">Aucune zone ne correspond à ce filtre.</div>
         <div id="zonesResultCount" style="margin-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);"></div>
+        <div class="map-note" style="text-align:center;margin-top:8px;" data-i18n="zonesProvinceMismatchNote">Les zones de santé ne couvrent pas toujours 100% du total provincial : certains SitRep ne détaillent pas tous les cas par zone.</div>
       </div>
     </div>
 
@@ -1031,6 +1032,7 @@ const I18N = {
     zonesTh5:"Létalité",
     zonesTh6:"Nouv. cas (24h)",
     zonesEmptyState:"Aucune zone ne correspond à ce filtre.",
+    zonesProvinceMismatchNote:"Les zones de santé ne couvrent pas toujours 100% du total provincial : certains SitRep ne détaillent pas tous les cas par zone.",
     zonesResultCount:(n,total)=>`${n} / ${total} zones affichées`,
     tabOverview:"Vue d'ensemble",
     tabZones:"Données détaillées",
@@ -1148,6 +1150,7 @@ const I18N = {
     zonesTh5:"Fatality rate",
     zonesTh6:"New cases (24h)",
     zonesEmptyState:"No zone matches this filter.",
+    zonesProvinceMismatchNote:"Health zones don't always add up to 100% of the provincial total: some SitReps don't break down every case by zone.",
     zonesResultCount:(n,total)=>`${n} / ${total} zones shown`,
     tabOverview:"Overview",
     tabZones:"Detailed data",
