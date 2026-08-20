@@ -692,6 +692,8 @@
     </div>
   </section>
 
+  <div id="kpi-social-note" style="display:none; font-size:13px; color:var(--ink-dim); margin:-8px 0 16px; padding:0 4px;"></div>
+
   <section class="section">
     <div class="section-head">
       <div class="section-title" data-i18n="mapTitle">Carte de l'épidémie</div>
@@ -990,6 +992,7 @@ const I18N = {
     disclaimerBody:"Site à vocation informative uniquement qui compile des données publiques déjà publiées par des sources officielles. Ne constitue pas un avis médical — consultez un professionnel de santé ou les autorités compétentes (OMS, ministère de la Santé RDC...) pour toute décision. Erreurs ou délais de mise à jour possibles.",
     sinceText:(d)=>`depuis le ${d}`,
     startingPoint:"point de départ",
+    socialUpdateNote:(date)=>`Chiffres du ${date} : point de situation publié sur`,
     topMeta:"17<sup>e</sup> épidémie d'Ebola en RDC",
     autoUpdateNote:(date)=>`Dernières données officielles disponibles : <strong>${date}</strong>`,
     todayUpdateNote:(date)=>`Mis à jour le <strong>${date}</strong>`,
@@ -1104,6 +1107,7 @@ const I18N = {
     disclaimerBody:"Informational site: it compiles public data already published by official sources. Not medical advice — consult a healthcare professional or the relevant authorities (WHO, DRC Ministry of Health) for any decision. Errors or update delays are possible.",
     sinceText:(d)=>`since ${d}`,
     startingPoint:"starting point",
+    socialUpdateNote:(date)=>`Figures as of ${date}: situation update posted on`,
     topMeta:"17<sup>th</sup> Ebola outbreak in the DRC",
     autoUpdateNote:(date)=>`Latest official data available: <strong>${date}</strong>`,
     todayUpdateNote:(date)=>`Updated on <strong>${date}</strong>`,
@@ -1502,6 +1506,54 @@ async function loadCommunityDeathsDaily(){
   }
 }
 
+/* Points de situation publiés sur les réseaux sociaux (X/Twitter) par une
+   source officielle, entre deux SitRep PDF — fichier séparé de latest.json,
+   jamais touché par le pipeline PDF habituel (update_data.py), pour éviter
+   tout risque d'écrasement accidentel. N'inclut que les chiffres nationaux
+   globaux (confirmed/deaths/recovered/inCTE), jamais de détail par
+   zone/province, puisque ce niveau de détail n'existe pas dans un tweet. */
+let SOCIAL_UPDATES = [];
+async function loadSocialUpdates(){
+  try{
+    const res = await fetch('data/social-updates.json', { cache:'no-store' });
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(Array.isArray(remote) && remote.length){
+      SOCIAL_UPDATES = [...remote].sort((a,b)=> a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+    }
+  }catch(e){
+    console.warn('data/social-updates.json indisponible.', e);
+  }
+}
+
+/* Détermine la source la plus récente pour les 4 chiffres nationaux
+   affichés en cases d'en-tête : le dernier SitRep PDF (currentMeta) ou le
+   dernier point de situation X/Twitter, selon lequel est postérieur.
+   Le reste du site (carte, tableaux, provinces) continue TOUJOURS de
+   refléter uniquement le SitRep PDF le plus récent — ce niveau de détail
+   n'existe simplement pas dans un tweet. */
+function effectiveNationalKPIs(){
+  const pdfDate = currentMeta ? currentMeta.reportingDate : null;
+  const pdfData = (national && pdfDate) ? {
+    date: pdfDate,
+    confirmed: national.confirmed, deaths: national.deaths,
+    recovered: national.recovered, inCTE: national.inCTE,
+    isSocialSource: false,
+  } : null;
+
+  const lastSocial = SOCIAL_UPDATES.length ? SOCIAL_UPDATES[SOCIAL_UPDATES.length-1] : null;
+  const socialData = lastSocial ? {
+    date: lastSocial.date,
+    confirmed: lastSocial.confirmed, deaths: lastSocial.deaths,
+    recovered: lastSocial.recovered, inCTE: lastSocial.inCTE,
+    isSocialSource: true, sourceLabel: lastSocial.source, sourceUrl: lastSocial.url,
+  } : null;
+
+  if(!pdfData) return socialData;
+  if(!socialData) return pdfData;
+  return socialData.date > pdfData.date ? socialData : pdfData;
+}
+
 /* Regroupe les deltas quotidiens en semaines calendaires (lundi-dimanche).
    Un jour manquant dans une semaine réduit juste le total de CETTE semaine
    (pas d'effet cumulatif sur les semaines suivantes). */
@@ -1597,12 +1649,33 @@ function renderKPIs(){
   const deathsEntry = lastKnown('deaths');
   const recoveredEntry = lastKnown('recovered');
 
-  document.getElementById('kpi-confirmed').textContent = confirmedEntry ? fmt(confirmedEntry.confirmed) : '—';
-  document.getElementById('kpi-deaths').textContent = deathsEntry ? fmt(deathsEntry.deaths) : '—';
-  document.getElementById('kpi-recovered').textContent = recoveredEntry ? fmt(recoveredEntry.recovered) : '—';
-  document.getElementById('kpi-isolation').textContent = (national && national.inCTE!=null) ? fmt(national.inCTE) : '—';
-  const cfr = (deathsEntry && confirmedEntry && confirmedEntry.confirmed>0) ? (deathsEntry.deaths/confirmedEntry.confirmed*100) : null;
+  // Les 4 cases ci-dessous préfèrent le point de situation X/Twitter le
+  // plus récent s'il est POSTÉRIEUR au dernier SitRep PDF (voir
+  // effectiveNationalKPIs) — la carte et les tableaux, eux, continuent
+  // toujours de refléter uniquement le dernier SitRep PDF, ce niveau de
+  // détail n'existant pas dans un tweet.
+  const eff = effectiveNationalKPIs();
+  const usingSocial = eff && eff.isSocialSource;
+
+  document.getElementById('kpi-confirmed').textContent = usingSocial ? fmt(eff.confirmed) : (confirmedEntry ? fmt(confirmedEntry.confirmed) : '—');
+  document.getElementById('kpi-deaths').textContent = usingSocial ? fmt(eff.deaths) : (deathsEntry ? fmt(deathsEntry.deaths) : '—');
+  document.getElementById('kpi-recovered').textContent = usingSocial ? fmt(eff.recovered) : (recoveredEntry ? fmt(recoveredEntry.recovered) : '—');
+  document.getElementById('kpi-isolation').textContent = usingSocial ? fmt(eff.inCTE) : ((national && national.inCTE!=null) ? fmt(national.inCTE) : '—');
+  const cfrBase = usingSocial ? eff : (deathsEntry && confirmedEntry ? {confirmed:confirmedEntry.confirmed, deaths:deathsEntry.deaths} : null);
+  const cfr = (cfrBase && cfrBase.confirmed>0) ? (cfrBase.deaths/cfrBase.confirmed*100) : null;
   document.getElementById('kpi-cfr').textContent = cfr!==null ? cfr.toFixed(1)+'%' : '—';
+
+  const noteEl = document.getElementById('kpi-social-note');
+  if(usingSocial && noteEl){
+    noteEl.style.display = 'block';
+    const link = document.createElement('a');
+    link.href = eff.sourceUrl; link.target = '_blank'; link.rel = 'noopener';
+    link.textContent = eff.sourceLabel;
+    noteEl.textContent = tr('socialUpdateNote')(frDate(eff.date)) + ' ';
+    noteEl.appendChild(link);
+  } else if(noteEl){
+    noteEl.style.display = 'none';
+  }
 
   function deltaText(field, entry){
     if(!entry) return tr('startingPoint');
@@ -1610,9 +1683,15 @@ function renderKPIs(){
     if(!prev) return tr('startingPoint');
     return '+'+fmt(entry[field]-prev[field])+' '+tr('sinceText')(frDate(prev.date));
   }
-  document.getElementById('kpi-confirmed-delta').textContent = deltaText('confirmed', confirmedEntry);
-  document.getElementById('kpi-deaths-delta').textContent = deltaText('deaths', deathsEntry);
-  document.getElementById('kpi-recovered-delta').textContent = deltaText('recovered', recoveredEntry);
+  function deltaTextSocial(field){
+    // Compare le point de situation X au dernier SitRep PDF connu (latest),
+    // puisque ce point n'a pas sa propre place dans sortedSitreps().
+    if(!latest || latest[field]==null) return tr('startingPoint');
+    return '+'+fmt(eff[field]-latest[field])+' '+tr('sinceText')(frDate(latest.date));
+  }
+  document.getElementById('kpi-confirmed-delta').textContent = usingSocial ? deltaTextSocial('confirmed') : deltaText('confirmed', confirmedEntry);
+  document.getElementById('kpi-deaths-delta').textContent = usingSocial ? deltaTextSocial('deaths') : deltaText('deaths', deathsEntry);
+  document.getElementById('kpi-recovered-delta').textContent = usingSocial ? deltaTextSocial('recovered') : deltaText('recovered', recoveredEntry);
 }
 
 function frDate(iso){
@@ -2222,7 +2301,6 @@ function renderReportsList(){
         <span class="rc-info">
           <span class="rc-label">${tr('reportsSitrepLabel')(r.sitrepNumber)}</span>
           <span class="rc-date">${r.reportingDate ? tr('reportsReportingDate')(frDate(r.reportingDate) + ' ' + r.reportingDate.slice(0,4)) : tr('reportsUnknownDate')}</span>
-          ${r.sourceNumberMismatch ? `<span class="rc-mismatch" title="${tr('reportsSourceMismatchTitle')}">${tr('reportsSourceMismatch')(r.sourceNumberMismatch)}</span>` : ''}
         </span>
         <a class="rc-dl" href="${r.file}" target="_blank" rel="noopener" title="${tr('reportsDownload')}" aria-label="${tr('reportsDownload')}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>
@@ -2745,7 +2823,7 @@ safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
 switchTab(location.hash.replace('#',''), false);
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports()]).then(()=>{
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
