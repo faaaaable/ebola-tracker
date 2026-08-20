@@ -1952,7 +1952,7 @@ function renderChart(){
       },
       scales: {
         y: { min:0, max:100, ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10}, callback:v=>v+'%' }, grid:{ color:'#EDEFE9' } },
-        x: { ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10}, maxRotation:0, autoSkip:true, maxTicksLimit:10 }, grid:{ display:false } },
+        x: { ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10}, maxRotation:45, minRotation:45, autoSkip:true, maxTicksLimit:22 }, grid:{ display:false } },
       },
     };
     if(chart){ chart.data = data; chart.options = opts; chart.update(); }
