@@ -367,13 +367,19 @@ def parse_province_summary(table):
         zones_raw = row[4] or ""
         zm = re.search(r"(\d+)\s*/\s*(\d+)", zones_raw)
         n_zones, tot_zones = (int(zm.group(1)), int(zm.group(2))) if zm else (None, None)
+        # "Nouveaux cas confirmés(24h)" est toujours la DERNIÈRE cellule de
+        # la ligne, mais le nombre de colonnes de remplissage avant (sous
+        # "Zones de santé") a varié d'un rapport à l'autre — un index fixe
+        # (row[5]) pointait dans le vide pour ce nouveau format et
+        # renvoyait toujours 0 (vu avec le SitRep 096 : row[5] était None,
+        # la vraie valeur était en row[7]).
         provinces.append({
             "name": PROVINCE_CANON.get(name, name),
             "confirmed": norm_int(row[1]),
             "deaths": norm_int(row[2]),
             "cfr": norm_pct(row[3]),
             "healthZonesAffected": {"n": n_zones, "total": tot_zones},
-            "newCases24h": norm_int(row[5]),
+            "newCases24h": norm_int(row[-1]),
         })
     return provinces, total_row
 
