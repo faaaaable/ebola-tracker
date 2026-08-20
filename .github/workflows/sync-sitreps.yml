@@ -22,11 +22,13 @@ jobs:
         run: python scripts/download_all_sitreps.py
       - name: Mise à jour des données du site (data/latest.json)
         run: python scripts/update_data.py
+      - name: Mise à jour du suivi des contacts (data/contacts-followup.json)
+        run: python scripts/extract_contacts_followup.py
       - name: Commit et push si de nouveaux fichiers sont apparus
         run: |
           git config user.name "sitrep-bot"
           git config user.email "sitrep-bot@users.noreply.github.com"
-          git add reports/ data/latest.json data/sitreps.json data/zones-history.json
+          git add reports/ data/latest.json data/sitreps.json data/zones-history.json data/contacts-followup.json
           if git diff --cached --quiet; then
             echo "Aucun nouveau SitRep — rien à committer."
           else
