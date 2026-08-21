@@ -96,7 +96,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 100
+      "daysNoCase": 101
     },
     {
       "name": "Bas-Uélé",
@@ -114,16 +114,6 @@
     }
   ],
   "healthZones": [
-    {
-      "name": "Tshopo*",
-      "province": "Haut-Uélé",
-      "cases": 15,
-      "deaths": 7,
-      "cfr": 46.7,
-      "newCases24h": 723304,
-      "deathsCommunity24h": 0,
-      "deathsIntraCTE24h": 0
-    },
     {
       "name": "Adja",
       "province": "Ituri",
