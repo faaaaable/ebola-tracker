@@ -41,15 +41,22 @@ def diagnose_one(pdf_path):
         if provinces:
             return f"OK via tableau ({len(provinces)} provinces)"
 
+    # Toujours appeler la vraie fonction — elle gère elle-même en interne le
+    # cas où les marqueurs de section habituels sont absents (repli sur tout
+    # le texte). Refaire ici une vérification préalable des marqueurs
+    # court-circuitait ce repli et rendait ce diagnostic obsolète dès qu'un
+    # correctif touchait parse_province_summary_from_text() sans que ce
+    # script ne soit mis à jour en miroir.
+    provinces2, total2 = parse_province_summary_from_text(full_text)
+    if provinces2:
+        return f"OK via texte ({len(provinces2)} provinces)"
+
     start = full_text.find("Répartition des cas et décès confirmés par province touchée")
     end = full_text.find("Cas et décès confirmés par province et zone de santé")
-    if start == -1 or end == -1 or end <= start:
-        text_status = "marqueurs texte introuvables"
-    else:
-        provinces2, total2 = parse_province_summary_from_text(full_text)
-        if provinces2:
-            return f"OK via texte ({len(provinces2)} provinces)"
-        text_status = "marqueurs trouvés mais 0 province extraite (regex ne matche rien)"
+    markers_found = start != -1 and end != -1 and end > start
+    text_status = ("marqueurs trouvés mais 0 province extraite (regex ne matche rien)"
+                   if markers_found else
+                   "marqueurs absents, repli plein texte tenté mais 0 province extraite")
 
     return f"ÉCHEC — {table_status} / {text_status}"
 
