@@ -53,10 +53,17 @@ def main():
                 full_text = "\n".join(p.extract_text() or "" for p in pdf.pages)
                 meta = extract_meta(full_text, fallback_number=fallback_num)
 
+                # Toujours essayer le tableau D'ABORD, mais retomber sur le
+                # texte s'il est vide (pas seulement s'il est absent) — une
+                # table ne contenant que l'en-tête (0 ligne de donnée) est
+                # un cas fréquent et doit aussi déclencher le repli, sinon
+                # la plupart des rapports échouent silencieusement malgré
+                # une vraie donnée récupérable via le texte.
                 prov_table = extract_province_summary(pdf)
+                provinces = []
                 if prov_table is not None:
                     provinces, _ = parse_province_summary(prov_table)
-                else:
+                if not provinces:
                     provinces, _ = parse_province_summary_from_text(full_text)
         except Exception as e:
             failed.append((num, f"erreur : {e}"))
