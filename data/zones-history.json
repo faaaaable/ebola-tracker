@@ -226,9 +226,15 @@
         "deaths": null
       },
       {
-        "name": "Bambu",
+        "name": "Bunia",
         "province": "Ituri",
-        "cases": 0,
+        "cases": 24,
+        "deaths": null
+      },
+      {
+        "name": "Kilo",
+        "province": "Ituri",
+        "cases": 1,
         "deaths": null
       },
       {
@@ -274,25 +280,19 @@
         "deaths": null
       },
       {
-        "name": "Kyondo",
-        "province": "Nord-Kivu",
-        "cases": 0,
-        "deaths": null
-      },
-      {
-        "name": "Oicha**",
+        "name": "Kalunguta",
         "province": "Nord-Kivu",
         "cases": 1,
         "deaths": null
       },
       {
-        "name": "Kalunguta**",
+        "name": "Oicha",
         "province": "Nord-Kivu",
         "cases": 1,
         "deaths": null
       },
       {
-        "name": "Miti Murhesa",
+        "name": "Miti-Murhesa",
         "province": "Sud-Kivu",
         "cases": 1,
         "deaths": null
@@ -390,7 +390,7 @@
       {
         "name": "Kalunguta",
         "province": "Nord-Kivu",
-        "cases": 0,
+        "cases": 1,
         "deaths": null
       },
       {
