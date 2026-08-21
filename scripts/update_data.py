@@ -584,7 +584,12 @@ def parse_zone_detail(rows):
 
     for row in rows:
         name = row[0]
-        name_normalized = (name or "").replace("-", " ")
+        # Retire les astérisques de renvoi de note (ex: "Tshopo*", collé au
+        # nom sans espace) avant la comparaison — sans ça, cette variante
+        # échappe à la détection de province au même titre que le nom exact,
+        # et se retrouve traitée comme une fausse zone (vu avec le SitRep
+        # 097 : "Tshopo*" non reconnu malgré le nom "Tshopo" déjà couvert).
+        name_normalized = (name or "").rstrip("*").strip().replace("-", " ")
         canon_province = province_by_normalized.get(name_normalized)
         if canon_province:
             # Pas de garde "vu une seule fois" : certains PDF incluent DEUX
