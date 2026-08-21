@@ -999,15 +999,25 @@ def main():
                 kpis = fallback_kpis
         sidebar = extract_sidebar_text(pdf.pages[0])
 
+        # Toujours essayer le tableau D'ABORD, mais retomber sur le texte
+        # s'il est vide (pas seulement s'il est absent) — une table ne
+        # contenant que l'en-tête (0 ligne de donnée, sans lignes Ituri/
+        # Nord-Kivu/etc.) est un cas fréquent selon la mise en page du
+        # rapport, et doit aussi déclencher le repli texte. Sans ce garde-
+        # fou, la plupart des rapports d'une certaine période (juin-août)
+        # produisaient silencieusement une liste de provinces vide au lieu
+        # d'utiliser le repli qui, lui, fonctionne (vu lors du rattrapage
+        # complet de l'historique par province, 49 rapports concernés).
         prov_table = extract_province_summary(pdf)
+        provinces = []
         if prov_table is not None:
             provinces, prov_total_row = parse_province_summary(prov_table)
-        else:
+        if not provinces:
             # Repli texte brut : vu sur un PDF sante.gouv.cd dont la mise en
             # page en colonnes diffère de celle d'insp.cd (voir
             # parse_province_summary_from_text pour le détail).
-            print("  ! table de répartition par province introuvable via pdfplumber, "
-                  "repli sur une lecture du texte brut.")
+            print("  ! table de répartition par province introuvable ou vide via "
+                  "pdfplumber, repli sur une lecture du texte brut.")
             provinces, prov_total_row = parse_province_summary_from_text(full_text)
             if provinces is None:
                 raise ValueError("Table de répartition par province introuvable "
