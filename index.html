@@ -683,7 +683,7 @@
     <div class="kpi active">
       <div class="label" data-i18n="labelIsolation">Patients en isolement</div>
       <div class="value" id="kpi-isolation">—</div>
-      <div class="delta" id="kpi-isolation-delta"></div>
+      <div class="delta" data-i18n="isolationDelta">en centre de traitement</div>
     </div>
     <div class="kpi recovered">
       <div class="label" data-i18n="labelRecovered">Guéris</div>
@@ -1000,6 +1000,7 @@ const I18N = {
     disclaimerBody:"Site à vocation informative uniquement qui compile des données publiques déjà publiées par des sources officielles. Ne constitue pas un avis médical — consultez un professionnel de santé ou les autorités compétentes (OMS, ministère de la Santé RDC...) pour toute décision. Erreurs ou délais de mise à jour possibles.",
     sinceText:(d)=>`depuis le ${d}`,
     startingPoint:"point de départ",
+    isolationDelta:"en CTE",
     socialUpdateNote:(date)=>`Chiffres du ${date} : point de situation publié sur`,
     topMeta:"17<sup>e</sup> épidémie d'Ebola en RDC",
     autoUpdateNote:(date)=>`Dernières données officielles disponibles : <strong>${date}</strong>`,
@@ -1118,6 +1119,7 @@ const I18N = {
     disclaimerBody:"Informational site: it compiles public data already published by official sources. Not medical advice — consult a healthcare professional or the relevant authorities (WHO, DRC Ministry of Health) for any decision. Errors or update delays are possible.",
     sinceText:(d)=>`since ${d}`,
     startingPoint:"starting point",
+    isolationDelta:"in treatment centres",
     socialUpdateNote:(date)=>`Figures as of ${date}: situation update posted on`,
     topMeta:"17<sup>th</sup> Ebola outbreak in the DRC",
     autoUpdateNote:(date)=>`Latest official data available: <strong>${date}</strong>`,
@@ -1559,6 +1561,7 @@ async function loadContactsFollowup(){
   }
 }
 
+
 /* Détermine la source la plus récente pour les 4 chiffres nationaux
    affichés en cases d'en-tête : le dernier SitRep PDF (currentMeta) ou le
    dernier point de situation X/Twitter, selon lequel est postérieur.
@@ -1681,7 +1684,6 @@ function renderKPIs(){
   const confirmedEntry = lastKnown('confirmed');
   const deathsEntry = lastKnown('deaths');
   const recoveredEntry = lastKnown('recovered');
-  const isolationEntry = lastKnown('inCTE');
 
   // Les 4 cases ci-dessous préfèrent le point de situation X/Twitter le
   // plus récent s'il est POSTÉRIEUR au dernier SitRep PDF (voir
@@ -1726,7 +1728,6 @@ function renderKPIs(){
   document.getElementById('kpi-confirmed-delta').textContent = usingSocial ? deltaTextSocial('confirmed') : deltaText('confirmed', confirmedEntry);
   document.getElementById('kpi-deaths-delta').textContent = usingSocial ? deltaTextSocial('deaths') : deltaText('deaths', deathsEntry);
   document.getElementById('kpi-recovered-delta').textContent = usingSocial ? deltaTextSocial('recovered') : deltaText('recovered', recoveredEntry);
-  document.getElementById('kpi-isolation-delta').textContent = usingSocial ? deltaTextSocial('inCTE') : deltaText('inCTE', isolationEntry);
 }
 
 function frDate(iso){
