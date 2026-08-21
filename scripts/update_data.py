@@ -18,6 +18,7 @@ REPORTS_DIR = "reports"
 DATA_PATH = "data/latest.json"
 SITREPS_PATH = "data/sitreps.json"
 ZONES_HISTORY_PATH = "data/zones-history.json"
+PROVINCE_HISTORY_PATH = "data/province-history.json"
 
 # Numéros de SitRep dont le détail par zone est jugé trop peu fiable pour
 # la carte (mise en page source trop différente, extraction trop
@@ -811,6 +812,39 @@ def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
     return sitreps
 
 
+def rebuild_province_history(meta, provinces):
+    """Historique quotidien des cas confirmés cumulés par province, pour le
+    graphique "Cas cumulés par province" de la page d'accueil. Toujours
+    complet par construction (le total provincial est présent dans chaque
+    SitRep, contrairement au détail par zone parfois partiel) — pas besoin
+    de report de dernière valeur."""
+    reporting_date = meta.get("reportingDate")
+    if not reporting_date or not provinces:
+        return
+
+    history = []
+    if os.path.exists(PROVINCE_HISTORY_PATH):
+        with open(PROVINCE_HISTORY_PATH, encoding="utf-8") as f:
+            history = json.load(f)
+    by_date = {h["date"]: h for h in history}
+
+    by_date[reporting_date] = {
+        "date": reporting_date,
+        "provinces": [
+            {"name": p["name"], "confirmed": p.get("confirmed")}
+            for p in provinces
+        ],
+    }
+
+    merged = sorted(by_date.values(), key=lambda h: h["date"])
+    os.makedirs(os.path.dirname(PROVINCE_HISTORY_PATH), exist_ok=True)
+    with open(PROVINCE_HISTORY_PATH, "w", encoding="utf-8") as f:
+        json.dump(merged, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+    print(f"  province-history.json mis à jour : {len(merged)} jour(s) au total.")
+
+
 def rebuild_zones_history(meta, health_zones):
     sitrep_number = meta.get("sitrepNumber")
     if sitrep_number in ZONES_HISTORY_EXCLUDED_SITREPS:
@@ -1047,6 +1081,7 @@ def main():
     sitreps = rebuild_sitreps_json(reports, national_recovered_by_sitrep)
 
     rebuild_zones_history(meta, health_zones)
+    rebuild_province_history(meta, provinces)
 
     print(f"data/latest.json mis à jour : SitRep {meta['sitrepNumber']} "
           f"({national['confirmed']} cas, {national['deaths']} décès) — "
