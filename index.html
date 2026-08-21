@@ -745,6 +745,7 @@
         <button type="button" class="subtab-btn active" data-mode="cumulative" data-i18n="chartModeCumulative">Cumulé</button>
         <button type="button" class="subtab-btn" data-mode="daily" data-i18n="chartModeDaily">Nouveaux cas par jour</button>
         <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">Suivi des contacts</button>
+        <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">Cas cumulés / région</button>
         <button type="button" class="subtab-btn" data-mode="communityDeaths" data-i18n="chartModeCommunityDeaths">Origine des décès</button>
       </nav>
       <div class="chart-panel" style="padding:20px;">
@@ -999,6 +1000,7 @@ const I18N = {
     chartModeCumulative:"Cas/décès cumulés",
     chartModeDaily:"Nouveaux cas par jour",
     chartModeContactsFollowUp:"Suivi des contacts",
+    chartModeByProvince:"Cas cumulés / région",
     chartModeCommunityDeaths:"Répartition des décès",
     dailyChartLabel:"Nouveaux cas",
     catchupLabel:"Rattrapage",
@@ -1121,6 +1123,7 @@ const I18N = {
     chartModeCumulative:"Cumulative cases/deaths",
     chartModeDaily:"New cases per day",
     chartModeContactsFollowUp:"Contact follow-up",
+    chartModeByProvince:"Cumulative cases / region",
     chartModeCommunityDeaths:"Death breakdown",
     dailyChartLabel:"New cases",
     catchupLabel:"Catch-up",
@@ -1565,6 +1568,24 @@ async function loadSocialUpdates(){
    quand le SitRep INSP correspondant n'a pas cette donnée (voir le champ
    "source" de chaque entrée). Affiché sans distinction visuelle entre les
    deux origines — inutile pour la lecture du graphique lui-même. */
+/* Historique quotidien des cas confirmés cumulés par province, pour le
+   graphique "Cas cumulés par province" — voir rebuild_province_history()
+   côté pipeline. Toujours complet par construction (le total provincial
+   est présent dans chaque SitRep), aucun trou de données attendu. */
+let PROVINCE_HISTORY = [];
+async function loadProvinceHistory(){
+  try{
+    const res = await fetch('data/province-history.json', { cache:'no-store' });
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(Array.isArray(remote) && remote.length){
+      PROVINCE_HISTORY = [...remote].sort((a,b)=> a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+    }
+  }catch(e){
+    console.warn('data/province-history.json indisponible.', e);
+  }
+}
+
 let CONTACTS_FOLLOWUP = [];
 async function loadContactsFollowup(){
   try{
@@ -2007,6 +2028,68 @@ function renderChart(){
     else { chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts }); }
     lastChartMode = 'contactsFollowUp';
     if(noteEl){ noteEl.textContent = tr('chartNoteContactsGap'); noteEl.style.display = 'block'; }
+    return;
+  }
+
+  // Mode "Par province" : une courbe par province, à partir de
+  // PROVINCE_HISTORY — toujours complet par construction (le total
+  // provincial est présent dans chaque SitRep), donc pas de pont en
+  // pointillés nécessaire comme pour le suivi des contacts.
+  if(chartMode==='byProvince'){
+    const wantedType = 'line';
+    if(chart && (chart.config.type !== wantedType || lastChartMode !== 'byProvince')){
+      chart.destroy();
+      chart = null;
+    }
+
+    if(noteEl){ noteEl.textContent = ''; noteEl.style.display = 'none'; }
+
+    if(!PROVINCE_HISTORY.length){
+      if(chart){ chart.destroy(); chart = null; }
+      lastChartMode = 'byProvince';
+      const ctx0 = canvas.getContext('2d');
+      ctx0.clearRect(0,0,canvas.width,canvas.height);
+      return;
+    }
+
+    const labels = PROVINCE_HISTORY.map(h => frDate(h.date));
+    const provinceNames = Object.keys(PROVINCE_COLORS);
+    const data = {
+      labels,
+      datasets: provinceNames.map(name => ({
+        label: name,
+        data: PROVINCE_HISTORY.map(h => {
+          const p = h.provinces.find(pr => pr.name === name);
+          return p ? p.confirmed : null;
+        }),
+        borderColor: PROVINCE_COLORS[name],
+        backgroundColor: PROVINCE_COLORS[name],
+        borderWidth: 2,
+        pointRadius: 1,
+        pointHoverRadius: 4,
+        fill: false,
+        tension: 0.15,
+        spanGaps: true,
+      })),
+    };
+    const opts = {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true, position: 'bottom', labels: { color:'#5C6A64', font:{family:'Inter', size:11}, boxWidth:10, padding:12 } },
+        tooltip: {
+          backgroundColor:'#FFFFFF', borderColor:'#DDE1D9', borderWidth:1,
+          titleColor:'#1B2320', bodyColor:'#1B2320', titleFont:{family:'JetBrains Mono'}, bodyFont:{family:'JetBrains Mono'},
+          callbacks: { label: c => `${c.dataset.label} : ${fmt(c.parsed.y)}` },
+        },
+      },
+      scales: {
+        y: { beginAtZero:true, ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10}, callback:v=>fmt(v) }, grid:{ color:'#EDEFE9' } },
+        x: { ticks:{ color:'#8B968E', font:{family:'JetBrains Mono', size:10}, maxRotation:45, minRotation:45, autoSkip:true, maxTicksLimit:20 }, grid:{ display:false } },
+      },
+    };
+    if(chart){ chart.data = data; chart.options = opts; chart.update(); }
+    else { chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts }); }
+    lastChartMode = 'byProvince';
     return;
   }
 
@@ -3038,7 +3121,7 @@ safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immédiat avec les données de référence intégrées
 switchTab(location.hash.replace('#',''), false);
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup()]).then(()=>{
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
