@@ -17,6 +17,308 @@
     ]
   },
   {
+    "date": "2026-05-31",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 299
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 19
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-06-01",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 322
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 19
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 359
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 19
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-06-25",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1096
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 104
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-07-01",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1333
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 124
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-07-03",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1387
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 138
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-07-15",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1904
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 199
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 14
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 4
+      }
+    ]
+  },
+  {
+    "date": "2026-07-31",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 3229
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 378
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 57
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 7
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-08-01",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 3278
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 400
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 60
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 7
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-08-04",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 3460
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 436
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 67
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 7
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-08-05",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 3521
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 447
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 74
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 8
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-08-06",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 3563
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 458
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 87
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 9
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-08-07",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 3636
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 470
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 91
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 9
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-08-08",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 3704
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 480
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 98
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 9
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      }
+    ]
+  },
+  {
     "date": "2026-08-09",
     "provinces": [
       {
