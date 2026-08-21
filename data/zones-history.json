@@ -498,6 +498,144 @@
     ]
   },
   {
+    "sitrep": "015",
+    "date": "2026-05-29",
+    "zones": [
+      {
+        "name": "Aru",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Bambu",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 80,
+        "deaths": null
+      },
+      {
+        "name": "Kilo",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 47,
+        "deaths": null
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Nyankunde",
+        "province": "Ituri",
+        "cases": 19,
+        "deaths": null
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 65,
+        "deaths": null
+      },
+      {
+        "name": "Mangala",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Damas",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Aungba",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Gety",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Komanda",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Lita",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 5,
+        "deaths": null
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 4,
+        "deaths": null
+      },
+      {
+        "name": "Kyondo",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Oicha",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Kalunguta",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Beni",
+        "province": "Nord-Kivu",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Miti-Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 3,
+        "deaths": null
+      }
+    ]
+  },
+  {
     "sitrep": "018",
     "date": "2026-06-01",
     "zones": [
