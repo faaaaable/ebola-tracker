@@ -20,7 +20,7 @@
   {
     "date": "2026-06-01",
     "sitrepNumber": "018",
-    "contactsFollowUpRate": 59.0,
+    "contactsFollowUpRate": 43.9,
     "source": "SitRep INSP (automatique)"
   },
   {
@@ -32,13 +32,13 @@
   {
     "date": "2026-06-03",
     "sitrepNumber": "020",
-    "contactsFollowUpRate": 53.0,
+    "contactsFollowUpRate": 55.5,
     "source": "SitRep INSP (automatique)"
   },
   {
     "date": "2026-06-04",
     "sitrepNumber": "021",
-    "contactsFollowUpRate": 45.5,
+    "contactsFollowUpRate": 57.8,
     "source": "SitRep INSP (automatique)"
   },
   {
@@ -102,10 +102,64 @@
     "source": "SitRep INSP (automatique)"
   },
   {
+    "date": "2026-06-17",
+    "sitrepNumber": "034",
+    "contactsFollowUpRate": 71.1,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-06-18",
+    "sitrepNumber": "035",
+    "contactsFollowUpRate": 72.3,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-06-19",
+    "sitrepNumber": "036",
+    "contactsFollowUpRate": 69.3,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-06-20",
+    "sitrepNumber": "037",
+    "contactsFollowUpRate": 67.0,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
     "date": "2026-06-21",
-    "sitrepNumber": null,
+    "sitrepNumber": "038",
     "contactsFollowUpRate": 70.8,
-    "source": "OMS Weekly Report 06 (lecture manuelle)"
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-06-22",
+    "sitrepNumber": "039",
+    "contactsFollowUpRate": 72.8,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-06-23",
+    "sitrepNumber": "040",
+    "contactsFollowUpRate": 77.1,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-06-24",
+    "sitrepNumber": "041",
+    "contactsFollowUpRate": 79.2,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-06-25",
+    "sitrepNumber": "042",
+    "contactsFollowUpRate": 82.8,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-06-27",
+    "sitrepNumber": "044",
+    "contactsFollowUpRate": 87.1,
+    "source": "SitRep INSP (automatique)"
   },
   {
     "date": "2026-06-28",
@@ -114,9 +168,39 @@
     "source": "OMS Weekly Report 07 (lecture manuelle)"
   },
   {
+    "date": "2026-06-29",
+    "sitrepNumber": "046",
+    "contactsFollowUpRate": 82.7,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-06-30",
+    "sitrepNumber": "047",
+    "contactsFollowUpRate": 82.5,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-07-01",
+    "sitrepNumber": "048",
+    "contactsFollowUpRate": 82.7,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-07-02",
+    "sitrepNumber": "049",
+    "contactsFollowUpRate": 81.8,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-07-03",
+    "sitrepNumber": "050",
+    "contactsFollowUpRate": 81.5,
+    "source": "SitRep INSP (automatique)"
+  },
+  {
     "date": "2026-07-04",
     "sitrepNumber": "051",
-    "contactsFollowUpRate": 81.3,
+    "contactsFollowUpRate": 81.6,
     "source": "SitRep INSP (automatique)"
   },
   {
