@@ -300,6 +300,108 @@
     ]
   },
   {
+    "sitrep": "011",
+    "date": "2026-05-25",
+    "zones": [
+      {
+        "name": "Aru",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Bambu",
+        "province": "Ituri",
+        "cases": 0,
+        "deaths": null
+      },
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 24,
+        "deaths": null
+      },
+      {
+        "name": "Kilo",
+        "province": "Ituri",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 19,
+        "deaths": null
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": null
+      },
+      {
+        "name": "Nyankunde",
+        "province": "Ituri",
+        "cases": 9,
+        "deaths": null
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 32,
+        "deaths": null
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 3,
+        "deaths": null
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 4,
+        "deaths": null
+      },
+      {
+        "name": "Karissibi",
+        "province": "Nord-Kivu",
+        "cases": 0,
+        "deaths": null
+      },
+      {
+        "name": "Kyondo",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Oicha",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": null
+      },
+      {
+        "name": "Kalunguta",
+        "province": "Nord-Kivu",
+        "cases": 0,
+        "deaths": null
+      },
+      {
+        "name": "Miti-Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 1,
+        "deaths": null
+      }
+    ]
+  },
+  {
     "sitrep": "013",
     "date": "2026-05-27",
     "zones": [
