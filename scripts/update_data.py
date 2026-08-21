@@ -276,7 +276,7 @@ def extract_province_summary(pdf):
 
 
 PROVINCE_SUMMARY_ROW_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé|Total)\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé|Total)\*?\s+"
     r"(?P<numbers>[\d ]+?)\s*(?P<cfr>[\d,]+)\s*%\s+"
     r"(?P<zn>\d+)/(?P<zt>\d+)\s*\([\d,]+\s*%\)\s+"
     r"(?P<newcases>\d+)\s*$",
@@ -360,7 +360,11 @@ def parse_province_summary(table):
     for row in table[1:]:
         if not row or not row[0]:
             continue
-        name = row[0].strip()
+        # Retire les astérisques de renvoi de note (ex: "Tshopo*") avant la
+        # recherche dans PROVINCE_CANON — sans ça, le nom brut "Tshopo*"
+        # échoue à correspondre à "Tshopo" et s'affiche tel quel, astérisque
+        # inclus, dans le tableau "Par province" (vu avec le SitRep 097).
+        name = row[0].strip().rstrip("*").strip()
         if name == "Total":
             total_row = row
             continue
