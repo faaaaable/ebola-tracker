@@ -692,8 +692,6 @@
     </div>
   </section>
 
-  <div id="kpi-social-note" style="display:none; font-size:13px; color:var(--ink-dim); margin:-8px 0 16px; padding:0 4px;"></div>
-
   <section class="section">
     <div class="section-head">
       <div class="section-title" data-i18n="mapTitle">Carte de l'épidémie</div>
@@ -1001,7 +999,6 @@ const I18N = {
     sinceText:(d)=>`depuis le ${d}`,
     startingPoint:"point de départ",
     isolationDelta:"en CTE",
-    socialUpdateNote:(date)=>`Chiffres du ${date} : point de situation publié sur`,
     topMeta:"17<sup>e</sup> épidémie d'Ebola en RDC",
     autoUpdateNote:(date)=>`Dernières données officielles disponibles : <strong>${date}</strong>`,
     todayUpdateNote:(date)=>`Mis à jour le <strong>${date}</strong>`,
@@ -1120,7 +1117,6 @@ const I18N = {
     sinceText:(d)=>`since ${d}`,
     startingPoint:"starting point",
     isolationDelta:"in treatment centres",
-    socialUpdateNote:(date)=>`Figures as of ${date}: situation update posted on`,
     topMeta:"17<sup>th</sup> Ebola outbreak in the DRC",
     autoUpdateNote:(date)=>`Latest official data available: <strong>${date}</strong>`,
     todayUpdateNote:(date)=>`Updated on <strong>${date}</strong>`,
@@ -1660,6 +1656,29 @@ function sortedSitreps(){
   return [...sitreps].filter(s=>s.date).sort((a,b)=>a.date.localeCompare(b.date));
 }
 
+/* Ajoute un point supplémentaire venant du dernier point de situation
+   X/Twitter (SOCIAL_UPDATES), UNIQUEMENT si sa date est postérieure au
+   dernier SitRep PDF déjà traité — pour les graphiques "Cas/décès
+   cumulés" et "Nouveaux cas par jour" seulement (pas les cases d'en-tête,
+   qui ont leur propre logique via effectiveNationalKPIs, ni la date
+   "dernières données disponibles", qui reste volontairement basée sur le
+   SitRep PDF). Dès qu'un vrai SitRep couvrant cette date est traité par le
+   pipeline normal, il apparaît dans sitreps.json et ce point supplémentaire
+   disparaît de lui-même — aucune action manuelle nécessaire. */
+function sortedSitrepsWithSocial(){
+  const base = sortedSitreps();
+  const lastSocial = SOCIAL_UPDATES.length ? SOCIAL_UPDATES[SOCIAL_UPDATES.length-1] : null;
+  if(!lastSocial) return base;
+  const lastBaseDate = base.length ? base[base.length-1].date : null;
+  if(lastBaseDate && lastSocial.date <= lastBaseDate) return base;
+  return [...base, {
+    date: lastSocial.date,
+    confirmed: lastSocial.confirmed,
+    deaths: lastSocial.deaths,
+    recovered: lastSocial.recovered,
+  }];
+}
+
 /* ============ RENDU KPI ============ */
 function fmt(n){ return (n===null||n===undefined) ? '—' : n.toLocaleString(tr('locale')); }
 
@@ -1701,18 +1720,6 @@ function renderKPIs(){
   const cfr = (cfrBase && cfrBase.confirmed>0) ? (cfrBase.deaths/cfrBase.confirmed*100) : null;
   document.getElementById('kpi-cfr').textContent = cfr!==null ? cfr.toFixed(1)+'%' : '—';
 
-  const noteEl = document.getElementById('kpi-social-note');
-  if(usingSocial && noteEl){
-    noteEl.style.display = 'block';
-    const link = document.createElement('a');
-    link.href = eff.sourceUrl; link.target = '_blank'; link.rel = 'noopener';
-    link.textContent = eff.sourceLabel;
-    noteEl.textContent = tr('socialUpdateNote')(frDate(eff.date)) + ' ';
-    noteEl.appendChild(link);
-  } else if(noteEl){
-    noteEl.style.display = 'none';
-  }
-
   function deltaText(field, entry){
     if(!entry) return tr('startingPoint');
     const prev = prevKnown(field, entry);
@@ -1748,7 +1755,7 @@ function renderChart(){
     }));
     return;
   }
-  const s = sortedSitreps();
+  const s = sortedSitrepsWithSocial();
   const subEl = document.getElementById('chartSubText');
   if(subEl && s.length){
     subEl.textContent = tr('chartSub') + ' · ' + tr('chartSubRange')(s.length, frDate(s[0].date), frDate(s[s.length-1].date));
@@ -2776,8 +2783,15 @@ function applyStaticI18n(){
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
     el.setAttribute('placeholder', tr(el.getAttribute('data-i18n-placeholder')));
   });
+  // Même logique que les cases d'en-tête (effectiveNationalKPIs) : préfère
+  // la date du dernier point de situation X/Twitter si elle est plus
+  // récente que le dernier SitRep PDF — pour rester cohérent avec les
+  // chiffres affichés juste au-dessus, plutôt que d'afficher une date "en
+  // retard" sur les chiffres qu'elle est censée dater.
+  const effDate = effectiveNationalKPIs();
   const latestEntry = sortedSitreps()[sortedSitreps().length-1];
-  const [fy,fm,fd] = latestEntry.date.split('-');
+  const displayDate = (effDate && effDate.date > latestEntry.date) ? effDate.date : latestEntry.date;
+  const [fy,fm,fd] = displayDate.split('-');
   const lastUpdateDate = `${fd.padStart(2,'0')}/${fm.padStart(2,'0')}/${fy.slice(-2)}`;
   document.getElementById('autoUpdateNote').innerHTML = tr('autoUpdateNote')(lastUpdateDate);
   const today = new Date();
