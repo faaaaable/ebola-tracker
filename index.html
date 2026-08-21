@@ -844,6 +844,20 @@
     </div>
   </section>
 
+  <section class="section" id="social-updates-section" style="display:none;">
+    <div class="section-head">
+      <div class="section-title" data-i18n="socialUpdatesTitle">Points de situation (réseaux sociaux)</div>
+    </div>
+    <p class="page-intro" data-i18n="socialUpdatesIntro">
+      Entre deux SitRep, il arrive que les chiffres nationaux soient publiés en avant-première sur les réseaux
+      sociaux par une source officielle — ces points sont listés ici à titre de référence, sans jamais remplacer
+      le détail complet du prochain SitRep.
+    </p>
+    <div class="panel" style="padding:16px;">
+      <div id="socialUpdatesList" class="reports-grid"></div>
+    </div>
+  </section>
+
   </div><!-- /tab-reports -->
 
   <div class="tab-panel" id="tab-about">
@@ -1068,6 +1082,10 @@ const I18N = {
     whoReportsTitle:"Weekly External Situation Report (OMS)",
     whoReportsIntro:"Bulletins hebdomadaires publiés par le Bureau régional Afrique de l'Organisation Mondiale de la Santé sur cette épidémie — une source indépendante de l'INSP, à un rythme hebdomadaire plutôt que quasi quotidien.",
     whoReportsLabel:(n)=>`Rapport N°${n}`,
+    socialUpdatesTitle:"Points de situation (réseaux sociaux)",
+    socialUpdatesIntro:"Entre deux SitRep, il arrive que les chiffres nationaux soient publiés en avant-première sur les réseaux sociaux par une source officielle — ces points sont listés ici à titre de référence, sans jamais remplacer le détail complet du prochain SitRep.",
+    socialUpdatesLabel:"Point de situation",
+    socialUpdatesOpenLink:"Ouvrir la publication d'origine",
     reportsReportingDate:(d)=>`Situation au ${d}`,
     reportsUnknownDate:"date inconnue",
     reportsSearchPlaceholder:"Rechercher (N°, mois, année)…",
@@ -1186,6 +1204,10 @@ const I18N = {
     whoReportsTitle:"Weekly External Situation Report (WHO)",
     whoReportsIntro:"Weekly bulletins published by the WHO Regional Office for Africa on this outbreak — a source independent from INSP, published weekly rather than near-daily.",
     whoReportsLabel:(n)=>`Report N°${n}`,
+    socialUpdatesTitle:"Situation updates (social media)",
+    socialUpdatesIntro:"Between two SitReps, national figures are sometimes published in advance on social media by an official source — these updates are listed here for reference, never replacing the full detail of the next SitRep.",
+    socialUpdatesLabel:"Situation update",
+    socialUpdatesOpenLink:"Open original post",
     reportsReportingDate:(d)=>`Situation as of ${d}`,
     reportsUnknownDate:"unknown date",
     reportsSearchPlaceholder:"Search (N°, month, year)…",
@@ -2425,6 +2447,7 @@ function renderAll(){
   safeRun(renderZonesTable, 'zonesTable');
   safeRun(renderReportsList, 'reportsList');
   safeRun(renderWhoReportsList, 'whoReportsList');
+  safeRun(renderSocialUpdatesList, 'socialUpdatesList');
 }
 
 /* ============ RAPPORTS DE SITUATION OFFICIELS ============ */
@@ -2517,6 +2540,29 @@ function renderWhoReportsList(){
       </span>
       <a class="rc-dl" href="${r.file}" target="_blank" rel="noopener" title="${tr('reportsDownload')}" aria-label="${tr('reportsDownload')}">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>
+      </a>
+    </div>
+  `).join('');
+}
+
+function renderSocialUpdatesList(){
+  const section = document.getElementById('social-updates-section');
+  const container = document.getElementById('socialUpdatesList');
+  if(!container || !section) return;
+  if(!SOCIAL_UPDATES || SOCIAL_UPDATES.length===0){
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = 'block';
+  const sorted = [...SOCIAL_UPDATES].sort((a,b)=>b.date.localeCompare(a.date));
+  container.innerHTML = sorted.map(r=>`
+    <div class="report-chip">
+      <span class="rc-info">
+        <span class="rc-label">${r.source || tr('socialUpdatesLabel')}</span>
+        <span class="rc-date">${tr('reportsReportingDate')(frDate(r.date) + ' ' + r.date.slice(0,4))}</span>
+      </span>
+      <a class="rc-dl" href="${r.url}" target="_blank" rel="noopener" title="${tr('socialUpdatesOpenLink')}" aria-label="${tr('socialUpdatesOpenLink')}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
       </a>
     </div>
   `).join('');
