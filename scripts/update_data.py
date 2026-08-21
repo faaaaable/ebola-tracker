@@ -535,8 +535,10 @@ def gap_fill_missing_zones(full_text, zones_raw):
             continue
         # Tiret/espace tolérés dans le nom de province ("Bas Uélé" vs
         # "Bas-Uélé" — vu varier d'un rapport à l'autre) : on compare une
-        # version normalisée (tiret → espace) des deux côtés.
-        line_normalized = line.replace("-", " ")
+        # version normalisée (tiret → espace) des deux côtés. Un éventuel
+        # préfixe "Sous-total " est aussi retiré (variante rencontrée avec
+        # le SitRep 087 : "Sous-total Ituri" au lieu de "Ituri" seul).
+        line_normalized = re.sub(r"^sous.total\s+", "", line.replace("-", " "), flags=re.IGNORECASE)
         matched_province = None
         for pname in PROVINCE_NAMES_MAIN:
             if line_normalized.startswith(pname.replace("-", " ")):
@@ -594,6 +596,10 @@ def parse_zone_detail(rows):
         # et se retrouve traitée comme une fausse zone (vu avec le SitRep
         # 097 : "Tshopo*" non reconnu malgré le nom "Tshopo" déjà couvert).
         name_normalized = (name or "").rstrip("*").strip().replace("-", " ")
+        # Retire aussi un éventuel préfixe "Sous-total " (variante rencontrée
+        # avec le SitRep 087 : "Sous-total Ituri" au lieu de "Ituri" seul) —
+        # insensible à la casse et au tiret/espace, comme le reste.
+        name_normalized = re.sub(r"^sous.total\s+", "", name_normalized, flags=re.IGNORECASE)
         canon_province = province_by_normalized.get(name_normalized)
         if canon_province:
             # Pas de garde "vu une seule fois" : certains PDF incluent DEUX
