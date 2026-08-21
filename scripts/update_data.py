@@ -277,9 +277,9 @@ def extract_province_summary(pdf):
 
 
 PROVINCE_SUMMARY_ROW_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé|Total)\*?\s+"
-    r"(?P<numbers>[\d ]+?)\s*(?P<cfr>[\d,]+)\s*%\s+"
-    r"(?P<zn>\d+)/(?P<zt>\d+)\s*\([\d,]+\s*%\)\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé|Total)\**\s+"
+    r"(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
+    r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\([\d,]+\s*%\))?\s+"
     r"(?P<newcases>\d+)\s*$",
     re.MULTILINE,
 )
@@ -318,12 +318,24 @@ def parse_province_summary_from_text(full_text):
     avec un PDF provenant de sante.gouv.cd plutôt que insp.cd — la
     section très 'Total cas' ne tombe alors plus dans la colonne attendue
     du tableau). Relit directement le texte brut de la section, ligne par
-    ligne, comme pour les sous-totaux de province du tableau détaillé."""
+    ligne, comme pour les sous-totaux de province du tableau détaillé.
+
+    Les marqueurs de début/fin de section ("Répartition des cas et décès
+    confirmés par province touchée" / "Cas et décès confirmés par
+    province et zone de santé") n'existent pas dans les tout premiers
+    formats de rapport (vu avec le SitRep 057 : la section s'appelle
+    juste "3. ANALYSE ÉPIDÉMIOLOGIQUE DÉTAILLÉE") — dans ce cas, on
+    scanne le texte entier plutôt que de renoncer. La regex elle-même
+    (PROVINCE_SUMMARY_ROW_RE) est assez spécifique (exige la fraction de
+    zones entre parenthèses ET un nombre de nouveaux cas en fin de ligne)
+    pour ne pas se faire piéger par d'autres tableaux du document
+    (suivi des contacts, alertes, PoE/PoC) qui n'ont pas cette structure."""
     start = full_text.find("Répartition des cas et décès confirmés par province touchée")
     end = full_text.find("Cas et décès confirmés par province et zone de santé")
-    if start == -1 or end == -1 or end <= start:
-        return None, None
-    section = full_text[start:end]
+    if start != -1 and end != -1 and end > start:
+        section = full_text[start:end]
+    else:
+        section = full_text
 
     provinces = []
     total_row = None
