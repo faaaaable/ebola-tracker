@@ -72,7 +72,7 @@
       "status": "active"
     },
     {
-      "name": "Tshopo*",
+      "name": "Tshopo",
       "confirmed": 15,
       "deaths": 7,
       "cfr": 46.7,
@@ -81,6 +81,8 @@
         "total": 23
       },
       "newCases24h": 0,
+      "newDeathsCommunity24h": 0,
+      "newDeathsIntraCTE24h": 0,
       "status": "active"
     },
     {
@@ -96,7 +98,7 @@
       "newDeathsCommunity24h": 0,
       "newDeathsIntraCTE24h": 0,
       "status": "inactive",
-      "daysNoCase": 101
+      "daysNoCase": 102
     },
     {
       "name": "Bas-Uélé",
