@@ -1039,7 +1039,32 @@ footer{
     -webkit-overflow-scrolling:touch;
   }
   .side-nav a{white-space:nowrap;padding:7px 11px;}
-  .side-sub{display:none;}   /* le menu des provinces reste sur la page dédiée */
+
+  /* Le sous-menu des provinces était masqué en dur ici, alors que le chevron
+     restait cliquable : on appuyait, aria-expanded basculait, et rien ne se
+     passait. Il s'ouvre désormais en ligne, dans la même barre défilante que
+     le reste de la navigation.
+
+     display:contents dissout le groupe : son lien, son chevron et ses
+     provinces deviennent des éléments de la barre plutôt qu'une boîte à part.
+     Le chevron peut alors quitter son positionnement absolu — il était calé
+     sur le bord droit du groupe, ce qui, dans une barre horizontale, ne
+     désignait plus rien de clair. */
+  .side-group{display:contents;}
+  .side-group > a{padding-right:11px;}
+  .side-toggle{
+    position:static;flex:none;
+    width:40px;height:40px;
+    border:1px solid var(--line);background:var(--bg-panel);
+  }
+  .side-sub{
+    display:flex;flex-direction:row;gap:4px;
+    margin:0;padding:0;border-left:none;
+  }
+  .side-sub a{
+    white-space:nowrap;font-size:12.5px;
+    padding:0 11px;min-height:40px;
+  }
 
   .side-head{flex-direction:row;align-items:center;justify-content:space-between;}
   .side-foot{margin-top:0;}

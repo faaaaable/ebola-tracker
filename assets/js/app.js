@@ -2097,6 +2097,23 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
     const open = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!open));
     list.hidden = open;
+    if(open) return;
+    /* Sur petit ecran la navigation est une barre qui defile, et les
+       provinces s'ouvrent a droite du chevron — donc hors du champ. Ouvrir un
+       menu sans rien montrer ne vaut pas mieux que de ne pas l'ouvrir : on
+       amene la premiere province sous les yeux. */
+    const bar = toggle.closest('.side-nav');
+    if(!bar || bar.scrollWidth <= bar.clientWidth) return;
+    /* On cale sur le libelle, pas sur le chevron : sinon « Donnees
+       detaillees » sortait du champ et l'on ne savait plus quel menu on
+       venait d'ouvrir. */
+    const libelle = toggle.previousElementSibling || toggle;
+    const cible = Math.max(0, libelle.offsetLeft - 12);
+    if(bar.scrollTo){
+      bar.scrollTo({ left: cible, behavior: 'smooth' });
+    } else {
+      bar.scrollLeft = cible;   // vieux WebView Android
+    }
   });
 })();
 
