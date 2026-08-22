@@ -329,26 +329,6 @@ def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces):
         ))
 
 
-def build_related(config, urls, lang, strings_lang, i18n_lang, related_ids):
-    if not related_ids:
-        return ""
-    by_id = {p["id"]: p for p in config["pages"]}
-    items = []
-    for page_id in related_ids:
-        page = by_id[page_id]
-        items.append('        <li><a href="%s">%s</a></li>'
-                     % (urls.path(page_id, lang),
-                        esc(page["meta"][lang]["h1"])))
-    return ('    <div class="related">\n'
-            '      <h2>%s</h2>\n'
-            '      <ul>\n%s\n      </ul>\n'
-            '    </div>' % (esc(strings_lang["relatedTitle"]), "\n".join(items)))
-
-
-# --------------------------------------------------------------------------
-# Données structurées
-# --------------------------------------------------------------------------
-
 def json_ld(payload):
     return ('<script type="application/ld+json">\n'
             + json.dumps(payload, ensure_ascii=False, indent=2)
@@ -1514,15 +1494,12 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         trail = [(label_for(by_id_page(config, "donnees"), strings_lang, i18n_lang),
                   urls.path("donnees", lang)),
                  (name, None)]
-        related = ""
     else:
         path = urls.path(page["id"], lang)
         fragment_name = page["fragment"]
         meta = dict(page["meta"][lang])
         alt_paths = {code: urls.path(page["id"], code) for code in site["languages"]}
         trail = [] if page["id"] == "accueil" else [(meta["h1"], None)]
-        related = build_related(config, urls, lang, strings_lang, i18n_lang,
-                                page.get("related", []))
 
     fragment = read(os.path.join(SITE, "pages", fragment_name))
 
@@ -1584,6 +1561,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.zonesTitle": esc(interp(strings_lang["provinceZonesTitle"], forms)),
             "province.zonesTable": province_zones_table_html(
                 zones, forms, lang, strings_lang),
+            "province.fullTable": esc(interp(strings_lang["provinceOpenFullTable"], forms)),
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
             "province.query": name.replace(" ", "%20"),
@@ -1668,7 +1646,6 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                          ("donnees",)),
         "breadcrumb": build_breadcrumb(urls, lang, strings_lang, trail),
         "content": content,
-        "related": related,
         "footer": build_footer(config, urls, lang, strings_lang, i18n_lang,
                                provinces),
         "pageGlobals": "\n".join(page_globals),

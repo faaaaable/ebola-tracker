@@ -938,18 +938,6 @@ td:first-child{color:var(--ink);font-weight:500;}
 }
 .teaser-more::after{content:' \2192';}
 
-.related{
-  margin-top:8px;padding:18px 20px;
-  border:1px solid var(--line);border-left:2px solid var(--accent);
-  border-radius:0 var(--radius-card) var(--radius-card) 0;
-  background:var(--bg-panel);
-}
-.related h2{
-  font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-  color:var(--ink-label);margin:0 0 10px;
-}
-.related ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;}
-.related a{font-size:13.5px;font-weight:500;}
 
 .breadcrumb{
   display:flex;flex-wrap:wrap;align-items:center;gap:6px;
@@ -1036,6 +1024,21 @@ footer{
   html{scroll-behavior:auto;}
   *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;}
 }
+
+/* La FAQ se termine sur une invitation a ecrire, pas sur une liste de liens :
+   ce bloc-la reste, avec sa propre classe depuis le retrait du « A lire
+   aussi » dont il empruntait le style. */
+.faq-more{
+  margin-top:22px;padding:18px 20px;
+  border:1px solid var(--line);border-left:2px solid var(--accent);
+  border-radius:0 var(--radius-card) var(--radius-card) 0;
+  background:var(--bg-panel);
+}
+.faq-more h2{
+  font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-label);margin:0 0 10px;
+}
+.faq-more p{margin:0;font-size:13.5px;color:var(--ink-dim);}
 
 /* ==========================================================================
    Infobulle de zone — telephone seulement

@@ -305,7 +305,6 @@
         "website"
       ],
       "legacyHashRoutes": true,
-      "related": [],
       "navLabelKey": "i18n:tabOverview",
       "meta": {
         "fr": {
@@ -335,10 +334,6 @@
       "schema": [
         "dataset"
       ],
-      "related": [
-        "rapports",
-        "a-propos"
-      ],
       "navLabelKey": "i18n:tabZones",
       "meta": {
         "fr": {
@@ -365,11 +360,6 @@
       "priority": "0.8",
       "schema": [
         "collection"
-      ],
-      "related": [
-        "a-propos",
-        "donnees",
-        "chronologie"
       ],
       "navLabelKey": "i18n:tabReports",
       "meta": {
@@ -398,11 +388,6 @@
       "schema": [
         "article"
       ],
-      "related": [
-        "chronologie",
-        "faq",
-        "accueil"
-      ],
       "navLabelKey": "t:navVirus",
       "meta": {
         "fr": {
@@ -429,11 +414,6 @@
       "priority": "0.7",
       "schema": [
         "article"
-      ],
-      "related": [
-        "rapports",
-        "le-virus",
-        "accueil"
       ],
       "navLabelKey": "t:navTimeline",
       "meta": {
@@ -462,11 +442,6 @@
       "schema": [
         "faq"
       ],
-      "related": [
-        "le-virus",
-        "a-propos",
-        "donnees"
-      ],
       "navLabelKey": "t:navFaq",
       "meta": {
         "fr": {
@@ -494,11 +469,6 @@
       "schema": [
         "article"
       ],
-      "related": [
-        "rapports",
-        "contact",
-        "faq"
-      ],
       "navLabelKey": "i18n:tabAbout",
       "meta": {
         "fr": {
@@ -525,10 +495,6 @@
       "priority": "0.4",
       "schema": [],
       "noindexHint": false,
-      "related": [
-        "a-propos",
-        "faq"
-      ],
       "navLabelKey": "i18n:tabContact",
       "meta": {
         "fr": {

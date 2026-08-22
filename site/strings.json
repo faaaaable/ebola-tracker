@@ -20,7 +20,6 @@
     "footerSources": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">Institut National de Santé Publique (INSP) de la RDC</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS Afrique</a>.",
     "footerRepo": "Code source et données ouvertes sur GitHub",
     "footerLangTitle": "Langue",
-    "relatedTitle": "À lire aussi",
     "provincesIntro": "L'épidémie ne touche pas les six provinces de la même façon : l'Ituri concentre l'essentiel des cas, tandis que d'autres provinces ne comptent qu'un foyer isolé. Chaque province a sa propre page, mise à jour avec les mêmes bulletins officiels que le reste du site.",
     "provincesCardCases": "Cas confirmés",
     "provincesCardDeaths": "Décès",
@@ -39,8 +38,6 @@
     "provinceZonesTitle": "Zones de santé touchées {in}",
     "provinceZonesEmpty": "Aucun détail par zone de santé n'est publié pour cette province : les chiffres sont donnés au niveau provincial uniquement.",
     "provinceUpdatedNote": "Chiffres issus du bulletin officiel du {date}. Cette page est régénérée à chaque nouveau bulletin.",
-    "provinceBackToAll": "Voir toutes les provinces",
-    "provinceSeeFullTable": "Ouvrir le tableau complet, toutes provinces confondues",
     "provinceThZone": "Zone de santé",
     "provinceThCases": "Cas confirmés",
     "provinceThDeaths": "Décès",
@@ -183,7 +180,8 @@
     "zoneMapLabel": "{name} ({province}) — {cases} cas confirmés cumulés",
     "menuOpen": "Ouvrir le menu",
     "menuClose": "Fermer le menu",
-    "popupClose": "Fermer"
+    "popupClose": "Fermer",
+    "provinceOpenFullTable": "Ouvrir le tableau complet des zones, filtré sur {the}"
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -205,7 +203,6 @@
     "footerSources": "Data compiled from the bulletins of the <a href=\"https://insp.cd/\" rel=\"noopener\">DRC National Institute of Public Health (INSP)</a> and <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO Africa</a>.",
     "footerRepo": "Source code and open data on GitHub",
     "footerLangTitle": "Language",
-    "relatedTitle": "Read next",
     "provincesIntro": "The outbreak does not affect all six provinces equally: Ituri concentrates the vast majority of cases, while other provinces report only an isolated focus. Every province has its own page, updated from the same official bulletins as the rest of the site.",
     "provincesCardCases": "Confirmed cases",
     "provincesCardDeaths": "Deaths",
@@ -224,8 +221,6 @@
     "provinceZonesTitle": "Affected health zones in {name}",
     "provinceZonesEmpty": "No health-zone breakdown is published for this province: figures are given at provincial level only.",
     "provinceUpdatedNote": "Figures from the official bulletin of {date}. This page is regenerated with every new bulletin.",
-    "provinceBackToAll": "See all provinces",
-    "provinceSeeFullTable": "Open the full table, all provinces",
     "provinceThZone": "Health zone",
     "provinceThCases": "Confirmed cases",
     "provinceThDeaths": "Deaths",
@@ -368,7 +363,8 @@
     "zoneMapLabel": "{name} ({province}) — {cases} cumulative confirmed case{cases?s}",
     "menuOpen": "Open menu",
     "menuClose": "Close menu",
-    "popupClose": "Close"
+    "popupClose": "Close",
+    "provinceOpenFullTable": "Open the full zone table, filtered on {the}"
   },
   "timelineEvents": [
     {
