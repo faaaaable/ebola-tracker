@@ -19,6 +19,24 @@
             <div class="legend-gradient"></div>
             <div class="legend-minmax"><span data-i18n="legendLow">{{i18n.legendLow}}</span><span data-i18n="legendHigh">{{i18n.legendHigh}}</span></div>
           </div>
+          <!-- Infobulle de zone : n'apparait que sur telephone, ancree a la
+               zone touchee. Sur ordinateur le panneau lateral suffit. -->
+          <div class="zm-popup" id="zonePopup" role="dialog" aria-live="polite"
+               aria-label="{{t.cartoDefaultName}}" hidden>
+            <button class="zm-popup-close" id="zonePopupClose" type="button"
+                    aria-label="{{t.popupClose}}">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+                   stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+            <p class="zm-popup-name" id="zonePopupName"></p>
+            <dl class="zm-popup-rows">
+              <div class="is-cases"><dt>{{i18n.labelConfirmed}}</dt><dd id="zonePopupCases"></dd></div>
+              <div class="is-deaths"><dt>{{i18n.labelDeaths}}</dt><dd id="zonePopupDeaths"></dd></div>
+              <div><dt>{{i18n.popupProvinceLabel}}</dt><dd id="zonePopupProvince"></dd></div>
+            </dl>
+            <a class="zm-popup-more" id="zonePopupMore" href="#">{{t.cartoMore}}</a>
+            <span class="zm-popup-tail" aria-hidden="true"></span>
+          </div>
         </div>
 
         <div class="map-timeline" id="mapTimeline" style="display:none;">

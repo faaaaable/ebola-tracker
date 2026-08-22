@@ -1038,6 +1038,73 @@ footer{
 }
 
 /* ==========================================================================
+   Infobulle de zone — telephone seulement
+
+   Sur petit ecran le panneau de detail tombe sous le pli : on touchait une
+   zone et la reponse s'affichait hors de l'ecran. Cette case s'ancre a la
+   zone touchee, comme les bulles de l'ancienne carte. Sur ordinateur elle
+   n'existe pas, le panneau lateral fait le travail.
+   ========================================================================== */
+
+.zm-popup{display:none;}
+
+@media (max-width:900px){
+  .zm-popup{
+    display:block;position:absolute;z-index:20;
+    width:min(228px,calc(100% - 24px));
+    padding:11px 30px 11px 13px;
+    background:var(--bg-panel);border:1px solid var(--line);
+    border-radius:var(--radius-card);
+    box-shadow:0 8px 24px rgba(31,26,19,.14);
+  }
+  /* La regle de bloc ci-dessus l'emporterait sur le style par defaut de
+     [hidden] : il faut la contredire explicitement. */
+  .zm-popup[hidden]{display:none;}
+
+  .zm-popup-name{
+    font-family:var(--font-serif);font-size:16px;font-weight:600;
+    line-height:1.2;color:var(--ink);margin:0 0 7px;
+  }
+  .zm-popup-rows{margin:0;display:flex;flex-direction:column;gap:3px;}
+  .zm-popup-rows > div{
+    display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  }
+  .zm-popup-rows dt{font-size:11.5px;color:var(--ink-label);}
+  .zm-popup-rows dd{
+    margin:0;font-size:13px;font-weight:600;color:var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+  .zm-popup-rows .d{font-weight:600;margin-left:4px;}
+  .zm-popup-rows .is-cases .d{color:var(--accent-strong);}
+  .zm-popup-rows .is-deaths .d{color:var(--accent-critical);}
+  .zm-popup-more{
+    display:inline-block;margin-top:9px;font-size:12.5px;font-weight:600;
+  }
+  .zm-popup-more[hidden]{display:none;}
+
+  /* La croix : 34 px de cible, posee dans le coin sans pousser le texte. */
+  .zm-popup-close{
+    position:absolute;top:4px;right:4px;
+    width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+    border:none;background:transparent;color:var(--ink-faint);
+    border-radius:var(--radius);cursor:pointer;padding:0;
+  }
+
+  /* La pointe suit l'ancre horizontale, calculee par app.js. */
+  .zm-popup-tail{
+    position:absolute;left:var(--pointe,50%);width:11px;height:11px;
+    margin-left:-6px;transform:rotate(45deg);
+    background:var(--bg-panel);
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .zm-popup-tail{bottom:-6px;}
+  .zm-popup.est-dessous .zm-popup-tail{
+    bottom:auto;top:-6px;
+    border:none;border-left:1px solid var(--line);border-top:1px solid var(--line);
+  }
+}
+
+/* ==========================================================================
    Adaptation aux petits écrans
 
    La maquette ne traitait que le grand écran. Sous 900 px, la colonne

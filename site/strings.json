@@ -182,7 +182,8 @@
     "zoneMapTitle": "{name} — {cases} cas confirmés cumulés, {deaths} décès",
     "zoneMapLabel": "{name} ({province}) — {cases} cas confirmés cumulés",
     "menuOpen": "Ouvrir le menu",
-    "menuClose": "Fermer le menu"
+    "menuClose": "Fermer le menu",
+    "popupClose": "Fermer"
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -366,7 +367,8 @@
     "zoneMapTitle": "{name} — {cases} cumulative confirmed case{cases?s}, {deaths} death{deaths?s}",
     "zoneMapLabel": "{name} ({province}) — {cases} cumulative confirmed case{cases?s}",
     "menuOpen": "Open menu",
-    "menuClose": "Close menu"
+    "menuClose": "Close menu",
+    "popupClose": "Close"
   },
   "timelineEvents": [
     {

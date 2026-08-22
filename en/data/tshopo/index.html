@@ -377,6 +377,24 @@
           </g>
         </g>
       </svg>
+          <!-- Infobulle de zone : n'apparait que sur telephone, ancree a la
+               zone touchee. Sur ordinateur le panneau lateral suffit. -->
+          <div class="zm-popup" id="zonePopup" role="dialog" aria-live="polite"
+               aria-label="Affected health zones" hidden>
+            <button class="zm-popup-close" id="zonePopupClose" type="button"
+                    aria-label="Close">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+                   stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+            <p class="zm-popup-name" id="zonePopupName"></p>
+            <dl class="zm-popup-rows">
+              <div class="is-cases"><dt>Confirmed cases</dt><dd id="zonePopupCases"></dd></div>
+              <div class="is-deaths"><dt>Deaths</dt><dd id="zonePopupDeaths"></dd></div>
+              <div><dt>Province</dt><dd id="zonePopupProvince"></dd></div>
+            </dl>
+            <a class="zm-popup-more" id="zonePopupMore" href="#">Open the province</a>
+            <span class="zm-popup-tail" aria-hidden="true"></span>
+          </div>
         </div>
 
         <div class="map-timeline" id="mapTimeline" style="display:none;">

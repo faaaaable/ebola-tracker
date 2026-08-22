@@ -1404,6 +1404,8 @@ function renderMap(){
         + `${fmt(deaths)} ${tr('cartoDeathsShort')}`;
     }
   });
+
+  if(window.majInfobulleZone) window.majInfobulleZone();
 }
 
 let timelinePlayTimer = null;
@@ -2183,6 +2185,105 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
   });
 })();
 
+/* ============ INFOBULLE DE ZONE (TELEPHONE) ============ */
+/* Sur petit ecran, le panneau de detail vit 300 px sous le pli : toucher une
+   zone mettait a jour quelque chose d'invisible. Une case ancree a la zone
+   touchee prend le relais, refermee par une croix. Le panneau, lui, garde ses
+   cinq chiffres nationaux — la case ne sert qu'aux zones. */
+(function setupZonePopup(){
+  const popup = document.getElementById('zonePopup');
+  if(!popup) return;
+  const scene = popup.closest('.zonemap-stage');
+  if(!scene) return;
+  const nom = document.getElementById('zonePopupName');
+  const cas = document.getElementById('zonePopupCases');
+  const deces = document.getElementById('zonePopupDeaths');
+  const province = document.getElementById('zonePopupProvince');
+  const lien = document.getElementById('zonePopupMore');
+  const croix = document.getElementById('zonePopupClose');
+  const petitEcran = window.matchMedia('(max-width:900px)');
+  let courante = null;
+
+  function ecart(valeur){
+    if(valeur === undefined || valeur === null || valeur === '') return '';
+    const n = parseInt(valeur, 10);
+    return Number.isNaN(n) ? '' : ' <span class="d">(+' + fmt(Math.max(0, n)) + ')</span>';
+  }
+
+  function remplir(zone){
+    nom.textContent = zone.dataset.name || '';
+    cas.innerHTML = (zone.dataset.cases || '—') + ecart(zone.dataset.newCases);
+    deces.innerHTML = (zone.dataset.deaths || '—') + ecart(zone.dataset.newDeaths);
+    province.textContent = zone.dataset.sub || '';
+    const href = zone.dataset.href;
+    lien.hidden = !href;
+    if(href) lien.setAttribute('href', href);
+  }
+
+  /* La case se pose au-dessus de la zone, ou en dessous s'il n'y a pas la
+     place. Elle est bornee aux bords de la carte pour ne jamais sortir de
+     l'ecran ; seule la pointe suit alors l'ancre. */
+  function placer(zone){
+    const rz = zone.getBoundingClientRect();
+    const rs = scene.getBoundingClientRect();
+    const ancre = rz.left + rz.width / 2 - rs.left;
+    const largeur = popup.offsetWidth, hauteur = popup.offsetHeight;
+
+    let haut = rz.top - rs.top - 13 - hauteur;
+    const dessous = haut < 4;
+    if(dessous) haut = rz.bottom - rs.top + 13;
+
+    let gauche = Math.round(ancre - largeur / 2);
+    gauche = Math.max(6, Math.min(gauche, rs.width - largeur - 6));
+
+    popup.style.left = gauche + 'px';
+    popup.style.top = Math.round(haut) + 'px';
+    popup.classList.toggle('est-dessous', dessous);
+    popup.style.setProperty('--pointe',
+      Math.max(16, Math.min(ancre - gauche, largeur - 16)) + 'px');
+  }
+
+  function fermer(){
+    popup.hidden = true;
+    courante = null;
+  }
+
+  function ouvrir(zone){
+    courante = zone;
+    remplir(zone);
+    popup.hidden = false;   // il faut l'afficher pour pouvoir le mesurer
+    placer(zone);
+  }
+
+  croix.addEventListener('click', fermer);
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') fermer(); });
+
+  document.querySelectorAll('.zm-zone').forEach(zone=>{
+    zone.addEventListener('click', ()=>{
+      if(!petitEcran.matches) return;
+      if(courante === zone){ fermer(); return; }
+      ouvrir(zone);
+    });
+  });
+
+  /* Toucher une zone cadre aussi sur sa province : la carte glisse pendant
+     une demi-seconde, et la case doit suivre son ancre. */
+  const cadre = scene.querySelector('.zm-viewport');
+  if(cadre) cadre.addEventListener('transitionend', ()=>{
+    if(courante && !popup.hidden) placer(courante);
+  });
+  window.addEventListener('resize', ()=>{
+    if(!petitEcran.matches) fermer();
+    else if(courante && !popup.hidden) placer(courante);
+  });
+
+  /* Le curseur temporel reecrit les chiffres de chaque zone : la case ouverte
+     doit dire la meme chose que la carte sous elle. */
+  window.majInfobulleZone = function(){
+    if(courante && !popup.hidden){ remplir(courante); placer(courante); }
+  };
+})();
+
 /* ============ CARTOGRAMME ============ */
 /* La carte des zones de sante est ecrite en dur a la generation : elle
    s'affiche et se lit sans JavaScript. On n'ajoute ici que le confort —
@@ -2237,7 +2338,12 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
     }
   }
 
+  const petitEcran = window.matchMedia('(max-width:900px)');
+
   function show(zone){
+    /* Sur telephone, l'infobulle ancree a la zone repond a sa place, et le
+       panneau conserve les cinq chiffres nationaux. */
+    if(petitEcran.matches) return;
     fill(zone.dataset.name || '', zone.dataset.sub || '',
          zone.dataset.cases, zone.dataset.deaths,
          zone.dataset.newCases, zone.dataset.newDeaths,
@@ -2261,6 +2367,7 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
   let pinned = null;
 
   function select(zone){
+    if(petitEcran.matches) return;
     if(pinned === zone) return;
     if(pinned) pinned.classList.remove('is-selected');
     pinned = zone;
