@@ -823,29 +823,7 @@ def province_series(history, name):
     return points
 
 
-def sparkline_svg(points, peak, width=132.0, height=30.0):
-    """Vignette d'evolution, tracee a la generation.
-
-    Toutes les provinces partagent le meme maximum : les six vignettes sont
-    alors comparables d'un coup d'oeil, ce qui est tout l'interet de petits
-    multiples. Un trace fige en SVG ne coute ni bibliotheque ni requete.
-    """
-    if len(points) < 2 or not peak:
-        return ""
-    span = len(points) - 1
-    coords = []
-    for index, (_date, value) in enumerate(points):
-        x = index * width / span
-        y = height - (value / float(peak)) * (height - 2) - 1
-        coords.append("%.1f %.1f" % (x, y))
-    line = "M" + "L".join(coords)
-    area = "%s L%.1f %.1f L0 %.1f Z" % (line, width, height, height)
-    return ('<svg class="spark" viewBox="0 0 %g %g" preserveAspectRatio="none" '
-            'aria-hidden="true"><path class="spark-area" d="%s"/>'
-            '<path class="spark-line" d="%s"/></svg>' % (width, height, area, line))
-
-
-def province_cards_html(provinces, urls, lang, strings_lang, history=None, peak=None):
+def province_cards_html(provinces, urls, lang, strings_lang):
     cards = []
     for province in sorted(provinces, key=lambda p: -(p.get("confirmed") or 0)):
         zones = province.get("healthZonesAffected")
@@ -854,11 +832,6 @@ def province_cards_html(provinces, urls, lang, strings_lang, history=None, peak=
             zones_line = ('\n        <div class="pc-zones">%s</div>'
                           % esc(interp(strings_lang["provincesCardZones"],
                                        {"n": zones["n"], "total": zones["total"]})))
-        spark = ""
-        if history is not None:
-            drawing = sparkline_svg(province_series(history, province["name"]), peak)
-            if drawing:
-                spark = '\n        <div class="pc-spark">%s</div>' % drawing
         cards.append(
             '      <a class="province-card" href="%s" style="border-left-color:%s;">\n'
             "        <h3>%s</h3>\n"
@@ -869,7 +842,7 @@ def province_cards_html(provinces, urls, lang, strings_lang, history=None, peak=
             '<span class="v">%s</span></div>\n'
             '          <div class="pc-stat"><span class="k">%s</span>'
             '<span class="v">%s</span></div>\n'
-            "        </div>%s%s\n"
+            "        </div>%s\n"
             "      </a>" % (
                 urls.province_path(province["name"], lang),
                 PROVINCE_COLORS.get(province["name"], "var(--ink-faint)"),
@@ -877,7 +850,7 @@ def province_cards_html(provinces, urls, lang, strings_lang, history=None, peak=
                 esc(strings_lang["provincesCardCases"]), fmt(province.get("confirmed"), lang),
                 esc(strings_lang["provincesCardDeaths"]), fmt(province.get("deaths"), lang),
                 esc(strings_lang["provincesCardCfr"]), fmt_cfr(province.get("cfr")),
-                zones_line, spark))
+                zones_line))
     return "\n".join(cards)
 
 
@@ -1387,12 +1360,7 @@ def main():
         faq_html, faq_plain = faq_items_html(strings, lang, url_values)
         # Toutes les vignettes partagent le maximum de la province la plus
         # touchee : c'est ce qui les rend comparables entre elles.
-        spark_peak = max((p.get("confirmed") or 0) for p in provinces) if provinces else 0
-        cards = province_cards_html(provinces, urls, lang, strings_lang,
-                                    history=province_history, peak=spark_peak)
-        # L'accueil garde des cartes nues : les vignettes n'y apportent qu'un
-        # motif de plus sur une page qui doit rester sobre.
-        cards_plain = province_cards_html(provinces, urls, lang, strings_lang)
+        cards = province_cards_html(provinces, urls, lang, strings_lang)
         common_seed = {
             "seed.confirmed": fmt(national.get("confirmed"), lang),
             "seed.deaths": fmt(national.get("deaths"), lang),
@@ -1409,7 +1377,7 @@ def main():
             "seed.whoSectionStyle": "" if who_reports else "display:none;",
             "seed.socialSectionStyle": "" if social_updates else "display:none;",
             "provinceCards": cards,
-            "provinceCardsPlain": cards_plain,
+            "provinceCardsPlain": cards,
             "provinceTableRows": province_table_rows_html(provinces, urls, lang),
             "faqItems": faq_html,
         }

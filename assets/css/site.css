@@ -757,6 +757,35 @@ td:first-child{color:var(--ink);font-weight:500;}
 .compare tbody tr:hover td{background:var(--bg-alt);}
 .compare tbody tr:hover td.is-this{background:rgba(213,236,248,.55);}
 
+/* Sur telephone, trois colonnes ne tiennent pas : le tableau mesurait 513 px
+   dans un conteneur de 320, et .compare etant en overflow:hidden, la colonne
+   « Zaire » etait coupee net plutot que simplement hors champ — donc
+   inatteignable. Chaque ligne devient un bloc, et chaque valeur porte le nom
+   de sa colonne, ecrit a la generation dans data-col. */
+@media (max-width:760px){
+  .compare table,
+  .compare tbody,
+  .compare tbody tr,
+  .compare tbody th,
+  .compare td{display:block;width:auto;}
+  .compare thead{display:none;}
+  .compare tbody tr{padding:4px 0 10px;border-top:1px solid var(--line);}
+  .compare tbody tr:first-child{border-top:none;}
+  .compare tbody th{
+    padding:12px 16px 8px;font-size:13px;border:none;background:transparent;
+  }
+  .compare td{padding:7px 16px;display:flex;gap:12px;align-items:baseline;}
+  .compare td::before{
+    content:attr(data-col);flex:0 0 88px;
+    font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--ink-label);
+  }
+  .compare td.is-this{background:transparent;}
+  .compare td.is-this::before{color:var(--accent-strong);}
+  .compare tbody tr:hover td,
+  .compare tbody tr:hover td.is-this{background:transparent;}
+}
+
 /* ---- echelle d'incubation ---- */
 .incub{margin-top:4px;}
 .incub-scale{
@@ -1468,15 +1497,6 @@ footer{
   .cd-nat.active .v{color:var(--accent-active);}
   /* Une seule des deux listes est visible a la fois. */
   .carto-detail:not(.is-empty) .cd-national{display:none;}
-
-  /* ---- vignette d'evolution dans une carte province ----
-     Toutes a la meme echelle : c'est ce qui les rend comparables. Tracees a
-     la generation, elles ne coutent ni bibliotheque ni requete. */
-  .pc-spark{margin-top:10px;}
-  .spark{display:block;width:100%;height:30px;overflow:visible;}
-  .spark-line{fill:none;stroke:var(--accent);stroke-width:1.4;
-              vector-effect:non-scaling-stroke;stroke-linejoin:round;}
-  .spark-area{fill:var(--accent-light);opacity:.6;stroke:none;}
 
   /* ---- note de lecture ---- */
   .data-note{
