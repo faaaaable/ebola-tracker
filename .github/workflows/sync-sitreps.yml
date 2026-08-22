@@ -38,7 +38,14 @@ jobs:
         run: |
           git config user.name "sitrep-bot"
           git config user.email "sitrep-bot@users.noreply.github.com"
-          git add reports/ data/latest.json data/sitreps.json data/zones-history.json data/contacts-followup.json
+          # province-history.json est réécrit par update_data.py à chaque
+          # passage, mais il ne figurait pas ici : le bot ne l'a donc jamais
+          # committé. Les pages générées dans le même run étaient justes — la
+          # regénération lit le fichier frais — mais celui servi aux
+          # navigateurs restait figé à la dernière reprise manuelle, et avec
+          # lui le graphique « Par province », premier onglet de /donnees/.
+          git add reports/ data/latest.json data/sitreps.json data/zones-history.json
+          git add data/province-history.json data/contacts-followup.json
           git add $(python -c "import json;print(' '.join(json.load(open('site/.generated.json'))))") site/.generated.json
           if git diff --cached --quiet; then
             echo "Aucun nouveau SitRep — rien à committer."
