@@ -1561,5 +1561,34 @@
         "confirmed": 2
       }
     ]
+  },
+  {
+    "date": "2026-08-20",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 4510
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 680
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 165
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 15
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3
+      },
+      {
+        "name": "Bas-Uélé",
+        "confirmed": 2
+      }
+    ]
   }
 ]
