@@ -1,0 +1,97 @@
+  <section class="section">
+    <p class="kicker" data-i18n-html="topMeta">{{i18n.topMeta}}</p>
+    <h1 class="accroche">{{t.homeLede}}</h1>
+
+    <div class="section-head">
+      <h2 class="section-title">{{t.cartoTitle}}</h2>
+    </div>
+
+    <div class="carto-layout">
+      <div class="zonemap-frame">
+        <div class="zonemap-stage">
+{{cartogram}}
+          <div class="map-toolbar">
+            <button class="map-btn active" id="btnViewCountry" data-i18n="btnCountry">{{i18n.btnCountry}}</button>
+            <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">{{i18n.btnIturi}}</button>
+          </div>
+          <div class="map-legend">
+            <div class="title" data-i18n="legendTitle">{{i18n.legendTitle}}</div>
+            <div class="legend-gradient"></div>
+            <div class="legend-minmax"><span data-i18n="legendLow">{{i18n.legendLow}}</span><span data-i18n="legendHigh">{{i18n.legendHigh}}</span></div>
+          </div>
+        </div>
+
+        <div class="map-timeline" id="mapTimeline" style="display:none;">
+          <div class="map-timeline-head">
+            <span class="map-timeline-label" data-i18n="timelineLabel">{{i18n.timelineLabel}}</span>
+            <span class="map-timeline-date" id="timelineDate">—</span>
+          </div>
+          <input type="range" id="timelineSlider" min="0" max="0" value="0" step="1" aria-label="{{i18n.timelineLabel}}">
+          <div class="map-timeline-foot">
+            <button type="button" id="timelinePlay" class="map-btn" data-i18n="timelinePlay">{{i18n.timelinePlay}}</button>
+            <button type="button" id="timelineToday" class="map-btn" data-i18n="timelineToday">{{i18n.timelineToday}}</button>
+            <span class="map-timeline-note" data-i18n="timelineNote">{{i18n.timelineNote}}</span>
+          </div>
+        </div>
+
+        <div class="map-note">{{t.cartoDisclaimer}}</div>
+      </div>
+
+      <div class="carto-detail is-empty"
+           id="cartoDetail"
+           data-default-name="{{t.cartoDefaultName}}"
+           data-default-sub="{{seed.provincesTouched}}"
+           data-more="{{t.cartoMore}}">
+        <div class="name" id="cartoName">{{t.cartoDefaultName}}</div>
+        <div class="note" id="cartoNote">{{seed.provincesTouched}}</div>
+{{panelStats}}
+        <dl class="cd-figures">
+          <div class="cd-fig is-cases">
+            <dt data-i18n="labelConfirmed">{{i18n.labelConfirmed}}</dt>
+            <dd><span class="v" id="cartoCases">{{seed.confirmed}}</span><span class="d" id="cartoCasesDelta"></span></dd>
+          </div>
+          <div class="cd-fig is-deaths">
+            <dt data-i18n="labelDeaths">{{i18n.labelDeaths}}</dt>
+            <dd><span class="v" id="cartoDeaths">{{seed.deaths}}</span><span class="d" id="cartoDeathsDelta"></span></dd>
+          </div>
+        </dl>
+        <div class="sub" id="cartoSub">{{mapHint}}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="chartTitle">{{i18n.chartTitle}}</h2>
+      <span class="section-sub">{{t.chartEpidemicSub}}</span>
+    </div>
+
+    <div class="panel chart-panel-wrap">
+      <div class="chart-panel">
+        <canvas id="epiChart" data-chart="epidemic"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+  </section>
+
+  <section class="section section-split">
+    <h2 class="section-title">{{t.navTimeline}}</h2>
+    <div>
+      <div class="timeline-h is-inline" tabindex="0" role="region" aria-label="{{t.timelineRegionLabel}}">
+        <ol class="th-track">
+{{timelineTeaser}}
+        </ol>
+      </div>
+      <a class="teaser-more" href="{{url.chronologie}}">{{t.teaserTimelineMore}}</a>
+    </div>
+  </section>
+
+  <section class="section section-split">
+    <h2 class="section-title">{{t.teaserProvincesTitle}}</h2>
+    <div>
+      <div class="province-grid">
+{{provinceCardsPlain}}
+      </div>
+      <a class="teaser-more" href="{{url.donnees}}">{{t.teaserProvincesMore}}</a>
+    </div>
+  </section>

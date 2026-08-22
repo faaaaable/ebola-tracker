@@ -1,0 +1,94 @@
+  <section class="section">
+    <div class="section-head">
+      <h1 class="page-title">{{meta.h1}}</h1>
+      <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">{{seed.zonesSub}}</div>
+    </div>
+
+    <p class="page-intro">{{t.provincesIntro}}</p>
+
+    <nav class="subtab-nav" id="zonesViewNav" aria-label="{{i18n.zonesViewProvince}} / {{i18n.zonesViewZone}}" style="margin-bottom:16px;">
+      <button type="button" class="subtab-btn active" data-view="province" data-i18n="zonesViewProvince">{{i18n.zonesViewProvince}}</button>
+      <button type="button" class="subtab-btn" data-view="zone" data-i18n="zonesViewZone">{{i18n.zonesViewZone}}</button>
+    </nav>
+
+    <div id="zonesView-province">
+      <div class="panel" style="padding:16px;">
+        <div class="table-scroll">
+          <table>
+            <caption class="visually-hidden">{{i18n.zonesViewProvince}}</caption>
+            <thead>
+              <tr>
+                <th data-i18n="provinceTh1">{{i18n.provinceTh1}}</th>
+                <th data-i18n="zonesTh3">{{i18n.zonesTh3}}</th>
+                <th data-i18n="zonesTh4">{{i18n.zonesTh4}}</th>
+                <th data-i18n="zonesTh5">{{i18n.zonesTh5}}</th>
+                <th data-i18n="provinceTh2">{{i18n.provinceTh2}}</th>
+                <th data-i18n="zonesTh6">{{i18n.zonesTh6}}</th>
+              </tr>
+            </thead>
+            <tbody id="provinceSummaryBody">
+{{seed.provinceRows}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="zonesView-zone" style="display:none;">
+      <div class="panel" style="padding:16px;">
+        <nav class="subtab-nav" id="zonesSubtabNav" aria-label="{{i18n.zonesFilterAll}}"></nav>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+          <label class="visually-hidden" for="zonesSearch">{{i18n.zonesSearchPlaceholder}}</label>
+          <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="{{i18n.zonesSearchPlaceholder}}">
+        </div>
+        <div class="table-scroll" style="max-height:min(60vh,520px);">
+          <table>
+            <thead>
+              <tr id="zonesTableHead"></tr>
+            </thead>
+            <tbody id="zonesTableBody"></tbody>
+          </table>
+        </div>
+        <div id="zonesEmptyState" class="map-note" style="display:none;text-align:center;" data-i18n="zonesEmptyState">{{i18n.zonesEmptyState}}</div>
+        <div id="zonesResultCount"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">{{t.provincesBrowseTitle}}</h2>
+    </div>
+    <div class="province-grid">
+{{provinceCards}}
+    </div>
+    <p class="map-note" style="padding-top:12px;">{{t.provincesSparkNote}}</p>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">{{t.dataChartsTitle}}</h2>
+        <div class="section-sub">{{t.dataChartsSub}}</div>
+      </div>
+      <nav class="subtab-nav" data-chart-tabs="dataChart">
+        <button type="button" class="subtab-btn active" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
+        <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">{{i18n.chartModeContactsFollowUp}}</button>
+        <button type="button" class="subtab-btn" data-mode="communityDeaths" data-i18n="chartModeCommunityDeaths">{{i18n.chartModeCommunityDeaths}}</button>
+      </nav>
+    </div>
+
+    <div class="panel chart-panel-wrap">
+      <div class="chart-panel">
+        <canvas id="dataChart" data-chart="byProvince"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="data-note">
+      <h2>{{t.dataNoteTitle}}</h2>
+      {{t.dataNoteBody}}
+    </div>
+  </section>

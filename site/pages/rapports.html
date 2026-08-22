@@ -1,0 +1,41 @@
+  <section class="section">
+    <div class="section-head">
+      <h1 class="page-title">{{meta.h1}}</h1>
+    </div>
+    <div class="section-head" style="margin-top:26px;">
+      <h2 class="section-title" data-i18n="reportsTitle">{{i18n.reportsTitle}}</h2>
+    </div>
+    <p class="page-intro" data-i18n="reportsIntro">{{i18n.reportsIntro}}</p>
+    <div class="panel" style="padding:16px;">
+      <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="{{i18n.reportsTitle}}"></nav>
+      <label class="visually-hidden" for="reportsSearch">{{i18n.reportsSearchPlaceholder}}</label>
+      <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="{{i18n.reportsSearchPlaceholder}}" class="search-input">
+      <div id="reportsList" class="reports-grid">
+{{seed.reportsList}}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="who-reports-section" style="{{seed.whoSectionStyle}}">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="whoReportsTitle">{{i18n.whoReportsTitle}}</h2>
+    </div>
+    <p class="page-intro" data-i18n="whoReportsIntro">{{i18n.whoReportsIntro}}</p>
+    <div class="panel" style="padding:16px;">
+      <div id="whoReportsList" class="reports-grid">
+{{seed.whoReportsList}}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="social-updates-section" style="{{seed.socialSectionStyle}}">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="socialUpdatesTitle">{{i18n.socialUpdatesTitle}}</h2>
+    </div>
+    <p class="page-intro" data-i18n="socialUpdatesIntro">{{i18n.socialUpdatesIntro}}</p>
+    <div class="panel" style="padding:16px;">
+      <div id="socialUpdatesList" class="reports-grid">
+{{seed.socialUpdatesList}}
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,108 @@
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:6px;"><span class="dot"></span>{{province.statusLabel}}</div>
+        <h1 class="page-title">{{meta.h1}}</h1>
+      </div>
+      <div class="section-sub">{{seed.sitrepRef}}</div>
+    </div>
+
+    <p class="page-intro">{{province.intro}}</p>
+    <p class="province-rank">{{province.rank}}</p>
+
+    <section class="kpis" aria-label="{{meta.h1}}">
+      <div class="kpi confirmed">
+        <div class="label">{{t.provincesCardCases}}</div>
+        <div class="value">{{province.cases}}</div>
+        <div class="delta"></div>
+      </div>
+      <div class="kpi deaths">
+        <div class="label">{{t.provincesCardDeaths}}</div>
+        <div class="value">{{province.deaths}}</div>
+        <div class="delta">{{province.newDeaths}}</div>
+      </div>
+      <div class="kpi cfr">
+        <div class="label">{{t.provincesCardCfr}}</div>
+        <div class="value">{{province.cfr}}</div>
+        <div class="delta" data-i18n="cfrDelta">{{i18n.cfrDelta}}</div>
+      </div>
+    </section>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">{{t.provinceMapTitle}}</h2>
+      <span class="section-sub">{{province.mapZones}}</span>
+    </div>
+
+    <div class="carto-layout">
+      <div class="zonemap-frame">
+        <div class="zonemap-stage">
+{{province.map}}
+        </div>
+
+        <div class="map-timeline" id="mapTimeline" style="display:none;">
+          <div class="map-timeline-head">
+            <span class="map-timeline-label" data-i18n="timelineLabel">{{i18n.timelineLabel}}</span>
+            <span class="map-timeline-date" id="timelineDate">—</span>
+          </div>
+          <input type="range" id="timelineSlider" min="0" max="0" value="0" step="1" aria-label="{{i18n.timelineLabel}}">
+          <div class="map-timeline-foot">
+            <button type="button" id="timelinePlay" class="map-btn" data-i18n="timelinePlay">{{i18n.timelinePlay}}</button>
+            <button type="button" id="timelineToday" class="map-btn" data-i18n="timelineToday">{{i18n.timelineToday}}</button>
+            <span class="map-timeline-note" data-i18n="timelineNote">{{i18n.timelineNote}}</span>
+          </div>
+        </div>
+
+        <div class="map-note">{{province.mapNote}}</div>
+      </div>
+
+      <div class="carto-detail is-empty"
+           id="cartoDetail"
+           data-default-name="{{province.name}}"
+           data-default-sub="{{province.mapZones}}">
+        <div class="name" id="cartoName">{{province.name}}</div>
+        <div class="note" id="cartoNote">{{province.mapZones}}</div>
+        <dl class="cd-figures">
+          <div class="cd-fig is-cases">
+            <dt data-i18n="labelConfirmed">{{i18n.labelConfirmed}}</dt>
+            <dd><span class="v" id="cartoCases">—</span><span class="d" id="cartoCasesDelta"></span></dd>
+          </div>
+          <div class="cd-fig is-deaths">
+            <dt data-i18n="labelDeaths">{{i18n.labelDeaths}}</dt>
+            <dd><span class="v" id="cartoDeaths">—</span><span class="d" id="cartoDeathsDelta"></span></dd>
+          </div>
+        </dl>
+        <div class="sub" id="cartoSub">{{mapHint}}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">{{province.zonesTitle}}</h2>
+    </div>
+    <div class="panel" style="padding:16px;">
+{{province.zonesTable}}
+    </div>
+    <p class="map-note" style="margin-top:10px;">{{t.provinceUpdatedNote}}</p>
+  </section>
+
+  <section class="section">
+    <div class="data-note">
+      <h2>{{t.dataNoteTitle}}</h2>
+      {{t.dataNoteBody}}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="related">
+      <h2>{{t.relatedTitle}}</h2>
+      <ul>
+        <li><a href="{{url.donnees}}">{{t.provinceBackToAll}}</a></li>
+        <li><a href="{{url.donnees}}?province={{province.query}}">{{t.provinceSeeFullTable}}</a></li>
+        <li><a href="{{url.accueil}}">{{i18n.tabOverview}}</a></li>
+        <li><a href="{{url.rapports}}">{{i18n.tabReports}}</a></li>
+      </ul>
+    </div>
+  </section>

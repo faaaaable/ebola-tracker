@@ -1,0 +1,557 @@
+{
+  "_comment": "Definition de toutes les pages du site. scripts/build_pages.py lit ce fichier, assemble site/layout.html avec le fragment de chaque page, et ecrit une page par langue et par URL. Ajouter une page = ajouter une entree ici + un fragment dans site/pages/.",
+  "site": {
+    "origin": "https://ebola-tracker.org",
+    "analytics": "G-TY2M5LDVN3",
+    "googleSiteVerification": "kpbL-xHwtgQ-H61ezgLZEOl2f41_3VXpb2ejZz0R1Og",
+    "ogImage": "/assets/og-image.png",
+    "repository": "https://github.com/faaaaable/ebola-tracker",
+    "languages": [
+      "fr",
+      "en"
+    ],
+    "defaultLanguage": "fr"
+  },
+  "provinceSlugs": {
+    "Ituri": "ituri",
+    "Nord-Kivu": "nord-kivu",
+    "Haut-Uélé": "haut-uele",
+    "Tshopo": "tshopo",
+    "Sud-Kivu": "sud-kivu",
+    "Bas-Uélé": "bas-uele"
+  },
+  "mainNav": [
+    "accueil",
+    "donnees",
+    "rapports",
+    "le-virus",
+    "chronologie",
+    "faq",
+    "a-propos"
+  ],
+  "footerNav": [
+    {
+      "titleKey": "footerExploreTitle",
+      "pages": [
+        "accueil",
+        "donnees",
+        "rapports"
+      ]
+    },
+    {
+      "titleKey": "footerUnderstandTitle",
+      "pages": [
+        "le-virus",
+        "chronologie",
+        "faq"
+      ]
+    },
+    {
+      "titleKey": "footerSiteTitle",
+      "pages": [
+        "a-propos",
+        "contact"
+      ]
+    }
+  ],
+  "provinceGrammar": {
+    "_comment": "Formes flechies utilisees dans les phrases redigees : « en Ituri » mais « au Nord-Kivu », « la province d'Ituri » mais « du Haut-Uele ». Sans cette table, le generateur produirait « en province de Ituri ».",
+    "Ituri": {
+      "in": "en Ituri",
+      "of": "d'Ituri",
+      "the": "l'Ituri"
+    },
+    "Nord-Kivu": {
+      "in": "au Nord-Kivu",
+      "of": "du Nord-Kivu",
+      "the": "le Nord-Kivu"
+    },
+    "Sud-Kivu": {
+      "in": "au Sud-Kivu",
+      "of": "du Sud-Kivu",
+      "the": "le Sud-Kivu"
+    },
+    "Haut-Uélé": {
+      "in": "dans le Haut-Uélé",
+      "of": "du Haut-Uélé",
+      "the": "le Haut-Uélé"
+    },
+    "Bas-Uélé": {
+      "in": "dans le Bas-Uélé",
+      "of": "du Bas-Uélé",
+      "the": "le Bas-Uélé"
+    },
+    "Tshopo": {
+      "in": "dans la Tshopo",
+      "of": "de la Tshopo",
+      "the": "la Tshopo"
+    }
+  },
+  "cartogram": {
+    "_comment": "Carte d'apercu de l'accueil : les 519 zones de sante, tracees depuis le shapefile HDX/OCHA par scripts/build_geo.py. thresholds decoupe l'echelle de couleur au niveau province (usage historique), zoneThresholds au niveau zone de sante, qui est celui affiche.",
+    "thresholds": [
+      10,
+      100,
+      1000
+    ],
+    "grid": [
+      {
+        "name": "Sud-Ubangi",
+        "col": 2,
+        "row": 1
+      },
+      {
+        "name": "Nord-Ubangi",
+        "col": 3,
+        "row": 1
+      },
+      {
+        "name": "Bas-Uélé",
+        "col": 5,
+        "row": 1
+      },
+      {
+        "name": "Haut-Uélé",
+        "col": 6,
+        "row": 1
+      },
+      {
+        "name": "Ituri",
+        "col": 7,
+        "row": 1
+      },
+      {
+        "name": "Équateur",
+        "col": 1,
+        "row": 2
+      },
+      {
+        "name": "Mongala",
+        "col": 3,
+        "row": 2
+      },
+      {
+        "name": "Tshopo",
+        "col": 5,
+        "row": 2
+      },
+      {
+        "name": "Nord-Kivu",
+        "col": 7,
+        "row": 2
+      },
+      {
+        "name": "Tshuapa",
+        "col": 2,
+        "row": 3
+      },
+      {
+        "name": "Sankuru",
+        "col": 4,
+        "row": 3
+      },
+      {
+        "name": "Maniema",
+        "col": 6,
+        "row": 3
+      },
+      {
+        "name": "Sud-Kivu",
+        "col": 7,
+        "row": 3
+      },
+      {
+        "name": "Mai-Ndombe",
+        "col": 1,
+        "row": 4
+      },
+      {
+        "name": "Kwilu",
+        "col": 2,
+        "row": 4
+      },
+      {
+        "name": "Kasaï",
+        "col": 3,
+        "row": 4
+      },
+      {
+        "name": "Lomami",
+        "col": 4,
+        "row": 4
+      },
+      {
+        "name": "Tanganyika",
+        "col": 6,
+        "row": 4
+      },
+      {
+        "name": "Kwango",
+        "col": 2,
+        "row": 5
+      },
+      {
+        "name": "Kasaï-Central",
+        "col": 3,
+        "row": 5
+      },
+      {
+        "name": "Kasaï-Oriental",
+        "col": 4,
+        "row": 5
+      },
+      {
+        "name": "Haut-Lomami",
+        "col": 5,
+        "row": 5
+      },
+      {
+        "name": "Haut-Katanga",
+        "col": 6,
+        "row": 5
+      },
+      {
+        "name": "Kongo-Central",
+        "col": 1,
+        "row": 6
+      },
+      {
+        "name": "Kinshasa",
+        "col": 2,
+        "row": 6
+      },
+      {
+        "name": "Lualaba",
+        "col": 5,
+        "row": 6
+      }
+    ],
+    "zoneThresholds": [
+      10,
+      50,
+      200
+    ]
+  },
+  "mapLandmarks": {
+    "_comment": "Villes reperes dessinees sur la carte, a la place des etiquettes d'un fond de tuiles. lat/lon en WGS 84 ; 'kind' pilote le style. \"overview\": false retire la ville de la carte du pays sans la retirer de la carte de sa province.",
+    "places": [
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "lat": 1.5591,
+        "lon": 30.247,
+        "kind": "epicenter"
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "lat": -1.6794,
+        "lon": 29.2336,
+        "kind": "province-capital",
+        "overview": false
+      },
+      {
+        "name": "Bukavu",
+        "province": "Sud-Kivu",
+        "lat": -2.5083,
+        "lon": 28.8608,
+        "kind": "province-capital",
+        "overview": false
+      },
+      {
+        "name": "Isiro",
+        "province": "Haut-Uélé",
+        "lat": 2.7739,
+        "lon": 27.6186,
+        "kind": "province-capital"
+      },
+      {
+        "name": "Buta",
+        "province": "Bas-Uélé",
+        "lat": 2.7859,
+        "lon": 24.7375,
+        "kind": "province-capital"
+      },
+      {
+        "name": "Kisangani",
+        "province": "Tshopo",
+        "lat": 0.5153,
+        "lon": 25.1911,
+        "kind": "province-capital"
+      },
+      {
+        "name": "Kinshasa",
+        "lat": -4.4419,
+        "lon": 15.2663,
+        "kind": "capital"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "id": "accueil",
+      "fragment": "accueil.html",
+      "slug": {
+        "fr": "",
+        "en": ""
+      },
+      "needs": [
+        "chart"
+      ],
+      "changefreq": "daily",
+      "priority": "1.0",
+      "schema": [
+        "dataset",
+        "website"
+      ],
+      "legacyHashRoutes": true,
+      "related": [],
+      "navLabelKey": "i18n:tabOverview",
+      "meta": {
+        "fr": {
+          "title": "Ebola RDC 2026 — Suivi de l'épidémie en direct",
+          "h1": "Suivi de l'épidémie d'Ebola en RDC",
+          "description": "Suivi quotidien de la 17e épidémie d'Ebola en RDC : cas confirmés, décès, guéris, carte des zones de santé touchées et courbe épidémique, d'après les bulletins officiels."
+        },
+        "en": {
+          "title": "DRC Ebola Tracker 2026 — Live outbreak monitoring",
+          "h1": "Tracking the Ebola outbreak in the DRC",
+          "description": "Daily tracking of the 17th Ebola outbreak in the DRC: confirmed cases, deaths, recoveries, a map of affected health zones and the epidemic curve, from official bulletins."
+        }
+      }
+    },
+    {
+      "id": "donnees",
+      "fragment": "donnees.html",
+      "slug": {
+        "fr": "donnees/",
+        "en": "data/"
+      },
+      "needs": [
+        "chart"
+      ],
+      "changefreq": "daily",
+      "priority": "0.9",
+      "schema": [
+        "dataset"
+      ],
+      "related": [
+        "rapports",
+        "a-propos"
+      ],
+      "navLabelKey": "i18n:tabZones",
+      "meta": {
+        "fr": {
+          "title": "Données détaillées par province et zone de santé — Ebola RDC",
+          "h1": "Données détaillées par province et zone de santé",
+          "description": "Cas confirmés, décès et létalité de l'épidémie d'Ebola en RDC, détaillés province par province et zone de santé par zone de santé, avec le comparatif des six provinces touchées."
+        },
+        "en": {
+          "title": "Detailed data by province and health zone — DRC Ebola",
+          "h1": "Detailed data by province and health zone",
+          "description": "Confirmed cases, deaths and fatality rate of the DRC Ebola outbreak, broken down province by province and health zone by health zone, with a comparison of the six affected provinces."
+        }
+      }
+    },
+    {
+      "id": "rapports",
+      "fragment": "rapports.html",
+      "slug": {
+        "fr": "rapports/",
+        "en": "reports/"
+      },
+      "needs": [],
+      "changefreq": "daily",
+      "priority": "0.8",
+      "schema": [
+        "collection"
+      ],
+      "related": [
+        "a-propos",
+        "donnees",
+        "chronologie"
+      ],
+      "navLabelKey": "i18n:tabReports",
+      "meta": {
+        "fr": {
+          "title": "Archive des SitRep INSP et bulletins OMS — Ebola RDC 2026",
+          "h1": "Sources et bulletins officiels",
+          "description": "Archive complète des rapports de situation (SitRep) de l'INSP RDC et des bulletins hebdomadaires de l'OMS sur l'épidémie d'Ebola 2026, en PDF d'origine."
+        },
+        "en": {
+          "title": "INSP SitRep and WHO bulletin archive — DRC Ebola 2026",
+          "h1": "Official sources and bulletins",
+          "description": "Complete archive of the DRC INSP situation reports (SitRep) and the WHO weekly bulletins on the 2026 Ebola outbreak, as original PDFs."
+        }
+      }
+    },
+    {
+      "id": "le-virus",
+      "fragment": "le-virus.html",
+      "slug": {
+        "fr": "le-virus/",
+        "en": "the-virus/"
+      },
+      "needs": [],
+      "changefreq": "monthly",
+      "priority": "0.7",
+      "schema": [
+        "article"
+      ],
+      "related": [
+        "chronologie",
+        "faq",
+        "accueil"
+      ],
+      "navLabelKey": "t:navVirus",
+      "meta": {
+        "fr": {
+          "title": "Ebola Bundibugyo : transmission, symptômes, vaccins",
+          "h1": "Le virus Ebola Bundibugyo",
+          "description": "L'espèce Bundibugyo du virus Ebola, en cause dans l'épidémie de 2026 en RDC : transmission, incubation, symptômes, létalité, et pourquoi le vaccin homologué ne la couvre pas."
+        },
+        "en": {
+          "title": "Bundibugyo ebolavirus: transmission, symptoms, vaccines",
+          "h1": "The Bundibugyo Ebola virus",
+          "description": "The Bundibugyo species of Ebola virus behind the 2026 DRC outbreak: transmission, incubation, symptoms, fatality rate, and why the licensed vaccine does not cover it."
+        }
+      }
+    },
+    {
+      "id": "chronologie",
+      "fragment": "chronologie.html",
+      "slug": {
+        "fr": "chronologie/",
+        "en": "timeline/"
+      },
+      "needs": [],
+      "changefreq": "weekly",
+      "priority": "0.7",
+      "schema": [
+        "article"
+      ],
+      "related": [
+        "rapports",
+        "le-virus",
+        "accueil"
+      ],
+      "navLabelKey": "t:navTimeline",
+      "meta": {
+        "fr": {
+          "title": "Chronologie de l'épidémie d'Ebola en RDC (2026)",
+          "h1": "Chronologie de l'épidémie",
+          "description": "De la détection des premiers cas suspects en avril 2026 aux derniers bilans : les dates clés de la 17e épidémie d'Ebola en République démocratique du Congo."
+        },
+        "en": {
+          "title": "Timeline of the Ebola outbreak in the DRC (2026)",
+          "h1": "Outbreak timeline",
+          "description": "From the first suspected cases detected in April 2026 to the latest figures: the key dates of the 17th Ebola outbreak in the Democratic Republic of the Congo."
+        }
+      }
+    },
+    {
+      "id": "faq",
+      "fragment": "faq.html",
+      "slug": {
+        "fr": "faq/",
+        "en": "faq/"
+      },
+      "needs": [],
+      "changefreq": "monthly",
+      "priority": "0.6",
+      "schema": [
+        "faq"
+      ],
+      "related": [
+        "le-virus",
+        "a-propos",
+        "donnees"
+      ],
+      "navLabelKey": "t:navFaq",
+      "meta": {
+        "fr": {
+          "title": "Questions fréquentes sur l'épidémie d'Ebola en RDC",
+          "h1": "Questions fréquentes",
+          "description": "Combien de cas, où en est l'épidémie, comment le virus se transmet-il, d'où viennent ces chiffres : les réponses aux questions les plus posées sur Ebola en RDC."
+        },
+        "en": {
+          "title": "Frequently asked questions about Ebola in the DRC",
+          "h1": "Frequently asked questions",
+          "description": "How many cases, where the outbreak stands, how the virus spreads, where these figures come from: answers to the most common questions about Ebola in the DRC."
+        }
+      }
+    },
+    {
+      "id": "a-propos",
+      "fragment": "a-propos.html",
+      "slug": {
+        "fr": "a-propos/",
+        "en": "about/"
+      },
+      "needs": [],
+      "changefreq": "monthly",
+      "priority": "0.5",
+      "schema": [
+        "article"
+      ],
+      "related": [
+        "rapports",
+        "contact",
+        "faq"
+      ],
+      "navLabelKey": "i18n:tabAbout",
+      "meta": {
+        "fr": {
+          "title": "À propos — sources, méthodologie et limites",
+          "h1": "À propos de ce site",
+          "description": "D'où viennent les données, comment elles sont extraites des bulletins officiels, à quelle fréquence elles sont mises à jour et quelles sont les limites connues de ce suivi."
+        },
+        "en": {
+          "title": "About — sources, methodology and limitations",
+          "h1": "About this site",
+          "description": "Where the data comes from, how it is extracted from official bulletins, how often it is updated, and the known limitations of this tracker."
+        }
+      }
+    },
+    {
+      "id": "contact",
+      "fragment": "contact.html",
+      "slug": {
+        "fr": "contact/",
+        "en": "contact/"
+      },
+      "needs": [],
+      "changefreq": "monthly",
+      "priority": "0.4",
+      "schema": [],
+      "noindexHint": false,
+      "related": [
+        "a-propos",
+        "faq"
+      ],
+      "navLabelKey": "i18n:tabContact",
+      "meta": {
+        "fr": {
+          "title": "Contact — signaler une erreur ou poser une question",
+          "h1": "Contact",
+          "description": "Une erreur dans les chiffres, une question sur la méthodologie ou une suggestion sur le suivi de l'épidémie d'Ebola en RDC : écrivez-nous."
+        },
+        "en": {
+          "title": "Contact — report an error or ask a question",
+          "h1": "Contact",
+          "description": "An error in the figures, a question about the methodology, or a suggestion about this DRC Ebola tracker: get in touch."
+        }
+      }
+    }
+  ],
+  "provincePage": {
+    "fragment": "province.html",
+    "needs": [],
+    "changefreq": "daily",
+    "priority": "0.7",
+    "schema": [
+      "dataset"
+    ],
+    "_comment": "Les pages province vivent sous la page de donnees : /donnees/<slug>/. Chaque niveau du chemin correspond ainsi a une page reelle."
+  }
+}

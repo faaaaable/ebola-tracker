@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detailed data by province and health zone — DRC Ebola</title>
+<meta name="description" content="Confirmed cases, deaths and fatality rate of the DRC Ebola outbreak, broken down province by province and health zone by health zone, with a comparison of the six affected provinces.">
+<link rel="canonical" href="https://ebola-tracker.org/en/data/">
+<link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/">
+<link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/">
+<link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#FDFAF6">
+<meta property="og:site_name" content="DRC Ebola Tracker">
+<meta property="og:title" content="Detailed data by province and health zone — DRC Ebola">
+<meta property="og:description" content="Confirmed cases, deaths and fatality rate of the DRC Ebola outbreak, broken down province by province and health zone by health zone, with a comparison of the six affected provinces.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ebola-tracker.org/en/data/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:image" content="https://ebola-tracker.org/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Detailed data by province and health zone — DRC Ebola">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ebola-tracker.org/assets/og-image.png">
+<meta name="twitter:title" content="Detailed data by province and health zone — DRC Ebola">
+<meta name="twitter:description" content="Confirmed cases, deaths and fatality rate of the DRC Ebola outbreak, broken down province by province and health zone by health zone, with a comparison of the six affected provinces.">
+<meta name="robots" content="index, follow">
+<meta name="google-site-verification" content="kpbL-xHwtgQ-H61ezgLZEOl2f41_3VXpb2ejZz0R1Og" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Detailed data by province and health zone — DRC Ebola",
+  "description": "Confirmed cases, deaths and fatality rate of the DRC Ebola outbreak, broken down province by province and health zone by health zone, with a comparison of the six affected provinces.",
+  "url": "https://ebola-tracker.org/en/data/",
+  "inLanguage": "en",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "keywords": [
+    "Ebola",
+    "RDC",
+    "DRC",
+    "épidémie",
+    "santé publique",
+    "Bundibugyo",
+    "SitRep"
+  ],
+  "temporalCoverage": "2026-05-16/..",
+  "spatialCoverage": "Democratic Republic of the Congo",
+  "distribution": {
+    "@type": "DataDownload",
+    "encodingFormat": "application/json",
+    "contentUrl": "https://ebola-tracker.org/data/latest.json"
+  },
+  "isBasedOn": [
+    {
+      "@type": "WebSite",
+      "name": "Institut National de Santé Publique (INSP) RDC",
+      "url": "https://insp.cd/"
+    },
+    {
+      "@type": "WebSite",
+      "name": "Organisation mondiale de la Santé",
+      "url": "https://www.who.int/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://ebola-tracker.org/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Detailed data by province and health zone",
+      "item": "https://ebola-tracker.org/en/data/"
+    }
+  ]
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TY2M5LDVN3');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+<a class="skip-link" href="#contenu">Skip to main content</a>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+
+    <div class="side-head">
+      <a class="brand" href="/en/" aria-label="Back to home">
+        <span class="dot is-live" aria-hidden="true"></span>
+        <p class="site-title">ebola-tracker<span class="tld">.org</span></p>
+      </a>
+
+      <div class="lang-switch" role="group" aria-label="Langue / Language">
+        <a class="lang-btn" href="https://ebola-tracker.org/donnees/" hreflang="fr" lang="fr" title="Français">
+          <svg class="flag" viewBox="0 0 3 2" width="18" height="12" aria-hidden="true">
+            <rect width="1" height="2" x="0" fill="#0055A4"/>
+            <rect width="1" height="2" x="1" fill="#FFFFFF"/>
+            <rect width="1" height="2" x="2" fill="#EF4135"/>
+          </svg>
+          <span class="code">FR</span>
+        </a>
+        <a class="lang-btn active" href="https://ebola-tracker.org/en/data/" hreflang="en" lang="en" title="English" aria-current="true">
+          <svg class="flag" viewBox="0 0 60 30" width="18" height="12" aria-hidden="true">
+            <rect width="60" height="30" fill="#00247d"/>
+            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#cf142b" stroke-width="2"/>
+            <path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/>
+            <path d="M30,0 V30 M0,15 H60" stroke="#cf142b" stroke-width="6"/>
+          </svg>
+          <span class="code">EN</span>
+        </a>
+      </div>
+    </div>
+
+    <nav class="side-nav" aria-label="Main navigation">
+      <a href="/en/">Overview</a>
+      <div class="side-group">
+        <a href="/en/data/" aria-current="page">Detailed data</a>
+        <button class="side-toggle" type="button" aria-expanded="true"
+                aria-controls="zonesDropdown" aria-label="Show or hide the list of provinces">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="side-sub" id="zonesDropdown">
+          <a class="tab-dropdown-item" href="/en/data/">All provinces</a>
+          <a class="tab-dropdown-item" href="/en/data/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
+          <a class="tab-dropdown-item" href="/en/data/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
+          <a class="tab-dropdown-item" href="/en/data/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
+          <a class="tab-dropdown-item" href="/en/data/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
+          <a class="tab-dropdown-item" href="/en/data/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
+          <a class="tab-dropdown-item" href="/en/data/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
+        </div>
+      </div>
+      <a href="/en/reports/">Sources &amp; bulletins</a>
+      <a href="/en/the-virus/">The virus</a>
+      <a href="/en/timeline/">Timeline</a>
+      <a href="/en/faq/">FAQ</a>
+      <a href="/en/about/">About</a>
+    </nav>
+
+    <div class="side-foot">
+      <!-- Fraicheur des donnees : une seule information qui compte, la date du
+           dernier bulletin officiel. La date de verification vient en second,
+           pour expliquer un eventuel ecart plutot que de le laisser en
+           suspens. -->
+      <div class="side-freshness">
+        <div id="autoUpdateNote"></div>
+        <div id="todayUpdateNote"></div>
+      </div>
+
+      <button class="share-btn" id="btnShare" type="button">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+        <span data-i18n="shareBtn">Share</span>
+      </button>
+    </div>
+
+  </aside>
+
+  <div class="main">
+    <div class="wrap">
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/en/">Home</a>
+    <span class="sep" aria-hidden="true">/</span>
+    <span aria-current="page">Detailed data by province and health zone</span>
+  </nav>
+
+      <main id="contenu">
+  <section class="section">
+    <div class="section-head">
+      <h1 class="page-title">Detailed data by province and health zone</h1>
+      <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">56 health zones affected out of 151 · SitRep N°098 of 20 Aug</div>
+    </div>
+
+    <p class="page-intro">The outbreak does not affect all six provinces equally: Ituri concentrates the vast majority of cases, while other provinces report only an isolated focus. Every province has its own page, updated from the same official bulletins as the rest of the site.</p>
+
+    <nav class="subtab-nav" id="zonesViewNav" aria-label="By province / By health zone" style="margin-bottom:16px;">
+      <button type="button" class="subtab-btn active" data-view="province" data-i18n="zonesViewProvince">By province</button>
+      <button type="button" class="subtab-btn" data-view="zone" data-i18n="zonesViewZone">By health zone</button>
+    </nav>
+
+    <div id="zonesView-province">
+      <div class="panel" style="padding:16px;">
+        <div class="table-scroll">
+          <table>
+            <caption class="visually-hidden">By province</caption>
+            <thead>
+              <tr>
+                <th data-i18n="provinceTh1">Province</th>
+                <th data-i18n="zonesTh3">Cumulative cases</th>
+                <th data-i18n="zonesTh4">Deaths</th>
+                <th data-i18n="zonesTh5">Fatality rate</th>
+                <th data-i18n="provinceTh2">Zones affected</th>
+                <th data-i18n="zonesTh6">New cases (24h)</th>
+              </tr>
+            </thead>
+            <tbody id="provinceSummaryBody">
+              <tr>
+                <td><div class="zone-name-cell"><span class="zdot" style="background:#005E82;"></span>Ituri</div></td>
+                <td>4,510 <span style="color:var(--ink-faint);">(83.9%)</span></td>
+                <td>2,009</td>
+                <td><span class="zone-badge zone-badge-mid">44.5%</span></td>
+                <td>28 / 36</td>
+                <td><span class="zone-new-badge has-new">+63</span></td>
+              </tr>
+              <tr>
+                <td><div class="zone-name-cell"><span class="zdot" style="background:#A06F30;"></span>Nord-Kivu</div></td>
+                <td>680 <span style="color:var(--ink-faint);">(12.7%)</span></td>
+                <td>463</td>
+                <td><span class="zone-badge zone-badge-high">68.1%</span></td>
+                <td>12 / 34</td>
+                <td><span class="zone-new-badge has-new">+17</span></td>
+              </tr>
+              <tr>
+                <td><div class="zone-name-cell"><span class="zdot" style="background:#327957;"></span>Haut-Uélé</div></td>
+                <td>165 <span style="color:var(--ink-faint);">(3.1%)</span></td>
+                <td>75</td>
+                <td><span class="zone-badge zone-badge-mid">45.5%</span></td>
+                <td>6 / 13</td>
+                <td><span class="zone-new-badge has-new">+5</span></td>
+              </tr>
+              <tr>
+                <td><div class="zone-name-cell"><span class="zdot" style="background:#6B5CA5;"></span>Tshopo</div></td>
+                <td>15 <span style="color:var(--ink-faint);">(0.3%)</span></td>
+                <td>8</td>
+                <td><span class="zone-badge zone-badge-high">53.3%</span></td>
+                <td>7 / 23</td>
+                <td><span class="zone-new-badge no-new">0</span></td>
+              </tr>
+              <tr>
+                <td><div class="zone-name-cell"><span class="zdot" style="background:#5A544C;"></span>Sud-Kivu</div></td>
+                <td>3 <span style="color:var(--ink-faint);">(0.1%)</span></td>
+                <td>1</td>
+                <td><span class="zone-badge zone-badge-mid">33.3%</span></td>
+                <td>1 / 34</td>
+                <td><span class="zone-new-badge no-new">0</span></td>
+              </tr>
+              <tr>
+                <td><div class="zone-name-cell"><span class="zdot" style="background:#993A2E;"></span>Bas-Uélé</div></td>
+                <td>2 <span style="color:var(--ink-faint);">(0.0%)</span></td>
+                <td>1</td>
+                <td><span class="zone-badge zone-badge-high">50.0%</span></td>
+                <td>2 / 11</td>
+                <td><span class="zone-new-badge no-new">0</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="zonesView-zone" style="display:none;">
+      <div class="panel" style="padding:16px;">
+        <nav class="subtab-nav" id="zonesSubtabNav" aria-label="All provinces"></nav>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+          <label class="visually-hidden" for="zonesSearch">Search a zone…</label>
+          <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="Search a zone…">
+        </div>
+        <div class="table-scroll" style="max-height:min(60vh,520px);">
+          <table>
+            <thead>
+              <tr id="zonesTableHead"></tr>
+            </thead>
+            <tbody id="zonesTableBody"></tbody>
+          </table>
+        </div>
+        <div id="zonesEmptyState" class="map-note" style="display:none;text-align:center;" data-i18n="zonesEmptyState">No zone matches this filter.</div>
+        <div id="zonesResultCount"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">Browse province by province</h2>
+    </div>
+    <div class="province-grid">
+      <a class="province-card" href="/en/data/ituri/" style="border-left-color:#005E82;">
+        <h3>Ituri</h3>
+        <div class="pc-stats">
+          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">4,510</span></div>
+          <div class="pc-stat"><span class="k">Deaths</span><span class="v">2,009</span></div>
+          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">44.5%</span></div>
+        </div>
+        <div class="pc-zones">28 of 36 zones affected</div>
+        <div class="pc-spark"><svg class="spark" viewBox="0 0 132 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area" d="M0.0 28.8L1.8 27.1L3.5 27.0L5.3 26.8L7.0 26.4L8.8 26.1L10.6 26.0L12.3 25.8L14.1 25.5L15.8 25.3L17.6 25.1L19.4 25.0L21.1 24.5L22.9 24.4L24.6 24.2L26.4 24.0L28.2 23.9L29.9 23.7L31.7 23.6L33.4 23.3L35.2 23.1L37.0 22.8L38.7 22.7L40.5 22.5L42.2 22.2L44.0 21.8L45.8 21.5L47.5 21.0L49.3 20.7L51.0 20.5L52.8 20.4L54.6 20.2L56.3 19.8L58.1 19.3L59.8 19.1L61.6 18.9L63.4 18.7L65.1 18.4L66.9 18.2L68.6 18.0L70.4 17.8L72.2 17.4L73.9 17.2L75.7 16.4L77.4 16.0L79.2 15.6L81.0 15.3L82.7 15.0L84.5 12.9L86.2 12.6L88.0 12.0L89.8 11.3L91.5 11.0L93.3 10.4L95.0 9.3L96.8 9.0L98.6 8.6L100.3 8.4L102.1 8.0L103.8 7.5L105.6 7.1L107.4 6.9L109.1 6.4L110.9 6.0L112.6 5.7L114.4 5.3L116.2 4.7L117.9 4.3L119.7 4.0L121.4 3.5L123.2 3.0L125.0 2.6L126.7 2.2L128.5 1.7L130.2 1.4L132.0 1.0 L132.0 30.0 L0 30.0 Z"/><path class="spark-line" d="M0.0 28.8L1.8 27.1L3.5 27.0L5.3 26.8L7.0 26.4L8.8 26.1L10.6 26.0L12.3 25.8L14.1 25.5L15.8 25.3L17.6 25.1L19.4 25.0L21.1 24.5L22.9 24.4L24.6 24.2L26.4 24.0L28.2 23.9L29.9 23.7L31.7 23.6L33.4 23.3L35.2 23.1L37.0 22.8L38.7 22.7L40.5 22.5L42.2 22.2L44.0 21.8L45.8 21.5L47.5 21.0L49.3 20.7L51.0 20.5L52.8 20.4L54.6 20.2L56.3 19.8L58.1 19.3L59.8 19.1L61.6 18.9L63.4 18.7L65.1 18.4L66.9 18.2L68.6 18.0L70.4 17.8L72.2 17.4L73.9 17.2L75.7 16.4L77.4 16.0L79.2 15.6L81.0 15.3L82.7 15.0L84.5 12.9L86.2 12.6L88.0 12.0L89.8 11.3L91.5 11.0L93.3 10.4L95.0 9.3L96.8 9.0L98.6 8.6L100.3 8.4L102.1 8.0L103.8 7.5L105.6 7.1L107.4 6.9L109.1 6.4L110.9 6.0L112.6 5.7L114.4 5.3L116.2 4.7L117.9 4.3L119.7 4.0L121.4 3.5L123.2 3.0L125.0 2.6L126.7 2.2L128.5 1.7L130.2 1.4L132.0 1.0"/></svg></div>
+      </a>
+      <a class="province-card" href="/en/data/nord-kivu/" style="border-left-color:#A06F30;">
+        <h3>Nord-Kivu</h3>
+        <div class="pc-stats">
+          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">680</span></div>
+          <div class="pc-stat"><span class="k">Deaths</span><span class="v">463</span></div>
+          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">68.1%</span></div>
+        </div>
+        <div class="pc-zones">12 of 34 zones affected</div>
+        <div class="pc-spark"><svg class="spark" viewBox="0 0 132 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area" d="M0.0 29.0L1.8 28.9L3.6 28.9L5.4 28.9L7.2 28.8L9.0 28.8L10.8 28.8L12.7 28.8L14.5 28.8L16.3 28.8L18.1 28.7L19.9 28.6L21.7 28.6L23.5 28.6L25.3 28.5L27.1 28.5L28.9 28.5L30.7 28.5L32.5 28.4L34.4 28.4L36.2 28.4L38.0 28.4L39.8 28.4L41.6 28.3L43.4 28.3L45.2 28.3L47.0 28.2L48.8 28.2L50.6 28.1L52.4 28.1L54.2 28.1L56.1 28.1L57.9 28.0L59.7 28.0L61.5 28.0L63.3 28.0L65.1 27.9L66.9 27.9L68.7 27.9L70.5 27.8L72.3 27.8L74.1 27.7L75.9 27.6L77.8 27.5L79.6 27.5L81.4 27.4L83.2 27.3L85.0 27.2L86.8 27.1L88.6 27.1L90.4 27.1L92.2 27.0L94.0 26.7L95.8 26.7L97.6 26.5L99.5 26.4L101.3 26.4L103.1 26.3L104.9 26.2L106.7 26.2L108.5 26.1L110.3 26.0L112.1 25.9L113.9 25.8L115.7 25.7L117.5 25.6L119.3 25.5L121.2 25.3L123.0 25.3L124.8 25.2L126.6 25.1L128.4 25.0L130.2 24.9L132.0 24.8 L132.0 30.0 L0 30.0 Z"/><path class="spark-line" d="M0.0 29.0L1.8 28.9L3.6 28.9L5.4 28.9L7.2 28.8L9.0 28.8L10.8 28.8L12.7 28.8L14.5 28.8L16.3 28.8L18.1 28.7L19.9 28.6L21.7 28.6L23.5 28.6L25.3 28.5L27.1 28.5L28.9 28.5L30.7 28.5L32.5 28.4L34.4 28.4L36.2 28.4L38.0 28.4L39.8 28.4L41.6 28.3L43.4 28.3L45.2 28.3L47.0 28.2L48.8 28.2L50.6 28.1L52.4 28.1L54.2 28.1L56.1 28.1L57.9 28.0L59.7 28.0L61.5 28.0L63.3 28.0L65.1 27.9L66.9 27.9L68.7 27.9L70.5 27.8L72.3 27.8L74.1 27.7L75.9 27.6L77.8 27.5L79.6 27.5L81.4 27.4L83.2 27.3L85.0 27.2L86.8 27.1L88.6 27.1L90.4 27.1L92.2 27.0L94.0 26.7L95.8 26.7L97.6 26.5L99.5 26.4L101.3 26.4L103.1 26.3L104.9 26.2L106.7 26.2L108.5 26.1L110.3 26.0L112.1 25.9L113.9 25.8L115.7 25.7L117.5 25.6L119.3 25.5L121.2 25.3L123.0 25.3L124.8 25.2L126.6 25.1L128.4 25.0L130.2 24.9L132.0 24.8"/></svg></div>
+      </a>
+      <a class="province-card" href="/en/data/haut-uele/" style="border-left-color:#327957;">
+        <h3>Haut-Uélé</h3>
+        <div class="pc-stats">
+          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">165</span></div>
+          <div class="pc-stat"><span class="k">Deaths</span><span class="v">75</span></div>
+          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">45.5%</span></div>
+        </div>
+        <div class="pc-zones">6 of 13 zones affected</div>
+        <div class="pc-spark"><svg class="spark" viewBox="0 0 132 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area" d="M0.0 29.0L4.1 29.0L8.2 29.0L12.4 28.9L16.5 28.9L20.6 28.9L24.8 28.9L28.9 28.8L33.0 28.8L37.1 28.8L41.2 28.8L45.4 28.8L49.5 28.8L53.6 28.7L57.8 28.6L61.9 28.6L66.0 28.6L70.1 28.6L74.2 28.6L78.4 28.5L82.5 28.5L86.6 28.4L90.8 28.4L94.9 28.3L99.0 28.3L103.1 28.2L107.2 28.2L111.4 28.1L115.5 28.1L119.6 28.1L123.8 28.1L127.9 28.0L132.0 28.0 L132.0 30.0 L0 30.0 Z"/><path class="spark-line" d="M0.0 29.0L4.1 29.0L8.2 29.0L12.4 28.9L16.5 28.9L20.6 28.9L24.8 28.9L28.9 28.8L33.0 28.8L37.1 28.8L41.2 28.8L45.4 28.8L49.5 28.8L53.6 28.7L57.8 28.6L61.9 28.6L66.0 28.6L70.1 28.6L74.2 28.6L78.4 28.5L82.5 28.5L86.6 28.4L90.8 28.4L94.9 28.3L99.0 28.3L103.1 28.2L107.2 28.2L111.4 28.1L115.5 28.1L119.6 28.1L123.8 28.1L127.9 28.0L132.0 28.0"/></svg></div>
+      </a>
+      <a class="province-card" href="/en/data/tshopo/" style="border-left-color:#6B5CA5;">
+        <h3>Tshopo</h3>
+        <div class="pc-stats">
+          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">15</span></div>
+          <div class="pc-stat"><span class="k">Deaths</span><span class="v">8</span></div>
+          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">53.3%</span></div>
+        </div>
+        <div class="pc-zones">7 of 23 zones affected</div>
+        <div class="pc-spark"><svg class="spark" viewBox="0 0 132 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area" d="M0.0 29.0L3.6 29.0L7.1 29.0L10.7 29.0L14.3 29.0L17.8 29.0L21.4 29.0L25.0 29.0L28.5 29.0L32.1 29.0L35.7 29.0L39.2 29.0L42.8 29.0L46.4 29.0L49.9 29.0L53.5 29.0L57.1 29.0L60.6 29.0L64.2 29.0L67.8 29.0L71.4 29.0L74.9 29.0L78.5 29.0L82.1 28.9L85.6 28.9L89.2 28.9L92.8 28.9L96.3 28.9L99.9 28.9L103.5 28.9L107.0 28.9L110.6 28.9L114.2 28.9L117.7 28.9L121.3 28.9L124.9 28.9L128.4 28.9L132.0 28.9 L132.0 30.0 L0 30.0 Z"/><path class="spark-line" d="M0.0 29.0L3.6 29.0L7.1 29.0L10.7 29.0L14.3 29.0L17.8 29.0L21.4 29.0L25.0 29.0L28.5 29.0L32.1 29.0L35.7 29.0L39.2 29.0L42.8 29.0L46.4 29.0L49.9 29.0L53.5 29.0L57.1 29.0L60.6 29.0L64.2 29.0L67.8 29.0L71.4 29.0L74.9 29.0L78.5 29.0L82.1 28.9L85.6 28.9L89.2 28.9L92.8 28.9L96.3 28.9L99.9 28.9L103.5 28.9L107.0 28.9L110.6 28.9L114.2 28.9L117.7 28.9L121.3 28.9L124.9 28.9L128.4 28.9L132.0 28.9"/></svg></div>
+      </a>
+      <a class="province-card" href="/en/data/sud-kivu/" style="border-left-color:#5A544C;">
+        <h3>Sud-Kivu</h3>
+        <div class="pc-stats">
+          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">3</span></div>
+          <div class="pc-stat"><span class="k">Deaths</span><span class="v">1</span></div>
+          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">33.3%</span></div>
+        </div>
+        <div class="pc-zones">1 of 34 zones affected</div>
+        <div class="pc-spark"><svg class="spark" viewBox="0 0 132 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area" d="M0.0 29.0L1.9 29.0L3.7 29.0L5.6 29.0L7.4 29.0L9.3 29.0L11.2 29.0L13.0 29.0L14.9 29.0L16.7 29.0L18.6 29.0L20.5 29.0L22.3 29.0L24.2 29.0L26.0 29.0L27.9 29.0L29.7 29.0L31.6 29.0L33.5 29.0L35.3 29.0L37.2 29.0L39.0 29.0L40.9 29.0L42.8 29.0L44.6 29.0L46.5 29.0L48.3 29.0L50.2 29.0L52.1 29.0L53.9 29.0L55.8 29.0L57.6 29.0L59.5 29.0L61.4 29.0L63.2 29.0L65.1 29.0L66.9 29.0L68.8 29.0L70.6 29.0L72.5 29.0L74.4 29.0L76.2 29.0L78.1 29.0L79.9 29.0L81.8 29.0L83.7 29.0L85.5 29.0L87.4 29.0L89.2 29.0L91.1 29.0L93.0 29.0L94.8 29.0L96.7 29.0L98.5 29.0L100.4 29.0L102.3 29.0L104.1 29.0L106.0 29.0L107.8 29.0L109.7 29.0L111.5 29.0L113.4 29.0L115.3 29.0L117.1 29.0L119.0 29.0L120.8 29.0L122.7 29.0L124.6 29.0L126.4 29.0L128.3 29.0L130.1 29.0L132.0 29.0 L132.0 30.0 L0 30.0 Z"/><path class="spark-line" d="M0.0 29.0L1.9 29.0L3.7 29.0L5.6 29.0L7.4 29.0L9.3 29.0L11.2 29.0L13.0 29.0L14.9 29.0L16.7 29.0L18.6 29.0L20.5 29.0L22.3 29.0L24.2 29.0L26.0 29.0L27.9 29.0L29.7 29.0L31.6 29.0L33.5 29.0L35.3 29.0L37.2 29.0L39.0 29.0L40.9 29.0L42.8 29.0L44.6 29.0L46.5 29.0L48.3 29.0L50.2 29.0L52.1 29.0L53.9 29.0L55.8 29.0L57.6 29.0L59.5 29.0L61.4 29.0L63.2 29.0L65.1 29.0L66.9 29.0L68.8 29.0L70.6 29.0L72.5 29.0L74.4 29.0L76.2 29.0L78.1 29.0L79.9 29.0L81.8 29.0L83.7 29.0L85.5 29.0L87.4 29.0L89.2 29.0L91.1 29.0L93.0 29.0L94.8 29.0L96.7 29.0L98.5 29.0L100.4 29.0L102.3 29.0L104.1 29.0L106.0 29.0L107.8 29.0L109.7 29.0L111.5 29.0L113.4 29.0L115.3 29.0L117.1 29.0L119.0 29.0L120.8 29.0L122.7 29.0L124.6 29.0L126.4 29.0L128.3 29.0L130.1 29.0L132.0 29.0"/></svg></div>
+      </a>
+      <a class="province-card" href="/en/data/bas-uele/" style="border-left-color:#993A2E;">
+        <h3>Bas-Uélé</h3>
+        <div class="pc-stats">
+          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">2</span></div>
+          <div class="pc-stat"><span class="k">Deaths</span><span class="v">1</span></div>
+          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">50.0%</span></div>
+        </div>
+        <div class="pc-zones">2 of 11 zones affected</div>
+        <div class="pc-spark"><svg class="spark" viewBox="0 0 132 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area" d="M0.0 29.0L16.5 29.0L33.0 29.0L49.5 29.0L66.0 29.0L82.5 29.0L99.0 29.0L115.5 29.0L132.0 29.0 L132.0 30.0 L0 30.0 Z"/><path class="spark-line" d="M0.0 29.0L16.5 29.0L33.0 29.0L49.5 29.0L66.0 29.0L82.5 29.0L99.0 29.0L115.5 29.0L132.0 29.0"/></svg></div>
+      </a>
+    </div>
+    <p class="map-note" style="padding-top:12px;">Each thumbnail tracks the province's cumulative cases, all on the same scale.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Tracking indicators</h2>
+        <div class="section-sub">for the whole country</div>
+      </div>
+      <nav class="subtab-nav" data-chart-tabs="dataChart">
+        <button type="button" class="subtab-btn active" data-mode="byProvince" data-i18n="chartModeByProvince">Cumulative cases / region</button>
+        <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">Contact follow-up</button>
+        <button type="button" class="subtab-btn" data-mode="communityDeaths" data-i18n="chartModeCommunityDeaths">Death breakdown</button>
+      </nav>
+    </div>
+
+    <div class="panel chart-panel-wrap">
+      <div class="chart-panel">
+        <canvas id="dataChart" data-chart="byProvince"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="data-note">
+      <h2>How to read these figures</h2>
+      <p><strong>Confirmed cases</strong> and <strong>deaths</strong> are cumulative totals since the start of the outbreak, never daily values. The <strong>fatality rate</strong> is deaths over confirmed cases. <strong>New cases (24h)</strong> is the change announced by the latest bulletin, not a calculation of ours.</p><p>Two known limitations. National figures are sometimes published before the province and health-zone breakdown, so a temporary gap between levels is normal. And the authorities sometimes revise figures retroactively — those revisions are reflected here as they come, unsmoothed.</p>
+    </div>
+  </section>
+
+    <div class="related">
+      <h2>Read next</h2>
+      <ul>
+        <li><a href="/en/reports/">Official sources and bulletins</a></li>
+        <li><a href="/en/about/">About this site</a></li>
+      </ul>
+    </div>
+      </main>
+
+  <footer>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <h2>Explore</h2>
+        <ul>
+        <li><a href="/en/">Overview</a></li>
+        <li><a href="/en/data/">Detailed data</a></li>
+        <li><a href="/en/reports/">Sources &amp; bulletins</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Understand</h2>
+        <ul>
+        <li><a href="/en/the-virus/">The virus</a></li>
+        <li><a href="/en/timeline/">Timeline</a></li>
+        <li><a href="/en/faq/">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>This site</h2>
+        <ul>
+        <li><a href="/en/about/">About</a></li>
+        <li><a href="/en/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Affected provinces</h2>
+        <ul>
+        <li><a href="/en/data/ituri/">Ituri</a></li>
+        <li><a href="/en/data/nord-kivu/">Nord-Kivu</a></li>
+        <li><a href="/en/data/haut-uele/">Haut-Uélé</a></li>
+        <li><a href="/en/data/tshopo/">Tshopo</a></li>
+        <li><a href="/en/data/sud-kivu/">Sud-Kivu</a></li>
+        <li><a href="/en/data/bas-uele/">Bas-Uélé</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-notice">Data compiled from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a> and <a href="https://www.afro.who.int/" rel="noopener">WHO Africa</a>. Informational site: neither medical advice nor an official source. <a href="/en/about/">Full disclaimer</a></p>
+  </footer>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+window.PROVINCE_LINKS = {"Ituri": "/en/data/ituri/", "Nord-Kivu": "/en/data/nord-kivu/", "Haut-Uélé": "/en/data/haut-uele/", "Tshopo": "/en/data/tshopo/", "Sud-Kivu": "/en/data/sud-kivu/", "Bas-Uélé": "/en/data/bas-uele/"};
+window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde"};
+window.MAP_VIEWBOX = "0 0 1000 986.5";
+window.MAP_THRESHOLDS = [10, 50, 200];
+window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
+window.PROVINCES_INDEX_URL = "/en/data/";
+window.DATA_PAGE_URL = "/en/data/";
+</script>
+<!-- defer, comme Chart.js dans le <head> : les scripts differes s'executent
+     dans l'ordre du document, donc la bibliotheque est chargee avant app.js.
+     Sans ce defer, app.js s'executerait pendant l'analyse de la page, donc
+     AVANT elle, et le graphique echouerait silencieusement. Le script en ligne
+     juste au-dessus reste classique : il ne fait que poser des variables
+     globales, et doit passer en premier.
+     La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
+     dans la page. -->
+<script defer src="/assets/js/i18n.js"></script>
+<script defer src="/assets/js/app.js"></script>
+
+</body>
+</html>

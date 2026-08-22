@@ -1,0 +1,30 @@
+  <section class="section" style="max-width:560px;">
+    <div class="section-head">
+      <h1 class="page-title">{{meta.h1}}</h1>
+    </div>
+    <p class="page-intro" data-i18n="contactIntro">{{i18n.contactIntro}}</p>
+    <div class="panel" style="padding:24px;">
+      <form id="contactForm" novalidate>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <label style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.04em;" data-i18n="contactNameLabel">{{i18n.contactNameLabel}}</span>
+            <input type="text" name="name" required style="font-family:var(--font-mono);font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.04em;" data-i18n="contactEmailLabel">{{i18n.contactEmailLabel}}</span>
+            <input type="email" name="email" required style="font-family:var(--font-mono);font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.04em;" data-i18n="contactMessageLabel">{{i18n.contactMessageLabel}}</span>
+            <textarea name="message" required rows="5" style="font-family:var(--font-mono);font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel-raised);color:var(--ink);resize:vertical;"></textarea>
+          </label>
+          <input type="text" name="_gotcha" style="position:absolute;left:-9999px;" tabindex="-1" autocomplete="off">
+          <button type="submit" id="contactSubmitBtn" class="share-btn" style="align-self:flex-start;padding:10px 22px;">
+            <span data-i18n="contactSubmitBtn">{{i18n.contactSubmitBtn}}</span>
+          </button>
+          <div id="contactSuccess" style="display:none;font-family:var(--font-mono);font-size:12.5px;color:var(--accent-stable);" data-i18n="contactSuccess">{{i18n.contactSuccess}}</div>
+          <div id="contactError" style="display:none;font-family:var(--font-mono);font-size:12.5px;color:var(--accent-critical);" data-i18n="contactError">{{i18n.contactError}}</div>
+        </div>
+      </form>
+    </div>
+  </section>

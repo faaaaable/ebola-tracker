@@ -1,0 +1,1386 @@
+/* ==========================================================================
+   Ebola Tracker — feuille de style commune aux 28 pages.
+
+   Direction visuelle issue de la maquette « Ebola-tracker v3 » : fond blanc
+   chaud, accent bleu-sarcelle, titrage Source Serif 4, interface Public Sans,
+   colonne latérale fixe de 240 px.
+
+   Les couleurs de la maquette étaient exprimées en oklch(). Elles sont
+   converties ici en hexadécimal : une partie de l'audience est en RDC, sur des
+   navigateurs Android anciens qui ignorent oklch() et afficheraient alors une
+   page sans aucune couleur. Les valeurs oklch d'origine sont rappelées en
+   commentaire pour que la maquette reste la référence.
+   ========================================================================== */
+
+:root{
+  /* ---- fonds ---- */
+  --bg:#FDFAF6;              /* oklch(0.985 0.006 75) */
+  --bg-panel:#FFFDFB;        /* oklch(0.995 0.003 75) */
+  --bg-panel-raised:#FFFDFB;
+  --bg-alt:#F7F3EE;          /* oklch(0.965 0.008 75) */
+
+  /* ---- encres ---- */
+  --ink:#1F1A13;             /* oklch(0.22 0.015 75) */
+  --ink-strong:#4D473F;      /* oklch(0.40 0.015 75) */
+  --ink-dim:#5A544C;         /* oklch(0.45 0.015 75) */
+  --ink-label:#635D54;       /* oklch(0.48 0.015 75) */
+  --ink-faint:#777068;       /* oklch(0.55 0.015 75) */
+
+  /* ---- filets ---- */
+  --line:#DEDAD5;            /* oklch(0.89 0.008 75) */
+  --line-soft:#E7E4E0;       /* oklch(0.92 0.006 75) */
+
+  /* ---- accent ---- */
+  --accent:#1B6C8C;          /* oklch(0.50 0.09 230) */
+  --accent-strong:#005073;   /* oklch(0.40 0.10 230) */
+  --accent-hover:#003455;    /* oklch(0.30 0.10 230) */
+  --accent-light:#D5ECF8;    /* oklch(0.93 0.03 230) */
+
+  /* ---- échelle du cartogramme, 5 paliers ---- */
+  --scale-0:#EAE7E3;
+  --scale-1:#B7D3E1;
+  --scale-2:#7EACC3;
+  --scale-3:#317E9F;
+  --scale-4:#005073;
+  --on-scale-dark:#F5F9FB;   /* texte posé sur les paliers 3 et 4 */
+  --on-scale-light:#272017;  /* texte posé sur les paliers 0 à 2 */
+
+  /* ---- couleurs sémantiques ----
+     Absentes de la maquette, qui ne définissait qu'un accent. Dérivées dans
+     la même discipline de clarté et de chroma pour rester dans la famille :
+     le site doit distinguer cas, décès, guéris et isolement dans les
+     indicateurs, les graphiques et les badges de létalité. */
+  --accent-info:#005E82;     /* cas confirmés — oklch(0.45 0.10 230) */
+  --accent-critical:#993A2E; /* décès        — oklch(0.48 0.13 30)  */
+  --accent-stable:#327957;   /* guéris       — oklch(0.52 0.09 160) */
+  --accent-active:#A06F30;   /* isolement    — oklch(0.58 0.10 70)  */
+  --wash-critical:#FFE4DF;
+  --wash-stable:#DBF2E4;
+  --wash-active:#F9E8D6;
+
+  /* ---- formes ---- */
+  --radius:6px;              /* boutons, pastilles */
+  --radius-card:10px;        /* panneaux */
+  --radius-cell:3px;         /* cellules du cartogramme */
+
+  /* ---- typographie ----
+     Les alias --font-display / --font-body / --font-mono sont conservés :
+     plusieurs fragments les appellent en style en ligne. */
+  --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --font-sans:'Public Sans',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --font-display:var(--font-serif);
+  --font-body:var(--font-sans);
+  --font-mono:var(--font-sans);
+
+  /* ---- gabarit ---- */
+  --sidebar:240px;
+  --gutter:48px;
+  --label-col:220px;         /* colonne de titre des sections internes */
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-sans);
+  font-size:14px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+a{color:var(--accent-strong);text-decoration:none;}
+a:hover{color:var(--accent-hover);text-decoration:underline;}
+::selection{background:var(--accent-light);color:var(--ink);}
+
+h1,h2,h3,h4{margin:0;font-weight:600;}
+p{margin:0 0 14px;}
+ul,ol{margin:0;padding:0;}
+
+:focus-visible{outline:2px solid var(--accent-strong);outline-offset:2px;}
+
+/* Tous les chiffres sont alignés en colonne : indispensable dès qu'on empile
+   des valeurs les unes sous les autres ou dans un tableau. */
+.value,.delta,td,th,.num,.kpi{
+  font-variant-numeric:tabular-nums;
+}
+
+/* ==========================================================================
+   Ossature : colonne latérale fixe + contenu fluide
+   ========================================================================== */
+
+.app-shell{
+  display:grid;
+  grid-template-columns:var(--sidebar) minmax(0,1fr);
+  min-height:100vh;
+}
+
+.sidebar{
+  position:sticky;top:0;height:100vh;
+  border-right:1px solid var(--line);
+  padding:28px 22px;
+  display:flex;flex-direction:column;gap:32px;
+  overflow-y:auto;
+  background:var(--bg);
+}
+
+/* ---- haut de colonne : marque puis selecteur de langue ---- */
+.side-head{display:flex;flex-direction:column;gap:12px;}
+
+
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink);}
+.brand:hover{text-decoration:none;color:var(--ink);}
+.brand .dot{
+  width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none;
+}
+.brand .dot.is-live{animation:pulse 2.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+.site-title{
+  font-family:var(--font-sans);
+  font-size:16px;font-weight:700;letter-spacing:-0.01em;
+  margin:0;line-height:1.2;
+}
+.site-title .tld{color:var(--accent);}
+.site-title a{color:inherit;text-decoration:none;}
+.site-title a:hover{color:inherit;text-decoration:none;}
+
+/* ---- navigation ---- */
+.side-nav{display:flex;flex-direction:column;gap:2px;font-size:13.5px;font-weight:500;}
+.side-nav a{
+  display:block;
+  color:var(--ink-strong);
+  padding:8px 10px;border-radius:var(--radius);
+  text-decoration:none;
+}
+.side-nav a:hover{background:var(--bg-alt);color:var(--ink);text-decoration:none;}
+.side-nav a[aria-current="page"]{
+  background:var(--accent-light);color:var(--ink);font-weight:600;
+}
+
+/* Sous-liste des provinces, sous « Données détaillées ». Toujours visible :
+   dans une colonne verticale, un menu déroulant au survol est inutilement
+   fragile, et ces liens font une partie du maillage interne du site. */
+/* display:flex l'emporte sur le style par defaut de [hidden] : sans cette
+   regle, la liste repliee resterait visible. */
+.side-sub[hidden]{display:none;}
+.side-sub{
+  display:flex;flex-direction:column;gap:1px;
+  margin:2px 0 4px 10px;padding-left:10px;
+  border-left:1px solid var(--line);
+}
+.side-sub a{
+  font-size:12px;font-weight:400;color:var(--ink-label);
+  padding:5px 8px;display:flex;align-items:center;gap:7px;
+}
+.side-sub a:hover{color:var(--accent-strong);background:transparent;text-decoration:underline;}
+.side-sub .dot{width:6px;height:6px;border-radius:50%;flex:none;}
+
+/* ---- selecteur de langue ---- */
+/* Chaque langue a sa propre URL : ce sont de vrais liens, pas une bascule. */
+.lang-switch{display:flex;gap:6px;}
+.lang-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 9px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--bg-panel);color:var(--ink-label);
+  font-size:11px;font-weight:600;letter-spacing:.03em;
+  text-decoration:none;
+}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent-strong);text-decoration:none;}
+.lang-btn.active{border-color:var(--accent);background:var(--accent-light);color:var(--accent-hover);}
+.lang-btn .flag{display:block;border:1px solid rgba(0,0,0,.08);flex:none;}
+.lang-btn .code{line-height:1;}
+
+/* ---- groupe repliable de la navigation ---- */
+/* « Données détaillées » reste un lien à part entière ; le chevron à côté
+   déplie la liste des provinces, repliée par défaut pour que la navigation
+   tienne en six lignes. Les liens sont dans le HTML dans les deux cas. */
+.side-group{position:relative;}
+.side-group > a{padding-right:34px;}
+.side-toggle{
+  position:absolute;top:2px;right:0;
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  border:none;background:transparent;color:var(--ink-faint);
+  border-radius:var(--radius);cursor:pointer;padding:0;
+}
+.side-toggle svg{width:15px;height:15px;transition:transform .18s ease;}
+.side-toggle:hover{background:var(--bg-alt);color:var(--ink);}
+.side-toggle[aria-expanded="true"] svg{transform:rotate(180deg);}
+
+/* ---- bas de colonne ---- */
+.side-foot{margin-top:auto;}
+
+/* ==========================================================================
+   Bandeau superieur du contenu
+
+   Il occupe la largeur restante en haut de page : la fraicheur des donnees a
+   gauche, les cinq chiffres cles a droite. Ils suivent le visiteur de page en
+   page, ce qui evite d'avoir a revenir a l'accueil pour les consulter.
+   ========================================================================== */
+
+/* La barre superieure a disparu : elle creait une seconde division horizontale
+   qui entrait en concurrence avec la colonne laterale, pour n'y loger que deux
+   dates redondantes. Le surtitre est passe au-dessus de l'accroche, la
+   fraicheur des donnees dans la colonne laterale.
+
+   Surtitre editorial, au-dessus du grand titre de l'accueil. */
+.kicker{
+  font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--accent-strong);margin:0 0 2px;
+}
+.kicker sup{font-size:.72em;vertical-align:super;line-height:0;}
+
+/* Fraicheur des donnees, en bas de la colonne laterale. */
+.side-freshness{
+  font-size:10.5px;line-height:1.5;color:var(--ink-faint);
+  padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--line);
+}
+.side-freshness strong{color:var(--ink-dim);font-weight:600;}
+.side-freshness div + div{margin-top:2px;opacity:.75;}
+
+
+/* ---- contenu ---- */
+.main{min-width:0;}
+.wrap{padding:0 var(--gutter);}
+
+/* ==========================================================================
+   Sections
+   ========================================================================== */
+
+.section{padding:40px 0;border-top:1px solid var(--line);}
+.section:first-child{border-top:none;padding-top:40px;}
+
+/* Le rythme de la maquette : une colonne de titre fixe, le contenu à droite. */
+.section-split{
+  display:grid;grid-template-columns:var(--label-col) minmax(0,1fr);gap:32px;
+  align-items:start;
+}
+
+.section-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  flex-wrap:wrap;gap:8px;margin-bottom:16px;
+}
+.section-title{
+  font-family:var(--font-sans);
+  font-size:14px;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.06em;
+  color:var(--ink-strong);
+  margin:0;
+}
+.section-sub{font-size:12px;color:var(--ink-faint);font-style:italic;}
+
+/* Le titre principal de chaque page : c'est lui le <h1>. Registre éditorial,
+   en serif, comme la phrase d'accroche de la maquette. */
+.page-title{
+  font-family:var(--font-serif);
+  font-size:clamp(26px,3.2vw,38px);
+  font-weight:600;line-height:1.2;letter-spacing:-0.01em;
+  color:var(--ink);margin:0 0 12px;max-width:22ch;
+}
+.lede{
+  font-family:var(--font-serif);
+  font-size:22px;line-height:1.45;font-weight:400;
+  color:var(--ink-strong);
+  max-width:640px;margin:0 0 28px;
+}
+.page-intro{
+  font-size:14.5px;line-height:1.7;color:var(--ink-dim);
+  max-width:68ch;margin:0 0 22px;
+}
+
+.panel{
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-card);
+}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent-strong);
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;}
+
+/* ==========================================================================
+   Mise en page de la carte et panneau de detail
+   ========================================================================== */
+
+.carto-layout{
+  display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start;
+}
+
+.carto-detail{
+  background:var(--bg-panel);border:1px solid var(--line);
+  border-radius:var(--radius-card);padding:18px;position:sticky;top:16px;
+}
+.carto-detail .name{font-family:var(--font-serif);font-size:20px;font-weight:600;
+  color:var(--ink);line-height:1.2;letter-spacing:-0.01em;}
+.carto-detail .note{font-size:11px;color:var(--ink-label);margin-top:3px;}
+
+/* Tant qu'aucune zone n'est survolee, le panneau n'affiche aucun chiffre :
+   les totaux nationaux sont deja dans le bandeau superieur, les repeter ici
+   ferait doublon a quinze centimetres d'ecart. */
+.carto-detail.is-empty .cd-figures{display:none;}
+.cd-figures{display:flex;flex-direction:column;gap:12px;margin:16px 0 0;}
+.cd-fig{border-top:1px solid var(--line-soft);padding-top:9px;}
+.cd-fig dt{
+  font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-label);margin-bottom:2px;
+}
+.cd-fig dd{margin:0;display:flex;align-items:baseline;gap:8px;}
+.cd-fig .v{
+  font-size:27px;font-weight:700;line-height:1.1;
+  font-variant-numeric:tabular-nums;
+}
+.cd-fig .d{font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;}
+.cd-fig.is-cases .v{color:var(--accent-info);}
+.cd-fig.is-cases .d{color:var(--accent-info);}
+.cd-fig.is-deaths .v{color:var(--accent-critical);}
+.cd-fig.is-deaths .d{color:var(--accent-critical);}
+.cd-fig .d:empty{display:none;}
+
+.carto-detail .sub{font-size:11.5px;color:var(--ink-faint);margin-top:14px;line-height:1.5;}
+.carto-detail .more{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:600;}
+
+.carto-legend{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-top:14px;font-size:11px;color:var(--ink-label);
+}
+.carto-legend .steps{display:flex;gap:2px;}
+.carto-legend .step{width:26px;height:9px;border-radius:2px;}
+
+/* ==========================================================================
+   Indicateurs (bandeau, quand une page en a un)
+   ========================================================================== */
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--radius-card);
+  overflow:hidden;}
+.kpi{background:var(--bg-panel);padding:16px 18px;}
+.kpi .label{font-size:10.5px;color:var(--ink-label);margin-bottom:4px;letter-spacing:.02em;}
+.kpi .value{font-size:28px;font-weight:700;line-height:1.1;}
+.kpi .delta{font-size:11px;color:var(--ink-faint);margin-top:3px;}
+.kpi.confirmed .value{color:var(--accent-info);}
+.kpi.deaths .value{color:var(--accent-critical);}
+.kpi.recovered .value{color:var(--accent-stable);}
+.kpi.active .value{color:var(--accent-active);}
+.kpi.cfr .value{color:var(--ink);}
+
+/* ==========================================================================
+   Carte des zones de sante
+
+   Il n'y a plus qu'une carte, et c'est un SVG ecrit dans la page. Plus de
+   bibliotheque distante, plus de tuiles : rien a telecharger, rien qui puisse
+   echouer. Le fond de tuiles est remplace par quelques villes nommees — des
+   reperes choisis plutot que subis, dans la palette du site.
+   ========================================================================== */
+
+/* La carte n'est pas posee dans un panneau : elle se fond dans le fond de
+   page. Un cadre blanc autour d'une silhouette decoupee ferait boite. */
+.zonemap-frame{min-width:0;}
+.zonemap-stage{position:relative;}
+.zonemap{display:block;width:100%;height:auto;max-height:72vh;}
+
+/* Cadrage anime : on transforme le groupe qui porte le dessin plutot que le
+   viewBox, ce qui laisse le navigateur animer tout seul. */
+.zm-viewport{
+  transform-box:view-box;transform-origin:0 0;
+  transition:transform .55s cubic-bezier(.22,.61,.36,1);
+}
+.zonemap path{vector-effect:non-scaling-stroke;}
+
+/* Le maillage : les zones sans cas rapporte a la date affichee. */
+.zm-quiet path{fill:#EFECE8;stroke:#E4E0DB;stroke-width:0.5;}
+
+.zm-zone path{stroke:var(--bg);stroke-width:0.6;stroke-linejoin:round;transition:fill .35s ease;}
+.zm-zone.is-0 path{fill:#EFECE8;stroke:#E4E0DB;stroke-width:0.5;}
+.zm-zone.is-1 path{fill:var(--scale-1);}
+.zm-zone.is-2 path{fill:var(--scale-2);}
+.zm-zone.is-3 path{fill:var(--scale-3);}
+.zm-zone.is-4 path{fill:var(--scale-4);}
+.zm-zone{cursor:pointer;}
+.zm-zone:hover path{stroke:var(--ink);stroke-width:1.6;}
+
+/* Le contour du navigateur dessine un rectangle autour de la boite englobante
+   de la zone, ce qui n'a aucun sens sur une forme decoupee. On l'efface et on
+   marque la selection sur le trace lui-meme. */
+.zm-zone:focus{outline:none;}
+.zm-zone:focus-visible{outline:none;}
+.zm-zone:focus-visible path,
+.zm-zone.is-selected path{stroke:var(--ink);stroke-width:2.2;}
+
+/* Les provinces n'ont pas toutes la meme forme : le Sud-Kivu est deux fois
+   plus haut que large, le Bas-Uele deux fois plus large que haut. On leur
+   donne a toutes la meme hauteur d'affichage, et preserveAspectRatio centre
+   le dessin dedans sans jamais l'etirer. Sans cela, une province etroite
+   occuperait trois ecrans de haut. */
+.zonemap[data-scope="province"]{height:clamp(340px,56vh,600px);max-height:none;}
+
+/* Carte d'une province : trois tons au lieu de deux. Les zones voisines ne
+   sont la que pour situer la province dans son voisinage — elles s'effacent
+   d'un cran derriere les zones de la province qui n'ont pas de cas, sans quoi
+   on ne verrait plus ou s'arrete le territoire dont parle la page. */
+.zonemap[data-scope="province"] .zm-quiet path{fill:#F5F3F0;stroke:#EBE7E2;}
+.zonemap[data-scope="province"] .zm-zone.is-0 path{fill:#E3DED7;stroke:#D5CFC7;}
+
+/* Reperes geographiques. */
+.zm-mark circle{fill:var(--ink);stroke:var(--bg);stroke-width:1.4;}
+.zm-mark text{
+  font-family:var(--font-sans);font-size:11px;font-weight:600;
+  fill:var(--ink);paint-order:stroke;stroke:var(--bg);stroke-width:3;
+}
+/* Les zones colorees passent devant le maillage gris. */
+.zm-active{isolation:isolate;}
+/* Les reperes restent dans les gris de l'encre. Le rouge est deja celui des
+   deces sur cette page et le vert celui des gueris : une pastille rouge a
+   cote de « Bunia » se lit comme une donnee, une pastille verte sur Kinshasa
+   comme des gueris, alors que la capitale n'a aucun cas. L'epicentre se
+   distingue par le poids, pas par la couleur. */
+.zm-mark circle{fill:var(--ink-dim);}
+/* Chefs-lieux et capitale nationale partagent ce gris : sur cette carte, ce
+   sont des points de repere, pas des donnees. La regle est ecrite plutot que
+   sous-entendue, pour que l'uniformite se lise comme un choix. */
+.zm-mark.is-province-capital circle,
+.zm-mark.is-capital circle{fill:var(--ink-dim);}
+.zm-mark.is-epicenter circle{fill:var(--ink);}
+.zm-mark.is-epicenter text{font-weight:700;}
+.zm-mark.is-foreign circle{fill:var(--ink-faint);}
+.zm-mark.is-foreign text{fill:var(--ink-faint);font-style:italic;}
+/* Les etiquettes se dessinent par-dessus le maillage mais ne l'interceptent
+   pas : sans cela, un nom de ville empeche de survoler la zone qu'il
+   recouvre. La pastille, elle, garde son infobulle. */
+.zm-marks{pointer-events:none;}
+.zm-mark circle{pointer-events:auto;}
+
+/* Les reperes gardent leur taille : plus besoin de les estomper au zoom. */
+.zm-viewport.is-animating .zm-mark{
+  transition:transform .55s cubic-bezier(.22,.61,.36,1);
+}
+
+/* Les commandes flottent sur la carte, sans fond continu. */
+.map-toolbar{position:absolute;top:0;left:0;z-index:5;display:flex;gap:6px;}
+.map-btn{
+  font-family:var(--font-sans);font-size:11.5px;font-weight:600;
+  padding:6px 11px;border-radius:var(--radius);
+  border:1px solid var(--line);background:var(--bg-panel);color:var(--ink-label);
+  cursor:pointer;
+}
+.map-btn:hover{border-color:var(--accent);color:var(--accent-strong);}
+.map-btn.active{border-color:var(--accent-strong);background:var(--accent-light);color:var(--accent-hover);}
+
+.map-legend{
+  position:absolute;bottom:0;right:0;z-index:5;
+  background:transparent;border:none;padding:0;
+  font-size:10.5px;color:var(--ink-label);max-width:170px;text-align:right;
+}
+.map-legend .legend-gradient,
+.map-legend .legend-minmax,
+.map-legend .legend-scale{text-align:left;}
+.map-legend .title{font-weight:700;color:var(--ink);margin-bottom:7px;}
+.legend-gradient{
+  height:9px;border-radius:2px;
+  background:linear-gradient(90deg,var(--scale-1),var(--scale-2),var(--scale-3),var(--scale-4));
+}
+.legend-minmax{display:flex;justify-content:space-between;margin-top:4px;font-size:10px;}
+.legend-scale{display:flex;align-items:center;gap:6px;}
+.legend-swatch{width:10px;height:10px;border-radius:2px;flex:none;}
+.legend-swatch.is-quiet{background:#EFECE8;border:1px solid #E4E0DB;}
+
+.map-timeline{padding:16px 0 4px;border-top:1px solid var(--line);margin-top:10px;}
+.map-timeline-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.map-timeline-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-strong);}
+.map-timeline-date{font-size:13px;font-weight:600;color:var(--accent-strong);}
+#timelineSlider{width:100%;accent-color:var(--accent-strong);}
+.map-timeline-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;}
+.map-timeline-note{font-size:11px;color:var(--ink-faint);}
+
+.map-note{
+  padding:12px 0 0;font-size:11.5px;line-height:1.6;color:var(--ink-faint);
+}
+
+/* ==========================================================================
+   Graphique
+   ========================================================================== */
+
+.chart-panel-wrap{overflow:hidden;}
+
+/* Hauteur fixe, et c'est tout le correctif du defaut de taille : les
+   configurations Chart.js utilisent maintainAspectRatio:false, ce qui les fait
+   remplir leur conteneur — lequel n'en avait aucune. Chaque mode retombait
+   alors sur l'attribut height du canvas, ampute d'une part variable par sa
+   legende et ses axes. */
+.chart-panel{padding:18px 20px;height:380px;}
+.chart-panel canvas{width:100%!important;height:100%!important;}
+/* Note explicative propre a chaque graphique : le script la remplit selon ce
+   que le graphique montre, et la masque quand il n'y a rien a dire. */
+.chart-note:empty{display:none;}
+
+@media (max-width:760px){
+  .chart-panel{height:300px;padding:14px 12px;}
+}
+
+.subtab-nav{display:flex;gap:4px;flex-wrap:wrap;}
+.subtab-btn{
+  font-family:var(--font-sans);font-size:11.5px;font-weight:600;
+  padding:5px 10px;border-radius:var(--radius);
+  border:1px solid var(--line);background:transparent;color:var(--ink-label);
+  cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+}
+.subtab-btn:hover{border-color:var(--accent);color:var(--accent-strong);}
+.subtab-btn.active{border-color:var(--accent-strong);background:var(--accent-light);color:var(--accent-hover);}
+.subtab-btn .dot{width:6px;height:6px;border-radius:50%;flex:none;}
+
+/* ==========================================================================
+   Tableaux
+   ========================================================================== */
+
+.table-scroll{overflow-x:auto;overflow-y:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{
+  text-align:left;font-size:10.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--ink-label);
+  padding:9px 12px;border-bottom:1px solid var(--line);
+  background:var(--bg-panel);position:sticky;top:0;z-index:2;
+  white-space:nowrap;
+}
+td{padding:9px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink-dim);}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover td{background:var(--bg-alt);}
+td:first-child{color:var(--ink);font-weight:500;}
+
+.zone-name-cell{display:flex;align-items:center;gap:8px;}
+.zdot{width:7px;height:7px;border-radius:50%;flex:none;}
+
+.zone-badge{
+  display:inline-block;padding:2px 8px;border-radius:20px;
+  font-size:11px;font-weight:700;
+}
+.zone-badge-low{background:var(--wash-stable);color:var(--accent-stable);}
+.zone-badge-mid{background:var(--wash-active);color:var(--accent-active);}
+.zone-badge-high{background:var(--wash-critical);color:var(--accent-critical);}
+
+.zone-new-badge{
+  display:inline-block;padding:2px 8px;border-radius:20px;
+  font-size:11px;font-weight:700;
+}
+.zone-new-badge.has-new{background:var(--wash-critical);color:var(--accent-critical);}
+.zone-new-badge.no-new{background:var(--bg-alt);color:var(--ink-faint);}
+
+.zone-cases-cell{display:flex;align-items:center;gap:9px;}
+.zone-cases-num{min-width:44px;font-weight:600;color:var(--ink);}
+.zone-bar-track{flex:1;height:5px;border-radius:3px;background:var(--bg-alt);min-width:40px;}
+.zone-bar-fill{height:100%;border-radius:3px;background:var(--accent);}
+
+/* ==========================================================================
+   Archive des bulletins
+
+   Chaque bulletin est une carte cliquable de bout en bout — auparavant seule
+   une icone de 30 px etait un lien, une cible minuscule. Elle porte le numero
+   du bulletin et sa date, rien de plus.
+
+   Un liseré de couleur distingue les trois sources, comme la legende de la
+   chronologie distingue les natures d'evenement.
+   ========================================================================== */
+
+.reports-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
+
+.reports-month-header{
+  grid-column:1/-1;
+  display:flex;align-items:center;gap:12px;
+  font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--ink-label);margin:16px 0 2px;
+}
+.reports-month-header::after{
+  content:'';flex:1;height:1px;background:var(--line);
+}
+.reports-grid > .reports-month-header:first-child{margin-top:0;}
+
+.report-chip{
+  display:flex;flex-direction:column;gap:5px;
+  padding:13px 15px;
+  border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:var(--radius-card);background:var(--bg-panel);
+  color:inherit;text-decoration:none;
+}
+.report-chip:hover{
+  text-decoration:none;border-color:var(--accent);
+  box-shadow:0 4px 14px rgba(31,26,19,.07);
+}
+.report-chip.is-who{border-left-color:var(--accent-stable);}
+.report-chip.is-social{border-left-color:var(--accent-active);}
+
+.rc-head{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.rc-label{
+  font-family:var(--font-serif);font-size:16px;font-weight:600;
+  color:var(--ink);letter-spacing:-0.01em;
+}
+.rc-dl{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;flex:none;
+  color:var(--ink-faint);background:var(--bg-alt);
+}
+.report-chip:hover .rc-dl{background:var(--accent-light);color:var(--accent-strong);}
+
+.rc-date{font-size:11.5px;color:var(--ink-faint);}
+
+/* ==========================================================================
+   Cartes province
+   ========================================================================== */
+
+/* Les six provinces tiennent sur une seule ligne : grid-auto-flow en colonne
+   plutot qu'une largeur minimale, pour que le nombre de provinces puisse
+   changer sans casser la mise en page. Les chiffres passent alors en lignes
+   empilees, seule facon de rester lisible dans une colonne etroite. */
+.province-grid{
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:10px;
+}
+.province-card{
+  display:block;text-decoration:none;color:inherit;min-width:0;
+  background:var(--bg-panel);border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:var(--radius-card);padding:13px 14px;
+}
+.province-card:hover{
+  text-decoration:none;border-color:var(--accent);
+  box-shadow:0 6px 18px rgba(31,26,19,.06);
+}
+.province-card h2,.province-card h3{
+  font-family:var(--font-serif);font-size:16px;font-weight:600;
+  margin:0 0 10px;color:var(--ink);letter-spacing:-0.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.pc-stats{display:flex;flex-direction:column;gap:4px;}
+.pc-stat{display:flex;align-items:baseline;justify-content:space-between;gap:6px;}
+.pc-stat .k{
+  font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-label);white-space:nowrap;
+}
+.pc-stat .v{
+  font-size:16px;font-weight:700;color:var(--ink);line-height:1.15;
+  font-variant-numeric:tabular-nums;
+}
+.pc-zones{
+  margin-top:9px;padding-top:8px;border-top:1px solid var(--line-soft);
+  font-size:10.5px;color:var(--ink-faint);line-height:1.4;
+}
+
+/* Sous une certaine largeur, six colonnes deviennent illisibles : on repasse
+   en grille qui s'enroule. */
+@media (max-width:1080px){
+  .province-grid{
+    grid-auto-flow:row;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;
+  }
+}
+
+/* ==========================================================================
+   Page « Le virus »
+
+   Refonte : un bandeau de chiffres pour poser l'essentiel d'un coup d'oeil,
+   une comparaison des deux especes — le fait central de cette epidemie —, une
+   echelle d'incubation, puis les phases cliniques. Beaucoup moins de blocs de
+   texte que la version precedente.
+   ========================================================================== */
+
+/* ---- bandeau de chiffres cles ---- */
+.figure-band{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--radius-card);overflow:hidden;
+  margin-top:26px;
+}
+.fb-item{background:var(--bg-panel);padding:20px 22px;}
+.fb-value{
+  font-family:var(--font-serif);font-size:38px;font-weight:600;line-height:1;
+  color:var(--accent-strong);letter-spacing:-0.02em;
+  font-variant-numeric:tabular-nums;
+}
+.fb-label{
+  margin-top:8px;font-size:12.5px;line-height:1.5;color:var(--ink-dim);max-width:22ch;
+}
+.fb-item.is-alert .fb-value{color:var(--accent-critical);}
+
+/* ---- comparaison des especes ---- */
+.compare{overflow:hidden;}
+.compare table{font-size:13.5px;}
+.compare thead th{
+  vertical-align:bottom;padding:14px 16px;font-size:13px;font-weight:700;
+  text-transform:none;letter-spacing:0;color:var(--ink);
+}
+.compare thead th .th-note{
+  display:block;margin-top:3px;font-size:10.5px;font-weight:400;
+  text-transform:none;letter-spacing:0;color:var(--ink-faint);
+}
+.compare thead th.is-this{background:var(--accent-light);color:var(--accent-hover);}
+.compare thead th.is-this .th-note{color:var(--accent-strong);}
+.compare tbody th{
+  text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--ink-label);width:34%;
+  background:var(--bg-panel);position:static;
+  padding:12px 16px;border-bottom:1px solid var(--line-soft);
+}
+.compare td{padding:12px 16px;color:var(--ink-dim);}
+.compare td.is-this{background:rgba(213,236,248,.4);color:var(--ink);font-weight:600;}
+.compare td.is-none{color:var(--accent-critical);}
+.compare tbody tr:hover td{background:var(--bg-alt);}
+.compare tbody tr:hover td.is-this{background:rgba(213,236,248,.55);}
+
+/* ---- echelle d'incubation ---- */
+.incub{margin-top:4px;}
+.incub-scale{
+  position:relative;height:12px;border-radius:20px;
+  background:linear-gradient(90deg,var(--scale-1),var(--scale-3));
+}
+/* La fenetre la plus probable, entre le 8e et le 10e jour. */
+.incub-window{
+  position:absolute;top:-4px;bottom:-4px;
+  left:31.6%;width:10.5%;
+  border-radius:20px;background:var(--accent-strong);
+  box-shadow:0 0 0 3px var(--bg);
+}
+.incub-marks{
+  display:flex;justify-content:space-between;margin-top:12px;
+  font-size:11.5px;color:var(--ink-faint);
+}
+.incub-marks .is-avg{color:var(--accent-strong);font-weight:600;}
+
+/* ---- listes et phases, communes a plusieurs pages ---- */
+.vlist{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.vlist li{position:relative;padding-left:16px;font-size:14px;line-height:1.6;color:var(--ink-dim);}
+.vlist li::before{
+  content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;
+  background:var(--accent);
+}
+.vlist em{color:var(--ink);font-style:italic;font-weight:600;}
+
+.vphases{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+.vphase{padding:16px 18px;border-radius:var(--radius-card);border:1px solid var(--line);background:var(--bg-panel);}
+.vphase-tag{
+  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-bottom:9px;
+}
+.vphase-dry .vphase-tag{background:var(--accent-light);color:var(--accent-hover);}
+.vphase-wet .vphase-tag{background:var(--wash-critical);color:var(--accent-critical);}
+.vphase p{margin:0;font-size:13px;line-height:1.6;color:var(--ink-dim);}
+
+.vcompare-note{font-size:13px;line-height:1.65;color:var(--ink-dim);margin:16px 0 0;}
+
+/* Blocs conserves pour l'apercu de l'accueil. */
+.virus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;align-items:start;}
+.vcard{border-left:2px solid var(--accent);padding:2px 0 2px 18px;}
+.vcard h2,.vcard h3{font-size:15px;font-weight:600;color:var(--ink);margin:0 0 9px;}
+.vincub{
+  display:flex;align-items:center;gap:9px;margin-bottom:12px;
+  padding:10px 14px;border-radius:var(--radius);background:var(--bg-alt);
+}
+.vincub svg{width:18px;height:18px;color:var(--accent-strong);flex:none;}
+.vincub span{font-size:12.5px;line-height:1.5;color:var(--ink-dim);}
+
+.info-note{
+  font-size:11.5px;line-height:1.65;color:var(--ink-faint);
+  padding:12px 16px;border-left:2px solid var(--line);background:var(--bg-alt);
+  border-radius:0 var(--radius) var(--radius) 0;
+}
+
+/* ==========================================================================
+   Chronologie horizontale
+
+   Une piste qui defile lateralement plutot qu'une longue liste verticale : la
+   duree de l'epidemie se lit alors comme une distance. Chaque jalon se resume
+   a sa date et a son titre ; la phrase passe en note, sur quatre lignes au
+   plus.
+   ========================================================================== */
+
+.timeline-h{
+  overflow-x:auto;overflow-y:hidden;
+  padding:4px 0 8px;margin:0 calc(-1 * var(--gutter));
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;
+}
+.timeline-h:focus-visible{outline:2px solid var(--accent-strong);outline-offset:-2px;}
+
+.th-track{
+  list-style:none;display:flex;gap:0;position:relative;
+  padding:26px var(--gutter) 0;margin:0;width:max-content;min-width:100%;
+}
+/* Le fil qui relie les jalons, a hauteur des pastilles. */
+.th-track::before{
+  content:'';position:absolute;left:var(--gutter);right:var(--gutter);top:5px;
+  height:1px;background:var(--line);
+}
+
+/* Dans une colonne de contenu — l'apercu de l'accueil — la piste ne doit pas
+   deborder jusqu'aux bords de la page. */
+.timeline-h.is-inline{margin:0;}
+.timeline-h.is-inline .th-track{padding-left:0;padding-right:0;}
+.timeline-h.is-inline .th-track::before{left:0;right:0;}
+
+.th-item{
+  position:relative;flex:none;width:232px;
+  padding:0 20px 0 0;scroll-snap-align:start;
+}
+.th-item + .th-item{padding-left:20px;border-left:1px solid var(--line-soft);}
+
+.th-dot{
+  position:absolute;top:-26px;left:0;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--accent);
+}
+.th-item + .th-item .th-dot{left:20px;}
+.th-item.is-milestone .th-dot{border-color:var(--accent-critical);background:var(--accent-critical);}
+.th-item.is-current .th-dot{border-color:var(--accent-stable);background:var(--accent-stable);}
+.th-item.is-spread .th-dot{border-color:var(--accent-active);background:var(--bg);}
+
+.th-date{
+  display:block;font-size:11px;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent-strong);margin-bottom:6px;
+}
+.th-item.is-milestone .th-date{color:var(--accent-critical);}
+.th-item.is-current .th-date{color:var(--accent-stable);}
+.th-item.is-spread .th-date{color:var(--accent-active);}
+
+.th-title{
+  font-family:var(--font-serif);font-size:17px;font-weight:600;line-height:1.25;
+  color:var(--ink);margin:0 0 7px;letter-spacing:-0.01em;
+}
+.th-text{
+  margin:0;font-size:12px;line-height:1.55;color:var(--ink-faint);
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
+}
+.th-item .src{display:block;margin-top:7px;font-size:10.5px;color:var(--ink-faint);}
+
+.th-hint{
+  font-size:11px;color:var(--ink-faint);margin:10px 0 0;
+  display:flex;align-items:center;gap:6px;
+}
+.th-hint::before{content:'\2194';font-size:14px;}
+
+/* ==========================================================================
+   FAQ
+   ========================================================================== */
+
+.faq-item{border-bottom:1px solid var(--line-soft);}
+.faq-item:last-child{border-bottom:none;}
+.faq-item summary{
+  cursor:pointer;list-style:none;position:relative;
+  padding:16px 34px 16px 0;
+  font-size:15px;font-weight:600;color:var(--ink);
+}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{
+  content:'+';position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  font-size:19px;font-weight:400;color:var(--ink-faint);line-height:1;
+}
+.faq-item[open] summary::after{content:'\2212';}
+.faq-item summary:hover{color:var(--accent-strong);}
+.faq-answer{padding:0 0 18px;font-size:13.5px;line-height:1.7;color:var(--ink-dim);max-width:70ch;}
+.faq-answer p{margin:0 0 10px;}
+.faq-answer p:last-child{margin-bottom:0;}
+
+/* ==========================================================================
+   Texte courant
+   ========================================================================== */
+
+.prose{max-width:68ch;}
+.prose h2{
+  font-family:var(--font-serif);font-size:22px;font-weight:600;
+  letter-spacing:-0.01em;color:var(--ink);margin:32px 0 10px;
+}
+.prose h3{font-size:15px;font-weight:600;color:var(--ink);margin:22px 0 7px;}
+.prose p{font-size:14.5px;line-height:1.75;color:var(--ink-dim);margin:0 0 14px;}
+.prose ul{margin:0 0 16px;padding-left:20px;list-style:disc;}
+.prose li{font-size:14.5px;line-height:1.7;color:var(--ink-dim);margin-bottom:6px;}
+.prose strong{color:var(--ink);font-weight:600;}
+.prose code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+  background:var(--bg-alt);padding:1px 5px;border-radius:3px;color:var(--ink);
+}
+
+/* ==========================================================================
+   Aperçus de l'accueil, liens connexes, fil d'Ariane
+   ========================================================================== */
+
+.teaser-more{
+  display:inline-block;margin-top:14px;
+  font-size:12.5px;font-weight:600;color:var(--accent-strong);
+}
+.teaser-more::after{content:' \2192';}
+
+.related{
+  margin-top:8px;padding:18px 20px;
+  border:1px solid var(--line);border-left:2px solid var(--accent);
+  border-radius:0 var(--radius-card) var(--radius-card) 0;
+  background:var(--bg-panel);
+}
+.related h2{
+  font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-label);margin:0 0 10px;
+}
+.related ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;}
+.related a{font-size:13.5px;font-weight:500;}
+
+.breadcrumb{
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+  padding:18px 0 0;font-size:11.5px;color:var(--ink-faint);
+}
+.breadcrumb a{color:var(--ink-label);}
+.breadcrumb a:hover{color:var(--accent-strong);}
+.breadcrumb .sep{color:var(--line);}
+.breadcrumb [aria-current="page"]{color:var(--ink);}
+
+/* ==========================================================================
+   Formulaires et boutons
+   ========================================================================== */
+
+input[type="text"],input[type="email"],textarea{
+  font-family:var(--font-sans);font-size:13.5px;
+  padding:9px 12px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--bg-panel);color:var(--ink);width:100%;
+}
+input[type="text"]:focus,input[type="email"]:focus,textarea:focus{
+  border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-light);
+}
+input::placeholder,textarea::placeholder{color:var(--ink-faint);}
+
+.search-input{
+  width:100%;margin-bottom:14px;
+  font-family:var(--font-mono);font-size:11.5px;padding:7px 9px;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--bg-panel-raised);color:var(--ink);
+}
+
+.share-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--font-sans);font-size:12.5px;font-weight:600;
+  padding:7px 13px;border-radius:var(--radius);
+  border:1px solid var(--line);background:var(--bg-panel);color:var(--ink-dim);
+  cursor:pointer;
+}
+.share-btn:hover{border-color:var(--accent);color:var(--accent-strong);}
+
+/* ==========================================================================
+   Pied de page
+   ========================================================================== */
+
+footer{
+  margin-top:48px;padding:32px 0 48px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink-faint);line-height:1.7;
+}
+.footer-nav{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:26px;padding-bottom:26px;
+}
+.footer-col h2{
+  font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink);margin:0 0 10px;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.footer-col a{color:var(--ink-dim);font-size:12.5px;}
+.footer-col a:hover{color:var(--accent-strong);}
+/* Attribution et avertissement tiennent en une ligne, sous la navigation. */
+.footer-notice{
+  margin:0;padding-top:18px;border-top:1px solid var(--line);
+  font-size:11.5px;line-height:1.65;color:var(--ink-faint);max-width:88ch;
+}
+.footer-notice a{color:var(--ink-dim);text-decoration:underline;}
+.footer-notice a:hover{color:var(--accent-strong);}
+
+/* ==========================================================================
+   Accessibilité
+   ========================================================================== */
+
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:2000;
+  background:var(--ink);color:var(--bg);padding:10px 16px;
+  font-size:12.5px;font-weight:600;text-decoration:none;border-radius:0 0 var(--radius) 0;
+}
+.skip-link:focus{left:0;top:0;}
+.visually-hidden{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;}
+}
+
+/* ==========================================================================
+   Adaptation aux petits écrans
+
+   La maquette ne traitait que le grand écran. Sous 900 px, la colonne
+   latérale devient une barre supérieure : les chiffres clés passent en ligne
+   défilante, la navigation aussi.
+   ========================================================================== */
+
+@media (max-width:1180px){
+  :root{--gutter:32px;--label-col:180px;}
+}
+
+@media (max-width:900px){
+  :root{--gutter:20px;}
+
+  .app-shell{grid-template-columns:minmax(0,1fr);}
+
+  .sidebar{
+    position:static;height:auto;
+    border-right:none;border-bottom:1px solid var(--line);
+    padding:16px 20px;gap:14px;
+  }
+  .side-nav{
+    flex-direction:row;flex-wrap:nowrap;gap:4px;
+    overflow-x:auto;padding-bottom:2px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .side-nav a{white-space:nowrap;padding:7px 11px;}
+  .side-sub{display:none;}   /* le menu des provinces reste sur la page dédiée */
+
+  .side-head{flex-direction:row;align-items:center;justify-content:space-between;}
+  .side-foot{margin-top:0;}
+
+
+  .section-split{grid-template-columns:minmax(0,1fr);gap:14px;}
+  .carto-layout{grid-template-columns:minmax(0,1fr);gap:18px;}
+  #map{height:400px;}
+  .th-item{width:210px;}
+  .lede{font-size:19px;}
+}
+
+@media (max-width:560px){
+  .zonemap{max-height:none;}
+  #map{height:340px;}
+  .kpi .value{font-size:24px;}
+  .reports-grid{grid-template-columns:minmax(0,1fr);}
+}
+
+/* Impression : la colonne latérale et les commandes n'ont pas de sens. */
+/* ==========================================================================
+   Ecrans tactiles et petits ecrans
+
+   Le public de ce site est majoritairement sur telephone, souvent sur des
+   appareils anciens. Deux choses changent alors : il n'y a pas de survol, et
+   le doigt est un pointeur large. Les regles ci-dessous ne touchent que ces
+   deux points — la mise en page, elle, tient deja a 320 px.
+   ========================================================================== */
+
+/* Une consigne ecrite deux fois, dont une seule s'affiche. Le choix se fait
+   sur la capacite de l'appareil, pas sur la largeur de l'ecran : une tablette
+   large se touche aussi. */
+.on-touch{display:none;}
+@media (hover:none){
+  .on-hover{display:none;}
+  .on-touch{display:inline;}
+}
+
+@media (max-width:900px){
+  /* Des que les boutons atteignent une taille tactile, les poser sur la
+     carte revient a masquer le nord du pays — la ou sont les cas. Ils
+     repassent au-dessus d'elle, et la legende en dessous. */
+  .zonemap-stage{display:flex;flex-direction:column;}
+  .map-toolbar{position:static;order:-1;margin-bottom:10px;}
+  .map-legend{position:static;order:1;margin:10px 0 0;max-width:none;backdrop-filter:none;}
+
+  /* Cibles tactiles : on vise 40 px de haut, sans grossir le texte ni les
+     bordures — c'est le rembourrage qui s'etire. */
+  .lang-btn,.map-btn,.subtab-btn,.share-btn{min-height:40px;}
+  .lang-btn{padding:0 12px;}
+  .map-btn,.subtab-btn{padding:0 14px;}
+  .share-btn{padding:0 16px;}
+  .subtab-nav{gap:6px;}
+
+  /* Sous 16 px, iOS zoome sur le champ des qu'on le touche et ne revient
+     jamais en arriere. On remonte la taille du texte saisi, et le champ
+     atteint du meme coup une hauteur attrapable. */
+  input[type="text"],input[type="email"],textarea,.search-input{
+    font-size:16px;padding:10px 12px;
+  }
+
+  /* Le curseur temporel se manipule au doigt : la piste reste fine, mais la
+     zone attrapable fait toute la hauteur. */
+  #timelineSlider{height:40px;}
+
+  /* Les mentions les plus petites deviennent illisibles sur un ecran dense. */
+  .side-freshness{font-size:12px;}
+  .map-note,.chart-note{font-size:12px;}
+
+  /* Un tableau plus large que l'ecran defile — encore faut-il le voir. Un
+     degrade sur le bord droit le dit sans ajouter de texte. */
+  .table-scroll{
+    background:
+      linear-gradient(to right,var(--bg) 30%,transparent) left / 24px 100% no-repeat,
+      linear-gradient(to left,var(--bg) 30%,transparent) right / 24px 100% no-repeat;
+    background-attachment:local,local;
+  }
+}
+
+@media print{
+  .sidebar,.map-toolbar,.subtab-nav,.skip-link,.breadcrumb,.related{display:none;}
+  .app-shell{grid-template-columns:1fr;}
+  body{background:#fff;}
+}
+
+/* ==========================================================================
+   Page 404 — autonome, sans colonne latérale
+   ========================================================================== */
+
+.notfound{max-width:760px;margin:0 auto;padding-top:48px;padding-bottom:64px;}
+.notfound .brand{margin-bottom:8px;}
+.notfound-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.notfound-list a{font-size:14px;}
+
+  /* ---- barre de filtre par mois de l'archive ---- */
+  .reports-months{margin-bottom:14px;}
+  .reports-months .subtab-btn .count{
+    font-size:10px;font-weight:600;color:var(--ink-faint);
+    background:var(--bg-alt);border-radius:20px;padding:1px 6px;margin-left:2px;
+  }
+  .reports-months .subtab-btn.active .count{
+    background:rgba(0,80,115,.10);color:var(--accent-hover);
+  }
+
+/* ==========================================================================
+   Phrase d'accroche de l'accueil
+
+   C'est le <h1> du site et la premiere chose qu'on lit : elle a droit a un
+   traitement a part, distinct des chapeaux de section (.lede).
+
+   Le parti pris : grand serif de graisse normale plutot que gras — aux
+   grandes tailles, c'est le dessin de la lettre qui porte, pas l'epaisseur,
+   et le gras donnerait un ton d'alerte que le sujet ne demande pas. Un filet
+   d'accent au-dessus tient lieu de signature, et le dernier membre de phrase
+   — « chiffre apres chiffre », qui dit ce qu'est le site — bascule en italique
+   et prend la couleur d'accent : la phrase a ainsi une charniere et une chute.
+   ========================================================================== */
+
+.accroche{
+  font-family:var(--font-serif);
+  font-size:clamp(28px,3.4vw,44px);
+  font-weight:400;
+  line-height:1.18;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  /* La mesure fait la moitie du travail : trop etroite, une phrase de cent
+     signes tombe sur six lignes. 38ch la ramene a trois, ce qui est le
+     format d'un chapeau de une. */
+  max-width:38ch;
+  margin:6px 0 34px;
+  text-wrap:balance;
+}
+.accroche em{
+  font-style:italic;
+  color:var(--accent-strong);
+}
+
+@media (max-width:900px){
+  .accroche{max-width:none;margin-bottom:26px;}
+}
+
+/* Rappel de contexte au-dessus des dates du bandeau : le gros titre ne dit que
+   « RDC », cette ligne porte le nom complet du pays — pour le lecteur comme
+   pour les moteurs de recherche. */
+
+
+/* ==========================================================================
+   Chronologie verticale — la page dediee
+
+   De haut en bas, groupee par mois, une colonne vertebrale a gauche. Chaque
+   jalon porte le bilan cumule connu a sa date : la chronologie raconte alors
+   une trajectoire, et pas seulement une suite d'anecdotes. Le format vertical
+   a ete prefere a l'horizontal parce qu'il se decouvre tout seul — la molette
+   ne defile pas lateralement — et parce qu'il laisse la place d'etoffer chaque
+   entree.
+   ========================================================================== */
+
+.tl-legend{
+  list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;
+  margin:0 0 30px;padding:0;
+  font-size:11.5px;color:var(--ink-label);
+}
+.tl-legend li{display:flex;align-items:center;gap:7px;}
+.tl-legend li::before{
+  content:'';width:9px;height:9px;border-radius:50%;flex:none;
+  border:2px solid var(--accent);background:var(--bg);
+}
+.tl-legend .is-spread::before{border-color:var(--accent-active);}
+.tl-legend .is-milestone::before{border-color:var(--accent-critical);background:var(--accent-critical);}
+
+.tl{list-style:none;margin:0;padding:0;position:relative;}
+/* La colonne vertebrale. */
+.tl::before{
+  content:'';position:absolute;left:5px;top:6px;bottom:6px;
+  width:1px;background:var(--line);
+}
+
+/* ---- repere de mois ---- */
+.tl-month{
+  position:sticky;top:0;z-index:3;
+  margin:0 0 14px;padding:10px 0 10px 30px;
+  background:linear-gradient(var(--bg) 78%,rgba(253,250,246,0));
+}
+.tl-month:not(:first-child){margin-top:16px;}
+.tl-month span{
+  display:inline-block;
+  font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-label);
+  background:var(--bg-alt);border:1px solid var(--line);
+  padding:3px 11px;border-radius:20px;
+}
+
+/* ---- un jalon ---- */
+.tl-item{position:relative;padding:0 0 26px 30px;}
+.tl-dot{
+  position:absolute;left:0;top:4px;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--accent);
+  box-shadow:0 0 0 4px var(--bg);
+}
+/* Etat par defaut : la pastille bleue de .tl-dot suffit, la regle est ecrite
+   pour que la nature « jalon officiel » soit explicite dans la feuille. */
+.tl-item.is-official .tl-dot{border-color:var(--accent);}
+.tl-legend .is-official::before{border-color:var(--accent);}
+.tl-body{min-width:0;}
+.tl-item.is-spread .tl-dot{border-color:var(--accent-active);}
+.tl-item.is-milestone .tl-dot{border-color:var(--accent-critical);background:var(--accent-critical);}
+.tl-item.is-current .tl-dot{border-color:var(--accent-stable);background:var(--accent-stable);}
+
+.tl-date{
+  display:block;font-size:11px;font-weight:600;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--accent-strong);margin-bottom:5px;
+}
+.tl-item.is-spread .tl-date{color:var(--accent-active);}
+.tl-item.is-milestone .tl-date{color:var(--accent-critical);}
+.tl-item.is-current .tl-date{color:var(--accent-stable);}
+
+.tl-title{
+  font-family:var(--font-serif);font-size:21px;font-weight:600;line-height:1.25;
+  letter-spacing:-0.01em;color:var(--ink);margin:0 0 7px;max-width:32ch;
+}
+.tl-text{margin:0;font-size:14px;line-height:1.7;color:var(--ink-dim);max-width:62ch;}
+
+/* ---- bilan cumule a la date du jalon ---- */
+.tl-toll{margin-top:12px;max-width:340px;}
+.tl-toll-bar{
+  display:block;height:4px;border-radius:3px;background:var(--bg-alt);
+  border:1px solid var(--line-soft);overflow:hidden;
+}
+.tl-toll-bar > span{display:block;height:100%;background:var(--accent);border-radius:3px;}
+.tl-toll-line{
+  display:block;margin-top:6px;
+  font-size:11.5px;font-weight:600;color:var(--ink-label);
+  font-variant-numeric:tabular-nums;
+}
+.tl-item.is-milestone .tl-toll-bar > span{background:var(--accent-critical);}
+.tl-item.is-current .tl-toll-bar > span{background:var(--accent-stable);}
+.tl-item.is-spread .tl-toll-bar > span{background:var(--accent-active);}
+
+.tl-link{
+  display:inline-block;margin-top:11px;
+  font-size:12.5px;font-weight:600;color:var(--accent-strong);
+}
+.tl-link::after{content:' →';}
+
+@media (max-width:560px){
+  .tl-item{padding-left:24px;}
+  .tl-month{padding-left:24px;}
+  .tl-title{font-size:18px;}
+}
+
+  .cd-note{display:block;margin-top:7px;color:var(--ink-faint);}
+
+  /* Une fois zoomee, la carte se deplace au clic maintenu. À pleine étendue
+     elle ne capture rien : la page défile normalement, y compris au doigt. */
+  .zonemap.is-zoomed{cursor:grab;touch-action:none;}
+  .zonemap.is-zoomed.is-grabbing{cursor:grabbing;}
+  .zm-viewport{transition:none;}
+  .zm-viewport.is-animating{transition:transform .55s cubic-bezier(.22,.61,.36,1);}
+
+  /* ---- les cinq chiffres nationaux dans le panneau de la carte ----
+     Ils sont l'etat de repos du panneau. Ils s'effacent au profit du bilan
+     d'une zone des qu'on la survole, et reviennent en sortant. */
+  .cd-national{display:flex;flex-direction:column;gap:0;margin-top:14px;}
+  /* Libelle au-dessus, valeur en dessous, tout aligne a gauche. En mettant la
+     valeur a droite, les lignes sans ecart entre parentheses ne s'alignaient
+     pas sur celles qui en ont : le bord droit etait commun, pas le chiffre. */
+  .cd-nat{
+    display:block;
+    padding:8px 0;border-top:1px solid var(--line-soft);
+  }
+  .cd-nat .k{
+    display:block;margin-bottom:2px;
+    font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--ink-label);
+  }
+  /* La valeur et son ecart tiennent sur la meme ligne, alignes a droite. */
+  .cd-nat .n{display:flex;align-items:baseline;gap:7px;}
+  .cd-nat .v{
+    font-size:19px;font-weight:700;line-height:1.1;
+    font-variant-numeric:tabular-nums;color:var(--ink);
+  }
+  .cd-nat .d{
+    font-size:11.5px;font-weight:600;color:var(--ink-faint);
+    font-variant-numeric:tabular-nums;
+  }
+  .cd-nat .d:empty{display:none;}
+  .cd-nat.confirmed .d{color:var(--accent-info);}
+  .cd-nat.deaths .d{color:var(--accent-critical);}
+  .cd-nat.recovered .d{color:var(--accent-stable);}
+  .cd-nat.confirmed .v{color:var(--accent-info);}
+  .cd-nat.deaths .v{color:var(--accent-critical);}
+  .cd-nat.recovered .v{color:var(--accent-stable);}
+  .cd-nat.active .v{color:var(--accent-active);}
+  /* Une seule des deux listes est visible a la fois. */
+  .carto-detail:not(.is-empty) .cd-national{display:none;}
+
+  /* ---- vignette d'evolution dans une carte province ----
+     Toutes a la meme echelle : c'est ce qui les rend comparables. Tracees a
+     la generation, elles ne coutent ni bibliotheque ni requete. */
+  .pc-spark{margin-top:10px;}
+  .spark{display:block;width:100%;height:30px;overflow:visible;}
+  .spark-line{fill:none;stroke:var(--accent);stroke-width:1.4;
+              vector-effect:non-scaling-stroke;stroke-linejoin:round;}
+  .spark-area{fill:var(--accent-light);opacity:.6;stroke:none;}
+
+  /* ---- note de lecture ---- */
+  .data-note{
+    border-left:2px solid var(--line);padding:2px 0 2px 18px;max-width:72ch;
+  }
+  .data-note h2{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--ink-label);margin:0 0 10px;
+  }
+  .data-note p{font-size:13px;line-height:1.7;color:var(--ink-dim);margin:0 0 10px;}
+  .data-note p:last-child{margin-bottom:0;}
+  .data-note strong{color:var(--ink);font-weight:600;}
+
+  /* ---- descente d'un niveau ---- */
+  .drill{
+    padding:18px 20px;background:var(--bg-alt);
+    border:1px solid var(--line);border-radius:var(--radius-card);
+  }
+  .drill h2{
+    font-family:var(--font-serif);font-size:19px;font-weight:600;
+    color:var(--ink);margin:0 0 6px;letter-spacing:-0.01em;
+  }
+  .drill p{font-size:13.5px;line-height:1.6;color:var(--ink-dim);margin:0;max-width:60ch;}
+
+  /* ---- rang d'une province ---- */
+  .province-rank{
+    font-size:13.5px;line-height:1.6;color:var(--ink-dim);
+    margin:-12px 0 22px;max-width:68ch;
+  }
+
+  /* ---- graphique sans donnee ---- */
+  .chart-empty{
+    margin:0;padding:28px 22px;font-size:13px;line-height:1.6;
+    color:var(--ink-faint);text-align:center;
+  }
+
+  /* Ecart depuis le bulletin precedent, dans une cellule de tableau. */
+  .td-delta{font-size:11px;font-weight:600;color:var(--ink-faint);}
+  #zonesResultCount{margin-top:8px;font-size:11px;color:var(--ink-faint);}

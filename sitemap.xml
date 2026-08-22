@@ -6,6 +6,8 @@
     <loc>https://ebola-tracker.org/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/"/>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -13,7 +15,9 @@
   <url>
     <loc>https://ebola-tracker.org/donnees/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/donnees/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/"/>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -21,49 +25,261 @@
   <url>
     <loc>https://ebola-tracker.org/rapports/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/rapports/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/rapports/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/reports/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/rapports/"/>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/le-virus/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/le-virus/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/the-virus/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/le-virus/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/chronologie/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/chronologie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/timeline/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/chronologie/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/faq/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/a-propos/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/a-propos/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/a-propos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/a-propos/"/>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/contact/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/donnees/ituri/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/ituri/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/donnees/nord-kivu/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/nord-kivu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/nord-kivu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/nord-kivu/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/donnees/haut-uele/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/haut-uele/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/haut-uele/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/haut-uele/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/donnees/tshopo/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/tshopo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/tshopo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/tshopo/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/donnees/sud-kivu/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/sud-kivu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/sud-kivu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/sud-kivu/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/donnees/bas-uele/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/bas-uele/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/bas-uele/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/bas-uele/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://ebola-tracker.org/en/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/"/>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://ebola-tracker.org/en/donnees/</loc>
+    <loc>https://ebola-tracker.org/en/data/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/donnees/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/"/>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://ebola-tracker.org/en/rapports/</loc>
+    <loc>https://ebola-tracker.org/en/reports/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/rapports/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/rapports/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/reports/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/rapports/"/>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://ebola-tracker.org/en/a-propos/</loc>
+    <loc>https://ebola-tracker.org/en/the-virus/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/le-virus/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/the-virus/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/le-virus/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/timeline/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/chronologie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/timeline/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/chronologie/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/faq/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/about/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/a-propos/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/a-propos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/a-propos/"/>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/contact/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/data/ituri/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/ituri/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/data/nord-kivu/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/nord-kivu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/nord-kivu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/nord-kivu/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/data/haut-uele/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/haut-uele/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/haut-uele/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/haut-uele/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/data/tshopo/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/tshopo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/tshopo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/tshopo/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/data/sud-kivu/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/sud-kivu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/sud-kivu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/sud-kivu/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/data/bas-uele/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/bas-uele/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/bas-uele/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/bas-uele/"/>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
 
 </urlset>
