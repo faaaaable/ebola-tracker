@@ -214,8 +214,34 @@ ul,ol{margin:0;padding:0;}
 .side-toggle:hover{background:var(--bg-alt);color:var(--ink);}
 .side-toggle[aria-expanded="true"] svg{transform:rotate(180deg);}
 
+/* ---- panneau : navigation + bas de colonne ---- */
+/* Les deux voyagent ensemble parce que sur telephone ils forment le menu
+   plein ecran. Le panneau occupe toute la hauteur restante pour que le pied
+   puisse continuer de se plaquer en bas. */
+.side-panel{display:flex;flex-direction:column;flex:1;gap:32px;min-height:0;}
+
 /* ---- bas de colonne ---- */
 .side-foot{margin-top:auto;}
+
+/* ---- trois traits ---- */
+/* Sur ordinateur la colonne laterale montre tout : le bouton n'a pas lieu
+   d'etre. Il n'apparait que sous 900 px. */
+.nav-burger{display:none;}
+.nav-burger-lines,
+.nav-burger-lines::before,
+.nav-burger-lines::after{
+  display:block;width:22px;height:2px;border-radius:2px;
+  background:var(--ink-strong);
+  transition:transform .22s ease,opacity .18s ease;
+}
+.nav-burger-lines::before,
+.nav-burger-lines::after{content:'';position:absolute;left:11px;}
+.nav-burger-lines::before{transform:translateY(-7px);}
+.nav-burger-lines::after{transform:translateY(7px);}
+/* Ouvert, les trois traits deviennent une croix : le meme bouton ferme. */
+.nav-burger[aria-expanded="true"] .nav-burger-lines{background:transparent;}
+.nav-burger[aria-expanded="true"] .nav-burger-lines::before{transform:rotate(45deg);}
+.nav-burger[aria-expanded="true"] .nav-burger-lines::after{transform:rotate(-45deg);}
 
 /* ==========================================================================
    Bandeau superieur du contenu
@@ -1033,41 +1059,52 @@ footer{
     border-right:none;border-bottom:1px solid var(--line);
     padding:16px 20px;gap:14px;
   }
-  .side-nav{
-    flex-direction:row;flex-wrap:nowrap;gap:4px;
-    overflow-x:auto;padding-bottom:2px;
-    -webkit-overflow-scrolling:touch;
-  }
-  .side-nav a{white-space:nowrap;padding:7px 11px;}
-
-  /* Le sous-menu des provinces était masqué en dur ici, alors que le chevron
-     restait cliquable : on appuyait, aria-expanded basculait, et rien ne se
-     passait. Il s'ouvre désormais en ligne, dans la même barre défilante que
-     le reste de la navigation.
-
-     display:contents dissout le groupe : son lien, son chevron et ses
-     provinces deviennent des éléments de la barre plutôt qu'une boîte à part.
-     Le chevron peut alors quitter son positionnement absolu — il était calé
-     sur le bord droit du groupe, ce qui, dans une barre horizontale, ne
-     désignait plus rien de clair. */
-  .side-group{display:contents;}
-  .side-group > a{padding-right:11px;}
-  .side-toggle{
-    position:static;flex:none;
-    width:40px;height:40px;
-    border:1px solid var(--line);background:var(--bg-panel);
-  }
-  .side-sub{
-    display:flex;flex-direction:row;gap:4px;
-    margin:0;padding:0;border-left:none;
-  }
-  .side-sub a{
-    white-space:nowrap;font-size:12.5px;
-    padding:0 11px;min-height:40px;
-  }
-
+  /* ---- l'en-tete se reduit a la marque, la langue et trois traits ----
+     La barre d'onglets qui defilait horizontalement disparait : elle
+     n'affichait que deux onglets a la fois et repoussait le titre de la page
+     a plus de 200 px du haut. */
   .side-head{flex-direction:row;align-items:center;justify-content:space-between;}
-  .side-foot{margin-top:0;}
+
+  .nav-burger{
+    display:inline-flex;align-items:center;justify-content:center;
+    position:relative;width:44px;height:44px;margin-left:-10px;
+    border:none;background:transparent;cursor:pointer;padding:0;
+    /* Au-dessus du panneau : le bouton reste visible et sert a refermer. */
+    z-index:210;
+  }
+
+  /* ---- le menu, en plein ecran sous l'en-tete ----
+     --entete porte la hauteur reelle de la barre superieure, mesuree par
+     app.js ; la valeur de repli suffit si le script ne tourne pas. */
+  /* Ferme par defaut, et pilote par une classe plutot que par l'attribut
+     hidden : la regle s'applique des le premier rendu, sans le bref
+     clignotement d'un menu deplie qu'un script viendrait replier ensuite.
+     visibility:hidden le retire aussi de l'arbre d'accessibilite, ce qu'un
+     simple opacity:0 ne ferait pas. Sans JavaScript le menu ne s'ouvre pas,
+     mais le pied de page porte les quinze memes liens. */
+  .side-panel{
+    position:fixed;left:0;right:0;bottom:0;top:var(--entete,104px);
+    z-index:200;background:var(--bg);
+    padding:22px var(--gutter) 32px;
+    gap:26px;overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    visibility:hidden;opacity:0;pointer-events:none;
+    transition:opacity .18s ease;
+  }
+  .sidebar.menu-ouvert .side-panel{
+    visibility:visible;opacity:1;pointer-events:auto;
+  }
+  /* Le corps de page ne defile plus derriere le menu ouvert. */
+  body.menu-ouvert{overflow:hidden;}
+
+  /* Dans le menu, la navigation reprend la forme verticale de l'ordinateur,
+     avec des cibles a la taille du doigt. */
+  .side-nav{flex-direction:column;gap:2px;font-size:16px;}
+  .side-nav a{padding:12px 12px;}
+  .side-group > a{padding-right:44px;}
+  .side-toggle{width:44px;height:44px;top:0;}
+  .side-sub a{font-size:14.5px;padding:10px 8px;}
+  .side-foot{margin-top:0;padding-top:8px;border-top:1px solid var(--line);}
 
 
   .section-split{grid-template-columns:minmax(0,1fr);gap:14px;}

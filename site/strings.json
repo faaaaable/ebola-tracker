@@ -180,7 +180,9 @@
     "provinceMapNoteTouch": "Les zones voisines, hors de la province, restent en gris pâle. Touchez une zone pour son bilan ; le curseur remonte le temps, bulletin après bulletin.",
     "provinceNewDeaths": "+{n} (24 h)",
     "zoneMapTitle": "{name} — {cases} cas confirmés cumulés, {deaths} décès",
-    "zoneMapLabel": "{name} ({province}) — {cases} cas confirmés cumulés"
+    "zoneMapLabel": "{name} ({province}) — {cases} cas confirmés cumulés",
+    "menuOpen": "Ouvrir le menu",
+    "menuClose": "Fermer le menu"
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -362,7 +364,9 @@
     "provinceMapNoteTouch": "Neighbouring zones, outside the province, stay pale grey. Tap a zone for its toll; the slider walks back through the bulletins.",
     "provinceNewDeaths": "+{n} (24h)",
     "zoneMapTitle": "{name} — {cases} cumulative confirmed case{cases?s}, {deaths} death{deaths?s}",
-    "zoneMapLabel": "{name} ({province}) — {cases} cumulative confirmed case{cases?s}"
+    "zoneMapLabel": "{name} ({province}) — {cases} cumulative confirmed case{cases?s}",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu"
   },
   "timelineEvents": [
     {

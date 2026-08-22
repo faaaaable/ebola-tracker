@@ -1674,6 +1674,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "pageGlobals": "\n".join(page_globals),
         "bodyAssets": "",
         "t.skipToContent": esc(strings_lang["skipToContent"]),
+        "t.menuOpen": esc(strings_lang["menuOpen"]),
+        "t.menuClose": esc(strings_lang["menuClose"]),
         "i18n.shareBtn": esc(i18n_lang["shareBtn"]),
         # Contient un <sup> volontaire : on ne l'echappe pas.
         "i18n.topMeta": i18n_lang["topMeta"],

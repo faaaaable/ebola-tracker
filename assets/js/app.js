@@ -2088,6 +2088,72 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
 /* La liste des provinces est repliee par defaut sous « Donnees detaillees ».
    Les liens restent dans le HTML quoi qu'il arrive : le repli n'est qu'un
    confort de lecture, il ne cache rien aux moteurs de recherche. */
+/* ---- menu mobile en plein ecran ----
+   Sous 900 px la navigation n'est plus une barre qui defile : trois traits
+   l'ouvrent en plein ecran sous l'en-tete. Le pied de page porte les memes
+   liens, donc l'absence de JavaScript ne prive personne de rien. */
+(function setupMenuMobile(){
+  const bouton = document.getElementById('btnMenu');
+  const barre = document.querySelector('.sidebar');
+  if(!bouton || !barre) return;
+
+  // La hauteur de l'en-tete varie avec la longueur de la marque et la
+  // taille de police du lecteur : on la mesure plutot que de la figer.
+  function mesurerEntete(){
+    const tete = barre.querySelector('.side-head');
+    if(!tete) return;
+    const bas = tete.getBoundingClientRect().bottom - barre.getBoundingClientRect().top;
+    barre.style.setProperty('--entete', Math.round(bas + 58) + 'px');
+  }
+
+  function poser(ouvert){
+    barre.classList.toggle('menu-ouvert', ouvert);
+    document.body.classList.toggle('menu-ouvert', ouvert);
+    bouton.setAttribute('aria-expanded', String(ouvert));
+    const etiquette = ouvert ? bouton.dataset.labelClose : bouton.dataset.labelOpen;
+    if(etiquette) bouton.setAttribute('aria-label', etiquette);
+    if(!ouvert) return;
+    mesurerEntete();
+    /* Dans un menu qui occupe toute la page, replier les provinces n'economise
+       rien : on les deplie a l'ouverture. Le chevron continue de servir a les
+       refermer si la liste gene. */
+    const chevron = barre.querySelector('.side-toggle');
+    const provinces = chevron && document.getElementById(
+      chevron.getAttribute('aria-controls'));
+    if(provinces && provinces.hidden){
+      provinces.hidden = false;
+      chevron.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  bouton.addEventListener('click', ()=>{
+    poser(bouton.getAttribute('aria-expanded') !== 'true');
+  });
+
+  // Echap referme, comme tout menu qui se respecte.
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape' && bouton.getAttribute('aria-expanded') === 'true'){
+      poser(false);
+      bouton.focus();
+    }
+  });
+
+  // Un lien vers la page courante ne provoque aucun chargement : sans ca le
+  // menu resterait ouvert par-dessus la page qu'on vient de demander.
+  barre.querySelectorAll('.side-panel a').forEach(a=>{
+    a.addEventListener('click', ()=>poser(false));
+  });
+
+  // Repasse en grand ecran : la colonne laterale reprend sa forme, et le
+  // verrou de defilement n'a plus lieu d'etre.
+  const grandEcran = window.matchMedia('(min-width:901px)');
+  const surChangement = ()=>{ if(grandEcran.matches) poser(false); };
+  if(grandEcran.addEventListener) grandEcran.addEventListener('change', surChangement);
+  else if(grandEcran.addListener) grandEcran.addListener(surChangement);
+  window.addEventListener('resize', mesurerEntete);
+  mesurerEntete();
+})();
+
 (function setupProvinceMenu(){
   const toggle = document.querySelector('.side-toggle');
   if(!toggle) return;
