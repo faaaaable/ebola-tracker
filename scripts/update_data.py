@@ -468,12 +468,72 @@ def get_zone_section_text(full_text):
     return full_text[start:end]
 
 
+NAME_FRAGMENT_RE = re.compile(r"^[^\W\d_][^\W\d_.'\u2019\-]*[-.']?[^\W\d_]*$", re.UNICODE)
+NUMERIC_ROW_RE = re.compile(r"^[\d\s,%]+$")
+
+TOTAL_SUBTOTAL_RE = re.compile(
+    r"^Total\s+(?P<cas>\d[\d ]*)\s+(?P<deces>\d[\d ]*)\s+(?P<cfr>[\d,]+\s*%)\s+"
+    r"(?P<newcases>\d[\d ]*)\s+(?P<deathscomm>\d[\d ]*)\s+"
+    r"(?P<deathsintracte>\d[\d ]*)\s+(?P<total>\d[\d ]*)\s*$"
+)
+
+
+def unwrap_split_names(section):
+    """Recompose les libellés que la mise en page coupe sur trois lignes.
+
+    Le PDF écrit parfois le nom de part et d'autre de ses propres chiffres :
+
+        Nord-
+        680 463 68,1% 17 10 1 11
+        Kivu
+
+    On en refait « Nord-Kivu 680 463 68,1% 17 10 1 11 ». Sans cela la ligne
+    n'est reconnue ni comme province ni comme zone, et sa ventilation des
+    décès est perdue en silence — le site affichait « +0 » là où onze
+    personnes étaient mortes.
+
+    Le trait d'union final dit si les deux moitiés se recollent directement
+    (« Nord-Kivu ») ou avec une espace (« Boma Mangbetu »). La reconstruction
+    reste locale à cette lecture : le texte brut continue de servir ailleurs,
+    inchangé.
+    """
+    lines = [line.strip() for line in section.split("\n")]
+    out = []
+    i = 0
+    while i < len(lines):
+        head = lines[i]
+        if (i + 2 < len(lines) and head and NAME_FRAGMENT_RE.match(head)
+                and lines[i + 1] and NUMERIC_ROW_RE.match(lines[i + 1])
+                and lines[i + 2] and NAME_FRAGMENT_RE.match(lines[i + 2])):
+            joiner = "" if head.endswith("-") else " "
+            out.append("%s%s%s %s" % (head, joiner, lines[i + 2], lines[i + 1]))
+            i += 3
+            continue
+        out.append(head)
+        i += 1
+    return "\n".join(out)
+
+
+def extract_detail_total_from_text(full_text):
+    """Ligne « Total » du tableau détaillé : cumuls et ventilation nationale
+    des décès des dernières 24 h. Repli quand la phrase des faits saillants
+    change de tournure — ce qu'elle fait d'un rapport à l'autre."""
+    section = get_zone_section_text(full_text)
+    if not section:
+        return None
+    for line in unwrap_split_names(section).split("\n"):
+        m = TOTAL_SUBTOTAL_RE.match(line.strip())
+        if m:
+            return m.groupdict()
+    return None
+
+
 def extract_province_subtotals_from_text(full_text):
     section = get_zone_section_text(full_text)
     if not section:
         return {}
     out = {}
-    for line in section.split("\n"):
+    for line in unwrap_split_names(section).split("\n"):
         line = line.strip()
         m = PROV_SUBTOTAL_RE.match(line)
         if m:
@@ -542,7 +602,12 @@ def gap_fill_missing_zones(full_text, zones_raw):
         by_key[normalize_zone_key(name)] = (name, prov, row)
     current_province = None
 
-    for line in section.split("\n"):
+    # Recomposition prealable des libelles coupes sur trois lignes : sans
+    # elle, l'en-tete « Nord-Kivu » n'est jamais reconnu et toutes les zones
+    # qui suivent restent attribuees a la province precedente. Vu avec le
+    # SitRep 098, ou les douze zones du Nord-Kivu et les six du Haut-Uele se
+    # retrouvaient en Ituri.
+    for line in unwrap_split_names(section).split("\n"):
         line = line.strip()
         if not line:
             continue
@@ -1027,6 +1092,7 @@ def main():
         _, zones_raw, detail_total_row = parse_zone_detail(zone_rows)
         zones_raw = revalidate_zones(full_text, zones_raw)
         province_subtotals_text = extract_province_subtotals_from_text(full_text)
+        detail_total_text = extract_detail_total_from_text(full_text)
 
     old_provinces = {p["name"]: p for p in current.get("provinces", [])}
     for p in provinces:
@@ -1076,6 +1142,16 @@ def main():
         "newDeathsCommunity24h": norm_int(detail_total_row[4]) if detail_total_row and len(detail_total_row) > 4 else None,
         "newDeathsIntraCTE24h": norm_int(detail_total_row[5]) if detail_total_row and len(detail_total_row) > 5 else None,
     }
+
+    # Repli sur la ligne « Total » du tableau détaillé quand la lecture par
+    # colonnes n'a rien donné : elle porte les mêmes chiffres, en clair.
+    if detail_total_text:
+        for key, field in (("newCases24h", "newcases"),
+                           ("newDeaths24h", "total"),
+                           ("newDeathsCommunity24h", "deathscomm"),
+                           ("newDeathsIntraCTE24h", "deathsintracte")):
+            if national.get(key) is None:
+                national[key] = norm_int(detail_total_text[field])
 
     fs = re.search(
         r"(\d[\d\s]*)\s*nouveaux cas confirmés et\s*(\d[\d\s]*)\s*décès\s*\((\d[\d\s]*)\s*décès\s*communautaires?\s*et\s*(\d[\d\s]*)\s*intra",
