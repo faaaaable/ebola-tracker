@@ -1,4 +1,13 @@
+# Tout le site est ouvert à l'indexation, archive des bulletins comprise :
+# c'est ce qui rend les chiffres publiés ici vérifiables.
 User-agent: *
 Allow: /
+
+# L'archive pèse environ 170 Mo répartis sur une centaine de PDF. Le seul
+# risque n'est pas qu'on la lise, mais qu'un robot mal réglé la retélécharge
+# en boucle. Une seconde entre deux requêtes suffit à l'écarter sans gêner
+# personne. Google ignore cette directive et règle son propre rythme ; elle
+# s'adresse aux autres.
+Crawl-delay: 1
 
 Sitemap: https://ebola-tracker.org/sitemap.xml

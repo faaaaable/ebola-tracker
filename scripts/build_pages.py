@@ -1369,6 +1369,15 @@ def main():
             "seed.cfr": fmt_cfr(national.get("cfr")),
             "seed.zonesSub": zones_sub(national, meta_data, lang, i18n_lang),
             "seed.sitrepRef": sitrep_ref(meta_data, lang, i18n_lang),
+            # Reperes de la page « A propos » : tires des donnees, jamais
+            # saisis a la main, pour qu'ils ne puissent pas se perimer.
+            "about.since": long_date(
+                min((r["reportingDate"] for r in latest.get("reports", [])
+                     if r.get("reportingDate")), default=None), i18n_lang),
+            "about.reports": fmt(len(latest.get("reports", [])), lang),
+            "about.scope": esc(interp(strings_lang["aboutFactScopeValue"], {
+                "provinces": fmt(len(provinces), lang),
+                "zones": fmt(len(latest.get("healthZones", [])), lang)})),
             "mapHint": hint_pair(strings_lang, "cartoHint", "cartoHintTouch"),
             "seed.provinceRows": province_rows_html(provinces, national, lang),
             "seed.reportsList": reports_list_html(latest.get("reports", []), lang, i18n_lang),

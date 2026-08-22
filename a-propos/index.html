@@ -186,8 +186,42 @@
       <main id="contenu">
   <section class="section">
     <h1 class="page-title">À propos de ce site</h1>
+    <p class="about-lede">Ce site rassemble, jour après jour, ce que les autorités congolaises publient sur la 17ᵉ épidémie d'Ebola — et rien d'autre.</p>
 
+    <!-- Reperes tires des donnees : ils suivent l'archive sans intervention. -->
+    <dl class="about-facts" aria-label="En bref">
+      <div><dt>Source</dt><dd>Bulletins de l'INSP</dd></div>
+      <div><dt>Depuis le</dt><dd>14 mai 2026</dd></div>
+      <div><dt>Bulletins archivés</dt><dd>91</dd></div>
+      <div><dt>Couverture</dt><dd>6 provinces, 55 zones de santé</dd></div>
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">Du bulletin au graphique</h2>
+    </div>
+    <ol class="about-steps">
+      <li>
+        <h3>Le bulletin est archivé</h3>
+        <p>Chaque PDF publié par l'INSP est téléchargé et conservé tel quel. L'original reste consultable, c'est ce qui rend les chiffres de ce site vérifiables.</p>
+      </li>
+      <li>
+        <h3>Les tableaux sont lus</h3>
+        <p>Un programme lit les tableaux du PDF — pas le texte de présentation, dont la formulation change d'un bulletin à l'autre. Une valeur qui ne se recoupe pas est ignorée plutôt qu'approximée.</p>
+      </li>
+      <li>
+        <h3>Les pages sont réécrites</h3>
+        <p>Les chiffres sont inscrits dans les pages elles-mêmes, pas seulement chargés par le navigateur : ils restent lisibles sans JavaScript, et indexables.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section">
     <div class="prose">
+      <h2 id="lecture">Comment lire ces chiffres</h2>
+      <p><strong>Cas confirmés</strong> et <strong>décès</strong> sont des totaux cumulés depuis le début de l'épidémie, jamais des valeurs du jour. La <strong>létalité</strong> rapporte les décès aux cas confirmés. Les <strong>nouveaux cas (24 h)</strong> sont la variation annoncée par le dernier bulletin, pas un calcul de notre part.</p><p>Deux limites connues. Le bilan national est parfois publié avant le détail par province et par zone de santé : un écart temporaire entre les niveaux est donc normal. Et les autorités révisent parfois leurs chiffres rétroactivement — ces révisions se répercutent ici telles quelles, sans lissé.</p>
+
       <h2 data-i18n="aboutSourcesTitle">Sources des données</h2>
       <p data-i18n="aboutSourcesBody">Les chiffres affichés proviennent des Rapports de Situation (SitRep) publiés par l'Institut National de Santé Publique (INSP) de la RDC. Chaque SitRep est archivé et consultable dans l'onglet Rapports de situation. Certaines données sont complétées par les Weekly External Situation Report de l'Organisation Mondiale de la Santé (OMS).</p>
 

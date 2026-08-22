@@ -1,7 +1,41 @@
   <section class="section">
     <h1 class="page-title">{{meta.h1}}</h1>
+    <p class="about-lede">{{t.aboutLede}}</p>
 
+    <!-- Reperes tires des donnees : ils suivent l'archive sans intervention. -->
+    <dl class="about-facts" aria-label="{{t.aboutFactsTitle}}">
+      <div><dt>{{t.aboutFactSourceKey}}</dt><dd>{{t.aboutFactSourceValue}}</dd></div>
+      <div><dt>{{t.aboutFactSinceKey}}</dt><dd>{{about.since}}</dd></div>
+      <div><dt>{{t.aboutFactReportsKey}}</dt><dd>{{about.reports}}</dd></div>
+      <div><dt>{{t.aboutFactScopeKey}}</dt><dd>{{about.scope}}</dd></div>
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">{{t.aboutStepsTitle}}</h2>
+    </div>
+    <ol class="about-steps">
+      <li>
+        <h3>{{t.aboutStep1Title}}</h3>
+        <p>{{t.aboutStep1Body}}</p>
+      </li>
+      <li>
+        <h3>{{t.aboutStep2Title}}</h3>
+        <p>{{t.aboutStep2Body}}</p>
+      </li>
+      <li>
+        <h3>{{t.aboutStep3Title}}</h3>
+        <p>{{t.aboutStep3Body}}</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section">
     <div class="prose">
+      <h2 id="lecture">{{t.aboutReadingTitle}}</h2>
+      {{t.dataNoteBody}}
+
       <h2 data-i18n="aboutSourcesTitle">{{i18n.aboutSourcesTitle}}</h2>
       <p data-i18n="aboutSourcesBody">{{i18n.aboutSourcesBody}}</p>
 
