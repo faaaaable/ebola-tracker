@@ -830,8 +830,6 @@ td:first-child{color:var(--ink);font-weight:500;}
    deces, sur une echelle commune. Les couleurs sont celles que le site emploie
    deja pour ces deux grandeurs — bleu pour les cas, rouge pour les deces —
    pour qu'un lecteur venu de la carte ou des graphiques les reconnaisse. */
-.ages-lead{font-size:16px;line-height:1.6;color:var(--ink);margin:0 0 18px;max-width:56ch;}
-.ages-lead strong{font-weight:600;color:var(--accent-critical);}
 .ages{display:flex;flex-direction:column;gap:14px;}
 .ages-key{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:2px;}
 .ak{
