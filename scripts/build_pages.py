@@ -1504,9 +1504,6 @@ def main():
             "seed.provinceRows": province_rows_html(provinces, national, lang),
             "seed.agesRows": ages_rows_html(demographie, lang, strings_lang),
             "seed.sexRows": sex_rows_html(demographie, lang, strings_lang),
-            "seed.sexBody": interp(strings_lang["virusSexBody"], {
-                "partCasF": fmt_pct(demographie["parSexe"]["cas"]["partFeminin"], lang),
-                "partDecesF": fmt_pct(demographie["parSexe"]["deces"]["partFeminin"], lang)}),
             "seed.agesNote": interp(strings_lang["virusAgesNote"], {
                 "date": long_date(demographie["date"], i18n_lang),
                 "derniere": long_date(demographie["derniereFigurePubliee"], i18n_lang),

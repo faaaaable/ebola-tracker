@@ -891,7 +891,6 @@ td:first-child{color:var(--ink);font-weight:500;}
 .sx-seg.is-f{background:var(--scale-4);color:#fff;}
 .sx-seg.is-h{background:var(--scale-3);color:#fff;}
 .sx-pct{padding:0 6px;white-space:nowrap;}
-.sex-body{font-size:14px;line-height:1.7;color:var(--ink-dim);margin:16px 0 0;max-width:62ch;}
 @media (max-width:560px){
   .sex-row{grid-template-columns:1fr;gap:4px;}
 }

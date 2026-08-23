@@ -430,6 +430,17 @@ async function loadContactsFollowup(){
    figure dont il est tiré après le 5 août 2026. Le graphique porte donc sa
    date, et le mode reste absent tant que le fichier n'est pas chargé. */
 let DEMOGRAPHIE = null;
+
+/* Les deux modes « age » et « sexe » lisent les MEMES deux figures : meme
+   echantillon, donc meme denominateur et meme mise en garde. Une seule note
+   pour les deux evite d'avoir deux verites a maintenir pour une seule donnee.
+   fmt() applique le separateur de milliers du site — « 3 454 », pas « 3454 ». */
+function noteDemographie(){
+  if(!DEMOGRAPHIE) return '';
+  return tr('chartNoteDemographie')(
+    frDate(DEMOGRAPHIE.date), fmt(DEMOGRAPHIE.totaux.cas), fmt(DEMOGRAPHIE.totaux.deces),
+    DEMOGRAPHIE.couverture.partCas, DEMOGRAPHIE.couverture.partDeces);
+}
 async function loadDemographie(){
   try{
     const res = await fetch('/data/demographie.json', { cache:'no-store' });
@@ -766,9 +777,7 @@ function renderOneChart(canvas, chartMode){
                              { type:wantedType, data, options:opts, plugins:[pctDansSegment] });
     }
     if(noteEl){
-      const t1829 = DEMOGRAPHIE.tranches.find(b => b.tranche === '18-29');
-      const ratio = t1829 ? (t1829.casFeminin / t1829.casMasculin).toFixed(1).replace('.', ',') : '—';
-      noteEl.textContent = tr('chartNoteSexes')(frDate(DEMOGRAPHIE.date), ratio);
+      noteEl.textContent = noteDemographie();
       noteEl.style.display = 'block';
     }
     slot.lastMode = 'sexes';
@@ -837,11 +846,7 @@ function renderOneChart(canvas, chartMode){
     if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
     else { slot.chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts }); }
     if(noteEl){
-      // fmt() applique le separateur de milliers du site : « 3 454 », comme
-      // partout ailleurs, et non « 3454 ».
-      noteEl.textContent = tr('chartNoteAges')(
-        frDate(DEMOGRAPHIE.date), fmt(DEMOGRAPHIE.totaux.cas), fmt(DEMOGRAPHIE.totaux.deces),
-        DEMOGRAPHIE.couverture.partCas, DEMOGRAPHIE.couverture.partDeces);
+      noteEl.textContent = noteDemographie();
       noteEl.style.display = 'block';
     }
     slot.lastMode = 'ages';
