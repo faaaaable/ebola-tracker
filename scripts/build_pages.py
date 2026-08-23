@@ -21,6 +21,7 @@ Sources de texte :
 Usage :  python scripts/build_pages.py   (depuis la racine du dépôt)
 """
 
+import hashlib
 import io
 import json
 import os
@@ -1358,6 +1359,23 @@ def render(template, values, origin_label):
     return out
 
 
+def jeton_version(chemin_relatif):
+    """Empreinte courte du contenu d'un fichier statique.
+
+    Le HTML et le JavaScript changent souvent ensemble — un nouvel onglet dans
+    la page a besoin du mode correspondant dans app.js. Or les deux n'ont pas
+    la meme duree de cache : le HTML est revalide a chaque visite, les assets
+    sont gardes dix minutes. Pendant ces dix minutes, un visiteur revenant
+    recoit un HTML neuf et un JavaScript perime, et la fonctionnalite retombe
+    silencieusement sur son comportement par defaut.
+
+    Un jeton derive du contenu supprime la fenetre : l'URL change des que le
+    fichier change, donc le navigateur va forcement le rechercher.
+    """
+    with open(os.path.join(ROOT, chemin_relatif), "rb") as fh:
+        return hashlib.sha256(fh.read()).hexdigest()[:10]
+
+
 def head_assets(needs):
     tags = []
     if "leaflet" in needs:
@@ -1668,6 +1686,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
 
     layout_values = {
         "lang": lang,
+        # Jetons de cache des fichiers statiques : c'est le gabarit qui porte
+        # les balises <link> et <script>, donc c'est ici qu'ils doivent vivre.
+        "v.css": jeton_version("assets/css/site.css"),
+        "v.app": jeton_version("assets/js/app.js"),
+        "v.i18n": jeton_version("assets/js/i18n.js"),
         "title": esc(meta["title"]),
         "description": esc(meta["description"]),
         "canonical": canonical,
@@ -1801,7 +1824,8 @@ def write_404(config, urls, strings, i18n, layout):
         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
         '<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700'
         '&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">',
-        '<link rel="stylesheet" href="/assets/css/site.css">',
+        '<link rel="stylesheet" href="/assets/css/site.css?v=%s">'
+        % jeton_version("assets/css/site.css"),
         "</head>", '<body>',
         '  <div class="wrap notfound">',
         '    <a class="brand" href="/">',
