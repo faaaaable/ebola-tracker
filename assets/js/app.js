@@ -676,6 +676,105 @@ function renderOneChart(canvas, chartMode){
     else { noteEl.textContent = ''; noteEl.style.display = 'none'; }
   }
 
+  // Mode "Sexe" : deux barres empilées à 100%, cas puis décès. Un camembert
+  // aurait été plus familier, mais l'écart à montrer est de 3,3 points — 12°
+  // d'arc, invisibles, et illisibles d'un cercle à l'autre. Empilées sur une
+  // base commune, les deux barres rendent le décalage lisible au décrochage
+  // de la frontière entre les deux couleurs.
+  if(chartMode==='sexes'){
+    const wantedType = 'bar';
+    if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode !== 'sexes')){
+      slot.chart.destroy();
+      slot.chart = null;
+    }
+    if(!DEMOGRAPHIE || !DEMOGRAPHIE.parSexe){
+      if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+      slot.lastMode = 'sexes';
+      const ctx0 = canvas.getContext('2d');
+      ctx0.clearRect(0,0,canvas.width,canvas.height);
+      return;
+    }
+
+    const ps = DEMOGRAPHIE.parSexe;
+    const effectifs = {
+      [tr('chartSexCases')]:  { f:ps.cas.feminin,   h:ps.cas.masculin },
+      [tr('chartSexDeaths')]: { f:ps.deces.feminin, h:ps.deces.masculin },
+    };
+    // Deux paliers de l'échelle bleue du site, et non deux couleurs neuves :
+    // aucune des deux ne suggère une valeur, et le couple passe les contrôles
+    // de séparation (ΔE 15,3 en deutéranopie) et de contraste.
+    const data = {
+      labels:[tr('chartSexCases'), tr('chartSexDeaths')],
+      datasets:[
+        { label:tr('chartSexFemale'), data:[ps.cas.partFeminin, ps.deces.partFeminin],
+          backgroundColor:PALETTE.scale[4], stack:'s', borderColor:PALETTE.panel, borderWidth:2 },
+        { label:tr('chartSexMale'), data:[ps.cas.partMasculin, ps.deces.partMasculin],
+          backgroundColor:PALETTE.scale[3], stack:'s', borderColor:PALETTE.panel, borderWidth:2 },
+      ]
+    };
+    const opts = {
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      scales:{
+        x:{ stacked:true, min:0, max:100, ticks:{ color:PALETTE.inkFaint,
+            font:{family:PALETTE.font, size:10}, callback:v=>v+'%' },
+            grid:{ color:PALETTE.lineSoft } },
+        y:{ stacked:true, ticks:{ color:PALETTE.inkDim, font:{family:PALETTE.font, size:12} },
+            grid:{ display:false } }
+      },
+      plugins:{
+        legend:{ labels:{ color:PALETTE.inkDim, font:{family:PALETTE.font, size:11},
+                          boxWidth:10, usePointStyle:true } },
+        tooltip:{
+          backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
+          titleColor:PALETTE.ink, bodyColor:PALETTE.ink,
+          titleFont:{family:PALETTE.font}, bodyFont:{family:PALETTE.font},
+          callbacks:{ label: c => {
+            const n = effectifs[c.label] || {};
+            const effectif = c.datasetIndex === 0 ? n.f : n.h;
+            return `${c.dataset.label} : ${String(c.parsed.x).replace('.', ',')} % (${fmt(effectif)})`;
+          } }
+        }
+      }
+    };
+    if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
+    else {
+      // Le pourcentage au centre de chaque segment : il porte l'information
+      // sans obliger à viser l'axe, et satisfait l'exigence de libellé visible.
+      const pctDansSegment = {
+        id:'pctSexes',
+        afterDatasetsDraw(c){
+          const {ctx} = c;
+          c.data.datasets.forEach((dataset, i)=>{
+            const meta = c.getDatasetMeta(i);
+            if(meta.hidden) return;
+            meta.data.forEach((bar, idx)=>{
+              const value = dataset.data[idx];
+              if(!value) return;
+              const x = (bar.x + bar.base) / 2;
+              ctx.save();
+              ctx.fillStyle = PALETTE.panel;
+              ctx.font = "700 12px 'Public Sans', sans-serif";
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              ctx.fillText(String(value).replace('.', ',') + ' %', x, bar.y);
+              ctx.restore();
+            });
+          });
+        }
+      };
+      slot.chart = new Chart(canvas.getContext('2d'),
+                             { type:wantedType, data, options:opts, plugins:[pctDansSegment] });
+    }
+    if(noteEl){
+      const t1829 = DEMOGRAPHIE.tranches.find(b => b.tranche === '18-29');
+      const ratio = t1829 ? (t1829.casFeminin / t1829.casMasculin).toFixed(1).replace('.', ',') : '—';
+      noteEl.textContent = tr('chartNoteSexes')(frDate(DEMOGRAPHIE.date), ratio);
+      noteEl.style.display = 'block';
+    }
+    slot.lastMode = 'sexes';
+    return;
+  }
+
   // Mode "Âge" : catégories et non dates, et deux parts qui somment chacune
   // à 100% de leur série. Traité à part comme "Origine des décès", avant le
   // reste de la fonction qui suppose des SitRep (s) comme source.

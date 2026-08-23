@@ -2,6 +2,20 @@
  "date": "2026-08-05",
  "sitrep": "083",
  "source": "INSP",
+ "parSexe": {
+  "cas": {
+   "feminin": 1828,
+   "masculin": 1626,
+   "partFeminin": 52.9,
+   "partMasculin": 47.1
+  },
+  "deces": {
+   "feminin": 557,
+   "masculin": 567,
+   "partFeminin": 49.6,
+   "partMasculin": 50.4
+  }
+ },
  "derniereFigurePubliee": "2026-08-05",
  "totaux": {
   "cas": 3454,

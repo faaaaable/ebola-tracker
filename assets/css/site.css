@@ -839,6 +839,8 @@ td:first-child{color:var(--ink);font-weight:500;}
 .ak::before{content:"";width:11px;height:11px;border-radius:3px;flex:none;}
 .ak-cas::before{background:var(--accent-info);}
 .ak-deces::before{background:var(--accent-critical);}
+.ak-f::before{background:var(--scale-4);}
+.ak-h::before{background:var(--scale-3);}
 .age-row{display:grid;grid-template-columns:88px minmax(0,1fr);gap:4px 14px;align-items:center;}
 .age-label{
   grid-row:span 2;font-size:13px;font-weight:600;color:var(--ink);
@@ -860,6 +862,38 @@ td:first-child{color:var(--ink);font-weight:500;}
 @media (max-width:560px){
   .age-row{grid-template-columns:1fr;gap:3px;}
   .age-label{grid-row:auto;margin-top:6px;}
+}
+
+/* Repartition femmes/hommes : deux barres empilees a 100 %, l'une sous
+   l'autre. Elles partagent une base et une echelle, donc l'ecart de 3,3
+   points se lit au decrochage de la frontiere — ce qu'aucun camembert ne
+   permet. Les deux teintes sont deux paliers de l'echelle bleue du site :
+   ni l'une ni l'autre ne suggere une valeur, et le couple passe les
+   controles de separation et de contraste. */
+.sub-title{
+  font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-label);margin:30px 0 14px;
+}
+.sexes{display:flex;flex-direction:column;gap:10px;}
+.sex-row{display:grid;grid-template-columns:88px minmax(0,1fr);gap:14px;align-items:center;}
+.sex-label{font-size:13px;font-weight:600;color:var(--ink);}
+.sex-bar{
+  display:flex;height:26px;border-radius:3px;overflow:hidden;min-width:0;
+  background:var(--bg-alt);border:1px solid var(--line-soft);
+}
+.sx-seg{
+  display:flex;align-items:center;justify-content:center;min-width:0;
+  font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;
+}
+/* 2 px de surface entre les deux segments : la frontiere reste explicite
+   meme quand les deux teintes sont proches. */
+.sx-seg.is-h{border-left:2px solid var(--bg-panel);}
+.sx-seg.is-f{background:var(--scale-4);color:#fff;}
+.sx-seg.is-h{background:var(--scale-3);color:#fff;}
+.sx-pct{padding:0 6px;white-space:nowrap;}
+.sex-body{font-size:14px;line-height:1.7;color:var(--ink-dim);margin:16px 0 0;max-width:62ch;}
+@media (max-width:560px){
+  .sex-row{grid-template-columns:1fr;gap:4px;}
 }
 
 /* Blocs conserves pour l'apercu de l'accueil. */

@@ -217,10 +217,26 @@ def ecrire_instantane(lignes, date):
             "partDeces": round(100.0 * dec / total_deces, 1),
         })
 
+    # Repartition par sexe, tous ages confondus. Le rapport femmes/hommes des
+    # cas est donne par tranche : c'est lui qui porte l'information, l'exces
+    # feminin etant concentre sur les 18-29 ans et s'inversant chez les
+    # nourrissons. L'ecart d'ensemble, lui, est faible.
+    par_sexe = {}
+    for mesure in ("cas_confirmes", "deces"):
+        prefixe = "cas" if mesure == "cas_confirmes" else "deces"
+        f = sum(v(t, mesure, "feminin") for t in TRANCHES)
+        m = sum(v(t, mesure, "masculin") for t in TRANCHES)
+        par_sexe[prefixe] = {
+            "feminin": f, "masculin": m,
+            "partFeminin": round(100.0 * f / (f + m), 1),
+            "partMasculin": round(100.0 * m / (f + m), 1),
+        }
+
     instantane = {
         "date": date,
         "sitrep": ident.split("_")[1],
         "source": "INSP",
+        "parSexe": par_sexe,
         "derniereFigurePubliee": date,
         "totaux": {"cas": total_cas, "deces": total_deces},
         "couverture": {

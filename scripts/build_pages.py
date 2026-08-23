@@ -967,6 +967,47 @@ def fmt_pct(valeur, lang):
     return texte.replace(".", ",") if lang == "fr" else texte
 
 
+def sex_rows_html(demographie, lang, strings_lang):
+    """Deux barres empilees a 100 % : repartition femmes/hommes des cas, puis
+    des deces.
+
+    Un camembert aurait ete plus familier, mais l'ecart a montrer est de 3,3
+    points — 12 degres d'arc, invisibles, et illisibles d'un cercle a l'autre.
+    Empilees l'une sous l'autre, les deux barres partagent une base et une
+    echelle : le decalage se lit au decrochage de la frontiere entre les deux
+    couleurs.
+
+    Les deux teintes sont deux paliers de l'echelle bleue du site plutot que
+    deux couleurs neuves — le vocabulaire chromatique reste celui du site, et
+    aucune des deux ne suggere une valeur. Le couple passe les controles de
+    separation (ΔE 15,3 en deuteranopie) et de contraste.
+    """
+    par_sexe = (demographie or {}).get("parSexe")
+    if not par_sexe:
+        return ""
+    lignes = []
+    for cle, intitule in (("cas", strings_lang["virusSexCases"]),
+                          ("deces", strings_lang["virusSexDeaths"])):
+        bloc = par_sexe[cle]
+        segments = []
+        for sexe, classe, libelle in (
+                ("Feminin", "is-f", strings_lang["virusSexFemale"]),
+                ("Masculin", "is-h", strings_lang["virusSexMale"])):
+            part = bloc["part" + sexe]
+            segments.append(
+                '            <span class="sx-seg %s" style="width:%.1f%%">'
+                '<span class="sx-pct">%s&nbsp;%%</span>'
+                '<span class="visually-hidden"> %s, %s</span></span>'
+                % (classe, part, esc(fmt_pct(part, lang)), esc(libelle),
+                   esc(fmt(bloc[sexe.lower()], lang))))
+        lignes.append(
+            '        <div class="sex-row">\n'
+            '          <div class="sex-label">%s</div>\n'
+            '          <div class="sex-bar">\n%s\n          </div>\n'
+            '        </div>' % (esc(intitule), "\n".join(segments)))
+    return "\n".join(lignes)
+
+
 def reports_list_html(reports, lang, i18n_lang):
     """Version écrite en dur de la liste des SitRep, groupée par mois.
 
@@ -1462,6 +1503,10 @@ def main():
             "mapHint": hint_pair(strings_lang, "cartoHint", "cartoHintTouch"),
             "seed.provinceRows": province_rows_html(provinces, national, lang),
             "seed.agesRows": ages_rows_html(demographie, lang, strings_lang),
+            "seed.sexRows": sex_rows_html(demographie, lang, strings_lang),
+            "seed.sexBody": interp(strings_lang["virusSexBody"], {
+                "partCasF": fmt_pct(demographie["parSexe"]["cas"]["partFeminin"], lang),
+                "partDecesF": fmt_pct(demographie["parSexe"]["deces"]["partFeminin"], lang)}),
             "seed.agesNote": interp(strings_lang["virusAgesNote"], {
                 "date": long_date(demographie["date"], i18n_lang),
                 "derniere": long_date(demographie["derniereFigurePubliee"], i18n_lang),
