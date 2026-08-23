@@ -425,6 +425,24 @@ async function loadContactsFollowup(){
   }
 }
 
+/* Répartition par âge des cas et des décès. Contrairement aux autres séries,
+   c'est un INSTANTANÉ et non un historique : l'INSP a cessé de publier la
+   figure dont il est tiré après le 5 août 2026. Le graphique porte donc sa
+   date, et le mode reste absent tant que le fichier n'est pas chargé. */
+let DEMOGRAPHIE = null;
+async function loadDemographie(){
+  try{
+    const res = await fetch('/data/demographie.json', { cache:'no-store' });
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(remote && Array.isArray(remote.tranches) && remote.tranches.length){
+      DEMOGRAPHIE = remote;
+    }
+  }catch(e){
+    console.warn('data/demographie.json indisponible.', e);
+  }
+}
+
 
 /* Détermine la source la plus récente pour les 4 chiffres nationaux
    affichés en cases d'en-tête : le dernier SitRep PDF (currentMeta) ou le
@@ -656,6 +674,79 @@ function renderOneChart(canvas, chartMode){
   if(noteEl){
     if(chartMode==='daily'){ noteEl.textContent = tr('chartNoteDaily'); noteEl.style.display = 'block'; }
     else { noteEl.textContent = ''; noteEl.style.display = 'none'; }
+  }
+
+  // Mode "Âge" : catégories et non dates, et deux parts qui somment chacune
+  // à 100% de leur série. Traité à part comme "Origine des décès", avant le
+  // reste de la fonction qui suppose des SitRep (s) comme source.
+  if(chartMode==='ages'){
+    const wantedType = 'bar';
+    if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode !== 'ages')){
+      slot.chart.destroy();
+      slot.chart = null;
+    }
+    if(!DEMOGRAPHIE){
+      if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+      slot.lastMode = 'ages';
+      const ctx0 = canvas.getContext('2d');
+      ctx0.clearRect(0,0,canvas.width,canvas.height);
+      return;
+    }
+
+    const bandes = DEMOGRAPHIE.tranches;
+    const libelle = t => /^\d+-\d+$/.test(t)
+      ? t.replace('-', '–') + ' ' + tr('chartAgesUnit')
+      : tr('chartAgesOpenEnded');
+
+    // Des PARTS, jamais un taux de létalité par âge : la figure source ne voit
+    // que 61 % des décès contre 85 % des cas, un taux en sortirait trop bas et
+    // contredirait la létalité affichée ailleurs sur le site.
+    const data = {
+      labels: bandes.map(b => libelle(b.tranche)),
+      datasets:[
+        { label:tr('chartAgesCases'),  data:bandes.map(b=>b.partCas),
+          backgroundColor:PALETTE.info,     borderRadius:2, maxBarThickness:16 },
+        { label:tr('chartAgesDeaths'), data:bandes.map(b=>b.partDeces),
+          backgroundColor:PALETTE.critical, borderRadius:2, maxBarThickness:16 },
+      ]
+    };
+    const parN = {};
+    bandes.forEach(b => { parN[libelle(b.tranche)] = { cas:b.cas, deces:b.deces }; });
+    const opts = {
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      scales:{
+        x:{ min:0, ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10},
+                           callback:v=>v+'%' }, grid:{ color:PALETTE.lineSoft } },
+        y:{ ticks:{ color:PALETTE.inkDim, font:{family:PALETTE.font, size:11} },
+            grid:{ display:false } }
+      },
+      plugins:{
+        legend:{ labels:{ color:PALETTE.inkDim, font:{family:PALETTE.font, size:11},
+                          boxWidth:10, usePointStyle:true } },
+        tooltip:{
+          backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
+          titleColor:PALETTE.ink, bodyColor:PALETTE.ink,
+          titleFont:{family:PALETTE.font}, bodyFont:{family:PALETTE.font},
+          callbacks:{ label: c => {
+            const n = parN[c.label] || {};
+            const effectif = c.datasetIndex === 0 ? n.cas : n.deces;
+            return `${c.dataset.label} : ${String(c.parsed.x).replace('.', ',')} % (${effectif})`;
+          } }
+        }
+      }
+    };
+    if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
+    else { slot.chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts }); }
+    if(noteEl){
+      // fmt() applique le separateur de milliers du site : « 3 454 », comme
+      // partout ailleurs, et non « 3454 ».
+      noteEl.textContent = tr('chartNoteAges')(
+        frDate(DEMOGRAPHIE.date), fmt(DEMOGRAPHIE.totaux.cas), fmt(DEMOGRAPHIE.totaux.deces),
+        DEMOGRAPHIE.couverture.partCas, DEMOGRAPHIE.couverture.partDeces);
+      noteEl.style.display = 'block';
+    }
+    slot.lastMode = 'ages';
+    return;
   }
 
   // Mode "Origine des décès" : structure de données et échelle (0-100%)
@@ -2443,7 +2534,7 @@ function mergeHealthZonesWithHistory(){
 if(document.querySelector('.zonemap')) safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immediat avec les donnees de reference integrees
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory()]).then(()=>{
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
