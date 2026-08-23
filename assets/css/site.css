@@ -542,7 +542,11 @@ ul,ol{margin:0;padding:0;}
    remplir leur conteneur — lequel n'en avait aucune. Chaque mode retombait
    alors sur l'attribut height du canvas, ampute d'une part variable par sa
    legende et ses axes. */
-.chart-panel{padding:18px 20px;height:380px;}
+/* Le rembourrage lateral tient compte des etiquettes d'axe, que Chart.js
+   dessine au bord du canevas : a 20 px, les graduations de l'axe des
+   ordonnees touchaient le cadre et la premiere date de l'axe des abscisses,
+   inclinee, debordait a gauche et se faisait rogner. */
+.chart-panel{padding:18px 26px 18px 30px;height:380px;}
 .chart-panel canvas{width:100%!important;height:100%!important;}
 /* Note explicative propre a chaque graphique : le script la remplit selon ce
    que le graphique montre, et la masque quand il n'y a rien a dire. */
@@ -875,6 +879,8 @@ td:first-child{color:var(--ink);font-weight:500;}
   color:var(--ink-label);margin:30px 0 14px;
 }
 .sexes{display:flex;flex-direction:column;gap:10px;}
+/* La note ne doit pas coller a la derniere barre. */
+#ages .info-note{margin-top:28px;}
 .sex-row{display:grid;grid-template-columns:88px minmax(0,1fr);gap:14px;align-items:center;}
 .sex-label{font-size:13px;font-weight:600;color:var(--ink);}
 .sex-bar{
