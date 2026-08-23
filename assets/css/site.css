@@ -198,21 +198,30 @@ ul,ol{margin:0;padding:0;}
 .lang-btn .code{line-height:1;}
 
 /* ---- groupe repliable de la navigation ---- */
-/* « Données détaillées » reste un lien à part entière ; le chevron à côté
-   déplie la liste des provinces, repliée par défaut pour que la navigation
-   tienne en six lignes. Les liens sont dans le HTML dans les deux cas. */
+/* « Données détaillées » n'est plus un lien : c'est le titre de la section,
+   et la ligne entière déplie la liste — les tableaux, puis les provinces.
+   Elle se cale donc exactement sur .side-nav a pour rester dans l'alignement
+   des autres entrées. Les liens sont dans le HTML dans les deux cas. */
 .side-group{position:relative;}
-.side-group > a{padding-right:34px;}
 .side-toggle{
-  position:absolute;top:2px;right:0;
-  width:30px;height:30px;
-  display:flex;align-items:center;justify-content:center;
-  border:none;background:transparent;color:var(--ink-faint);
-  border-radius:var(--radius);cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  width:100%;
+  padding:8px 10px;border-radius:var(--radius);
+  border:none;background:transparent;
+  color:var(--ink-strong);font:inherit;text-align:left;cursor:pointer;
 }
-.side-toggle svg{width:15px;height:15px;transition:transform .18s ease;}
+.side-toggle svg{
+  width:15px;height:15px;flex:none;
+  color:var(--ink-faint);transition:transform .18s ease;
+}
 .side-toggle:hover{background:var(--bg-alt);color:var(--ink);}
 .side-toggle[aria-expanded="true"] svg{transform:rotate(180deg);}
+/* La page courante est désormais un enfant de la liste : sans cette règle,
+   elle héritait du fond plein des entrées de premier niveau, trop lourd à
+   cette taille de texte. */
+.side-sub a[aria-current="page"]{
+  background:var(--accent-light);color:var(--accent-hover);font-weight:600;
+}
 
 /* ---- panneau : navigation + bas de colonne ---- */
 /* Les deux voyagent ensemble parce que sur telephone ils forment le menu
@@ -551,9 +560,15 @@ ul,ol{margin:0;padding:0;}
 /* Note explicative propre a chaque graphique : le script la remplit selon ce
    que le graphique montre, et la masque quand il n'y a rien a dire. */
 .chart-note:empty{display:none;}
+/* Elle est soeur du canevas dans .panel, qui n'a aucun rembourrage : elle
+   heritait donc de .map-note un rembourrage horizontal nul et courait d'une
+   bordure a l'autre. On l'aligne sur le cadre du graphique — 30 px — et on
+   lui donne de quoi respirer sous elle. */
+.chart-note{padding:12px 30px 18px;}
 
 @media (max-width:760px){
   .chart-panel{height:300px;padding:14px 12px;}
+  .chart-note{padding:10px 14px 14px;}
 }
 
 .subtab-nav{display:flex;gap:4px;flex-wrap:wrap;}
@@ -571,7 +586,7 @@ ul,ol{margin:0;padding:0;}
    Tableaux
    ========================================================================== */
 
-.table-scroll{overflow-x:auto;overflow-y:auto;}
+.table-scroll{overflow-x:auto;overflow-y:auto;max-height:min(60vh,520px);}
 table{width:100%;border-collapse:collapse;font-size:13px;}
 th{
   text-align:left;font-size:10.5px;font-weight:700;
@@ -1328,8 +1343,7 @@ footer{
      avec des cibles a la taille du doigt. */
   .side-nav{flex-direction:column;gap:2px;font-size:16px;}
   .side-nav a{padding:12px 12px;}
-  .side-group > a{padding-right:44px;}
-  .side-toggle{width:44px;height:44px;top:0;}
+  .side-toggle{padding:12px 12px;}
   .side-sub a{font-size:14.5px;padding:10px 8px;}
   .side-foot{margin-top:0;padding-top:8px;border-top:1px solid var(--line);}
 

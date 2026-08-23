@@ -41,7 +41,7 @@
           <label class="visually-hidden" for="zonesSearch">{{i18n.zonesSearchPlaceholder}}</label>
           <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="{{i18n.zonesSearchPlaceholder}}">
         </div>
-        <div class="table-scroll" style="max-height:min(60vh,520px);">
+        <div class="table-scroll">
           <table>
             <thead>
               <tr id="zonesTableHead"></tr>
@@ -57,22 +57,13 @@
 
   <section class="section">
     <div class="section-head">
-      <h2 class="section-title">{{t.provincesBrowseTitle}}</h2>
-    </div>
-    <div class="province-grid">
-{{provinceCards}}
-    </div>
-    <p class="map-note" style="padding-top:12px;">{{t.provincesSparkNote}}</p>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
       <div>
         <h2 class="section-title">{{t.dataChartsTitle}}</h2>
         <div class="section-sub">{{t.dataChartsSub}}</div>
       </div>
       <nav class="subtab-nav" data-chart-tabs="dataChart">
-        <button type="button" class="subtab-btn active" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
+        <button type="button" class="subtab-btn active" data-mode="epidemic" data-i18n="chartModeEpidemic">{{i18n.chartModeEpidemic}}</button>
+        <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
         <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">{{i18n.chartModeContactsFollowUp}}</button>
         <button type="button" class="subtab-btn" data-mode="communityDeaths" data-i18n="chartModeCommunityDeaths">{{i18n.chartModeCommunityDeaths}}</button>
         <button type="button" class="subtab-btn" data-mode="ages" data-i18n="chartModeAges">{{i18n.chartModeAges}}</button>
@@ -82,10 +73,20 @@
 
     <div class="panel chart-panel-wrap">
       <div class="chart-panel">
-        <canvas id="dataChart" data-chart="byProvince"></canvas>
+        <canvas id="dataChart" data-chart="epidemic"></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">{{t.provincesBrowseTitle}}</h2>
+    </div>
+    <div class="province-grid">
+{{provinceCards}}
+    </div>
+    <p class="map-note" style="padding-top:12px;">{{t.provincesSparkNote}}</p>
   </section>
 
   <section class="section">

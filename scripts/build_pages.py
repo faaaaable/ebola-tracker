@@ -238,12 +238,17 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
                          % (urls.path(page_id, lang), current, label))
             continue
 
-        # « Donnees detaillees » porte la liste des provinces. Elle reste repliee
-        # par defaut — sinon la navigation fait sept lignes de plus — mais elle
-        # est deja dans le HTML, donc suivie par les moteurs de recherche, et
-        # deployee d'office quand on est sur une de ces pages.
-        links = ['          <a class="tab-dropdown-item" href="%s">%s</a>'
-                 % (urls.path("donnees", lang), esc(i18n_lang["zonesFilterAll"]))]
+        # « Donnees detaillees » n'est pas une destination : c'est la categorie
+        # qui porte la page de tableaux et les six pages province. En faire un
+        # lien vers /donnees/ doublonnait avec son premier enfant — deux lignes
+        # de navigation pour une seule URL. C'est donc un bouton de depliage,
+        # et la page de tableaux descend dans la liste sous son propre nom.
+        # La liste reste repliee par defaut — sinon la navigation fait sept
+        # lignes de plus — mais elle est deja dans le HTML, donc suivie par les
+        # moteurs de recherche, et deployee d'office sur ces pages.
+        links = ['          <a class="tab-dropdown-item"%s href="%s">%s</a>'
+                 % (current, urls.path("donnees", lang),
+                    esc(strings_lang["navDataTables"]))]
         for province in provinces:
             name = province["name"]
             links.append(
@@ -251,20 +256,22 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
                 '<span class="dot" style="background:%s;"></span>%s</a>'
                 % (urls.province_path(name, lang),
                    PROVINCE_COLORS.get(name, "var(--ink-faint)"), esc(name)))
+        # Le bouton porte lui-meme le libelle : son nom accessible est donc
+        # « Donnees detaillees », et aria-expanded dit le reste. Pas d'aria-label,
+        # qui masquerait ce texte aux lecteurs d'ecran.
         items.append(
             '      <div class="side-group">\n'
-            '        <a href="%s"%s>%s</a>\n'
             '        <button class="side-toggle" type="button" aria-expanded="%s"\n'
-            '                aria-controls="zonesDropdown" aria-label="%s">\n'
+            '                aria-controls="zonesDropdown">\n'
+            '          <span>%s</span>\n'
             '          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
             'stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" '
             'aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>\n'
             '        </button>\n'
             '        <div class="side-sub" id="zonesDropdown"%s>\n%s\n        </div>\n'
             '      </div>' % (
-                urls.path(page_id, lang), current, label,
                 "true" if expand_provinces else "false",
-                esc(strings_lang["navProvincesToggle"]),
+                label,
                 "" if expand_provinces else " hidden",
                 "\n".join(links)))
     return ('    <nav class="side-nav" aria-label="%s">\n%s\n    </nav>'
@@ -1417,6 +1424,34 @@ def jeton_version(chemin_relatif):
         return hashlib.sha256(fh.read()).hexdigest()[:10]
 
 
+# En deca de ce cumul, une courbe ne raconte rien : le Sud-Kivu compte 3 cas
+# en trois mois, le Bas-Uele 2. La ligne est plate, les barres invisibles, et
+# le lecteur croit a une panne d'affichage. Le seuil vaut pour l'avenir : une
+# province qui le franchit gagne sa courbe au prochain build, sans code.
+SEUIL_COURBE_PROVINCE = 50
+
+
+def province_chart_html(province, strings_lang):
+    if (province.get("confirmed") or 0) < SEUIL_COURBE_PROVINCE:
+        return ""
+    return (
+        '  <section class="section">\n'
+        '    <div class="section-head">\n'
+        '      <h2 class="section-title">%s</h2>\n'
+        '      <span class="section-sub">%s</span>\n'
+        '    </div>\n'
+        '\n'
+        '    <div class="panel chart-panel-wrap">\n'
+        '      <div class="chart-panel">\n'
+        '        <canvas id="provinceChart" data-chart="provinceEpidemic"></canvas>\n'
+        '      </div>\n'
+        '      <div class="map-note chart-note"></div>\n'
+        '    </div>\n'
+        '  </section>\n'
+        % (esc(strings_lang["provinceChartTitle"]),
+           esc(strings_lang["provinceChartSub"])))
+
+
 def head_assets(needs):
     tags = []
     if "leaflet" in needs:
@@ -1452,8 +1487,15 @@ def main():
 
     national = latest.get("national") or {}
     meta_data = latest.get("meta") or {}
-    provinces = [p for p in latest.get("provinces", [])
-                 if p.get("name") in config["provinceSlugs"]]
+    # Trie une fois pour toutes, du plus touche au moins touche : la
+    # navigation, le pied de page, les cartes et le tableau puisent tous dans
+    # cette liste. Les trois derniers triaient chacun de leur cote, la
+    # navigation prenait l'ordre du fichier — deux ordres possibles pour les
+    # memes six provinces sur une meme page.
+    provinces = sorted(
+        [p for p in latest.get("provinces", [])
+         if p.get("name") in config["provinceSlugs"]],
+        key=lambda p: -(p.get("confirmed") or 0))
     unknown = [p["name"] for p in latest.get("provinces", [])
                if p.get("name") not in config["provinceSlugs"]]
     if unknown:
@@ -1672,6 +1714,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.fullTable": esc(interp(strings_lang["provinceOpenFullTable"], forms)),
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
+            "province.chart": province_chart_html(province, strings_lang),
             "province.query": name.replace(" ", "%20"),
             "province.rank": esc(" ".join(x for x in (rank_line, window_line) if x)),
         })
@@ -1680,6 +1723,13 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         {"date": long_date(meta_data.get("reportingDate"), i18n_lang)}))
 
     content = render(fragment, values, fragment_name + " [" + lang + "]")
+
+    # Chart.js pese 200 Ko : inutile de le charger sur une page province
+    # qui n'a pas de graphique. « needs » est declare par type de page,
+    # or ici le besoin varie d'une province a l'autre.
+    besoins = list(page.get("needs", []))
+    if is_province and "chart" in besoins and not values.get("province.chart"):
+        besoins.remove("chart")
 
     canonical = urls.absolute(path)
     schema_context = {
@@ -1713,6 +1763,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                         % json.dumps(config["cartogram"]["zoneThresholds"]))
     page_globals.append("window.MAP_PROVINCE_BOXES = %s;"
                         % json.dumps(geo["provinceBoxes"], ensure_ascii=False))
+    # Le graphique d'une page province a besoin de savoir laquelle : le nom
+    # sert de cle dans province-history.json et dans PROVINCE_COLORS.
+    if is_province and province is not None:
+        page_globals.append("window.PROVINCE_NAME = %s;"
+                            % json.dumps(province["name"], ensure_ascii=False))
     page_globals.append("window.PROVINCES_INDEX_URL = %s;"
                         % json.dumps(urls.path("donnees", lang)))
     page_globals.append("window.DATA_PAGE_URL = %s;"
@@ -1746,7 +1801,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "verification": site["googleSiteVerification"],
         "analytics": site["analytics"],
         "jsonLd": build_json_ld(page.get("schema", []), schema_context),
-        "headAssets": head_assets(page.get("needs", [])),
+        "headAssets": head_assets(besoins),
         "homeUrl": urls.path("accueil", lang),
         "t.siteTitleLinkLabel": esc(strings_lang["siteTitleLinkLabel"]),
         "frActive": " active" if lang == "fr" else "",

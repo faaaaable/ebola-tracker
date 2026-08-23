@@ -338,12 +338,12 @@
       "meta": {
         "fr": {
           "title": "Données détaillées par province et zone de santé — Ebola RDC",
-          "h1": "Données détaillées par province et zone de santé",
+          "h1": "Données détaillées",
           "description": "Cas confirmés, décès et létalité de l'épidémie d'Ebola en RDC, détaillés province par province et zone de santé par zone de santé, avec le comparatif des six provinces touchées."
         },
         "en": {
           "title": "Detailed data by province and health zone — DRC Ebola",
-          "h1": "Detailed data by province and health zone",
+          "h1": "Detailed data",
           "description": "Confirmed cases, deaths and fatality rate of the DRC Ebola outbreak, broken down province by province and health zone by health zone, with a comparison of the six affected provinces."
         }
       }
@@ -512,7 +512,9 @@
   ],
   "provincePage": {
     "fragment": "province.html",
-    "needs": [],
+    "needs": [
+      "chart"
+    ],
     "changefreq": "daily",
     "priority": "0.7",
     "schema": [

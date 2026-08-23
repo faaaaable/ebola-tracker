@@ -397,6 +397,25 @@ async function loadSocialUpdates(){
    graphique "Cas cumulés par province" — voir rebuild_province_history()
    côté pipeline. Toujours complet par construction (le total provincial
    est présent dans chaque SitRep), aucun trou de données attendu. */
+
+/* Les bulletins n'orthographient pas toujours les provinces de la meme
+   facon : le releve du 14 aout 2026 ecrit « Haut Uele » sans trait d'union.
+   Les noms etant compares a l'identique aux cles de PROVINCE_COLORS, ce
+   point etait silencieusement perdu — la courbe cumulee passait de 123 a
+   138 sans passer par 135, masque par spanGaps. Sur des barres
+   quotidiennes, la meme variante fausserait deux journees d'affilee.
+   On normalise donc a l'entree, une fois, pour tous les consommateurs. */
+function nomProvinceCanonique(nom){
+  const plat = (nom || '').normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .toLowerCase().replace(/[^a-z]/g, '');
+  for(const officiel of Object.keys(PROVINCE_COLORS)){
+    const ref = officiel.normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .toLowerCase().replace(/[^a-z]/g, '');
+    if(ref === plat) return officiel;
+  }
+  return nom;
+}
+
 let PROVINCE_HISTORY = [];
 async function loadProvinceHistory(){
   try{
@@ -404,7 +423,10 @@ async function loadProvinceHistory(){
     if(!res.ok) return;
     const remote = await res.json();
     if(Array.isArray(remote) && remote.length){
-      PROVINCE_HISTORY = [...remote].sort((a,b)=> a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+      PROVINCE_HISTORY = [...remote]
+        .sort((a,b)=> a.date < b.date ? -1 : a.date > b.date ? 1 : 0)
+        .map(h => ({...h, provinces: (h.provinces || []).map(
+          pr => ({...pr, name: nomProvinceCanonique(pr.name)}))}));
     }
   }catch(e){
     console.warn('data/province-history.json indisponible.', e);
@@ -1086,6 +1108,119 @@ function renderOneChart(canvas, chartMode){
   // PROVINCE_HISTORY — toujours complet par construction (le total
   // provincial est présent dans chaque SitRep), donc pas de pont en
   // pointillés nécessaire comme pour le suivi des contacts.
+  /* Meme lecture que sur l'accueil — barres quotidiennes, courbe cumulee —
+     mais pour une seule province, sur une page province. Trois garde-fous,
+     tous imposes par la donnee reelle :
+
+     1. La ventilation par province n'est pas publiee entre le 20 et le
+        30 mai, alors que le national l'est. La premiere barre couvrirait
+        douze jours (+269 en Ituri) et se lirait comme le plus gros jour de
+        l'epidemie. Au-dela de ECART_MAX_JOURS, on n'affiche pas de barre —
+        la courbe cumulee, elle, reste continue et garde tous ses points.
+     2. Les 22 et 30 juillet, le bulletin annonce lui-meme moins de nouveaux
+        cas que le delta du cumul. Ce chiffre reel n'existe qu'au niveau
+        national : impossible de le repartir sans inventer. On affiche donc
+        la barre entiere en teinte de rattrapage plutot que d'attribuer un
+        volume administratif a une journee.
+     3. Les noms sont deja normalises au chargement (voir
+        nomProvinceCanonique) : sans cela, le releve du 14 aout se perdait. */
+  if(chartMode==='provinceEpidemic'){
+    const ECART_MAX_JOURS = 3;
+    const RATTRAPAGE = new Set(['2026-07-22', '2026-07-30']);
+    const nom = nomProvinceCanonique(window.PROVINCE_NAME || '');
+
+    const pts = [];
+    for(const h of PROVINCE_HISTORY){
+      const p = (h.provinces || []).find(pr => pr.name === nom);
+      if(p && p.confirmed !== null && p.confirmed !== undefined){
+        pts.push({ date: h.date, confirmed: p.confirmed });
+      }
+    }
+
+    if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+    if(pts.length < 2){
+      slot.lastMode = 'provinceEpidemic';
+      const ctx0 = canvas.getContext('2d');
+      ctx0.clearRect(0, 0, canvas.width, canvas.height);
+      if(noteEl){ noteEl.textContent = tr('provinceChartNoData'); noteEl.style.display = 'block'; }
+      return;
+    }
+
+    const jours = iso => Math.round(new Date(iso + 'T00:00:00').getTime() / 86400000);
+    const rapporte = [null];
+    const rattrape = [null];
+    const trous = [];
+    for(let i = 1; i < pts.length; i++){
+      const ecart = jours(pts[i].date) - jours(pts[i-1].date);
+      if(ecart > ECART_MAX_JOURS){
+        const veille = new Date(pts[i-1].date + 'T12:00:00');
+        veille.setDate(veille.getDate() + 1);
+        const iso = veille.getFullYear() + '-'
+          + String(veille.getMonth() + 1).padStart(2, '0') + '-'
+          + String(veille.getDate()).padStart(2, '0');
+        trous.push(frDate(iso) + ' au ' + frDate(pts[i].date));
+        rapporte.push(null); rattrape.push(null);
+        continue;
+      }
+      const delta = Math.max(0, pts[i].confirmed - pts[i-1].confirmed);
+      const estRattrapage = RATTRAPAGE.has(pts[i].date);
+      rapporte.push(estRattrapage ? 0 : delta);
+      rattrape.push(estRattrapage ? delta : 0);
+    }
+
+    if(noteEl){
+      const bouts = [];
+      if(trous.length) bouts.push(tr('provinceChartGap')(trous.join(' ; ')));
+      if(pts.some(pt => RATTRAPAGE.has(pt.date))) bouts.push(tr('provinceChartCatchup'));
+      noteEl.textContent = bouts.join(' ');
+      noteEl.style.display = bouts.length ? 'block' : 'none';
+    }
+
+    const teinte = PROVINCE_COLORS[nom] || PALETTE.info;
+    const data = {
+      labels: pts.map(pt => frDate(pt.date)),
+      datasets: [
+        { label: tr('dailyChartLabel'), data: rapporte, backgroundColor: teinte,
+          borderRadius: 2, stack: 'd', categoryPercentage: 1, barPercentage: .96 },
+        { label: tr('catchupLabel'), data: rattrape, backgroundColor: tint(teinte, .35),
+          borderRadius: 2, stack: 'd', categoryPercentage: 1, barPercentage: .96 },
+        { type: 'line', label: tr('chartCumulativeLabel'),
+          data: pts.map(pt => pt.confirmed), yAxisID: 'y1',
+          borderColor: PALETTE.active, borderWidth: 2, tension: .25,
+          pointRadius: 0, fill: false, spanGaps: true, order: 0 }
+      ]
+    };
+    const opts = {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 },
+                            boxWidth: 10, usePointStyle: true } },
+        tooltip: {
+          backgroundColor: PALETTE.panel, borderColor: PALETTE.line, borderWidth: 1,
+          titleColor: PALETTE.ink, bodyColor: PALETTE.ink,
+          titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
+          filter: item => item.parsed.y !== 0
+        }
+      },
+      scales: {
+        x: { ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
+                      maxRotation: 45, minRotation: 45, autoSkip: true, maxTicksLimit: 20 },
+             grid: { display: false } },
+        y: { ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
+                      callback: v => fmt(v) },
+             grid: { color: PALETTE.lineSoft }, beginAtZero: true },
+        y1: { position: 'right', beginAtZero: true,
+              ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
+                       callback: v => fmt(v) },
+              grid: { display: false } }
+      }
+    };
+    slot.chart = new Chart(canvas.getContext('2d'), { type: 'bar', data, options: opts });
+    slot.lastMode = 'provinceEpidemic';
+    return;
+  }
+
   if(chartMode==='byProvince'){
     const wantedType = 'line';
     if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode !== 'byProvince')){
@@ -1968,10 +2103,21 @@ function initZonesTableControls(){
   }
 }
 
+/* Les provinces se listent partout dans le meme ordre — du plus touche au
+   moins touche — cote serveur comme cote client. L'ordre d'apparition dans
+   HEALTH_ZONES ne le garantissait pas, et ces menus etant reecrits sur toutes
+   les pages, ils defaisaient le tri du generateur. */
+function provincesTriees(){
+  const cas = Object.fromEntries(
+    PROVINCE_TABLE_DATA.map(p => [p.name, p.confirmed || 0]));
+  return [...new Set(HEALTH_ZONES.map(z=>z.province))]
+    .sort((a,b) => (cas[b] || 0) - (cas[a] || 0));
+}
+
 function renderZonesSubtabs(){
   const nav = document.getElementById('zonesSubtabNav');
   if(!nav) return;
-  const provinces = [...new Set(HEALTH_ZONES.map(z=>z.province))];
+  const provinces = provincesTriees();
   // reconstruit seulement si la liste de provinces a changé (nouvelles données)
   const wanted = ['all', ...provinces].join('|');
   if(nav.dataset.built !== wanted){
@@ -1997,7 +2143,7 @@ function renderZonesSubtabs(){
 function renderZonesDropdown(){
   const dd = document.getElementById('zonesDropdown');
   if(!dd) return;
-  const provinces = [...new Set(HEALTH_ZONES.map(z=>z.province))];
+  const provinces = provincesTriees();
   const wanted = ['all', ...provinces].join('|');
   if(dd.dataset.built === wanted) return;
   dd.dataset.built = wanted;
@@ -2008,7 +2154,14 @@ function renderZonesDropdown(){
   const links = window.PROVINCE_LINKS || {};
   const dataUrl = window.DATA_PAGE_URL || '/donnees/';
   const allUrl = window.PROVINCES_INDEX_URL || dataUrl;
-  const allItem = `<a class="tab-dropdown-item" href="${allUrl}">${tr('zonesFilterAll')}</a>`;
+  /* Le premier element porte le nom de la page qu'il ouvre — « Tableaux et
+     graphiques » — et non « Toutes les provinces », qui est le libelle du
+     filtre du tableau et annoncait ici une liste de provinces. Le generateur
+     y pose aria-current ; comme on reecrit le HTML, on le repose. */
+  const ici = location.pathname.replace(/\/*$/, '/');
+  const surTableaux = allUrl.replace(/\/*$/, '/') === ici;
+  const marque = surTableaux ? ' aria-current="page"' : '';
+  const allItem = `<a class="tab-dropdown-item"${marque} href="${allUrl}">${tr('navDataTables')}</a>`;
   const provItems = provinces.map(p=>{
     const color = PROVINCE_COLORS[p] || 'var(--ink-faint)';
     const href = links[p] || (dataUrl + '?province=' + encodeURIComponent(p));

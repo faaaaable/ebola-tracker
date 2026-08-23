@@ -76,7 +76,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=73925c1fc0">
+<link rel="stylesheet" href="/assets/css/site.css?v=7cf8d75fb2">
 </head>
 <body>
 
@@ -133,13 +133,13 @@
     <nav class="side-nav" aria-label="Main navigation">
       <a href="/en/">Overview</a>
       <div class="side-group">
-        <a href="/en/data/">Detailed data</a>
         <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown" aria-label="Show or hide the list of provinces">
+                aria-controls="zonesDropdown">
+          <span>Detailed data</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/en/data/">All provinces</a>
+          <a class="tab-dropdown-item" href="/en/data/">Whole country</a>
           <a class="tab-dropdown-item" href="/en/data/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
           <a class="tab-dropdown-item" href="/en/data/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
           <a class="tab-dropdown-item" href="/en/data/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
@@ -487,8 +487,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=9e44b028a0"></script>
-<script defer src="/assets/js/app.js?v=0a521228c5"></script>
+<script defer src="/assets/js/i18n.js?v=618db07075"></script>
+<script defer src="/assets/js/app.js?v=11a96a6014"></script>
 
 </body>
 </html>
