@@ -17,7 +17,7 @@
     "footerSiteTitle": "Le site",
     "footerProvincesTitle": "Provinces touchées",
     "footerSourcesTitle": "Sources",
-    "footerSources": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">Institut National de Santé Publique (INSP) de la RDC</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS Afrique</a>.",
+    "footerSources": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">Institut National de Santé Publique (INSP) de la RDC</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS</a>.",
     "footerRepo": "Code source et données ouvertes sur GitHub",
     "footerLangTitle": "Langue",
     "provincesIntro": "L'épidémie ne touche pas les six provinces de la même façon : l'Ituri concentre l'essentiel des cas, tandis que d'autres provinces ne comptent qu'un foyer isolé. Chaque province a sa propre page, mise à jour avec les mêmes bulletins officiels que le reste du site.",
@@ -144,7 +144,7 @@
     "virusPhasesTitle": "Évolution de la maladie",
     "timelineSpreadTitle": "L'épidémie atteint {the}",
     "timelineSpreadText": "Premier cas confirmé signalé {in}.",
-    "footerNotice": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">INSP</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS Afrique</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle.",
+    "footerNotice": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">INSP</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle.",
     "footerNoticeMore": "Avertissement complet",
     "timelineTollLine": "{cases} cas confirmés · {deaths} décès",
     "timelineTollLabel": "Bilan cumulé à cette date",
@@ -219,7 +219,7 @@
     "footerSiteTitle": "This site",
     "footerProvincesTitle": "Affected provinces",
     "footerSourcesTitle": "Sources",
-    "footerSources": "Data compiled from the bulletins of the <a href=\"https://insp.cd/\" rel=\"noopener\">DRC National Institute of Public Health (INSP)</a> and <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO Africa</a>.",
+    "footerSources": "Data compiled from the bulletins of the <a href=\"https://insp.cd/\" rel=\"noopener\">DRC National Institute of Public Health (INSP)</a> and <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO</a>.",
     "footerRepo": "Source code and open data on GitHub",
     "footerLangTitle": "Language",
     "provincesIntro": "The outbreak does not affect all six provinces equally: Ituri concentrates the vast majority of cases, while other provinces report only an isolated focus. Every province has its own page, updated from the same official bulletins as the rest of the site.",
@@ -346,7 +346,7 @@
     "virusPhasesTitle": "Course of the disease",
     "timelineSpreadTitle": "The outbreak reaches {name}",
     "timelineSpreadText": "First confirmed case reported in {name}.",
-    "footerNotice": "Data compiled from the bulletins of the <a href=\"https://insp.cd/\" rel=\"noopener\">INSP</a> and <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO Africa</a>. Informational site: neither medical advice nor an official source.",
+    "footerNotice": "Data compiled from the bulletins of the <a href=\"https://insp.cd/\" rel=\"noopener\">INSP</a> and <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO</a>. Informational site: neither medical advice nor an official source.",
     "footerNoticeMore": "Full disclaimer",
     "timelineTollLine": "{cases} confirmed case{cases?s} · {deaths} death{deaths?s}",
     "timelineTollLabel": "Cumulative toll on that date",
@@ -509,11 +509,11 @@
     {
       "fr": {
         "q": "D'où viennent les chiffres publiés sur ce site ?",
-        "a": "<p>Exclusivement des rapports de situation (SitRep) publiés par l'Institut National de Santé Publique de la RDC, complétés par les bulletins hebdomadaires de l'OMS Afrique. Chaque PDF d'origine est archivé et consultable sur la page <a href=\"{url.rapports}\">Sources et bulletins</a>.</p>"
+        "a": "<p>Exclusivement des rapports de situation (SitRep) publiés par l'Institut National de Santé Publique de la RDC, complétés par les bulletins hebdomadaires de l'OMS. Chaque PDF d'origine est archivé et consultable sur la page <a href=\"{url.rapports}\">Sources et bulletins</a>.</p>"
       },
       "en": {
         "q": "Where do the figures on this site come from?",
-        "a": "<p>Exclusively from the situation reports (SitRep) published by the DRC National Institute of Public Health, supplemented by the WHO Africa weekly bulletins. Every original PDF is archived and available on the <a href=\"{url.rapports}\">Sources and bulletins</a> page.</p>"
+        "a": "<p>Exclusively from the situation reports (SitRep) published by the DRC National Institute of Public Health, supplemented by the WHO weekly bulletins. Every original PDF is archived and available on the <a href=\"{url.rapports}\">Sources and bulletins</a> page.</p>"
       }
     },
     {
