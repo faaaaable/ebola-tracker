@@ -1,0 +1,790 @@
+{
+  "periode": {
+    "debut": "2026-07-13",
+    "fin": "2026-08-21"
+  },
+  "releves": 33,
+  "seuilLisibilite": 20,
+  "provinces": [
+    {
+      "name": "Bas-Uélé",
+      "communautaires": 1,
+      "intraCte": 0,
+      "total": 1,
+      "partCommunautaire": 100.0,
+      "releves": 10,
+      "assezDeVolume": false,
+      "couverture": 100
+    },
+    {
+      "name": "Tshopo",
+      "communautaires": 2,
+      "intraCte": 1,
+      "total": 3,
+      "partCommunautaire": 66.7,
+      "releves": 18,
+      "assezDeVolume": false,
+      "couverture": 100
+    },
+    {
+      "name": "Nord-Kivu",
+      "communautaires": 164,
+      "intraCte": 84,
+      "total": 248,
+      "partCommunautaire": 66.1,
+      "releves": 29,
+      "assezDeVolume": true,
+      "couverture": 66
+    },
+    {
+      "name": "Ituri",
+      "communautaires": 633,
+      "intraCte": 407,
+      "total": 1040,
+      "partCommunautaire": 60.9,
+      "releves": 32,
+      "assezDeVolume": true,
+      "couverture": 73
+    },
+    {
+      "name": "Haut-Uélé",
+      "communautaires": 21,
+      "intraCte": 21,
+      "total": 42,
+      "partCommunautaire": 50.0,
+      "releves": 23,
+      "assezDeVolume": true,
+      "couverture": 63
+    },
+    {
+      "name": "Sud-Kivu",
+      "communautaires": 0,
+      "intraCte": 0,
+      "total": 0,
+      "partCommunautaire": null,
+      "releves": 18,
+      "assezDeVolume": false,
+      "couverture": null
+    }
+  ],
+  "parDate": [
+    {
+      "date": "2026-07-13",
+      "sitrep": "060",
+      "provinces": {
+        "Ituri": {
+          "communautaires": 5,
+          "intraCte": 13
+        },
+        "Nord-Kivu": {
+          "communautaires": 3,
+          "intraCte": 1
+        }
+      }
+    },
+    {
+      "date": "2026-07-14",
+      "sitrep": "061",
+      "provinces": {
+        "Ituri": {
+          "communautaires": 23,
+          "intraCte": 14
+        },
+        "Nord-Kivu": {
+          "communautaires": 4,
+          "intraCte": 1
+        }
+      }
+    },
+    {
+      "date": "2026-07-15",
+      "sitrep": "062",
+      "provinces": {
+        "Ituri": {
+          "communautaires": 16,
+          "intraCte": 8
+        },
+        "Nord-Kivu": {
+          "communautaires": 8,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-17",
+      "sitrep": "064",
+      "provinces": {
+        "Ituri": {
+          "communautaires": 14,
+          "intraCte": 11
+        }
+      }
+    },
+    {
+      "date": "2026-07-18",
+      "sitrep": "065",
+      "provinces": {
+        "Ituri": {
+          "communautaires": 22,
+          "intraCte": 9
+        },
+        "Nord-Kivu": {
+          "communautaires": 8,
+          "intraCte": 1
+        }
+      }
+    },
+    {
+      "date": "2026-07-19",
+      "sitrep": "066",
+      "provinces": {
+        "Ituri": {
+          "communautaires": 23,
+          "intraCte": 12
+        },
+        "Nord-Kivu": {
+          "communautaires": 1,
+          "intraCte": 1
+        }
+      }
+    },
+    {
+      "date": "2026-07-20",
+      "sitrep": "067",
+      "provinces": {
+        "Ituri": {
+          "communautaires": 13,
+          "intraCte": 14
+        },
+        "Nord-Kivu": {
+          "communautaires": 3,
+          "intraCte": 2
+        }
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "sitrep": "068",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 2,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 10,
+          "intraCte": 16
+        },
+        "Nord-Kivu": {
+          "communautaires": 5,
+          "intraCte": 1
+        }
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "sitrep": "069",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 2,
+          "intraCte": 1
+        },
+        "Ituri": {
+          "communautaires": 33,
+          "intraCte": 12
+        },
+        "Nord-Kivu": {
+          "communautaires": 6,
+          "intraCte": 8
+        }
+      }
+    },
+    {
+      "date": "2026-07-23",
+      "sitrep": "070",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 18,
+          "intraCte": 12
+        },
+        "Nord-Kivu": {
+          "communautaires": 8,
+          "intraCte": 2
+        }
+      }
+    },
+    {
+      "date": "2026-07-24",
+      "sitrep": "071",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 2,
+          "intraCte": 2
+        },
+        "Ituri": {
+          "communautaires": 29,
+          "intraCte": 6
+        },
+        "Nord-Kivu": {
+          "communautaires": 5,
+          "intraCte": 1
+        }
+      }
+    },
+    {
+      "date": "2026-07-25",
+      "sitrep": "072",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 1
+        },
+        "Ituri": {
+          "communautaires": 28,
+          "intraCte": 14
+        },
+        "Nord-Kivu": {
+          "communautaires": 4,
+          "intraCte": 4
+        }
+      }
+    },
+    {
+      "date": "2026-07-26",
+      "sitrep": "073",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 1,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 14,
+          "intraCte": 9
+        }
+      }
+    },
+    {
+      "date": "2026-07-27",
+      "sitrep": "074",
+      "provinces": {
+        "Ituri": {
+          "communautaires": 16,
+          "intraCte": 15
+        }
+      }
+    },
+    {
+      "date": "2026-07-30",
+      "sitrep": "077",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 7,
+          "intraCte": 13
+        },
+        "Nord-Kivu": {
+          "communautaires": 4,
+          "intraCte": 0
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-31",
+      "sitrep": "078",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 15,
+          "intraCte": 10
+        },
+        "Nord-Kivu": {
+          "communautaires": 5,
+          "intraCte": 4
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-01",
+      "sitrep": "079",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 2
+        },
+        "Ituri": {
+          "communautaires": 13,
+          "intraCte": 10
+        },
+        "Nord-Kivu": {
+          "communautaires": 7,
+          "intraCte": 4
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-02",
+      "sitrep": "080",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Nord-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-03",
+      "sitrep": "081",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 2,
+          "intraCte": 2
+        },
+        "Ituri": {
+          "communautaires": 25,
+          "intraCte": 10
+        },
+        "Nord-Kivu": {
+          "communautaires": 3,
+          "intraCte": 2
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-04",
+      "sitrep": "082",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 1,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 35,
+          "intraCte": 12
+        },
+        "Nord-Kivu": {
+          "communautaires": 1,
+          "intraCte": 3
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-05",
+      "sitrep": "083",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 1,
+          "intraCte": 1
+        },
+        "Ituri": {
+          "communautaires": 27,
+          "intraCte": 11
+        },
+        "Nord-Kivu": {
+          "communautaires": 5,
+          "intraCte": 5
+        }
+      }
+    },
+    {
+      "date": "2026-08-10",
+      "sitrep": "088",
+      "provinces": {
+        "Ituri": {
+          "communautaires": 21,
+          "intraCte": 12
+        },
+        "Nord-Kivu": {
+          "communautaires": 10,
+          "intraCte": 7
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-11",
+      "sitrep": "089",
+      "provinces": {
+        "Haut-Uélé": {
+          "communautaires": 2,
+          "intraCte": 1
+        },
+        "Ituri": {
+          "communautaires": 39,
+          "intraCte": 10
+        },
+        "Nord-Kivu": {
+          "communautaires": 9,
+          "intraCte": 6
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-12",
+      "sitrep": "090",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 1,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 1,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 9,
+          "intraCte": 15
+        },
+        "Nord-Kivu": {
+          "communautaires": 16,
+          "intraCte": 10
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 1,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-13",
+      "sitrep": "091",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 2
+        },
+        "Ituri": {
+          "communautaires": 5,
+          "intraCte": 14
+        },
+        "Nord-Kivu": {
+          "communautaires": 9,
+          "intraCte": 0
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-14",
+      "sitrep": "092",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 2,
+          "intraCte": 3
+        },
+        "Ituri": {
+          "communautaires": 31,
+          "intraCte": 15
+        },
+        "Nord-Kivu": {
+          "communautaires": 5,
+          "intraCte": 2
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-15",
+      "sitrep": "093",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 30,
+          "intraCte": 17
+        },
+        "Nord-Kivu": {
+          "communautaires": 3,
+          "intraCte": 3
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-16",
+      "sitrep": "094",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 1
+        },
+        "Ituri": {
+          "communautaires": 22,
+          "intraCte": 18
+        },
+        "Nord-Kivu": {
+          "communautaires": 7,
+          "intraCte": 4
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 1,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-17",
+      "sitrep": "095",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 1,
+          "intraCte": 1
+        },
+        "Ituri": {
+          "communautaires": 25,
+          "intraCte": 12
+        },
+        "Nord-Kivu": {
+          "communautaires": 3,
+          "intraCte": 0
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-18",
+      "sitrep": "096",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 1,
+          "intraCte": 3
+        },
+        "Ituri": {
+          "communautaires": 29,
+          "intraCte": 14
+        },
+        "Nord-Kivu": {
+          "communautaires": 5,
+          "intraCte": 4
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-19",
+      "sitrep": "097",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 2,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 13,
+          "intraCte": 13
+        },
+        "Nord-Kivu": {
+          "communautaires": 8,
+          "intraCte": 4
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-20",
+      "sitrep": "098",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 6,
+          "intraCte": 19
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 1
+        }
+      }
+    },
+    {
+      "date": "2026-08-21",
+      "sitrep": "099",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 1,
+          "intraCte": 1
+        },
+        "Ituri": {
+          "communautaires": 17,
+          "intraCte": 17
+        },
+        "Nord-Kivu": {
+          "communautaires": 9,
+          "intraCte": 4
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 0
+        }
+      }
+    }
+  ]
+}

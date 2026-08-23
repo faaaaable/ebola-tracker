@@ -433,6 +433,21 @@ async function loadProvinceHistory(){
   }
 }
 
+/* Repartition des deces entre communaute et centre de traitement, par
+   province — voir scripts/extraire_deces_lieu.py. Fenetre bornee : les
+   bulletins anterieurs au 13 juillet 2026 ne distinguent pas le lieu. */
+let DECES_LIEU = null;
+async function loadDecesLieu(){
+  try{
+    const res = await fetch('/data/deces-lieu.json', { cache:'no-store' });
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(remote && Array.isArray(remote.provinces)) DECES_LIEU = remote;
+  }catch(e){
+    console.warn('data/deces-lieu.json indisponible.', e);
+  }
+}
+
 let CONTACTS_FOLLOWUP = [];
 async function loadContactsFollowup(){
   try{
@@ -882,6 +897,130 @@ function renderOneChart(canvas, chartMode){
   // Mode "Origine des décès" : structure de données et échelle (0-100%)
   // totalement différentes des deux autres modes — traité à part, avant le
   // reste de la fonction qui suppose des SitRep (s) comme source.
+  /* Lieu du deces : part survenue en communaute contre part survenue en
+     centre de traitement, une barre par province.
+
+     Remplace la lecture hebdomadaire precedente, qui reposait sur
+     community-deaths-daily.json — lequel ne validait qu'une province,
+     l'Ituri, tout en portant un sous-titre « pour l'ensemble du pays ».
+     La nouvelle source valide chaque ligne contre l'addition imprimee sur
+     cette meme ligne, ce qui fait passer six provinces au lieu d'une.
+
+     Pas d'axe du temps : la fenetre commence au 13 juillet 2026 et la part
+     s'est revelee stable d'une semaine a l'autre (61, 64, 54, 68, 62, 57 %).
+     L'ecart entre provinces, lui, est net — 66 % au Nord-Kivu contre 36 % au
+     Sud-Kivu — et c'est ce que la barre horizontale montre le mieux. En
+     prime, plus de semaine incomplete a masquer. */
+  if(chartMode==='deathsPlace'){
+    const wantedType = 'bar';
+    if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode !== 'deathsPlace')){
+      slot.chart.destroy();
+      slot.chart = null;
+    }
+    const retenues = DECES_LIEU
+      ? DECES_LIEU.provinces.filter(p => p.assezDeVolume && p.total)
+      : [];
+    if(!retenues.length){
+      if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+      slot.lastMode = 'deathsPlace';
+      const ctx0 = canvas.getContext('2d');
+      ctx0.clearRect(0, 0, canvas.width, canvas.height);
+      if(noteEl){ noteEl.textContent = ''; noteEl.style.display = 'none'; }
+      return;
+    }
+
+    const partIntra = p => Math.round((100 - p.partCommunautaire) * 10) / 10;
+    const data = {
+      labels: retenues.map(p => p.name),
+      datasets: [
+        { label: tr('chartDeathPlaceCommunity'),
+          data: retenues.map(p => p.partCommunautaire),
+          backgroundColor: PALETTE.scale[4], stack: 'l',
+          borderColor: PALETTE.panel, borderWidth: 2 },
+        { label: tr('chartDeathPlaceCte'),
+          data: retenues.map(partIntra),
+          backgroundColor: PALETTE.scale[2], stack: 'l',
+          borderColor: PALETTE.panel, borderWidth: 2 },
+      ]
+    };
+    const opts = {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true, min: 0, max: 100,
+             ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
+                      callback: v => v + '%' },
+             grid: { color: PALETTE.lineSoft } },
+        y: { stacked: true,
+             ticks: { color: PALETTE.inkDim, font: { family: PALETTE.font, size: 12 } },
+             grid: { display: false } }
+      },
+      plugins: {
+        legend: { labels: { color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 },
+                            boxWidth: 10, usePointStyle: true } },
+        tooltip: {
+          backgroundColor: PALETTE.panel, borderColor: PALETTE.line, borderWidth: 1,
+          titleColor: PALETTE.ink, bodyColor: PALETTE.ink,
+          titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
+          callbacks: {
+            /* L'effectif dans l'infobulle, jamais la part seule : 100 % sur un
+               deces et 61 % sur mille ne se lisent pas de la meme facon. */
+            label: c => {
+              const p = retenues[c.dataIndex];
+              const n = c.datasetIndex === 0 ? p.communautaires : p.intraCte;
+              return `${c.dataset.label} : ${String(c.parsed.x).replace('.', ',')} % (${fmt(n)} décès)`;
+            },
+            footer: items => {
+              const p = retenues[items[0].dataIndex];
+              return tr('chartDeathPlaceTotal')(fmt(p.total), p.releves);
+            }
+          }
+        }
+      }
+    };
+    if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
+    else {
+      const pctDansSegment = {
+        id: 'pctLieuDeces',
+        afterDatasetsDraw(c){
+          const {ctx} = c;
+          c.data.datasets.forEach((dataset, i) => {
+            const meta = c.getDatasetMeta(i);
+            if(meta.hidden) return;
+            meta.data.forEach((bar, idx) => {
+              const value = dataset.data[idx];
+              // Sous 12 points, le segment est trop court pour porter le texte.
+              if(!value || value < 12) return;
+              ctx.save();
+              ctx.fillStyle = PALETTE.panel;
+              ctx.font = "700 12px 'Public Sans', sans-serif";
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              ctx.fillText(String(value).replace('.', ',') + ' %', (bar.x + bar.base) / 2, bar.y);
+              ctx.restore();
+            });
+          });
+        }
+      };
+      slot.chart = new Chart(canvas.getContext('2d'),
+                             { type: wantedType, data, options: opts, plugins: [pctDansSegment] });
+    }
+    if(noteEl){
+      const ecartees = DECES_LIEU.provinces.filter(p => !p.assezDeVolume).map(p => p.name);
+      /* Ces colonnes ne classent pas tous les deces de la periode : certaines
+         journees les laissent vides, et les 22 et 30 juillet portent un
+         rattrapage administratif. On annonce l'amplitude plutot que de laisser
+         croire a un recensement complet. */
+      const couv = retenues.map(p => p.couverture).filter(v => v != null);
+      noteEl.textContent = tr('chartDeathPlaceNote')(
+        frDate(DECES_LIEU.periode.debut), frDate(DECES_LIEU.periode.fin),
+        DECES_LIEU.releves, ecartees,
+        couv.length ? Math.min(...couv) : null, couv.length ? Math.max(...couv) : null);
+      noteEl.style.display = 'block';
+    }
+    slot.lastMode = 'deathsPlace';
+    return;
+  }
+
   if(chartMode==='communityDeaths'){
     const weekly = aggregateWeeklyCommunityDeaths();
     const wantedType = 'bar';
@@ -2795,7 +2934,7 @@ function mergeHealthZonesWithHistory(){
 if(document.querySelector('.zonemap')) safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immediat avec les donnees de reference integrees
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie()]).then(()=>{
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie(), loadDecesLieu()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées

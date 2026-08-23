@@ -43,6 +43,24 @@ const I18N = {
     chartAgesOpenEnded:"50 et plus",
     chartNoteDemographie:(date,cas,deces,pc,pd,dateAn)=>`Situation au ${date} — instantané, non actualisé depuis. Établi sur les ${cas} cas et ${deces} décès dont l'âge et le sexe sont renseignés, soit ${String(pc).replace('.',',')} % des cas et ${String(pd).replace('.',',')} % des décès. Les décès survenus en communauté, souvent sans identification, y sont sous-représentés. L'INSP a cessé de publier cette répartition après le ${dateAn}.`,
     chartModeCommunityDeaths:"Répartition des décès",
+    chartModeDeathsPlace:"Lieu du décès",
+    chartDeathPlaceCommunity:"En communauté",
+    chartDeathPlaceCte:"En centre de traitement",
+    chartDeathPlaceTotal:(total,releves)=>`${total} décès sur ${releves} relevés`,
+    chartDeathPlaceNote:(debut,fin,releves,ecartees,couvMin,couvMax)=>
+      `Décès confirmés du ${debut} au ${fin}, selon qu'ils sont survenus en communauté `
+      + `ou dans une structure de soins. Les bulletins antérieurs au ${debut} ne faisaient `
+      + `pas cette distinction. ${releves} relevés, chacun retenu seulement si l'addition `
+      + `imprimée dans le bulletin tombe juste.`
+      + (couvMin != null
+          ? ` Ces colonnes classent ${couvMin} à ${couvMax} % des décès de la période selon `
+            + `la province : le reste tombe sur des journées où le bulletin les laisse vides, `
+            + `ou sur les deux dates de rattrapage administratif des 22 et 30 juillet.`
+          : '')
+      + (ecartees.length
+          ? ` ${ecartees.join(', ')} ${ecartees.length > 1 ? 'sont écartés' : 'est écarté'} : `
+            + `trop peu de décès pour qu'une proportion ait un sens.`
+          : ''),
     dailyChartLabel:"Nouveaux cas quotidiens",
     provinceChartGap:(plages)=>`Aucune barre du ${plages} : les bulletins de ces jours-là ne répartissent pas les cas entre les provinces. Ces cas sont bien comptés dans le cumul, mais on ne peut pas les attribuer à une journée précise.`,
     provinceChartCatchup:"Les 22 et 30 juillet, le bulletin signale un rattrapage de données. Sa part n'étant publiée qu'au niveau national, ces barres sont affichées en entier dans la teinte claire.",
@@ -187,6 +205,23 @@ const I18N = {
     chartAgesOpenEnded:"50 and over",
     chartNoteDemographie:(date,cas,deces,pc,pd,dateAn)=>`As of ${date} — a snapshot, not updated since. Based on the ${cas} cases and ${deces} deaths for which age and sex are recorded: ${pc}% of cases and ${pd}% of deaths. Deaths occurring in the community, often unidentified, are under-represented. The INSP stopped publishing this breakdown after ${dateAn}.`,
     chartModeCommunityDeaths:"Death breakdown",
+    chartModeDeathsPlace:"Place of death",
+    chartDeathPlaceCommunity:"In the community",
+    chartDeathPlaceCte:"In a treatment centre",
+    chartDeathPlaceTotal:(total,releves)=>`${total} deaths across ${releves} bulletins`,
+    chartDeathPlaceNote:(debut,fin,releves,ecartees,couvMin,couvMax)=>
+      `Confirmed deaths from ${debut} to ${fin}, by whether they occurred in the community `
+      + `or in a care facility. Bulletins before ${debut} did not draw this distinction. `
+      + `${releves} bulletins, each kept only if the total printed in the bulletin adds up.`
+      + (couvMin != null
+          ? ` These columns classify ${couvMin} to ${couvMax}% of the period's deaths depending `
+            + `on the province: the rest falls on days when the bulletin leaves them blank, or `
+            + `on the two administrative catch-up dates of 22 and 30 July.`
+          : '')
+      + (ecartees.length
+          ? ` ${ecartees.join(', ')} ${ecartees.length > 1 ? 'are' : 'is'} set aside: `
+            + `too few deaths for a proportion to mean anything.`
+          : ''),
     dailyChartLabel:"New daily cases",
     provinceChartGap:(plages)=>`No bars from ${plages}: the bulletins for those days do not break cases down by province. Those cases are counted in the cumulative total, but cannot be assigned to a specific day.`,
     provinceChartCatchup:"On 22 and 30 July the bulletin reports a data catch-up. Its share is published only at national level, so these bars are shown entirely in the lighter tone.",
