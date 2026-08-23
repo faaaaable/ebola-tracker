@@ -186,13 +186,13 @@
       <main id="contenu">
   <section class="section">
     <h1 class="page-title">About this site</h1>
-    <p class="about-lede">This site gathers, day after day, what the Congolese authorities publish about the 17th Ebola outbreak — and nothing else.</p>
+    <p class="about-lede">This site gathers, day after day, what the Congolese authorities publish about the 17th Ebola outbreak, together with the WHO situation reports that fill some of the gaps — and nothing else.</p>
 
     <!-- Reperes tires des donnees : ils suivent l'archive sans intervention. -->
     <dl class="about-facts" aria-label="At a glance">
-      <div><dt>Source</dt><dd>INSP bulletins</dd></div>
+      <div><dt>Source</dt><dd>INSP and WHO bulletins</dd></div>
       <div><dt>Since</dt><dd>14 May 2026</dd></div>
-      <div><dt>Bulletins archived</dt><dd>91</dd></div>
+      <div><dt>Bulletins archived</dt><dd>104 (91 INSP, 13 WHO)</dd></div>
       <div><dt>Coverage</dt><dd>6 provinces, 55 health zones</dd></div>
     </dl>
   </section>
@@ -204,11 +204,11 @@
     <ol class="about-steps">
       <li>
         <h3>The bulletin is archived</h3>
-        <p>Every PDF published by the INSP is downloaded and kept as is. The original stays available — that is what makes the figures on this site checkable.</p>
+        <p>Every PDF published by the INSP is downloaded and kept as is, as are the WHO weekly reports that complete some of the series. The original stays available — that is what makes the figures on this site checkable.</p>
       </li>
       <li>
-        <h3>The tables are read</h3>
-        <p>A program reads the PDF's tables, not the prose around them, whose wording changes from one bulletin to the next. A value that does not reconcile is dropped rather than approximated.</p>
+        <h3>The reports are read</h3>
+        <p>A program reads the PDF's tables, then every report is read in full — including the prose around them, whose wording changes from one bulletin to the next and which sometimes carries figures the tables leave out. Checking is therefore manual as well, bulletin by bulletin. A value that does not reconcile is dropped rather than approximated.</p>
       </li>
       <li>
         <h3>The pages are rewritten</h3>
@@ -220,13 +220,13 @@
   <section class="section">
     <div class="prose">
       <h2 id="lecture">How to read these figures</h2>
-      <p><strong>Confirmed cases</strong> and <strong>deaths</strong> are cumulative totals since the start of the outbreak, never daily values. The <strong>fatality rate</strong> is deaths over confirmed cases. <strong>New cases (24h)</strong> is the change announced by the latest bulletin, not a calculation of ours.</p><p>Two known limitations. National figures are sometimes published before the province and health-zone breakdown, so a temporary gap between levels is normal. And the authorities sometimes revise figures retroactively — those revisions are reflected here as they come, unsmoothed.</p>
+      <p><strong>Confirmed cases</strong> and <strong>deaths</strong> are cumulative totals since the start of the outbreak, never daily values. The <strong>fatality rate</strong> covers confirmed cases only, and the outcome of the most recent cases is not yet known: it describes the severity observed so far, not an individual's risk of dying from the disease, and it will keep moving. <strong>New cases (24h)</strong> is taken as published in the latest bulletin — so it does not always match the gap between two successive cumulative totals, since retroactive revisions land in the totals but not in that figure.</p><p>Two known limitations. National figures are sometimes published before the province and health-zone breakdown, so a temporary gap between levels is normal. And the authorities sometimes revise figures retroactively — those revisions are reflected here as they come, unsmoothed.</p>
 
       <h2 data-i18n="aboutSourcesTitle">Data sources</h2>
-      <p data-i18n="aboutSourcesBody">The figures shown come from the Situation Reports (SitRep) published by the National Institute of Public Health (INSP) of the DRC. Every SitRep is archived and available in the Situation reports tab. Some data is supplemented by the World Health Organization's (WHO) Weekly External Situation Report.</p>
+      <p data-i18n="aboutSourcesBody">The figures shown come mainly from the Situation Reports (SitRep) published by the National Institute of Public Health (INSP) of the DRC. Some series are supplemented by the World Health Organization's (WHO) Weekly External Situation Report, where the matching SitRep does not carry the figure. Both sources are archived and available in the Situation reports tab.</p>
 
       <h2 data-i18n="aboutMethodTitle">Methodology</h2>
-      <p data-i18n="aboutMethodBody">This site is powered by a tool that's actively developed and supervised: it fetches each newly published SitRep and extracts the key figures (confirmed cases, deaths, recoveries, breakdown by province and health zone), generally once a day. The reliability of these extractions is checked regularly, with manual intervention when needed (a bulletin's layout changing, fixing a numbering error, etc.). Data may be revised retroactively by health authorities (harmonisation between provinces, reclassification of community deaths): such revisions are reflected on the site automatically as soon as they're published.</p>
+      <p data-i18n="aboutMethodBody">This site is powered by a tool that's actively developed and supervised: it fetches each newly published SitRep and extracts the key figures (confirmed cases, deaths, recoveries, breakdown by province and health zone), generally once a day. Every report is then read in full — the tables as well as the prose — and the extractions are checked by hand, bulletin by bulletin, with manual correction when needed (a bulletin's layout changing, fixing a numbering error, etc.). The WHO weekly reports are read the same way and are used to complete the series the INSP SitRep does not cover. Data may be revised retroactively by health authorities (harmonisation between provinces, reclassification of community deaths): such revisions are reflected on the site automatically as soon as they're published.</p>
 
       <h2 data-i18n="aboutLimitationsTitle">Known limitations</h2>
       <p data-i18n="aboutLimitationsBody">Official reports mix data at different levels of detail (national, provincial, health zone), sometimes in different formats, which can occasionally produce minor inconsistencies or approximations. National figures are also sometimes published before the province and health zone breakdown, causing a temporary lag between these levels.</p>

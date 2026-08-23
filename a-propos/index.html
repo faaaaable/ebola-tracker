@@ -186,13 +186,13 @@
       <main id="contenu">
   <section class="section">
     <h1 class="page-title">À propos de ce site</h1>
-    <p class="about-lede">Ce site rassemble, jour après jour, ce que les autorités congolaises publient sur la 17ᵉ épidémie d'Ebola — et rien d'autre.</p>
+    <p class="about-lede">Ce site rassemble, jour après jour, ce que les autorités congolaises publient sur la 17ᵉ épidémie d'Ebola, ainsi que les rapports de situation de l'OMS qui les complètent — et rien d'autre.</p>
 
     <!-- Reperes tires des donnees : ils suivent l'archive sans intervention. -->
     <dl class="about-facts" aria-label="En bref">
-      <div><dt>Source</dt><dd>Bulletins de l'INSP</dd></div>
+      <div><dt>Source</dt><dd>Bulletins de l'INSP et de l'OMS</dd></div>
       <div><dt>Depuis le</dt><dd>14 mai 2026</dd></div>
-      <div><dt>Bulletins archivés</dt><dd>91</dd></div>
+      <div><dt>Bulletins archivés</dt><dd>104 (91 INSP, 13 OMS)</dd></div>
       <div><dt>Couverture</dt><dd>6 provinces, 55 zones de santé</dd></div>
     </dl>
   </section>
@@ -204,11 +204,11 @@
     <ol class="about-steps">
       <li>
         <h3>Le bulletin est archivé</h3>
-        <p>Chaque PDF publié par l'INSP est téléchargé et conservé tel quel. L'original reste consultable, c'est ce qui rend les chiffres de ce site vérifiables.</p>
+        <p>Chaque PDF publié par l'INSP est téléchargé et conservé tel quel, de même que les rapports hebdomadaires de l'OMS qui complètent certaines séries. L'original reste consultable, c'est ce qui rend les chiffres de ce site vérifiables.</p>
       </li>
       <li>
-        <h3>Les tableaux sont lus</h3>
-        <p>Un programme lit les tableaux du PDF — pas le texte de présentation, dont la formulation change d'un bulletin à l'autre. Une valeur qui ne se recoupe pas est ignorée plutôt qu'approximée.</p>
+        <h3>Les rapports sont lus</h3>
+        <p>Un programme lit les tableaux du PDF, et chaque rapport est ensuite lu dans son intégralité — le texte de présentation compris, dont la formulation change d'un bulletin à l'autre et qui porte parfois des chiffres absents des tableaux. La vérification est donc aussi manuelle, bulletin par bulletin. Une valeur qui ne se recoupe pas est ignorée plutôt qu'approximée.</p>
       </li>
       <li>
         <h3>Les pages sont réécrites</h3>
@@ -220,13 +220,13 @@
   <section class="section">
     <div class="prose">
       <h2 id="lecture">Comment lire ces chiffres</h2>
-      <p><strong>Cas confirmés</strong> et <strong>décès</strong> sont des totaux cumulés depuis le début de l'épidémie, jamais des valeurs du jour. La <strong>létalité</strong> rapporte les décès aux cas confirmés. Les <strong>nouveaux cas (24 h)</strong> sont la variation annoncée par le dernier bulletin, pas un calcul de notre part.</p><p>Deux limites connues. Le bilan national est parfois publié avant le détail par province et par zone de santé : un écart temporaire entre les niveaux est donc normal. Et les autorités révisent parfois leurs chiffres rétroactivement — ces révisions se répercutent ici telles quelles, sans lissé.</p>
+      <p><strong>Cas confirmés</strong> et <strong>décès</strong> sont des totaux cumulés depuis le début de l'épidémie, jamais des valeurs du jour. La <strong>létalité</strong> ne porte que sur les cas confirmés, et l'issue des cas les plus récents n'est pas encore connue : elle décrit la gravité observée à ce jour, pas le risque individuel de mourir de la maladie, et elle continuera de bouger. Les <strong>nouveaux cas (24 h)</strong> sont repris tels quels du dernier bulletin — ils ne correspondent donc pas toujours à l'écart entre deux totaux cumulés successifs, les révisions rétroactives se répercutant sur les totaux mais pas sur ce chiffre.</p><p>Deux limites connues. Le bilan national est parfois publié avant le détail par province et par zone de santé : un écart temporaire entre les niveaux est donc normal. Et les autorités révisent parfois leurs chiffres rétroactivement — ces révisions se répercutent ici telles quelles, sans lissé.</p>
 
       <h2 data-i18n="aboutSourcesTitle">Sources des données</h2>
-      <p data-i18n="aboutSourcesBody">Les chiffres affichés proviennent des Rapports de Situation (SitRep) publiés par l'Institut National de Santé Publique (INSP) de la RDC. Chaque SitRep est archivé et consultable dans l'onglet Rapports de situation. Certaines données sont complétées par les Weekly External Situation Report de l'Organisation Mondiale de la Santé (OMS).</p>
+      <p data-i18n="aboutSourcesBody">Les chiffres affichés proviennent pour l'essentiel des Rapports de Situation (SitRep) publiés par l'Institut National de Santé Publique (INSP) de la RDC. Certaines séries sont complétées par les Weekly External Situation Report de l'Organisation Mondiale de la Santé (OMS), lorsque le SitRep correspondant ne porte pas la donnée. Les deux sources sont archivées et consultables dans l'onglet Rapports de situation.</p>
 
       <h2 data-i18n="aboutMethodTitle">Méthodologie</h2>
-      <p data-i18n="aboutMethodBody">Ce site s'appuie sur un outil développé et supervisé en continu : il récupère chaque nouveau SitRep publié et en extrait les chiffres clés (cas confirmés, décès, guéris, détail par province et par zone de santé), généralement une fois par jour. La fiabilité de ces extractions est vérifiée régulièrement, avec des interventions manuelles lorsque nécessaire (changement de mise en page d'un bulletin, correction d'une erreur de numérotation, etc.). Les données peuvent faire l'objet de révisions rétroactives par les autorités sanitaires (harmonisation entre provinces, reclassification de décès communautaires) : ces révisions se répercutent automatiquement sur le site dès leur publication.</p>
+      <p data-i18n="aboutMethodBody">Ce site s'appuie sur un outil développé et supervisé en continu : il récupère chaque nouveau SitRep publié et en extrait les chiffres clés (cas confirmés, décès, guéris, détail par province et par zone de santé), généralement une fois par jour. Chaque rapport est ensuite lu dans son intégralité — les tableaux comme le texte de présentation — et les extractions sont vérifiées manuellement, bulletin par bulletin, avec correction à la main lorsque nécessaire (changement de mise en page d'un bulletin, correction d'une erreur de numérotation, etc.). Les rapports hebdomadaires de l'OMS sont lus de la même façon et servent à compléter les séries que le SitRep de l'INSP ne renseigne pas. Les données peuvent faire l'objet de révisions rétroactives par les autorités sanitaires (harmonisation entre provinces, reclassification de décès communautaires) : ces révisions se répercutent automatiquement sur le site dès leur publication.</p>
 
       <h2 data-i18n="aboutLimitationsTitle">Limites connues</h2>
       <p data-i18n="aboutLimitationsBody">Les rapports officiels mêlent des données à différents niveaux de détail (national, provincial, zone de santé), parfois sous des formats différents, ce qui peut occasionnellement produire de légères incohérences ou approximations. Il arrive aussi que les chiffres nationaux soient publiés avant le détail par province et par zone de santé, entraînant un décalage temporaire entre ces différents niveaux.</p>

@@ -1374,7 +1374,13 @@ def main():
             "about.since": long_date(
                 min((r["reportingDate"] for r in latest.get("reports", [])
                      if r.get("reportingDate")), default=None), i18n_lang),
-            "about.reports": fmt(len(latest.get("reports", [])), lang),
+            # Les deux sources archivees sont comptees : les SitRep quotidiens
+            # de l'INSP et les bulletins hebdomadaires de l'OMS, tous deux
+            # conserves en PDF et listes sur la page « Sources et bulletins ».
+            "about.reports": esc(interp(strings_lang["aboutFactReportsValue"], {
+                "total": fmt(len(latest.get("reports", [])) + len(who_reports), lang),
+                "insp": fmt(len(latest.get("reports", [])), lang),
+                "who": fmt(len(who_reports), lang)})),
             "about.scope": esc(interp(strings_lang["aboutFactScopeValue"], {
                 "provinces": fmt(len(provinces), lang),
                 "zones": fmt(len(latest.get("healthZones", [])), lang)})),
