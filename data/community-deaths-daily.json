@@ -372,5 +372,61 @@
     "nationalCommunityDeaths": 30,
     "nationalIntraCteDeaths": 17,
     "nationalTotalDeaths": 47
+  },
+  {
+    "sitrep": "096",
+    "date": "2026-08-18",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 29,
+        "intraCteDeaths": 14,
+        "totalDeaths": 43
+      }
+    },
+    "nationalCommunityDeaths": 29,
+    "nationalIntraCteDeaths": 14,
+    "nationalTotalDeaths": 43
+  },
+  {
+    "sitrep": "097",
+    "date": "2026-08-19",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 13,
+        "intraCteDeaths": 13,
+        "totalDeaths": 26
+      }
+    },
+    "nationalCommunityDeaths": 13,
+    "nationalIntraCteDeaths": 13,
+    "nationalTotalDeaths": 26
+  },
+  {
+    "sitrep": "098",
+    "date": "2026-08-20",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 6,
+        "intraCteDeaths": 19,
+        "totalDeaths": 25
+      }
+    },
+    "nationalCommunityDeaths": 6,
+    "nationalIntraCteDeaths": 19,
+    "nationalTotalDeaths": 25
+  },
+  {
+    "sitrep": "099",
+    "date": "2026-08-21",
+    "provinces": {
+      "Ituri": {
+        "communityDeaths": 17,
+        "intraCteDeaths": 17,
+        "totalDeaths": 34
+      }
+    },
+    "nationalCommunityDeaths": 17,
+    "nationalIntraCteDeaths": 17,
+    "nationalTotalDeaths": 34
   }
 ]

@@ -267,13 +267,41 @@ def extract_meta(full_text, fallback_number=None):
 
 
 def extract_province_summary(pdf):
+    # « Cas » etait cherche en header[1] exactement. Le SitRep 099 dedouble la
+    # cellule « Province » (artefact de fusion : pdfplumber rend la meme
+    # valeur dans deux colonnes), ce qui repousse « Cas confirmes » en
+    # header[2] : la table n'etait plus reconnue du tout, et le repli texte
+    # echouait a son tour. On cherche donc dans les premieres cellules.
     for page in pdf.pages:
         for t in page.extract_tables():
             if t and t[0] and t[0][0] and "Province" in str(t[0][0]):
                 header = t[0]
-                if len(header) >= 6 and "Cas" in str(header[1]):
+                if len(header) >= 6 and any("Cas" in str(c or "") for c in header[:4]):
                     return t
     return None
+
+
+def compacte_ligne(row):
+    """Ramene une ligne de tableau a ses cellules porteuses.
+
+    Le nombre de colonnes de remplissage varie d'un rapport a l'autre — le
+    096 en a deux a la fin, le 099 en a une apres le nom et deux avant les
+    nouveaux cas. Les index fixes du parseur (row[1] = cas, row[4] = zones)
+    ne tenaient que par accident. Une fois les vides retires, les six
+    formats rencontres retombent sur le meme schema :
+
+        nom | cas | deces | letalite | zones | nouveaux cas
+
+    Seul le doublon de tete est supprime — celui d'une cellule fusionnee
+    rendue deux fois (« Province | Province », « Total | Total »). Jamais
+    ailleurs : deux nombres egaux qui se suivent sont legitimes (une
+    province a 3 cas et 3 deces existe), et les collapser fabriquerait un
+    chiffre faux.
+    """
+    cellules = [c for c in row if c is not None and str(c).strip()]
+    if len(cellules) >= 2 and str(cellules[0]).strip() == str(cellules[1]).strip():
+        del cellules[1]
+    return cellules
 
 
 PROVINCE_SUMMARY_ROW_RE = re.compile(
@@ -377,11 +405,14 @@ def parse_province_summary(table):
         # recherche dans PROVINCE_CANON — sans ça, le nom brut "Tshopo*"
         # échoue à correspondre à "Tshopo" et s'affiche tel quel, astérisque
         # inclus, dans le tableau "Par province" (vu avec le SitRep 097).
-        name = row[0].strip().rstrip("*").strip()
+        row = compacte_ligne(row)
+        if not row:
+            continue
+        name = str(row[0]).strip().rstrip("*").strip()
         if name == "Total":
             total_row = row
             continue
-        zones_raw = row[4] or ""
+        zones_raw = row[4] if len(row) > 4 else ""
         zm = re.search(r"(\d+)\s*/\s*(\d+)", zones_raw)
         n_zones, tot_zones = (int(zm.group(1)), int(zm.group(2))) if zm else (None, None)
         # "Nouveaux cas confirmés(24h)" est toujours la DERNIÈRE cellule de
@@ -420,6 +451,17 @@ def extract_zone_detail_rows(pdf):
         if not in_section:
             continue
         for t in page.extract_tables():
+            # Le SitRep 099 place le resume par province et le detail par zone
+            # sur la meme page : le premier tombait donc dans la moisson du
+            # second, et sa ligne « Total » etait prise pour celle du detail.
+            # Les colonnes ne coincidant pas, newDeaths24h valait 57151377
+            # (la fraction « 57/151 (37,7 » lue comme un entier) et
+            # newDeathsCommunity24h 477 (la letalite « 47,7% »). Les deux
+            # tableaux se distinguent par leur en-tete : « Province » seul
+            # pour le resume, « Province / Zone de sante » pour le detail.
+            entete = t[0][0] if t and t[0] else None
+            if entete and str(entete).strip() == "Province":
+                continue
             for row in t:
                 if not row or len(row) < 7:
                     continue
