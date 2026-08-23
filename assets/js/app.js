@@ -437,9 +437,13 @@ let DEMOGRAPHIE = null;
    fmt() applique le separateur de milliers du site — « 3 454 », pas « 3454 ». */
 function noteDemographie(){
   if(!DEMOGRAPHIE) return '';
+  // La derniere phrase porte l'annee : elle dit qu'une serie s'est arretee,
+  // et « apres le 5 aout » sans millesime laisserait planer un doute que la
+  // premiere mention, elle, peut se permettre.
+  const avecAnnee = frDate(DEMOGRAPHIE.date) + ' ' + DEMOGRAPHIE.date.slice(0, 4);
   return tr('chartNoteDemographie')(
     frDate(DEMOGRAPHIE.date), fmt(DEMOGRAPHIE.totaux.cas), fmt(DEMOGRAPHIE.totaux.deces),
-    DEMOGRAPHIE.couverture.partCas, DEMOGRAPHIE.couverture.partDeces);
+    DEMOGRAPHIE.couverture.partCas, DEMOGRAPHIE.couverture.partDeces, avecAnnee);
 }
 async function loadDemographie(){
   try{
