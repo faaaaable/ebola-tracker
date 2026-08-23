@@ -912,6 +912,60 @@ def report_chip(label, date_text, href, title, month=None, search=None,
             esc(label), DOWNLOAD_ICON, esc(date_text)))
 
 
+def ages_rows_html(demographie, lang, strings_lang):
+    """Barres appariees : part des cas et part des deces, par tranche d'age.
+
+    Deux parts et non deux taux. Un taux de letalite par age serait calcule sur
+    un numerateur qui ne voit que 61 % des deces et un denominateur qui en voit
+    85 % des cas : il sortirait systematiquement trop bas, et contredirait la
+    letalite affichee ailleurs sur le site. La comparaison des parts, elle, se
+    fait a l'interieur du meme echantillon.
+    """
+    tranches = demographie["tranches"]
+    if not tranches:
+        return ""
+    # Echelle commune aux deux series, sinon l'ecart qu'on veut montrer
+    # dependrait de la serie et non des donnees.
+    plafond = max(max(t["partCas"], t["partDeces"]) for t in tranches) or 1
+    unite = strings_lang["virusAgesUnit"]
+    lignes = []
+    for t in tranches:
+        libelle = t["tranche"]
+        # L'unite ne se suffixe qu'aux intervalles chiffres : « 50 et plus »
+        # se termine deja par un mot, et donnait « 50 et plus ans ».
+        if re.match(r'^\d+-\d+$', libelle):
+            libelle = "%s %s" % (libelle.replace("-", "–"), unite)
+        else:
+            # La derniere tranche est ouverte et redigee en toutes lettres dans
+            # la source ; elle doit donc etre traduite, pas suffixee.
+            libelle = strings_lang["virusAgesOpenEnded"]
+        barres = []
+        for cle_part, cle_n, classe, intitule in (
+                ("partCas", "cas", "is-cas", strings_lang["virusAgesCases"]),
+                ("partDeces", "deces", "is-deces", strings_lang["virusAgesDeaths"])):
+            part = t[cle_part]
+            barres.append(
+                '          <div class="age-bar %s">\n'
+                '            <span class="age-track"><span class="age-fill" '
+                'style="width:%.1f%%"></span></span>\n'
+                '            <span class="age-val">%s&nbsp;%%</span>\n'
+                '            <span class="visually-hidden">%s : %s</span>\n'
+                '          </div>'
+                % (classe, 100.0 * part / plafond,
+                   esc(fmt_pct(part, lang)), esc(intitule),
+                   esc(fmt(t[cle_n], lang))))
+        lignes.append(
+            '        <div class="age-row">\n'
+            '          <div class="age-label">%s</div>\n%s\n'
+            '        </div>' % (esc(libelle), "\n".join(barres)))
+    return "\n".join(lignes)
+
+
+def fmt_pct(valeur, lang):
+    texte = ("%.1f" % valeur)
+    return texte.replace(".", ",") if lang == "fr" else texte
+
+
 def reports_list_html(reports, lang, i18n_lang):
     """Version écrite en dur de la liste des SitRep, groupée par mois.
 
@@ -1328,6 +1382,9 @@ def main():
     who_reports = read_json(os.path.join(ROOT, "data", "who-reports.json"))
     social_updates = read_json(os.path.join(ROOT, "data", "social-updates.json"))
     province_history = read_json(os.path.join(ROOT, "data", "province-history.json"))
+    # Repartition par age : instantane fige au 5 aout 2026, l'INSP ayant
+    # cesse de publier la figure ensuite. Voir scripts/demographie_figures.py.
+    demographie = read_json(os.path.join(ROOT, "data", "demographie.json"))
     # Traces des zones de sante : geometrie figee, produite a part par
     # scripts/build_geo.py. Elle ne change qu'en cas de nouvelle province
     # touchee ou de mise a jour de la source.
@@ -1386,6 +1443,14 @@ def main():
                 "zones": fmt(len(latest.get("healthZones", [])), lang)})),
             "mapHint": hint_pair(strings_lang, "cartoHint", "cartoHintTouch"),
             "seed.provinceRows": province_rows_html(provinces, national, lang),
+            "seed.agesRows": ages_rows_html(demographie, lang, strings_lang),
+            "seed.agesNote": interp(strings_lang["virusAgesNote"], {
+                "date": long_date(demographie["date"], i18n_lang),
+                "derniere": long_date(demographie["derniereFigurePubliee"], i18n_lang),
+                "cas": fmt(demographie["totaux"]["cas"], lang),
+                "deces": fmt(demographie["totaux"]["deces"], lang),
+                "partCas": fmt_pct(demographie["couverture"]["partCas"], lang),
+                "partDeces": fmt_pct(demographie["couverture"]["partDeces"], lang)}),
             "seed.reportsList": reports_list_html(latest.get("reports", []), lang, i18n_lang),
             "seed.whoReportsList": who_reports_list_html(who_reports, lang, i18n_lang),
             "seed.socialUpdatesList": social_updates_list_html(social_updates, lang, i18n_lang),

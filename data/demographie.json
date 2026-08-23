@@ -1,0 +1,73 @@
+{
+ "date": "2026-08-05",
+ "sitrep": "083",
+ "source": "INSP",
+ "derniereFigurePubliee": "2026-08-05",
+ "totaux": {
+  "cas": 3454,
+  "deces": 1124
+ },
+ "couverture": {
+  "casNational": 4053,
+  "decesNational": 1850,
+  "partCas": 85.2,
+  "partDeces": 60.8
+ },
+ "tranches": [
+  {
+   "tranche": "0-4",
+   "cas": 345,
+   "deces": 213,
+   "casFeminin": 152,
+   "casMasculin": 193,
+   "decesFeminin": 95,
+   "decesMasculin": 118,
+   "partCas": 10.0,
+   "partDeces": 19.0
+  },
+  {
+   "tranche": "5-17",
+   "cas": 455,
+   "deces": 144,
+   "casFeminin": 247,
+   "casMasculin": 208,
+   "decesFeminin": 75,
+   "decesMasculin": 69,
+   "partCas": 13.2,
+   "partDeces": 12.8
+  },
+  {
+   "tranche": "18-29",
+   "cas": 917,
+   "deces": 279,
+   "casFeminin": 538,
+   "casMasculin": 379,
+   "decesFeminin": 158,
+   "decesMasculin": 121,
+   "partCas": 26.5,
+   "partDeces": 24.8
+  },
+  {
+   "tranche": "30-49",
+   "cas": 1217,
+   "deces": 306,
+   "casFeminin": 623,
+   "casMasculin": 594,
+   "decesFeminin": 140,
+   "decesMasculin": 166,
+   "partCas": 35.2,
+   "partDeces": 27.2
+  },
+  {
+   "tranche": "50 et plus",
+   "cas": 520,
+   "deces": 182,
+   "casFeminin": 268,
+   "casMasculin": 252,
+   "decesFeminin": 89,
+   "decesMasculin": 93,
+   "partCas": 15.1,
+   "partDeces": 16.2
+  }
+ ]
+}

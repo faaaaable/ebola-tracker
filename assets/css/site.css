@@ -826,6 +826,44 @@ td:first-child{color:var(--ink);font-weight:500;}
 
 .vcompare-note{font-size:13px;line-height:1.65;color:var(--ink-dim);margin:16px 0 0;}
 
+/* Repartition par age : deux barres par tranche, part des cas et part des
+   deces, sur une echelle commune. Les couleurs sont celles que le site emploie
+   deja pour ces deux grandeurs — bleu pour les cas, rouge pour les deces —
+   pour qu'un lecteur venu de la carte ou des graphiques les reconnaisse. */
+.ages-lead{font-size:16px;line-height:1.6;color:var(--ink);margin:0 0 18px;max-width:56ch;}
+.ages-lead strong{font-weight:600;color:var(--accent-critical);}
+.ages{display:flex;flex-direction:column;gap:14px;}
+.ages-key{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:2px;}
+.ak{
+  display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;
+  letter-spacing:.02em;color:var(--ink-label);
+}
+.ak::before{content:"";width:11px;height:11px;border-radius:3px;flex:none;}
+.ak-cas::before{background:var(--accent-info);}
+.ak-deces::before{background:var(--accent-critical);}
+.age-row{display:grid;grid-template-columns:88px minmax(0,1fr);gap:4px 14px;align-items:center;}
+.age-label{
+  grid-row:span 2;font-size:13px;font-weight:600;color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.age-bar{display:flex;align-items:center;gap:10px;min-width:0;}
+.age-track{
+  flex:1;height:13px;border-radius:3px;background:var(--bg-alt);
+  border:1px solid var(--line-soft);overflow:hidden;min-width:0;
+}
+.age-fill{display:block;height:100%;border-radius:2px 0 0 2px;}
+.is-cas .age-fill{background:var(--accent-info);}
+.is-deces .age-fill{background:var(--accent-critical);}
+.age-val{
+  font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--ink-dim);min-width:52px;text-align:right;flex:none;
+}
+.is-deces .age-val{color:var(--accent-critical);}
+@media (max-width:560px){
+  .age-row{grid-template-columns:1fr;gap:3px;}
+  .age-label{grid-row:auto;margin-top:6px;}
+}
+
 /* Blocs conserves pour l'apercu de l'accueil. */
 .virus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;align-items:start;}
 .vcard{border-left:2px solid var(--accent);padding:2px 0 2px 18px;}

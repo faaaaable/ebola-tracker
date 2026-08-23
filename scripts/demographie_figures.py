@@ -23,11 +23,23 @@ Trois pieges rencontres, qui condamnent toute automatisation naive :
 
     python scripts/demographie_figures.py
 
-Sortie : data/corpus/demographie.jsonl
+Sorties : data/corpus/demographie.jsonl   la serie complete, 22 dates
+          data/demographie.json           l'instantane publiable, versionne
+
+Le second est celui que lit le site. Il ne porte que la derniere situation
+connue — le 5 aout 2026 — parce qu'une serie quotidienne serait trompeuse :
+sept rapports sur vingt-deux reprennent la figure de la veille sans
+changement, la liste lineaire DHIS2 n'etant pas rafraichie chaque jour.
+
+Il porte aussi la couverture, qui est la mise en garde principale : la figure
+ne voit que 61 % des deces, les deces communautaires n'etant le plus souvent
+pas identifies. Publier une letalite par age sans cette precision reviendrait
+a publier un chiffre faux.
 """
 import io
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,6 +88,36 @@ RELEVES = {
 # empreinte du rendu et par egalite des effectifs imprimes.
 REPRISES = {"061": "060", "062": "060", "070": "069", "071": "069",
             "074": "073", "080": "079", "083": "082"}
+
+
+def totaux_nationaux(ident):
+    """Cumul national de cas et de deces, lu sur la page 1 du meme bulletin.
+
+    C'est ce rapprochement qui donne la couverture reelle de la figure, et donc
+    la seule mise en garde qui compte. On le lit plutot que de l'ecrire en dur :
+    un chiffre saisi a la main serait invisible le jour ou il devient faux.
+    """
+    chemin = os.path.join(ROOT, "data", "corpus", "textes", ident + ".json")
+    with io.open(chemin, encoding="utf-8") as fh:
+        page1 = json.load(fh)["pages"][0]["texte"]
+
+    def entier(brut):
+        for e in "  ":
+            brut = brut.replace(e, "")
+        return int(brut)
+
+    # Le bandeau ecrit le cumul des cas, puis celui des deces suivi de la
+    # letalite entre parentheses. C'est cette letalite qui sert de preuve :
+    # prendre « les deux plus grands nombres de la page » donnait 18 886, un
+    # nombre qui n'existe nulle part dans le bulletin.
+    motif = re.compile(r'(\d[\d  ]*\d)\s*\n\s*(\d[\d  ]*\d)\s*'
+                       r'[·.]?\s*\(?\s*(\d{1,2},\d)\s*%')
+    for m in motif.finditer(page1):
+        cas, deces, letalite = entier(m.group(1)), entier(m.group(2)), \
+            float(m.group(3).replace(",", "."))
+        if deces < cas and abs(100.0 * deces / cas - letalite) < 0.6:
+            return cas, deces
+    return None, None
 
 
 def main():
@@ -142,7 +184,62 @@ def main():
         letal = 100.0 * (df + dm) / max(1, cf + cm)
         print("   %-11s %8d %8d %8d %8d   letalite %.1f %%"
               % (t, cf, cm, df, dm, letal))
-    print("\nsortie : data/corpus/demographie.jsonl")
+
+    ecrire_instantane(lignes, dates[-1])
+    print("\nsorties : data/corpus/demographie.jsonl, data/demographie.json")
+
+
+def ecrire_instantane(lignes, date):
+    """L'instantane publiable : parts par tranche, et couverture."""
+    dernier = [l for l in lignes if l["date"] == date]
+    ident = dernier[0]["rapport"]
+
+    def v(tranche, mesure, sexe):
+        return next((x["valeur"] for x in dernier if x["tranche_age"] == tranche
+                     and x["mesure"] == mesure and x["sexe"] == sexe), 0)
+
+    total_cas = sum(x["valeur"] for x in dernier if x["mesure"] == "cas_confirmes")
+    total_deces = sum(x["valeur"] for x in dernier if x["mesure"] == "deces")
+    nat_cas, nat_deces = totaux_nationaux(ident)
+
+    tranches = []
+    for t in reversed(TRANCHES):          # du plus jeune au plus age
+        cas = v(t, "cas_confirmes", "feminin") + v(t, "cas_confirmes", "masculin")
+        dec = v(t, "deces", "feminin") + v(t, "deces", "masculin")
+        tranches.append({
+            "tranche": t,
+            "cas": cas, "deces": dec,
+            "casFeminin": v(t, "cas_confirmes", "feminin"),
+            "casMasculin": v(t, "cas_confirmes", "masculin"),
+            "decesFeminin": v(t, "deces", "feminin"),
+            "decesMasculin": v(t, "deces", "masculin"),
+            "partCas": round(100.0 * cas / total_cas, 1),
+            "partDeces": round(100.0 * dec / total_deces, 1),
+        })
+
+    instantane = {
+        "date": date,
+        "sitrep": ident.split("_")[1],
+        "source": "INSP",
+        "derniereFigurePubliee": date,
+        "totaux": {"cas": total_cas, "deces": total_deces},
+        "couverture": {
+            "casNational": nat_cas, "decesNational": nat_deces,
+            "partCas": round(100.0 * total_cas / nat_cas, 1) if nat_cas else None,
+            "partDeces": round(100.0 * total_deces / nat_deces, 1) if nat_deces else None,
+        },
+        "tranches": tranches,
+    }
+    chemin = os.path.join(ROOT, "data", "demographie.json")
+    with io.open(chemin, "w", encoding="utf-8", newline="\n") as fh:
+        json.dump(instantane, fh, ensure_ascii=False, indent=1)
+
+    c = instantane["couverture"]
+    print("\nInstantane publiable — %s (SitRep n°%s)" % (date, instantane["sitrep"]))
+    print("   cas   %d sur %s nationaux = %s %%"
+          % (total_cas, c["casNational"], c["partCas"]))
+    print("   deces %d sur %s nationaux = %s %%"
+          % (total_deces, c["decesNational"], c["partDeces"]))
 
 
 if __name__ == "__main__":
