@@ -15802,22 +15802,64 @@
     "date": "2026-08-13",
     "zones": [
       {
+        "name": "Buta",
+        "province": "Bas-Uélé",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Boma Mangbetu",
+        "province": "Haut-Uélé",
+        "cases": 22,
+        "deaths": 6
+      },
+      {
+        "name": "Gombari",
+        "province": "Haut-Uélé",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Isiro",
+        "province": "Haut-Uélé",
+        "cases": 39,
+        "deaths": 19
+      },
+      {
+        "name": "Pawa",
+        "province": "Haut-Uélé",
+        "cases": 19,
+        "deaths": 14
+      },
+      {
+        "name": "Rungu",
+        "province": "Haut-Uélé",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Wamba",
+        "province": "Haut-Uélé",
+        "cases": 41,
+        "deaths": 17
+      },
+      {
         "name": "Adja",
         "province": "Ituri",
         "cases": 11,
         "deaths": 1
       },
       {
-        "name": "Aru",
-        "province": "Ituri",
-        "cases": 7,
-        "deaths": 6
-      },
-      {
         "name": "Ariwara",
         "province": "Ituri",
         "cases": 7,
         "deaths": 2
+      },
+      {
+        "name": "Aru",
+        "province": "Ituri",
+        "cases": 7,
+        "deaths": 6
       },
       {
         "name": "Aungba",
@@ -16042,40 +16084,10 @@
         "deaths": 1
       },
       {
-        "name": "Boma Mangbetu",
-        "province": "Haut-Uélé",
-        "cases": 22,
-        "deaths": 6
-      },
-      {
-        "name": "Gombari",
-        "province": "Haut-Uélé",
-        "cases": 1,
+        "name": "Miti-Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 3,
         "deaths": 1
-      },
-      {
-        "name": "Isiro",
-        "province": "Haut-Uélé",
-        "cases": 39,
-        "deaths": 19
-      },
-      {
-        "name": "Pawa",
-        "province": "Haut-Uélé",
-        "cases": 19,
-        "deaths": 14
-      },
-      {
-        "name": "Rungu",
-        "province": "Haut-Uélé",
-        "cases": 1,
-        "deaths": 0
-      },
-      {
-        "name": "Wamba",
-        "province": "Haut-Uélé",
-        "cases": 41,
-        "deaths": 17
       },
       {
         "name": "Bafwasende",
@@ -16108,22 +16120,16 @@
         "deaths": 1
       },
       {
-        "name": "Wanie-Rukula",
+        "name": "Tshopo",
         "province": "Tshopo",
         "cases": 1,
         "deaths": 0
       },
       {
-        "name": "Miti-Murhesa",
-        "province": "Sud-Kivu",
-        "cases": 3,
-        "deaths": 1
-      },
-      {
-        "name": "Buta",
-        "province": "Bas-Uélé",
+        "name": "Wanie-Rukula",
+        "province": "Tshopo",
         "cases": 1,
-        "deaths": 1
+        "deaths": 0
       }
     ]
   },
@@ -16132,22 +16138,64 @@
     "date": "2026-08-14",
     "zones": [
       {
+        "name": "Buta",
+        "province": "Bas-Uélé",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Boma Mangbetu",
+        "province": "Haut-Uélé",
+        "cases": 22,
+        "deaths": 8
+      },
+      {
+        "name": "Gombari",
+        "province": "Haut-Uélé",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Isiro",
+        "province": "Haut-Uélé",
+        "cases": 39,
+        "deaths": 19
+      },
+      {
+        "name": "Pawa",
+        "province": "Haut-Uélé",
+        "cases": 19,
+        "deaths": 14
+      },
+      {
+        "name": "Rungu",
+        "province": "Haut-Uélé",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Wamba",
+        "province": "Haut-Uélé",
+        "cases": 53,
+        "deaths": 20
+      },
+      {
         "name": "Adja",
         "province": "Ituri",
         "cases": 11,
         "deaths": 1
       },
       {
-        "name": "Aru",
-        "province": "Ituri",
-        "cases": 7,
-        "deaths": 6
-      },
-      {
         "name": "Ariwara",
         "province": "Ituri",
         "cases": 7,
         "deaths": 2
+      },
+      {
+        "name": "Aru",
+        "province": "Ituri",
+        "cases": 7,
+        "deaths": 6
       },
       {
         "name": "Aungba",
@@ -16372,40 +16420,10 @@
         "deaths": 2
       },
       {
-        "name": "Boma Mangbetu",
-        "province": "Haut-Uélé",
-        "cases": 22,
-        "deaths": 8
-      },
-      {
-        "name": "Gombari",
-        "province": "Haut-Uélé",
-        "cases": 1,
+        "name": "Miti-Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 3,
         "deaths": 1
-      },
-      {
-        "name": "Isiro",
-        "province": "Haut-Uélé",
-        "cases": 39,
-        "deaths": 19
-      },
-      {
-        "name": "Pawa",
-        "province": "Haut-Uélé",
-        "cases": 19,
-        "deaths": 14
-      },
-      {
-        "name": "Rungu",
-        "province": "Haut-Uélé",
-        "cases": 1,
-        "deaths": 0
-      },
-      {
-        "name": "Wamba",
-        "province": "Haut-Uélé",
-        "cases": 53,
-        "deaths": 20
       },
       {
         "name": "Bafwasende",
@@ -16438,22 +16456,16 @@
         "deaths": 1
       },
       {
-        "name": "Wanie-Rukula",
+        "name": "Tshopo",
         "province": "Tshopo",
         "cases": 1,
         "deaths": 0
       },
       {
-        "name": "Miti-Murhesa",
-        "province": "Sud-Kivu",
-        "cases": 3,
-        "deaths": 1
-      },
-      {
-        "name": "Buta",
-        "province": "Bas-Uélé",
+        "name": "Wanie-Rukula",
+        "province": "Tshopo",
         "cases": 1,
-        "deaths": 1
+        "deaths": 0
       }
     ]
   },
@@ -16775,6 +16787,12 @@
       },
       {
         "name": "Lubunga",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Tshopo",
         "province": "Tshopo",
         "cases": 1,
         "deaths": 0
@@ -17110,6 +17128,12 @@
         "deaths": 0
       },
       {
+        "name": "Tshopo",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
         "name": "Wanie-Rukula",
         "province": "Tshopo",
         "cases": 1,
@@ -17440,6 +17464,12 @@
         "deaths": 0
       },
       {
+        "name": "Tshopo",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
         "name": "Wanie-Rukula",
         "province": "Tshopo",
         "cases": 1,
@@ -17765,6 +17795,12 @@
       },
       {
         "name": "Lubunga",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Tshopo",
         "province": "Tshopo",
         "cases": 1,
         "deaths": 0
@@ -18112,6 +18148,12 @@
         "deaths": 0
       },
       {
+        "name": "Tshopo",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
         "name": "Viadana",
         "province": "Bas-Uélé",
         "cases": 1,
@@ -18428,6 +18470,12 @@
         "province": "Tshopo",
         "cases": 2,
         "deaths": 2
+      },
+      {
+        "name": "Tshopo",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
       },
       {
         "name": "Wanie-Rukula",
@@ -18772,6 +18820,12 @@
         "deaths": 2
       },
       {
+        "name": "Tshopo",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
         "name": "Wanie-Rukula",
         "province": "Tshopo",
         "cases": 1,
@@ -19112,6 +19166,12 @@
         "province": "Tshopo",
         "cases": 2,
         "deaths": 2
+      },
+      {
+        "name": "Tshopo",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
       },
       {
         "name": "Wanie-Rukula",

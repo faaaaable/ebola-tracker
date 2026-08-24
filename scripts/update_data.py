@@ -664,6 +664,13 @@ def gap_fill_missing_zones(full_text, zones_raw):
             if line_normalized.startswith(pname.replace("-", " ")):
                 matched_province = pname
                 break
+        # Meme regle que dans parse_zone_detail : une ligne qui commence par
+        # le nom de la province EN COURS decrit une zone homonyme, pas un
+        # nouvel en-tete. Sans quoi la zone de sante « Tshopo », dans la
+        # province du meme nom, disparait — et ce repli est justement celui
+        # qui reconstruit les lignes que pdfplumber rate.
+        if matched_province and matched_province == current_province:
+            matched_province = None
         if matched_province:
             current_province = matched_province
             continue
@@ -675,8 +682,13 @@ def gap_fill_missing_zones(full_text, zones_raw):
         # lignes : "Autres zones non" / "... non encore" / "... encore
         # identifiées").
         line_upper = line.upper()
-        if line_upper.startswith("A VENTILER") or line_upper.startswith("TOTAL") \
-                or line_upper.startswith("AUTRES ZONES"):
+        if line_upper.startswith("TOTAL"):
+            # Le Total ferme un tableau : la province en cours retombe a
+            # zero, pour que la regle ci-dessus reste vraie si un second
+            # tableau s'ouvre sur la province qui vient de se fermer.
+            current_province = None
+            continue
+        if line_upper.startswith("A VENTILER") or line_upper.startswith("AUTRES ZONES"):
             continue
         if current_province is None:
             continue
@@ -721,6 +733,17 @@ def parse_zone_detail(rows):
         # insensible à la casse et au tiret/espace, comme le reste.
         name_normalized = re.sub(r"^sous.total\s+", "", name_normalized, flags=re.IGNORECASE)
         canon_province = province_by_normalized.get(name_normalized)
+        # Une ligne qui porte le nom de la province EN COURS n'est pas un
+        # nouvel en-tete : c'est une zone de sante homonyme de sa province.
+        # La Tshopo en compte une, et elle etait avalee ici depuis toujours —
+        # absente des tableaux, absente de la carte, et son sous-total de
+        # province ecrase au passage par la ligne de la zone (1 cas au lieu
+        # de 15), puisque « le sous-total garde est celui de la DERNIERE
+        # occurrence ». Un en-tete legitime arrive toujours alors qu'une
+        # AUTRE province est en cours, ou apres le Total qui remet le
+        # compteur a zero : la confusion n'est donc pas possible.
+        if canon_province and canon_province == current_province:
+            canon_province = None
         if canon_province:
             # Pas de garde "vu une seule fois" : certains PDF incluent DEUX
             # tableaux distincts avec un sous-total par province chacun (le
@@ -740,6 +763,10 @@ def parse_zone_detail(rows):
             continue
         if name_upper.startswith("TOTAL"):
             total_row = row
+            # Le Total ferme un tableau. Remettre la province a zero rend la
+            # regle ci-dessus infaillible quand le PDF enchaine deux tableaux
+            # dont le dernier et le premier nomment la meme province.
+            current_province = None
             continue
         if is_placeholder_zone_name(name or ""):
             continue
