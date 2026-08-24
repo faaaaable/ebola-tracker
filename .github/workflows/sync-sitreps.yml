@@ -32,6 +32,13 @@ jobs:
         run: python scripts/update_data.py
       - name: Mise à jour du suivi des contacts (data/contacts-followup.json)
         run: python scripts/extract_contacts_followup.py
+      - name: Mise à jour du lieu des décès (data/deces-lieu.json)
+        # Remise dans le workflow en même temps que le bouton de l'onglet
+        # « Décès en communauté ». Les deux gestes vont ensemble : allumer
+        # l'onglet sans cette étape et le graphique se fige dès le lendemain,
+        # comme la série des décès communautaires l'avait fait pendant six
+        # jours faute d'y figurer.
+        run: python scripts/extraire_deces_lieu.py
       - name: Installation de Node
         # Necessaire a scripts/build_pages.py, qui lit assets/js/i18n.js.
         uses: actions/setup-node@v4
@@ -54,6 +61,7 @@ jobs:
           # lui le graphique « Par province », premier onglet de /donnees/.
           git add reports/ data/latest.json data/sitreps.json data/zones-history.json
           git add data/province-history.json data/contacts-followup.json
+          git add data/deces-lieu.json
           git add $(python -c "import json;print(' '.join(json.load(open('site/.generated.json'))))") site/.generated.json
           if git diff --cached --quiet; then
             echo "Aucun nouveau SitRep — rien à committer."

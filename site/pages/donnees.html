@@ -65,7 +65,14 @@
         <button type="button" class="subtab-btn active" data-mode="epidemic" data-i18n="chartModeEpidemic">{{i18n.chartModeEpidemic}}</button>
         <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
         <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">{{i18n.chartModeContactsFollowUp}}</button>
-        <button type="button" class="subtab-btn" data-mode="communityDeaths" data-i18n="chartModeCommunityDeaths">{{i18n.chartModeCommunityDeaths}}</button>
+        <!-- « Repartition des deces » a quitte la barre : il tracait
+             community-deaths-daily.json, qui ne valide qu'une province — l'Ituri —
+             sous un sous-titre annoncant « pour l'ensemble du pays ». Le 21 aout il
+             affichait 17 communautaires / 17 intra-CTE quand le national etait 27/22.
+             « Deces en communaute » le remplace, valide province par province.
+             Son mode reste dans app.js, mais le rallumer demanderait de corriger
+             d'abord ce defaut de couverture. -->
+        <button type="button" class="subtab-btn" data-mode="deathsPlace" data-i18n="chartModeDeathsPlace">{{i18n.chartModeDeathsPlace}}</button>
         <!-- « Cas et deces par age » et « Cas et deces par sexe » ont ete
              retires de la barre : l'onglet « Age et sexe » porte les deux, et
              le croisement en plus. Leurs modes restent dans app.js, comme le

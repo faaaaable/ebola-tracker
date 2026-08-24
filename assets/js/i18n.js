@@ -51,7 +51,19 @@ const I18N = {
     chartAgesOpenEnded:"50 et plus",
     chartNoteDemographie:(dateAn,cas,deces,pc,pd)=>`Situation au ${dateAn}, dernier bulletin où l'INSP a publié cette répartition. Établi sur les ${cas} cas et ${deces} décès dont l'âge et le sexe sont renseignés, soit ${String(pc).replace('.',',')} % des cas et ${String(pd).replace('.',',')} % des décès. Les décès survenus en communauté, souvent sans identification, y sont sous-représentés.`,
     chartModeCommunityDeaths:"Répartition des décès",
-    chartModeDeathsPlace:"Lieu du décès",
+    chartModeDeathsPlace:"Décès en communauté",
+    chartDeathPlaceWeekly:"Part des décès survenus en communauté, semaine par semaine",
+    chartDeathPlaceAverage:(p)=>`Moyenne des six semaines : ${String(p).replace('.',',')} %`,
+    chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} au ${fin}`,
+    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants)=>
+      `Part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, agrégée sur l'ensemble du pays et regroupée par semaine. `
+      + `Sur les ${semaines} semaines couvertes, cette part n'a pas de tendance : elle oscille autour de ${String(part).replace('.',',')} % `
+      + `— ${comm} décès en communauté contre ${cte} en centre — et les écarts d'une semaine à l'autre restent dans le bruit `
+      + `d'échantillonnage attendu pour ces effectifs. La ligne pointillée marque cette moyenne : c'est elle le résultat, `
+      + `pas les creux et les bosses. `
+      + `Trois réserves. Les bulletins antérieurs au 13 juillet ne distinguent pas les deux lieux, la fenêtre ne peut pas remonter plus loin. `
+      + `${manquants} jours manquent à la série, dont quatre d'affilée du 6 au 9 août : seules les parts sont comparables d'une semaine à l'autre, jamais les effectifs. `
+      + `Enfin l'Ituri pèse 77 % des décès classés, si bien que cette courbe nationale suit d'abord la sienne.`,
     chartDeathPlaceCommunity:"En communauté",
     chartDeathPlaceCte:"En centre de traitement",
     chartDeathPlaceTotal:(total,releves)=>`${total} décès sur ${releves} relevés`,
@@ -222,7 +234,18 @@ const I18N = {
     chartAgesOpenEnded:"50 and over",
     chartNoteDemographie:(dateAn,cas,deces,pc,pd)=>`As of ${dateAn}, the last bulletin in which the INSP published this breakdown. Based on the ${cas} cases and ${deces} deaths for which age and sex are recorded: ${pc}% of cases and ${pd}% of deaths. Deaths occurring in the community, often unidentified, are under-represented.`,
     chartModeCommunityDeaths:"Death breakdown",
-    chartModeDeathsPlace:"Place of death",
+    chartModeDeathsPlace:"Deaths in the community",
+    chartDeathPlaceWeekly:"Share of deaths occurring in the community, week by week",
+    chartDeathPlaceAverage:(p)=>`Six-week average: ${p}%`,
+    chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} to ${fin}`,
+    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants)=>
+      `Share of confirmed deaths occurring in the community rather than in a treatment centre, aggregated nationally and grouped by week. `
+      + `Across the ${semaines} weeks covered there is no trend: the share hovers around ${part}% `
+      + `— ${comm} community deaths against ${cte} in treatment centres — and week-to-week variation stays within the sampling noise `
+      + `expected at these numbers. The dashed line marks that average: it is the finding, not the peaks and dips. `
+      + `Three caveats. Bulletins before 13 July do not distinguish the two places, so the window cannot reach further back. `
+      + `${manquants} days are missing from the series, four of them consecutive from 6 to 9 August: only shares are comparable between weeks, never counts. `
+      + `And Ituri accounts for 77% of classified deaths, so this national curve mainly follows its own.`,
     chartDeathPlaceCommunity:"In the community",
     chartDeathPlaceCte:"In a treatment centre",
     chartDeathPlaceTotal:(total,releves)=>`${total} deaths across ${releves} bulletins`,

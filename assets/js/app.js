@@ -1183,31 +1183,29 @@ function renderOneChart(canvas, chartMode){
   // Mode "Origine des décès" : structure de données et échelle (0-100%)
   // totalement différentes des deux autres modes — traité à part, avant le
   // reste de la fonction qui suppose des SitRep (s) comme source.
-  /* Lieu du deces : part survenue en communaute contre part survenue en
-     centre de traitement, une barre par province.
+  /* Lieu du deces : part des deces survenus en communaute plutot qu'en centre
+     de traitement, agregee sur le pays et regroupee par semaine.
 
-     Remplace la lecture hebdomadaire precedente, qui reposait sur
-     community-deaths-daily.json — lequel ne validait qu'une province,
-     l'Ituri, tout en portant un sous-titre « pour l'ensemble du pays ».
-     La nouvelle source valide chaque ligne contre l'addition imprimee sur
-     cette meme ligne, ce qui fait passer six provinces au lieu d'une.
+     LECTURE PAR PROVINCE ABANDONNEE. Elle montrait un ecart reel — 66,8 % au
+     Nord-Kivu contre 50,0 % au Haut-Uele — mais elle repondait a « ou ? »
+     quand la question qui compte est « est-ce que ca s'ameliore ? ». Le
+     detail par province reste dans le fichier, rien a re-extraire si on veut
+     y revenir.
 
-     Pas d'axe du temps : la fenetre commence au 13 juillet 2026 et la part
-     s'est revelee stable d'une semaine a l'autre (61, 64, 54, 68, 62, 57 %).
-     L'ecart entre provinces, lui, est net — 66 % au Nord-Kivu contre 36 % au
-     Sud-Kivu — et c'est ce que la barre horizontale montre le mieux. En
-     prime, plus de semaine incomplete a masquer. */
+     CE QUE LA COURBE MONTRE, ET C'EST VOULU : rien ne bouge. Six semaines
+     entre 53,6 et 68,5 %, sans direction, autour de 61,6 %. Avec 125 a 364
+     deces par semaine, l'ecart-type attendu du seul hasard d'echantillonnage
+     est de 3 a 4 points ; l'ecart-type observe est de 5. Les creux et les
+     bosses ne racontent rien. C'est pour ca que la moyenne est tracee en
+     pointilles : elle donne au lecteur la ligne a laquelle comparer, au lieu
+     de le laisser chercher une tendance dans du bruit.
+
+     ECHELLE DE 0 A 100 %, jamais resserree sur les valeurs. Un axe cadre sur
+     50-70 % ferait de ces oscillations une montagne russe. Pleine echelle,
+     la courbe est plate et haute — ce qu'elle est. */
   if(chartMode==='deathsPlace'){
-    const wantedType = 'bar';
-    if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode !== 'deathsPlace')){
-      slot.chart.destroy();
-      slot.chart = null;
-    }
-    const retenues = DECES_LIEU
-      ? DECES_LIEU.provinces.filter(p => p.assezDeVolume && p.total)
-      : [];
-    if(!retenues.length){
-      if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+    if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+    if(!DECES_LIEU || !DECES_LIEU.parDate || !DECES_LIEU.parDate.length){
       slot.lastMode = 'deathsPlace';
       const ctx0 = canvas.getContext('2d');
       ctx0.clearRect(0, 0, canvas.width, canvas.height);
@@ -1215,30 +1213,78 @@ function renderOneChart(canvas, chartMode){
       return;
     }
 
-    const partIntra = p => Math.round((100 - p.partCommunautaire) * 10) / 10;
+    // Regroupement par semaine ISO, du lundi au dimanche.
+    const lundi = iso => {
+      const d = new Date(iso + 'T12:00:00');
+      d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0')
+           + '-' + String(d.getDate()).padStart(2, '0');
+    };
+    const semaines = new Map();
+    for(const jour of DECES_LIEU.parDate){
+      const cle = lundi(jour.date);
+      const s = semaines.get(cle) || { debut: cle, fin: jour.date, comm: 0, cte: 0 };
+      for(const v of Object.values(jour.provinces || {})){
+        s.comm += v.communautaires || 0;
+        s.cte  += v.intraCte || 0;
+      }
+      if(jour.date > s.fin) s.fin = jour.date;
+      semaines.set(cle, s);
+    }
+    // Une semaine sans aucun deces classe ne porte aucune part : on l'ecarte
+    // plutot que de tracer un zero qui se lirait comme « personne n'est mort
+    // en communaute ».
+    const serie = [...semaines.values()]
+      .filter(s => s.comm + s.cte > 0)
+      .sort((a, b) => a.debut.localeCompare(b.debut));
+
+    const totalComm = serie.reduce((n, s) => n + s.comm, 0);
+    const totalCte  = serie.reduce((n, s) => n + s.cte, 0);
+    const moyenne   = Math.round(totalComm / (totalComm + totalCte) * 1000) / 10;
+
+    /* Barres empilees a 100 %, une par semaine : les deux lieux sont montres
+       explicitement, et la FRONTIERE entre les deux couleurs est la part. Une
+       courbe unique aurait dit la meme chose, mais elle aurait laisse le
+       lecteur reconstituer mentalement le complement.
+
+       Meme idiome que le graphique par sexe, pour la meme raison : « empilees
+       sur une base commune, les deux barres rendent le decalage lisible au
+       decrochage de la frontiere entre les deux couleurs ».
+
+       Deux nuances d'un meme rouge, pas deux teintes etrangeres : ce sont tous
+       des deces, seul le lieu change. Le plein revient a la communaute, la
+       part qui alarme. */
+    const part = s => Math.round(s.comm / (s.comm + s.cte) * 1000) / 10;
     const data = {
-      labels: retenues.map(p => p.name),
+      labels: serie.map(s => frDate(s.debut)),
       datasets: [
-        { label: tr('chartDeathPlaceCommunity'),
-          data: retenues.map(p => p.partCommunautaire),
-          backgroundColor: PALETTE.scale[4], stack: 'l',
-          borderColor: PALETTE.panel, borderWidth: 2 },
+        { label: tr('chartDeathPlaceCommunity'), data: serie.map(part),
+          backgroundColor: PALETTE.critical, stack: 'l',
+          borderColor: PALETTE.panel, borderWidth: 2, order: 1 },
         { label: tr('chartDeathPlaceCte'),
-          data: retenues.map(partIntra),
-          backgroundColor: PALETTE.scale[2], stack: 'l',
-          borderColor: PALETTE.panel, borderWidth: 2 },
+          data: serie.map(s => Math.round((100 - part(s)) * 10) / 10),
+          backgroundColor: tint(PALETTE.critical, .30), stack: 'l',
+          borderColor: PALETTE.panel, borderWidth: 2, order: 2 },
+        /* La moyenne vit sur un second axe, invisible et non empile : posee
+           sur l'axe des barres, Chart.js l'empilerait par-dessus elles. */
+        { type: 'line', label: tr('chartDeathPlaceAverage')(moyenne),
+          data: serie.map(() => moyenne), yAxisID: 'y1',
+          borderColor: PALETTE.ink, borderWidth: 1.5, borderDash: [5, 4],
+          pointStyle: 'line', pointRadius: 0, fill: false, tension: 0, order: 3 },
       ]
     };
     const opts = {
-      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
       scales: {
-        x: { stacked: true, min: 0, max: 100,
+        x: { stacked: true,
+             ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 } },
+             grid: { display: false } },
+        y: { stacked: true, min: 0, max: 100,
              ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
-                      callback: v => v + '%' },
+                      callback: v => v + ' %' },
              grid: { color: PALETTE.lineSoft } },
-        y: { stacked: true,
-             ticks: { color: PALETTE.inkDim, font: { family: PALETTE.font, size: 12 } },
-             grid: { display: false } }
+        y1: { min: 0, max: 100, display: false }
       },
       plugins: {
         legend: { labels: { color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 },
@@ -1248,62 +1294,28 @@ function renderOneChart(canvas, chartMode){
           titleColor: PALETTE.ink, bodyColor: PALETTE.ink,
           titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
           callbacks: {
-            /* L'effectif dans l'infobulle, jamais la part seule : 100 % sur un
-               deces et 61 % sur mille ne se lisent pas de la meme facon. */
+            title: items => tr('chartDeathPlaceWeekLabel')(
+              frDate(serie[items[0].dataIndex].debut), frDate(serie[items[0].dataIndex].fin)),
+            /* Les effectifs avec la part, toujours : 68 % sur 146 deces et
+               61 % sur 364 ne se lisent pas de la meme facon. */
             label: c => {
-              const p = retenues[c.dataIndex];
-              const n = c.datasetIndex === 0 ? p.communautaires : p.intraCte;
-              return `${c.dataset.label} : ${String(c.parsed.x).replace('.', ',')} % (${fmt(n)} décès)`;
-            },
-            footer: items => {
-              const p = retenues[items[0].dataIndex];
-              return tr('chartDeathPlaceTotal')(fmt(p.total), p.releves);
+              if(c.dataset.type === 'line') return c.dataset.label;
+              const s = serie[c.dataIndex];
+              const n = c.datasetIndex === 0 ? s.comm : s.cte;
+              return `${c.dataset.label} : ${String(c.parsed.y).replace('.', ',')} % `
+                   + `(${fmt(n)} décès)`;
             }
           }
         }
       }
     };
-    if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
-    else {
-      const pctDansSegment = {
-        id: 'pctLieuDeces',
-        afterDatasetsDraw(c){
-          const {ctx} = c;
-          c.data.datasets.forEach((dataset, i) => {
-            const meta = c.getDatasetMeta(i);
-            if(meta.hidden) return;
-            meta.data.forEach((bar, idx) => {
-              const value = dataset.data[idx];
-              // Sous 12 points, le segment est trop court pour porter le texte.
-              if(!value || value < 12) return;
-              ctx.save();
-              ctx.fillStyle = PALETTE.panel;
-              ctx.font = "700 12px 'Public Sans', sans-serif";
-              ctx.textAlign = 'center';
-              ctx.textBaseline = 'middle';
-              ctx.fillText(String(value).replace('.', ',') + ' %', (bar.x + bar.base) / 2, bar.y);
-              ctx.restore();
-            });
-          });
-        }
-      };
-      slot.chart = new Chart(canvas.getContext('2d'),
-                             { type: wantedType, data, options: opts, plugins: [pctDansSegment] });
-    }
+    slot.chart = new Chart(canvas.getContext('2d'), { type: 'bar', data, options: opts });
+    slot.lastMode = 'deathsPlace';
     if(noteEl){
-      const ecartees = DECES_LIEU.provinces.filter(p => !p.assezDeVolume).map(p => p.name);
-      /* Ces colonnes ne classent pas tous les deces de la periode : certaines
-         journees les laissent vides, et les 22 et 30 juillet portent un
-         rattrapage administratif. On annonce l'amplitude plutot que de laisser
-         croire a un recensement complet. */
-      const couv = retenues.map(p => p.couverture).filter(v => v != null);
-      noteEl.textContent = tr('chartDeathPlaceNote')(
-        frDate(DECES_LIEU.periode.debut), frDate(DECES_LIEU.periode.fin),
-        DECES_LIEU.releves, ecartees,
-        couv.length ? Math.min(...couv) : null, couv.length ? Math.max(...couv) : null);
+      noteEl.textContent = tr('chartDeathPlaceNoteTemps')(
+        moyenne, serie.length, fmt(totalComm), fmt(totalCte), 7);
       noteEl.style.display = 'block';
     }
-    slot.lastMode = 'deathsPlace';
     return;
   }
 
