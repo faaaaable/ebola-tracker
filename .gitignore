@@ -1,6 +1,19 @@
 __pycache__/
 *.pyc
-.cache/
+# Le cache reste ignore, SAUF l'archive des contours de zones de sante et la
+# reponse d'API qui l'accompagne. C'est la seule piece du projet que rien ne
+# peut reconstruire : build_geo.py la telecharge depuis l'API HDX
+# (data.humdata.org, jeu « dr-congo-health-0 »), et le jour ou cette URL
+# bouge ou disparait, health-zones.geojson — donc toutes les cartes du site —
+# ne serait plus regenerable. Six megaoctets pour ne dependre de personne.
+#
+# Seule l'archive est versionnee : build_geo.py extrait shp/ tout seul quand
+# le dossier est absent, inutile de stocker les deux.
+.cache/*
+!.cache/geo/
+.cache/geo/*
+!.cache/geo/hdx.json
+!.cache/geo/RDC_Zone_de_sante_09092019.zip
 tmp/
 data/corpus/
 
