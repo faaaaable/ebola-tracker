@@ -194,7 +194,6 @@ ul,ol{margin:0;padding:0;}
 }
 .lang-btn:hover{border-color:var(--accent);color:var(--accent-strong);text-decoration:none;}
 .lang-btn.active{border-color:var(--accent);background:var(--accent-light);color:var(--accent-hover);}
-.lang-btn .flag{display:block;border:1px solid rgba(0,0,0,.08);flex:none;}
 .lang-btn .code{line-height:1;}
 
 /* ---- groupe repliable de la navigation ---- */
