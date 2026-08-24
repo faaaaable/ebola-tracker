@@ -347,6 +347,134 @@ toucher aux sources du site. Modèle à suivre pour prototyper une page nouvelle
 
 ---
 
+## Les tableaux détaillés
+
+**Une règle traverse tout : ce qui compte est écrit en dur à la génération.**
+Les chiffres du dernier bulletin sont dans le HTML, donc visibles sans
+JavaScript, donc indexables — et lisibles sur une connexion qui laisse tomber
+le script. Le JavaScript n'ajoute que ce qui bouge.
+
+### `/donnees/` — deux vues
+
+Un premier niveau d'onglets, `zonesViewNav`, bascule entre deux lectures :
+
+**« Par province »** — six lignes **écrites en dur** par `build_pages.py`
+(`provinceSummaryBody`), triées par cas décroissants. Colonnes : province, cas
+cumulés avec sa part du pays, décès, létalité, zones touchées, nouveaux cas.
+Chaque ligne porte la pastille de couleur de sa province.
+
+**« Par zone de santé »** — **entièrement rendue par le JavaScript**
+(`renderZonesTable`), zéro ligne dans le HTML. C'est le seul tableau du site
+dans ce cas, parce qu'il est interactif :
+
+- **Six colonnes triables** — nom, province, cas cumulés, décès, létalité,
+  nouveaux cas 24 h. Tri par défaut : cas décroissants. L'en-tête affiche ▲/▼.
+- **Une recherche** par nom de zone, insensible à la casse.
+- **Un filtre par province** (`zonesSubtabNav`), rempli dynamiquement.
+- **Un état vide** explicite quand le filtre ne donne rien.
+
+### Les badges
+
+**Létalité** — trois seuils dans `cfrBadgeClass()` : `low` sous 30 %, `mid`
+sous 50 %, `high` au-delà. Ils sont repris à l'identique par le générateur pour
+les tableaux statiques, pour que les deux lectures ne se contredisent pas.
+
+**Nouveaux cas** — `has-new` avec un « + » quand il y en a, `no-new` sinon. Un
+zéro reste affiché : l'absence de cas est une information, pas un vide.
+
+### Les pages province
+
+`province_zones_table_html()` produit un tableau statique des zones touchées de
+la province, trié par cas décroissants, avec le delta 24 h entre parenthèses.
+Suivi d'un lien vers le tableau complet filtré sur cette province.
+
+### `/rapports/`
+
+`report_chip()` produit une carte par bulletin, **cliquable dans son entier** —
+auparavant seule la petite icône était un lien, cible minuscule et carte qui
+paraissait inerte. Une navigation par mois et une recherche filtrent la liste
+côté client. Les rapports OMS ont leur propre liste.
+
+---
+
+## Les graphiques
+
+Neuf modes dans `app.js`. Chaque canevas déclare son sujet par `data-chart`,
+chaque onglet par `data-mode`.
+
+| Mode | Source | Où |
+|---|---|---|
+| `epidemic` | `sitreps.json` | accueil **et** premier onglet de `/donnees/` |
+| `provinceEpidemic` | `province-history.json` | les six pages province |
+| `byProvince` | `province-history.json` | onglet |
+| `contactsFollowUp` | `contacts-followup.json` | onglet |
+| `deathsPlace` | `deces-lieu.json` | onglet |
+| `pyramide` | `demographie.json` | onglet |
+| `ages`, `sexes` | `demographie.json` | code sans bouton |
+| `communityDeaths` | `community-deaths-daily.json` | code sans bouton, **défectueux** |
+
+### Ce que chacun montre
+
+**`epidemic`** — barres des nouveaux cas quotidiens sur l'axe gauche, deux
+courbes de cumul (cas en bleu, décès en rouge) sur l'axe droit. Les deux ordres
+de grandeur ne se comparent pas : une centaine contre plusieurs milliers, un
+axe unique écraserait les barres. Une seconde série de barres, translucide,
+isole les deux dates de rattrapage administratif.
+
+**`provinceEpidemic`** — même forme, aux couleurs de la province, avec sa
+courbe de décès. Absent sous 50 cas cumulés. Signale les trous de plus de trois
+jours au lieu de relier par-dessus.
+
+**`byProvince`** — six courbes de cumul, une par province, chacune à sa teinte
+d'identité.
+
+**`contactsFollowUp`** — une courbe, plus un **pont en pointillés atténué** sur
+les périodes sans donnée. Ce pont n'est jamais une valeur : c'est un repère
+visuel, et la note le dit.
+
+**`deathsPlace`** — six barres hebdomadaires empilées à 100 %, communauté
+contre centre de traitement, avec la moyenne en pointillés sur un second axe
+invisible.
+
+**`pyramide`** — deux vues par une bascule interne : « Effectifs » (deux
+pyramides côte à côte, échelles distinctes) et « Parts » (une seule figure,
+chaque série ramenée à 100 % de son total).
+
+### Conventions partagées
+
+**Axes.** Un second axe `y1` à droite dès que deux ordres de grandeur
+coexistent. Toujours `beginAtZero`. Une échelle en pourcentage va de 0 à 100,
+**jamais resserrée sur les valeurs** — un cadrage sur 50-70 % transforme du
+bruit en montagnes russes.
+
+**Infobulles.** Fond `PALETTE.panel`, bordure `PALETTE.line`, police du site.
+Elles donnent **toujours l'effectif avec la part** : 100 % sur un décès et
+61 % sur mille ne se lisent pas de la même façon.
+
+**Légendes.** `usePointStyle: true` — Chart.js dessine alors les séries en
+barres comme des pastilles pleines et celles en courbe comme des anneaux, ce
+qui distingue les deux formes gratuitement. `pointStyle: 'line'` pour une
+ligne de référence. Légende masquée quand aucune série n'a de libellé.
+
+**Nombres.** `fmt()` partout, jamais `toLocaleString` directement.
+
+**Trois plugins maison**, écrits plutôt qu'importés — `chartjs-plugin-datalabels`
+aurait été une dépendance entière pour un seul usage :
+
+- `percentLabels` et `pctSexes` — le pourcentage au centre de chaque segment,
+  pour ne pas obliger à viser l'axe.
+- `cotesPyramide` — « Femmes » et « Hommes » au-dessus de leur moitié.
+
+**Un plugin ne s'attache qu'à la construction.** Un mode qui en utilise un doit
+détruire et recréer son instance à chaque passage — et donc désactiver
+l'animation, sinon elle repart de zéro à chaque retour sur l'onglet.
+
+**Reconstruire plutôt que mettre à jour quand le type change.** Chart.js ne
+permet pas de passer une instance de `bar` à `line`. Le code teste
+`slot.chart.config.type` et détruit si besoin.
+
+---
+
 ## Conventions établies
 
 **Couleurs.** Bleu `#005E82` = cas, rouge `#993A2E` = décès, partout. Chaque
