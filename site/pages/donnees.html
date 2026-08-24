@@ -66,14 +66,34 @@
         <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
         <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">{{i18n.chartModeContactsFollowUp}}</button>
         <button type="button" class="subtab-btn" data-mode="communityDeaths" data-i18n="chartModeCommunityDeaths">{{i18n.chartModeCommunityDeaths}}</button>
-        <button type="button" class="subtab-btn" data-mode="ages" data-i18n="chartModeAges">{{i18n.chartModeAges}}</button>
-        <button type="button" class="subtab-btn" data-mode="sexes" data-i18n="chartModeSexes">{{i18n.chartModeSexes}}</button>
+        <!-- « Cas et deces par age » et « Cas et deces par sexe » ont ete
+             retires de la barre : l'onglet « Age et sexe » porte les deux, et
+             le croisement en plus. Leurs modes restent dans app.js, comme le
+             mode deathsPlace : ce sont des decisions de publication, pas des
+             suppressions de code, et il suffit de remettre un bouton ici pour
+             qu'ils reviennent. -->
+        <button type="button" class="subtab-btn" data-mode="pyramide" data-i18n="chartModePyramide">{{i18n.chartModePyramide}}</button>
       </nav>
     </div>
 
     <div class="panel chart-panel-wrap">
-      <div class="chart-panel">
-        <canvas id="dataChart" data-chart="epidemic"></canvas>
+      <!-- Bascule propre a la pyramide, masquee par les autres modes. En
+           « Effectifs », deux figures cote a cote ; en « Parts », une seule,
+           chaque serie ramenee a 100 % de son propre total. -->
+      <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
+        <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">{{i18n.chartPyramideVueEffectifs}}</button>
+        <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>
+      </nav>
+      <div class="chart-duo">
+        <div class="chart-panel">
+          <canvas id="dataChart" data-chart="epidemic"></canvas>
+        </div>
+        <!-- Second cadre, vide et masque sauf pour la pyramide, seul mode a
+             tracer deux figures : les cas et les deces ont des ordres de
+             grandeur trop differents pour partager un axe. -->
+        <div class="chart-panel chart-panel-duo" style="display:none;">
+          <canvas id="dataChartB"></canvas>
+        </div>
       </div>
       <div class="map-note chart-note"></div>
     </div>

@@ -556,6 +556,18 @@ ul,ol{margin:0;padding:0;}
    ordonnees touchaient le cadre et la premiere date de l'axe des abscisses,
    inclinee, debordait a gauche et se faisait rogner. */
 .chart-panel{padding:18px 26px 18px 30px;height:380px;}
+
+/* Deux figures cote a cote, pour le seul mode qui en trace deux. Tant que le
+   second cadre est masque, la boite flex n'a qu'un enfant en flex:1 et le
+   rendu est identique a ce qu'il etait avec le canvas seul. */
+/* Bascule de vue, a l'interieur du cadre et non dans l'en-tete de section :
+   elle ne concerne qu'un mode, la mettre a cote des sept onglets laisserait
+   croire qu'elle vaut pour tous. */
+.chart-vue-nav{padding:16px 30px 0;margin:0;}
+
+.chart-duo{display:flex;gap:0;}
+.chart-duo > .chart-panel{flex:1 1 0;min-width:0;}
+.chart-duo > .chart-panel-duo{border-left:1px solid var(--line-soft);}
 .chart-panel canvas{width:100%!important;height:100%!important;}
 /* Note explicative propre a chaque graphique : le script la remplit selon ce
    que le graphique montre, et la masque quand il n'y a rien a dire. */
@@ -568,6 +580,17 @@ ul,ol{margin:0;padding:0;}
 
 @media (max-width:760px){
   .chart-panel{height:300px;padding:14px 12px;}
+  /* Deux pyramides cote a cote sous 760 px feraient 170 px chacune : elles
+     s'empilent. */
+  /* Dix barres au lieu de cinq : la vue « Parts » a besoin de plus de place
+     des que la largeur oblige a comprimer. */
+  .chart-panel.is-parts{height:430px;}
+  .chart-duo{flex-direction:column;}
+  /* En colonne, flex-basis porte sur la HAUTEUR : « flex:1 1 0 », correct pour
+     partager la largeur cote a cote, neutralisait la propriete height et
+     ecrasait les cadres a 190 px. Empiles, ils reprennent leur hauteur propre. */
+  .chart-duo > .chart-panel{flex:0 0 auto;}
+  .chart-duo > .chart-panel-duo{border-left:none;border-top:1px solid var(--line-soft);}
   .chart-note{padding:10px 14px 14px;}
 }
 

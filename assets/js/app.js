@@ -472,15 +472,27 @@ let DEMOGRAPHIE = null;
    echantillon, donc meme denominateur et meme mise en garde. Une seule note
    pour les deux evite d'avoir deux verites a maintenir pour une seule donnee.
    fmt() applique le separateur de milliers du site — « 3 454 », pas « 3454 ». */
+/* Le partage femmes/hommes des cas contre celui des deces : 3,3 points
+   d'ecart, que ni la pyramide ni aucune barre ne rendent lisibles — il
+   faudrait sommer cinq tranches a l'oeil. Une phrase le donne exactement, et
+   ouvre la note plutot que de se perdre au milieu des mises en garde. */
+function phraseSexe(){
+  if(!DEMOGRAPHIE || !DEMOGRAPHIE.parSexe) return '';
+  return tr('chartPyramideSexe')(DEMOGRAPHIE.parSexe.cas.partFeminin,
+                                 DEMOGRAPHIE.parSexe.deces.partFeminin);
+}
 function noteDemographie(){
   if(!DEMOGRAPHIE) return '';
-  // La derniere phrase porte l'annee : elle dit qu'une serie s'est arretee,
-  // et « apres le 5 aout » sans millesime laisserait planer un doute que la
-  // premiere mention, elle, peut se permettre.
+  /* Une seule date, portant l'annee. La note en donnait deux : elle ouvrait
+     sur « instantane, non actualise depuis » et se fermait sur « l'INSP a
+     cesse de publier cette repartition apres le 5 aout 2026 » — deux facons
+     de dire la meme chose a quatre phrases d'intervalle. Fondues en une, la
+     cause et la consequence tiennent ensemble : la serie s'arrete la parce
+     que la source s'y est arretee. */
   const avecAnnee = frDate(DEMOGRAPHIE.date) + ' ' + DEMOGRAPHIE.date.slice(0, 4);
   return tr('chartNoteDemographie')(
-    frDate(DEMOGRAPHIE.date), fmt(DEMOGRAPHIE.totaux.cas), fmt(DEMOGRAPHIE.totaux.deces),
-    DEMOGRAPHIE.couverture.partCas, DEMOGRAPHIE.couverture.partDeces, avecAnnee);
+    avecAnnee, fmt(DEMOGRAPHIE.totaux.cas), fmt(DEMOGRAPHIE.totaux.deces),
+    DEMOGRAPHIE.couverture.partCas, DEMOGRAPHIE.couverture.partDeces);
 }
 async function loadDemographie(){
   try{
@@ -706,6 +718,9 @@ function frDate(iso){
 
 /* ============ GRAPHIQUE ============ */
 let chartMode = 'cumulative';
+/* Vue de la pyramide : « effectifs » (deux figures) ou « parts » (une
+   seule, chaque serie ramenee a 100 % de son propre total). */
+let pyramideVue = 'effectifs';
 /* Rend un graphique dans le canvas donne. Le mode dit ce qu'il montre. */
 function renderOneChart(canvas, chartMode){
   const slot = chartSlot(canvas);
@@ -723,6 +738,26 @@ function renderOneChart(canvas, chartMode){
   }
   const wrap = canvas.closest('.chart-panel-wrap');
   const noteEl = wrap ? wrap.querySelector('.chart-note') : null;
+
+  /* Second cadre : il n'existe que sur la page Donnees, et n'appartient qu'a
+     la pyramide, seul mode a tracer deux figures. Tout autre mode le referme
+     et detruit son graphique — sans quoi il resterait ouvert et vide apres un
+     changement d'onglet. */
+  const navVue = wrap ? wrap.querySelector('[data-pyramide-vue]') : null;
+  if(navVue) navVue.style.display = (chartMode === 'pyramide') ? '' : 'none';
+  /* La vue « Parts » loge dix barres la ou les autres modes en logent cinq :
+     elle reclame un cadre plus haut, sans quoi l'axe des ages saute un
+     libelle sur deux des que l'ecran retrecit. Le cadre reprend sa hauteur
+     ordinaire pour tout le reste. */
+  const panneau1 = canvas.closest('.chart-panel');
+  if(panneau1) panneau1.classList.remove('is-parts');
+  const canvasB = canvas.id ? document.getElementById(canvas.id + 'B') : null;
+  if(canvasB && chartMode !== 'pyramide'){
+    const slotB = chartSlot(canvasB);
+    if(slotB.chart){ slotB.chart.destroy(); slotB.chart = null; slotB.lastMode = null; }
+    const panneauB = canvasB.closest('.chart-panel');
+    if(panneauB) panneauB.style.display = 'none';
+  }
   if(noteEl){
     if(chartMode==='daily'){ noteEl.textContent = tr('chartNoteDaily'); noteEl.style.display = 'block'; }
     else { noteEl.textContent = ''; noteEl.style.display = 'none'; }
@@ -828,6 +863,258 @@ function renderOneChart(canvas, chartMode){
   // Mode "Âge" : catégories et non dates, et deux parts qui somment chacune
   // à 100% de leur série. Traité à part comme "Origine des décès", avant le
   // reste de la fonction qui suppose des SitRep (s) comme source.
+  /* Mode « Pyramide des ages » : le croisement age x sexe, que le fichier
+     porte depuis toujours (casFeminin, casMasculin, decesFeminin,
+     decesMasculin) sans que rien ne le lise. Les deux onglets precedents
+     n'en montraient chacun qu'une marge — la repartition par age d'un cote,
+     le partage femmes/hommes de l'autre — et l'interaction tombait entre les
+     deux. Or c'est elle qui porte le fait : l'excedent feminin n'est pas
+     general, il se concentre sur les 18-29 ans (58,7 % contre 52,9 % au
+     total), tandis que les moins de 5 ans sont a majorite masculine.
+
+     DEUX FIGURES, PAS UNE. Un premier essai superposait cas et deces sur un
+     axe commun. Illisible : les cas montent a 623, les deces plafonnent a
+     166, et toute la variation des deces — de 69 a 166 selon la tranche —
+     s'ecrasait dans 7 % de la largeur. Sur son propre axe borne a 200, la
+     meme variation en occupe 24 %.
+
+     Le partage a un second effet, qui vaut autant que le premier : tant que
+     les deux series partagent un axe, l'oeil calcule un rapport deces/cas.
+     Or ce rapport n'est pas publiable ici — la figure source ne voit que
+     61 % des deces contre 85 % des cas, et le quotient tomberait a 32 % la
+     ou le site affiche 46 % au niveau national. Separees, les deux echelles
+     retirent la tentation au lieu de la corriger par une note. */
+  if(chartMode==='pyramide'){
+    const cible2 = canvasB;
+    const panneau2 = cible2 ? cible2.closest('.chart-panel') : null;
+    if(!DEMOGRAPHIE || !DEMOGRAPHIE.tranches){
+      if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+      slot.lastMode = 'pyramide';
+      const ctx0 = canvas.getContext('2d');
+      ctx0.clearRect(0,0,canvas.width,canvas.height);
+      if(noteEl){ noteEl.textContent = ''; noteEl.style.display = 'none'; }
+      return;
+    }
+
+    // La tranche ouverte est en bas, les nourrissons en haut : c'est le sens
+    // de lecture d'une pyramide, et l'inverse de l'ordre du fichier.
+    const bandes = DEMOGRAPHIE.tranches.slice().reverse();
+    const libelle = t => /^\d+-\d+$/.test(t)
+      ? t.replace('-', '–') + ' ' + tr('chartAgesUnit')
+      : tr('chartAgesOpenEnded');
+    const F = tr('chartSexFemale'), H = tr('chartSexMale');
+
+    // « Femmes » et « Hommes » ecrits au-dessus de leur moitie. Les deux mots
+    // portent seuls l'orientation de la figure : il n'y a plus de legende,
+    // chaque pyramide n'ayant qu'une couleur.
+    const cotes = {
+      id:'cotesPyramide',
+      afterDraw(ch){
+        const {ctx, chartArea:a, scales:{x}} = ch;
+        const zero = x.getPixelForValue(0);
+        ctx.save();
+        ctx.font = '600 11px ' + PALETTE.font;
+        ctx.fillStyle = PALETTE.inkFaint;
+        ctx.textBaseline = 'bottom';
+        ctx.textAlign = 'right';  ctx.fillText(F, zero - 10, a.top - 5);
+        ctx.textAlign = 'left';   ctx.fillText(H, zero + 10, a.top - 5);
+        ctx.restore();
+      }
+    };
+
+    /* Vue « Parts » : une seule pyramide, les deux series ramenees chacune a
+       100 % de son propre total.
+
+       C'est la seule fusion legitime. Sur un axe d'effectifs, la longueur des
+       barres de deces rapportee a celle des cas donne 32,5 %, quand le site
+       affiche 47,9 % de letalite — la figure source voit 85 % des cas mais
+       61 % des deces. En parts, aucun rapport entre les deux series n'est
+       lisible : on compare deux repartitions, ce qui est exactement la
+       question interessante. Et les deux tiennent la meme place a l'ecran,
+       le probleme d'echelle qui imposait deux figures disparait.
+
+       Ce qu'elle revele : les moins de 5 ans font 10,0 % des cas et 19,0 %
+       des deces. Le double. Les 30-49 ans, tranche la plus touchee en volume,
+       font 35,2 % des cas pour 27,2 % des deces. */
+    if(pyramideVue === 'parts'){
+      if(panneau1) panneau1.classList.add('is-parts');
+      if(panneau2) panneau2.style.display = 'none';
+      if(cible2){
+        const s2 = chartSlot(cible2);
+        if(s2.chart){ s2.chart.destroy(); s2.chart = null; s2.lastMode = null; }
+      }
+      const C = DEMOGRAPHIE.totaux.cas, D = DEMOGRAPHIE.totaux.deces;
+      const part = (n, total) => n / total * 100;
+      const series = [
+        { label:tr('chartSexCases'),  sexe:F, pile:'cas',   teinte:PALETTE.info,
+          v:bandes.map(b => -part(b.casFeminin, C)) },
+        { label:tr('chartSexCases'),  sexe:H, pile:'cas',   teinte:PALETTE.info,
+          v:bandes.map(b =>  part(b.casMasculin, C)) },
+        { label:tr('chartSexDeaths'), sexe:F, pile:'deces', teinte:PALETTE.critical,
+          v:bandes.map(b => -part(b.decesFeminin, D)) },
+        { label:tr('chartSexDeaths'), sexe:H, pile:'deces', teinte:PALETTE.critical,
+          v:bandes.map(b =>  part(b.decesMasculin, D)) },
+      ];
+      const borne = Math.ceil(Math.max(...series.flatMap(s => s.v.map(Math.abs))) / 5) * 5;
+      const dataP = {
+        labels: bandes.map(b => libelle(b.tranche)),
+        datasets: series.map(s => ({
+          label:s.label, sexe:s.sexe, stack:s.pile, data:s.v,
+          backgroundColor:s.teinte, borderRadius:1,
+          categoryPercentage:0.96, barPercentage:0.92,
+        }))
+      };
+      // Les effectifs derriere chaque part, pour l'infobulle : une part seule
+      // ne dit pas sur combien de personnes elle repose.
+      const effectifs = bandes.map(b => ({
+        [F+'cas']:b.casFeminin, [H+'cas']:b.casMasculin,
+        [F+'deces']:b.decesFeminin, [H+'deces']:b.decesMasculin,
+      }));
+      const optsP = {
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        animation:false,
+        layout:{ padding:{ top:6 } },
+        scales:{
+          x:{ stacked:true, min:-borne, max:borne,
+              ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10},
+                      callback:v => Math.abs(v) + ' %' },
+              grid:{ color:PALETTE.lineSoft } },
+          y:{ stacked:true,
+              ticks:{ color:PALETTE.inkDim, font:{family:PALETTE.font, size:11} },
+              grid:{ display:false } }
+        },
+        plugins:{
+          title:{ display:true, text:tr('chartPyramidePartsTitre'),
+                  color:PALETTE.ink, font:{family:PALETTE.font, size:12, weight:'600'},
+                  padding:{ bottom:26 } },
+          legend:{ position:'bottom',
+                   labels:{ color:PALETTE.inkDim, font:{family:PALETTE.font, size:11},
+                            boxWidth:10, usePointStyle:true,
+                            // Le cote dit le sexe : deux entrees suffisent.
+                            filter: item => item.datasetIndex === 0 || item.datasetIndex === 2 } },
+          tooltip:{
+            backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
+            titleColor:PALETTE.ink, bodyColor:PALETTE.ink,
+            titleFont:{family:PALETTE.font}, bodyFont:{family:PALETTE.font},
+            callbacks:{ label: c => {
+              const cle = c.dataset.sexe + (c.dataset.stack === 'cas' ? 'cas' : 'deces');
+              const n = (effectifs[c.dataIndex] || {})[cle];
+              return c.dataset.sexe + ' · ' + c.dataset.label + ' : '
+                   + Math.abs(c.parsed.x).toFixed(1).replace('.', ',') + ' %'
+                   + (n != null ? ' (' + fmt(n) + ')' : '');
+            } }
+          }
+        }
+      };
+      if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+      slot.chart = new Chart(canvas.getContext('2d'),
+        { type:'bar', data:dataP, options:optsP, plugins:[cotes] });
+      slot.lastMode = 'pyramide';
+      if(noteEl){
+        noteEl.textContent = phraseSexe() + ' ' + noteDemographie() + ' '
+                           + tr('chartPyramideBandes') + ' '
+                           + tr('chartPyramidePartsNote');
+        noteEl.style.display = 'block';
+      }
+      return;
+    }
+
+    /* Une pyramide pour une serie : les deux colonnes du fichier, la teinte,
+       le titre et l'effectif total qui l'accompagne. */
+    const pyramide = (champF, champH, teinte, titre, total) => {
+      const ampleur = Math.max(...bandes.flatMap(b => [b[champF], b[champH]]));
+      // Arrondi au pas superieur : la centaine au-dessus de 200, la
+      // cinquantaine en dessous, pour que la petite serie ne soit pas
+      // ecrasee par un arrondi trop genereux.
+      const pas = ampleur > 200 ? 100 : 50;
+      const borne = Math.ceil(ampleur / pas) * pas;
+      return {
+        data:{
+          labels: bandes.map(b => libelle(b.tranche)),
+          // Barres jointives a un filet pres. Un plafond d'epaisseur laissait
+          // 60 % de la ligne en blanc : la figure se lisait comme cinq barres
+          // isolees, alors qu'une pyramide se lit comme un profil continu, ou
+          // l'ecart d'une tranche a la suivante se voit au decrochage du bord.
+          // categoryPercentage rend a la barre toute sa ligne, barPercentage
+          // reprend les 6 % qui separent deux voisines.
+          datasets:[
+            { label:F, stack:'s', data:bandes.map(b => -b[champF]),
+              backgroundColor:teinte, borderRadius:1,
+              categoryPercentage:1, barPercentage:0.94 },
+            { label:H, stack:'s', data:bandes.map(b =>  b[champH]),
+              backgroundColor:teinte, borderRadius:1,
+              categoryPercentage:1, barPercentage:0.94 },
+          ]
+        },
+        options:{
+          indexAxis:'y', responsive:true, maintainAspectRatio:false,
+          // Le greffon d'en-tetes ne s'attache qu'a la construction : ce mode
+          // reconstruit son graphique a chaque passage, et l'animation
+          // repartirait de zero a chaque retour sur l'onglet. Elle n'apporte
+          // rien a un instantane fige au 5 aout.
+          animation:false,
+          // Reserve la bande ou le greffon ecrit « Femmes » / « Hommes » : ce
+          // texte est peint hors de la zone de trace, ou Chart.js ne prevoit
+          // aucune place — sans cette marge il est rogne par le panneau.
+          layout:{ padding:{ top:6 } },
+          scales:{
+            x:{ stacked:true, min:-borne, max:borne,
+                ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10},
+                        callback:v => fmt(Math.abs(v)) },
+                grid:{ color:PALETTE.lineSoft } },
+            y:{ stacked:true,
+                ticks:{ color:PALETTE.inkDim, font:{family:PALETTE.font, size:11} },
+                grid:{ display:false } }
+          },
+          plugins:{
+            // L'effectif total est colle au titre : deux echelles differentes
+            // cote a cote invitent a comparer les longueurs, le nombre dit
+            // qu'elles ne sont pas comparables.
+            title:{ display:true, text:titre + ' (' + fmt(total) + ')',
+                    color:PALETTE.ink, font:{family:PALETTE.font, size:12, weight:'600'},
+                    // 26 px sous le titre : le greffon ecrit « Femmes » /
+                    // « Hommes » juste au-dessus de la zone de trace, et a
+                    // 12 px les deux textes se chevauchaient.
+                    padding:{ bottom:26 } },
+            // Une seule couleur par figure : la legende n'apprendrait rien.
+            legend:{ display:false },
+            tooltip:{
+              backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
+              titleColor:PALETTE.ink, bodyColor:PALETTE.ink,
+              titleFont:{family:PALETTE.font}, bodyFont:{family:PALETTE.font},
+              callbacks:{ label: c => c.dataset.label + ' : ' + fmt(Math.abs(c.parsed.x)) }
+            }
+          }
+        }
+      };
+    };
+
+    const gauche = pyramide('casFeminin', 'casMasculin', PALETTE.info,
+                            tr('chartSexCases'), DEMOGRAPHIE.totaux.cas);
+    if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+    slot.chart = new Chart(canvas.getContext('2d'),
+      { type:'bar', data:gauche.data, options:gauche.options, plugins:[cotes] });
+    slot.lastMode = 'pyramide';
+
+    if(cible2 && panneau2){
+      panneau2.style.display = '';
+      const slot2 = chartSlot(cible2);
+      const droite = pyramide('decesFeminin', 'decesMasculin', PALETTE.critical,
+                              tr('chartSexDeaths'), DEMOGRAPHIE.totaux.deces);
+      if(slot2.chart){ slot2.chart.destroy(); slot2.chart = null; }
+      slot2.chart = new Chart(cible2.getContext('2d'),
+        { type:'bar', data:droite.data, options:droite.options, plugins:[cotes] });
+      slot2.lastMode = 'pyramide';
+    }
+
+    if(noteEl){
+      noteEl.textContent = phraseSexe() + ' ' + noteDemographie() + ' '
+                         + tr('chartPyramideBandes');
+      noteEl.style.display = 'block';
+    }
+    return;
+  }
+
   if(chartMode==='ages'){
     const wantedType = 'bar';
     if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode !== 'ages')){
@@ -1583,6 +1870,20 @@ function renderChart(){
    qui designe son canvas : <nav data-chart-tabs="dataChart">. C'est le seul
    endroit du site ou des onglets se justifient — trois lectures d'un meme
    sujet, la ou l'accueil n'en montre qu'une. */
+/* Bascule « Effectifs » / « Parts ». Elle ne vit que dans le cadre du
+   graphique, et ne pilote que le mode pyramide : les autres modes la
+   masquent. */
+document.querySelectorAll('[data-pyramide-vue]').forEach(nav=>{
+  nav.querySelectorAll('.subtab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      nav.querySelectorAll('.subtab-btn').forEach(b=>b.classList.toggle('active', b === btn));
+      pyramideVue = btn.dataset.vue;
+      const cible = document.getElementById('dataChart');
+      if(cible) safeRun(()=>renderOneChart(cible, cible.dataset.chart), 'pyramideVue');
+    });
+  });
+});
+
 document.querySelectorAll('[data-chart-tabs]').forEach(nav=>{
   const canvas = document.getElementById(nav.dataset.chartTabs);
   if(!canvas) return;

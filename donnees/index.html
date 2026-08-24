@@ -99,7 +99,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=207b9df917">
+<link rel="stylesheet" href="/assets/css/site.css?v=891c754a20">
 </head>
 <body>
 
@@ -322,14 +322,34 @@
         <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">Cas cumulés / région</button>
         <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">Suivi des contacts</button>
         <button type="button" class="subtab-btn" data-mode="communityDeaths" data-i18n="chartModeCommunityDeaths">Répartition des décès</button>
-        <button type="button" class="subtab-btn" data-mode="ages" data-i18n="chartModeAges">Cas et décès par âge</button>
-        <button type="button" class="subtab-btn" data-mode="sexes" data-i18n="chartModeSexes">Cas et décès par sexe</button>
+        <!-- « Cas et deces par age » et « Cas et deces par sexe » ont ete
+             retires de la barre : l'onglet « Age et sexe » porte les deux, et
+             le croisement en plus. Leurs modes restent dans app.js, comme le
+             mode deathsPlace : ce sont des decisions de publication, pas des
+             suppressions de code, et il suffit de remettre un bouton ici pour
+             qu'ils reviennent. -->
+        <button type="button" class="subtab-btn" data-mode="pyramide" data-i18n="chartModePyramide">Âge et sexe</button>
       </nav>
     </div>
 
     <div class="panel chart-panel-wrap">
-      <div class="chart-panel">
-        <canvas id="dataChart" data-chart="epidemic"></canvas>
+      <!-- Bascule propre a la pyramide, masquee par les autres modes. En
+           « Effectifs », deux figures cote a cote ; en « Parts », une seule,
+           chaque serie ramenee a 100 % de son propre total. -->
+      <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
+        <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">Effectifs</button>
+        <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">Parts</button>
+      </nav>
+      <div class="chart-duo">
+        <div class="chart-panel">
+          <canvas id="dataChart" data-chart="epidemic"></canvas>
+        </div>
+        <!-- Second cadre, vide et masque sauf pour la pyramide, seul mode a
+             tracer deux figures : les cas et les deces ont des ordres de
+             grandeur trop differents pour partager un axe. -->
+        <div class="chart-panel chart-panel-duo" style="display:none;">
+          <canvas id="dataChartB"></canvas>
+        </div>
       </div>
       <div class="map-note chart-note"></div>
     </div>
@@ -470,8 +490,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=fad0ddf2e2"></script>
-<script defer src="/assets/js/app.js?v=143da9b0da"></script>
+<script defer src="/assets/js/i18n.js?v=ea60ab121f"></script>
+<script defer src="/assets/js/app.js?v=23044b5f8f"></script>
 
 </body>
 </html>
