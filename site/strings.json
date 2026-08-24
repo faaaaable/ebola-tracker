@@ -154,7 +154,6 @@
     "virusIncubNote": "Une personne infectée n'est pas contagieuse tant qu'elle n'a pas de symptômes. C'est ce qui rend le suivi des contacts efficace : on isole avant que la transmission ne devienne possible.",
     "virusPhasesTitle": "Évolution de la maladie",
     "timelineSpreadTitle": "L'épidémie atteint {the}",
-    "timelineSpreadText": "Les bulletins rapportent des cas confirmés {in} pour la première fois.",
     "footerNotice": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">INSP</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle.",
     "footerNoticeMore": "Avertissement complet",
     "timelineTollLine": "{cases} cas confirmés · {deaths} décès",
@@ -369,7 +368,6 @@
     "virusIncubNote": "An infected person is not contagious until symptoms appear. That is what makes contact tracing effective: people are isolated before transmission becomes possible.",
     "virusPhasesTitle": "Course of the disease",
     "timelineSpreadTitle": "The outbreak reaches {name}",
-    "timelineSpreadText": "Bulletins report confirmed cases in {name} for the first time.",
     "footerNotice": "Data compiled from the bulletins of the <a href=\"https://insp.cd/\" rel=\"noopener\">INSP</a> and <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO</a>. Informational site: neither medical advice nor an official source.",
     "footerNoticeMore": "Full disclaimer",
     "timelineTollLine": "{cases} confirmed case{cases?s} · {deaths} death{deaths?s}",
@@ -571,6 +569,61 @@
         "q": "Is this site an official source?",
         "a": "<p>No. It is an independent site that compiles and formats public data already published by official sources, without its own analysis or interpretation. For any health or travel decision, refer to the WHO and the DRC Ministry of Health.</p>"
       }
+    }
+  ],
+  "provinceArrivals": [
+    {
+      "province": "Ituri",
+      "date": "2026-05-08",
+      "sitrep": "001",
+      "timeline": false,
+      "pageFr": "L'épidémie y a démarré : officiellement notifiée le 8 mai 2026, déclarée le 15 mai.",
+      "pageEn": "The outbreak started here: officially notified on 8 May 2026, declared on 15 May."
+    },
+    {
+      "province": "Nord-Kivu",
+      "date": "2026-05-19",
+      "sitrep": "004",
+      "fr": "La province entre au tableau des bulletins avec trois cas confirmés. Les deux rapports précédents ne la mentionnaient pas ; celui du 18 mai manque à l'archive, la date est donc un plancher.",
+      "en": "The province enters the bulletin table with three confirmed cases. The two previous reports do not mention it; the 18 May bulletin is missing from the archive, so this date is a lower bound.",
+      "pageFr": "Premiers cas confirmés le 19 mai 2026, date du premier bulletin qui la mentionne.",
+      "pageEn": "First confirmed cases on 19 May 2026, the date of the first bulletin to mention it."
+    },
+    {
+      "province": "Sud-Kivu",
+      "date": "2026-05-21",
+      "sitrep": "007",
+      "fr": "« Une nouvelle province touchée (Sud-Kivu) à travers la ZS de Miti-Murhesa », annonce le bulletin du jour. La province en restera à trois cas.",
+      "en": "“A newly affected province (Sud-Kivu), through Miti-Murhesa health zone”, the day's bulletin announces. The province will not go beyond three cases.",
+      "pageFr": "Premier cas confirmé le 21 mai 2026.",
+      "pageEn": "First confirmed case on 21 May 2026."
+    },
+    {
+      "province": "Haut-Uélé",
+      "date": "2026-06-25",
+      "sitrep": "044",
+      "fr": "Deux contacts venus de la zone de Nia-Nia sont testés positifs à Wamba. Leurs cas restent comptés en Ituri, leur zone d'origine : le bulletin n'attribue une ligne au Haut-Uélé que le 10 juillet.",
+      "en": "Two contacts from the Nia-Nia health zone test positive in Wamba. Their cases stay counted in Ituri, their zone of origin: the bulletin only gives Haut-Uélé a line of its own on 10 July.",
+      "pageFr": "Premiers cas confirmés le 25 juin 2026, d'abord comptés en Ituri : le bulletin n'attribue une ligne à la province que le 10 juillet.",
+      "pageEn": "First confirmed cases on 25 June 2026, initially counted in Ituri: the bulletin only gives the province a line of its own on 10 July."
+    },
+    {
+      "province": "Tshopo",
+      "date": "2026-06-30",
+      "sitrep": "047",
+      "fr": "Une patiente de 24 ans, enceinte de six mois, meurt au PK 51 dans la zone de Nia-Nia ; son corps est transporté vers Kisangani. Comme au Haut-Uélé, le cas reste compté en Ituri jusqu'au 10 juillet.",
+      "en": "A 24-year-old woman, six months pregnant, dies at PK 51 in the Nia-Nia health zone; her body is taken to Kisangani. As with Haut-Uélé, the case stays counted in Ituri until 10 July.",
+      "pageFr": "Premier cas confirmé le 30 juin 2026, d'abord compté en Ituri : le bulletin n'attribue une ligne à la province que le 10 juillet.",
+      "pageEn": "First confirmed case on 30 June 2026, initially counted in Ituri: the bulletin only gives the province a line of its own on 10 July."
+    },
+    {
+      "province": "Bas-Uélé",
+      "date": "2026-08-12",
+      "sitrep": "090",
+      "fr": "« Une nouvelle province nouvellement affectée (Bas Uélé : ZS Buta) » : un cas confirmé, un décès. La sixième et dernière province touchée à ce jour.",
+      "en": "“A newly affected province (Bas Uélé: Buta health zone)”: one confirmed case, one death. The sixth and, to date, last province affected.",
+      "pageFr": "Premier cas confirmé le 12 août 2026.",
+      "pageEn": "First confirmed case on 12 August 2026."
     }
   ]
 }

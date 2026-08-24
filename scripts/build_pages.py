@@ -1091,53 +1091,59 @@ def social_updates_list_html(updates, lang, i18n_lang):
     return "\n".join(parts)
 
 
-def province_arrival_events(config, province_history, strings_lang, lang, i18n_lang,
+def province_arrival_events(config, arrivals, strings_lang, lang, i18n_lang,
                             urls=None):
-    """Date a laquelle chaque province enregistre son premier cas confirme.
+    """Date a laquelle l'epidemie gagne chaque province, telle que les bulletins
+    l'annoncent — et non telle qu'un calcul la devinerait.
 
-    Elle se lit dans data/province-history.json, qui donne le cumul par province
-    bulletin apres bulletin. La province de depart — celle dont la premiere date
-    est la plus ancienne — est ecartee : son arrivee, c'est la declaration de
-    l'epidemie, deja presente dans la chronologie.
+    Ces dates etaient auparavant derivees de data/province-history.json, en
+    prenant la premiere date ou une province y apparaissait avec un cumul non
+    nul. Ce calcul ne pouvait pas etre juste : ce fichier ne dit pas quand une
+    province a eu son premier cas, il dit quand elle a obtenu sa propre ligne
+    dans le tableau. Trois dates sur cinq etaient fausses — le Sud-Kivu de dix
+    jours, la Tshopo de dix, le Haut-Uele de quinze.
 
-    Le fichier contient des lignes parasites issues de l'extraction des PDF
-    (« touchees », par exemple) : on ne retient que les provinces connues.
+    L'ecart n'est pas un defaut d'extraction, c'est une convention de
+    surveillance que les bulletins enoncent noir sur blanc : « Les cas importes
+    a Wamba (Province de Haut Uele) sont comptabilises a Niania et ont ete
+    retournes a Niania » (SitRep 046). Les premiers malades du Haut-Uele et de
+    la Tshopo venaient de la zone de Nia-Nia et y restaient comptes ; leurs
+    provinces n'ont recu de ligne que le 10 juillet, marquee d'un asterisque
+    « Non comptabilise car deja inclus dans les cas de la Zone de Sante de
+    Niania ».
+
+    D'ou la regle suivie ici, qui vaut au-dela de ce cas : les dates dans la
+    prose, les nombres dans les tableaux. Une chronologie peut dire que le
+    virus a atteint le Haut-Uele le 25 juin, parce que c'est une affirmation
+    narrative sourcee a une phrase de bulletin et qu'elle n'a besoin de
+    s'additionner avec rien. Les cartes et les graphiques, eux, restent sur les
+    tableaux officiels — aucun cas n'est deplace d'une province a l'autre.
+
+    Les dates vivent donc dans site/strings.json, sous « provinceArrivals »,
+    chacune avec le numero du bulletin qui l'etablit. L'Ituri n'y figure pas :
+    son arrivee, c'est la declaration de l'epidemie, deja dans la chronologie.
     """
-    known = set(config["provinceSlugs"])
-    first = {}
-    for entry in sorted(province_history, key=lambda e: e.get("date") or ""):
-        date = entry.get("date")
-        if not date:
-            continue
-        for province in entry.get("provinces", []):
-            name = province.get("name")
-            if name not in known or name in first:
-                continue
-            if (province.get("confirmed") or 0) > 0:
-                first[name] = date
-
-    if len(first) < 2:
-        return []
-    origin = min(first, key=lambda n: first[n])
-
     events = []
-    for name, date in sorted(first.items(), key=lambda item: item[1]):
-        if name == origin:
+    for arrival in arrivals:
+        # L'Ituri porte « timeline: false » : son arrivee, c'est l'epidemie
+        # elle-meme, deja racontee par les jalons rediges du 24 avril et du
+        # 15 mai. Sa fiche sert en revanche a sa page province.
+        if arrival.get("timeline") is False:
             continue
+        name = arrival["province"]
         forms = province_forms(config, name, lang)
         events.append({
-            "date": date,
+            "date": arrival["date"],
             "kind": "spread",
             "title": interp(strings_lang["timelineSpreadTitle"], forms),
-            "text": esc(interp(strings_lang["timelineSpreadText"], forms)),
+            "text": esc(arrival[lang]),
             "source": None,
             "province": name,
         })
     return events
 
 
-def timeline_events(strings, sitreps, lang, i18n_lang, config=None,
-                    province_history=None, urls=None):
+def timeline_events(strings, sitreps, lang, i18n_lang, config=None, urls=None):
     """Chronologie : jalons rédigés + seuils franchis, calculés sur l'archive."""
     events = []
     for event in strings["timelineEvents"]:
@@ -1204,9 +1210,10 @@ def timeline_events(strings, sitreps, lang, i18n_lang, config=None,
             "source": last["date"],
         })
 
-    if config is not None and province_history:
+    if config is not None and strings.get("provinceArrivals"):
         events += province_arrival_events(
-            config, province_history, strings_lang, lang, i18n_lang, urls=urls)
+            config, strings["provinceArrivals"], strings_lang, lang, i18n_lang,
+            urls=urls)
 
     events.sort(key=lambda e: e["date"])
     attach_toll(events, series)
@@ -1579,8 +1586,7 @@ def main():
         }
 
         events = timeline_events(strings, sitreps, lang, i18n_lang,
-                                 config=config, province_history=province_history,
-                                 urls=urls)
+                                 config=config, urls=urls)
         common_seed["timelineItems"] = render_timeline_vertical(
             events, strings_lang, i18n_lang, urls, lang, config["provinceSlugs"])
         # L'apercu de l'accueil part du debut de l'epidemie : quatre jalons a
@@ -1644,6 +1650,14 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         # d'une province a monte — et, faute de hausse, depuis quand il ne
         # bouge plus. Les retrouver demanderait d'extraire les annonces de
         # nouvelle province du texte des bulletins, ce que rien ne fait.
+        # Depuis quand : la meme table curee que la chronologie, dans une
+        # redaction courte. Pour le Haut-Uele et la Tshopo, la phrase porte la
+        # reattribution — sans elle, la date contredirait la carte de la meme
+        # page, dont le curseur n'allume leurs zones qu'au 10 juillet.
+        arrival = next((a for a in strings.get("provinceArrivals", [])
+                        if a["province"] == name), None)
+        arrival_line = esc(arrival["page" + lang.capitalize()]) if arrival else ""
+
         first_seen, last_case = province_case_window(province_history, name)
         window_line = ""
         if last_case:
@@ -1734,7 +1748,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                                   strings_lang, geo.get("aliases", {})),
             "province.chart": province_chart_html(province, strings_lang),
             "province.query": name.replace(" ", "%20"),
-            "province.rank": esc(" ".join(x for x in (rank_line, window_line) if x)),
+            # Rang dans le pays, puis quand ca a commence, puis quand ca a
+            # bouge pour la derniere fois : un bloc temporel qui se lit d'un
+            # trait, sous le paragraphe qui porte la situation du jour.
+            "province.rank": " ".join(
+                x for x in (esc(rank_line), arrival_line, esc(window_line)) if x),
         })
     values["t.provinceUpdatedNote"] = esc(interp(
         strings_lang["provinceUpdatedNote"],
