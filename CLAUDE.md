@@ -63,6 +63,20 @@ déclenchable à la main depuis l'onglet Actions.
 pip install requests beautifulsoup4 pdfplumber pyshp
 ```
 
+**L'environnement vit hors du dépôt**, dans `~/.venvs/ebola-tracker` — construit
+sur `/usr/bin/python3` (3.9.6, le seul Python de la machine). Il est dehors pour
+une raison précise : GitHub Pages sert tout le dépôt, `.gitignore` ne couvre pas
+`.venv/`, et un environnement commité deviendrait publiquement téléchargeable.
+
+```bash
+source ~/.venvs/ebola-tracker/bin/activate
+```
+
+Corollaire d'un `rm -rf` suivi d'un `git clone` : l'environnement disparaît avec
+le reste du non-versionné — `data/corpus/`, `tmp/`, `assets/social/`. Les PDF de
+`reports/`, eux, sont versionnés et reviennent seuls. Reconstruire coûte une
+installation de paquets et deux minutes de corpus.
+
 Plus **Node 20+** dans le `PATH` : `build_pages.py` appelle
 `scripts/dump_i18n.mjs` pour lire `assets/js/i18n.js`. Aucun paquet npm, pas de
 `package.json`.
@@ -276,24 +290,27 @@ historiques cohérents, chaque rapport listé ayant son PDF. Il ne modifie rien.
 
 ## Le corpus gelé — la couche de recherche
 
-`data/corpus/` (76 Mo, hors dépôt) est un **intermédiaire complet des 104
+`data/corpus/` (78 Mo, hors dépôt) est un **intermédiaire complet des 106
 rapports**, construit pour ne plus jamais rouvrir un PDF pendant une analyse.
 Il ne sert pas le site : il sert à décider ce que le site devrait montrer.
 
 Reconstruction, dans cet ordre :
 
 ```bash
-python scripts/geler_corpus.py         # manifeste.json + textes/ — gèle les 104 rapports
+python scripts/geler_corpus.py         # manifeste.json + textes/ — gèle les 106 rapports
 python scripts/cartographier_corpus.py # carte.json — époques éditoriales, sections
 python scripts/recenser_corpus.py      # recensement-prose.json + recensement-tableaux.json
-python scripts/extraire_cellules.py    # cellules.jsonl — aplatit 596 types de tableaux
+python scripts/extraire_cellules.py    # cellules.jsonl — aplatit 602 types de tableaux
 python scripts/catalogue_corpus.py     # catalogue.json — fusion chiffrée avec couverture
 python scripts/extraire_qualitatif.py  # qualitatif.jsonl — les sections « Défis »
 python scripts/demographie_figures.py  # demographie.jsonl -> data/demographie.json
 ```
 
-Chacun met plusieurs minutes. `manifeste.json` porte le SHA-256 de chaque PDF,
-son nombre de pages et de tableaux.
+**Seul `geler_corpus.py` est long** — 102 s pour les 106 PDF, mesure du 24 août.
+Les six suivants travaillent sur l'intermédiaire gelé et rendent la main en
+quelques secondes : c'est tout l'intérêt du gel. Une reconstruction complète
+coûte donc environ deux minutes, pas une demi-heure. `manifeste.json` porte le
+SHA-256 de chaque PDF, son nombre de pages et de tableaux.
 
 **Quatre époques éditoriales**, identifiées par `cartographier_corpus.py` :
 
@@ -302,7 +319,7 @@ son nombre de pages et de tableaux.
 | A | 15 | 001 → 016 |
 | B | 39 | 017 → 058 |
 | C | 22 | 059 → 083 |
-| D | 15 | 084 → 098 |
+| D | 17 | 084 → 100 |
 | OMS | 13 | rapports hebdomadaires |
 
 C'est cette carte qui permet de répondre « depuis quand cette colonne
@@ -311,7 +328,7 @@ du décès n'apparaissent qu'à l'époque C — d'où la fenêtre bornée au 13 
 que rien ne pourra faire remonter.
 
 **`extraire_cellules.py` mérite d'être compris.** Plutôt qu'un parseur par type
-de tableau — il y en a 596 —, il applique le même traitement à tous et produit
+de tableau — il y en a 602 —, il applique le même traitement à tous et produit
 des cellules nommées. `catalogue_corpus.py` les fusionne ensuite avec les
 nombres de la prose et calcule la **couverture** de chaque indicateur : sur
 combien de rapports il existe. C'est ce qui a permis de dire que 50 cellules
