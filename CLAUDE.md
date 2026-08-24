@@ -132,6 +132,117 @@ restent dans le code sans bouton — décisions de publication, pas suppressions
 
 ---
 
+## La structure du site
+
+**Deux langues, un seul générateur.** `site/pages.json` déclare huit pages avec
+un slug par langue — `donnees/` et `data/`, `le-virus/` et `the-virus/`. Les
+six pages province se déclinent depuis `provinceSlugs` (`Haut-Uélé` →
+`haut-uele`). Tout est calculé par la classe `Urls` ; **ne jamais écrire une
+URL en dur**, les liens alternés et le `sitemap.xml` en dépendent.
+
+**Le rythme de la maquette : `section-split`.** Une grille à deux colonnes —
+une colonne de titre fixe de 220 px, le contenu à droite. C'est ce qui donne
+au site son air de rapport plutôt que de tableau de bord. Sous 1 180 px elle
+retombe sur une seule colonne.
+
+Conséquence à connaître : le contenu ne dispose jamais de toute la largeur.
+À 1 280 px il reste 692 px après la colonne latérale (240), les gouttières
+(2 × 48) et la colonne de titre (220 + 32). C'est ce calcul qui a fait déborder
+les cartes de province.
+
+**Trois niveaux de texte.** `site/strings.json` pour le générateur,
+`assets/js/i18n.js` pour le JavaScript, et les gabarits `site/pages/*.html`
+pour la structure. Un texte visible ne doit jamais être écrit dans un gabarit
+s'il varie selon la langue.
+
+**Le contenu curé vit dans `strings.json`** : `timelineEvents` (jalons
+rédigés), `provinceArrivals` (dates d'arrivée avec leur bulletin source),
+`faqItems`. C'est le mécanisme prévu pour un fait historique qu'aucune
+extraction ne produit.
+
+---
+
+## La carte, et comment elle croise les données
+
+**Une seule source géographique.** `build_geo.py` lit le shapefile OCHA des 519
+zones de santé et produit deux fichiers, **une fois pour toutes** :
+
+- `site/geo/zones-overview.json` — les 519 tracés, la carte nationale
+- `site/geo/province-maps.json` — un cadrage par province
+
+Ils ne se régénèrent pas au quotidien. `build_pages.py` les lit et **colorie**
+les zones d'après `data/latest.json`.
+
+**La projection est une plate-carrée.** `(lon − minLon) × scale` en x,
+`(maxLat − lat) × scale` en y, `scale = 1000 / (maxLon − minLon)`. Les repères
+de `mapLandmarks` élargissent le cadre avant le calcul, pour que Kisangani ou
+Goma ne collent pas au bord.
+
+**Simplification Douglas-Peucker, à tolérance variable** :
+
+| Constante | Valeur | Usage |
+|---|---|---|
+| `TOL_OVERVIEW` | 0,08 (~9 km) | zones sans cas, carte nationale |
+| `TOL_OVERVIEW_AFFECTED` | 0,02 (~2 km) | zones touchées — plus de détail là où on regarde |
+| `TOL_PROVINCE` | 0,009 (~1 km) | zones de la province affichée |
+| `TOL_PROVINCE_AROUND` | 0,05 (~5 km) | voisines, réduites à une silhouette |
+| `TOL_DETAIL` | 0,005 (~500 m) | réservé au GeoJSON |
+
+`simplify_safely()` redescend par paliers (tolérance, /4, /16, 0) : une zone
+urbaine — Goma, Bunia, celles de Kinshasa — est plus petite que la tolérance et
+**disparaîtrait** de la carte si on la simplifiait telle quelle.
+
+**Le croisement se fait par clé normalisée**, jamais par nom affiché. Chaque
+zone porte une `key` (accents retirés, casse et séparateurs écrasés) qui sert
+de pont entre le shapefile, `latest.json` et `zones-history.json`.
+
+**Le curseur de temps** lit `zones-history.json` : un instantané des zones par
+bulletin. Une zone absente d'un instantané n'est pas coloriée à cette date.
+C'est pourquoi le rattrapage de la zone Tshopo a dû reprendre neuf instantanés
+un par un.
+
+---
+
+## Ne pas se tromper sur les noms de zones
+
+**C'est le piège principal du projet.** Les bulletins écrivent le même nom de
+plusieurs façons, parfois dans un même rapport : `BAMBU`/`Bambu`,
+`Oicha**`/`Oicha`, `Nia-Nia`/`Nia Nia`, `Gety`/`Gethy`,
+`Boma Mangbetu`/`Boma-Mangbetu`, `Wanie-Rukula`/`Wanierukula`.
+
+**Deux normalisations, à ne pas confondre :**
+
+- `normalize_zone_key()` dans `update_data.py` — dédoublonne à l'extraction.
+  Insensible à la casse, aux tirets/espaces et aux **astérisques de note de bas
+  de page**.
+- `normalise()` dans `build_geo.py` et `normalise_zone()` dans
+  `build_pages.py` — même principe, pour rapprocher nos noms de ceux du
+  shapefile.
+
+**Le rapprochement se fait en trois passes, de la plus stricte à la plus
+tolérante, et refuse ce qui reste ambigu plutôt que de deviner** :
+
+1. Correspondance exacte sur la clé normalisée.
+2. Sinon, **dans la même province uniquement**, la plus proche par distance
+   d'édition — acceptée si l'écart est **≤ 2 caractères**, et enregistrée comme
+   alias.
+3. Sinon « NON TROUVÉE ». Aucune supposition.
+
+Deux alias sont actuellement retenus, dans `zones-overview.json` :
+`mongbwalu → mongbalu` et `nyankunde → nyakunde`.
+
+**Trois règles pratiques :**
+
+- Ne jamais comparer deux noms de zone par égalité de chaîne. Toujours passer
+  par la clé normalisée.
+- **Une ré-extraction peut changer l'orthographe retenue.** Un rattrapage du
+  24 août a produit « Makiso--Kisangani » avec deux tirets. Toujours diffuser
+  avant/après avant de publier un rattrapage.
+- Une zone peut porter le nom de sa province — la Tshopo est la seule du pays.
+  Voir « Pièges connus ».
+
+---
+
 ## Comment l'extraction fonctionne
 
 Le format des SitRep a changé **quatre fois** depuis mai. `update_data.py` ne
