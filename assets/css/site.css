@@ -716,9 +716,28 @@ td:first-child{color:var(--ink);font-weight:500;}
   font-size:10.5px;color:var(--ink-faint);line-height:1.4;
 }
 
-/* Sous une certaine largeur, six colonnes deviennent illisibles : on repasse
-   en grille qui s'enroule. */
-@media (max-width:1080px){
+/* Le libelle et le chiffre cote a cote demandent 135 px : « Cas confirmés »
+   en fait 83 a lui seul, insecable, et « 4 607 » 47. La carte n'offre cette
+   largeur qu'a partir d'un viewport de ~1650 px — colonne laterale (240),
+   gouttieres (2x48), colonne de titre (220 + 32) et cinq gouttieres de grille
+   pris sur la largeur. En dessous, le chiffre sortait de sa carte et passait
+   SOUS la suivante, qui a un fond opaque : sur un 13 pouces on ne lisait plus
+   que le « 4 » de « 4 607 ». Le libelle passe donc au-dessus du chiffre, ce
+   qui ramene le besoin a la largeur du seul libelle, 83 px.
+
+   Borne basse a 1401 px : en dessous la grille s'enroule (regle suivante) et
+   la carte repasse au-dessus de 180 px, ou le cote a cote tient sans peine.
+   Inutile d'empiler sur telephone, ou la carte fait toute la largeur. */
+@media (min-width:1401px) and (max-width:1680px){
+  .pc-stat{flex-direction:column;align-items:flex-start;gap:0;}
+  .pc-stat .k{line-height:1.35;}
+}
+
+/* Empile ou non, sous ~1400 px la carte tombe a 85 px de large : le libelle
+   lui-meme n'y tient plus. Six colonnes n'ont alors plus de sens, la grille
+   s'enroule. Seuil releve de 1080 a 1400 px : entre les deux, tous les 13
+   pouces heritaient d'une disposition calculee pour un grand ecran. */
+@media (max-width:1400px){
   .province-grid{
     grid-auto-flow:row;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;
   }
