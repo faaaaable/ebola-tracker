@@ -69,7 +69,15 @@ Plus **Node 20+** dans le `PATH` : `build_pages.py` appelle
 
 `pyshp` ne sert qu'à `build_geo.py`, qui ne tourne pas quotidiennement.
 
-Chrome n'est nécessaire que pour `scripts/audit_mobile.mjs` et les captures.
+Chrome n'est nécessaire que pour `scripts/audit_mobile.mjs` et les outils de
+`scripts/verif/` — neuf scripts qui pilotent Chrome par le protocole DevTools
+pour contrôler le site **rendu** plutôt que son code. Voir leur README.
+
+Le plus utile : `capture_canvas.mjs`, seule façon fiable de capturer un
+graphique — ils s'animent au chargement et se redessinent hors écran, une
+copie d'écran ordinaire attrape un tracé à moitié dessiné ou un canevas vide.
+Et `test_onglets.mjs`, à lancer après toute modification d'`app.js` : il
+parcourt les onglets deux fois et rapporte les erreurs console.
 
 ---
 
@@ -223,8 +231,82 @@ autres. Un tableau historique demanderait une source extérieure au corpus.
   et cette part **ne bouge pas** depuis six semaines — 61,6 % en moyenne, sans
   tendance décelable au-delà du bruit d'échantillonnage.
 - **Les tranches d'âge sont inégales** (5, 13, 12, 20 ans, puis ouverte).
-  Rapporté à une année d'âge, ce sont les 18-29 ans les plus touchés, devant
-  les 0-4 ans — l'inverse de ce que suggèrent les barres brutes.
+  Rapporté à une année d'âge : 76,4 cas pour les 18-29 ans, 69,0 pour les 0-4,
+  60,9 pour les 30-49 et 35,0 pour les 5-17. L'ordre s'inverse presque
+  complètement par rapport aux barres brutes, où les 30-49 dominent.
+- **Le lieu du décès varie fortement selon la province** : 66,8 % en communauté
+  au Nord-Kivu, 60,7 % en Ituri, 50,0 % au Haut-Uélé. Cette lecture n'est plus
+  affichée — le détail reste dans `deces-lieu.json`.
+- **L'Ituri pèse 77,5 % des décès classés** : toute courbe nationale sur ce
+  sujet suit d'abord la sienne.
+
+---
+
+## Décisions écartées, et pourquoi
+
+Ce que le site refuse de faire compte autant que ce qu'il fait. Ces choix ont
+été pesés une fois ; les rouvrir demande de reprendre l'argument, pas de le
+redécouvrir.
+
+**Aucun taux de létalité par âge ni par sexe.** La figure démographique ne voit
+que 85,2 % des cas mais 60,8 % des décès. Un quotient calculé dessus donne
+32,5 % quand le site affiche 47,9 % de létalité nationale. Les onglets montrent
+donc des **parts** — part des cas, part des décès —, jamais un rapport entre
+les deux. C'est aussi pourquoi la pyramide des âges sépare cas et décès en deux
+figures à échelles distinctes : sur un axe commun, l'œil calcule le quotient
+interdit.
+
+**Aucune réattribution de cas d'une province à l'autre.** Les premiers malades
+du Haut-Uélé et de la Tshopo sont restés comptés en Ituri. Les déplacer
+demanderait d'inventer une série : deux cas à Wamba le 25 juin, cinq le
+1er juillet, un seul sur la ligne créée le 10. Ces nombres ne se raccordent
+pas, et les ajouter sans les retirer de Nia-Nia gonflerait le total national.
+
+**Pas de graphique séparé pour les décès.** La courbe a rejoint le graphique
+principal, sur l'axe des cumuls qui existait déjà. L'écart entre les deux
+courbes se lit comme ce qu'il est : la létalité, devenue trajectoire au lieu
+d'un nombre isolé.
+
+**Pas de ligne de cible tracée sur le suivi des contacts.** Les 95 % de l'OMS
+sont dits dans la note, pas dessinés : une ligne à 95 % au-dessus d'une courbe
+qui plafonne à 81 % n'ouvre qu'une bande vide sur le quart supérieur du cadre.
+
+**Les tranches d'âge ne sont jamais lissées ni mises à l'échelle de leur
+largeur.** Elles sont inégales (5, 13, 12, 20 ans, puis ouverte) : mettre les
+lignes à l'échelle ferait passer un artefact de découpage pour une forme.
+Aucune spline non plus entre des points hebdomadaires — avec six points elle
+dépasse les valeurs mesurées et invente des sommets.
+
+**Les volumes hebdomadaires du lieu du décès ne sont pas comparables.** Sept
+jours manquent à la fenêtre, dont quatre d'affilée du 6 au 9 août. Seules les
+parts se comparent d'une semaine à l'autre.
+
+---
+
+## Comment travailler ici
+
+Le propriétaire distingue strictement trois états, et il faut s'y tenir :
+
+- **« en local »** — construire, régénérer, montrer. Ne rien commiter.
+- **« commit »** — commiter sans pousser.
+- **« mets en ligne »** — commiter et pousser.
+
+**Montrer avant de publier.** Une capture d'écran, pas une description. Servir
+le site sur `127.0.0.1:8899` et capturer avec les outils de `scripts/verif/`.
+
+**Vérifier plutôt qu'affirmer.** Presque toutes les erreurs corrigées le
+24 août venaient d'un calcul plausible appliqué à une donnée qui ne disait pas
+ce qu'on croyait. Quand un chiffre peut se contrôler, le contrôler — y compris
+ses propres affirmations d'il y a dix minutes.
+
+**Les questions « tu en penses quoi ? » attendent un avis**, argumenté et
+chiffré si possible, y compris un désaccord. Plusieurs bonnes décisions de
+cette journée sont venues d'un « non, et voilà pourquoi » — la lecture par
+province abandonnée au profit du temps, ou l'inverse pour les dates d'arrivée.
+
+**Les messages de commit sont longs et détaillés**, en français sans accents.
+Ils citent les passages de bulletin qui fondent chaque décision, gardent les
+mesures qui ont tranché, et consignent ce qui a été écarté.
 
 ---
 
