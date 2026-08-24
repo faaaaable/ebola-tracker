@@ -796,12 +796,21 @@ def province_case_window(history, name):
     points = province_series(history, name)
     if not points:
         return None, None
-    first = None
+    # « previous » part de la PREMIERE valeur observee, pas de zero. Aucune
+    # province n'apparait jamais a zero dans ce fichier : chacune y entre avec
+    # un cumul deja constitue — 30 cas pour l'Ituri, 4 pour la Tshopo, 3 pour
+    # le Sud-Kivu. Initialiser a zero faisait donc passer le premier point
+    # pour une hausse, c'est-a-dire pour un cas signale ce jour-la.
+    #
+    # Le Sud-Kivu en faisait les frais deux fois : sa seule « hausse » etait
+    # cet artefact, si bien que premiere et derniere hausse tombaient sur la
+    # meme date et que la page annonçait « Premier et seul cas confirme
+    # signale le 31 mai 2026 » — alors que la province compte trois cas, tous
+    # anterieurs a son entree dans le tableau.
+    first = points[0][0]
     last = None
-    previous = 0
-    for date, value in points:
-        if first is None and value > 0:
-            first = date
+    previous = points[0][1]
+    for date, value in points[1:]:
         if value > previous:
             last = date
         previous = value
@@ -1630,15 +1639,19 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "deaths": fmt(province.get("deaths"), lang),
             "cfr": fmt_decimal(province.get("cfr"), lang),
         })
-        first_case, last_case = province_case_window(province_history, name)
+        # Plus de date de premier cas : elle n'est pas dans la donnee. Ce que
+        # province-history.json sait dire, c'est la derniere fois que le cumul
+        # d'une province a monte — et, faute de hausse, depuis quand il ne
+        # bouge plus. Les retrouver demanderait d'extraire les annonces de
+        # nouvelle province du texte des bulletins, ce que rien ne fait.
+        first_seen, last_case = province_case_window(province_history, name)
         window_line = ""
-        if first_case and last_case and first_case != last_case:
-            window_line = interp(strings_lang["provinceCaseWindow"], {
-                "first": long_date(first_case, i18n_lang),
+        if last_case:
+            window_line = interp(strings_lang["provinceCaseLast"], {
                 "last": long_date(last_case, i18n_lang)})
-        elif first_case:
-            window_line = interp(strings_lang["provinceCaseWindowSingle"], {
-                "first": long_date(first_case, i18n_lang)})
+        elif first_seen:
+            window_line = interp(strings_lang["provinceCaseNoneSince"], {
+                "first": long_date(first_seen, i18n_lang)})
 
         meta = {
             "h1": interp(strings_lang["provinceH1"], forms),
