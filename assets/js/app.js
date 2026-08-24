@@ -1490,6 +1490,18 @@ function renderOneChart(canvas, chartMode){
     }
     const bridgeValues = buildBridge(values);
 
+    /* La cible de 95 % vient des rapports hebdomadaires de l'OMS, pas des
+       bulletins de l'INSP qui alimentent la courbe : « Overall follow-up
+       performance remained substantially below the operational target of 95 %,
+       leaving 3 376 contacts not seen during the reporting period » (WHO n°11),
+       repris au n°14 — « remaining below the 95 % operational target ». La note
+       l'attribue donc explicitement a l'OMS.
+
+       Elle est dite, pas tracee. Une ligne a 95 % au-dessus d'une courbe qui
+       plafonne a 80 % ouvre une bande vide sur le quart superieur du cadre, et
+       ce blanc ne dit rien de plus que la phrase. */
+    const CIBLE_OMS = 95;
+
     const data = {
       labels,
       datasets: [
@@ -1521,6 +1533,8 @@ function renderOneChart(canvas, chartMode){
     const opts = {
       responsive: true, maintainAspectRatio: false,
       plugins: {
+        // Aucune serie n'a de libelle : la courbe et son pont en pointilles se
+        // passent d'une legende, la note dit le reste.
         legend: { display: false },
         tooltip: {
           backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
@@ -1537,7 +1551,10 @@ function renderOneChart(canvas, chartMode){
     if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
     else { slot.chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts }); }
     slot.lastMode = 'contactsFollowUp';
-    if(noteEl){ noteEl.textContent = tr('chartNoteContactsGap'); noteEl.style.display = 'block'; }
+    if(noteEl){
+      noteEl.textContent = tr('chartNoteContacts')(CIBLE_OMS);
+      noteEl.style.display = 'block';
+    }
     return;
   }
 

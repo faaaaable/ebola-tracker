@@ -90,7 +90,10 @@ const I18N = {
     catchupLabel:"Rattrapage",
     dailyDeathsLabel:"Nouveaux décès",
     chartNoteDaily:"Certains pics reflètent des rattrapages de données (révisions, bulletins manquants).",
-    chartNoteContactsGap:"Pointillés : période sans donnée disponible — tracé purement illustratif.",
+    chartNoteContacts:(cible)=>`Part des cas contacts listés qui ont été vus dans les dernières 24 heures. `
+      + `L'OMS fixe une cible opérationnelle de ${cible} % pour une recherche de cas contacts efficace : en dessous, `
+      + `une part des personnes exposées échappe à la surveillance et peut transmettre sans être détectée. `
+      + `Pointillés : période sans donnée disponible, tracé purement illustratif.`,
     communityDeathsLabel:"Communautaires",
     intraCteDeathsLabel:"Intra-CTE",
     chartLoadError:"Chart.js n'a pas pu se charger (connexion internet requise pour ce CDN). Vérifie ta connexion et recharge la page.",
@@ -271,7 +274,10 @@ const I18N = {
     catchupLabel:"Catch-up",
     dailyDeathsLabel:"New deaths",
     chartNoteDaily:"Some spikes reflect data catch-ups (revisions, missing bulletins).",
-    chartNoteContactsGap:"Dashed line: period with no data available — purely illustrative.",
+    chartNoteContacts:(cible)=>`Share of listed contacts seen in the previous 24 hours. `
+      + `WHO sets an operational target of ${cible}% for effective contact tracing: below it, some exposed people `
+      + `fall outside surveillance and can transmit undetected. `
+      + `Dashed line: period with no data available, purely illustrative.`,
     communityDeathsLabel:"Community",
     intraCteDeathsLabel:"Intra-ETC",
     chartLoadError:"Chart.js failed to load (an internet connection is required for this CDN). Check your connection and reload the page.",
