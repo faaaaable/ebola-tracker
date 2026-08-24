@@ -4,15 +4,18 @@
     "provinces": [
       {
         "name": "touchées",
-        "confirmed": null
+        "confirmed": null,
+        "deaths": null
       },
       {
         "name": "Ituri",
-        "confirmed": 30
+        "confirmed": 30,
+        "deaths": 4
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 0
       }
     ]
   },
@@ -21,15 +24,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 299
+        "confirmed": 299,
+        "deaths": 46
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 19
+        "confirmed": 19,
+        "deaths": 1
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -38,15 +44,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 322
+        "confirmed": 322,
+        "deaths": 46
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 19
+        "confirmed": 19,
+        "deaths": 13
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -55,15 +64,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 359
+        "confirmed": 359,
+        "deaths": 50
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 19
+        "confirmed": 19,
+        "deaths": 13
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -72,15 +84,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 424
+        "confirmed": 424,
+        "deaths": 66
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 25
+        "confirmed": 25,
+        "deaths": 15
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -89,15 +104,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 460
+        "confirmed": 460,
+        "deaths": 70
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 25
+        "confirmed": 25,
+        "deaths": 15
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -106,15 +124,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 487
+        "confirmed": 487,
+        "deaths": 74
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 25
+        "confirmed": 25,
+        "deaths": 16
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -123,15 +144,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 518
+        "confirmed": 518,
+        "deaths": 80
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 29
+        "confirmed": 29,
+        "deaths": 20
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -140,15 +164,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 563
+        "confirmed": 563,
+        "deaths": 92
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 32
+        "confirmed": 32,
+        "deaths": 22
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -157,15 +184,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 600
+        "confirmed": 600,
+        "deaths": 104
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 32
+        "confirmed": 32,
+        "deaths": 22
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -174,15 +204,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 629
+        "confirmed": 629,
+        "deaths": 109
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 44
+        "confirmed": 44,
+        "deaths": 26
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -191,11 +224,13 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 646
+        "confirmed": 646,
+        "deaths": 114
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -204,15 +239,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 717
+        "confirmed": 717,
+        "deaths": 146
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 62
+        "confirmed": 62,
+        "deaths": 34
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -221,15 +259,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 738
+        "confirmed": 738,
+        "deaths": 153
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 67
+        "confirmed": 67,
+        "deaths": 38
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -238,15 +279,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 767
+        "confirmed": 767,
+        "deaths": 157
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 67
+        "confirmed": 67,
+        "deaths": 38
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -255,11 +299,13 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 799
+        "confirmed": 799,
+        "deaths": 158
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -268,15 +314,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 817
+        "confirmed": 817,
+        "deaths": 186
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 76
+        "confirmed": 76,
+        "deaths": 45
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -285,15 +334,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 853
+        "confirmed": 853,
+        "deaths": 199
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 77
+        "confirmed": 77,
+        "deaths": 45
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -302,15 +354,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 874
+        "confirmed": 874,
+        "deaths": 201
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 79
+        "confirmed": 79,
+        "deaths": 45
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -319,15 +374,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 916
+        "confirmed": 916,
+        "deaths": 205
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 84
+        "confirmed": 84,
+        "deaths": 48
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -336,15 +394,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 954
+        "confirmed": 954,
+        "deaths": 216
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 91
+        "confirmed": 91,
+        "deaths": 50
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -353,15 +414,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 997
+        "confirmed": 997,
+        "deaths": 226
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 94
+        "confirmed": 94,
+        "deaths": 50
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -370,15 +434,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1020
+        "confirmed": 1020,
+        "deaths": 238
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 95
+        "confirmed": 95,
+        "deaths": 52
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -387,15 +454,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1054
+        "confirmed": 1054,
+        "deaths": 250
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 98
+        "confirmed": 98,
+        "deaths": 53
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -404,15 +474,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1096
+        "confirmed": 1096,
+        "deaths": 263
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 104
+        "confirmed": 104,
+        "deaths": 57
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -421,15 +494,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1165
+        "confirmed": 1165,
+        "deaths": 301
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 106
+        "confirmed": 106,
+        "deaths": 58
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -438,15 +514,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1214
+        "confirmed": 1214,
+        "deaths": 335
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 116
+        "confirmed": 116,
+        "deaths": 63
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -455,15 +534,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1283
+        "confirmed": 1283,
+        "deaths": 366
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 120
+        "confirmed": 120,
+        "deaths": 71
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -472,15 +554,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1333
+        "confirmed": 1333,
+        "deaths": 380
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 124
+        "confirmed": 124,
+        "deaths": 71
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -489,15 +574,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1366
+        "confirmed": 1366,
+        "deaths": 397
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 133
+        "confirmed": 133,
+        "deaths": 75
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -506,15 +594,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1387
+        "confirmed": 1387,
+        "deaths": 411
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 138
+        "confirmed": 138,
+        "deaths": 80
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -523,15 +614,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1417
+        "confirmed": 1417,
+        "deaths": 424
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 141
+        "confirmed": 141,
+        "deaths": 81
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -540,15 +634,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1477
+        "confirmed": 1477,
+        "deaths": 439
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 144
+        "confirmed": 144,
+        "deaths": 81
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -557,15 +654,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1556
+        "confirmed": 1556,
+        "deaths": 491
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 149
+        "confirmed": 149,
+        "deaths": 88
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -574,15 +674,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1601
+        "confirmed": 1601,
+        "deaths": 511
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 155
+        "confirmed": 155,
+        "deaths": 88
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -591,15 +694,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1631
+        "confirmed": 1631,
+        "deaths": 535
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 158
+        "confirmed": 158,
+        "deaths": 89
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -608,15 +714,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1663
+        "confirmed": 1663,
+        "deaths": 553
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 164
+        "confirmed": 164,
+        "deaths": 94
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -625,23 +734,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1705
+        "confirmed": 1705,
+        "deaths": 577
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 165
+        "confirmed": 165,
+        "deaths": 94
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 1
+        "confirmed": 1,
+        "deaths": 1
       },
       {
         "name": "Tshopo",
-        "confirmed": 4
+        "confirmed": 4,
+        "deaths": 2
       }
     ]
   },
@@ -650,23 +764,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1745
+        "confirmed": 1745,
+        "deaths": 601
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 173
+        "confirmed": 173,
+        "deaths": 97
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 1
+        "confirmed": 1,
+        "deaths": 1
       },
       {
         "name": "Tshopo",
-        "confirmed": 4
+        "confirmed": 4,
+        "deaths": 2
       }
     ]
   },
@@ -675,23 +794,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1772
+        "confirmed": 1772,
+        "deaths": 608
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 177
+        "confirmed": 177,
+        "deaths": 100
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 7
+        "confirmed": 7,
+        "deaths": 7
       },
       {
         "name": "Tshopo",
-        "confirmed": 4
+        "confirmed": 4,
+        "deaths": 3
       }
     ]
   },
@@ -700,23 +824,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1808
+        "confirmed": 1808,
+        "deaths": 631
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 182
+        "confirmed": 182,
+        "deaths": 106
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 14
+        "confirmed": 14,
+        "deaths": 13
       },
       {
         "name": "Tshopo",
-        "confirmed": 4
+        "confirmed": 4,
+        "deaths": 3
       }
     ]
   },
@@ -725,23 +854,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1863
+        "confirmed": 1863,
+        "deaths": 668
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 189
+        "confirmed": 189,
+        "deaths": 111
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 14
+        "confirmed": 14,
+        "deaths": 13
       },
       {
         "name": "Tshopo",
-        "confirmed": 4
+        "confirmed": 4,
+        "deaths": 3
       }
     ]
   },
@@ -750,23 +884,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 1904
+        "confirmed": 1904,
+        "deaths": 692
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 199
+        "confirmed": 199,
+        "deaths": 119
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 14
+        "confirmed": 14,
+        "deaths": 13
       },
       {
         "name": "Tshopo",
-        "confirmed": 4
+        "confirmed": 4,
+        "deaths": 3
       }
     ]
   },
@@ -775,19 +914,23 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2023
+        "confirmed": 2023,
+        "deaths": 745
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 214
+        "confirmed": 214,
+        "deaths": 130
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       }
     ]
   },
@@ -796,15 +939,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2090
+        "confirmed": 2090,
+        "deaths": 776
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 230
+        "confirmed": 230,
+        "deaths": 139
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       }
     ]
   },
@@ -813,15 +959,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2160
+        "confirmed": 2160,
+        "deaths": 811
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 239
+        "confirmed": 239,
+        "deaths": 141
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       }
     ]
   },
@@ -830,15 +979,18 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2202
+        "confirmed": 2202,
+        "deaths": 838
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 247
+        "confirmed": 247,
+        "deaths": 146
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       }
     ]
   },
@@ -847,23 +999,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2248
+        "confirmed": 2248,
+        "deaths": 864
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 259
+        "confirmed": 259,
+        "deaths": 152
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 21
+        "confirmed": 21,
+        "deaths": 12
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       }
     ]
   },
@@ -872,23 +1029,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2595
+        "confirmed": 2595,
+        "deaths": 1077
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 275
+        "confirmed": 275,
+        "deaths": 172
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 27
+        "confirmed": 27,
+        "deaths": 15
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -897,23 +1059,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2646
+        "confirmed": 2646,
+        "deaths": 1107
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 290
+        "confirmed": 290,
+        "deaths": 182
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 29
+        "confirmed": 29,
+        "deaths": 15
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -922,23 +1089,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2733
+        "confirmed": 2733,
+        "deaths": 1142
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 299
+        "confirmed": 299,
+        "deaths": 188
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 35
+        "confirmed": 35,
+        "deaths": 19
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -947,23 +1119,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2848
+        "confirmed": 2848,
+        "deaths": 1184
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 306
+        "confirmed": 306,
+        "deaths": 196
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 38
+        "confirmed": 38,
+        "deaths": 20
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -972,23 +1149,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2901
+        "confirmed": 2901,
+        "deaths": 1207
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 314
+        "confirmed": 314,
+        "deaths": 204
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 38
+        "confirmed": 38,
+        "deaths": 21
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -997,23 +1179,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 2988
+        "confirmed": 2988,
+        "deaths": 1238
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 325
+        "confirmed": 325,
+        "deaths": 223
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 39
+        "confirmed": 39,
+        "deaths": 21
       },
       {
         "name": "Tshopo",
-        "confirmed": 5
+        "confirmed": 5,
+        "deaths": 4
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1022,23 +1209,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3176
+        "confirmed": 3176,
+        "deaths": 1311
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 366
+        "confirmed": 366,
+        "deaths": 242
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 53
+        "confirmed": 53,
+        "deaths": 28
       },
       {
         "name": "Tshopo",
-        "confirmed": 7
+        "confirmed": 7,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1047,23 +1239,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3229
+        "confirmed": 3229,
+        "deaths": 1336
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 378
+        "confirmed": 378,
+        "deaths": 251
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 57
+        "confirmed": 57,
+        "deaths": 28
       },
       {
         "name": "Tshopo",
-        "confirmed": 7
+        "confirmed": 7,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1072,23 +1269,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3278
+        "confirmed": 3278,
+        "deaths": 1359
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 400
+        "confirmed": 400,
+        "deaths": 262
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 60
+        "confirmed": 60,
+        "deaths": 30
       },
       {
         "name": "Tshopo",
-        "confirmed": 7
+        "confirmed": 7,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1097,19 +1299,23 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3317
+        "confirmed": 3317,
+        "deaths": 1382
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 414
+        "confirmed": 414,
+        "deaths": 285
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 61
+        "confirmed": 61,
+        "deaths": 34
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1118,23 +1324,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3375
+        "confirmed": 3375,
+        "deaths": 1417
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 426
+        "confirmed": 426,
+        "deaths": 290
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 63
+        "confirmed": 63,
+        "deaths": 38
       },
       {
         "name": "Tshopo",
-        "confirmed": 7
+        "confirmed": 7,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1143,23 +1354,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3460
+        "confirmed": 3460,
+        "deaths": 1464
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 436
+        "confirmed": 436,
+        "deaths": 292
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 67
+        "confirmed": 67,
+        "deaths": 39
       },
       {
         "name": "Tshopo",
-        "confirmed": 7
+        "confirmed": 7,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1168,23 +1384,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3521
+        "confirmed": 3521,
+        "deaths": 1502
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 447
+        "confirmed": 447,
+        "deaths": 302
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 74
+        "confirmed": 74,
+        "deaths": 41
       },
       {
         "name": "Tshopo",
-        "confirmed": 8
+        "confirmed": 8,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1193,23 +1414,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3563
+        "confirmed": 3563,
+        "deaths": 1526
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 458
+        "confirmed": 458,
+        "deaths": 311
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 87
+        "confirmed": 87,
+        "deaths": 44
       },
       {
         "name": "Tshopo",
-        "confirmed": 9
+        "confirmed": 9,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1218,23 +1444,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3636
+        "confirmed": 3636,
+        "deaths": 1551
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 470
+        "confirmed": 470,
+        "deaths": 315
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 91
+        "confirmed": 91,
+        "deaths": 44
       },
       {
         "name": "Tshopo",
-        "confirmed": 9
+        "confirmed": 9,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1243,23 +1474,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3704
+        "confirmed": 3704,
+        "deaths": 1584
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 480
+        "confirmed": 480,
+        "deaths": 326
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 98
+        "confirmed": 98,
+        "deaths": 44
       },
       {
         "name": "Tshopo",
-        "confirmed": 9
+        "confirmed": 9,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1268,23 +1504,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3761
+        "confirmed": 3761,
+        "deaths": 1620
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 495
+        "confirmed": 495,
+        "deaths": 338
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 113
+        "confirmed": 113,
+        "deaths": 47
       },
       {
         "name": "Tshopo",
-        "confirmed": 9
+        "confirmed": 9,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1293,19 +1534,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3814
+        "confirmed": 3814,
+        "deaths": 1653
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 510
+        "confirmed": 510,
+        "deaths": 354
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 113,
+        "deaths": 48
       },
       {
         "name": "Tshopo",
-        "confirmed": 9
+        "confirmed": 9,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1314,23 +1564,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3912
+        "confirmed": 3912,
+        "deaths": 1702
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 528
+        "confirmed": 528,
+        "deaths": 369
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 115
+        "confirmed": 115,
+        "deaths": 51
       },
       {
         "name": "Tshopo",
-        "confirmed": 9
+        "confirmed": 9,
+        "deaths": 5
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       }
     ]
   },
@@ -1339,23 +1594,28 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 3979
+        "confirmed": 3979,
+        "deaths": 1726
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 553
+        "confirmed": 553,
+        "deaths": 395
       },
       {
         "name": "Tshopo",
-        "confirmed": 10
+        "confirmed": 10,
+        "deaths": 6
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 1
+        "confirmed": 1,
+        "deaths": 1
       }
     ]
   },
@@ -1364,27 +1624,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4020
+        "confirmed": 4020,
+        "deaths": 1745
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 569
+        "confirmed": 569,
+        "deaths": 404
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 123
+        "confirmed": 123,
+        "deaths": 57
       },
       {
         "name": "Tshopo",
-        "confirmed": 11
+        "confirmed": 11,
+        "deaths": 6
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 1
+        "confirmed": 1,
+        "deaths": 1
       }
     ]
   },
@@ -1393,27 +1659,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4105
+        "confirmed": 4105,
+        "deaths": 1791
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 588
+        "confirmed": 588,
+        "deaths": 411
       },
       {
         "name": "Haut Uélé",
-        "confirmed": 135
+        "confirmed": 135,
+        "deaths": 62
       },
       {
         "name": "Tshopo",
-        "confirmed": 11
+        "confirmed": 11,
+        "deaths": 6
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 1
+        "confirmed": 1,
+        "deaths": 1
       }
     ]
   },
@@ -1422,27 +1694,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4194
+        "confirmed": 4194,
+        "deaths": 1838
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 596
+        "confirmed": 596,
+        "deaths": 417
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 138
+        "confirmed": 138,
+        "deaths": 62
       },
       {
         "name": "Tshopo",
-        "confirmed": 13
+        "confirmed": 13,
+        "deaths": 6
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 1
+        "confirmed": 1,
+        "deaths": 1
       }
     ]
   },
@@ -1451,27 +1729,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4257
+        "confirmed": 4257,
+        "deaths": 1878
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 607
+        "confirmed": 607,
+        "deaths": 428
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 139
+        "confirmed": 139,
+        "deaths": 63
       },
       {
         "name": "Tshopo",
-        "confirmed": 14
+        "confirmed": 14,
+        "deaths": 7
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 1
+        "confirmed": 1,
+        "deaths": 1
       }
     ]
   },
@@ -1480,27 +1764,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4309
+        "confirmed": 4309,
+        "deaths": 1915
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 633
+        "confirmed": 633,
+        "deaths": 431
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 145
+        "confirmed": 145,
+        "deaths": 65
       },
       {
         "name": "Tshopo",
-        "confirmed": 14
+        "confirmed": 14,
+        "deaths": 7
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 1
+        "confirmed": 1,
+        "deaths": 1
       }
     ]
   },
@@ -1509,27 +1799,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4391
+        "confirmed": 4391,
+        "deaths": 1958
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 645
+        "confirmed": 645,
+        "deaths": 440
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 153
+        "confirmed": 153,
+        "deaths": 69
       },
       {
         "name": "Tshopo",
-        "confirmed": 14
+        "confirmed": 14,
+        "deaths": 7
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 2
+        "confirmed": 2,
+        "deaths": 1
       }
     ]
   },
@@ -1538,27 +1834,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4447
+        "confirmed": 4447,
+        "deaths": 1984
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 663
+        "confirmed": 663,
+        "deaths": 452
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 160
+        "confirmed": 160,
+        "deaths": 71
       },
       {
         "name": "Tshopo",
-        "confirmed": 15
+        "confirmed": 15,
+        "deaths": 7
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 2
+        "confirmed": 2,
+        "deaths": 1
       }
     ]
   },
@@ -1567,27 +1869,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4510
+        "confirmed": 4510,
+        "deaths": 2009
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 680
+        "confirmed": 680,
+        "deaths": 463
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 165
+        "confirmed": 165,
+        "deaths": 75
       },
       {
         "name": "Tshopo",
-        "confirmed": 15
+        "confirmed": 15,
+        "deaths": 8
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 2
+        "confirmed": 2,
+        "deaths": 1
       }
     ]
   },
@@ -1596,27 +1904,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4572
+        "confirmed": 4572,
+        "deaths": 2043
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 698
+        "confirmed": 698,
+        "deaths": 476
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 168
+        "confirmed": 168,
+        "deaths": 77
       },
       {
         "name": "Tshopo",
-        "confirmed": 15
+        "confirmed": 15,
+        "deaths": 8
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 2
+        "confirmed": 2,
+        "deaths": 1
       }
     ]
   },
@@ -1625,27 +1939,33 @@
     "provinces": [
       {
         "name": "Ituri",
-        "confirmed": 4607
+        "confirmed": 4607,
+        "deaths": 2065
       },
       {
         "name": "Nord-Kivu",
-        "confirmed": 714
+        "confirmed": 714,
+        "deaths": 490
       },
       {
         "name": "Haut-Uélé",
-        "confirmed": 173
+        "confirmed": 173,
+        "deaths": 77
       },
       {
         "name": "Tshopo",
-        "confirmed": 15
+        "confirmed": 15,
+        "deaths": 8
       },
       {
         "name": "Sud-Kivu",
-        "confirmed": 3
+        "confirmed": 3,
+        "deaths": 1
       },
       {
         "name": "Bas-Uélé",
-        "confirmed": 2
+        "confirmed": 2,
+        "deaths": 1
       }
     ]
   }

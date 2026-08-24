@@ -959,11 +959,19 @@ def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
 
 
 def rebuild_province_history(meta, provinces):
-    """Historique quotidien des cas confirmés cumulés par province, pour le
-    graphique "Cas cumulés par province" de la page d'accueil. Toujours
-    complet par construction (le total provincial est présent dans chaque
-    SitRep, contrairement au détail par zone parfois partiel) — pas besoin
-    de report de dernière valeur."""
+    """Historique quotidien des cumuls par province — cas ET décès.
+
+    Sert le graphique « Cas cumulés / région » de la page d'accueil et les
+    courbes de chaque page province. Toujours complet par construction (le
+    total provincial est présent dans chaque SitRep, contrairement au détail
+    par zone parfois partiel) — pas besoin de report de dernière valeur.
+
+    Les décès ont longtemps été jetés ici alors que le tableau des bulletins
+    les imprime à côté des cas : les pages province ne pouvaient donc afficher
+    aucune courbe de mortalité. Les sommer depuis zones-history.json n'aurait
+    pas convenu, le détail par zone ne couvrant pas tout — l'Ituri y perd les
+    233 décès « à ventiler », et la courbe aurait contredit le chiffre affiché
+    en haut de la même page."""
     reporting_date = meta.get("reportingDate")
     if not reporting_date or not provinces:
         return
@@ -977,7 +985,8 @@ def rebuild_province_history(meta, provinces):
     by_date[reporting_date] = {
         "date": reporting_date,
         "provinces": [
-            {"name": p["name"], "confirmed": p.get("confirmed")}
+            {"name": p["name"], "confirmed": p.get("confirmed"),
+             "deaths": p.get("deaths")}
             for p in provinces
         ],
     }

@@ -717,7 +717,7 @@ function frDate(iso){
 }
 
 /* ============ GRAPHIQUE ============ */
-let chartMode = 'cumulative';
+let chartMode = 'epidemic';
 /* Vue de la pyramide : « effectifs » (deux figures) ou « parts » (une
    seule, chaque serie ramenee a 100 % de son propre total). */
 let pyramideVue = 'effectifs';
@@ -759,8 +759,7 @@ function renderOneChart(canvas, chartMode){
     if(panneauB) panneauB.style.display = 'none';
   }
   if(noteEl){
-    if(chartMode==='daily'){ noteEl.textContent = tr('chartNoteDaily'); noteEl.style.display = 'block'; }
-    else { noteEl.textContent = ''; noteEl.style.display = 'none'; }
+    noteEl.textContent = ''; noteEl.style.display = 'none';
   }
 
   // Mode "Sexe" : deux barres empilées à 100%, cas puis décès. Un camembert
@@ -1559,7 +1558,8 @@ function renderOneChart(canvas, chartMode){
     for(const h of PROVINCE_HISTORY){
       const p = (h.provinces || []).find(pr => pr.name === nom);
       if(p && p.confirmed !== null && p.confirmed !== undefined){
-        pts.push({ date: h.date, confirmed: p.confirmed });
+        pts.push({ date: h.date, confirmed: p.confirmed,
+                   deaths: (p.deaths === null || p.deaths === undefined) ? null : p.deaths });
       }
     }
 
@@ -1610,9 +1610,21 @@ function renderOneChart(canvas, chartMode){
           borderRadius: 2, stack: 'd', categoryPercentage: 1, barPercentage: .96 },
         { label: tr('catchupLabel'), data: rattrape, backgroundColor: tint(teinte, .35),
           borderRadius: 2, stack: 'd', categoryPercentage: 1, barPercentage: .96 },
+        /* La courbe des cas reprend la teinte des barres, et celle des deces
+           le rouge du site. Meme encodage que le graphique de l'accueil : la
+           couleur dit de quoi on parle, la forme dit quelle lecture.
+
+           L'ambre precedent etait un piege discret — c'est la couleur
+           d'identite du Nord-Kivu, dont le graphique affichait donc une courbe
+           strictement invisible sur ses propres barres. Le probleme
+           disparait avec la teinte de la province, quelle qu'elle soit. */
         { type: 'line', label: tr('chartCumulativeLabel'),
           data: pts.map(pt => pt.confirmed), yAxisID: 'y1',
-          borderColor: PALETTE.active, borderWidth: 2, tension: .25,
+          borderColor: teinte, borderWidth: 2, tension: .25,
+          pointRadius: 0, fill: false, spanGaps: true, order: 0 },
+        { type: 'line', label: tr('chartCumulativeDeathsLabel'),
+          data: pts.map(pt => pt.deaths), yAxisID: 'y1',
+          borderColor: PALETTE.critical, borderWidth: 2, tension: .25,
           pointRadius: 0, fill: false, spanGaps: true, order: 0 }
       ]
     };
@@ -1709,11 +1721,17 @@ function renderOneChart(canvas, chartMode){
   const ctx = canvas.getContext('2d');
 
   let datasets;
-  // « epidemic » est la representation canonique d'une epidemie : les nouveaux
-  // cas quotidiens en barres, le cumul en courbe sur un second axe. Elle
-  // remplace les deux anciens modes separes sur la page d'accueil.
-  const isDaily = chartMode === 'daily' || chartMode === 'epidemic';
-  if(isDaily){
+  /* « epidemic » est la representation canonique d'une epidemie, et le seul
+     mode qui arrive jusqu'ici : les nouveaux cas quotidiens en barres, les
+     cumuls en courbes sur un second axe.
+
+     Deux modes morts ont ete retires avec la courbe des deces. « daily » et
+     « cumulative » etaient les deux anciens onglets separes de la page
+     d'accueil ; « epidemic » les avait remplaces sans que leur code parte.
+     « cumulative » tracait justement les deux courbes de cumul seules — la
+     redondance est devenue totale le jour ou la courbe des deces a rejoint
+     ce graphique. */
+  {
     // Différence avec le bulletin précédent ayant une valeur non nulle. Une
     // valeur négative (révision à la baisse) est ramenée à 0 plutôt que
     // d'afficher un creux trompeur sur un graphique d'incidence.
@@ -1776,38 +1794,48 @@ function renderOneChart(canvas, chartMode){
         stack:'d'
       }
     ];
-  } else {
-    datasets = [
-      {
-        label:tr('labelConfirmed'),
-        data:s.map(r=>r.confirmed),
-        borderColor:PALETTE.info, backgroundColor:tint(PALETTE.info, .10),
-        borderWidth:2, tension:.25, fill:true, pointRadius:3, pointBackgroundColor:PALETTE.info,
-        spanGaps:true
-      },
-      {
-        label:tr('labelDeaths'),
-        data:s.map(r=> r.deaths===null||r.deaths===undefined ? null : r.deaths),
-        borderColor:PALETTE.critical, backgroundColor:tint(PALETTE.critical, .08),
-        borderWidth:2, tension:.25, fill:true, pointRadius:3, pointBackgroundColor:PALETTE.critical,
-        spanGaps:true
-      }
-    ];
   }
 
   // Le cumul vient se poser sur le quotidien, sur son propre axe : les deux
   // ordres de grandeur ne se comparent pas (une centaine contre plusieurs
   // milliers), un axe unique ecraserait les barres.
   if(chartMode === 'epidemic'){
+    /* Deux courbes de cumul sur l'axe de droite, et un encodage a deux
+       entrees seulement : la COULEUR dit de quoi on parle — bleu les cas,
+       rouge les deces —, la FORME dit quelle lecture — barres le quotidien,
+       courbe le cumul.
+
+       Le cumul des cas etait ambre, pour ne pas se confondre avec les barres
+       bleues qui decrivent pourtant le meme sujet. Cet ambre devient
+       intenable des qu'une courbe rouge le rejoint : mesure faite, les deux
+       teintes tombent a un ecart de 8 en deuteranopie, la ou le site s'impose
+       15 ailleurs (voir le graphique par sexe). Deux longueurs d'onde longues
+       que ce type de vision comprime l'une sur l'autre. Le bleu contre le
+       rouge, lui, tient largement.
+
+       Le graphique gagne donc une serie tout en perdant une famille de
+       couleur. Et l'ecart entre les deux courbes se lit comme ce qu'il est :
+       la letalite, 47,9 % au 22 aout, jusqu'ici un chiffre isole en haut de
+       page. */
     datasets.push({
       type:'line',
       label: tr('chartCumulativeLabel'),
       data: s.map(r => r.confirmed),
       yAxisID: 'y1',
-      // Ambre plutot que bleu : la courbe se lit sur des barres bleues, deux
-      // teintes de la meme famille se confondraient. Le chaud tranche sur le
-      // froid, et la legende reprend automatiquement cette couleur.
-      borderColor: PALETTE.active,
+      borderColor: PALETTE.info,
+      borderWidth: 2,
+      tension: .25,
+      pointRadius: 0,
+      fill: false,
+      spanGaps: true,
+      order: 0
+    });
+    datasets.push({
+      type:'line',
+      label: tr('chartCumulativeDeathsLabel'),
+      data: s.map(r => r.deaths === null || r.deaths === undefined ? null : r.deaths),
+      yAxisID: 'y1',
+      borderColor: PALETTE.critical,
       borderWidth: 2,
       tension: .25,
       pointRadius: 0,
@@ -1848,7 +1876,7 @@ function renderOneChart(canvas, chartMode){
   // recréation en venant du mode "communityDeaths" (même type 'bar' que le
   // quotidien) pour ne jamais hériter du plugin de pourcentage attaché
   // à cette autre instance.
-  const wantedType = isDaily ? 'bar' : 'line';
+  const wantedType = 'bar';
   if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode === 'communityDeaths')){
     slot.chart.destroy();
     slot.chart = null;
