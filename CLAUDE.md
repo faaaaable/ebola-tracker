@@ -651,6 +651,17 @@ Le propriétaire distingue strictement trois états, et il faut s'y tenir :
 - **« commit »** — commiter sans pousser.
 - **« mets en ligne »** — commiter et pousser.
 
+**Une seule exception, décidée le 24 août : ce fichier.** Un hook `Stop` de Claude
+Code (`~/.claude/hooks/pousser-claude-md.sh`) commite et pousse `CLAUDE.md` à la
+fin de chaque échange, et uniquement lui — commit limité au chemin, silencieux
+quand rien n'a changé. La raison : le guide doit survivre à un re-clone, et le
+perdre coûte plus cher que de le publier. Le site, les données et le code gardent
+les trois états intacts.
+
+Corollaire pour qui écrit ici : **ce fichier part en ligne sans relecture**. Rien
+qui ne puisse être public n'y a sa place — pas de jeton, pas de chemin privé
+au-delà de ceux déjà cités, pas de brouillon.
+
 **Montrer avant de publier.** Une capture d'écran, pas une description. Servir
 le site sur `127.0.0.1:8899` et capturer avec les outils de `scripts/verif/`.
 
