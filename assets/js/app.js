@@ -87,7 +87,7 @@ const PROVINCE_TABLE_DATA_SEED = [
   { name:"Nord-Kivu", confirmed:588,  deaths:411,  cfr:69.9,  status:"active",           healthZonesAffected:{n:12,total:34}, newCases24h:19 },
   { name:"Haut-Uélé", confirmed:135,  deaths:62,   cfr:45.9,  status:"active",           healthZonesAffected:{n:6, total:13}, newCases24h:12 },
   { name:"Tshopo",    confirmed:11,   deaths:6,    cfr:54.5,  status:"active",           healthZonesAffected:{n:7, total:23}, newCases24h:0  },
-  { name:"Sud-Kivu",  confirmed:3,    deaths:1,    cfr:33.3,  status:"inactive", daysNoCase:70, healthZonesAffected:{n:1,total:34}, newCases24h:0 },
+  { name:"Sud-Kivu",  confirmed:3,    deaths:1,    cfr:33.3,  status:"inactive", healthZonesAffected:{n:1,total:34}, newCases24h:0 },
   { name:"Bas-Uélé",  confirmed:1,    deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:11}, newCases24h:0  }
 ];
 

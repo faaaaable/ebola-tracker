@@ -1178,8 +1178,27 @@ def main():
             p["status"] = "active-epicenter" if old and old.get("status") == "active-epicenter" else "active"
         elif old:
             p["status"] = old.get("status", "active")
-            if "daysNoCase" in old:
-                p["daysNoCase"] = old["daysNoCase"] + 1
+            # Ici vivait « daysNoCase », un compteur de jours sans nouveau cas
+            # que RIEN n'affichait : ni le generateur de pages, ni le
+            # JavaScript. Seul « status » sert, via l'etiquette « Aucun cas
+            # recent ». Il est retire plutot que repare.
+            #
+            # Il etait faux, de deux facons opposees. Il s'incrementait a
+            # chaque EXECUTION du script et non par jour ecoule : trois
+            # passages sur un meme bulletin ajoutaient trois jours, et toute
+            # reprise apres echec ou tout rattrapage faisait de meme. A
+            # l'inverse, un jour sans bulletin ne declenchait aucune
+            # execution, donc le temps passait sans que le compteur bouge —
+            # sept numeros manquent dans la serie. Il annonçait 109 jours
+            # sans cas au Sud-Kivu quand la serie entiere ne couvre que
+            # 100 jours, du 14 mai au 22 aout.
+            #
+            # Le jour ou ce chiffre servira, il se calcule depuis les dates
+            # et non par incrementation : province-history.json porte le
+            # cumul de chaque province par date, la derniere hausse donne le
+            # jour du dernier cas. A savoir : cet historique commence le
+            # 31 mai, donc pour le Sud-Kivu la reponse honnete serait « plus
+            # de 83 jours », pas un nombre exact.
         else:
             p["status"] = "active"
 
