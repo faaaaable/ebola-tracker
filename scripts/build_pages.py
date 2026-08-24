@@ -1448,7 +1448,12 @@ def province_chart_html(province, strings_lang):
         '      <div class="map-note chart-note"></div>\n'
         '    </div>\n'
         '  </section>\n'
-        % (esc(strings_lang["provinceChartTitle"]),
+        # Le titre porte le nom de la province entre parentheses. Sans lui,
+        # « Evolution de l'epidemie » est mot pour mot l'intitule du premier
+        # sous-onglet de /donnees/, qui lui trace le pays entier : un lecteur
+        # arrive par le menu lateral n'a rien pour distinguer les deux courbes.
+        % (esc(interp(strings_lang["provinceChartTitle"],
+                      {"name": province["name"]})),
            esc(strings_lang["provinceChartSub"])))
 
 
