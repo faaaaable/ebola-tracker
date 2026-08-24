@@ -132,6 +132,110 @@ restent dans le code sans bouton — décisions de publication, pas suppressions
 
 ---
 
+## Comment l'extraction fonctionne
+
+Le format des SitRep a changé **quatre fois** depuis mai. `update_data.py` ne
+suppose donc jamais une mise en page : il essaie, mesure, et se replie.
+
+**Deux chemins, toujours.** Le tableau est lu d'abord par `pdfplumber`
+(`parse_zone_detail`). S'il est absent — ou présent mais vide, cas fréquent
+d'une table réduite à son en-tête — on retombe sur une lecture du texte brut
+(`gap_fill_missing_zones`). Le repli n'est pas un pis-aller : sur le SitRep 100
+il a reconstruit 24 lignes de zone que le tableau donnait avec des colonnes
+décalées.
+
+**Chaque ligne est jugée avant d'être crue.** `zone_row_looks_unreliable()`
+écarte une ligne dont les colonnes ne tiennent pas debout — des cas sans décès
+ni létalité, par exemple. `revalidate_zones()` reprend ensuite le texte pour
+confirmer. Deux invariants simples attrapent l'essentiel des dérapages de
+colonnes : **nouveaux cas ≤ cas cumulés**, et **décès du jour ≤ décès
+cumulés**.
+
+**Le script signale ses replis.** Toute exécution qui affiche « repli sur une
+lecture du texte brut » ou « N ligne(s) jugée(s) non fiable(s) » mérite qu'on
+recoupe le résultat avec le PDF avant de publier. C'est ainsi qu'on a validé le
+SitRep 100 : les six lignes provinces et les 56 lignes zones relues une par une
+contre les pages 2 et 3.
+
+**`check_coherence.py` est le garde-fou final.** Somme des provinces contre le
+national, létalité recalculée, somme des zones contre chaque province,
+historiques cohérents, chaque rapport listé ayant son PDF. Il ne modifie rien.
+
+---
+
+## Le corpus gelé — la couche de recherche
+
+`data/corpus/` (76 Mo, hors dépôt) est un **intermédiaire complet des 104
+rapports**, construit pour ne plus jamais rouvrir un PDF pendant une analyse.
+Il ne sert pas le site : il sert à décider ce que le site devrait montrer.
+
+Reconstruction, dans cet ordre :
+
+```bash
+python scripts/geler_corpus.py         # manifeste.json + textes/ — gèle les 104 rapports
+python scripts/cartographier_corpus.py # carte.json — époques éditoriales, sections
+python scripts/recenser_corpus.py      # recensement-prose.json + recensement-tableaux.json
+python scripts/extraire_cellules.py    # cellules.jsonl — aplatit 596 types de tableaux
+python scripts/catalogue_corpus.py     # catalogue.json — fusion chiffrée avec couverture
+python scripts/extraire_qualitatif.py  # qualitatif.jsonl — les sections « Défis »
+python scripts/demographie_figures.py  # demographie.jsonl -> data/demographie.json
+```
+
+Chacun met plusieurs minutes. `manifeste.json` porte le SHA-256 de chaque PDF,
+son nombre de pages et de tableaux.
+
+**Quatre époques éditoriales**, identifiées par `cartographier_corpus.py` :
+
+| Époque | Rapports | Bulletins |
+|---|---|---|
+| A | 15 | 001 → 016 |
+| B | 39 | 017 → 058 |
+| C | 22 | 059 → 083 |
+| D | 15 | 084 → 098 |
+| OMS | 13 | rapports hebdomadaires |
+
+C'est cette carte qui permet de répondre « depuis quand cette colonne
+existe-t-elle ? » sans rouvrir cent PDF. Exemple : les quatre colonnes du lieu
+du décès n'apparaissent qu'à l'époque C — d'où la fenêtre bornée au 13 juillet,
+que rien ne pourra faire remonter.
+
+**`extraire_cellules.py` mérite d'être compris.** Plutôt qu'un parseur par type
+de tableau — il y en a 596 —, il applique le même traitement à tous et produit
+des cellules nommées. `catalogue_corpus.py` les fusionne ensuite avec les
+nombres de la prose et calcule la **couverture** de chaque indicateur : sur
+combien de rapports il existe. C'est ce qui a permis de dire que 50 cellules
+seulement, sur 17 313 cataloguées, portent la distinction communauté / CTE.
+
+**`extraire_qualitatif.py`** est le seul à s'intéresser au non-chiffré : les
+sections « Défis » des bulletins, unique source du corpus sur les **causes** de
+persistance de l'épidémie. Rien du site ne l'exploite encore.
+
+**`prototype_riposte.py`** écrit une page autonome dans `tmp/riposte/`, sans
+toucher aux sources du site. Modèle à suivre pour prototyper une page nouvelle.
+
+---
+
+## Les 52 scripts, par famille
+
+- **Pipeline** — `download_all_sitreps`, `update_data`,
+  `extract_contacts_followup`, `extraire_deces_lieu`, `build_pages`,
+  `check_coherence`.
+- **Corpus** — les sept ci-dessus, plus `prototype_riposte`.
+- **Rattrapage** — `backfill_zones_history` (un bulletin précis),
+  `backfill_province_history` (tout, depuis les PDF).
+- **Géographie** — `build_geo` (contours OCHA → geojson),
+  `geocode_health_zones` v1 et v2, `extract_health_zone_polygons`.
+- **Images sociales** — `construire_og` v1/v2/v3, `construire_avatars`,
+  `rendu_image.mjs`.
+- **Enquête** — huit `scan_*`, huit `inspect_*`, deux `diagnose_*`. Écrits pour
+  répondre à une question ponctuelle sur le corpus, gardés comme exemples.
+  `inspect_report.py` et `scan_missing_dates.py` sont les plus réutilisables.
+- **Vérification visuelle** — `audit_mobile.mjs` et `scripts/verif/`.
+- **Divers** — `message_reseaux` (message X), `dump_i18n.mjs` (appelé par
+  `build_pages`).
+
+---
+
 ## Conventions établies
 
 **Couleurs.** Bleu `#005E82` = cas, rouge `#993A2E` = décès, partout. Chaque
