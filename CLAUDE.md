@@ -5,8 +5,8 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Bilingue FR/EN, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 100**, rapportage
-du 22 août 2026 — 5 514 cas confirmés, 2 642 décès, létalité 47,9 %.
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 101**, rapportage
+du 23 août 2026 — 5 584 cas confirmés, 2 680 décès, létalité 48,0 %.
 
 ---
 
@@ -20,9 +20,11 @@ interpolation. Quand la source ne dit pas, le site ne dit pas — et le dit.
 
 Deux illustrations à connaître, parce qu'elles reviendront :
 
-- Les **233 décès « à ventiler »** de l'Ituri ne sont répartis sur aucune zone.
-  La somme des 28 zones donne 1 832 décès quand la province en déclare 2 065.
-  L'écart reste visible plutôt que comblé.
+- Les **décès « à ventiler »** de l'Ituri ne sont répartis sur aucune zone. Ils
+  étaient 233 au SitRep 100, **250 au SitRep 101** : la somme des 28 zones donne
+  1 838 décès quand la province en déclare 2 088. L'écart reste visible plutôt
+  que comblé, et il grossit à chaque bulletin qui ajoute des décès intra-CTE non
+  encore rattachés à une zone.
 - Les premiers cas du **Haut-Uélé et de la Tshopo**, importés de la zone de
   Nia-Nia, sont restés comptés en Ituri jusqu'au 10 juillet. Le site n'a pas
   corrigé cette attribution : il l'explique.
@@ -549,6 +551,15 @@ chargement et se redessinent hors écran. Interroger le canevas
 (`chart.options.animation = false; chart.update('none'); canvas.toDataURL()`)
 plutôt que faire une copie d'écran de page.
 
+**Les annotations `X | None` cassent sur le Python de la machine.** Le seul
+interpréteur disponible est 3.9.6, où PEP 604 n'existe pas : une signature
+`def f() -> str | None` lève `TypeError: unsupported operand type(s) for |` à
+l'import, avant la moindre ligne exécutée. `download_all_sitreps.py` en portait
+trois — corrigé le 25 août par `from __future__ import annotations` en tête de
+fichier, qui rend toutes les annotations paresseuses sans rien réécrire. Le
+workflow GitHub ne l'avait jamais vu : il tourne sur un Python plus récent.
+Vérifier ce point sur tout script repris d'ailleurs.
+
 **Sous Windows, `sys.stdin` décode en cp1252.** Un motif contenant un accent ne
 correspondra pas au HTML lu sur l'entrée standard.
 
@@ -581,7 +592,7 @@ autres. Un tableau historique demanderait une source extérieure au corpus.
 ## Faits marquants de la donnée
 
 - **Létalité en hausse continue** : 15,0 % fin mai, 28,3 % fin juin, 37,5 %
-  mi-juillet, 47,9 % au 22 août. Elle a triplé en trois mois.
+  mi-juillet, 47,9 % au 22 août, 48,0 % au 23 août. Elle a triplé en trois mois.
 - **Les moins de 5 ans** font 10,0 % des cas et **19,0 % des décès**. Les
   30-49 ans, tranche la plus touchée en volume, font 35,2 % des cas pour 27,2 %
   des décès.
