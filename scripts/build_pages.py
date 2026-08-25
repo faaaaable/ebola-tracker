@@ -88,19 +88,26 @@ def fmt(value, lang):
     return "{:,}".format(int(value)).replace(",", sep)
 
 
-def fmt_cfr(value):
-    """Équivalent de cfr.toFixed(1) + '%' : toujours un point décimal."""
+def fmt_cfr(value, lang):
+    """Un taux en pourcentage, dans la typographie de la langue.
+
+    Le francais prend la virgule decimale et une espace avant le signe —
+    « 48,0 % » —, l'anglais garde « 48.0% ». Le JavaScript reecrit les memes
+    elements et doit produire exactement la meme chaine : voir fmtCfr() dans
+    app.js. Les deux fonctions se corrigent ensemble, sinon un taux change
+    d'ecriture au chargement de la page.
+    """
     if value is None:
         return "—"
-    return "{:.1f}%".format(float(value))
+    text = "{:.1f}".format(float(value))
+    return text.replace(".", ",") + " %" if lang == "fr" else text + "%"
 
 
 def fmt_decimal(value, lang):
     """Nombre a une decimale, pour le texte redige : virgule en francais.
 
-    Distinct de fmt_cfr(), qui reproduit volontairement le point decimal de
-    toFixed() pour rester identique a ce que le JavaScript reecrit dans les
-    memes elements.
+    Meme regle que fmt_cfr() pour la decimale ; fmt_cfr() y ajoute le signe
+    pourcent et l'espace qui le precede en francais.
     """
     if value is None:
         return "—"
@@ -521,8 +528,8 @@ def province_rows_html(provinces, national, lang):
                  '<span class="zone-new-badge no-new">%s</span>' % fmt(new_cases, lang))
         share = ""
         if total:
-            share = (' <span style="color:var(--ink-faint);">(%.1f%%)</span>'
-                     % (province["confirmed"] / float(total) * 100))
+            share = (' <span style="color:var(--ink-faint);">(%s)</span>'
+                     % fmt_cfr(province["confirmed"] / float(total) * 100, lang))
         rows.append(
             "              <tr>\n"
             '                <td><div class="zone-name-cell">'
@@ -536,7 +543,7 @@ def province_rows_html(provinces, national, lang):
                 color, esc(province["name"]),
                 fmt(province.get("confirmed"), lang), share,
                 fmt(province.get("deaths"), lang),
-                cfr_badge_class(province.get("cfr")), fmt_cfr(province.get("cfr")),
+                cfr_badge_class(province.get("cfr")), fmt_cfr(province.get("cfr"), lang),
                 zones_text, badge))
     return "\n".join(rows)
 
@@ -658,6 +665,22 @@ def zone_map_html(config, geo, health_zones, provinces, urls, lang, strings_lang
                 "\n".join(quiet), "\n".join(active), "\n".join(marks)))
 
 
+def zone_new_deaths(zone):
+    """Nouveaux deces 24 h d'une zone, tels que le bulletin les totalise.
+
+    `newDeaths24h` est le total imprime par le PDF. Le repli sur la somme des
+    deux categories ne sert qu'a lire un latest.json produit avant la
+    correction du 25 aout ; il redonne un chiffre double sur les lignes ou une
+    seule categorie etait imprimee.
+    """
+    if not zone:
+        return 0
+    total = zone.get("newDeaths24h")
+    if total is not None:
+        return total
+    return (zone.get("deathsCommunity24h") or 0) + (zone.get("deathsIntraCTE24h") or 0)
+
+
 def province_map_html(geo_map, province_name, zones, config, lang, strings_lang, aliases):
     """Carte d'une province : ses zones de sante en detail, les voisines en gris.
 
@@ -701,8 +724,10 @@ def province_map_html(geo_map, province_name, zones, config, lang, strings_lang,
             title = interp(strings_lang["zoneMapTitle"], {
                 "name": zone["name"], "cases": fmt(cases, lang),
                 "deaths": fmt(deaths, lang)})
-        new_deaths = ((ours or {}).get("deathsCommunity24h") or 0) \
-            + ((ours or {}).get("deathsIntraCTE24h") or 0)
+        # Le total du bulletin, jamais la somme des deux categories : quand
+        # une seule est imprimee, l'autre colonne porte deja ce total et
+        # l'addition le comptait deux fois. Voir parse_zone_day_columns().
+        new_deaths = zone_new_deaths(ours)
         active.append(
             '          <g class="zm-zone is-%d" data-name="%s" data-sub="%s" '
             'data-note="%s" data-cases="%s" data-deaths="%s" '
@@ -768,7 +793,7 @@ def panel_stats_html(national, lang, i18n_lang):
         "deaths": fmt(national.get("deaths"), lang),
         "recovered": fmt(national.get("recovered"), lang),
         "active": fmt(national.get("inCTE"), lang),
-        "cfr": fmt_cfr(national.get("cfr")),
+        "cfr": fmt_cfr(national.get("cfr"), lang),
     }
     # Seuls les cumuls ont un ecart qui veut dire quelque chose : le nombre de
     # patients en isolement et le taux de letalite ne s'additionnent pas d'un
@@ -866,7 +891,7 @@ def province_cards_html(provinces, urls, lang, strings_lang):
                 esc(province["name"]),
                 esc(strings_lang["provincesCardCases"]), fmt(province.get("confirmed"), lang),
                 esc(strings_lang["provincesCardDeaths"]), fmt(province.get("deaths"), lang),
-                esc(strings_lang["provincesCardCfr"]), fmt_cfr(province.get("cfr")),
+                esc(strings_lang["provincesCardCfr"]), fmt_cfr(province.get("cfr"), lang),
                 zones_line))
     return "\n".join(cards)
 
@@ -890,7 +915,7 @@ def province_table_rows_html(provinces, urls, lang):
                 urls.province_path(province["name"], lang), esc(province["name"]),
                 fmt(province.get("confirmed"), lang),
                 fmt(province.get("deaths"), lang),
-                cfr_badge_class(province.get("cfr")), fmt_cfr(province.get("cfr")),
+                cfr_badge_class(province.get("cfr")), fmt_cfr(province.get("cfr"), lang),
                 zones_text))
     return "\n".join(rows)
 
@@ -1370,7 +1395,7 @@ def province_zones_table_html(zones, forms, lang, strings_lang):
 
     rows = []
     for zone in sorted(zones, key=lambda z: -(z.get("cases") or 0)):
-        new_deaths = (zone.get("deathsCommunity24h") or 0) + (zone.get("deathsIntraCTE24h") or 0)
+        new_deaths = zone_new_deaths(zone)
         rows.append(
             "            <tr>\n"
             "              <td>%s</td>\n"
@@ -1381,7 +1406,7 @@ def province_zones_table_html(zones, forms, lang, strings_lang):
                 esc(zone["name"]),
                 fmt(zone.get("cases"), lang), delta(zone.get("newCases24h")),
                 fmt(zone.get("deaths"), lang), delta(new_deaths),
-                cfr_badge_class(zone.get("cfr")), fmt_cfr(zone.get("cfr"))))
+                cfr_badge_class(zone.get("cfr")), fmt_cfr(zone.get("cfr"), lang)))
     return (
         '      <div class="table-scroll">\n'
         "        <table>\n"
@@ -1391,11 +1416,17 @@ def province_zones_table_html(zones, forms, lang, strings_lang):
         "          </thead>\n"
         "          <tbody>\n%s\n          </tbody>\n"
         "        </table>\n"
-        "      </div>" % (
+        "      </div>\n"
+        # La somme de la colonne « Deces » ne tombe pas sur le total de la
+        # province tant que le bulletin garde des deces « a ventiler » : 250
+        # au SitRep 101, tous en Ituri. L'ecart est fidele a la source, mais
+        # il ressemble a une faute de calcul si personne ne le dit.
+        '      <p class="map-note">%s</p>' % (
             esc(interp(strings_lang["provinceZonesTitle"], forms)),
             esc(strings_lang["provinceThZone"]), esc(strings_lang["provinceThCases"]),
             esc(strings_lang["provinceThDeaths"]), esc(strings_lang["provinceThCfr"]),
-            "\n".join(rows)))
+            "\n".join(rows),
+            esc(strings_lang["zonesSumNote"])))
 
 
 # --------------------------------------------------------------------------
@@ -1545,7 +1576,7 @@ def main():
             "seed.deaths": fmt(national.get("deaths"), lang),
             "seed.recovered": fmt(national.get("recovered"), lang),
             "seed.inCTE": fmt(national.get("inCTE"), lang),
-            "seed.cfr": fmt_cfr(national.get("cfr")),
+            "seed.cfr": fmt_cfr(national.get("cfr"), lang),
             "seed.zonesSub": zones_sub(national, meta_data, lang, i18n_lang),
             "seed.sitrepRef": sitrep_ref(meta_data, lang, i18n_lang),
             # Reperes de la page « A propos » : tires des donnees, jamais
@@ -1736,7 +1767,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                 sentence, zonesSentence=esc(zones_sentence))),
             "province.cases": fmt(province.get("confirmed"), lang),
             "province.deaths": fmt(province.get("deaths"), lang),
-            "province.cfr": fmt_cfr(province.get("cfr")),
+            "province.cfr": fmt_cfr(province.get("cfr"), lang),
             "province.shareSentence": esc(share),
             "province.newDeaths": esc(interp(strings_lang["provinceNewDeaths"],
                                              {"n": fmt(new_deaths, lang)})),

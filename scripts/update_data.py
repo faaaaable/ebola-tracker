@@ -798,15 +798,61 @@ def revalidate_zones(full_text, zones_raw):
     return gap_fill_missing_zones(full_text, reliable)
 
 
+def parse_zone_day_columns(row):
+    """Lit la queue d'une ligne de zone : nouveaux cas et deces des 24 h.
+
+    Le tableau du bulletin porte QUATRE colonnes apres la letalite :
+    nouveaux cas, deces communautaires, deces intra-CTE, puis un TOTAL des
+    deces. Ce total etait ignore, et c'est ce qui faisait doubler les chiffres
+    publies : quand une zone n'a de deces que dans une seule des deux
+    categories, le PDF n'imprime pas la cellule vide de l'autre. La lecture
+    par position tombait alors sur le total en croyant lire l'intra-CTE, et
+    « 3 deces communautaires » devenait « 3 communautaires + 3 intra-CTE ».
+    Constate sur le SitRep 101 : Bunia affichait (+6) pour 3 deces reels, et
+    le Nord-Kivu repartissait 16 deces sur trois zones quand la province en
+    declarait 8.
+
+    Le total fait desormais foi, parce qu'il est la seule valeur que le
+    bulletin imprime toujours. La ventilation communaute / CTE n'est
+    renseignee que lorsque la ligne la donne sans ambiguite ; sinon elle
+    reste None. On sait alors qu'un des deux compteurs porte le total, mais
+    pas lequel, et le depot ne devine pas : le site n'affiche de toute facon
+    que le total.
+
+    Retourne (nouveaux_cas, deces_comm, deces_intracte, total_deces).
+    """
+    tail = row[4:]
+
+    # Chemin pdfplumber : les cellules vides sont conservees, donc les
+    # positions tiennent. On ne s'y fie que si les trois valeurs se recoupent.
+    if len(tail) >= 4:
+        c, t, tot = norm_int(tail[1]), norm_int(tail[2]), norm_int(tail[3])
+        if tot is not None and (c or 0) + (t or 0) == tot:
+            return norm_int(tail[0]) or 0, c or 0, t or 0, tot
+
+    # Chemin texte brut : les cellules vides ont disparu, seules restent les
+    # valeurs imprimees. On les compte pour savoir ce qu'on tient.
+    vals = [v for v in (norm_int(x) for x in tail) if v is not None]
+    if not vals:
+        return 0, 0, 0, 0
+    new_cases = vals[0]
+    rest = vals[1:]
+    if not rest:                       # aucun deces ce jour dans cette zone
+        return new_cases, 0, 0, 0
+    if len(rest) >= 3:                 # comm, intra-CTE, total : tout est dit
+        return new_cases, rest[0], rest[1], rest[2]
+    # Une seule categorie imprimee, suivie du total : le total fait foi et la
+    # ventilation reste indeterminee.
+    return new_cases, None, None, rest[-1]
+
+
 def zone_row_to_dict(province, name, row):
     cases = norm_int(row[1])
     deaths = norm_int(row[2])
     cfr = norm_pct(row[3]) if len(row) > 3 else None
     if cfr is None and cases:
         cfr = round((deaths or 0) / cases * 100, 1)
-    new_cases = norm_int(row[4]) if len(row) > 4 else None
-    deaths_comm = norm_int(row[5]) if len(row) > 5 else None
-    deaths_intracte = norm_int(row[6]) if len(row) > 6 else None
+    new_cases, deaths_comm, deaths_intracte, new_deaths = parse_zone_day_columns(row)
     return {
         "name": name,
         "province": PROVINCE_CANON.get(province, province),
@@ -814,8 +860,9 @@ def zone_row_to_dict(province, name, row):
         "deaths": deaths or 0,
         "cfr": cfr if cfr is not None else 0.0,
         "newCases24h": new_cases or 0,
-        "deathsCommunity24h": deaths_comm or 0,
-        "deathsIntraCTE24h": deaths_intracte or 0,
+        "newDeaths24h": new_deaths or 0,
+        "deathsCommunity24h": deaths_comm,
+        "deathsIntraCTE24h": deaths_intracte,
     }
 
 

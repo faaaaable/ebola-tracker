@@ -104,6 +104,24 @@ for p in provinces:
           "%s vs %s ; certaines lignes sont « à ventiler »" % (s, p.get("confirmed")),
           blocking_if_false=False)
 
+# Le controle qui manquait le 25 aout : la ventilation des deces du jour
+# n'etait verifiee qu'entre provinces et national, jamais entre zones et
+# province. Une lecture de colonnes decalee doublait les nouveaux deces de
+# neuf zones sur dix sans qu'aucun garde-fou ne bronche — le Nord-Kivu en
+# repartissait 16 sur trois zones quand la province en declarait 8.
+# L'inegalite est large, pas une egalite : les lignes « a ventiler » de
+# l'Ituri restent hors des zones, donc la somme des zones peut etre
+# inferieure au total de la province, jamais superieure.
+for p_ in provinces:
+    mine = by_province.get(p_["name"], [])
+    if not mine:
+        continue
+    somme = sum(z.get("newDeaths24h") or 0 for z in mine)
+    total = (p_.get("newDeathsCommunity24h") or 0) + (p_.get("newDeathsIntraCTE24h") or 0)
+    check("nouveaux décès des zones <= province (%s)" % p_["name"],
+          somme <= total,
+          "%s réparti(s) sur les zones vs %s déclaré(s) par la province" % (somme, total))
+
 negative = [z["name"] for z in zones if (z.get("cases") or 0) < 0
             or (z.get("deaths") or 0) < 0]
 check("aucun effectif négatif", not negative, ", ".join(negative[:5]))

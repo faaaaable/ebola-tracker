@@ -24,7 +24,16 @@ Deux illustrations à connaître, parce qu'elles reviendront :
   étaient 233 au SitRep 100, **250 au SitRep 101** : la somme des 28 zones donne
   1 838 décès quand la province en déclare 2 088. L'écart reste visible plutôt
   que comblé, et il grossit à chaque bulletin qui ajoute des décès intra-CTE non
-  encore rattachés à une zone.
+  encore rattachés à une zone. **Depuis le 25 août il est aussi expliqué** :
+  `zonesSumNote` accompagne le tableau des zones de chaque page province et
+  celui de `/donnees/`. La formulation est volontairement générale — « le total
+  d'une province peut différer de la somme de ses zones » — et ne porte **aucun
+  chiffre** : un nombre écrit dans `strings.json` ne se recalcule jamais, c'est
+  ce qui avait périmé les « 464 zones » de la carte. Elle vaut pour les cas
+  autant que pour les décès : l'historique compte 48 dates où la somme des cas
+  d'une province ne tombait pas sur son total, et deux dates où la somme
+  dépassait le total d'une unité (Ituri le 17 juin, Haut-Uélé le 26 juillet) —
+  d'où « peut différer » plutôt que « est inférieure ».
 - Les premiers cas du **Haut-Uélé et de la Tshopo**, importés de la zone de
   Nia-Nia, sont restés comptés en Ituri jusqu'au 10 juillet. Le site n'a pas
   corrigé cette attribution : il l'explique.

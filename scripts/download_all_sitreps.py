@@ -21,6 +21,8 @@ c'était la cause du ralentissement du workflow une fois la plupart des
 rapports déjà archivés.
 """
 
+from __future__ import annotations
+
 import argparse
 import base64
 import json

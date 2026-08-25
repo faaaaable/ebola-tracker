@@ -638,6 +638,16 @@ function sortedSitrepsWithSocial(){
 /* ============ RENDU KPI ============ */
 function fmt(n){ return (n===null||n===undefined) ? '—' : n.toLocaleString(tr('locale')); }
 
+/* Un taux en pourcentage, dans la typographie de la langue : « 48,0 % » en
+   francais, « 48.0% » en anglais. Le generateur ecrit exactement la meme
+   chaine dans les memes elements (fmt_cfr() dans build_pages.py) — les deux
+   se corrigent ensemble, sinon un taux change d'ecriture au chargement. */
+function fmtCfr(v){
+  if(v===null||v===undefined) return '—';
+  const t = Number(v).toFixed(1);
+  return currentLang === 'fr' ? t.replace('.', ',') + ' %' : t + '%';
+}
+
 function renderKPIs(){
   // Les chiffres ne sont plus lies a un emplacement precis : ils vivent
   // partout ou un element porte data-kpi. Sans aucun, il n'y a rien a faire.
@@ -682,7 +692,7 @@ function renderKPIs(){
   setKpi('active', usingSocial ? fmt(eff.inCTE) : ((national && national.inCTE!=null) ? fmt(national.inCTE) : '—'));
   const cfrBase = usingSocial ? eff : (deathsEntry && confirmedEntry ? {confirmed:confirmedEntry.confirmed, deaths:deathsEntry.deaths} : null);
   const cfr = (cfrBase && cfrBase.confirmed>0) ? (cfrBase.deaths/cfrBase.confirmed*100) : null;
-  setKpi('cfr', cfr!==null ? cfr.toFixed(1)+'%' : '—');
+  setKpi('cfr', fmtCfr(cfr));
 
   /* Ecart avec le bulletin precedent. En mode « point de situation reseaux
      sociaux », on compare au dernier SitRep connu, ce point n'ayant pas sa
@@ -2220,7 +2230,12 @@ function renderMap(){
     } else {
       const live = today[key] || z;
       newCases = live.newCases24h || 0;
-      newDeaths = (live.deathsCommunity24h || 0) + (live.deathsIntraCTE24h || 0);
+      // Le total imprime par le bulletin, pas la somme des deux categories :
+      // quand une seule est imprimee, l'autre colonne porte deja ce total et
+      // l'addition le comptait deux fois (Bunia : +6 pour 3 deces reels).
+      newDeaths = live.newDeaths24h != null
+        ? live.newDeaths24h
+        : (live.deathsCommunity24h || 0) + (live.deathsIntraCTE24h || 0);
     }
 
     el.setAttribute('class', 'zm-zone is-' + zoneLevel(cases));
@@ -2693,13 +2708,13 @@ function renderProvinceSummary(){
     const newBadge = p.newCases24h>0
       ? `<span class="zone-new-badge has-new">+${fmt(p.newCases24h)}</span>`
       : `<span class="zone-new-badge no-new">${fmt(p.newCases24h)}</span>`;
-    const pctOfTotal = nationalTotal ? ` <span style="color:var(--ink-faint);">(${(p.confirmed/nationalTotal*100).toFixed(1)}%)</span>` : '';
+    const pctOfTotal = nationalTotal ? ` <span style="color:var(--ink-faint);">(${fmtCfr(p.confirmed/nationalTotal*100)})</span>` : '';
     return `
       <tr>
         <td><div class="zone-name-cell"><span class="zdot" style="background:${color};"></span>${p.name}</div></td>
         <td>${fmt(p.confirmed)}${pctOfTotal}</td>
         <td>${fmt(p.deaths)}</td>
-        <td><span class="zone-badge ${cfrBadgeClass(p.cfr)}">${p.cfr.toFixed(1)}%</span></td>
+        <td><span class="zone-badge ${cfrBadgeClass(p.cfr)}">${fmtCfr(p.cfr)}</span></td>
         <td>${zonesAffected}</td>
         <td>${newBadge}</td>
       </tr>
@@ -2768,7 +2783,7 @@ function renderZonesTable(){
         <td>${z.province}</td>
         <td><div class="zone-cases-cell"><span class="zone-cases-num">${fmt(z.cases)}</span><div class="zone-bar-track"><div class="zone-bar-fill" style="width:${barPct}%;background:${dotColor};"></div></div></div></td>
         <td>${fmt(z.deaths)}</td>
-        <td><span class="zone-badge ${cfrBadgeClass(z.cfr)}">${z.cfr.toFixed(1)}%</span></td>
+        <td><span class="zone-badge ${cfrBadgeClass(z.cfr)}">${fmtCfr(z.cfr)}</span></td>
         <td>${newBadge}</td>
       </tr>
     `;
@@ -2871,7 +2886,7 @@ async function generateShareImage(){
     { label: tr('labelConfirmed'), value: fmt(latest.confirmed), color: info },
     { label: tr('labelDeaths'), value: fmt(latest.deaths), color: critical },
     { label: tr('labelRecovered'), value: latest.recovered!=null ? fmt(latest.recovered) : '—', color: stable },
-    { label: tr('labelCfr'), value: (latest.deaths!=null && latest.confirmed>0) ? (latest.deaths/latest.confirmed*100).toFixed(1)+'%' : '—', color: ink }
+    { label: tr('labelCfr'), value: (latest.deaths!=null && latest.confirmed>0) ? fmtCfr(latest.deaths/latest.confirmed*100) : '—', color: ink }
   ];
   const gridTop = y + 60;
   const cellW = (W - pad*2) / 2, cellH = 190;
@@ -3270,7 +3285,7 @@ function mergeHealthZonesWithHistory(){
     const cfr = z.cases>0 ? +((z.deaths||0)/z.cases*100).toFixed(1) : 0;
     HEALTH_ZONES.push({
       name:z.name, province:z.province, cases:z.cases, deaths:z.deaths||0, cfr,
-      newCases24h:0, deathsCommunity24h:0, deathsIntraCTE24h:0
+      newCases24h:0, newDeaths24h:0, deathsCommunity24h:0, deathsIntraCTE24h:0
     });
     known.add(z.name);
     carriedForward++;

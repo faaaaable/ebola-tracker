@@ -547,14 +547,20 @@
   },
   "099": {
     "article_url": "https://insp.cd/sitrep-n099-mvebdb-21-08-2026/",
-    "file": "reports\\SITREP_MVE_099.pdf",
-    "pdf_url": "https://insp.cd/wp-content/uploads/2026/08/99.pdf",
-    "title": "SitRep N°099/MVEBDB/21/08/2026"
+    "file": "reports/SITREP_MVE_099.pdf",
+    "pdf_url": null,
+    "title": "SitRep NÂ°099/MVEBDB/21/08/2026"
   },
   "100": {
     "article_url": "https://insp.cd/sitrep-n0100-mvebdb-22-08-2026/",
-    "file": "reports\\SITREP_MVE_100.pdf",
-    "pdf_url": "https://insp.cd/wp-content/uploads/2026/08/100.pdf",
-    "title": "SitRep N°0100/MVEBDB/22/08/2026"
+    "file": "reports/SITREP_MVE_100.pdf",
+    "pdf_url": null,
+    "title": "SitRep NÂ°0100/MVEBDB/22/08/2026"
+  },
+  "101": {
+    "article_url": "https://insp.cd/sitrep-n101-mvebdb-23-08-2026/",
+    "file": "reports/SITREP_MVE_101.pdf",
+    "pdf_url": "https://insp.cd/wp-content/uploads/2026/08/SitRep_MVEBDB_101_23_08_2026.pdf",
+    "title": "SitRep NÂ°101/MVEBDB/23/08/2026"
   }
 }
