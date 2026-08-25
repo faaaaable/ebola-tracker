@@ -1054,9 +1054,6 @@ td:first-child{color:var(--ink);font-weight:500;}
   .th-nav[disabled]:hover{color:var(--ink-soft);border-color:var(--line);}
 }
 
-/* L'indice sous la piste : il dit ce que les fleches ne disent pas au doigt. */
-.th-hint{margin-top:10px;}
-
 /* Dans une colonne de contenu — l'apercu de l'accueil — la piste ne doit pas
    deborder jusqu'aux bords de la page. */
 .timeline-h.is-inline{margin:0;}
@@ -1096,12 +1093,6 @@ td:first-child{color:var(--ink);font-weight:500;}
   display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
 }
 .th-item .src{display:block;margin-top:7px;font-size:10.5px;color:var(--ink-faint);}
-
-.th-hint{
-  font-size:11px;color:var(--ink-faint);margin:10px 0 0;
-  display:flex;align-items:center;gap:6px;
-}
-.th-hint::before{content:'\2194';font-size:14px;}
 
 /* ==========================================================================
    FAQ

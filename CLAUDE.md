@@ -594,8 +594,16 @@ affichees sous `@media (pointer:fine)` seulement — au doigt le geste suffit.
 Elles sont `hidden` dans le HTML et revelees par le script : sans JavaScript,
 un bouton mort serait pire que pas de bouton. En bout de course elles
 s'estompent au lieu de disparaitre, sinon la piste sauterait sous le curseur.
-`timelineScrollHint` existait dans `strings.json` depuis toujours **sans etre
-affichee nulle part** ; elle l'est desormais, pour le tactile.
+Aucune phrase n'accompagne la piste : `timelineScrollHint` a ete affichee une
+journee puis **supprimee**, avec son style et sa cle. Elle disait ce que le
+dessin montre deja — sur toutes les largeurs de telephone courantes, la case
+suivante est coupee au bord droit et il en reste 52 a 86 % de visible, jamais
+une coupure pile qui ferait croire la piste terminee ; sur ordinateur les
+fleches tiennent ce role. Et l'accessibilite etait deja couverte sans texte
+visible : la piste porte `role="region"` et l'etiquette « Chronologie de
+l'epidemie, defilement horizontal ». Regle a retenir pour ce depot : **ne pas
+ecrire ce que la mise en page montre**, et verifier la coupure avant de
+conclure qu'elle se voit.
 
 **Un chiffre ecrit dans `strings.json` ne se met jamais a jour.** La legende
 de la carte annoncait « Les 464 zones sans cas rapporté restent en gris »
