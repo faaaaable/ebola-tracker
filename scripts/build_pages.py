@@ -526,25 +526,35 @@ def province_rows_html(provinces, national, lang):
         badge = ('<span class="zone-new-badge has-new">+%s</span>' % fmt(new_cases, lang)
                  if new_cases > 0 else
                  '<span class="zone-new-badge no-new">%s</span>' % fmt(new_cases, lang))
-        share = ""
-        if total:
-            share = (' <span style="color:var(--ink-faint);">(%s)</span>'
-                     % fmt_cfr(province["confirmed"] / float(total) * 100, lang))
+        # La part du pays a sa propre colonne : accolee au cumul, elle
+        # empechait d'aligner les chiffres et se lisait comme une note.
+        share = fmt_cfr(province["confirmed"] / float(total) * 100, lang) if total else "—"
+        # Les lignes de province portent les quatre colonnes de deces du
+        # bulletin, la somme est donc exacte ici — a la difference des lignes
+        # de zone, ou il faut passer par zone_new_deaths().
+        new_deaths = ((province.get("newDeathsCommunity24h") or 0)
+                      + (province.get("newDeathsIntraCTE24h") or 0))
+        deaths_badge = (
+            '<span class="zone-new-badge has-new">+%s</span>' % fmt(new_deaths, lang)
+            if new_deaths > 0 else
+            '<span class="zone-new-badge no-new">%s</span>' % fmt(new_deaths, lang))
         rows.append(
             "              <tr>\n"
             '                <td><div class="zone-name-cell">'
             '<span class="zdot" style="background:%s;"></span>%s</div></td>\n'
-            "                <td>%s%s</td>\n"
-            "                <td>%s</td>\n"
-            '                <td><span class="zone-badge %s">%s</span></td>\n'
-            "                <td>%s</td>\n"
-            "                <td>%s</td>\n"
+            '                <td class="is-num">%s</td>\n'
+            '                <td class="is-num is-soft">%s</td>\n'
+            '                <td class="is-num">%s</td>\n'
+            '                <td class="is-num"><span class="zone-badge %s">%s</span></td>\n'
+            '                <td class="is-num">%s</td>\n'
+            '                <td class="is-num">%s</td>\n'
+            '                <td class="is-num">%s</td>\n'
             "              </tr>" % (
                 color, esc(province["name"]),
                 fmt(province.get("confirmed"), lang), share,
                 fmt(province.get("deaths"), lang),
                 cfr_badge_class(province.get("cfr")), fmt_cfr(province.get("cfr"), lang),
-                zones_text, badge))
+                zones_text, badge, deaths_badge))
     return "\n".join(rows)
 
 

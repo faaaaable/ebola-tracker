@@ -640,6 +640,38 @@ td:first-child{color:var(--ink);font-weight:500;}
 .zone-new-badge.has-new{background:var(--wash-critical);color:var(--accent-critical);}
 .zone-new-badge.no-new{background:var(--bg-alt);color:var(--ink-faint);}
 
+/* Colonnes de chiffres alignees a droite : c'est la seule facon de comparer
+   deux nombres de longueurs differentes d'une ligne a l'autre — « 4 655 » au
+   dessus de « 728 » ne se lit que si les unites tombent l'une sous l'autre.
+   Les badges de letalite et de nouveaux cas suivent, sans quoi ils flotteraient
+   a gauche d'une colonne alignee a droite. */
+td.is-num, th.is-num{text-align:right;}
+td.is-num{font-variant-numeric:tabular-nums;}
+/* Ce qui elargissait les colonnes, c'etait l'en-tete et non le chiffre :
+   « NOUV. DÉCÈS (24H) », insecable, imposait 186 px pour afficher « +23 ».
+   On l'autorise donc a se replier sur deux lignes. Le retrait est limite aux
+   colonnes numeriques : le « white-space:nowrap » general protege les autres
+   tableaux du site.
+
+   Pas de « width:1% » ici, essaye puis ecarte le 25 aout : il reduisait bien
+   les colonnes de chiffres a 51-62 px, mais le tableau occupe 1 142 px quoi
+   qu'il arrive et les 743 px restants tombaient alors sur le nom de province.
+   Le vide ne disparaissait pas, il se deplacait au milieu de chaque ligne.
+   Sans cette contrainte, l'excedent se repartit de lui-meme entre toutes les
+   colonnes : la premiere reste a 214 px et les colonnes de chiffres tombent
+   de 186 a 122 px. */
+td.is-num, th.is-num{padding-left:10px;padding-right:10px;}
+/* Plafond calibre sur le mot le plus long des en-tetes — « TOUCHÉES »,
+   environ 55 px a 10,5 px avec l'interlettrage. A 8ch (~48 px) le mot
+   debordait sur la colonne voisine ; 80 px force le repli sans rien couper. */
+th.is-num{white-space:normal;max-width:80px;}
+/* La part du pays accompagne le cumul sans lui disputer l'oeil. */
+td.is-soft{color:var(--ink-faint);}
+
+/* Le nombre de la colonne « cas cumulés » garde sa barre a droite, mais les
+   chiffres entre eux s'alignent quand meme. */
+.zone-cases-num{text-align:right;}
+
 .zone-cases-cell{display:flex;align-items:center;gap:9px;}
 .zone-cases-num{min-width:44px;font-weight:600;color:var(--ink);}
 .zone-bar-track{flex:1;height:5px;border-radius:3px;background:var(--bg-alt);min-width:40px;}

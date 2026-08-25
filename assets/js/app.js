@@ -171,7 +171,9 @@ const HEALTH_ZONES_SEED = [
   ["Bafwasende",1,"Tshopo",0,0,0,0],["Lubunga",1,"Tshopo",0,0,0,0],["Wanie-Rukula",1,"Tshopo",0,0,0,0]
 ].map(([name,cases,province,deaths,newCases24h,deathsCommunity24h,deathsIntraCTE24h])=>{
   const cfr = cases>0 ? +(deaths/cases*100).toFixed(1) : 0;
-  return {name,cases,province,deaths,cfr,newCases24h,deathsCommunity24h,deathsIntraCTE24h};
+  return {name,cases,province,deaths,cfr,newCases24h,
+          newDeaths24h:(deathsCommunity24h||0)+(deathsIntraCTE24h||0),
+          deathsCommunity24h,deathsIntraCTE24h};
 });
 
 /* Coordonnées approximatives des chefs-lieux de zone de santé, à des fins de
@@ -2587,9 +2589,10 @@ const ZONES_COLUMNS = [
   { key:'name',        i18n:'zonesTh1' },
   { key:'province',    i18n:'zonesTh2' },
   { key:'cases',       i18n:'zonesTh3', numeric:true },
-  { key:'deaths',      i18n:'zonesTh4', numeric:true },
-  { key:'cfr',         i18n:'zonesTh5', numeric:true },
-  { key:'newCases24h', i18n:'zonesTh6', numeric:true }
+  { key:'deaths',      i18n:'zonesTh4', numeric:true, right:true },
+  { key:'cfr',         i18n:'zonesTh5', numeric:true, right:true },
+  { key:'newCases24h', i18n:'zonesTh6', numeric:true, right:true },
+  { key:'newDeaths24h', i18n:'zonesTh7', numeric:true, right:true }
 ];
 
 function initZonesTableControls(){
@@ -2602,7 +2605,7 @@ function initZonesTableControls(){
   if(headRow && !headRow.dataset.built){
     headRow.dataset.built = '1';
     headRow.innerHTML = ZONES_COLUMNS.map(c=>
-      `<th data-key="${c.key}" style="cursor:pointer;user-select:none;white-space:nowrap;" data-i18n="${c.i18n}"></th>`
+      `<th data-key="${c.key}"${c.right ? ' class="is-num"' : ''} style="cursor:pointer;user-select:none;white-space:nowrap;" data-i18n="${c.i18n}"></th>`
     ).join('');
     headRow.querySelectorAll('th').forEach(th=>{
       th.addEventListener('click', ()=>{
@@ -2708,15 +2711,23 @@ function renderProvinceSummary(){
     const newBadge = p.newCases24h>0
       ? `<span class="zone-new-badge has-new">+${fmt(p.newCases24h)}</span>`
       : `<span class="zone-new-badge no-new">${fmt(p.newCases24h)}</span>`;
-    const pctOfTotal = nationalTotal ? ` <span style="color:var(--ink-faint);">(${fmtCfr(p.confirmed/nationalTotal*100)})</span>` : '';
+    const pctOfTotal = nationalTotal ? fmtCfr(p.confirmed/nationalTotal*100) : '—';
+    // Les lignes de province portent les quatre colonnes de deces du bulletin :
+    // la somme est exacte ici, contrairement aux lignes de zone.
+    const nd = (p.newDeathsCommunity24h || 0) + (p.newDeathsIntraCTE24h || 0);
+    const deathsBadge = nd>0
+      ? `<span class="zone-new-badge has-new">+${fmt(nd)}</span>`
+      : `<span class="zone-new-badge no-new">${fmt(nd)}</span>`;
     return `
       <tr>
         <td><div class="zone-name-cell"><span class="zdot" style="background:${color};"></span>${p.name}</div></td>
-        <td>${fmt(p.confirmed)}${pctOfTotal}</td>
-        <td>${fmt(p.deaths)}</td>
-        <td><span class="zone-badge ${cfrBadgeClass(p.cfr)}">${fmtCfr(p.cfr)}</span></td>
-        <td>${zonesAffected}</td>
-        <td>${newBadge}</td>
+        <td class="is-num">${fmt(p.confirmed)}</td>
+        <td class="is-num is-soft">${pctOfTotal}</td>
+        <td class="is-num">${fmt(p.deaths)}</td>
+        <td class="is-num"><span class="zone-badge ${cfrBadgeClass(p.cfr)}">${fmtCfr(p.cfr)}</span></td>
+        <td class="is-num">${zonesAffected}</td>
+        <td class="is-num">${newBadge}</td>
+        <td class="is-num">${deathsBadge}</td>
       </tr>
     `;
   }).join('');
@@ -2777,14 +2788,22 @@ function renderZonesTable(){
       const newBadge = z.newCases24h>0
         ? `<span class="zone-new-badge has-new">+${fmt(z.newCases24h)}</span>`
         : `<span class="zone-new-badge no-new">${fmt(z.newCases24h)}</span>`;
+      // Le total imprime par le bulletin, jamais la somme des deux categories.
+      const nd = z.newDeaths24h != null
+        ? z.newDeaths24h
+        : (z.deathsCommunity24h || 0) + (z.deathsIntraCTE24h || 0);
+      const deathsBadge = nd>0
+        ? `<span class="zone-new-badge has-new">+${fmt(nd)}</span>`
+        : `<span class="zone-new-badge no-new">${fmt(nd)}</span>`;
       return `
       <tr>
         <td><div class="zone-name-cell"><span class="zdot" style="background:${dotColor};"></span>${z.name}</div></td>
         <td>${z.province}</td>
         <td><div class="zone-cases-cell"><span class="zone-cases-num">${fmt(z.cases)}</span><div class="zone-bar-track"><div class="zone-bar-fill" style="width:${barPct}%;background:${dotColor};"></div></div></div></td>
-        <td>${fmt(z.deaths)}</td>
-        <td><span class="zone-badge ${cfrBadgeClass(z.cfr)}">${fmtCfr(z.cfr)}</span></td>
-        <td>${newBadge}</td>
+        <td class="is-num">${fmt(z.deaths)}</td>
+        <td class="is-num"><span class="zone-badge ${cfrBadgeClass(z.cfr)}">${fmtCfr(z.cfr)}</span></td>
+        <td class="is-num">${newBadge}</td>
+        <td class="is-num">${deathsBadge}</td>
       </tr>
     `;
     }).join('');

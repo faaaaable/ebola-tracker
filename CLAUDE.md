@@ -397,9 +397,41 @@ le script. Le JavaScript n'ajoute que ce qui bouge.
 Un premier niveau d'onglets, `zonesViewNav`, bascule entre deux lectures :
 
 **« Par province »** — six lignes **écrites en dur** par `build_pages.py`
-(`provinceSummaryBody`), triées par cas décroissants. Colonnes : province, cas
-cumulés avec sa part du pays, décès, létalité, zones touchées, nouveaux cas.
-Chaque ligne porte la pastille de couleur de sa province.
+(`provinceSummaryBody`), triées par cas décroissants. Huit colonnes depuis le
+25 août : province, cas cumulés, **part du pays**, décès, létalité, zones
+touchées, nouveaux cas 24 h, **nouveaux décès 24 h**. Chaque ligne porte la
+pastille de couleur de sa province.
+
+La part du pays était accolée au cumul, entre parenthèses ; elle a sa colonne,
+sinon les chiffres ne pouvaient pas s'aligner. Les nouveaux décès d'une
+province se calculent en additionnant communauté et intra-CTE — les lignes de
+province portent les quatre colonnes du bulletin, la somme y est donc exacte,
+**à la différence des lignes de zone** où il faut passer par le total (voir
+« Pièges connus »).
+
+**Ce tableau est écrit deux fois** : par le générateur, puis réécrit par
+`renderProvinceSummary()` dès que `latest.json` charge. Toute colonne ajoutée
+d'un côté doit l'être de l'autre, sinon elle disparaît une demi-seconde après
+l'affichage.
+
+**Les colonnes de chiffres sont alignées à droite** (`class="is-num"`), avec
+des chiffres à chasse fixe : c'est la seule façon de comparer 4 655 et 728
+d'une ligne à l'autre. Les en-têtes suivent, sinon ils flottent à gauche
+au-dessus d'une colonne alignée à droite — piège vu le 25 août, les en-têtes
+du tableau par zone étant écrits par le JavaScript et non par le gabarit.
+
+**Ce qui élargit une colonne, c'est son en-tête, pas son chiffre.**
+« NOUV. DÉCÈS (24H) », insécable, imposait 186 px pour afficher « +23 ». Le
+remède est `white-space:normal` sur les en-têtes numériques, avec un plafond
+calibré sur le mot le plus long (« TOUCHÉES », ~55 px) : à 8ch il débordait sur
+la colonne voisine, 80 px le replie proprement. Les colonnes tombent alors de
+107/166/186 px à 135/144/144.
+
+**Fausse piste à ne pas rouvrir : `width:1%` sur les colonnes de chiffres.**
+Il les réduit bien à 51-62 px, mais le tableau occupe 1 142 px quoi qu'il
+arrive et les 743 px restants tombent sur le nom de province. Le vide ne
+disparaît pas, il se déplace au milieu de chaque ligne. Le vide résiduel est
+structurel : ~700 px de contenu pour 1 142 px de large.
 
 **« Par zone de santé »** — **entièrement rendue par le JavaScript**
 (`renderZonesTable`), zéro ligne dans le HTML. C'est le seul tableau du site
