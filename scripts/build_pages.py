@@ -96,11 +96,16 @@ def fmt_cfr(value, lang):
     elements et doit produire exactement la meme chaine : voir fmtCfr() dans
     app.js. Les deux fonctions se corrigent ensemble, sinon un taux change
     d'ecriture au chargement de la page.
+
+    L'espace est **fine insecable** (U+202F), la meme que celle qui separe les
+    milliers. Avec une espace ordinaire, « 83,4 % » se coupait en deux dans une
+    colonne etroite : sur telephone, le « % » passait a la ligne sous le
+    nombre, dans la part du pays comme dans la letalite.
     """
     if value is None:
         return "—"
     text = "{:.1f}".format(float(value))
-    return text.replace(".", ",") + " %" if lang == "fr" else text + "%"
+    return text.replace(".", ",") + NNBSP + "%" if lang == "fr" else text + "%"
 
 
 def fmt_decimal(value, lang):

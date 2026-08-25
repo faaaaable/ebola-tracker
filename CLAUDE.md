@@ -566,7 +566,13 @@ L'anglais n'a pas le probleme : « {n} of {total} zones affected » accorde sur
 
 **Typographie.** Espace fine insécable (U+202F) comme séparateur des milliers. Un
 taux s'ecrit « 48,0 % » en francais et « 48.0% » en anglais : virgule decimale
-et espace ordinaire avant le signe, jamais insecable — c'est la convention
+et **espace fine insecable** (U+202F) avant le signe, la meme que pour les
+milliers. Avec une espace ordinaire — essayee le 25 aout, corrigee le meme
+jour — « 83,4 % » se coupait en deux dans une colonne etroite et le « % »
+passait a la ligne sous le nombre, sur telephone, dans la part du pays comme
+dans la letalite. Les cellules numeriques portent en plus `white-space:nowrap`
+pour les valeurs a separateur, que l'insecable ne protege pas : « 28 / 36 ».
+Ce n'est plus la convention de l'espace ordinaire — c'est la convention
 deja suivie partout dans `app.js` et `strings.json`. `fmt_cfr()` (generateur)
 et `fmtCfr()` (`app.js`) doivent produire **exactement** la meme chaine : le
 JavaScript reecrit les elements que le generateur a remplis, et un taux qui

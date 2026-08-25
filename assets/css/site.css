@@ -660,6 +660,10 @@ td.is-num{font-variant-numeric:tabular-nums;}
    Sans cette contrainte, l'excedent se repartit de lui-meme entre toutes les
    colonnes : la premiere reste a 214 px et les colonnes de chiffres tombent
    de 186 a 122 px. */
+/* Une valeur ne se coupe jamais en deux : « 28 / 36 » et « 44,9 % » restent
+   d'un seul tenant meme dans une colonne etroite. L'espace insecable des taux
+   suffirait pour eux, mais pas pour les valeurs qui portent un separateur. */
+td.is-num{white-space:nowrap;}
 td.is-num, th.is-num{padding-left:10px;padding-right:10px;}
 /* Plafond calibre sur le mot le plus long des en-tetes — « TOUCHÉES »,
    environ 55 px a 10,5 px avec l'interlettrage. A 8ch (~48 px) le mot

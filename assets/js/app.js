@@ -643,11 +643,15 @@ function fmt(n){ return (n===null||n===undefined) ? '—' : n.toLocaleString(tr(
 /* Un taux en pourcentage, dans la typographie de la langue : « 48,0 % » en
    francais, « 48.0% » en anglais. Le generateur ecrit exactement la meme
    chaine dans les memes elements (fmt_cfr() dans build_pages.py) — les deux
-   se corrigent ensemble, sinon un taux change d'ecriture au chargement. */
+   se corrigent ensemble, sinon un taux change d'ecriture au chargement.
+
+   L'espace avant le signe est fine INSECABLE (U+202F) : avec une espace
+   ordinaire, « 83,4 % » se coupait en deux dans une colonne etroite et le
+   « % » passait a la ligne sous le nombre. */
 function fmtCfr(v){
   if(v===null||v===undefined) return '—';
   const t = Number(v).toFixed(1);
-  return currentLang === 'fr' ? t.replace('.', ',') + ' %' : t + '%';
+  return currentLang === 'fr' ? t.replace('.', ',') + '\u202f%' : t + '%';
 }
 
 function renderKPIs(){
