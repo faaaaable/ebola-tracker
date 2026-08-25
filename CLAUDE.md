@@ -507,9 +507,19 @@ rejointe.
 
 **Accord.** Les chaînes acceptent `{clé?suffixe}` : le suffixe n'apparaît que
 si la valeur n'est pas 1. En français, « cas » et « décès » sont invariables,
-seuls les adjectifs prennent la marque.
+seuls les adjectifs prennent la marque. Le mecanisme n'etait pas applique a
+« {n} zones touchées sur {total} », qui affichait « 1 zones touchées » pour le
+Sud-Kivu ; corrige le 25 aout en « {n} zone{n?s} touchée{n?s} sur {total} ».
+L'anglais n'a pas le probleme : « {n} of {total} zones affected » accorde sur
+{total}.
 
-**Typographie.** Espace fine insécable (U+202F) comme séparateur des milliers.
+**Typographie.** Espace fine insécable (U+202F) comme séparateur des milliers. Un
+taux s'ecrit « 48,0 % » en francais et « 48.0% » en anglais : virgule decimale
+et espace ordinaire avant le signe, jamais insecable — c'est la convention
+deja suivie partout dans `app.js` et `strings.json`. `fmt_cfr()` (generateur)
+et `fmtCfr()` (`app.js`) doivent produire **exactement** la meme chaine : le
+JavaScript reecrit les elements que le generateur a remplis, et un taux qui
+change d'ecriture au chargement se voit. Les deux se corrigent ensemble.
 
 **Notes de graphique.** Elles portent d'abord le fait, ensuite les réserves.
 Un lecteur ne lit pas trois lignes de mise en garde avant d'atteindre
@@ -546,10 +556,43 @@ distincte.
 
 **Sept bulletins manquent** à l'archive : 003, 029, 043, 045, 063, 075, 076.
 
+**Un chiffre ecrit dans `strings.json` ne se met jamais a jour.** La legende
+de la carte annoncait « Les 464 zones sans cas rapporté restent en gris »
+quand la carte en dessinait 462 : le total etait juste a 55 zones touchees et
+n'a plus bouge depuis. Retire le 25 aout — le gris se comprend sans legende,
+et un chiffre qu'aucun script ne recalcule finit toujours par mentir. Deux
+autres survivent, sans consequence : `provincesTableIntro` parle de « 55 zones
+touchées » en FR et EN, mais **cette cle n'est referencee nulle part**.
+
 **Les captures d'écran des graphiques sont instables** : ils s'animent au
 chargement et se redessinent hors écran. Interroger le canevas
 (`chart.options.animation = false; chart.update('none'); canvas.toDataURL()`)
 plutôt que faire une copie d'écran de page.
+
+**Le tableau des zones porte QUATRE colonnes de jour, pas trois.** Apres la
+letalite viennent : nouveaux cas, deces communautaires, deces intra-CTE, puis
+un **total** des deces. Ce total etait ignore, et `zone_row_to_dict()` lisait
+les colonnes par position. Or le PDF **n'imprime pas la cellule vide** quand
+une zone n'a de deces que dans une seule des deux categories : la lecture
+tombait alors sur le total en croyant lire l'intra-CTE, et « 3 deces
+communautaires » devenait « 3 communautaires + 3 intra-CTE ». Le site publiait
+le double sur neuf zones sur dix — Bunia (+6) pour 3 deces reels au SitRep 101,
+le Nord-Kivu repartissant 16 deces sur trois zones quand la province en
+declarait 8. Corrige le 25 aout : **le total fait foi**, il est la seule valeur
+que le bulletin imprime toujours (`parse_zone_day_columns()`, champ
+`newDeaths24h`). La ventilation communaute / CTE n'est renseignee que si la
+ligne la donne sans ambiguite, `None` sinon — un des deux compteurs porte le
+total, on ne sait pas lequel, et on ne devine pas. Les lignes de **province**,
+elles, ont toujours ete justes : `PROV_SUBTOTAL_RE` capture les quatre valeurs.
+
+Deux consequences a retenir. **Ne jamais additionner `deathsCommunity24h` et
+`deathsIntraCTE24h`** : passer par `zone_new_deaths()` cote generateur,
+`fmtCfr`/`newDeaths24h` cote `app.js`. Et le controle qui manquait est
+desormais dans `check_coherence.py` : *nouveaux deces des zones <= province*.
+Inegalite large, car les lignes « a ventiler » restent hors des zones — ce qui
+en fait un filet a trous : sur l'Ituri, ou 250 deces attendent leur zone, un
+doublement passerait encore inapercu. Il attrape le Nord-Kivu et le Haut-Uele,
+qui n'ont pas de reserve.
 
 **Les annotations `X | None` cassent sur le Python de la machine.** Le seul
 interpréteur disponible est 3.9.6, où PEP 604 n'existe pas : une signature
