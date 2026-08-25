@@ -575,6 +575,25 @@ distincte.
 
 **Sept bulletins manquent** à l'archive : 003, 029, 043, 045, 063, 075, 076.
 
+**Les vignettes de province tiennent sur deux colonnes des 320 px.** Elles
+s'empilaient sur une seule colonne sous ~420 px — 1 018 px de haut a 375 px,
+soit 23 % de la page d'accueil — parce que la grille demandait 180 px minimum
+par carte et qu'un ecran de 375 px n'offre que 335 px de contenu. Deux
+colonnes ramenent le bloc a 611 px et la page de 4 339 a 3 932 px.
+
+La raison n'est pas la place gagnee, c'est la **comparaison** : ces six cartes
+n'existent que pour situer les provinces entre elles, et l'Ituri contre le
+Nord-Kivu — 4 655 contre 728 — se lit d'un coup d'oeil quand les deux sont
+cote a cote. Le site adoptait deja cette disposition des 430 px ; les
+telephones etroits en heritaient d'une autre par accident de seuil.
+
+**Un carrousel horizontal a ete propose puis ecarte.** La chronologie peut
+defiler parce qu'elle est sequentielle ; six provinces ne se lisent pas dans
+un ordre impose, et ce qui sort de l'ecran n'est pas lu — les quatre dernieres
+provinces auraient disparu, alors que leur presence dit a elle seule que
+l'epidemie touche six provinces. Deux carrousels sur une meme page se genent
+aussi : on ne sait plus ce qui bouge lateralement.
+
 **L'apercu de chronologie de l'accueil tient six jalons, et il faut deux
 fleches pour les atteindre.** Il en montrait quatre, soit 928 px : sur un
 ecran de 1920 px la piste dispose de 1 332 px, il restait donc **404 px de

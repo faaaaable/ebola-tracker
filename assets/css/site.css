@@ -749,7 +749,9 @@ td:first-child{color:var(--ink);font-weight:500;}
 
    Borne basse a 1401 px : en dessous la grille s'enroule (regle suivante) et
    la carte repasse au-dessus de 180 px, ou le cote a cote tient sans peine.
-   Inutile d'empiler sur telephone, ou la carte fait toute la largeur. */
+   Le meme empilement revient sous 420 px, depuis que les telephones etroits
+   affichent deux colonnes : la carte y retombe a 135 px de contenu, soit
+   exactement la limite. */
 @media (min-width:1401px) and (max-width:1680px){
   .pc-stat{flex-direction:column;align-items:flex-start;gap:0;}
   .pc-stat .k{line-height:1.35;}
@@ -763,6 +765,34 @@ td:first-child{color:var(--ink);font-weight:500;}
   .province-grid{
     grid-auto-flow:row;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;
   }
+}
+
+/* Sous ~420 px il ne restait qu'une colonne : six cartes empilees, 1 018 px
+   de haut, presque un quart de la page d'accueil. Le minimum descend a
+   150 px pour qu'il en tienne deux — 2 x 150 + 10 = 310 pour 335 px de
+   contenu a 375 px de large. C'est la disposition que le site adopte deja
+   des 430 px, etendue aux ecrans plus etroits ; pas un carrousel, parce que
+   ces six cartes servent a se comparer et que ce qui sort de l'ecran n'est
+   pas lu. */
+@media (max-width:420px){
+  .province-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
+  }
+  /* Le libelle passe au-dessus du chiffre sur toute la plage, meme remede que
+     sur les 13 pouces plus haut. A 375 px la carte n'offre que 135 px de
+     contenu et « Cas confirmés » cote a cote avec « 4 655 » en demande
+     exactement 135 : le chiffre sortait de sa carte.
+
+     Un seuil intermediaire a 385 px avait ete essaye — de 390 a 420 px la
+     carte offre 142 px et le cote a cote y tenait, pour 37 px de moins par
+     rangee. Ecarte le 25 aout apres mesure : en remplacant les valeurs par
+     « 10 000 » et « 5 000 », le cote a cote deborde des 390 px alors que
+     l'empilement tient. Le cumul progresse de 86 cas par jour et franchira
+     les 10 000 vers le 13 octobre 2026 — la mise en page se serait cassee
+     toute seule, et c'est exactement le defaut qu'on venait de corriger.
+     L'empilement encaisse un chiffre plus long sans rien demander. */
+  .pc-stat{flex-direction:column;align-items:flex-start;gap:0;}
+  .pc-stat .k{line-height:1.35;}
 }
 
 /* ==========================================================================
