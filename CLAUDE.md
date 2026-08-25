@@ -195,6 +195,16 @@ zones de santé et produit deux fichiers, **une fois pour toutes** :
 - `site/geo/zones-overview.json` — les 519 tracés, la carte nationale
 - `site/geo/province-maps.json` — un cadrage par province
 
+Le jeu HDX `dr-congo-health-0` s'intitule « DR Congo - Health Zones » ; sa
+source déclarée est le **Référentiel géographique commun** de la RDC, et
+l'organisme qui le publie est **OCHA RDC**. C'est ce qu'il faut écrire quand on
+cite la provenance des tracés — « contours officiels » laissait croire à un
+document gouvernemental, et le sigle n'était développé nulle part sur le site.
+La légende de la carte le dit depuis le 25 août : « Chaque forme est une zone
+de santé, l'unité de référence des bulletins officiels. Délimitations
+géographiques d'après les données d'OCHA. » C'est la **seule** mention de cette
+provenance sur tout le site — la page « À propos » n'en parle pas.
+
 Ils ne se régénèrent pas au quotidien. `build_pages.py` les lit et **colorie**
 les zones d'après `data/latest.json`.
 
