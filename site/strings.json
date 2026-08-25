@@ -37,6 +37,12 @@
     "provinceStatusInactive": "Aucun cas récent",
     "provinceZonesTitle": "Zones de santé touchées {in}",
     "provinceZonesEmpty": "Aucun détail par zone de santé n'est publié pour cette province : les chiffres sont donnés au niveau provincial uniquement.",
+    "zonesSubAffected": "{n} zones de santé touchées sur {total}",
+    "sitrepJoiner": " du ",
+    "reportSituation": "Situation au {date}",
+    "whoReportLabel": "Rapport N°{n}",
+    "notFoundTitle": "Page introuvable",
+    "notFoundIntro": "Cette adresse n'existe pas ou n'existe plus. Voici par où reprendre :",
     "zonesSumNote": "Le total d'une province peut différer de la somme de ses zones de santé : les bulletins comptent à part les cas et décès qui ne sont pas encore rattachés à une zone. Le site les laisse là où la source les place.",
     "provinceUpdatedNote": "Chiffres issus du bulletin officiel du {date}. Cette page est régénérée à chaque nouveau bulletin.",
     "provinceThZone": "Zone de santé",
@@ -253,6 +259,12 @@
     "provinceStatusInactive": "No recent case",
     "provinceZonesTitle": "Affected health zones in {name}",
     "provinceZonesEmpty": "No health-zone breakdown is published for this province: figures are given at provincial level only.",
+    "zonesSubAffected": "{n} health zones affected out of {total}",
+    "sitrepJoiner": " of ",
+    "reportSituation": "Situation as of {date}",
+    "whoReportLabel": "Report N°{n}",
+    "notFoundTitle": "Page not found",
+    "notFoundIntro": "This address does not exist, or no longer does. Here is where to pick up:",
     "zonesSumNote": "A province's total can differ from the sum of its health zones: the bulletins count cases and deaths not yet assigned to a zone separately. The site leaves them where the source puts them.",
     "provinceUpdatedNote": "Figures from the official bulletin of {date}. This page is regenerated with every new bulletin.",
     "provinceThZone": "Health zone",
@@ -444,6 +456,10 @@
       "en": {
         "title": "First suspected cases",
         "text": "Cases of unexplained haemorrhagic fever are detected in Ituri province. Samples are sent for analysis."
+      },
+      "sw": {
+        "title": "Visa vya kwanza vinavyotiliwa shaka",
+        "text": "Visa vya homa ya kuvuja damu isiyoelezeka vinagunduliwa katika jimbo la Ituri. Sampuli zinatumwa kwa uchunguzi."
       }
     },
     {
@@ -456,6 +472,10 @@
       "en": {
         "title": "Laboratory confirmation and outbreak declaration",
         "text": "Testing confirms Ebola virus, Bundibugyo species. The authorities officially declare the 17th Ebola outbreak in the Democratic Republic of the Congo."
+      },
+      "sw": {
+        "title": "Uthibitisho wa kimaabara na kutangazwa kwa mlipuko",
+        "text": "Uchunguzi unathibitisha virusi vya Ebola, aina ya Bundibugyo. Mamlaka zinatangaza rasmi mlipuko wa 17 wa Ebola katika Jamhuri ya Kidemokrasia ya Kongo."
       }
     },
     {
@@ -468,6 +488,10 @@
       "en": {
         "title": "Public health emergency of national concern",
         "text": "The DRC declares a public health emergency at national level and activates its response: treatment centres, contact tracing, border screening points."
+      },
+      "sw": {
+        "title": "Dharura ya afya ya umma ya kitaifa",
+        "text": "DRC inatangaza dharura ya afya ya umma kwa kiwango cha kitaifa na kuanzisha mapambano: vituo vya matibabu, ufuatiliaji wa walioguswa, vituo vya ukaguzi mipakani."
       }
     },
     {
@@ -480,6 +504,10 @@
       "en": {
         "title": "Public health emergency of continental security",
         "text": "The emergency is extended to continental level, opening the way to a regionally coordinated response."
+      },
+      "sw": {
+        "title": "Dharura ya afya ya umma ya kibara",
+        "text": "Dharura inapanuliwa hadi kiwango cha bara, ikifungua njia ya uratibu wa kikanda wa mapambano."
       }
     }
   ],
@@ -492,6 +520,10 @@
       "en": {
         "q": "How many Ebola cases are recorded in the DRC?",
         "a": "<p>The most recent toll included on this site is shown at the top of the <a href=\"{url.accueil}\">home page</a>, with confirmed cases, deaths, recoveries and the number of patients in isolation. These figures come from the latest official INSP bulletin and are checked once a day.</p>"
+      },
+      "sw": {
+        "q": "Ni visa vingapi vya Ebola vimeorodheshwa nchini DRC?",
+        "a": "<p>Takwimu za hivi karibuni zilizoingizwa kwenye tovuti hii zinaonyeshwa juu ya <a href=\"{url.accueil}\">ukurasa wa mwanzo</a>, pamoja na visa vilivyothibitishwa, vifo, waliopona na idadi ya wagonjwa waliotengwa. Tarakimu hizi zinatoka kwenye ripoti rasmi ya mwisho iliyochapishwa na INSP na huthibitishwa mara moja kwa siku.</p>"
       }
     },
     {
@@ -502,6 +534,10 @@
       "en": {
         "q": "Which provinces are affected?",
         "a": "<p>Six provinces are affected: Ituri, the epicentre of the outbreak, North Kivu, Haut-Uélé, Tshopo, South Kivu and Bas-Uélé. The province-by-province breakdown, with affected health zones, is available on the <a href=\"{url.donnees}\">Provinces</a> page.</p>"
+      },
+      "sw": {
+        "q": "Ni majimbo gani yameathirika?",
+        "a": "<p>Majimbo sita yanahusika: Ituri, kitovu cha mlipuko, Kivu Kaskazini, Haut-Uélé, Tshopo, Kivu Kusini na Bas-Uélé. Takwimu za kila jimbo, pamoja na maeneo ya afya yaliyoathirika, zinapatikana kwenye ukurasa wa <a href=\"{url.donnees}\">Majimbo</a>.</p>"
       }
     },
     {
@@ -512,6 +548,10 @@
       "en": {
         "q": "Which Ebola species is this?",
         "a": "<p>This outbreak is caused by <em>Bundibugyo ebolavirus</em>, not the Zaire species behind most previous outbreaks. That distinction matters: the licensed Ebola vaccine targets the Zaire species and offers no demonstrated protection against this one. The <a href=\"{url.le-virus}\">The virus</a> page covers this in detail.</p>"
+      },
+      "sw": {
+        "q": "Ni aina gani ya Ebola?",
+        "a": "<p>Mlipuko huu unasababishwa na aina ya <em>Bundibugyo ebolavirus</em>, si aina ya Zaire iliyosababisha milipuko mingi iliyotangulia. Ni tofauti muhimu: chanjo iliyoidhinishwa dhidi ya Ebola inalenga aina ya Zaire na haitoi kinga iliyothibitishwa dhidi ya hii. Ukurasa wa <a href=\"{url.le-virus}\">Virusi</a> unaeleza jambo hili kwa kina.</p>"
       }
     },
     {
@@ -522,6 +562,10 @@
       "en": {
         "q": "How does the virus spread?",
         "a": "<p>Through direct contact with the blood, secretions or organs of an infected person or animal, alive or deceased. Traditional funeral rites and unprotected caregiving are two major drivers of transmission. There is no airborne transmission, and an infected person is not contagious before symptoms appear.</p>"
+      },
+      "sw": {
+        "q": "Virusi vinaambukizwaje?",
+        "a": "<p>Kwa kugusana moja kwa moja na damu, majimaji au viungo vya mtu au mnyama aliyeambukizwa, akiwa hai au amefariki. Mila za jadi za mazishi na huduma zinazotolewa bila kinga ni vichocheo viwili vikuu vya maambukizi. Hakuna maambukizi kupitia hewa, na mtu aliyeambukizwa hawezi kuambukiza kabla dalili hazijaonekana.</p>"
       }
     },
     {
@@ -532,6 +576,10 @@
       "en": {
         "q": "Is there a vaccine or a treatment?",
         "a": "<p>Not against this species, as things stand. The Ervebo vaccine and the licensed monoclonal antibody treatments target the Zaire species. Several candidates are being evaluated in clinical trials against the Bundibugyo species. In the meantime, intensive supportive care — rehydration, oxygenation, monitoring — remains the cornerstone of treatment and markedly improves survival.</p>"
+      },
+      "sw": {
+        "q": "Je, kuna chanjo au matibabu?",
+        "a": "<p>Hakuna dhidi ya aina hii, hadi sasa. Chanjo ya Ervebo na matibabu ya kingamwili yaliyoidhinishwa yanalenga aina ya Zaire. Dawa kadhaa zinazopendekezwa zinajaribiwa kliniki dhidi ya aina ya Bundibugyo. Kwa sasa, huduma za msaada wa hali ya juu — kurejesha maji mwilini, oksijeni, ufuatiliaji — zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi.</p>"
       }
     },
     {
@@ -542,6 +590,10 @@
       "en": {
         "q": "Where do the figures on this site come from?",
         "a": "<p>Exclusively from the situation reports (SitRep) published by the DRC National Institute of Public Health, supplemented by the WHO weekly bulletins. Every original PDF is archived and available on the <a href=\"{url.rapports}\">Sources and bulletins</a> page.</p>"
+      },
+      "sw": {
+        "q": "Tarakimu zinazochapishwa kwenye tovuti hii zinatoka wapi?",
+        "a": "<p>Kwa ukamilifu kutoka ripoti za hali (SitRep) zilizochapishwa na Taasisi ya Kitaifa ya Afya ya Umma ya DRC, zikiongezwa na ripoti za kila wiki za WHO. Kila PDF asili imehifadhiwa na inaweza kusomwa kwenye ukurasa wa <a href=\"{url.rapports}\">Vyanzo na ripoti</a>.</p>"
       }
     },
     {
@@ -552,6 +604,10 @@
       "en": {
         "q": "How often is the site updated?",
         "a": "<p>An automatic check runs once a day. As soon as a new bulletin is published, the figures are extracted and the site is regenerated. The date of the latest bulletin included is shown at the top of every page.</p>"
+      },
+      "sw": {
+        "q": "Tovuti inasasishwa mara ngapi?",
+        "a": "<p>Ukaguzi wa kiotomatiki hufanyika mara moja kwa siku. Mara ripoti mpya inapochapishwa, tarakimu hutolewa na tovuti hutengenezwa upya. Tarehe ya ripoti ya mwisho iliyoingizwa inaonyeshwa juu ya kila ukurasa.</p>"
       }
     },
     {
@@ -562,6 +618,10 @@
       "en": {
         "q": "Why do figures sometimes change retroactively?",
         "a": "<p>Because the health authorities revise their own data: harmonisation between provinces, reclassification of community deaths, correction of a data-entry error. This site reflects those revisions as soon as they are published, without smoothing them. A temporary gap between the national toll and the provincial breakdown is also possible, since national figures are sometimes released first.</p>"
+      },
+      "sw": {
+        "q": "Kwa nini tarakimu wakati mwingine hubadilika kwa nyuma?",
+        "a": "<p>Kwa sababu mamlaka za afya hurekebisha takwimu zao wenyewe: kuoanisha kati ya majimbo, kuainisha upya vifo vya jamii, kusahihisha kosa la kuandika. Tovuti hii inaonyesha masahihisho hayo mara yanapochapishwa, bila kuyalainisha. Tofauti ya muda kati ya takwimu za kitaifa na za kila jimbo pia inawezekana, kwa kuwa za kitaifa wakati mwingine huchapishwa kwanza.</p>"
       }
     },
     {
@@ -572,6 +632,10 @@
       "en": {
         "q": "Is this site an official source?",
         "a": "<p>No. It is an independent site that compiles and formats public data already published by official sources, without its own analysis or interpretation. For any health or travel decision, refer to the WHO and the DRC Ministry of Health.</p>"
+      },
+      "sw": {
+        "q": "Je, tovuti hii ni chanzo rasmi?",
+        "a": "<p>Hapana. Ni tovuti huru inayokusanya na kupanga takwimu za umma zilizokwisha chapishwa na vyanzo rasmi, bila uchambuzi wala tafsiri yake mwenyewe. Kwa uamuzi wowote wa afya au safari, rejea WHO na Wizara ya Afya ya DRC.</p>"
       }
     }
   ],
@@ -582,7 +646,8 @@
       "sitrep": "001",
       "timeline": false,
       "pageFr": "L'épidémie y a démarré : officiellement notifiée le 8 mai 2026, déclarée le 15 mai.",
-      "pageEn": "The outbreak started here: officially notified on 8 May 2026, declared on 15 May."
+      "pageEn": "The outbreak started here: officially notified on 8 May 2026, declared on 15 May.",
+      "pageSw": "Mlipuko ulianzia hapa: uliripotiwa rasmi tarehe 8 Mei 2026, ukatangazwa tarehe 15 Mei."
     },
     {
       "province": "Nord-Kivu",
@@ -591,7 +656,9 @@
       "fr": "La province entre au tableau des bulletins avec trois cas confirmés. Les deux rapports précédents ne la mentionnaient pas ; celui du 18 mai manque à l'archive, la date est donc un plancher.",
       "en": "The province enters the bulletin table with three confirmed cases. The two previous reports do not mention it; the 18 May bulletin is missing from the archive, so this date is a lower bound.",
       "pageFr": "Premiers cas confirmés le 19 mai 2026, date du premier bulletin qui la mentionne.",
-      "pageEn": "First confirmed cases on 19 May 2026, the date of the first bulletin to mention it."
+      "pageEn": "First confirmed cases on 19 May 2026, the date of the first bulletin to mention it.",
+      "pageSw": "Visa vya kwanza vilivyothibitishwa tarehe 19 Mei 2026, tarehe ya ripoti ya kwanza inayolitaja.",
+      "sw": "Jimbo linaingia kwenye jedwali la ripoti likiwa na visa vitatu vilivyothibitishwa. Ripoti mbili zilizotangulia hazikulitaja; ile ya tarehe 18 Mei haipo kwenye kumbukumbu, kwa hiyo tarehe hii ni ya chini kabisa."
     },
     {
       "province": "Sud-Kivu",
@@ -600,7 +667,9 @@
       "fr": "« Une nouvelle province touchée (Sud-Kivu) à travers la ZS de Miti-Murhesa », annonce le bulletin du jour. La province en restera à trois cas.",
       "en": "“A newly affected province (Sud-Kivu), through Miti-Murhesa health zone”, the day's bulletin announces. The province will not go beyond three cases.",
       "pageFr": "Premier cas confirmé le 21 mai 2026.",
-      "pageEn": "First confirmed case on 21 May 2026."
+      "pageEn": "First confirmed case on 21 May 2026.",
+      "pageSw": "Kisa cha kwanza kilichothibitishwa tarehe 21 Mei 2026.",
+      "sw": "« Jimbo jipya limeathirika (Kivu Kusini) kupitia eneo la afya la Miti-Murhesa », inatangaza ripoti ya siku hiyo. Jimbo litabaki na visa vitatu tu."
     },
     {
       "province": "Haut-Uélé",
@@ -609,7 +678,9 @@
       "fr": "Deux contacts venus de la zone de Nia-Nia sont retrouvés symptomatiques à Wamba, puis testés positifs. Leurs cas restent comptés en Ituri, leur zone d'origine : le bulletin n'attribue une ligne au Haut-Uélé que le 10 juillet.",
       "en": "Two contacts from the Nia-Nia health zone are found symptomatic in Wamba, then test positive. Their cases stay counted in Ituri, their zone of origin: the bulletin only gives Haut-Uélé a line of its own on 10 July.",
       "pageFr": "Premiers cas confirmés le 25 juin 2026, d'abord comptés en Ituri : le bulletin n'attribue une ligne à la province que le 10 juillet.",
-      "pageEn": "First confirmed cases on 25 June 2026, initially counted in Ituri: the bulletin only gives the province a line of its own on 10 July."
+      "pageEn": "First confirmed cases on 25 June 2026, initially counted in Ituri: the bulletin only gives the province a line of its own on 10 July.",
+      "pageSw": "Visa vya kwanza vilivyothibitishwa tarehe 25 Juni 2026, mwanzoni vilihesabiwa Ituri: ripoti ilianza kulipa jimbo mstari wake tarehe 10 Julai tu.",
+      "sw": "Watu wawili walioguswa waliotoka eneo la Nia-Nia wanakutwa na dalili huko Wamba, kisha wanapimwa na kuonekana na virusi. Visa vyao vinaendelea kuhesabiwa Ituri, eneo lao la asili: ripoti inalipa Haut-Uélé mstari wake tarehe 10 Julai tu."
     },
     {
       "province": "Tshopo",
@@ -618,7 +689,9 @@
       "fr": "Le bulletin du jour rapporte le premier cas lié à la province : une patiente de 24 ans, enceinte de six mois, morte au PK 51 dans la zone de Nia-Nia, dont le corps a été transporté clandestinement à moto jusqu'à Kisangani, où le prélèvement s'est révélé positif. Le cas est ensuite rattaché à Nia-Nia, en Ituri, où il reste compté jusqu'au 10 juillet.",
       "en": "The day's bulletin reports the first case linked to the province: a 24-year-old woman, six months pregnant, who died at PK 51 in the Nia-Nia health zone and whose body was taken by motorbike to Kisangani, where the sample tested positive. The case is then attached to Nia-Nia, in Ituri, where it stays counted until 10 July.",
       "pageFr": "Premier cas rapporté le 30 juin 2026, d'abord compté en Ituri : le bulletin n'attribue une ligne à la province que le 10 juillet.",
-      "pageEn": "First case reported on 30 June 2026, initially counted in Ituri: the bulletin only gives the province a line of its own on 10 July."
+      "pageEn": "First case reported on 30 June 2026, initially counted in Ituri: the bulletin only gives the province a line of its own on 10 July.",
+      "pageSw": "Kisa cha kwanza kiliripotiwa tarehe 30 Juni 2026, mwanzoni kilihesabiwa Ituri: ripoti ilianza kulipa jimbo mstari wake tarehe 10 Julai tu.",
+      "sw": "Ripoti ya siku hiyo inaeleza kisa cha kwanza kinachohusiana na jimbo: mgonjwa wa miaka 24, mjamzito wa miezi sita, aliyefariki PK 51 katika eneo la Nia-Nia, ambaye mwili wake ulisafirishwa kwa siri kwa pikipiki hadi Kisangani, ambako sampuli ilionyesha virusi. Kisa kisha kinaunganishwa na Nia-Nia, Ituri, ambako kinaendelea kuhesabiwa hadi tarehe 10 Julai."
     },
     {
       "province": "Bas-Uélé",
@@ -627,7 +700,231 @@
       "fr": "« Une nouvelle province nouvellement affectée (Bas Uélé : ZS Buta) » : un cas confirmé, un décès. La sixième et dernière province touchée à ce jour.",
       "en": "“A newly affected province (Bas Uélé: Buta health zone)”: one confirmed case, one death. The sixth and, to date, last province affected.",
       "pageFr": "Premier cas confirmé le 12 août 2026.",
-      "pageEn": "First confirmed case on 12 August 2026."
+      "pageEn": "First confirmed case on 12 August 2026.",
+      "pageSw": "Kisa cha kwanza kilichothibitishwa tarehe 12 Agosti 2026.",
+      "sw": "« Jimbo jipya lililoathirika hivi karibuni (Bas Uélé: eneo la afya la Buta) »: kisa kimoja kilichothibitishwa, kifo kimoja. Jimbo la sita na la mwisho lililoathirika hadi sasa."
     }
-  ]
+  ],
+  "sw": {
+    "skipToContent": "Nenda kwenye maudhui makuu",
+    "siteTitleMain": "Ufuatiliaji wa Ebola DRC",
+    "siteTitleYear": "/ 2026",
+    "siteTitleLinkLabel": "Rudi mwanzo",
+    "navProvinces": "Majimbo",
+    "navVirus": "Virusi",
+    "navTimeline": "Matukio",
+    "navFaq": "Maswali",
+    "navLabel": "Urambazaji mkuu",
+    "breadcrumbLabel": "Njia ya kurasa",
+    "breadcrumbHome": "Mwanzo",
+    "footerExploreTitle": "Chunguza",
+    "footerUnderstandTitle": "Elewa",
+    "footerSiteTitle": "Tovuti",
+    "footerProvincesTitle": "Majimbo yaliyoathirika",
+    "footerSourcesTitle": "Vyanzo",
+    "footerSources": "Takwimu zimekusanywa kutoka ripoti za <a href=\"https://insp.cd/\" rel=\"noopener\">Taasisi ya Kitaifa ya Afya ya Umma (INSP) ya DRC</a> na za <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO</a>.",
+    "footerRepo": "Msimbo wa chanzo na takwimu huria kwenye GitHub",
+    "footerLangTitle": "Lugha",
+    "provincesIntro": "Mlipuko hauyaathiri majimbo sita kwa namna moja: Ituri linakusanya visa vingi zaidi, wakati majimbo mengine yana kitovu kimoja tu kilichotengwa. Kila jimbo lina ukurasa wake, unaosasishwa kwa ripoti rasmi zile zile kama sehemu nyingine za tovuti.",
+    "provincesCardCases": "Visa vilivyothibitishwa",
+    "provincesCardDeaths": "Vifo",
+    "provincesCardCfr": "Kiwango cha vifo",
+    "provincesCardZones": "Maeneo {n} kati ya {total} yameathirika",
+    "provincesTableTitle": "Ulinganisho wa majimbo",
+    "provinceH1": "Ebola {in}",
+    "provinceEyebrow": "Hali ya jimbo",
+    "provinceIntro": "Hadi {date}, jimbo {of} limerekodi <strong>visa {cases} vilivyothibitishwa</strong> na <strong>vifo {deaths}</strong> tangu mlipuko uanze, yaani kiwango cha vifo cha {cfr} %. {zonesSentence}",
+    "provinceIntroZones": "Visa vimeenea katika maeneo {n} kati ya {total} ya afya ya jimbo hili.",
+    "provinceIntroNoZones": "Takwimu za kila eneo la afya hazichapishwi kwa jimbo hili.",
+    "provinceShareSentence": "Jimbo hili linawakilisha {share} % ya visa vilivyothibitishwa nchini.",
+    "provinceStatusEpicenter": "Kitovu cha mlipuko",
+    "provinceStatusActive": "Maambukizi yanaendelea",
+    "provinceStatusInactive": "Hakuna kisa cha hivi karibuni",
+    "provinceZonesTitle": "Maeneo ya afya yaliyoathirika {in}",
+    "provinceZonesEmpty": "Hakuna takwimu za kila eneo la afya zilizochapishwa kwa jimbo hili: tarakimu zinatolewa kwa kiwango cha jimbo pekee.",
+    "zonesSubAffected": "Maeneo {n} ya afya kati ya {total} yameathirika",
+    "sitrepJoiner": " ya ",
+    "reportSituation": "Hali hadi {date}",
+    "whoReportLabel": "Ripoti Na.{n}",
+    "notFoundTitle": "Ukurasa haupatikani",
+    "notFoundIntro": "Anwani hii haipo au haipo tena. Anza tena hapa:",
+    "zonesSumNote": "Jumla ya jimbo inaweza kutofautiana na jumla ya maeneo yake ya afya: ripoti huhesabu kando visa na vifo ambavyo bado havijaunganishwa na eneo. Tovuti huviacha pale chanzo kinapoviweka.",
+    "provinceUpdatedNote": "Tarakimu zimetoka kwenye ripoti rasmi ya {date}. Ukurasa huu hutengenezwa upya kwa kila ripoti mpya.",
+    "provinceThZone": "Eneo la afya",
+    "provinceThCases": "Visa vilivyothibitishwa",
+    "provinceThDeaths": "Vifo",
+    "provinceThCfr": "Kiwango cha vifo",
+    "virusIntro": "Milipuko yote ya Ebola haifanani. Ule unaoikumba DRC tangu 2026 unasababishwa na aina ya <em>Bundibugyo</em>, adimu zaidi kuliko aina ya Zaire — tofauti inayobadilisha kila kitu kuhusu chanjo na matibabu yanayopatikana.",
+    "virusTitle": "Virusi vya Ebola",
+    "virusSub": "Misingi ya kisayansi kwa ujumla — aina, maambukizi, dalili, matibabu na chanjo",
+    "virusSpeciesTitle": "Aina ya virusi",
+    "virusSpeciesLi1": "Familia <em>Filoviridae</em>, jenasi <em>Orthoebolavirus</em>",
+    "virusSpeciesLi2": "Aina inayosababisha mlipuko huu: <em>Bundibugyo ebolavirus</em> (BDBV)",
+    "virusSpeciesLi3": "Mlipuko wa 3 unaojulikana kutokana na aina hii, baada ya 2007 (Uganda) na 2012 (DRC)",
+    "virusSpeciesLi4": "Kiwango cha vifo cha kihistoria cha 25 hadi 50 % kulingana na milipuko iliyopita, dhidi ya hadi 90 % kwa aina ya Zaire",
+    "virusTransmissionTitle": "Maambukizi",
+    "virusTransmissionLi1": "Kugusana moja kwa moja na damu, majimaji au viungo vya mnyama au mtu aliyeambukizwa, akiwa hai au amefariki",
+    "virusTransmissionLi2": "Mila za mazishi zenye hatari na maambukizi katika vituo vya afya bila kinga inayofaa",
+    "virusTransmissionLi3": "Hakuna maambukizi kupitia hewa",
+    "virusSymptomsTitle": "Dalili na mwenendo",
+    "virusIncubationText": "Kuatamia: siku 2 hadi 21 (wastani wa siku 8 hadi 10). Hauambukizi kabla dalili hazijaonekana.",
+    "vphaseDryTag": "Hatua ya mapema",
+    "vphaseDryText": "Homa, uchovu mkali, maumivu ya misuli, maumivu ya kichwa, koo kuuma — dalili zisizo mahususi, zinazochanganywa kwa urahisi na malaria au homa ya matumbo.",
+    "vphaseWetTag": "Hatua ya juu",
+    "vphaseWetText": "Kutapika, kuhara, upele wa ngozi, kuathirika kwa figo na ini, na wakati mwingine kuvuja damu. Uthibitisho hufanywa kwa kipimo cha RT-PCR kwenye sampuli ya damu.",
+    "virusCompareTitle": "Matibabu na chanjo: tofauti muhimu kulingana na aina",
+    "virusCompareIntro": "Matibabu pekee na chanjo pekee zilizoidhinishwa dhidi ya Ebola zinalenga aina ya Zaire — si aina ya Bundibugyo, inayosababisha mlipuko huu.",
+    "virusCompareNote": "Wakati wa mlipuko huu, dawa kadhaa zinazopendekezwa zinajaribiwa kliniki dhidi ya aina ya Bundibugyo — ikiwemo kingamwili ya wigo mpana MBP134, dawa ya kuua virusi remdesivir na obeldesivir kama kinga baada ya kuambukizwa — chini ya uratibu wa WHO. Kwa kukosekana kwa matibabu yaliyoidhinishwa yanayolenga aina hii, huduma za msaada wa hali ya juu (kurejesha maji mwilini, oksijeni, ufuatiliaji) zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi.",
+    "virusNote": "Taarifa hizi ni misingi ya kisayansi kwa ujumla na haziwezi kuchukua nafasi ya miongozo rasmi ya kimatibabu. Kwa swali lolote la kiafya, wasiliana na mtaalamu wa afya au mamlaka husika za afya (WHO, Wizara ya Afya ya DRC).",
+    "virusHistoryTitle": "Aina inayokutwa mara chache",
+    "virusHistoryBody": "<p>Jenasi <em>Orthoebolavirus</em> ina aina sita, ambazo nne kati yake huwaathiri binadamu. Milipuko mingi iliyoandikwa — ikiwemo ule wa 2014-2016 Afrika Magharibi na ule wa 2018-2020 Kivu Kaskazini — inatokana na aina ya Zaire, iliyochunguzwa zaidi kuliko zote.</p><p>Aina ya Bundibugyo imepewa jina la wilaya ya Uganda ambako ilitambuliwa kwa mara ya kwanza mwaka 2007. Ilihusika katika milipuko miwili tu kabla ya huu: Uganda mwaka 2007, kisha jimbo la Orientale la DRC mwaka 2012. Historia hii fupi ndiyo inayoeleza kukosekana kwa chanjo iliyoidhinishwa dhidi yake, na kwa nini mapambano yanategemea huduma za msaada na dawa zinazojaribiwa kliniki.</p>",
+    "virusAgesTitle": "Ugonjwa unamgusa nani, unaua nani",
+    "virusAgesIntro": "Visa havienei kama vifo. Kulinganisha viwili kunaonyesha makundi gani ya umri hufa mara nyingi zaidi kuliko yanavyougua.",
+    "virusAgesCases": "Sehemu ya visa",
+    "virusAgesDeaths": "Sehemu ya vifo",
+    "virusAgesUnit": "miaka",
+    "virusAgesOpenEnded": "50 na zaidi",
+    "virusAgesNote": "Hali hadi {date}. Mgawanyo umeandaliwa kwa visa {cas} na vifo {deces} ambavyo umri na jinsia vimeandikwa, yaani {partCas} % ya visa na {partDeces} % ya vifo hadi tarehe hiyo. Vifo vilivyotokea katika jamii, mara nyingi bila utambulisho, vimewakilishwa pungufu. INSP iliacha kuchapisha mgawanyo huu baada ya {derniere}.",
+    "virusSexTitle": "Wanawake na wanaume",
+    "virusSexCases": "Visa",
+    "virusSexDeaths": "Vifo",
+    "virusSexFemale": "Wanawake",
+    "virusSexMale": "Wanaume",
+    "virusPreventionTitle": "Kupunguza hatari ya maambukizi",
+    "virusPreventionBody": "<p>Maambukizi kati ya watu hutokea kwa kugusana moja kwa moja na majimaji ya mwili. Hatua zinazopunguza hatari ni za wazi na zinajulikana vizuri:</p>",
+    "virusPreventionLi1": "Epuka kugusana moja kwa moja na mgonjwa, majimaji yake ya mwili na vitu vyake binafsi bila kinga;",
+    "virusPreventionLi2": "Kabidhi miili ya waliofariki kwa timu za mazishi salama: mila za jadi za mazishi ni miongoni mwa vichocheo vikuu vya maambukizi;",
+    "virusPreventionLi3": "Ripoti mara moja homa yoyote inayotia shaka kwenye kituo cha afya badala ya kujitibu nyumbani;",
+    "virusPreventionLi4": "Nawa mikono mara kwa mara, na fuata hatua za kinga katika vituo vya afya.",
+    "timelineIntro": "Tarehe zilizo hapa chini zinachanganya hatua rasmi za mapambano na vipimo vilivyofikiwa na takwimu za mlipuko, vilivyohesabiwa moja kwa moja kutoka kwenye kumbukumbu za ripoti za hali zilizochapishwa kwenye tovuti hii.",
+    "timelineMilestoneCasesTitle": "Visa {n} vilivyothibitishwa",
+    "timelineMilestoneCasesText": "Jumla iliyokusanywa inavuka kizingiti cha visa {n} vilivyothibitishwa tangu mlipuko uanze.",
+    "timelineMilestoneDeathsTitle": "Vifo {n}",
+    "timelineMilestoneDeathsText": "Jumla iliyokusanywa inavuka kizingiti cha vifo {n} tangu mlipuko uanze.",
+    "timelineFirstSitrepTitle": "Ripoti ya kwanza ya hali",
+    "timelineFirstSitrepText": "Kuchapishwa kwa SitRep ya kwanza ya INSP kuhusu mlipuko huu: visa {cases} vilivyothibitishwa na vifo {deaths} vimeorodheshwa.",
+    "timelineLatestTitle": "Takwimu za hivi karibuni",
+    "timelineLatestText": "Ripoti ya hivi karibuni iliyoingizwa kwenye tovuti hii inaonyesha visa {cases} vilivyothibitishwa na vifo {deaths}.",
+    "faqIntro": "Maswali yanayoulizwa mara nyingi kuhusu mlipuko huu na jinsi tovuti hii ilivyojengwa.",
+    "faqMoreTitle": "Swali lako halipo hapa?",
+    "faqMoreBody": "Tuandikie: maswali yanayojirudia hatimaye huingia kwenye ukurasa huu.",
+    "aboutOpenDataTitle": "Upatikanaji wa takwimu",
+    "aboutOpenDataBody": "Takwimu zote zinazoonyeshwa kwenye tovuti hii zinatoka kwenye ripoti rasmi zilizohifadhiwa kwenye kichupo cha <a href=\"{url.rapports}\">Vyanzo na ripoti</a>, ambapo kila moja inaweza kusomwa katika muundo wake asili wa PDF.",
+    "aboutContactTitle": "Kosa au swali?",
+    "aboutContactBody": "Marekebisho yanakaribishwa — ndivyo ubora wa uchambuzi unavyoboreka.",
+    "provincesBrowseTitle": "Chunguza jimbo kwa jimbo",
+    "provinceMetaTitle": "Ebola {in} — visa, vifo na maeneo ya afya yaliyoathirika",
+    "provinceMetaDescription": "Hali ya mlipuko wa Ebola {in} hadi {date}: visa {cases} vilivyothibitishwa, vifo {deaths}, kiwango cha vifo cha {cfr} %, na takwimu za kila eneo la afya.",
+    "homeLede": "Kuelewa na kufuatilia mlipuko wa Ebola nchini DRC, <em>tarakimu baada ya tarakimu</em>.",
+    "cartoTitle": "Visa kwa eneo la afya",
+    "cartoNote": "mipaka rasmi ya maeneo ya afya",
+    "cartoDisclaimer": "Kila umbo ni eneo la afya, kipimo cha msingi cha ripoti rasmi. Mipaka ya kijiografia kwa mujibu wa takwimu za OCHA.",
+    "cartoLegendLow": "hakuna kisa",
+    "cartoLegendHigh": "iliyoathirika zaidi",
+    "cartoDefaultName": "Maeneo ya afya yaliyoathirika",
+    "cartoDefaultNote": "visa vilivyothibitishwa vilivyokusanywa, maeneo yote",
+    "cartoCasesNote": "visa vilivyothibitishwa vilivyokusanywa",
+    "cartoNoCaseNote": "hakuna kisa kilichoripotiwa",
+    "cartoProvincesTouched": "Majimbo {n} kati ya {total} yameathirika",
+    "cartoHint": "Weka kishale juu ya eneo kuona takwimu zake.",
+    "cartoMore": "Ona jimbo",
+    "teaserTimelineMore": "Matukio yote",
+    "teaserVirusMore": "Jua yote kuhusu virusi",
+    "teaserProvincesTitle": "Majimbo",
+    "navDataTables": "Nchi nzima",
+    "timelineScrollPrev": "Matukio yaliyotangulia",
+    "timelineScrollNext": "Matukio yanayofuata",
+    "timelineRegionLabel": "Matukio ya mlipuko, husogea kwa mlalo",
+    "virusStat1Value": "3",
+    "virusStat1Label": "mlipuko unaojulikana wa aina hii",
+    "virusStat2Value": "25–50 %",
+    "virusStat2Label": "kiwango cha vifo cha kihistoria cha aina hii",
+    "virusStat3Value": "siku 2–21",
+    "virusStat3Label": "muda wa kuatamia",
+    "virusStat4Value": "0",
+    "virusStat4Label": "chanjo iliyoidhinishwa dhidi yake",
+    "virusCompareCaption": "Kile aina inachobadilisha",
+    "virusCompareThisOutbreak": "Bundibugyo",
+    "virusCompareThisOutbreakNote": "aina ya mlipuko huu",
+    "virusCompareZaire": "Zaire",
+    "virusCompareZaireNote": "aina iliyochunguzwa zaidi",
+    "virusCompareRow1": "Milipuko inayojulikana",
+    "virusCompareRow1a": "3 — 2007, 2012, 2026",
+    "virusCompareRow1b": "milipuko mingi iliyoandikwa",
+    "virusCompareRow2": "Kiwango cha vifo cha kihistoria",
+    "virusCompareRow2a": "25 hadi 50 %",
+    "virusCompareRow2b": "hadi 90 %",
+    "virusCompareRow3": "Chanjo iliyoidhinishwa",
+    "virusCompareRow3a": "hakuna",
+    "virusCompareRow3b": "Ervebo (rVSV-ZEBOV)",
+    "virusCompareRow4": "Matibabu yaliyoidhinishwa",
+    "virusCompareRow4a": "hakuna",
+    "virusCompareRow4b": "Inmazeb, Ebanga (kingamwili)",
+    "virusIncubTitle": "Muda wa kuatamia",
+    "virusIncubMin": "siku 2",
+    "virusIncubAvg": "wastani wa siku 8 hadi 10",
+    "virusIncubMax": "siku 21",
+    "virusIncubNote": "Mtu aliyeambukizwa hawezi kuambukiza wengine mradi hana dalili. Ndiyo maana ufuatiliaji wa walioguswa unafanya kazi: mtu hutengwa kabla maambukizi hayajawezekana.",
+    "virusPhasesTitle": "Mwenendo wa ugonjwa",
+    "timelineSpreadTitle": "Mlipuko unafika {the}",
+    "footerNotice": "Takwimu zimekusanywa kutoka ripoti za <a href=\"https://insp.cd/\" rel=\"noopener\">INSP</a> na za <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi.",
+    "footerNoticeMore": "Tahadhari kamili",
+    "timelineTollLine": "Visa {cases} vilivyothibitishwa · vifo {deaths}",
+    "timelineTollLabel": "Jumla iliyokusanywa hadi tarehe hii",
+    "timelineKindOfficial": "Hatua rasmi",
+    "timelineKindSpread": "Kuenea kijiografia",
+    "timelineKindMilestone": "Kizingiti kilichovukwa",
+    "timelineSeeProvince": "Ona ukurasa wa jimbo",
+    "timelineTollCasesOnly": "Visa {cases} vilivyothibitishwa",
+    "cartoZonesTouched": "Maeneo {n} ya afya kati ya {total} yameathirika",
+    "cartoDeltaNote": "kwenye mabano: mabadiliko tangu ripoti iliyotangulia",
+    "chartEpidemicSub": "safu: visa vipya kwa siku · mkondo: jumla",
+    "dataNoteTitle": "Jinsi ya kusoma tarakimu hizi",
+    "dataNoteBody": "<p><strong>Visa vilivyothibitishwa</strong> na <strong>vifo</strong> ni jumla zilizokusanywa tangu mlipuko uanze, si takwimu za siku moja. <strong>Kiwango cha vifo</strong> kinahusu visa vilivyothibitishwa pekee, na matokeo ya visa vya hivi karibuni bado hayajajulikana: kinaeleza ukali ulioonekana hadi leo, si hatari ya mtu binafsi kufa kwa ugonjwa huu, na kitaendelea kubadilika. <strong>Visa vipya (saa 24)</strong> vimechukuliwa kama vilivyo kutoka ripoti ya mwisho — kwa hiyo si mara zote vinalingana na tofauti kati ya jumla mbili mfululizo, kwa sababu marekebisho ya nyuma huathiri jumla lakini si tarakimu hii.</p><p>Mipaka miwili inayojulikana. Takwimu za kitaifa wakati mwingine huchapishwa kabla ya takwimu za kila jimbo na kila eneo la afya: tofauti ya muda kati ya viwango ni jambo la kawaida. Na mamlaka wakati mwingine hurekebisha tarakimu zao za nyuma — marekebisho hayo yanaonekana hapa kama yalivyo, bila kulainishwa.</p>",
+    "provinceRankLine": "Jimbo la {rank} kwa kuathirika zaidi kati ya {total}, likiwa na {share} % ya visa vilivyothibitishwa nchini.",
+    "provinceRankFirst": "Jimbo lililoathirika zaidi nchini, likiwa na {share} % ya visa vilivyothibitishwa.",
+    "provincesSparkNote": "Kila kijipicha kinafuatilia visa vilivyokusanywa vya jimbo, vyote kwa kipimo kimoja.",
+    "dataDrillTitle": "Shuka kiwango kimoja",
+    "dataDrillBody": "Takwimu za kila jimbo, kila moja likiwa na maeneo yake ya afya na mkondo wake.",
+    "shareLessThan": "chini ya 0.1",
+    "provinceCaseLast": "Kisa cha mwisho kiliripotiwa tarehe {last}.",
+    "provinceCaseNoneSince": "Hakuna kisa kipya tangu {first}.",
+    "provincesTableTitle2": "Maeneo yote ya afya",
+    "provincesTableIntro": "Takwimu za maeneo 55 yaliyoathirika, majimbo yote pamoja. Chuja kwa jimbo, tafuta eneo, au panga kwa safu yoyote.",
+    "dataChartsTitle": "Viashiria vya ufuatiliaji",
+    "dataChartsSub": "kwa nchi nzima",
+    "provinceChartTitle": "Mwenendo wa mlipuko ({name})",
+    "provinceChartSub": "safu: visa vipya kwa siku · mkondo: jumla",
+    "provinceMapTitle": "Ramani ya maeneo ya afya",
+    "provinceMapNote": "Maeneo jirani, nje ya jimbo, yanabaki ya kijivu hafifu. Weka kishale juu ya eneo kuona takwimu zake; kitelezi kinarudi nyuma kwa wakati, ripoti baada ya ripoti.",
+    "provinceMapZones": "Eneo {n} kati ya {total} limeathirika",
+    "cartoHintTouch": "Gusa eneo kuona takwimu zake.",
+    "provinceMapNoteTouch": "Maeneo jirani, nje ya jimbo, yanabaki ya kijivu hafifu. Gusa eneo kuona takwimu zake; kitelezi kinarudi nyuma kwa wakati, ripoti baada ya ripoti.",
+    "provinceNewDeaths": "+{n} (saa 24)",
+    "zoneMapTitle": "{name} — visa {cases} vilivyothibitishwa vilivyokusanywa, vifo {deaths}",
+    "zoneMapLabel": "{name} ({province}) — visa {cases} vilivyothibitishwa vilivyokusanywa",
+    "menuOpen": "Fungua menyu",
+    "menuClose": "Funga menyu",
+    "popupClose": "Funga",
+    "provinceOpenFullTable": "Fungua jedwali kamili la maeneo, likichujwa kwa {the}",
+    "dataNoteShort": "Visa na vifo ni <strong>jumla zilizokusanywa</strong> tangu mlipuko uanze, si takwimu za siku moja. Tarakimu zilizo kwenye mabano ni mabadiliko yaliyotangazwa na ripoti ya mwisho.",
+    "dataNoteMore": "Jinsi tarakimu hizi zinavyosomwa na kuthibitishwa",
+    "aboutLede": "Tovuti hii inakusanya, siku baada ya siku, kile mamlaka za Kongo zinachochapisha kuhusu mlipuko wa 17 wa Ebola, pamoja na ripoti za hali za WHO zinazoziongezea — na si kitu kingine.",
+    "aboutFactsTitle": "Kwa ufupi",
+    "aboutFactSourceKey": "Chanzo",
+    "aboutFactSourceValue": "Ripoti za INSP na WHO",
+    "aboutFactSinceKey": "Tangu",
+    "aboutFactReportsKey": "Ripoti zilizohifadhiwa",
+    "aboutFactReportsValue": "{total} ({insp} INSP, {who} WHO)",
+    "aboutFactScopeKey": "Ufikiaji",
+    "aboutFactScopeValue": "majimbo {provinces}, maeneo {zones} ya afya",
+    "aboutStepsTitle": "Kutoka ripoti hadi grafu",
+    "aboutStep1Title": "Ripoti inahifadhiwa",
+    "aboutStep1Body": "Kila PDF iliyochapishwa na INSP hupakuliwa na kuhifadhiwa kama ilivyo, vivyo hivyo ripoti za kila wiki za WHO zinazoongezea baadhi ya mfululizo. Nakala asili inabaki kupatikana, ndicho kinachofanya tarakimu za tovuti hii ziweze kuthibitishwa.",
+    "aboutStep2Title": "Ripoti zinasomwa",
+    "aboutStep2Body": "Programu husoma majedwali ya PDF, kisha kila ripoti husomwa yote — pamoja na maandishi ya utangulizi, ambayo maneno yake hubadilika kutoka ripoti moja hadi nyingine na wakati mwingine hubeba tarakimu zisizopo kwenye majedwali. Uthibitisho kwa hiyo pia ni wa mkono, ripoti kwa ripoti. Thamani isiyolingana hupuuzwa badala ya kukadiriwa.",
+    "aboutStep3Title": "Kurasa zinaandikwa upya",
+    "aboutStep3Body": "Tarakimu zimeandikwa ndani ya kurasa zenyewe, si tu kupakiwa na kivinjari: zinabaki kusomeka bila JavaScript, na kutafutika.",
+    "aboutReadingTitle": "Jinsi ya kusoma tarakimu hizi"
+  }
 }

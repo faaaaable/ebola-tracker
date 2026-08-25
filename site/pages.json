@@ -8,7 +8,8 @@
     "repository": "https://github.com/faaaaable/ebola-tracker",
     "languages": [
       "fr",
-      "en"
+      "en",
+      "sw"
     ],
     "defaultLanguage": "fr"
   },
@@ -293,7 +294,8 @@
       "fragment": "accueil.html",
       "slug": {
         "fr": "",
-        "en": ""
+        "en": "",
+        "sw": ""
       },
       "needs": [
         "chart"
@@ -316,6 +318,11 @@
           "title": "DRC Ebola Tracker 2026 — Live outbreak monitoring",
           "h1": "Tracking the Ebola outbreak in the DRC",
           "description": "Daily tracking of the 17th Ebola outbreak in the DRC: confirmed cases, deaths, recoveries, a map of affected health zones and the epidemic curve, from official bulletins."
+        },
+        "sw": {
+          "title": "Ebola DRC 2026 — Ufuatiliaji wa mlipuko moja kwa moja",
+          "h1": "Ufuatiliaji wa mlipuko wa Ebola nchini DRC",
+          "description": "Ufuatiliaji wa kila siku wa mlipuko wa 17 wa Ebola nchini DRC: visa vilivyothibitishwa, vifo, waliopona, ramani ya maeneo ya afya yaliyoathirika na mkondo wa mlipuko, kwa mujibu wa ripoti rasmi."
         }
       }
     },
@@ -324,7 +331,8 @@
       "fragment": "donnees.html",
       "slug": {
         "fr": "donnees/",
-        "en": "data/"
+        "en": "data/",
+        "sw": "takwimu/"
       },
       "needs": [
         "chart"
@@ -345,6 +353,11 @@
           "title": "Detailed data by province and health zone — DRC Ebola",
           "h1": "Detailed data",
           "description": "Confirmed cases, deaths and fatality rate of the DRC Ebola outbreak, broken down province by province and health zone by health zone, with a comparison of the six affected provinces."
+        },
+        "sw": {
+          "title": "Takwimu za kina — Ebola DRC 2026",
+          "h1": "Takwimu za kina",
+          "description": "Takwimu kwa jimbo na kwa eneo la afya: visa vilivyokusanywa, vifo, kiwango cha vifo na visa vipya vya saa 24, kutoka ripoti za INSP."
         }
       }
     },
@@ -353,7 +366,8 @@
       "fragment": "rapports.html",
       "slug": {
         "fr": "rapports/",
-        "en": "reports/"
+        "en": "reports/",
+        "sw": "ripoti/"
       },
       "needs": [],
       "changefreq": "daily",
@@ -372,6 +386,11 @@
           "title": "INSP SitRep and WHO bulletin archive — DRC Ebola 2026",
           "h1": "Official sources and bulletins",
           "description": "Complete archive of the DRC INSP situation reports (SitRep) and the WHO weekly bulletins on the 2026 Ebola outbreak, as original PDFs."
+        },
+        "sw": {
+          "title": "Vyanzo na ripoti rasmi — Ebola DRC 2026",
+          "h1": "Vyanzo na ripoti rasmi",
+          "description": "Ripoti zote za hali za INSP na ripoti za kila wiki za WHO ambazo tovuti hii inategemea, zinapatikana kupakuliwa."
         }
       }
     },
@@ -380,7 +399,8 @@
       "fragment": "le-virus.html",
       "slug": {
         "fr": "le-virus/",
-        "en": "the-virus/"
+        "en": "the-virus/",
+        "sw": "virusi/"
       },
       "needs": [],
       "changefreq": "monthly",
@@ -399,6 +419,11 @@
           "title": "Bundibugyo ebolavirus: transmission, symptoms, vaccines",
           "h1": "The Bundibugyo Ebola virus",
           "description": "The Bundibugyo species of Ebola virus behind the 2026 DRC outbreak: transmission, incubation, symptoms, fatality rate, and why the licensed vaccine does not cover it."
+        },
+        "sw": {
+          "title": "Virusi vya Ebola Bundibugyo — Ebola DRC 2026",
+          "h1": "Virusi vya Ebola Bundibugyo",
+          "description": "Aina ya Bundibugyo ya virusi vya Ebola: maambukizi, dalili, muda wa kuatamia na hatua za ugonjwa."
         }
       }
     },
@@ -407,7 +432,8 @@
       "fragment": "chronologie.html",
       "slug": {
         "fr": "chronologie/",
-        "en": "timeline/"
+        "en": "timeline/",
+        "sw": "matukio/"
       },
       "needs": [],
       "changefreq": "weekly",
@@ -426,6 +452,11 @@
           "title": "Timeline of the Ebola outbreak in the DRC (2026)",
           "h1": "Outbreak timeline",
           "description": "From the first suspected cases detected in April 2026 to the latest figures: the key dates of the 17th Ebola outbreak in the Democratic Republic of the Congo."
+        },
+        "sw": {
+          "title": "Matukio ya mlipuko — Ebola DRC 2026",
+          "h1": "Matukio ya mlipuko",
+          "description": "Matukio makuu ya mlipuko wa 17 wa Ebola nchini DRC, kutoka visa vya kwanza hadi ripoti ya hivi karibuni."
         }
       }
     },
@@ -434,7 +465,8 @@
       "fragment": "faq.html",
       "slug": {
         "fr": "faq/",
-        "en": "faq/"
+        "en": "faq/",
+        "sw": "maswali/"
       },
       "needs": [],
       "changefreq": "monthly",
@@ -453,6 +485,11 @@
           "title": "Frequently asked questions about Ebola in the DRC",
           "h1": "Frequently asked questions",
           "description": "How many cases, where the outbreak stands, how the virus spreads, where these figures come from: answers to the most common questions about Ebola in the DRC."
+        },
+        "sw": {
+          "title": "Maswali yanayoulizwa mara kwa mara — Ebola DRC 2026",
+          "h1": "Maswali yanayoulizwa mara kwa mara",
+          "description": "Majibu ya maswali yanayoulizwa mara nyingi kuhusu mlipuko, takwimu zinazoonyeshwa na vyanzo vyake."
         }
       }
     },
@@ -461,7 +498,8 @@
       "fragment": "a-propos.html",
       "slug": {
         "fr": "a-propos/",
-        "en": "about/"
+        "en": "about/",
+        "sw": "kuhusu/"
       },
       "needs": [],
       "changefreq": "monthly",
@@ -480,6 +518,11 @@
           "title": "About — sources, methodology and limitations",
           "h1": "About this site",
           "description": "Where the data comes from, how it is extracted from official bulletins, how often it is updated, and the known limitations of this tracker."
+        },
+        "sw": {
+          "title": "Kuhusu tovuti hii — Ebola DRC 2026",
+          "h1": "Kuhusu tovuti hii",
+          "description": "Tovuti hii inakusanya ripoti rasmi za INSP na WHO. Kila tarakimu inaweza kufuatiliwa hadi kwenye hati yake."
         }
       }
     },
@@ -488,7 +531,8 @@
       "fragment": "contact.html",
       "slug": {
         "fr": "contact/",
-        "en": "contact/"
+        "en": "contact/",
+        "sw": "mawasiliano/"
       },
       "needs": [],
       "changefreq": "monthly",
@@ -506,6 +550,11 @@
           "title": "Contact — report an error or ask a question",
           "h1": "Contact",
           "description": "An error in the figures, a question about the methodology, or a suggestion about this DRC Ebola tracker: get in touch."
+        },
+        "sw": {
+          "title": "Mawasiliano — Ebola DRC 2026",
+          "h1": "Mawasiliano",
+          "description": "Kuripoti kosa, kupendekeza chanzo au kuuliza swali kuhusu tovuti hii."
         }
       }
     }

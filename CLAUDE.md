@@ -2,7 +2,7 @@
 
 Site public de suivi de la **17ᵉ épidémie d'Ebola en RDC** (espèce Bundibugyo,
 déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
-rapports hebdomadaires de l'OMS. Bilingue FR/EN, statique, servi par GitHub
+rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
 Dernier bulletin intégré à la rédaction de ce guide : **SitRep 101**, rapportage
@@ -158,6 +158,54 @@ restent dans le code sans bouton — décisions de publication, pas suppressions
 ---
 
 ## La structure du site
+
+**Trois langues, un seul générateur — et une table pour les conventions.**
+`LOCALES` dans `build_pages.py` porte, par langue : séparateur de milliers,
+séparateur décimal, forme du pourcent, **préfixe d'URL**, locale Open Graph et
+libellé du sélecteur. Ajouter une langue, c'est ajouter une entrée là, un bloc
+dans `site/strings.json`, un dans `assets/js/i18n.js`, les slugs et `meta` dans
+`site/pages.json`, et rien d'autre : le sélecteur de langue, les balises
+`alternate` et le `sitemap.xml` bouclent sur `site.languages`.
+
+Le 25 août, avant le swahili, le générateur raisonnait en « si français, sinon
+anglais » à **dix-huit endroits**. Le plus grave était la construction d'URL :
+`"/" + slug if lang == "fr" else "/en/" + slug` aurait publié le swahili
+**sous `/en/`**, en collision avec l'anglais, sans lever la moindre erreur. Les
+autres étaient plus discrets — nombres, dates, ordinaux — et deux familles de
+libellés visibles (« Situation au », « Rapport N° ») vivaient en dur dans le
+Python, contre la règle du dépôt ; elles sont dans `strings.json`.
+
+**Le même piège existait côté JavaScript**, et il était pire parce qu'il ne se
+voyait qu'à l'exécution : `currentLang` testait « ça commence par *en* ? alors
+anglais, sinon français ». Une page swahili s'affichait correctement, puis
+**se réécrivait en français** dès que `app.js` prenait la main. `currentLang`
+valide désormais le code contre les clés d'`I18N`, et `NUM_CONVENTIONS` y
+double `LOCALES` — les deux tables se corrigent ensemble, comme `fmt_cfr()` et
+`fmtCfr()`.
+
+**Méthode qui a marché : généraliser d'abord, traduire ensuite.** Après le
+refactoring et avant d'ajouter la moindre chaîne swahili, les pages FR et EN
+étaient identiques au caractère près, hormis le sélecteur. Sans ce jalon, une
+régression se serait perdue dans les 725 lignes du chantier.
+
+**Le swahili n'a pas été relu par un locuteur.** Il couvre l'intégralité du
+site — 220 chaînes de `strings.json`, 142 d'`i18n.js` dont 40 fonctions, la
+FAQ, les jalons de chronologie, les textes d'arrivée par province, les slugs
+(`/sw/takwimu/`, `/sw/ripoti/`, `/sw/matukio/`) et les `meta`. Ce qui est
+vérifié mécaniquement l'est : aucune variable `{n}` perdue ni inventée, aucune
+clé manquante dans les trois blocs. Ce qui ne l'est pas : la justesse des
+formulations sanitaires — prévention, traitements et vaccins, avertissement.
+À faire relire avant de s'y fier.
+
+**Le choix de langue est entièrement manuel**, décision du 25 août. Le site
+est statique : aucun serveur ne peut négocier `Accept-Language`, et aucune
+redirection JavaScript n'a été ajoutée — elle ferait sauter la page, piégerait
+le bouton retour, et ne se déclencherait presque jamais (sur 90 jours, aucun
+visiteur congolais n'avait son navigateur en swahili, 91 % en français). Le
+seul canal automatique est le référencement, via les balises `alternate` —
+qui étaient elles-mêmes câblées sur deux langues dans `site/layout.html` alors
+que le `sitemap.xml` bouclait déjà : le swahili figurait dans le sitemap sans
+être annoncé par les pages. Corrigé le même jour.
 
 **Deux langues, un seul générateur.** `site/pages.json` déclare huit pages avec
 un slug par langue — `donnees/` et `data/`, `le-virus/` et `the-virus/`. Les

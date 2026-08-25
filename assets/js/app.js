@@ -6,7 +6,14 @@
    a desormais ses propres URL, indexees separement par les moteurs. Plus de
    detection ni de bascule cote client — le selecteur de langue de l'en-tete
    est un vrai lien vers l'URL equivalente dans l'autre langue. */
-const currentLang = (document.documentElement.lang || 'fr').toLowerCase().startsWith('en') ? 'en' : 'fr';
+/* La langue du document, validee contre le dictionnaire. Ce test etait
+   « commence par en ? alors anglais, sinon francais » : toute troisieme langue
+   retombait donc sur le francais, et une page swahili se reecrivait en
+   francais des que le script prenait la main. */
+const currentLang = (function(){
+  const code = (document.documentElement.lang || '').toLowerCase().split('-')[0];
+  return Object.prototype.hasOwnProperty.call(I18N, code) ? code : 'fr';
+})();
 function tr(key){ return I18N[currentLang][key]; }
 
 /* ============ PALETTE ============ */
@@ -640,6 +647,15 @@ function sortedSitrepsWithSocial(){
 /* ============ RENDU KPI ============ */
 function fmt(n){ return (n===null||n===undefined) ? '—' : n.toLocaleString(tr('locale')); }
 
+/* Conventions numeriques par langue — miroir exact de LOCALES dans
+   scripts/build_pages.py. Le generateur ecrit la chaine dans la page, le
+   script la reecrit ensuite : les deux tables se corrigent ensemble. */
+const NUM_CONVENTIONS = {
+  fr: { decimal: ',', percent: '\u202f%' },   // « 48,0 % », espace insecable
+  en: { decimal: '.', percent: '%' },
+  sw: { decimal: '.', percent: '%' },         // le swahili suit l'usage anglophone
+};
+
 /* Un taux en pourcentage, dans la typographie de la langue : « 48,0 % » en
    francais, « 48.0% » en anglais. Le generateur ecrit exactement la meme
    chaine dans les memes elements (fmt_cfr() dans build_pages.py) — les deux
@@ -651,7 +667,8 @@ function fmt(n){ return (n===null||n===undefined) ? '—' : n.toLocaleString(tr(
 function fmtCfr(v){
   if(v===null||v===undefined) return '—';
   const t = Number(v).toFixed(1);
-  return currentLang === 'fr' ? t.replace('.', ',') + '\u202f%' : t + '%';
+  const c = NUM_CONVENTIONS[currentLang] || NUM_CONVENTIONS.en;
+  return t.replace('.', c.decimal) + c.percent;
 }
 
 function renderKPIs(){

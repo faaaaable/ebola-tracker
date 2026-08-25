@@ -80,12 +80,64 @@ def load_i18n():
 # dur soit identique à celui que le navigateur affichera après le rendu.
 # --------------------------------------------------------------------------
 
+# --------------------------------------------------------------------------
+# Conventions par langue
+#
+# Le generateur raisonnait en « si francais, sinon anglais » a dix-huit
+# endroits : separateurs de nombres, prefixe d'URL, locale Open Graph, forme
+# des ordinaux, et jusqu'a des libelles ecrits en dur. Une troisieme langue
+# heritait donc silencieusement de l'anglais — pire, elle se serait publiee
+# SOUS « /en/ », en collision avec lui. Tout passe desormais par cette table :
+# ajouter une langue, c'est ajouter une entree ici, un bloc dans
+# site/strings.json, un dans assets/js/i18n.js, et les slugs dans pages.json.
+# --------------------------------------------------------------------------
+
+SITE_LANGUAGES = []   # rempli par main() depuis site/pages.json
+
+LOCALES = {
+    "fr": {
+        "thousands": NNBSP,          # espace fine insecable
+        "decimal": ",",
+        "percent": NNBSP + "%",      # « 48,0 % », insecable pour ne pas casser
+        "urlPrefix": "",             # le francais est servi a la racine
+        "ogLocale": "fr_FR",
+        "htmlLang": "fr",
+        "label": "Français",
+    },
+    "en": {
+        "thousands": ",",
+        "decimal": ".",
+        "percent": "%",              # « 48.0% », colle au chiffre
+        "urlPrefix": "/en",
+        "ogLocale": "en_US",
+        "htmlLang": "en",
+        "label": "English",
+    },
+    "sw": {
+        # Le swahili suit l'usage anglophone pour les nombres — c'est ce que
+        # rend toLocaleString('sw'), et le JavaScript doit ecrire la meme
+        # chaine que le generateur.
+        "thousands": ",",
+        "decimal": ".",
+        "percent": "%",
+        "urlPrefix": "/sw",
+        "ogLocale": "sw_CD",         # swahili de RDC
+        "htmlLang": "sw",
+        "label": "Kiswahili",
+    },
+}
+
+
+def loc(lang, key):
+    """Une convention de langue, avec repli sur l'anglais si elle manque."""
+    return LOCALES.get(lang, LOCALES["en"])[key]
+
+
 def fmt(value, lang):
     """Équivalent de fmt() dans app.js (Number.toLocaleString)."""
     if value is None:
         return "—"
-    sep = NNBSP if lang == "fr" else ","
-    return "{:,}".format(int(value)).replace(",", sep)
+    return "{:,}".format(int(value)).replace(",", loc(lang, "thousands"))
 
 
 def fmt_cfr(value, lang):
@@ -104,8 +156,8 @@ def fmt_cfr(value, lang):
     """
     if value is None:
         return "—"
-    text = "{:.1f}".format(float(value))
-    return text.replace(".", ",") + NNBSP + "%" if lang == "fr" else text + "%"
+    text = "{:.1f}".format(float(value)).replace(".", loc(lang, "decimal"))
+    return text + loc(lang, "percent")
 
 
 def fmt_decimal(value, lang):
@@ -116,8 +168,7 @@ def fmt_decimal(value, lang):
     """
     if value is None:
         return "—"
-    text = "%.1f" % float(value)
-    return text.replace(".", ",") if lang == "fr" else text
+    return ("%.1f" % float(value)).replace(".", loc(lang, "decimal"))
 
 
 def short_date(iso, i18n_lang):
@@ -186,8 +237,10 @@ class Urls(object):
         self.province_slugs = config["provinceSlugs"]
 
     def path(self, page_id, lang):
+        # Le prefixe vient de LOCALES : sans lui, toute langue autre que le
+        # francais atterrissait sous « /en/ », en collision avec l'anglais.
         slug = self.slugs[page_id][lang]
-        return "/" + slug if lang == "fr" else "/en/" + slug
+        return "%s/%s" % (loc(lang, "urlPrefix"), slug)
 
     def province_path(self, province, lang):
         # Les pages province sont filles de la page de donnees : /donnees/ituri/.
@@ -220,6 +273,11 @@ def province_forms(config, name, lang):
                 "in": grammar.get("in", "en %s" % name),
                 "of": grammar.get("of", "de %s" % name),
                 "the": grammar.get("the", "le %s" % name)}
+    if lang == "sw":
+        # Le swahili n'a pas d'article : « katika Ituri », « ya Ituri », et le
+        # nom nu la ou le francais dirait « l'Ituri ».
+        return {"name": name, "in": "katika %s" % name,
+                "of": "ya %s" % name, "the": name}
     return {"name": name, "in": "in %s" % name, "of": "of %s" % name, "the": name}
 
 
@@ -368,7 +426,7 @@ def build_json_ld(kinds, context):
                 "@type": "WebSite",
                 "name": context["siteName"],
                 "url": context["origin"] + "/",
-                "inLanguage": ["fr", "en"],
+                "inLanguage": list(SITE_LANGUAGES),
             }))
         elif kind == "dataset":
             blocks.append(json_ld({
@@ -450,35 +508,28 @@ PROVINCE_COLORS = {
 }
 
 
-def zones_sub(national, meta, lang, i18n_lang):
+def zones_sub(national, meta, lang, i18n_lang, strings_lang):
     """Reproduit tr('zonesTableSub')(n, total, num, date) de app.js."""
     zones = (national or {}).get("healthZonesAffected") or {}
     count, total = zones.get("n", 0), zones.get("total", 151)
     number = (meta or {}).get("sitrepNumber", "")
     reporting = (meta or {}).get("reportingDate", "")
-    if lang == "fr":
-        text = "%s zones de santé touchées sur %s" % (count, total)
-        if number:
-            text += " · SitRep N°%s" % number
-        if reporting:
-            text += " du %s" % short_date(reporting, i18n_lang)
-    else:
-        text = "%s health zones affected out of %s" % (count, total)
-        if number:
-            text += " · SitRep N°%s" % number
-        if reporting:
-            text += " of %s" % short_date(reporting, i18n_lang)
+    text = interp(strings_lang["zonesSubAffected"], {"n": count, "total": total})
+    if number:
+        text += " · SitRep N°%s" % number
+    if reporting:
+        text += strings_lang["sitrepJoiner"] + short_date(reporting, i18n_lang)
     return esc(text)
 
 
-def sitrep_ref(meta, lang, i18n_lang):
+def sitrep_ref(meta, lang, i18n_lang, strings_lang):
     """« SitRep N°097 du 19 août 2026 » — repère de fraîcheur sur les pages
     où le total national des zones touchées n'aurait pas de sens."""
     number = (meta or {}).get("sitrepNumber", "")
     reporting = (meta or {}).get("reportingDate", "")
     if not number:
         return ""
-    joiner = " du " if lang == "fr" else " of "
+    joiner = strings_lang["sitrepJoiner"]
     text = "SitRep N°%s" % number
     if reporting:
         text += joiner + long_date(reporting, i18n_lang)
@@ -491,6 +542,8 @@ def ordinal(n, lang):
     L'anglais a trois exceptions (1st, 2nd, 3rd) et un piege : de 11 a 13, on
     dit bien 11th, 12th, 13th malgre le chiffre des unites.
     """
+    if lang == "sw":
+        return str(n)          # « mlipuko wa 17 » : le rang reste un chiffre
     if lang != "en":
         return "1re" if n == 1 else "%dᵉ" % n
     if 11 <= n % 100 <= 13:
@@ -1019,8 +1072,7 @@ def ages_rows_html(demographie, lang, strings_lang):
 
 
 def fmt_pct(valeur, lang):
-    texte = ("%.1f" % valeur)
-    return texte.replace(".", ",") if lang == "fr" else texte
+    return ("%.1f" % valeur).replace(".", loc(lang, "decimal"))
 
 
 def sex_rows_html(demographie, lang, strings_lang):
@@ -1064,7 +1116,7 @@ def sex_rows_html(demographie, lang, strings_lang):
     return "\n".join(lignes)
 
 
-def reports_list_html(reports, lang, i18n_lang):
+def reports_list_html(reports, lang, i18n_lang, strings_lang):
     """Version écrite en dur de la liste des SitRep, groupée par mois.
 
     Le JavaScript la réécrit avec les mêmes données dès qu'il s'exécute ; elle
@@ -1087,7 +1139,7 @@ def reports_list_html(reports, lang, i18n_lang):
         groups[key]["reports"].append(report)
 
     prefix = "SitRep N°"
-    situation = "Situation au %s" if lang == "fr" else "Situation as of %s"
+    situation = strings_lang["reportSituation"]
     parts = []
     for key in order:
         group = groups[key]
@@ -1095,8 +1147,8 @@ def reports_list_html(reports, lang, i18n_lang):
                      % (esc(key), esc(group["label"])))
         for report in group["reports"]:
             reporting = report.get("reportingDate")
-            when = (situation % long_date(reporting, i18n_lang)) if reporting \
-                else i18n_lang["reportsUnknownDate"]
+            when = interp(situation, {"date": long_date(reporting, i18n_lang)}) \
+                if reporting else i18n_lang["reportsUnknownDate"]
             searchable = "%s %s %s" % (report.get("sitrepNumber", ""),
                                        group["label"], reporting or "")
             parts.append(report_chip(prefix + str(report.get("sitrepNumber", "")),
@@ -1106,26 +1158,26 @@ def reports_list_html(reports, lang, i18n_lang):
     return "\n".join(parts)
 
 
-def who_reports_list_html(who_reports, lang, i18n_lang):
-    label = "Rapport N°%s" if lang == "fr" else "Report N°%s"
-    situation = "Situation au %s" if lang == "fr" else "Situation as of %s"
+def who_reports_list_html(who_reports, lang, i18n_lang, strings_lang):
+    label = strings_lang["whoReportLabel"]
+    situation = strings_lang["reportSituation"]
     parts = []
     for report in sorted(who_reports, key=lambda r: r.get("number") or "", reverse=True):
-        when = (situation % long_date(report.get("date"), i18n_lang)) \
+        when = interp(situation, {"date": long_date(report.get("date"), i18n_lang)}) \
             if report.get("date") else i18n_lang["reportsUnknownDate"]
-        parts.append(report_chip(label % report.get("number", ""), when,
+        parts.append(report_chip(interp(label, {"n": report.get("number", "")}), when,
                                  "/" + report["file"].lstrip("/"),
                                  i18n_lang["reportsDownload"], variant="is-who"))
     return "\n".join(parts)
 
 
-def social_updates_list_html(updates, lang, i18n_lang):
-    situation = "Situation au %s" if lang == "fr" else "Situation as of %s"
+def social_updates_list_html(updates, lang, i18n_lang, strings_lang):
+    situation = strings_lang["reportSituation"]
     parts = []
     for update in sorted(updates, key=lambda u: u.get("date") or "", reverse=True):
         parts.append(report_chip(
             i18n_lang["socialUpdatesLabel"],
-            situation % long_date(update.get("date"), i18n_lang),
+            interp(situation, {"date": long_date(update.get("date"), i18n_lang)}),
             update.get("url", "#"), i18n_lang["socialUpdatesOpenLink"],
             variant="is-social"))
     return "\n".join(parts)
@@ -1535,6 +1587,8 @@ def head_assets(needs):
 
 def main():
     config = read_json(os.path.join(SITE, "pages.json"))
+    global SITE_LANGUAGES
+    SITE_LANGUAGES = list(config["site"]["languages"])
     strings = read_json(os.path.join(SITE, "strings.json"))
     i18n = load_i18n()
     layout = read(os.path.join(SITE, "layout.html"))
@@ -1593,8 +1647,8 @@ def main():
             "seed.recovered": fmt(national.get("recovered"), lang),
             "seed.inCTE": fmt(national.get("inCTE"), lang),
             "seed.cfr": fmt_cfr(national.get("cfr"), lang),
-            "seed.zonesSub": zones_sub(national, meta_data, lang, i18n_lang),
-            "seed.sitrepRef": sitrep_ref(meta_data, lang, i18n_lang),
+            "seed.zonesSub": zones_sub(national, meta_data, lang, i18n_lang, strings_lang),
+            "seed.sitrepRef": sitrep_ref(meta_data, lang, i18n_lang, strings_lang),
             # Reperes de la page « A propos » : tires des donnees, jamais
             # saisis a la main, pour qu'ils ne puissent pas se perimer.
             "about.since": long_date(
@@ -1621,9 +1675,9 @@ def main():
                 "deces": fmt(demographie["totaux"]["deces"], lang),
                 "partCas": fmt_pct(demographie["couverture"]["partCas"], lang),
                 "partDeces": fmt_pct(demographie["couverture"]["partDeces"], lang)}),
-            "seed.reportsList": reports_list_html(latest.get("reports", []), lang, i18n_lang),
-            "seed.whoReportsList": who_reports_list_html(who_reports, lang, i18n_lang),
-            "seed.socialUpdatesList": social_updates_list_html(social_updates, lang, i18n_lang),
+            "seed.reportsList": reports_list_html(latest.get("reports", []), lang, i18n_lang, strings_lang),
+            "seed.whoReportsList": who_reports_list_html(who_reports, lang, i18n_lang, strings_lang),
+            "seed.socialUpdatesList": social_updates_list_html(social_updates, lang, i18n_lang, strings_lang),
             "seed.whoSectionStyle": "" if who_reports else "display:none;",
             "seed.socialSectionStyle": "" if social_updates else "display:none;",
             "provinceCards": cards,
@@ -1674,6 +1728,50 @@ def main():
     for path in sorted(generated):
         print("  ", path)
 
+
+
+
+def alternates_html(config, urls, alt_paths):
+    """Les balises « alternate » qui declarent les traductions aux moteurs.
+
+    Elles etaient cablees sur deux langues dans site/layout.html, alors que le
+    sitemap, lui, bouclait deja sur la liste. Le swahili se retrouvait donc
+    dans sitemap.xml sans etre annonce par les pages elles-memes — l'exacte
+    incoherence qui empeche un moteur de proposer la bonne version.
+
+    x-default pointe vers la langue par defaut : c'est ce que voit un visiteur
+    dont aucune langue ne correspond.
+    """
+    defaut = config["site"].get("defaultLanguage", "fr")
+    lignes = ['<link rel="alternate" hreflang="%s" href="%s">'
+              % (code, esc(urls.absolute(alt_paths[code])))
+              for code in config["site"]["languages"]]
+    lignes.append('<link rel="alternate" hreflang="x-default" href="%s">'
+                  % esc(urls.absolute(alt_paths[defaut])))
+    return "\n".join(lignes)
+
+def lang_switch_html(config, alt_paths, lang):
+    """Le selecteur de langue, une entree par langue declaree.
+
+    Il etait cable en dur sur deux boutons FR et EN, avec quatre jetons de
+    gabarit — frActive, enActive, frCurrent, enCurrent. Ajouter une troisieme
+    langue demandait d'en ajouter deux de plus a chaque fois ; il se construit
+    desormais depuis config["site"]["languages"].
+    """
+    codes = config["site"]["languages"]
+    labels = " / ".join(loc(code, "label") for code in codes)
+    boutons = []
+    for code in codes:
+        courante = code == lang
+        boutons.append(
+            '        <a class="lang-btn%s" href="%s" hreflang="%s" lang="%s" '
+            'title="%s"%s>\n          <span class="code">%s</span>\n        </a>'
+            % (" active" if courante else "", esc(alt_paths[code]), code, code,
+               esc(loc(code, "label")),
+               ' aria-current="true"' if courante else "",
+               esc(code.upper())))
+    return ('      <div class="lang-switch" role="group" aria-label="%s">\n%s\n      </div>'
+            % (esc(labels), "\n".join(boutons)))
 
 def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                 urls, layout, common_seed, url_values, faq_plain,
@@ -1877,12 +1975,13 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "title": esc(meta["title"]),
         "description": esc(meta["description"]),
         "canonical": canonical,
-        "altFr": urls.absolute(alt_paths["fr"]),
-        "altEn": urls.absolute(alt_paths["en"]),
+        "alternates": alternates_html(config, urls, alt_paths),
         "siteName": esc(strings_lang["siteTitleMain"]),
         "ogType": "website" if page.get("id") == "accueil" else "article",
-        "ogLocale": "fr_FR" if lang == "fr" else "en_US",
-        "ogLocaleAlt": "en_US" if lang == "fr" else "fr_FR",
+        "ogLocale": loc(lang, "ogLocale"),
+        "ogLocaleAlt": ", ".join(loc(other, "ogLocale")
+                                 for other in config["site"]["languages"]
+                                 if other != lang),
         "ogImage": origin + site["ogImage"],
         "verification": site["googleSiteVerification"],
         "analytics": site["analytics"],
@@ -1890,10 +1989,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "headAssets": head_assets(besoins),
         "homeUrl": urls.path("accueil", lang),
         "t.siteTitleLinkLabel": esc(strings_lang["siteTitleLinkLabel"]),
-        "frActive": " active" if lang == "fr" else "",
-        "enActive": " active" if lang == "en" else "",
-        "frCurrent": ' aria-current="true"' if lang == "fr" else "",
-        "enCurrent": ' aria-current="true"' if lang == "en" else "",
+        "langSwitch": lang_switch_html(config, alt_paths, lang),
         "nav": build_nav(config, urls, lang, strings_lang, i18n_lang,
                          None if is_province else page.get("id"), provinces,
                          expand_provinces=is_province or page.get("id") in
@@ -1942,8 +2038,9 @@ def write_sitemap(config, urls, provinces):
                 path = urls.province_path(province_name, lang)
                 alternates = {code: urls.province_path(province_name, code)
                               for code in config["site"]["languages"]}
-            # Une page anglaise ne doit pas primer sur son équivalent français.
-            adjusted = priority if lang == "fr" else "%.1f" % max(
+            # Une traduction ne doit pas primer sur la langue par defaut.
+            defaut = config["site"].get("defaultLanguage", "fr")
+            adjusted = priority if lang == defaut else "%.1f" % max(
                 0.1, float(priority) - 0.1)
             lines.append("  <url>")
             lines.append("    <loc>%s</loc>" % urls.absolute(path))
@@ -1961,16 +2058,6 @@ def write_sitemap(config, urls, provinces):
     write(os.path.join(ROOT, "sitemap.xml"), "\n".join(lines))
 
 
-NOT_FOUND = {
-    "fr": ("Page introuvable",
-           "Cette adresse n'existe pas ou n'existe plus. "
-           "Voici par où reprendre :"),
-    "en": ("Page not found",
-           "This address does not exist, or no longer does. "
-           "Here is where to pick up:"),
-}
-
-
 def write_404(config, urls, strings, i18n, layout):
     """Page servie par GitHub Pages pour toute URL inconnue.
 
@@ -1980,13 +2067,16 @@ def write_404(config, urls, strings, i18n, layout):
     """
     blocks = []
     for lang in config["site"]["languages"]:
-        title, intro = NOT_FOUND[lang]
+        title = strings[lang]["notFoundTitle"]
+        intro = strings[lang]["notFoundIntro"]
         links = []
         for page in config["pages"]:
             links.append('          <li><a href="%s">%s</a></li>'
                          % (urls.path(page["id"], lang),
                             esc(page["meta"][lang]["h1"])))
-        heading = "h1" if lang == "fr" else "h2"
+        # Un seul h1 par page : il revient au premier bloc, celui de la
+        # langue par defaut ; les traductions suivent en h2.
+        heading = "h1" if lang == config["site"].get("defaultLanguage", "fr") else "h2"
         blocks.append(
             '      <section class="section" lang="%s">\n'
             '        <%s class="page-title">%s</%s>\n'

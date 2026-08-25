@@ -6,9 +6,7 @@
 <title>{{title}}</title>
 <meta name="description" content="{{description}}">
 <link rel="canonical" href="{{canonical}}">
-<link rel="alternate" hreflang="fr" href="{{altFr}}">
-<link rel="alternate" hreflang="en" href="{{altEn}}">
-<link rel="alternate" hreflang="x-default" href="{{altFr}}">
+{{alternates}}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#FDFAF6">
 <meta property="og:site_name" content="{{siteName}}">
@@ -67,14 +65,7 @@
            Les deux SVG portaient deja aria-hidden : le site reconnaissait donc
            qu'ils n'apportaient aucune information. Ils etaient au passage les
            seules couleurs saturees de tout l'en-tete. -->
-      <div class="lang-switch" role="group" aria-label="Langue / Language">
-        <a class="lang-btn{{frActive}}" href="{{altFr}}" hreflang="fr" lang="fr" title="Français"{{frCurrent}}>
-          <span class="code">FR</span>
-        </a>
-        <a class="lang-btn{{enActive}}" href="{{altEn}}" hreflang="en" lang="en" title="English"{{enCurrent}}>
-          <span class="code">EN</span>
-        </a>
-      </div>
+{{langSwitch}}
     </div>
 
     <!-- Trois traits : sur telephone ils remplacent la barre d'onglets, qui
