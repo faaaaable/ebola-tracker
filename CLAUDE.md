@@ -904,6 +904,14 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
   Haut-Uélé 50,0 % — n'est plus affichée. Le détail reste dans `deces-lieu.json`.
 - **Tableau historique des 17 épidémies** : demandé, mis de côté faute de
   source interne.
+- **`.cache/geo/RDC_Zone_de_sante_09092019.zip` est versionné** — 6 Mo, le
+  shapefile OCHA que `build_geo.py` télécharge. Il pèse à lui seul plus que
+  tout le reste du dépôt, et GitHub Pages le sert publiquement, ce qui est
+  exactement la raison pour laquelle `tmp/`, `data/corpus/` et
+  `assets/social/` en sont tenus à l'écart. Ce n'est pas un problème de
+  confidentialité — la donnée est publique — mais c'est un cache
+  reconstructible qui alourdit chaque clone. Constaté le 25 août en comptant
+  les lignes du dépôt ; à sortir du dépôt et à ajouter au `.gitignore`.
 - **`tmp/`, `assets/social/`, `data/corpus/`** restent hors dépôt. GitHub Pages
   sert tout le dépôt : ce qui est commité devient publiquement téléchargeable.
 
