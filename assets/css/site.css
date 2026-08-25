@@ -991,6 +991,29 @@ td:first-child{color:var(--ink);font-weight:500;}
 }
 .timeline-h:focus-visible{outline:2px solid var(--accent-strong);outline-offset:-2px;}
 
+/* La piste defilait deja, mais rien ne le disait : macOS masque les barres
+   tant qu'on ne fait pas le geste, et une souris a molette verticale n'a
+   aucun axe horizontal. Sur un pointeur fin — laptop, souris — la barre
+   reste donc affichee : c'est a la fois le signal qu'il y a une suite et la
+   poignee qui permet d'y aller. Le tactile garde le geste, sans barre. */
+@media (pointer:fine){
+  .timeline-h{
+    scrollbar-width:thin;
+    scrollbar-color:var(--line) transparent;
+    padding-bottom:2px;
+  }
+  .timeline-h::-webkit-scrollbar{height:8px;}
+  .timeline-h::-webkit-scrollbar-track{
+    background:transparent;
+    border-top:1px solid var(--line-soft);
+  }
+  .timeline-h::-webkit-scrollbar-thumb{
+    background:var(--line);
+    border-radius:4px;
+  }
+  .timeline-h:hover::-webkit-scrollbar-thumb{background:var(--accent);}
+}
+
 .th-track{
   list-style:none;display:flex;gap:0;position:relative;
   padding:26px var(--gutter) 0;margin:0;width:max-content;min-width:100%;
@@ -1000,6 +1023,39 @@ td:first-child{color:var(--ink);font-weight:500;}
   content:'';position:absolute;left:var(--gutter);right:var(--gutter);top:5px;
   height:1px;background:var(--line);
 }
+
+/* Le conteneur des deux commandes : il doit etre le repere de position, et
+   ne pas rogner la piste qu'il entoure. */
+.th-scroller{position:relative;}
+
+/* Deux fleches, uniquement la ou il y a un pointeur fin : au doigt le geste
+   suffit et deux boutons poses sur la piste mangeraient la place. Elles se
+   superposent aux bords de la piste plutot que de s'ajouter a cote, pour ne
+   pas retrecir la colonne de contenu. */
+.th-nav{display:none;}
+@media (pointer:fine){
+  .th-nav{
+    display:grid;place-items:center;
+    position:absolute;top:calc(50% + 13px);transform:translateY(-50%);
+    width:34px;height:34px;padding:0;
+    border:1px solid var(--line);border-radius:50%;
+    background:var(--bg);color:var(--ink-soft);
+    cursor:pointer;z-index:2;
+    box-shadow:0 1px 6px rgba(0,0,0,.10);
+    transition:color .15s, border-color .15s, opacity .15s;
+  }
+  .th-nav.is-prev{left:-17px;}
+  .th-nav.is-next{right:-17px;}
+  .th-nav:hover{color:var(--accent);border-color:var(--accent);}
+  .th-nav:focus-visible{outline:2px solid var(--accent-strong);outline-offset:2px;}
+  /* En bout de course le bouton reste en place mais s'efface : le faire
+     disparaitre ferait sauter la piste sous le curseur. */
+  .th-nav[disabled]{opacity:.28;cursor:default;box-shadow:none;}
+  .th-nav[disabled]:hover{color:var(--ink-soft);border-color:var(--line);}
+}
+
+/* L'indice sous la piste : il dit ce que les fleches ne disent pas au doigt. */
+.th-hint{margin-top:10px;}
 
 /* Dans une colonne de contenu — l'apercu de l'accueil — la piste ne doit pas
    deborder jusqu'aux bords de la page. */

@@ -95,11 +95,28 @@
   <section class="section section-split">
     <h2 class="section-title">{{t.navTimeline}}</h2>
     <div>
-      <div class="timeline-h is-inline" tabindex="0" role="region" aria-label="{{t.timelineRegionLabel}}">
-        <ol class="th-track">
+      <!-- Les deux commandes vivent hors de la piste, sinon elles defileraient
+           avec elle. Elles restent masquees tant que le script ne les a pas
+           activees : sans JavaScript la piste se parcourt au geste, et un
+           bouton mort serait pire que pas de bouton. -->
+      <div class="th-scroller">
+        <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="{{t.timelineRegionLabel}}">
+          <ol class="th-track">
 {{timelineTeaser}}
-        </ol>
+          </ol>
+        </div>
+        <button class="th-nav is-prev" type="button" data-th-nav="-1"
+                aria-controls="timelineTeaser" aria-label="{{t.timelineScrollPrev}}" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="th-nav is-next" type="button" data-th-nav="1"
+                aria-controls="timelineTeaser" aria-label="{{t.timelineScrollNext}}" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
+      <p class="map-note th-hint">{{t.timelineScrollHint}}</p>
       <a class="teaser-more" href="{{url.chronologie}}">{{t.teaserTimelineMore}}</a>
     </div>
   </section>

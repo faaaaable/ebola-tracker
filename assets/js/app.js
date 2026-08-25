@@ -3304,9 +3304,53 @@ function mergeHealthZonesWithHistory(){
   switchZonesView('zone');
 })();
 
+/* Defilement de l'apercu de chronologie.
+
+   La piste defilait deja — 468 px de contenu hors cadre sur un ecran de
+   1512 px —, mais rien ne le montrait : macOS pose des barres en
+   superposition qui n'apparaissent qu'en cours de geste, et une souris a
+   molette verticale n'a aucun axe horizontal. On voyait donc cinq cases
+   figees sans moyen d'atteindre la sixieme.
+
+   Les deux fleches sont activees ici, jamais dans le HTML : sans JavaScript
+   elles restent masquees et la piste se parcourt au geste, comme avant. */
+function initTimelineScroller(){
+  const piste = document.getElementById('timelineTeaser');
+  if(!piste) return;
+  const boutons = [...document.querySelectorAll('.th-nav[data-th-nav]')];
+  if(!boutons.length) return;
+
+  // Un cran = presque une largeur de fenetre, en gardant une case en commun
+  // pour ne pas perdre le fil entre deux clics.
+  const pas = () => Math.max(160, piste.clientWidth - 232);
+
+  function rafraichir(){
+    const reste = piste.scrollWidth - piste.clientWidth;
+    if(reste <= 1){                       // tout tient : pas de commandes
+      boutons.forEach(b => { b.hidden = true; });
+      return;
+    }
+    boutons.forEach(b => {
+      b.hidden = false;
+      const versLaDroite = Number(b.dataset.thNav) > 0;
+      // Marge de 1 px : les navigateurs rendent des scrollLeft fractionnaires.
+      b.disabled = versLaDroite ? piste.scrollLeft >= reste - 1
+                                : piste.scrollLeft <= 1;
+    });
+  }
+
+  boutons.forEach(b => b.addEventListener('click', () => {
+    piste.scrollBy({ left: Number(b.dataset.thNav) * pas(), behavior: 'smooth' });
+  }));
+  piste.addEventListener('scroll', rafraichir, { passive: true });
+  window.addEventListener('resize', rafraichir);
+  rafraichir();
+}
+
 if(document.querySelector('.zonemap')) safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immediat avec les donnees de reference integrees
+safeRun(initTimelineScroller, 'timelineScroller');
 Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie(), loadDecesLieu()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer

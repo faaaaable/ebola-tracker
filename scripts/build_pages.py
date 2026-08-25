@@ -1269,6 +1269,7 @@ def attach_toll(events, series):
         }
 
 
+
 def render_timeline(events, strings_lang, i18n_lang, heading="h2"):
     """Piste horizontale, reservee a l'apercu de l'accueil : trois jalons, pas
     de defilement, une carte par jalon."""
@@ -1620,10 +1621,13 @@ def main():
                                  config=config, urls=urls)
         common_seed["timelineItems"] = render_timeline_vertical(
             events, strings_lang, i18n_lang, urls, lang, config["provinceSlugs"])
-        # L'apercu de l'accueil part du debut de l'epidemie : quatre jalons a
-        # partir de la premiere date, et le lien en dessous mene a la suite.
+        # L'apercu part du debut de l'epidemie et s'arrete au sixieme jalon :
+        # on lit la chronologie dans son ordre, et le lien en dessous mene a
+        # la suite. Six et non quatre parce que la piste en tient 5,7 sur un
+        # ecran de 1920 px — a quatre il restait un vide de 404 px a droite,
+        # et sur mobile le defilement passe de 840 a 1 260 px.
         common_seed["timelineTeaser"] = render_timeline(
-            events[:4], strings_lang, i18n_lang, heading="h3")
+            events[:6], strings_lang, i18n_lang, heading="h3")
         common_seed["cartogram"] = zone_map_html(
             config, geo, latest.get("healthZones", []), provinces, urls, lang,
             strings_lang)

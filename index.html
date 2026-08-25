@@ -91,7 +91,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=7d9d3df716">
+<link rel="stylesheet" href="/assets/css/site.css?v=5b11f4cc13">
 </head>
 <body>
 
@@ -844,8 +844,13 @@
   <section class="section section-split">
     <h2 class="section-title">Chronologie</h2>
     <div>
-      <div class="timeline-h is-inline" tabindex="0" role="region" aria-label="Chronologie de l'épidémie, défilement horizontal">
-        <ol class="th-track">
+      <!-- Les deux commandes vivent hors de la piste, sinon elles defileraient
+           avec elle. Elles restent masquees tant que le script ne les a pas
+           activees : sans JavaScript la piste se parcourt au geste, et un
+           bouton mort serait pire que pas de bouton. -->
+      <div class="th-scroller">
+        <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="Chronologie de l'épidémie, défilement horizontal">
+          <ol class="th-track">
           <li class="th-item is-official">
             <span class="th-dot" aria-hidden="true"></span>
             <time class="th-date" datetime="2026-04-24">24 avr. 2026</time>
@@ -870,8 +875,32 @@
             <h3 class="th-title">Urgence de santé publique de portée nationale</h3>
             <p class="th-text">La RDC déclare l'urgence de santé publique au niveau national et active sa riposte : centres de traitement, surveillance des contacts, points de contrôle aux frontières.</p>
           </li>
-        </ol>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-18">18 mai 2026</time>
+            <h3 class="th-title">Urgence de santé publique de portée continentale</h3>
+            <p class="th-text">L'urgence est étendue au niveau continental, ouvrant la voie à une coordination régionale de la riposte.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-19">19 mai 2026</time>
+            <h3 class="th-title">L'épidémie atteint le Nord-Kivu</h3>
+            <p class="th-text">La province entre au tableau des bulletins avec trois cas confirmés. Les deux rapports précédents ne la mentionnaient pas ; celui du 18 mai manque à l'archive, la date est donc un plancher.</p>
+          </li>
+          </ol>
+        </div>
+        <button class="th-nav is-prev" type="button" data-th-nav="-1"
+                aria-controls="timelineTeaser" aria-label="Jalons précédents" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="th-nav is-next" type="button" data-th-nav="1"
+                aria-controls="timelineTeaser" aria-label="Jalons suivants" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
+      <p class="map-note th-hint">Faites défiler horizontalement pour parcourir l'épidémie.</p>
       <a class="teaser-more" href="/chronologie/">Toute la chronologie</a>
     </div>
   </section>
@@ -1005,7 +1034,7 @@ window.LEGACY_HASH_ROUTES = {"zones": "/donnees/", "reports": "/rapports/", "abo
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
 <script defer src="/assets/js/i18n.js?v=d90fa43427"></script>
-<script defer src="/assets/js/app.js?v=9ca0456877"></script>
+<script defer src="/assets/js/app.js?v=4f2c8df2c8"></script>
 
 </body>
 </html>

@@ -575,6 +575,28 @@ distincte.
 
 **Sept bulletins manquent** à l'archive : 003, 029, 043, 045, 063, 075, 076.
 
+**L'apercu de chronologie de l'accueil tient six jalons, et il faut deux
+fleches pour les atteindre.** Il en montrait quatre, soit 928 px : sur un
+ecran de 1920 px la piste dispose de 1 332 px, il restait donc **404 px de
+vide a droite**. Six cases font 1 392 px — le vide disparait et le leger
+debordement signale qu'il y a une suite. Sur mobile le defilement passe de
+840 a 1 260 px. Ce sont les six **premiers** jalons, dans l'ordre : l'apercu
+raconte le demarrage, « Toute la chronologie » mene au reste. Une selection
+etalee sur toute la periode a ete essayee puis ecartee le 25 aout — sauter
+d'avril a aout en six cases donne l'impression d'une chronologie trouee, et
+l'accueil porte deja l'etat present plus haut (carte, compteurs, graphique).
+
+La piste **defilait deja** mais personne ne pouvait s'en servir sur
+ordinateur : macOS pose des barres en superposition qui n'apparaissent qu'en
+cours de geste, et une souris a molette verticale n'a aucun axe horizontal.
+D'ou deux fleches, activees par `initTimelineScroller()` dans `app.js` et
+affichees sous `@media (pointer:fine)` seulement — au doigt le geste suffit.
+Elles sont `hidden` dans le HTML et revelees par le script : sans JavaScript,
+un bouton mort serait pire que pas de bouton. En bout de course elles
+s'estompent au lieu de disparaitre, sinon la piste sauterait sous le curseur.
+`timelineScrollHint` existait dans `strings.json` depuis toujours **sans etre
+affichee nulle part** ; elle l'est desormais, pour le tactile.
+
 **Un chiffre ecrit dans `strings.json` ne se met jamais a jour.** La legende
 de la carte annoncait « Les 464 zones sans cas rapporté restent en gris »
 quand la carte en dessinait 462 : le total etait juste a 55 zones touchees et
