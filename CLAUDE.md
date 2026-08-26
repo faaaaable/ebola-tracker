@@ -660,6 +660,28 @@ pas publiee, donc pas separable — mais les deces du 30 juillet sont ceux des 2
 que soit la repartition. Juillet passe ainsi de 444 a 272 cas en teinte claire,
 et de 336 a 236 deces, sans qu'aucun total bouge.
 
+**DEUX GRIS, ET LA DIFFERENCE EST REGLEE POUR TOUT LE SITE.** Hachure = une
+donnee attendue qui manque. Gris uni = du temps qui n'a pas encore eu lieu.
+
+Le graphique des deces par lieu confondait les deux : la semaine du 24 aout
+portait deux releves sur sept, et son gris — cinq septiemes de l'emprise —
+etait annonce « Jours sans donnee » alors qu'il ne contenait AUCUN jour
+manquant, seulement cinq jours a venir. Une semaine se decompose donc en trois
+parts et non deux : les releves recus, les journees passees sans lieu declare,
+les journees a venir. Le plancher de lisibilite elargissant la barre au-dela de
+sa part reelle, le gris se resserre d'autant, en gardant la proportion entre
+les deux dernieres.
+
+Corollaire : la bande du mois en cours passe en gris UNI. Elle etait hachuree,
+ce qui aurait fait dire a la hachure deux choses contraires d'un graphique a
+l'autre. Et la pastille de legende de « Jours sans donnee » recoit un motif
+hachure (`hachureLegende`) : sans lui, les deux cles sortaient comme deux
+carres gris identiques, ce qui annulait la distinction qu'elles portent.
+
+**Le compte de jours manquants de la note se calcule** — journees ecoulees de
+la fenetre couverte moins journees documentees. Il etait ecrit en dur, juste au
+moment ou il a ete ecrit, et perime au premier bulletin muet suivant.
+
 **La bande grisee a sa cle de legende, un carre plutot qu'une pastille.**
 Sans elle, ce gris pose a cote de deux couleurs pleines n'avait aucune cle de
 lecture — il fallait descendre jusqu'a la note pour apprendre que le mois
