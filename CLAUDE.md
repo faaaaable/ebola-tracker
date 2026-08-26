@@ -582,6 +582,37 @@ de grandeur ne se comparent pas : une centaine contre plusieurs milliers, un
 axe unique écraserait les barres. Une seconde série de barres, translucide,
 isole les deux dates de rattrapage administratif.
 
+**`epidemic` a deux vues, par une bascule interne** — meme idiome que la
+pyramide des ages. « Par jour » reste la representation canonique ; « Par
+semaine » agrege les nouveaux cas par semaine calendaire, du lundi au
+dimanche. Les deces n'y figurent pas : la vue repond a « combien de cas cette
+semaine », pas a la comparaison des deux series, que le graphique quotidien
+porte deja avec ses courbes de cumul.
+
+**La semaine en cours n'est pas affichee.** A un jour sur sept, sa barre
+tombait de 561 a 72 cas et se lisait comme une chute de l'epidemie. Le dernier
+point d'une courbe epidemique est toujours incomplet, et un point incomplet se
+lit toujours comme une amelioration. Rien n'est cache : la vue « par jour »
+montre ces journees a leur place, et la note le dit.
+
+Le test porte sur « la semaine est-elle finie » — le dernier bulletin va-t-il
+jusqu'a son dimanche — **et non** sur « a-t-elle ses sept releves ». La
+distinction compte : une semaine passee amputee d'un bulletin manquant reste
+affichee, son total etant definitif meme s'il est sous-estime. Seule la
+derniere peut encore se remplir, et elle reparait d'elle-meme au bulletin
+suivant, sans qu'aucune date soit ecrite dans le code.
+
+**Les jours sans bulletin sont enumeres dans la note, et calcules.** Neuf sur
+la periode, de deux natures : les 15 et 16 mai, ou l'INSP n'a rien publie — le
+n°001 du 14 mai est suivi du n°002 du 17 —, et sept dates dont le bulletin
+manque a l'archive publique (003, 029, 043, 045, 063, 075, 076). La liste se
+recalcule a chaque rendu : un tel decompte se perime au premier trou suivant.
+
+**Les barres sont jointives a 6 % pres**, et chaque colonne porte sous elle la
+periode couverte sur deux lignes. Un large espace se lirait comme une periode
+sans cas ; des barres collees empechaient de distinguer une semaine de sa
+voisine.
+
 **`provinceEpidemic`** — même forme, aux couleurs de la province, avec sa
 courbe de décès. Absent sous 50 cas cumulés. Signale les trous de plus de trois
 jours au lieu de relier par-dessus.

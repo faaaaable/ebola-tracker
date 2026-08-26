@@ -27,6 +27,17 @@ const I18N = {
     chartSub:"cumul des cas confirmés et décès",
     chartSubRange:(n,from,to)=>`${n} bulletins, du ${from} au ${to}`,
     chartModeEpidemic:"Évolution de l'épidémie",
+    chartEpidemicVueDaily:"Par jour",
+    chartEpidemicVueWeekly:"Par semaine",
+    chartWeeklyCases:"Nouveaux cas",
+    chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Nouveaux cas agrégés par semaine calendaire, du lundi au dimanche. `
+      + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. `
+                 + `Les journées déjà connues restent visibles dans la vue « par jour ». ` : '')
+      + `Sur les ${sem} semaines couvertes, ${partielles} ne portent pas sept bulletins : leur total est donc sous-estimé, `
+      + `et la hauteur d'une barre incomplète ne se compare pas aux autres. `
+      + `Les ${absentes.length} jours sans bulletin sont les ${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]} — `
+      + `l'INSP n'a rien publié les deux premiers, les autres correspondent à des bulletins absents de l'archive publique. `
+      + `Les deux rattrapages administratifs des 22 et 30 juillet gardent leur teinte claire, empilée sur la semaine qui les porte.`,
     chartModeCumulative:"Cas/décès cumulés",
     chartModeDaily:"Nouveaux cas par jour",
     chartModeContactsFollowUp:"Suivi des contacts",
@@ -217,6 +228,17 @@ const I18N = {
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
     chartModeEpidemic:"Epidemic overview",
+    chartEpidemicVueDaily:"Daily",
+    chartEpidemicVueWeekly:"Weekly",
+    chartWeeklyCases:"New cases",
+    chartWeeklyNote:(sem,partielles,absentes,enCours)=>`New cases aggregated by calendar week, Monday to Sunday. `
+      + (enCours ? `The current week only appears once complete: unfinished, its bar would read as a decline. `
+                 + `The days already known remain visible in the daily view. ` : '')
+      + `Of the ${sem} weeks covered, ${partielles} do not carry seven bulletins: their total is therefore understated, `
+      + `and the height of an incomplete bar is not comparable to the others. `
+      + `The ${absentes.length} days without a bulletin are ${absentes.slice(0,-1).join(', ')} and ${absentes[absentes.length-1]} — `
+      + `the INSP published nothing on the first two; the others are bulletins missing from the public archive. `
+      + `The two administrative catch-ups of 22 and 30 July keep their lighter shade, stacked on the week that carries them.`,
     chartModeCumulative:"Cumulative cases/deaths",
     chartModeDaily:"New cases per day",
     chartModeContactsFollowUp:"Contact follow-up",
@@ -405,6 +427,17 @@ const I18N = {
     chartSub:"jumla ya visa vilivyothibitishwa na vifo",
     chartSubRange:(n,from,to)=>`ripoti ${n}, kutoka ${from} hadi ${to}`,
     chartModeEpidemic:"Mwenendo wa mlipuko",
+    chartEpidemicVueDaily:"Kwa siku",
+    chartEpidemicVueWeekly:"Kwa wiki",
+    chartWeeklyCases:"Visa vipya",
+    chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Visa vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
+      + (enCours ? `Wiki inayoendelea inaonekana tu ikiisha: bila kukamilika, safu yake ingesomeka kama kupungua. `
+                 + `Siku zinazojulikana tayari zinaonekana katika mwonekano wa kila siku. ` : '')
+      + `Kati ya wiki ${sem} zilizofunikwa, ${partielles} hazina ripoti saba: jumla yao imepungua, `
+      + `na urefu wa safu isiyokamilika haulinganishwi na nyingine. `
+      + `Siku ${absentes.length} zisizo na ripoti ni ${absentes.slice(0,-1).join(', ')} na ${absentes[absentes.length-1]} — `
+      + `INSP haikuchapisha chochote siku mbili za kwanza; nyingine ni ripoti zisizopatikana kwenye kumbukumbu za umma. `
+      + `Marekebisho mawili ya kiutawala ya tarehe 22 na 30 Julai yanabaki na rangi hafifu, juu ya wiki inayoyabeba.`,
     chartModeCumulative:"Visa/vifo vilivyokusanywa",
     chartModeDaily:"Visa vipya kwa siku",
     chartModeContactsFollowUp:"Ufuatiliaji wa walioguswa",

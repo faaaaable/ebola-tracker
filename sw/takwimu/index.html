@@ -362,6 +362,12 @@
       <!-- Bascule propre a la pyramide, masquee par les autres modes. En
            « Effectifs », deux figures cote a cote ; en « Parts », une seule,
            chaque serie ramenee a 100 % de son propre total. -->
+      <!-- Bascule propre au mode « epidemic » : la meme serie lue par jour
+           ou agregee par semaine. Masquee par les autres modes. -->
+      <nav class="subtab-nav chart-vue-nav" data-epidemic-vue style="display:none;">
+        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartEpidemicVueDaily">Kwa siku</button>
+        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartEpidemicVueWeekly">Kwa wiki</button>
+      </nav>
       <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
         <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">Idadi</button>
         <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">Sehemu</button>
@@ -515,8 +521,8 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=377862eb0c"></script>
-<script defer src="/assets/js/app.js?v=5efecda239"></script>
+<script defer src="/assets/js/i18n.js?v=1129333cb4"></script>
+<script defer src="/assets/js/app.js?v=ea66e3ac07"></script>
 
 </body>
 </html>

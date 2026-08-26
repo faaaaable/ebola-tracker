@@ -92,6 +92,12 @@
       <!-- Bascule propre a la pyramide, masquee par les autres modes. En
            « Effectifs », deux figures cote a cote ; en « Parts », une seule,
            chaque serie ramenee a 100 % de son propre total. -->
+      <!-- Bascule propre au mode « epidemic » : la meme serie lue par jour
+           ou agregee par semaine. Masquee par les autres modes. -->
+      <nav class="subtab-nav chart-vue-nav" data-epidemic-vue style="display:none;">
+        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartEpidemicVueDaily">{{i18n.chartEpidemicVueDaily}}</button>
+        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartEpidemicVueWeekly">{{i18n.chartEpidemicVueWeekly}}</button>
+      </nav>
       <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
         <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">{{i18n.chartPyramideVueEffectifs}}</button>
         <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>

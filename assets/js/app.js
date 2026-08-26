@@ -754,6 +754,8 @@ let chartMode = 'epidemic';
 /* Vue de la pyramide : « effectifs » (deux figures) ou « parts » (une
    seule, chaque serie ramenee a 100 % de son propre total). */
 let pyramideVue = 'effectifs';
+let epidemicVue = 'quotidien';   // « epidemic » : par jour ou par semaine
+const ctx0Epi = c => c.getContext('2d');
 /* Rend un graphique dans le canvas donne. Le mode dit ce qu'il montre. */
 function renderOneChart(canvas, chartMode){
   const slot = chartSlot(canvas);
@@ -778,6 +780,8 @@ function renderOneChart(canvas, chartMode){
      changement d'onglet. */
   const navVue = wrap ? wrap.querySelector('[data-pyramide-vue]') : null;
   if(navVue) navVue.style.display = (chartMode === 'pyramide') ? '' : 'none';
+  const navEpi = wrap ? wrap.querySelector('[data-epidemic-vue]') : null;
+  if(navEpi) navEpi.style.display = (chartMode === 'epidemic') ? '' : 'none';
   /* La vue « Parts » loge dix barres la ou les autres modes en logent cinq :
      elle reclame un cadre plus haut, sans quoi l'axe des ages saute un
      libelle sur deux des que l'ecran retrecit. Le cadre reprend sa hauteur
@@ -1283,26 +1287,39 @@ const largeurSemaine = {
       if(r >= 0.999 || el.$largeurPleine === undefined) return;
       const gauche = el.$centre - el.$largeurPleine / 2 + el.width;
       const large = el.$largeurPleine - el.width;
+      /* Le gris s'arrete au sommet de la pile, pas en haut du cadre : il dit
+         quelle PART de cette semaine manque, pas qu'il manquerait quelque
+         chose jusqu'au plafond du graphique. Sur les parts empilees a 100 %
+         du graphique des deces par lieu, ce sommet est justement le haut du
+         cadre — la regle vaut donc pour les deux. */
+      let sommet = aire.bottom;
+      chart.data.datasets.forEach((jeu, di) => {
+        if(jeu.type === 'line') return;
+        const e = chart.getDatasetMeta(di).data[i];
+        if(e && e.y < sommet) sommet = e.y;
+      });
+      const hautBarre = aire.bottom - sommet;
+      if(hautBarre <= 0) return;
       ctx.save();
       ctx.beginPath();
-      ctx.rect(gauche, aire.top, large, haut);
+      ctx.rect(gauche, sommet, large, hautBarre);
       ctx.clip();                       // sans clip, les diagonales debordent
       ctx.fillStyle = PALETTE.bgAlt || '#efece5';
-      ctx.fillRect(gauche, aire.top, large, haut);
+      ctx.fillRect(gauche, sommet, large, hautBarre);
       ctx.strokeStyle = PALETTE.line;
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.55;
       ctx.beginPath();
-      for(let x = gauche - haut; x < gauche + large; x += 8){
+      for(let x = gauche - hautBarre; x < gauche + large; x += 8){
         ctx.moveTo(x, aire.bottom);
-        ctx.lineTo(x + haut, aire.top);
+        ctx.lineTo(x + hautBarre, sommet);
       }
       ctx.stroke();
       ctx.restore();
       ctx.save();
       ctx.strokeStyle = PALETTE.line;
       ctx.lineWidth = 1;
-      ctx.strokeRect(gauche + 0.5, aire.top + 0.5, large - 1, haut - 1);
+      ctx.strokeRect(gauche + 0.5, sommet + 0.5, large - 1, hautBarre - 1);
       ctx.restore();
     });
   }
@@ -1901,6 +1918,151 @@ const largeurSemaine = {
     return;
   }
 
+  /* Vue « par semaine » du mode epidemic.
+
+     Agreger absorbe le bruit de notification — un bulletin manquant creuse un
+     trou dans la serie quotidienne qui ne dit rien de l'epidemie — mais
+     deplace le probleme : sept des seize semaines ne portent pas sept
+     bulletins. La couverture est donc encodee comme dans « deces par lieu »,
+     par la largeur remplie et le gris hachure, avec le meme plugin.
+
+     Les deux rattrapages administratifs gardent leur teinte claire, empilee
+     sur la semaine qui les porte : noyes dans la somme, ils gonfleraient
+     silencieusement leur semaine. */
+  if(chartMode === 'epidemic' && epidemicVue === 'hebdo'){
+    if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+    const RATTRAPAGE = { '2026-07-22': 97, '2026-07-30': 73 };
+    const lundiDe = iso => {
+      const d = new Date(iso + 'T12:00:00');
+      d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+      return d.toISOString().slice(0, 10);
+    };
+    const plusSix = iso => {
+      const d = new Date(iso + 'T12:00:00');
+      d.setDate(d.getDate() + 6);
+      return d.toISOString().slice(0, 10);
+    };
+    const sem = new Map();
+    let prevC = null, prevD = null;
+    for(const r of s){
+      const cle = lundiDe(r.date);
+      const w = sem.get(cle) || { debut: cle, fin: plusSix(cle),
+                                  cas: 0, rattrapage: 0, deces: 0, releves: 0 };
+      if(r.confirmed != null){
+        const d = prevC === null ? null : Math.max(0, r.confirmed - prevC);
+        if(d !== null){
+          const vrai = RATTRAPAGE[r.date];
+          w.cas        += vrai === undefined ? d : Math.min(vrai, d);
+          w.rattrapage += vrai === undefined ? 0 : Math.max(0, d - vrai);
+        }
+        prevC = r.confirmed;
+      }
+      if(r.deaths != null){
+        const d = prevD === null ? null : Math.max(0, r.deaths - prevD);
+        if(d !== null) w.deces += d;
+        prevD = r.deaths;
+      }
+      w.releves += 1;
+      sem.set(cle, w);
+    }
+    const toutes = [...sem.values()].sort((a, b) => a.debut.localeCompare(b.debut));
+
+    /* La semaine EN COURS n'est pas affichee : a un jour sur sept, sa barre
+       tombait de 561 a 72 cas et se lisait comme une chute de l'epidemie
+       alors qu'il manque simplement six jours. Le dernier point d'une courbe
+       epidemique est toujours incomplet, et un point incomplet se lit
+       toujours comme une amelioration.
+
+       Rien n'est cache pour autant : la vue « par jour » montre ces memes
+       journees a leur place. Et la semaine reapparait d'elle-meme des que les
+       bulletins suivants la terminent — aucune date n'est ecrite ici.
+
+       Le test porte sur « la semaine est-elle finie », pas sur « a-t-elle ses
+       sept releves » : une semaine passee amputee d'un bulletin manquant
+       reste affichee, son total etant definitif meme s'il est sous-estime.
+       Seule la derniere peut encore se remplir. */
+    const derniereDate = s[s.length - 1].date;
+    const enCours = toutes.length && toutes[toutes.length - 1].fin > derniereDate;
+    const serie = enCours ? toutes.slice(0, -1) : toutes;
+    const incompletes = serie.filter(w => w.releves < 7).length;
+    /* Les jours sans bulletin, listes dans la note : neuf sur la periode, dont
+       deux ou l'INSP n'a rien publie et sept dont le bulletin manque a
+       l'archive. Calcules ici, jamais ecrits en dur — un tel decompte se
+       perime au premier trou suivant. */
+    const jours = new Set(s.map(r => r.date));
+    const absentes = [];
+    for(let d = new Date(s[0].date + 'T12:00:00'),
+            derniere = new Date(s[s.length-1].date + 'T12:00:00');
+        d <= derniere; d.setDate(d.getDate() + 1)){
+      const iso = d.toISOString().slice(0, 10);
+      if(!jours.has(iso)) absentes.push(frDate(iso));
+    }
+
+    const dataH = {
+      // Deux lignes sous chaque barre : la semaine couverte, en toutes dates.
+      labels: serie.map(w => [frDate(w.debut), '→ ' + frDate(w.fin)]),
+      datasets: [
+        /* Un filet entre les colonnes, pas davantage : sur une courbe
+           epidemique un large espace se lirait comme une periode sans cas,
+           mais coller les barres empechait de distinguer une semaine de sa
+           voisine. 6 % de la categorie separent donc chaque bloc — barre
+           pleine et part manquante comprises. */
+        { label: tr('chartWeeklyCases'), data: serie.map(w => w.cas),
+          backgroundColor: PALETTE.info, stack: 'cas',
+          categoryPercentage: 1, barPercentage: 0.94 },
+        { label: tr('catchupLabel'), data: serie.map(w => w.rattrapage),
+          backgroundColor: tint(PALETTE.info, .35), stack: 'cas',
+          categoryPercentage: 1, barPercentage: 0.94 }
+      ]
+    };
+    const optsH = {
+      responsive: true, maintainAspectRatio: false, animation: false,
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: { stacked: true, ticks: { color: PALETTE.inkFaint,
+             font: { family: PALETTE.font, size: 10 } }, grid: { display: false } },
+        y: { stacked: true, beginAtZero: true,
+             ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
+                      callback: v => fmt(v) },
+             grid: { color: PALETTE.lineSoft } }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 },
+            boxWidth: 10, usePointStyle: true,
+            generateLabels(chart){
+              const base = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+              return base;
+            }
+          },
+        },
+        tooltip: {
+          backgroundColor: PALETTE.panel, borderColor: PALETTE.line, borderWidth: 1,
+          titleColor: PALETTE.ink, bodyColor: PALETTE.ink,
+          titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
+          filter: item => item.parsed.y > 0 || item.datasetIndex !== 1,
+          callbacks: {
+            title: items => {
+              const w = serie[items[0].dataIndex];
+              return tr('chartDeathPlaceWeekLabel')(frDate(w.debut), frDate(w.fin))
+                   + ' · ' + tr('chartDeathPlaceWeekDays')(w.releves);
+            },
+            label: c => `${c.dataset.label} : ${fmt(c.parsed.y)}`
+          }
+        }
+      }
+    };
+    slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataH,
+                                              options: optsH, plugins: [largeurSemaine] });
+    slot.lastMode = 'epidemic-hebdo';
+    if(noteEl){
+      noteEl.textContent = tr('chartWeeklyNote')(serie.length, incompletes, absentes, enCours);
+      noteEl.style.display = 'block';
+    }
+    return;
+  }
+
   const labels = s.map(r=> (r.approx?'≈ ':'') + frDate(r.date));
   const ctx = canvas.getContext('2d');
 
@@ -2085,6 +2247,17 @@ function renderChart(){
 /* Bascule « Effectifs » / « Parts ». Elle ne vit que dans le cadre du
    graphique, et ne pilote que le mode pyramide : les autres modes la
    masquent. */
+document.querySelectorAll('[data-epidemic-vue]').forEach(nav=>{
+  nav.querySelectorAll('.subtab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      nav.querySelectorAll('.subtab-btn').forEach(b=>b.classList.toggle('active', b === btn));
+      epidemicVue = btn.dataset.vue;
+      const cible = document.getElementById('dataChart');
+      if(cible) safeRun(()=>renderOneChart(cible, cible.dataset.chart), 'epidemicVue');
+    });
+  });
+});
+
 document.querySelectorAll('[data-pyramide-vue]').forEach(nav=>{
   nav.querySelectorAll('.subtab-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
