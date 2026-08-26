@@ -165,7 +165,7 @@ Les graphiques sont rendus côté client par `assets/js/app.js` avec Chart.js.
 Chaque canevas déclare son sujet via `data-chart`, les onglets via `data-mode`.
 
 **Sept onglets sur `/donnees/`**, dans cet ordre : `epidemic`, `newCases`,
-`newDeaths`, `deathsPlace`, `byProvince` (« Par province »), `pyramide`,
+`newDeaths`, `deathsPlace`, `byProvince` (« Cas par province »), `pyramide`,
 `contactsFollowUp`. La
 barre repond a des questions successives — combien (l'ensemble, les cas, les
 deces), ou (par province), qui (age et sexe), et que fait-on contre (suivi des
@@ -588,7 +588,7 @@ chaque onglet par `data-mode`.
 | `newCases` | `sitreps.json` | onglet, trois vues (jour, semaine, mois) |
 | `newDeaths` | `sitreps.json` | onglet, **le meme bloc de code** que `newCases` |
 | `provinceEpidemic` | `province-history.json` | les six pages province |
-| `byProvince` | `province-history.json` | onglet, deux vues (cas, létalité) |
+| `byProvince` | `province-history.json` | onglet |
 | `contactsFollowUp` | `contacts-followup.json` | onglet |
 | `deathsPlace` | `deces-lieu.json` | onglet |
 | `pyramide` | `demographie.json` | onglet |
@@ -694,35 +694,18 @@ plutot qu'on ne nuance.
 courbe de décès. Absent sous 50 cas cumulés. Signale les trous de plus de trois
 jours au lieu de relier par-dessus.
 
-**`byProvince`** — deux vues par une bascule interne. « Cas cumulés » : six
-courbes de cumul, une par province, chacune à sa teinte d'identité.
-« Létalité » : les décès cumulés rapportés aux cas cumulés, à chaque date.
+**`byProvince`** — six courbes de cumul, une par province, chacune à sa teinte
+d'identité, sous le titre « Cas par province ». Il s'appelait « Cas cumulés /
+région » jusqu'au 26 août : ni la RDC ni le reste du site n'emploient
+« région » — le découpage est la province —, et le swahili disait `eneo`, qui
+désigne aussi la zone de santé, l'autre découpage de la même page. Le `/` était
+par ailleurs le seul raccourci de ce genre dans la barre.
 
-Il s'appelait « Cas cumulés / région » jusqu'au 26 août : ni la RDC ni le reste
-du site n'emploient « région » — le découpage est la province —, et le swahili
-disait `eneo`, qui désigne aussi la zone de santé, l'autre découpage de la même
-page. Le `/` était par ailleurs le seul raccourci de ce genre dans la barre.
-Avec deux vues, il est devenu « Par province » : la dimension commune.
-
-**Ce que la vue létalité raconte, et que le site possédait sans le dire** : le
-tableau de la page publie ces pourcentages, mais à une seule date. Dans le
-temps, la létalité de l'Ituri monte de 14 à 45 % depuis mai — l'ordinaire d'une
-épidémie où les décès arrivent après les cas — quand celle du Nord-Kivu
-s'installe au-dessus de 60 % dès juin et n'en bouge plus, 23 points au-dessus.
-
-**Trois précautions, toutes dans la note.** Un seuil de 50 cas cumulés
-(`CAS_MIN_LETALITE`, celui que `provinceEpidemic` applique déjà) écarte Tshopo,
-le Sud-Kivu et le Bas-Uélé : trois cas et un décès font 33 %, et la courbe
-sauterait de 0 à 100 au premier décès. L'échelle va **de 0 à 100**, jamais
-resserrée — cadrée sur 40-70 %, la distance entre deux provinces deviendrait un
-gouffre. Et une ligne pointillée porte la létalité nationale, sans laquelle
-« 68 % » ne se situe pas ; elle se calcule sur toutes les provinces, suivies ou
-non, parce que c'est bien celle du pays.
-
-Les deux raisons de ne pas lire ces écarts comme un classement des ripostes
-sont écrites dans la note : une province touchée récemment sous-estime sa
-létalité, et une létalité haute peut signaler une surveillance qui ne voit pas
-les cas légers autant qu'une prise en charge défaillante.
+**Ce graphique ne trace que les cas**, alors que `province-history.json` porte
+aussi les décès. Une vue « Létalité » y a été écrite le 26 août puis retirée le
+jour même : elle n'avait pas été demandée. Les décès cumulés bruts, eux,
+n'ajouteraient rien — même forme que les cas, mêmes rangs, même écrasement par
+l'Ituri.
 
 **`contactsFollowUp`** — une courbe, plus un **pont en pointillés atténué** sur
 les périodes sans donnée. Ce pont n'est jamais une valeur : c'est un repère
