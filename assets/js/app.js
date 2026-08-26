@@ -1236,6 +1236,78 @@ function renderOneChart(canvas, chartMode){
      ECHELLE DE 0 A 100 %, jamais resserree sur les valeurs. Un axe cadre sur
      50-70 % ferait de ces oscillations une montagne russe. Pleine echelle,
      la courbe est plate et haute — ce qu'elle est. */
+/* Semaines incompletes : la barre garde son emprise, la part manquante est
+   grisee.
+
+   Chaque semaine occupe la meme largeur — celle de sept jours. Les releves
+   disponibles remplissent la gauche de cette emprise ; ce qui manque reste en
+   gris hachure a droite. La reference est donc visible dans la barre
+   elle-meme, au lieu de devoir comparer des largeurs entre elles.
+
+   Chart.js ne sait pas faire varier la largeur barre par barre :
+   « barThickness » n'est pas scriptable en 4.4.1 — verifie, les trois barres
+   d'un test sortaient identiques. On redimensionne donc les elements apres la
+   mise en page, avant le dessin, et on recale leur centre pour que la partie
+   pleine parte du bord gauche de l'emprise.
+
+   Ce qui est encode, c'est la COUVERTURE, pas le volume de deces : la semaine
+   du 3 aout est complete au calendrier mais ne porte que trois releves, quatre
+   bulletins d'affilee ne distinguant pas le lieu du deces. Encoder le volume
+   inviterait a comparer d'une semaine a l'autre des totaux que la note declare
+   non comparables. */
+const largeurSemaine = {
+  id: 'largeurSemaine',
+  beforeDatasetsDraw(chart, args, opts){
+    const ratios = opts && opts.ratios;
+    if(!ratios) return;
+    chart.data.datasets.forEach((jeu, di) => {
+      if(jeu.type === 'line') return;
+      chart.getDatasetMeta(di).data.forEach((el, i) => {
+        const r = ratios[i] === undefined ? 1 : ratios[i];
+        if(el.$largeurPleine === undefined){ el.$largeurPleine = el.width; el.$centre = el.x; }
+        el.width = el.$largeurPleine * r;
+        // colle la partie pleine au bord gauche de l'emprise de la semaine
+        el.x = el.$centre - el.$largeurPleine / 2 + el.width / 2;
+      });
+    });
+  },
+  /* Le gris se dessine APRES les barres : pose avant, il passerait dessous et
+     les bordures blanches des segments empiles le mordraient. */
+  afterDatasetsDraw(chart, args, opts){
+    const ratios = opts && opts.ratios;
+    if(!ratios) return;
+    const ctx = chart.ctx, aire = chart.chartArea;
+    const haut = aire.bottom - aire.top;
+    chart.getDatasetMeta(0).data.forEach((el, i) => {
+      const r = ratios[i] === undefined ? 1 : ratios[i];
+      if(r >= 0.999 || el.$largeurPleine === undefined) return;
+      const gauche = el.$centre - el.$largeurPleine / 2 + el.width;
+      const large = el.$largeurPleine - el.width;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(gauche, aire.top, large, haut);
+      ctx.clip();                       // sans clip, les diagonales debordent
+      ctx.fillStyle = PALETTE.bgAlt || '#efece5';
+      ctx.fillRect(gauche, aire.top, large, haut);
+      ctx.strokeStyle = PALETTE.line;
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.55;
+      ctx.beginPath();
+      for(let x = gauche - haut; x < gauche + large; x += 8){
+        ctx.moveTo(x, aire.bottom);
+        ctx.lineTo(x + haut, aire.top);
+      }
+      ctx.stroke();
+      ctx.restore();
+      ctx.save();
+      ctx.strokeStyle = PALETTE.line;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(gauche + 0.5, aire.top + 0.5, large - 1, haut - 1);
+      ctx.restore();
+    });
+  }
+};
+
   if(chartMode==='deathsPlace'){
     if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
     if(!DECES_LIEU || !DECES_LIEU.parDate || !DECES_LIEU.parDate.length){
@@ -1253,14 +1325,27 @@ function renderOneChart(canvas, chartMode){
       return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0')
            + '-' + String(d.getDate()).padStart(2, '0');
     };
+    const dimanche = isoLundi => {
+      const d = new Date(isoLundi + 'T12:00:00');
+      d.setDate(d.getDate() + 6);
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0')
+           + '-' + String(d.getDate()).padStart(2, '0');
+    };
     const semaines = new Map();
     for(const jour of DECES_LIEU.parDate){
       const cle = lundi(jour.date);
-      const s = semaines.get(cle) || { debut: cle, fin: jour.date, comm: 0, cte: 0 };
+      const s = semaines.get(cle) || { debut: cle, fin: jour.date,
+        // La semaine CALENDAIRE, du lundi au dimanche, quels que soient les
+        // releves disponibles : l'infobulle doit annoncer la periode couverte
+        // par la barre, pas la plage des jours renseignes. Le compte de
+        // releves qui suit dit, lui, ce qu'on en connait.
+        finSemaine: dimanche(cle),
+        comm: 0, cte: 0, releves: 0 };
       for(const v of Object.values(jour.provinces || {})){
         s.comm += v.communautaires || 0;
         s.cte  += v.intraCte || 0;
       }
+      s.releves += 1;   // la largeur de la barre en depend, voir largeurSemaine
       if(jour.date > s.fin) s.fin = jour.date;
       semaines.set(cle, s);
     }
@@ -1287,6 +1372,11 @@ function renderOneChart(canvas, chartMode){
        Deux nuances d'un meme rouge, pas deux teintes etrangeres : ce sont tous
        des deces, seul le lieu change. Le plein revient a la communaute, la
        part qui alarme. */
+    /* Une semaine sur sept releves donnerait une barre d'une quinzaine de
+       pixels : le plancher la garde visible tout en la marquant nettement. */
+    const PLANCHER = 0.34;
+    const ratios = serie.map(s => Math.max(PLANCHER, s.releves / 7));
+
     const part = s => Math.round(s.comm / (s.comm + s.cte) * 1000) / 10;
     const data = {
       labels: serie.map(s => frDate(s.debut)),
@@ -1300,7 +1390,7 @@ function renderOneChart(canvas, chartMode){
           borderColor: PALETTE.panel, borderWidth: 2, order: 2 },
         /* La moyenne vit sur un second axe, invisible et non empile : posee
            sur l'axe des barres, Chart.js l'empilerait par-dessus elles. */
-        { type: 'line', label: tr('chartDeathPlaceAverage')(moyenne),
+        { type: 'line', label: tr('chartDeathPlaceAverage')(moyenne, serie.length),
           data: serie.map(() => moyenne), yAxisID: 'y1',
           borderColor: PALETTE.ink, borderWidth: 1.5, borderDash: [5, 4],
           pointStyle: 'line', pointRadius: 0, fill: false, tension: 0, order: 3 },
@@ -1320,19 +1410,48 @@ function renderOneChart(canvas, chartMode){
         y1: { min: 0, max: 100, display: false }
       },
       plugins: {
-        legend: { labels: { color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 },
-                            boxWidth: 10, usePointStyle: true } },
+        /* Une quatrieme entree, sans jeu de donnees derriere : la zone hachuree
+           est dessinee par un plugin, pas par une serie. Sans elle, ce gris
+           pose entre deux couleurs de part se lirait comme une troisieme
+           categorie — « lieu du deces inconnu » —, ce qui serait un
+           contresens. Le clic est neutralise pour elle seule : elle ne
+           correspond a aucun dataset a masquer. */
+        legend: {
+          labels: {
+            color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 },
+            boxWidth: 10, usePointStyle: true,
+            generateLabels(chart){
+              const base = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+              base.push({
+                text: tr('chartDeathPlaceMissing'),
+                fillStyle: PALETTE.bgAlt || '#efece5',
+                strokeStyle: PALETTE.line, lineWidth: 1,
+                pointStyle: 'rect', hidden: false, datasetIndex: -1
+              });
+              return base;
+            }
+          },
+          onClick(e, item, legende){
+            if(item.datasetIndex === -1) return;
+            Chart.defaults.plugins.legend.onClick.call(this, e, item, legende);
+          }
+        },
         tooltip: {
+          /* La moyenne reste dans la legende mais sort de l'infobulle : posee
+             sur chaque barre, elle repetait la meme valeur sept fois. */
+          filter: item => item.dataset.type !== 'line',
           backgroundColor: PALETTE.panel, borderColor: PALETTE.line, borderWidth: 1,
           titleColor: PALETTE.ink, bodyColor: PALETTE.ink,
           titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
           callbacks: {
-            title: items => tr('chartDeathPlaceWeekLabel')(
-              frDate(serie[items[0].dataIndex].debut), frDate(serie[items[0].dataIndex].fin)),
+            title: items => {
+              const s = serie[items[0].dataIndex];
+              return tr('chartDeathPlaceWeekLabel')(frDate(s.debut), frDate(s.finSemaine))
+                   + ' · ' + tr('chartDeathPlaceWeekDays')(s.releves);
+            },
             /* Les effectifs avec la part, toujours : 68 % sur 146 deces et
                61 % sur 364 ne se lisent pas de la meme facon. */
             label: c => {
-              if(c.dataset.type === 'line') return c.dataset.label;
               const s = serie[c.dataIndex];
               const n = c.datasetIndex === 0 ? s.comm : s.cte;
               return `${c.dataset.label} : ${String(c.parsed.y).replace('.', ',')} % `
@@ -1342,7 +1461,10 @@ function renderOneChart(canvas, chartMode){
         }
       }
     };
-    slot.chart = new Chart(canvas.getContext('2d'), { type: 'bar', data, options: opts });
+    opts.animation = false;   // un plugin ne s'attache qu'a la construction
+    opts.plugins.largeurSemaine = { ratios };
+    slot.chart = new Chart(canvas.getContext('2d'),
+      { type: 'bar', data, options: opts, plugins: [largeurSemaine] });
     slot.lastMode = 'deathsPlace';
     if(noteEl){
       noteEl.textContent = tr('chartDeathPlaceNoteTemps')(

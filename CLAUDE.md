@@ -593,9 +593,35 @@ d'identité.
 les périodes sans donnée. Ce pont n'est jamais une valeur : c'est un repère
 visuel, et la note le dit.
 
-**`deathsPlace`** — six barres hebdomadaires empilées à 100 %, communauté
+**`deathsPlace`** — des barres hebdomadaires empilées à 100 %, communauté
 contre centre de traitement, avec la moyenne en pointillés sur un second axe
 invisible.
+
+**Chaque semaine occupe la même emprise, celle de sept jours** : les relevés
+disponibles remplissent la gauche, ce qui manque reste en gris hachuré à
+droite, avec une entrée de légende « Jours sans donnée ». Trois semaines sur
+sept sont concernées — celle du 3 août n'a que trois relevés, quatre bulletins
+d'affilée ne distinguant pas le lieu du décès. Elles s'affichaient jusqu'au
+26 août comme des semaines pleines.
+
+**Ce qui est encodé, c'est la couverture, pas le volume.** Encoder le nombre
+de décès aurait fait de l'aire un volume, et invité à comparer d'une semaine à
+l'autre des totaux que la note déclare non comparables.
+
+**Quatrième plugin maison, `largeurSemaine`** : Chart.js ne fait pas varier la
+largeur barre par barre — `barThickness` n'est pas scriptable en 4.4.1,
+vérifié, les trois barres d'un test sortaient identiques. Le plugin
+redimensionne les éléments après la mise en page et recale leur centre pour
+que la partie pleine parte du bord gauche. Le gris se dessine en
+`afterDatasetsDraw` : posé avant, les bordures blanches des segments empilés
+le mordraient. Les hachures **doivent** passer par un `clip()` — calculées à
+la main, elles dessinaient un sablier.
+
+**L'infobulle annonce la semaine calendaire complète**, du lundi au dimanche,
+et non la plage des jours renseignés : la barre représente une semaine,
+incomplètement observée. Le compte de relevés qui suit dit ce qu'on en sait.
+La moyenne en est filtrée — elle y répétait la même valeur sept fois — mais
+reste dans la légende.
 
 **`pyramide`** — deux vues par une bascule interne : « Effectifs » (deux
 pyramides côte à côte, échelles distinctes) et « Parts » (une seule figure,

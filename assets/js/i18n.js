@@ -53,8 +53,9 @@ const I18N = {
     chartModeCommunityDeaths:"Répartition des décès",
     chartModeDeathsPlace:"Décès en communauté",
     chartDeathPlaceWeekly:"Part des décès survenus en communauté, semaine par semaine",
-    chartDeathPlaceAverage:(p)=>`Moyenne des six semaines : ${String(p).replace('.',',')} %`,
+    chartDeathPlaceAverage:(p,n)=>`Moyenne des ${n} semaines : ${String(p).replace('.',',')} %`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} au ${fin}`,
+    chartDeathPlaceWeekDays:(n)=>`${n} relevé${n>1?'s':''} sur 7`,
     chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants)=>
       `Part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, agrégée sur l'ensemble du pays et regroupée par semaine. `
       + `Sur les ${semaines} semaines couvertes, cette part n'a pas de tendance : elle oscille autour de ${String(part).replace('.',',')} % `
@@ -66,6 +67,7 @@ const I18N = {
       + `Enfin l'Ituri pèse 77 % des décès classés, si bien que cette courbe nationale suit d'abord la sienne.`,
     chartDeathPlaceCommunity:"En communauté",
     chartDeathPlaceCte:"En centre de traitement",
+    chartDeathPlaceMissing:"Jours sans donnée",
     chartDeathPlaceTotal:(total,releves)=>`${total} décès sur ${releves} relevés`,
     chartDeathPlaceNote:(debut,fin,releves,ecartees,couvMin,couvMax)=>
       `Décès confirmés du ${debut} au ${fin}, selon qu'ils sont survenus en communauté `
@@ -241,8 +243,9 @@ const I18N = {
     chartModeCommunityDeaths:"Death breakdown",
     chartModeDeathsPlace:"Deaths in the community",
     chartDeathPlaceWeekly:"Share of deaths occurring in the community, week by week",
-    chartDeathPlaceAverage:(p)=>`Six-week average: ${p}%`,
+    chartDeathPlaceAverage:(p,n)=>`${n}-week average: ${p}%`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} to ${fin}`,
+    chartDeathPlaceWeekDays:(n)=>`${n} report${n>1?'s':''} of 7`,
     chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants)=>
       `Share of confirmed deaths occurring in the community rather than in a treatment centre, aggregated nationally and grouped by week. `
       + `Across the ${semaines} weeks covered there is no trend: the share hovers around ${part}% `
@@ -253,6 +256,7 @@ const I18N = {
       + `And Ituri accounts for 77% of classified deaths, so this national curve mainly follows its own.`,
     chartDeathPlaceCommunity:"In the community",
     chartDeathPlaceCte:"In a treatment centre",
+    chartDeathPlaceMissing:"Days without data",
     chartDeathPlaceTotal:(total,releves)=>`${total} deaths across ${releves} bulletins`,
     chartDeathPlaceNote:(debut,fin,releves,ecartees,couvMin,couvMax)=>
       `Confirmed deaths from ${debut} to ${fin}, by whether they occurred in the community `
@@ -427,8 +431,9 @@ const I18N = {
     chartModeCommunityDeaths:"Mgawanyo wa vifo",
     chartModeDeathsPlace:"Vifo katika jamii",
     chartDeathPlaceWeekly:"Sehemu ya vifo vilivyotokea katika jamii, wiki kwa wiki",
-    chartDeathPlaceAverage:(p)=>`Wastani wa wiki sita: ${p} %`,
+    chartDeathPlaceAverage:(p,n)=>`Wastani wa wiki ${n}: ${p} %`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} hadi ${fin}`,
+    chartDeathPlaceWeekDays:(n)=>`ripoti ${n} kati ya 7`,
     chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants)=>
       `Sehemu ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, kwa nchi nzima na kwa wiki. `
       + `Katika wiki ${semaines} zilizofunikwa, sehemu hii haina mwelekeo: inazunguka karibu ${part} % `
@@ -440,6 +445,7 @@ const I18N = {
       + `Hatimaye Ituri inabeba 77 % ya vifo vilivyoainishwa, hivyo mkondo huu wa kitaifa unafuata kwanza wake.`,
     chartDeathPlaceCommunity:"Katika jamii",
     chartDeathPlaceCte:"Katika kituo cha matibabu",
+    chartDeathPlaceMissing:"Siku zisizo na takwimu",
     chartDeathPlaceTotal:(total,releves)=>`vifo ${total} kati ya vipimo ${releves}`,
     chartDeathPlaceNote:(debut,fin,releves,ecartees,couvMin,couvMax)=>
       `Vifo vilivyothibitishwa kutoka ${debut} hadi ${fin}, kulingana na kama vilitokea katika jamii `
