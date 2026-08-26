@@ -672,6 +672,21 @@ les journees a venir. Le plancher de lisibilite elargissant la barre au-dela de
 sa part reelle, le gris se resserre d'autant, en gardant la proportion entre
 les deux dernieres.
 
+**Trois indices les separent, pas un.** Un seul aurait demande de comparer
+deux carres cote a cote ; ensemble ils se lisent d'un coup d'oeil, sans crier.
+Les deux styles vivent dans `GRIS_MANQUE` et `GRIS_A_VENIR`, definis une seule
+fois : le plugin les dessine, la legende les montre, ils ne peuvent pas
+diverger.
+
+| | remplissage | texture | cadre |
+|---|---|---|---|
+| Jours sans donnee | aplat plein | hachures a 45 deg | trait continu |
+| Jours a venir | aplat a 45 % | aucune | trait pointille |
+
+Le sens commande la direction : « a venir » est le plus VIDE des deux, rien ne
+s'y est encore passe. Aucun des deux ne prend de teinte : ce sont des neutres,
+et une couleur en ferait une troisieme categorie de donnees.
+
 Corollaire : la bande du mois en cours passe en gris UNI. Elle etait hachuree,
 ce qui aurait fait dire a la hachure deux choses contraires d'un graphique a
 l'autre. Et la pastille de legende de « Jours sans donnee » recoit un motif
