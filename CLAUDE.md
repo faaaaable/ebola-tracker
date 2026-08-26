@@ -635,6 +635,31 @@ mois, seules les bornes changeant. Les sept lectures ne peuvent donc pas
 diverger. Les deux dates de rattrapage vivent dans une seule constante,
 `RATTRAPAGE_ADMIN`.
 
+**LA TEINTE CLAIRE NE DIT PAS « RATTRAPAGE », ELLE DIT « LA PERIODE NE PEUT PAS
+REVENDIQUER CES CAS ».** La nuance decide de ce qu'on voit a chaque pas de
+temps, parce que les deux rattrapages ne sont pas de meme nature :
+
+- Le **30 juillet** nomme les journees qu'il rattrape — les 28 et 29, dont les
+  bulletins manquent. La semaine du 27 et le mois de juillet contiennent ces
+  trois dates : ces cas SONT les leurs, et ils y passent en couleur pleine.
+  Les marquer aurait signale un doute la ou l'agregation venait de le lever.
+- Le **22 juillet** est une harmonisation de bases DHIS2, et le bulletin ne dit
+  pas quelle periode elle reprend. Aucune periode ne peut le revendiquer : il
+  reste clair a toutes les granularites.
+
+C'est ce que porte le champ `couvre` de `RATTRAPAGE_ADMIN` — les dates
+rattrapees, ou `null` quand le bulletin se tait. `empanRattrapage(date)` en tire
+l'empan des journees concernees, la date du bulletin comprise, et
+`agregeNouveauxCas` bascule en couleur pleine tout empan qui tombe entierement
+dans la periode. La vue quotidienne, elle, les separe tous les deux : a
+l'echelle du jour, aucun des deux n'est a sa place.
+
+**Le test porte sur l'empan, pas sur la part.** Cote deces la part du jour n'est
+pas publiee, donc pas separable — mais les deces du 30 juillet sont ceux des 28,
+29 ou 30, et une periode qui contient les trois les compte correctement quelle
+que soit la repartition. Juillet passe ainsi de 444 a 272 cas en teinte claire,
+et de 336 a 236 deces, sans qu'aucun total bouge.
+
 **La part de rattrapage n'est chiffree que pour les cas.** Les bulletins qui la
 documentent annoncent « +97 » et « +73 nouveaux cas » ; rien d'equivalent pour
 les deces, dont le cumul saute pourtant de 236 et de 100 ces jours-la. Faute de
@@ -871,8 +896,9 @@ avec deux tirets. Toujours diffuser avant de publier un rattrapage.
 
 **Deux dates portent un rattrapage administratif** et non de vraies
 notifications : le 22 juillet (+272 cas) et le 30 juillet (+172). Elles sont
-codées en dur dans `REPORTED_OVERRIDE` (`app.js`) et affichées dans une teinte
-distincte.
+codées en dur dans `RATTRAPAGE_ADMIN` (`app.js`), avec ce que chacune rattrape.
+Seul le 22 juillet garde sa teinte distincte une fois agrégé — le 30 juillet
+nomme ses journées, et la semaine comme le mois les contiennent.
 
 **Sept bulletins manquent** à l'archive : 003, 029, 043, 045, 063, 075, 076.
 
