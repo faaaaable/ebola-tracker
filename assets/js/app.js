@@ -800,8 +800,33 @@ const moisAnnee = iso => `${tr('months')[parseInt(iso.slice(5, 7), 10) - 1]} ${i
      independant INRB-UMIE/BDBV2026-Data).
 
    Deux corrections ponctuelles documentees a la main, pas une regle detectee
-   par le pipeline : rien ici ne se generalise. */
-const RATTRAPAGE_ADMIN = { '2026-07-22': 97, '2026-07-30': 73 };
+   par le pipeline : rien ici ne se generalise.
+
+   `couvre` dit CE QUE LE BULLETIN DECLARE RATTRAPER, et c'est ce qui separe
+   les deux cas. Le 30 juillet nomme ses journees : les cas en trop sont ceux
+   des 28 et 29, et une periode qui contient ces trois dates les compte au bon
+   endroit. Le 22 juillet ne nomme rien — une harmonisation de bases peut
+   remonter aussi loin qu'elle veut —, d'ou `null` : un empan inconnu ne tombe
+   dans aucune periode, et la teinte claire le suit partout. */
+const RATTRAPAGE_ADMIN = {
+  '2026-07-22': { jour: 97, couvre: null },
+  '2026-07-30': { jour: 73, couvre: ['2026-07-28', '2026-07-29'] }
+};
+
+/* L'empan des journees qu'un rattrapage peut concerner : sa propre date, plus
+   celles que le bulletin declare rattraper. Null quand il ne les declare pas.
+
+   Pour les DECES la part du jour n'est pas publiee, donc pas separable — mais
+   l'empan, lui, vaut quand meme : les deces du 30 juillet sont ceux des 28, 29
+   ou 30, et une periode qui contient les trois les compte correctement, quelle
+   que soit la repartition exacte. C'est pour ca que le test porte sur l'empan
+   et non sur la part. */
+function empanRattrapage(date){
+  const r = RATTRAPAGE_ADMIN[date];
+  if(!r || !r.couvre) return null;
+  const bornes = r.couvre.concat([date]).sort();
+  return { debut: bornes[0], fin: bornes[bornes.length - 1] };
+}
 
 /* Nouveaux cas — ou nouveaux deces — d'un bulletin au suivant, la part
    vraiment rapportee ce jour-la separee de la part de rattrapage. Une revision
@@ -831,9 +856,9 @@ function partsQuotidiennes(s, champ){
   // Pour les deces, la part rapportee d'une journee de rattrapage vaut zero :
   // tout l'ecart bascule dans la teinte claire.
   const partRapportee = date => {
-    const vrai = RATTRAPAGE_ADMIN[date];
-    if(vrai === undefined) return undefined;
-    return nom === 'confirmed' ? vrai : 0;
+    const r = RATTRAPAGE_ADMIN[date];
+    if(r === undefined) return undefined;
+    return nom === 'confirmed' ? r.jour : 0;
   };
   return {
     rapporte: s.map((r, i) => {
@@ -871,7 +896,22 @@ function agregeNouveauxCas(s, granularite, champ){
     const p = periodes.get(cle)
            || { debut: cle, fin: finDe(cle), cas: 0, rattrapage: 0, releves: 0 };
     if(parts.rapporte[i] !== null) p.cas += parts.rapporte[i];
-    p.rattrapage += parts.rattrapage[i];
+    /* CE QUE LA TEINTE CLAIRE SIGNALE, C'EST « LA PERIODE NE PEUT PAS
+       REVENDIQUER CES CAS » — et une periode assez large avale la question.
+       Le rattrapage du 30 juillet couvre les 28 et 29 : la semaine du 27 et le
+       mois de juillet contiennent ces journees, ils comptent donc ces cas comme
+       les leurs, en couleur pleine. Les marquer aurait fait croire a un doute
+       la ou l'agregation venait justement de le lever.
+
+       Celui du 22 juillet n'a pas d'empan connu : il reste clair a toutes les
+       granularites, faute de savoir a quel mois le rendre. La vue quotidienne,
+       elle, les separe tous les deux — a l'echelle du jour, aucun des deux
+       n'est a sa place. */
+    const empan = empanRattrapage(r.date);
+    if(empan && empan.debut >= p.debut && empan.fin <= p.fin)
+      p.cas += parts.rattrapage[i];
+    else
+      p.rattrapage += parts.rattrapage[i];
     if(parts.connu[i]) p.releves += 1;
     periodes.set(cle, p);
   });
@@ -882,6 +922,27 @@ function agregeNouveauxCas(s, granularite, champ){
                      p.fin   > derniere ? derniere : p.fin)
     }));
 }
+/* Le total d'une barre empilee, pose en pied d'infobulle. « Nouveaux cas :
+   1 996 » au-dessus de « Rattrapage : 272 » laissait l'addition au lecteur,
+   alors que c'est la somme qui repond a « combien de cas cette periode ».
+
+   IL NE S'AFFICHE QUE LA OU IL Y A VRAIMENT DEUX PARTS. Sur une journee
+   ordinaire, ou sur les barres de province — la part n'y etant connue qu'au
+   niveau national, la journee entiere bascule en teinte claire —, une seule
+   ligne est visible et le total la repeterait mot pour mot.
+
+   Les courbes de cumul sont ecartees : elles vivent sur l'autre axe, et les
+   ajouter aux barres donnerait un nombre qui ne veut rien dire. Le test porte
+   sur les items REELLEMENT affiches, ceux que le filtre de l'infobulle a
+   laisses passer — cote deces, la part du jour vaut zero et disparait, si bien
+   qu'il ne reste qu'une ligne, et pas de total. */
+function totalEmpile(items){
+  const barres = items.filter(i => i.dataset.type !== 'line'
+                                && Number.isFinite(i.parsed && i.parsed.y));
+  if(barres.filter(i => i.parsed.y > 0).length < 2) return '';
+  return tr('chartStackTotal')(fmt(barres.reduce((t, i) => t + i.parsed.y, 0)));
+}
+
 const ctx0Epi = c => c.getContext('2d');
 
 /* Chaque mode declare la periode qu'il vient REELLEMENT de tracer, au moment
@@ -1401,6 +1462,18 @@ function renderOneChart(canvas, chartMode){
    mise en page, avant le dessin, et on recale leur centre pour que la partie
    pleine parte du bord gauche de l'emprise.
 
+   RIEN N'EST MEMORISE D'UN RENDU AU SUIVANT. L'emprise de reference est relue
+   dans l'element a chaque dessin, puis rendue intacte a la fin. Une premiere
+   version la gardait en cache, ce qui figeait la mise en page du tout premier
+   rendu : elargir la fenetre elargissait l'aire du graphique — 766 px a
+   1 066 px, mesure — sans que les barres bougent, et la part grisee cessait
+   d'etre proportionnelle a la barre qui la portait.
+
+   Une barre a ratio 1 n'est pas touchee du tout. La toucher pour lui rendre
+   sa propre largeur revenait a lui reecrire une valeur perimee des que la
+   mise en page changeait : c'est par la que les trois mois clos se retrouvaient
+   figes eux aussi, alors qu'ils n'ont rien a retrecir.
+
    Ce qui est encode, c'est la COUVERTURE, pas le volume de deces : la semaine
    du 3 aout est complete au calendrier mais ne porte que trois releves, quatre
    bulletins d'affilee ne distinguant pas le lieu du deces. Encoder le volume
@@ -1415,9 +1488,11 @@ const largeurSemaine = {
       if(jeu.type === 'line') return;
       chart.getDatasetMeta(di).data.forEach((el, i) => {
         const r = ratios[i] === undefined ? 1 : ratios[i];
-        if(el.$largeurPleine === undefined){ el.$largeurPleine = el.width; el.$centre = el.x; }
+        if(r >= 0.999) return;          // periode complete : emprise inchangee
+        el.$largeurPleine = el.width;   // relue, jamais reprise d'un rendu passe
+        el.$centre = el.x;
         el.width = el.$largeurPleine * r;
-        // colle la partie pleine au bord gauche de l'emprise de la semaine
+        // colle la partie pleine au bord gauche de l'emprise de la periode
         el.x = el.$centre - el.$largeurPleine / 2 + el.width / 2;
       });
     });
@@ -1468,6 +1543,22 @@ const largeurSemaine = {
       ctx.lineWidth = 1;
       ctx.strokeRect(gauche + 0.5, sommet + 0.5, large - 1, hautBarre - 1);
       ctx.restore();
+    });
+
+    /* Les elements retrouvent leur emprise pleine, le dessin fini. Sans quoi
+       le rendu suivant retrecirait une largeur deja retrecie, et le survol —
+       qui redessine — verrait la barre fondre a chaque passage de souris.
+       C'est aussi ce qui rend la zone sensible egale a l'emprise du mois : on
+       survole la partie grisee et l'infobulle du mois repond. */
+    chart.data.datasets.forEach((jeu, di) => {
+      if(jeu.type === 'line') return;
+      chart.getDatasetMeta(di).data.forEach(el => {
+        if(el.$largeurPleine === undefined) return;
+        el.width = el.$largeurPleine;
+        el.x = el.$centre;
+        el.$largeurPleine = undefined;
+        el.$centre = undefined;
+      });
     });
   }
 };
@@ -1992,7 +2083,9 @@ const largeurSemaine = {
           backgroundColor: PALETTE.panel, borderColor: PALETTE.line, borderWidth: 1,
           titleColor: PALETTE.ink, bodyColor: PALETTE.ink,
           titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
-          filter: item => item.parsed.y !== 0
+          footerColor: PALETTE.ink, footerFont: { family: PALETTE.font },
+          filter: item => item.parsed.y !== 0,
+          callbacks: { footer: totalEmpile }
         }
       },
       scales: {
@@ -2098,10 +2191,14 @@ const largeurSemaine = {
      tous ses releves » : une semaine passee amputee d'un bulletin manquant
      reste affichee, son total etant definitif meme s'il est sous-estime.
 
-     Les deux rattrapages administratifs gardent partout leur teinte claire,
-     empilee sur la periode qui les porte : noyes dans la somme, ils
-     gonfleraient silencieusement leur semaine ou leur mois. Cote deces, la
-     part n'etant pas publiee, c'est la journee entiere qui passe en clair. */
+     La teinte claire ne dit pas « rattrapage », elle dit « la periode ne peut
+     pas revendiquer ces cas ». Les deux rattrapages y passent en vue
+     quotidienne, ou aucun des deux n'est a sa place. Des qu'on agrege, seul
+     celui du 22 juillet reste : le 30 juillet nomme les journees qu'il
+     rattrape — les 28 et 29 —, que la semaine du 27 comme le mois de juillet
+     contiennent, si bien que ces cas SONT les leurs. Cote deces, la part du
+     jour n'etant pas publiee, c'est la journee entiere qui bascule ; l'empan
+     restant date, la regle s'y applique de la meme facon. */
   if(chartMode === 'newCases' || chartMode === 'newDeaths'){
     if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
     const deces  = chartMode === 'newDeaths';
@@ -2151,6 +2248,7 @@ const largeurSemaine = {
           backgroundColor: PALETTE.panel, borderColor: PALETTE.line, borderWidth: 1,
           titleColor: PALETTE.ink, bodyColor: PALETTE.ink,
           titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
+          footerColor: PALETTE.ink, footerFont: { family: PALETTE.font },
           /* La part de rattrapage ne s'annonce que la ou elle existe : deux
              dates sur toute la periode, et « Rattrapage : 0 » partout ailleurs
              aurait fait croire a une correction quotidienne. Symetriquement,
@@ -2163,7 +2261,8 @@ const largeurSemaine = {
                             .data[item.dataIndex] || 0;
             return item.parsed.y > 0 || (item.datasetIndex === 0 && autre === 0);
           },
-          callbacks: { label: c => `${c.dataset.label} : ${fmt(c.parsed.y)}` }
+          callbacks: { label: c => `${c.dataset.label} : ${fmt(c.parsed.y)}`,
+                       footer: totalEmpile }
         }
       }
     };
@@ -2198,8 +2297,46 @@ const largeurSemaine = {
     const toutes = agregeNouveauxCas(s, parMois ? 'mois' : 'semaine', champ);
     const derniereDate = s[s.length - 1].date;
     const enCours = toutes.length > 0 && toutes[toutes.length - 1].fin > derniereDate;
-    const serie = enCours ? toutes.slice(0, -1) : toutes;
-    const incompletes = serie.filter(p => p.releves < p.jours).length;
+
+    /* LA SEMAINE EN COURS RESTE MASQUEE, LE MOIS EN COURS EST TRACE. Ce qui
+       les separe est le rapport entre ce qu'on voit et ce qu'on attend : a un
+       jour sur sept, une semaine ne montre que 14 % d'elle-meme et sa barre ne
+       dit rien ; au 24 aout, le mois en montre 77 %, et l'effacer coutait plus
+       cher que l'afficher — trois barres pour quatre mois de donnees, la plus
+       recente etant justement celle qu'on vient chercher.
+
+       Reste a empecher la lecture fausse — « aout s'effondre » — qui avait
+       motive le masquage. La barre garde l'emprise pleine d'un mois, la part
+       correspondant aux jours ecoules est coloree, les jours qui restent a
+       courir sont gris hachures a droite : le vide se voit AVANT la hauteur.
+       C'est l'idiome de `largeurSemaine`, deja pose pour les semaines
+       incompletes des deces par lieu ; il est repris ici tel quel plutot que
+       redecoupe.
+
+       CE QUI EST ENCODE DANS LA LARGEUR, C'EST LE TEMPS, PAS LE VOLUME. La
+       hauteur reste ce qu'elle a toujours ete — les cas reellement rapportes,
+       aucun chiffre invente pour combler la fin du mois. C'est ce qui rend
+       l'encodage admissible ici alors qu'il avait ete ecarte : il ne touche
+       pas a l'axe des valeurs.
+
+       Aucune date n'est ecrite : le mois cesse de lui-meme d'etre « en cours »
+       au bulletin qui le termine, et sa barre se colore alors entierement. */
+    const moisEnCours = parMois && enCours;
+    const serie = (enCours && !parMois) ? toutes.slice(0, -1) : toutes;
+    /* Le decompte des periodes sous-estimees ne porte que sur les periodes
+       CLOSES : le mois en cours n'a pas encore de total a declarer incomplet,
+       et la phrase qui lui est propre s'en charge deja. */
+    const closes = moisEnCours ? serie.slice(0, -1) : serie;
+    const incompletes = closes.filter(p => p.releves < p.jours).length;
+    /* Part du mois deja courue, sur ses jours de calendrier — et non sur les
+       releves recus : ce que la partie grisee annonce, c'est du temps qui
+       reste a venir, pas un bulletin qui manque. Un mois passe ampute d'un
+       bulletin garde donc sa pleine largeur, son total etant definitif. */
+    const ratios = moisEnCours
+      ? serie.map((p, i) => i < serie.length - 1
+                    ? 1
+                    : nbJours(p.debut, derniereDate) / nbJours(p.debut, p.fin))
+      : null;
 
     const dataP = {
       /* Deux lignes sous chaque barre pour une semaine — la periode couverte,
@@ -2216,21 +2353,40 @@ const largeurSemaine = {
        incompletement observe. Le compte de releves qui suit dit ce qu'on en
        sait. */
     optsN.plugins.tooltip.callbacks.title = items => {
-      const p = serie[items[0].dataIndex];
+      const i = items[0].dataIndex;
+      const p = serie[i];
       const titre = parMois ? moisAnnee(p.debut)
                             : tr('chartDeathPlaceWeekLabel')(frDate(p.debut), frDate(p.fin));
-      return titre + ' · ' + tr('chartPeriodDays')(p.releves, p.jours);
+      /* « 24 releves sur 24 » se lirait comme un mois complet : l'infobulle
+         du mois en cours annonce d'abord qu'il l'est. */
+      const encours = moisEnCours && i === serie.length - 1
+                    ? ' · ' + tr('chartMonthOngoing')(frDate(derniereDate)) : '';
+      return titre + encours + ' · ' + tr('chartPeriodDays')(p.releves, p.jours);
     };
-    slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataP, options: optsN });
+    if(ratios) optsN.plugins.largeurSemaine = { ratios };
+    slot.chart = new Chart(ctx0Epi(canvas),
+      { type: 'bar', data: dataP, options: optsN,
+        plugins: ratios ? [largeurSemaine] : [] });
     slot.lastMode = chartMode + '-' + vuePeriode;
-    // La periode s'arrete au dernier dimanche revolu, ou au dernier jour du
-    // dernier mois complet : la periode en cours n'est pas tracee.
+    /* La periode s'arrete au dernier dimanche revolu en vue hebdomadaire. En
+       vue mensuelle elle s'arrete au dernier bulletin, et non au 31 du mois en
+       cours : la barre couvre le mois entier, les donnees non. */
     noterPeriode(slot, serie.length ? serie[0].debut : null,
-                       serie.length ? serie[serie.length - 1].fin : null);
+                       serie.length ? (moisEnCours ? derniereDate
+                                                   : serie[serie.length - 1].fin) : null);
     if(noteEl){
       const cle = deces ? (parMois ? 'chartMonthlyDeathsNote' : 'chartWeeklyDeathsNote')
                         : (parMois ? 'chartMonthlyNote'       : 'chartWeeklyNote');
-      noteEl.textContent = tr(cle)(serie.length, incompletes, absentes, enCours, muets);
+      /* En vue mensuelle, « enCours » ne vaut plus « une periode est cachee »
+         mais « voici celle qui est encore ouverte » : la note la nomme et
+         chiffre les jours grises, qui se recalculent au jour le jour. */
+      const ouvert = moisEnCours
+        ? { nom: moisAnnee(serie[serie.length - 1].debut),
+            jusqua: frDate(derniereDate),
+            restants: nbJours(derniereDate, serie[serie.length - 1].fin) - 1 }
+        : null;
+      noteEl.textContent = tr(cle)(closes.length, incompletes, absentes,
+                                   parMois ? ouvert : enCours, muets);
       noteEl.style.display = 'block';
     }
     return;
@@ -2336,7 +2492,9 @@ const largeurSemaine = {
       tooltip:{
         backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
         titleColor:PALETTE.ink, bodyColor:PALETTE.ink, titleFont:{family:PALETTE.font}, bodyFont:{family:PALETTE.font},
-        filter: item => item.parsed.y !== 0
+        footerColor:PALETTE.ink, footerFont:{family:PALETTE.font},
+        filter: item => item.parsed.y !== 0,
+        callbacks:{ footer: totalEmpile }
       }
     },
     scales:{
