@@ -660,6 +660,15 @@ pas publiee, donc pas separable — mais les deces du 30 juillet sont ceux des 2
 que soit la repartition. Juillet passe ainsi de 444 a 272 cas en teinte claire,
 et de 336 a 236 deces, sans qu'aucun total bouge.
 
+**La bande grisee a sa cle de legende, un carre plutot qu'une pastille.**
+Sans elle, ce gris pose a cote de deux couleurs pleines n'avait aucune cle de
+lecture — il fallait descendre jusqu'a la note pour apprendre que le mois
+n'etait pas fini. Meme mecanique que « Jours sans donnee » sur `deathsPlace` :
+une entree poussee par `generateLabels`, sans jeu de donnees derriere, dont le
+clic est neutralise puisqu'elle ne masque rien. Elle n'apparait qu'avec la
+bande qu'elle explique — une legende qui nomme une couleur absente du trace est
+pire que pas de legende —, donc jamais en vue quotidienne ni hebdomadaire.
+
 **Le total s'affiche en pied d'infobulle des qu'une barre a deux parts.**
 « Nouveaux cas : 1 996 » au-dessus de « Rattrapage : 272 » laissait l'addition
 au lecteur, alors que c'est la somme qui repond a « combien de cas cette
