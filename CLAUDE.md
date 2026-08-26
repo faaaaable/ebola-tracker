@@ -152,9 +152,10 @@ Huit pages, chacune en FR et EN : accueil, `donnees/` (+ six pages province),
 Les graphiques sont rendus côté client par `assets/js/app.js` avec Chart.js.
 Chaque canevas déclare son sujet via `data-chart`, les onglets via `data-mode`.
 
-**Cinq onglets sur `/donnees/`** : `epidemic`, `byProvince`, `contactsFollowUp`,
-`deathsPlace`, `pyramide`. Les modes `ages`, `sexes` et `communityDeaths`
-restent dans le code sans bouton — décisions de publication, pas suppressions.
+**Six onglets sur `/donnees/`** : `epidemic`, `newCases`, `byProvince`,
+`contactsFollowUp`, `deathsPlace`, `pyramide`. Les modes `ages`, `sexes` et
+`communityDeaths` restent dans le code sans bouton — décisions de publication,
+pas suppressions.
 
 ---
 
@@ -560,12 +561,13 @@ côté client. Les rapports OMS ont leur propre liste.
 
 ## Les graphiques
 
-Neuf modes dans `app.js`. Chaque canevas déclare son sujet par `data-chart`,
+Dix modes dans `app.js`. Chaque canevas déclare son sujet par `data-chart`,
 chaque onglet par `data-mode`.
 
 | Mode | Source | Où |
 |---|---|---|
 | `epidemic` | `sitreps.json` | accueil **et** premier onglet de `/donnees/` |
+| `newCases` | `sitreps.json` | onglet, trois vues (jour, semaine, mois) |
 | `provinceEpidemic` | `province-history.json` | les six pages province |
 | `byProvince` | `province-history.json` | onglet |
 | `contactsFollowUp` | `contacts-followup.json` | onglet |
@@ -582,36 +584,70 @@ de grandeur ne se comparent pas : une centaine contre plusieurs milliers, un
 axe unique écraserait les barres. Une seconde série de barres, translucide,
 isole les deux dates de rattrapage administratif.
 
-**`epidemic` a deux vues, par une bascule interne** — meme idiome que la
-pyramide des ages. « Par jour » reste la representation canonique ; « Par
-semaine » agrege les nouveaux cas par semaine calendaire, du lundi au
-dimanche. Les deces n'y figurent pas : la vue repond a « combien de cas cette
-semaine », pas a la comparaison des deux series, que le graphique quotidien
-porte deja avec ses courbes de cumul.
+`epidemic` **n'a plus de bascule** — elle appartient depuis le 26 aout a
+l'onglet `newCases`, avec un troisieme pas de temps. Le graphique redevient ce
+qu'il etait : le quotidien, et les cumuls par-dessus.
 
-**La semaine en cours n'est pas affichee.** A un jour sur sept, sa barre
-tombait de 561 a 72 cas et se lisait comme une chute de l'epidemie. Le dernier
-point d'une courbe epidemique est toujours incomplet, et un point incomplet se
-lit toujours comme une amelioration. Rien n'est cache : la vue « par jour »
-montre ces journees a leur place, et la note le dit.
+**`newCases`** — la meme serie que `epidemic`, lue a trois pas de temps par
+une bascule interne, meme idiome que la pyramide des ages : « Par jour », « Par
+semaine », « Par mois ». Les barres seules, sans les courbes de cumul : la vue
+repond a « combien de cas cette periode », pas a la comparaison des deux
+series, que `epidemic` porte deja.
 
-Le test porte sur « la semaine est-elle finie » — le dernier bulletin va-t-il
-jusqu'a son dimanche — **et non** sur « a-t-elle ses sept releves ». La
-distinction compte : une semaine passee amputee d'un bulletin manquant reste
-affichee, son total etant definitif meme s'il est sous-estime. Seule la
-derniere peut encore se remplir, et elle reparait d'elle-meme au bulletin
-suivant, sans qu'aucune date soit ecrite dans le code.
+Agreger absorbe le bruit de notification — un bulletin manquant creuse dans la
+serie quotidienne un trou qui ne dit rien de l'epidemie — mais deplace le
+probleme : toutes les periodes ne portent pas le meme nombre de bulletins. La
+note le dit a chaque vue.
 
-**Les jours sans bulletin sont enumeres dans la note, et calcules.** Neuf sur
-la periode, de deux natures : les 15 et 16 mai, ou l'INSP n'a rien publie — le
-n°001 du 14 mai est suivi du n°002 du 17 —, et sept dates dont le bulletin
-manque a l'archive publique (003, 029, 043, 045, 063, 075, 076). La liste se
-recalcule a chaque rendu : un tel decompte se perime au premier trou suivant.
+**Un seul calcul pour les trois vues, et pour `epidemic`.**
+`partsQuotidiennes()` produit les nouveaux cas d'un bulletin au suivant, la
+part rapportee separee de la part de rattrapage ; `agregeNouveauxCas()` les
+regroupe par semaine ou par mois, seules les bornes changeant. Les quatre
+lectures ne peuvent donc pas diverger. Les deux dates de rattrapage vivent
+desormais dans une seule constante, `RATTRAPAGE_ADMIN`.
 
-**Les barres sont jointives a 6 % pres**, et chaque colonne porte sous elle la
-periode couverte sur deux lignes. Un large espace se lirait comme une periode
-sans cas ; des barres collees empechaient de distinguer une semaine de sa
-voisine.
+**La periode en cours n'est pas affichee des qu'on agrege.** A un jour sur
+sept, la barre de la semaine tombait de 561 a 72 cas et se lisait comme une
+chute de l'epidemie. Le dernier point d'une courbe epidemique est toujours
+incomplet, et un point incomplet se lit toujours comme une amelioration. Rien
+n'est cache : la vue « par jour » montre ces journees a leur place, et la note
+le dit. **Le mois en cours tombe sous la meme regle** — au 24 aout, la vue
+mensuelle ne montre donc que mai, juin et juillet, et aout apparaitra le 1er
+septembre. Trois barres pour quatre mois de donnees : c'est le prix de la
+regle, et il se paiera de moins en moins cher a mesure que l'epidemie dure.
+
+Le test porte sur « la periode est-elle finie » — le dernier bulletin va-t-il
+jusqu'a son dimanche, jusqu'au dernier jour du mois — **et non** sur « a-t-elle
+tous ses releves ». La distinction compte : une semaine passee amputee d'un
+bulletin manquant reste affichee, son total etant definitif meme s'il est
+sous-estime. Seule la derniere peut encore se remplir, et elle reparait
+d'elle-meme au bulletin suivant, sans qu'aucune date soit ecrite dans le code.
+
+**Les jours sans bulletin sont enumeres dans la note des trois vues, et
+calcules.** Neuf sur la periode, de deux natures : les 15 et 16 mai, ou l'INSP
+n'a rien publie — le n°001 du 14 mai est suivi du n°002 du 17 —, et sept dates
+dont le bulletin manque a l'archive publique (003, 029, 043, 045, 063, 075,
+076). La liste se recalcule a chaque rendu : un tel decompte se perime au
+premier trou suivant.
+
+**Le compte de releves d'une periode se rapporte aux jours ATTENDUS**, la
+periode ramenee aux dates que la serie couvre : mai ne commence qu'au premier
+bulletin, le 14, et ses 31 jours de calendrier le feraient passer pour un mois
+a moitie renseigne. C'est ce compte que l'infobulle annonce — « 15 releves sur
+18 » — et lui qui decide si la note compte la periode comme incomplete.
+
+**Les barres sont jointives a 6 % pres.** Un large espace se lirait comme une
+periode sans cas ; des barres collees empechaient de distinguer une periode de
+sa voisine. Chaque colonne hebdomadaire porte sous elle la periode couverte sur
+deux lignes ; un mois se nomme, il n'a pas besoin de ses bornes.
+
+**Aucun encodage de couverture sur ces barres.** La vue hebdomadaire passait
+`largeurSemaine` sans jamais lui donner de ratios — le plugin ne faisait donc
+rien, et il est parti. Ce qu'il encode, c'est la couverture, et il ne le fait
+honnetement que la ou la hauteur n'est pas un volume : les parts empilees a
+100 % de `deathsPlace`. Ici la hauteur EST un volume, et une barre a demi
+hachuree resterait comparable a tort. D'ou la regle qui precede : on masque
+plutot qu'on ne nuance.
 
 **`provinceEpidemic`** — même forme, aux couleurs de la province, avec sa
 courbe de décès. Absent sous 50 cas cumulés. Signale les trous de plus de trois
