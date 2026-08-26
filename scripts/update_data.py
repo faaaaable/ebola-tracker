@@ -42,6 +42,38 @@ PROVINCE_CANON = {
     "Tshopo": "Tshopo", "Sud-Kivu": "Sud-Kivu", "Bas Uélé": "Bas-Uélé",
 }
 
+
+def _clef_province(name):
+    """Forme comparable d'un nom de province : sans accent, sans casse, le
+    trait d'union et l'espace confondus."""
+    s = unicodedata.normalize("NFD", str(name or "").strip().lower())
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    return " ".join(s.replace("-", " ").split())
+
+
+# Dérivée de PROVINCE_CANON plutôt qu'écrite à côté : une province ajoutée
+# là-haut se retrouve ici sans qu'on y pense.
+PROVINCE_LOOKUP = {}
+for _brut, _canon in PROVINCE_CANON.items():
+    for _forme in (_brut, _canon):
+        PROVINCE_LOOKUP[_clef_province(_forme)] = _canon
+
+
+def canon_province(name):
+    """Nom canonique d'une province, ou None si ce n'en est pas une.
+
+    Les bulletins écrivent tantôt « Haut-Uélé », tantôt « Haut Uélé » — celui
+    du 14 août a produit la seconde forme, et la courbe du Haut-Uélé y a perdu
+    son point sans que rien ne le signale : `app.js` cherche les provinces par
+    leur nom exact, dans `PROVINCE_COLORS`. Et un découpage raté a fait entrer
+    le 19 mai une « province » nommée « touchées », reste de « provinces
+    touchées », avec des valeurs nulles.
+
+    Un nom absent de la table est donc écarté plutôt que recopié : mieux vaut
+    une province manquante ce jour-là, visible comme telle, qu'une septième
+    courbe fantôme."""
+    return PROVINCE_LOOKUP.get(_clef_province(name))
+
 MONTHS_FR = {
     "janvier": "01", "février": "02", "mars": "03", "avril": "04",
     "mai": "05", "juin": "06", "juillet": "07", "août": "08",
@@ -1048,8 +1080,8 @@ def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
 def rebuild_province_history(meta, provinces):
     """Historique quotidien des cumuls par province — cas ET décès.
 
-    Sert le graphique « Cas cumulés / région » de la page d'accueil et les
-    courbes de chaque page province. Toujours complet par construction (le
+    Sert le graphique « Par province » de la page de données et les courbes de
+    chaque page province. Toujours complet par construction (le
     total provincial est présent dans chaque SitRep, contrairement au détail
     par zone parfois partiel) — pas besoin de report de dernière valeur.
 
@@ -1072,9 +1104,10 @@ def rebuild_province_history(meta, provinces):
     by_date[reporting_date] = {
         "date": reporting_date,
         "provinces": [
-            {"name": p["name"], "confirmed": p.get("confirmed"),
+            {"name": canon, "confirmed": p.get("confirmed"),
              "deaths": p.get("deaths")}
-            for p in provinces
+            for canon, p in ((canon_province(p.get("name")), p) for p in provinces)
+            if canon
         ],
     }
 

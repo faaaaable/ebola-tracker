@@ -3,11 +3,6 @@
     "date": "2026-05-19",
     "provinces": [
       {
-        "name": "touchées",
-        "confirmed": null,
-        "deaths": null
-      },
-      {
         "name": "Ituri",
         "confirmed": 30,
         "deaths": 4
@@ -1668,7 +1663,7 @@
         "deaths": 411
       },
       {
-        "name": "Haut Uélé",
+        "name": "Haut-Uélé",
         "confirmed": 135,
         "deaths": 62
       },
