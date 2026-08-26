@@ -660,6 +660,24 @@ pas publiee, donc pas separable — mais les deces du 30 juillet sont ceux des 2
 que soit la repartition. Juillet passe ainsi de 444 a 272 cas en teinte claire,
 et de 336 a 236 deces, sans qu'aucun total bouge.
 
+**LE BOUTON DE PARTAGE EST RANGE AVEC LES CONTROLES, jamais seul.** Il flottait
+a l'extreme droite, au-dessus d'une zone vide : a cette place il se lisait comme
+un element de page et non comme une action sur la figure.
+
+- Pour les graphiques, il rejoint la bascule de vue, DANS le cadre. Pas la barre
+  des sept onglets : elle remplit deja sa ligne, il y passait a la ligne tout
+  seul. Quand le mode n'a pas de bascule, il reste seul dans la rangee mais
+  colle en haut a gauche du cadre, contre la figure.
+- Pour les tableaux, UN SEUL bouton range avec la bascule « Par province / Par
+  zone », qui exporte celui qui est affiche (`data-export-table="auto"`). Deux
+  boutons au-dessus de deux cadres disaient la meme chose deux fois.
+- Sur une page province, il rejoint le titre de section.
+
+Un filet le separe des onglets : sans lui, « Partager » s'aligne comme une vue
+de plus a cote de « Par jour » et « Par mois ». Le filet disparait quand le
+bouton ouvre la rangee — il deviendrait un trait flottant — et sous 520 px, ou
+la rangee passe en colonne.
+
 **LES TABLEAUX SE PARTAGENT AUSSI.** Un tableau HTML ne sait pas s'exporter
 comme un canevas : `exporterTableau` le redessine cellule par cellule, avec le
 meme titre, le meme pied et la meme note que les figures. Aucune bibliotheque
