@@ -660,6 +660,25 @@ pas publiee, donc pas separable — mais les deces du 30 juillet sont ceux des 2
 que soit la repartition. Juillet passe ainsi de 444 a 272 cas en teinte claire,
 et de 336 a 236 deces, sans qu'aucun total bouge.
 
+**Le total s'affiche en pied d'infobulle des qu'une barre a deux parts.**
+« Nouveaux cas : 1 996 » au-dessus de « Rattrapage : 272 » laissait l'addition
+au lecteur, alors que c'est la somme qui repond a « combien de cas cette
+periode ». `totalEmpile(items)` la pose, et il est branche sur les trois
+infobulles qui empilent : `epidemic`, `newCases`/`newDeaths` a ses trois pas de
+temps, et `provinceEpidemic`.
+
+Il ne s'affiche QUE la ou il y a vraiment deux parts a additionner. Une journee
+ordinaire n'en a qu'une, et le total repeterait la ligne du dessus. Les barres
+de province non plus : la part du jour n'y etant connue qu'au niveau national,
+la journee entiere bascule en teinte claire — le callback y est branche comme
+ailleurs, il ne se declenche simplement jamais. Meme silence cote deces les
+jours de rattrapage, ou la part du jour vaut zero et disparait du corps.
+
+Les courbes de cumul sont ecartees de la somme — elles vivent sur l'autre axe,
+et les ajouter aux barres donnerait un nombre qui ne veut rien dire. Le test
+porte sur les items REELLEMENT affichees, celles que le filtre de l'infobulle a
+laissees passer : c'est ce qui fait que la regle se tient sans cas particulier.
+
 **La part de rattrapage n'est chiffree que pour les cas.** Les bulletins qui la
 documentent annoncent « +97 » et « +73 nouveaux cas » ; rien d'equivalent pour
 les deces, dont le cumul saute pourtant de 236 et de 100 ces jours-la. Faute de
