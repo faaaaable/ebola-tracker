@@ -152,8 +152,13 @@ Huit pages, chacune en FR et EN : accueil, `donnees/` (+ six pages province),
 Les graphiques sont rendus côté client par `assets/js/app.js` avec Chart.js.
 Chaque canevas déclare son sujet via `data-chart`, les onglets via `data-mode`.
 
-**Sept onglets sur `/donnees/`** : `epidemic`, `newCases`, `newDeaths`,
-`byProvince`, `contactsFollowUp`, `deathsPlace`, `pyramide`. Les modes `ages`, `sexes` et
+**Sept onglets sur `/donnees/`**, dans cet ordre : `epidemic`, `newCases`,
+`newDeaths`, `deathsPlace`, `byProvince`, `pyramide`, `contactsFollowUp`. La
+barre repond a des questions successives — combien (l'ensemble, les cas, les
+deces), ou (par province), qui (age et sexe), et que fait-on contre (suivi des
+contacts). `newCases` et `newDeaths` restent **voisins** : ils partagent leur
+bascule de pas de temps et son etat, ce qui ne se decouvre que si les deux
+boutons se touchent. Les modes `ages`, `sexes` et
 `communityDeaths` restent dans le code sans bouton — décisions de publication,
 pas suppressions.
 
@@ -677,7 +682,13 @@ courbe de décès. Absent sous 50 cas cumulés. Signale les trous de plus de tro
 jours au lieu de relier par-dessus.
 
 **`byProvince`** — six courbes de cumul, une par province, chacune à sa teinte
-d'identité.
+d'identité. Il s'appelait « Cas cumulés / région » jusqu'au 26 août : ni la RDC
+ni le reste du site n'emploient « région » — le découpage est la province —, et
+le swahili disait `eneo`, qui désigne aussi la zone de santé, l'autre découpage
+de la même page. Le `/` était par ailleurs le seul raccourci de ce genre dans
+la barre. **Ce graphique ne trace que les cas**, alors que
+`province-history.json` porte aussi les décès : la bascule de `newCases` s'y
+transposerait telle quelle.
 
 **`contactsFollowUp`** — une courbe, plus un **pont en pointillés atténué** sur
 les périodes sans donnée. Ce pont n'est jamais une valeur : c'est un repère
