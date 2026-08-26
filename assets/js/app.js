@@ -3302,8 +3302,18 @@ function applyStaticI18n(){
   // verification. La seconde explique l'ecart plutot que de le laisser en
   // suspens — sans elle, un lecteur ne distingue pas « aucun nouveau bulletin »
   // de « site abandonne ».
+  /* Le numero du bulletin suit la date — mais SEULEMENT quand la date affichee
+     est bien celle de ce bulletin. Elle peut venir d'un point de situation
+     X/Twitter plus recent que le dernier SitRep PDF, et « 26 aout — SitRep
+     N°102 » attribuerait alors au bulletin du 24 des chiffres qu'il ne porte
+     pas. Dans ce cas la ligne reste telle qu'elle etait. */
   const autoEl = document.getElementById('autoUpdateNote');
-  if(autoEl) autoEl.innerHTML = tr('autoUpdateNote')(lastUpdateDate);
+  const numeroSitrep = (currentMeta && currentMeta.sitrepNumber
+                        && currentMeta.reportingDate === displayDate)
+                     ? currentMeta.sitrepNumber : null;
+  if(autoEl) autoEl.innerHTML = numeroSitrep
+    ? tr('autoUpdateNoteNum')(lastUpdateDate, numeroSitrep)
+    : tr('autoUpdateNote')(lastUpdateDate);
   const today = new Date();
   const todayDate = `${today.getDate()} ${tr('months')[today.getMonth()]} ${today.getFullYear()}`;
   const todayEl = document.getElementById('todayUpdateNote');
