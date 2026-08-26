@@ -68,6 +68,7 @@
       </div>
       <nav class="subtab-nav" data-chart-tabs="dataChart">
         <button type="button" class="subtab-btn active" data-mode="epidemic" data-i18n="chartModeEpidemic">{{i18n.chartModeEpidemic}}</button>
+        <button type="button" class="subtab-btn" data-mode="newCases" data-i18n="chartModeNewCases">{{i18n.chartModeNewCases}}</button>
         <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
         <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">{{i18n.chartModeContactsFollowUp}}</button>
         <!-- « Repartition des deces » a quitte la barre : il tracait
@@ -89,15 +90,18 @@
     </div>
 
     <div class="panel chart-panel-wrap">
+      <!-- Bascule propre a l'onglet « Nouveaux cas » : la meme serie lue par
+           jour, agregee par semaine ou par mois. Masquee par les autres modes.
+           « Evolution de l'epidemie » n'en porte plus : il ne montre que le
+           quotidien, ses deux courbes de cumul par-dessus. -->
+      <nav class="subtab-nav chart-vue-nav" data-newcases-vue style="display:none;">
+        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartNewCasesVueDaily">{{i18n.chartNewCasesVueDaily}}</button>
+        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartNewCasesVueWeekly">{{i18n.chartNewCasesVueWeekly}}</button>
+        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartNewCasesVueMonthly">{{i18n.chartNewCasesVueMonthly}}</button>
+      </nav>
       <!-- Bascule propre a la pyramide, masquee par les autres modes. En
            « Effectifs », deux figures cote a cote ; en « Parts », une seule,
            chaque serie ramenee a 100 % de son propre total. -->
-      <!-- Bascule propre au mode « epidemic » : la meme serie lue par jour
-           ou agregee par semaine. Masquee par les autres modes. -->
-      <nav class="subtab-nav chart-vue-nav" data-epidemic-vue style="display:none;">
-        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartEpidemicVueDaily">{{i18n.chartEpidemicVueDaily}}</button>
-        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartEpidemicVueWeekly">{{i18n.chartEpidemicVueWeekly}}</button>
-      </nav>
       <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
         <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">{{i18n.chartPyramideVueEffectifs}}</button>
         <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>

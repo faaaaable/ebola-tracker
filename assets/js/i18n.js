@@ -27,8 +27,18 @@ const I18N = {
     chartSub:"cumul des cas confirmés et décès",
     chartSubRange:(n,from,to)=>`${n} bulletins, du ${from} au ${to}`,
     chartModeEpidemic:"Évolution de l'épidémie",
-    chartEpidemicVueDaily:"Par jour",
-    chartEpidemicVueWeekly:"Par semaine",
+    chartModeNewCases:"Nouveaux cas",
+    chartNewCasesVueDaily:"Par jour",
+    chartNewCasesVueWeekly:"Par semaine",
+    chartNewCasesVueMonthly:"Par mois",
+    chartPeriodDays:(n,total)=>`${n} relevé${n>1?'s':''} sur ${total}`,
+    chartDailyNote:(absentes)=>`Nouveaux cas de chaque bulletin, calculés comme l'écart avec le bulletin précédent. `
+      + `Une révision à la baisse est ramenée à zéro plutôt que de creuser un trou qui n'a pas eu lieu. `
+      + (absentes.length
+          ? `Les ${absentes.length} jours sans bulletin n'ont pas de barre — les ${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]}. `
+            + `Leurs cas reviennent au premier bulletin publié ensuite, dont la barre couvre alors plusieurs journées. `
+          : '')
+      + `Les deux rattrapages administratifs des 22 et 30 juillet gardent leur teinte claire, empilée sur leur journée.`,
     chartWeeklyCases:"Nouveaux cas",
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Nouveaux cas agrégés par semaine calendaire, du lundi au dimanche. `
       + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. `
@@ -38,6 +48,17 @@ const I18N = {
       + `Les ${absentes.length} jours sans bulletin sont les ${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]} — `
       + `l'INSP n'a rien publié les deux premiers, les autres correspondent à des bulletins absents de l'archive publique. `
       + `Les deux rattrapages administratifs des 22 et 30 juillet gardent leur teinte claire, empilée sur la semaine qui les porte.`,
+    chartMonthlyNote:(mois,partiels,absentes,enCours)=>`Nouveaux cas agrégés par mois calendaire. `
+      + (enCours ? `Le mois en cours n'apparaît qu'une fois terminé : incomplet, sa barre se lirait comme une baisse. `
+                 + `Les journées déjà connues restent visibles dans les vues « par jour » et « par semaine ». ` : '')
+      + `Sur les ${mois} mois couverts, ${partiels} ne portent pas un bulletin par jour : leur total est donc sous-estimé, `
+      + `et la hauteur d'une barre incomplète ne se compare pas aux autres. `
+      + (absentes.length
+          ? `Les ${absentes.length} jours sans bulletin sont les ${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]} — `
+            + `l'INSP n'a rien publié les deux premiers, les autres correspondent à des bulletins absents de l'archive publique. `
+          : '')
+      + `Le premier mois ne commence qu'au premier bulletin : sa barre couvre moins de jours que le mois, et son total ne se compare pas aux suivants. `
+      + `Les deux rattrapages administratifs des 22 et 30 juillet gardent leur teinte claire, empilée sur le mois qui les porte.`,
     chartModeCumulative:"Cas/décès cumulés",
     chartModeDaily:"Nouveaux cas par jour",
     chartModeContactsFollowUp:"Suivi des contacts",
@@ -228,8 +249,18 @@ const I18N = {
     chartSub:"cumulative confirmed cases and deaths",
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
     chartModeEpidemic:"Epidemic overview",
-    chartEpidemicVueDaily:"Daily",
-    chartEpidemicVueWeekly:"Weekly",
+    chartModeNewCases:"New cases",
+    chartNewCasesVueDaily:"Daily",
+    chartNewCasesVueWeekly:"Weekly",
+    chartNewCasesVueMonthly:"Monthly",
+    chartPeriodDays:(n,total)=>`${n} report${n>1?'s':''} of ${total}`,
+    chartDailyNote:(absentes)=>`New cases from each bulletin, computed as the difference with the previous one. `
+      + `A downward revision is brought back to zero rather than digging a dip that never happened. `
+      + (absentes.length
+          ? `The ${absentes.length} days without a bulletin carry no bar — ${absentes.slice(0,-1).join(', ')} and ${absentes[absentes.length-1]}. `
+            + `Their cases surface in the next bulletin published, whose bar then covers several days. `
+          : '')
+      + `The two administrative catch-ups of 22 and 30 July keep their lighter shade, stacked on their own day.`,
     chartWeeklyCases:"New cases",
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`New cases aggregated by calendar week, Monday to Sunday. `
       + (enCours ? `The current week only appears once complete: unfinished, its bar would read as a decline. `
@@ -239,6 +270,17 @@ const I18N = {
       + `The ${absentes.length} days without a bulletin are ${absentes.slice(0,-1).join(', ')} and ${absentes[absentes.length-1]} — `
       + `the INSP published nothing on the first two; the others are bulletins missing from the public archive. `
       + `The two administrative catch-ups of 22 and 30 July keep their lighter shade, stacked on the week that carries them.`,
+    chartMonthlyNote:(mois,partiels,absentes,enCours)=>`New cases aggregated by calendar month. `
+      + (enCours ? `The current month only appears once complete: unfinished, its bar would read as a decline. `
+                 + `The days already known remain visible in the daily and weekly views. ` : '')
+      + `Of the ${mois} months covered, ${partiels} do not carry one bulletin per day: their total is therefore understated, `
+      + `and the height of an incomplete bar is not comparable to the others. `
+      + (absentes.length
+          ? `The ${absentes.length} days without a bulletin are ${absentes.slice(0,-1).join(', ')} and ${absentes[absentes.length-1]} — `
+            + `the INSP published nothing on the first two; the others are bulletins missing from the public archive. `
+          : '')
+      + `The first month only starts at the first bulletin: its bar covers fewer days than the month, and its total is not comparable to the others. `
+      + `The two administrative catch-ups of 22 and 30 July keep their lighter shade, stacked on the month that carries them.`,
     chartModeCumulative:"Cumulative cases/deaths",
     chartModeDaily:"New cases per day",
     chartModeContactsFollowUp:"Contact follow-up",
@@ -427,8 +469,18 @@ const I18N = {
     chartSub:"jumla ya visa vilivyothibitishwa na vifo",
     chartSubRange:(n,from,to)=>`ripoti ${n}, kutoka ${from} hadi ${to}`,
     chartModeEpidemic:"Mwenendo wa mlipuko",
-    chartEpidemicVueDaily:"Kwa siku",
-    chartEpidemicVueWeekly:"Kwa wiki",
+    chartModeNewCases:"Visa vipya",
+    chartNewCasesVueDaily:"Kwa siku",
+    chartNewCasesVueWeekly:"Kwa wiki",
+    chartNewCasesVueMonthly:"Kwa mwezi",
+    chartPeriodDays:(n,total)=>`ripoti ${n} kati ya ${total}`,
+    chartDailyNote:(absentes)=>`Visa vipya vya kila ripoti, vikihesabiwa kama tofauti na ripoti iliyotangulia. `
+      + `Marekebisho ya kupunguza yanarudishwa sifuri badala ya kuchimba shimo lisilokuwepo. `
+      + (absentes.length
+          ? `Siku ${absentes.length} zisizo na ripoti hazina safu — ${absentes.slice(0,-1).join(', ')} na ${absentes[absentes.length-1]}. `
+            + `Visa vyake vinajitokeza katika ripoti ya kwanza inayofuata, ambayo safu yake basi inashughulikia siku kadhaa. `
+          : '')
+      + `Marekebisho mawili ya kiutawala ya tarehe 22 na 30 Julai yanabaki na rangi hafifu, juu ya siku yake.`,
     chartWeeklyCases:"Visa vipya",
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Visa vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
       + (enCours ? `Wiki inayoendelea inaonekana tu ikiisha: bila kukamilika, safu yake ingesomeka kama kupungua. `
@@ -438,6 +490,17 @@ const I18N = {
       + `Siku ${absentes.length} zisizo na ripoti ni ${absentes.slice(0,-1).join(', ')} na ${absentes[absentes.length-1]} — `
       + `INSP haikuchapisha chochote siku mbili za kwanza; nyingine ni ripoti zisizopatikana kwenye kumbukumbu za umma. `
       + `Marekebisho mawili ya kiutawala ya tarehe 22 na 30 Julai yanabaki na rangi hafifu, juu ya wiki inayoyabeba.`,
+    chartMonthlyNote:(mois,partiels,absentes,enCours)=>`Visa vipya vimekusanywa kwa mwezi wa kalenda. `
+      + (enCours ? `Mwezi unaoendelea unaonekana tu ukiisha: bila kukamilika, safu yake ingesomeka kama kupungua. `
+                 + `Siku zinazojulikana tayari zinaonekana katika mwonekano wa kila siku na wa kila wiki. ` : '')
+      + `Kati ya miezi ${mois} iliyofunikwa, ${partiels} haina ripoti moja kwa kila siku: jumla yao imepungua, `
+      + `na urefu wa safu isiyokamilika haulinganishwi na nyingine. `
+      + (absentes.length
+          ? `Siku ${absentes.length} zisizo na ripoti ni ${absentes.slice(0,-1).join(', ')} na ${absentes[absentes.length-1]} — `
+            + `INSP haikuchapisha chochote siku mbili za kwanza; nyingine ni ripoti zisizopatikana kwenye kumbukumbu za umma. `
+          : '')
+      + `Mwezi wa kwanza unaanza tu na ripoti ya kwanza: safu yake inashughulikia siku chache kuliko mwezi, na jumla yake hailinganishwi na mingine. `
+      + `Marekebisho mawili ya kiutawala ya tarehe 22 na 30 Julai yanabaki na rangi hafifu, juu ya mwezi unaoyabeba.`,
     chartModeCumulative:"Visa/vifo vilivyokusanywa",
     chartModeDaily:"Visa vipya kwa siku",
     chartModeContactsFollowUp:"Ufuatiliaji wa walioguswa",
