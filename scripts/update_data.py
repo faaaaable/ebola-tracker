@@ -313,6 +313,28 @@ def extract_province_summary(pdf):
     return None
 
 
+def letalite_de_ligne(cellule):
+    """La letalite portee par une cellule, ou None si elle n'en porte pas.
+
+    Le SitRep 103 laisse la cellule de letalite VIDE sur sa ligne « Total » —
+    le rapport ne publie pas la letalite nationale dans ce tableau. Or
+    compacte_ligne retire les cellules vides, c'est son role : la ligne tombe
+    a cinq cellules, tout ce qui suit les deces se decale d'un cran, et
+    l'index 3 atterrit sur la fraction de zones. Lue comme une letalite,
+    « 58/151 (38,4 %) » donnait 38,4 % la ou le rapport dit 48,0 % — et
+    l'index 5 des nouveaux cas sortait du tableau, ce qui a fait planter le
+    pipeline. Le plantage a evite le pire : un chiffre faux publie en silence.
+
+    Le test tient en une ligne, parce qu'un pourcentage precede d'une fraction
+    n'est jamais une letalite.
+    """
+    if cellule is None:
+        return None
+    if re.search(r"\d\s*/\s*\d", str(cellule)):
+        return None
+    return norm_pct(cellule)
+
+
 def compacte_ligne(row):
     """Ramene une ligne de tableau a ses cellules porteuses.
 
@@ -497,7 +519,7 @@ def parse_province_summary(table):
             "name": PROVINCE_CANON.get(name, name),
             "confirmed": norm_int(row[1]),
             "deaths": norm_int(row[2]),
-            "cfr": norm_pct(row[3]),
+            "cfr": letalite_de_ligne(row[3] if len(row) > 3 else None),
             "healthZonesAffected": {"n": n_zones, "total": tot_zones},
             "newCases24h": norm_int(row[-1]),
         })
@@ -1344,17 +1366,22 @@ def main():
     zones_total_n = sum(p["healthZonesAffected"]["n"] or 0 for p in provinces)
     zones_total_tot = 151
 
+    # Faute de letalite dans la ligne « Total » (cas du SitRep 103), on garde
+    # celle des indicateurs de tete plutot que d'inventer.
+    cfr_total = (letalite_de_ligne(prov_total_row[3])
+                 if prov_total_row and len(prov_total_row) > 3 else None)
+
     national = {
         "confirmed": norm_int(prov_total_row[1]) if prov_total_row else None,
         "deaths": norm_int(prov_total_row[2]) if prov_total_row else None,
         "recovered": kpis["recovered"],
-        "cfr": norm_pct(prov_total_row[3]) if prov_total_row else kpis["cfr"],
+        "cfr": cfr_total if cfr_total is not None else kpis["cfr"],
         "inCTE": kpis["inCTE"],
         "contactsFollowUpRate": kpis["contactsFollowUpRate"],
         "provincesAffected": len(provinces),
         "healthZonesAffected": {"n": zones_total_n, "total": zones_total_tot},
         "healthAreasAffected": health_areas,
-        "newCases24h": norm_int(prov_total_row[5]) if prov_total_row else None,
+        "newCases24h": norm_int(prov_total_row[-1]) if prov_total_row else None,
         "newDeaths24h": norm_int(detail_total_row[6]) if detail_total_row and len(detail_total_row) > 6 else None,
         "newDeathsCommunity24h": norm_int(detail_total_row[4]) if detail_total_row and len(detail_total_row) > 4 else None,
         "newDeathsIntraCTE24h": norm_int(detail_total_row[5]) if detail_total_row and len(detail_total_row) > 5 else None,
