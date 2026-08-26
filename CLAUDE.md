@@ -5,8 +5,9 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 101**, rapportage
-du 23 août 2026 — 5 584 cas confirmés, 2 680 décès, létalité 48,0 %.
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 102**, rapportage
+du 24 août 2026 — 5 656 cas confirmés, 2 715 décès, létalité 48,0 %,
+**58 zones touchées** (Ganga, au Bas-Uélé, est la dernière arrivée).
 
 ---
 
@@ -21,8 +22,8 @@ interpolation. Quand la source ne dit pas, le site ne dit pas — et le dit.
 Deux illustrations à connaître, parce qu'elles reviendront :
 
 - Les **décès « à ventiler »** de l'Ituri ne sont répartis sur aucune zone. Ils
-  étaient 233 au SitRep 100, **250 au SitRep 101** : la somme des 28 zones donne
-  1 838 décès quand la province en déclare 2 088. L'écart reste visible plutôt
+  étaient 233 au SitRep 100, 250 au 101, **266 au SitRep 102** : la somme des
+  28 zones donne 1 853 décès quand la province en déclare 2 119. L'écart reste visible plutôt
   que comblé, et il grossit à chaque bulletin qui ajoute des décès intra-CTE non
   encore rattachés à une zone. **Depuis le 25 août il est aussi expliqué** :
   `zonesSumNote` accompagne le tableau des zones de chaque page province et
@@ -722,6 +723,38 @@ touchées » en FR et EN, mais **cette cle n'est referencee nulle part**.
 chargement et se redessinent hors écran. Interroger le canevas
 (`chart.options.animation = false; chart.update('none'); canvas.toDataURL()`)
 plutôt que faire une copie d'écran de page.
+
+**Le format a change une CINQUIEME fois au SitRep 102, sur une seule ligne.**
+La table de repartition par province etait la, lisible, ses six provinces
+reconnues — mais le pipeline s'est arrete sur « Table de repartition par
+province introuvable ». En cause, la ligne « Total » seule : pdfplumber a
+rejete sa cellule « 58/151 (38,4 %) » sur les lignes qui l'encadrent.
+
+```
+58/151 (38,4
+Total 5 656 2 715 48,0% 72
+%)
+```
+
+`PROVINCE_SUMMARY_ROW_RE` exige cette fraction de zones — c'est elle qui
+empeche le motif de mordre sur les autres tableaux du document. Sans total,
+`parse_province_summary_from_text()` renvoie `(None, None)` et le script leve
+une `ValueError`. **Il a echoue proprement** : `data/` intact, le site est
+reste sur le bulletin precedent — c'est le comportement voulu.
+
+Corrige par `PROVINCE_TOTAL_ROW_RE`, un motif dedie a cette seule ligne. Il ne
+relache pas la garde : « Total » en tete est deja tres specifique, et les deux
+cumuls, la letalite et **un unique** nombre en fin de ligne restent exiges — la
+ligne Total du tableau detaille, qui en porte quatre (« 72 18 17 35 »), ne peut
+pas correspondre. La fraction de zones n'est de toute facon pas conservee :
+`total_row` la stocke deja a `None` et elle est recalculee depuis la somme des
+provinces.
+
+**Le meme bulletin a fait juger 50 lignes de zone « non fiables »** contre zero
+au 101 — et pourtant les 58 zones sont sorties exactes, verifiees une par une
+contre le PDF. Le repli sur le texte brut fait son travail ; le compteur de
+lignes ecartees mesure la deformation du tableau, pas la qualite du resultat.
+Il reste un signal a recouper, jamais un verdict.
 
 **Le tableau des zones porte QUATRE colonnes de jour, pas trois.** Apres la
 letalite viennent : nouveaux cas, deces communautaires, deces intra-CTE, puis

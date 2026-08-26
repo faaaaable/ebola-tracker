@@ -313,6 +313,33 @@ PROVINCE_SUMMARY_ROW_RE = re.compile(
 )
 
 
+# La ligne « Total » sans sa fraction de zones.
+#
+# Au SitRep 102, pdfplumber a rejete la cellule « 58/151 (38,4 %) » sur les
+# lignes qui precedent et suivent :
+#
+#     58/151 (38,4
+#     Total 5 656 2 715 48,0% 72
+#     %)
+#
+# PROVINCE_SUMMARY_ROW_RE exige cette fraction — elle sert de garde-fou contre
+# les autres tableaux du document — et la ligne Total ne correspondait donc
+# plus. Les six provinces passaient, le total non, et le script s'arretait sur
+# « Table de repartition par province introuvable ». Ce motif la rattrape.
+#
+# Il ne relache pas la garde : « Total » en tete est deja tres specifique, et
+# on exige toujours les deux cumuls, la letalite et UN seul nombre en fin de
+# ligne. La ligne Total du tableau detaille, qui en porte quatre
+# (« 72 18 17 35 »), ne peut pas correspondre. La fraction de zones n'est de
+# toute facon pas conservee : total_row la stocke deja a None, elle est
+# recalculee depuis la somme des provinces.
+PROVINCE_TOTAL_ROW_RE = re.compile(
+    r"^Total\**\s+(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
+    r"(?P<newcases>\d+)\s*$",
+    re.MULTILINE,
+)
+
+
 def _best_cas_deces_split(numbers_str, cfr_target):
     """Désambiguïse 'cas décès' quand les deux nombres sont collés sans
     séparateur fiable (ex: '4257 1 878' — impossible de savoir
@@ -370,6 +397,19 @@ def parse_province_summary_from_text(full_text):
     for line in section.split("\n"):
         line = line.strip()
         m = PROVINCE_SUMMARY_ROW_RE.match(line)
+        if not m and total_row is None:
+            # Le total, dont la fraction de zones peut avoir ete rejetee sur
+            # une autre ligne par l'extraction (voir PROVINCE_TOTAL_ROW_RE).
+            mt = PROVINCE_TOTAL_ROW_RE.match(line)
+            if mt:
+                cfr_total = float(mt.group("cfr").replace(",", "."))
+                cas_t, deces_t = _best_cas_deces_split(mt.group("numbers"), cfr_total)
+                if cas_t is not None:
+                    total_row = ["Total", cas_t, deces_t, cfr_total, None,
+                                 int(mt.group("newcases"))]
+                    print("  ! ligne « Total » relue sans sa fraction de zones "
+                          "(cellule eclatee par l'extraction).")
+                    continue
         if not m:
             continue
         cfr_target = float(m.group("cfr").replace(",", "."))
