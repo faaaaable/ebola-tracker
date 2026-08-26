@@ -594,6 +594,9 @@ ul,ol{margin:0;padding:0;}
 }
 
 .subtab-nav{display:flex;gap:4px;flex-wrap:wrap;}
+/* Barre d'action d'un graphique : le bouton se range a droite, au-dessus
+   du cadre, la ou les bascules de vue se rangent a gauche. */
+.chart-actions{display:flex;justify-content:flex-end;margin-bottom:10px;}
 .subtab-btn{
   font-family:var(--font-sans);font-size:11.5px;font-weight:600;
   padding:5px 10px;border-radius:var(--radius);

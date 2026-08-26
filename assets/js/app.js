@@ -883,6 +883,20 @@ function agregeNouveauxCas(s, granularite, champ){
     }));
 }
 const ctx0Epi = c => c.getContext('2d');
+
+/* Chaque mode declare la periode qu'il vient REELLEMENT de tracer, au moment
+   ou il la trace. C'est le seul endroit qui la connaisse : la vue
+   hebdomadaire ecarte la semaine en cours, « Deces en communaute » ne
+   commence qu'au 13 juillet — date a laquelle les bulletins ont commence a
+   distinguer le lieu du deces —, et la demographie est figee au 5 aout.
+   Deduire la plage apres coup des etiquettes de l'axe donnerait un
+   intervalle plausible et faux, ce qui est pire que pas d'intervalle.
+
+   Deux formes : une plage { debut, fin }, ou un arret { fin } seul pour les
+   figures qui ne couvrent pas une periode mais une situation a une date. */
+function noterPeriode(slot, debut, fin){
+  slot.periode = (debut || fin) ? { debut: debut || null, fin: fin || null } : null;
+}
 /* Rend un graphique dans le canvas donne. Le mode dit ce qu'il montre. */
 function renderOneChart(canvas, chartMode){
   const slot = chartSlot(canvas);
@@ -1021,6 +1035,7 @@ function renderOneChart(canvas, chartMode){
       noteEl.style.display = 'block';
     }
     slot.lastMode = 'sexes';
+    noterPeriode(slot, null, DEMOGRAPHIE && DEMOGRAPHIE.date);
     return;
   }
 
@@ -1259,6 +1274,9 @@ function renderOneChart(canvas, chartMode){
     slot.chart = new Chart(canvas.getContext('2d'),
       { type:'bar', data:gauche.data, options:gauche.options, plugins:[cotes] });
     slot.lastMode = 'pyramide';
+    // Pas une periode mais un arret : l'INSP a cesse de publier cette
+    // repartition, la figure est figee a cette date.
+    noterPeriode(slot, null, DEMOGRAPHIE && DEMOGRAPHIE.date);
 
     if(cible2 && panneau2){
       panneau2.style.display = '';
@@ -1342,6 +1360,7 @@ function renderOneChart(canvas, chartMode){
       noteEl.style.display = 'block';
     }
     slot.lastMode = 'ages';
+    noterPeriode(slot, null, DEMOGRAPHIE && DEMOGRAPHIE.date);
     return;
   }
 
@@ -1611,6 +1630,10 @@ const largeurSemaine = {
     slot.chart = new Chart(canvas.getContext('2d'),
       { type: 'bar', data, options: opts, plugins: [largeurSemaine] });
     slot.lastMode = 'deathsPlace';
+    // Cette figure ne commence pas avec l'epidemie : les bulletins n'ont
+    // distingue le lieu du deces qu'a partir du 13 juillet.
+    noterPeriode(slot, serie.length ? serie[0].debut : null,
+                       serie.length ? serie[serie.length - 1].finSemaine : null);
     if(noteEl){
       noteEl.textContent = tr('chartDeathPlaceNoteTemps')(
         moyenne, serie.length, fmt(totalComm), fmt(totalCte), 7);
@@ -1851,6 +1874,8 @@ const largeurSemaine = {
     if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
     else { slot.chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts }); }
     slot.lastMode = 'contactsFollowUp';
+    noterPeriode(slot, CONTACTS_FOLLOWUP[0].date,
+                       CONTACTS_FOLLOWUP[CONTACTS_FOLLOWUP.length - 1].date);
     if(noteEl){
       noteEl.textContent = tr('chartNoteContacts')(CIBLE_OMS);
       noteEl.style.display = 'block';
@@ -1985,6 +2010,8 @@ const largeurSemaine = {
     };
     slot.chart = new Chart(canvas.getContext('2d'), { type: 'bar', data, options: opts });
     slot.lastMode = 'provinceEpidemic';
+    noterPeriode(slot, pts.length ? pts[0].date : null,
+                       pts.length ? pts[pts.length - 1].date : null);
     return;
   }
 
@@ -2043,6 +2070,8 @@ const largeurSemaine = {
     if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
     else { slot.chart = new Chart(canvas.getContext('2d'), { type:wantedType, data, options:opts }); }
     slot.lastMode = 'byProvince';
+    noterPeriode(slot, PROVINCE_HISTORY[0].date,
+                       PROVINCE_HISTORY[PROVINCE_HISTORY.length - 1].date);
     return;
   }
 
@@ -2157,6 +2186,7 @@ const largeurSemaine = {
       optsN.plugins.tooltip.callbacks.title = items => frDate(s[items[0].dataIndex].date);
       slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataJ, options: optsN });
       slot.lastMode = chartMode + '-quotidien';
+      noterPeriode(slot, s[0].date, s[s.length - 1].date);
       if(noteEl){
         noteEl.textContent = tr(deces ? 'chartDailyDeathsNote' : 'chartDailyNote')(absentes, muets);
         noteEl.style.display = 'block';
@@ -2193,6 +2223,10 @@ const largeurSemaine = {
     };
     slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataP, options: optsN });
     slot.lastMode = chartMode + '-' + vuePeriode;
+    // La periode s'arrete au dernier dimanche revolu, ou au dernier jour du
+    // dernier mois complet : la periode en cours n'est pas tracee.
+    noterPeriode(slot, serie.length ? serie[0].debut : null,
+                       serie.length ? serie[serie.length - 1].fin : null);
     if(noteEl){
       const cle = deces ? (parMois ? 'chartMonthlyDeathsNote' : 'chartWeeklyDeathsNote')
                         : (parMois ? 'chartMonthlyNote'       : 'chartWeeklyNote');
@@ -2332,6 +2366,7 @@ const largeurSemaine = {
   if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
   else { slot.chart = new Chart(ctx, { type:wantedType, data, options:opts }); }
   slot.lastMode = chartMode;
+  noterPeriode(slot, s[0].date, s[s.length - 1].date);
 }
 /* Rend tous les graphiques de la page. Chaque canvas declare son sujet :
    <canvas data-chart="epidemic">. Il n'y a plus de barre d'onglets — chaque
@@ -3279,6 +3314,260 @@ function applyStaticI18n(){
 
 /* setLang() a disparu avec la bascule cote client : voir le commentaire P1. */
 
+/* ============ EXPORT D'UN GRAPHIQUE EN IMAGE ============ */
+/* Un bouton par graphique, qui rend la figure partageable telle qu'elle est
+   lue : titre, vue choisie, courbe, ET la note qui la commente.
+
+   La note n'est pas un ornement. « Deces en communaute » encode la couverture
+   dans la largeur des barres, « Nouveaux cas » masque la semaine en cours,
+   « Age et sexe » est fige au 5 aout : sans leur phrase, ces figures disent
+   autre chose que ce qu'elles montrent. Une image nue qui circule est une
+   image qui ment, et c'est precisement ce que le site refuse ailleurs.
+
+   Le canevas sait s'exporter lui-meme — aucune bibliotheque de capture, aucun
+   octet de plus au chargement, et rien qui s'execute tant que personne n'a
+   clique. La navigation entre onglets n'en sait rien.
+
+   L'animation est figee avant la lecture : sans cela on capture un trace a
+   moitie dessine, le piege que scripts/verif/capture_canvas.mjs documente. */
+
+/* Decoupe un texte en lignes qui tiennent dans une largeur donnee. Le canevas
+   ne sait pas revenir a la ligne : il faut mesurer mot a mot. */
+function lignesDeTexte(ctx, texte, largeur){
+  const lignes = [];
+  let ligne = '';
+  for(const mot of String(texte).split(/\s+/)){
+    const essai = ligne ? ligne + ' ' + mot : mot;
+    if(ligne && ctx.measureText(essai).width > largeur){ lignes.push(ligne); ligne = mot; }
+    else ligne = essai;
+  }
+  if(ligne) lignes.push(ligne);
+  return lignes;
+}
+
+async function exporterGraphique(canvas, titre, sousTitre, note){
+  const chart = chartSlot(canvas).chart;
+  if(!chart) return null;
+  if(document.fonts && document.fonts.ready) await document.fonts.ready;
+
+  const animation = chart.options.animation;
+  chart.options.animation = false;
+  chart.update('none');
+
+  /* Deux fois la taille de mise en page : l'image reste nette une fois
+     recompressee par le reseau social, qui la redimensionne toujours. */
+  const ECH = 2;
+  const L = 1200, marge = 44, hautTitre = 140, hautPied = 84;
+  const large = L - marge * 2;
+
+  /* Le graphique est redessine dans SES proportions, jamais dans une hauteur
+     imposee. Une premiere version bornait le rapport hauteur/largeur entre
+     0,42 et 0,62 : des que le cadre a l'ecran sortait de cette fourchette,
+     drawImage etirait la figure, et la legende comme les graduations
+     sortaient legerement deformees.
+
+     Quand la figure est trop haute pour l'image, c'est la LARGEUR qui cede et
+     le dessin se centre — une bande de fond de chaque cote plutot qu'un
+     ecrasement. */
+  const HAUT_MAX = 720;
+  const ratio = (canvas.clientHeight && canvas.clientWidth)
+    ? canvas.clientHeight / canvas.clientWidth : 0.5;
+  let largeurGraph = large;
+  let hautGraph = Math.round(large * ratio);
+  if(hautGraph > HAUT_MAX){
+    largeurGraph = Math.round(HAUT_MAX / ratio);
+    hautGraph = HAUT_MAX;
+  }
+  const xGraph = marge + Math.round((large - largeurGraph) / 2);
+
+  /* La note se mesure avant de dimensionner l'image : c'est elle qui decide de
+     la hauteur finale, et non l'inverse. Une note tronquee vaudrait une note
+     absente. */
+  const mesure = document.createElement('canvas').getContext('2d');
+  const CORPS = 15, INTER = 21;
+  mesure.font = `400 ${CORPS}px ${PALETTE.font}`;
+  const lignesNote = note ? lignesDeTexte(mesure, note, large) : [];
+  const hautNote = lignesNote.length ? 26 + lignesNote.length * INTER : 0;
+  const H = hautTitre + hautGraph + hautNote + hautPied;
+
+  const sortie = document.createElement('canvas');
+  sortie.width = L * ECH; sortie.height = H * ECH;
+  const c = sortie.getContext('2d');
+  c.scale(ECH, ECH);
+
+  c.fillStyle = PALETTE.bg;
+  c.fillRect(0, 0, L, H);
+
+  c.fillStyle = PALETTE.ink;
+  c.font = `700 30px ${PALETTE.font}`;
+  c.fillText(titre, marge, 62);
+  if(sousTitre){
+    c.fillStyle = PALETTE.inkDim;
+    c.font = `400 18px ${PALETTE.font}`;
+    c.fillText(sousTitre, marge, 94);
+  }
+  c.strokeStyle = PALETTE.line;
+  c.lineWidth = 1;
+  c.beginPath();
+  c.moveTo(marge, 116.5); c.lineTo(L - marge, 116.5);
+  c.stroke();
+
+  c.drawImage(canvas, xGraph, hautTitre, largeurGraph, hautGraph);
+
+  if(lignesNote.length){
+    c.fillStyle = PALETTE.inkFaint;
+    c.font = `400 ${CORPS}px ${PALETTE.font}`;
+    let y = hautTitre + hautGraph + 26;
+    for(const ligne of lignesNote){ c.fillText(ligne, marge, y); y += INTER; }
+  }
+
+  const pied = H - hautPied + 50;
+  c.strokeStyle = PALETTE.line;
+  c.beginPath();
+  c.moveTo(marge, pied - 20.5); c.lineTo(L - marge, pied - 20.5);
+  c.stroke();
+  c.fillStyle = PALETTE.inkFaint;
+  c.font = `400 16px ${PALETTE.font}`;
+  c.fillText(tr('chartShareSource'), marge, pied + 6);
+  c.fillStyle = PALETTE.accent;
+  c.font = `600 16px ${PALETTE.font}`;
+  /* Le domaine vient du lien canonique de la page, pas de location.hostname :
+     sur le serveur de test, ce dernier ecrit « 127.0.0.1 » dans le coin de
+     l'image, et une image se copie aussi depuis une preview locale. */
+  const canonique = document.querySelector('link[rel="canonical"]');
+  let domaine = 'ebola-tracker.org';
+  try{ if(canonique) domaine = new URL(canonique.href).hostname; }catch(e){ /* href illisible */ }
+  c.fillText(domaine, L - marge - c.measureText(domaine).width, pied + 6);
+
+  chart.options.animation = animation;
+  return new Promise(resolve => sortie.toBlob(resolve, 'image/png'));
+}
+
+/* Ce que porte l'image se lit dans la page elle-meme, et non dans une table de
+   correspondance a tenir a jour : le titre est le libelle de l'onglet actif,
+   le sous-titre celui de la vue active quand une bascule est visible, et la
+   note le texte affiche sous le graphique a cet instant. Un onglet renomme
+   change donc l'image sans qu'on y pense. */
+/* « du 14 mai au 24 aout 2026 », ou « Situation au 5 aout 2026 » quand la
+   figure n'a pas de plage. L'annee n'est ecrite qu'une fois si les deux bouts
+   tombent dans la meme — mais elle est TOUJOURS ecrite : une image se lit un
+   an plus tard, et frDate() ne la porte pas. */
+function periodeTexte(periode){
+  if(!periode || !periode.fin) return '';
+  /* Le premier du mois s'ecrit « 1er » en francais, et « 1 » partout ailleurs.
+     La vue mensuelle commence justement un 1er. */
+  const jour = iso => {
+    const t = frDate(iso);
+    return (currentLang === 'fr' && /^1 /.test(t)) ? t.replace(/^1 /, '1er ') : t;
+  };
+  const avecAnnee = iso => jour(iso) + ' ' + iso.slice(0, 4);
+  if(!periode.debut) return tr('chartShareAsOf')(avecAnnee(periode.fin));
+  const memeAnnee = periode.debut.slice(0, 4) === periode.fin.slice(0, 4);
+  return tr('chartSharePeriod')(memeAnnee ? jour(periode.debut) : avecAnnee(periode.debut),
+                                avecAnnee(periode.fin));
+}
+
+function legendesDuGraphique(canvas){
+  const wrap = canvas.closest('.chart-panel-wrap');
+  const section = canvas.closest('.section');
+  const onglets = section ? section.querySelector('[data-chart-tabs]') : null;
+  const actif = onglets ? onglets.querySelector('.subtab-btn.active') : null;
+  const titreSection = section ? section.querySelector('.section-title') : null;
+  const titre = (actif && actif.textContent.trim())
+             || (titreSection && titreSection.textContent.trim())
+             || tr('chartTitle');
+  let sousTitre = '';
+  if(wrap){
+    for(const nav of wrap.querySelectorAll('.chart-vue-nav')){
+      if(nav.style.display === 'none') continue;
+      const vue = nav.querySelector('.subtab-btn.active');
+      if(vue) sousTitre = vue.textContent.trim();
+    }
+  }
+  /* La periode complete la vue plutot que de la remplacer : « Par semaine ·
+     du 11 mai au 23 aout 2026 ». Elle est lue en haut, avant la figure, et ne
+     depend pas de ce que l'axe a reussi a afficher — ses graduations sautent
+     un libelle sur deux des que l'ecran retrecit. */
+  const periode = periodeTexte(chartSlot(canvas).periode);
+  if(periode) sousTitre = sousTitre ? sousTitre + ' · ' + periode : periode;
+  const noteEl = wrap ? wrap.querySelector('.chart-note') : null;
+  const note = (noteEl && noteEl.style.display !== 'none') ? noteEl.textContent.trim() : '';
+  return { titre, sousTitre, note };
+}
+
+/* UN SEUL chemin est pris, jamais deux.
+
+   Sur telephone et tablette, la feuille de partage du systeme : elle liste de
+   vraies applications, et l'image y arrive en piece jointe. Le texte qui
+   l'accompagne ne porte pas l'URL du site — X, comme la plupart des
+   applications, deplie alors sa propre vignette de lien A COTE de l'image, et
+   le message part avec deux visuels du meme graphique.
+
+   Sur ordinateur, l'image va au presse-papiers, et un coller suffit. La
+   feuille de partage y est un piege : son entree « Copier » ne copie pas
+   l'image mais le CHEMIN du fichier temporaire cree par le navigateur, plus le
+   texte du partage — verifie le 26 aout, « clipboard info » ne montrait alors
+   ni PNG ni TIFF, seulement « furl » et du texte. Un composeur a qui l'on colle
+   cela insere deux fois le meme graphique.
+
+   Et une version qui copiait PUIS ouvrait la feuille, pour laisser les deux
+   gestes possibles, produisait le meme doublon : l'image partait jointe, et un
+   coller par reflexe en ajoutait une seconde.
+
+   Le ClipboardItem recoit une PROMESSE de blob, et non un blob deja resolu :
+   c'est ce que Safari exige, l'ecriture devant partir dans le geste de clic
+   lui-meme. La disponibilite du partage de FICHIERS se teste donc sur un
+   fichier vide, avant que l'image soit dessinee — canShare() regarde le type,
+   pas le contenu. */
+async function partagerGraphique(btn, canvas){
+  if(!canvas) return;
+  const libelle = btn.innerHTML;
+  const direFait = cle => {
+    btn.innerHTML = `<span>${tr(cle)}</span>`;
+    setTimeout(() => { btn.innerHTML = libelle; }, 2400);
+  };
+  btn.disabled = true;
+  const nom = tr('chartShareFile');
+  const { titre, sousTitre, note } = legendesDuGraphique(canvas);
+  const image = exporterGraphique(canvas, titre, sousTitre, note)
+    .then(blob => { if(!blob) throw new Error('graphique absent'); return blob; });
+  const tactile = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  const partageFichiers = !!(tactile && navigator.canShare && navigator.canShare({
+    files: [new File([new Blob([])], nom, { type: 'image/png' })]
+  }));
+  try{
+    if(partageFichiers){
+      const fichier = new File([await image], nom, { type: 'image/png' });
+      await navigator.share({ files: [fichier], title: titre, text: tr('eyebrow') });
+      return;
+    }
+    if(navigator.clipboard && window.ClipboardItem){
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': image })]);
+      direFait('chartShareCopied');
+      return;
+    }
+    const url = URL.createObjectURL(await image);
+    const a = document.createElement('a');
+    a.href = url; a.download = nom;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    direFait('chartShareDone');
+  }catch(err){
+    if(err.name === 'AbortError') return;      // partage annule : rien a dire
+    console.error('Partage du graphique impossible :', err);
+    direFait('chartShareFailed');
+  }finally{
+    btn.disabled = false;
+  }
+}
+document.querySelectorAll('[data-export-chart]').forEach(zone=>{
+  const btn = zone.querySelector('button');
+  const canvas = document.getElementById(zone.dataset.exportChart);
+  // Pas de safeRun : il n'attrape que le synchrone, et partagerGraphique()
+  // porte deja son propre filet.
+  if(btn && canvas) btn.addEventListener('click', ()=>partagerGraphique(btn, canvas));
+});
+
 /* ============ CARTE-RÉSUMÉ POUR PARTAGE ============ */
 async function generateShareImage(){
   if(document.fonts && document.fonts.ready) await document.fonts.ready;
@@ -3365,11 +3654,21 @@ async function handleShare(){
   try{
     if(navigator.share){
       // Pas de fichier joint ici : beaucoup d'apps ignorent l'URL dès qu'une
-      // image est présente. On privilégie le lien, mis aussi dans le texte
-      // pour les apps qui n'affichent que "text".
+      // image est présente.
+      //
+      // L'URL n'est PAS répétée dans le texte. Elle l'a été jusqu'au 26 août,
+      // pour les applications qui n'affichent que « text » — mais toutes
+      // celles qui lisent les deux champs collaient alors le lien deux fois :
+      //
+      //     https://ebola-tracker.org/en/
+      //     Live tracking — Ebola outbreak
+      //     https://ebola-tracker.org/en/
+      //
+      // Un doublon que tout le monde voit coûte plus cher qu'un lien absent
+      // chez les rares applications qui ignorent le champ « url ».
       await navigator.share({
         title: tr('h1'),
-        text: tr('eyebrow') + '\n' + shareUrl,
+        text: tr('eyebrow'),
         url: shareUrl
       });
     } else if(navigator.clipboard && navigator.clipboard.writeText){

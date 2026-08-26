@@ -1566,7 +1566,7 @@ def jeton_version(chemin_relatif):
 SEUIL_COURBE_PROVINCE = 50
 
 
-def province_chart_html(province, strings_lang):
+def province_chart_html(province, strings_lang, i18n_lang):
     if (province.get("confirmed") or 0) < SEUIL_COURBE_PROVINCE:
         return ""
     return (
@@ -1577,6 +1577,14 @@ def province_chart_html(province, strings_lang):
         '    </div>\n'
         '\n'
         '    <div class="panel chart-panel-wrap">\n'
+        # Le graphique de province se partage comme les autres : figure et note
+        # comprises. Le libelle vient d'i18n, comme partout ailleurs.
+        '      <div class="chart-actions" data-export-chart="provinceChart">\n'
+        '        <button type="button" class="share-btn">\n'
+        '          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>\n'
+        '          <span data-i18n="chartShareBtn">%s</span>\n'
+        '        </button>\n'
+        '      </div>\n'
         '      <div class="chart-panel">\n'
         '        <canvas id="provinceChart" data-chart="provinceEpidemic"></canvas>\n'
         '      </div>\n'
@@ -1589,7 +1597,8 @@ def province_chart_html(province, strings_lang):
         # arrive par le menu lateral n'a rien pour distinguer les deux courbes.
         % (esc(interp(strings_lang["provinceChartTitle"],
                       {"name": province["name"]})),
-           esc(strings_lang["provinceChartSub"])))
+           esc(strings_lang["provinceChartSub"]),
+           esc(i18n_lang["chartShareBtn"])))
 
 
 def head_assets(needs):
@@ -1914,7 +1923,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.fullTable": esc(interp(strings_lang["provinceOpenFullTable"], forms)),
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
-            "province.chart": province_chart_html(province, strings_lang),
+            "province.chart": province_chart_html(province, strings_lang, i18n_lang),
             "province.query": name.replace(" ", "%20"),
             # Rang dans le pays, puis quand ca a commence, puis quand ca a
             # bouge pour la derniere fois : un bloc temporel qui se lit d'un

@@ -85,6 +85,15 @@
     </div>
 
     <div class="panel chart-panel-wrap">
+      <!-- Le graphique se partage en image : figure, vue choisie et note
+           comprises. Le canevas s'exporte lui-meme, rien ne s'execute avant le
+           clic. -->
+      <div class="chart-actions" data-export-chart="epiChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+        </button>
+      </div>
       <div class="chart-panel">
         <canvas id="epiChart" data-chart="epidemic"></canvas>
       </div>
