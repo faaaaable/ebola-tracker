@@ -501,10 +501,52 @@ les tableaux statiques, pour que les deux lectures ne se contredisent pas.
 **Nouveaux cas** — `has-new` avec un « + » quand il y en a, `no-new` sinon. Un
 zéro reste affiché : l'absence de cas est une information, pas un vide.
 
+### La largeur des tableaux
+
+Trois tableaux ont ete resserres le 26 aout, sur le meme principe : les
+colonnes de chiffres a **largeur egale**, la colonne de libelle a ce qu'il lui
+faut, et le cadre cale sur le tableau au lieu de s'etirer sur toute la colonne.
+
+| Tableau | Avant | Apres |
+|---|---|---|
+| zones d'une page province | 1 112 px | **670 px** |
+| « par province » de `/donnees/` | 1 127 px | **878 px** |
+| « par zone de sante » de `/donnees/` | 1 142 px | **896 px** |
+
+**Trois pieges rencontres dans cet ordre, tous invisibles dans le code.**
+
+1. `width:fit-content` sur le panneau ne suffit pas : le cadre interieur porte
+   `overflow-x:auto`, ce qui en fait un bloc de formatage independant prenant
+   100 % de la largeur offerte quel que soit son contenu. Il faut le caler lui
+   aussi (`.panel-fit .table-scroll`).
+2. Un bloc en `fit-content` se cale sur son enfant **le plus large**. La note
+   `zonesSumNote`, une longue phrase, l'emportait sur le tableau et rendait le
+   calage sans effet. Elle est sortie du panneau, dans un `.zones-block` qui
+   enveloppe les deux, avec `width:0;min-width:100%` : largeur intrinseque
+   nulle — donc invisible au calcul — puis etirement a 100 % du bloc une fois
+   celui-ci dimensionne par le tableau. **`min-width:100%` a l'interieur d'un
+   panneau lui-meme en `fit-content` se resout a zero** : la note doit etre
+   soeur du panneau, pas sa fille.
+3. Les en-tetes du tableau par zone sont ecrits par `app.js` avec un
+   `white-space:nowrap` en style **inline**, qui l'emporte sur la feuille de
+   style. A 104 px, « Nouv. décès (24h) » debordait de sa colonne. Le nowrap
+   est desormais reserve aux colonnes de texte.
+
+**Fausse piste deja ecartee, ne pas la rouvrir** : `width:1%` sur les colonnes
+de chiffres. Elle les reduit bien, mais le tableau occupe alors toute la
+largeur quand meme et le reliquat tombe sur la colonne de libelle — le vide ne
+disparait pas, il se deplace au milieu de chaque ligne.
+
+**La vue « par zone » garde sa barre de recherche et son filtre** : ils
+s'adaptent a la largeur du tableau sans la dicter, comme la note.
+
 ### Les pages province
 
 `province_zones_table_html()` produit un tableau statique des zones touchées de
-la province, trié par cas décroissants, avec le delta 24 h entre parenthèses.
+la province, trié par cas décroissants. Les variations de 24 h ont **leur
+propre colonne** depuis le 26 août : entre parenthèses, accolées au cumul,
+elles empêchaient d'aligner les chiffres et se lisaient comme une note. Six
+colonnes, dans l'ordre du tableau de `/donnees/`.
 Suivi d'un lien vers le tableau complet filtré sur cette province.
 
 ### `/rapports/`

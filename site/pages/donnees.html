@@ -12,9 +12,9 @@
     </nav>
 
     <div id="zonesView-province">
-      <div class="panel" style="padding:16px;">
+      <div class="panel panel-fit" style="padding:16px;">
         <div class="table-scroll">
-          <table>
+          <table class="province-summary">
             <caption class="visually-hidden">{{i18n.zonesViewProvince}}</caption>
             <thead>
               <tr>
@@ -37,23 +37,25 @@
     </div>
 
     <div id="zonesView-zone" style="display:none;">
-      <div class="panel" style="padding:16px;">
+      <div class="zones-block">
+      <div class="panel panel-fit" style="padding:16px;">
         <nav class="subtab-nav" id="zonesSubtabNav" aria-label="{{i18n.zonesFilterAll}}"></nav>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
           <label class="visually-hidden" for="zonesSearch">{{i18n.zonesSearchPlaceholder}}</label>
           <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="{{i18n.zonesSearchPlaceholder}}">
         </div>
         <div class="table-scroll">
-          <table>
+          <table class="zones-detail">
             <thead>
               <tr id="zonesTableHead"></tr>
             </thead>
             <tbody id="zonesTableBody"></tbody>
           </table>
         </div>
-        <div id="zonesEmptyState" class="map-note" style="display:none;text-align:center;" data-i18n="zonesEmptyState">{{i18n.zonesEmptyState}}</div>
-        <div id="zonesResultCount"></div>
-        <p class="map-note">{{t.zonesSumNote}}</p>
+        <div id="zonesEmptyState" class="map-note fit-passive" style="display:none;text-align:center;" data-i18n="zonesEmptyState">{{i18n.zonesEmptyState}}</div>
+        <div id="zonesResultCount" class="fit-passive"></div>
+      </div>
+      <p class="map-note zones-note">{{t.zonesSumNote}}</p>
       </div>
     </div>
   </section>

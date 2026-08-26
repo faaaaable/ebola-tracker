@@ -2626,7 +2626,10 @@ function initZonesTableControls(){
   if(headRow && !headRow.dataset.built){
     headRow.dataset.built = '1';
     headRow.innerHTML = ZONES_COLUMNS.map(c=>
-      `<th data-key="${c.key}"${c.right ? ' class="is-num"' : ''} style="cursor:pointer;user-select:none;white-space:nowrap;" data-i18n="${c.i18n}"></th>`
+      // « white-space » reste a nowrap pour les colonnes de texte, mais les
+      // colonnes de chiffres doivent pouvoir replier leur libelle : a 104 px,
+      // « Nouv. décès (24h) » insecable debordait de sa colonne.
+      `<th data-key="${c.key}"${c.right ? ' class="is-num"' : ''} style="cursor:pointer;user-select:none;${c.right ? '' : 'white-space:nowrap;'}" data-i18n="${c.i18n}"></th>`
     ).join('');
     headRow.querySelectorAll('th').forEach(th=>{
       th.addEventListener('click', ()=>{

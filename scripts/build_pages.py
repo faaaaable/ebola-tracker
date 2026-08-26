@@ -1451,50 +1451,70 @@ def province_map_values(province_maps, name, zones, config, lang, strings_lang, 
     }
 
 
-def province_zones_table_html(zones, forms, lang, strings_lang):
+def province_zones_table_html(zones, forms, lang, strings_lang, i18n_lang):
+    """Le tableau des zones touchees d'une province.
+
+    Les variations de 24 h etaient accolees au cumul entre parentheses —
+    « 1 298 (+19) ». Elles ont leur colonne depuis le 26 aout : entre
+    parentheses, elles empechaient d'aligner les chiffres, se lisaient comme
+    une note, et n'etaient ni triables ni comparables d'une ligne a l'autre.
+    Les six colonnes reprennent l'ordre du tableau de /donnees/, dont les
+    libelles de variation sont repris tels quels.
+
+    La note sur la somme des zones (`zonesSumNote`) n'est plus rendue ici mais
+    par le gabarit, SOUS le panneau. Dans le cadre, sa longue phrase dictait la
+    largeur : le panneau se cale sur son contenu le plus large, et la note
+    l'emportait sur le tableau — il restait alors 440 px de fond vide a droite.
+    """
     if not zones:
         return ('      <p class="map-note">%s</p>'
                 % esc(strings_lang["provinceZonesEmpty"]))
-    def delta(value):
-        # « (+0) » compris : l'absence de nouveau cas est une information.
-        if value is None:
-            return ""
-        return ' <span class="td-delta">(+%s)</span>' % fmt(max(0, value), lang)
+
+    def badge(value):
+        # « 0 » reste affiche : l'absence de nouveau cas est une information.
+        n = max(0, value or 0)
+        classe = "has-new" if n > 0 else "no-new"
+        texte = ("+%s" % fmt(n, lang)) if n > 0 else fmt(n, lang)
+        return '<span class="zone-new-badge %s">%s</span>' % (classe, texte)
 
     rows = []
     for zone in sorted(zones, key=lambda z: -(z.get("cases") or 0)):
-        new_deaths = zone_new_deaths(zone)
         rows.append(
             "            <tr>\n"
             "              <td>%s</td>\n"
-            "              <td>%s%s</td>\n"
-            "              <td>%s%s</td>\n"
-            '              <td><span class="zone-badge %s">%s</span></td>\n'
+            '              <td class="is-num">%s</td>\n'
+            '              <td class="is-num">%s</td>\n'
+            '              <td class="is-num"><span class="zone-badge %s">%s</span></td>\n'
+            '              <td class="is-num">%s</td>\n'
+            '              <td class="is-num">%s</td>\n'
             "            </tr>" % (
                 esc(zone["name"]),
-                fmt(zone.get("cases"), lang), delta(zone.get("newCases24h")),
-                fmt(zone.get("deaths"), lang), delta(new_deaths),
-                cfr_badge_class(zone.get("cfr")), fmt_cfr(zone.get("cfr"), lang)))
+                fmt(zone.get("cases"), lang),
+                fmt(zone.get("deaths"), lang),
+                cfr_badge_class(zone.get("cfr")), fmt_cfr(zone.get("cfr"), lang),
+                badge(zone.get("newCases24h")),
+                badge(zone_new_deaths(zone))))
+
+    entetes = "".join(
+        '<th%s>%s</th>' % ("" if i == 0 else ' class="is-num"', esc(libelle))
+        for i, libelle in enumerate([
+            strings_lang["provinceThZone"], strings_lang["provinceThCases"],
+            strings_lang["provinceThDeaths"], strings_lang["provinceThCfr"],
+            i18n_lang["zonesTh6"], i18n_lang["zonesTh7"]]))
+
     return (
         '      <div class="table-scroll">\n'
-        "        <table>\n"
-        "          <caption class=\"visually-hidden\">%s</caption>\n"
+        '        <table class="zones-province">\n'
+        '          <caption class="visually-hidden">%s</caption>\n'
         "          <thead>\n"
-        "            <tr><th>%s</th><th>%s</th><th>%s</th><th>%s</th></tr>\n"
+        "            <tr>%s</tr>\n"
         "          </thead>\n"
         "          <tbody>\n%s\n          </tbody>\n"
         "        </table>\n"
-        "      </div>\n"
-        # La somme de la colonne « Deces » ne tombe pas sur le total de la
-        # province tant que le bulletin garde des deces « a ventiler » : 250
-        # au SitRep 101, tous en Ituri. L'ecart est fidele a la source, mais
-        # il ressemble a une faute de calcul si personne ne le dit.
-        '      <p class="map-note">%s</p>' % (
+        "      </div>" % (
             esc(interp(strings_lang["provinceZonesTitle"], forms)),
-            esc(strings_lang["provinceThZone"]), esc(strings_lang["provinceThCases"]),
-            esc(strings_lang["provinceThDeaths"]), esc(strings_lang["provinceThCfr"]),
-            "\n".join(rows),
-            esc(strings_lang["zonesSumNote"])))
+            entetes,
+            "\n".join(rows)))
 
 
 # --------------------------------------------------------------------------
@@ -1890,7 +1910,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                                              {"n": fmt(new_deaths, lang)})),
             "province.zonesTitle": esc(interp(strings_lang["provinceZonesTitle"], forms)),
             "province.zonesTable": province_zones_table_html(
-                zones, forms, lang, strings_lang),
+                zones, forms, lang, strings_lang, i18n_lang),
             "province.fullTable": esc(interp(strings_lang["provinceOpenFullTable"], forms)),
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
@@ -1902,9 +1922,6 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.rank": " ".join(
                 x for x in (esc(rank_line), arrival_line, esc(window_line)) if x),
         })
-    values["t.provinceUpdatedNote"] = esc(interp(
-        strings_lang["provinceUpdatedNote"],
-        {"date": long_date(meta_data.get("reportingDate"), i18n_lang)}))
 
     content = render(fragment, values, fragment_name + " [" + lang + "]")
 

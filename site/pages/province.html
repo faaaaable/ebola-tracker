@@ -100,10 +100,12 @@
     <div class="section-head">
       <h2 class="section-title">{{province.zonesTitle}}</h2>
     </div>
-    <div class="panel" style="padding:16px;">
+    <div class="zones-block">
+      <div class="panel panel-fit" style="padding:16px;">
 {{province.zonesTable}}
+      </div>
+      <p class="map-note zones-note">{{t.zonesSumNote}}</p>
     </div>
-    <p class="map-note" style="margin-top:10px;">{{t.provinceUpdatedNote}}</p>
     <p class="drill"><a href="{{url.donnees}}?province={{province.query}}">{{province.fullTable}} →</a></p>
   </section>
 

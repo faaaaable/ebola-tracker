@@ -660,6 +660,68 @@ td.is-num{font-variant-numeric:tabular-nums;}
    Sans cette contrainte, l'excedent se repartit de lui-meme entre toutes les
    colonnes : la premiere reste a 214 px et les colonnes de chiffres tombent
    de 186 a 122 px. */
+/* Tableau des zones d'une page province : les cinq colonnes de chiffres
+   partagent exactement la meme largeur, le nom de zone prend le reste. Sans
+   cette contrainte, la repartition automatique les faisait varier de 131 px
+   (« Décès », en-tete court) a 183 px (« Létalité »), et l'oeil accrochait
+   sur des ecarts qui ne veulent rien dire. La regle est limitee a ce tableau :
+   celui de /donnees/ compte sept a huit colonnes et son equilibre se joue
+   autrement. */
+/* Le tableau des zones ne fait que 670 px ; sans cette regle, son panneau
+   s'etirait quand meme sur toute la colonne et laissait 440 px de fond vide a
+   sa droite. Il se cale desormais sur son contenu.
+
+   « max-width:100% » garde le comportement mobile intact : des que le tableau
+   depasse l'ecran, le panneau reprend toute la largeur disponible et le
+   defilement horizontal reste dans le cadre, comme avant. */
+/* Le tableau et sa note forment un bloc : la note prend exactement la largeur
+   du panneau, pas celle de la colonne.
+
+   « width:0 » puis « min-width:100% » est le seul moyen d'y arriver : un bloc
+   en « fit-content » se cale sur son enfant le plus large, et la longue phrase
+   de la note l'emportait sur le tableau. Avec une largeur intrinseque nulle,
+   elle ne pese plus dans ce calcul — puis elle s'etire a 100 % du bloc, donc
+   du panneau. */
+.zones-block{width:fit-content;max-width:100%;}
+.zones-block .zones-note{width:0;min-width:100%;margin-top:10px;}
+
+.panel-fit{width:fit-content;max-width:100%;}
+/* Le cadre de defilement doit se caler le premier : « overflow-x:auto » en
+   fait un bloc de formatage independant, qui prend 100 % de la largeur offerte
+   quel que soit son contenu. Sans cette ligne, le « fit-content » du panneau
+   mesurait ce cadre etire — et rendait donc 1 120 px pour un tableau de 670. */
+.panel-fit .table-scroll{width:fit-content;max-width:100%;}
+
+/* Tableau « par province » de /donnees/ : meme traitement que celui des pages
+   province — sept colonnes de chiffres a largeur egale, le nom prend ce qu'il
+   lui faut, et le cadre se cale dessus au lieu de s'etirer sur toute la
+   colonne. La vue « par zone de sante » garde la sienne : elle porte une barre
+   de recherche, un filtre et des barres de progression, dont la mise en page
+   se joue autrement. */
+/* Tableau « par zone de sante ». Quatre colonnes de chiffres a largeur egale ;
+   les trois premieres gardent la leur, « Cas cumules » portant une barre de
+   progression a cote du nombre. */
+.zones-detail{width:auto;min-width:0;}
+.zones-detail td.is-num, .zones-detail th.is-num{width:104px;}
+.zones-detail td:nth-child(1), .zones-detail th:nth-child(1){width:170px;}
+.zones-detail td:nth-child(2), .zones-detail th:nth-child(2){width:120px;}
+.zones-detail td:nth-child(3), .zones-detail th:nth-child(3){width:190px;}
+
+/* Ces elements accompagnent le tableau sans devoir dicter la largeur du
+   panneau : largeur intrinseque nulle, puis etirement a 100 % une fois le
+   cadre dimensionne par le tableau. Meme mecanique que .zones-note. */
+.panel-fit .fit-passive{width:0;min-width:100%;}
+
+.province-summary{width:auto;min-width:0;}
+.province-summary td.is-num, .province-summary th.is-num{width:104px;}
+.province-summary td:first-child, .province-summary th:first-child{width:150px;}
+
+.zones-province{width:auto;min-width:0;}
+.zones-province td.is-num, .zones-province th.is-num{width:104px;}
+/* Le nom de zone ne prend que ce qu'il lui faut : « Makiso-Kisangani », le
+   plus long du pays, tient en 150 px avec sa marge. */
+.zones-province td:first-child, .zones-province th:first-child{width:150px;}
+
 /* Une valeur ne se coupe jamais en deux : « 28 / 36 » et « 44,9 % » restent
    d'un seul tenant meme dans une colonne etroite. L'espace insecable des taux
    suffirait pour eux, mais pas pour les valeurs qui portent un separateur. */
