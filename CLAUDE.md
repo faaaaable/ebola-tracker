@@ -152,8 +152,8 @@ Huit pages, chacune en FR et EN : accueil, `donnees/` (+ six pages province),
 Les graphiques sont rendus côté client par `assets/js/app.js` avec Chart.js.
 Chaque canevas déclare son sujet via `data-chart`, les onglets via `data-mode`.
 
-**Six onglets sur `/donnees/`** : `epidemic`, `newCases`, `byProvince`,
-`contactsFollowUp`, `deathsPlace`, `pyramide`. Les modes `ages`, `sexes` et
+**Sept onglets sur `/donnees/`** : `epidemic`, `newCases`, `newDeaths`,
+`byProvince`, `contactsFollowUp`, `deathsPlace`, `pyramide`. Les modes `ages`, `sexes` et
 `communityDeaths` restent dans le code sans bouton — décisions de publication,
 pas suppressions.
 
@@ -561,13 +561,14 @@ côté client. Les rapports OMS ont leur propre liste.
 
 ## Les graphiques
 
-Dix modes dans `app.js`. Chaque canevas déclare son sujet par `data-chart`,
+Onze modes dans `app.js`. Chaque canevas déclare son sujet par `data-chart`,
 chaque onglet par `data-mode`.
 
 | Mode | Source | Où |
 |---|---|---|
 | `epidemic` | `sitreps.json` | accueil **et** premier onglet de `/donnees/` |
 | `newCases` | `sitreps.json` | onglet, trois vues (jour, semaine, mois) |
+| `newDeaths` | `sitreps.json` | onglet, **le meme bloc de code** que `newCases` |
 | `provinceEpidemic` | `province-history.json` | les six pages province |
 | `byProvince` | `province-history.json` | onglet |
 | `contactsFollowUp` | `contacts-followup.json` | onglet |
@@ -588,23 +589,45 @@ isole les deux dates de rattrapage administratif.
 l'onglet `newCases`, avec un troisieme pas de temps. Le graphique redevient ce
 qu'il etait : le quotidien, et les cumuls par-dessus.
 
-**`newCases`** — la meme serie que `epidemic`, lue a trois pas de temps par
-une bascule interne, meme idiome que la pyramide des ages : « Par jour », « Par
-semaine », « Par mois ». Les barres seules, sans les courbes de cumul : la vue
-repond a « combien de cas cette periode », pas a la comparaison des deux
-series, que `epidemic` porte deja.
+**`newCases` et `newDeaths`** — la meme serie que `epidemic`, lue a trois pas
+de temps par une bascule interne, meme idiome que la pyramide des ages : « Par
+jour », « Par semaine », « Par mois ». Les barres seules, sans les courbes de
+cumul : la vue repond a « combien de cas — ou de deces — cette periode », pas a
+la comparaison des deux series, que `epidemic` porte deja.
+
+**Un seul bloc de code pour les deux onglets.** Seuls changent le champ lu
+(`confirmed` ou `deaths`), la couleur — bleu les cas, rouge les deces, comme
+partout ailleurs — et les notes. Deux blocs jumeaux auraient diverge au premier
+correctif.
+
+**Et une seule bascule pour les deux**, `data-vue-periode`, avec un seul etat :
+passer des cas aux deces garde le pas de temps choisi, et les deux se comparent
+sans avoir a le regler deux fois.
 
 Agreger absorbe le bruit de notification — un bulletin manquant creuse dans la
 serie quotidienne un trou qui ne dit rien de l'epidemie — mais deplace le
 probleme : toutes les periodes ne portent pas le meme nombre de bulletins. La
 note le dit a chaque vue.
 
-**Un seul calcul pour les trois vues, et pour `epidemic`.**
-`partsQuotidiennes()` produit les nouveaux cas d'un bulletin au suivant, la
-part rapportee separee de la part de rattrapage ; `agregeNouveauxCas()` les
-regroupe par semaine ou par mois, seules les bornes changeant. Les quatre
-lectures ne peuvent donc pas diverger. Les deux dates de rattrapage vivent
-desormais dans une seule constante, `RATTRAPAGE_ADMIN`.
+**Un seul calcul pour les six vues, et pour `epidemic`.**
+`partsQuotidiennes(s, champ)` produit les nouveaux cas — ou deces — d'un
+bulletin au suivant, la part rapportee separee de la part de rattrapage ;
+`agregeNouveauxCas(s, granularite, champ)` les regroupe par semaine ou par
+mois, seules les bornes changeant. Les sept lectures ne peuvent donc pas
+diverger. Les deux dates de rattrapage vivent dans une seule constante,
+`RATTRAPAGE_ADMIN`.
+
+**La part de rattrapage n'est chiffree que pour les cas.** Les bulletins qui la
+documentent annoncent « +97 » et « +73 nouveaux cas » ; rien d'equivalent pour
+les deces, dont le cumul saute pourtant de 236 et de 100 ces jours-la. Faute de
+part publiee, la journee entiere passe en teinte claire — meme choix que les
+graphiques de province, ou la part n'est connue qu'au niveau national. On
+marque l'incertitude, on ne la chiffre pas.
+
+**Un bulletin peut paraitre sans porter le champ.** Deux ne donnent aucun total
+de deces, les 17 et 19 mai : ils ne comptent pas comme releves de la periode,
+et la note les enumere a cote des jours sans bulletin. La liste se recalcule,
+comme le reste.
 
 **La periode en cours n'est pas affichee des qu'on agrege.** A un jour sur
 sept, la barre de la semaine tombait de 561 a 72 cas et se lisait comme une
