@@ -660,6 +660,45 @@ pas publiee, donc pas separable — mais les deces du 30 juillet sont ceux des 2
 que soit la repartition. Juillet passe ainsi de 444 a 272 cas en teinte claire,
 et de 336 a 236 deces, sans qu'aucun total bouge.
 
+**LES TABLEAUX SE PARTAGENT AUSSI.** Un tableau HTML ne sait pas s'exporter
+comme un canevas : `exporterTableau` le redessine cellule par cellule, avec le
+meme titre, le meme pied et la meme note que les figures. Aucune bibliotheque
+de capture, rien qui s'execute avant le clic. Trois boutons : le resume par
+province, le detail par zone, et le tableau de chaque page province.
+
+Ce qui est exporte est ce qui est AFFICHE. Le corps du tableau des zones ne
+contient que les lignes retenues par le filtre et la recherche : l'image reprend
+donc l'etat lu, et le sous-titre nomme le filtre actif. Les colonnes prennent la
+largeur de leur contenu ; si l'ensemble deborde, tout se resserre au prorata et
+le texte trop long est coupe — jamais un nombre.
+
+**Ce bouton a revele que le site publiait des chiffres faux.** Le tableau des
+zones affichait « +312 nouveaux cas en 24 h » a Bunia quand le pays entier en
+comptait 57. Les 28 zones de l'Ituri totalisaient 10 161. La cause : le SitRep
+103 a decale d'un rang la cellule de letalite dans les lignes de zone, et
+`row[4:]` lisait « 9,1% » comme 91 — `norm_int` retire la virgule.
+
+`index_letalite_zone` repere desormais la letalite A SA FORME : un pourcentage
+ne se confond avec rien sur cette ligne, tout ce qui l'entoure est un effectif.
+Les cumules sont les cellules porteuses entre le nom et elle, la queue commence
+apres. Les deux mises en page — celle du 102 et celle du 103 — se lisent avec le
+meme code.
+
+**Et `zone_row_looks_unreliable` ne testait que la TETE de la ligne.** Sur le
+102, ses lignes etaient toutes jugees douteuses et reconstruites depuis le texte
+brut, ce qui masquait le defaut ; sur le 103 elles ont des cas et des deces
+justes, donc elles passaient, avec leur queue decalee. Le test porte maintenant
+sur la letalite : si on ne sait pas la reperer, on ne sait pas non plus ou
+commence la queue, et la ligne entiere est douteuse.
+
+**Un controle de coherence manquait, il existe.** `check_coherence.py` comparait
+les nouveaux DECES des zones au total de la province, jamais les nouveaux CAS.
+La tolerance n'est pas zero — le bulletin lui-meme n'est pas toujours coherent
+avec ses sous-totaux, et au 103 le Nord-Kivu comme le Haut-Uele depassent d'une
+unite, ce que le site recopie fidelement. On alerte au-dela du double du total
+declare : passe ce seuil, ce n'est plus une divergence de source, c'est une
+colonne mal lue.
+
 **L'IMAGE PARTAGEE EMBARQUE LES DEUX CADRES QUAND IL Y EN A DEUX.** La pyramide
 des ages trace les cas a gauche et les deces a droite — deux ordres de grandeur
 qui ne partagent pas d'axe, c'est justement pourquoi il y a deux cadres.
