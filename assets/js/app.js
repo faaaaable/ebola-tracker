@@ -1478,7 +1478,58 @@ function renderOneChart(canvas, chartMode){
    du 3 aout est complete au calendrier mais ne porte que trois releves, quatre
    bulletins d'affilee ne distinguant pas le lieu du deces. Encoder le volume
    inviterait a comparer d'une semaine a l'autre des totaux que la note declare
-   non comparables. */
+   non comparables.
+
+   DEUX GRIS, PAS UN. Le gris recouvrait deux choses qui n'ont rien a voir :
+   des journees passees dont le bulletin ne dit pas le lieu du deces, et des
+   journees qui ne sont pas encore arrivees. La semaine du 24 aout le montrait
+   crument — deux releves sur sept, cinq jours A VENIR, aucun jour manquant, et
+   la legende annoncait « Jours sans donnee ».
+
+   La regle vaut pour tout le site : HACHURE = une donnee attendue qui manque,
+   GRIS UNI = du temps qui n'a pas encore eu lieu. `futurs[i]` donne la part de
+   l'emprise, prise au bord droit, qui releve du second cas ; ce qui reste
+   entre la barre et elle releve du premier. */
+/* Les zones grisees sont hachurees dans le graphique, la pastille de legende
+   doit l'etre aussi : sans motif, « Jours sans donnee » et « Jours a venir »
+   sortaient comme deux carres gris identiques, ce qui annulait la distinction
+   qu'ils sont censes porter. Chart.js accepte un CanvasPattern en fillStyle. */
+/* LES DEUX GRIS, definis une seule fois — le plugin les dessine, la legende
+   les montre, et ils ne peuvent donc pas diverger.
+
+   Trois indices les separent, chacun discret, ensemble lisibles d'un coup
+   d'oeil : la densite du remplissage, la presence de hachures, et le trait du
+   cadre. Un seul aurait demande de comparer deux carres cote a cote.
+
+   Le sens commande la direction : « a venir » est le plus VIDE des deux —
+   rien ne s'y est encore passe —, d'ou un aplat a 45 % et un cadre pointille.
+   « Sans donnee » est plein et raye : quelque chose devrait s'y trouver. */
+const GRIS_MANQUE = () => ({
+  fond: PALETTE.bgAlt || '#efece5',
+  trait: PALETTE.line,
+  pointille: null,
+  hachure: true
+});
+const GRIS_A_VENIR = () => ({
+  fond: tint(PALETTE.bgAlt || '#efece5', 0.45),
+  trait: PALETTE.line,
+  pointille: [3, 3],
+  hachure: false
+});
+
+function hachureLegende(ctx){
+  const c = document.createElement('canvas');
+  c.width = c.height = 6;
+  const g = c.getContext('2d');
+  g.fillStyle = PALETTE.bgAlt || '#efece5';
+  g.fillRect(0, 0, 6, 6);
+  g.strokeStyle = PALETTE.line;
+  g.lineWidth = 1;
+  g.globalAlpha = 0.55;
+  g.beginPath(); g.moveTo(-1, 7); g.lineTo(7, -1); g.stroke();
+  return ctx.createPattern(c, 'repeat');
+}
+
 const largeurSemaine = {
   id: 'largeurSemaine',
   beforeDatasetsDraw(chart, args, opts){
@@ -1502,8 +1553,8 @@ const largeurSemaine = {
   afterDatasetsDraw(chart, args, opts){
     const ratios = opts && opts.ratios;
     if(!ratios) return;
+    const futurs = (opts && opts.futurs) || [];
     const ctx = chart.ctx, aire = chart.chartArea;
-    const haut = aire.bottom - aire.top;
     chart.getDatasetMeta(0).data.forEach((el, i) => {
       const r = ratios[i] === undefined ? 1 : ratios[i];
       if(r >= 0.999 || el.$largeurPleine === undefined) return;
@@ -1522,27 +1573,40 @@ const largeurSemaine = {
       });
       const hautBarre = aire.bottom - sommet;
       if(hautBarre <= 0) return;
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(gauche, sommet, large, hautBarre);
-      ctx.clip();                       // sans clip, les diagonales debordent
-      ctx.fillStyle = PALETTE.bgAlt || '#efece5';
-      ctx.fillRect(gauche, sommet, large, hautBarre);
-      ctx.strokeStyle = PALETTE.line;
-      ctx.lineWidth = 1;
-      ctx.globalAlpha = 0.55;
-      ctx.beginPath();
-      for(let x = gauche - hautBarre; x < gauche + large; x += 8){
-        ctx.moveTo(x, aire.bottom);
-        ctx.lineTo(x + hautBarre, sommet);
-      }
-      ctx.stroke();
-      ctx.restore();
-      ctx.save();
-      ctx.strokeStyle = PALETTE.line;
-      ctx.lineWidth = 1;
-      ctx.strokeRect(gauche + 0.5, sommet + 0.5, large - 1, hautBarre - 1);
-      ctx.restore();
+
+      /* Un bloc gris, hachure ou non. Le trait d'encadrement est pose dans les
+         deux cas : c'est lui qui rend le gris uni visible sur fond blanc. */
+      const bloc = (x, w, style) => {
+        if(w <= 0.5) return;
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(x, sommet, w, hautBarre);
+        ctx.clip();                     // sans clip, les diagonales debordent
+        ctx.fillStyle = style.fond;
+        ctx.fillRect(x, sommet, w, hautBarre);
+        if(style.hachure){
+          ctx.strokeStyle = style.trait;
+          ctx.lineWidth = 1;
+          ctx.globalAlpha = 0.55;
+          ctx.beginPath();
+          for(let d = x - hautBarre; d < x + w; d += 8){
+            ctx.moveTo(d, aire.bottom);
+            ctx.lineTo(d + hautBarre, sommet);
+          }
+          ctx.stroke();
+        }
+        ctx.restore();
+        ctx.save();
+        ctx.strokeStyle = style.trait;
+        ctx.lineWidth = 1;
+        if(style.pointille) ctx.setLineDash(style.pointille);
+        ctx.strokeRect(x + 0.5, sommet + 0.5, w - 1, hautBarre - 1);
+        ctx.restore();
+      };
+
+      const largeFutur = Math.min(large, el.$largeurPleine * (futurs[i] || 0));
+      bloc(gauche, large - largeFutur, GRIS_MANQUE());
+      bloc(gauche + (large - largeFutur), largeFutur, GRIS_A_VENIR());
     });
 
     /* Les elements retrouvent leur emprise pleine, le dessin fini. Sans quoi
@@ -1630,7 +1694,28 @@ const largeurSemaine = {
     /* Une semaine sur sept releves donnerait une barre d'une quinzaine de
        pixels : le plancher la garde visible tout en la marquant nettement. */
     const PLANCHER = 0.34;
-    const ratios = serie.map(s => Math.max(PLANCHER, s.releves / 7));
+    /* Trois parts par semaine, et non deux : les releves recus, les journees
+       PASSEES dont le bulletin ne donne pas le lieu, et les journees A VENIR.
+       Seules les deuxiemes sont une donnee manquante.
+
+       Le plancher elargit la barre au-dela de sa part reelle ; le gris se
+       resserre alors d'autant, en gardant la proportion entre ce qui manque et
+       ce qui reste a venir. Sans ce reequilibrage les trois parts depassaient
+       l'emprise de la semaine. */
+    const derniereLieu = DECES_LIEU.parDate
+      .reduce((d, r) => (r.date > d ? r.date : d), DECES_LIEU.parDate[0].date);
+    const ratios = [], futurs = [];
+    serie.forEach(sem => {
+      const finVue = sem.finSemaine > derniereLieu ? derniereLieu : sem.finSemaine;
+      const ecoules = Math.max(0, Math.min(7, nbJours(sem.debut, finVue)));
+      const partFuturs = (7 - ecoules) / 7;
+      const partManque = Math.max(0, ecoules - sem.releves) / 7;
+      const plein = Math.max(PLANCHER, sem.releves / 7);
+      const reste = partManque + partFuturs;
+      const facteur = reste > 0 ? (1 - plein) / reste : 0;
+      ratios.push(plein);
+      futurs.push(partFuturs * facteur);
+    });
 
     const part = s => Math.round(s.comm / (s.comm + s.cte) * 1000) / 10;
     const data = {
@@ -1677,10 +1762,23 @@ const largeurSemaine = {
             boxWidth: 10, usePointStyle: true,
             generateLabels(chart){
               const base = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-              base.push({
+              /* Chaque cle n'apparait qu'avec la zone qu'elle explique : une
+                 semaine peut n'avoir aucun jour manquant, ou aucun jour a
+                 venir, et nommer une couleur absente du trace egare. */
+              const parts = (chart.options.plugins.largeurSemaine || {});
+              const rs = parts.ratios || [], fs = parts.futurs || [];
+              const aManque = rs.some((r, i) => 1 - r - (fs[i] || 0) > 0.001);
+              const aVenir  = fs.some(f => f > 0.001);
+              if(aManque) base.push({
                 text: tr('chartDeathPlaceMissing'),
-                fillStyle: PALETTE.bgAlt || '#efece5',
-                strokeStyle: PALETTE.line, lineWidth: 1,
+                fillStyle: hachureLegende(chart.ctx),
+                strokeStyle: GRIS_MANQUE().trait, lineWidth: 1,
+                pointStyle: 'rect', hidden: false, datasetIndex: -1
+              });
+              if(aVenir) base.push({
+                text: tr('chartDaysToCome'),
+                fillStyle: GRIS_A_VENIR().fond,
+                strokeStyle: GRIS_A_VENIR().trait, lineWidth: 1,
                 pointStyle: 'rect', hidden: false, datasetIndex: -1
               });
               return base;
@@ -1717,7 +1815,7 @@ const largeurSemaine = {
       }
     };
     opts.animation = false;   // un plugin ne s'attache qu'a la construction
-    opts.plugins.largeurSemaine = { ratios };
+    opts.plugins.largeurSemaine = { ratios, futurs };
     slot.chart = new Chart(canvas.getContext('2d'),
       { type: 'bar', data, options: opts, plugins: [largeurSemaine] });
     slot.lastMode = 'deathsPlace';
@@ -1726,8 +1824,17 @@ const largeurSemaine = {
     noterPeriode(slot, serie.length ? serie[0].debut : null,
                        serie.length ? serie[serie.length - 1].finSemaine : null);
     if(noteEl){
+      /* Les jours manquants se COMPTENT : ce sont les journees ecoulees de la
+         fenetre couverte, moins celles dont un bulletin donne le lieu. Le
+         nombre etait ecrit en dur — juste au moment ou il a ete ecrit, et
+         perime au premier bulletin muet suivant. Les jours a venir de la
+         semaine en cours n'en font pas partie : rien n'y manque encore. */
+      const premiereLieu = DECES_LIEU.parDate
+        .reduce((d, r) => (r.date < d ? r.date : d), DECES_LIEU.parDate[0].date);
+      const manquants = Math.max(0,
+        nbJours(premiereLieu, derniereLieu) - DECES_LIEU.parDate.length);
       noteEl.textContent = tr('chartDeathPlaceNoteTemps')(
-        moyenne, serie.length, fmt(totalComm), fmt(totalCte), 7);
+        moyenne, serie.length, fmt(totalComm), fmt(totalCte), manquants);
       noteEl.style.display = 'block';
     }
     return;
@@ -2363,7 +2470,39 @@ const largeurSemaine = {
                     ? ' · ' + tr('chartMonthOngoing')(frDate(derniereDate)) : '';
       return titre + encours + ' · ' + tr('chartPeriodDays')(p.releves, p.jours);
     };
-    if(ratios) optsN.plugins.largeurSemaine = { ratios };
+    /* Une entree de legende sans jeu de donnees derriere : la bande grisee du
+       mois en cours est dessinee par un plugin, pas par une serie. Sans elle,
+       ce gris pose a cote de deux couleurs pleines n'a aucune cle de lecture —
+       le lecteur doit descendre jusqu'a la note pour apprendre que le mois
+       n'est pas fini. Meme mecanique que « Jours sans donnee » sur les deces
+       par lieu, et meme carre plutot qu'une pastille : la forme dit deja que
+       cette entree n'est pas une serie.
+
+       Le clic est neutralise pour elle seule — elle ne correspond a aucun
+       dataset a masquer, et Chart.js masquerait le premier venu.
+
+       Elle n'apparait qu'avec la bande qu'elle explique : une legende qui
+       nomme une couleur absente du trace est pire que pas de legende. */
+    if(moisEnCours){
+      optsN.plugins.legend.labels.generateLabels = chart => {
+        const base = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+        base.push({
+          text: tr('chartDaysToCome'),
+          fillStyle: GRIS_A_VENIR().fond,
+          strokeStyle: GRIS_A_VENIR().trait, lineWidth: 1,
+          pointStyle: 'rect', hidden: false, datasetIndex: -1
+        });
+        return base;
+      };
+      optsN.plugins.legend.onClick = function(e, item, legende){
+        if(item.datasetIndex === -1) return;
+        Chart.defaults.plugins.legend.onClick.call(this, e, item, legende);
+      };
+    }
+    /* Tout le gris du mois en cours est du temps a venir : il sort donc en
+       gris UNI, jamais hachure. C'est ce qui donne son sens a la hachure
+       ailleurs sur le site — elle ne dit plus que « cette donnee manque ». */
+    if(ratios) optsN.plugins.largeurSemaine = { ratios, futurs: ratios.map(r => 1 - r) };
     slot.chart = new Chart(ctx0Epi(canvas),
       { type: 'bar', data: dataP, options: optsN,
         plugins: ratios ? [largeurSemaine] : [] });

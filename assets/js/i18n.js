@@ -43,6 +43,7 @@ const I18N = {
     chartPeriodDays:(n,total)=>`${n} relevé${n>1?'s':''} sur ${total}`,
     chartMonthOngoing:(date)=>`mois en cours, arrêté au ${date}`,
     chartStackTotal:(n)=>`Total : ${n}`,
+    chartDaysToCome:"Jours à venir",
     chartDailyNote:(absentes)=>`Nouveaux cas de chaque bulletin, calculés comme l'écart avec le bulletin précédent. `
       + `Une révision à la baisse est ramenée à zéro plutôt que de creuser un trou qui n'a pas eu lieu. `
       + (absentes.length
@@ -288,6 +289,7 @@ const I18N = {
     chartPeriodDays:(n,total)=>`${n} report${n>1?'s':''} of ${total}`,
     chartMonthOngoing:(date)=>`month in progress, data to ${date}`,
     chartStackTotal:(n)=>`Total: ${n}`,
+    chartDaysToCome:"Days to come",
     chartDailyNote:(absentes)=>`New cases from each bulletin, computed as the difference with the previous one. `
       + `A downward revision is brought back to zero rather than digging a dip that never happened. `
       + (absentes.length
@@ -531,6 +533,7 @@ const I18N = {
     chartPeriodDays:(n,total)=>`ripoti ${n} kati ya ${total}`,
     chartMonthOngoing:(date)=>`mwezi unaoendelea, data hadi ${date}`,
     chartStackTotal:(n)=>`Jumla: ${n}`,
+    chartDaysToCome:"Siku zijazo",
     chartDailyNote:(absentes)=>`Visa vipya vya kila ripoti, vikihesabiwa kama tofauti na ripoti iliyotangulia. `
       + `Marekebisho ya kupunguza yanarudishwa sifuri badala ya kuchimba shimo lisilokuwepo. `
       + (absentes.length
