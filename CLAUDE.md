@@ -660,6 +660,24 @@ pas publiee, donc pas separable — mais les deces du 30 juillet sont ceux des 2
 que soit la repartition. Juillet passe ainsi de 444 a 272 cas en teinte claire,
 et de 336 a 236 deces, sans qu'aucun total bouge.
 
+**L'IMAGE PARTAGEE EMBARQUE LES DEUX CADRES QUAND IL Y EN A DEUX.** La pyramide
+des ages trace les cas a gauche et les deces a droite — deux ordres de grandeur
+qui ne partagent pas d'axe, c'est justement pourquoi il y a deux cadres.
+`exporterGraphique` n'en prenait que le premier : partagee, l'image disait
+« voici les cas » quand le lecteur avait sous les yeux la comparaison des deux,
+exactement ce que la note d'export cherche a empecher.
+
+Le second cadre n'est joint que s'il porte un graphique ET qu'il est affiche —
+jamais sur sa seule presence dans le HTML, sans quoi la vue « Parts », qui le
+masque, aurait exporte un cadre vide. A deux figures, chacune recoit la moitie
+de la largeur utile moins la gouttiere, garde SON rapport et se centre dans sa
+moitie.
+
+**Et la periode declaree s'arrete au dernier releve.** Le sous-titre de
+« Deces en communaute » annoncait « du 13 juil. au 30 aout » quand les donnees
+s'arretaient au 25 : c'etait le dimanche de la semaine en cours. La barre
+couvre bien la semaine entiere — sa partie grisee le dit —, les donnees non.
+
 **DEUX GRIS, ET LA DIFFERENCE EST REGLEE POUR TOUT LE SITE.** Hachure = une
 donnee attendue qui manque. Gris uni = du temps qui n'a pas encore eu lieu.
 
