@@ -647,15 +647,37 @@ de deces, les 17 et 19 mai : ils ne comptent pas comme releves de la periode,
 et la note les enumere a cote des jours sans bulletin. La liste se recalcule,
 comme le reste.
 
-**La periode en cours n'est pas affichee des qu'on agrege.** A un jour sur
-sept, la barre de la semaine tombait de 561 a 72 cas et se lisait comme une
-chute de l'epidemie. Le dernier point d'une courbe epidemique est toujours
-incomplet, et un point incomplet se lit toujours comme une amelioration. Rien
-n'est cache : la vue « par jour » montre ces journees a leur place, et la note
-le dit. **Le mois en cours tombe sous la meme regle** — au 24 aout, la vue
-mensuelle ne montre donc que mai, juin et juillet, et aout apparaitra le 1er
-septembre. Trois barres pour quatre mois de donnees : c'est le prix de la
-regle, et il se paiera de moins en moins cher a mesure que l'epidemie dure.
+**La SEMAINE en cours n'est pas affichee.** A un jour sur sept, la barre
+tombait de 561 a 72 cas et se lisait comme une chute de l'epidemie. Le dernier
+point d'une courbe epidemique est toujours incomplet, et un point incomplet se
+lit toujours comme une amelioration. Rien n'est cache : la vue « par jour »
+montre ces journees a leur place, et la note le dit.
+
+**Le MOIS en cours, lui, est trace — depuis le 26 aout.** Il l'etait sous la
+meme regle jusque-la, et le prix etait trop haut : trois barres pour quatre
+mois de donnees, la plus recente etant justement celle qu'on vient chercher.
+Ce qui separe les deux cas est le rapport entre ce qu'on voit et ce qu'on
+attend. A un jour sur sept, une semaine ne montre que 14 % d'elle-meme et sa
+barre ne dit rien ; au 24 aout, le mois en montrait 77 %.
+
+**Il est trace de facon a rendre la lecture fausse difficile.** La barre garde
+l'emprise pleine d'un mois ; la part correspondant aux jours ecoules est
+coloree ; les jours qui restent a courir sont gris hachures a droite. Le vide
+se voit avant la hauteur, et l'infobulle ouvre sur « mois en cours, arrete au
+24 aout » plutot que sur « 24 releves sur 24 », qui se serait lu comme un mois
+complet. C'est l'idiome de `largeurSemaine`, repris tel quel.
+
+**Ce que la largeur encode ici, c'est du TEMPS, pas du volume.** La hauteur
+reste ce qu'elle a toujours ete — les cas reellement rapportes, aucun chiffre
+invente pour combler la fin du mois. C'est ce qui rend l'encodage admissible
+alors que le paragraphe suivant l'ecarte des barres : il ne touche pas a l'axe
+des valeurs. Et il ne porte que sur le mois OUVERT : mai commence au 14 et
+couvre 18 jours sur 31, sa barre reste pleine, parce que ses jours manquants
+sont passes et ne se rempliront jamais. Le gris dit « a venir », pas
+« absent ».
+
+Aucune date n'est ecrite : le mois cesse de lui-meme d'etre en cours au
+bulletin qui le termine, et sa barre se colore alors entierement.
 
 Le test porte sur « la periode est-elle finie » — le dernier bulletin va-t-il
 jusqu'a son dimanche, jusqu'au dernier jour du mois — **et non** sur « a-t-elle
@@ -682,13 +704,19 @@ periode sans cas ; des barres collees empechaient de distinguer une periode de
 sa voisine. Chaque colonne hebdomadaire porte sous elle la periode couverte sur
 deux lignes ; un mois se nomme, il n'a pas besoin de ses bornes.
 
-**Aucun encodage de couverture sur ces barres.** La vue hebdomadaire passait
+**Aucun encodage de COUVERTURE sur ces barres.** La vue hebdomadaire passait
 `largeurSemaine` sans jamais lui donner de ratios — le plugin ne faisait donc
-rien, et il est parti. Ce qu'il encode, c'est la couverture, et il ne le fait
-honnetement que la ou la hauteur n'est pas un volume : les parts empilees a
-100 % de `deathsPlace`. Ici la hauteur EST un volume, et une barre a demi
-hachuree resterait comparable a tort. D'ou la regle qui precede : on masque
-plutot qu'on ne nuance.
+rien, et il est parti. Encoder la part de releves recus ne se fait honnetement
+que la ou la hauteur n'est pas un volume : les parts empilees a 100 % de
+`deathsPlace`. Ici la hauteur EST un volume, et une semaine a demi hachuree
+parce qu'il lui manque trois bulletins resterait comparable a tort — son total
+est pourtant definitif.
+
+Le mois en cours n'est pas une exception a cette regle, il tombe a cote :
+`largeurSemaine` y recoit des ratios de TEMPS ECOULE, pas de couverture. Une
+barre ainsi hachuree n'est justement pas comparable, et c'est ce qu'elle
+annonce. La distinction est la meme que celle qui gouverne le masquage — « la
+periode est-elle finie », et non « a-t-elle tous ses releves ».
 
 **`provinceEpidemic`** — même forme, aux couleurs de la province, avec sa
 courbe de décès. Absent sous 50 cas cumulés. Signale les trous de plus de trois
