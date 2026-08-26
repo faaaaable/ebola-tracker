@@ -115,7 +115,7 @@ parcourt les onglets deux fois et rapporte les erreurs console.
 |---|---|
 | `latest.json` | l'instantané du dernier bulletin : national, provinces, `healthZones`, `reports`, `timeline` |
 | `sitreps.json` | série nationale par date : `confirmed`, `deaths`, `recovered` |
-| `province-history.json` | cumul par province et par date — **cas ET décès** |
+| `province-history.json` | cumul par province et par date — **cas ET décès** ; noms passés par `canon_province()` |
 | `zones-history.json` | instantané des zones de santé par bulletin, pour le curseur de temps des cartes |
 | `contacts-followup.json` | taux de suivi des cas contacts par date |
 | `deces-lieu.json` | décès communautaires vs intra-CTE, par province et par date |
@@ -125,6 +125,18 @@ parcourt les onglets deux fois et rapporte les erreurs console.
 `community-deaths-daily.json` alimentait un onglet retiré le 24 août. Il ne
 valide qu'une province, l'Ituri, alors que son libellé annonçait le pays
 entier. **Ne pas le rallumer sans corriger ce défaut.**
+
+**Un nom de province n'entre dans l'historique que par `canon_province()`.**
+Les bulletins écrivent tantôt « Haut-Uélé », tantôt « Haut Uélé » : celui du
+14 août a produit la seconde forme, et la courbe du Haut-Uélé y perdait son
+point en silence, `app.js` cherchant les provinces par leur nom exact dans
+`PROVINCE_COLORS`. Un découpage raté avait par ailleurs fait entrer le 19 mai
+une « province » nommée « touchées », avec des valeurs nulles. La table
+dérive de `PROVINCE_CANON` — une province ajoutée là se retrouve reconnue
+ici — et un nom absent est **écarté** plutôt que recopié : mieux vaut une
+province manquante ce jour-là, visible comme telle, qu'une septième courbe
+fantôme. Les deux entrées déjà écrites ont été corrigées à la main le 26 août,
+sans relire les PDF : aucune valeur ne change, seuls deux noms.
 
 ### Le générateur
 
@@ -153,7 +165,8 @@ Les graphiques sont rendus côté client par `assets/js/app.js` avec Chart.js.
 Chaque canevas déclare son sujet via `data-chart`, les onglets via `data-mode`.
 
 **Sept onglets sur `/donnees/`**, dans cet ordre : `epidemic`, `newCases`,
-`newDeaths`, `deathsPlace`, `byProvince`, `pyramide`, `contactsFollowUp`. La
+`newDeaths`, `deathsPlace`, `byProvince` (« Par province »), `pyramide`,
+`contactsFollowUp`. La
 barre repond a des questions successives — combien (l'ensemble, les cas, les
 deces), ou (par province), qui (age et sexe), et que fait-on contre (suivi des
 contacts). `newCases` et `newDeaths` restent **voisins** : ils partagent leur
@@ -575,7 +588,7 @@ chaque onglet par `data-mode`.
 | `newCases` | `sitreps.json` | onglet, trois vues (jour, semaine, mois) |
 | `newDeaths` | `sitreps.json` | onglet, **le meme bloc de code** que `newCases` |
 | `provinceEpidemic` | `province-history.json` | les six pages province |
-| `byProvince` | `province-history.json` | onglet |
+| `byProvince` | `province-history.json` | onglet, deux vues (cas, létalité) |
 | `contactsFollowUp` | `contacts-followup.json` | onglet |
 | `deathsPlace` | `deces-lieu.json` | onglet |
 | `pyramide` | `demographie.json` | onglet |
@@ -681,14 +694,35 @@ plutot qu'on ne nuance.
 courbe de décès. Absent sous 50 cas cumulés. Signale les trous de plus de trois
 jours au lieu de relier par-dessus.
 
-**`byProvince`** — six courbes de cumul, une par province, chacune à sa teinte
-d'identité. Il s'appelait « Cas cumulés / région » jusqu'au 26 août : ni la RDC
-ni le reste du site n'emploient « région » — le découpage est la province —, et
-le swahili disait `eneo`, qui désigne aussi la zone de santé, l'autre découpage
-de la même page. Le `/` était par ailleurs le seul raccourci de ce genre dans
-la barre. **Ce graphique ne trace que les cas**, alors que
-`province-history.json` porte aussi les décès : la bascule de `newCases` s'y
-transposerait telle quelle.
+**`byProvince`** — deux vues par une bascule interne. « Cas cumulés » : six
+courbes de cumul, une par province, chacune à sa teinte d'identité.
+« Létalité » : les décès cumulés rapportés aux cas cumulés, à chaque date.
+
+Il s'appelait « Cas cumulés / région » jusqu'au 26 août : ni la RDC ni le reste
+du site n'emploient « région » — le découpage est la province —, et le swahili
+disait `eneo`, qui désigne aussi la zone de santé, l'autre découpage de la même
+page. Le `/` était par ailleurs le seul raccourci de ce genre dans la barre.
+Avec deux vues, il est devenu « Par province » : la dimension commune.
+
+**Ce que la vue létalité raconte, et que le site possédait sans le dire** : le
+tableau de la page publie ces pourcentages, mais à une seule date. Dans le
+temps, la létalité de l'Ituri monte de 14 à 45 % depuis mai — l'ordinaire d'une
+épidémie où les décès arrivent après les cas — quand celle du Nord-Kivu
+s'installe au-dessus de 60 % dès juin et n'en bouge plus, 23 points au-dessus.
+
+**Trois précautions, toutes dans la note.** Un seuil de 50 cas cumulés
+(`CAS_MIN_LETALITE`, celui que `provinceEpidemic` applique déjà) écarte Tshopo,
+le Sud-Kivu et le Bas-Uélé : trois cas et un décès font 33 %, et la courbe
+sauterait de 0 à 100 au premier décès. L'échelle va **de 0 à 100**, jamais
+resserrée — cadrée sur 40-70 %, la distance entre deux provinces deviendrait un
+gouffre. Et une ligne pointillée porte la létalité nationale, sans laquelle
+« 68 % » ne se situe pas ; elle se calcule sur toutes les provinces, suivies ou
+non, parce que c'est bien celle du pays.
+
+Les deux raisons de ne pas lire ces écarts comme un classement des ripostes
+sont écrites dans la note : une province touchée récemment sous-estime sa
+létalité, et une létalité haute peut signaler une surveillance qui ne voit pas
+les cas légers autant qu'une prise en charge défaillante.
 
 **`contactsFollowUp`** — une courbe, plus un **pont en pointillés atténué** sur
 les périodes sans donnée. Ce pont n'est jamais une valeur : c'est un repère
