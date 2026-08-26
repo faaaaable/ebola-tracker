@@ -66,12 +66,16 @@
         <h2 class="section-title">{{t.dataChartsTitle}}</h2>
         <div class="section-sub">{{t.dataChartsSub}}</div>
       </div>
+      <!-- L'ordre de la barre repond a des questions successives : combien
+           (l'ensemble, puis les cas, puis les deces), ou (par province), qui
+           (age et sexe), et que fait-on contre (suivi des contacts).
+           « Nouveaux cas » et « Nouveaux deces » restent VOISINS : ils
+           partagent leur bascule de pas de temps et son etat, ce qui ne se
+           decouvre que si les deux boutons se touchent. -->
       <nav class="subtab-nav" data-chart-tabs="dataChart">
         <button type="button" class="subtab-btn active" data-mode="epidemic" data-i18n="chartModeEpidemic">{{i18n.chartModeEpidemic}}</button>
         <button type="button" class="subtab-btn" data-mode="newCases" data-i18n="chartModeNewCases">{{i18n.chartModeNewCases}}</button>
         <button type="button" class="subtab-btn" data-mode="newDeaths" data-i18n="chartModeNewDeaths">{{i18n.chartModeNewDeaths}}</button>
-        <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
-        <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">{{i18n.chartModeContactsFollowUp}}</button>
         <!-- « Repartition des deces » a quitte la barre : il tracait
              community-deaths-daily.json, qui ne valide qu'une province — l'Ituri —
              sous un sous-titre annoncant « pour l'ensemble du pays ». Le 21 aout il
@@ -80,6 +84,7 @@
              Son mode reste dans app.js, mais le rallumer demanderait de corriger
              d'abord ce defaut de couverture. -->
         <button type="button" class="subtab-btn" data-mode="deathsPlace" data-i18n="chartModeDeathsPlace">{{i18n.chartModeDeathsPlace}}</button>
+        <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
         <!-- « Cas et deces par age » et « Cas et deces par sexe » ont ete
              retires de la barre : l'onglet « Age et sexe » porte les deux, et
              le croisement en plus. Leurs modes restent dans app.js, comme le
@@ -87,6 +92,7 @@
              suppressions de code, et il suffit de remettre un bouton ici pour
              qu'ils reviennent. -->
         <button type="button" class="subtab-btn" data-mode="pyramide" data-i18n="chartModePyramide">{{i18n.chartModePyramide}}</button>
+        <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">{{i18n.chartModeContactsFollowUp}}</button>
       </nav>
     </div>
 
