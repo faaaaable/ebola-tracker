@@ -1821,8 +1821,15 @@ const largeurSemaine = {
     slot.lastMode = 'deathsPlace';
     // Cette figure ne commence pas avec l'epidemie : les bulletins n'ont
     // distingue le lieu du deces qu'a partir du 13 juillet.
-    noterPeriode(slot, serie.length ? serie[0].debut : null,
-                       serie.length ? serie[serie.length - 1].finSemaine : null);
+    /* La periode s'arrete au dernier releve, pas au dimanche de la semaine en
+       cours : l'image partagee annoncait « du 13 juil. au 30 aout » quand les
+       donnees s'arretaient au 25. La barre couvre bien la semaine entiere —
+       c'est ce que dit sa partie grisee —, les donnees non. */
+    const finDeclaree = serie.length
+      ? (serie[serie.length - 1].finSemaine > derniereLieu
+           ? derniereLieu : serie[serie.length - 1].finSemaine)
+      : null;
+    noterPeriode(slot, serie.length ? serie[0].debut : null, finDeclaree);
     if(noteEl){
       /* Les jours manquants se COMPTENT : ce sont les journees ecoulees de la
          fenetre couverte, moins celles dont un bulletin donne le lieu. Le
@@ -3657,9 +3664,25 @@ async function exporterGraphique(canvas, titre, sousTitre, note){
   if(!chart) return null;
   if(document.fonts && document.fonts.ready) await document.fonts.ready;
 
-  const animation = chart.options.animation;
-  chart.options.animation = false;
-  chart.update('none');
+  /* LA PYRAMIDE DES AGES TRACE DEUX FIGURES, l'export n'en prenait qu'une.
+     Les cas a gauche, les deces a droite : les deux ordres de grandeur ne
+     partagent pas d'axe, c'est justement pourquoi il y a deux cadres. Partagee,
+     l'image ne montrait que les cas — elle disait donc autre chose que ce que
+     le lecteur avait sous les yeux, exactement ce que la note d'export cherche
+     a empecher.
+
+     Le second cadre n'existe que la, et seulement en vue « Effectifs » : on le
+     joint quand il porte un graphique ET qu'il est affiche, jamais sur sa
+     seule existence dans le HTML. */
+  const canvasB = canvas.id ? document.getElementById(canvas.id + 'B') : null;
+  const panneauB = canvasB ? canvasB.closest('.chart-panel') : null;
+  const chartB = (canvasB && panneauB && panneauB.style.display !== 'none')
+               ? chartSlot(canvasB).chart : null;
+  const figures = [{ canvas, chart }];
+  if(chartB) figures.push({ canvas: canvasB, chart: chartB });
+
+  const animations = figures.map(f => f.chart.options.animation);
+  figures.forEach(f => { f.chart.options.animation = false; f.chart.update('none'); });
 
   /* Deux fois la taille de mise en page : l'image reste nette une fois
      recompressee par le reseau social, qui la redimensionne toujours. */
@@ -3677,15 +3700,23 @@ async function exporterGraphique(canvas, titre, sousTitre, note){
      le dessin se centre — une bande de fond de chaque cote plutot qu'un
      ecrasement. */
   const HAUT_MAX = 720;
-  const ratio = (canvas.clientHeight && canvas.clientWidth)
-    ? canvas.clientHeight / canvas.clientWidth : 0.5;
-  let largeurGraph = large;
-  let hautGraph = Math.round(large * ratio);
-  if(hautGraph > HAUT_MAX){
-    largeurGraph = Math.round(HAUT_MAX / ratio);
-    hautGraph = HAUT_MAX;
-  }
-  const xGraph = marge + Math.round((large - largeurGraph) / 2);
+  /* A deux figures, chacune recoit la moitie de la largeur utile, moins la
+     gouttiere. Chacune garde SON rapport et se centre dans sa moitie : une
+     figure un peu moins haute que l'autre laisse du fond au-dessus et en
+     dessous plutot que de s'etirer. */
+  const ECART = 28;
+  const largeurCase = figures.length > 1
+    ? Math.floor((large - ECART) / 2) : large;
+  const dessins = figures.map((f, i) => {
+    const r = (f.canvas.clientHeight && f.canvas.clientWidth)
+      ? f.canvas.clientHeight / f.canvas.clientWidth : 0.5;
+    let w = largeurCase, h = Math.round(largeurCase * r);
+    if(h > HAUT_MAX){ w = Math.round(HAUT_MAX / r); h = HAUT_MAX; }
+    return { canvas: f.canvas, w, h,
+             gauche: marge + i * (largeurCase + ECART)
+                   + Math.round((largeurCase - w) / 2) };
+  });
+  const hautGraph = Math.max(...dessins.map(d => d.h));
 
   /* La note se mesure avant de dimensionner l'image : c'est elle qui decide de
      la hauteur finale, et non l'inverse. Une note tronquee vaudrait une note
@@ -3719,7 +3750,10 @@ async function exporterGraphique(canvas, titre, sousTitre, note){
   c.moveTo(marge, 116.5); c.lineTo(L - marge, 116.5);
   c.stroke();
 
-  c.drawImage(canvas, xGraph, hautTitre, largeurGraph, hautGraph);
+  for(const d of dessins){
+    c.drawImage(d.canvas, d.gauche, hautTitre + Math.round((hautGraph - d.h) / 2),
+                d.w, d.h);
+  }
 
   if(lignesNote.length){
     c.fillStyle = PALETTE.inkFaint;
@@ -3746,7 +3780,7 @@ async function exporterGraphique(canvas, titre, sousTitre, note){
   try{ if(canonique) domaine = new URL(canonique.href).hostname; }catch(e){ /* href illisible */ }
   c.fillText(domaine, L - marge - c.measureText(domaine).width, pied + 6);
 
-  chart.options.animation = animation;
+  figures.forEach((f, i) => { f.chart.options.animation = animations[i]; });
   return new Promise(resolve => sortie.toBlob(resolve, 'image/png'));
 }
 
