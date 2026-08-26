@@ -339,6 +339,7 @@
       <nav class="subtab-nav" data-chart-tabs="dataChart">
         <button type="button" class="subtab-btn active" data-mode="epidemic" data-i18n="chartModeEpidemic">Epidemic overview</button>
         <button type="button" class="subtab-btn" data-mode="newCases" data-i18n="chartModeNewCases">New cases</button>
+        <button type="button" class="subtab-btn" data-mode="newDeaths" data-i18n="chartModeNewDeaths">New deaths</button>
         <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">Cumulative cases / region</button>
         <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">Contact follow-up</button>
         <!-- « Repartition des deces » a quitte la barre : il tracait
@@ -360,14 +361,17 @@
     </div>
 
     <div class="panel chart-panel-wrap">
-      <!-- Bascule propre a l'onglet « Nouveaux cas » : la meme serie lue par
-           jour, agregee par semaine ou par mois. Masquee par les autres modes.
+      <!-- Bascule commune aux onglets « Nouveaux cas » et « Nouveaux deces » :
+           la meme serie lue par jour, agregee par semaine ou par mois. Masquee
+           par les autres modes. Une seule barre pour les deux onglets, et un
+           seul etat : passer des cas aux deces garde le pas de temps choisi,
+           et les deux se comparent sans avoir a le reregler.
            « Evolution de l'epidemie » n'en porte plus : il ne montre que le
            quotidien, ses deux courbes de cumul par-dessus. -->
-      <nav class="subtab-nav chart-vue-nav" data-newcases-vue style="display:none;">
-        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartNewCasesVueDaily">Daily</button>
-        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartNewCasesVueWeekly">Weekly</button>
-        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartNewCasesVueMonthly">Monthly</button>
+      <nav class="subtab-nav chart-vue-nav" data-vue-periode style="display:none;">
+        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">Daily</button>
+        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">Weekly</button>
+        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">Monthly</button>
       </nav>
       <!-- Bascule propre a la pyramide, masquee par les autres modes. En
            « Effectifs », deux figures cote a cote ; en « Parts », une seule,
@@ -525,8 +529,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=5e13c86c61"></script>
-<script defer src="/assets/js/app.js?v=22aae9d9ba"></script>
+<script defer src="/assets/js/i18n.js?v=05645086b1"></script>
+<script defer src="/assets/js/app.js?v=acc2bac37e"></script>
 
 </body>
 </html>

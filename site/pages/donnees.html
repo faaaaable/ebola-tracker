@@ -69,6 +69,7 @@
       <nav class="subtab-nav" data-chart-tabs="dataChart">
         <button type="button" class="subtab-btn active" data-mode="epidemic" data-i18n="chartModeEpidemic">{{i18n.chartModeEpidemic}}</button>
         <button type="button" class="subtab-btn" data-mode="newCases" data-i18n="chartModeNewCases">{{i18n.chartModeNewCases}}</button>
+        <button type="button" class="subtab-btn" data-mode="newDeaths" data-i18n="chartModeNewDeaths">{{i18n.chartModeNewDeaths}}</button>
         <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
         <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">{{i18n.chartModeContactsFollowUp}}</button>
         <!-- « Repartition des deces » a quitte la barre : il tracait
@@ -90,14 +91,17 @@
     </div>
 
     <div class="panel chart-panel-wrap">
-      <!-- Bascule propre a l'onglet « Nouveaux cas » : la meme serie lue par
-           jour, agregee par semaine ou par mois. Masquee par les autres modes.
+      <!-- Bascule commune aux onglets « Nouveaux cas » et « Nouveaux deces » :
+           la meme serie lue par jour, agregee par semaine ou par mois. Masquee
+           par les autres modes. Une seule barre pour les deux onglets, et un
+           seul etat : passer des cas aux deces garde le pas de temps choisi,
+           et les deux se comparent sans avoir a le reregler.
            « Evolution de l'epidemie » n'en porte plus : il ne montre que le
            quotidien, ses deux courbes de cumul par-dessus. -->
-      <nav class="subtab-nav chart-vue-nav" data-newcases-vue style="display:none;">
-        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartNewCasesVueDaily">{{i18n.chartNewCasesVueDaily}}</button>
-        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartNewCasesVueWeekly">{{i18n.chartNewCasesVueWeekly}}</button>
-        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartNewCasesVueMonthly">{{i18n.chartNewCasesVueMonthly}}</button>
+      <nav class="subtab-nav chart-vue-nav" data-vue-periode style="display:none;">
+        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">{{i18n.chartVueDaily}}</button>
+        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">{{i18n.chartVueWeekly}}</button>
+        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">{{i18n.chartVueMonthly}}</button>
       </nav>
       <!-- Bascule propre a la pyramide, masquee par les autres modes. En
            « Effectifs », deux figures cote a cote ; en « Parts », une seule,

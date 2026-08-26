@@ -28,9 +28,10 @@ const I18N = {
     chartSubRange:(n,from,to)=>`${n} bulletins, du ${from} au ${to}`,
     chartModeEpidemic:"Évolution de l'épidémie",
     chartModeNewCases:"Nouveaux cas",
-    chartNewCasesVueDaily:"Par jour",
-    chartNewCasesVueWeekly:"Par semaine",
-    chartNewCasesVueMonthly:"Par mois",
+    chartModeNewDeaths:"Nouveaux décès",
+    chartVueDaily:"Par jour",
+    chartVueWeekly:"Par semaine",
+    chartVueMonthly:"Par mois",
     chartPeriodDays:(n,total)=>`${n} relevé${n>1?'s':''} sur ${total}`,
     chartDailyNote:(absentes)=>`Nouveaux cas de chaque bulletin, calculés comme l'écart avec le bulletin précédent. `
       + `Une révision à la baisse est ramenée à zéro plutôt que de creuser un trou qui n'a pas eu lieu. `
@@ -40,6 +41,43 @@ const I18N = {
           : '')
       + `Les deux rattrapages administratifs des 22 et 30 juillet gardent leur teinte claire, empilée sur leur journée.`,
     chartWeeklyCases:"Nouveaux cas",
+    chartWeeklyDeaths:"Nouveaux décès",
+    chartDailyDeathsNote:(absentes,muets)=>`Nouveaux décès de chaque bulletin, calculés comme l'écart avec le bulletin précédent. `
+      + (muets.length
+          ? `${muets.length > 1 ? `Les ${muets.length} bulletins qui ne donnent aucun total de décès — ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} — n'ont pas de barre` : `Le bulletin du ${muets[0]}, qui ne donne aucun total de décès, n'a pas de barre`} : `
+            + `l'écart revient au bulletin suivant, dont la barre couvre alors plusieurs journées. `
+          : '')
+      + (absentes.length ? `Il en va de même des ${absentes.length} jours sans bulletin. ` : '')
+      + `Les 22 et 30 juillet, le bulletin signale un rattrapage de données, mais n'en publie la part que pour les cas : `
+      + `faute de chiffre, ces deux journées sont affichées en entier dans la teinte claire. `
+      + `Un décès n'entre dans la série qu'une fois confirmé — ceux survenus en communauté le sont souvent avec plusieurs jours de retard.`,
+    chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`Nouveaux décès agrégés par semaine calendaire, du lundi au dimanche. `
+      + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. `
+                 + `Les journées déjà connues restent visibles dans la vue « par jour ». ` : '')
+      + `Sur les ${sem} semaines couvertes, ${partielles} ne portent pas un bulletin par jour : leur total est donc sous-estimé, `
+      + `et la hauteur d'une barre incomplète ne se compare pas aux autres. `
+      + (absentes.length
+          ? `Les ${absentes.length} jours sans bulletin sont les ${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]} — `
+            + `l'INSP n'a rien publié les deux premiers, les autres correspondent à des bulletins absents de l'archive publique. `
+          : '')
+      + (muets.length ? `S'y ajoutent ${muets.length > 1 ? `les bulletins des ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]}, qui ne donnent` : `le bulletin du ${muets[0]}, qui ne donne`} aucun total de décès. ` : '')
+      + `Les semaines du 22 et du 30 juillet portent un rattrapage de données dont la part n'est publiée que pour les cas : `
+      + `ces deux journées y figurent en entier dans la teinte claire. `
+      + `Un décès n'entre dans la série qu'une fois confirmé, souvent avec plusieurs jours de retard quand il est survenu en communauté : `
+      + `une semaine ne mesure donc pas les décès de la semaine, mais ceux qu'elle a enregistrés.`,
+    chartMonthlyDeathsNote:(mois,partiels,absentes,enCours,muets)=>`Nouveaux décès agrégés par mois calendaire. `
+      + (enCours ? `Le mois en cours n'apparaît qu'une fois terminé : incomplet, sa barre se lirait comme une baisse. `
+                 + `Les journées déjà connues restent visibles dans les vues « par jour » et « par semaine ». ` : '')
+      + `Sur les ${mois} mois couverts, ${partiels} ne portent pas un bulletin par jour : leur total est donc sous-estimé, `
+      + `et la hauteur d'une barre incomplète ne se compare pas aux autres. `
+      + (absentes.length
+          ? `Les ${absentes.length} jours sans bulletin sont les ${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]} — `
+            + `l'INSP n'a rien publié les deux premiers, les autres correspondent à des bulletins absents de l'archive publique. `
+          : '')
+      + (muets.length ? `S'y ajoutent ${muets.length > 1 ? `les bulletins des ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]}, qui ne donnent` : `le bulletin du ${muets[0]}, qui ne donne`} aucun total de décès. ` : '')
+      + `Le premier mois ne commence qu'au premier bulletin : sa barre couvre moins de jours que le mois, et son total ne se compare pas aux suivants. `
+      + `Juillet porte les deux journées de rattrapage, affichées en entier dans la teinte claire faute d'une part publiée pour les décès. `
+      + `Un décès n'entre dans la série qu'une fois confirmé, souvent avec plusieurs jours de retard quand il est survenu en communauté.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Nouveaux cas agrégés par semaine calendaire, du lundi au dimanche. `
       + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. `
                  + `Les journées déjà connues restent visibles dans la vue « par jour ». ` : '')
@@ -250,9 +288,10 @@ const I18N = {
     chartSubRange:(n,from,to)=>`${n} bulletins, ${from} to ${to}`,
     chartModeEpidemic:"Epidemic overview",
     chartModeNewCases:"New cases",
-    chartNewCasesVueDaily:"Daily",
-    chartNewCasesVueWeekly:"Weekly",
-    chartNewCasesVueMonthly:"Monthly",
+    chartModeNewDeaths:"New deaths",
+    chartVueDaily:"Daily",
+    chartVueWeekly:"Weekly",
+    chartVueMonthly:"Monthly",
     chartPeriodDays:(n,total)=>`${n} report${n>1?'s':''} of ${total}`,
     chartDailyNote:(absentes)=>`New cases from each bulletin, computed as the difference with the previous one. `
       + `A downward revision is brought back to zero rather than digging a dip that never happened. `
@@ -262,6 +301,43 @@ const I18N = {
           : '')
       + `The two administrative catch-ups of 22 and 30 July keep their lighter shade, stacked on their own day.`,
     chartWeeklyCases:"New cases",
+    chartWeeklyDeaths:"New deaths",
+    chartDailyDeathsNote:(absentes,muets)=>`New deaths from each bulletin, computed as the difference with the previous one. `
+      + (muets.length
+          ? `${muets.length > 1 ? `The ${muets.length} bulletins that give no death total — ${muets.slice(0,-1).join(', ')} and ${muets[muets.length-1]} — carry no bar` : `The bulletin of ${muets[0]}, which gives no death total, carries no bar`}: `
+            + `the difference returns to the next bulletin, whose bar then covers several days. `
+          : '')
+      + (absentes.length ? `The same goes for the ${absentes.length} days without a bulletin. ` : '')
+      + `On 22 and 30 July the bulletin reports a data catch-up, but only publishes its share for cases: `
+      + `with no figure to go on, those two days are shown entirely in the lighter shade. `
+      + `A death only enters the series once confirmed — those occurring in the community often are, several days late.`,
+    chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`New deaths aggregated by calendar week, Monday to Sunday. `
+      + (enCours ? `The current week only appears once complete: unfinished, its bar would read as a decline. `
+                 + `The days already known remain visible in the daily view. ` : '')
+      + `Of the ${sem} weeks covered, ${partielles} do not carry one bulletin per day: their total is therefore understated, `
+      + `and the height of an incomplete bar is not comparable to the others. `
+      + (absentes.length
+          ? `The ${absentes.length} days without a bulletin are ${absentes.slice(0,-1).join(', ')} and ${absentes[absentes.length-1]} — `
+            + `the INSP published nothing on the first two; the others are bulletins missing from the public archive. `
+          : '')
+      + (muets.length ? `To these add ${muets.length > 1 ? `the bulletins of ${muets.slice(0,-1).join(', ')} and ${muets[muets.length-1]}, which give` : `the bulletin of ${muets[0]}, which gives`} no death total. ` : '')
+      + `The weeks of 22 and 30 July carry a data catch-up whose share is only published for cases: `
+      + `those two days appear there entirely in the lighter shade. `
+      + `A death only enters the series once confirmed, often several days late when it occurred in the community: `
+      + `a week therefore measures not the deaths of that week, but those it recorded.`,
+    chartMonthlyDeathsNote:(mois,partiels,absentes,enCours,muets)=>`New deaths aggregated by calendar month. `
+      + (enCours ? `The current month only appears once complete: unfinished, its bar would read as a decline. `
+                 + `The days already known remain visible in the daily and weekly views. ` : '')
+      + `Of the ${mois} months covered, ${partiels} do not carry one bulletin per day: their total is therefore understated, `
+      + `and the height of an incomplete bar is not comparable to the others. `
+      + (absentes.length
+          ? `The ${absentes.length} days without a bulletin are ${absentes.slice(0,-1).join(', ')} and ${absentes[absentes.length-1]} — `
+            + `the INSP published nothing on the first two; the others are bulletins missing from the public archive. `
+          : '')
+      + (muets.length ? `To these add ${muets.length > 1 ? `the bulletins of ${muets.slice(0,-1).join(', ')} and ${muets[muets.length-1]}, which give` : `the bulletin of ${muets[0]}, which gives`} no death total. ` : '')
+      + `The first month only starts at the first bulletin: its bar covers fewer days than the month, and its total is not comparable to the others. `
+      + `July carries the two catch-up days, shown entirely in the lighter shade for want of a published share for deaths. `
+      + `A death only enters the series once confirmed, often several days late when it occurred in the community.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`New cases aggregated by calendar week, Monday to Sunday. `
       + (enCours ? `The current week only appears once complete: unfinished, its bar would read as a decline. `
                  + `The days already known remain visible in the daily view. ` : '')
@@ -470,9 +546,10 @@ const I18N = {
     chartSubRange:(n,from,to)=>`ripoti ${n}, kutoka ${from} hadi ${to}`,
     chartModeEpidemic:"Mwenendo wa mlipuko",
     chartModeNewCases:"Visa vipya",
-    chartNewCasesVueDaily:"Kwa siku",
-    chartNewCasesVueWeekly:"Kwa wiki",
-    chartNewCasesVueMonthly:"Kwa mwezi",
+    chartModeNewDeaths:"Vifo vipya",
+    chartVueDaily:"Kwa siku",
+    chartVueWeekly:"Kwa wiki",
+    chartVueMonthly:"Kwa mwezi",
     chartPeriodDays:(n,total)=>`ripoti ${n} kati ya ${total}`,
     chartDailyNote:(absentes)=>`Visa vipya vya kila ripoti, vikihesabiwa kama tofauti na ripoti iliyotangulia. `
       + `Marekebisho ya kupunguza yanarudishwa sifuri badala ya kuchimba shimo lisilokuwepo. `
@@ -482,6 +559,43 @@ const I18N = {
           : '')
       + `Marekebisho mawili ya kiutawala ya tarehe 22 na 30 Julai yanabaki na rangi hafifu, juu ya siku yake.`,
     chartWeeklyCases:"Visa vipya",
+    chartWeeklyDeaths:"Vifo vipya",
+    chartDailyDeathsNote:(absentes,muets)=>`Vifo vipya vya kila ripoti, vikihesabiwa kama tofauti na ripoti iliyotangulia. `
+      + (muets.length
+          ? `${muets.length > 1 ? `Ripoti ${muets.length} zisizotoa jumla ya vifo — ${muets.slice(0,-1).join(', ')} na ${muets[muets.length-1]} — hazina safu` : `Ripoti ya ${muets[0]}, isiyotoa jumla ya vifo, haina safu`}: `
+            + `tofauti yake inarudi kwenye ripoti inayofuata, ambayo safu yake basi inashughulikia siku kadhaa. `
+          : '')
+      + (absentes.length ? `Vivyo hivyo kwa siku ${absentes.length} zisizo na ripoti. ` : '')
+      + `Tarehe 22 na 30 Julai, ripoti inataja marekebisho ya data, lakini inachapisha sehemu yake kwa visa tu: `
+      + `bila takwimu, siku hizo mbili zinaonyeshwa nzima kwa rangi hafifu. `
+      + `Kifo kinaingia kwenye mfululizo tu baada ya kuthibitishwa — vile vilivyotokea jamiini mara nyingi huchelewa siku kadhaa.`,
+    chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`Vifo vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
+      + (enCours ? `Wiki inayoendelea inaonekana tu ikiisha: bila kukamilika, safu yake ingesomeka kama kupungua. `
+                 + `Siku zinazojulikana tayari zinaonekana katika mwonekano wa kila siku. ` : '')
+      + `Kati ya wiki ${sem} zilizofunikwa, ${partielles} hazina ripoti moja kwa kila siku: jumla yao imepungua, `
+      + `na urefu wa safu isiyokamilika haulinganishwi na nyingine. `
+      + (absentes.length
+          ? `Siku ${absentes.length} zisizo na ripoti ni ${absentes.slice(0,-1).join(', ')} na ${absentes[absentes.length-1]} — `
+            + `INSP haikuchapisha chochote siku mbili za kwanza; nyingine ni ripoti zisizopatikana kwenye kumbukumbu za umma. `
+          : '')
+      + (muets.length ? `Zaidi ya hizo, ${muets.length > 1 ? `ripoti za ${muets.slice(0,-1).join(', ')} na ${muets[muets.length-1]} hazitoi` : `ripoti ya ${muets[0]} haitoi`} jumla ya vifo. ` : '')
+      + `Wiki za tarehe 22 na 30 Julai zina marekebisho ya data ambayo sehemu yake imechapishwa kwa visa tu: `
+      + `siku hizo mbili zinaonekana humo nzima kwa rangi hafifu. `
+      + `Kifo kinaingia kwenye mfululizo tu baada ya kuthibitishwa, mara nyingi kwa kuchelewa kikitokea jamiini: `
+      + `wiki hupima si vifo vya wiki hiyo, bali vile ilivyosajili.`,
+    chartMonthlyDeathsNote:(mois,partiels,absentes,enCours,muets)=>`Vifo vipya vimekusanywa kwa mwezi wa kalenda. `
+      + (enCours ? `Mwezi unaoendelea unaonekana tu ukiisha: bila kukamilika, safu yake ingesomeka kama kupungua. `
+                 + `Siku zinazojulikana tayari zinaonekana katika mwonekano wa kila siku na wa kila wiki. ` : '')
+      + `Kati ya miezi ${mois} iliyofunikwa, ${partiels} haina ripoti moja kwa kila siku: jumla yao imepungua, `
+      + `na urefu wa safu isiyokamilika haulinganishwi na nyingine. `
+      + (absentes.length
+          ? `Siku ${absentes.length} zisizo na ripoti ni ${absentes.slice(0,-1).join(', ')} na ${absentes[absentes.length-1]} — `
+            + `INSP haikuchapisha chochote siku mbili za kwanza; nyingine ni ripoti zisizopatikana kwenye kumbukumbu za umma. `
+          : '')
+      + (muets.length ? `Zaidi ya hizo, ${muets.length > 1 ? `ripoti za ${muets.slice(0,-1).join(', ')} na ${muets[muets.length-1]} hazitoi` : `ripoti ya ${muets[0]} haitoi`} jumla ya vifo. ` : '')
+      + `Mwezi wa kwanza unaanza tu na ripoti ya kwanza: safu yake inashughulikia siku chache kuliko mwezi, na jumla yake hailinganishwi na mingine. `
+      + `Julai ina siku mbili za marekebisho, zinazoonyeshwa nzima kwa rangi hafifu kwa kukosa sehemu iliyochapishwa kwa vifo. `
+      + `Kifo kinaingia kwenye mfululizo tu baada ya kuthibitishwa, mara nyingi kwa kuchelewa kikitokea jamiini.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Visa vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
       + (enCours ? `Wiki inayoendelea inaonekana tu ikiisha: bila kukamilika, safu yake ingesomeka kama kupungua. `
                  + `Siku zinazojulikana tayari zinaonekana katika mwonekano wa kila siku. ` : '')

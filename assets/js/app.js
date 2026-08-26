@@ -754,10 +754,12 @@ let chartMode = 'epidemic';
 /* Vue de la pyramide : « effectifs » (deux figures) ou « parts » (une
    seule, chaque serie ramenee a 100 % de son propre total). */
 let pyramideVue = 'effectifs';
-/* Vue de l'onglet « Nouveaux cas » : « quotidien », « hebdo » ou « mensuel ».
-   Trois lectures d'une seule serie, et non trois series — d'ou une bascule
-   interne au graphique plutot que trois onglets de plus. */
-let newCasesVue = 'quotidien';
+/* Vue des onglets « Nouveaux cas » et « Nouveaux deces » : « quotidien »,
+   « hebdo » ou « mensuel ». Trois lectures d'une seule serie, et non trois
+   series — d'ou une bascule interne au graphique plutot que trois onglets de
+   plus. Elle est COMMUNE aux deux onglets : passer des cas aux deces garde le
+   pas de temps choisi, et les deux se comparent sans avoir a le reregler. */
+let vuePeriode = 'quotidien';
 
 /* Bornes de periode calendaire. Toutes passent par midi et se reformatent a
    la main : « toISOString » aurait bascule d'un jour selon le fuseau du
@@ -801,30 +803,50 @@ const moisAnnee = iso => `${tr('months')[parseInt(iso.slice(5, 7), 10) - 1]} ${i
    par le pipeline : rien ici ne se generalise. */
 const RATTRAPAGE_ADMIN = { '2026-07-22': 97, '2026-07-30': 73 };
 
-/* Nouveaux cas d'un bulletin au suivant, la part vraiment rapportee ce
-   jour-la separee de la part de rattrapage. Une revision a la baisse est
-   ramenee a zero plutot que de creuser un trou qui n'a pas eu lieu.
+/* Nouveaux cas — ou nouveaux deces — d'un bulletin au suivant, la part
+   vraiment rapportee ce jour-la separee de la part de rattrapage. Une revision
+   a la baisse est ramenee a zero plutot que de creuser un trou qui n'a pas eu
+   lieu. Un bulletin qui ne donne pas le champ ne produit pas de barre : son
+   ecart revient au bulletin suivant, qui couvre alors plusieurs journees.
 
-   Un seul calcul pour deux lectures : le mode « epidemic » y prend ses barres
-   quotidiennes, l'onglet « Nouveaux cas » les memes, agregees ou non. Les
-   deux ne peuvent donc pas diverger. */
-function partsQuotidiennes(s){
+   Un seul calcul pour toutes les lectures : le mode « epidemic » y prend ses
+   barres quotidiennes, les onglets « Nouveaux cas » et « Nouveaux deces » les
+   memes, agregees ou non. Elles ne peuvent donc pas diverger.
+
+   **La part de rattrapage n'est chiffree que pour les cas.** Les deux
+   bulletins qui la documentent annoncent « +97 » et « +73 nouveaux cas » ;
+   rien d'equivalent pour les deces, dont le cumul saute pourtant de 236 et de
+   100 ces jours-la. Faute de part publiee, la journee entiere passe en teinte
+   claire — meme choix que les graphiques de province, ou la part n'est connue
+   qu'au niveau national. On marque l'incertitude, on ne la chiffre pas. */
+function partsQuotidiennes(s, champ){
+  const nom = champ || 'confirmed';
   const deltas = []; let prev = null;
   for(const r of s){
-    const v = r.confirmed;
+    const v = r[nom];
     if(v === null || v === undefined){ deltas.push(null); continue; }
     deltas.push(prev === null ? null : Math.max(0, v - prev));
     prev = v;
   }
+  // Pour les deces, la part rapportee d'une journee de rattrapage vaut zero :
+  // tout l'ecart bascule dans la teinte claire.
+  const partRapportee = date => {
+    const vrai = RATTRAPAGE_ADMIN[date];
+    if(vrai === undefined) return undefined;
+    return nom === 'confirmed' ? vrai : 0;
+  };
   return {
     rapporte: s.map((r, i) => {
-      const vrai = RATTRAPAGE_ADMIN[r.date];
+      const vrai = partRapportee(r.date);
       return (vrai === undefined || deltas[i] === null) ? deltas[i] : Math.min(vrai, deltas[i]);
     }),
     rattrapage: s.map((r, i) => {
-      const vrai = RATTRAPAGE_ADMIN[r.date];
+      const vrai = partRapportee(r.date);
       return (vrai === undefined || deltas[i] === null) ? 0 : Math.max(0, deltas[i] - vrai);
-    })
+    }),
+    // Un bulletin compte comme releve des qu'il porte le champ, meme quand
+    // l'ecart n'est pas calculable — le tout premier n'a pas de precedent.
+    connu: s.map(r => r[nom] !== null && r[nom] !== undefined)
   };
 }
 
@@ -837,11 +859,11 @@ function partsQuotidiennes(s){
    serie couvre : mai ne commence qu'au premier bulletin, le 14, et ses 31
    jours de calendrier feraient passer un mois complet pour un mois a moitie
    renseigne. */
-function agregeNouveauxCas(s, granularite){
+function agregeNouveauxCas(s, granularite, champ){
   const mois = granularite === 'mois';
   const debutDe = mois ? premierDuMois : lundiDe;
   const finDe   = mois ? dernierDuMois : dimancheDe;
-  const parts = partsQuotidiennes(s);
+  const parts = partsQuotidiennes(s, champ);
   const premiere = s[0].date, derniere = s[s.length - 1].date;
   const periodes = new Map();
   s.forEach((r, i) => {
@@ -850,7 +872,7 @@ function agregeNouveauxCas(s, granularite){
            || { debut: cle, fin: finDe(cle), cas: 0, rattrapage: 0, releves: 0 };
     if(parts.rapporte[i] !== null) p.cas += parts.rapporte[i];
     p.rattrapage += parts.rattrapage[i];
-    p.releves += 1;
+    if(parts.connu[i]) p.releves += 1;
     periodes.set(cle, p);
   });
   return [...periodes.values()]
@@ -885,8 +907,9 @@ function renderOneChart(canvas, chartMode){
      changement d'onglet. */
   const navVue = wrap ? wrap.querySelector('[data-pyramide-vue]') : null;
   if(navVue) navVue.style.display = (chartMode === 'pyramide') ? '' : 'none';
-  const navNew = wrap ? wrap.querySelector('[data-newcases-vue]') : null;
-  if(navNew) navNew.style.display = (chartMode === 'newCases') ? '' : 'none';
+  const navNew = wrap ? wrap.querySelector('[data-vue-periode]') : null;
+  if(navNew) navNew.style.display =
+    (chartMode === 'newCases' || chartMode === 'newDeaths') ? '' : 'none';
   /* La vue « Parts » loge dix barres la ou les autres modes en logent cinq :
      elle reclame un cadre plus haut, sans quoi l'axe des ages saute un
      libelle sur deux des que l'ecran retrecit. Le cadre reprend sa hauteur
@@ -2023,7 +2046,10 @@ const largeurSemaine = {
     return;
   }
 
-  /* Onglet « Nouveaux cas » : une seule serie, lue a trois pas de temps.
+  /* Onglets « Nouveaux cas » et « Nouveaux deces » : une serie, lue a trois
+     pas de temps. Un seul bloc pour les deux — seuls changent le champ lu, la
+     couleur (bleu les cas, rouge les deces, comme partout ailleurs) et les
+     notes. Deux blocs jumeaux auraient diverge au premier correctif.
 
      Par jour, c'est la difference entre deux bulletins successifs — la lecture
      la plus fine, et la plus bruyante : un bulletin manquant y creuse un trou
@@ -2045,9 +2071,13 @@ const largeurSemaine = {
 
      Les deux rattrapages administratifs gardent partout leur teinte claire,
      empilee sur la periode qui les porte : noyes dans la somme, ils
-     gonfleraient silencieusement leur semaine ou leur mois. */
-  if(chartMode === 'newCases'){
+     gonfleraient silencieusement leur semaine ou leur mois. Cote deces, la
+     part n'etant pas publiee, c'est la journee entiere qui passe en clair. */
+  if(chartMode === 'newCases' || chartMode === 'newDeaths'){
     if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+    const deces  = chartMode === 'newDeaths';
+    const champ  = deces ? 'deaths' : 'confirmed';
+    const teinte = deces ? PALETTE.critical : PALETTE.info;
 
     /* Les jours sans bulletin, enumeres dans la note des trois vues. Calcules
        a chaque rendu, jamais ecrits en dur : un tel decompte se perime au
@@ -2059,6 +2089,12 @@ const largeurSemaine = {
       const iso = isoDe(d);
       if(!connus.has(iso)) absentes.push(frDate(iso));
     }
+    /* Un bulletin peut paraitre sans porter le champ : deux ne donnent aucun
+       total de deces, les 17 et 19 mai. Ils s'enumerent comme les jours sans
+       bulletin, et pour la meme raison — la liste se recalculera seule si un
+       troisieme arrive. */
+    const muets = s.filter(r => r[champ] === null || r[champ] === undefined)
+                   .map(r => frDate(r.date));
 
     /* Un filet entre les colonnes, pas davantage : sur une courbe epidemique
        un large espace se lirait comme une periode sans cas, mais des barres
@@ -2088,15 +2124,23 @@ const largeurSemaine = {
           titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
           /* La part de rattrapage ne s'annonce que la ou elle existe : deux
              dates sur toute la periode, et « Rattrapage : 0 » partout ailleurs
-             aurait fait croire a une correction quotidienne. */
-          filter: item => item.parsed.y > 0 || item.datasetIndex !== 1,
+             aurait fait croire a une correction quotidienne. Symetriquement,
+             la part rapportee se tait quand elle est nulle A COTE d'un
+             rattrapage — cote deces, la journee entiere y bascule, et
+             « Nouveaux deces : 0 » se serait affiche sous une barre de 236.
+             Une journee vraiment sans cas garde, elle, son zero. */
+          filter: item => {
+            const autre = item.chart.data.datasets[item.datasetIndex === 0 ? 1 : 0]
+                            .data[item.dataIndex] || 0;
+            return item.parsed.y > 0 || (item.datasetIndex === 0 && autre === 0);
+          },
           callbacks: { label: c => `${c.dataset.label} : ${fmt(c.parsed.y)}` }
         }
       }
     };
-    const parts = partsQuotidiennes(s);
+    const parts = partsQuotidiennes(s, champ);
 
-    if(newCasesVue === 'quotidien'){
+    if(vuePeriode === 'quotidien'){
       /* Quatre-vingt-dix et quelques barres sur la periode : elles restent
          fines, et l'axe reprend l'inclinaison du mode « epidemic », qui porte
          la meme serie a la meme echelle de temps. */
@@ -2106,22 +2150,22 @@ const largeurSemaine = {
       const dataJ = {
         labels: s.map(r => (r.approx ? '≈ ' : '') + frDate(r.date)),
         datasets: [
-          fin(barre(tr('dailyChartLabel'), parts.rapporte, PALETTE.info)),
-          fin(barre(tr('catchupLabel'), parts.rattrapage, tint(PALETTE.info, .35)))
+          fin(barre(tr(deces ? 'dailyDeathsLabel' : 'dailyChartLabel'), parts.rapporte, teinte)),
+          fin(barre(tr('catchupLabel'), parts.rattrapage, tint(teinte, .35)))
         ]
       };
       optsN.plugins.tooltip.callbacks.title = items => frDate(s[items[0].dataIndex].date);
       slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataJ, options: optsN });
-      slot.lastMode = 'newCases-quotidien';
+      slot.lastMode = chartMode + '-quotidien';
       if(noteEl){
-        noteEl.textContent = tr('chartDailyNote')(absentes);
+        noteEl.textContent = tr(deces ? 'chartDailyDeathsNote' : 'chartDailyNote')(absentes, muets);
         noteEl.style.display = 'block';
       }
       return;
     }
 
-    const parMois = newCasesVue === 'mensuel';
-    const toutes = agregeNouveauxCas(s, parMois ? 'mois' : 'semaine');
+    const parMois = vuePeriode === 'mensuel';
+    const toutes = agregeNouveauxCas(s, parMois ? 'mois' : 'semaine', champ);
     const derniereDate = s[s.length - 1].date;
     const enCours = toutes.length > 0 && toutes[toutes.length - 1].fin > derniereDate;
     const serie = enCours ? toutes.slice(0, -1) : toutes;
@@ -2133,8 +2177,8 @@ const largeurSemaine = {
       labels: serie.map(p => parMois ? moisAnnee(p.debut)
                                      : [frDate(p.debut), '→ ' + frDate(p.fin)]),
       datasets: [
-        barre(tr('chartWeeklyCases'), serie.map(p => p.cas), PALETTE.info),
-        barre(tr('catchupLabel'), serie.map(p => p.rattrapage), tint(PALETTE.info, .35))
+        barre(tr(deces ? 'chartWeeklyDeaths' : 'chartWeeklyCases'), serie.map(p => p.cas), teinte),
+        barre(tr('catchupLabel'), serie.map(p => p.rattrapage), tint(teinte, .35))
       ]
     };
     /* L'infobulle annonce la periode calendaire complete, et non la plage des
@@ -2148,10 +2192,11 @@ const largeurSemaine = {
       return titre + ' · ' + tr('chartPeriodDays')(p.releves, p.jours);
     };
     slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataP, options: optsN });
-    slot.lastMode = 'newCases-' + newCasesVue;
+    slot.lastMode = chartMode + '-' + vuePeriode;
     if(noteEl){
-      noteEl.textContent = tr(parMois ? 'chartMonthlyNote' : 'chartWeeklyNote')(
-        serie.length, incompletes, absentes, enCours);
+      const cle = deces ? (parMois ? 'chartMonthlyDeathsNote' : 'chartWeeklyDeathsNote')
+                        : (parMois ? 'chartMonthlyNote'       : 'chartWeeklyNote');
+      noteEl.textContent = tr(cle)(serie.length, incompletes, absentes, enCours, muets);
       noteEl.style.display = 'block';
     }
     return;
@@ -2304,13 +2349,13 @@ function renderChart(){
 /* Bascule « Effectifs » / « Parts ». Elle ne vit que dans le cadre du
    graphique, et ne pilote que le mode pyramide : les autres modes la
    masquent. */
-document.querySelectorAll('[data-newcases-vue]').forEach(nav=>{
+document.querySelectorAll('[data-vue-periode]').forEach(nav=>{
   nav.querySelectorAll('.subtab-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       nav.querySelectorAll('.subtab-btn').forEach(b=>b.classList.toggle('active', b === btn));
-      newCasesVue = btn.dataset.vue;
+      vuePeriode = btn.dataset.vue;
       const cible = document.getElementById('dataChart');
-      if(cible) safeRun(()=>renderOneChart(cible, cible.dataset.chart), 'newCasesVue');
+      if(cible) safeRun(()=>renderOneChart(cible, cible.dataset.chart), 'vuePeriode');
     });
   });
 });
