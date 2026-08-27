@@ -1724,6 +1724,11 @@ footer{
      sont actifs ; en tete de leur rangee tous les deux, ils se lisent en
      colonne au lieu d'en diagonale. Ordre inverse sur telephone seulement. */
   .map-controls #btnViewIturi{order:-1;}
+  /* Plus de « Touchez une zone pour voir son bilan » au repos : au doigt,
+     une carte se touche sans qu'on le dise. Seul l'etat de repos est
+     masque — une fois une zone choisie, la meme ligne porte le lien vers sa
+     province. */
+  .carto-detail.is-empty .sub{display:none;}
   .subtab-nav{gap:6px;}
   /* Sous la carte, la legende s'aligne a gauche comme le reste de la page :
      le titre a droite, au-dessus de pastilles a gauche, se lisait comme deux
