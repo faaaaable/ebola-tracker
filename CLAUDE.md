@@ -326,6 +326,17 @@ ne tourne et sans lui ; la cle i18n `timelineToday` a disparu. Demande du
 proprietaire du 27 aout — « aujourd'hui » n'est pas la date d'un bulletin. Le libelle a aussi perdu son sigle : « Certains bulletins ne
 detaillent pas les zones : ces dates sont absentes du curseur. »
 
+**L'ORDRE DE LA BARRE LATERALE SUIT LE PARCOURS DU LECTEUR.** Depuis le
+27 aout : Vue d'ensemble, Donnees detaillees, Chronologie, Le virus, FAQ,
+Sources & bulletins, A propos (`mainNav` dans `site/pages.json`). Que se
+passe-t-il, en detail, comment en est-on arrive la, c'est quoi ce virus, une
+question, d'ou viennent les chiffres, qui fait le site. La chronologie
+remonte pres des donnees dont elle est calculee ; les sources descendent
+pres d'A propos, la ou l'on vient verifier — leur signal de serieux, la
+ligne « Dernier bulletin officiel » de la barre le donne deja sur chaque
+page. Le pied de page avait deja cette logique (Explorer / Comprendre / Le
+site) ; la barre lui est enfin coherente.
+
 **MOINS DE BOITES, PLUS DE TRAITS.** Depuis le 27 aout, un etat actif est un
 trait, pas un fond : les boutons de carte (`.map-btn`), les bascules
 (`.subtab-btn`) et les langues (`.lang-btn`) sont des onglets — texte gris,
