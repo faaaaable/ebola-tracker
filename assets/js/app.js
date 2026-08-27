@@ -4353,11 +4353,10 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
 
   // La hauteur de l'en-tete varie avec la longueur de la marque et la
   // taille de police du lecteur : on la mesure plutot que de la figer.
+  // Marque, langues et bouton de menu tiennent sur une ligne : la barre
+  // elle-meme, panneau fixe exclu, EST l'en-tete — sa hauteur suffit.
   function mesurerEntete(){
-    const tete = barre.querySelector('.side-head');
-    if(!tete) return;
-    const bas = tete.getBoundingClientRect().bottom - barre.getBoundingClientRect().top;
-    barre.style.setProperty('--entete', Math.round(bas + 58) + 'px');
+    barre.style.setProperty('--entete', Math.round(barre.getBoundingClientRect().height) + 'px');
   }
 
   function poser(ouvert){

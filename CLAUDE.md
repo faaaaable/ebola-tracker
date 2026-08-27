@@ -357,6 +357,17 @@ page a ete mis en une ligne puis REMIS en quatre colonnes a la demande du
 proprietaire — ne pas le rouvrir. Le titre et les cartes de provinces restent
 tels quels par choix explicite.
 
+**SUR TELEPHONE, L'EN-TETE TIENT SUR UNE LIGNE.** Depuis le 27 aout : marque,
+langues et bouton de menu sur la meme rangee, 77 px au lieu de 130 — sous
+900 px `.sidebar` passe en ligne, le bouton (frere de `.side-head` dans le
+gabarit) se pose a droite des langues au lieu d'occuper seul une seconde
+rangee. Le budget est serre : marque 148 px sur une ligne (`white-space:
+nowrap`, sinon « ebola- / tracker.org » rendait la rangee plus haute
+qu'avant), langues a 35 px presque contigues, et un cran de plus sous 340 px
+(titre 14,5 px, langues 31 px). `mesurerEntete()` dans `app.js` lit desormais
+la hauteur de la barre elle-meme, panneau fixe exclu ; le repli CSS de
+`--entete` est 77 px. Verifie a 360, 340 et 320 px.
+
 **SOUS 1 600 PX, LE PANNEAU ET LA BARRE LATERALE SE RESSERRENT.** Le
 proprietaire, ses deux ecrans cote a cote, trouvait le panneau a droite de la
 carte « clairement plus grand » sur le 13 pouces. Il ne l'est pas en pixels —

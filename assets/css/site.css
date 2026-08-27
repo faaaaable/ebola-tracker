@@ -1581,20 +1581,32 @@ footer{
 
   .app-shell{grid-template-columns:minmax(0,1fr);}
 
+  /* ---- l'en-tete tient sur une seule ligne : marque, langues, trois traits ----
+     La barre d'onglets qui defilait horizontalement disparait : elle
+     n'affichait que deux onglets a la fois et repoussait le titre de la page
+     a plus de 200 px du haut. La colonne devient une ligne pour que le bouton
+     de menu, frere de .side-head dans le gabarit, se pose a droite des langues
+     au lieu d'occuper seul une deuxieme rangee de 50 px — sur telephone,
+     chaque page commence par cet en-tete. Le panneau, lui, est fixe : il ne
+     participe pas a la ligne. */
   .sidebar{
     position:static;height:auto;
     border-right:none;border-bottom:1px solid var(--line);
-    padding:16px 20px;gap:14px;
+    padding:16px 20px;
+    flex-direction:row;align-items:center;gap:12px;
   }
-  /* ---- l'en-tete se reduit a la marque, la langue et trois traits ----
-     La barre d'onglets qui defilait horizontalement disparait : elle
-     n'affichait que deux onglets a la fois et repoussait le titre de la page
-     a plus de 200 px du haut. */
-  .side-head{flex-direction:row;align-items:center;justify-content:space-between;}
+  .side-head{flex:1 1 auto;min-width:0;flex-direction:row;align-items:center;justify-content:space-between;}
+  /* La marque ne se replie jamais : « ebola- / tracker.org » sur deux lignes
+     rendrait la rangee plus haute que l'ancienne. Le budget a 360 px est
+     serre — marque 148 px, trois langues, un bouton — d'ou des langues plus
+     etroites (35 px, presque contigues : le doigt ne perd rien) et un bouton
+     dont les traits, pas la boite, s'alignent sur le bord du contenu. */
+  .site-title{white-space:nowrap;}
+  .lang-switch{gap:2px;}
 
   .nav-burger{
-    display:inline-flex;align-items:center;justify-content:center;
-    position:relative;width:44px;height:44px;margin-left:-10px;
+    display:inline-flex;align-items:center;justify-content:center;flex:none;
+    position:relative;width:44px;height:44px;margin-right:-10px;
     border:none;background:transparent;cursor:pointer;padding:0;
     /* Au-dessus du panneau : le bouton reste visible et sert a refermer. */
     z-index:210;
@@ -1602,7 +1614,8 @@ footer{
 
   /* ---- le menu, en plein ecran sous l'en-tete ----
      --entete porte la hauteur reelle de la barre superieure, mesuree par
-     app.js ; la valeur de repli suffit si le script ne tourne pas. */
+     app.js ; la valeur de repli (16 + 44 + 16 + 1 px de filet) suffit si le
+     script ne tourne pas. */
   /* Ferme par defaut, et pilote par une classe plutot que par l'attribut
      hidden : la regle s'applique des le premier rendu, sans le bref
      clignotement d'un menu deplie qu'un script viendrait replier ensuite.
@@ -1610,7 +1623,7 @@ footer{
      simple opacity:0 ne ferait pas. Sans JavaScript le menu ne s'ouvre pas,
      mais le pied de page porte les quinze memes liens. */
   .side-panel{
-    position:fixed;left:0;right:0;bottom:0;top:var(--entete,104px);
+    position:fixed;left:0;right:0;bottom:0;top:var(--entete,77px);
     z-index:200;background:var(--bg);
     padding:22px var(--gutter) 32px;
     gap:26px;overflow-y:auto;
@@ -1638,6 +1651,16 @@ footer{
   #map{height:400px;}
   .th-item{width:210px;}
   .lede{font-size:19px;}
+}
+
+/* Sous 340 px (vieux Android en 320), l'en-tete perd encore 30 px : titre
+   un demi-point plus petit, langues contigues a 31 px. */
+@media (max-width:340px){
+  .site-title{font-size:14.5px;}
+  .brand{gap:7px;}
+  .lang-switch{gap:0;}
+  .lang-btn{padding:0 8px;}
+  .sidebar{gap:4px;}
 }
 
 @media (max-width:560px){
@@ -1706,7 +1729,7 @@ footer{
   /* Cibles tactiles : on vise 40 px de haut, sans grossir le texte ni les
      bordures — c'est le rembourrage qui s'etire. */
   .lang-btn,.map-btn,.subtab-btn,.share-btn{min-height:40px;}
-  .lang-btn{padding:0 12px;}
+  .lang-btn{padding:0 10px;}
   .map-btn,.subtab-btn{padding:0 14px;}
   .share-btn{padding:0 16px;}
   .subtab-nav{gap:6px;}
