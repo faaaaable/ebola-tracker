@@ -295,6 +295,23 @@ Goma ne collent pas au bord.
 urbaine — Goma, Bunia, celles de Kinshasa — est plus petite que la tolérance et
 **disparaîtrait** de la carte si on la simplifiait telle quelle.
 
+**LA NOTE SUR LES DATES ABSENTES DU CURSEUR N'APPARAIT QUE PENDANT QU'ON LE
+MANIPULE.** Sur 95 bulletins, 12 n'ont pas de detail par zone (huit dans les
+deux premieres semaines de mai, le 16 juin, du 6 au 8 aout) : le curseur n'a
+que 83 positions et la date saute. La note l'explique — c'est le principe
+« quand la source ne dit pas, le site le dit » — mais elle etait affichee en
+permanence, a tous, avec le poids des boutons, pour une question que seul le
+lecteur qui deplace le curseur se pose. Depuis le 27 aout, `.map-timeline`
+recoit `is-historical` des que le curseur quitte sa derniere position, et la
+note n'est visible que dans cet etat.
+
+Piege : « au repos » se teste sur `slider.max`, PAS sur `ZONES_HISTORY.length`.
+Quand le dernier instantane de zones porte la date du dernier bulletin, il n'y
+a pas de cran « aujourd'hui » a part et la derniere position EST le dernier
+instantane — un test sur la longueur de l'historique montrait la note en
+permanence. Le libelle a aussi perdu son sigle : « Certains bulletins ne
+detaillent pas les zones : ces dates sont absentes du curseur. »
+
 **SIX PALIERS DE COULEUR, ET LA LEGENDE LES MONTRE TELS QUELS.** Depuis le
 27 aout, `zoneThresholds` vaut `[10, 50, 200, 500, 1000]` dans
 `site/pages.json` : six classes au lieu de quatre. A quatre, Bunia (1 317 cas)
