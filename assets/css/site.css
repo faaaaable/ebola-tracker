@@ -104,6 +104,11 @@ body{
   line-height:1.55;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
+  /* Android peint par defaut un rectangle bleu translucide sur toute la boite
+     de l'element touche, le temps que le click parte — une boite saturee
+     sur un site qui n'en veut pas, et qu'iOS n'affiche pas. Les etats
+     dessines par le site (filet sous l'onglet, encadre actif) suffisent. */
+  -webkit-tap-highlight-color:transparent;
 }
 
 a{color:var(--accent-strong);text-decoration:none;}
