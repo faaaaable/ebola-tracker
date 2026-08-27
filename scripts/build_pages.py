@@ -1001,12 +1001,10 @@ def province_series(history, name):
 def province_cards_html(provinces, urls, lang, strings_lang):
     cards = []
     for province in sorted(provinces, key=lambda p: -(p.get("confirmed") or 0)):
-        zones = province.get("healthZonesAffected")
+        # Plus de « 28 zones touchees sur 36 » sous les trois chiffres : le
+        # compte de zones vit en tete de /donnees/ et dans la chronologie, et
+        # la carte au-dessus le montre. Demande du proprietaire, 27 aout.
         zones_line = ""
-        if zones:
-            zones_line = ('\n        <div class="pc-zones">%s</div>'
-                          % esc(interp(strings_lang["provincesCardZones"],
-                                       {"n": zones["n"], "total": zones["total"]})))
         cards.append(
             '      <a class="province-card" href="%s" style="border-left-color:%s;">\n'
             "        <h3>%s</h3>\n"

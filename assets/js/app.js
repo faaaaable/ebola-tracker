@@ -3182,7 +3182,7 @@ function setupTimeline(){
     renderMap();
   });
 
-  todayBtn.addEventListener('click', ()=>{
+  if(todayBtn) todayBtn.addEventListener('click', ()=>{
     stopTimelinePlay();
     slider.value = slider.max;
     timelineIndex = (parseInt(slider.max,10) >= ZONES_HISTORY.length) ? null : parseInt(slider.max,10);

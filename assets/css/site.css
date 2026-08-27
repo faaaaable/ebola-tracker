@@ -510,9 +510,12 @@ ul,ol{margin:0;padding:0;}
   transition:transform .55s cubic-bezier(.22,.61,.36,1);
 }
 
-/* Les commandes flottent sur la carte, sans fond continu. */
-.map-toolbar{position:absolute;top:0;left:0;z-index:5;display:flex;gap:6px;}
-.map-mode{position:absolute;top:0;right:0;z-index:5;display:flex;gap:6px;}
+/* Rien ne flotte sur la carte (sur un 13 pouces, quatre boutons en haut
+   recouvraient le nord du pays, la ou sont les cas). Les commandes vivent
+   dessous, sur la ligne du curseur : cadrage, lecture, date. */
+.map-controls{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:10px;}
+.map-controls .map-timeline-date{margin-left:auto;}
+.map-toolbar,.map-mode{display:flex;gap:6px;}
 
 /* ---- vue « cercles » ----
    La surface d'un cercle suit les cas de la zone, pas sa superficie : Bunia,
@@ -545,10 +548,11 @@ ul,ol{margin:0;padding:0;}
 
 .map-legend{
   position:absolute;bottom:0;right:0;z-index:5;
-  /* Six lignes posees sur la carte : un voile clair les garde lisibles
-     quand un deplacement amene une zone foncee dessous. */
-  background:color-mix(in srgb, var(--bg) 86%, transparent);
-  border:none;padding:8px 10px;border-radius:var(--radius);
+  /* Un voile a peine present : la legende est seule sur la carte, il ne
+     sert qu'a la garder lisible si un deplacement amene une zone foncee
+     dessous. */
+  background:color-mix(in srgb, var(--bg) 70%, transparent);
+  border:none;padding:6px 8px;border-radius:var(--radius);
   font-size:10.5px;color:var(--ink-label);max-width:170px;text-align:right;
 }
 .map-legend .legend-steps,
@@ -563,7 +567,7 @@ ul,ol{margin:0;padding:0;}
 .legend-swatch{width:10px;height:10px;border-radius:2px;flex:none;}
 .legend-swatch.is-quiet{background:#EFECE8;border:1px solid #E4E0DB;}
 
-.map-timeline{padding:16px 0 4px;border-top:1px solid var(--line);margin-top:10px;}
+.map-timeline{padding:14px 0 4px;margin-top:6px;}
 .map-timeline-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
 .map-timeline-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-strong);}
 .map-timeline-date{font-size:13px;font-weight:600;color:var(--accent-strong);}
@@ -1642,8 +1646,7 @@ footer{
      carte revient a masquer le nord du pays — la ou sont les cas. Ils
      repassent au-dessus d'elle, et la legende en dessous. */
   .zonemap-stage{display:flex;flex-direction:column;}
-  .map-toolbar{position:static;order:-1;margin-bottom:10px;}
-  .map-mode{position:static;order:-1;margin-bottom:10px;}
+  .map-controls{gap:10px;}
   /* Sous la carte, la legende s'aligne a gauche comme le reste de la page :
      le titre a droite, au-dessus de pastilles a gauche, se lisait comme deux
      elements sans rapport. */

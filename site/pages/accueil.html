@@ -10,18 +10,6 @@
       <div class="zonemap-frame">
         <div class="zonemap-stage">
 {{cartogram}}
-          <div class="map-toolbar">
-            <button class="map-btn active" id="btnViewCountry" data-i18n="btnCountry">{{i18n.btnCountry}}</button>
-            <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">{{i18n.btnIturi}}</button>
-          </div>
-          <!-- Deux lectures de la meme carte : les zones colorees disent ou
-               est l'epidemie, les cercles combien — leur surface suit les cas,
-               pas la superficie de la zone. Jamais les deux a la fois : ce
-               serait deux fois la meme variable. -->
-          <nav class="map-mode" id="mapModeNav" aria-label="{{i18n.mapModeZones}} / {{i18n.mapModeCircles}}">
-            <button type="button" class="map-btn active" data-mode="zones" data-i18n="mapModeZones">{{i18n.mapModeZones}}</button>
-            <button type="button" class="map-btn" data-mode="circles" data-i18n="mapModeCircles">{{i18n.mapModeCircles}}</button>
-          </nav>
 {{legendCircles}}
           <div class="map-legend" data-mode="zones">
             <div class="title" data-i18n="legendTitle">{{i18n.legendTitle}}</div>
@@ -47,20 +35,31 @@
           </div>
         </div>
 
+        <!-- Rien ne flotte sur la carte : ses commandes vivent dessous, sur
+             une ligne — le cadrage a gauche, la lecture (zones ou cercles) a
+             sa droite, la date du curseur au bout. Les deux lectures de la
+             carte : les zones colorees disent ou est l'epidemie, les cercles
+             combien — leur surface suit les cas, pas la superficie de la
+             zone. Jamais les deux a la fois : ce serait deux fois la meme
+             variable. -->
         <div class="map-timeline" id="mapTimeline" style="display:none;">
-          <div class="map-timeline-head">
-            <span class="map-timeline-label" data-i18n="timelineLabel">{{i18n.timelineLabel}}</span>
-            <span class="map-timeline-date" id="timelineDate">—</span>
+          <div class="map-controls">
+            <div class="map-toolbar">
+              <button class="map-btn active" id="btnViewCountry" data-i18n="btnCountry">{{i18n.btnCountry}}</button>
+              <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">{{i18n.btnIturi}}</button>
+            </div>
+            <nav class="map-mode" id="mapModeNav" aria-label="{{i18n.mapModeZones}} / {{i18n.mapModeCircles}}">
+              <button type="button" class="map-btn active" data-mode="zones" data-i18n="mapModeZones">{{i18n.mapModeZones}}</button>
+              <button type="button" class="map-btn" data-mode="circles" data-i18n="mapModeCircles">{{i18n.mapModeCircles}}</button>
+            </nav>
+            <span class="map-timeline-date" id="timelineDate">{{timelineLatest}}</span>
           </div>
           <input type="range" id="timelineSlider" min="0" max="0" value="0" step="1" aria-label="{{i18n.timelineLabel}}">
           <div class="map-timeline-foot">
             <button type="button" id="timelinePlay" class="map-btn" data-i18n="timelinePlay">{{i18n.timelinePlay}}</button>
-            <button type="button" id="timelineToday" class="map-btn">{{timelineLatest}}</button>
             <span class="map-timeline-note" data-i18n="timelineNote">{{i18n.timelineNote}}</span>
           </div>
         </div>
-
-        <div class="map-note">{{t.cartoDisclaimer}}</div>
       </div>
 
       <div class="carto-detail is-empty"
