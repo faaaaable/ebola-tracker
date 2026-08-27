@@ -343,6 +343,18 @@ ligne — en rangee libre, le sixieme palier restait seul a la ligne.
 zone porte une `key` (accents retirés, casse et séparateurs écrasés) qui sert
 de pont entre le shapefile, `latest.json` et `zones-history.json`.
 
+**Bambu clignote fin mai, et c'est voulu.** Colorée le 21 mai, grise le 22,
+grise encore du 23 au 28, coloree a partir du 29. Relu dans les PDF le 27 aout :
+le SitRep 007 (21 mai) lui compte 1 cas confirme — la colonne se somme a 83,
+le total national du jour ; le 008 (22 mai) l'oublie dans son tableau, et cet
+instantane de mai n'a pas recu le report de derniere valeur qui existe depuis ;
+le 009 (23 mai) la remet a 0 confirme — c'est l'INSP qui retire le cas, pas
+nous ; le 015 (29 mai) en compte 2, avec 2 deces, probablement les 2 deces
+suspects du 23 confirmes post mortem. Trois faits, pas une erreur et son
+correctif. Le proprietaire a tranche : **on ne touche a rien** — ni reecrire le
+21 mai (ce serait le premier instantane a contredire son bulletin), ni
+reprendre le 22 a la main. Ne pas rouvrir.
+
 **Le curseur de temps** lit `zones-history.json` : un instantané des zones par
 bulletin. Une zone absente d'un instantané n'est pas coloriée à cette date.
 C'est pourquoi le rattrapage de la zone Tshopo a dû reprendre neuf instantanés
