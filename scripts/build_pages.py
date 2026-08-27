@@ -140,6 +140,28 @@ def fmt(value, lang):
     return "{:,}".format(int(value)).replace(",", loc(lang, "thousands"))
 
 
+def legend_steps_html(thresholds, lang):
+    """La legende de la carte : une pastille par palier, bornee en chiffres.
+
+    Les bornes se deduisent des seuils, jamais ecrites a la main : la classe
+    « is-N » d'une zone et la ligne N de la legende sortent de la meme liste,
+    elles ne peuvent pas diverger. Les libelles sont des nombres, donc les
+    memes dans les trois langues, au separateur de milliers pres."""
+    bornes = [1] + list(thresholds)
+    lignes = []
+    for i in range(len(thresholds)):
+        debut, fin = bornes[i], bornes[i + 1] - 1
+        libelle = fmt(debut, lang) if debut == fin else "%s\u2013%s" % (fmt(debut, lang), fmt(fin, lang))
+        lignes.append((i + 1, libelle))
+    lignes.append((len(thresholds) + 1, fmt(thresholds[-1], lang) + "+"))
+    return "\n".join(
+        ['            <div class="legend-steps">'] +
+        ['              <div class="legend-step"><span class="legend-swatch" '
+         'style="background:var(--map-%d)"></span><span>%s</span></div>' % (n, lib)
+         for n, lib in lignes] +
+        ['            </div>'])
+
+
 def fmt_cfr(value, lang):
     """Un taux en pourcentage, dans la typographie de la langue.
 
@@ -1729,6 +1751,8 @@ def main():
         common_seed["cartogram"] = zone_map_html(
             config, geo, latest.get("healthZones", []), provinces, urls, lang,
             strings_lang)
+        common_seed["legendSteps"] = legend_steps_html(
+            config["cartogram"]["zoneThresholds"], lang)
         touched = len(latest.get("healthZones", []))
         common_seed["seed.provincesTouched"] = esc(interp(
             strings_lang["cartoZonesTouched"],

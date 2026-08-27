@@ -42,6 +42,16 @@
   --scale-2:#7EACC3;
   --scale-3:#317E9F;
   --scale-4:#005073;
+  /* Les six paliers de la carte, a part : la rampe ci-dessus sert aussi a
+     l'echelle d'incubation et a la pyramide des ages, qui ne bougent pas. Six
+     pas de luminance egaux (0,85 -> 0,30 en OKLCH), sur les memes teintes ;
+     le dernier separe Bunia des foyers de 500 a 999 cas. */
+  --map-1:#B7D3E1;
+  --map-2:#88B3C8;
+  --map-3:#5693AF;
+  --map-4:#267294;
+  --map-5:#015174;
+  --map-6:#00324B;
   --on-scale-dark:#F5F9FB;   /* texte posé sur les paliers 3 et 4 */
   --on-scale-light:#272017;  /* texte posé sur les paliers 0 à 2 */
 
@@ -435,10 +445,12 @@ ul,ol{margin:0;padding:0;}
 
 .zm-zone path{stroke:var(--bg);stroke-width:0.6;stroke-linejoin:round;transition:fill .35s ease;}
 .zm-zone.is-0 path{fill:#EFECE8;stroke:#E4E0DB;stroke-width:0.5;}
-.zm-zone.is-1 path{fill:var(--scale-1);}
-.zm-zone.is-2 path{fill:var(--scale-2);}
-.zm-zone.is-3 path{fill:var(--scale-3);}
-.zm-zone.is-4 path{fill:var(--scale-4);}
+.zm-zone.is-1 path{fill:var(--map-1);}
+.zm-zone.is-2 path{fill:var(--map-2);}
+.zm-zone.is-3 path{fill:var(--map-3);}
+.zm-zone.is-4 path{fill:var(--map-4);}
+.zm-zone.is-5 path{fill:var(--map-5);}
+.zm-zone.is-6 path{fill:var(--map-6);}
 .zm-zone{cursor:pointer;}
 .zm-zone:hover path{stroke:var(--ink);stroke-width:1.6;}
 
@@ -511,18 +523,20 @@ ul,ol{margin:0;padding:0;}
 
 .map-legend{
   position:absolute;bottom:0;right:0;z-index:5;
-  background:transparent;border:none;padding:0;
+  /* Six lignes posees sur la carte : un voile clair les garde lisibles
+     quand un deplacement amene une zone foncee dessous. */
+  background:color-mix(in srgb, var(--bg) 86%, transparent);
+  border:none;padding:8px 10px;border-radius:var(--radius);
   font-size:10.5px;color:var(--ink-label);max-width:170px;text-align:right;
 }
-.map-legend .legend-gradient,
-.map-legend .legend-minmax,
+.map-legend .legend-steps,
 .map-legend .legend-scale{text-align:left;}
 .map-legend .title{font-weight:700;color:var(--ink);margin-bottom:7px;}
-.legend-gradient{
-  height:9px;border-radius:2px;
-  background:linear-gradient(90deg,var(--scale-1),var(--scale-2),var(--scale-3),var(--scale-4));
-}
-.legend-minmax{display:flex;justify-content:space-between;margin-top:4px;font-size:10px;}
+/* La legende montre les paliers tels que la carte les applique : une pastille
+   par classe, bornee en chiffres. Un degrade continu laissait croire a une
+   echelle qui n'existe pas — la carte n'a jamais colorie qu'en classes. */
+.legend-steps{display:flex;flex-direction:column;gap:3px;}
+.legend-step{display:flex;align-items:center;gap:6px;white-space:nowrap;font-variant-numeric:tabular-nums;}
 .legend-scale{display:flex;align-items:center;gap:6px;}
 .legend-swatch{width:10px;height:10px;border-radius:2px;flex:none;}
 .legend-swatch.is-quiet{background:#EFECE8;border:1px solid #E4E0DB;}
@@ -1606,7 +1620,10 @@ footer{
      repassent au-dessus d'elle, et la legende en dessous. */
   .zonemap-stage{display:flex;flex-direction:column;}
   .map-toolbar{position:static;order:-1;margin-bottom:10px;}
-  .map-legend{position:static;order:1;margin:10px 0 0;max-width:none;backdrop-filter:none;}
+  .map-legend{position:static;order:1;margin:10px 0 0;max-width:none;padding:0;background:transparent;}
+  /* Trois par ligne : en rangee libre, le sixieme palier restait seul a la
+     ligne, et l'echelle se lisait comme cinq classes plus une. */
+  .legend-steps{display:grid;grid-template-columns:repeat(3,max-content);gap:5px 16px;}
 
   /* Cibles tactiles : on vise 40 px de haut, sans grossir le texte ni les
      bordures — c'est le rembourrage qui s'etire. */

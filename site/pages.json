@@ -230,7 +230,9 @@
     "zoneThresholds": [
       10,
       50,
-      200
+      200,
+      500,
+      1000
     ]
   },
   "mapLandmarks": {
