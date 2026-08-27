@@ -1708,8 +1708,12 @@ footer{
     border:1px solid var(--line);border-radius:var(--radius);
     background:var(--bg-panel);padding:0 14px;
   }
+  /* L'etat actif est plein : fond dans l'accent fort — le bleu de la date a
+     cote et du filet sous la langue — texte blanc. Le pastel --accent-light
+     n'existait nulle part ailleurs sur la page. Au doigt, le bouton enfonce
+     est celui qui est plein (contraste 9:1). Decision du 27 aout. */
   .map-controls .map-btn.active{
-    border-color:var(--accent-strong);background:var(--accent-light);color:var(--accent-hover);
+    border-color:var(--accent-strong);background:var(--accent-strong);color:#fff;
   }
   .map-controls .map-mode{padding-left:0;border-left:0;}
   /* Meme retour aux encadres pour les bascules des graphiques et des
@@ -1720,7 +1724,7 @@ footer{
     background:var(--bg-panel);padding:0 14px;
   }
   .subtab-btn.active{
-    border-color:var(--accent-strong);background:var(--accent-light);color:var(--accent-hover);
+    border-color:var(--accent-strong);background:var(--accent-strong);color:#fff;
   }
   .subtab-nav{gap:6px;}
   /* Sous la carte, la legende s'aligne a gauche comme le reste de la page :
@@ -1787,7 +1791,7 @@ footer{
     background:var(--bg-alt);border-radius:20px;padding:1px 6px;margin-left:2px;
   }
   .reports-months .subtab-btn.active .count{
-    background:rgba(0,80,115,.10);color:var(--accent-hover);
+    background:rgba(255,255,255,.2);color:#fff;
   }
 
 /* ==========================================================================
@@ -1822,6 +1826,11 @@ footer{
   font-style:italic;
   color:var(--accent-strong);
 }
+/* Le « 17e » du titre — present sur telephone seulement, span .on-phone —
+   prend la couleur de « chiffre apres chiffre » : un nombre dans la couleur
+   de la promesse, droit, pas italique (c'est un fait, pas une citation).
+   Sur ordinateur le meme echo passe par le kicker, deja bleu. */
+.accroche .num{color:var(--accent-strong);}
 
 @media (max-width:900px){
   .accroche{max-width:none;margin-bottom:26px;}

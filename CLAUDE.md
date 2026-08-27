@@ -367,6 +367,22 @@ regle — l'espace ordinaire avant `?` est une faute, pas une variante. Dans
 `i18n.js`, le remplacement n'a touche que l'interieur des chaines : les
 ternaires ` ? ` / ` : ` du code sont intacts, et `node --check` passe.
 
+**SUR TELEPHONE, L'ETAT ACTIF EST PLEIN.** Depuis le 27 aout au soir, sous
+900 px (la ou les commandes sont des encadres) : le bouton selectionne —
+cadrage et lecture de la carte, onglets des graphiques et tableaux, mois de
+l'archive — a un fond `--accent-strong` et un texte blanc, au lieu du pastel
+`--accent-light` que le proprietaire n'aimait pas et qui n'existait nulle
+part ailleurs sur la page. C'est le bleu de la date et du filet sous la
+langue ; contraste 9:1. Le compteur du mois actif passe en blanc sur un
+voile clair. Choisi sur planche de cinq variantes (pastel plus soutenu,
+accent plein, accent fort plein, bord epais sans fond). Sur ordinateur, les
+etats restent des traits.
+
+**LE « 17e » DU TITRE EST BLEU.** Sur telephone seulement, par construction
+(span `.num` a l'interieur du span `.on-phone` de `homeLede`, trois langues) :
+un nombre dans la couleur de « chiffre apres chiffre », droit, pas italique.
+Sur ordinateur le meme echo passe par le kicker, deja bleu.
+
 **SUR TELEPHONE, L'ACCUEIL S'OUVRE SUR L'EPICENTRE.** Decisions du 27 aout
 au soir, toutes sous 760 px, regles en fin de `site.css` (elles doivent
 l'emporter sur des blocs ecrits plus haut) :
