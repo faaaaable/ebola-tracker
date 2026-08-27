@@ -808,11 +808,15 @@
 
       <div class="carto-detail is-empty"
            id="cartoDetail"
-           data-default-name="Affected health zones"
-           data-default-sub="58 of 519 health zones affected"
+           data-default-name="Situation as of 25 Aug 2026"
            data-more="Open the province">
-        <div class="name" id="cartoName">Affected health zones</div>
-        <div class="note" id="cartoNote">58 of 519 health zones affected</div>
+        <!-- Au repos, le panneau porte la date des dernieres donnees et rien
+             d'autre : ses chiffres sont un bilan national, le compte de zones
+             touchees n'en fait pas partie (il vit en tete de /donnees/ et
+             dans la chronologie). Au survol, la ligne « note » recoit la
+             province de la zone. -->
+        <div class="name" id="cartoName">Situation as of 25 Aug 2026</div>
+        <div class="note" id="cartoNote"></div>
         <div class="cd-national">
           <div class="cd-nat confirmed">
             <span class="k" data-i18n="labelConfirmed">Confirmed cases</span>
@@ -1068,7 +1072,7 @@ window.LEGACY_HASH_ROUTES = {"zones": "/en/data/", "reports": "/en/reports/", "a
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
 <script defer src="/assets/js/i18n.js?v=ec5bd95966"></script>
-<script defer src="/assets/js/app.js?v=1de5cf0e62"></script>
+<script defer src="/assets/js/app.js?v=8274d1da89"></script>
 
 </body>
 </html>

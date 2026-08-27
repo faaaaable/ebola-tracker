@@ -3213,6 +3213,7 @@ function safeRun(fn, label){
 function renderAll(){
   safeRun(renderZonesDropdown, 'zonesDropdown'); // menu de navigation : sur toutes les pages
   safeRun(renderKPIs, 'kpis');
+  safeRun(daterPanneauCarte, 'panneau carte');
   safeRun(renderChart, 'chart');
   safeRun(renderMap, 'map');
   safeRun(renderZonesTable, 'zonesTable');
@@ -4540,6 +4541,18 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
    s'affiche et se lit sans JavaScript. On n'ajoute ici que le confort —
    survoler une zone met a jour le panneau de detail a cote, et le quitter
    revient au total national. */
+/* Le titre de repos du panneau est ecrit par le generateur ; quand
+   latest.json apporte un bulletin plus recent que la page, il suit. */
+function daterPanneauCarte(){
+  const detail = document.getElementById('cartoDetail');
+  const d = currentMeta ? currentMeta.reportingDate : null;
+  if(!detail || !d) return;
+  const libelle = tr('chartShareAsOf')(frDate(d) + ' ' + d.slice(0, 4));
+  detail.dataset.defaultName = libelle;
+  const nameEl = document.getElementById('cartoName');
+  if(nameEl && detail.classList.contains('is-empty')) nameEl.textContent = libelle;
+}
+
 (function setupCartogram(){
   const detail = document.getElementById('cartoDetail');
   if(!detail) return;
@@ -4606,7 +4619,7 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
      puisse atteindre son lien. */
   function showDefault(){
     detail.classList.add('is-empty');
-    if(nameEl) nameEl.textContent = base.name;
+    if(nameEl) nameEl.textContent = detail.dataset.defaultName || base.name;
     if(noteEl) noteEl.textContent = base.sub;
     if(subEl) subEl.innerHTML = base.hint;
   }

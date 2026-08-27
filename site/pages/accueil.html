@@ -65,11 +65,15 @@
 
       <div class="carto-detail is-empty"
            id="cartoDetail"
-           data-default-name="{{t.cartoDefaultName}}"
-           data-default-sub="{{seed.provincesTouched}}"
+           data-default-name="{{seed.cartoAsOf}}"
            data-more="{{t.cartoMore}}">
-        <div class="name" id="cartoName">{{t.cartoDefaultName}}</div>
-        <div class="note" id="cartoNote">{{seed.provincesTouched}}</div>
+        <!-- Au repos, le panneau porte la date des dernieres donnees et rien
+             d'autre : ses chiffres sont un bilan national, le compte de zones
+             touchees n'en fait pas partie (il vit en tete de /donnees/ et
+             dans la chronologie). Au survol, la ligne « note » recoit la
+             province de la zone. -->
+        <div class="name" id="cartoName">{{seed.cartoAsOf}}</div>
+        <div class="note" id="cartoNote"></div>
 {{panelStats}}
         <dl class="cd-figures">
           <div class="cd-fig is-cases">

@@ -1938,6 +1938,11 @@ def main():
         # script ne tourne, ou sans lui.
         common_seed["timelineLatest"] = esc(long_date(
             (latest.get("meta") or {}).get("reportingDate", ""), i18n_lang))
+        # Le panneau a cote de la carte est date, pas titre : ses cinq chiffres
+        # sont le bilan national du dernier bulletin, quelle que soit la
+        # position du curseur. Meme formule que les images partagees.
+        common_seed["seed.cartoAsOf"] = esc(interp(strings_lang["cartoAsOf"], {
+            "date": long_date((latest.get("meta") or {}).get("reportingDate", ""), i18n_lang)}))
         common_seed["seed.provincesTouched"] = esc(interp(
             strings_lang["cartoZonesTouched"],
             {"n": touched, "total": len(geo["zones"])}))
