@@ -546,19 +546,27 @@ ul,ol{margin:0;padding:0;}
 .legend-circles{display:block;overflow:visible;}
 .legend-circles .legend-circle{fill:var(--map-5);fill-opacity:.5;stroke:var(--map-6);stroke-width:1;}
 .legend-circles text{font-size:10px;fill:var(--ink-label);font-family:var(--font-sans);}
-/* Un etat actif est un trait sous le mot, pas une boite pleine : les rangees
-   de pastilles deviennent des rangees d'onglets, et l'ecran perd une dizaine
-   de rectangles sans perdre une information. Le trait transparent des
-   inactifs garde la hauteur : rien ne saute au clic. */
+/* Les commandes de la carte sont des encadres, a toutes les largeurs — le
+   27 aout au soir, le proprietaire a voulu sur ordinateur les memes boutons
+   que sur telephone. L'etat actif est un cadre, pas un fond : bord de 2 px
+   dans l'accent fort (le bleu de la date a cote) et texte gras, le second
+   pixel en ombre interieure pour que la boite garde sa taille — rien ne
+   saute au clic. Le pastel --accent-light d'origine n'existait nulle part
+   ailleurs ; le fond plein pesait trop avec deux boutons pleins cote a cote. */
 .map-btn{
   font-family:var(--font-sans);font-size:11.5px;font-weight:600;
-  padding:6px 2px;border:0;border-bottom:2px solid transparent;border-radius:0;
-  background:transparent;color:var(--ink-label);
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:0 12px;min-height:32px;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--bg-panel);color:var(--ink-label);
   cursor:pointer;
 }
-.map-btn:hover{color:var(--accent-strong);}
-.map-btn.active{color:var(--ink);border-bottom-color:var(--accent-strong);}
-.map-toolbar,.map-mode{gap:14px;}
+.map-btn:hover{color:var(--accent-strong);border-color:var(--ink-faint);}
+.map-btn.active{
+  border-color:var(--accent-strong);box-shadow:inset 0 0 0 1px var(--accent-strong);
+  color:var(--accent-hover);font-weight:700;
+}
+.map-toolbar,.map-mode{gap:8px;}
 /* Deux groupes sur la ligne — le cadrage, puis la lecture — que les bordures
    separaient sans qu'on y pense : un filet vertical discret les distingue. */
 .map-controls .map-mode{padding-left:18px;border-left:1px solid var(--line);}
@@ -655,15 +663,20 @@ ul,ol{margin:0;padding:0;}
 /* Barre d'action d'un graphique : le bouton se range a droite, au-dessus
    du cadre, la ou les bascules de vue se rangent a gauche. */
 .chart-actions{display:flex;justify-content:flex-end;margin-bottom:10px;}
+/* Memes encadres que les commandes de la carte, memes raisons. */
 .subtab-btn{
   font-family:var(--font-sans);font-size:11.5px;font-weight:600;
-  padding:5px 2px;border:0;border-bottom:2px solid transparent;border-radius:0;
-  background:transparent;color:var(--ink-label);
+  padding:0 12px;min-height:32px;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--bg-panel);color:var(--ink-label);
   cursor:pointer;display:inline-flex;align-items:center;gap:6px;
 }
-.subtab-btn:hover{color:var(--accent-strong);}
-.subtab-btn.active{color:var(--ink);border-bottom-color:var(--accent-strong);}
-.subtab-nav{gap:14px;}
+.subtab-btn:hover{color:var(--accent-strong);border-color:var(--ink-faint);}
+.subtab-btn.active{
+  border-color:var(--accent-strong);box-shadow:inset 0 0 0 1px var(--accent-strong);
+  color:var(--accent-hover);font-weight:700;
+}
+.subtab-nav{gap:8px;}
 .subtab-btn .dot{width:6px;height:6px;border-radius:50%;flex:none;}
 
 /* ==========================================================================
@@ -1701,35 +1714,11 @@ footer{
      repassent au-dessus d'elle, et la legende en dessous. */
   .zonemap-stage{display:flex;flex-direction:column;}
   .map-controls{gap:10px;}
-  /* Sur telephone, les quatre commandes de la carte de l'accueil redeviennent
-     des encadres : au doigt, un cadre dit « ici on appuie » mieux qu'un mot
-     souligne. Le filet vertical n'a plus de sens quand la ligne s'enroule. */
-  .map-controls .map-btn{
-    border:1px solid var(--line);border-radius:var(--radius);
-    background:var(--bg-panel);padding:0 14px;
-  }
-  /* L'etat actif est un cadre, pas un fond : bord de 2 px dans l'accent fort
-     — le bleu de la date a cote — et texte gras. Le pastel --accent-light
-     n'existait nulle part ailleurs sur la page ; le fond plein (essaye le
-     27 aout) pesait trop avec deux boutons pleins cote a cote. Le second
-     pixel de bord est une ombre interieure : la boite garde sa taille, rien
-     ne saute au clic. */
-  .map-controls .map-btn.active{
-    border-color:var(--accent-strong);box-shadow:inset 0 0 0 1px var(--accent-strong);
-    background:var(--bg-panel);color:var(--accent-hover);font-weight:700;
-  }
+  /* Les encadres et leur etat actif sont definis une fois pour toutes
+     (regles de base) ; ici seulement ce qui est propre au telephone : le
+     filet vertical entre cadrage et lecture n'a plus de sens quand la ligne
+     s'enroule, et les cibles grandissent a 40 px plus bas. */
   .map-controls .map-mode{padding-left:0;border-left:0;}
-  /* Meme retour aux encadres pour les bascules des graphiques et des
-     tableaux : sept onglets souliges qui s'enroulent sur trois lignes se
-     lisaient comme du texte, pas comme des commandes. */
-  .subtab-btn{
-    border:1px solid var(--line);border-radius:var(--radius);
-    background:var(--bg-panel);padding:0 14px;
-  }
-  .subtab-btn.active{
-    border-color:var(--accent-strong);box-shadow:inset 0 0 0 1px var(--accent-strong);
-    background:var(--bg-panel);color:var(--accent-hover);font-weight:700;
-  }
   .subtab-nav{gap:6px;}
   /* Sous la carte, la legende s'aligne a gauche comme le reste de la page :
      le titre a droite, au-dessus de pastilles a gauche, se lisait comme deux

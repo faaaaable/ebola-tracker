@@ -375,16 +375,23 @@ sur « Cercles », les commandes sautaient de 43 px. Depuis le 27 aout, sous
 et `.map-legend` a 104 px de hauteur minimale. Si la legende des cercles
 change de taille dans `build_pages`, ajuster ce minimum.
 
-**SUR TELEPHONE, L'ETAT ACTIF EST UN CADRE.** Depuis le 27 aout au soir, sous
-900 px (la ou les commandes sont des encadres) : le bouton selectionne —
-cadrage et lecture de la carte, onglets des graphiques et tableaux, mois de
-l'archive — a un bord de 2 px dans `--accent-strong` (le bleu de la date) et
-un texte gras `--accent-hover`, sans fond. Le second pixel de bord est une
-ombre interieure (`box-shadow: inset`) : la boite garde sa taille, rien ne
-saute au clic. Choisi sur planche de cinq variantes ; le pastel
+**LES COMMANDES SONT DES ENCADRES, A TOUTES LES LARGEURS.** Depuis le
+27 aout au soir, a la demande du proprietaire — qui a d'abord choisi les
+encadres sur telephone, puis les a voulus aussi sur ordinateur : `.map-btn`
+(cadrage et lecture de la carte, Lecture et bouton-date des pages province)
+et `.subtab-btn` (onglets des graphiques et tableaux, mois de l'archive)
+sont des boites a bord fin, 32 px de haut sur ordinateur, 40 sur telephone.
+L'etat actif est un cadre, pas un fond : bord de 2 px dans `--accent-strong`
+(le bleu de la date) et texte gras `--accent-hover`, le second pixel en
+ombre interieure (`box-shadow: inset`) pour que la boite garde sa taille —
+rien ne saute au clic. Choisi sur planche de cinq variantes ; le pastel
 `--accent-light` d'origine n'existait nulle part ailleurs sur la page, et le
 fond plein accent fort, essaye d'abord, pesait trop avec deux boutons pleins
-cote a cote. Sur ordinateur, les etats restent des traits.
+cote a cote. Ceci REMPLACE, pour ces deux familles, le « moins de boites,
+plus de traits » du 27 aout au matin ; les langues (`.lang-btn`) et le lien
+courant de la barre laterale restent des traits. Sur ordinateur, le filet
+vertical entre cadrage et lecture est conserve ; il disparait sur telephone
+ou la ligne s'enroule.
 
 **LE « 17e » DU TITRE EST BLEU.** Sur telephone seulement, par construction
 (span `.num` a l'interieur du span `.on-phone` de `homeLede`, trois langues) :
