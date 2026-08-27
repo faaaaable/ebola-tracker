@@ -326,6 +326,17 @@ ne tourne et sans lui ; la cle i18n `timelineToday` a disparu. Demande du
 proprietaire du 27 aout — « aujourd'hui » n'est pas la date d'un bulletin. Le libelle a aussi perdu son sigle : « Certains bulletins ne
 detaillent pas les zones : ces dates sont absentes du curseur. »
 
+**SOUS 1 600 PX, LE PANNEAU ET LA BARRE LATERALE SE RESSERRENT.** Le
+proprietaire, ses deux ecrans cote a cote, trouvait le panneau a droite de la
+carte « clairement plus grand » sur le 13 pouces. Il ne l'est pas en pixels —
+300 px partout — mais en PART de la colonne : un quart sur un 13 (1 470 px de
+large), un cinquieme sur un 15 (1 728). Tout ce qui est fixe pese plus lourd
+sur un petit ecran. Palier a 1 600 px : panneau a 250 px, barre laterale a
+210, chiffres un cran plus petits ; la carte recupere ~80 px, un dixieme de
+sa largeur. Un 15/16 pouces en plein ecran ne voit rien changer — sauf si
+la fenetre est plus etroite que 1 600 px, c'est la largeur de la fenetre qui
+compte, pas l'ecran.
+
 **RIEN NE FLOTTE SUR LA CARTE DE L'ACCUEIL.** Sur un 13 pouces, les quatre
 boutons poses en haut de la carte — cadrage a gauche, zones/cercles a droite
 — recouvraient le nord du pays, la ou sont les cas. Depuis le 27 aout, les
