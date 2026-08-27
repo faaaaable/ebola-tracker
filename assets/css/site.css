@@ -894,6 +894,19 @@ td.is-soft{color:var(--ink-faint);}
    Le meme empilement revient sous 420 px, depuis que les telephones etroits
    affichent deux colonnes : la carte y retombe a 135 px de contenu, soit
    exactement la limite. */
+/* Ce qui est fixe pese plus lourd sur un petit ecran : a 300 px, le panneau
+   a cote de la carte prend un quart de la colonne d'un 13 pouces contre un
+   cinquieme sur un 15. Sous 1 600 px il se resserre, la barre laterale
+   aussi, et la carte recupere ~80 px, un dixieme de sa largeur. Rien ne
+   bouge au-dessus. */
+@media (max-width:1600px){
+  :root{--sidebar:210px;}
+  .carto-layout{grid-template-columns:minmax(0,1fr) 250px;gap:20px;}
+  .carto-detail{padding:14px;}
+  .carto-detail .name{font-size:18px;}
+  .cd-nat .v{font-size:17px;}
+}
+
 @media (min-width:1401px) and (max-width:1680px){
   .pc-stat{flex-direction:column;align-items:flex-start;gap:0;}
   .pc-stat .k{line-height:1.35;}
