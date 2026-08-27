@@ -660,23 +660,28 @@ pas publiee, donc pas separable — mais les deces du 30 juillet sont ceux des 2
 que soit la repartition. Juillet passe ainsi de 444 a 272 cas en teinte claire,
 et de 336 a 236 deces, sans qu'aucun total bouge.
 
-**LE BOUTON DE PARTAGE EST RANGE AVEC LES CONTROLES, jamais seul.** Il flottait
-a l'extreme droite, au-dessus d'une zone vide : a cette place il se lisait comme
-un element de page et non comme une action sur la figure.
+**LE BOUTON DE PARTAGE VIT DANS LE CADRE DE CE QU'IL EXPORTE.** Pose au-dessus
+du cadre, il partait a l'extreme droite de la colonne, au-dessus d'une zone
+vide : les cadres de tableau sont en `panel-fit`, larges de leur contenu et non
+de la page, si bien qu'un bouton range sur la largeur de la section se
+retrouvait a 150 px du tableau, contre le bord de l'ecran. A cette place il se
+lisait comme un element de page, pas comme une action sur la figure.
 
-- Pour les graphiques, il rejoint la bascule de vue, DANS le cadre. Pas la barre
-  des sept onglets : elle remplit deja sa ligne, il y passait a la ligne tout
-  seul. Quand le mode n'a pas de bascule, il reste seul dans la rangee mais
-  colle en haut a gauche du cadre, contre la figure.
-- Pour les tableaux, UN SEUL bouton range avec la bascule « Par province / Par
-  zone », qui exporte celui qui est affiche (`data-export-table="auto"`). Deux
-  boutons au-dessus de deux cadres disaient la meme chose deux fois.
-- Sur une page province, il rejoint le titre de section.
+- Pour les graphiques, `.chart-actions` est le premier enfant du `.panel` : en
+  haut a droite, DANS le cadre.
+- Pour les tableaux, meme regle depuis le 27 aout : UN bouton par tableau,
+  premier enfant du `.panel panel-fit`, donc aligne sur le bord droit du
+  tableau lui-meme. Demande explicite du proprietaire, qui le voulait « juste
+  en haut a droite de chaque tableau ». Trois cadres le portent — le resume par
+  province et le detail par zone de `/donnees/`, le tableau de chaque page
+  province — dans les trois langues.
+- Le bloc d'actions n'elargit jamais son cadre : plus etroit que n'importe quel
+  tableau, il ne pese pas sur le `width:fit-content` du panneau, et sous 390 px
+  il reste cale sur la largeur visible pendant que le tableau defile dessous.
 
-Un filet le separe des onglets : sans lui, « Partager » s'aligne comme une vue
-de plus a cote de « Par jour » et « Par mois ». Le filet disparait quand le
-bouton ouvre la rangee — il deviendrait un trait flottant — et sous 520 px, ou
-la rangee passe en colonne.
+Le tableau de comparaison des especes de `/le-virus/` n'en recoit pas : ses
+cellules portent de la prose, et `exporterTableau` est fait pour des chiffres —
+il coupe le texte trop long.
 
 **LES TABLEAUX SE PARTAGENT AUSSI.** Un tableau HTML ne sait pas s'exporter
 comme un canevas : `exporterTableau` le redessine cellule par cellule, avec le
