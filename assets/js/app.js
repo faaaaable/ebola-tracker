@@ -3035,7 +3035,7 @@ function latestAvailableDateLabel(){
     const s = sortedSitreps();
     latestDate = s.length ? s[s.length-1].date : null;
   }
-  return latestDate ? (frDate(latestDate) + ' ' + latestDate.slice(0,4)) : tr('timelineToday');
+  return latestDate ? (frDate(latestDate) + ' ' + latestDate.slice(0,4)) : '\u2014';
 }
 function updateTimelineLabel(){
   const dateLabel = document.getElementById('timelineDate');
@@ -3044,12 +3044,20 @@ function updateTimelineLabel(){
   const todayBtn = document.getElementById('timelineToday');
   if(todayBtn) todayBtn.textContent = latestAvailableDateLabel();
   const v = parseInt(slider.value, 10);
+  /* « Au repos » = la derniere position du curseur, qu'elle soit un cran
+     « aujourd'hui » a part ou le dernier instantane lui-meme. */
+  const auRepos = v >= parseInt(slider.max, 10);
   if(v >= ZONES_HISTORY.length){
     dateLabel.textContent = latestAvailableDateLabel();
   } else {
     const d = ZONES_HISTORY[v].date;
     dateLabel.textContent = frDate(d) + ' ' + d.slice(0,4);
   }
+  /* La note sur les dates absentes du curseur n'a de sens que pendant qu'on
+     le manipule : c'est la que la date saute. Le reste du temps elle repond
+     a une question que personne ne se pose. */
+  const wrap = slider.closest('.map-timeline');
+  if(wrap) wrap.classList.toggle('is-historical', !auRepos);
 }
 function setupTimeline(){
   if(!ZONES_HISTORY.length) return; // pas de données : le curseur reste masqué

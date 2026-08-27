@@ -547,7 +547,8 @@ ul,ol{margin:0;padding:0;}
 .map-timeline-date{font-size:13px;font-weight:600;color:var(--accent-strong);}
 #timelineSlider{width:100%;accent-color:var(--accent-strong);}
 .map-timeline-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;}
-.map-timeline-note{font-size:11px;color:var(--ink-faint);}
+.map-timeline-note{font-size:11px;color:var(--ink-faint);display:none;}
+.map-timeline.is-historical .map-timeline-note{display:inline;}
 
 .map-note{
   padding:12px 0 0;font-size:11.5px;line-height:1.6;color:var(--ink-faint);

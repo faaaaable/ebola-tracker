@@ -1754,6 +1754,11 @@ def main():
         common_seed["legendSteps"] = legend_steps_html(
             config["cartogram"]["zoneThresholds"], lang)
         touched = len(latest.get("healthZones", []))
+        # La derniere position du curseur porte la date des dernieres donnees,
+        # ecrite dans la page : jamais un « Aujourd'hui » — meme avant que le
+        # script ne tourne, ou sans lui.
+        common_seed["timelineLatest"] = esc(long_date(
+            (latest.get("meta") or {}).get("reportingDate", ""), i18n_lang))
         common_seed["seed.provincesTouched"] = esc(interp(
             strings_lang["cartoZonesTouched"],
             {"n": touched, "total": len(geo["zones"])}))
