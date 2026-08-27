@@ -683,6 +683,25 @@ Le tableau de comparaison des especes de `/le-virus/` n'en recoit pas : ses
 cellules portent de la prose, et `exporterTableau` est fait pour des chiffres —
 il coupe le texte trop long.
 
+**L'IMAGE D'UN TABLEAU SE DATE, ELLE NE SE NUMEROTE PAS.** Sa legende haute
+reprenait la ligne de fraicheur de la page — « 58 zones de sante touchees sur
+151 · SitRep N°103 du 25 aout ». Elle porte desormais « Situation au 25 aout
+2026 », dans les memes termes que les figures (`periodeTexte` sur
+`currentMeta.reportingDate`, donc la date DES DONNEES et non celle de
+publication). Un numero de bulletin ne se lit qu'ici ; une date se lit partout,
+et l'annee est ecrite parce qu'une image circule longtemps apres. Ce que le
+tableau montre — filtre de province, recherche en cours — reste devant, la date
+ferme la legende. Effet de bord bienvenu : les pages province, qui n'ont pas de
+`zonesTableSub`, exportaient une image sans aucune date. Le pied garde
+« Sources : SitReps INSP » : c'est la provenance, pas un numero.
+
+**ET LE MESSAGE DE CONFIRMATION NOMME CE QU'IL A COPIE.** Un tableau partage
+disait « Graphique copie ». `partagerImage` prend donc une cle de message en
+quatrieme argument, `chartShareCopied` par defaut, `tableShareCopied` pour les
+tableaux — « Tableau copie », sans le « collez-le ou vous voulez » des figures :
+demande du proprietaire, qui le voulait nu. Les deux autres etats (telechargee,
+copie impossible) restent communs, ils ne nomment pas la figure.
+
 **LES TABLEAUX SE PARTAGENT AUSSI.** Un tableau HTML ne sait pas s'exporter
 comme un canevas : `exporterTableau` le redessine cellule par cellule, avec le
 meme titre, le meme pied et la meme note que les figures. Aucune bibliotheque
