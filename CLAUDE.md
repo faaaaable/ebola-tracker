@@ -357,6 +357,34 @@ page a ete mis en une ligne puis REMIS en quatre colonnes a la demande du
 proprietaire — ne pas le rouvrir. Le titre et les cartes de provinces restent
 tels quels par choix explicite.
 
+**LA PONCTUATION FRANCAISE EST INSECABLE.** Depuis le 27 aout, dans les
+textes francais de `site/strings.json` (bloc `fr`, et les valeurs `fr` des
+blocs cures) et d'`assets/js/i18n.js` (bloc `fr`) : fine insecable U+202F
+avant `?`, `!`, `;`, insecable U+00A0 avant `:` et a l'interieur des
+guillemets « ». Sur telephone, trois questions de la FAQ finissaient par un
+« ? » seul en debut de ligne. Une nouvelle chaine francaise doit suivre la
+regle — l'espace ordinaire avant `?` est une faute, pas une variante. Dans
+`i18n.js`, le remplacement n'a touche que l'interieur des chaines : les
+ternaires ` ? ` / ` : ` du code sont intacts, et `node --check` passe.
+
+**SUR TELEPHONE, MOINS DE COMMANDES ET DES LISTES PLUS COURTES.** Decisions
+du 27 aout, toutes sous 760 px, rien ne change au-dessus :
+- plus de bouton « Lecture » sur les cartes (accueil et provinces) — le
+  curseur se deplace au doigt ; sur les pages province la date n'est ecrite
+  qu'une fois, au bout du curseur, sans l'etiquette « Evolution dans le
+  temps » ni le bouton-date (tirer le curseur au bout fait la meme chose) ;
+- tableau des provinces : « % pays » au lieu de « Part du pays » (span
+  `.on-phone` dans `provinceTh3`, le `th` est passe en `data-i18n-html`), et
+  les noms de province ne se coupent plus. Le partage de tableau lit
+  `innerText`, pas `textContent`, pour n'emporter que le libelle affiche ;
+- Sources : une ligne par bulletin — numero, date, icone — au lieu d'une
+  carte de 80 px ; la page passe de 6 700 a 4 500 px. Le prefixe
+  « Situation au » vit dans un span `.rc-date-prefix` masque sur telephone,
+  produit par `situation_html()` (Python) et `dateBulletin()` (JS), qui
+  decoupent la chaine de traduction autour de la date pour valoir dans les
+  trois langues ; `report_chip()` ne re-echappe donc plus `date_text` ;
+- pied de page en 2 x 2 au lieu de quatre blocs empiles (640 px).
+
 **SUR TELEPHONE, LA CARTE DE L'ACCUEIL TIENT DANS LE PREMIER ECRAN.** Depuis
 le 27 aout, sous 760 px : le kicker « 17e epidemie d'Ebola en Republique
 democratique du Congo » disparait — tout sauf « 17e » repetait le titre — et

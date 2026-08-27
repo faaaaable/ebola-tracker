@@ -3226,6 +3226,14 @@ function renderAll(){
 /* Une carte de bulletin, cliquable dans son entier. Le meme balisage est
    produit a la generation par report_chip() dans scripts/build_pages.py :
    toute retouche doit etre faite des deux cotes. */
+/* « Situation au 25 aout 2026 », le prefixe dans un span que le telephone
+   masque — meme decoupe que situation_html() cote Python : la fonction de
+   traduction est appelee avec un caractere sentinelle, puis coupee autour. */
+function dateBulletin(iso){
+  const [pre, post] = tr('reportsReportingDate')('\u0000').split('\u0000');
+  return `<span class="rc-date-prefix">${pre}</span>${frDate(iso) + ' ' + iso.slice(0,4)}${post || ''}`;
+}
+
 function reportCard(opts){
   const attrs = [
     opts.month ? `data-month="${opts.month}"` : '',
@@ -3274,7 +3282,7 @@ function renderReportsList(){
     <div class="reports-month-header" data-month-key="${g.key}">${g.label}</div>
     ${g.reports.map(r=>reportCard({
       label: tr('reportsSitrepLabel')(r.sitrepNumber),
-      date: r.reportingDate ? tr('reportsReportingDate')(frDate(r.reportingDate) + ' ' + r.reportingDate.slice(0,4)) : tr('reportsUnknownDate'),
+      date: r.reportingDate ? dateBulletin(r.reportingDate) : tr('reportsUnknownDate'),
       href: assetUrl(r.file),
       title: tr('reportsDownload'),
       month: g.key,
@@ -3364,7 +3372,7 @@ function renderWhoReportsList(){
   const sorted = [...whoReportsData].sort((a,b)=>(b.number||'').localeCompare(a.number||''));
   container.innerHTML = sorted.map(r=>reportCard({
     label: tr('whoReportsLabel')(r.number),
-    date: r.date ? tr('reportsReportingDate')(frDate(r.date) + ' ' + r.date.slice(0,4)) : tr('reportsUnknownDate'),
+    date: r.date ? dateBulletin(r.date) : tr('reportsUnknownDate'),
     href: assetUrl(r.file),
     title: tr('reportsDownload'),
     variant: 'is-who'
@@ -3384,7 +3392,7 @@ function renderSocialUpdatesList(){
   const sorted = [...SOCIAL_UPDATES].sort((a,b)=>b.date.localeCompare(a.date));
   container.innerHTML = sorted.map(r=>reportCard({
     label: r.source || tr('socialUpdatesLabel'),
-    date: tr('reportsReportingDate')(frDate(r.date) + ' ' + r.date.slice(0,4)),
+    date: dateBulletin(r.date),
     href: r.url,
     title: tr('socialUpdatesOpenLink'),
     variant: 'is-social'
@@ -3985,8 +3993,10 @@ async function exporterTableau(table, titre, sousTitre, note){
   /* Le chevron de tri reste a l'ecran, ou il dit sur quelle colonne on a
      clique ; il ne suit pas l'image. Sortie du site, une pointe collee a un
      libelle ne renvoie plus a rien de cliquable. */
+  /* innerText, pas textContent : un en-tete peut porter deux libelles dont
+     un seul s'affiche selon la largeur (« Part du pays » / « % pays »). */
   const entetes = [...table.querySelectorAll('thead th')].map(th => ({
-    texte: th.textContent.trim().replace(/\s+/g, ' ').replace(/\s*[\u25b2\u25bc]$/, ''),
+    texte: th.innerText.trim().replace(/\s+/g, ' ').replace(/\s*[\u25b2\u25bc]$/, ''),
     nombre: th.classList.contains('is-num')
   }));
   const lignes = [...table.querySelectorAll('tbody tr')].map(

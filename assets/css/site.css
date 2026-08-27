@@ -1847,6 +1847,45 @@ footer{
   }
 }
 
+/* ---- sur telephone, moins de commandes et des listes plus courtes ----
+   Decisions du 27 aout, toutes sous 760 px, rien ne change au-dessus. */
+@media (max-width:760px){
+  /* Le curseur se deplace au doigt : pas de bouton Lecture. Sur les pages
+     province, la date n'est ecrite qu'une fois — au bout du curseur — et
+     l'etiquette « Evolution dans le temps » disparait, un curseur date se
+     comprend seul. Le bouton-date qui ramenait au dernier bulletin part
+     avec : tirer le curseur au bout fait la meme chose. */
+  #timelinePlay,#timelineToday,.map-timeline-label{display:none;}
+  .map-timeline-head{justify-content:flex-end;}
+  .map-timeline-foot{margin-top:0;}
+
+  /* Tableau des provinces : « % pays » (span .on-phone de provinceTh3) au
+     lieu de « Part du pays » sur trois lignes, et les noms de province ne se
+     coupent plus (« Nord- / Kivu »). Les largeurs fixes de l'ordinateur
+     cedent la place au contenu. */
+  .province-summary td:first-child,.province-summary th:first-child{white-space:nowrap;width:auto;}
+  .province-summary td.is-num,.province-summary th.is-num{width:auto;}
+
+  /* Sources : une ligne par bulletin — numero, date, icone — au lieu d'une
+     carte de 80 px. Vingt-cinq bulletins par mois faisaient une page de
+     6 700 px. La grille remplace la carte ; .rc-head s'efface (contents)
+     pour que ses deux enfants prennent chacun leur colonne. */
+  .reports-grid{gap:6px;}
+  .report-chip{
+    display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;
+    column-gap:12px;padding:8px 12px;min-height:42px;
+  }
+  .rc-head{display:contents;}
+  .rc-label{font-size:15px;white-space:nowrap;}
+  .rc-date{order:2;font-size:12px;white-space:nowrap;}
+  .rc-date-prefix{display:none;}
+  .rc-dl{order:3;width:22px;height:22px;}
+
+  /* Pied de page en 2 x 2 : quatre colonnes empilees faisaient 640 px. */
+  footer{margin-top:36px;padding:26px 0 36px;}
+  .footer-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 16px;}
+}
+
 /* Rappel de contexte au-dessus des dates du bandeau : le gros titre ne dit que
    « RDC », cette ligne porte le nom complet du pays — pour le lecteur comme
    pour les moteurs de recherche. */

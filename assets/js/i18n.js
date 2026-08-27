@@ -18,10 +18,10 @@ const I18N = {
     mapModeZones:"Zones colorées",
     mapModeCircles:"Cercles",
     shareBtn:"Partager",
-    linkCopied:"Lien copié !",
+    linkCopied:"Lien copié !",
     legendTitle:"Cas confirmés cumulés",
     legendAgg:"Total estimé par province",
-    legendDashNote:"Pointillés : donnée agrégée par province, sans détail par zone de santé.",
+    legendDashNote:"Pointillés : donnée agrégée par province, sans détail par zone de santé.",
     mapNote:"Les zones de santé sont positionnées à des coordonnées approximatives (chefs-lieux de zone). Elles ne représentent pas des limites administratives exactes.",
     chartTitle:"Évolution de l'épidémie",
     chartSub:"cumul des cas confirmés et décès",
@@ -35,7 +35,7 @@ const I18N = {
     tableShareCopied:"Tableau copié",
     chartShareFailed:"Copie impossible",
     chartShareFile:"ebola-tracker.png",
-    chartShareSource:"Sources : SitReps INSP",
+    chartShareSource:"Sources : SitReps INSP",
     chartSharePeriod:(debut,fin)=>`du ${debut} au ${fin}`,
     chartShareAsOf:(date)=>`Situation au ${date}`,
     chartModeNewCases:"Nouveaux cas",
@@ -45,46 +45,46 @@ const I18N = {
     chartVueMonthly:"Par mois",
     chartPeriodDays:(n,total)=>`${n} relevé${n>1?'s':''} sur ${total}`,
     chartMonthOngoing:(date)=>`mois en cours, arrêté au ${date}`,
-    chartStackTotal:(n)=>`Total : ${n}`,
+    chartStackTotal:(n)=>`Total : ${n}`,
     chartDaysToCome:"Jours à venir",
     chartDailyNote:(absentes)=>`Nouveaux cas de chaque bulletin, calculés comme l'écart avec le bulletin précédent. `
       + `Une révision à la baisse est ramenée à zéro plutôt que de creuser un trou qui n'a pas eu lieu. `
       + (absentes.length
-          ? `Les ${absentes.length} jours sans bulletin (${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]}) n'ont pas de barre : leurs cas sont déjà dans le cumul du bulletin suivant, dont l'écart couvre alors plusieurs journées. `
+          ? `Les ${absentes.length} jours sans bulletin (${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]}) n'ont pas de barre : leurs cas sont déjà dans le cumul du bulletin suivant, dont l'écart couvre alors plusieurs journées. `
           : '')
-      + `Les 22 et 30 juillet relèvent d'autre chose : le bulletin y annonce moins de nouveaux cas que ne monte le cumul, et l'excédent passe en teinte claire. `
+      + `Les 22 et 30 juillet relèvent d'autre chose : le bulletin y annonce moins de nouveaux cas que ne monte le cumul, et l'excédent passe en teinte claire. `
       + `Le 30 juillet est les deux à la fois — il rattrape les 28 et 29, dont les bulletins manquent.`,
     chartWeeklyCases:"Nouveaux cas",
     chartWeeklyDeaths:"Nouveaux décès",
     chartDailyDeathsNote:(absentes,muets)=>`Nouveaux décès de chaque bulletin, calculés comme l'écart avec le bulletin précédent. `
       + (muets.length
-          ? `${muets.length > 1 ? `Les ${muets.length} bulletins qui ne donnent aucun total de décès — ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} — n'ont pas de barre` : `Le bulletin du ${muets[0]}, qui ne donne aucun total de décès, n'a pas de barre`} : `
+          ? `${muets.length > 1 ? `Les ${muets.length} bulletins qui ne donnent aucun total de décès — ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} — n'ont pas de barre` : `Le bulletin du ${muets[0]}, qui ne donne aucun total de décès, n'a pas de barre`} : `
             + `l'écart revient au bulletin suivant, dont la barre couvre alors plusieurs journées. `
           : '')
       + (absentes.length ? `Il en va de même des ${absentes.length} jours sans bulletin. ` : '')
-      + `Les 22 et 30 juillet relèvent d'autre chose — le 30 étant les deux à la fois, puisqu'il rattrape aussi les 28 et 29 : le bulletin signale un rattrapage de données, mais n'en publie la part que pour les cas ; `
+      + `Les 22 et 30 juillet relèvent d'autre chose — le 30 étant les deux à la fois, puisqu'il rattrape aussi les 28 et 29 : le bulletin signale un rattrapage de données, mais n'en publie la part que pour les cas ; `
       + `faute de chiffre, ces deux journées sont affichées en entier dans la teinte claire. `
       + `Un décès n'entre dans la série qu'une fois confirmé — ceux survenus en communauté le sont souvent avec plusieurs jours de retard.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`Nouveaux décès agrégés par semaine calendaire, du lundi au dimanche. `
-      + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. ` : '')
-      + `${absentes.length} bulletins manquent : les totaux sont des minimums. La vue « par jour » liste les dates. `
+      + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. ` : '')
+      + `${absentes.length} bulletins manquent : les totaux sont des minimums. La vue « par jour » liste les dates. `
       + (muets.length ? `${muets.length > 1 ? `Les bulletins des ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} ne donnent` : `Le bulletin du ${muets[0]} ne donne`} aucun total de décès. ` : '')
-      + `En juillet, deux journées de rattrapage sont affichées en entier, la part du jour n'étant pas publiée pour les décès : celle du 22 reste en teinte claire, faute de période déclarée ; celle du 30 rattrape les 28 et 29, que sa semaine contient. `
-      + `Une semaine ne mesure pas les décès de la semaine, mais ceux qu'elle a enregistrés : un décès n'entre dans la série qu'une fois confirmé.`,
+      + `En juillet, deux journées de rattrapage sont affichées en entier, la part du jour n'étant pas publiée pour les décès : celle du 22 reste en teinte claire, faute de période déclarée ; celle du 30 rattrape les 28 et 29, que sa semaine contient. `
+      + `Une semaine ne mesure pas les décès de la semaine, mais ceux qu'elle a enregistrés : un décès n'entre dans la série qu'une fois confirmé.`,
     chartMonthlyDeathsNote:(mois,partiels,absentes,enCours,muets)=>`Nouveaux décès agrégés par mois calendaire. `
-      + (enCours ? `Le mois en cours, ${enCours.nom}, n'est pas terminé : sa barre couvre le mois entier, mais seuls les jours écoulés sont colorés — les ${enCours.restants} qui restent sont grisés à droite, et sa hauteur montera encore. ` : '')
-      + `${absentes.length} bulletins manquent, et le premier mois ne commence qu'au premier bulletin publié : les totaux sont des minimums. La vue « par jour » liste les dates. `
+      + (enCours ? `Le mois en cours, ${enCours.nom}, n'est pas terminé : sa barre couvre le mois entier, mais seuls les jours écoulés sont colorés — les ${enCours.restants} qui restent sont grisés à droite, et sa hauteur montera encore. ` : '')
+      + `${absentes.length} bulletins manquent, et le premier mois ne commence qu'au premier bulletin publié : les totaux sont des minimums. La vue « par jour » liste les dates. `
       + (muets.length ? `${muets.length > 1 ? `Les bulletins des ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} ne donnent` : `Le bulletin du ${muets[0]} ne donne`} aucun total de décès. ` : '')
-      + `En juillet, deux journées de rattrapage sont affichées en entier, la part du jour n'étant pas publiée pour les décès : celle du 22 reste en teinte claire, faute de période déclarée ; celle du 30 rattrape les 28 et 29, que le mois contient. `
+      + `En juillet, deux journées de rattrapage sont affichées en entier, la part du jour n'étant pas publiée pour les décès : celle du 22 reste en teinte claire, faute de période déclarée ; celle du 30 rattrape les 28 et 29, que le mois contient. `
       + `Un décès n'entre dans la série qu'une fois confirmé, souvent avec plusieurs jours de retard quand il est survenu en communauté.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Nouveaux cas agrégés par semaine calendaire, du lundi au dimanche. `
-      + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. ` : '')
-      + `${absentes.length} bulletins manquent : les totaux sont des minimums. La vue « par jour » liste les dates. `
-      + `En juillet, seul le rattrapage du 22 garde sa teinte claire — le bulletin ne dit pas quelle période il harmonise ; celui du 30 rattrape les 28 et 29, que sa semaine contient.`,
+      + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. ` : '')
+      + `${absentes.length} bulletins manquent : les totaux sont des minimums. La vue « par jour » liste les dates. `
+      + `En juillet, seul le rattrapage du 22 garde sa teinte claire — le bulletin ne dit pas quelle période il harmonise ; celui du 30 rattrape les 28 et 29, que sa semaine contient.`,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`Nouveaux cas agrégés par mois calendaire. `
-      + (enCours ? `Le mois en cours, ${enCours.nom}, n'est pas terminé : sa barre couvre le mois entier, mais seuls les jours écoulés sont colorés — les ${enCours.restants} qui restent sont grisés à droite, et sa hauteur montera encore. ` : '')
-      + `${absentes.length} bulletins manquent, et le premier mois ne commence qu'au premier bulletin publié : les totaux sont des minimums. La vue « par jour » liste les dates. `
-      + `En juillet, seul le rattrapage du 22 garde sa teinte claire — le bulletin ne dit pas quelle période il harmonise ; celui du 30 rattrape les 28 et 29, que le mois contient.`,
+      + (enCours ? `Le mois en cours, ${enCours.nom}, n'est pas terminé : sa barre couvre le mois entier, mais seuls les jours écoulés sont colorés — les ${enCours.restants} qui restent sont grisés à droite, et sa hauteur montera encore. ` : '')
+      + `${absentes.length} bulletins manquent, et le premier mois ne commence qu'au premier bulletin publié : les totaux sont des minimums. La vue « par jour » liste les dates. `
+      + `En juillet, seul le rattrapage du 22 garde sa teinte claire — le bulletin ne dit pas quelle période il harmonise ; celui du 30 rattrape les 28 et 29, que le mois contient.`,
     chartModeCumulative:"Cas/décès cumulés",
     chartModeDaily:"Nouveaux cas par jour",
     chartModeContactsFollowUp:"Suivi des contacts",
@@ -99,9 +99,9 @@ const I18N = {
     chartPyramideVueEffectifs:"Effectifs",
     chartPyramideVueParts:"Parts",
     chartPyramidePartsTitre:"Part des cas et des décès",
-    chartPyramidePartsNote:"Chaque série est ramenée à 100 % de son propre total : on compare deux répartitions, jamais un rapport entre elles. La comparaison suppose que la sous-déclaration des décès communautaires se répartit également entre les tranches d'âge, ce qu'on ne peut pas vérifier.",
+    chartPyramidePartsNote:"Chaque série est ramenée à 100 % de son propre total : on compare deux répartitions, jamais un rapport entre elles. La comparaison suppose que la sous-déclaration des décès communautaires se répartit également entre les tranches d'âge, ce qu'on ne peut pas vérifier.",
     chartPyramideAxis:"effectifs — femmes à gauche, hommes à droite",
-    chartPyramideBandes:"Les tranches ne couvrent pas le même nombre d'années : cinq pour les 0-4 ans, vingt pour les 30-49 ans. Une barre plus longue peut donc venir d'une tranche plus large, et pas seulement d'un plus grand nombre de malades. Ramenés à une seule année d'âge, ce sont les 18-29 ans les plus touchés, devant les 0-4 ans.",
+    chartPyramideBandes:"Les tranches ne couvrent pas le même nombre d'années : cinq pour les 0-4 ans, vingt pour les 30-49 ans. Une barre plus longue peut donc venir d'une tranche plus large, et pas seulement d'un plus grand nombre de malades. Ramenés à une seule année d'âge, ce sont les 18-29 ans les plus touchés, devant les 0-4 ans.",
     chartModeAges:"Cas et décès par âge",
     chartAgesCases:"Part des cas",
     chartAgesDeaths:"Part des décès",
@@ -111,17 +111,17 @@ const I18N = {
     chartModeCommunityDeaths:"Répartition des décès",
     chartModeDeathsPlace:"Décès en communauté",
     chartDeathPlaceWeekly:"Part des décès survenus en communauté, semaine par semaine",
-    chartDeathPlaceAverage:(p,n)=>`Moyenne des ${n} semaines : ${String(p).replace('.',',')} %`,
+    chartDeathPlaceAverage:(p,n)=>`Moyenne des ${n} semaines : ${String(p).replace('.',',')} %`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} au ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`${n} relevé${n>1?'s':''} sur 7`,
     chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants)=>
       `Part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, agrégée sur l'ensemble du pays et regroupée par semaine. `
-      + `Sur les ${semaines} semaines couvertes, cette part n'a pas de tendance : elle oscille autour de ${String(part).replace('.',',')} % `
+      + `Sur les ${semaines} semaines couvertes, cette part n'a pas de tendance : elle oscille autour de ${String(part).replace('.',',')} % `
       + `— ${comm} décès en communauté contre ${cte} en centre — et les écarts d'une semaine à l'autre restent dans le bruit `
-      + `d'échantillonnage attendu pour ces effectifs. La ligne pointillée marque cette moyenne : c'est elle le résultat, `
+      + `d'échantillonnage attendu pour ces effectifs. La ligne pointillée marque cette moyenne : c'est elle le résultat, `
       + `pas les creux et les bosses. `
       + `Trois réserves. Les bulletins antérieurs au 13 juillet ne distinguent pas les deux lieux, la fenêtre ne peut pas remonter plus loin. `
-      + `${manquants} jours manquent à la série, dont quatre d'affilée du 6 au 9 août : seules les parts sont comparables d'une semaine à l'autre, jamais les effectifs. `
+      + `${manquants} jours manquent à la série, dont quatre d'affilée du 6 au 9 août : seules les parts sont comparables d'une semaine à l'autre, jamais les effectifs. `
       + `Enfin l'Ituri pèse 77 % des décès classés, si bien que cette courbe nationale suit d'abord la sienne.`,
     chartDeathPlaceCommunity:"En communauté",
     chartDeathPlaceCte:"En centre de traitement",
@@ -134,15 +134,15 @@ const I18N = {
       + `imprimée dans le bulletin tombe juste.`
       + (couvMin != null
           ? ` Ces colonnes classent ${couvMin} à ${couvMax} % des décès de la période selon `
-            + `la province : le reste tombe sur des journées où le bulletin les laisse vides, `
+            + `la province : le reste tombe sur des journées où le bulletin les laisse vides, `
             + `ou sur les deux dates de rattrapage administratif des 22 et 30 juillet.`
           : '')
       + (ecartees.length
-          ? ` ${ecartees.join(', ')} ${ecartees.length > 1 ? 'sont écartés' : 'est écarté'} : `
+          ? ` ${ecartees.join(', ')} ${ecartees.length > 1 ? 'sont écartés' : 'est écarté'} : `
             + `trop peu de décès pour qu'une proportion ait un sens.`
           : ''),
     dailyChartLabel:"Nouveaux cas quotidiens",
-    provinceChartGap:(plages)=>`Aucune barre du ${plages} : les bulletins de ces jours-là ne répartissent pas les cas entre les provinces. Ces cas sont bien comptés dans le cumul, mais on ne peut pas les attribuer à une journée précise.`,
+    provinceChartGap:(plages)=>`Aucune barre du ${plages} : les bulletins de ces jours-là ne répartissent pas les cas entre les provinces. Ces cas sont bien comptés dans le cumul, mais on ne peut pas les attribuer à une journée précise.`,
     provinceChartCatchup:"Les 22 et 30 juillet, le bulletin signale un rattrapage de données. Sa part n'étant publiée qu'au niveau national, ces barres sont affichées en entier dans la teinte claire.",
     provinceChartNoData:"Données insuffisantes pour tracer une courbe dans cette province.",
     chartCumulativeLabel:"Cas cumulés",
@@ -151,9 +151,9 @@ const I18N = {
     dailyDeathsLabel:"Nouveaux décès",
     chartNoteDaily:"Certains pics reflètent des rattrapages de données (révisions, bulletins manquants).",
     chartNoteContacts:(cible)=>`Part des cas contacts listés qui ont été vus dans les dernières 24 heures. `
-      + `L'OMS fixe une cible opérationnelle de ${cible} % pour une recherche de cas contacts efficace : en dessous, `
+      + `L'OMS fixe une cible opérationnelle de ${cible} % pour une recherche de cas contacts efficace : en dessous, `
       + `une part des personnes exposées échappe à la surveillance et peut transmettre sans être détectée. `
-      + `Pointillés : période sans donnée disponible, tracé purement illustratif.`,
+      + `Pointillés : période sans donnée disponible, tracé purement illustratif.`,
     communityDeathsLabel:"Communautaires",
     intraCteDeathsLabel:"Intra-CTE",
     chartLoadError:"Chart.js n'a pas pu se charger (connexion internet requise pour ce CDN). Vérifie ta connexion et recharge la page.",
@@ -163,8 +163,8 @@ const I18N = {
     startingPoint:"point de départ",
     isolationDelta:"en CTE",
     topMeta:"17<sup>e</sup> épidémie d'Ebola en République démocratique du Congo",
-    autoUpdateNote:(date)=>`Dernier bulletin officiel : <strong>${date}</strong>`,
-    autoUpdateNoteNum:(date,n)=>`Dernier bulletin officiel : <strong>${date}</strong> — SitRep N°${n}`,
+    autoUpdateNote:(date)=>`Dernier bulletin officiel : <strong>${date}</strong>`,
+    autoUpdateNoteNum:(date,n)=>`Dernier bulletin officiel : <strong>${date}</strong> — SitRep N°${n}`,
     todayUpdateNote:(date)=>`vérifié le ${date}`,
     popupProvinceLabel:"Province",
     popupCumulEstimate:"Estimation cumulée",
@@ -180,7 +180,7 @@ const I18N = {
     timelineLabel:"Évolution dans le temps",
     timelinePlay:"▶ Lecture",
     timelinePause:"❚❚ Pause",
-    timelineNote:"Certains bulletins ne détaillent pas les zones : ces dates sont absentes du curseur.",
+    timelineNote:"Certains bulletins ne détaillent pas les zones : ces dates sont absentes du curseur.",
     zonesTableTitle:"Détail par zone de santé et par province",
     zonesTableSub:(n,total,num,date)=>`${n} zones de santé touchées sur ${total}` + (num?` · SitRep N°${num}`:'') + (date?` du ${date}`:''),
     zonesViewProvince:"Par province",
@@ -188,7 +188,7 @@ const I18N = {
     provinceSummaryTitle:"Cumul par province",
     provinceTh1:"Province",
     provinceTh2:"Zones touchées",
-    provinceTh3:"Part du pays",
+    provinceTh3:"<span class=\"on-large\">Part du pays</span><span class=\"on-phone\">% pays</span>",
     zonesFilterAll:"Toutes les provinces",
     zonesSearchPlaceholder:"Rechercher une zone…",
     zonesTh1:"Zone de santé",
@@ -207,7 +207,7 @@ const I18N = {
     tabAbout:"À propos",
     tabContact:"Contact",
     contactTitle:"Contact",
-    contactIntro:"Une erreur à signaler, une question sur les données ou sur notre méthodologie ? Écrivez-nous via ce formulaire.",
+    contactIntro:"Une erreur à signaler, une question sur les données ou sur notre méthodologie ? Écrivez-nous via ce formulaire.",
     contactNameLabel:"Nom",
     contactEmailLabel:"Email",
     contactMessageLabel:"Message",
@@ -221,14 +221,14 @@ const I18N = {
     aboutLimitationsTitle:"Limites connues",
     aboutLimitationsBody:"Les rapports officiels mêlent des données à différents niveaux de détail (national, provincial, zone de santé), parfois sous des formats différents, ce qui peut occasionnellement produire de légères incohérences ou approximations. Il arrive aussi que les chiffres nationaux soient publiés avant le détail par province et par zone de santé, entraînant un décalage temporaire entre ces différents niveaux.",
     aboutMethodTitle:"Méthodologie",
-    aboutMethodBody:"Ce site s'appuie sur un outil développé et supervisé en continu : il récupère chaque nouveau SitRep publié et en extrait les chiffres clés (cas confirmés, décès, guéris, détail par province et par zone de santé), généralement une fois par jour. Chaque rapport est ensuite lu dans son intégralité — les tableaux comme le texte de présentation — et les extractions sont vérifiées manuellement, bulletin par bulletin, avec correction à la main lorsque nécessaire (changement de mise en page d'un bulletin, correction d'une erreur de numérotation, etc.). Les rapports hebdomadaires de l'OMS sont lus de la même façon et servent à compléter les séries que le SitRep de l'INSP ne renseigne pas. Les données peuvent faire l'objet de révisions rétroactives par les autorités sanitaires (harmonisation entre provinces, reclassification de décès communautaires) : ces révisions se répercutent automatiquement sur le site dès leur publication.",
+    aboutMethodBody:"Ce site s'appuie sur un outil développé et supervisé en continu : il récupère chaque nouveau SitRep publié et en extrait les chiffres clés (cas confirmés, décès, guéris, détail par province et par zone de santé), généralement une fois par jour. Chaque rapport est ensuite lu dans son intégralité — les tableaux comme le texte de présentation — et les extractions sont vérifiées manuellement, bulletin par bulletin, avec correction à la main lorsque nécessaire (changement de mise en page d'un bulletin, correction d'une erreur de numérotation, etc.). Les rapports hebdomadaires de l'OMS sont lus de la même façon et servent à compléter les séries que le SitRep de l'INSP ne renseigne pas. Les données peuvent faire l'objet de révisions rétroactives par les autorités sanitaires (harmonisation entre provinces, reclassification de décès communautaires) : ces révisions se répercutent automatiquement sur le site dès leur publication.",
     aboutUpdateTitle:"Fréquence de mise à jour",
     aboutUpdateBody:"Le site vérifie la parution d'un nouveau SitRep une fois par jour. La date du dernier SitRep officiel intégré est toujours indiquée en haut de chaque page.",
     aboutDisclaimerTitle:"Avertissement",
     aboutDisclaimerBody:"Ce site a une vocation strictement informative. Il compile et met en forme des données publiques déjà publiées par des sources officielles, sans analyse ni interprétation indépendante. Il ne constitue en aucun cas un avis médical, épidémiologique ou géopolitique, et ne doit pas être utilisé comme base pour une décision de santé, de voyage ou de sécurité. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé de la RDC). Malgré le soin apporté, des erreurs, approximations ou délais de mise à jour sont possibles.",
     reportsTitle:"SitRep quotidien (INSP)",
     geoSourceTitle:"Fond de carte",
-    geoSourceText:"Les délimitations des zones de santé dessinées sur les cartes du site viennent du jeu de données « DR Congo – Health Zones » publié par OCHA RDC sur la plateforme HDX, d'après le Référentiel géographique commun de la République démocratique du Congo. Chaque forme est une zone de santé, l'unité de référence des bulletins officiels.",
+    geoSourceText:"Les délimitations des zones de santé dessinées sur les cartes du site viennent du jeu de données « DR Congo – Health Zones » publié par OCHA RDC sur la plateforme HDX, d'après le Référentiel géographique commun de la République démocratique du Congo. Chaque forme est une zone de santé, l'unité de référence des bulletins officiels.",
     reportsIntro:"Chaque bulletin officiel publié par l'Institut National de Santé Publique de la République Démocratique du Congo (INSP) est archivé ici dès sa publication, au format PDF original — la source principale de ce site.",
     reportsSitrepLabel:(n)=>`SitRep N°${n}`,
     reportsSourceMismatch:(n)=>`⚠ numéroté N°${n} dans le document source`,
@@ -434,7 +434,7 @@ const I18N = {
     provinceSummaryTitle:"Totals by province",
     provinceTh1:"Province",
     provinceTh2:"Zones affected",
-    provinceTh3:"Share of country",
+    provinceTh3:"<span class=\"on-large\">Share of country</span><span class=\"on-phone\">% country</span>",
     zonesFilterAll:"All provinces",
     zonesSearchPlaceholder:"Search a zone…",
     zonesTh1:"Health zone",
@@ -682,7 +682,7 @@ const I18N = {
     provinceSummaryTitle:"Jumla kwa jimbo",
     provinceTh1:"Jimbo",
     provinceTh2:"Maeneo yaliyoathirika",
-    provinceTh3:"Sehemu ya nchi",
+    provinceTh3:"<span class=\"on-large\">Sehemu ya nchi</span><span class=\"on-phone\">% nchi</span>",
     zonesFilterAll:"Majimbo yote",
     zonesSearchPlaceholder:"Tafuta eneo…",
     zonesTh1:"Eneo la afya",

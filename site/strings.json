@@ -20,7 +20,7 @@
     "footerSources": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">Institut National de Santé Publique (INSP) de la RDC</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS</a>.",
     "footerRepo": "Code source et données ouvertes sur GitHub",
     "footerLangTitle": "Langue",
-    "provincesIntro": "L'épidémie ne touche pas les six provinces de la même façon : l'Ituri concentre l'essentiel des cas, tandis que d'autres provinces ne comptent qu'un foyer isolé. Chaque province a sa propre page, mise à jour avec les mêmes bulletins officiels que le reste du site.",
+    "provincesIntro": "L'épidémie ne touche pas les six provinces de la même façon : l'Ituri concentre l'essentiel des cas, tandis que d'autres provinces ne comptent qu'un foyer isolé. Chaque province a sa propre page, mise à jour avec les mêmes bulletins officiels que le reste du site.",
     "provincesCardCases": "Cas confirmés",
     "provincesCardDeaths": "Décès",
     "provincesCardCfr": "Létalité",
@@ -36,14 +36,14 @@
     "provinceStatusActive": "Transmission active",
     "provinceStatusInactive": "Aucun cas récent",
     "provinceZonesTitle": "Zones de santé touchées {in}",
-    "provinceZonesEmpty": "Aucun détail par zone de santé n'est publié pour cette province : les chiffres sont donnés au niveau provincial uniquement.",
+    "provinceZonesEmpty": "Aucun détail par zone de santé n'est publié pour cette province : les chiffres sont donnés au niveau provincial uniquement.",
     "zonesSubAffected": "{n} zones de santé touchées sur {total}",
     "sitrepJoiner": " du ",
     "reportSituation": "Situation au {date}",
     "whoReportLabel": "Rapport N°{n}",
     "notFoundTitle": "Page introuvable",
-    "notFoundIntro": "Cette adresse n'existe pas ou n'existe plus. Voici par où reprendre :",
-    "zonesSumNote": "Le total d'une province peut différer de la somme de ses zones de santé : les bulletins comptent à part les cas et décès qui ne sont pas encore rattachés à une zone. Le site les laisse là où la source les place.",
+    "notFoundIntro": "Cette adresse n'existe pas ou n'existe plus. Voici par où reprendre :",
+    "zonesSumNote": "Le total d'une province peut différer de la somme de ses zones de santé : les bulletins comptent à part les cas et décès qui ne sont pas encore rattachés à une zone. Le site les laisse là où la source les place.",
     "provinceThZone": "Zone de santé",
     "provinceThCases": "Cas confirmés",
     "provinceThDeaths": "Décès",
@@ -53,7 +53,7 @@
     "virusSub": "Repères scientifiques généraux — espèce, transmission, symptômes, traitements et vaccins",
     "virusSpeciesTitle": "Espèce virale",
     "virusSpeciesLi1": "Famille <em>Filoviridae</em>, genre <em>Orthoebolavirus</em>",
-    "virusSpeciesLi2": "Espèce en cause dans cette épidémie : <em>Bundibugyo ebolavirus</em> (BDBV)",
+    "virusSpeciesLi2": "Espèce en cause dans cette épidémie : <em>Bundibugyo ebolavirus</em> (BDBV)",
     "virusSpeciesLi3": "3ᵉ épidémie connue causée par cette espèce, après 2007 (Ouganda) et 2012 (RDC)",
     "virusSpeciesLi4": "Létalité historique de 25 à 50 % selon les épidémies passées, contre jusqu'à 90 % pour l'espèce Zaïre",
     "virusTransmissionTitle": "Transmission",
@@ -61,17 +61,17 @@
     "virusTransmissionLi2": "Rites funéraires à risque et transmission en milieu de soins sans protection adaptée",
     "virusTransmissionLi3": "Aucune transmission par voie aérienne",
     "virusSymptomsTitle": "Symptômes et évolution",
-    "virusIncubationText": "Incubation : 2 à 21 jours (en moyenne 8 à 10 jours). Non contagieux avant l'apparition des symptômes.",
+    "virusIncubationText": "Incubation : 2 à 21 jours (en moyenne 8 à 10 jours). Non contagieux avant l'apparition des symptômes.",
     "vphaseDryTag": "Phase précoce",
     "vphaseDryText": "Fièvre, fatigue intense, douleurs musculaires, maux de tête, mal de gorge — des signes non spécifiques, facilement confondus avec le paludisme ou la typhoïde.",
     "vphaseWetTag": "Phase avancée",
     "vphaseWetText": "Vomissements, diarrhées, éruption cutanée, atteintes rénale et hépatique, et parfois hémorragies. Diagnostic confirmé par test RT-PCR sur prélèvement sanguin.",
-    "virusCompareTitle": "Traitements & vaccins : une différence clé selon l'espèce",
+    "virusCompareTitle": "Traitements & vaccins : une différence clé selon l'espèce",
     "virusCompareIntro": "Les seuls traitements et le seul vaccin homologués contre Ebola ciblent l'espèce Zaïre — pas l'espèce Bundibugyo, en cause dans cette épidémie.",
     "virusCompareNote": "Pendant cette épidémie, plusieurs candidats sont évalués en essai clinique contre l'espèce Bundibugyo — dont l'anticorps à large spectre MBP134, l'antiviral remdesivir et l'obeldesivir en prophylaxie post-exposition — sous la coordination de l'OMS. En l'absence de traitement ciblé homologué, les soins de support intensifs (réhydratation, oxygénation, surveillance) restent le socle de la prise en charge et améliorent significativement les chances de survie.",
     "virusNote": "Ces informations sont des repères scientifiques généraux et ne remplacent pas les protocoles cliniques officiels. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé RDC).",
     "virusHistoryTitle": "Une espèce rarement rencontrée",
-    "virusHistoryBody": "<p>Le genre <em>Orthoebolavirus</em> compte six espèces, dont quatre pathogènes pour l'être humain. L'immense majorité des épidémies documentées — dont celle de 2014-2016 en Afrique de l'Ouest et celle de 2018-2020 dans le Nord-Kivu — sont dues à l'espèce Zaïre, de loin la plus étudiée.</p><p>L'espèce Bundibugyo doit son nom au district ougandais où elle a été identifiée pour la première fois en 2007. Elle n'avait été impliquée que dans deux épidémies avant celle-ci : l'Ouganda en 2007, puis la province Orientale de la RDC en 2012. C'est ce faible historique qui explique l'absence de vaccin homologué contre elle, et pourquoi la riposte s'appuie sur les soins de support et sur des produits évalués en essai clinique.</p>",
+    "virusHistoryBody": "<p>Le genre <em>Orthoebolavirus</em> compte six espèces, dont quatre pathogènes pour l'être humain. L'immense majorité des épidémies documentées — dont celle de 2014-2016 en Afrique de l'Ouest et celle de 2018-2020 dans le Nord-Kivu — sont dues à l'espèce Zaïre, de loin la plus étudiée.</p><p>L'espèce Bundibugyo doit son nom au district ougandais où elle a été identifiée pour la première fois en 2007. Elle n'avait été impliquée que dans deux épidémies avant celle-ci : l'Ouganda en 2007, puis la province Orientale de la RDC en 2012. C'est ce faible historique qui explique l'absence de vaccin homologué contre elle, et pourquoi la riposte s'appuie sur les soins de support et sur des produits évalués en essai clinique.</p>",
     "virusAgesTitle": "Qui la maladie touche, qui elle tue",
     "virusAgesIntro": "Les cas ne se répartissent pas comme les décès. Comparer les deux montre quelles tranches d'âge meurent plus souvent qu'elles ne tombent malades.",
     "virusAgesCases": "Part des cas",
@@ -85,10 +85,10 @@
     "virusSexFemale": "Femmes",
     "virusSexMale": "Hommes",
     "virusPreventionTitle": "Réduire le risque de transmission",
-    "virusPreventionBody": "<p>La transmission interhumaine se produit par contact direct avec des fluides corporels. Les gestes qui limitent le risque sont donc concrets et bien identifiés :</p>",
-    "virusPreventionLi1": "Éviter tout contact direct avec une personne malade, ses fluides corporels et ses effets personnels sans protection ;",
-    "virusPreventionLi2": "Confier les corps des personnes décédées aux équipes d'inhumation sécurisée : les rites funéraires traditionnels sont l'un des principaux moteurs de transmission ;",
-    "virusPreventionLi3": "Signaler immédiatement toute fièvre suspecte à un centre de santé plutôt que de soigner à domicile ;",
+    "virusPreventionBody": "<p>La transmission interhumaine se produit par contact direct avec des fluides corporels. Les gestes qui limitent le risque sont donc concrets et bien identifiés :</p>",
+    "virusPreventionLi1": "Éviter tout contact direct avec une personne malade, ses fluides corporels et ses effets personnels sans protection ;",
+    "virusPreventionLi2": "Confier les corps des personnes décédées aux équipes d'inhumation sécurisée : les rites funéraires traditionnels sont l'un des principaux moteurs de transmission ;",
+    "virusPreventionLi3": "Signaler immédiatement toute fièvre suspecte à un centre de santé plutôt que de soigner à domicile ;",
     "virusPreventionLi4": "Se laver les mains fréquemment, et respecter les mesures de protection dans les structures de soins.",
     "timelineIntro": "Les dates ci-dessous combinent les jalons officiels de la riposte et les seuils franchis par le bilan épidémiologique, calculés directement à partir de l'archive des bulletins de situation publiée sur ce site.",
     "timelineMilestoneCasesTitle": "{n} cas confirmés",
@@ -96,23 +96,23 @@
     "timelineMilestoneDeathsTitle": "{n} décès",
     "timelineMilestoneDeathsText": "Le bilan cumulé franchit la barre des {n} décès depuis le début de l'épidémie.",
     "timelineMilestoneZonesTitle": "{n} zones de santé touchées",
-    "timelineMilestoneZonesText": "{n} zones de santé ont désormais déclaré au moins un cas confirmé. Nouvelles ce jour-là : {zones}.",
-    "timelineMilestoneZonesFirstText": "Premier bulletin à détailler les zones de santé : il en liste {n} — {zones}.",
+    "timelineMilestoneZonesText": "{n} zones de santé ont désormais déclaré au moins un cas confirmé. Nouvelles ce jour-là : {zones}.",
+    "timelineMilestoneZonesFirstText": "Premier bulletin à détailler les zones de santé : il en liste {n} — {zones}.",
     "timelineListAnd": " et ",
     "timelineFirstSitrepTitle": "Premier bulletin de situation",
-    "timelineFirstSitrepText": "Publication du premier SitRep de l'INSP consacré à cette épidémie : {cases} cas confirmés et {deaths} décès y sont recensés.",
+    "timelineFirstSitrepText": "Publication du premier SitRep de l'INSP consacré à cette épidémie : {cases} cas confirmés et {deaths} décès y sont recensés.",
     "timelineLatestTitle": "Dernier bilan disponible",
     "timelineLatestText": "Le bulletin le plus récent intégré à ce site fait état de {cases} cas confirmés et {deaths} décès.",
     "faqIntro": "Les questions qui reviennent le plus souvent sur cette épidémie et sur la façon dont ce site est construit.",
-    "faqMoreTitle": "Votre question n'est pas là ?",
-    "faqMoreBody": "Écrivez-nous : les questions récurrentes finissent par rejoindre cette page.",
+    "faqMoreTitle": "Votre question n'est pas là ?",
+    "faqMoreBody": "Écrivez-nous : les questions récurrentes finissent par rejoindre cette page.",
     "aboutOpenDataTitle": "Accès aux données",
     "aboutOpenDataBody": "Toutes les données affichées sur ce site proviennent des bulletins officiels archivés dans l'onglet <a href=\"{url.rapports}\">Sources et bulletins</a>, où chacun est consultable au format PDF d'origine.",
-    "aboutContactTitle": "Une erreur, une question ?",
+    "aboutContactTitle": "Une erreur, une question ?",
     "aboutContactBody": "Les corrections sont les bienvenues — c'est comme ça que la qualité des extractions s'améliore.",
     "provincesBrowseTitle": "Explorer province par province",
     "provinceMetaTitle": "Ebola {in} — cas, décès et zones de santé touchées",
-    "provinceMetaDescription": "Situation de l'épidémie d'Ebola {in} au {date} : {cases} cas confirmés, {deaths} décès, {cfr} % de létalité, et le détail zone de santé par zone de santé.",
+    "provinceMetaDescription": "Situation de l'épidémie d'Ebola {in} au {date} : {cases} cas confirmés, {deaths} décès, {cfr} % de létalité, et le détail zone de santé par zone de santé.",
     "homeLede": "Comprendre et suivre <span class=\"on-large\">l'</span><span class=\"on-phone\">la 17<sup>e</sup> </span>épidémie d'Ebola en RDC, <em>chiffre après chiffre</em>.",
     "cartoTitle": "Cas par zone de santé",
     "cartoNote": "contours officiels des zones de santé",
@@ -163,10 +163,10 @@
     "virusIncubMin": "2 jours",
     "virusIncubAvg": "8 à 10 jours en moyenne",
     "virusIncubMax": "21 jours",
-    "virusIncubNote": "Une personne infectée n'est pas contagieuse tant qu'elle n'a pas de symptômes. C'est ce qui rend le suivi des contacts efficace : on isole avant que la transmission ne devienne possible.",
+    "virusIncubNote": "Une personne infectée n'est pas contagieuse tant qu'elle n'a pas de symptômes. C'est ce qui rend le suivi des contacts efficace : on isole avant que la transmission ne devienne possible.",
     "virusPhasesTitle": "Évolution de la maladie",
     "timelineSpreadTitle": "L'épidémie atteint {the}",
-    "footerNotice": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">INSP</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle.",
+    "footerNotice": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">INSP</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle.",
     "footerNoticeMore": "Avertissement complet",
     "timelineTollLine": "{cases} cas confirmés · {deaths} décès",
     "timelineTollLabel": "Bilan cumulé à cette date",
@@ -176,10 +176,10 @@
     "timelineSeeProvince": "Voir la page de la province",
     "timelineTollCasesOnly": "{cases} cas confirmés",
     "cartoZonesTouched": "{n} zones de santé touchées sur {total}",
-    "cartoDeltaNote": "entre parenthèses : évolution depuis le bulletin précédent",
-    "chartEpidemicSub": "barres : nouveaux cas par jour · courbe : cumul",
+    "cartoDeltaNote": "entre parenthèses : évolution depuis le bulletin précédent",
+    "chartEpidemicSub": "barres : nouveaux cas par jour · courbe : cumul",
     "dataNoteTitle": "Comment lire ces chiffres",
-    "dataNoteBody": "<p><strong>Cas confirmés</strong> et <strong>décès</strong> sont des totaux cumulés depuis le début de l'épidémie, jamais des valeurs du jour. La <strong>létalité</strong> ne porte que sur les cas confirmés, et l'issue des cas les plus récents n'est pas encore connue : elle décrit la gravité observée à ce jour, pas le risque individuel de mourir de la maladie, et elle continuera de bouger. Les <strong>nouveaux cas (24 h)</strong> sont repris tels quels du dernier bulletin — ils ne correspondent donc pas toujours à l'écart entre deux totaux cumulés successifs, les révisions rétroactives se répercutant sur les totaux mais pas sur ce chiffre.</p><p>Deux limites connues. Le bilan national est parfois publié avant le détail par province et par zone de santé : un écart temporaire entre les niveaux est donc normal. Et les autorités révisent parfois leurs chiffres rétroactivement — ces révisions se répercutent ici telles quelles, sans lissé.</p>",
+    "dataNoteBody": "<p><strong>Cas confirmés</strong> et <strong>décès</strong> sont des totaux cumulés depuis le début de l'épidémie, jamais des valeurs du jour. La <strong>létalité</strong> ne porte que sur les cas confirmés, et l'issue des cas les plus récents n'est pas encore connue : elle décrit la gravité observée à ce jour, pas le risque individuel de mourir de la maladie, et elle continuera de bouger. Les <strong>nouveaux cas (24 h)</strong> sont repris tels quels du dernier bulletin — ils ne correspondent donc pas toujours à l'écart entre deux totaux cumulés successifs, les révisions rétroactives se répercutant sur les totaux mais pas sur ce chiffre.</p><p>Deux limites connues. Le bilan national est parfois publié avant le détail par province et par zone de santé : un écart temporaire entre les niveaux est donc normal. Et les autorités révisent parfois leurs chiffres rétroactivement — ces révisions se répercutent ici telles quelles, sans lissé.</p>",
     "provinceRankLine": "{rank} province la plus touchée sur {total}, avec {share} % des cas confirmés du pays.",
     "provinceRankFirst": "Province la plus touchée du pays, avec {share} % des cas confirmés.",
     "provincesSparkNote": "Chaque vignette suit les cas cumulés de la province, toutes à la même échelle.",
@@ -193,12 +193,12 @@
     "dataChartsTitle": "Indicateurs de suivi",
     "dataChartsSub": "pour l'ensemble du pays",
     "provinceChartTitle": "Évolution de l'épidémie ({name})",
-    "provinceChartSub": "barres : nouveaux cas par jour · courbe : cumul",
+    "provinceChartSub": "barres : nouveaux cas par jour · courbe : cumul",
     "provinceMapTitle": "Carte des zones de santé",
-    "provinceMapNote": "Les zones voisines, hors de la province, restent en gris pâle. Survolez une zone pour son bilan ; le curseur remonte le temps, bulletin après bulletin.",
+    "provinceMapNote": "Les zones voisines, hors de la province, restent en gris pâle. Survolez une zone pour son bilan ; le curseur remonte le temps, bulletin après bulletin.",
     "provinceMapZones": "{n} zone{n?s} touchée{n?s} sur {total}",
     "cartoHintTouch": "Touchez une zone pour voir son bilan.",
-    "provinceMapNoteTouch": "Les zones voisines, hors de la province, restent en gris pâle. Touchez une zone pour son bilan ; le curseur remonte le temps, bulletin après bulletin.",
+    "provinceMapNoteTouch": "Les zones voisines, hors de la province, restent en gris pâle. Touchez une zone pour son bilan ; le curseur remonte le temps, bulletin après bulletin.",
     "provinceNewDeaths": "+{n} (24 h)",
     "zoneMapTitle": "{name} — {cases} cas confirmé{cases?s} cumulé{cases?s}, {deaths} décès",
     "zoneMapLabel": "{name} ({province}) — {cases} cas confirmé{cases?s} cumulé{cases?s}",
@@ -223,7 +223,7 @@
     "aboutStep2Title": "Les rapports sont lus",
     "aboutStep2Body": "Un programme lit les tableaux du PDF, et chaque rapport est ensuite lu dans son intégralité — le texte de présentation compris, dont la formulation change d'un bulletin à l'autre et qui porte parfois des chiffres absents des tableaux. La vérification est donc aussi manuelle, bulletin par bulletin. Une valeur qui ne se recoupe pas est ignorée plutôt qu'approximée.",
     "aboutStep3Title": "Les pages sont réécrites",
-    "aboutStep3Body": "Les chiffres sont inscrits dans les pages elles-mêmes, pas seulement chargés par le navigateur : ils restent lisibles sans JavaScript, et indexables.",
+    "aboutStep3Body": "Les chiffres sont inscrits dans les pages elles-mêmes, pas seulement chargés par le navigateur : ils restent lisibles sans JavaScript, et indexables.",
     "aboutReadingTitle": "Comment lire ces chiffres"
   },
   "en": {
@@ -491,7 +491,7 @@
       "kind": "default",
       "fr": {
         "title": "Urgence de santé publique de portée nationale",
-        "text": "La RDC déclare l'urgence de santé publique au niveau national et active sa riposte : centres de traitement, surveillance des contacts, points de contrôle aux frontières."
+        "text": "La RDC déclare l'urgence de santé publique au niveau national et active sa riposte : centres de traitement, surveillance des contacts, points de contrôle aux frontières."
       },
       "en": {
         "title": "Public health emergency of national concern",
@@ -522,7 +522,7 @@
   "faqItems": [
     {
       "fr": {
-        "q": "Combien de cas d'Ebola sont recensés en RDC ?",
+        "q": "Combien de cas d'Ebola sont recensés en RDC ?",
         "a": "<p>Le bilan le plus récent intégré à ce site est affiché en haut de la <a href=\"{url.accueil}\">page d'accueil</a>, avec les cas confirmés, les décès, les guérisons et le nombre de patients en isolement. Ces chiffres proviennent du dernier bulletin officiel publié par l'INSP et sont vérifiés une fois par jour.</p>"
       },
       "en": {
@@ -536,8 +536,8 @@
     },
     {
       "fr": {
-        "q": "Quelles provinces sont touchées ?",
-        "a": "<p>Six provinces sont concernées : l'Ituri, épicentre de l'épidémie, le Nord-Kivu, le Haut-Uélé, la Tshopo, le Sud-Kivu et le Bas-Uélé. Le détail province par province, avec les zones de santé atteintes, est disponible sur la page <a href=\"{url.donnees}\">Provinces</a>.</p>"
+        "q": "Quelles provinces sont touchées ?",
+        "a": "<p>Six provinces sont concernées : l'Ituri, épicentre de l'épidémie, le Nord-Kivu, le Haut-Uélé, la Tshopo, le Sud-Kivu et le Bas-Uélé. Le détail province par province, avec les zones de santé atteintes, est disponible sur la page <a href=\"{url.donnees}\">Provinces</a>.</p>"
       },
       "en": {
         "q": "Which provinces are affected?",
@@ -550,8 +550,8 @@
     },
     {
       "fr": {
-        "q": "De quelle espèce d'Ebola s'agit-il ?",
-        "a": "<p>Cette épidémie est due à l'espèce <em>Bundibugyo ebolavirus</em>, et non à l'espèce Zaïre responsable de la plupart des épidémies précédentes. C'est une distinction importante : le vaccin homologué contre Ebola cible l'espèce Zaïre et n'offre pas de protection démontrée contre celle-ci. La page <a href=\"{url.le-virus}\">Le virus</a> détaille ce point.</p>"
+        "q": "De quelle espèce d'Ebola s'agit-il ?",
+        "a": "<p>Cette épidémie est due à l'espèce <em>Bundibugyo ebolavirus</em>, et non à l'espèce Zaïre responsable de la plupart des épidémies précédentes. C'est une distinction importante : le vaccin homologué contre Ebola cible l'espèce Zaïre et n'offre pas de protection démontrée contre celle-ci. La page <a href=\"{url.le-virus}\">Le virus</a> détaille ce point.</p>"
       },
       "en": {
         "q": "Which Ebola species is this?",
@@ -564,7 +564,7 @@
     },
     {
       "fr": {
-        "q": "Comment le virus se transmet-il ?",
+        "q": "Comment le virus se transmet-il ?",
         "a": "<p>Par contact direct avec le sang, les sécrétions ou les organes d'une personne ou d'un animal infecté, vivant ou décédé. Les rites funéraires traditionnels et les soins prodigués sans protection sont deux moteurs majeurs de transmission. Il n'y a pas de transmission par voie aérienne, et une personne infectée n'est pas contagieuse avant l'apparition des symptômes.</p>"
       },
       "en": {
@@ -578,7 +578,7 @@
     },
     {
       "fr": {
-        "q": "Existe-t-il un vaccin ou un traitement ?",
+        "q": "Existe-t-il un vaccin ou un traitement ?",
         "a": "<p>Pas contre cette espèce, à ce jour. Le vaccin Ervebo et les traitements par anticorps monoclonaux homologués ciblent l'espèce Zaïre. Plusieurs candidats sont évalués en essai clinique contre l'espèce Bundibugyo. En attendant, les soins de support intensifs — réhydratation, oxygénation, surveillance — restent le socle de la prise en charge et améliorent nettement les chances de survie.</p>"
       },
       "en": {
@@ -592,7 +592,7 @@
     },
     {
       "fr": {
-        "q": "D'où viennent les chiffres publiés sur ce site ?",
+        "q": "D'où viennent les chiffres publiés sur ce site ?",
         "a": "<p>Exclusivement des rapports de situation (SitRep) publiés par l'Institut National de Santé Publique de la RDC, complétés par les bulletins hebdomadaires de l'OMS. Chaque PDF d'origine est archivé et consultable sur la page <a href=\"{url.rapports}\">Sources et bulletins</a>.</p>"
       },
       "en": {
@@ -606,7 +606,7 @@
     },
     {
       "fr": {
-        "q": "À quelle fréquence le site est-il mis à jour ?",
+        "q": "À quelle fréquence le site est-il mis à jour ?",
         "a": "<p>Une vérification automatique a lieu une fois par jour. Dès qu'un nouveau bulletin est publié, les chiffres sont extraits et le site est régénéré. La date du dernier bulletin intégré est affichée en haut de chaque page.</p>"
       },
       "en": {
@@ -620,8 +620,8 @@
     },
     {
       "fr": {
-        "q": "Pourquoi les chiffres changent-ils parfois rétroactivement ?",
-        "a": "<p>Parce que les autorités sanitaires révisent leurs propres données : harmonisation entre provinces, reclassification de décès communautaires, correction d'une erreur de saisie. Ce site reflète ces révisions dès leur publication, sans les lisser. Un écart temporaire entre le bilan national et le détail par province est également possible, le national étant parfois publié en premier.</p>"
+        "q": "Pourquoi les chiffres changent-ils parfois rétroactivement ?",
+        "a": "<p>Parce que les autorités sanitaires révisent leurs propres données : harmonisation entre provinces, reclassification de décès communautaires, correction d'une erreur de saisie. Ce site reflète ces révisions dès leur publication, sans les lisser. Un écart temporaire entre le bilan national et le détail par province est également possible, le national étant parfois publié en premier.</p>"
       },
       "en": {
         "q": "Why do figures sometimes change retroactively?",
@@ -634,7 +634,7 @@
     },
     {
       "fr": {
-        "q": "Ce site est-il une source officielle ?",
+        "q": "Ce site est-il une source officielle ?",
         "a": "<p>Non. C'est un site indépendant qui compile et met en forme des données publiques déjà publiées par des sources officielles, sans analyse ni interprétation propre. Pour toute décision de santé ou de voyage, référez-vous à l'OMS et au ministère de la Santé de la RDC.</p>"
       },
       "en": {
@@ -653,7 +653,7 @@
       "date": "2026-05-08",
       "sitrep": "001",
       "timeline": false,
-      "pageFr": "L'épidémie y a démarré : officiellement notifiée le 8 mai 2026, déclarée le 15 mai.",
+      "pageFr": "L'épidémie y a démarré : officiellement notifiée le 8 mai 2026, déclarée le 15 mai.",
       "pageEn": "The outbreak started here: officially notified on 8 May 2026, declared on 15 May.",
       "pageSw": "Mlipuko ulianzia hapa: uliripotiwa rasmi tarehe 8 Mei 2026, ukatangazwa tarehe 15 Mei."
     },
@@ -685,7 +685,7 @@
       "sitrep": "044",
       "fr": "Deux contacts venus de la zone de Nia-Nia sont retrouvés symptomatiques à Wamba, puis testés positifs. Leurs cas restent comptés en Ituri, leur zone d'origine : le bulletin n'attribue une ligne au Haut-Uélé que le 10 juillet.",
       "en": "Two contacts from the Nia-Nia health zone are found symptomatic in Wamba, then test positive. Their cases stay counted in Ituri, their zone of origin: the bulletin only gives Haut-Uélé a line of its own on 10 July.",
-      "pageFr": "Premiers cas confirmés le 25 juin 2026, d'abord comptés en Ituri : le bulletin n'attribue une ligne à la province que le 10 juillet.",
+      "pageFr": "Premiers cas confirmés le 25 juin 2026, d'abord comptés en Ituri : le bulletin n'attribue une ligne à la province que le 10 juillet.",
       "pageEn": "First confirmed cases on 25 June 2026, initially counted in Ituri: the bulletin only gives the province a line of its own on 10 July.",
       "pageSw": "Visa vya kwanza vilivyothibitishwa tarehe 25 Juni 2026, mwanzoni vilihesabiwa Ituri: ripoti ilianza kulipa jimbo mstari wake tarehe 10 Julai tu.",
       "sw": "Watu wawili walioguswa waliotoka eneo la Nia-Nia wanakutwa na dalili huko Wamba, kisha wanapimwa na kuonekana na virusi. Visa vyao vinaendelea kuhesabiwa Ituri, eneo lao la asili: ripoti inalipa Haut-Uélé mstari wake tarehe 10 Julai tu."
@@ -696,7 +696,7 @@
       "sitrep": "047",
       "fr": "Le bulletin du jour rapporte le premier cas lié à la province : une patiente de 24 ans, enceinte de six mois, morte au PK 51 dans la zone de Nia-Nia, dont le corps a été transporté clandestinement à moto jusqu'à Kisangani, où le prélèvement s'est révélé positif. Le cas est ensuite rattaché à Nia-Nia, en Ituri, où il reste compté jusqu'au 10 juillet.",
       "en": "The day's bulletin reports the first case linked to the province: a 24-year-old woman, six months pregnant, who died at PK 51 in the Nia-Nia health zone and whose body was taken by motorbike to Kisangani, where the sample tested positive. The case is then attached to Nia-Nia, in Ituri, where it stays counted until 10 July.",
-      "pageFr": "Premier cas rapporté le 30 juin 2026, d'abord compté en Ituri : le bulletin n'attribue une ligne à la province que le 10 juillet.",
+      "pageFr": "Premier cas rapporté le 30 juin 2026, d'abord compté en Ituri : le bulletin n'attribue une ligne à la province que le 10 juillet.",
       "pageEn": "First case reported on 30 June 2026, initially counted in Ituri: the bulletin only gives the province a line of its own on 10 July.",
       "pageSw": "Kisa cha kwanza kiliripotiwa tarehe 30 Juni 2026, mwanzoni kilihesabiwa Ituri: ripoti ilianza kulipa jimbo mstari wake tarehe 10 Julai tu.",
       "sw": "Ripoti ya siku hiyo inaeleza kisa cha kwanza kinachohusiana na jimbo: mgonjwa wa miaka 24, mjamzito wa miezi sita, aliyefariki PK 51 katika eneo la Nia-Nia, ambaye mwili wake ulisafirishwa kwa siri kwa pikipiki hadi Kisangani, ambako sampuli ilionyesha virusi. Kisa kisha kinaunganishwa na Nia-Nia, Ituri, ambako kinaendelea kuhesabiwa hadi tarehe 10 Julai."

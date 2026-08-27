@@ -1082,7 +1082,17 @@ def report_chip(label, date_text, href, title, month=None, search=None,
         '          <span class="rc-date">%s</span>\n'
         "        </a>" % (
             (" " + variant) if variant else "", esc(href), data, esc(title),
-            esc(label), DOWNLOAD_ICON, esc(date_text)))
+            esc(label), DOWNLOAD_ICON, date_text))
+
+
+def situation_html(situation, date_long):
+    """« Situation au 25 août 2026 », le prefixe dans un span que le telephone
+    masque : sur une ligne par bulletin, sous un en-tete de mois, « Situation
+    au » ne dit plus rien. Decoupe autour de {date} pour valoir dans les trois
+    langues, quel que soit l'ordre des mots. Renvoie du HTML deja echappe —
+    report_chip ne re-echappe pas date_text."""
+    pre, _, post = situation.partition("{date}")
+    return '<span class="rc-date-prefix">%s</span>%s%s' % (esc(pre), esc(date_long), esc(post))
 
 
 def ages_rows_html(demographie, lang, strings_lang):
@@ -1210,8 +1220,8 @@ def reports_list_html(reports, lang, i18n_lang, strings_lang):
                      % (esc(key), esc(group["label"])))
         for report in group["reports"]:
             reporting = report.get("reportingDate")
-            when = interp(situation, {"date": long_date(reporting, i18n_lang)}) \
-                if reporting else i18n_lang["reportsUnknownDate"]
+            when = situation_html(situation, long_date(reporting, i18n_lang)) \
+                if reporting else esc(i18n_lang["reportsUnknownDate"])
             searchable = "%s %s %s" % (report.get("sitrepNumber", ""),
                                        group["label"], reporting or "")
             parts.append(report_chip(prefix + str(report.get("sitrepNumber", "")),
@@ -1226,8 +1236,8 @@ def who_reports_list_html(who_reports, lang, i18n_lang, strings_lang):
     situation = strings_lang["reportSituation"]
     parts = []
     for report in sorted(who_reports, key=lambda r: r.get("number") or "", reverse=True):
-        when = interp(situation, {"date": long_date(report.get("date"), i18n_lang)}) \
-            if report.get("date") else i18n_lang["reportsUnknownDate"]
+        when = situation_html(situation, long_date(report.get("date"), i18n_lang)) \
+            if report.get("date") else esc(i18n_lang["reportsUnknownDate"])
         parts.append(report_chip(interp(label, {"n": report.get("number", "")}), when,
                                  "/" + report["file"].lstrip("/"),
                                  i18n_lang["reportsDownload"], variant="is-who"))
@@ -1240,7 +1250,7 @@ def social_updates_list_html(updates, lang, i18n_lang, strings_lang):
     for update in sorted(updates, key=lambda u: u.get("date") or "", reverse=True):
         parts.append(report_chip(
             i18n_lang["socialUpdatesLabel"],
-            interp(situation, {"date": long_date(update.get("date"), i18n_lang)}),
+            situation_html(situation, long_date(update.get("date"), i18n_lang)),
             update.get("url", "#"), i18n_lang["socialUpdatesOpenLink"],
             variant="is-social"))
     return "\n".join(parts)
