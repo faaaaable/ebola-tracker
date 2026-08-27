@@ -346,7 +346,10 @@ de la barre laterale porte un filet de 3 px a gauche (`box-shadow: inset`)
 au lieu d'un fond bleu pale. Seul `.share-btn` garde sa bordure : c'est une
 action, pas un etat. Sous la carte, un filet vertical discret separe le
 cadrage (« RDC entiere / Epicentre ») de la lecture (« Zones / Cercles ») :
-sans bordures, les quatre mots se lisaient comme un seul groupe. Le pied de
+sans bordures, les quatre mots se lisaient comme un seul groupe. **Sur
+telephone, ces quatre commandes redeviennent des encadres** (demande du
+proprietaire) : au doigt, un cadre dit « ici on appuie » mieux qu'un mot
+souligne ; le filet vertical disparait avec, la ligne s'enroulant. Le pied de
 page a ete mis en une ligne puis REMIS en quatre colonnes a la demande du
 proprietaire — ne pas le rouvrir. Le titre et les cartes de provinces restent
 tels quels par choix explicite.
