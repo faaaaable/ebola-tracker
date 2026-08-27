@@ -1257,7 +1257,130 @@ def province_arrival_events(config, arrivals, strings_lang, lang, i18n_lang,
     return events
 
 
-def timeline_events(strings, sitreps, lang, i18n_lang, config=None, urls=None):
+ZONE_MILESTONES = (10, 20, 30, 40, 50, 75, 100)
+
+
+def _edit_distance(a, b):
+    """Distance de Levenshtein, pour rapprocher « Gety » de « Gethy »."""
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (ca != cb)))
+        prev = cur
+    return prev[-1]
+
+
+def zone_list_text(arrivals, strings_lang):
+    """« Aungba, Damas et Lita (Ituri) et Beni (Nord-Kivu) » — les zones
+    groupees par province, dans l'ordre d'apparition des provinces."""
+    et = strings_lang["timelineListAnd"]
+
+    def join(items):
+        return items[0] if len(items) == 1 else ", ".join(items[:-1]) + et + items[-1]
+
+    groups = []
+    for name, province in arrivals:
+        for group in groups:
+            if group[0] == province:
+                group[1].append(name)
+                break
+        else:
+            groups.append((province, [name]))
+    return join(["%s (%s)" % (join(sorted(names)), province) for province, names in groups])
+
+
+def zone_milestone_events(zones_history, geo, strings_lang, lang, health_zones=()):
+    """Jalons de propagation : la 10e, 20e… zone de sante touchee.
+
+    Le compte est celui des zones distinctes ayant declare au moins un cas
+    confirme dans un bulletin, cumule dans l'ordre des instantanes de
+    zones-history.json — une zone touchee le reste, meme si un bulletin
+    ulterieur cesse de la citer ou la ramene a zero (Bambu, fin mai). C'est le
+    sens de « zones touchees » dans les bulletins eux-memes.
+
+    Une entree par seuil franchi, jamais une par zone : soixante arrivees
+    noieraient les jalons rediges. Le texte nomme les zones arrivees le jour
+    du franchissement, groupees par province.
+
+    Deux pieges evites : une meme zone ecrite de deux facons (« Gety » le
+    29 mai, « Gethy » le 9 aout ; « Makiso-Kisangani » avec une double
+    espace) est rapprochee du fond de carte, cle exacte d'abord, puis a deux
+    caracteres pres DANS LA MEME PROVINCE — Aru et Adi, voisines a deux
+    lettres, existent toutes deux et gardent chacune leur cle exacte. Et le
+    premier bulletin a detailler les zones en liste dix d'un coup : ce ne
+    sont pas des arrivees du jour, le texte le dit autrement."""
+    entries = zones_history if isinstance(zones_history, list) else (
+        zones_history.get("entries") or zones_history.get("history") or [])
+    entries = sorted([e for e in entries if e.get("date")], key=lambda e: e["date"])
+    aliases = geo.get("aliases", {})
+    geo_keys = {}
+    for zone in geo["zones"]:
+        geo_keys.setdefault(normalise_zone(zone["province"]), set()).add(zone["key"])
+
+    def identity(name, province):
+        base = normalise_zone(name)
+        key = aliases.get(base, base)
+        prov = normalise_zone(province)
+        known = geo_keys.get(prov, set())
+        if key in known:
+            return (prov, key)
+        # A deux caracteres pres, le PLUS proche s'il est seul a cette
+        # distance : « gety » est a 1 de « gethy » et a 2 de « geti », deux
+        # zones distinctes de l'Ituri — la plus proche gagne.
+        close = sorted((_edit_distance(k, key), k) for k in known
+                       if abs(len(k) - len(key)) <= 2 and _edit_distance(k, key) <= 2)
+        if close and (len(close) == 1 or close[0][0] < close[1][0]):
+            return (prov, close[0][1])
+        return (prov, key)
+
+    # Le nom affiche est celui du dernier bulletin quand la zone y figure
+    # encore — « Nia-Nia » comme dans les tableaux du site, plutot que le
+    # « Nia Nia » ou le « BAMBU » de la premiere mention.
+    current_name = {identity(z["name"], z.get("province", "")): z["name"]
+                    for z in health_zones}
+
+    seen = set()
+    reached = set()
+    first_date = None
+    events = []
+    for entry in entries:
+        arrivals = []
+        for zone in entry.get("zones", []):
+            if not (zone.get("cases") or 0) > 0:
+                continue
+            ident = identity(zone["name"], zone.get("province", ""))
+            if ident in seen:
+                continue
+            seen.add(ident)
+            name = current_name.get(ident) or (
+                zone["name"].title() if zone["name"].isupper() else zone["name"])
+            arrivals.append((name, zone.get("province", "")))
+        if not arrivals:
+            continue
+        if first_date is None:
+            first_date = entry["date"]
+        total = len(seen)
+        crossed = [s for s in ZONE_MILESTONES if total >= s and s not in reached]
+        if not crossed:
+            continue
+        reached.update(crossed)
+        text_key = ("timelineMilestoneZonesFirstText" if entry["date"] == first_date
+                    else "timelineMilestoneZonesText")
+        events.append({
+            "date": entry["date"], "kind": "spread",
+            "title": interp(strings_lang["timelineMilestoneZonesTitle"],
+                            {"n": fmt(max(crossed), lang)}),
+            "text": esc(interp(strings_lang[text_key], {
+                "n": fmt(total, lang),
+                "zones": zone_list_text(arrivals, strings_lang)})),
+            "source": entry["date"],
+        })
+    return events
+
+
+def timeline_events(strings, sitreps, lang, i18n_lang, config=None, urls=None,
+                    zones_history=None, geo=None, latest_zones=None):
     """Chronologie : jalons rédigés + seuils franchis, calculés sur l'archive."""
     events = []
     for event in strings["timelineEvents"]:
@@ -1328,6 +1451,9 @@ def timeline_events(strings, sitreps, lang, i18n_lang, config=None, urls=None):
         events += province_arrival_events(
             config, strings["provinceArrivals"], strings_lang, lang, i18n_lang,
             urls=urls)
+    if zones_history and geo is not None:
+        events += zone_milestone_events(zones_history, geo, strings_lang, lang,
+                                        health_zones=latest_zones or ())
 
     events.sort(key=lambda e: e["date"])
     attach_toll(events, series)
@@ -1645,6 +1771,7 @@ def main():
     layout = read(os.path.join(SITE, "layout.html"))
 
     latest = read_json(os.path.join(ROOT, "data", "latest.json"))
+    zones_history = read_json(os.path.join(ROOT, "data", "zones-history.json"))
     sitreps = read_json(os.path.join(ROOT, "data", "sitreps.json"))
     who_reports = read_json(os.path.join(ROOT, "data", "who-reports.json"))
     social_updates = read_json(os.path.join(ROOT, "data", "social-updates.json"))
@@ -1738,7 +1865,9 @@ def main():
         }
 
         events = timeline_events(strings, sitreps, lang, i18n_lang,
-                                 config=config, urls=urls)
+                                 config=config, urls=urls,
+                                 zones_history=zones_history, geo=geo,
+                                 latest_zones=latest.get("healthZones", []))
         common_seed["timelineItems"] = render_timeline_vertical(
             events, strings_lang, i18n_lang, urls, lang, config["provinceSlugs"])
         # L'apercu part du debut de l'epidemie et s'arrete au sixieme jalon :
