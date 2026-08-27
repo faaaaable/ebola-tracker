@@ -121,10 +121,10 @@
       "cases": 11,
       "deaths": 1,
       "cfr": 9.1,
-      "newCases24h": 91,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Aru",
@@ -132,10 +132,10 @@
       "cases": 7,
       "deaths": 6,
       "cfr": 85.7,
-      "newCases24h": 857,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Ariwara",
@@ -143,10 +143,10 @@
       "cases": 8,
       "deaths": 2,
       "cfr": 25.0,
-      "newCases24h": 250,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Aungba",
@@ -154,10 +154,10 @@
       "cases": 12,
       "deaths": 5,
       "cfr": 41.7,
-      "newCases24h": 417,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Bambu",
@@ -165,10 +165,10 @@
       "cases": 148,
       "deaths": 29,
       "cfr": 19.6,
-      "newCases24h": 196,
+      "newCases24h": 9,
       "newDeaths24h": 0,
-      "deathsCommunity24h": 9,
-      "deathsIntraCTE24h": 0
+      "deathsCommunity24h": null,
+      "deathsIntraCTE24h": null
     },
     {
       "name": "Boga",
@@ -176,10 +176,10 @@
       "cases": 2,
       "deaths": 2,
       "cfr": 100.0,
-      "newCases24h": 1000,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Bunia",
@@ -187,10 +187,10 @@
       "cases": 1317,
       "deaths": 411,
       "cfr": 31.2,
-      "newCases24h": 312,
+      "newCases24h": 5,
       "newDeaths24h": 0,
-      "deathsCommunity24h": 5,
-      "deathsIntraCTE24h": 0
+      "deathsCommunity24h": null,
+      "deathsIntraCTE24h": null
     },
     {
       "name": "Damas",
@@ -198,10 +198,10 @@
       "cases": 27,
       "deaths": 9,
       "cfr": 33.3,
-      "newCases24h": 333,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Drodro",
@@ -209,10 +209,10 @@
       "cases": 13,
       "deaths": 6,
       "cfr": 46.2,
-      "newCases24h": 462,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Fataki",
@@ -220,10 +220,10 @@
       "cases": 73,
       "deaths": 30,
       "cfr": 41.1,
-      "newCases24h": 411,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Gethy",
@@ -231,10 +231,10 @@
       "cases": 5,
       "deaths": 2,
       "cfr": 40.0,
-      "newCases24h": 400,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Kilo",
@@ -242,10 +242,10 @@
       "cases": 32,
       "deaths": 12,
       "cfr": 37.5,
-      "newCases24h": 375,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Komanda",
@@ -253,10 +253,10 @@
       "cases": 61,
       "deaths": 39,
       "cfr": 63.9,
-      "newCases24h": 639,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Lita",
@@ -264,10 +264,10 @@
       "cases": 204,
       "deaths": 111,
       "cfr": 54.4,
-      "newCases24h": 544,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Logo",
@@ -275,10 +275,10 @@
       "cases": 11,
       "deaths": 5,
       "cfr": 45.5,
-      "newCases24h": 455,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Lolwa",
@@ -286,10 +286,10 @@
       "cases": 19,
       "deaths": 4,
       "cfr": 21.1,
-      "newCases24h": 211,
+      "newCases24h": 1,
       "newDeaths24h": 0,
-      "deathsCommunity24h": 1,
-      "deathsIntraCTE24h": 0
+      "deathsCommunity24h": null,
+      "deathsIntraCTE24h": null
     },
     {
       "name": "Mahagi",
@@ -297,10 +297,10 @@
       "cases": 4,
       "deaths": 1,
       "cfr": 25.0,
-      "newCases24h": 250,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Mambasa",
@@ -308,10 +308,10 @@
       "cases": 17,
       "deaths": 7,
       "cfr": 41.2,
-      "newCases24h": 412,
+      "newCases24h": 3,
       "newDeaths24h": 0,
-      "deathsCommunity24h": 3,
-      "deathsIntraCTE24h": 0
+      "deathsCommunity24h": null,
+      "deathsIntraCTE24h": null
     },
     {
       "name": "Mandima",
@@ -319,10 +319,10 @@
       "cases": 32,
       "deaths": 19,
       "cfr": 59.4,
-      "newCases24h": 594,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Mangala",
@@ -330,10 +330,10 @@
       "cases": 203,
       "deaths": 109,
       "cfr": 53.7,
-      "newCases24h": 537,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Mongbwalu",
@@ -341,10 +341,10 @@
       "cases": 605,
       "deaths": 284,
       "cfr": 46.9,
-      "newCases24h": 469,
+      "newCases24h": 2,
       "newDeaths24h": 0,
-      "deathsCommunity24h": 2,
-      "deathsIntraCTE24h": 0
+      "deathsCommunity24h": null,
+      "deathsIntraCTE24h": null
     },
     {
       "name": "Nia-Nia",
@@ -352,10 +352,10 @@
       "cases": 199,
       "deaths": 108,
       "cfr": 54.3,
-      "newCases24h": 543,
+      "newCases24h": 6,
       "newDeaths24h": 0,
-      "deathsCommunity24h": 6,
-      "deathsIntraCTE24h": 0
+      "deathsCommunity24h": null,
+      "deathsIntraCTE24h": null
     },
     {
       "name": "Nizi",
@@ -363,10 +363,10 @@
       "cases": 628,
       "deaths": 252,
       "cfr": 40.1,
-      "newCases24h": 401,
+      "newCases24h": 6,
       "newDeaths24h": 0,
-      "deathsCommunity24h": 6,
-      "deathsIntraCTE24h": 0
+      "deathsCommunity24h": null,
+      "deathsIntraCTE24h": null
     },
     {
       "name": "Kambala",

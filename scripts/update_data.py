@@ -872,10 +872,22 @@ def parse_zone_detail(rows):
 
 
 def zone_row_looks_unreliable(row):
+    """Une ligne dont on ne sait pas lire les colonnes.
+
+    Le test ne portait que sur la TETE de la ligne — cas, deces, letalite — et
+    laissait passer une queue decalee. Le SitRep 103 est exactement ce cas :
+    ses lignes ont des cas et des deces justes, et des nouveaux cas qui sont la
+    letalite privee de sa virgule. Faute de reperer la letalite, on ne sait pas
+    non plus ou commence la queue : la ligne entiere est alors douteuse.
+    """
     try:
-        cases = norm_int(row[1])
-        deaths = norm_int(row[2]) if len(row) > 2 else None
-        cfr = norm_pct(row[3]) if len(row) > 3 else None
+        i_let = index_letalite_zone(row)
+        if i_let is None:
+            return True
+        tete = [c for c in row[1:i_let] if c not in (None, "")]
+        cases = norm_int(tete[0]) if len(tete) > 0 else None
+        deaths = norm_int(tete[1]) if len(tete) > 1 else None
+        cfr = norm_pct(row[i_let])
     except Exception:
         return True
     if cases and cases > 0 and not deaths and cfr in (None, 0.0):
@@ -892,7 +904,7 @@ def revalidate_zones(full_text, zones_raw):
     return gap_fill_missing_zones(full_text, reliable)
 
 
-def parse_zone_day_columns(row):
+def parse_zone_day_columns(row, i_letalite=None):
     """Lit la queue d'une ligne de zone : nouveaux cas et deces des 24 h.
 
     Le tableau du bulletin porte QUATRE colonnes apres la letalite :
@@ -913,9 +925,15 @@ def parse_zone_day_columns(row):
     pas lequel, et le depot ne devine pas : le site n'affiche de toute facon
     que le total.
 
+    LA QUEUE COMMENCE APRES LA LETALITE, reperee par sa forme et non par son
+    rang — voir index_letalite_zone. L'index fixe row[4:] lisait la letalite
+    elle-meme comme un nombre de nouveaux cas des que le bulletin deplacait une
+    cellule vide.
+
     Retourne (nouveaux_cas, deces_comm, deces_intracte, total_deces).
     """
-    tail = row[4:]
+    depart = (i_letalite + 1) if i_letalite is not None else 4
+    tail = row[depart:]
 
     # Chemin pdfplumber : les cellules vides sont conservees, donc les
     # positions tiennent. On ne s'y fie que si les trois valeurs se recoupent.
@@ -940,13 +958,42 @@ def parse_zone_day_columns(row):
     return new_cases, None, None, rest[-1]
 
 
+def index_letalite_zone(row):
+    """Position de la cellule de letalite dans une ligne de zone.
+
+    LE NOMBRE DE CELLULES VIDES AVANT ELLE VARIE D'UN BULLETIN A L'AUTRE. Le
+    SitRep 102 ecrit ['Aru', '7', None, '6', None, None, '85,7%', ...], le 103
+    ecrit ['Adja', '11', '1', None, '9,1%', ...] — une cellule vide s'est
+    deplacee. Les index fixes (row[2] pour les deces, row[4:] pour la queue)
+    ne tenaient que par accident, et le 103 les a fait tomber a cote : « 9,1% »
+    lu par norm_int donnait 91 nouveaux cas en 24 h. Les 28 zones de l'Ituri
+    totalisaient 10 161 nouveaux cas quand la province en declarait 34.
+
+    Un pourcentage ne se confond avec rien d'autre sur cette ligne : tout ce
+    qui l'entoure est un effectif. C'est donc lui le repere, et non un rang.
+    """
+    for i in range(2, len(row)):
+        if row[i] and re.search(r"\d\s*%", str(row[i])):
+            return i
+    return None
+
+
 def zone_row_to_dict(province, name, row):
-    cases = norm_int(row[1])
-    deaths = norm_int(row[2])
-    cfr = norm_pct(row[3]) if len(row) > 3 else None
+    i_let = index_letalite_zone(row)
+    if i_let is not None:
+        # Les cumules sont les cellules PORTEUSES entre le nom et la letalite :
+        # les cas d'abord, les deces ensuite, quel que soit le nombre de vides.
+        tete = [c for c in row[1:i_let] if c not in (None, "")]
+        cases = norm_int(tete[0]) if len(tete) > 0 else None
+        deaths = norm_int(tete[1]) if len(tete) > 1 else None
+        cfr = norm_pct(row[i_let])
+    else:
+        cases = norm_int(row[1])
+        deaths = norm_int(row[2]) if len(row) > 2 else None
+        cfr = norm_pct(row[3]) if len(row) > 3 else None
     if cfr is None and cases:
         cfr = round((deaths or 0) / cases * 100, 1)
-    new_cases, deaths_comm, deaths_intracte, new_deaths = parse_zone_day_columns(row)
+    new_cases, deaths_comm, deaths_intracte, new_deaths = parse_zone_day_columns(row, i_let)
     return {
         "name": name,
         "province": PROVINCE_CANON.get(province, province),

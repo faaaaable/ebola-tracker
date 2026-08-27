@@ -122,6 +122,29 @@ for p_ in provinces:
           somme <= total,
           "%s réparti(s) sur les zones vs %s déclaré(s) par la province" % (somme, total))
 
+# Les NOUVEAUX CAS des zones contre le total de la province. Ce controle
+# manquait, et c'est par la qu'est passe le SitRep 103 : une cellule vide
+# deplacee d'un rang faisait lire la letalite « 9,1% » comme 91 nouveaux cas,
+# et les 28 zones de l'Ituri totalisaient 10 161 nouveaux cas en 24 h quand la
+# province en declarait 34. Rien ne l'avait vu.
+#
+# La tolerance n'est pas zero : le bulletin lui-meme n'est pas toujours
+# coherent avec ses sous-totaux — au 103, le Nord-Kivu et le Haut-Uele
+# depassent chacun d'une unite, et le site les recopie fidelement. On alerte
+# donc sur un ECART DE FORME, pas sur l'unite : au-dela du double du total
+# declare, ce n'est plus une divergence de source, c'est une colonne mal lue.
+for p_ in provinces:
+    mine = by_province.get(p_["name"], [])
+    if not mine:
+        continue
+    somme = sum(z.get("newCases24h") or 0 for z in mine)
+    total = p_.get("newCases24h") or 0
+    plafond = max(total * 2, total + 5)
+    check("nouveaux cas des zones plausibles (%s)" % p_["name"],
+          somme <= plafond,
+          "%s réparti(s) sur les zones vs %s déclaré(s) — colonne probablement décalée"
+          % (somme, total))
+
 negative = [z["name"] for z in zones if (z.get("cases") or 0) < 0
             or (z.get("deaths") or 0) < 0]
 check("aucun effectif négatif", not negative, ", ".join(negative[:5]))
