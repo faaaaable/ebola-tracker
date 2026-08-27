@@ -326,6 +326,22 @@ ne tourne et sans lui ; la cle i18n `timelineToday` a disparu. Demande du
 proprietaire du 27 aout — « aujourd'hui » n'est pas la date d'un bulletin. Le libelle a aussi perdu son sigle : « Certains bulletins ne
 detaillent pas les zones : ces dates sont absentes du curseur. »
 
+**LE PANNEAU A COTE DE LA CARTE EST DATE, PAS TITRE.** Depuis le 27 aout, son
+etat de repos dit « Situation au 25 aout 2026 » — plus « Zones de sante
+touchees », ni « 58 zones de sante touchees sur 519 » dessous. Ses cinq
+chiffres sont le bilan national du dernier bulletin (`renderKPIs`), quelle
+que soit la position du curseur : un titre de zones coiffait un total de
+pays, et un compte de propagation detonnait dans une liste de bilan. La date
+leve aussi une ambiguite : curseur sur le 15 juin, panneau au 25 aout — deux
+dates, toutes deux ecrites. Le compte de zones vit en tete de `/donnees/`,
+dans les jalons de la chronologie et dans l'`aria-label` de la carte.
+
+Meme formule que les images partagees (`cartoAsOf` dans `strings.json`,
+`chartShareAsOf` cote script), date DES DONNEES, ecrite par le generateur
+(`seed.cartoAsOf`) et relue par `daterPanneauCarte` si `latest.json` est plus
+recent que la page. Le survol ne change pas : nom de la zone, sa province en
+note, retour a la date quand on quitte.
+
 **LA CARTE A DEUX LECTURES, UNE BASCULE, JAMAIS LES DEUX A LA FOIS.** Depuis le
 27 aout, la carte de l'accueil porte en haut a droite « Zones colorees /
 Cercles ». Les zones colorees disent OU est l'epidemie ; les cercles disent
