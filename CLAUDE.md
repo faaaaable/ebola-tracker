@@ -386,6 +386,23 @@ diverger. Les libelles sont des nombres, identiques dans les trois langues au
 separateur de milliers pres. Sous 900 px elle passe en grille de trois par
 ligne — en rangee libre, le sixieme palier restait seul a la ligne.
 
+**MONGBWALU ETAIT GRISE SUR LA CARTE EN LIGNE, AVEC 605 CAS.** Decouvert le
+27 aout en comparant, pour un visuel, les zones comptees et les zones
+coloriees : le generateur colorie bien Mongbwalu et Nyankunde (il passe par
+la table d'alias du fond de carte, « Mongbwalu » -> « Mongbalu » chez OCHA),
+mais `renderMap` recolorie tout depuis l'historique des qu'il tourne, et
+`zoneKey()` ignorait `window.ZONE_ALIASES` : les deux zones retombaient en
+gris. Troisieme et septieme zones du pays, invisibles depuis la carte SVG.
+`zoneKey` applique desormais les alias. **La verification a faire apres tout
+changement de carte : compter les `.zm-zone:not(.is-0)` rendus contre les
+zones a cas > 0 de l'instantane** — `scripts/verif/` n'a pas encore cet
+outil, le script de session `manquantes.mjs` le faisait.
+
+Corollaire : `zoneAliases` dans `site/pages.json` complete les alias que
+`build_geo.py` deduit de `latest.json` — il ne peut pas connaitre « Gety »,
+orthographe des bulletins de juin a aout, quand le dernier ecrit « Gethy ».
+`build_pages` fusionne les deux tables au chargement de `geo`.
+
 **Le croisement se fait par clé normalisée**, jamais par nom affiché. Chaque
 zone porte une `key` (accents retirés, casse et séparateurs écrasés) qui sert
 de pont entre le shapefile, `latest.json` et `zones-history.json`.
