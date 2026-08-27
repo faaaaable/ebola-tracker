@@ -1827,6 +1827,26 @@ footer{
   .accroche{max-width:none;margin-bottom:26px;}
 }
 
+/* ---- sur telephone, la carte remonte au premier ecran ----
+   A 360 px, en-tete + kicker + titre + libelle de section repoussaient la
+   carte a 320 px du haut, et sa legende sortait de l'ecran. Sous 760 px le
+   kicker disparait — son seul mot non redondant avec le titre, « 17e »,
+   passe dans le titre par un span .on-phone (et « l' » devient « la » par
+   .on-large) — et le libelle « Cas par zone de sante » sort de la mise en
+   page sans quitter l'arbre d'accessibilite : la legende sous la carte dit
+   deja de quoi il s'agit. Sur ordinateur rien ne change. */
+.on-phone{display:none;}
+.accroche sup{font-size:.55em;line-height:0;vertical-align:.5em;letter-spacing:0;}
+@media (max-width:760px){
+  .on-phone{display:inline;}
+  .on-large{display:none;}
+  .kicker{display:none;}
+  .section-head-carto{
+    position:absolute;width:1px;height:1px;margin:0;padding:0;overflow:hidden;
+    clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+  }
+}
+
 /* Rappel de contexte au-dessus des dates du bandeau : le gros titre ne dit que
    « RDC », cette ligne porte le nom complet du pays — pour le lecteur comme
    pour les moteurs de recherche. */

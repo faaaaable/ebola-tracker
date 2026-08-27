@@ -357,6 +357,19 @@ page a ete mis en une ligne puis REMIS en quatre colonnes a la demande du
 proprietaire — ne pas le rouvrir. Le titre et les cartes de provinces restent
 tels quels par choix explicite.
 
+**SUR TELEPHONE, LA CARTE DE L'ACCUEIL TIENT DANS LE PREMIER ECRAN.** Depuis
+le 27 aout, sous 760 px : le kicker « 17e epidemie d'Ebola en Republique
+democratique du Congo » disparait — tout sauf « 17e » repetait le titre — et
+le « 17e » passe dans le titre par des spans `.on-phone` / `.on-large` dans
+`homeLede` (FR : « l' » devient « la 17e » ; EN et SW n'ont qu'un span).
+Le libelle « Cas par zone de sante » (`.section-head-carto`) sort de la mise
+en page mais reste lisible aux lecteurs d'ecran : la legende sous la carte
+dit deja « Cas confirmes cumules ». A 360 px la carte commence a 248 px au
+lieu de 320 et sa legende finit a 635 px — tout tient dans un ecran de
+telephone. Sur ordinateur rien ne change : kicker et libelle restent. Le
+choix du 27 aout etait celui-ci plutot qu'un paragraphe d'entree : un
+paragraphe aurait repousse la carte plus bas qu'avant.
+
 **SUR TELEPHONE, L'EN-TETE TIENT SUR UNE LIGNE.** Depuis le 27 aout : marque,
 langues et bouton de menu sur la meme rangee, 77 px au lieu de 130 — sous
 900 px `.sidebar` passe en ligne, le bouton (frere de `.side-head` dans le

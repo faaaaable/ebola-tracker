@@ -1,8 +1,14 @@
   <section class="section">
+    <!-- Sous 760 px le kicker disparait et son « 17e » passe dans le titre
+         (spans .on-phone / .on-large de homeLede) : sur telephone, tout ce
+         qui precede la carte lui coute un ecran. -->
     <p class="kicker" data-i18n-html="topMeta">{{i18n.topMeta}}</p>
     <h1 class="accroche">{{t.homeLede}}</h1>
 
-    <div class="section-head">
+    <!-- Sur telephone le libelle sort de la mise en page mais reste dans
+         l'arbre d'accessibilite : la legende sous la carte dit deja
+         « Cas confirmes cumules ». -->
+    <div class="section-head section-head-carto">
       <h2 class="section-title">{{t.cartoTitle}}</h2>
     </div>
 
