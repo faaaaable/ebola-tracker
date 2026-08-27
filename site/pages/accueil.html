@@ -14,7 +14,16 @@
             <button class="map-btn active" id="btnViewCountry" data-i18n="btnCountry">{{i18n.btnCountry}}</button>
             <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">{{i18n.btnIturi}}</button>
           </div>
-          <div class="map-legend">
+          <!-- Deux lectures de la meme carte : les zones colorees disent ou
+               est l'epidemie, les cercles combien — leur surface suit les cas,
+               pas la superficie de la zone. Jamais les deux a la fois : ce
+               serait deux fois la meme variable. -->
+          <nav class="map-mode" id="mapModeNav" aria-label="{{i18n.mapModeZones}} / {{i18n.mapModeCircles}}">
+            <button type="button" class="map-btn active" data-mode="zones" data-i18n="mapModeZones">{{i18n.mapModeZones}}</button>
+            <button type="button" class="map-btn" data-mode="circles" data-i18n="mapModeCircles">{{i18n.mapModeCircles}}</button>
+          </nav>
+{{legendCircles}}
+          <div class="map-legend" data-mode="zones">
             <div class="title" data-i18n="legendTitle">{{i18n.legendTitle}}</div>
 {{legendSteps}}
           </div>

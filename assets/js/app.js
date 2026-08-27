@@ -2780,6 +2780,7 @@ function initMap(){
           full: { x: box[0], y: box[1], w: box[2], h: box[3] } };
   map.view = Object.assign({}, map.full);
   setupMapDragging();
+  setupMapModes();
 
   const country = document.getElementById('btnViewCountry');
   if(country) country.addEventListener('click', ()=>{
@@ -2850,6 +2851,88 @@ function applyView(animate){
     mark.setAttribute('transform',
       `translate(${mark.dataset.x} ${mark.dataset.y}) scale(${1 / scale})`);
   });
+  if(map.bubbles) map.bubbles.forEach(bulle=>{
+    bulle.setAttribute('transform',
+      `translate(${bulle.dataset.x} ${bulle.dataset.y}) scale(${1 / scale})`);
+  });
+}
+
+/* ---------------- Vue « cercles » ----------------
+   Meme carte, meme curseur, meme panneau : seule la representation change.
+   Les zones colorees disent OU est l'epidemie, les cercles COMBIEN — leur
+   surface suit les cas, la ou une zone rurale immense ecrase une ville de
+   quelques kilometres carres. Jamais les deux a la fois : ce serait encoder
+   deux fois la meme variable. */
+let mapMode = 'zones';
+
+/* Meme normalisation que normalise_zone() du generateur, qui indexe
+   ZONE_POINTS : accents, casse, tirets, apostrophes et espaces. */
+function pointKeyOf(name){
+  return String(name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[-_'\u2019.]/g, ' ').toLowerCase().replace(/\s+/g, '');
+}
+
+function setupMapModes(){
+  const nav = document.getElementById('mapModeNav');
+  const stage = map.svg.closest('.zonemap-stage');
+  if(!nav || !stage || !map.viewport) return;
+  const layer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  layer.setAttribute('class', 'zm-circles');
+  const marks = map.viewport.querySelector('.zm-marks');
+  map.viewport.insertBefore(layer, marks || null);
+  map.circleLayer = layer;
+  map.bubbles = [];
+  nav.querySelectorAll('.map-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      mapMode = btn.dataset.mode === 'circles' ? 'circles' : 'zones';
+      nav.querySelectorAll('.map-btn').forEach(b=>b.classList.toggle('active', b === btn));
+      stage.classList.toggle('is-circles', mapMode === 'circles');
+      renderMap();
+    });
+  });
+}
+
+/* Le point d'une zone : sa coordonnee GPS quand le site en a une (le
+   chef-lieu, pas le centre du polygone — Bunia, la ville, est au bord de sa
+   zone), sinon le centre de son emprise. */
+function zonePoint(el){
+  const points = window.ZONE_POINTS || {};
+  const gps = points[pointKeyOf(el.dataset.name)];
+  if(gps) return gps;
+  const box = String(el.dataset.box || '').split(/[\s,]+/).map(Number);
+  if(box.length >= 4 && box.every(v=>!isNaN(v))) return [box[0] + box[2] / 2, box[1] + box[3] / 2];
+  return null;
+}
+
+function renderCircles(points){
+  if(!map || !map.circleLayer) return;
+  const layer = map.circleLayer;
+  if(mapMode !== 'circles'){ layer.replaceChildren(); map.bubbles = []; return; }
+  const k = window.MAP_CIRCLE_SCALE || 1.0;
+  const plancher = window.MAP_CIRCLE_MIN || 2.5;   // une zone a un cas ne fait pas un pixel
+  const scale = map.width / map.view.w;
+  /* Les gros d'abord : un petit cercle reste visible par-dessus un grand. */
+  const tries = points.filter(p=>p.cases > 0).sort((a, b)=>b.cases - a.cases);
+  const bulles = [];
+  const frag = document.createDocumentFragment();
+  tries.forEach(p=>{
+    const xy = zonePoint(p.el);
+    if(!xy) return;
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'zm-bubble');
+    g.dataset.x = xy[0]; g.dataset.y = xy[1];
+    g.setAttribute('transform', `translate(${xy[0]} ${xy[1]}) scale(${1 / scale})`);
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('r', Math.max(plancher, k * Math.sqrt(p.cases)).toFixed(2));
+    const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    title.textContent = `${p.name} — ${fmt(p.cases)} ${tr('cartoCasesShort')}`;
+    c.appendChild(title);
+    g.appendChild(c);
+    frag.appendChild(g);
+    bulles.push(g);
+  });
+  layer.replaceChildren(frag);
+  map.bubbles = bulles;
 }
 
 function mapIsZoomed(){
@@ -2974,12 +3057,14 @@ function renderMap(){
     delete el.dataset.newDeaths;
   });
 
+  const points = [];
   zonesToRender.forEach(z=>{
     const key = zoneKey(z.name, z.province);
     const el = map.zones[key];
     if(!el) return;
     const cases = z.cases || 0;
     const deaths = z.deaths || 0;
+    points.push({ el, name: z.name, cases });
 
     let newCases, newDeaths;
     if(isHistorical){
@@ -3010,6 +3095,7 @@ function renderMap(){
     }
   });
 
+  renderCircles(points);
   if(window.majInfobulleZone) window.majInfobulleZone();
 }
 

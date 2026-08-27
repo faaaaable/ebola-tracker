@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=33c2414069">
+<link rel="stylesheet" href="/assets/css/site.css?v=e6c7f7ffa3">
 </head>
 <body>
 
@@ -489,6 +489,9 @@ window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde"};
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
+window.ZONE_POINTS = {"bunia": [943.3, 198.2], "mongbwalu": [934.1, 180.6], "rwampara": [934.3, 199.8], "nizi": [948.1, 191.5], "lita": [950.0, 195.6], "nyankunde": [933.2, 207.0], "mangala": [944.8, 179.9], "niania": [806.8, 208.5], "bambu": [943.9, 187.8], "tchomia": [956.7, 206.6], "komanda": [920.0, 210.7], "kilo": [943.5, 187.9], "fataki": [961.3, 177.9], "damas": [937.2, 171.5], "mandima": [883.5, 211.5], "adja": [956.8, 124.1], "drodro": [960.1, 190.0], "aungba": [958.4, 148.5], "logo": [982.0, 166.5], "mambasa": [880.8, 210.8], "rimba": [966.1, 165.9], "ariwara": [968.6, 117.7], "lolwa": [905.3, 211.3], "aru": [975.6, 132.3], "mahagi": [982.6, 161.2], "kambala": [976.2, 172.1], "boga": [929.3, 228.2], "gethy": [940.4, 219.4], "beni": [902.9, 256.3], "butembo": [894.9, 275.3], "goma": [888.8, 368.6], "kalunguta": [897.9, 265.1], "katwa": [895.6, 277.1], "kyondo": [900.7, 282.0], "lubero": [891.9, 290.1], "mabalako": [890.5, 257.8], "masereka": [895.9, 289.3], "musienene": [892.6, 281.4], "oicha": [906.5, 245.5], "vuhovi": [900.6, 274.5], "isiro": [807.1, 136.8], "wamba": [826.1, 169.6], "bomamangbetu": [842.7, 132.8], "pawa": [806.6, 155.8], "rungu": [820.3, 115.0], "gombari": [881.4, 140.4], "bafwasende": [782.8, 229.7], "kabondo": [681.6, 254.3], "lubunga": [679.7, 256.6], "makisokisangani": [684.4, 256.6], "mangobo": [677.6, 254.6], "wanierukula": [697.6, 271.6], "mitimurhesa": [868.8, 405.5], "buta": [655.7, 135.8], "viadana": [785.7, 131.5], "ganga": [728.2, 119.4]};
+window.MAP_CIRCLE_SCALE = 1.0;
+window.MAP_CIRCLE_MIN = 2.5;
 window.PROVINCE_NAME = "Bas-Uélé";
 window.PROVINCES_INDEX_URL = "/en/data/";
 window.DATA_PAGE_URL = "/en/data/";
@@ -501,8 +504,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=ab2663582a"></script>
-<script defer src="/assets/js/app.js?v=ab23b75cd4"></script>
+<script defer src="/assets/js/i18n.js?v=ec5bd95966"></script>
+<script defer src="/assets/js/app.js?v=de863482fd"></script>
 
 </body>
 </html>

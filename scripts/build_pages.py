@@ -638,6 +638,49 @@ def province_rows_html(provinces, national, lang):
     return "\n".join(rows)
 
 
+def zone_points(config, geo):
+    """Les points GPS de site/pages.json projetes dans le repere de la carte,
+    indexes par nom normalise. Meme formule que build_geo.py : x depuis le
+    meridien ouest du cadre, y depuis son parallele nord, a l'echelle du
+    viewBox."""
+    proj = geo["projection"]
+    points = {}
+    for name, (lat, lon) in config.get("zoneCoordinates", {}).get("places", {}).items():
+        x = (lon - proj["minLon"]) * proj["scale"]
+        y = (proj["maxLat"] - lat) * proj["scale"]
+        points[normalise_zone(name)] = [round(x, 1), round(y, 1)]
+    return points
+
+
+def circle_legend_html(config, lang, i18n_lang):
+    """La legende de la vue « cercles » : les cercles etalons a l'echelle
+    exacte de la carte, du plus petit au plus grand, chacun sous son nombre.
+    Dessines par le generateur, ils sont justes sans JavaScript et ne
+    peuvent pas diverger de l'echelle qu'ils illustrent."""
+    scale = config["cartogram"].get("circleScale", 1.0)
+    plancher = config["cartogram"].get("circleMinRadius", 2.5)
+    steps = config["cartogram"].get("circleLegend", [1, 10, 100, 1000])
+    rayons = [max(plancher, scale * (v ** 0.5)) for v in steps]
+    gap, haut_texte, marge = 9, 14, 6     # marge : le « 1 » sous le premier cercle deborde sinon
+    largeur = marge * 2 + sum(2 * r for r in rayons) + gap * (len(rayons) - 1)
+    hauteur = 2 * max(rayons) + haut_texte + 4
+    x, parts = float(marge), []
+    base = 2 * max(rayons)
+    for v, r in zip(steps, rayons):
+        cx = x + r
+        parts.append(
+            '<circle class="legend-circle" cx="%.1f" cy="%.1f" r="%.1f"/>'
+            '<text x="%.1f" y="%.1f" text-anchor="middle">%s</text>'
+            % (cx, base - r, r, cx, base + haut_texte - 2, esc(fmt(v, lang))))
+        x += 2 * r + gap
+    return (
+        '            <div class="map-legend" data-mode="circles">\n'
+        '              <div class="title">%s</div>\n'
+        '              <svg class="legend-circles" viewBox="0 0 %.1f %.1f" width="%.0f" height="%.0f" aria-hidden="true">%s</svg>\n'
+        '            </div>'
+        % (esc(i18n_lang["legendTitle"]), largeur, hauteur, largeur, hauteur, "".join(parts)))
+
+
 def zone_map_html(config, geo, health_zones, provinces, urls, lang, strings_lang):
     """Carte d'apercu de l'accueil : les 519 zones de sante du pays.
 
@@ -1882,6 +1925,7 @@ def main():
             strings_lang)
         common_seed["legendSteps"] = legend_steps_html(
             config["cartogram"]["zoneThresholds"], lang)
+        common_seed["legendCircles"] = circle_legend_html(config, lang, i18n_lang)
         touched = len(latest.get("healthZones", []))
         # La derniere position du curseur porte la date des dernieres donnees,
         # ecrite dans la page : jamais un « Aujourd'hui » — meme avant que le
@@ -2131,6 +2175,16 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                         % json.dumps(config["cartogram"]["zoneThresholds"]))
     page_globals.append("window.MAP_PROVINCE_BOXES = %s;"
                         % json.dumps(geo["provinceBoxes"], ensure_ascii=False))
+    # Vue « cercles » : le point de chaque zone touchee, projete comme le
+    # reste de la carte (plate-carree de build_geo.py), et l'echelle des
+    # rayons. Les cercles se dessinent au navigateur, a chaque position du
+    # curseur, a partir des memes instantanes que les couleurs.
+    page_globals.append("window.ZONE_POINTS = %s;" % json.dumps(
+        zone_points(config, geo), ensure_ascii=False))
+    page_globals.append("window.MAP_CIRCLE_SCALE = %s;"
+                        % json.dumps(config["cartogram"].get("circleScale", 1.0)))
+    page_globals.append("window.MAP_CIRCLE_MIN = %s;"
+                        % json.dumps(config["cartogram"].get("circleMinRadius", 2.5)))
     # Le graphique d'une page province a besoin de savoir laquelle : le nom
     # sert de cle dans province-history.json et dans PROVINCE_COLORS.
     if is_province and province is not None:

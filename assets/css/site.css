@@ -512,6 +512,28 @@ ul,ol{margin:0;padding:0;}
 
 /* Les commandes flottent sur la carte, sans fond continu. */
 .map-toolbar{position:absolute;top:0;left:0;z-index:5;display:flex;gap:6px;}
+.map-mode{position:absolute;top:0;right:0;z-index:5;display:flex;gap:6px;}
+
+/* ---- vue « cercles » ----
+   La surface d'un cercle suit les cas de la zone, pas sa superficie : Bunia,
+   une ville, y pese enfin ce qu'elle pese. Les zones touchees gardent une
+   teinte a peine marquee, pour que l'etendue reste lisible sous la
+   grandeur. Les cercles ne captent pas la souris : c'est la zone dessous qui
+   porte le survol, l'infobulle et le clic. */
+.zm-circles{pointer-events:none;}
+.zonemap-stage:not(.is-circles) .zm-circles{display:none;}
+.zonemap-stage.is-circles .zm-zone:not(.is-0) path{fill:#DCE6EC;}
+.zm-bubble circle{
+  fill:var(--map-5);fill-opacity:.5;stroke:var(--map-6);stroke-width:1;
+  vector-effect:non-scaling-stroke;
+}
+.zm-viewport.is-animating .zm-bubble{transition:transform .55s cubic-bezier(.22,.61,.36,1);}
+.map-legend[data-mode="circles"]{display:none;max-width:220px;}
+.zonemap-stage.is-circles .map-legend[data-mode="zones"]{display:none;}
+.zonemap-stage.is-circles .map-legend[data-mode="circles"]{display:block;}
+.legend-circles{display:block;overflow:visible;}
+.legend-circles .legend-circle{fill:var(--map-5);fill-opacity:.5;stroke:var(--map-6);stroke-width:1;}
+.legend-circles text{font-size:10px;fill:var(--ink-label);font-family:var(--font-sans);}
 .map-btn{
   font-family:var(--font-sans);font-size:11.5px;font-weight:600;
   padding:6px 11px;border-radius:var(--radius);
@@ -1621,10 +1643,12 @@ footer{
      repassent au-dessus d'elle, et la legende en dessous. */
   .zonemap-stage{display:flex;flex-direction:column;}
   .map-toolbar{position:static;order:-1;margin-bottom:10px;}
+  .map-mode{position:static;order:-1;margin-bottom:10px;}
   /* Sous la carte, la legende s'aligne a gauche comme le reste de la page :
      le titre a droite, au-dessus de pastilles a gauche, se lisait comme deux
      elements sans rapport. */
   .map-legend{position:static;order:1;margin:10px 0 0;max-width:none;padding:0;background:transparent;text-align:left;}
+  .zonemap-stage.is-circles .map-legend[data-mode="circles"]{display:block;}
   /* Trois par ligne : en rangee libre, le sixieme palier restait seul a la
      ligne, et l'echelle se lisait comme cinq classes plus une. */
   .legend-steps{display:grid;grid-template-columns:repeat(3,max-content);gap:5px 16px;}
