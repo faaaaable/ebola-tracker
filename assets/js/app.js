@@ -3862,6 +3862,206 @@ function legendesDuGraphique(canvas){
    pas le contenu. */
 async function partagerGraphique(btn, canvas){
   if(!canvas) return;
+  const { titre, sousTitre, note } = legendesDuGraphique(canvas);
+  return partagerImage(btn, titre, exporterGraphique(canvas, titre, sousTitre, note));
+}
+
+/* Un tableau n'est pas un canevas : il ne sait pas s'exporter. On le redessine
+   donc cellule par cellule, comme la carte-resume et l'image de graphique —
+   aucune bibliotheque de capture, rien qui s'execute avant le clic.
+
+   CE QUI EST EXPORTE EST CE QUI EST AFFICHE. Le tableau des zones se filtre par
+   province et par recherche, et son corps ne contient QUE les lignes retenues :
+   l'image reprend donc l'etat lu, et le sous-titre nomme le filtre actif.
+   Exporter les 58 zones quand le lecteur en regarde 13 dirait autre chose que
+   ce qu'il a sous les yeux — le meme principe que la note embarquee sous les
+   figures. */
+async function exporterTableau(table, titre, sousTitre, note){
+  if(!table) return null;
+  if(document.fonts && document.fonts.ready) await document.fonts.ready;
+
+  /* Le chevron de tri reste a l'ecran, ou il dit sur quelle colonne on a
+     clique ; il ne suit pas l'image. Sortie du site, une pointe collee a un
+     libelle ne renvoie plus a rien de cliquable. */
+  const entetes = [...table.querySelectorAll('thead th')].map(th => ({
+    texte: th.textContent.trim().replace(/\s+/g, ' ').replace(/\s*[\u25b2\u25bc]$/, ''),
+    nombre: th.classList.contains('is-num')
+  }));
+  const lignes = [...table.querySelectorAll('tbody tr')].map(
+    tr => [...tr.children].map(td => td.textContent.trim().replace(/\s+/g, ' ')));
+  if(!entetes.length || !lignes.length) return null;
+
+  /* L'alignement se juge au CONTENU de la colonne, pas au seul `is-num` de son
+     en-tete. « Cas cumules » du tableau par zone n'en porte pas, et c'est
+     voulu a l'ecran : le nombre y est cale contre la barre de proportion qui
+     le suit dans la cellule. L'image ne reprend que le texte — la barre
+     disparait, et le nombre restait seul a gauche d'une colonne de chiffres.
+     Une colonne dont toutes les valeurs sont des nombres se cale donc a
+     droite, quel que soit son en-tete, et la regle vaut pour les tableaux a
+     venir sans qu'on ait a y penser. */
+  const EST_UN_NOMBRE = /^[+\-\u2212]?\d[\d ,.]*\s*%?$/;
+  const SANS_VALEUR = /^[\u2014\u2013-]?$/;   // « — », « – », « - » ou rien
+  entetes.forEach((e, i) => {
+    if(e.nombre) return;
+    const valeurs = lignes.map(l => (l[i] || '').trim()).filter(v => !SANS_VALEUR.test(v));
+    e.nombre = valeurs.length > 0 && valeurs.every(v => EST_UN_NOMBRE.test(v));
+  });
+
+  const ECH = 2;
+  const L = 1200, marge = 44, hautTitre = 140, hautPied = 84;
+  const large = L - marge * 2;
+  const CORPS = 15, INTER = 21, HAUT_LIGNE = 32, HAUT_ENTETE = 40;
+
+  const mes = document.createElement('canvas').getContext('2d');
+  /* Chaque colonne prend la largeur de son contenu le plus long, en-tete
+     compris. Si l'ensemble deborde, tout se resserre au prorata et le texte
+     qui ne rentre plus est coupe — jamais un nombre, qui perdrait son sens. */
+  mes.font = `600 14px ${PALETTE.font}`;
+  const larg = entetes.map(e => mes.measureText(e.texte).width);
+  mes.font = `400 ${CORPS}px ${PALETTE.font}`;
+  for(const l of lignes){
+    l.forEach((c, i) => { if(i < larg.length) larg[i] = Math.max(larg[i], mes.measureText(c).width); });
+  }
+  const PAD = 22;
+  let cols = larg.map(w => Math.ceil(w) + PAD);
+  const totalNaturel = cols.reduce((a, b) => a + b, 0);
+  if(totalNaturel > large){
+    const facteur = large / totalNaturel;
+    cols = cols.map(w => Math.floor(w * facteur));
+  }
+  const largeTable = cols.reduce((a, b) => a + b, 0);
+
+  mes.font = `400 ${CORPS}px ${PALETTE.font}`;
+  const lignesNote = note ? lignesDeTexte(mes, note, large) : [];
+  const hautNote = lignesNote.length ? 26 + lignesNote.length * INTER : 0;
+  const hautCorps = HAUT_ENTETE + lignes.length * HAUT_LIGNE;
+  const H = hautTitre + hautCorps + hautNote + hautPied;
+
+  const sortie = document.createElement('canvas');
+  sortie.width = L * ECH; sortie.height = H * ECH;
+  const c = sortie.getContext('2d');
+  c.scale(ECH, ECH);
+  c.fillStyle = PALETTE.bg;
+  c.fillRect(0, 0, L, H);
+
+  c.fillStyle = PALETTE.ink;
+  c.font = `700 30px ${PALETTE.font}`;
+  c.fillText(titre, marge, 62);
+  if(sousTitre){
+    c.fillStyle = PALETTE.inkDim;
+    c.font = `400 18px ${PALETTE.font}`;
+    c.fillText(sousTitre, marge, 94);
+  }
+  c.strokeStyle = PALETTE.line; c.lineWidth = 1;
+  c.beginPath(); c.moveTo(marge, 116.5); c.lineTo(L - marge, 116.5); c.stroke();
+
+  const tronque = (texte, w) => {
+    if(c.measureText(texte).width <= w) return texte;
+    let t = texte;
+    while(t.length > 1 && c.measureText(t + '…').width > w) t = t.slice(0, -1);
+    return t + '…';
+  };
+  const cellule = (texte, x, w, y, aDroite) => {
+    const dispo = w - PAD;
+    const t = tronque(texte, dispo);
+    c.fillText(t, aDroite ? x + w - PAD / 2 - c.measureText(t).width : x + PAD / 2, y);
+  };
+
+  let y = hautTitre + 26;
+  c.font = `600 14px ${PALETTE.font}`;
+  c.fillStyle = PALETTE.inkDim;
+  let x = marge + Math.round((large - largeTable) / 2);
+  const xDebut = x;
+  entetes.forEach((e, i) => { cellule(e.texte, x, cols[i], y, e.nombre); x += cols[i]; });
+  c.strokeStyle = PALETTE.line;
+  c.beginPath();
+  c.moveTo(xDebut, hautTitre + HAUT_ENTETE - 0.5);
+  c.lineTo(xDebut + largeTable, hautTitre + HAUT_ENTETE - 0.5);
+  c.stroke();
+
+  c.font = `400 ${CORPS}px ${PALETTE.font}`;
+  y = hautTitre + HAUT_ENTETE + 21;
+  lignes.forEach((ligne, n) => {
+    x = xDebut;
+    c.fillStyle = PALETTE.ink;
+    ligne.forEach((val, i) => {
+      if(i >= cols.length) return;
+      cellule(val, x, cols[i], y, entetes[i] && entetes[i].nombre);
+      x += cols[i];
+    });
+    if(n < lignes.length - 1){
+      c.strokeStyle = PALETTE.lineSoft;
+      c.beginPath();
+      c.moveTo(xDebut, y + 10.5); c.lineTo(xDebut + largeTable, y + 10.5);
+      c.stroke();
+    }
+    y += HAUT_LIGNE;
+  });
+
+  if(lignesNote.length){
+    c.fillStyle = PALETTE.inkFaint;
+    c.font = `400 ${CORPS}px ${PALETTE.font}`;
+    let yn = hautTitre + hautCorps + 26;
+    for(const l of lignesNote){ c.fillText(l, marge, yn); yn += INTER; }
+  }
+
+  const pied = H - hautPied + 50;
+  c.strokeStyle = PALETTE.line;
+  c.beginPath(); c.moveTo(marge, pied - 20.5); c.lineTo(L - marge, pied - 20.5); c.stroke();
+  c.fillStyle = PALETTE.inkFaint;
+  c.font = `400 16px ${PALETTE.font}`;
+  c.fillText(tr('chartShareSource'), marge, pied + 6);
+  c.fillStyle = PALETTE.accent;
+  c.font = `600 16px ${PALETTE.font}`;
+  const canonique = document.querySelector('link[rel="canonical"]');
+  let domaine = 'ebola-tracker.org';
+  try{ if(canonique) domaine = new URL(canonique.href).hostname; }catch(e){ /* href illisible */ }
+  c.fillText(domaine, L - marge - c.measureText(domaine).width, pied + 6);
+
+  return new Promise(resolve => sortie.toBlob(resolve, 'image/png'));
+}
+
+/* Ce que porte l'image d'un tableau se lit dans la page, comme pour les
+   figures : le libelle de la vue active, le filtre de province s'il y en a un,
+   la recherche en cours, et la ligne de fraicheur qui surmonte le tableau. */
+function legendesDuTableau(table){
+  const section = table.closest('.section');
+  const nav = document.getElementById('zonesViewNav');
+  const vue = nav ? nav.querySelector('.subtab-btn.active') : null;
+  const titreSection = section ? section.querySelector('.page-title, .section-title') : null;
+  const titre = (vue && vue.textContent.trim())
+             || (titreSection && titreSection.textContent.trim()) || '';
+  const bouts = [];
+  const bloc = table.closest('.zones-block');
+  if(bloc){
+    const filtre = document.querySelector('#zonesSubtabNav .subtab-btn.active');
+    const cherche = document.getElementById('zonesSearch');
+    if(filtre && filtre.textContent.trim()) bouts.push(filtre.textContent.trim());
+    if(cherche && cherche.value.trim()) bouts.push('« ' + cherche.value.trim() + ' »');
+  }
+  /* La ligne de fraicheur de la page porte le numero du bulletin ; l'image,
+     elle, n'en veut pas — un « SitRep N°103 » ne dit rien a qui la recoit hors
+     du site, quand une date se lit partout. Elle date donc ce qu'elle montre,
+     dans les memes termes que les figures : « Situation au <date> », avec
+     l'annee, parce qu'une image se lit un an plus tard. */
+  const arrete = periodeTexte({ fin: currentMeta && currentMeta.reportingDate });
+  if(arrete) bouts.push(arrete);
+  const noteEl = bloc ? bloc.querySelector('.zones-note') : null;
+  return { titre, sousTitre: bouts.join(' · '),
+           note: noteEl ? noteEl.textContent.trim() : '' };
+}
+
+async function partagerTableau(btn, table){
+  if(!table) return;
+  const { titre, sousTitre, note } = legendesDuTableau(table);
+  return partagerImage(btn, titre, exporterTableau(table, titre, sousTitre, note),
+                       'tableShareCopied');
+}
+
+/* Le chemin de partage lui-meme ne depend pas de ce qu'on partage : une
+   promesse de blob suffit. Figures et tableaux l'empruntent donc tous les deux,
+   et une correction faite ici vaut pour les deux. */
+async function partagerImage(btn, titre, promesse, cleCopie){
   const libelle = btn.innerHTML;
   const direFait = cle => {
     btn.innerHTML = `<span>${tr(cle)}</span>`;
@@ -3869,9 +4069,10 @@ async function partagerGraphique(btn, canvas){
   };
   btn.disabled = true;
   const nom = tr('chartShareFile');
-  const { titre, sousTitre, note } = legendesDuGraphique(canvas);
-  const image = exporterGraphique(canvas, titre, sousTitre, note)
-    .then(blob => { if(!blob) throw new Error('graphique absent'); return blob; });
+  const image = promesse.then(blob => {
+    if(!blob) throw new Error('rien a exporter');
+    return blob;
+  });
   const tactile = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
   const partageFichiers = !!(tactile && navigator.canShare && navigator.canShare({
     files: [new File([new Blob([])], nom, { type: 'image/png' })]
@@ -3884,7 +4085,7 @@ async function partagerGraphique(btn, canvas){
     }
     if(navigator.clipboard && window.ClipboardItem){
       await navigator.clipboard.write([new ClipboardItem({ 'image/png': image })]);
-      direFait('chartShareCopied');
+      direFait(cleCopie || 'chartShareCopied');
       return;
     }
     const url = URL.createObjectURL(await image);
@@ -3907,6 +4108,11 @@ document.querySelectorAll('[data-export-chart]').forEach(zone=>{
   // Pas de safeRun : il n'attrape que le synchrone, et partagerGraphique()
   // porte deja son propre filet.
   if(btn && canvas) btn.addEventListener('click', ()=>partagerGraphique(btn, canvas));
+});
+document.querySelectorAll('[data-export-table]').forEach(zone=>{
+  const btn = zone.querySelector('button');
+  const table = document.getElementById(zone.dataset.exportTable);
+  if(btn && table) btn.addEventListener('click', ()=>partagerTableau(btn, table));
 });
 
 /* ============ CARTE-RÉSUMÉ POUR PARTAGE ============ */

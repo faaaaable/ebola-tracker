@@ -1504,7 +1504,7 @@ def province_zones_table_html(zones, forms, lang, strings_lang, i18n_lang):
 
     return (
         '      <div class="table-scroll">\n'
-        '        <table class="zones-province">\n'
+        '        <table class="zones-province" id="zonesProvinceTable">\n'
         '          <caption class="visually-hidden">%s</caption>\n'
         "          <thead>\n"
         "            <tr>%s</tr>\n"

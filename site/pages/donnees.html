@@ -13,8 +13,17 @@
 
     <div id="zonesView-province">
       <div class="panel panel-fit" style="padding:16px;">
+        <!-- Le tableau se partage en image, filtre et note compris. Il est
+             redessine cellule par cellule : un tableau HTML ne sait pas
+             s'exporter comme un canevas. -->
+        <div class="chart-actions" data-export-table="provinceSummaryTable">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+          </button>
+        </div>
         <div class="table-scroll">
-          <table class="province-summary">
+          <table class="province-summary" id="provinceSummaryTable">
             <caption class="visually-hidden">{{i18n.zonesViewProvince}}</caption>
             <thead>
               <tr>
@@ -39,13 +48,22 @@
     <div id="zonesView-zone" style="display:none;">
       <div class="zones-block">
       <div class="panel panel-fit" style="padding:16px;">
+        <!-- Le tableau se partage en image, filtre et note compris. Il est
+             redessine cellule par cellule : un tableau HTML ne sait pas
+             s'exporter comme un canevas. -->
+        <div class="chart-actions" data-export-table="zonesDetailTable">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+          </button>
+        </div>
         <nav class="subtab-nav" id="zonesSubtabNav" aria-label="{{i18n.zonesFilterAll}}"></nav>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
           <label class="visually-hidden" for="zonesSearch">{{i18n.zonesSearchPlaceholder}}</label>
           <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="{{i18n.zonesSearchPlaceholder}}">
         </div>
         <div class="table-scroll">
-          <table class="zones-detail">
+          <table class="zones-detail" id="zonesDetailTable">
             <thead>
               <tr id="zonesTableHead"></tr>
             </thead>
