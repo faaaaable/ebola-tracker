@@ -235,6 +235,7 @@
       1000
     ],
     "circleScale": 1.0,
+    "circleScalePhone": 0.5,
     "circleLegend": [
       1,
       10,
@@ -243,7 +244,7 @@
       500,
       1000
     ],
-    "_commentCircles": "circleScale : rayon d'un cercle = circleScale x racine(cas), en unites du viewBox (1000 de large) — la surface suit les cas. circleMinRadius : plancher du rayon, sans quoi une zone a un cas fait un pixel. circleLegend : les cercles etalons de la legende, dessines avec la meme formule.",
+    "_commentCircles": "circleScale : rayon d'un cercle = circleScale x racine(cas), en PIXELS ECRAN (app.js compense la reduction du dessin et le zoom) — la surface suit les cas. circleScalePhone : le meme coefficient sous 760 px, ou une carte de 320 px ne peut pas porter les memes cercles. circleMinRadius : plancher du rayon, sans quoi une zone a un cas fait un pixel. circleLegend : les cercles etalons de la legende, dessines avec la meme formule — par le generateur au coefficient ordinateur, puis redessines par app.js au coefficient en vigueur.",
     "circleMinRadius": 2.5
   },
   "mapLandmarks": {

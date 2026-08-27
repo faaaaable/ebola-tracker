@@ -653,10 +653,12 @@ def zone_points(config, geo):
 
 
 def circle_legend_html(config, lang, i18n_lang):
-    """La legende de la vue « cercles » : les cercles etalons a l'echelle
-    exacte de la carte, du plus petit au plus grand, chacun sous son nombre.
-    Dessines par le generateur, ils sont justes sans JavaScript et ne
-    peuvent pas diverger de l'echelle qu'ils illustrent."""
+    """La legende de la vue « cercles » : les cercles etalons, du plus petit
+    au plus grand, chacun sous son nombre, au coefficient ordinateur. Les
+    bulles sont dessinees en pixels ecran par app.js, qui redessine aussi
+    cette legende (renderCircleLegend, meme geometrie) au coefficient en
+    vigueur — sur telephone il est plus petit. Ce rendu statique est le point
+    de depart, et le repli sans JavaScript (ou il n'y a pas de bulles)."""
     scale = config["cartogram"].get("circleScale", 1.0)
     plancher = config["cartogram"].get("circleMinRadius", 2.5)
     steps = config["cartogram"].get("circleLegend", [1, 10, 100, 1000])
@@ -2205,6 +2207,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                         % json.dumps(config["cartogram"].get("circleScale", 1.0)))
     page_globals.append("window.MAP_CIRCLE_MIN = %s;"
                         % json.dumps(config["cartogram"].get("circleMinRadius", 2.5)))
+    page_globals.append("window.MAP_CIRCLE_SCALE_PHONE = %s;"
+                        % json.dumps(config["cartogram"].get("circleScalePhone",
+                                                             config["cartogram"].get("circleScale", 1.0))))
+    page_globals.append("window.MAP_CIRCLE_LEGEND = %s;"
+                        % json.dumps(config["cartogram"].get("circleLegend", [1, 10, 100, 1000])))
     # Le graphique d'une page province a besoin de savoir laquelle : le nom
     # sert de cle dans province-history.json et dans PROVINCE_COLORS.
     if is_province and province is not None:

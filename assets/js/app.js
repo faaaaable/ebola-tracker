@@ -2866,10 +2866,64 @@ function applyView(animate){
     mark.setAttribute('transform',
       `translate(${mark.dataset.x} ${mark.dataset.y}) scale(${1 / scale})`);
   });
-  if(map.bubbles) map.bubbles.forEach(bulle=>{
-    bulle.setAttribute('transform',
-      `translate(${bulle.dataset.x} ${bulle.dataset.y}) scale(${1 / scale})`);
+  // Les bulles, elles, sont en pixels ecran : elles annulent aussi la
+  // reduction du dessin (1000 unites -> largeur du cadre), pour que la legende
+  // dise vrai a toute largeur. Voir echelleBulles().
+  if(map.bubbles){
+    const inv = 1 / (scale * pixelsParUnite());
+    map.bubbles.forEach(bulle=>{
+      bulle.setAttribute('transform',
+        `translate(${bulle.dataset.x} ${bulle.dataset.y}) scale(${inv})`);
+    });
+  }
+}
+
+/* Combien de pixels ecran vaut une unite du viewBox, a zoom 1. Le SVG est en
+   preserveAspectRatio meet : c'est la plus contraignante des deux dimensions
+   qui compte. Sans mise en page (carte masquee), on suppose 1. */
+function pixelsParUnite(){
+  if(!map || !map.svg) return 1;
+  const r = map.svg.getBoundingClientRect();
+  if(!r.width || !r.height) return 1;
+  return Math.min(r.width / map.width, r.height / map.height);
+}
+
+/* Le coefficient rayon = k x racine(cas), en pixels ecran. Une carte de 320 px
+   ne peut pas porter les memes cercles qu'une de 700 : sous 760 px — le seuil
+   « telephone » du CSS — pages.json donne un k plus petit. */
+function coefficientCercles(){
+  const telephone = window.matchMedia && window.matchMedia('(max-width:760px)').matches;
+  const k = telephone ? window.MAP_CIRCLE_SCALE_PHONE : window.MAP_CIRCLE_SCALE;
+  return (typeof k === 'number' && k > 0) ? k : (window.MAP_CIRCLE_SCALE || 1.0);
+}
+
+/* La legende des cercles, redessinee avec le coefficient en vigueur — meme
+   geometrie que circle_legend_html() dans build_pages.py : cercles poses sur
+   une meme ligne de base, du plus petit au plus grand, chacun sous son
+   nombre. Le SVG ecrit par le generateur (coefficient ordinateur) reste le
+   point de depart et le repli sans JavaScript. */
+function renderCircleLegend(){
+  const legende = document.querySelector('.map-legend[data-mode="circles"] .legend-circles');
+  const paliers = window.MAP_CIRCLE_LEGEND;
+  if(!legende || !Array.isArray(paliers) || !paliers.length) return;
+  const k = coefficientCercles();
+  const plancher = window.MAP_CIRCLE_MIN || 2.5;
+  const rayons = paliers.map(v=>Math.max(plancher, k * Math.sqrt(v)));
+  const ecart = 9, hauteurTexte = 14, marge = 6;
+  const largeur = marge * 2 + rayons.reduce((t, r)=>t + 2 * r, 0) + ecart * (rayons.length - 1);
+  const base = 2 * Math.max(...rayons);
+  const hauteur = base + hauteurTexte + 4;
+  let x = marge;
+  const parts = paliers.map((v, i)=>{
+    const r = rayons[i], cx = x + r;
+    x += 2 * r + ecart;
+    return `<circle class="legend-circle" cx="${cx.toFixed(1)}" cy="${(base - r).toFixed(1)}" r="${r.toFixed(1)}"></circle>`
+         + `<text x="${cx.toFixed(1)}" y="${(base + hauteurTexte - 2).toFixed(1)}" text-anchor="middle">${fmt(v)}</text>`;
   });
+  legende.setAttribute('viewBox', `0 0 ${largeur.toFixed(1)} ${hauteur.toFixed(1)}`);
+  legende.setAttribute('width', Math.round(largeur));
+  legende.setAttribute('height', Math.round(hauteur));
+  legende.innerHTML = parts.join('');
 }
 
 /* ---------------- Vue « cercles » ----------------
@@ -2897,6 +2951,13 @@ function setupMapModes(){
   map.viewport.insertBefore(layer, marks || null);
   map.circleLayer = layer;
   map.bubbles = [];
+  // La largeur du cadre change le facteur pixels/unite et, au passage du
+  // seuil telephone, le coefficient : on redessine bulles et legende.
+  let attente = null;
+  window.addEventListener('resize', ()=>{
+    clearTimeout(attente);
+    attente = setTimeout(()=>{ if(mapMode === 'circles' && map.lastPoints) renderCircles(map.lastPoints); }, 150);
+  });
   nav.querySelectorAll('.map-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       mapMode = btn.dataset.mode === 'circles' ? 'circles' : 'zones';
@@ -2923,9 +2984,12 @@ function renderCircles(points){
   if(!map || !map.circleLayer) return;
   const layer = map.circleLayer;
   if(mapMode !== 'circles'){ layer.replaceChildren(); map.bubbles = []; return; }
-  const k = window.MAP_CIRCLE_SCALE || 1.0;
+  const k = coefficientCercles();
   const plancher = window.MAP_CIRCLE_MIN || 2.5;   // une zone a un cas ne fait pas un pixel
+  // Rayon en pixels ecran : on annule le zoom ET la reduction du dessin.
   const scale = map.width / map.view.w;
+  const inv = 1 / (scale * pixelsParUnite());
+  map.lastPoints = points;
   /* Les gros d'abord : un petit cercle reste visible par-dessus un grand. */
   const tries = points.filter(p=>p.cases > 0).sort((a, b)=>b.cases - a.cases);
   const bulles = [];
@@ -2936,7 +3000,7 @@ function renderCircles(points){
     const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     g.setAttribute('class', 'zm-bubble');
     g.dataset.x = xy[0]; g.dataset.y = xy[1];
-    g.setAttribute('transform', `translate(${xy[0]} ${xy[1]}) scale(${1 / scale})`);
+    g.setAttribute('transform', `translate(${xy[0]} ${xy[1]}) scale(${inv})`);
     const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     c.setAttribute('r', Math.max(plancher, k * Math.sqrt(p.cases)).toFixed(2));
     const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
@@ -2948,6 +3012,7 @@ function renderCircles(points){
   });
   layer.replaceChildren(frag);
   map.bubbles = bulles;
+  renderCircleLegend();
 }
 
 function mapIsZoomed(){

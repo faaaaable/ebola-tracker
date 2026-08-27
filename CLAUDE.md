@@ -367,6 +367,25 @@ regle — l'espace ordinaire avant `?` est une faute, pas une variante. Dans
 `i18n.js`, le remplacement n'a touche que l'interieur des chaines : les
 ternaires ` ? ` / ` : ` du code sont intacts, et `node --check` passe.
 
+**LES BULLES SONT EN PIXELS ECRAN, ET LA LEGENDE LES SUIT.** Jusqu'au
+27 aout, rayon = `circleScale` x racine(cas) en unites du viewBox (1 000 de
+large), puis tout le dessin etait reduit a la largeur du cadre (x 0,70 sur
+ordinateur, x 0,32 sur telephone) — sauf la legende, dessinee en pixels : le
+cercle « 500 » y etait plus gros que Bunia et ses 1 317 cas. Le proprietaire
+l'a vu. Depuis : `renderCircles()` et `applyView()` annulent, en plus du
+zoom, la reduction du dessin (`pixelsParUnite()`), donc un rayon de 22 fait
+22 px a l'ecran quelle que soit la largeur ; `coefficientCercles()` prend
+`circleScalePhone` (0,5) sous 760 px et `circleScale` (1,0) au-dessus, parce
+qu'une carte de 320 px ne porte pas les memes cercles ; et
+`renderCircleLegend()` redessine la legende (meme geometrie que
+`circle_legend_html`) au coefficient en vigueur, a chaque rendu et au
+redimensionnement. Le SVG statique du generateur reste le point de depart et
+le repli sans JavaScript. Verifie a 360 et 1 280 px, cadrage pays et
+epicentre : Bunia 18,1 px / 36,3 px, exactement racine(1317) x k, et le
+cercle « 1 000 » de la legende 15,8 / 31,5 px. Consequence visible sur
+ordinateur : les bulles ont grossi de ~40 % (Bunia 25 -> 36 px) ;
+`circleScale: 0.7` restituerait l'ancienne taille, legende comprise.
+
 **SUR TELEPHONE, LES DEUX LEGENDES DE LA CARTE ONT LA MEME HAUTEUR.** La
 legende des cercles (titre + SVG de 81 px, dimensions fixees par
 `circle_legend_html`) fait 104 px, celle des paliers en faisait 61 : au clic
