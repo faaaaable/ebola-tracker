@@ -1719,6 +1719,11 @@ footer{
      filet vertical entre cadrage et lecture n'a plus de sens quand la ligne
      s'enroule, et les cibles grandissent a 40 px plus bas. */
   .map-controls .map-mode{padding-left:0;border-left:0;}
+  /* Les commandes s'enroulent sur deux rangees : cadrage dessus, lecture
+     dessous. A l'ouverture, « Zoomer sur l'epicentre » et « Zones colorees »
+     sont actifs ; en tete de leur rangee tous les deux, ils se lisent en
+     colonne au lieu d'en diagonale. Ordre inverse sur telephone seulement. */
+  .map-controls #btnViewIturi{order:-1;}
   .subtab-nav{gap:6px;}
   /* Sous la carte, la legende s'aligne a gauche comme le reste de la page :
      le titre a droite, au-dessus de pastilles a gauche, se lisait comme deux
