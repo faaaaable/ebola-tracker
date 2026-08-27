@@ -326,6 +326,20 @@ ne tourne et sans lui ; la cle i18n `timelineToday` a disparu. Demande du
 proprietaire du 27 aout — « aujourd'hui » n'est pas la date d'un bulletin. Le libelle a aussi perdu son sigle : « Certains bulletins ne
 detaillent pas les zones : ces dates sont absentes du curseur. »
 
+**MOINS DE BOITES, PLUS DE TRAITS.** Depuis le 27 aout, un etat actif est un
+trait, pas un fond : les boutons de carte (`.map-btn`), les bascules
+(`.subtab-btn`) et les langues (`.lang-btn`) sont des onglets — texte gris,
+actif en encre avec un filet de 2 px dessous dans la couleur d'accent, filet
+transparent sur les inactifs pour que rien ne saute au clic. Le lien courant
+de la barre laterale porte un filet de 3 px a gauche (`box-shadow: inset`)
+au lieu d'un fond bleu pale. Seul `.share-btn` garde sa bordure : c'est une
+action, pas un etat. Le pied de page est passe de quatre colonnes — qui
+repetaient la barre laterale, plus la liste des provinces une troisieme
+fois — a une ligne de liens (`.footer-links`) ; `footerNav` de `pages.json`
+garde ses colonnes, `build_footer` les aplatit. Demande d'epure du
+proprietaire ; le titre et les cartes de provinces, eux, restent tels quels
+par choix explicite.
+
 **SOUS 1 600 PX, LE PANNEAU ET LA BARRE LATERALE SE RESSERRENT.** Le
 proprietaire, ses deux ecrans cote a cote, trouvait le panneau a droite de la
 carte « clairement plus grand » sur le 13 pouces. Il ne l'est pas en pixels —
