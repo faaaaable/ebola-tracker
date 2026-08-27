@@ -99,6 +99,16 @@ Chrome n'est nécessaire que pour `scripts/audit_mobile.mjs` et les outils de
 `scripts/verif/` — neuf scripts qui pilotent Chrome par le protocole DevTools
 pour contrôler le site **rendu** plutôt que son code. Voir leur README.
 
+`visuel_evolution.mjs` produit un **visuel a diffuser hors du site** : la
+carte de l'accueil cadree sur l'epicentre a N dates regulierement espacees du
+premier instantane au dernier (3, 6 ou 9, en grille de trois), chaque
+vignette datee avec ses cas et ses zones, une legende commune, la source et
+le domaine — l'evolution de l'epidemie sur une seule image. Il capture le SVG
+date par date en pilotant le curseur, puis compose une page HTML avec les
+polices du site et la photographie. `--dx`, `--dy`, `--zoom` ajustent le
+cadre. **Les sorties vont dans `tmp/visuels/`, gitignore** : rien de ce qui
+est produit n'entre dans le site.
+
 Le plus utile : `capture_canvas.mjs`, seule façon fiable de capturer un
 graphique — ils s'animent au chargement et se redessinent hors écran, une
 copie d'écran ordinaire attrape un tracé à moitié dessiné ou un canevas vide.
