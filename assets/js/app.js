@@ -2749,8 +2749,15 @@ function normaliseZoneName(text){
 
 /* Un nom de zone ne suffit pas : « Lubunga » existe en Tshopo et au
    Kasaï-Central. On indexe donc sur le couple zone + province. */
+/* Et les ecarts d'orthographe entre nos bulletins et le fond de carte
+   (« Mongbwalu » chez l'INSP, « Mongbalu » chez OCHA) passent par la table
+   d'alias que le generateur ecrit dans la page. Sans elle, le generateur
+   coloriait Mongbwalu, puis le script — qui recolorie tout depuis
+   l'historique — la remettait en gris : 605 cas invisibles sur la carte. */
 function zoneKey(name, province){
-  return normaliseZoneName(name) + '|' + normaliseZoneName(province);
+  const n = normaliseZoneName(name);
+  const aliases = window.ZONE_ALIASES || {};
+  return (aliases[n] || n) + '|' + normaliseZoneName(province);
 }
 
 /* Mêmes seuils que ceux appliqués à la génération : une couleur doit vouloir

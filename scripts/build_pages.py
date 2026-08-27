@@ -1826,6 +1826,12 @@ def main():
     # scripts/build_geo.py. Elle ne change qu'en cas de nouvelle province
     # touchee ou de mise a jour de la source.
     geo = read_json(os.path.join(SITE, "geo", "zones-overview.json"))
+    # Les alias ecrits a la main dans site/pages.json completent ceux que
+    # build_geo.py a deduits : « Gety » (SitReps de juin) pour « Gethy », que
+    # build_geo ne pouvait pas connaitre, latest.json ne l'ecrivant plus ainsi.
+    geo["aliases"] = dict(geo.get("aliases", {}), **{
+        normalise_zone(k): normalise_zone(v)
+        for k, v in config.get("zoneAliases", {}).get("places", {}).items()})
     province_maps = read_json(os.path.join(SITE, "geo", "province-maps.json"))["maps"]
 
     national = latest.get("national") or {}

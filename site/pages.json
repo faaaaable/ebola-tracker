@@ -812,5 +812,11 @@
         26.1145
       ]
     }
+  },
+  "zoneAliases": {
+    "_comment": "Orthographes de zones rencontrees dans les bulletins, rapportees au nom du fond de carte OCHA, quand build_geo.py n'a pas pu les deduire (il ne lit que latest.json). Cle : ce qu'ecrit le bulletin ; valeur : le nom du fond de carte.",
+    "places": {
+      "Gety": "Gethy"
+    }
   }
 }
