@@ -349,7 +349,10 @@ cadrage (« RDC entiere / Epicentre ») de la lecture (« Zones / Cercles ») :
 sans bordures, les quatre mots se lisaient comme un seul groupe. **Sur
 telephone, ces quatre commandes redeviennent des encadres** (demande du
 proprietaire) : au doigt, un cadre dit « ici on appuie » mieux qu'un mot
-souligne ; le filet vertical disparait avec, la ligne s'enroulant. Le pied de
+souligne ; le filet vertical disparait avec, la ligne s'enroulant. Idem pour
+les bascules des graphiques et des tableaux (`.subtab-btn`) sous 900 px :
+sept onglets soulignes enroules sur trois lignes se lisaient comme du texte.
+Sur ordinateur, tout reste en traits. Le pied de
 page a ete mis en une ligne puis REMIS en quatre colonnes a la demande du
 proprietaire — ne pas le rouvrir. Le titre et les cartes de provinces restent
 tels quels par choix explicite.
