@@ -333,12 +333,12 @@ actif en encre avec un filet de 2 px dessous dans la couleur d'accent, filet
 transparent sur les inactifs pour que rien ne saute au clic. Le lien courant
 de la barre laterale porte un filet de 3 px a gauche (`box-shadow: inset`)
 au lieu d'un fond bleu pale. Seul `.share-btn` garde sa bordure : c'est une
-action, pas un etat. Le pied de page est passe de quatre colonnes — qui
-repetaient la barre laterale, plus la liste des provinces une troisieme
-fois — a une ligne de liens (`.footer-links`) ; `footerNav` de `pages.json`
-garde ses colonnes, `build_footer` les aplatit. Demande d'epure du
-proprietaire ; le titre et les cartes de provinces, eux, restent tels quels
-par choix explicite.
+action, pas un etat. Sous la carte, un filet vertical discret separe le
+cadrage (« RDC entiere / Epicentre ») de la lecture (« Zones / Cercles ») :
+sans bordures, les quatre mots se lisaient comme un seul groupe. Le pied de
+page a ete mis en une ligne puis REMIS en quatre colonnes a la demande du
+proprietaire — ne pas le rouvrir. Le titre et les cartes de provinces restent
+tels quels par choix explicite.
 
 **SOUS 1 600 PX, LE PANNEAU ET LA BARRE LATERALE SE RESSERRENT.** Le
 proprietaire, ses deux ecrans cote a cote, trouvait le panneau a droite de la
