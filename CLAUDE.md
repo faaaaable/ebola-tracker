@@ -309,7 +309,11 @@ Piege : « au repos » se teste sur `slider.max`, PAS sur `ZONES_HISTORY.length`
 Quand le dernier instantane de zones porte la date du dernier bulletin, il n'y
 a pas de cran « aujourd'hui » a part et la derniere position EST le dernier
 instantane — un test sur la longueur de l'historique montrait la note en
-permanence. Le libelle a aussi perdu son sigle : « Certains bulletins ne
+permanence. Et cette derniere position PORTE LA DATE DES DERNIERES DONNEES,
+jamais « Aujourd'hui » : le bouton est ecrit avec la date par `build_pages`
+(`timelineLatest`, sur `meta.reportingDate`), donc juste avant que le script
+ne tourne et sans lui ; la cle i18n `timelineToday` a disparu. Demande du
+proprietaire du 27 aout — « aujourd'hui » n'est pas la date d'un bulletin. Le libelle a aussi perdu son sigle : « Certains bulletins ne
 detaillent pas les zones : ces dates sont absentes du curseur. »
 
 **SIX PALIERS DE COULEUR, ET LA LEGENDE LES MONTRE TELS QUELS.** Depuis le
