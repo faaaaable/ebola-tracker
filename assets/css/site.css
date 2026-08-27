@@ -169,9 +169,12 @@ ul,ol{margin:0;padding:0;}
   padding:8px 10px;border-radius:var(--radius);
   text-decoration:none;
 }
-.side-nav a:hover{background:var(--bg-alt);color:var(--ink);text-decoration:none;}
+/* L'etat courant est un trait, pas une boite : un filet a gauche du lien,
+   dans la couleur d'accent. Moins de rectangles a l'ecran, meme information. */
+.side-nav a:hover{color:var(--accent-strong);text-decoration:none;}
 .side-nav a[aria-current="page"]{
-  background:var(--accent-light);color:var(--ink);font-weight:600;
+  color:var(--ink);font-weight:600;
+  box-shadow:inset 3px 0 0 var(--accent-strong);border-radius:0;
 }
 
 /* Sous-liste des provinces, sous « Données détaillées ». Toujours visible :
@@ -197,13 +200,13 @@ ul,ol{margin:0;padding:0;}
 .lang-switch{display:flex;gap:6px;}
 .lang-btn{
   display:inline-flex;align-items:center;gap:6px;
-  padding:5px 9px;border:1px solid var(--line);border-radius:var(--radius);
-  background:var(--bg-panel);color:var(--ink-label);
+  padding:5px 4px;border:0;border-bottom:2px solid transparent;border-radius:0;
+  background:transparent;color:var(--ink-label);
   font-size:11px;font-weight:600;letter-spacing:.03em;
   text-decoration:none;
 }
-.lang-btn:hover{border-color:var(--accent);color:var(--accent-strong);text-decoration:none;}
-.lang-btn.active{border-color:var(--accent);background:var(--accent-light);color:var(--accent-hover);}
+.lang-btn:hover{color:var(--accent-strong);text-decoration:none;}
+.lang-btn.active{color:var(--ink);border-bottom-color:var(--accent-strong);}
 .lang-btn .code{line-height:1;}
 
 /* ---- groupe repliable de la navigation ---- */
@@ -537,14 +540,22 @@ ul,ol{margin:0;padding:0;}
 .legend-circles{display:block;overflow:visible;}
 .legend-circles .legend-circle{fill:var(--map-5);fill-opacity:.5;stroke:var(--map-6);stroke-width:1;}
 .legend-circles text{font-size:10px;fill:var(--ink-label);font-family:var(--font-sans);}
+/* Un etat actif est un trait sous le mot, pas une boite pleine : les rangees
+   de pastilles deviennent des rangees d'onglets, et l'ecran perd une dizaine
+   de rectangles sans perdre une information. Le trait transparent des
+   inactifs garde la hauteur : rien ne saute au clic. */
 .map-btn{
   font-family:var(--font-sans);font-size:11.5px;font-weight:600;
-  padding:6px 11px;border-radius:var(--radius);
-  border:1px solid var(--line);background:var(--bg-panel);color:var(--ink-label);
+  padding:6px 2px;border:0;border-bottom:2px solid transparent;border-radius:0;
+  background:transparent;color:var(--ink-label);
   cursor:pointer;
 }
-.map-btn:hover{border-color:var(--accent);color:var(--accent-strong);}
-.map-btn.active{border-color:var(--accent-strong);background:var(--accent-light);color:var(--accent-hover);}
+.map-btn:hover{color:var(--accent-strong);}
+.map-btn.active{color:var(--ink);border-bottom-color:var(--accent-strong);}
+.map-toolbar,.map-mode{gap:14px;}
+/* Deux groupes sur la ligne — le cadrage, puis la lecture — que les bordures
+   separaient sans qu'on y pense : un filet vertical discret les distingue. */
+.map-controls .map-mode{padding-left:18px;border-left:1px solid var(--line);}
 
 .map-legend{
   position:absolute;bottom:0;right:0;z-index:5;
@@ -640,12 +651,13 @@ ul,ol{margin:0;padding:0;}
 .chart-actions{display:flex;justify-content:flex-end;margin-bottom:10px;}
 .subtab-btn{
   font-family:var(--font-sans);font-size:11.5px;font-weight:600;
-  padding:5px 10px;border-radius:var(--radius);
-  border:1px solid var(--line);background:transparent;color:var(--ink-label);
+  padding:5px 2px;border:0;border-bottom:2px solid transparent;border-radius:0;
+  background:transparent;color:var(--ink-label);
   cursor:pointer;display:inline-flex;align-items:center;gap:6px;
 }
-.subtab-btn:hover{border-color:var(--accent);color:var(--accent-strong);}
-.subtab-btn.active{border-color:var(--accent-strong);background:var(--accent-light);color:var(--accent-hover);}
+.subtab-btn:hover{color:var(--accent-strong);}
+.subtab-btn.active{color:var(--ink);border-bottom-color:var(--accent-strong);}
+.subtab-nav{gap:14px;}
 .subtab-btn .dot{width:6px;height:6px;border-radius:50%;flex:none;}
 
 /* ==========================================================================
