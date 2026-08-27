@@ -1672,6 +1672,28 @@ footer{
      repassent au-dessus d'elle, et la legende en dessous. */
   .zonemap-stage{display:flex;flex-direction:column;}
   .map-controls{gap:10px;}
+  /* Sur telephone, les quatre commandes de la carte de l'accueil redeviennent
+     des encadres : au doigt, un cadre dit « ici on appuie » mieux qu'un mot
+     souligne. Le filet vertical n'a plus de sens quand la ligne s'enroule. */
+  .map-controls .map-btn{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--bg-panel);padding:0 14px;
+  }
+  .map-controls .map-btn.active{
+    border-color:var(--accent-strong);background:var(--accent-light);color:var(--accent-hover);
+  }
+  .map-controls .map-mode{padding-left:0;border-left:0;}
+  /* Meme retour aux encadres pour les bascules des graphiques et des
+     tableaux : sept onglets souliges qui s'enroulent sur trois lignes se
+     lisaient comme du texte, pas comme des commandes. */
+  .subtab-btn{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--bg-panel);padding:0 14px;
+  }
+  .subtab-btn.active{
+    border-color:var(--accent-strong);background:var(--accent-light);color:var(--accent-hover);
+  }
+  .subtab-nav{gap:6px;}
   /* Sous la carte, la legende s'aligne a gauche comme le reste de la page :
      le titre a droite, au-dessus de pastilles a gauche, se lisait comme deux
      elements sans rapport. */
