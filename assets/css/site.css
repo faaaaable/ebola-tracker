@@ -104,12 +104,13 @@ body{
   line-height:1.55;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
-  /* Android peint par defaut un rectangle bleu translucide sur toute la boite
-     de l'element touche, le temps que le click parte — une boite saturee
-     sur un site qui n'en veut pas, et qu'iOS n'affiche pas. Les etats
-     dessines par le site (filet sous l'onglet, encadre actif) suffisent. */
-  -webkit-tap-highlight-color:transparent;
 }
+/* Android peint par defaut un rectangle bleu translucide sur toute la boite
+   de l'element touche, le temps que le click parte — une boite saturee sur
+   un site qui n'en veut pas, et qu'iOS n'affiche pas. Les etats dessines par
+   le site (filet sous l'onglet, encadre actif) suffisent. Sur chaque element
+   plutot que herite depuis body : l'heritage ne suffisait pas sur la marque. */
+*,*::before,*::after{-webkit-tap-highlight-color:transparent;}
 
 a{color:var(--accent-strong);text-decoration:none;}
 a:hover{color:var(--accent-hover);text-decoration:underline;}
