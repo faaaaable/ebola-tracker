@@ -1708,12 +1708,15 @@ footer{
     border:1px solid var(--line);border-radius:var(--radius);
     background:var(--bg-panel);padding:0 14px;
   }
-  /* L'etat actif est plein : fond dans l'accent fort — le bleu de la date a
-     cote et du filet sous la langue — texte blanc. Le pastel --accent-light
-     n'existait nulle part ailleurs sur la page. Au doigt, le bouton enfonce
-     est celui qui est plein (contraste 9:1). Decision du 27 aout. */
+  /* L'etat actif est un cadre, pas un fond : bord de 2 px dans l'accent fort
+     — le bleu de la date a cote — et texte gras. Le pastel --accent-light
+     n'existait nulle part ailleurs sur la page ; le fond plein (essaye le
+     27 aout) pesait trop avec deux boutons pleins cote a cote. Le second
+     pixel de bord est une ombre interieure : la boite garde sa taille, rien
+     ne saute au clic. */
   .map-controls .map-btn.active{
-    border-color:var(--accent-strong);background:var(--accent-strong);color:#fff;
+    border-color:var(--accent-strong);box-shadow:inset 0 0 0 1px var(--accent-strong);
+    background:var(--bg-panel);color:var(--accent-hover);font-weight:700;
   }
   .map-controls .map-mode{padding-left:0;border-left:0;}
   /* Meme retour aux encadres pour les bascules des graphiques et des
@@ -1724,7 +1727,8 @@ footer{
     background:var(--bg-panel);padding:0 14px;
   }
   .subtab-btn.active{
-    border-color:var(--accent-strong);background:var(--accent-strong);color:#fff;
+    border-color:var(--accent-strong);box-shadow:inset 0 0 0 1px var(--accent-strong);
+    background:var(--bg-panel);color:var(--accent-hover);font-weight:700;
   }
   .subtab-nav{gap:6px;}
   /* Sous la carte, la legende s'aligne a gauche comme le reste de la page :
@@ -1798,7 +1802,7 @@ footer{
     background:var(--bg-alt);border-radius:20px;padding:1px 6px;margin-left:2px;
   }
   .reports-months .subtab-btn.active .count{
-    background:rgba(255,255,255,.2);color:#fff;
+    background:rgba(0,80,115,.10);color:var(--accent-hover);
   }
 
 /* ==========================================================================

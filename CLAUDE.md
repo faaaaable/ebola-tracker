@@ -375,16 +375,16 @@ sur « Cercles », les commandes sautaient de 43 px. Depuis le 27 aout, sous
 et `.map-legend` a 104 px de hauteur minimale. Si la legende des cercles
 change de taille dans `build_pages`, ajuster ce minimum.
 
-**SUR TELEPHONE, L'ETAT ACTIF EST PLEIN.** Depuis le 27 aout au soir, sous
+**SUR TELEPHONE, L'ETAT ACTIF EST UN CADRE.** Depuis le 27 aout au soir, sous
 900 px (la ou les commandes sont des encadres) : le bouton selectionne —
 cadrage et lecture de la carte, onglets des graphiques et tableaux, mois de
-l'archive — a un fond `--accent-strong` et un texte blanc, au lieu du pastel
-`--accent-light` que le proprietaire n'aimait pas et qui n'existait nulle
-part ailleurs sur la page. C'est le bleu de la date et du filet sous la
-langue ; contraste 9:1. Le compteur du mois actif passe en blanc sur un
-voile clair. Choisi sur planche de cinq variantes (pastel plus soutenu,
-accent plein, accent fort plein, bord epais sans fond). Sur ordinateur, les
-etats restent des traits.
+l'archive — a un bord de 2 px dans `--accent-strong` (le bleu de la date) et
+un texte gras `--accent-hover`, sans fond. Le second pixel de bord est une
+ombre interieure (`box-shadow: inset`) : la boite garde sa taille, rien ne
+saute au clic. Choisi sur planche de cinq variantes ; le pastel
+`--accent-light` d'origine n'existait nulle part ailleurs sur la page, et le
+fond plein accent fort, essaye d'abord, pesait trop avec deux boutons pleins
+cote a cote. Sur ordinateur, les etats restent des traits.
 
 **LE « 17e » DU TITRE EST BLEU.** Sur telephone seulement, par construction
 (span `.num` a l'interieur du span `.on-phone` de `homeLede`, trois langues) :
