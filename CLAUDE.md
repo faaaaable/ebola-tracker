@@ -367,6 +367,14 @@ regle — l'espace ordinaire avant `?` est une faute, pas une variante. Dans
 `i18n.js`, le remplacement n'a touche que l'interieur des chaines : les
 ternaires ` ? ` / ` : ` du code sont intacts, et `node --check` passe.
 
+**SUR TELEPHONE, LES DEUX LEGENDES DE LA CARTE ONT LA MEME HAUTEUR.** La
+legende des cercles (titre + SVG de 81 px, dimensions fixees par
+`circle_legend_html`) fait 104 px, celle des paliers en faisait 61 : au clic
+sur « Cercles », les commandes sautaient de 43 px. Depuis le 27 aout, sous
+900 px, les six paliers sont en deux colonnes (trois rangees, pas d'orphelin)
+et `.map-legend` a 104 px de hauteur minimale. Si la legende des cercles
+change de taille dans `build_pages`, ajuster ce minimum.
+
 **SUR TELEPHONE, L'ETAT ACTIF EST PLEIN.** Depuis le 27 aout au soir, sous
 900 px (la ou les commandes sont des encadres) : le bouton selectionne —
 cadrage et lecture de la carte, onglets des graphiques et tableaux, mois de

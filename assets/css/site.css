@@ -1734,7 +1734,14 @@ footer{
   .zonemap-stage.is-circles .map-legend[data-mode="circles"]{display:block;}
   /* Trois par ligne : en rangee libre, le sixieme palier restait seul a la
      ligne, et l'echelle se lisait comme cinq classes plus une. */
-  .legend-steps{display:grid;grid-template-columns:repeat(3,max-content);gap:5px 16px;}
+  /* Deux legendes, une seule hauteur : celle des cercles (titre + SVG de
+     81 px, dimensions fixees par circle_legend_html dans build_pages) fait
+     104 px, celle des paliers 61 — au clic sur « Cercles », les commandes
+     sautaient de 43 px. Les six paliers passent en deux colonnes (trois
+     rangees, pas d'orphelin) pour occuper ~95 px, et les deux legendes ont
+     104 px de hauteur minimale : rien ne bouge sous elles. */
+  .legend-steps{display:grid;grid-template-columns:repeat(2,max-content);gap:7px 28px;}
+  .map-legend{min-height:104px;box-sizing:border-box;}
 
   /* Cibles tactiles : on vise 40 px de haut, sans grossir le texte ni les
      bordures — c'est le rembourrage qui s'etire. */
