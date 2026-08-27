@@ -295,6 +295,29 @@ Goma ne collent pas au bord.
 urbaine — Goma, Bunia, celles de Kinshasa — est plus petite que la tolérance et
 **disparaîtrait** de la carte si on la simplifiait telle quelle.
 
+**SIX PALIERS DE COULEUR, ET LA LEGENDE LES MONTRE TELS QUELS.** Depuis le
+27 aout, `zoneThresholds` vaut `[10, 50, 200, 500, 1000]` dans
+`site/pages.json` : six classes au lieu de quatre. A quatre, Bunia (1 317 cas)
+portait la meme couleur que Lita (204) — la classe haute avalait les quatre
+foyers qui font l'epidemie. La distribution du SitRep 103 se repartit
+26 / 14 / 11 / 3 / 3 / 1, Bunia seule tout en haut.
+
+Les six teintes sont `--map-1` a `--map-6`, distinctes de `--scale-1..4` qui
+servent aussi a l'echelle d'incubation et a la pyramide des ages : changer la
+carte ne doit pas repeindre le reste. Rampe calculee en OKLCH sur les teintes
+existantes, six pas de luminance egaux (0,85 -> 0,30) — la contrainte d'une
+echelle sequentielle est la monotonie de la luminance, pas l'ecart entre
+voisins.
+
+La legende etait un DEGRADE continu « faible -> eleve » alors que la carte n'a
+jamais colorie qu'en classes : elle laissait croire a une echelle qui
+n'existait pas. Elle liste desormais une pastille par palier, bornee en
+chiffres (« 1–9 », … « 1 000+ »), generee par `legend_steps_html()` depuis la
+MEME liste de seuils que les classes `is-N` : les deux ne peuvent pas
+diverger. Les libelles sont des nombres, identiques dans les trois langues au
+separateur de milliers pres. Sous 900 px elle passe en grille de trois par
+ligne — en rangee libre, le sixieme palier restait seul a la ligne.
+
 **Le croisement se fait par clé normalisée**, jamais par nom affiché. Chaque
 zone porte une `key` (accents retirés, casse et séparateurs écrasés) qui sert
 de pont entre le shapefile, `latest.json` et `zones-history.json`.
