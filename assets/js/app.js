@@ -2800,6 +2800,14 @@ function initMap(){
     zoomToProvince('Ituri');
     setActiveMapBtn(epicentre);
   });
+  /* Sur telephone, la carte s'ouvre cadree sur l'epicentre : a 360 px la
+     zone touchee occupait 70 px d'une RDC entiere de 320 — un pays gris avec
+     une tache bleue dans un coin. Le pays reste a un tap. Meme seuil que le
+     CSS (760 px). Decision du 27 aout. */
+  if(epicentre && window.matchMedia && window.matchMedia('(max-width:760px)').matches){
+    zoomToProvince('Ituri');
+    setActiveMapBtn(epicentre);
+  }
 
   /* Cliquer une zone cadre sur sa province. Le lien vers la page de la
      province reste dans le HTML — il fonctionne sans JavaScript, les moteurs
@@ -3024,8 +3032,10 @@ function setupMapDragging(){
 
 function setActiveMapBtn(btn){
   // btn peut etre nul : la vue a ete cadree a la souris, aucun des deux
-  // cadrages predefinis n'est alors actif.
-  document.querySelectorAll('.map-btn').forEach(b=>b.classList.remove('active'));
+  // cadrages predefinis n'est alors actif. Seuls les deux boutons de cadrage
+  // sont concernes : « Zones colorees / Cercles » portent aussi .map-btn et
+  // perdaient leur etat actif a chaque changement de cadrage.
+  document.querySelectorAll('#btnViewCountry, #btnViewIturi').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
 }
 

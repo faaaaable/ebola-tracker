@@ -367,6 +367,25 @@ regle — l'espace ordinaire avant `?` est une faute, pas une variante. Dans
 `i18n.js`, le remplacement n'a touche que l'interieur des chaines : les
 ternaires ` ? ` / ` : ` du code sont intacts, et `node --check` passe.
 
+**SUR TELEPHONE, L'ACCUEIL S'OUVRE SUR L'EPICENTRE.** Decisions du 27 aout
+au soir, toutes sous 760 px, regles en fin de `site.css` (elles doivent
+l'emporter sur des blocs ecrits plus haut) :
+- la carte s'ouvre cadree sur l'Ituri (`zoomToProvince('Ituri')` a
+  l'initialisation dans `app.js`, meme seuil que le CSS) ; « RDC entiere »
+  reste a un tap. Consequence : la carte est deplacable des le chargement,
+  et `touch-action:none` lui aurait confisque le defilement de la page sur
+  330 px — `pan-y` sur telephone, la carte se deplace a l'horizontale ;
+- `setActiveMapBtn()` ne touche plus qu'aux deux boutons de cadrage : il
+  retirait l'etat actif de « Zones colorees / Cercles » a chaque cadrage,
+  defaut ancien que le cadrage initial rendait visible ;
+- trois reperes de villes disparaissent (Kisangani, Isiro, Buta — 5 px de
+  texte SVG a 360 px), cibles par `data-name` que `build_pages` pose sur
+  chaque `.zm-mark` ; restent Kinshasa et Bunia ;
+- les cinq chiffres du panneau en deux colonnes, letalite en pleine largeur
+  dessous (267 px au lieu de 330) ;
+- `.section` a 28 px de rembourrage au lieu de 40 : ~150 px de moins sur
+  la page.
+
 **SUR TELEPHONE, MOINS DE COMMANDES ET DES LISTES PLUS COURTES.** Decisions
 du 27 aout, toutes sous 760 px, rien ne change au-dessus :
 - plus de bouton « Lecture » sur les cartes (accueil et provinces) — le

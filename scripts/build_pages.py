@@ -776,13 +776,14 @@ def zone_map_html(config, geo, health_zones, provinces, urls, lang, strings_lang
         title = place["name"]
         if place.get("province"):
             title += " — %s" % place["province"]
+        # data-name : le CSS masque certains reperes sur telephone, par nom.
         marks.append(
-            '          <g class="zm-mark is-%s" data-x="%s" data-y="%s" '
+            '          <g class="zm-mark is-%s" data-name="%s" data-x="%s" data-y="%s" '
             'transform="translate(%s %s)">'
             '<circle r="3.2"><title>%s</title></circle>'
             '<text x="7" y="3.6">%s</text></g>'
-            % (place["kind"], place["x"], place["y"], place["x"], place["y"],
-               esc(title), esc(place["name"])))
+            % (place["kind"], normalise_zone(place["name"]), place["x"], place["y"],
+               place["x"], place["y"], esc(title), esc(place["name"])))
 
     return ('      <svg class="zonemap" viewBox="%s" role="img" aria-label="%s" '
             'preserveAspectRatio="xMidYMid meet">\n'
@@ -875,11 +876,11 @@ def province_map_html(geo_map, province_name, zones, config, lang, strings_lang,
     marks = []
     for place in geo_map.get("landmarks", []):
         marks.append(
-            '          <g class="zm-mark is-%s" data-x="%s" data-y="%s" '
+            '          <g class="zm-mark is-%s" data-name="%s" data-x="%s" data-y="%s" '
             'transform="translate(%s %s)">'
             '<circle r="3.2"/><text x="7" y="3.6">%s</text></g>'
-            % (place["kind"], place["x"], place["y"], place["x"], place["y"],
-               esc(place["name"])))
+            % (place["kind"], normalise_zone(place["name"]), place["x"], place["y"],
+               place["x"], place["y"], esc(place["name"])))
 
     svg = ('      <svg class="zonemap" data-scope="province" viewBox="%s" role="img" '
            'aria-label="%s" preserveAspectRatio="xMidYMid meet">\n'

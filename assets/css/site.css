@@ -2080,3 +2080,34 @@ footer{
   /* Ecart depuis le bulletin precedent, dans une cellule de tableau. */
   .td-delta{font-size:11px;font-weight:600;color:var(--ink-faint);}
   #zonesResultCount{margin-top:8px;font-size:11px;color:var(--ink-faint);}
+
+/* ==========================================================================
+   Telephone : accueil, decisions du 27 aout (soir)
+   En fin de fichier parce que ces regles doivent l'emporter sur des blocs
+   ecrits plus haut a la meme specificite (.section, .cd-national,
+   .zonemap.is-zoomed).
+   ========================================================================== */
+@media (max-width:760px){
+  /* Le rythme vertical etait celui d'un ecran large : 40 px de part et
+     d'autre de chaque filet, 46 px entre l'en-tete et le titre. */
+  .section{padding:28px 0;}
+  .section:first-child{padding-top:28px;}
+
+  /* Trois reperes de villes en moins : a 360 px leur texte SVG fait 5 px.
+     Restent Kinshasa (situer) et Bunia (l'epicentre), qui grossit avec le
+     zoom. Cibles par data-name, pose par build_pages. */
+  .zm-mark[data-name="kisangani"],
+  .zm-mark[data-name="isiro"],
+  .zm-mark[data-name="buta"]{display:none;}
+
+  /* Les cinq chiffres nationaux en deux colonnes, la letalite seule en
+     pleine largeur dessous : 180 px au lieu de 330, et la meme grille que
+     les cartes de provinces plus bas. */
+  .cd-national{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px;}
+  .cd-nat.cfr{grid-column:1/-1;}
+
+  /* La carte s'ouvre zoomee (app.js), donc deplacable au doigt : touch-action
+     none aurait confisque le defilement vertical de la page sur 330 px de
+     haut. pan-y le rend au navigateur ; la carte se deplace a l'horizontale. */
+  .zonemap.is-zoomed{touch-action:pan-y;}
+}
