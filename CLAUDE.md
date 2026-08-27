@@ -1153,6 +1153,38 @@ Nord-Kivu — 4 655 contre 728 — se lit d'un coup d'oeil quand les deux sont
 cote a cote. Le site adoptait deja cette disposition des 430 px ; les
 telephones etroits en heritaient d'une autre par accident de seuil.
 
+**LA CHRONOLOGIE MARQUE LA 10e, 20e, 30e… ZONE TOUCHEE — JAMAIS UNE ENTREE
+PAR ZONE.** Demande du proprietaire le 27 aout : voir la propagation zone par
+zone. Une entree par arrivee aurait fait 60 lignes sur 32 dates, noyant les
+jalons rediges ; le 29 mai seul en aurait apporte sept. `zone_milestone_events`
+produit donc un jalon par seuil de `ZONE_MILESTONES` (10, 20, 30, 40, 50, 75,
+100), de type `spread` comme les arrivees de province, dont le texte nomme les
+zones arrivees le jour du franchissement, groupees par province — cinq entrees
+au SitRep 103. Le compte est celui des zones DISTINCTES ayant declare au moins
+un cas dans un bulletin, cumule dans l'ordre de `zones-history.json` : une
+zone touchee le reste, meme ramenee a zero ensuite (Bambu), c'est le sens que
+les bulletins donnent a « zones touchees ». Il tombe sur 58, le chiffre
+officiel du jour.
+
+Trois pieges, tous traites dans la fonction :
+- **Le 21 mai n'est pas une arrivee de dix zones**, c'est le premier bulletin
+  a publier un tableau par zone. Son texte le dit autrement
+  (`timelineMilestoneZonesFirstText`).
+- **Une meme zone ecrite de deux facons** — « Gety » le 29 mai, « Gethy »
+  le 9 aout, « Makiso-Kisangani » avec une double espace — se rapproche du
+  fond de carte : cle exacte d'abord, puis a deux caracteres pres DANS LA
+  MEME PROVINCE, le plus proche gagnant s'il est seul a cette distance
+  (« gety » est a 1 de « gethy » et a 2 de « rethy », autre zone de l'Ituri).
+  Aru et Adi, voisines a deux lettres, ont chacune leur cle exacte et ne se
+  melangent pas. Sans ce rapprochement le compte donnait 60, puis 59.
+- **Le nom affiche est celui du dernier bulletin** (`latest.json`) quand la
+  zone y figure — « Nia-Nia » comme dans les tableaux du site, pas le
+  « Nia Nia » ou le « BAMBU » de la premiere mention.
+
+Le titre porte le seuil (« 20 zones »), le texte le compte exact du jour
+(« 22 zones … ») : meme convention que les jalons de cas, dont le titre dit
+« 1 000 cas » quand le bilan du jour en dit 1 003.
+
 **Un carrousel horizontal a ete propose puis ecarte.** La chronologie peut
 defiler parce qu'elle est sequentielle ; six provinces ne se lisent pas dans
 un ordre impose, et ce qui sort de l'ecran n'est pas lu — les quatre dernieres
