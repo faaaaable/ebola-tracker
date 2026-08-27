@@ -683,6 +683,25 @@ Le tableau de comparaison des especes de `/le-virus/` n'en recoit pas : ses
 cellules portent de la prose, et `exporterTableau` est fait pour des chiffres —
 il coupe le texte trop long.
 
+**L'ALIGNEMENT D'UNE COLONNE EXPORTEE SE JUGE A SON CONTENU.** Il se lisait
+dans la seule classe `is-num` de l'en-tete — et « Cas cumules » du tableau par
+zone n'en porte pas, volontairement : a l'ecran son nombre est cale contre la
+barre de proportion qui le suit DANS la cellule. L'image ne reprend que le
+texte : la barre disparaissait, et le nombre restait seul a gauche au milieu
+d'une colonne de chiffres alignes a droite.
+
+`exporterTableau` complete donc l'en-tete par le corps — une colonne dont
+toutes les valeurs sont des nombres (`EST_UN_NOMBRE`, les tirets et cellules
+vides ne comptant ni pour ni contre) se cale a droite quel que soit son
+`<th>`. Une regle plutot qu'une exception a retenir : le prochain tableau qui
+melera une barre a un nombre sortira juste sans qu'on y pense. Les colonnes de
+texte — « Zone de sante », « Province » — restent a gauche, verifie dans les
+trois langues.
+
+**Et le message de copie ne decrit plus le geste.** « Graphique copie — collez-le
+ou vous voulez » est devenu « Graphique copie », a cote de « Tableau copie » :
+le presse-papier n'a pas besoin qu'on explique a quoi il sert.
+
 **L'IMAGE D'UN TABLEAU SE DATE, ELLE NE SE NUMEROTE PAS.** Sa legende haute
 reprenait la ligne de fraicheur de la page — « 58 zones de sante touchees sur
 151 · SitRep N°103 du 25 aout ». Elle porte desormais « Situation au 25 aout
