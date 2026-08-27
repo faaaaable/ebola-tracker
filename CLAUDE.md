@@ -316,6 +316,43 @@ ne tourne et sans lui ; la cle i18n `timelineToday` a disparu. Demande du
 proprietaire du 27 aout — « aujourd'hui » n'est pas la date d'un bulletin. Le libelle a aussi perdu son sigle : « Certains bulletins ne
 detaillent pas les zones : ces dates sont absentes du curseur. »
 
+**LA CARTE A DEUX LECTURES, UNE BASCULE, JAMAIS LES DEUX A LA FOIS.** Depuis le
+27 aout, la carte de l'accueil porte en haut a droite « Zones colorees /
+Cercles ». Les zones colorees disent OU est l'epidemie ; les cercles disent
+COMBIEN — leur SURFACE suit les cas (rayon = `circleScale` x racine des cas,
+en unites du viewBox), la ou une zone rurale immense ecrase Bunia, une ville
+de quelques kilometres carres. Une seule carte : meme cadre, meme curseur de
+temps, meme panneau, meme zoom. Deux cartes auraient tout duplique et double
+la hauteur sur telephone. Et jamais cercles sur zones colorees : ce serait
+encoder deux fois la meme variable — en mode cercles, les zones touchees
+gardent une teinte a peine marquee, pour que l'etendue reste lisible sous la
+grandeur.
+
+- **Les points viennent des coordonnees GPS de l'ancienne carte Leaflet**
+  (`HEALTH_ZONE_COORDS` du site d'origine), reprises dans
+  `site/pages.json` > `zoneCoordinates` : le chef-lieu ou l'hopital, pas le
+  centre du polygone — Bunia, la ville, est au bord de sa zone. `zone_points()`
+  les projette avec la meme plate-carree que `build_geo.py` et les emet dans
+  `window.ZONE_POINTS`, indexes par `normalise_zone(nom)` — `pointKeyOf()` en
+  JavaScript reproduit cette normalisation. Une zone sans GPS prend le centre
+  de son emprise (`data-box`). Pour en ajouter une : `zoneCoordinates.places`,
+  `[lat, lon]`.
+- **Les cercles ne grossissent pas avec le zoom**, comme les reperes : chacun
+  recoit l'echelle inverse autour de son point (`map.bubbles` dans
+  `applyView`). La legende reste donc exacte a tout niveau de zoom.
+- **Ils ne captent pas la souris** : la zone dessous porte le survol,
+  l'infobulle et le clic. Les gros sont dessines d'abord, les petits restent
+  visibles par-dessus.
+- **La legende est dessinee par le generateur** (`circle_legend_html`), avec
+  la meme formule que les cercles : six etalons (`circleLegend` : 1, 10, 50,
+  100, 500, 1 000) a l'echelle exacte. Le plancher `circleMinRadius` (2,5)
+  vaut pour les deux — sans lui une zone a un cas faisait un pixel.
+- **Le curseur les anime** : `renderMap` collecte les cas de chaque zone au
+  passage et `renderCircles` redessine la couche. Rien a synchroniser.
+
+La bascule n'existe que sur l'accueil ; les pages province gardent les zones
+colorees, `setupMapModes` se tait sans `#mapModeNav`.
+
 **SIX PALIERS DE COULEUR, ET LA LEGENDE LES MONTRE TELS QUELS.** Depuis le
 27 aout, `zoneThresholds` vaut `[10, 50, 200, 500, 1000]` dans
 `site/pages.json` : six classes au lieu de quatre. A quatre, Bunia (1 317 cas)
