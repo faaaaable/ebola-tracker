@@ -326,6 +326,22 @@ ne tourne et sans lui ; la cle i18n `timelineToday` a disparu. Demande du
 proprietaire du 27 aout — « aujourd'hui » n'est pas la date d'un bulletin. Le libelle a aussi perdu son sigle : « Certains bulletins ne
 detaillent pas les zones : ces dates sont absentes du curseur. »
 
+**RIEN NE FLOTTE SUR LA CARTE DE L'ACCUEIL.** Sur un 13 pouces, les quatre
+boutons poses en haut de la carte — cadrage a gauche, zones/cercles a droite
+— recouvraient le nord du pays, la ou sont les cas. Depuis le 27 aout, les
+commandes vivent SOUS la carte, sur la ligne du curseur (`.map-controls` :
+cadrage, lecture, date du curseur au bout), et la legende est seule sur la
+carte, avec un voile a peine present. Meme demande d'epure, le meme jour :
+plus de bouton date a cote de « Lecture » (ramener le curseur au bout fait
+la meme chose ; `#timelineToday` n'existe plus sur l'accueil, le script le
+tolere), plus d'etiquette « Evolution dans le temps » (un curseur date se
+comprend seul), plus de note « Chaque forme est une zone de sante… OCHA »
+sous la carte, et plus de « 28 zones touchees sur 36 » sous les cartes de
+province. La provenance des traces vit desormais sur la page Sources
+(`geoSourceTitle`/`geoSourceText`), avec les bulletins — la ou on vient la
+chercher. Les pages province gardent leur curseur tel quel, avec son bouton
+date : le chantier ne portait que sur l'accueil.
+
 **LE PANNEAU A COTE DE LA CARTE EST DATE, PAS TITRE.** Depuis le 27 aout, son
 etat de repos dit « Situation au 25 aout 2026 » — plus « Zones de sante
 touchees », ni « 58 zones de sante touchees sur 519 » dessous. Ses cinq
