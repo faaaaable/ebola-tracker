@@ -471,6 +471,23 @@ async function loadContactsFollowup(){
   }
 }
 
+/* Les quatre series de la page « Riposte ». Chacune est un objet
+   { periode, parDate:[…] } ecrit par son script d'extraction ; les contacts
+   reutilisent CONTACTS_FOLLOWUP, enrichi des effectifs et des provinces. */
+let ALERTES = null, LABORATOIRE = null, CTE = null;
+async function loadRiposte(){
+  const charge = async (nom) => {
+    try{
+      const res = await fetch('/data/' + nom, { cache:'no-store' });
+      if(!res.ok) return null;
+      const d = await res.json();
+      return (d && Array.isArray(d.parDate)) ? d : null;
+    }catch(e){ console.warn('data/' + nom + ' indisponible.', e); return null; }
+  };
+  [ALERTES, LABORATOIRE, CTE] = await Promise.all([
+    charge('alertes.json'), charge('laboratoire.json'), charge('cte.json')]);
+}
+
 /* Répartition par âge des cas et des décès. Contrairement aux autres séries,
    c'est un INSTANTANÉ et non un historique : l'INSP a cessé de publier la
    figure dont il est tiré après le 5 août 2026. Le graphique porte donc sa
@@ -1000,6 +1017,317 @@ function renderOneChart(canvas, chartMode){
   }
   if(noteEl){
     noteEl.textContent = ''; noteEl.style.display = 'none';
+  }
+
+  /* ============ PAGE « RIPOSTE » ============
+     Quatre modes, un par cadre. Les volumes (alertes, echantillons) sont
+     additionnes par semaine calendaire, la semaine en cours ecartee tant
+     qu'elle n'est pas finie — meme regle que « Nouveaux cas ». Les taux
+     restent quotidiens, sur un calendrier jour par jour pour que les trous
+     aient leur vraie largeur — meme idiome que le suivi des contacts. */
+  const RIPOSTE_MODES = ['alertes', 'laboratoire', 'contactsRiposte', 'cte'];
+  if(RIPOSTE_MODES.includes(chartMode)){
+    const vide = () => {
+      if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+      slot.lastMode = chartMode;
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    };
+    const axeTexte = { color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10} };
+    const infobulle = (extra) => Object.assign({
+      backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
+      titleColor:PALETTE.ink, bodyColor:PALETTE.ink,
+      titleFont:{family:PALETTE.font}, bodyFont:{family:PALETTE.font},
+    }, extra || {});
+    const legende = { display:true, position:'top', labels:{ usePointStyle:true, color:PALETTE.inkDim, font:{family:PALETTE.font, size:11}, boxWidth:8 } };
+    const dessiner = (type, data, opts) => {
+      if(slot.chart && (slot.chart.config.type !== type || slot.lastMode !== chartMode)){
+        slot.chart.destroy(); slot.chart = null;
+      }
+      if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
+      else { slot.chart = new Chart(canvas.getContext('2d'), { type, data, options:opts }); }
+      slot.lastMode = chartMode;
+    };
+    const noter = (texte) => { if(noteEl){ noteEl.textContent = texte; noteEl.style.display = 'block'; } };
+    /* Semaines calendaires completes : la semaine qui contient le dernier
+       point n'est gardee que si ce point tombe un dimanche. */
+    const parSemaine = (points, champs) => {
+      const semaines = new Map();
+      points.forEach(p => {
+        const cle = lundiDe(p.date);
+        const w = semaines.get(cle) || { debut:cle, fin:dimancheDe(cle), releves:0, valeurs:{} };
+        champs.forEach(c => { w.valeurs[c] = (w.valeurs[c] || 0); });
+        let complet = true;
+        champs.forEach(c => { if(p[c] === null || p[c] === undefined) complet = false; });
+        if(complet){ champs.forEach(c => { w.valeurs[c] += p[c]; }); w.releves += 1; }
+        semaines.set(cle, w);
+      });
+      const derniere = points[points.length - 1].date;
+      const pleines = [...semaines.values()].filter(w => w.releves > 0 && w.fin <= derniere)
+        .sort((a, b) => a.debut.localeCompare(b.debut));
+      if(!pleines.length) return pleines;
+      /* Toutes les semaines du calendrier entre la premiere et la derniere :
+         une semaine sans releve reste une colonne vide, pas une colonne
+         escamotee — deux barres collees se liraient comme deux semaines
+         consecutives. */
+      const out = [];
+      for(let cle = pleines[0].debut; cle <= pleines[pleines.length - 1].debut; ){
+        const w = semaines.get(cle);
+        out.push((w && w.releves > 0) ? w : { debut:cle, fin:dimancheDe(cle), releves:0, valeurs:{} });
+        const d = new Date(cle + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + 7);
+        cle = d.toISOString().slice(0, 10);
+      }
+      return out;
+    };
+    const valeurOuNul = (w, f) => w.releves ? f(w) : null;
+    const libelleSemaine = w => tr('chartWeekOf')(frDate(w.debut), frDate(w.fin));
+    /* Calendrier jour par jour entre deux dates, en UTC. */
+    const calendrier = (debut, fin) => {
+      const [sy,sm,sd] = debut.split('-').map(Number);
+      const [ey,em,ed] = fin.split('-').map(Number);
+      const out = [];
+      for(let d = new Date(Date.UTC(sy, sm-1, sd)); d <= new Date(Date.UTC(ey, em-1, ed)); d.setUTCDate(d.getUTCDate()+1))
+        out.push(d.toISOString().slice(0,10));
+      return out;
+    };
+    /* Pont en pointilles au-dessus des trous : le meme idiome que l'onglet
+       « Suivi des contacts » de /donnees/. Une droite entre les deux points
+       connus, jamais une valeur — la note le dit, l'infobulle et la legende
+       l'ignorent (drapeau `pont`). */
+    /* Le pont n'est pas une droite : un leger tremblement deterministe
+       (meme graine que l'onglet de /donnees/) le distingue d'une courbe
+       mesuree, et sa tension l'arrondit. Les deux bouts restent exacts. */
+    const graine = i => { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+    const pontPointilles = (vals, maxTrou, plafond) => {
+      const out = vals.map(() => null);
+      let i = 0;
+      while(i < vals.length){
+        if(vals[i] === null){
+          let a = i - 1, b = i;
+          while(b < vals.length && vals[b] === null) b++;
+          if(a >= 0 && b < vals.length && (!maxTrou || b - a - 1 <= maxTrou)){
+            for(let j = a; j <= b; j++){
+              const droit = vals[a] + (vals[b] - vals[a]) * (j - a) / (b - a);
+              const bord = (j === a || j === b);
+              const tremble = droit + (graine(j) - 0.5) * 5;
+              out[j] = bord ? droit : Math.max(0, plafond === null ? tremble : Math.min(plafond, tremble));
+            }
+          }
+          i = b;
+        } else i++;
+      }
+      return out;
+    };
+    /* `plafond` : 100 pour une part, null pour un taux qui peut depasser
+       100 (l'occupation des CTE) — sinon le pont du Nord-Kivu, a 130 %,
+       plongeait vers 100. */
+    const jeuPont = (vals, couleur, pour, maxTrou, plafond = 100) => ({ data:pontPointilles(vals, maxTrou, plafond), pont:true, pour, borderColor:tint(couleur, .45),
+      borderWidth:1.2, borderDash:[4,4], pointRadius:0, tension:.35, spanGaps:false, order:3 });
+    /* Un clic sur la legende masque la courbe ET son pont : ils forment un
+       seul fil aux yeux du lecteur. */
+    const basculerAvecPont = (e, item, legend) => {
+      const ci = legend.chart, ds = ci.data.datasets, idx = item.datasetIndex;
+      const visible = ci.isDatasetVisible(idx);
+      ci.setDatasetVisibility(idx, !visible);
+      ds.forEach((d, i) => { if(d.pont && d.pour === ds[idx].label) ci.setDatasetVisibility(i, !visible); });
+      ci.update();
+    };
+    const sansPonts = { legend:{ labels:{ filter:(item, data)=>!data.datasets[item.datasetIndex].pont }, onClick:basculerAvecPont },
+                        tooltip:{ filter:(item)=>!item.dataset.pont } };
+    const axeX = (rotation) => ({ ticks:Object.assign({}, axeTexte, rotation ? { maxRotation:45, minRotation:45, autoSkip:true, maxTicksLimit:22 } : { autoSkip:true, maxTicksLimit:16 }), grid:{ display:false } });
+    const axePct = (max) => ({ min:0, max:max || 100, ticks:Object.assign({}, axeTexte, { callback:v=>v+'%' }), grid:{ color:PALETTE.lineSoft } });
+
+    /* ---- Alertes : volume par semaine, ou taux par jour ---- */
+    if(chartMode === 'alertes'){
+      if(!ALERTES || !ALERTES.parDate.length){ vide(); return; }
+      const points = ALERTES.parDate.map(p => ({
+        date:p.date, recues:(p.total||{}).recues ?? null, validees:(p.total||{}).validees ?? null,
+        verifiees:(p.total||{}).verifiees ?? null, partVerifiee:(p.total||{}).partVerifiee ?? null,
+        partValidee:(p.total||{}).partValidee ?? null }));
+      const sans = sortedSitreps().filter(r => r.date >= points[0].date && !points.some(p => p.date === r.date)).length;
+      if(vueDe(canvas, 'volume') === 'volume'){
+        const semaines = parSemaine(points, ['recues', 'validees']);
+        if(!semaines.length){ vide(); return; }
+        const data = { labels:semaines.map(libelleSemaine), datasets:[
+          { label:tr('alertesValideesLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.validees)), backgroundColor:PALETTE.info, stack:'a', order:2 },
+          { label:tr('alertesAutresLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.recues - x.valeurs.validees)), backgroundColor:tint(PALETTE.info, .3), stack:'a', order:2 },
+        ]};
+        const opts = { responsive:true, maintainAspectRatio:false,
+          plugins:{ legend:legende, tooltip:infobulle({ callbacks:{
+            title:(items)=>{ const w = semaines[items[0].dataIndex]; return frDate(w.debut) + ' → ' + frDate(w.fin) + ' · ' + tr('releveCount')(w.releves); },
+            label:c=>c.dataset.label + ' : ' + fmt(c.parsed.y), footer:totalEmpile } }) },
+          scales:{ x:Object.assign(axeX(false), { stacked:true }), y:{ stacked:true, beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
+        dessiner('bar', data, opts);
+        noterPeriode(slot, semaines[0].debut, semaines[semaines.length-1].fin);
+        noter(tr('chartNoteAlertesVolume')(semaines.filter(w=>w.releves).length, sans));
+        return;
+      }
+      const jours = calendrier(points[0].date, points[points.length-1].date);
+      const parDate = {}; points.forEach(p => { parDate[p.date] = p; });
+      const serie = (cle) => jours.map(d => (parDate[d] && parDate[d][cle] !== null && parDate[d][cle] !== undefined) ? parDate[d][cle] : null);
+      const maxi = Math.max(100, ...serie('partVerifiee').filter(v=>v!==null), ...serie('partValidee').filter(v=>v!==null));
+      const data = { labels:jours.map(frDate), datasets:[
+        { label:tr('alertesPartVerifieeLabel'), data:serie('partVerifiee'), borderColor:PALETTE.inkDim, borderWidth:1.5, pointRadius:1.5, tension:.15, spanGaps:false },
+        { label:tr('alertesPartValideeLabel'), data:serie('partValidee'), borderColor:PALETTE.info, borderWidth:2, pointRadius:2, tension:.15, spanGaps:false },
+      ]};
+      const opts = { responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:legende, tooltip:infobulle({ callbacks:{ label:c=>c.dataset.label + ' : ' + fmtCfr(c.parsed.y) } }) },
+        scales:{ x:axeX(true), y:axePct(Math.ceil(maxi/20)*20) } };
+      dessiner('line', data, opts);
+      noterPeriode(slot, jours[0], jours[jours.length-1]);
+      noter(tr('chartNoteAlertesTaux')());
+      return;
+    }
+
+    /* ---- Laboratoire : echantillons par semaine, positivite en courbe ---- */
+    if(chartMode === 'laboratoire'){
+      if(!LABORATOIRE || !LABORATOIRE.parDate.length){ vide(); return; }
+      /* La phrase nationale (epoque D) prime sur la somme des provinces, qui
+         n'existe que si chaque province lue porte les deux nombres. Les
+         nouveaux cas comptent comme positifs quand le bulletin les separe des
+         reprelevements. */
+      const points = LABORATOIRE.parDate.map(p => {
+        const n = p.national || {}, t = p.total || {};
+        const src = (n.echantillons && n.positifs !== null && n.positifs !== undefined) ? n : t;
+        const positifs = (src.nouveauxCas !== undefined && src.nouveauxCas !== null) ? src.nouveauxCas : (src.positifs ?? null);
+        return { date:p.date, echantillons:src.echantillons ?? null, positifs };
+      });
+      const semaines = parSemaine(points, ['echantillons', 'positifs']);
+      if(!semaines.length){ vide(); return; }
+      const sans = sortedSitreps().filter(r => r.date >= points[0].date && !points.some(p => p.date === r.date && p.echantillons !== null && p.positifs !== null)).length;
+      const positivite = semaines.map(w => (w.releves && w.valeurs.echantillons) ? Math.round(w.valeurs.positifs / w.valeurs.echantillons * 1000) / 10 : null);
+      const data = { labels:semaines.map(libelleSemaine), datasets:[
+        { type:'line', label:tr('laboPositiviteLabel'), data:positivite, yAxisID:'y1', borderColor:PALETTE.critical, borderWidth:2, pointRadius:2.5, pointBackgroundColor:PALETTE.critical, tension:.2, order:0 },
+        { label:tr('laboPositifsLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.positifs)), backgroundColor:PALETTE.info, stack:'l', order:2 },
+        { label:tr('laboNegatifsLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.echantillons - x.valeurs.positifs)), backgroundColor:tint(PALETTE.info, .3), stack:'l', order:2 },
+      ]};
+      const opts = { responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:legende, tooltip:infobulle({ callbacks:{
+          title:(items)=>{ const w = semaines[items[0].dataIndex]; return frDate(w.debut) + ' → ' + frDate(w.fin) + ' · ' + tr('releveCount')(w.releves); },
+          label:c=>c.dataset.label + ' : ' + (c.dataset.type === 'line' ? fmtCfr(c.parsed.y) : fmt(c.parsed.y)), footer:totalEmpile } }) },
+        scales:{ x:Object.assign(axeX(false), { stacked:true }),
+                 y:{ stacked:true, beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } },
+                 y1:Object.assign(axePct(100), { position:'right', grid:{ drawOnChartArea:false } }) } };
+      dessiner('bar', data, opts);
+      noterPeriode(slot, semaines[0].debut, semaines[semaines.length-1].fin);
+      noter(tr('chartNoteLabo')(semaines.filter(w=>w.releves).length, sans));
+      return;
+    }
+
+    /* ---- Contacts : taux national et contacts a suivre, ou par province ---- */
+    if(chartMode === 'contactsRiposte'){
+      if(!CONTACTS_FOLLOWUP.length){ vide(); return; }
+      const SEUIL_INSP = 85;
+      const jours = calendrier(CONTACTS_FOLLOWUP[0].date, CONTACTS_FOLLOWUP[CONTACTS_FOLLOWUP.length-1].date);
+      const parDate = {}; CONTACTS_FOLLOWUP.forEach(r => { parDate[r.date] = r; });
+      if(vueDe(canvas, 'national') === 'national'){
+        const taux = jours.map(d => parDate[d] ? parDate[d].contactsFollowUpRate : null);
+        const aSuivre = jours.map(d => (parDate[d] && parDate[d].contacts) ? parDate[d].contacts.aSuivre : null);
+        const data = { labels:jours.map(frDate), datasets:[
+          { type:'line', label:tr('contactsTauxLabel'), data:taux, borderColor:PALETTE.active, borderWidth:2, pointRadius:2, pointBackgroundColor:PALETTE.active, tension:.15, spanGaps:false, yAxisID:'y', order:0 },
+          Object.assign({ type:'line', yAxisID:'y' }, jeuPont(taux, PALETTE.active, tr('contactsTauxLabel'))),
+          { type:'bar', label:tr('contactsASuivreLabel'), data:aSuivre, backgroundColor:tint(PALETTE.active, .22), yAxisID:'y1', order:2, barPercentage:1, categoryPercentage:.94 },
+        ]};
+        const opts = { responsive:true, maintainAspectRatio:false,
+          plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
+                    tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>c.dataset.label + ' : ' + (c.dataset.type === 'line' ? fmtCfr(c.parsed.y) : fmt(c.parsed.y)) } }) },
+          scales:{ x:axeX(true), y:axePct(100),
+                   y1:{ position:'right', beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ drawOnChartArea:false } } } };
+        dessiner('bar', data, opts);
+        noterPeriode(slot, jours[0], jours[jours.length-1]);
+        noter(tr('chartNoteContactsNational')(SEUIL_INSP));
+        return;
+      }
+      const noms = [];
+      CONTACTS_FOLLOWUP.forEach(r => Object.keys(r.provinces || {}).forEach(n => { if(!noms.includes(n)) noms.push(n); }));
+      const ordre = Object.keys(PROVINCE_COLORS);
+      noms.sort((a, b) => ordre.indexOf(a) - ordre.indexOf(b));
+      if(!noms.length){ vide(); return; }
+      const premiere = CONTACTS_FOLLOWUP.find(r => r.provinces);
+      const joursP = calendrier(premiere.date, jours[jours.length-1]);
+      const serieP = nom => joursP.map(d => (parDate[d] && parDate[d].provinces && parDate[d].provinces[nom]) ? parDate[d].provinces[nom].taux : null);
+      const datasetsP = [];
+      noms.forEach(nom => {
+        const vals = serieP(nom), couleur = PROVINCE_COLORS[nom] || PALETTE.inkDim;
+        datasetsP.push({ label:nom, data:vals, borderColor:couleur, borderWidth:1.8, pointRadius:1.8, pointBackgroundColor:couleur, tension:.15, spanGaps:false, order:1 });
+        datasetsP.push(jeuPont(vals, couleur, nom));
+      });
+      const data = { labels:joursP.map(frDate), datasets:datasetsP };
+      /* Plusieurs provinces sont a 100 % des jours entiers (Tshopo, Sud-Kivu) :
+         avec l'axe arrete a 100, leurs points se collent au cadre et se
+         perdent dans la graduation. On monte le cadre a 120 mais les
+         graduations s'arretent a 100 % : l'air est pour l'oeil, pas pour
+         l'axe — une part ne depasse pas 100. A 110, les 24 px de blanc ne se
+         voyaient pas ; a 120 il y en a une cinquantaine, et ca se voit.
+         Choix du proprietaire, 28 aout, apres avoir vu les deux et la
+         graduation « 110 % » ecrite. */
+      /* La grille garde les multiples de 20 jusqu'a 100, plus une ligne
+         muette tout en haut, a 120 : elle ferme la bande de blanc sans lui
+         donner de valeur — le chiffre « 120 % » n'est pas ecrit, une part ne
+         depasse pas 100 (demande du proprietaire, 28 aout). */
+      const graduation = v => (v <= 100 && v % 20 === 0);
+      const axeAvecAir = Object.assign(axePct(120), {
+        ticks:Object.assign({}, axeTexte, { callback:v=>(graduation(v) ? v + '%' : ''), stepSize:20 }),
+        grid:{ color:ctx=>((ctx.tick && (graduation(ctx.tick.value) || ctx.tick.value === 120)) ? PALETTE.lineSoft : 'transparent') },
+      });
+      const opts = { responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
+                  tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>{
+          const p = parDate[joursP[c.dataIndex]].provinces[c.dataset.label];
+          return c.dataset.label + ' : ' + fmtCfr(c.parsed.y) + (p.vus !== undefined ? ' (' + fmt(p.vus) + ' / ' + fmt(p.aSuivre) + ')' : '');
+        } } }) },
+        scales:{ x:axeX(true), y:axeAvecAir } };
+      dessiner('line', data, opts);
+      noterPeriode(slot, joursP[0], joursP[joursP.length-1]);
+      noter(tr('chartNoteContactsProvinces')());
+      return;
+    }
+
+    /* ---- CTE : occupation par province ---- */
+    if(chartMode === 'cte'){
+      if(!CTE || !CTE.parDate.length){ vide(); return; }
+      const avecLits = CTE.parDate.filter(p => (p.total || {}).occupation !== undefined);
+      if(!avecLits.length){ vide(); return; }
+      const jours = calendrier(avecLits[0].date, avecLits[avecLits.length-1].date);
+      const parDate = {}; avecLits.forEach(p => { parDate[p.date] = p; });
+      /* Meme seuil de lisibilite que le lieu du deces : sous 20 lits, un taux
+         n'a aucun sens — la Tshopo passe de 5 a 40 % pour un patient. */
+      const SEUIL_LITS = 20;
+      const lisible = v => v && v.occupation !== undefined && (v.lits || 0) >= SEUIL_LITS;
+      const noms = [];
+      avecLits.forEach(p => Object.entries(p.provinces || {}).forEach(([n, v]) => { if(lisible(v) && !noms.includes(n)) noms.push(n); }));
+      const ordre = Object.keys(PROVINCE_COLORS);
+      noms.sort((a, b) => ordre.indexOf(a) - ordre.indexOf(b));
+      const serieProv = nom => jours.map(d => (parDate[d] && lisible(parDate[d].provinces[nom])) ? parDate[d].provinces[nom].occupation : null);
+      const ensemble = jours.map(d => parDate[d] ? parDate[d].total.occupation : null);
+      /* Ponts sur les trous de cinq jours au plus. Le Nord-Kivu passe de
+         141 a 206 lits pendant son trou du 3 au 12 aout : un pointille de
+         130 % vers 73 % dessinerait une decrue qui est une extension de
+         CTE. Les trous longs restent ouverts. */
+      const MAX_TROU_CTE = 5;
+      const datasets = [];
+      noms.forEach(nom => {
+        const vals = serieProv(nom), couleur = PROVINCE_COLORS[nom] || PALETTE.inkDim;
+        datasets.push({ label:nom, data:vals, borderColor:couleur, borderWidth:1.6, pointRadius:1.6, pointBackgroundColor:couleur, tension:.15, spanGaps:false, order:1 });
+        datasets.push(jeuPont(vals, couleur, nom, MAX_TROU_CTE, null));
+      });
+      /* Pas de ligne « Toutes provinces » : du 7 au 12 aout elle ne valait
+         que l'Ituri, et une moyenne qui change de perimetre sans le dire
+         ment. Retiree a la demande du proprietaire, 28 aout. */
+      const maxi = Math.max(100, ...datasets.flatMap(ds => ds.data.filter(v => v !== null)));
+      const data = { labels:jours.map(frDate), datasets };
+      const opts = { responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
+                  tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>{
+          const p = parDate[jours[c.dataIndex]];
+          const src = p.provinces[c.dataset.label];
+          return c.dataset.label + ' : ' + fmtCfr(c.parsed.y) + (src && src.lits ? ' (' + fmt(src.hospitalises) + ' / ' + fmt(src.lits) + ')' : '');
+        } } }) },
+        scales:{ x:axeX(true), y:axePct(Math.ceil(maxi/20)*20) } };
+      dessiner('line', data, opts);
+      noterPeriode(slot, jours[0], jours[jours.length-1]);
+      noter(tr('chartNoteCte')(SEUIL_LITS));
+      return;
+    }
   }
 
   // Mode "Sexe" : deux barres empilées à 100%, cas puis décès. Un camembert
@@ -2706,6 +3034,25 @@ document.querySelectorAll('[data-pyramide-vue]').forEach(nav=>{
       pyramideVue = btn.dataset.vue;
       const cible = document.getElementById('dataChart');
       if(cible) safeRun(()=>renderOneChart(cible, cible.dataset.chart), 'pyramideVue');
+    });
+  });
+});
+
+/* Bascule de vue propre a UN canevas, sur la page « Riposte » :
+   <nav data-chart-vue="alertesChart"> designe son canevas, chaque bouton
+   porte data-vue. L'etat vit par canevas, et non dans une variable globale
+   comme vuePeriode : quatre cadres cohabitent sur la page, chacun avec sa
+   propre bascule. */
+const vuesParCanvas = {};
+function vueDe(canvas, defaut){ return vuesParCanvas[canvas.id] || defaut; }
+document.querySelectorAll('[data-chart-vue]').forEach(nav=>{
+  const canvas = document.getElementById(nav.dataset.chartVue);
+  if(!canvas) return;
+  nav.querySelectorAll('.subtab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      nav.querySelectorAll('.subtab-btn').forEach(b=>b.classList.toggle('active', b === btn));
+      vuesParCanvas[canvas.id] = btn.dataset.vue;
+      safeRun(()=>renderOneChart(canvas, canvas.dataset.chart), 'chartVue');
     });
   });
 });
@@ -4835,7 +5182,7 @@ if(document.querySelector('.zonemap')) safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immediat avec les donnees de reference integrees
 safeRun(initTimelineScroller, 'timelineScroller');
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie(), loadDecesLieu()]).then(()=>{
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie(), loadDecesLieu(), loadRiposte()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées

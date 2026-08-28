@@ -425,6 +425,26 @@ ul,ol{margin:0;padding:0;}
 .kpi.recovered .value{color:var(--accent-stable);}
 .kpi.active .value{color:var(--accent-active);}
 .kpi.cfr .value{color:var(--ink);}
+/* Page « Riposte » : les quatre chiffres de tete. Les alertes et le
+   laboratoire portent le bleu des cas (ce sont des cas en devenir), les
+   contacts l'ambre du suivi, comme la courbe de l'onglet du meme nom, et
+   l'occupation l'encre : un taux de remplissage n'est ni un cas ni un deces. */
+.riposte-kpis{margin:0 0 18px;}
+.riposte-kpis .kpi .delta{white-space:normal;line-height:1.4;}
+.kpi.alerts .value,.kpi.labo .value{color:var(--accent-info);}
+.kpi.contacts .value{color:var(--accent-active);}
+.kpi.cte .value{color:var(--ink);}
+/* Quatre ancres vers les cadres, une ligne : ce n'est pas une navigation,
+   juste un sommaire pour qui vient chercher un seul indicateur. */
+.riposte-ancres{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;}
+.riposte-ancres a{color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--line);}
+.riposte-ancres a:hover{border-bottom-color:var(--accent-strong);}
+/* Sur telephone, deux colonnes : ces quatre chiffres se comparent, comme les
+   vignettes de province — empiles, on ne voit qu'un chiffre a la fois. */
+@media (max-width:760px){
+  .riposte-kpis{grid-template-columns:1fr 1fr;}
+  .riposte-kpis .kpi .value{font-size:22px;}
+}
 
 /* ==========================================================================
    Carte des zones de sante

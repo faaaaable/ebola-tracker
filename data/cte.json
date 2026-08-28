@@ -1,0 +1,1805 @@
+{
+  "periode": {
+    "debut": "2026-06-02",
+    "fin": "2026-08-26"
+  },
+  "parDate": [
+    {
+      "date": "2026-06-02",
+      "sitrepNumber": "019",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 191
+        },
+        "Nord-Kivu": {
+          "hospitalises": 8
+        },
+        "Sud-Kivu": {
+          "hospitalises": 5
+        }
+      },
+      "total": {
+        "hospitalises": 204,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-03",
+      "sitrepNumber": "020",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 208
+        },
+        "Nord-Kivu": {
+          "hospitalises": 8
+        },
+        "Sud-Kivu": {
+          "hospitalises": 6
+        }
+      },
+      "total": {
+        "hospitalises": 222,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-04",
+      "sitrepNumber": "021",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 219
+        },
+        "Nord-Kivu": {
+          "hospitalises": 8
+        },
+        "Sud-Kivu": {
+          "hospitalises": 6
+        }
+      },
+      "total": {
+        "hospitalises": 233,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-05",
+      "sitrepNumber": "022",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 236
+        },
+        "Nord-Kivu": {
+          "hospitalises": 8
+        },
+        "Sud-Kivu": {
+          "hospitalises": 7
+        }
+      },
+      "total": {
+        "hospitalises": 251,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-06",
+      "sitrepNumber": "023",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 257
+        },
+        "Nord-Kivu": {
+          "hospitalises": 16
+        },
+        "Sud-Kivu": {
+          "hospitalises": 7
+        }
+      },
+      "total": {
+        "hospitalises": 280,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-07",
+      "sitrepNumber": "024",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 260
+        },
+        "Nord-Kivu": {
+          "hospitalises": 16
+        },
+        "Sud-Kivu": {
+          "hospitalises": 7
+        }
+      },
+      "total": {
+        "hospitalises": 283,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-08",
+      "sitrepNumber": "025",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 286
+        },
+        "Nord-Kivu": {
+          "hospitalises": 17
+        },
+        "Sud-Kivu": {
+          "hospitalises": 7
+        }
+      },
+      "total": {
+        "hospitalises": 310,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-09",
+      "sitrepNumber": "026",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 245
+        },
+        "Nord-Kivu": {
+          "hospitalises": 17
+        },
+        "Sud-Kivu": {
+          "hospitalises": 6
+        }
+      },
+      "total": {
+        "hospitalises": 268,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-10",
+      "sitrepNumber": "027",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 239
+        },
+        "Nord-Kivu": {
+          "hospitalises": 17
+        },
+        "Sud-Kivu": {
+          "hospitalises": 6
+        }
+      },
+      "total": {
+        "hospitalises": 262,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-11",
+      "sitrepNumber": "028",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 247
+        },
+        "Nord-Kivu": {
+          "hospitalises": 13
+        },
+        "Sud-Kivu": {
+          "hospitalises": 7
+        }
+      },
+      "total": {
+        "hospitalises": 267,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-13",
+      "sitrepNumber": "030",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 280
+        },
+        "Nord-Kivu": {
+          "hospitalises": 36
+        },
+        "Sud-Kivu": {
+          "hospitalises": 11
+        }
+      },
+      "total": {
+        "hospitalises": 327,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-14",
+      "sitrepNumber": "031",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 312
+        },
+        "Nord-Kivu": {
+          "hospitalises": 42
+        },
+        "Sud-Kivu": {
+          "hospitalises": 7
+        }
+      },
+      "total": {
+        "hospitalises": 361,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-15",
+      "sitrepNumber": "032",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 312
+        },
+        "Nord-Kivu": {
+          "hospitalises": 44
+        },
+        "Sud-Kivu": {
+          "hospitalises": 6
+        }
+      },
+      "total": {
+        "hospitalises": 362,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-16",
+      "sitrepNumber": "033",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 321
+        },
+        "Nord-Kivu": {
+          "hospitalises": 45
+        },
+        "Sud-Kivu": {
+          "hospitalises": 10
+        }
+      },
+      "total": {
+        "hospitalises": 376,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-17",
+      "sitrepNumber": "034",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 310
+        },
+        "Nord-Kivu": {
+          "hospitalises": 46
+        }
+      },
+      "total": {
+        "hospitalises": 356,
+        "provinces": 2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-18",
+      "sitrepNumber": "035",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 335
+        },
+        "Nord-Kivu": {
+          "hospitalises": 48
+        },
+        "Sud-Kivu": {
+          "hospitalises": 15
+        }
+      },
+      "total": {
+        "hospitalises": 398,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-19",
+      "sitrepNumber": "036",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 286
+        },
+        "Nord-Kivu": {
+          "hospitalises": 56
+        }
+      },
+      "total": {
+        "hospitalises": 342,
+        "provinces": 2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-20",
+      "sitrepNumber": "037",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 307
+        },
+        "Nord-Kivu": {
+          "hospitalises": 54
+        },
+        "Sud-Kivu": {
+          "hospitalises": 12
+        }
+      },
+      "total": {
+        "hospitalises": 373,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-21",
+      "sitrepNumber": "038",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 294
+        },
+        "Nord-Kivu": {
+          "hospitalises": 59
+        },
+        "Sud-Kivu": {
+          "hospitalises": 7
+        }
+      },
+      "total": {
+        "hospitalises": 360,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-22",
+      "sitrepNumber": "039",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 298
+        },
+        "Nord-Kivu": {
+          "hospitalises": 27
+        },
+        "Sud-Kivu": {
+          "hospitalises": 10
+        }
+      },
+      "total": {
+        "hospitalises": 335,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-23",
+      "sitrepNumber": "040",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 321
+        },
+        "Nord-Kivu": {
+          "hospitalises": 56
+        },
+        "Sud-Kivu": {
+          "hospitalises": 10
+        }
+      },
+      "total": {
+        "hospitalises": 387,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-24",
+      "sitrepNumber": "041",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 322
+        },
+        "Nord-Kivu": {
+          "hospitalises": 56
+        },
+        "Sud-Kivu": {
+          "hospitalises": 12
+        }
+      },
+      "total": {
+        "hospitalises": 390,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-25",
+      "sitrepNumber": "042",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 313
+        },
+        "Nord-Kivu": {
+          "hospitalises": 56
+        },
+        "Sud-Kivu": {
+          "hospitalises": 13
+        }
+      },
+      "total": {
+        "hospitalises": 382,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-27",
+      "sitrepNumber": "044",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 333
+        },
+        "Nord-Kivu": {
+          "hospitalises": 134
+        },
+        "Sud-Kivu": {
+          "hospitalises": 17
+        }
+      },
+      "total": {
+        "hospitalises": 484,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-29",
+      "sitrepNumber": "046",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 68
+        },
+        "Nord-Kivu": {
+          "hospitalises": 11
+        },
+        "Sud-Kivu": {
+          "hospitalises": 3
+        }
+      },
+      "total": {
+        "hospitalises": 82,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-02",
+      "sitrepNumber": "049",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 487
+        },
+        "Nord-Kivu": {
+          "hospitalises": 135
+        },
+        "Sud-Kivu": {
+          "hospitalises": 22
+        }
+      },
+      "total": {
+        "hospitalises": 644,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-05",
+      "sitrepNumber": "052",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 462
+        },
+        "Nord-Kivu": {
+          "hospitalises": 147
+        },
+        "Sud-Kivu": {
+          "hospitalises": 21
+        }
+      },
+      "total": {
+        "hospitalises": 630,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-06",
+      "sitrepNumber": "053",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 485
+        },
+        "Nord-Kivu": {
+          "hospitalises": 182
+        },
+        "Sud-Kivu": {
+          "hospitalises": 21
+        }
+      },
+      "total": {
+        "hospitalises": 688,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-07",
+      "sitrepNumber": "054",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 505
+        },
+        "Nord-Kivu": {
+          "hospitalises": 165
+        },
+        "Sud-Kivu": {
+          "hospitalises": 24
+        }
+      },
+      "total": {
+        "hospitalises": 694,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-08",
+      "sitrepNumber": "055",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 519
+        },
+        "Nord-Kivu": {
+          "hospitalises": 193
+        },
+        "Sud-Kivu": {
+          "hospitalises": 39
+        }
+      },
+      "total": {
+        "hospitalises": 751,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-09",
+      "sitrepNumber": "056",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 540
+        },
+        "Nord-Kivu": {
+          "hospitalises": 188
+        },
+        "Sud-Kivu": {
+          "hospitalises": 27
+        }
+      },
+      "total": {
+        "hospitalises": 755,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-10",
+      "sitrepNumber": "057",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 535
+        },
+        "Nord-Kivu": {
+          "hospitalises": 225
+        },
+        "Sud-Kivu": {
+          "hospitalises": 19
+        }
+      },
+      "total": {
+        "hospitalises": 779,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-11",
+      "sitrepNumber": "058",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 544
+        },
+        "Nord-Kivu": {
+          "hospitalises": 201
+        },
+        "Sud-Kivu": {
+          "hospitalises": 24
+        }
+      },
+      "total": {
+        "hospitalises": 769,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-14",
+      "sitrepNumber": "061",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 541
+        },
+        "Nord-Kivu": {
+          "hospitalises": 149
+        }
+      },
+      "total": {
+        "hospitalises": 690,
+        "provinces": 2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-15",
+      "sitrepNumber": "062",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 544,
+          "lits": 693,
+          "occupation": 78.5,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 170,
+          "lits": 141,
+          "occupation": 120.6,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 714,
+        "provinces": 2,
+        "lits": 834,
+        "hospitalisesAvecLits": 714,
+        "occupation": 85.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-17",
+      "sitrepNumber": "064",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 542,
+          "lits": 700,
+          "occupation": 77.4,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 179,
+          "lits": 141,
+          "occupation": 127.0,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 721,
+        "provinces": 2,
+        "lits": 841,
+        "hospitalisesAvecLits": 721,
+        "occupation": 85.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-18",
+      "sitrepNumber": "065",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 540,
+          "lits": 706,
+          "occupation": 76.5,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 166,
+          "lits": 141,
+          "occupation": 117.7,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 1,
+          "lits": 10,
+          "occupation": 10.0,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 707,
+        "provinces": 3,
+        "lits": 857,
+        "hospitalisesAvecLits": 707,
+        "occupation": 82.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-19",
+      "sitrepNumber": "066",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 543,
+          "lits": 798,
+          "occupation": 68.0,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 177,
+          "lits": 141,
+          "occupation": 125.5,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 720,
+        "provinces": 2,
+        "lits": 939,
+        "hospitalisesAvecLits": 720,
+        "occupation": 76.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-20",
+      "sitrepNumber": "067",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 536,
+          "lits": 709,
+          "occupation": 75.6,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 164,
+          "lits": 141,
+          "occupation": 116.3,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 700,
+        "provinces": 2,
+        "lits": 850,
+        "hospitalisesAvecLits": 700,
+        "occupation": 82.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-21",
+      "sitrepNumber": "068",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 556,
+          "lits": 708,
+          "occupation": 78.5,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 176,
+          "lits": 141,
+          "occupation": 124.8,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 732,
+        "provinces": 2,
+        "lits": 849,
+        "hospitalisesAvecLits": 732,
+        "occupation": 86.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-22",
+      "sitrepNumber": "069",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 557,
+          "lits": 709,
+          "occupation": 78.6,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 182,
+          "lits": 141,
+          "occupation": 129.1,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 3,
+          "lits": 8,
+          "occupation": 37.5,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 742,
+        "provinces": 3,
+        "lits": 858,
+        "hospitalisesAvecLits": 742,
+        "occupation": 86.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-23",
+      "sitrepNumber": "070",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 551,
+          "lits": 709,
+          "occupation": 77.7,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 170,
+          "lits": 141,
+          "occupation": 120.6,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 3,
+          "lits": 10,
+          "occupation": 30.0,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 724,
+        "provinces": 3,
+        "lits": 860,
+        "hospitalisesAvecLits": 724,
+        "occupation": 84.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-24",
+      "sitrepNumber": "071",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 570,
+          "lits": 709,
+          "occupation": 80.4,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 186,
+          "lits": 141,
+          "occupation": 131.9,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 756,
+        "provinces": 2,
+        "lits": 850,
+        "hospitalisesAvecLits": 756,
+        "occupation": 88.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-25",
+      "sitrepNumber": "072",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 576,
+          "lits": 800,
+          "occupation": 72.0,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 167,
+          "lits": 141,
+          "occupation": 118.4,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 743,
+        "provinces": 2,
+        "lits": 941,
+        "hospitalisesAvecLits": 743,
+        "occupation": 79.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-26",
+      "sitrepNumber": "073",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 498,
+          "lits": 800,
+          "occupation": 62.3,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 183,
+          "lits": 141,
+          "occupation": 129.8,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 681,
+        "provinces": 2,
+        "lits": 941,
+        "hospitalisesAvecLits": 681,
+        "occupation": 72.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-27",
+      "sitrepNumber": "074",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 538,
+          "lits": 808,
+          "occupation": 66.6,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 181,
+          "lits": 141,
+          "occupation": 128.4,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 719,
+        "provinces": 2,
+        "lits": 949,
+        "hospitalisesAvecLits": 719,
+        "occupation": 75.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-30",
+      "sitrepNumber": "077",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 553,
+          "lits": 820,
+          "occupation": 67.4,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 220,
+          "lits": 141,
+          "occupation": 156.0,
+          "occupationCalculee": true
+        },
+        "Haut-Uélé": {
+          "hospitalises": 25,
+          "lits": 68,
+          "occupation": 36.8,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 1,
+          "lits": 20,
+          "occupation": 5.0,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 799,
+        "provinces": 4,
+        "lits": 1049,
+        "hospitalisesAvecLits": 799,
+        "occupation": 76.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-31",
+      "sitrepNumber": "078",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 518,
+          "lits": 821,
+          "occupation": 63.1,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 190,
+          "lits": 141,
+          "occupation": 134.8,
+          "occupationCalculee": true
+        },
+        "Haut-Uélé": {
+          "hospitalises": 22,
+          "lits": 68,
+          "occupation": 32.4,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 1,
+          "lits": 20,
+          "occupation": 5.0,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 731,
+        "provinces": 4,
+        "lits": 1050,
+        "hospitalisesAvecLits": 731,
+        "occupation": 69.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-01",
+      "sitrepNumber": "079",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 525,
+          "lits": 821,
+          "occupation": 63.9,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 181,
+          "lits": 141,
+          "occupation": 128.4,
+          "occupationCalculee": true
+        },
+        "Haut-Uélé": {
+          "hospitalises": 33,
+          "lits": 68,
+          "occupation": 48.5,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 1,
+          "lits": 20,
+          "occupation": 5.0,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 740,
+        "provinces": 4,
+        "lits": 1050,
+        "hospitalisesAvecLits": 740,
+        "occupation": 70.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-02",
+      "sitrepNumber": "080",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 476,
+          "lits": 821,
+          "occupation": 58.0,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 183,
+          "lits": 141,
+          "occupation": 129.8,
+          "occupationCalculee": true
+        },
+        "Haut-Uélé": {
+          "hospitalises": 33,
+          "lits": 68,
+          "occupation": 48.5,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 2,
+          "lits": 20,
+          "occupation": 10.0,
+          "occupationCalculee": true
+        },
+        "Sud-Kivu": {
+          "hospitalises": 17
+        }
+      },
+      "total": {
+        "hospitalises": 711,
+        "provinces": 5,
+        "lits": 1050,
+        "hospitalisesAvecLits": 694,
+        "occupation": 66.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-07",
+      "sitrepNumber": "085",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 595,
+          "lits": 860,
+          "occupation": 69.2
+        }
+      },
+      "total": {
+        "hospitalises": 595,
+        "provinces": 1,
+        "lits": 860,
+        "hospitalisesAvecLits": 595,
+        "occupation": 69.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-08",
+      "sitrepNumber": "086",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 501,
+          "lits": 840,
+          "occupation": 60.0
+        }
+      },
+      "total": {
+        "hospitalises": 501,
+        "provinces": 1,
+        "lits": 840,
+        "hospitalisesAvecLits": 501,
+        "occupation": 59.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-09",
+      "sitrepNumber": "087",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 508,
+          "lits": 840,
+          "occupation": 61.0
+        }
+      },
+      "total": {
+        "hospitalises": 508,
+        "provinces": 1,
+        "lits": 840,
+        "hospitalisesAvecLits": 508,
+        "occupation": 60.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-10",
+      "sitrepNumber": "088",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 417,
+          "lits": 845,
+          "occupation": 49.3
+        }
+      },
+      "total": {
+        "hospitalises": 417,
+        "provinces": 1,
+        "lits": 845,
+        "hospitalisesAvecLits": 417,
+        "occupation": 49.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-11",
+      "sitrepNumber": "089",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 375,
+          "lits": 845,
+          "occupation": 44.4
+        },
+        "Nord-Kivu": {
+          "hospitalises": 176
+        }
+      },
+      "total": {
+        "hospitalises": 551,
+        "provinces": 2,
+        "lits": 845,
+        "hospitalisesAvecLits": 375,
+        "occupation": 44.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-12",
+      "sitrepNumber": "090",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 438,
+          "lits": 973,
+          "occupation": 45.0
+        },
+        "Nord-Kivu": {
+          "hospitalises": 180
+        },
+        "Haut-Uélé": {
+          "hospitalises": 53,
+          "lits": 78,
+          "occupation": 67.9,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 5,
+          "occupation": 41.7
+        }
+      },
+      "total": {
+        "hospitalises": 676,
+        "provinces": 4,
+        "lits": 1051,
+        "hospitalisesAvecLits": 491,
+        "occupation": 46.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-13",
+      "sitrepNumber": "091",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 528,
+          "lits": 985,
+          "occupation": 53.6
+        },
+        "Nord-Kivu": {
+          "hospitalises": 151,
+          "lits": 206,
+          "occupation": 73.3
+        },
+        "Haut-Uélé": {
+          "hospitalises": 56,
+          "lits": 84,
+          "occupation": 66.7,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 8,
+          "occupation": 66.7
+        }
+      },
+      "total": {
+        "hospitalises": 743,
+        "provinces": 4,
+        "lits": 1275,
+        "hospitalisesAvecLits": 735,
+        "occupation": 57.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-14",
+      "sitrepNumber": "092",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 545,
+          "lits": 991,
+          "occupation": 55.0
+        },
+        "Nord-Kivu": {
+          "hospitalises": 165,
+          "lits": 206,
+          "occupation": 80.1
+        },
+        "Haut-Uélé": {
+          "hospitalises": 61,
+          "lits": 84,
+          "occupation": 72.6,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 771,
+        "provinces": 3,
+        "lits": 1281,
+        "hospitalisesAvecLits": 771,
+        "occupation": 60.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-15",
+      "sitrepNumber": "093",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 548,
+          "lits": 991,
+          "occupation": 55.3
+        },
+        "Nord-Kivu": {
+          "hospitalises": 170,
+          "lits": 206,
+          "occupation": 82.5,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 8,
+          "lits": 12,
+          "occupation": 66.7
+        }
+      },
+      "total": {
+        "hospitalises": 726,
+        "provinces": 3,
+        "lits": 1209,
+        "hospitalisesAvecLits": 726,
+        "occupation": 60.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-16",
+      "sitrepNumber": "094",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 577,
+          "lits": 991,
+          "occupation": 58.2
+        },
+        "Nord-Kivu": {
+          "hospitalises": 170,
+          "lits": 206,
+          "occupation": 82.5
+        }
+      },
+      "total": {
+        "hospitalises": 747,
+        "provinces": 2,
+        "lits": 1197,
+        "hospitalisesAvecLits": 747,
+        "occupation": 62.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-17",
+      "sitrepNumber": "095",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 470,
+          "lits": 996,
+          "occupation": 47.2
+        },
+        "Nord-Kivu": {
+          "hospitalises": 181,
+          "lits": 206,
+          "occupation": 87.9
+        },
+        "Haut-Uélé": {
+          "hospitalises": 49,
+          "lits": 78,
+          "occupation": 62.8
+        },
+        "Sud-Kivu": {
+          "hospitalises": 14
+        }
+      },
+      "total": {
+        "hospitalises": 714,
+        "provinces": 4,
+        "lits": 1280,
+        "hospitalisesAvecLits": 700,
+        "occupation": 54.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-18",
+      "sitrepNumber": "096",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 447,
+          "lits": 965,
+          "occupation": 46.3
+        },
+        "Nord-Kivu": {
+          "hospitalises": 205,
+          "lits": 206,
+          "occupation": 99.5
+        },
+        "Tshopo": {
+          "hospitalises": 5,
+          "lits": 12,
+          "occupation": 41.7
+        },
+        "Sud-Kivu": {
+          "hospitalises": 20
+        }
+      },
+      "total": {
+        "hospitalises": 677,
+        "provinces": 4,
+        "lits": 1183,
+        "hospitalisesAvecLits": 657,
+        "occupation": 55.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-19",
+      "sitrepNumber": "097",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 551,
+          "lits": 965,
+          "occupation": 57.1
+        },
+        "Nord-Kivu": {
+          "hospitalises": 196,
+          "lits": 206,
+          "occupation": 95.1
+        },
+        "Haut-Uélé": {
+          "hospitalises": 4,
+          "occupation": 100.0
+        },
+        "Sud-Kivu": {
+          "hospitalises": 25
+        }
+      },
+      "total": {
+        "hospitalises": 776,
+        "provinces": 4,
+        "lits": 1171,
+        "hospitalisesAvecLits": 747,
+        "occupation": 63.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-20",
+      "sitrepNumber": "098",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 536,
+          "lits": 965,
+          "occupation": 55.2
+        },
+        "Nord-Kivu": {
+          "hospitalises": 169,
+          "lits": 206,
+          "occupation": 82.0
+        },
+        "Tshopo": {
+          "hospitalises": 6,
+          "lits": 12,
+          "occupation": 50.0
+        },
+        "Sud-Kivu": {
+          "hospitalises": 25
+        }
+      },
+      "total": {
+        "hospitalises": 736,
+        "provinces": 4,
+        "lits": 1183,
+        "hospitalisesAvecLits": 711,
+        "occupation": 60.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-21",
+      "sitrepNumber": "099",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 521,
+          "lits": 965,
+          "occupation": 54.0
+        },
+        "Nord-Kivu": {
+          "hospitalises": 176,
+          "lits": 206,
+          "occupation": 85.4
+        },
+        "Tshopo": {
+          "hospitalises": 5,
+          "lits": 14,
+          "occupation": 35.7
+        },
+        "Haut-Uélé": {
+          "hospitalises": 69,
+          "lits": 130,
+          "occupation": 53.1
+        },
+        "Sud-Kivu": {
+          "hospitalises": 27
+        }
+      },
+      "total": {
+        "hospitalises": 798,
+        "provinces": 5,
+        "lits": 1315,
+        "hospitalisesAvecLits": 771,
+        "occupation": 58.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-22",
+      "sitrepNumber": "100",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 528,
+          "lits": 965,
+          "occupation": 54.7
+        },
+        "Nord-Kivu": {
+          "hospitalises": 167,
+          "lits": 206,
+          "occupation": 81.1
+        },
+        "Tshopo": {
+          "hospitalises": 4,
+          "lits": 14,
+          "occupation": 28.6
+        },
+        "Haut-Uélé": {
+          "hospitalises": 72,
+          "lits": 130,
+          "occupation": 55.4
+        },
+        "Sud-Kivu": {
+          "hospitalises": 29
+        }
+      },
+      "total": {
+        "hospitalises": 800,
+        "provinces": 5,
+        "lits": 1315,
+        "hospitalisesAvecLits": 771,
+        "occupation": 58.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-23",
+      "sitrepNumber": "101",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 555,
+          "lits": 965,
+          "occupation": 57.5
+        },
+        "Nord-Kivu": {
+          "hospitalises": 181,
+          "lits": 206,
+          "occupation": 87.9
+        },
+        "Tshopo": {
+          "hospitalises": 7,
+          "lits": 14,
+          "occupation": 50.0
+        },
+        "Haut-Uélé": {
+          "hospitalises": 72,
+          "lits": 130,
+          "occupation": 55.4,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 815,
+        "provinces": 4,
+        "lits": 1315,
+        "hospitalisesAvecLits": 815,
+        "occupation": 62.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-24",
+      "sitrepNumber": "102",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 522,
+          "lits": 978,
+          "occupation": 53.4
+        },
+        "Nord-Kivu": {
+          "hospitalises": 178,
+          "lits": 206,
+          "occupation": 86.4
+        },
+        "Haut-Uélé": {
+          "hospitalises": 81,
+          "lits": 130,
+          "occupation": 62.3,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 781,
+        "provinces": 3,
+        "lits": 1314,
+        "hospitalisesAvecLits": 781,
+        "occupation": 59.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-25",
+      "sitrepNumber": "103",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 488,
+          "lits": 978,
+          "occupation": 49.9
+        },
+        "Nord-Kivu": {
+          "hospitalises": 194,
+          "lits": 206,
+          "occupation": 94.2
+        },
+        "Haut-Uélé": {
+          "hospitalises": 79,
+          "lits": 120,
+          "occupation": 65.8,
+          "occupationCalculee": true
+        }
+      },
+      "total": {
+        "hospitalises": 761,
+        "provinces": 3,
+        "lits": 1304,
+        "hospitalisesAvecLits": 761,
+        "occupation": 58.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-26",
+      "sitrepNumber": "104",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 549,
+          "lits": 978,
+          "occupation": 56.1
+        },
+        "Nord-Kivu": {
+          "hospitalises": 214,
+          "lits": 206,
+          "occupation": 103.9
+        },
+        "Haut-Uélé": {
+          "hospitalises": 68
+        }
+      },
+      "total": {
+        "hospitalises": 831,
+        "provinces": 3,
+        "lits": 1184,
+        "hospitalisesAvecLits": 763,
+        "occupation": 64.4
+      },
+      "source": "SitRep INSP (automatique)"
+    }
+  ]
+}

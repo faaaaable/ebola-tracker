@@ -1,0 +1,2794 @@
+{
+  "periode": {
+    "debut": "2026-06-01",
+    "fin": "2026-08-26"
+  },
+  "parDate": [
+    {
+      "date": "2026-06-01",
+      "sitrepNumber": "018",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 137,
+          "verifiees": 89
+        },
+        "Nord-Kivu": {
+          "recues": 212,
+          "verifiees": 109
+        },
+        "Sud-Kivu": {
+          "recues": 5,
+          "verifiees": 3
+        }
+      },
+      "total": {
+        "recues": 354,
+        "verifiees": 201,
+        "partVerifiee": 56.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-02",
+      "sitrepNumber": "019",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 158,
+          "verifiees": 157
+        },
+        "Nord-Kivu": {
+          "recues": 153,
+          "verifiees": 152
+        },
+        "Sud-Kivu": {
+          "recues": 5,
+          "verifiees": 4
+        }
+      },
+      "total": {
+        "recues": 316,
+        "verifiees": 313,
+        "partVerifiee": 99.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-03",
+      "sitrepNumber": "020",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 166
+        },
+        "Sud-Kivu": {
+          "recues": 237
+        }
+      },
+      "total": {
+        "recues": 403,
+        "calcule": true
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-04",
+      "sitrepNumber": "021",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 146
+        },
+        "Nord-Kivu": {
+          "recues": 236
+        },
+        "Sud-Kivu": {
+          "recues": 12
+        }
+      },
+      "total": {
+        "recues": 394
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-05",
+      "sitrepNumber": "022",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 97
+        },
+        "Nord-Kivu": {
+          "recues": 340
+        },
+        "Sud-Kivu": {
+          "recues": 8
+        }
+      },
+      "total": {
+        "recues": 445
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-06",
+      "sitrepNumber": "023",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 134,
+          "verifiees": 111
+        },
+        "Nord-Kivu": {
+          "recues": 208,
+          "verifiees": 208
+        },
+        "Sud-Kivu": {
+          "recues": 3,
+          "verifiees": 3
+        }
+      },
+      "total": {
+        "recues": 345,
+        "verifiees": 322,
+        "partVerifiee": 93.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-07",
+      "sitrepNumber": "024",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 153,
+          "verifiees": 116,
+          "validees": 33
+        },
+        "Nord-Kivu": {
+          "recues": 290,
+          "verifiees": 290,
+          "validees": 60
+        },
+        "Sud-Kivu": {
+          "recues": 7,
+          "verifiees": 7,
+          "validees": 1
+        }
+      },
+      "total": {
+        "recues": 450,
+        "verifiees": 413,
+        "validees": 94,
+        "partVerifiee": 91.8,
+        "partValidee": 20.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-08",
+      "sitrepNumber": "025",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 140,
+          "validees": 76
+        },
+        "Nord-Kivu": {
+          "recues": 265,
+          "validees": 56
+        },
+        "Sud-Kivu": {
+          "recues": 25,
+          "validees": 6
+        }
+      },
+      "total": {
+        "recues": 430,
+        "validees": 138,
+        "partValidee": 32.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-09",
+      "sitrepNumber": "026",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 78,
+          "verifiees": 57,
+          "validees": 49
+        },
+        "Nord-Kivu": {
+          "recues": 526,
+          "verifiees": 505,
+          "validees": 69
+        },
+        "Sud-Kivu": {
+          "recues": 12,
+          "verifiees": 12,
+          "validees": 1
+        }
+      },
+      "total": {
+        "recues": 616,
+        "verifiees": 574,
+        "validees": 119,
+        "partVerifiee": 93.2,
+        "partValidee": 19.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-10",
+      "sitrepNumber": "027",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 143,
+          "validees": 91
+        },
+        "Nord-Kivu": {
+          "recues": 107,
+          "validees": 22
+        },
+        "Sud-Kivu": {
+          "recues": 7,
+          "validees": 6
+        }
+      },
+      "total": {
+        "recues": 257,
+        "validees": 119,
+        "partValidee": 46.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-11",
+      "sitrepNumber": "028",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 143,
+          "validees": 45
+        },
+        "Nord-Kivu": {
+          "recues": 266,
+          "validees": 113
+        },
+        "Sud-Kivu": {
+          "recues": 10,
+          "validees": 10
+        }
+      },
+      "total": {
+        "recues": 419,
+        "validees": 168,
+        "partValidee": 40.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-13",
+      "sitrepNumber": "030",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 152,
+          "verifiees": 106,
+          "validees": 84
+        },
+        "Nord-Kivu": {
+          "recues": 332,
+          "verifiees": 332,
+          "validees": 44
+        },
+        "Sud-Kivu": {
+          "recues": 23,
+          "verifiees": 22,
+          "validees": 8
+        }
+      },
+      "total": {
+        "recues": 507,
+        "verifiees": 460,
+        "validees": 136,
+        "partVerifiee": 90.7,
+        "partValidee": 26.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-14",
+      "sitrepNumber": "031",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 241,
+          "validees": 110
+        },
+        "Nord-Kivu": {
+          "recues": 329,
+          "validees": 52
+        },
+        "Sud-Kivu": {
+          "recues": 18,
+          "validees": 3
+        }
+      },
+      "total": {
+        "recues": 588,
+        "validees": 165,
+        "partValidee": 28.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-15",
+      "sitrepNumber": "032",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 276,
+          "verifiees": 188,
+          "validees": 176
+        },
+        "Nord-Kivu": {
+          "recues": 483,
+          "verifiees": 483,
+          "validees": 52
+        },
+        "Sud-Kivu": {
+          "recues": 7,
+          "verifiees": 7,
+          "validees": 7
+        }
+      },
+      "total": {
+        "recues": 766,
+        "verifiees": 678,
+        "validees": 235,
+        "partVerifiee": 88.5,
+        "partValidee": 30.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-16",
+      "sitrepNumber": "033",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 391,
+          "verifiees": 129,
+          "validees": 124
+        },
+        "Nord-Kivu": {
+          "recues": 332,
+          "verifiees": 332,
+          "validees": 59
+        },
+        "Sud-Kivu": {
+          "recues": 14,
+          "verifiees": 14,
+          "validees": 9
+        }
+      },
+      "total": {
+        "recues": 737,
+        "verifiees": 475,
+        "validees": 192,
+        "partVerifiee": 64.5,
+        "partValidee": 26.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-17",
+      "sitrepNumber": "034",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 266,
+          "verifiees": 81,
+          "validees": 76
+        },
+        "Nord-Kivu": {
+          "recues": 755,
+          "verifiees": 746,
+          "validees": 73
+        },
+        "Sud-Kivu": {
+          "recues": 7,
+          "verifiees": 3,
+          "validees": 2
+        }
+      },
+      "total": {
+        "recues": 1028,
+        "verifiees": 830,
+        "validees": 151,
+        "partVerifiee": 80.7,
+        "partValidee": 14.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-18",
+      "sitrepNumber": "035",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 436,
+          "validees": 149
+        },
+        "Nord-Kivu": {
+          "recues": 681,
+          "validees": 79
+        },
+        "Sud-Kivu": {
+          "recues": 22,
+          "validees": 10
+        }
+      },
+      "total": {
+        "recues": 1139,
+        "validees": 238,
+        "partValidee": 20.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-19",
+      "sitrepNumber": "036",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 233,
+          "validees": 96
+        },
+        "Nord-Kivu": {
+          "recues": 500,
+          "validees": 66
+        }
+      },
+      "total": {
+        "recues": 733,
+        "validees": 162,
+        "partValidee": 22.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-20",
+      "sitrepNumber": "037",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 393,
+          "validees": 146
+        },
+        "Nord-Kivu": {
+          "recues": 436,
+          "validees": 50
+        },
+        "Sud-Kivu": {
+          "recues": 11,
+          "validees": 5
+        }
+      },
+      "total": {
+        "recues": 840,
+        "validees": 201,
+        "partValidee": 23.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-21",
+      "sitrepNumber": "038",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 300,
+          "verifiees": 300,
+          "validees": 160
+        },
+        "Nord-Kivu": {
+          "recues": 518,
+          "verifiees": 518,
+          "validees": 39
+        },
+        "Sud-Kivu": {
+          "recues": 13,
+          "verifiees": 13,
+          "validees": 3
+        }
+      },
+      "total": {
+        "recues": 831,
+        "verifiees": 831,
+        "validees": 202,
+        "partVerifiee": 100.0,
+        "partValidee": 24.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-22",
+      "sitrepNumber": "039",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 175,
+          "verifiees": 175,
+          "validees": 61
+        },
+        "Nord-Kivu": {
+          "recues": 703,
+          "verifiees": 702,
+          "validees": 70
+        },
+        "Sud-Kivu": {
+          "recues": 13,
+          "verifiees": 0,
+          "validees": 0
+        }
+      },
+      "total": {
+        "recues": 891,
+        "verifiees": 877,
+        "validees": 131,
+        "partVerifiee": 98.4,
+        "partValidee": 14.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-23",
+      "sitrepNumber": "040",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 129,
+          "verifiees": 160,
+          "validees": 66
+        },
+        "Nord-Kivu": {
+          "recues": 515,
+          "verifiees": 515,
+          "validees": 65
+        },
+        "Sud-Kivu": {
+          "recues": 11,
+          "verifiees": 20,
+          "validees": 7
+        }
+      },
+      "total": {
+        "recues": 655,
+        "verifiees": 695,
+        "validees": 138,
+        "partVerifiee": 106.1,
+        "partValidee": 21.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-24",
+      "sitrepNumber": "041",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 204,
+          "verifiees": 214,
+          "validees": 97
+        },
+        "Nord-Kivu": {
+          "recues": 586,
+          "verifiees": 507,
+          "validees": 51
+        },
+        "Sud-Kivu": {
+          "recues": 19,
+          "verifiees": 23,
+          "validees": 6
+        }
+      },
+      "total": {
+        "recues": 809,
+        "verifiees": 744,
+        "validees": 154,
+        "partVerifiee": 92.0,
+        "partValidee": 19.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-25",
+      "sitrepNumber": "042",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 410,
+          "verifiees": 423,
+          "validees": 173
+        },
+        "Nord-Kivu": {
+          "recues": 740,
+          "verifiees": 740,
+          "validees": 88
+        },
+        "Sud-Kivu": {
+          "recues": 12,
+          "verifiees": 12,
+          "validees": 4
+        }
+      },
+      "total": {
+        "recues": 1162,
+        "verifiees": 1175,
+        "validees": 265,
+        "partVerifiee": 101.1,
+        "partValidee": 22.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-27",
+      "sitrepNumber": "044",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 290,
+          "verifiees": 290,
+          "validees": 165
+        },
+        "Nord-Kivu": {
+          "recues": 962,
+          "verifiees": 962,
+          "validees": 70
+        },
+        "Sud-Kivu": {
+          "recues": 19,
+          "verifiees": 19,
+          "validees": 4
+        }
+      },
+      "total": {
+        "recues": 1271,
+        "verifiees": 1271,
+        "validees": 239,
+        "partVerifiee": 100.0,
+        "partValidee": 18.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-29",
+      "sitrepNumber": "046",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 474,
+          "verifiees": 180,
+          "validees": 222
+        },
+        "Nord-Kivu": {
+          "recues": 864,
+          "verifiees": 862,
+          "validees": 87
+        },
+        "Sud-Kivu": {
+          "recues": 38,
+          "verifiees": 36,
+          "validees": 0
+        }
+      },
+      "total": {
+        "recues": 1376,
+        "verifiees": 1078,
+        "validees": 309,
+        "partVerifiee": 78.3,
+        "partValidee": 22.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-30",
+      "sitrepNumber": "047",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 387,
+          "verifiees": 212,
+          "validees": 223
+        },
+        "Nord-Kivu": {
+          "recues": 814,
+          "verifiees": 814,
+          "validees": 77
+        },
+        "Sud-Kivu": {
+          "recues": 11,
+          "verifiees": 9,
+          "validees": 1
+        }
+      },
+      "total": {
+        "recues": 1212,
+        "verifiees": 1035,
+        "validees": 301,
+        "partVerifiee": 85.4,
+        "partValidee": 24.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-02",
+      "sitrepNumber": "049",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 349,
+          "verifiees": 150,
+          "validees": 150
+        },
+        "Nord-Kivu": {
+          "recues": 608,
+          "verifiees": 608,
+          "validees": 61
+        },
+        "Sud-Kivu": {
+          "recues": 13,
+          "verifiees": 9,
+          "validees": 2
+        }
+      },
+      "total": {
+        "recues": 970,
+        "verifiees": 767,
+        "validees": 213,
+        "partVerifiee": 79.1,
+        "partValidee": 22.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-03",
+      "sitrepNumber": "050",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 292,
+          "verifiees": 119,
+          "validees": 119
+        },
+        "Nord-Kivu": {
+          "recues": 768,
+          "verifiees": 768,
+          "validees": 61
+        },
+        "Sud-Kivu": {
+          "recues": 11,
+          "verifiees": 15,
+          "validees": 5
+        }
+      },
+      "total": {
+        "recues": 1071,
+        "verifiees": 902,
+        "validees": 185,
+        "partVerifiee": 84.2,
+        "partValidee": 17.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-04",
+      "sitrepNumber": "051",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 408,
+          "verifiees": 222,
+          "validees": 275
+        },
+        "Nord-Kivu": {
+          "recues": 778,
+          "verifiees": 778,
+          "validees": 77
+        },
+        "Sud-Kivu": {
+          "recues": 43,
+          "verifiees": 2,
+          "validees": 2
+        }
+      },
+      "total": {
+        "recues": 1229,
+        "verifiees": 1002,
+        "validees": 354,
+        "partVerifiee": 81.5,
+        "partValidee": 28.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-05",
+      "sitrepNumber": "052",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 228,
+          "verifiees": 147,
+          "validees": 66
+        },
+        "Nord-Kivu": {
+          "recues": 662,
+          "verifiees": 662,
+          "validees": 64
+        },
+        "Sud-Kivu": {
+          "recues": 11,
+          "verifiees": 15,
+          "validees": 5
+        }
+      },
+      "total": {
+        "recues": 901,
+        "verifiees": 824,
+        "validees": 135,
+        "partVerifiee": 91.5,
+        "partValidee": 15.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-06",
+      "sitrepNumber": "053",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 414,
+          "validees": 170
+        },
+        "Nord-Kivu": {
+          "recues": 726,
+          "validees": 64
+        },
+        "Sud-Kivu": {
+          "recues": 10,
+          "validees": 3
+        }
+      },
+      "total": {
+        "recues": 1150,
+        "validees": 237,
+        "partValidee": 20.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-07",
+      "sitrepNumber": "054",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 403,
+          "validees": 202
+        },
+        "Nord-Kivu": {
+          "recues": 759,
+          "validees": 99
+        },
+        "Sud-Kivu": {
+          "recues": 9,
+          "validees": 3
+        }
+      },
+      "total": {
+        "recues": 1171,
+        "validees": 304,
+        "partValidee": 26.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-08",
+      "sitrepNumber": "055",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 555,
+          "verifiees": 319,
+          "validees": 246
+        },
+        "Nord-Kivu": {
+          "recues": 271,
+          "verifiees": 271,
+          "validees": 21
+        },
+        "Sud-Kivu": {
+          "recues": 15,
+          "verifiees": 17,
+          "validees": 4
+        }
+      },
+      "total": {
+        "recues": 841,
+        "verifiees": 607,
+        "validees": 271,
+        "calcule": true,
+        "partVerifiee": 72.2,
+        "partValidee": 32.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-09",
+      "sitrepNumber": "056",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 492,
+          "verifiees": 329,
+          "validees": 216
+        },
+        "Nord-Kivu": {
+          "recues": 731,
+          "verifiees": 731,
+          "validees": 66
+        },
+        "Sud-Kivu": {
+          "recues": 9,
+          "verifiees": 9,
+          "validees": 2
+        }
+      },
+      "total": {
+        "recues": 1232,
+        "verifiees": 1069,
+        "validees": 284,
+        "partVerifiee": 86.8,
+        "partValidee": 23.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-10",
+      "sitrepNumber": "057",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 637,
+          "verifiees": 425,
+          "validees": 225
+        },
+        "Nord-Kivu": {
+          "recues": 852,
+          "verifiees": 852,
+          "validees": 69
+        },
+        "Sud-Kivu": {
+          "recues": 8,
+          "verifiees": 8,
+          "validees": 5
+        }
+      },
+      "total": {
+        "recues": 1497,
+        "verifiees": 1285,
+        "validees": 299,
+        "partVerifiee": 85.8,
+        "partValidee": 20.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-11",
+      "sitrepNumber": "058",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 462,
+          "verifiees": 471,
+          "validees": 166
+        },
+        "Nord-Kivu": {
+          "recues": 696,
+          "verifiees": 696,
+          "validees": 56
+        },
+        "Sud-Kivu": {
+          "recues": 12,
+          "verifiees": 12,
+          "validees": 6
+        }
+      },
+      "total": {
+        "recues": 1170,
+        "verifiees": 1179,
+        "validees": 228,
+        "partVerifiee": 100.8,
+        "partValidee": 19.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-12",
+      "sitrepNumber": "059",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 408,
+          "validees": 174
+        },
+        "Nord-Kivu": {
+          "recues": 665,
+          "validees": 62
+        },
+        "Sud-Kivu": {
+          "recues": 5,
+          "validees": 4
+        },
+        "Haut-Uélé": {
+          "recues": 32,
+          "validees": 28
+        }
+      },
+      "total": {
+        "recues": 1110,
+        "validees": 268,
+        "partValidee": 24.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-13",
+      "sitrepNumber": "060",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 408,
+          "verifiees": 348,
+          "validees": 174
+        },
+        "Nord-Kivu": {
+          "recues": 665,
+          "verifiees": 665,
+          "validees": 62
+        },
+        "Sud-Kivu": {
+          "recues": 5,
+          "verifiees": 5,
+          "validees": 4
+        },
+        "Haut-Uélé": {
+          "recues": 32,
+          "verifiees": 31,
+          "validees": 28
+        }
+      },
+      "total": {
+        "recues": 1110,
+        "verifiees": 1049,
+        "validees": 268,
+        "partVerifiee": 94.5,
+        "partValidee": 24.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-14",
+      "sitrepNumber": "061",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 385,
+          "verifiees": 179,
+          "validees": 318
+        },
+        "Nord-Kivu": {
+          "recues": 725,
+          "verifiees": 725,
+          "validees": 79
+        },
+        "Haut-Uélé": {
+          "recues": 12,
+          "verifiees": 12,
+          "validees": 11
+        },
+        "Tshopo": {
+          "recues": 10,
+          "verifiees": 10,
+          "validees": 10
+        }
+      },
+      "total": {
+        "recues": 1132,
+        "verifiees": 926,
+        "validees": 418,
+        "partVerifiee": 81.8,
+        "partValidee": 36.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-15",
+      "sitrepNumber": "062",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 467,
+          "verifiees": 133,
+          "validees": 282
+        },
+        "Nord-Kivu": {
+          "recues": 696,
+          "verifiees": 696,
+          "validees": 68
+        },
+        "Tshopo": {
+          "recues": 4,
+          "verifiees": 39,
+          "validees": 39
+        }
+      },
+      "total": {
+        "recues": 1167,
+        "verifiees": 868,
+        "validees": 389,
+        "partVerifiee": 74.4,
+        "partValidee": 33.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-17",
+      "sitrepNumber": "064",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 437,
+          "verifiees": 402,
+          "validees": 170
+        },
+        "Nord-Kivu": {
+          "recues": 741,
+          "verifiees": 741,
+          "validees": 61
+        },
+        "Haut-Uélé": {
+          "recues": 4,
+          "verifiees": 4,
+          "validees": 4
+        },
+        "Tshopo": {
+          "recues": 1,
+          "verifiees": 1,
+          "validees": 1
+        }
+      },
+      "total": {
+        "recues": 1183,
+        "verifiees": 1148,
+        "validees": 236,
+        "partVerifiee": 97.0,
+        "partValidee": 19.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-18",
+      "sitrepNumber": "065",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 336,
+          "verifiees": 293,
+          "validees": 128
+        },
+        "Nord-Kivu": {
+          "recues": 525,
+          "verifiees": 525,
+          "validees": 57
+        },
+        "Haut-Uélé": {
+          "recues": 0,
+          "verifiees": 4,
+          "validees": 4
+        },
+        "Tshopo": {
+          "recues": 3,
+          "verifiees": 3,
+          "validees": 3
+        }
+      },
+      "total": {
+        "recues": 864,
+        "verifiees": 825,
+        "validees": 192,
+        "partVerifiee": 95.5,
+        "partValidee": 22.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-19",
+      "sitrepNumber": "066",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 417,
+          "verifiees": 335,
+          "validees": 207
+        },
+        "Nord-Kivu": {
+          "recues": 572,
+          "verifiees": 572,
+          "validees": 41
+        },
+        "Haut-Uélé": {
+          "recues": 4,
+          "verifiees": 4,
+          "validees": 4
+        }
+      },
+      "total": {
+        "recues": 993,
+        "verifiees": 911,
+        "validees": 252,
+        "partVerifiee": 91.7,
+        "partValidee": 25.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-20",
+      "sitrepNumber": "067",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 490,
+          "verifiees": 359,
+          "validees": 201
+        },
+        "Nord-Kivu": {
+          "recues": 737,
+          "verifiees": 737,
+          "validees": 116
+        },
+        "Tshopo": {
+          "recues": 3,
+          "verifiees": 3,
+          "validees": 3
+        },
+        "Sud-Kivu": {
+          "recues": 9,
+          "verifiees": 2,
+          "validees": 2
+        }
+      },
+      "total": {
+        "recues": 1239,
+        "verifiees": 1101,
+        "validees": 322,
+        "partVerifiee": 88.9,
+        "partValidee": 26.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-21",
+      "sitrepNumber": "068",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 485,
+          "verifiees": 332,
+          "validees": 215
+        },
+        "Nord-Kivu": {
+          "recues": 911,
+          "verifiees": 902,
+          "validees": 88
+        },
+        "Tshopo": {
+          "recues": 3,
+          "verifiees": 3,
+          "validees": 3
+        }
+      },
+      "total": {
+        "recues": 1399,
+        "verifiees": 1237,
+        "validees": 306,
+        "partVerifiee": 88.4,
+        "partValidee": 21.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-22",
+      "sitrepNumber": "069",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 485,
+          "verifiees": 313,
+          "validees": 188
+        },
+        "Nord-Kivu": {
+          "recues": 833,
+          "verifiees": 833,
+          "validees": 119
+        },
+        "Haut-Uélé": {
+          "recues": 3,
+          "verifiees": 7,
+          "validees": 7
+        },
+        "Tshopo": {
+          "recues": 2,
+          "verifiees": 26,
+          "validees": 4
+        }
+      },
+      "total": {
+        "recues": 1323,
+        "verifiees": 1179,
+        "validees": 318,
+        "partVerifiee": 89.1,
+        "partValidee": 24.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-23",
+      "sitrepNumber": "070",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 532,
+          "verifiees": 296,
+          "validees": 199
+        },
+        "Nord-Kivu": {
+          "recues": 924,
+          "verifiees": 917,
+          "validees": 107
+        },
+        "Tshopo": {
+          "recues": 27,
+          "verifiees": 9,
+          "validees": 9
+        }
+      },
+      "total": {
+        "recues": 1483,
+        "verifiees": 1222,
+        "validees": 315,
+        "partVerifiee": 82.4,
+        "partValidee": 21.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-24",
+      "sitrepNumber": "071",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 865,
+          "verifiees": 641,
+          "validees": 198
+        },
+        "Nord-Kivu": {
+          "recues": 957,
+          "verifiees": 948,
+          "validees": 64
+        },
+        "Haut-Uélé": {
+          "recues": 5,
+          "verifiees": 4,
+          "validees": 3
+        },
+        "Tshopo": {
+          "recues": 31,
+          "verifiees": 24,
+          "validees": 9
+        }
+      },
+      "total": {
+        "recues": 1858,
+        "verifiees": 1617,
+        "validees": 274,
+        "partVerifiee": 87.0,
+        "partValidee": 14.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-25",
+      "sitrepNumber": "072",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 581,
+          "verifiees": 482,
+          "validees": 242
+        },
+        "Nord-Kivu": {
+          "recues": 714,
+          "verifiees": 707,
+          "validees": 86
+        },
+        "Haut-Uélé": {
+          "recues": 11,
+          "verifiees": 6,
+          "validees": 3
+        },
+        "Tshopo": {
+          "recues": 22,
+          "verifiees": 4,
+          "validees": 2
+        },
+        "Sud-Kivu": {
+          "recues": 7,
+          "verifiees": 7,
+          "validees": 7
+        }
+      },
+      "total": {
+        "recues": 1335,
+        "verifiees": 1206,
+        "validees": 340,
+        "partVerifiee": 90.3,
+        "partValidee": 25.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-26",
+      "sitrepNumber": "073",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 587,
+          "verifiees": 482,
+          "validees": 242
+        },
+        "Nord-Kivu": {
+          "recues": 614,
+          "verifiees": 596,
+          "validees": 81
+        },
+        "Haut-Uélé": {
+          "recues": 1,
+          "verifiees": 0,
+          "validees": 3
+        }
+      },
+      "total": {
+        "recues": 1202,
+        "verifiees": 1078,
+        "validees": 326,
+        "partVerifiee": 89.7,
+        "partValidee": 27.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-27",
+      "sitrepNumber": "074",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 393,
+          "verifiees": 273,
+          "validees": 190
+        },
+        "Nord-Kivu": {
+          "recues": 858,
+          "verifiees": 842,
+          "validees": 105
+        },
+        "Haut-Uélé": {
+          "recues": 10,
+          "verifiees": 25,
+          "validees": 25
+        },
+        "Tshopo": {
+          "recues": 2,
+          "verifiees": 2,
+          "validees": 1
+        }
+      },
+      "total": {
+        "recues": 1263,
+        "verifiees": 1142,
+        "validees": 321,
+        "partVerifiee": 90.4,
+        "partValidee": 25.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-30",
+      "sitrepNumber": "077",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 514,
+          "verifiees": 367,
+          "validees": 222
+        },
+        "Nord-Kivu": {
+          "recues": 875,
+          "verifiees": 873,
+          "validees": 101
+        },
+        "Haut-Uélé": {
+          "recues": 5,
+          "verifiees": 27,
+          "validees": 27
+        },
+        "Tshopo": {
+          "recues": 71,
+          "verifiees": 24,
+          "validees": 24
+        }
+      },
+      "total": {
+        "recues": 1465,
+        "verifiees": 1291,
+        "validees": 374,
+        "partVerifiee": 88.1,
+        "partValidee": 25.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-31",
+      "sitrepNumber": "078",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 530,
+          "verifiees": 408,
+          "validees": 206
+        },
+        "Nord-Kivu": {
+          "recues": 864,
+          "verifiees": 852,
+          "validees": 87
+        },
+        "Haut-Uélé": {
+          "recues": 3,
+          "verifiees": 22,
+          "validees": 22
+        },
+        "Sud-Kivu": {
+          "recues": 6,
+          "verifiees": 10,
+          "validees": 6
+        }
+      },
+      "total": {
+        "recues": 1403,
+        "verifiees": 1292,
+        "validees": 321,
+        "partVerifiee": 92.1,
+        "partValidee": 22.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-01",
+      "sitrepNumber": "079",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 479,
+          "verifiees": 421,
+          "validees": 153
+        },
+        "Nord-Kivu": {
+          "recues": 571,
+          "verifiees": 571,
+          "validees": 66
+        },
+        "Tshopo": {
+          "recues": 20,
+          "verifiees": 5,
+          "validees": 4
+        },
+        "Sud-Kivu": {
+          "recues": 7,
+          "verifiees": 12,
+          "validees": 4
+        }
+      },
+      "total": {
+        "recues": 1077,
+        "verifiees": 1009,
+        "validees": 227,
+        "partVerifiee": 93.7,
+        "partValidee": 21.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-02",
+      "sitrepNumber": "080",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 507,
+          "verifiees": 433,
+          "validees": 172
+        },
+        "Nord-Kivu": {
+          "recues": 731,
+          "verifiees": 728,
+          "validees": 102
+        },
+        "Sud-Kivu": {
+          "recues": 3,
+          "verifiees": 3,
+          "validees": 1
+        }
+      },
+      "total": {
+        "recues": 1241,
+        "verifiees": 1164,
+        "validees": 275,
+        "partVerifiee": 93.8,
+        "partValidee": 22.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-03",
+      "sitrepNumber": "081",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 540,
+          "verifiees": 344,
+          "validees": 182
+        },
+        "Nord-Kivu": {
+          "recues": 703,
+          "verifiees": 687,
+          "validees": 97
+        },
+        "Haut-Uélé": {
+          "recues": 5,
+          "verifiees": 6,
+          "validees": 6
+        },
+        "Tshopo": {
+          "recues": 15,
+          "verifiees": 15,
+          "validees": 2
+        },
+        "Sud-Kivu": {
+          "recues": 8,
+          "verifiees": 10,
+          "validees": 2
+        }
+      },
+      "total": {
+        "recues": 1271,
+        "verifiees": 1062,
+        "validees": 289,
+        "partVerifiee": 83.6,
+        "partValidee": 22.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-04",
+      "sitrepNumber": "082",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 562,
+          "verifiees": 279,
+          "validees": 174
+        },
+        "Nord-Kivu": {
+          "recues": 582,
+          "verifiees": 570,
+          "validees": 66
+        },
+        "Haut-Uélé": {
+          "recues": 22,
+          "verifiees": 21,
+          "validees": 21
+        },
+        "Sud-Kivu": {
+          "recues": 6,
+          "verifiees": 6,
+          "validees": 1
+        }
+      },
+      "total": {
+        "recues": 1172,
+        "verifiees": 876,
+        "validees": 262,
+        "partVerifiee": 74.7,
+        "partValidee": 22.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-05",
+      "sitrepNumber": "083",
+      "methode": "tableau par indicateur (B-C)",
+      "provinces": {
+        "Ituri": {
+          "recues": 458,
+          "verifiees": 352,
+          "validees": 193
+        },
+        "Nord-Kivu": {
+          "recues": 772,
+          "verifiees": 763,
+          "validees": 86
+        },
+        "Tshopo": {
+          "recues": 49,
+          "verifiees": 41,
+          "validees": 2
+        },
+        "Sud-Kivu": {
+          "recues": 2,
+          "verifiees": 2,
+          "validees": 1
+        }
+      },
+      "total": {
+        "recues": 1281,
+        "verifiees": 1158,
+        "validees": 282,
+        "partVerifiee": 90.4,
+        "partValidee": 22.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-09",
+      "sitrepNumber": "087",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 9,
+          "verifiees": 9,
+          "validees": 6,
+          "suspectsInvestigues": 6,
+          "transferes": 4
+        },
+        "Ituri": {
+          "recues": 708,
+          "verifiees": 689,
+          "validees": 125,
+          "suspectsInvestigues": 125,
+          "transferes": 60
+        },
+        "Nord-Kivu": {
+          "recues": 657,
+          "verifiees": 657,
+          "validees": 103,
+          "suspectsInvestigues": 103,
+          "transferes": 52
+        },
+        "Sud-Kivu": {
+          "recues": 8,
+          "verifiees": 8,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 1
+        },
+        "Tshopo": {
+          "recues": 44,
+          "verifiees": 40,
+          "validees": 7,
+          "suspectsInvestigues": 7,
+          "transferes": 7
+        }
+      },
+      "total": {
+        "recues": 1426,
+        "verifiees": 1403,
+        "validees": 242,
+        "suspectsInvestigues": 242,
+        "transferes": 124,
+        "partVerifiee": 98.4,
+        "partValidee": 17.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-10",
+      "sitrepNumber": "088",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Ituri": {
+          "recues": 604,
+          "verifiees": 488,
+          "validees": 229,
+          "suspectsInvestigues": 229,
+          "transferes": 149
+        },
+        "Nord-Kivu": {
+          "recues": 904,
+          "verifiees": 904,
+          "validees": 153,
+          "suspectsInvestigues": 153,
+          "transferes": 66
+        },
+        "Sud-Kivu": {
+          "recues": 8,
+          "verifiees": 8,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 1
+        },
+        "Tshopo": {
+          "recues": 89,
+          "verifiees": 88,
+          "validees": 6,
+          "suspectsInvestigues": 6,
+          "transferes": 5
+        }
+      },
+      "total": {
+        "recues": 1605,
+        "verifiees": 1488,
+        "validees": 389,
+        "calcule": true,
+        "partVerifiee": 92.7,
+        "partValidee": 24.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-11",
+      "sitrepNumber": "089",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 10,
+          "verifiees": 10,
+          "validees": 10,
+          "suspectsInvestigues": 10,
+          "transferes": 6
+        },
+        "Ituri": {
+          "recues": 568,
+          "verifiees": 449,
+          "validees": 160,
+          "suspectsInvestigues": 160,
+          "transferes": 95
+        },
+        "Nord-Kivu": {
+          "recues": 934,
+          "verifiees": 934,
+          "validees": 149,
+          "suspectsInvestigues": 148,
+          "transferes": 89
+        },
+        "Sud-Kivu": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": 0,
+          "transferes": 0
+        },
+        "Tshopo": {
+          "recues": 30,
+          "verifiees": 30,
+          "validees": 6,
+          "suspectsInvestigues": 6,
+          "transferes": 5
+        }
+      },
+      "total": {
+        "recues": 1542,
+        "verifiees": 1423,
+        "validees": 325,
+        "suspectsInvestigues": 324,
+        "transferes": 195,
+        "calcule": true,
+        "partVerifiee": 92.3,
+        "partValidee": 21.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-12",
+      "sitrepNumber": "090",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 26,
+          "verifiees": 26,
+          "validees": 21,
+          "suspectsInvestigues": 21,
+          "transferes": 14
+        },
+        "Ituri": {
+          "recues": 568,
+          "verifiees": 432,
+          "validees": 162,
+          "suspectsInvestigues": 122,
+          "transferes": 98
+        },
+        "Nord-Kivu": {
+          "recues": 882,
+          "verifiees": 875,
+          "validees": 134,
+          "suspectsInvestigues": 132,
+          "transferes": 67
+        },
+        "Sud-Kivu": {
+          "recues": 15,
+          "verifiees": 15,
+          "validees": 3,
+          "suspectsInvestigues": 3,
+          "transferes": 3
+        },
+        "Tshopo": {
+          "recues": 40,
+          "verifiees": 40,
+          "validees": 8,
+          "suspectsInvestigues": 8,
+          "transferes": 5
+        }
+      },
+      "total": {
+        "recues": 1531,
+        "verifiees": 1388,
+        "validees": 328,
+        "suspectsInvestigues": 286,
+        "transferes": 187,
+        "partVerifiee": 90.7,
+        "partValidee": 21.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-13",
+      "sitrepNumber": "091",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Bas-Uélé": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Haut-Uélé": {
+          "recues": 5,
+          "verifiees": 5,
+          "validees": 5,
+          "suspectsInvestigues": 5,
+          "transferes": 5
+        },
+        "Ituri": {
+          "recues": 623,
+          "verifiees": 583,
+          "validees": 173,
+          "suspectsInvestigues": 157,
+          "transferes": 146
+        },
+        "Nord-Kivu": {
+          "recues": 1043,
+          "verifiees": 1034,
+          "validees": 151,
+          "suspectsInvestigues": 149,
+          "transferes": 101
+        },
+        "Sud-Kivu": {
+          "recues": 8,
+          "verifiees": 8,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 1
+        },
+        "Tshopo": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        }
+      },
+      "total": {
+        "recues": 1679,
+        "verifiees": 1630,
+        "validees": 330,
+        "calcule": true,
+        "partVerifiee": 97.1,
+        "partValidee": 19.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-14",
+      "sitrepNumber": "092",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Bas-Uélé": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Haut-Uélé": {
+          "recues": 31,
+          "verifiees": 32,
+          "validees": 9,
+          "suspectsInvestigues": 9,
+          "transferes": 4
+        },
+        "Ituri": {
+          "recues": 642,
+          "verifiees": 449,
+          "validees": 226,
+          "suspectsInvestigues": 157,
+          "transferes": 138
+        },
+        "Nord-Kivu": {
+          "recues": 990,
+          "verifiees": 1032,
+          "validees": 167,
+          "suspectsInvestigues": 167,
+          "transferes": 103
+        },
+        "Sud-Kivu": {
+          "recues": 36,
+          "verifiees": 36,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 1
+        },
+        "Tshopo": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        }
+      },
+      "total": {
+        "recues": 1699,
+        "verifiees": 1549,
+        "validees": 403,
+        "calcule": true,
+        "partVerifiee": 91.2,
+        "partValidee": 23.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-15",
+      "sitrepNumber": "093",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 7,
+          "verifiees": 7,
+          "validees": 6,
+          "suspectsInvestigues": 6,
+          "transferes": 3
+        },
+        "Ituri": {
+          "recues": 765,
+          "verifiees": 626,
+          "validees": 241,
+          "suspectsInvestigues": 169,
+          "transferes": 165
+        },
+        "Nord-Kivu": {
+          "recues": 944,
+          "verifiees": 936,
+          "validees": 133,
+          "suspectsInvestigues": 131,
+          "transferes": 95
+        },
+        "Sud-Kivu": {
+          "recues": 14,
+          "verifiees": 6,
+          "validees": 0,
+          "suspectsInvestigues": 0,
+          "transferes": 0
+        },
+        "Tshopo": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        }
+      },
+      "total": {
+        "recues": 1730,
+        "verifiees": 1575,
+        "validees": 380,
+        "calcule": true,
+        "partVerifiee": 91.0,
+        "partValidee": 22.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-16",
+      "sitrepNumber": "094",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 12,
+          "verifiees": 12,
+          "validees": 10,
+          "suspectsInvestigues": 10,
+          "transferes": 7
+        },
+        "Bas-Uélé": {
+          "recues": 8,
+          "verifiees": 5,
+          "validees": 5,
+          "suspectsInvestigues": 5,
+          "transferes": 2
+        },
+        "Ituri": {
+          "recues": 340,
+          "verifiees": 243,
+          "validees": 124,
+          "suspectsInvestigues": 124,
+          "transferes": 66
+        },
+        "Nord-Kivu": {
+          "recues": 659,
+          "verifiees": 649,
+          "validees": 131,
+          "suspectsInvestigues": 129,
+          "transferes": 57
+        },
+        "Sud-Kivu": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Tshopo": {
+          "recues": 48,
+          "verifiees": 48,
+          "validees": 2,
+          "suspectsInvestigues": 2,
+          "transferes": 2
+        }
+      },
+      "total": {
+        "recues": 1067,
+        "verifiees": 957,
+        "validees": 272,
+        "suspectsInvestigues": 270,
+        "transferes": 134,
+        "partVerifiee": 89.7,
+        "partValidee": 25.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-17",
+      "sitrepNumber": "095",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 19,
+          "verifiees": 19,
+          "validees": 17,
+          "suspectsInvestigues": 17,
+          "transferes": 13
+        },
+        "Bas-Uélé": {
+          "recues": 3,
+          "verifiees": 3,
+          "validees": 3,
+          "suspectsInvestigues": 3,
+          "transferes": 2
+        },
+        "Ituri": {
+          "recues": 726,
+          "verifiees": 314,
+          "validees": 237,
+          "suspectsInvestigues": 135,
+          "transferes": 47
+        },
+        "Nord-Kivu": {
+          "recues": 847,
+          "verifiees": 844,
+          "validees": 128,
+          "suspectsInvestigues": 127,
+          "transferes": 51
+        },
+        "Sud-Kivu": {
+          "recues": 10,
+          "verifiees": 10,
+          "validees": 5,
+          "suspectsInvestigues": 5,
+          "transferes": 5
+        },
+        "Tshopo": {
+          "recues": 49,
+          "verifiees": 49,
+          "validees": 4,
+          "suspectsInvestigues": 4,
+          "transferes": 0
+        }
+      },
+      "total": {
+        "recues": 1654,
+        "verifiees": 1239,
+        "validees": 394,
+        "suspectsInvestigues": 291,
+        "transferes": 118,
+        "partVerifiee": 74.9,
+        "partValidee": 23.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-18",
+      "sitrepNumber": "096",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 21,
+          "verifiees": 21,
+          "validees": 21,
+          "suspectsInvestigues": 21,
+          "transferes": 14
+        },
+        "Bas-Uélé": {
+          "recues": 5,
+          "verifiees": 5,
+          "validees": 5,
+          "suspectsInvestigues": 5,
+          "transferes": 1
+        },
+        "Ituri": {
+          "recues": 741,
+          "verifiees": 551,
+          "validees": 193,
+          "suspectsInvestigues": 193,
+          "transferes": 126
+        },
+        "Nord-Kivu": {
+          "recues": 944,
+          "verifiees": 936,
+          "validees": 150,
+          "suspectsInvestigues": 149,
+          "transferes": 89
+        },
+        "Sud-Kivu": {
+          "recues": 18,
+          "verifiees": 18,
+          "validees": 9,
+          "suspectsInvestigues": 9,
+          "transferes": 6
+        },
+        "Tshopo": {
+          "recues": 111,
+          "verifiees": 105,
+          "validees": 11,
+          "suspectsInvestigues": 11,
+          "transferes": 1
+        }
+      },
+      "total": {
+        "recues": 1840,
+        "verifiees": 1636,
+        "validees": 389,
+        "suspectsInvestigues": 388,
+        "transferes": 237,
+        "calcule": true,
+        "partVerifiee": 88.9,
+        "partValidee": 21.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-19",
+      "sitrepNumber": "097",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Bas-Uélé": {
+          "recues": 6,
+          "verifiees": 6,
+          "validees": 3,
+          "suspectsInvestigues": 3,
+          "transferes": 3
+        },
+        "Ituri": {
+          "recues": 685,
+          "verifiees": 552,
+          "validees": 185,
+          "suspectsInvestigues": 148,
+          "transferes": 83
+        },
+        "Nord-Kivu": {
+          "recues": 1110,
+          "verifiees": 1094,
+          "validees": 162,
+          "suspectsInvestigues": 160,
+          "transferes": 88
+        },
+        "Sud-Kivu": {
+          "recues": 6,
+          "verifiees": 3,
+          "validees": 3,
+          "suspectsInvestigues": 3,
+          "transferes": 3
+        },
+        "Tshopo": {
+          "recues": 97,
+          "verifiees": 97,
+          "validees": 13,
+          "suspectsInvestigues": 13,
+          "transferes": 8
+        }
+      },
+      "total": {
+        "recues": 1904,
+        "verifiees": 1752,
+        "validees": 366,
+        "calcule": true,
+        "partVerifiee": 92.0,
+        "partValidee": 19.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-20",
+      "sitrepNumber": "098",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 24,
+          "verifiees": 24,
+          "validees": 17,
+          "suspectsInvestigues": 17,
+          "transferes": 10
+        },
+        "Bas-Uélé": {
+          "recues": 5,
+          "verifiees": 5,
+          "validees": 4,
+          "suspectsInvestigues": 4,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 663,
+          "verifiees": 506,
+          "validees": 147,
+          "suspectsInvestigues": 147,
+          "transferes": 83
+        },
+        "Nord-Kivu": {
+          "recues": 810,
+          "verifiees": 719,
+          "validees": 116,
+          "suspectsInvestigues": 56,
+          "transferes": 88
+        },
+        "Sud-Kivu": {
+          "recues": 11,
+          "verifiees": 11,
+          "validees": 5,
+          "suspectsInvestigues": 5,
+          "transferes": 3
+        },
+        "Tshopo": {
+          "recues": 75,
+          "verifiees": 75,
+          "validees": 12,
+          "suspectsInvestigues": 10,
+          "transferes": 4
+        }
+      },
+      "total": {
+        "recues": 1588,
+        "verifiees": 1340,
+        "validees": 301,
+        "suspectsInvestigues": 239,
+        "transferes": 188,
+        "calcule": true,
+        "partVerifiee": 84.4,
+        "partValidee": 19.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-21",
+      "sitrepNumber": "099",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 41,
+          "verifiees": 23,
+          "validees": 18,
+          "suspectsInvestigues": 18,
+          "transferes": 7
+        },
+        "Bas-Uélé": {
+          "recues": 2,
+          "verifiees": 2,
+          "validees": 0,
+          "suspectsInvestigues": 0,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 763,
+          "verifiees": 647,
+          "validees": 243,
+          "suspectsInvestigues": 243,
+          "transferes": 151
+        },
+        "Nord-Kivu": {
+          "recues": 725,
+          "verifiees": 702,
+          "validees": 74,
+          "suspectsInvestigues": 74,
+          "transferes": 28
+        },
+        "Sud-Kivu": {
+          "recues": 7,
+          "verifiees": 7,
+          "validees": 2,
+          "suspectsInvestigues": 2,
+          "transferes": 2
+        },
+        "Tshopo": {
+          "recues": 118,
+          "verifiees": 107,
+          "validees": 8,
+          "suspectsInvestigues": 8,
+          "transferes": 3
+        }
+      },
+      "total": {
+        "recues": 1656,
+        "verifiees": 1488,
+        "validees": 345,
+        "suspectsInvestigues": 345,
+        "transferes": 191,
+        "calcule": true,
+        "partVerifiee": 89.9,
+        "partValidee": 20.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-22",
+      "sitrepNumber": "100",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 17,
+          "verifiees": 17,
+          "validees": 15,
+          "suspectsInvestigues": 15,
+          "transferes": 14
+        },
+        "Bas-Uélé": {
+          "recues": 6,
+          "verifiees": 6,
+          "validees": 6,
+          "suspectsInvestigues": 2,
+          "transferes": 1
+        },
+        "Ituri": {
+          "recues": 274,
+          "verifiees": 253,
+          "validees": 74,
+          "suspectsInvestigues": 64,
+          "transferes": 43
+        },
+        "Nord-Kivu": {
+          "recues": 742,
+          "verifiees": 731,
+          "validees": 111,
+          "suspectsInvestigues": 111,
+          "transferes": 62
+        },
+        "Sud-Kivu": {
+          "recues": 5,
+          "verifiees": 5,
+          "validees": 2,
+          "suspectsInvestigues": 2,
+          "transferes": 2
+        },
+        "Tshopo": {
+          "recues": 120,
+          "verifiees": 97,
+          "validees": 4,
+          "suspectsInvestigues": 4,
+          "transferes": 1
+        }
+      },
+      "total": {
+        "recues": 1164,
+        "verifiees": 1109,
+        "validees": 212,
+        "suspectsInvestigues": 198,
+        "transferes": 123,
+        "calcule": true,
+        "partVerifiee": 95.3,
+        "partValidee": 18.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-23",
+      "sitrepNumber": "101",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 18,
+          "verifiees": 18,
+          "validees": 14,
+          "suspectsInvestigues": 14,
+          "transferes": 9
+        },
+        "Bas-Uélé": {
+          "recues": 3,
+          "verifiees": 3,
+          "validees": 3,
+          "suspectsInvestigues": 1,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 660,
+          "verifiees": 463,
+          "validees": 164,
+          "suspectsInvestigues": 164,
+          "transferes": 35
+        },
+        "Nord-Kivu": {
+          "recues": 733,
+          "verifiees": 730,
+          "validees": 94,
+          "suspectsInvestigues": 94,
+          "transferes": 56
+        },
+        "Sud-Kivu": {
+          "recues": 1,
+          "verifiees": 1,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 1
+        },
+        "Tshopo": {
+          "recues": 124,
+          "verifiees": 122,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 0
+        }
+      },
+      "total": {
+        "recues": 1539,
+        "verifiees": 1337,
+        "validees": 277,
+        "suspectsInvestigues": 275,
+        "transferes": 101,
+        "calcule": true,
+        "partVerifiee": 86.9,
+        "partValidee": 18.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-24",
+      "sitrepNumber": "102",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 22,
+          "verifiees": 22,
+          "validees": 22,
+          "suspectsInvestigues": 22,
+          "transferes": 20
+        },
+        "Bas-Uélé": {
+          "recues": 18,
+          "verifiees": 18,
+          "validees": 3,
+          "suspectsInvestigues": 3,
+          "transferes": 2
+        },
+        "Ituri": {
+          "recues": 664,
+          "verifiees": 568,
+          "validees": 141,
+          "suspectsInvestigues": 141,
+          "transferes": 87
+        },
+        "Nord-Kivu": {
+          "recues": 1012,
+          "verifiees": 973,
+          "validees": 137,
+          "suspectsInvestigues": 137,
+          "transferes": 63
+        },
+        "Sud-Kivu": {
+          "recues": 4,
+          "verifiees": 4,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 0
+        },
+        "Tshopo": {
+          "recues": 80,
+          "verifiees": 78,
+          "validees": 7,
+          "suspectsInvestigues": 7,
+          "transferes": 3
+        }
+      },
+      "total": {
+        "recues": 1800,
+        "verifiees": 1663,
+        "validees": 311,
+        "suspectsInvestigues": 311,
+        "transferes": 175,
+        "calcule": true,
+        "partVerifiee": 92.4,
+        "partValidee": 17.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-25",
+      "sitrepNumber": "103",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Bas-Uélé": {
+          "recues": 19,
+          "verifiees": 19,
+          "validees": 3,
+          "suspectsInvestigues": 3,
+          "transferes": 1
+        },
+        "Ituri": {
+          "recues": 910,
+          "verifiees": 713,
+          "validees": 229,
+          "suspectsInvestigues": 229,
+          "transferes": 129
+        },
+        "Nord-Kivu": {
+          "recues": 1291,
+          "verifiees": 1291,
+          "validees": 145,
+          "suspectsInvestigues": 145,
+          "transferes": 63
+        },
+        "Sud-Kivu": {
+          "recues": 13,
+          "verifiees": 13,
+          "validees": 6,
+          "suspectsInvestigues": 6,
+          "transferes": 6
+        },
+        "Tshopo": {
+          "recues": 138,
+          "verifiees": 138,
+          "validees": 7,
+          "suspectsInvestigues": 7,
+          "transferes": 5
+        }
+      },
+      "total": {
+        "recues": 2371,
+        "verifiees": 2174,
+        "validees": 390,
+        "calcule": true,
+        "partVerifiee": 91.7,
+        "partValidee": 16.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-26",
+      "sitrepNumber": "104",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 14,
+          "verifiees": 14,
+          "validees": 14,
+          "suspectsInvestigues": 14,
+          "transferes": 10
+        },
+        "Bas-Uélé": {
+          "recues": 15,
+          "verifiees": 14,
+          "validees": 5,
+          "suspectsInvestigues": 5,
+          "transferes": 1
+        },
+        "Ituri": {
+          "recues": 726,
+          "verifiees": 612,
+          "validees": 256,
+          "suspectsInvestigues": 256,
+          "transferes": 118
+        },
+        "Nord-Kivu": {
+          "recues": 1069,
+          "verifiees": 836,
+          "validees": 146,
+          "suspectsInvestigues": 146,
+          "transferes": 63
+        },
+        "Sud-Kivu": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Tshopo": {
+          "recues": 202,
+          "verifiees": 202,
+          "validees": 10,
+          "suspectsInvestigues": 10,
+          "transferes": 8
+        }
+      },
+      "total": {
+        "recues": 2026,
+        "verifiees": 1678,
+        "validees": 431,
+        "calcule": true,
+        "partVerifiee": 82.8,
+        "partValidee": 21.3
+      },
+      "source": "SitRep INSP (automatique)"
+    }
+  ]
+}

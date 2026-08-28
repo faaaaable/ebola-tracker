@@ -24,6 +24,7 @@
   "mainNav": [
     "accueil",
     "donnees",
+    "riposte",
     "chronologie",
     "le-virus",
     "faq",
@@ -36,6 +37,7 @@
       "pages": [
         "accueil",
         "donnees",
+        "riposte",
         "rapports"
       ]
     },
@@ -372,6 +374,41 @@
           "title": "Takwimu za kina — Ebola DRC 2026",
           "h1": "Takwimu za kina",
           "description": "Takwimu kwa jimbo na kwa eneo la afya: visa vilivyokusanywa, vifo, kiwango cha vifo na visa vipya vya saa 24, kutoka ripoti za INSP."
+        }
+      }
+    },
+    {
+      "id": "riposte",
+      "fragment": "riposte.html",
+      "slug": {
+        "fr": "riposte/",
+        "en": "response/",
+        "sw": "mapambano/"
+      },
+      "needs": [
+        "chart"
+      ],
+      "changefreq": "daily",
+      "priority": "0.8",
+      "schema": [
+        "dataset"
+      ],
+      "navLabelKey": "t:navRiposte",
+      "meta": {
+        "fr": {
+          "title": "La riposte : alertes, tests, contacts et centres de traitement — Ebola RDC",
+          "h1": "La riposte",
+          "description": "Ce que fait la riposte contre l'épidémie d'Ebola en RDC, bulletin après bulletin : alertes reçues et validées, échantillons testés et positivité, suivi des contacts par province, occupation des centres de traitement."
+        },
+        "en": {
+          "title": "The response: alerts, testing, contacts and treatment centres — DRC Ebola",
+          "h1": "The response",
+          "description": "What the response to the DRC Ebola outbreak is doing, bulletin by bulletin: alerts received and validated, samples tested and positivity, contact follow-up by province, treatment centre occupancy."
+        },
+        "sw": {
+          "title": "Mapambano: tahadhari, vipimo, walioguswa na vituo vya matibabu — Ebola DRC",
+          "h1": "Mapambano",
+          "description": "Kile mapambano dhidi ya mlipuko wa Ebola nchini DRC yanafanya, ripoti baada ya ripoti: tahadhari zilizopokelewa na kuthibitishwa, sampuli zilizopimwa na kiwango cha uambukizo, ufuatiliaji wa walioguswa kwa jimbo, matumizi ya vitanda vya vituo vya matibabu."
         }
       }
     },

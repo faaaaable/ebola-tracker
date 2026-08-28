@@ -199,6 +199,90 @@ missing = [r.get("file") for r in reports
            if r.get("file") and not os.path.exists(os.path.join(ROOT, r["file"]))]
 check("chaque rapport listé a son PDF", not missing, ", ".join(missing[:4]))
 
+print("\n6. Riposte (alertes, laboratoire, contacts, CTE)")
+# Ces quatre fichiers ne portent pas de total national a comparer a
+# latest.json : on verifie que chacun est coherent avec lui-meme — les
+# invariants de la source — et qu'aucun ne date d'apres le bulletin courant.
+# Un ecart qui vient de la source (une positivite publiee qui ne se recalcule
+# pas) est signale sans bloquer ; une impossibilite (plus de positifs que
+# d'echantillons) bloque.
+def _lire_optionnel(name):
+    path = os.path.join(ROOT, "data", name)
+    return read(name) if os.path.exists(path) else None
+
+alertes = _lire_optionnel("alertes.json")
+laboratoire = _lire_optionnel("laboratoire.json")
+contacts = _lire_optionnel("contacts-followup.json")
+cte = _lire_optionnel("cte.json")
+date_rapport = meta.get("reportingDate") or ""
+
+for nom, fichier in (("alertes", alertes), ("laboratoire", laboratoire), ("cte", cte)):
+    if not fichier:
+        check("%s.json present" % nom, False, "fichier absent", blocking_if_false=False)
+        continue
+    points = fichier.get("parDate", [])
+    derniere = points[-1]["date"] if points else None
+    check("%s.json ne depasse pas la date du rapport" % nom,
+          bool(derniere) and derniere <= date_rapport, "%s vs %s" % (derniere, date_rapport))
+
+if laboratoire:
+    impossibles = []
+    ecarts = []
+    for p in laboratoire.get("parDate", []):
+        for prov, l in (p.get("provinces") or {}).items():
+            e, pos, pv = l.get("echantillons"), l.get("positifs"), l.get("positivite")
+            if e is not None and pos is not None and pos > e:
+                impossibles.append("%s %s %d/%d" % (p["sitrepNumber"], prov, pos, e))
+            if e and pos is not None and pv is not None and abs(pos / e * 100 - pv) > 1.5:
+                ecarts.append("%s %s" % (p["sitrepNumber"], prov))
+    check("laboratoire : positifs <= echantillons (chaque province)", not impossibles, ", ".join(impossibles[:4]))
+    check("laboratoire : positivite publiee = recalculee (a 1,5 pt)", not ecarts,
+          ", ".join(ecarts[:6]), blocking_if_false=False)
+    dernier = laboratoire["parDate"][-1] if laboratoire.get("parDate") else None
+    if dernier and dernier["date"] == date_rapport:
+        t = dernier.get("total") or {}
+        positifs = t.get("nouveauxCas", t.get("positifs"))
+        if positifs is not None and national.get("newCases24h") is not None:
+            check("laboratoire : positifs du jour = nouveaux cas du bulletin",
+                  positifs == national["newCases24h"],
+                  "%s vs %s" % (positifs, national["newCases24h"]), blocking_if_false=False)
+
+if alertes:
+    impossibles = []
+    for p in alertes.get("parDate", []):
+        if not p.get("methode", "").startswith("tableau par province"):
+            continue  # en B-C, validees et verifiees comptent aussi la veille
+        for prov, a in (p.get("provinces") or {}).items():
+            r, v, va = a.get("recues"), a.get("verifiees"), a.get("validees")
+            if va is not None and v is not None and va > v:
+                impossibles.append("%s %s %d>%d" % (p["sitrepNumber"], prov, va, v))
+    check("alertes : validees <= verifiees (format par province)", not impossibles, ", ".join(impossibles[:4]))
+
+if cte:
+    ecarts = []
+    for p in cte.get("parDate", []):
+        for prov, c in (p.get("provinces") or {}).items():
+            h, l, o = c.get("hospitalises"), c.get("lits"), c.get("occupation")
+            if h is not None and l and o is not None and not c.get("occupationCalculee") \
+                    and abs(h / l * 100 - o) > 1.5:
+                ecarts.append("%s %s" % (p["sitrepNumber"], prov))
+    check("cte : occupation publiee = hospitalises / lits (a 1,5 pt)", not ecarts,
+          ", ".join(ecarts[:6]), blocking_if_false=False)
+
+if contacts:
+    impossibles = []
+    for e in contacts:
+        c = e.get("contacts") or {}
+        if c.get("vus") is not None and c.get("aSuivre") is not None and c["vus"] > c["aSuivre"]:
+            impossibles.append(e["date"])
+        for prov, pr in (e.get("provinces") or {}).items():
+            if pr.get("vus") is not None and pr.get("aSuivre") is not None and pr["vus"] > pr["aSuivre"]:
+                impossibles.append("%s %s" % (e["date"], prov))
+    check("contacts : vus <= a suivre (national et provinces)", not impossibles, ", ".join(impossibles[:4]))
+    derniere = contacts[-1]["date"] if contacts else None
+    check("contacts-followup.json ne depasse pas la date du rapport",
+          bool(derniere) and derniere <= date_rapport, "%s vs %s" % (derniere, date_rapport))
+
 print()
 if notes:
     print("%d écart(s) non bloquant(s), connus de la source :" % len(notes))

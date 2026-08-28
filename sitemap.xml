@@ -25,6 +25,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/riposte/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/riposte/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/response/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/mapambano/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/riposte/"/>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/rapports/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/rapports/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/reports/"/>
@@ -179,6 +190,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/response/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/riposte/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/response/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/mapambano/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/riposte/"/>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/reports/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/rapports/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/reports/"/>
@@ -330,6 +352,17 @@
     <lastmod>2026-08-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/mapambano/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/riposte/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/response/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/mapambano/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/riposte/"/>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>

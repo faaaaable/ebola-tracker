@@ -39,6 +39,14 @@ jobs:
         # comme la série des décès communautaires l'avait fait pendant six
         # jours faute d'y figurer.
         run: python scripts/extraire_deces_lieu.py
+      - name: Mise à jour de la page Riposte (alertes, laboratoire, CTE)
+        # Trois séries lues dans le texte des bulletins, mises en cache dans
+        # .cache/textes/ (ignoré par git) pour ne relire que le PDF nouveau.
+        # Les contacts par province sont produits par l'étape précédente.
+        run: |
+          python scripts/extraire_alertes.py
+          python scripts/extraire_laboratoire.py
+          python scripts/extraire_cte.py
       - name: Installation de Node
         # Necessaire a scripts/build_pages.py, qui lit assets/js/i18n.js.
         uses: actions/setup-node@v4

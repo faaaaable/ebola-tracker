@@ -1,0 +1,2077 @@
+{
+  "periode": {
+    "debut": "2026-05-21",
+    "fin": "2026-08-26"
+  },
+  "parDate": [
+    {
+      "date": "2026-05-21",
+      "sitrepNumber": "007",
+      "provinces": {
+        "Sud-Kivu": {
+          "echantillons": 37,
+          "positifs": 17,
+          "positifsDeduits": true,
+          "positivite": 45.9
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": 37,
+        "positifs": 17,
+        "positivite": 45.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-02",
+      "sitrepNumber": "019",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 70,
+          "positifs": 19,
+          "positifsDeduits": true,
+          "positivite": 27.1
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": 70,
+        "positifs": 19,
+        "positivite": 27.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-03",
+      "sitrepNumber": "020",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 82,
+          "positifs": 18,
+          "positivite": 22.0
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": null,
+        "positifs": 18
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-04",
+      "sitrepNumber": "021",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 199,
+          "positifs": null,
+          "positivite": 32.6
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 6
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": null,
+        "positifs": null
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-05",
+      "sitrepNumber": "022",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 109,
+          "positifs": 36,
+          "positifsDeduits": true,
+          "positivite": 33.0
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        },
+        "Sud-Kivu": {
+          "echantillons": 6,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": null,
+        "positifs": 36
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-06",
+      "sitrepNumber": "023",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 94,
+          "positifs": 27,
+          "positivite": 28.7
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        },
+        "Sud-Kivu": {
+          "echantillons": 6,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": null,
+        "positifs": 27
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-07",
+      "sitrepNumber": "024",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 63,
+          "positifs": 31,
+          "positivite": 49.2
+        },
+        "Sud-Kivu": {
+          "echantillons": 4,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 67,
+        "positifs": 31,
+        "positivite": 46.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-08",
+      "sitrepNumber": "025",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 115,
+          "positifs": 45,
+          "positivite": 39.1
+        },
+        "Sud-Kivu": {
+          "echantillons": 6,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 121,
+        "positifs": 45,
+        "positivite": 37.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-09",
+      "sitrepNumber": "026",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 54,
+          "positifs": 37,
+          "positivite": 68.5
+        },
+        "Nord-Kivu": {
+          "echantillons": 12,
+          "positifs": 0
+        },
+        "Sud-Kivu": {
+          "echantillons": 2,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 68,
+        "positifs": 37,
+        "positivite": 54.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-10",
+      "sitrepNumber": "027",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 109,
+          "positifs": 29,
+          "positivite": 26.6
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": 109,
+        "positifs": 29,
+        "positivite": 26.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-11",
+      "sitrepNumber": "028",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 35,
+          "positifs": 17,
+          "positivite": 48.6
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": 35,
+        "positifs": 17,
+        "positivite": 48.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-13",
+      "sitrepNumber": "030",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 139,
+          "positifs": 56,
+          "positivite": 40.3
+        },
+        "Sud-Kivu": {
+          "echantillons": 8,
+          "positifs": 0
+        },
+        "Nord-Kivu": {
+          "echantillons": 34,
+          "positifs": 16
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 181,
+        "positifs": 72,
+        "positivite": 39.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-14",
+      "sitrepNumber": "031",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 101,
+          "positifs": 21,
+          "positivite": 20.8
+        },
+        "Sud-Kivu": {
+          "echantillons": 3,
+          "positifs": 0
+        },
+        "Nord-Kivu": {
+          "echantillons": 38,
+          "positifs": 5
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 142,
+        "positifs": 26,
+        "positivite": 18.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-15",
+      "sitrepNumber": "032",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 130,
+          "positifs": 29,
+          "positivite": 22.3
+        },
+        "Sud-Kivu": {
+          "echantillons": 7,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 137,
+        "positifs": 29,
+        "positivite": 21.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-17",
+      "sitrepNumber": "034",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 126,
+          "positifs": 16,
+          "positivite": 12.7
+        },
+        "Nord-Kivu": {
+          "echantillons": 70,
+          "positifs": 5,
+          "positivite": 7.1
+        },
+        "Sud-Kivu": {
+          "echantillons": 2,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 198,
+        "positifs": 21,
+        "positivite": 10.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-18",
+      "sitrepNumber": "035",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 101,
+          "positifs": 35,
+          "positivite": 34.6
+        },
+        "Nord-Kivu": {
+          "echantillons": 79,
+          "positifs": 1,
+          "positivite": 1.3
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 180,
+        "positifs": 36,
+        "positivite": 20.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-19",
+      "sitrepNumber": "036",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 101,
+          "positifs": 21,
+          "positivite": 20.8
+        },
+        "Nord-Kivu": {
+          "echantillons": 15,
+          "positifs": 2,
+          "positivite": 13.3
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 116,
+        "positifs": 23,
+        "positivite": 19.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-20",
+      "sitrepNumber": "037",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 119,
+          "positifs": 42,
+          "positivite": 35.2
+        },
+        "Nord-Kivu": {
+          "echantillons": 39,
+          "positifs": 5,
+          "positivite": 12.8
+        },
+        "Sud-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": null,
+        "positifs": 47
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-21",
+      "sitrepNumber": "038",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 243,
+          "positifs": 32,
+          "positivite": 15.6
+        },
+        "Nord-Kivu": {
+          "echantillons": 91,
+          "positifs": 7,
+          "positivite": 7.7
+        },
+        "Sud-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": null,
+        "positifs": 39
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-22",
+      "sitrepNumber": "039",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 100,
+          "positifs": 43,
+          "positivite": 43.0
+        },
+        "Nord-Kivu": {
+          "echantillons": 65,
+          "positifs": 3
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 165,
+        "positifs": 46,
+        "positivite": 27.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-23",
+      "sitrepNumber": "040",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 74,
+          "positifs": 23,
+          "positivite": 31.1
+        },
+        "Nord-Kivu": {
+          "echantillons": 39,
+          "positifs": 1,
+          "positivite": 2.6
+        },
+        "Sud-Kivu": {
+          "echantillons": 7,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 120,
+        "positifs": 24,
+        "positivite": 20.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-24",
+      "sitrepNumber": "041",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 134,
+          "positifs": 34,
+          "positivite": 25.0
+        },
+        "Nord-Kivu": {
+          "echantillons": 117,
+          "positifs": 3
+        },
+        "Sud-Kivu": {
+          "echantillons": 6,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 257,
+        "positifs": 37,
+        "positivite": 14.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-25",
+      "sitrepNumber": "042",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 165,
+          "positifs": 42,
+          "positivite": 25.4
+        },
+        "Nord-Kivu": {
+          "echantillons": 95,
+          "positifs": 6
+        },
+        "Sud-Kivu": {
+          "echantillons": 4,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 264,
+        "positifs": 48,
+        "positivite": 18.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-27",
+      "sitrepNumber": "044",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 162,
+          "positifs": 45,
+          "positivite": 27.7
+        },
+        "Nord-Kivu": {
+          "echantillons": 99,
+          "positifs": 2
+        },
+        "Sud-Kivu": {
+          "echantillons": 4,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 265,
+        "positifs": 47,
+        "positivite": 17.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-29",
+      "sitrepNumber": "046",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 64,
+          "positifs": 17,
+          "positivite": 26.6
+        },
+        "Nord-Kivu": {
+          "echantillons": 77,
+          "positifs": 9,
+          "positivite": 11.7
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 141,
+        "positifs": 26,
+        "positivite": 18.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-06-30",
+      "sitrepNumber": "047",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 109,
+          "positifs": 69,
+          "positivite": 63.3
+        },
+        "Nord-Kivu": {
+          "echantillons": 135,
+          "positifs": 4,
+          "positivite": 3.0
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 244,
+        "positifs": 73,
+        "positivite": 29.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-01",
+      "sitrepNumber": "048",
+      "provinces": {
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": null,
+        "positifs": 0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-03",
+      "sitrepNumber": "050",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 54,
+          "positifs": 21,
+          "positivite": 38.8
+        },
+        "Nord-Kivu": {
+          "echantillons": 93,
+          "positifs": 5,
+          "positivite": 5.4
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 147,
+        "positifs": 26,
+        "positivite": 17.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-04",
+      "sitrepNumber": "051",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 99,
+          "positifs": 30,
+          "positivite": 30.3
+        },
+        "Nord-Kivu": {
+          "echantillons": 73,
+          "positifs": 3,
+          "positivite": 4.1
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 172,
+        "positifs": 33,
+        "positivite": 19.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-05",
+      "sitrepNumber": "052",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 168,
+          "positifs": 60,
+          "positivite": 35.7
+        },
+        "Nord-Kivu": {
+          "echantillons": 82,
+          "positifs": 3,
+          "positivite": 3.6
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 250,
+        "positifs": 63,
+        "positivite": 25.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-06",
+      "sitrepNumber": "053",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 172,
+          "positifs": 79,
+          "positivite": 45.9
+        },
+        "Nord-Kivu": {
+          "echantillons": 77,
+          "positifs": 5,
+          "positivite": 6.5
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 249,
+        "positifs": 84,
+        "positivite": 33.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-07",
+      "sitrepNumber": "054",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 147,
+          "positifs": 45,
+          "positivite": 30.6
+        },
+        "Nord-Kivu": {
+          "echantillons": 90,
+          "positifs": 6,
+          "positivite": 6.7
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 237,
+        "positifs": 51,
+        "positivite": 21.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-08",
+      "sitrepNumber": "055",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 157,
+          "positifs": 30,
+          "positivite": 19.1
+        },
+        "Nord-Kivu": {
+          "echantillons": 113,
+          "positifs": 3,
+          "positivite": 2.7
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 270,
+        "positifs": 33,
+        "positivite": 12.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-09",
+      "sitrepNumber": "056",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 104,
+          "positifs": 32,
+          "positivite": 30.8
+        },
+        "Nord-Kivu": {
+          "echantillons": 108,
+          "positifs": 6,
+          "positivite": 5.6
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 212,
+        "positifs": 38,
+        "positivite": 17.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-10",
+      "sitrepNumber": "057",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 177,
+          "positifs": 42,
+          "positivite": 23.7
+        },
+        "Nord-Kivu": {
+          "echantillons": 54,
+          "positifs": 1,
+          "positivite": 1.9
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 231,
+        "positifs": 43,
+        "positivite": 18.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-11",
+      "sitrepNumber": "058",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 227,
+          "positifs": 45,
+          "positivite": 19.9
+        },
+        "Nord-Kivu": {
+          "echantillons": 123,
+          "positifs": 8,
+          "positivite": 6.5
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 350,
+        "positifs": 53,
+        "positivite": 15.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-13",
+      "sitrepNumber": "060",
+      "provinces": {
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 76
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": null,
+        "positifs": 76
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-14",
+      "sitrepNumber": "061",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 152,
+          "positifs": 55,
+          "positivite": 36.2
+        },
+        "Nord-Kivu": {
+          "echantillons": 110,
+          "positifs": 7,
+          "positivite": 6.4
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 262,
+        "positifs": 62,
+        "positivite": 23.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-15",
+      "sitrepNumber": "062",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 186,
+          "positifs": 41,
+          "positivite": 22.0
+        },
+        "Nord-Kivu": {
+          "echantillons": 129,
+          "positifs": 10,
+          "positivite": 7.8
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 315,
+        "positifs": 51,
+        "positivite": 16.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-17",
+      "sitrepNumber": "064",
+      "provinces": {
+        "Ituri": {
+          "echantillons": null,
+          "positifs": 2
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": null,
+        "positifs": 2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-18",
+      "sitrepNumber": "065",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 167,
+          "positifs": 67,
+          "vivants": 45,
+          "deces": 22,
+          "positivite": 38.1
+        },
+        "Nord-Kivu": {
+          "echantillons": 127,
+          "positifs": 16,
+          "positivite": 12.6
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 294,
+        "positifs": 83,
+        "positivite": 28.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-19",
+      "sitrepNumber": "066",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 167,
+          "positifs": 70,
+          "vivants": 47,
+          "deces": 23,
+          "positivite": 41.9
+        },
+        "Nord-Kivu": {
+          "echantillons": 105,
+          "positifs": 9,
+          "vivants": 8,
+          "deces": 1
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 272,
+        "positifs": 79,
+        "positivite": 29.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-20",
+      "sitrepNumber": "067",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 113,
+          "positifs": 42,
+          "vivants": 29,
+          "deces": 13,
+          "positivite": 37.2
+        },
+        "Nord-Kivu": {
+          "echantillons": 126,
+          "positifs": 8,
+          "vivants": 5,
+          "deces": 3
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 239,
+        "positifs": 50,
+        "positivite": 20.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-21",
+      "sitrepNumber": "068",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 132,
+          "positifs": 46,
+          "vivants": 36,
+          "deces": 10
+        },
+        "Nord-Kivu": {
+          "echantillons": 122,
+          "positifs": 12,
+          "vivants": 7,
+          "deces": 5,
+          "positivite": 9.8
+        },
+        "Haut-Uélé": {
+          "echantillons": 20,
+          "positifs": 5,
+          "vivants": 3,
+          "deces": 2,
+          "positivite": 25.0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 274,
+        "positifs": 63,
+        "positivite": 23.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-22",
+      "sitrepNumber": "069",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 221,
+          "positifs": 73,
+          "vivants": 40,
+          "deces": 33
+        },
+        "Nord-Kivu": {
+          "echantillons": 178,
+          "positifs": 18,
+          "vivants": 12,
+          "deces": 6
+        },
+        "Haut-Uélé": {
+          "echantillons": 12,
+          "positifs": 6,
+          "vivants": 4,
+          "deces": 2,
+          "positivite": 50.0
+        },
+        "Tshopo": {
+          "echantillons": 3,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": 414,
+        "positifs": 97,
+        "positivite": 23.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-23",
+      "sitrepNumber": "070",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 155,
+          "positifs": 51,
+          "vivants": 33,
+          "deces": 18
+        },
+        "Nord-Kivu": {
+          "echantillons": 120,
+          "positifs": 15,
+          "vivants": 7,
+          "deces": 8,
+          "positivite": 12.5
+        },
+        "Tshopo": {
+          "echantillons": 3,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 278,
+        "positifs": 66,
+        "positivite": 23.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-24",
+      "sitrepNumber": "071",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 240,
+          "positifs": 87,
+          "vivants": 58,
+          "deces": 29
+        },
+        "Nord-Kivu": {
+          "echantillons": 139,
+          "positifs": 9,
+          "vivants": 4,
+          "deces": 5,
+          "positivite": 6.5
+        },
+        "Tshopo": {
+          "echantillons": 2,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 381,
+        "positifs": 96,
+        "positivite": 25.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-25",
+      "sitrepNumber": "072",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 224,
+          "positifs": 115,
+          "vivants": 87,
+          "deces": 28
+        },
+        "Nord-Kivu": {
+          "echantillons": 135,
+          "positifs": 7,
+          "vivants": 4,
+          "deces": 3,
+          "positivite": 5.2
+        },
+        "Haut-Uélé": {
+          "echantillons": 10,
+          "positifs": 2,
+          "positivite": 25.0
+        },
+        "Tshopo": {
+          "echantillons": 5,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": 374,
+        "positifs": 124,
+        "positivite": 33.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-26",
+      "sitrepNumber": "073",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 186,
+          "positifs": 53,
+          "vivants": 39,
+          "deces": 14
+        },
+        "Nord-Kivu": {
+          "echantillons": 113,
+          "positifs": 8,
+          "vivants": 5,
+          "deces": 3,
+          "positivite": 7.0
+        },
+        "Haut-Uélé": {
+          "echantillons": 8,
+          "positifs": 1,
+          "positivite": 12.5
+        },
+        "Tshopo": {
+          "echantillons": 5,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": 312,
+        "positifs": 62,
+        "positivite": 19.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-27",
+      "sitrepNumber": "074",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 206,
+          "positifs": 87,
+          "vivants": 71,
+          "deces": 16
+        },
+        "Nord-Kivu": {
+          "echantillons": 100,
+          "positifs": 11,
+          "vivants": 6,
+          "deces": 5,
+          "positivite": 11.0
+        },
+        "Tshopo": {
+          "echantillons": 3,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 309,
+        "positifs": 98,
+        "positivite": 31.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-30",
+      "sitrepNumber": "077",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 241,
+          "positifs": 62,
+          "vivants": 55,
+          "deces": 7
+        },
+        "Nord-Kivu": {
+          "echantillons": 147,
+          "positifs": 15,
+          "vivants": 11,
+          "deces": 4,
+          "positivite": 10.2
+        },
+        "Haut-Uélé": {
+          "echantillons": null,
+          "positifs": 6
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": null,
+        "positifs": 83
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-31",
+      "sitrepNumber": "078",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 238,
+          "positifs": 64,
+          "vivants": 55,
+          "deces": 7,
+          "positivite": 27.1
+        },
+        "Nord-Kivu": {
+          "echantillons": 127,
+          "positifs": 12,
+          "positivite": 9.4
+        },
+        "Haut-Uélé": {
+          "echantillons": 8,
+          "positifs": 4
+        },
+        "Sud-Kivu": {
+          "echantillons": 11,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": 384,
+        "positifs": 80,
+        "positivite": 20.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-01",
+      "sitrepNumber": "079",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 290,
+          "positifs": 67,
+          "vivants": 36,
+          "deces": 13,
+          "positivite": 23.1
+        },
+        "Nord-Kivu": {
+          "echantillons": 153,
+          "positifs": 22,
+          "positivite": 14.4
+        },
+        "Haut-Uélé": {
+          "echantillons": 9,
+          "positifs": 4
+        },
+        "Sud-Kivu": {
+          "echantillons": 5,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": 457,
+        "positifs": 93,
+        "positivite": 20.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-02",
+      "sitrepNumber": "080",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 210,
+          "positifs": 53,
+          "vivants": 25,
+          "deces": 14,
+          "positivite": 25.2
+        },
+        "Nord-Kivu": {
+          "echantillons": 132,
+          "positifs": 18,
+          "positivite": 13.6
+        },
+        "Haut-Uélé": {
+          "echantillons": 4,
+          "positifs": 1
+        },
+        "Sud-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": null,
+        "positifs": 72
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-03",
+      "sitrepNumber": "081",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 275,
+          "positifs": 64,
+          "positivite": 23.3
+        },
+        "Nord-Kivu": {
+          "echantillons": 106,
+          "positifs": 14,
+          "positivite": 13.2
+        },
+        "Sud-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": null,
+        "positifs": 78
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-04",
+      "sitrepNumber": "082",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 251,
+          "positifs": 91,
+          "positivite": 36.8
+        },
+        "Nord-Kivu": {
+          "echantillons": 98,
+          "positifs": 10
+        },
+        "Haut-Uélé": {
+          "echantillons": 4,
+          "positifs": null,
+          "vivants": 3,
+          "deces": 1
+        },
+        "Sud-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": null,
+        "positifs": null
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-05",
+      "sitrepNumber": "083",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 297,
+          "positifs": 70
+        },
+        "Nord-Kivu": {
+          "echantillons": 134,
+          "positifs": 11
+        },
+        "Haut-Uélé": {
+          "echantillons": 7,
+          "positifs": 0
+        },
+        "Sud-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": null,
+        "positifs": 81
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-06",
+      "sitrepNumber": "084",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 202,
+          "positifs": 42,
+          "positivite": 20.8
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": 202,
+        "positifs": 42,
+        "positivite": 20.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-07",
+      "sitrepNumber": "085",
+      "provinces": {
+        "Ituri": {
+          "echantillons": null,
+          "positifs": 73
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": null,
+        "positifs": 73
+      },
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 326,
+        "positifs": 89,
+        "positivite": 27.3
+      }
+    },
+    {
+      "date": "2026-08-08",
+      "sitrepNumber": "086",
+      "provinces": {
+        "Ituri": {
+          "echantillons": null,
+          "positifs": 68
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": null,
+        "positifs": 68
+      },
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 400,
+        "positifs": 85,
+        "positivite": 21.3
+      }
+    },
+    {
+      "date": "2026-08-09",
+      "sitrepNumber": "087",
+      "provinces": {
+        "Ituri": {
+          "echantillons": null,
+          "positifs": 57
+        }
+      },
+      "total": {
+        "provinces": 1,
+        "echantillons": null,
+        "positifs": 57
+      },
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 405,
+        "positifs": 87,
+        "positivite": 21.5
+      }
+    },
+    {
+      "date": "2026-08-10",
+      "sitrepNumber": "088",
+      "provinces": {
+        "Ituri": {
+          "echantillons": null,
+          "positifs": 63,
+          "nouveauxCas": 53,
+          "vivants": 32,
+          "deces": 21
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 15
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": null,
+        "positifs": 78,
+        "nouveauxCas": 68
+      },
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 376,
+        "positifs": 78,
+        "positivite": 20.7
+      }
+    },
+    {
+      "date": "2026-08-11",
+      "sitrepNumber": "089",
+      "provinces": {
+        "Ituri": {
+          "echantillons": null,
+          "positifs": 119,
+          "nouveauxCas": 98,
+          "vivants": 59,
+          "deces": 39
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 18
+        },
+        "Haut-Uélé": {
+          "echantillons": 3,
+          "positifs": 2
+        },
+        "Tshopo": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": null,
+        "positifs": 139,
+        "nouveauxCas": 118
+      },
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 516,
+        "positifs": 118,
+        "positivite": 22.9
+      }
+    },
+    {
+      "date": "2026-08-12",
+      "sitrepNumber": "090",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 249,
+          "positifs": 80,
+          "nouveauxCas": 67,
+          "vivants": 58,
+          "deces": 9
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 25
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": null,
+        "positifs": 105,
+        "nouveauxCas": 92
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-13",
+      "sitrepNumber": "091",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 284,
+          "positifs": 57,
+          "nouveauxCas": 41,
+          "vivants": 36,
+          "deces": 5
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 16
+        },
+        "Sud-Kivu": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": null,
+        "positifs": 73,
+        "nouveauxCas": 57
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-14",
+      "sitrepNumber": "092",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 336,
+          "positifs": 93,
+          "nouveauxCas": 85,
+          "vivants": 54,
+          "deces": 31
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 19
+        },
+        "Sud-Kivu": {
+          "echantillons": 1,
+          "positifs": null
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": null,
+        "positifs": null,
+        "nouveauxCas": 104
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-15",
+      "sitrepNumber": "093",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 288,
+          "positifs": 89,
+          "vivants": 59,
+          "deces": 30,
+          "positivite": 30.9
+        },
+        "Nord-Kivu": {
+          "echantillons": 133,
+          "positifs": 8
+        },
+        "Tshopo": {
+          "echantillons": 6,
+          "positifs": null
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 427,
+        "positifs": null
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-16",
+      "sitrepNumber": "094",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 248,
+          "positifs": 63,
+          "vivants": 41,
+          "deces": 22,
+          "positivite": 25.4
+        },
+        "Tshopo": {
+          "echantillons": 4,
+          "positifs": null
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 252,
+        "positifs": null
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-17",
+      "sitrepNumber": "095",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 287,
+          "positifs": 52,
+          "vivants": 27,
+          "deces": 25,
+          "positivite": 18.1
+        },
+        "Haut-Uélé": {
+          "echantillons": null,
+          "positifs": 6,
+          "vivants": 5,
+          "deces": 1
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": null,
+        "positifs": 58
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-18",
+      "sitrepNumber": "096",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 307,
+          "positifs": 82,
+          "vivants": 53,
+          "deces": 29,
+          "positivite": 26.7
+        },
+        "Nord-Kivu": {
+          "echantillons": 101,
+          "positifs": 12,
+          "vivants": 7,
+          "deces": 5,
+          "positivite": 11.9
+        },
+        "Haut-Uélé": {
+          "echantillons": 15,
+          "positifs": 8,
+          "vivants": 7,
+          "deces": 1,
+          "positivite": 53.3
+        },
+        "Bas-Uélé": {
+          "echantillons": 2,
+          "positifs": 1
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": 425,
+        "positifs": 103,
+        "positivite": 24.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-19",
+      "sitrepNumber": "097",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 265,
+          "positifs": 56,
+          "vivants": 43,
+          "deces": 13,
+          "positivite": 21.1
+        },
+        "Nord-Kivu": {
+          "echantillons": 127,
+          "positifs": 18,
+          "vivants": 10,
+          "deces": 8,
+          "positivite": 15.0
+        },
+        "Haut-Uélé": {
+          "echantillons": 30,
+          "positifs": 7,
+          "vivants": 5,
+          "deces": 2,
+          "positivite": 23.3
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 422,
+        "positifs": 81,
+        "positivite": 19.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-20",
+      "sitrepNumber": "098",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 344,
+          "positifs": 63,
+          "vivants": 57,
+          "deces": 6,
+          "positivite": 18.3
+        },
+        "Nord-Kivu": {
+          "echantillons": 117,
+          "positifs": 17,
+          "vivants": 7,
+          "deces": 10,
+          "positivite": 14.5
+        },
+        "Haut-Uélé": {
+          "echantillons": 16,
+          "positifs": 5,
+          "vivants": 3,
+          "deces": 2,
+          "positivite": 31.2
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 477,
+        "positifs": 85,
+        "positivite": 17.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-21",
+      "sitrepNumber": "099",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 389,
+          "positifs": 62,
+          "vivants": 45,
+          "deces": 17,
+          "positivite": 15.9
+        },
+        "Nord-Kivu": {
+          "echantillons": 114,
+          "positifs": 18,
+          "vivants": 9,
+          "deces": 9,
+          "positivite": 15.8
+        },
+        "Haut-Uélé": {
+          "echantillons": 12,
+          "positifs": 3,
+          "vivants": 2,
+          "deces": 1,
+          "positivite": 25.0
+        },
+        "Sud-Kivu": {
+          "echantillons": 2,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": 517,
+        "positifs": 83,
+        "positivite": 16.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-22",
+      "sitrepNumber": "100",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 173,
+          "positifs": 35,
+          "vivants": 23,
+          "deces": 12,
+          "positivite": 20.2
+        },
+        "Nord-Kivu": {
+          "echantillons": 140,
+          "positifs": 16,
+          "vivants": 5,
+          "deces": 11,
+          "positivite": 11.4
+        },
+        "Haut-Uélé": {
+          "echantillons": 11,
+          "positifs": 4,
+          "vivants": 4,
+          "deces": 0,
+          "positivite": 36.4
+        },
+        "Sud-Kivu": {
+          "echantillons": 2,
+          "positifs": 0
+        },
+        "Bas-Uélé": {
+          "echantillons": 1,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 5,
+        "echantillons": 327,
+        "positifs": 55,
+        "positivite": 16.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-23",
+      "sitrepNumber": "101",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 321,
+          "positifs": 48,
+          "vivants": 42,
+          "deces": 6,
+          "positivite": 15.0
+        },
+        "Nord-Kivu": {
+          "echantillons": 107,
+          "positifs": 14,
+          "vivants": 6,
+          "deces": 8,
+          "positivite": 13.0
+        },
+        "Haut-Uélé": {
+          "echantillons": 31,
+          "positifs": 8,
+          "vivants": 6,
+          "deces": 2,
+          "positivite": 25.8
+        }
+      },
+      "total": {
+        "provinces": 3,
+        "echantillons": 459,
+        "positifs": 70,
+        "positivite": 15.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-24",
+      "sitrepNumber": "102",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 347,
+          "positifs": 61,
+          "vivants": 46,
+          "deces": 15,
+          "positivite": 17.6
+        },
+        "Nord-Kivu": {
+          "echantillons": 99,
+          "positifs": 7,
+          "vivants": 4,
+          "deces": 3,
+          "positivite": 7.1
+        },
+        "Haut-Uélé": {
+          "echantillons": 18,
+          "positifs": 3,
+          "positivite": 16.7
+        },
+        "Bas-Uélé": {
+          "echantillons": 4,
+          "positifs": 1,
+          "positivite": 25.0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": 468,
+        "positifs": 72,
+        "positivite": 15.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-25",
+      "sitrepNumber": "103",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 231,
+          "positifs": 34,
+          "vivants": 34,
+          "deces": 0,
+          "positivite": 14.7
+        },
+        "Nord-Kivu": {
+          "echantillons": 178,
+          "positifs": 18,
+          "vivants": 9,
+          "deces": 9,
+          "positivite": 10.1
+        },
+        "Haut-Uélé": {
+          "echantillons": 18,
+          "positifs": 5,
+          "vivants": 3,
+          "deces": 2,
+          "positivite": 27.8
+        },
+        "Bas-Uélé": {
+          "echantillons": 3,
+          "positifs": 0,
+          "positivite": 0.0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": 430,
+        "positifs": 57,
+        "positivite": 13.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-26",
+      "sitrepNumber": "104",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 152,
+          "positifs": 52,
+          "vivants": 31,
+          "deces": 21,
+          "positivite": 34.2
+        },
+        "Tshopo": {
+          "echantillons": 12,
+          "positifs": 2,
+          "positivite": 16.7
+        },
+        "Nord-Kivu": {
+          "echantillons": 185,
+          "positifs": 22,
+          "vivants": 8,
+          "deces": 14,
+          "positivite": 11.9
+        },
+        "Haut-Uélé": {
+          "echantillons": 21,
+          "positifs": 5,
+          "vivants": 5,
+          "deces": 0,
+          "positivite": 23.8
+        },
+        "Bas-Uélé": {
+          "echantillons": 2,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 5,
+        "echantillons": 372,
+        "positifs": 81,
+        "positivite": 21.8
+      },
+      "source": "SitRep INSP (automatique)"
+    }
+  ]
+}

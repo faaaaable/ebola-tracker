@@ -1803,6 +1803,87 @@ def province_chart_html(province, strings_lang, i18n_lang):
            esc(i18n_lang["chartShareBtn"])))
 
 
+def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
+    """Les quatre chiffres de tete de la page « Riposte », ecrits en dur.
+
+    Chaque serie s'arrete a sa propre date : le laboratoire peut manquer au
+    dernier bulletin quand les alertes y sont. Le sous-titre de chaque chiffre
+    porte donc sa date des qu'elle differe de celle du bulletin, et un
+    indicateur absent s'ecrit « non publie » plutot que de reprendre une
+    valeur ancienne sans le dire."""
+    date_bulletin = meta_data.get("reportingDate")
+
+    def au(date):
+        if not date or date == date_bulletin:
+            return ""
+        return " · " + interp(strings_lang["riposteKpiAsOf"],
+                              {"date": long_date(date, i18n_lang)})
+
+    def dernier(serie, cle="parDate", garde=lambda p: True):
+        points = serie.get(cle, []) if isinstance(serie, dict) else serie
+        for p in reversed(points):
+            if garde(p):
+                return p
+        return None
+
+    vide = {"value": "—", "sub": esc(strings_lang["riposteKpiNone"])}
+    out = {}
+
+    a = dernier(riposte["alertes"], garde=lambda p: (p.get("total") or {}).get("recues") is not None)
+    if a:
+        t = a["total"]
+        sub = interp(strings_lang["riposteKpiAlertesSub"], {"validees": fmt(t.get("validees"), lang)}) \
+            if t.get("validees") is not None else ""
+        out["ripAlertes"] = fmt(t["recues"], lang)
+        out["ripAlertesSub"] = esc(sub + au(a["date"]))
+    else:
+        out["ripAlertes"], out["ripAlertesSub"] = vide["value"], vide["sub"]
+
+    def labo_ok(p):
+        n = p.get("national") or {}
+        t = p.get("total") or {}
+        return (n.get("positivite") is not None) or (t.get("positivite") is not None)
+    l = dernier(riposte["laboratoire"], garde=labo_ok)
+    if l:
+        n = l.get("national") or {}
+        t = l.get("total") or {}
+        src = n if n.get("positivite") is not None else t
+        out["ripPositivite"] = fmt_cfr(src["positivite"], lang)
+        sub = interp(strings_lang["riposteKpiPositiviteSub"], {
+            "positifs": fmt(src.get("positifs"), lang),
+            "echantillons": fmt(src.get("echantillons"), lang)}) \
+            if src.get("positifs") is not None and src.get("echantillons") else ""
+        out["ripPositiviteSub"] = esc(sub + au(l["date"]))
+    else:
+        out["ripPositivite"], out["ripPositiviteSub"] = vide["value"], vide["sub"]
+
+    c = dernier(riposte["contacts"], cle=None, garde=lambda p: p.get("contactsFollowUpRate") is not None) \
+        if isinstance(riposte["contacts"], list) else None
+    if c:
+        out["ripContacts"] = fmt_cfr(c["contactsFollowUpRate"], lang)
+        eff = c.get("contacts") or {}
+        sub = interp(strings_lang["riposteKpiContactsSub"], {
+            "vus": fmt(eff.get("vus"), lang), "aSuivre": fmt(eff.get("aSuivre"), lang)}) \
+            if eff.get("vus") is not None else ""
+        out["ripContactsSub"] = esc(sub + au(c["date"]))
+    else:
+        out["ripContacts"], out["ripContactsSub"] = vide["value"], vide["sub"]
+
+    k = dernier(riposte["cte"], garde=lambda p: (p.get("total") or {}).get("occupation") is not None)
+    if k:
+        t = k["total"]
+        out["ripOccupation"] = fmt_cfr(t["occupation"], lang)
+        sub = interp(strings_lang["riposteKpiOccupationSub"], {
+            "hospitalises": fmt(t.get("hospitalisesAvecLits"), lang), "lits": fmt(t.get("lits"), lang)})
+        out["ripOccupationSub"] = esc(sub + au(k["date"]))
+    else:
+        out["ripOccupation"], out["ripOccupationSub"] = vide["value"], vide["sub"]
+
+    out["ripAsOf"] = esc(interp(strings_lang["cartoAsOf"],
+                                {"date": long_date(date_bulletin or "", i18n_lang)}))
+    return {"seed.%s" % k: v for k, v in out.items()}
+
+
 def head_assets(needs):
     tags = []
     if "leaflet" in needs:
@@ -1833,6 +1914,15 @@ def main():
     # Repartition par age : instantane fige au 5 aout 2026, l'INSP ayant
     # cesse de publier la figure ensuite. Voir scripts/demographie_figures.py.
     demographie = read_json(os.path.join(ROOT, "data", "demographie.json"))
+    # Les quatre series de la page « Riposte ». Chacune a sa profondeur et ses
+    # trous ; la page ecrit le dernier point de chacune, avec sa date quand
+    # elle n'est pas celle du bulletin.
+    riposte = {
+        "alertes": read_json(os.path.join(ROOT, "data", "alertes.json")),
+        "laboratoire": read_json(os.path.join(ROOT, "data", "laboratoire.json")),
+        "contacts": read_json(os.path.join(ROOT, "data", "contacts-followup.json")),
+        "cte": read_json(os.path.join(ROOT, "data", "cte.json")),
+    }
     # Traces des zones de sante : geometrie figee, produite a part par
     # scripts/build_geo.py. Elle ne change qu'en cas de nouvelle province
     # touchee ou de mise a jour de la source.
@@ -1958,6 +2048,7 @@ def main():
             strings_lang["cartoZonesTouched"],
             {"n": touched, "total": len(geo["zones"])}))
         common_seed["panelStats"] = panel_stats_html(national, lang, i18n_lang)
+        common_seed.update(riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang))
 
         pages = [(page, None) for page in config["pages"]]
         pages += [(config["provincePage"], province) for province in provinces]

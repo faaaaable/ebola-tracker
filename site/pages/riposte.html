@@ -1,0 +1,144 @@
+  <section class="section">
+    <div class="section-head">
+      <h1 class="page-title">{{meta.h1}}</h1>
+      <div class="section-sub">{{seed.ripAsOf}}</div>
+    </div>
+
+    <p class="page-intro">{{t.riposteIntro}}</p>
+
+    <!-- Quatre chiffres du dernier bulletin, ecrits en dur par le generateur :
+         visibles sans JavaScript, donc indexables. Chacun porte sa date quand
+         elle n'est pas celle du bulletin — les quatre series n'ont pas la
+         meme profondeur ni la meme regularite. -->
+    <div class="kpis riposte-kpis">
+      <div class="kpi alerts">
+        <div class="label">{{t.riposteKpiAlertes}}</div>
+        <div class="value">{{seed.ripAlertes}}</div>
+        <div class="delta">{{seed.ripAlertesSub}}</div>
+      </div>
+      <div class="kpi labo">
+        <div class="label">{{t.riposteKpiPositivite}}</div>
+        <div class="value">{{seed.ripPositivite}}</div>
+        <div class="delta">{{seed.ripPositiviteSub}}</div>
+      </div>
+      <div class="kpi contacts">
+        <div class="label">{{t.riposteKpiContacts}}</div>
+        <div class="value">{{seed.ripContacts}}</div>
+        <div class="delta">{{seed.ripContactsSub}}</div>
+      </div>
+      <div class="kpi cte">
+        <div class="label">{{t.riposteKpiOccupation}}</div>
+        <div class="value">{{seed.ripOccupation}}</div>
+        <div class="delta">{{seed.ripOccupationSub}}</div>
+      </div>
+    </div>
+
+    <nav class="riposte-ancres" aria-label="{{t.riposteAnchorsLabel}}">
+      <a href="#alertes">{{t.riposteAlertesTitle}}</a>
+      <a href="#laboratoire">{{t.riposteLaboTitle}}</a>
+      <a href="#contacts">{{t.riposteContactsTitle}}</a>
+      <a href="#cte">{{t.riposteCteTitle}}</a>
+    </nav>
+  </section>
+
+  <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
+       on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
+       et non des onglets : ce qui n'est pas clique n'est pas lu. -->
+  <section class="section" id="alertes">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">{{t.riposteAlertesTitle}}</h2>
+        <div class="section-sub">{{t.riposteAlertesSub}}</div>
+      </div>
+    </div>
+    <p class="page-intro">{{t.riposteAlertesLede}}</p>
+    <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="alertesChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+        </button>
+      </div>
+      <!-- Volume : combien de signalements par semaine, et combien deviennent
+           des cas suspects. Taux : les memes parts, jour par jour. -->
+      <nav class="subtab-nav chart-vue-nav" data-chart-vue="alertesChart">
+        <button type="button" class="subtab-btn active" data-vue="volume" data-i18n="chartVueVolume">{{i18n.chartVueVolume}}</button>
+        <button type="button" class="subtab-btn" data-vue="taux" data-i18n="chartVueTaux">{{i18n.chartVueTaux}}</button>
+      </nav>
+      <div class="chart-panel">
+        <canvas id="alertesChart" data-chart="alertes"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+  </section>
+
+  <section class="section" id="laboratoire">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">{{t.riposteLaboTitle}}</h2>
+        <div class="section-sub">{{t.riposteLaboSub}}</div>
+      </div>
+    </div>
+    <p class="page-intro">{{t.riposteLaboLede}}</p>
+    <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="laboChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+        </button>
+      </div>
+      <div class="chart-panel">
+        <canvas id="laboChart" data-chart="laboratoire"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+  </section>
+
+  <section class="section" id="contacts">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">{{t.riposteContactsTitle}}</h2>
+        <div class="section-sub">{{t.riposteContactsSub}}</div>
+      </div>
+    </div>
+    <p class="page-intro">{{t.riposteContactsLede}}</p>
+    <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="contactsChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+        </button>
+      </div>
+      <nav class="subtab-nav chart-vue-nav" data-chart-vue="contactsChart">
+        <button type="button" class="subtab-btn active" data-vue="national" data-i18n="chartVueNational">{{i18n.chartVueNational}}</button>
+        <button type="button" class="subtab-btn" data-vue="provinces" data-i18n="chartVueProvinces">{{i18n.chartVueProvinces}}</button>
+      </nav>
+      <div class="chart-panel">
+        <canvas id="contactsChart" data-chart="contactsRiposte"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+  </section>
+
+  <section class="section" id="cte">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">{{t.riposteCteTitle}}</h2>
+        <div class="section-sub">{{t.riposteCteSub}}</div>
+      </div>
+    </div>
+    <p class="page-intro">{{t.riposteCteLede}}</p>
+    <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="cteChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+        </button>
+      </div>
+      <div class="chart-panel">
+        <canvas id="cteChart" data-chart="cte"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+    <p class="map-note">{{t.riposteSourcesNote}}</p>
+  </section>
