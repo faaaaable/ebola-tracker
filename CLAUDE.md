@@ -1389,7 +1389,7 @@ positivité et occupation publiées = recalculées à 1,5 pt (notes).
 « validées » comptent aussi les alertes reportées de la veille — elles
 peuvent dépasser les reçues du jour, et les validées dépasser les
 investiguées (Ituri, 061 : 318 pour 179). C'est la source. En D, les
-colonnes se somment jour par jour. Le schéma commun garde `recues`,
+colonnes ne portent que sur la journée. Le schéma commun garde `recues`,
 `verifiees`, `validees` ; `suspectsInvestigues` et `transferes` n'existent
 qu'en D. La note du graphique le dit.
 
