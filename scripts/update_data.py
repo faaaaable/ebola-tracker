@@ -489,7 +489,126 @@ def parse_province_summary_from_text(full_text):
     return provinces, total_row
 
 
+PROVINCE_NAMES = ("Ituri", "Nord-Kivu", "Haut-Uélé", "Haut Uélé", "Tshopo",
+                  "Sud-Kivu", "Bas Uélé", "Bas-Uélé", "Total")
+
+
+def roles_entete_resume(table):
+    """Le role de chaque colonne du tableau resume, lu dans son en-tete.
+
+    Le SitRep 104 a deplace « Nouveaux cas confirmes (24h) » de la DERNIERE
+    colonne a la DEUXIEME, juste apres le nom de la province. La lecture par
+    position (cas en row[1], deces en row[2], nouveaux cas en row[-1]) a
+    alors publie, sans un seul avertissement : 52 cas confirmes en Ituri au
+    lieu de 4 802, 4 802 deces au lieu de 2 159, 2 836 778 nouveaux cas — la
+    fraction « 28/36 (77,8 %) » lue comme un entier — et 481 nouveaux cas
+    nationaux, la letalite « 48,1% » de la ligne Total lue de la meme facon.
+
+    L'en-tete, lui, dit ou est chaque colonne. Il peut s'etaler sur plusieurs
+    lignes (« Nouveaux cas » / « confirmes(24h) », « Zones de » / « sante » /
+    « touchees ») : on fusionne colonne par colonne toutes les lignes qui
+    precedent la premiere ligne de donnees. Renvoie une liste de roles, un par
+    colonne, None pour une colonne de remplissage ou non reconnue.
+    """
+    entete = None
+    for row in table:
+        premier = str(row[0] or "").strip().rstrip("*").strip() if row else ""
+        if premier in PROVINCE_NAMES:
+            break
+        cellules = [str(c or "").replace("\n", " ") for c in row]
+        if entete is None:
+            entete = cellules
+        else:
+            entete = [(a + " " + b).strip() for a, b in zip(entete, cellules)]
+    roles = []
+    for cellule in entete or []:
+        s = cellule.lower()
+        if not s.strip():
+            roles.append(None)
+        elif "province" in s:
+            roles.append("name")
+        elif "nouveau" in s:
+            roles.append("newcases")
+        elif re.search(r"\bcas\b", s):
+            roles.append("confirmed")
+        elif "décès" in s or "deces" in s:
+            roles.append("deaths")
+        elif "létalité" in s or "letalite" in s:
+            roles.append("cfr")
+        elif "zone" in s:
+            roles.append("zones")
+        else:
+            roles.append(None)
+    return roles
+
+
+def nouveaux_cas_en_tete(roles):
+    """Vrai quand l'en-tete place les nouveaux cas AVANT les cas cumules —
+    la mise en page du SitRep 104. C'est le seul cas ou la lecture par
+    position se trompe, et le seul ou l'on s'en remet a l'en-tete."""
+    if "newcases" not in roles or "confirmed" not in roles:
+        return False
+    return roles.index("newcases") < roles.index("confirmed")
+
+
+def parse_province_summary_par_entete(table, roles):
+    """Lecture du tableau resume par les colonnes de son en-tete.
+
+    On travaille sur la ligne BRUTE, pas compactee : dans cette mise en page
+    la cellule « nouveaux cas » de la ligne Total est vide, et la compacter
+    aurait decale la letalite sur les nouveaux cas. Le tableau etant
+    rectangulaire, l'index d'en-tete vaut pour chaque ligne.
+
+    La ligne Total est rendue dans l'ORDRE HISTORIQUE — nom, cas, deces,
+    letalite, zones, nouveaux cas — parce que l'aval la lit par position
+    (prov_total_row[1], [2], [3] et [-1]).
+    """
+    index = {}
+    for i, role in enumerate(roles):
+        if role and role not in index:
+            index[role] = i
+
+    def cellule(row, role):
+        i = index.get(role)
+        if i is None or i >= len(row) or row[i] is None:
+            return ""
+        return str(row[i]).strip()
+
+    provinces = []
+    total_row = None
+    for row in table:
+        if not row or not row[0]:
+            continue
+        name = str(row[0]).strip().rstrip("*").strip()
+        if name not in PROVINCE_NAMES:
+            continue
+        cas = cellule(row, "confirmed")
+        deces = cellule(row, "deaths")
+        cfr = cellule(row, "cfr")
+        zones = cellule(row, "zones")
+        nouveaux = cellule(row, "newcases")
+        if name == "Total":
+            total_row = ["Total", cas, deces, cfr, zones, nouveaux]
+            continue
+        zm = re.search(r"(\d+)\s*/\s*(\d+)", zones)
+        n_zones, tot_zones = (int(zm.group(1)), int(zm.group(2))) if zm else (None, None)
+        provinces.append({
+            "name": PROVINCE_CANON.get(name, name),
+            "confirmed": norm_int(cas),
+            "deaths": norm_int(deces),
+            "cfr": letalite_de_ligne(cfr),
+            "healthZonesAffected": {"n": n_zones, "total": tot_zones},
+            "newCases24h": norm_int(nouveaux),
+        })
+    return provinces, total_row
+
+
 def parse_province_summary(table):
+    roles = roles_entete_resume(table)
+    if nouveaux_cas_en_tete(roles):
+        print("  · tableau des provinces : nouveaux cas en deuxième colonne, "
+              "lecture guidée par l'en-tête (mise en page du SitRep 104).")
+        return parse_province_summary_par_entete(table, roles)
     provinces = []
     total_row = None
     for row in table[1:]:
