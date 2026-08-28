@@ -1691,18 +1691,25 @@ parts se comparent d'une semaine à l'autre.
 
 ## Comment travailler ici
 
-Le propriétaire distingue strictement trois états, et il faut s'y tenir :
+Le propriétaire distingue strictement deux états, et il faut s'y tenir :
 
 - **« en local »** — construire, régénérer, montrer. Ne rien commiter.
-- **« commit »** — commiter sans pousser.
-- **« mets en ligne »** — commiter et pousser.
+- **« commit »** — commiter **et pousser**. Décision du 28 août 2026 : « quand
+  je dis commit à partir de maintenant, ça veut dire mets en ligne aussi ».
+  « Mets en ligne » reste compris, c'est la même chose.
+
+Jusqu'au 28 août il y avait un état intermédiaire, « commit » sans push. Il a
+été abandonné le jour où l'on a constaté que le hook ci-dessous pousse la
+branche entière dès que ce fichier bouge : un commit « local » partait de
+toute façon en ligne au premier échange qui touchait au guide. L'état
+n'était pas tenable, autant le dire.
 
 **Une seule exception, décidée le 24 août : ce fichier.** Un hook `Stop` de Claude
 Code (`~/.claude/hooks/pousser-claude-md.sh`) commite et pousse `CLAUDE.md` à la
 fin de chaque échange, et uniquement lui — commit limité au chemin, silencieux
 quand rien n'a changé. La raison : le guide doit survivre à un re-clone, et le
 perdre coûte plus cher que de le publier. Le site, les données et le code gardent
-les trois états intacts.
+les deux états intacts.
 
 Corollaire pour qui écrit ici : **ce fichier part en ligne sans relecture**. Rien
 qui ne puisse être public n'y a sa place — pas de jeton, pas de chemin privé
