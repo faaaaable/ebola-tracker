@@ -106,7 +106,7 @@ const I18N = {
     chartWeekOf:(debut,fin)=>[debut,'→ '+fin],
     chartNoteAlertesVolume:(semaines,sans)=>`Alertes reçues par les équipes de surveillance, additionnées par semaine calendaire, du lundi au dimanche, sur ${semaines} semaines. La part sombre est validée comme cas suspect après vérification. La semaine en cours n'apparaît qu'une fois terminée. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas ce tableau : leurs journées manquent aux totaux, qui sont des minimums. ` : '')
-      + `Jusqu'à début août, les alertes vérifiées et validées comptent aussi celles de la veille ; depuis, elles se somment jour par jour.`,
+      + `Jusqu'à début août, les alertes vérifiées et validées comptent aussi celles de la veille ; depuis, elles ne portent que sur la journée.`,
     chartNoteAlertesTaux:()=>`Part des alertes reçues qui ont été vérifiées, et part validée comme cas suspect, jour par jour. Une part validée qui monte peut dire que les alertes sont mieux ciblées — ou qu'il y a plus de malades. Jusqu'à début août, vérifiées et validées comptent aussi les alertes de la veille : la part peut alors dépasser 100 %.`,
     chartNoteLabo:(semaines,sans)=>`Échantillons analysés par semaine calendaire, positifs en couleur pleine, et positivité de la semaine — positifs sur analysés — sur l'axe de droite. Un positif n'est pas toujours un nouveau cas : les bulletins récents séparent les reprélèvements, les anciens non. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas à la fois les échantillons et les positifs : leurs journées manquent aux totaux, qui sont des minimums. ` : '')
