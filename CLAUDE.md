@@ -1411,6 +1411,22 @@ qu'en D. La note du graphique le dit.
 - Le laboratoire trace les **nouveaux cas** comme positifs quand le bulletin
   sépare les reprélèvements, la phrase nationale de l'époque D primant sur
   la somme des provinces.
+- **La vue par province a de l'air au-dessus de 100 %** (cadre à 110, aucune
+  graduation au-dessus de 100) : Tshopo et Sud-Kivu y sont à 100 % des jours
+  entiers, et leurs points se collaient au cadre. Demande du propriétaire du
+  28 août, qui a choisi de garder cette vue malgré ses six courbes et ses
+  trous — en connaissance de cause : le saut du Bas-Uélé de 18,7 % à 59,5 %
+  entre les 18 et 19 août est dans la source (36 puis 131 contacts vus sur
+  ~200 ; trois jours de compteur figé, puis les équipes arrivent), et le
+  20 août le bulletin recopie 59,5 % pour 110/233 = 47,2 % — les effectifs
+  sont écartés par le contrôle « à un point du taux », le taux imprimé reste.
+- **Un nombre de la bande de chiffres clés (époque C) est un groupe de un à
+  trois chiffres suivi de groupes de trois**, ou une suite de chiffres sans
+  espace (« 17472 ») : « Sud-Kivu 16 14 466 / 18 276 vus » se lisait
+  1 614 466 vus, et huit jours d'effectifs manquaient fin juillet. Le 077
+  imprime les deux nombres **dans le mauvais ordre** (« 17 828/ 13 420
+  vus ») ; ils ne sont retenus inversés que parce que 13 420 / 17 828 = 75,3 %,
+  le taux de la même ligne.
 - Le seuil de suivi des contacts est **85 %** dans les bulletins depuis août
   (« en dessous du seuil de 85 % »), quand l'OMS fixait 95 % : la note cite
   les deux, aucun n'est tracé.
