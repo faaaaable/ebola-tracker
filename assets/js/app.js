@@ -3968,7 +3968,9 @@ function renderZonesDropdown(){
   const ici = location.pathname.replace(/\/*$/, '/');
   const surTableaux = allUrl.replace(/\/*$/, '/') === ici;
   const marque = surTableaux ? ' aria-current="page"' : '';
-  const allItem = `<a class="tab-dropdown-item"${marque} href="${allUrl}">${tr('navDataTables')}</a>`;
+  /* L'anneau vide devant « Ensemble du pays », comme le generateur le pose :
+     sans lui, le premier item commencait un cran avant les six provinces. */
+  const allItem = `<a class="tab-dropdown-item"${marque} href="${allUrl}"><span class="dot dot-all"></span>${tr('navDataTables')}</a>`;
   const provItems = provinces.map(p=>{
     const color = PROVINCE_COLORS[p] || 'var(--ink-faint)';
     const href = links[p] || (dataUrl + '?province=' + encodeURIComponent(p));

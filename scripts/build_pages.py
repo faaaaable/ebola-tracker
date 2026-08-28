@@ -338,7 +338,13 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
         # La liste reste repliee par defaut — sinon la navigation fait sept
         # lignes de plus — mais elle est deja dans le HTML, donc suivie par les
         # moteurs de recherche, et deployee d'office sur ces pages.
-        links = ['          <a class="tab-dropdown-item"%s href="%s">%s</a>'
+        # « Ensemble du pays » porte un anneau vide la ou les provinces ont
+        # leur pastille de couleur : sans lui, le premier item de la liste
+        # commencait un cran avant les six autres. Un cercle vide plutot
+        # qu'un point d'une septieme couleur — c'est le contour qui contient
+        # les six, pas une province de plus. Demande du proprietaire, 28 aout.
+        links = ['          <a class="tab-dropdown-item"%s href="%s">'
+                 '<span class="dot dot-all"></span>%s</a>'
                  % (current, urls.path("donnees", lang),
                     esc(strings_lang["navDataTables"]))]
         for province in provinces:
