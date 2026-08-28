@@ -1332,6 +1332,100 @@ permet pas de passer une instance de `bar` à `line`. Le code teste
 
 ---
 
+## La page « Riposte » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
+
+Construite le 28 août 2026, **en local, non commitée à cette date**. Elle
+répond à la question que `/donnees/` ne pose pas : que fait-on contre, et
+est-ce que ça tient. Quatre cadres empilés dans l'ordre de la chaîne de
+riposte — alertes, laboratoire, contacts, CTE — et non des onglets : ces
+quatre graphiques se lisent ensemble, et ce qui n'est pas cliqué n'est pas lu
+(l'argument du carrousel de provinces). Dans la barre latérale, juste après
+« Données détaillées ». Quatre chiffres de tête écrits en dur par
+`riposte_seed()` dans `build_pages.py`, chacun daté quand sa série s'arrête
+avant le bulletin.
+
+### Les données
+
+| Fichier | Script | Profondeur | Ce qu'il lit |
+|---|---|---|---|
+| `alertes.json` | `extraire_alertes.py` | 77 dates dès le 1ᵉʳ juin | tableau « Gestion des alertes » (B, C) ; tableau « Situation des alertes notifiées par province » (D) |
+| `laboratoire.json` | `extraire_laboratoire.py` | 78 dates dès le 21 mai | section « Laboratoire », découpée par province |
+| `cte.json` | `extraire_cte.py` | 70 dates dès le 2 juin | tableau « Occupation des structures de soins » (B, C) ; prose « Continuité des soins » (D) |
+| `contacts-followup.json` | `extract_contacts_followup.py` (étendu) | inchangée, + `contacts` (vus / à suivre) et `provinces` | lignes de province du tableau (B), bande de chiffres clés (C), phrase de surveillance (D) |
+
+Tous lisent le texte des PDF via `scripts/textes_pdf.py`, qui le met en
+cache dans `.cache/textes/` (ignoré par git) : seul le bulletin nouveau est
+réellement ouvert. Le workflow GitHub porte les trois nouvelles étapes.
+
+**Trois principes de lecture, nés des dérapages du premier passage.**
+
+- **Le tableau avant la prose.** Sous « Prise en charge » (B, C), la prose
+  aligne des cumuls qui ressemblent à des hospitalisés du jour — le 060
+  donnait 753 hospitalisés au Nord-Kivu, son cumul de cas. La prose n'est
+  lue que sous le titre de l'époque D, « Continuité des soins ».
+- **Un morceau de province s'arrête avant `cumul`, `Au total` et les
+  paragraphes de synthèse.** Sans cette coupure, la Tshopo héritait des
+  « 152 échantillons pour 55 positifs » du commentaire qui suit sa ligne.
+- **Un espace entre deux nombres est tantôt une colonne, tantôt un
+  séparateur de milliers** (« 532 924 ND 27 ND 1 483 »). `decoupages()`
+  énumère les lectures possibles et l'appelant retient celle que la colonne
+  Total vérifie — ou, en D, celle où reçues = vivants + décédés. Sans
+  vérification, le 020 lisait 6 409 alertes là où les provinces en font 403.
+
+**Ce qui est déduit, et marqué.** Le laboratoire déduit les positifs du
+produit échantillons × positivité quand le bulletin ne donne que ces
+deux-là et que le produit tombe sur un entier (`positifsDeduits`) ; l'occupation
+est recalculée quand le bulletin donne patients et lits sans le taux
+(`occupationCalculee`). Rien d'autre.
+
+**Le meilleur garde-fou du dépôt** est dans `check_coherence.py`, section 6 :
+la somme des positifs du laboratoire du jour doit égaler les nouveaux cas du
+bulletin (81 = 81 au SitRep 104). Une extraction qui dérape sur l'un des deux
+se voit immédiatement. Les autres règles : positifs ≤ échantillons
+(bloquant), validées ≤ vérifiées en D (bloquant), vus ≤ à suivre (bloquant),
+positivité et occupation publiées = recalculées à 1,5 pt (notes).
+
+**Deux entonnoirs d'alertes, pas un.** En B et C, « investiguées » et
+« validées » comptent aussi les alertes reportées de la veille — elles
+peuvent dépasser les reçues du jour, et les validées dépasser les
+investiguées (Ituri, 061 : 318 pour 179). C'est la source. En D, les
+colonnes se somment jour par jour. Le schéma commun garde `recues`,
+`verifiees`, `validees` ; `suspectsInvestigues` et `transferes` n'existent
+qu'en D. La note du graphique le dit.
+
+### Les graphiques (`app.js`, modes `alertes`, `laboratoire`, `contactsRiposte`, `cte`)
+
+- Les volumes (alertes, échantillons) sont **par semaine calendaire**, la
+  semaine en cours écartée tant qu'elle n'est pas finie — même règle que
+  « Nouveaux cas ». **Une semaine sans relevé reste une colonne vide** :
+  deux barres collées se liraient comme deux semaines consécutives.
+- Les taux sont quotidiens, sur un calendrier jour par jour (idiome du
+  suivi des contacts), `spanGaps:false`.
+- **Bascule par canevas** : `<nav data-chart-vue="alertesChart">`, état dans
+  `vuesParCanvas` — quatre cadres cohabitent, une variable globale ne
+  suffisait plus. `legendesDuGraphique` lit le titre dans `.section-title`
+  et la vue dans `.chart-vue-nav`, donc l'export porte les deux.
+- **Sous 20 lits, pas de taux d'occupation** (`SEUIL_LITS`) : la Tshopo
+  passait de 5 à 40 % pour un patient. Même seuil de lisibilité que le lieu
+  du décès.
+- Le laboratoire trace les **nouveaux cas** comme positifs quand le bulletin
+  sépare les reprélèvements, la phrase nationale de l'époque D primant sur
+  la somme des provinces.
+- Le seuil de suivi des contacts est **85 %** dans les bulletins depuis août
+  (« en dessous du seuil de 85 % »), quand l'OMS fixait 95 % : la note cite
+  les deux, aucun n'est tracé.
+- Bas-Uélé porte toujours le rouge des décès (`PROVINCE_COLORS`) et il
+  apparaît ici bien avant ses 50 cas — le chantier ouvert devient visible.
+
+L'onglet « Suivi des contacts » de `/donnees/` est resté tel quel ; la page
+Riposte en porte la version enrichie. Doublon assumé pour l'instant.
+
+Vérification : `tmp/riposte/` (gitignoré) reçoit les 18 figures exportées par
+le mécanisme « Partager » et les captures de page, à 1 440 et 360 px, par un
+script de session ; `test_onglets.mjs` sur `/donnees/` sans erreur.
+
+---
+
 ## Conventions établies
 
 **Couleurs.** Bleu `#005E82` = cas, rouge `#993A2E` = décès, partout. Chaque
