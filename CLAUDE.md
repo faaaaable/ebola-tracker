@@ -5,9 +5,10 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 102**, rapportage
-du 24 août 2026 — 5 656 cas confirmés, 2 715 décès, létalité 48,0 %,
-**58 zones touchées** (Ganga, au Bas-Uélé, est la dernière arrivée).
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 104**, rapportage
+du 26 août 2026 — 5 794 cas confirmés, 2 786 décès, létalité 48,1 %,
+**60 zones touchées** (Biena et Manguredjipa, au Nord-Kivu, sont les dernières
+arrivées).
 
 ---
 
@@ -1525,6 +1526,40 @@ au 101 — et pourtant les 58 zones sont sorties exactes, verifiees une par une
 contre le PDF. Le repli sur le texte brut fait son travail ; le compteur de
 lignes ecartees mesure la deformation du tableau, pas la qualite du resultat.
 Il reste un signal a recouper, jamais un verdict.
+
+**Le format a changé une SIXIÈME fois au SitRep 104 : les nouveaux cas sont
+passés en deuxième colonne du tableau des provinces.** Jusqu'au 103, l'ordre
+était nom, cas, décès, létalité, zones, nouveaux cas ; le 104 écrit
+« Ituri 52 4802 2 159 45,0% 28/36 (77,8 %) ». La lecture par position de
+`parse_province_summary()` — cas en `row[1]`, décès en `row[2]`, nouveaux cas
+en `row[-1]` après retrait des cellules vides — a produit **sans aucun
+avertissement** 52 cas confirmés en Ituri, 4 802 décès, 2 836 778 nouveaux
+cas (la fraction de zones lue comme un entier) et 481 nouveaux cas nationaux
+(la létalité « 48,1% » de la ligne Total, dont la cellule nouveaux cas est
+vide). Ni repli, ni ligne jugée non fiable : le tableau était propre, seul son
+ordre avait changé. C'est le cas d'école de la synchronisation en pause.
+
+Depuis le 28 août, `roles_entete_resume()` lit l'en-tête du tableau (fusion
+des lignes d'en-tête colonne par colonne, puis un rôle par colonne :
+province, nouveaux cas, cas, décès, létalité, zones) et
+`nouveaux_cas_en_tete()` décide : si les nouveaux cas précèdent les cas
+cumulés, `parse_province_summary_par_entete()` lit chaque cellule **par
+l'index de son en-tête, sur la ligne brute** — la ligne Total garde sa
+cellule vide à sa place au lieu de se décaler. Sinon la lecture par position
+est inchangée : vérifié sur les 67 bulletins où pdfplumber trouve le tableau,
+68 lignes de province identiques à `province-history.json`, seul le 104
+détecté. La ligne Total est rendue dans l'ordre historique parce que l'aval
+la lit par position (`prov_total_row[1]`, `[2]`, `[3]`, `[-1]`) ; le total
+national de nouveaux cas vient alors de la ligne Total du tableau détaillé,
+qui le porte en clair (81).
+
+À relire après chaque nouveau bulletin, tant que la synchronisation est
+manuelle : **les six lignes de province de `latest.json` contre la page 2 du
+PDF**, cas et décès. `check_coherence.py` l'aurait signalé en bout de chaîne
+(somme des provinces contre le national : 81 pour 5 794), mais après que
+`province-history.json` avait déjà reçu la ligne fausse du 26 août — le
+contrôle arrête la publication, il ne répare pas l'historique, que seule une
+nouvelle exécution d'`update_data.py` rafraîchit (c'est ce qui a été fait).
 
 **Le tableau des zones porte QUATRE colonnes de jour, pas trois.** Apres la
 letalite viennent : nouveaux cas, deces communautaires, deces intra-CTE, puis
