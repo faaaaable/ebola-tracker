@@ -225,10 +225,11 @@ pays » avec l'anneau vide de la barre laterale (idiome du statut sur les
 pages province), et une introduction a l'echelle du pays sans enumeration
 des provinces (`provincesIntro`).
 
-**Une maquette de `/donnees/` en chapitres vit hors du depot** (gabarit
-`site/pages/maquette-donnees.html`, non suivi ; entree `maquette` de
-`pages.json` et cles `dd*` de `strings.json` retirees avant chaque commit,
-remises apres). Combien (Nouveaux cas, Nouveaux deces, chacun avec son cumul
+**Une maquette de `/donnees/` en chapitres est publiée en page parallèle**
+depuis le 29 août : `/maquette-donnees/`, `/en/mockup-data/`,
+`/sw/mchoro-takwimu/` (gabarit `site/pages/maquette-donnees.html`, entrée
+`maquette` de `pages.json` avec `noindex: true` — hors sitemap — et
+`robots.txt` l'interdit aux moteurs). Non liée depuis le site. Combien (Nouveaux cas, Nouveaux deces, chacun avec son cumul
 et son pas de temps), Ou (tableau par province, Nouveaux cas par province,
 tableau par zone), Qui (Age et sexe), Que fait-on (les quatre chiffres de la
 riposte). Elle attend une decision. `newCases` et `newDeaths` restent **voisins** : ils partagent leur
