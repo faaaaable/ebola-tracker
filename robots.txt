@@ -2,6 +2,12 @@
 # c'est ce qui rend les chiffres publiés ici vérifiables.
 User-agent: *
 Allow: /
+# La maquette de travail de « Donnees detaillees » est servie pour etre
+# regardee, pas pour etre indexee : elle doublonne /donnees/ le temps d'une
+# decision.
+Disallow: /maquette-donnees/
+Disallow: /en/mockup-data/
+Disallow: /sw/mchoro-takwimu/
 
 # L'archive pèse environ 170 Mo répartis sur une centaine de PDF. Le seul
 # risque n'est pas qu'on la lise, mais qu'un robot mal réglé la retélécharge

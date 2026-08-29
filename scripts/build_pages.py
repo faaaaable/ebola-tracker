@@ -2379,6 +2379,10 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
 def write_sitemap(config, urls, provinces):
     entries = []
     for page in config["pages"]:
+        # Une page « noindex » (la maquette de /donnees/) est servie mais ne
+        # figure pas dans le sitemap ; robots.txt l'interdit aux moteurs.
+        if page.get("noindex"):
+            continue
         entries.append((page["id"], None, page["changefreq"], page["priority"]))
     province_page = config["provincePage"]
     for province in provinces:

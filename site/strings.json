@@ -253,7 +253,18 @@
     "riposteSourcesNote": "Sources : rapports de situation de l'INSP, lus bulletin par bulletin. La forme de ces chiffres a changé à chaque époque de rédaction ; un bulletin dont la formulation n'a pas pu être lue laisse un jour vide plutôt qu'une valeur devinée. Les alertes et le laboratoire sont agrégés par semaine, du lundi au dimanche, la semaine en cours n'apparaissant qu'une fois terminée. Aucun chiffre n'est recalculé à la place de la source, sauf l'occupation quand le bulletin donne les patients et les lits sans le taux.",
     "riposteDecesTitle": "Le lieu du décès",
     "riposteDecesSub": "en communauté ou en centre de traitement",
-    "riposteDecesLede": "Deux décès confirmés sur trois surviennent hors des centres de traitement. Cette part dit ce que la riposte n'atteint pas : un malade mort chez lui n'a été ni isolé ni soigné, et a exposé les siens jusqu'au bout."
+    "riposteDecesLede": "Deux décès confirmés sur trois surviennent hors des centres de traitement. Cette part dit ce que la riposte n'atteint pas : un malade mort chez lui n'a été ni isolé ni soigné, et a exposé les siens jusqu'au bout.",
+    "ddCombien": "Combien",
+    "ddCombienSub": "cas et décès, jour après jour",
+    "ddOu": "Où",
+    "ddOuSub": "par province et par zone de santé",
+    "ddQui": "Qui",
+    "ddQuiSub": "âge et sexe des cas et des décès",
+    "ddQueFaitOn": "Que fait-on",
+    "ddQueFaitOnSub": "la riposte, en quatre chiffres",
+    "ddRiposteLink": "Toute la page « La riposte » →",
+    "ddNewCasesTitle": "Nouveaux cas et décès",
+    "ddMaquetteNote": "Maquette de travail — même contenu que « Ensemble du pays », réorganisé en chapitres. Non liée depuis le site."
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -508,7 +519,18 @@
     "riposteSourcesNote": "Sources: INSP situation reports, read bulletin by bulletin. The form of these figures has changed with each editorial period; a bulletin whose wording could not be read leaves an empty day rather than a guessed value. Alerts and laboratory figures are aggregated by week, Monday to Sunday, the current week appearing only once complete. No figure is recalculated in place of the source, except occupancy when the bulletin gives patients and beds without the rate.",
     "riposteDecesTitle": "Place of death",
     "riposteDecesSub": "in the community or in a treatment centre",
-    "riposteDecesLede": "Two confirmed deaths in three occur outside treatment centres. That share says what the response does not reach: a patient who dies at home was neither isolated nor treated, and exposed their family to the end."
+    "riposteDecesLede": "Two confirmed deaths in three occur outside treatment centres. That share says what the response does not reach: a patient who dies at home was neither isolated nor treated, and exposed their family to the end.",
+    "ddCombien": "How many",
+    "ddCombienSub": "cases and deaths, day after day",
+    "ddOu": "Where",
+    "ddOuSub": "by province and by health zone",
+    "ddQui": "Who",
+    "ddQuiSub": "age and sex of cases and deaths",
+    "ddQueFaitOn": "What is being done",
+    "ddQueFaitOnSub": "the response, in four figures",
+    "ddRiposteLink": "The full “Response” page →",
+    "ddNewCasesTitle": "New cases and deaths",
+    "ddMaquetteNote": "Working mock-up — same content as “Whole country”, reorganised into chapters. Not linked from the site."
   },
   "timelineEvents": [
     {
@@ -1024,6 +1046,17 @@
     "riposteSourcesNote": "Vyanzo: ripoti za hali za INSP, zilizosomwa ripoti baada ya ripoti. Umbo la takwimu hizi limebadilika kila kipindi cha uandishi; ripoti ambayo maneno yake hayakuweza kusomwa huacha siku tupu badala ya thamani ya kubahatisha. Tahadhari na maabara hujumlishwa kwa wiki, Jumatatu hadi Jumapili, wiki inayoendelea ikionekana tu ikikamilika. Hakuna takwimu inayohesabiwa upya badala ya chanzo, isipokuwa matumizi ya vitanda wakati ripoti inatoa wagonjwa na vitanda bila kiwango.",
     "riposteDecesTitle": "Mahali pa kifo",
     "riposteDecesSub": "katika jamii au katika kituo cha matibabu",
-    "riposteDecesLede": "Vifo viwili kati ya vitatu vilivyothibitishwa hutokea nje ya vituo vya matibabu. Sehemu hiyo inaonyesha kile mapambano hayafikii: mgonjwa anayefia nyumbani hakutengwa wala kutibiwa, na aliwaweka wapendwa wake hatarini hadi mwisho."
+    "riposteDecesLede": "Vifo viwili kati ya vitatu vilivyothibitishwa hutokea nje ya vituo vya matibabu. Sehemu hiyo inaonyesha kile mapambano hayafikii: mgonjwa anayefia nyumbani hakutengwa wala kutibiwa, na aliwaweka wapendwa wake hatarini hadi mwisho.",
+    "ddCombien": "Ngapi",
+    "ddCombienSub": "visa na vifo, siku baada ya siku",
+    "ddOu": "Wapi",
+    "ddOuSub": "kwa jimbo na kwa eneo la afya",
+    "ddQui": "Nani",
+    "ddQuiSub": "umri na jinsia ya visa na vifo",
+    "ddQueFaitOn": "Kinachofanywa",
+    "ddQueFaitOnSub": "mapambano, kwa takwimu nne",
+    "ddRiposteLink": "Ukurasa mzima wa « Mapambano » →",
+    "ddNewCasesTitle": "Visa vipya na vifo vipya",
+    "ddMaquetteNote": "Mchoro wa kazi — maudhui sawa na « Nchi nzima », yamepangwa upya kwa sura. Haujaunganishwa kutoka tovuti."
   }
 }

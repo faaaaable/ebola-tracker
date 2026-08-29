@@ -608,6 +608,40 @@
           "description": "Kuripoti kosa, kupendekeza chanzo au kuuliza swali kuhusu tovuti hii."
         }
       }
+    },
+    {
+      "id": "maquette",
+      "fragment": "maquette-donnees.html",
+      "slug": {
+        "fr": "maquette-donnees/",
+        "en": "mockup-data/",
+        "sw": "mchoro-takwimu/"
+      },
+      "needs": [
+        "chart"
+      ],
+      "changefreq": "never",
+      "priority": "0.1",
+      "schema": [],
+      "navLabelKey": "i18n:tabZones",
+      "meta": {
+        "fr": {
+          "title": "Maquette — Données détaillées en chapitres",
+          "h1": "Données détaillées",
+          "description": "Maquette de travail."
+        },
+        "en": {
+          "title": "Mock-up — Detailed data in chapters",
+          "h1": "Detailed data",
+          "description": "Working mock-up."
+        },
+        "sw": {
+          "title": "Mchoro — Takwimu za kina kwa sura",
+          "h1": "Takwimu za kina",
+          "description": "Mchoro wa kazi."
+        }
+      },
+      "noindex": true
     }
   ],
   "provincePage": {

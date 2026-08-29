@@ -1,0 +1,246 @@
+  <!-- MAQUETTE de la piste A : la page « Ensemble du pays » reorganisee en
+       chapitres — combien, ou, qui, que fait-on — chaque graphique dans son
+       cadre, les onglets reserves aux lectures d'une meme serie. Meme contenu
+       que donnees.html, memes identifiants pour que le script remplisse les
+       tableaux et les canevas comme sur la page reelle. Non liee depuis le
+       site : pas dans mainNav ni footerNav, hors sitemap (noindex dans
+       pages.json), interdite aux moteurs par robots.txt. Publiee le 29 aout
+       pour etre regardee ailleurs qu'en local. -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <!-- Le surtitre dit le perimetre, comme sur les pages province ou il
+             dit le statut : cette page, c'est tout le pays, et l'anneau vide
+             est celui d'« Ensemble du pays » dans la barre laterale. -->
+        <div class="eyebrow" style="margin-bottom:6px;"><span class="dot dot-all"></span>{{t.navDataTables}}</div>
+        <h1 class="page-title">{{meta.h1}}</h1>
+      </div>
+      <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">{{seed.zonesSub}}</div>
+    </div>
+    <p class="page-intro">{{t.provincesIntro}}</p>
+    <nav class="riposte-ancres" aria-label="{{t.ddCombien}} · {{t.ddOu}} · {{t.ddQui}}">
+      <a href="#combien">{{t.ddCombien}}</a>
+      <a href="#ou">{{t.ddOu}}</a>
+      <a href="#qui">{{t.ddQui}}</a>
+      <a href="#riposte">{{t.ddQueFaitOn}}</a>
+    </nav>
+    <p class="map-note" style="margin-top:14px;">{{t.ddMaquetteNote}}</p>
+  </section>
+
+  <!-- ============ COMBIEN ============ -->
+  <section class="section section-split" id="combien">
+    <div>
+      <h2 class="section-title">{{t.ddCombien}}</h2>
+      <div class="section-sub">{{t.ddCombienSub}}</div>
+    </div>
+    <div>
+      <!-- Deux cadres, un par serie : le quotidien porte la courbe de cumul de
+           sa serie (ce que faisait « Evolution de l'epidemie » pour les deux a
+           la fois), et la bascule Jour / Semaine / Mois est propre a chaque
+           cadre. Decision du proprietaire, 29 aout. -->
+      <div class="section-head">
+        <h3 class="section-title">{{i18n.chartModeNewCases}}</h3>
+      </div>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="casChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+          </button>
+        </div>
+        <nav class="subtab-nav chart-vue-nav" data-vue-periode>
+          <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">{{i18n.chartVueDaily}}</button>
+          <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">{{i18n.chartVueWeekly}}</button>
+          <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">{{i18n.chartVueMonthly}}</button>
+        </nav>
+        <div class="chart-panel">
+          <canvas id="casChart" data-chart="newCases" data-cumul="1"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="section-title">{{i18n.chartModeNewDeaths}}</h3>
+      </div>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="decesChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+          </button>
+        </div>
+        <nav class="subtab-nav chart-vue-nav" data-vue-periode>
+          <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">{{i18n.chartVueDaily}}</button>
+          <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">{{i18n.chartVueWeekly}}</button>
+          <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">{{i18n.chartVueMonthly}}</button>
+        </nav>
+        <div class="chart-panel">
+          <canvas id="decesChart" data-chart="newDeaths" data-cumul="1"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ OU ============ -->
+  <section class="section section-split" id="ou">
+    <div>
+      <h2 class="section-title">{{t.ddOu}}</h2>
+      <div class="section-sub">{{t.ddOuSub}}</div>
+    </div>
+    <div>
+      <div class="section-head">
+        <h3 class="section-title">{{i18n.zonesViewProvince}}</h3>
+      </div>
+      <!-- Le tableau par province EST la vignette de chaque province : les six
+           cartes « Explorer province par province » n'ont plus lieu d'etre. -->
+      <div class="panel panel-fit" style="padding:16px;">
+        <div class="chart-actions" data-export-table="provinceSummaryTable">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+          </button>
+        </div>
+        <div class="table-scroll">
+          <table class="province-summary" id="provinceSummaryTable">
+            <caption class="visually-hidden">{{i18n.zonesViewProvince}}</caption>
+            <thead>
+              <tr>
+                <th data-i18n="provinceTh1">{{i18n.provinceTh1}}</th>
+                <th class="is-num" data-i18n="zonesTh3">{{i18n.zonesTh3}}</th>
+                <th class="is-num" data-i18n-html="provinceTh3">{{i18n.provinceTh3}}</th>
+                <th class="is-num" data-i18n="zonesTh4">{{i18n.zonesTh4}}</th>
+                <th class="is-num" data-i18n="zonesTh5">{{i18n.zonesTh5}}</th>
+                <th class="is-num" data-i18n="provinceTh2">{{i18n.provinceTh2}}</th>
+                <th class="is-num" data-i18n="zonesTh6">{{i18n.zonesTh6}}</th>
+                <th class="is-num" data-i18n="zonesTh7">{{i18n.zonesTh7}}</th>
+              </tr>
+            </thead>
+            <tbody id="provinceSummaryBody">
+{{seed.provinceRows}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- La note de lecture remonte sous le tableau qu'elle explique. -->
+      <p class="map-note">{{t.dataNoteShort}}</p>
+
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="section-title">{{i18n.chartModeNewCasesByProvince}}</h3>
+      </div>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="provChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+          </button>
+        </div>
+        <nav class="subtab-nav chart-vue-nav" data-chart-vue="provChart">
+        <button type="button" class="subtab-btn active" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>
+        <button type="button" class="subtab-btn" data-vue="cas" data-i18n="chartVueCas">{{i18n.chartVueCas}}</button>
+      </nav>
+        <div class="chart-panel">
+          <canvas id="provChart" data-chart="newCasesByProvince"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="section-title">{{i18n.zonesViewZone}}</h3>
+      </div>
+      <!-- Le tableau par zone sort de sa bascule : toujours visible, avec sa
+           recherche et son filtre. -->
+      <div class="zones-block">
+        <div class="panel panel-fit" style="padding:16px;">
+          <div class="chart-actions" data-export-table="zonesDetailTable">
+            <button type="button" class="share-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+              <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+            </button>
+          </div>
+          <nav class="subtab-nav" id="zonesSubtabNav" aria-label="{{i18n.zonesFilterAll}}"></nav>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+            <label class="visually-hidden" for="zonesSearch">{{i18n.zonesSearchPlaceholder}}</label>
+            <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="{{i18n.zonesSearchPlaceholder}}">
+          </div>
+          <div class="table-scroll">
+            <table class="zones-detail" id="zonesDetailTable">
+              <thead><tr id="zonesTableHead"></tr></thead>
+              <tbody id="zonesTableBody"></tbody>
+            </table>
+          </div>
+          <div id="zonesEmptyState" class="map-note fit-passive" style="display:none;text-align:center;" data-i18n="zonesEmptyState">{{i18n.zonesEmptyState}}</div>
+          <div id="zonesResultCount" class="fit-passive"></div>
+        </div>
+        <p class="map-note zones-note">{{t.zonesSumNote}}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUI ============ -->
+  <section class="section section-split" id="qui">
+    <div>
+      <h2 class="section-title">{{t.ddQui}}</h2>
+      <div class="section-sub">{{t.ddQuiSub}}</div>
+    </div>
+    <div>
+      <div class="section-head">
+        <h3 class="section-title">{{i18n.chartModePyramide}}</h3>
+      </div>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="pyrChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+          </button>
+        </div>
+                <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
+          <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">{{i18n.chartPyramideVueEffectifs}}</button>
+          <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>
+        </nav>
+        <div class="chart-duo">
+          <div class="chart-panel">
+            <canvas id="pyrChart" data-chart="pyramide"></canvas>
+          </div>
+          <div class="chart-panel chart-panel-duo" style="display:none;">
+            <canvas id="pyrChartB"></canvas>
+          </div>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUE FAIT-ON ============ -->
+  <section class="section section-split" id="riposte">
+    <div>
+      <h2 class="section-title">{{t.ddQueFaitOn}}</h2>
+      <div class="section-sub">{{t.ddQueFaitOnSub}}</div>
+    </div>
+    <div>
+      <div class="kpis riposte-kpis">
+        <div class="kpi alerts">
+          <div class="label">{{t.riposteKpiAlertes}}</div>
+          <div class="value">{{seed.ripAlertes}}</div>
+          <div class="delta">{{seed.ripAlertesSub}}</div>
+        </div>
+        <div class="kpi labo">
+          <div class="label">{{t.riposteKpiPositivite}}</div>
+          <div class="value">{{seed.ripPositivite}}</div>
+          <div class="delta">{{seed.ripPositiviteSub}}</div>
+        </div>
+        <div class="kpi contacts">
+          <div class="label">{{t.riposteKpiContacts}}</div>
+          <div class="value">{{seed.ripContacts}}</div>
+          <div class="delta">{{seed.ripContactsSub}}</div>
+        </div>
+        <div class="kpi cte">
+          <div class="label">{{t.riposteKpiOccupation}}</div>
+          <div class="value">{{seed.ripOccupation}}</div>
+          <div class="delta">{{seed.ripOccupationSub}}</div>
+        </div>
+      </div>
+      <p class="page-intro" style="margin-top:14px;"><a href="{{url.riposte}}">{{t.ddRiposteLink}}</a></p>
+    </div>
+  </section>
