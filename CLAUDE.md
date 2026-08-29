@@ -175,12 +175,13 @@ Huit pages, chacune en FR et EN : accueil, `donnees/` (+ six pages province),
 Les graphiques sont rendus côté client par `assets/js/app.js` avec Chart.js.
 Chaque canevas déclare son sujet via `data-chart`, les onglets via `data-mode`.
 
-**Sept onglets sur `/donnees/`**, dans cet ordre : `epidemic`, `newCases`,
-`newDeaths`, `deathsPlace`, `byProvince` (« Cas par province »), `pyramide`,
-`contactsFollowUp`. La
-barre repond a des questions successives — combien (l'ensemble, les cas, les
-deces), ou (par province), qui (age et sexe), et que fait-on contre (suivi des
-contacts). `newCases` et `newDeaths` restent **voisins** : ils partagent leur
+**Six onglets sur `/donnees/`**, dans cet ordre : `epidemic`, `newCases`,
+`newDeaths`, `deathsPlace`, `byProvince` (« Cas par province »), `pyramide`.
+La barre repond a des questions successives — combien (l'ensemble, les cas,
+les deces), ou (par province), qui (age et sexe). « Que fait-on contre » a
+quitte la barre le 29 aout pour la page Riposte, ou le suivi des contacts est
+plus complet (effectifs, provinces) ; le mode `contactsFollowUp` reste dans
+`app.js`. `newCases` et `newDeaths` restent **voisins** : ils partagent leur
 bascule de pas de temps et son etat, ce qui ne se decouvre que si les deux
 boutons se touchent. Les modes `ages`, `sexes` et
 `communityDeaths` restent dans le code sans bouton — décisions de publication,
@@ -1433,8 +1434,8 @@ qu'en D. La note du graphique le dit.
 - Bas-Uélé porte toujours le rouge des décès (`PROVINCE_COLORS`) et il
   apparaît ici bien avant ses 50 cas — le chantier ouvert devient visible.
 
-L'onglet « Suivi des contacts » de `/donnees/` est resté tel quel ; la page
-Riposte en porte la version enrichie. Doublon assumé pour l'instant.
+L'onglet « Suivi des contacts » de `/donnees/` a été retiré le 29 août : la
+page Riposte en porte la version enrichie, le doublon est réglé.
 
 Vérification : `tmp/riposte/` (gitignoré) reçoit les 18 figures exportées par
 le mécanisme « Partager » et les captures de page, à 1 440 et 360 px, par un
