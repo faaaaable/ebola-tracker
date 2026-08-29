@@ -574,9 +574,44 @@ def parse_province_summary_par_entete(table, roles):
             return ""
         return str(row[i]).strip()
 
+    # pdfplumber peut eclater une cellule sur la ligne suivante : au 105, la
+    # ligne Total porte « 5 863 » et « 48,1% » mais ses deces « 2 824 » sont
+    # sur une ligne a part, seule cellule remplie. On rattache ces lignes de
+    # continuation a la ligne precedente, la ou elle est vide.
+    lignes = []
+    for row in table:
+        if not row:
+            continue
+        pleines = [i for i, c in enumerate(row) if c is not None and str(c).strip()]
+        if lignes and (row[0] is None or not str(row[0]).strip()) and 0 < len(pleines) <= 2:
+            prec = lignes[-1]
+            for i in pleines:
+                if i < len(prec) and (prec[i] is None or not str(prec[i]).strip()):
+                    prec[i] = row[i]
+            continue
+        lignes.append(list(row))
+
+    # Et une colonne de remplissage peut s'intercaler : l'en-tete « Zones de
+    # sante touchees » est en colonne 6 quand la fraction « 28/36 (77,8 %) »
+    # est en colonne 5, sous un en-tete vide. Si la cellule attendue est vide,
+    # on regarde la voisine sans role.
+    def cellule_ou_voisine(row, role, forme=None):
+        v = cellule(row, role)
+        if v:
+            return v
+        i = index.get(role)
+        if i is None:
+            return ""
+        for j in (i - 1, i + 1):
+            if 0 <= j < len(row) and j < len(roles) and roles[j] is None:
+                c = "" if row[j] is None else str(row[j]).strip()
+                if c and (forme is None or re.search(forme, c)):
+                    return c
+        return ""
+
     provinces = []
     total_row = None
-    for row in table:
+    for row in lignes:
         if not row or not row[0]:
             continue
         name = str(row[0]).strip().rstrip("*").strip()
@@ -585,7 +620,7 @@ def parse_province_summary_par_entete(table, roles):
         cas = cellule(row, "confirmed")
         deces = cellule(row, "deaths")
         cfr = cellule(row, "cfr")
-        zones = cellule(row, "zones")
+        zones = cellule_ou_voisine(row, "zones", forme=r"\d\s*/\s*\d")
         nouveaux = cellule(row, "newcases")
         if name == "Total":
             total_row = ["Total", cas, deces, cfr, zones, nouveaux]
@@ -712,13 +747,23 @@ def get_zone_section_text(full_text):
     # alertes notifiées par province" vs "Suivi des indicateurs aux
     # PoE/PoC"), donc on prend le premier trouvé après le début plutôt que
     # de dépendre d'un seul libellé figé.
+    # Le SitRep 105 n'a plus le tableau des alertes qui fermait la section :
+    # sans borne de fin, la section etait None et AUCUNE zone n'etait lue —
+    # zones-history.json restait au 104 et latest.json partait sans zone.
+    # On accepte donc plusieurs bornes, et a defaut la ligne « Total » qui
+    # clot le tableau des zones (« Total 5863 2824 48,2% 69 23 15 38 »).
     end_candidates = [
         full_text.find(marker, start)
-        for marker in ("Situation des alertes notifiées", "Suivi des indicateurs aux PoE/PoC")
+        for marker in ("Situation des alertes notifiées", "Suivi des indicateurs aux PoE/PoC",
+                       "ACTIONS DE RIPOSTE", "Actions de riposte", "CARTOGRAPHIE DES CAS",
+                       "1.1. Coordination", "Point sur les activités de points de contrôle")
     ]
     end_candidates = [e for e in end_candidates if e != -1]
     if not end_candidates:
-        return None
+        m = re.search(r"\nTotal\s+\d[\d ]*\s+\d[\d ]*\s+[\d,]+\s*%[^\n]*\n", full_text[start:])
+        if not m:
+            return None
+        return full_text[start:start + m.end()]
     end = min(end_candidates)
     return full_text[start:end]
 
@@ -1158,6 +1203,13 @@ def parse_report_summary(pdf_path):
         # table), qui ne réussiront jamais quel que soit le nombre de
         # tentatives.
         "confirmedExtractionFailed": confirmed is None,
+        # Meme logique pour les deces : au 105, un premier passage avait lu les
+        # cas (5 863) mais pas les deces, et l'entree n'etait jamais reprise
+        # puisque seul l'echec des CAS declenchait une nouvelle lecture —
+        # sitreps.json gardait « 5863/None » et check_coherence bloquait. Les
+        # bulletins des 17 et 19 mai, sans total de deces, sont marques une
+        # fois pour toutes et ne sont pas retentes a chaque run.
+        "deathsExtractionFailed": deaths is None,
     }
 
 
@@ -1175,9 +1227,9 @@ def rebuild_reports_list(current_reports):
         # confirmedExtractionFailed dans parse_report_summary) — sinon les
         # tout premiers SitRep (001-003..., format d'époque sans cette
         # table) seraient retentés indéfiniment à chaque run, pour rien.
-        confirmed_retry_worthwhile = existing is not None \
-            and existing.get("confirmed") is None \
-            and not existing.get("confirmedExtractionFailed")
+        confirmed_retry_worthwhile = existing is not None and (
+            (existing.get("confirmed") is None and not existing.get("confirmedExtractionFailed"))
+            or (existing.get("deaths") is None and not existing.get("deathsExtractionFailed")))
         needs_parse = existing is None or not existing.get("reportingDate") \
             or confirmed_retry_worthwhile
         if existing is not None and not needs_parse:

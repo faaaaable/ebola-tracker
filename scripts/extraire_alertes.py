@@ -41,7 +41,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from textes_pdf import ROOT, rapports, numero, texte_du_rapport, entier  # noqa: E402
+from textes_pdf import ROOT, rapports, numero, texte_du_rapport, texte_par_couches, entier  # noqa: E402
 from update_data import extract_meta, PROVINCE_CANON  # noqa: E402
 
 OUTPUT_PATH = os.path.join(ROOT, "data", "alertes.json")
@@ -137,6 +137,30 @@ def lire_D(texte):
     return provinces, total, "tableau par province (D)"
 
 
+def lire_D_couches(chemin):
+    """Repli quand le tableau D est illisible dans le texte ordinaire (105 :
+    imprimé par-dessus le tableau des zones). Dans le texte par couches, les
+    lignes d'une province suivies de neuf nombres dont reçues = vivants +
+    décédés ne peuvent être que celles de ce tableau."""
+    texte = texte_par_couches(chemin)
+    provinces = {}
+    for lm in LIGNE_D_RE.finditer(texte):
+        nom = canon(lm.group(1))
+        c = cellules(lm.group(2), 9,
+                     valide=lambda c: c[2] is not None and c[2] == (c[0] or 0) + (c[1] or 0))
+        if c is None or nom in provinces or c[2] is None or c[2] != (c[0] or 0) + (c[1] or 0):
+            continue
+        recues_v, recues_d, recues, val_v, val_d, inv_v, inv_d, investigues, transferes = c
+        validees = (val_v or 0) + (val_d or 0)
+        provinces[nom] = {
+            "recues": recues, "verifiees": validees + (inv_v or 0) + (inv_d or 0),
+            "validees": validees, "suspectsInvestigues": investigues, "transferes": transferes,
+        }
+    if len(provinces) < 3:
+        return None
+    return provinces, None, "tableau par province (D, couches de police)"
+
+
 # --------------------------------------------------------------- B et C
 TITRE_BC_RE = re.compile(r"Gestion des alertes [ée]pid[ée]miologiques", re.I)
 ENTETE_RE = re.compile(r"Indicateurs?\s+((?:(?:%s|Total|Ensemble|Global)\s*)+)\n" % PROVINCES_RE)
@@ -224,6 +248,12 @@ def lire_rapport(chemin):
     if not meta.get("reportingDate"):
         return None, []
     lu = lire_D(texte) or lire_BC(texte)
+    # Le repli par couches suppose l'ordre des neuf colonnes du tableau par
+    # province, qui n'existe qu'a partir du 087 : applique aux 084-086, il
+    # lisait 948 validees sur 1 141 recues le 6 aout, quand les voisins sont
+    # a 20 % — leurs colonnes ne sont pas celles-la.
+    if not lu and "alertes" in texte.lower() and int(meta["sitrepNumber"]) >= 87:
+        lu = lire_D_couches(chemin)
     if not lu:
         return None, []
     provinces, total, methode = lu

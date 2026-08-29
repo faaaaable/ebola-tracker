@@ -31,6 +31,7 @@ import re
 
 import pdfplumber
 
+from textes_pdf import texte_par_couches
 from update_data import (
     extract_meta,
     extract_number_from_filename,
@@ -489,7 +490,17 @@ def main():
             "contactsFollowUpRate": rate,
             "source": "SitRep INSP (automatique)",
         }
-        point.update(details_contacts(full_text, rows, rate))
+        details = details_contacts(full_text, rows, rate)
+        # Le 105 imprime deux tableaux l'un sur l'autre et la phrase des
+        # contacts en sort illisible ; par couches de police, elle est intacte.
+        if "contacts" not in details or len(details.get("provinces") or {}) < 2:
+            secours = details_contacts(texte_par_couches(pdf_path), None, rate)
+            for cle in ("contacts", "provinces"):
+                if cle not in details and cle in secours:
+                    details[cle] = secours[cle]
+            if len(details.get("provinces") or {}) < len(secours.get("provinces") or {}):
+                details["provinces"] = secours["provinces"]
+        point.update(details)
         results.append(point)
 
     # Une seule valeur par date (comme sitreps.json) : si deux rapports
