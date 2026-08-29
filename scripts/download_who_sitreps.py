@@ -12,7 +12,7 @@ ATTENTION : la correspondance numéro de rapport ↔ date pour 06 à 12 n'a
 PAS été vérifiée individuellement (contrairement à 01-05 et 14, où le
 contenu de la page a été lu directement) — les liens ont été fournis en
 bloc par l'utilisateur, dans un ordre supposé chronologique croissant.
-Il manque aussi le rapport 13 (09 août 2026), jamais retrouvé.
+Le rapport 13 (09 août 2026), longtemps introuvable, a été retrouvé le 29 août via l'API de recherche d'IRIS, comme le 15.
 Vérifier le contenu de chaque PDF après téléchargement avant de s'appuyer
 dessus pour une extraction automatisée.
 
@@ -28,7 +28,7 @@ USER_AGENT = "ebola-tracker.org (contact via github.com/faaaaable/ebola-tracker)
 # (numéro, date de rapportage, URL de téléchargement IRIS)
 # Numéros/dates 01-05 et 14 confirmés en lisant le contenu de chaque page
 # afro.who.int correspondante. 06-12 : correspondance supposée d'après
-# l'ordre de collage, à vérifier. 13 (09 août 2026) : jamais retrouvé.
+# l'ordre de collage, à vérifier. 13 et 15 : trouvés via l'API IRIS, vérifiés.
 WHO_REPORTS = [
     ("01", "2026-05-18", "https://iris.who.int/bitstreams/bb1d4668-04e0-4563-b7c4-d1bdefbc9f05/download"),
     ("02", "2026-05-24", "https://iris.who.int/bitstreams/4a06bc4f-6c0b-4c0d-925a-8a7b5a13299f/download"),
@@ -43,7 +43,14 @@ WHO_REPORTS = [
     ("11", "2026-07-26", "https://iris.who.int/bitstreams/e5023872-6b1c-446e-992d-7c92810d730a/download"),  # non vérifié
     ("12", "2026-08-02", "https://iris.who.int/bitstreams/f608a794-47cf-4b89-9b2d-6ff41b75c2ee/download"),  # non vérifié
     # ("13", "2026-08-09", None),  # jamais retrouvé
+    # 13 et 15 : retrouves le 29 aout 2026 via l'API de recherche d'IRIS
+    # (iris.who.int/server/api/discover/search/objects, requete « Ebola
+    # Bundibugyo "External Situation Report" 2026 », tri par date
+    # d'accession) — la recherche web ne les trouvait pas. Contenu verifie
+    # sur la premiere page de chaque PDF.
+    ("13", "2026-08-09", "https://iris.who.int/bitstreams/21922255-8b77-4612-bc0e-1064fafcf6ef/download"),
     ("14", "2026-08-16", "https://iris.who.int/bitstreams/7884afdb-fb05-4edf-b564-6a475fed0243/download"),
+    ("15", "2026-08-23", "https://iris.who.int/bitstreams/2dfa5168-2ff5-474f-829b-33b715616b1f/download"),
 ]
 
 
