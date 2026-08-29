@@ -8,10 +8,11 @@
   <section class="section">
     <div class="section-head">
       <div>
-        <!-- Le surtitre dit le perimetre, comme sur les pages province ou il
-             dit le statut : cette page, c'est tout le pays, et l'anneau vide
-             est celui d'« Ensemble du pays » dans la barre laterale. -->
-        <div class="eyebrow" style="margin-bottom:6px;"><span class="dot dot-all"></span>{{t.navDataTables}}</div>
+        <!-- Meme construction que les pages province : au-dessus, la rubrique
+             « Donnees detaillees » avec l'anneau vide de la barre laterale ;
+             en titre, « Ensemble du pays », ce qu'on a clique. Decide le
+             29 aout : la page s'appelait du nom de sa rubrique. -->
+        <div class="eyebrow" style="margin-bottom:6px;"><span class="dot dot-all"></span>{{i18n.tabZones}}</div>
         <h1 class="page-title">{{meta.h1}}</h1>
       </div>
       <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">{{seed.zonesSub}}</div>

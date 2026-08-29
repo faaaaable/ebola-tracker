@@ -2230,6 +2230,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         new_deaths += province.get("newDeathsIntraCTE24h") or 0
         values.update({
             "province.statusLabel": esc(status_label),
+            "province.name": esc(name),
+            "province.color": PROVINCE_COLORS.get(name, "var(--ink-faint)"),
             "province.intro": interp(strings_lang["provinceIntro"], dict(
                 sentence, zonesSentence=esc(zones_sentence))),
             "province.cases": fmt(province.get("confirmed"), lang),
