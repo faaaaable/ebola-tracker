@@ -421,6 +421,14 @@ ul,ol{margin:0;padding:0;}
   background:var(--line);border:1px solid var(--line);border-radius:var(--radius-card);
   overflow:hidden;}
 .kpi{background:var(--bg-panel);padding:16px 18px;}
+/* Pages province : trois cases a la largeur de leur contenu (plancher 150 px),
+   le cadre cale dessus — le meme principe que les tableaux en panel-fit. */
+.kpis-province{width:fit-content;max-width:100%;grid-template-columns:repeat(3,minmax(150px,max-content));}
+.kpis-province .kpi{padding-right:28px;}
+@media (max-width:760px){
+  .kpis-province{width:auto;grid-template-columns:repeat(3,1fr);}
+  .kpis-province .kpi{padding-right:12px;}
+}
 .kpi .label{font-size:10.5px;color:var(--ink-label);margin-bottom:4px;letter-spacing:.02em;}
 .kpi .value{font-size:28px;font-weight:700;line-height:1.1;}
 .kpi .delta{font-size:11px;color:var(--ink-faint);margin-top:3px;}

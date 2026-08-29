@@ -16,7 +16,10 @@
     <p class="page-intro">{{province.intro}}</p>
     <p class="province-rank">{{province.rank}}</p>
 
-    <section class="kpis" aria-label="{{meta.h1}}">
+    <!-- Trois cases calees sur leur contenu, pas sur la largeur de la page :
+         etirees sur 900 px, elles etaient a moitie vides (demande du
+         proprietaire, 29 aout). Sur telephone elles reprennent la largeur. -->
+    <section class="kpis kpis-province" aria-label="{{meta.h1}}">
       <div class="kpi confirmed">
         <div class="label">{{t.provincesCardCases}}</div>
         <div class="value">{{province.cases}}</div>
