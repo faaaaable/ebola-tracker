@@ -5,8 +5,8 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 104**, rapportage
-du 26 août 2026 — 5 794 cas confirmés, 2 786 décès, létalité 48,1 %,
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 105**, rapportage
+du 27 août 2026 — 5 863 cas confirmés, 2 824 décès, létalité 48,2 %,
 **60 zones touchées** (Biena et Manguredjipa, au Nord-Kivu, sont les dernières
 arrivées).
 
@@ -1670,6 +1670,50 @@ PDF**, cas et décès. `check_coherence.py` l'aurait signalé en bout de chaîne
 `province-history.json` avait déjà reçu la ligne fausse du 26 août — le
 contrôle arrête la publication, il ne répare pas l'historique, que seule une
 nouvelle exécution d'`update_data.py` rafraîchit (c'est ce qui a été fait).
+
+**Le SitRep 105 (27 août) superpose deux tableaux dans son PDF.** Ses pages 4
+et 5 impriment le tableau des alertes PAR-DESSUS une seconde copie du tableau
+des zones : le texte extrait y est illisible (« Alertes vér(Sifwiaébe+)s »,
+« Itu0r i 89,9 % », « Kyondo 76169 vus su1r2 28 3727 »). Trois conséquences,
+toutes du côté de la source : pas d'alertes ce jour-là (la page Riposte date
+son chiffre « au 26 août »), pas d'effectifs nationaux de contacts (le taux,
+87,3 %, vient de la bande de chiffres clés, intacte), et une seule province de
+contacts lisible (le Bas-Uélé, 60,4 %). Rien n'est à corriger — un trou
+plutôt qu'un chiffre corrompu.
+
+Le même bulletin a fait tomber deux hypothèses du pipeline, toutes deux
+corrigées le 29 août :
+
+- **La section des zones n'avait plus de borne de fin.** `get_zone_section_text`
+  la cherchait au titre « Situation des alertes notifiées » ou « Suivi des
+  indicateurs aux PoE/PoC » ; sans l'un des deux, elle renvoyait `None`,
+  aucune zone n'était lue, `latest.json` partait avec zéro zone et
+  `zones-history.json` restait au 104 — sans autre message que « pas de
+  détail par zone exploitable ». D'autres titres sont acceptés, et à défaut
+  la section s'arrête à la ligne « Total » qui clôt le tableau des zones —
+  ce qui, ici, laisse dehors la copie corrompue de la page 4.
+- **La grille pdfplumber du tableau des provinces a éclaté sa ligne Total** :
+  « 5 863 » et « 48,2% » sur une ligne, « 2 824 » seul sur la suivante, et
+  une colonne vide intercalée avant « Zones de santé » (la fraction en
+  colonne 5, l'en-tête en colonne 6). `parse_province_summary_par_entete`
+  rattache les lignes de continuation à la précédente et lit la colonne
+  voisine sans en-tête quand la cellule attendue est vide. Sans cela :
+  décès nationaux `None`, zones par province `None`.
+
+Et une troisième, plus ancienne : **une entrée de la liste des rapports dont
+les cas avaient été lus mais pas les décès n'était jamais reprise** — seul
+l'échec des cas déclenchait une relecture. `sitreps.json` gardait
+« 5863/None » pour le 27 août et `check_coherence` bloquait. La relecture
+vaut désormais aussi pour les décès, avec un drapeau
+`deathsExtractionFailed` pour ne pas retenter à chaque run les bulletins qui
+n'en publient pas. Effet de bord, assumé : quatre-vingts anciennes entrées
+ont été relues une fois, et **deux points de `sitreps.json` ont changé** —
+le 19 mai reçoit ses 4 décès (le SitRep 004 les imprime, « Total 33 4 ND »,
+contrairement à ce que ce guide affirmait plus haut), et le 5 août passe de
+1 850 à 1 851 décès : le SitRep 083 écrit 1 851 dans son tableau des
+provinces et 1 850 dans sa bande de chiffres clés et son tableau détaillé.
+Le site lit le tableau des provinces pour toutes les dates ; il le fait
+maintenant aussi pour celle-là.
 
 **Le tableau des zones porte QUATRE colonnes de jour, pas trois.** Apres la
 letalite viennent : nouveaux cas, deces communautaires, deces intra-CTE, puis
