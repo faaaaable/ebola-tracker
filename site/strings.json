@@ -20,7 +20,7 @@
     "footerSources": "Données compilées depuis les bulletins de l'<a href=\"https://insp.cd/\" rel=\"noopener\">Institut National de Santé Publique (INSP) de la RDC</a> et de l'<a href=\"https://www.afro.who.int/\" rel=\"noopener\">OMS</a>.",
     "footerRepo": "Code source et données ouvertes sur GitHub",
     "footerLangTitle": "Langue",
-    "provincesIntro": "L'épidémie ne touche pas les six provinces de la même façon : l'Ituri concentre l'essentiel des cas, tandis que d'autres provinces ne comptent qu'un foyer isolé. Chaque province a sa propre page, mise à jour avec les mêmes bulletins officiels que le reste du site.",
+    "provincesIntro": "Ici, le pays entier. Tous les cas et décès confirmés depuis la déclaration de l'épidémie, le 15 mai 2026, tels que les bulletins de l'INSP les publient : le rythme des nouveaux cas jour après jour et semaine après semaine, la part de chaque province dans ce total, l'âge et le sexe des malades. Les tableaux descendent ensuite jusqu'à la zone de santé, et chaque province a sa propre page, mise à jour avec les mêmes bulletins.",
     "provincesCardCases": "Cas confirmés",
     "provincesCardDeaths": "Décès",
     "provincesCardCfr": "Létalité",
@@ -250,7 +250,10 @@
     "riposteCteTitle": "Les centres de traitement",
     "riposteCteSub": "patients hospitalisés et lits disponibles",
     "riposteCteLede": "Un centre de traitement saturé renvoie les malades vers la communauté, où les décès échappent à la prise en charge. L'occupation rapporte les patients hospitalisés — confirmés et suspects — aux lits que le bulletin déclare ; elle dépasse 100 % là où des malades sont installés hors des lits prévus.",
-    "riposteSourcesNote": "Sources : rapports de situation de l'INSP, lus bulletin par bulletin. La forme de ces chiffres a changé à chaque époque de rédaction ; un bulletin dont la formulation n'a pas pu être lue laisse un jour vide plutôt qu'une valeur devinée. Les alertes et le laboratoire sont agrégés par semaine, du lundi au dimanche, la semaine en cours n'apparaissant qu'une fois terminée. Aucun chiffre n'est recalculé à la place de la source, sauf l'occupation quand le bulletin donne les patients et les lits sans le taux."
+    "riposteSourcesNote": "Sources : rapports de situation de l'INSP, lus bulletin par bulletin. La forme de ces chiffres a changé à chaque époque de rédaction ; un bulletin dont la formulation n'a pas pu être lue laisse un jour vide plutôt qu'une valeur devinée. Les alertes et le laboratoire sont agrégés par semaine, du lundi au dimanche, la semaine en cours n'apparaissant qu'une fois terminée. Aucun chiffre n'est recalculé à la place de la source, sauf l'occupation quand le bulletin donne les patients et les lits sans le taux.",
+    "riposteDecesTitle": "Le lieu du décès",
+    "riposteDecesSub": "en communauté ou en centre de traitement",
+    "riposteDecesLede": "Deux décès confirmés sur trois surviennent hors des centres de traitement. Cette part dit ce que la riposte n'atteint pas : un malade mort chez lui n'a été ni isolé ni soigné, et a exposé les siens jusqu'au bout."
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -272,7 +275,7 @@
     "footerSources": "Data compiled from the bulletins of the <a href=\"https://insp.cd/\" rel=\"noopener\">DRC National Institute of Public Health (INSP)</a> and <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO</a>.",
     "footerRepo": "Source code and open data on GitHub",
     "footerLangTitle": "Language",
-    "provincesIntro": "The outbreak does not affect all six provinces equally: Ituri concentrates the vast majority of cases, while other provinces report only an isolated focus. Every province has its own page, updated from the same official bulletins as the rest of the site.",
+    "provincesIntro": "Here, the whole country. Every confirmed case and death since the outbreak was declared on 15 May 2026, as published in the INSP bulletins: the pace of new cases day by day and week by week, each province's share of that total, the age and sex of patients. The tables then go down to the health zone, and each province has its own page, updated from the same bulletins.",
     "provincesCardCases": "Confirmed cases",
     "provincesCardDeaths": "Deaths",
     "provincesCardCfr": "Fatality rate",
@@ -502,7 +505,10 @@
     "riposteCteTitle": "Treatment centres",
     "riposteCteSub": "patients hospitalised and beds available",
     "riposteCteLede": "A saturated treatment centre pushes patients back into the community, where deaths occur outside care. Occupancy relates hospitalised patients — confirmed and suspected — to the beds the bulletin declares; it exceeds 100% where patients are placed outside the planned beds.",
-    "riposteSourcesNote": "Sources: INSP situation reports, read bulletin by bulletin. The form of these figures has changed with each editorial period; a bulletin whose wording could not be read leaves an empty day rather than a guessed value. Alerts and laboratory figures are aggregated by week, Monday to Sunday, the current week appearing only once complete. No figure is recalculated in place of the source, except occupancy when the bulletin gives patients and beds without the rate."
+    "riposteSourcesNote": "Sources: INSP situation reports, read bulletin by bulletin. The form of these figures has changed with each editorial period; a bulletin whose wording could not be read leaves an empty day rather than a guessed value. Alerts and laboratory figures are aggregated by week, Monday to Sunday, the current week appearing only once complete. No figure is recalculated in place of the source, except occupancy when the bulletin gives patients and beds without the rate.",
+    "riposteDecesTitle": "Place of death",
+    "riposteDecesSub": "in the community or in a treatment centre",
+    "riposteDecesLede": "Two confirmed deaths in three occur outside treatment centres. That share says what the response does not reach: a patient who dies at home was neither isolated nor treated, and exposed their family to the end."
   },
   "timelineEvents": [
     {
@@ -785,7 +791,7 @@
     "footerSources": "Takwimu zimekusanywa kutoka ripoti za <a href=\"https://insp.cd/\" rel=\"noopener\">Taasisi ya Kitaifa ya Afya ya Umma (INSP) ya DRC</a> na za <a href=\"https://www.afro.who.int/\" rel=\"noopener\">WHO</a>.",
     "footerRepo": "Msimbo wa chanzo na takwimu huria kwenye GitHub",
     "footerLangTitle": "Lugha",
-    "provincesIntro": "Mlipuko hauyaathiri majimbo sita kwa namna moja: Ituri linakusanya visa vingi zaidi, wakati majimbo mengine yana kitovu kimoja tu kilichotengwa. Kila jimbo lina ukurasa wake, unaosasishwa kwa ripoti rasmi zile zile kama sehemu nyingine za tovuti.",
+    "provincesIntro": "Hapa, nchi nzima. Visa na vifo vyote vilivyothibitishwa tangu mlipuko ulipotangazwa tarehe 15 Mei 2026, kama ripoti za INSP zinavyovichapisha: mwendo wa visa vipya siku baada ya siku na wiki baada ya wiki, sehemu ya kila jimbo katika jumla hiyo, umri na jinsia ya wagonjwa. Majedwali kisha hushuka hadi eneo la afya, na kila jimbo lina ukurasa wake, unaosasishwa kutoka ripoti zile zile.",
     "provincesCardCases": "Visa vilivyothibitishwa",
     "provincesCardDeaths": "Vifo",
     "provincesCardCfr": "Kiwango cha vifo",
@@ -1015,6 +1021,9 @@
     "riposteCteTitle": "Vituo vya matibabu",
     "riposteCteSub": "wagonjwa waliolazwa na vitanda vilivyopo",
     "riposteCteLede": "Kituo cha matibabu kilichojaa hurudisha wagonjwa kwenye jamii, ambapo vifo hutokea nje ya huduma. Matumizi ya vitanda hulinganisha wagonjwa waliolazwa — waliothibitishwa na wanaoshukiwa — na vitanda ambavyo ripoti inatangaza; huzidi 100% pale wagonjwa wanapowekwa nje ya vitanda vilivyopangwa.",
-    "riposteSourcesNote": "Vyanzo: ripoti za hali za INSP, zilizosomwa ripoti baada ya ripoti. Umbo la takwimu hizi limebadilika kila kipindi cha uandishi; ripoti ambayo maneno yake hayakuweza kusomwa huacha siku tupu badala ya thamani ya kubahatisha. Tahadhari na maabara hujumlishwa kwa wiki, Jumatatu hadi Jumapili, wiki inayoendelea ikionekana tu ikikamilika. Hakuna takwimu inayohesabiwa upya badala ya chanzo, isipokuwa matumizi ya vitanda wakati ripoti inatoa wagonjwa na vitanda bila kiwango."
+    "riposteSourcesNote": "Vyanzo: ripoti za hali za INSP, zilizosomwa ripoti baada ya ripoti. Umbo la takwimu hizi limebadilika kila kipindi cha uandishi; ripoti ambayo maneno yake hayakuweza kusomwa huacha siku tupu badala ya thamani ya kubahatisha. Tahadhari na maabara hujumlishwa kwa wiki, Jumatatu hadi Jumapili, wiki inayoendelea ikionekana tu ikikamilika. Hakuna takwimu inayohesabiwa upya badala ya chanzo, isipokuwa matumizi ya vitanda wakati ripoti inatoa wagonjwa na vitanda bila kiwango.",
+    "riposteDecesTitle": "Mahali pa kifo",
+    "riposteDecesSub": "katika jamii au katika kituo cha matibabu",
+    "riposteDecesLede": "Vifo viwili kati ya vitatu vilivyothibitishwa hutokea nje ya vituo vya matibabu. Sehemu hiyo inaonyesha kile mapambano hayafikii: mgonjwa anayefia nyumbani hakutengwa wala kutibiwa, na aliwaweka wapendwa wake hatarini hadi mwisho."
   }
 }

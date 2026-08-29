@@ -1,6 +1,12 @@
   <section class="section">
     <div class="section-head">
-      <h1 class="page-title">{{meta.h1}}</h1>
+      <div>
+        <!-- Le surtitre dit le perimetre, comme sur les pages province ou il
+             dit le statut : cette page, c'est tout le pays, et l'anneau vide
+             est celui d'« Ensemble du pays » dans la barre laterale. -->
+        <div class="eyebrow" style="margin-bottom:6px;"><span class="dot dot-all"></span>{{t.navDataTables}}</div>
+        <h1 class="page-title">{{meta.h1}}</h1>
+      </div>
       <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">{{seed.zonesSub}}</div>
     </div>
 
@@ -101,8 +107,14 @@
              « Deces en communaute » le remplace, valide province par province.
              Son mode reste dans app.js, mais le rallumer demanderait de corriger
              d'abord ce defaut de couverture. -->
-        <button type="button" class="subtab-btn" data-mode="deathsPlace" data-i18n="chartModeDeathsPlace">{{i18n.chartModeDeathsPlace}}</button>
-        <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">{{i18n.chartModeByProvince}}</button>
+        <!-- « Deces en communaute » a rejoint la page Riposte le 29 aout, a
+             cote de l'occupation des CTE qu'il explique. Le mode reste dans
+             app.js. -->
+        <!-- « Cas par province » (six cumuls) a cede la place le 29 aout a
+             « Nouveaux cas par province » : l'Ituri ecrasait l'axe et quatre
+             courbes sur six se confondaient avec le zero. Le mode byProvince
+             reste dans app.js. -->
+        <button type="button" class="subtab-btn" data-mode="newCasesByProvince" data-i18n="chartModeNewCasesByProvince">{{i18n.chartModeNewCasesByProvince}}</button>
         <!-- « Cas et deces par age » et « Cas et deces par sexe » ont ete
              retires de la barre : l'onglet « Age et sexe » porte les deux, et
              le croisement en plus. Leurs modes restent dans app.js, comme le
@@ -142,10 +154,16 @@
       <!-- Bascule propre a la pyramide, masquee par les autres modes. En
            « Effectifs », deux figures cote a cote ; en « Parts », une seule,
            chaque serie ramenee a 100 % de son propre total. -->
-      <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
-        <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">{{i18n.chartPyramideVueEffectifs}}</button>
-        <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>
+      <!-- Bascule propre a « Nouveaux cas par province » : cas empiles, ou
+           parts a 100 % de chaque semaine. -->
+      <nav class="subtab-nav chart-vue-nav" data-chart-vue="dataChart" data-for-mode="newCasesByProvince" style="display:none;">
+        <button type="button" class="subtab-btn active" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>
+        <button type="button" class="subtab-btn" data-vue="cas" data-i18n="chartVueCas">{{i18n.chartVueCas}}</button>
       </nav>
+              <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
+          <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">{{i18n.chartPyramideVueEffectifs}}</button>
+          <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>
+        </nav>
       <div class="chart-duo">
         <div class="chart-panel">
           <canvas id="dataChart" data-chart="epidemic"></canvas>

@@ -115,6 +115,11 @@ const I18N = {
     chartNoteContactsProvinces:()=>`La même part, province par province, les jours où le bulletin la détaille. Une province à 100 % suit souvent quelques dizaines de contacts ; l'Ituri en suit plus de dix mille. Pointillés : jours sans détail par province, tracé purement illustratif — jamais une valeur.`,
     chartNoteCte:(seuilLits)=>`Patients hospitalisés — confirmés et suspects — rapportés aux lits que le bulletin déclare, province par province. Jusqu'à début août le taux est recalculé depuis un tableau de patients et de lits ; depuis, c'est celui que le bulletin imprime. Au-dessus de 100 %, des malades sont installés hors des lits prévus. Les provinces de moins de ${seuilLits} lits ne sont pas tracées : un taux n'y veut rien dire. Pointillés : trous de cinq jours au plus, tracé purement illustratif ; les trous plus longs restent ouverts, le nombre de lits ayant pu changer entre-temps.`,
     chartModeByProvince:"Cas par province",
+    chartModeNewCasesByProvince:"Nouveaux cas par province",
+    chartVueCas:"Cas",
+    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Nouveaux cas confirmés par semaine calendaire, du lundi au dimanche, empilés par province, sur ${semaines} semaines. La semaine en cours n'apparaît qu'une fois terminée. En parts, chaque semaine est ramenée à 100 % : on lit d'où viennent les cas, pas combien il y en a. `
+      + (rattrapages.length ? `Les rattrapages administratifs des 22 et 30 juillet sont comptés dans leur semaine (${rattrapages.join(', ')}), leur province étant connue mais pas leur journée. ` : '')
+      + `Les jours sans bulletin sont comptés par le bulletin suivant.`,
     chartModeSexes:"Cas et décès par sexe",
     chartSexFemale:"Femmes",
     chartSexMale:"Hommes",
@@ -140,14 +145,15 @@ const I18N = {
     chartDeathPlaceAverage:(p,n)=>`Moyenne des ${n} semaines : ${String(p).replace('.',',')} %`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} au ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`${n} relevé${n>1?'s':''} sur 7`,
-    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants)=>
+    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours)=>
       `Part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, agrégée sur l'ensemble du pays et regroupée par semaine. `
       + `Sur les ${semaines} semaines couvertes, cette part n'a pas de tendance : elle oscille autour de ${String(part).replace('.',',')} % `
       + `— ${comm} décès en communauté contre ${cte} en centre — et les écarts d'une semaine à l'autre restent dans le bruit `
       + `d'échantillonnage attendu pour ces effectifs. La ligne pointillée marque cette moyenne : c'est elle le résultat, `
       + `pas les creux et les bosses. `
       + `Trois réserves. Les bulletins antérieurs au 13 juillet ne distinguent pas les deux lieux, la fenêtre ne peut pas remonter plus loin. `
-      + `${manquants} jours manquent à la série, dont quatre d'affilée du 6 au 9 août : seules les parts sont comparables d'une semaine à l'autre, jamais les effectifs. `
+      + (manquants ? `${manquants} jour${manquants>1?'s':''} sans relevé du lieu (${liste}) : seules les parts sont comparables d'une semaine à l'autre, jamais les effectifs. ` : `Aucun jour ne manque à la série. `)
+      + (enCours ? `La dernière barre est la semaine en cours, sur ${enCours} relevé${enCours>1?'s':''} sur sept. ` : '')
       + `Enfin l'Ituri pèse 77 % des décès classés, si bien que cette courbe nationale suit d'abord la sienne.`,
     chartDeathPlaceCommunity:"En communauté",
     chartDeathPlaceCte:"En centre de traitement",
@@ -389,6 +395,11 @@ const I18N = {
     chartNoteContactsProvinces:()=>`The same share, province by province, on the days the bulletin details it. A province at 100% often follows a few dozen contacts; Ituri follows more than ten thousand. Dashed segments: days without a breakdown by province, purely illustrative — never a value.`,
     chartNoteCte:(seuilLits)=>`Hospitalised patients — confirmed and suspected — relative to the beds the bulletin declares, province by province. Until early August the rate is recalculated from a table of patients and beds; since then it is the one the bulletin prints. Above 100%, patients are placed outside the planned beds. Provinces with fewer than ${seuilLits} beds are not drawn: a rate means nothing there. Dashed segments: gaps of five days or fewer, purely illustrative; longer gaps stay open, as the number of beds may have changed in between.`,
     chartModeByProvince:"Cases by province",
+    chartModeNewCasesByProvince:"New cases by province",
+    chartVueCas:"Cases",
+    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`New confirmed cases per calendar week, Monday to Sunday, stacked by province, over ${semaines} weeks. The current week appears only once complete. As shares, each week is scaled to 100%: you read where cases come from, not how many there are. `
+      + (rattrapages.length ? `The administrative catch-ups of 22 and 30 July are counted in their week (${rattrapages.join(', ')}), their province being known but not their day. ` : '')
+      + `Days without a bulletin are counted by the next one.`,
     chartModeSexes:"Cases and deaths by sex",
     chartSexFemale:"Women",
     chartSexMale:"Men",
@@ -414,13 +425,14 @@ const I18N = {
     chartDeathPlaceAverage:(p,n)=>`${n}-week average: ${p}%`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} to ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`${n} report${n>1?'s':''} of 7`,
-    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants)=>
+    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours)=>
       `Share of confirmed deaths occurring in the community rather than in a treatment centre, aggregated nationally and grouped by week. `
       + `Across the ${semaines} weeks covered there is no trend: the share hovers around ${part}% `
       + `— ${comm} community deaths against ${cte} in treatment centres — and week-to-week variation stays within the sampling noise `
       + `expected at these numbers. The dashed line marks that average: it is the finding, not the peaks and dips. `
       + `Three caveats. Bulletins before 13 July do not distinguish the two places, so the window cannot reach further back. `
-      + `${manquants} days are missing from the series, four of them consecutive from 6 to 9 August: only shares are comparable between weeks, never counts. `
+      + (manquants ? `${manquants} day${manquants>1?'s':''} without the place of death (${liste}): only shares are comparable between weeks, never counts. ` : `No day is missing from the series. `)
+      + (enCours ? `The last bar is the current week, on ${enCours} report${enCours>1?'s':''} out of seven. ` : '')
       + `And Ituri accounts for 77% of classified deaths, so this national curve mainly follows its own.`,
     chartDeathPlaceCommunity:"In the community",
     chartDeathPlaceCte:"In a treatment centre",
@@ -661,6 +673,11 @@ const I18N = {
     chartNoteContactsProvinces:()=>`Sehemu ile ile, jimbo kwa jimbo, siku ambazo ripoti inaielezea. Jimbo lenye 100% mara nyingi hufuatilia walioguswa makumi machache; Ituri inafuatilia zaidi ya elfu kumi. Nukta: siku zisizo na mgawanyo kwa jimbo, mchoro wa kuonyesha tu — kamwe si thamani.`,
     chartNoteCte:(seuilLits)=>`Wagonjwa waliolazwa — waliothibitishwa na wanaoshukiwa — ikilinganishwa na vitanda ambavyo ripoti inatangaza, jimbo kwa jimbo. Hadi mwanzoni mwa Agosti kiwango kinahesabiwa upya kutoka jedwali la wagonjwa na vitanda; tangu wakati huo ni kile ripoti inachapisha. Zaidi ya 100%, wagonjwa wanawekwa nje ya vitanda vilivyopangwa. Majimbo yenye vitanda chini ya ${seuilLits} hayachorwi: kiwango hakina maana hapo. Nukta: mapengo ya siku tano au chini, mchoro wa kuonyesha tu; mapengo marefu hubaki wazi, kwani idadi ya vitanda inaweza kuwa imebadilika.`,
     chartModeByProvince:"Visa kwa jimbo",
+    chartModeNewCasesByProvince:"Visa vipya kwa jimbo",
+    chartVueCas:"Visa",
+    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Visa vipya vilivyothibitishwa kwa wiki ya kalenda, Jumatatu hadi Jumapili, vikipangwa kwa jimbo, kwa wiki ${semaines}. Wiki inayoendelea huonekana tu ikikamilika. Kama sehemu, kila wiki hurejeshwa hadi 100%: unasoma visa vinatoka wapi, si vingapi. `
+      + (rattrapages.length ? `Marekebisho ya kiutawala ya 22 na 30 Julai yanahesabiwa katika wiki yao (${rattrapages.join(', ')}), jimbo lao likijulikana lakini si siku yao. ` : '')
+      + `Siku zisizo na ripoti zinahesabiwa na ripoti inayofuata.`,
     chartModeSexes:"Visa na vifo kwa jinsia",
     chartSexFemale:"Wanawake",
     chartSexMale:"Wanaume",
@@ -686,14 +703,15 @@ const I18N = {
     chartDeathPlaceAverage:(p,n)=>`Wastani wa wiki ${n}: ${p} %`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} hadi ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`ripoti ${n} kati ya 7`,
-    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants)=>
+    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours)=>
       `Sehemu ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, kwa nchi nzima na kwa wiki. `
       + `Katika wiki ${semaines} zilizofunikwa, sehemu hii haina mwelekeo: inazunguka karibu ${part} % `
       + `— vifo ${comm} katika jamii dhidi ya ${cte} kituoni — na tofauti kutoka wiki hadi wiki zinabaki ndani ya `
       + `mtawanyiko unaotarajiwa kwa idadi hizi. Mstari wa nukta unaonyesha wastani huu: ndio matokeo, `
       + `si mabonde na milima. `
       + `Tahadhari tatu. Ripoti za kabla ya tarehe 13 Julai hazitofautishi maeneo mawili, dirisha haliwezi kurudi nyuma zaidi. `
-      + `Siku ${manquants} hazipo kwenye mfululizo, ikiwemo nne mfululizo kutoka 6 hadi 9 Agosti: ni sehemu tu zinazoweza kulinganishwa kutoka wiki hadi wiki, kamwe si idadi. `
+      + (manquants ? `Siku ${manquants} bila mahali pa kifo (${liste}): ni sehemu tu zinazoweza kulinganishwa kutoka wiki hadi wiki, kamwe si idadi. ` : `Hakuna siku inayokosekana kwenye mfululizo. `)
+      + (enCours ? `Pau la mwisho ni wiki inayoendelea, kwa ripoti ${enCours} kati ya saba. ` : '')
       + `Hatimaye Ituri inabeba 77 % ya vifo vilivyoainishwa, hivyo mkondo huu wa kitaifa unafuata kwanza wake.`,
     chartDeathPlaceCommunity:"Katika jamii",
     chartDeathPlaceCte:"Katika kituo cha matibabu",

@@ -777,6 +777,12 @@ let pyramideVue = 'effectifs';
    plus. Elle est COMMUNE aux deux onglets : passer des cas aux deces garde le
    pas de temps choisi, et les deux se comparent sans avoir a le reregler. */
 let vuePeriode = 'quotidien';
+/* Le pas de temps vit aussi par canevas : sur /donnees/, cas et deces
+   partagent le meme canevas (dataChart) et donc le meme etat — c'est voulu,
+   on passe des cas aux deces sans reregler ; sur une page qui trace les
+   deux dans deux cadres, chacun garde le sien. */
+const vuePeriodeParCanvas = {};
+const vuePeriodeDe = canvas => (canvas && vuePeriodeParCanvas[canvas.id]) || vuePeriode;
 
 /* Bornes de periode calendaire. Toutes passent par midi et se reformatent a
    la main : « toISOString » aurait bascule d'un jour selon le fuseau du
@@ -1002,6 +1008,12 @@ function renderOneChart(canvas, chartMode){
   const navNew = wrap ? wrap.querySelector('[data-vue-periode]') : null;
   if(navNew) navNew.style.display =
     (chartMode === 'newCases' || chartMode === 'newDeaths') ? '' : 'none';
+  /* Une bascule generique (data-chart-vue) peut n'appartenir qu'a un mode
+     d'une barre d'onglets : data-for-mode le dit, et elle ne s'affiche
+     qu'avec lui. Sans l'attribut (page Riposte), elle reste telle quelle. */
+  if(wrap) wrap.querySelectorAll('[data-chart-vue][data-for-mode]').forEach(n => {
+    n.style.display = (n.dataset.forMode === chartMode) ? '' : 'none';
+  });
   /* La vue « Parts » loge dix barres la ou les autres modes en logent cinq :
      elle reclame un cadre plus haut, sans quoi l'axe des ages saute un
      libelle sur deux des que l'ecran retrecit. Le cadre reprend sa hauteur
@@ -1992,7 +2004,7 @@ const largeurSemaine = {
         s.comm += v.communautaires || 0;
         s.cte  += v.intraCte || 0;
       }
-      s.releves += 1;   // la largeur de la barre en depend, voir largeurSemaine
+      s.releves += 1;   // l'infobulle et la note en dependent
       if(jour.date > s.fin) s.fin = jour.date;
       semaines.set(cle, s);
     }
@@ -2019,35 +2031,18 @@ const largeurSemaine = {
        Deux nuances d'un meme rouge, pas deux teintes etrangeres : ce sont tous
        des deces, seul le lieu change. Le plein revient a la communaute, la
        part qui alarme. */
-    /* Une semaine sur sept releves donnerait une barre d'une quinzaine de
-       pixels : le plancher la garde visible tout en la marquant nettement. */
-    const PLANCHER = 0.34;
-    /* Trois parts par semaine, et non deux : les releves recus, les journees
-       PASSEES dont le bulletin ne donne pas le lieu, et les journees A VENIR.
-       Seules les deuxiemes sont une donnee manquante.
-
-       Le plancher elargit la barre au-dela de sa part reelle ; le gris se
-       resserre alors d'autant, en gardant la proportion entre ce qui manque et
-       ce qui reste a venir. Sans ce reequilibrage les trois parts depassaient
-       l'emprise de la semaine. */
+    /* Barres de largeur EGALE, depuis le 29 aout : la largeur variable
+       (plugin largeurSemaine, partie pleine au prorata des releves, gris
+       hachure pour les jours manquants, gris uni pour les jours a venir)
+       faisait grossir la derniere barre de bulletin en bulletin, et le
+       proprietaire ne voulait plus de ce mouvement. Ce que la largeur
+       encodait — les jours sans releve, la semaine en cours — passe dans la
+       note, en toutes lettres et en dates, et dans l'infobulle. */
     const derniereLieu = DECES_LIEU.parDate
       .reduce((d, r) => (r.date > d ? r.date : d), DECES_LIEU.parDate[0].date);
-    const ratios = [], futurs = [];
-    serie.forEach(sem => {
-      const finVue = sem.finSemaine > derniereLieu ? derniereLieu : sem.finSemaine;
-      const ecoules = Math.max(0, Math.min(7, nbJours(sem.debut, finVue)));
-      const partFuturs = (7 - ecoules) / 7;
-      const partManque = Math.max(0, ecoules - sem.releves) / 7;
-      const plein = Math.max(PLANCHER, sem.releves / 7);
-      const reste = partManque + partFuturs;
-      const facteur = reste > 0 ? (1 - plein) / reste : 0;
-      ratios.push(plein);
-      futurs.push(partFuturs * facteur);
-    });
-
     const part = s => Math.round(s.comm / (s.comm + s.cte) * 1000) / 10;
     const data = {
-      labels: serie.map(s => frDate(s.debut)),
+      labels: serie.map(s => tr('chartWeekOf')(frDate(s.debut), frDate(s.finSemaine))),
       datasets: [
         { label: tr('chartDeathPlaceCommunity'), data: serie.map(part),
           backgroundColor: PALETTE.critical, stack: 'l',
@@ -2078,44 +2073,9 @@ const largeurSemaine = {
         y1: { min: 0, max: 100, display: false }
       },
       plugins: {
-        /* Une quatrieme entree, sans jeu de donnees derriere : la zone hachuree
-           est dessinee par un plugin, pas par une serie. Sans elle, ce gris
-           pose entre deux couleurs de part se lirait comme une troisieme
-           categorie — « lieu du deces inconnu » —, ce qui serait un
-           contresens. Le clic est neutralise pour elle seule : elle ne
-           correspond a aucun dataset a masquer. */
         legend: {
-          labels: {
-            color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 },
-            boxWidth: 10, usePointStyle: true,
-            generateLabels(chart){
-              const base = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-              /* Chaque cle n'apparait qu'avec la zone qu'elle explique : une
-                 semaine peut n'avoir aucun jour manquant, ou aucun jour a
-                 venir, et nommer une couleur absente du trace egare. */
-              const parts = (chart.options.plugins.largeurSemaine || {});
-              const rs = parts.ratios || [], fs = parts.futurs || [];
-              const aManque = rs.some((r, i) => 1 - r - (fs[i] || 0) > 0.001);
-              const aVenir  = fs.some(f => f > 0.001);
-              if(aManque) base.push({
-                text: tr('chartDeathPlaceMissing'),
-                fillStyle: hachureLegende(chart.ctx),
-                strokeStyle: GRIS_MANQUE().trait, lineWidth: 1,
-                pointStyle: 'rect', hidden: false, datasetIndex: -1
-              });
-              if(aVenir) base.push({
-                text: tr('chartDaysToCome'),
-                fillStyle: GRIS_A_VENIR().fond,
-                strokeStyle: GRIS_A_VENIR().trait, lineWidth: 1,
-                pointStyle: 'rect', hidden: false, datasetIndex: -1
-              });
-              return base;
-            }
-          },
-          onClick(e, item, legende){
-            if(item.datasetIndex === -1) return;
-            Chart.defaults.plugins.legend.onClick.call(this, e, item, legende);
-          }
+          labels: { color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 },
+                    boxWidth: 10, usePointStyle: true }
         },
         tooltip: {
           /* La moyenne reste dans la legende mais sort de l'infobulle : posee
@@ -2142,10 +2102,7 @@ const largeurSemaine = {
         }
       }
     };
-    opts.animation = false;   // un plugin ne s'attache qu'a la construction
-    opts.plugins.largeurSemaine = { ratios, futurs };
-    slot.chart = new Chart(canvas.getContext('2d'),
-      { type: 'bar', data, options: opts, plugins: [largeurSemaine] });
+    slot.chart = new Chart(canvas.getContext('2d'), { type: 'bar', data, options: opts });
     slot.lastMode = 'deathsPlace';
     // Cette figure ne commence pas avec l'epidemie : les bulletins n'ont
     // distingue le lieu du deces qu'a partir du 13 juillet.
@@ -2166,10 +2123,25 @@ const largeurSemaine = {
          semaine en cours n'en font pas partie : rien n'y manque encore. */
       const premiereLieu = DECES_LIEU.parDate
         .reduce((d, r) => (r.date < d ? r.date : d), DECES_LIEU.parDate[0].date);
-      const manquants = Math.max(0,
-        nbJours(premiereLieu, derniereLieu) - DECES_LIEU.parDate.length);
+      const connus = new Set(DECES_LIEU.parDate.map(r => r.date));
+      const absents = [];
+      for(let d = new Date(premiereLieu + 'T00:00:00Z'); d.toISOString().slice(0, 10) <= derniereLieu; d.setUTCDate(d.getUTCDate() + 1)){
+        const iso = d.toISOString().slice(0, 10);
+        if(!connus.has(iso)) absents.push(iso);
+      }
+      /* Les dates manquantes se LISTENT, en plages : « 16 juil., 6 → 9 aout ».
+         Elles etaient ecrites en dur dans la note (« dont quatre d'affilee du
+         6 au 9 aout »), et se seraient perimees au premier bulletin muet. */
+      const plages = [];
+      absents.forEach(iso => {
+        const g = plages[plages.length - 1];
+        if(g && nbJours(g.fin, iso) === 2) g.fin = iso; else plages.push({ debut: iso, fin: iso });
+      });
+      const liste = plages.map(g => g.debut === g.fin ? frDate(g.debut) : frDate(g.debut) + ' → ' + frDate(g.fin)).join(', ');
+      const derniereSem = serie[serie.length - 1];
+      const enCours = (derniereSem && derniereSem.finSemaine > derniereLieu) ? derniereSem.releves : null;
       noteEl.textContent = tr('chartDeathPlaceNoteTemps')(
-        moyenne, serie.length, fmt(totalComm), fmt(totalCte), manquants);
+        moyenne, serie.length, fmt(totalComm), fmt(totalCte), absents.length, liste, enCours);
       noteEl.style.display = 'block';
     }
     return;
@@ -2550,6 +2522,92 @@ const largeurSemaine = {
     return;
   }
 
+  /* Nouveaux cas par semaine, empiles par province — a la place des six
+     cumuls de « Cas par province », ou l'Ituri ecrasait tout et ou quatre
+     courbes sur six se confondaient avec le zero. Ici on lit d'ou viennent
+     les cas semaine apres semaine, et en parts le basculement : la part de
+     l'Ituri dans les nouveaux cas passe de neuf dixiemes en juin a moins
+     des deux tiers fin aout. Meme regle que « Nouveaux cas » : semaine
+     calendaire, semaine en cours ecartee, semaine sans releve gardee vide.
+     Les rattrapages administratifs restent dans leur semaine, la province
+     etant connue mais pas la journee — la note le dit. */
+  if(chartMode==='newCasesByProvince'){
+    /* Parts par defaut : le volume hebdomadaire est deja dans « Nouveaux cas
+       · Par semaine » ; ce que ce cadre montre seul, c'est d'ou viennent les
+       cas. « Cas » reste en second, parce que les parts effacent le volume. */
+    const vue = vueDe(canvas, 'parts');
+    if(slot.chart && (slot.chart.config.type !== 'bar' || slot.lastMode !== 'newCasesByProvince')){
+      slot.chart.destroy(); slot.chart = null;
+    }
+    if(!PROVINCE_HISTORY.length){
+      if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
+      slot.lastMode = 'newCasesByProvince';
+      canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+      return;
+    }
+    const noms = Object.keys(PROVINCE_COLORS);
+    const hist = [...PROVINCE_HISTORY].sort((a, b) => a.date.localeCompare(b.date));
+    const semaines = new Map();
+    const precedent = {};
+    hist.forEach(h => {
+      const cle = lundiDe(h.date);
+      const w = semaines.get(cle) || { debut:cle, fin:dimancheDe(cle), releves:0, valeurs:{} };
+      let compte = false;
+      h.provinces.forEach(p => {
+        if(p.confirmed === null || p.confirmed === undefined) return;
+        const avant = precedent[p.name];
+        if(avant !== undefined) w.valeurs[p.name] = (w.valeurs[p.name] || 0) + Math.max(0, p.confirmed - avant);
+        precedent[p.name] = p.confirmed;
+        compte = true;
+      });
+      if(compte) w.releves += 1;
+      semaines.set(cle, w);
+    });
+    const derniere = hist[hist.length - 1].date;
+    const pleines = [...semaines.values()].filter(w => w.releves > 0 && w.fin <= derniere && Object.keys(w.valeurs).length)
+      .sort((a, b) => a.debut.localeCompare(b.debut));
+    if(!pleines.length){ slot.lastMode = 'newCasesByProvince'; return; }
+    const liste = [];
+    for(let cle = pleines[0].debut; cle <= pleines[pleines.length - 1].debut; ){
+      const w = semaines.get(cle);
+      liste.push((w && w.releves > 0 && Object.keys(w.valeurs).length) ? w : { debut:cle, fin:dimancheDe(cle), releves:0, valeurs:{} });
+      const d = new Date(cle + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + 7); cle = d.toISOString().slice(0, 10);
+    }
+    const totaux = liste.map(w => Object.values(w.valeurs).reduce((t, v) => t + v, 0));
+    const valeur = (w, nom, i) => {
+      if(!w.releves) return null;
+      const v = w.valeurs[nom] || 0;
+      return vue === 'parts' ? (totaux[i] ? Math.round(v / totaux[i] * 1000) / 10 : null) : v;
+    };
+    const data = { labels: liste.map(w => tr('chartWeekOf')(frDate(w.debut), frDate(w.fin))),
+      datasets: noms.map(nom => ({ label:nom, data:liste.map((w, i) => valeur(w, nom, i)),
+        backgroundColor:PROVINCE_COLORS[nom], stack:'p', order:2 })) };
+    const rattrapages = Object.keys(RATTRAPAGE_ADMIN)
+      .map(d => liste.find(w => w.debut <= d && d <= w.fin)).filter(Boolean)
+      .map(w => frDate(w.debut) + ' → ' + frDate(w.fin));
+    const opts = { responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{ display:true, position:'bottom', labels:{ usePointStyle:true, color:PALETTE.inkDim, font:{family:PALETTE.font, size:11}, boxWidth:8, padding:12 } },
+        tooltip:{ backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
+          titleColor:PALETTE.ink, bodyColor:PALETTE.ink, titleFont:{family:PALETTE.font}, bodyFont:{family:PALETTE.font},
+          filter:(item) => item.parsed.y !== null && item.parsed.y !== 0,
+          callbacks:{
+            title:(items) => { const w = liste[items[0].dataIndex]; return frDate(w.debut) + ' → ' + frDate(w.fin) + ' · ' + tr('releveCount')(w.releves); },
+            label:c => { const w = liste[c.dataIndex]; const brut = w.valeurs[c.dataset.label] || 0;
+              return c.dataset.label + ' : ' + (vue === 'parts' ? fmtCfr(c.parsed.y) + ' (' + fmt(brut) + ')' : fmt(brut)); },
+            footer:(items) => vue === 'parts' ? '' : totalEmpile(items) } } },
+      scales:{ x:{ stacked:true, ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10}, autoSkip:true, maxTicksLimit:16 }, grid:{ display:false } },
+               y: vue === 'parts'
+                 ? { stacked:true, min:0, max:100, ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10}, callback:v=>v+'%' }, grid:{ color:PALETTE.lineSoft } }
+                 : { stacked:true, beginAtZero:true, ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10}, callback:v=>fmt(v) }, grid:{ color:PALETTE.lineSoft } } } };
+    if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
+    else { slot.chart = new Chart(canvas.getContext('2d'), { type:'bar', data, options:opts }); }
+    slot.lastMode = 'newCasesByProvince';
+    noterPeriode(slot, liste[0].debut, liste[liste.length - 1].fin);
+    if(noteEl){ noteEl.textContent = tr('chartNoteNewCasesByProvince')(liste.filter(w => w.releves).length, rattrapages); noteEl.style.display = 'block'; }
+    return;
+  }
+
   if(chartMode==='byProvince'){
     const wantedType = 'line';
     if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode !== 'byProvince')){
@@ -2642,6 +2700,7 @@ const largeurSemaine = {
      jour n'etant pas publiee, c'est la journee entiere qui bascule ; l'empan
      restant date, la regle s'y applique de la meme facon. */
   if(chartMode === 'newCases' || chartMode === 'newDeaths'){
+    const periode = vuePeriodeDe(canvas);
     if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
     const deces  = chartMode === 'newDeaths';
     const champ  = deces ? 'deaths' : 'confirmed';
@@ -2710,7 +2769,7 @@ const largeurSemaine = {
     };
     const parts = partsQuotidiennes(s, champ);
 
-    if(vuePeriode === 'quotidien'){
+    if(periode === 'quotidien'){
       /* Quatre-vingt-dix et quelques barres sur la periode : elles restent
          fines, et l'axe reprend l'inclinaison du mode « epidemic », qui porte
          la meme serie a la meme echelle de temps. */
@@ -2724,6 +2783,19 @@ const largeurSemaine = {
           fin(barre(tr('catchupLabel'), parts.rattrapage, tint(teinte, .35)))
         ]
       };
+      /* data-cumul="1" sur le canevas : la courbe de cumul de la meme serie,
+         sur un second axe — ce que portait « Evolution de l'epidemie » pour
+         les cas et les deces ensemble ; un cadre par serie la reprend pour la
+         sienne. Deux ordres de grandeur, d'ou l'axe droit. Sans l'attribut
+         (/donnees/), rien ne change. */
+      if(canvas.dataset.cumul === '1'){
+        dataJ.datasets.push({ type: 'line', label: tr(deces ? 'chartCumulativeDeathsLabel' : 'chartCumulativeLabel'),
+          data: s.map(r => (r[champ] === null || r[champ] === undefined) ? null : r[champ]), yAxisID: 'y1',
+          borderColor: teinte, borderWidth: 2, tension: .25, pointRadius: 0, fill: false, spanGaps: true, order: 0 });
+        optsN.scales.y1 = { position: 'right', beginAtZero: true,
+          ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 }, callback: v => fmt(v) },
+          grid: { drawOnChartArea: false } };
+      }
       optsN.plugins.tooltip.callbacks.title = items => frDate(s[items[0].dataIndex].date);
       slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataJ, options: optsN });
       slot.lastMode = chartMode + '-quotidien';
@@ -2735,7 +2807,7 @@ const largeurSemaine = {
       return;
     }
 
-    const parMois = vuePeriode === 'mensuel';
+    const parMois = periode === 'mensuel';
     const toutes = agregeNouveauxCas(s, parMois ? 'mois' : 'semaine', champ);
     const derniereDate = s[s.length - 1].date;
     const enCours = toutes.length > 0 && toutes[toutes.length - 1].fin > derniereDate;
@@ -2841,7 +2913,7 @@ const largeurSemaine = {
     slot.chart = new Chart(ctx0Epi(canvas),
       { type: 'bar', data: dataP, options: optsN,
         plugins: ratios ? [largeurSemaine] : [] });
-    slot.lastMode = chartMode + '-' + vuePeriode;
+    slot.lastMode = chartMode + '-' + periode;
     /* La periode s'arrete au dernier dimanche revolu en vue hebdomadaire. En
        vue mensuelle elle s'arrete au dernier bulletin, et non au 31 du mois en
        cours : la barre couvre le mois entier, les donnees non. */
@@ -3021,7 +3093,12 @@ document.querySelectorAll('[data-vue-periode]').forEach(nav=>{
     btn.addEventListener('click', ()=>{
       nav.querySelectorAll('.subtab-btn').forEach(b=>b.classList.toggle('active', b === btn));
       vuePeriode = btn.dataset.vue;
-      const cible = document.getElementById('dataChart');
+      /* Le canevas vise est celui du cadre qui porte la bascule — sur
+         /donnees/ c'est dataChart, sur une page a plusieurs cadres c'est le
+         sien. */
+      const wrapVue = nav.closest('.chart-panel-wrap');
+      const cible = (wrapVue && wrapVue.querySelector('canvas[data-chart]')) || document.getElementById('dataChart');
+      if(cible) vuePeriodeParCanvas[cible.id] = btn.dataset.vue;
       if(cible) safeRun(()=>renderOneChart(cible, cible.dataset.chart), 'vuePeriode');
     });
   });
@@ -3032,7 +3109,8 @@ document.querySelectorAll('[data-pyramide-vue]').forEach(nav=>{
     btn.addEventListener('click', ()=>{
       nav.querySelectorAll('.subtab-btn').forEach(b=>b.classList.toggle('active', b === btn));
       pyramideVue = btn.dataset.vue;
-      const cible = document.getElementById('dataChart');
+      const wrapVue = nav.closest('.chart-panel-wrap');
+      const cible = (wrapVue && wrapVue.querySelector('canvas[data-chart]')) || document.getElementById('dataChart');
       if(cible) safeRun(()=>renderOneChart(cible, cible.dataset.chart), 'pyramideVue');
     });
   });

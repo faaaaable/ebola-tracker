@@ -175,13 +175,63 @@ Huit pages, chacune en FR et EN : accueil, `donnees/` (+ six pages province),
 Les graphiques sont rendus côté client par `assets/js/app.js` avec Chart.js.
 Chaque canevas déclare son sujet via `data-chart`, les onglets via `data-mode`.
 
-**Six onglets sur `/donnees/`**, dans cet ordre : `epidemic`, `newCases`,
-`newDeaths`, `deathsPlace`, `byProvince` (« Cas par province »), `pyramide`.
-La barre repond a des questions successives — combien (l'ensemble, les cas,
-les deces), ou (par province), qui (age et sexe). « Que fait-on contre » a
-quitte la barre le 29 aout pour la page Riposte, ou le suivi des contacts est
-plus complet (effectifs, provinces) ; le mode `contactsFollowUp` reste dans
-`app.js`. `newCases` et `newDeaths` restent **voisins** : ils partagent leur
+**Cinq onglets sur `/donnees/`**, dans cet ordre : `epidemic`, `newCases`,
+`newDeaths`, `newCasesByProvince` (« Nouveaux cas par province »),
+`pyramide`. La barre repond a des questions successives — combien
+(l'ensemble, les cas, les deces), ou (par province), qui (age et sexe). Deux
+onglets ont quitte la barre le 29 aout pour la page Riposte, ou ils sont
+mieux places : « Suivi des contacts » (version enrichie : effectifs,
+provinces) et « Deces en communaute », devenu « Le lieu du deces », a cote de
+l'occupation des CTE qu'il explique. Les modes `contactsFollowUp` et
+`deathsPlace` restent dans `app.js` ; `byProvince` aussi.
+
+**« Nouveaux cas par province » a remplace « Cas par province » le 29 aout.**
+Six cumuls sur un meme axe : l'Ituri (4 845) ecrasait tout, et quatre
+courbes sur six se confondaient avec le zero. Le nouveau mode
+(`newCasesByProvince`) empile les nouveaux cas par semaine calendaire, par
+province, avec une bascule Parts / Cas — **Parts par defaut** : le volume
+hebdomadaire est deja dans « Nouveaux cas · Par semaine », ce que ce cadre
+montre seul, c'est d'ou viennent les cas (la part de l'Ituri passe de 95 % en
+juin a 70 % fin aout). Memes regles que « Nouveaux cas » : semaine du lundi au
+dimanche, semaine en cours ecartee, semaine sans releve gardee vide ; les
+rattrapages des 22 et 30 juillet restent dans leur semaine — la province est
+connue, pas la journee — et la note les nomme. La bascule est une
+`data-chart-vue` generique portant `data-for-mode="newCasesByProvince"` :
+`renderOneChart` ne l'affiche qu'avec ce mode.
+
+**« Le lieu du deces » a des barres de largeur EGALE depuis le 29 aout.** Le
+plugin `largeurSemaine` — partie pleine au prorata des releves, gris hachure
+pour les jours manquants, gris uni pour les jours a venir — faisait grossir la
+derniere barre de bulletin en bulletin, et le proprietaire ne voulait plus de
+ce mouvement. Ce que la largeur encodait passe dans la note, en dates
+calculees (« 7 jours sans releve du lieu (16 juil., 28 juil. → 29 juil.,
+6 aout → 9 aout) », « la derniere barre est la semaine en cours, sur 4
+releves sur sept ») : la note ecrivait « dont quatre d'affilee du 6 au
+9 aout » en dur, ce qui se serait perime. Le plugin reste en service pour le
+mois en cours de « Nouveaux cas ».
+
+**Trois generalisations d'`app.js` pour des pages a plusieurs cadres**, faites
+pour la maquette de `/donnees/` (voir ci-dessous) et sans effet sur les
+pages existantes : la bascule Jour / Semaine / Mois et la bascule
+Effectifs / Parts visent le canevas du cadre qui les porte (et non plus
+`dataChart` en dur) ; le pas de temps vit par canevas (`vuePeriodeParCanvas`,
+`vuePeriodeDe(canvas)`) — sur `/donnees/` cas et deces partagent le canevas et
+donc l'etat, comme avant ; un canevas `data-cumul="1"` recoit, en vue
+quotidienne de `newCases` / `newDeaths`, la courbe de cumul de sa serie sur un
+second axe.
+
+**En tete de `/donnees/`**, depuis le 29 aout : le surtitre « Ensemble du
+pays » avec l'anneau vide de la barre laterale (idiome du statut sur les
+pages province), et une introduction a l'echelle du pays sans enumeration
+des provinces (`provincesIntro`).
+
+**Une maquette de `/donnees/` en chapitres vit hors du depot** (gabarit
+`site/pages/maquette-donnees.html`, non suivi ; entree `maquette` de
+`pages.json` et cles `dd*` de `strings.json` retirees avant chaque commit,
+remises apres). Combien (Nouveaux cas, Nouveaux deces, chacun avec son cumul
+et son pas de temps), Ou (tableau par province, Nouveaux cas par province,
+tableau par zone), Qui (Age et sexe), Que fait-on (les quatre chiffres de la
+riposte). Elle attend une decision. `newCases` et `newDeaths` restent **voisins** : ils partagent leur
 bascule de pas de temps et son etat, ce qui ne se decouvre que si les deux
 boutons se touchent. Les modes `ages`, `sexes` et
 `communityDeaths` restent dans le code sans bouton — décisions de publication,

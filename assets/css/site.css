@@ -362,6 +362,8 @@ ul,ol{margin:0;padding:0;}
   color:var(--accent-strong);
 }
 .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;}
+/* Le meme anneau vide que dans la barre laterale, pour « Ensemble du pays ». */
+.eyebrow .dot-all{background:transparent;box-shadow:inset 0 0 0 1.5px var(--accent-strong);}
 
 /* ==========================================================================
    Mise en page de la carte et panneau de detail

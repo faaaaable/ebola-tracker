@@ -100,7 +100,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=fa2db22962">
+<link rel="stylesheet" href="/assets/css/site.css?v=73db60302b">
 </head>
 <body>
 
@@ -212,11 +212,17 @@
       <main id="contenu">
   <section class="section">
     <div class="section-head">
-      <h1 class="page-title">Detailed data</h1>
+      <div>
+        <!-- Le surtitre dit le perimetre, comme sur les pages province ou il
+             dit le statut : cette page, c'est tout le pays, et l'anneau vide
+             est celui d'« Ensemble du pays » dans la barre laterale. -->
+        <div class="eyebrow" style="margin-bottom:6px;"><span class="dot dot-all"></span>Whole country</div>
+        <h1 class="page-title">Detailed data</h1>
+      </div>
       <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">60 health zones affected out of 151 · SitRep N°105 of 27 Aug</div>
     </div>
 
-    <p class="page-intro">The outbreak does not affect all six provinces equally: Ituri concentrates the vast majority of cases, while other provinces report only an isolated focus. Every province has its own page, updated from the same official bulletins as the rest of the site.</p>
+    <p class="page-intro">Here, the whole country. Every confirmed case and death since the outbreak was declared on 15 May 2026, as published in the INSP bulletins: the pace of new cases day by day and week by week, each province's share of that total, the age and sex of patients. The tables then go down to the health zone, and each province has its own page, updated from the same bulletins.</p>
 
     <nav class="subtab-nav" id="zonesViewNav" aria-label="By province / By health zone" style="margin-bottom:16px;">
       <button type="button" class="subtab-btn active" data-view="province" data-i18n="zonesViewProvince">By province</button>
@@ -372,8 +378,14 @@
              « Deces en communaute » le remplace, valide province par province.
              Son mode reste dans app.js, mais le rallumer demanderait de corriger
              d'abord ce defaut de couverture. -->
-        <button type="button" class="subtab-btn" data-mode="deathsPlace" data-i18n="chartModeDeathsPlace">Deaths in the community</button>
-        <button type="button" class="subtab-btn" data-mode="byProvince" data-i18n="chartModeByProvince">Cases by province</button>
+        <!-- « Deces en communaute » a rejoint la page Riposte le 29 aout, a
+             cote de l'occupation des CTE qu'il explique. Le mode reste dans
+             app.js. -->
+        <!-- « Cas par province » (six cumuls) a cede la place le 29 aout a
+             « Nouveaux cas par province » : l'Ituri ecrasait l'axe et quatre
+             courbes sur six se confondaient avec le zero. Le mode byProvince
+             reste dans app.js. -->
+        <button type="button" class="subtab-btn" data-mode="newCasesByProvince" data-i18n="chartModeNewCasesByProvince">New cases by province</button>
         <!-- « Cas et deces par age » et « Cas et deces par sexe » ont ete
              retires de la barre : l'onglet « Age et sexe » porte les deux, et
              le croisement en plus. Leurs modes restent dans app.js, comme le
@@ -413,10 +425,16 @@
       <!-- Bascule propre a la pyramide, masquee par les autres modes. En
            « Effectifs », deux figures cote a cote ; en « Parts », une seule,
            chaque serie ramenee a 100 % de son propre total. -->
-      <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
-        <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">Counts</button>
-        <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">Shares</button>
+      <!-- Bascule propre a « Nouveaux cas par province » : cas empiles, ou
+           parts a 100 % de chaque semaine. -->
+      <nav class="subtab-nav chart-vue-nav" data-chart-vue="dataChart" data-for-mode="newCasesByProvince" style="display:none;">
+        <button type="button" class="subtab-btn active" data-vue="parts" data-i18n="chartPyramideVueParts">Shares</button>
+        <button type="button" class="subtab-btn" data-vue="cas" data-i18n="chartVueCas">Cases</button>
       </nav>
+              <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
+          <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">Counts</button>
+          <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">Shares</button>
+        </nav>
       <div class="chart-duo">
         <div class="chart-panel">
           <canvas id="dataChart" data-chart="epidemic"></canvas>
@@ -566,8 +584,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=b145558706"></script>
-<script defer src="/assets/js/app.js?v=3570c20adc"></script>
+<script defer src="/assets/js/i18n.js?v=53fa454a55"></script>
+<script defer src="/assets/js/app.js?v=8c380efcc6"></script>
 
 </body>
 </html>
