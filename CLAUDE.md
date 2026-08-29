@@ -175,15 +175,21 @@ Huit pages, chacune en FR et EN : accueil, `donnees/` (+ six pages province),
 Les graphiques sont rendus côté client par `assets/js/app.js` avec Chart.js.
 Chaque canevas déclare son sujet via `data-chart`, les onglets via `data-mode`.
 
-**Cinq onglets sur `/donnees/`**, dans cet ordre : `epidemic`, `newCases`,
-`newDeaths`, `newCasesByProvince` (« Nouveaux cas par province »),
-`pyramide`. La barre repond a des questions successives — combien
-(l'ensemble, les cas, les deces), ou (par province), qui (age et sexe). Deux
-onglets ont quitte la barre le 29 aout pour la page Riposte, ou ils sont
-mieux places : « Suivi des contacts » (version enrichie : effectifs,
-provinces) et « Deces en communaute », devenu « Le lieu du deces », a cote de
-l'occupation des CTE qu'il explique. Les modes `contactsFollowUp` et
-`deathsPlace` restent dans `app.js` ; `byProvince` aussi.
+**`/donnees/` est une page en chapitres depuis le 29 août, sans barre
+d'onglets.** Combien (Nouveaux cas, Nouveaux décès — chacun dans son cadre,
+avec sa courbe de cumul en vue quotidienne et son propre pas de temps
+Jour / Semaine / Mois), Où (tableau par province, Nouveaux cas par province
+en parts, tableau par zone de santé toujours visible avec sa recherche et son
+filtre), Qui (Âge et sexe, Effectifs / Parts), Que fait-on (les quatre
+chiffres de la riposte et le lien vers la page). Les onglets ne subsistent
+que pour les lectures d'une même série. Née en maquette parallèle le
+28 août, adoptée le 29 : l'ancienne page disait trois fois la même chose
+(tableau, vignettes, premier onglet), cachait six graphiques derrière un
+cadre et le tableau des zones derrière une bascule. « Évolution de
+l'épidémie » a disparu — ses deux cumuls vivent dans le quotidien de chaque
+série — ; « Suivi des contacts » et « Décès en communauté » sont sur la page
+Riposte. Les modes `epidemic`, `contactsFollowUp`, `deathsPlace`,
+`byProvince` restent dans `app.js`, sans cadre.
 
 **« Nouveaux cas par province » a remplace « Cas par province » le 29 aout.**
 Six cumuls sur un meme axe : l'Ituri (4 845) ecrasait tout, et quatre
@@ -225,11 +231,10 @@ pays » avec l'anneau vide de la barre laterale (idiome du statut sur les
 pages province), et une introduction a l'echelle du pays sans enumeration
 des provinces (`provincesIntro`).
 
-**Une maquette de `/donnees/` en chapitres est publiée en page parallèle**
-depuis le 29 août : `/maquette-donnees/`, `/en/mockup-data/`,
-`/sw/mchoro-takwimu/` (gabarit `site/pages/maquette-donnees.html`, entrée
-`maquette` de `pages.json` avec `noindex: true` — hors sitemap — et
-`robots.txt` l'interdit aux moteurs). Non liée depuis le site. Combien (Nouveaux cas, Nouveaux deces, chacun avec son cumul
+**La maquette parallèle de `/donnees/` n'existe plus** : adoptée le 29 août,
+son gabarit est devenu `site/pages/donnees.html`. Le générateur garde le
+mécanisme `noindex: true` de `pages.json` (page servie, hors sitemap) pour la
+prochaine maquette. Combien (Nouveaux cas, Nouveaux deces, chacun avec son cumul
 et son pas de temps), Ou (tableau par province, Nouveaux cas par province,
 tableau par zone), Qui (Age et sexe), Que fait-on (les quatre chiffres de la
 riposte). Elle attend une decision. `newCases` et `newDeaths` restent **voisins** : ils partagent leur

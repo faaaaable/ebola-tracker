@@ -210,6 +210,13 @@
   </nav>
 
       <main id="contenu">
+  <!-- « Ensemble du pays » en chapitres — combien, ou, qui, que fait-on —
+       depuis le 29 aout : chaque graphique dans son cadre, les onglets
+       reserves aux lectures d'une meme serie (Cas / Deces, Jour / Semaine /
+       Mois, Parts / Cas, Effectifs / Parts). Ne en maquette parallele le
+       28 aout, adopte le 29. Plus de vignettes de province — le tableau les
+       porte —, plus de bascule devant le tableau par zone, la note de
+       lecture sous le tableau qu'elle explique. -->
   <section class="section">
     <div class="section-head">
       <div>
@@ -221,19 +228,84 @@
       </div>
       <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">60 health zones affected out of 151 · SitRep N°105 of 27 Aug</div>
     </div>
-
     <p class="page-intro">Here, the whole country. Every confirmed case and death since the outbreak was declared on 15 May 2026, as published in the INSP bulletins: the pace of new cases day by day and week by week, each province's share of that total, the age and sex of patients. The tables then go down to the health zone, and each province has its own page, updated from the same bulletins.</p>
-
-    <nav class="subtab-nav" id="zonesViewNav" aria-label="By province / By health zone" style="margin-bottom:16px;">
-      <button type="button" class="subtab-btn active" data-view="province" data-i18n="zonesViewProvince">By province</button>
-      <button type="button" class="subtab-btn" data-view="zone" data-i18n="zonesViewZone">By health zone</button>
+    <nav class="riposte-ancres" aria-label="How many · Where · Who">
+      <a href="#combien">How many</a>
+      <a href="#ou">Where</a>
+      <a href="#qui">Who</a>
+      <a href="#riposte">What is being done</a>
     </nav>
+  </section>
 
-    <div id="zonesView-province">
+  <!-- ============ COMBIEN ============ -->
+  <section class="section section-split" id="combien">
+    <div>
+      <h2 class="section-title">How many</h2>
+      <div class="section-sub">cases and deaths, day after day</div>
+    </div>
+    <div>
+      <!-- Deux cadres, un par serie : le quotidien porte la courbe de cumul de
+           sa serie (ce que faisait « Evolution de l'epidemie » pour les deux a
+           la fois), et la bascule Jour / Semaine / Mois est propre a chaque
+           cadre. Decision du proprietaire, 29 aout. -->
+      <div class="section-head">
+        <h3 class="section-title">New cases</h3>
+      </div>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="casChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">Share</span>
+          </button>
+        </div>
+        <nav class="subtab-nav chart-vue-nav" data-vue-periode>
+          <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">Daily</button>
+          <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">Weekly</button>
+          <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">Monthly</button>
+        </nav>
+        <div class="chart-panel">
+          <canvas id="casChart" data-chart="newCases" data-cumul="1"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="section-title">New deaths</h3>
+      </div>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="decesChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">Share</span>
+          </button>
+        </div>
+        <nav class="subtab-nav chart-vue-nav" data-vue-periode>
+          <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">Daily</button>
+          <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">Weekly</button>
+          <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">Monthly</button>
+        </nav>
+        <div class="chart-panel">
+          <canvas id="decesChart" data-chart="newDeaths" data-cumul="1"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ OU ============ -->
+  <section class="section section-split" id="ou">
+    <div>
+      <h2 class="section-title">Where</h2>
+      <div class="section-sub">by province and by health zone</div>
+    </div>
+    <div>
+      <div class="section-head">
+        <h3 class="section-title">By province</h3>
+      </div>
+      <!-- Le tableau par province EST la vignette de chaque province : les six
+           cartes « Explorer province par province » n'ont plus lieu d'etre. -->
       <div class="panel panel-fit" style="padding:16px;">
-        <!-- Le tableau se partage en image, filtre et note compris. Il est
-             redessine cellule par cellule : un tableau HTML ne sait pas
-             s'exporter comme un canevas. -->
         <div class="chart-actions" data-export-table="provinceSummaryTable">
           <button type="button" class="share-btn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
@@ -320,197 +392,125 @@
           </table>
         </div>
       </div>
-    </div>
+      <!-- La note de lecture remonte sous le tableau qu'elle explique. -->
+      <p class="map-note">Cases and deaths are <strong>cumulative totals</strong> since the start of the outbreak, never daily values. Figures in brackets are the change announced by the latest bulletin.</p>
 
-    <div id="zonesView-zone" style="display:none;">
-      <div class="zones-block">
-      <div class="panel panel-fit" style="padding:16px;">
-        <!-- Le tableau se partage en image, filtre et note compris. Il est
-             redessine cellule par cellule : un tableau HTML ne sait pas
-             s'exporter comme un canevas. -->
-        <div class="chart-actions" data-export-table="zonesDetailTable">
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="section-title">New cases by province</h3>
+      </div>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="provChart">
           <button type="button" class="share-btn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
             <span data-i18n="chartShareBtn">Share</span>
           </button>
         </div>
-        <nav class="subtab-nav" id="zonesSubtabNav" aria-label="All provinces"></nav>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-          <label class="visually-hidden" for="zonesSearch">Search a zone…</label>
-          <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="Search a zone…">
-        </div>
-        <div class="table-scroll">
-          <table class="zones-detail" id="zonesDetailTable">
-            <thead>
-              <tr id="zonesTableHead"></tr>
-            </thead>
-            <tbody id="zonesTableBody"></tbody>
-          </table>
-        </div>
-        <div id="zonesEmptyState" class="map-note fit-passive" style="display:none;text-align:center;" data-i18n="zonesEmptyState">No zone matches this filter.</div>
-        <div id="zonesResultCount" class="fit-passive"></div>
-      </div>
-      <p class="map-note zones-note">A province's total can differ from the sum of its health zones: the bulletins count cases and deaths not yet assigned to a zone separately. The site leaves them where the source puts them.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Tracking indicators</h2>
-        <div class="section-sub">for the whole country</div>
-      </div>
-      <!-- L'ordre de la barre repond a des questions successives : combien
-           (l'ensemble, puis les cas, puis les deces), ou (par province), qui
-           (age et sexe). « Que fait-on contre » vit sur la page Riposte.
-           « Nouveaux cas » et « Nouveaux deces » restent VOISINS : ils
-           partagent leur bascule de pas de temps et son etat, ce qui ne se
-           decouvre que si les deux boutons se touchent. -->
-      <nav class="subtab-nav" data-chart-tabs="dataChart">
-        <button type="button" class="subtab-btn active" data-mode="epidemic" data-i18n="chartModeEpidemic">Epidemic overview</button>
-        <button type="button" class="subtab-btn" data-mode="newCases" data-i18n="chartModeNewCases">New cases</button>
-        <button type="button" class="subtab-btn" data-mode="newDeaths" data-i18n="chartModeNewDeaths">New deaths</button>
-        <!-- « Repartition des deces » a quitte la barre : il tracait
-             community-deaths-daily.json, qui ne valide qu'une province — l'Ituri —
-             sous un sous-titre annoncant « pour l'ensemble du pays ». Le 21 aout il
-             affichait 17 communautaires / 17 intra-CTE quand le national etait 27/22.
-             « Deces en communaute » le remplace, valide province par province.
-             Son mode reste dans app.js, mais le rallumer demanderait de corriger
-             d'abord ce defaut de couverture. -->
-        <!-- « Deces en communaute » a rejoint la page Riposte le 29 aout, a
-             cote de l'occupation des CTE qu'il explique. Le mode reste dans
-             app.js. -->
-        <!-- « Cas par province » (six cumuls) a cede la place le 29 aout a
-             « Nouveaux cas par province » : l'Ituri ecrasait l'axe et quatre
-             courbes sur six se confondaient avec le zero. Le mode byProvince
-             reste dans app.js. -->
-        <button type="button" class="subtab-btn" data-mode="newCasesByProvince" data-i18n="chartModeNewCasesByProvince">New cases by province</button>
-        <!-- « Cas et deces par age » et « Cas et deces par sexe » ont ete
-             retires de la barre : l'onglet « Age et sexe » porte les deux, et
-             le croisement en plus. Leurs modes restent dans app.js, comme le
-             mode deathsPlace : ce sont des decisions de publication, pas des
-             suppressions de code, et il suffit de remettre un bouton ici pour
-             qu'ils reviennent. -->
-        <button type="button" class="subtab-btn" data-mode="pyramide" data-i18n="chartModePyramide">Age and sex</button>
-        <!-- « Suivi des contacts » a quitte la barre le 29 aout : la question
-             « que fait-on contre » a sa page, /riposte/, ou le meme graphique
-             porte en plus les effectifs et le detail par province. Le mode
-             reste dans app.js, comme les autres onglets retires. -->
-      </nav>
-    </div>
-
-    <div class="panel chart-panel-wrap">
-      <!-- Le graphique se partage en image : figure, vue choisie et note
-           comprises. Le canevas s'exporte lui-meme, rien ne s'execute avant le
-           clic. -->
-      <div class="chart-actions" data-export-chart="dataChart">
-        <button type="button" class="share-btn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
-          <span data-i18n="chartShareBtn">Share</span>
-        </button>
-      </div>
-      <!-- Bascule commune aux onglets « Nouveaux cas » et « Nouveaux deces » :
-           la meme serie lue par jour, agregee par semaine ou par mois. Masquee
-           par les autres modes. Une seule barre pour les deux onglets, et un
-           seul etat : passer des cas aux deces garde le pas de temps choisi,
-           et les deux se comparent sans avoir a le reregler.
-           « Evolution de l'epidemie » n'en porte plus : il ne montre que le
-           quotidien, ses deux courbes de cumul par-dessus. -->
-      <nav class="subtab-nav chart-vue-nav" data-vue-periode style="display:none;">
-        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">Daily</button>
-        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">Weekly</button>
-        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">Monthly</button>
-      </nav>
-      <!-- Bascule propre a la pyramide, masquee par les autres modes. En
-           « Effectifs », deux figures cote a cote ; en « Parts », une seule,
-           chaque serie ramenee a 100 % de son propre total. -->
-      <!-- Bascule propre a « Nouveaux cas par province » : cas empiles, ou
-           parts a 100 % de chaque semaine. -->
-      <nav class="subtab-nav chart-vue-nav" data-chart-vue="dataChart" data-for-mode="newCasesByProvince" style="display:none;">
+        <nav class="subtab-nav chart-vue-nav" data-chart-vue="provChart">
         <button type="button" class="subtab-btn active" data-vue="parts" data-i18n="chartPyramideVueParts">Shares</button>
         <button type="button" class="subtab-btn" data-vue="cas" data-i18n="chartVueCas">Cases</button>
       </nav>
-              <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
+        <div class="chart-panel">
+          <canvas id="provChart" data-chart="newCasesByProvince"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="section-title">By health zone</h3>
+      </div>
+      <!-- Le tableau par zone sort de sa bascule : toujours visible, avec sa
+           recherche et son filtre. -->
+      <div class="zones-block">
+        <div class="panel panel-fit" style="padding:16px;">
+          <div class="chart-actions" data-export-table="zonesDetailTable">
+            <button type="button" class="share-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+              <span data-i18n="chartShareBtn">Share</span>
+            </button>
+          </div>
+          <nav class="subtab-nav" id="zonesSubtabNav" aria-label="All provinces"></nav>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+            <label class="visually-hidden" for="zonesSearch">Search a zone…</label>
+            <input id="zonesSearch" type="text" data-i18n-placeholder="zonesSearchPlaceholder" placeholder="Search a zone…">
+          </div>
+          <div class="table-scroll">
+            <table class="zones-detail" id="zonesDetailTable">
+              <thead><tr id="zonesTableHead"></tr></thead>
+              <tbody id="zonesTableBody"></tbody>
+            </table>
+          </div>
+          <div id="zonesEmptyState" class="map-note fit-passive" style="display:none;text-align:center;" data-i18n="zonesEmptyState">No zone matches this filter.</div>
+          <div id="zonesResultCount" class="fit-passive"></div>
+        </div>
+        <p class="map-note zones-note">A province's total can differ from the sum of its health zones: the bulletins count cases and deaths not yet assigned to a zone separately. The site leaves them where the source puts them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUI ============ -->
+  <section class="section section-split" id="qui">
+    <div>
+      <h2 class="section-title">Who</h2>
+      <div class="section-sub">age and sex of cases and deaths</div>
+    </div>
+    <div>
+      <div class="section-head">
+        <h3 class="section-title">Age and sex</h3>
+      </div>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="pyrChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">Share</span>
+          </button>
+        </div>
+                <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
           <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">Counts</button>
           <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">Shares</button>
         </nav>
-      <div class="chart-duo">
-        <div class="chart-panel">
-          <canvas id="dataChart" data-chart="epidemic"></canvas>
+        <div class="chart-duo">
+          <div class="chart-panel">
+            <canvas id="pyrChart" data-chart="pyramide"></canvas>
+          </div>
+          <div class="chart-panel chart-panel-duo" style="display:none;">
+            <canvas id="pyrChartB"></canvas>
+          </div>
         </div>
-        <!-- Second cadre, vide et masque sauf pour la pyramide, seul mode a
-             tracer deux figures : les cas et les deces ont des ordres de
-             grandeur trop differents pour partager un axe. -->
-        <div class="chart-panel chart-panel-duo" style="display:none;">
-          <canvas id="dataChartB"></canvas>
+        <div class="map-note chart-note"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUE FAIT-ON ============ -->
+  <section class="section section-split" id="riposte">
+    <div>
+      <h2 class="section-title">What is being done</h2>
+      <div class="section-sub">the response, in four figures</div>
+    </div>
+    <div>
+      <div class="kpis riposte-kpis">
+        <div class="kpi alerts">
+          <div class="label">Alerts received (24 h)</div>
+          <div class="value">2,033</div>
+          <div class="delta">400 validated as suspected cases</div>
+        </div>
+        <div class="kpi labo">
+          <div class="label">Test positivity (24 h)</div>
+          <div class="value">13.9%</div>
+          <div class="delta">69 positive out of 498 samples</div>
+        </div>
+        <div class="kpi contacts">
+          <div class="label">Contacts seen (24 h)</div>
+          <div class="value">87.3%</div>
+          <div class="delta">24,769 seen out of 28,372 to follow</div>
+        </div>
+        <div class="kpi cte">
+          <div class="label">Treatment centre occupancy</div>
+          <div class="value">62.9%</div>
+          <div class="delta">754 hospitalised for 1,198 beds</div>
         </div>
       </div>
-      <div class="map-note chart-note"></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">Browse province by province</h2>
-    </div>
-    <div class="province-grid">
-      <a class="province-card" href="/en/data/ituri/" style="border-left-color:#005E82;">
-        <h3>Ituri</h3>
-        <div class="pc-stats">
-          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">4,845</span></div>
-          <div class="pc-stat"><span class="k">Deaths</span><span class="v">2,185</span></div>
-          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">45.1%</span></div>
-        </div>
-      </a>
-      <a class="province-card" href="/en/data/nord-kivu/" style="border-left-color:#A06F30;">
-        <h3>Nord-Kivu</h3>
-        <div class="pc-stats">
-          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">788</span></div>
-          <div class="pc-stat"><span class="k">Deaths</span><span class="v">538</span></div>
-          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">68.3%</span></div>
-        </div>
-      </a>
-      <a class="province-card" href="/en/data/haut-uele/" style="border-left-color:#327957;">
-        <h3>Haut-Uélé</h3>
-        <div class="pc-stats">
-          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">205</span></div>
-          <div class="pc-stat"><span class="k">Deaths</span><span class="v">91</span></div>
-          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">44.4%</span></div>
-        </div>
-      </a>
-      <a class="province-card" href="/en/data/tshopo/" style="border-left-color:#6B5CA5;">
-        <h3>Tshopo</h3>
-        <div class="pc-stats">
-          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">19</span></div>
-          <div class="pc-stat"><span class="k">Deaths</span><span class="v">8</span></div>
-          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">42.1%</span></div>
-        </div>
-      </a>
-      <a class="province-card" href="/en/data/sud-kivu/" style="border-left-color:#5A544C;">
-        <h3>Sud-Kivu</h3>
-        <div class="pc-stats">
-          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">3</span></div>
-          <div class="pc-stat"><span class="k">Deaths</span><span class="v">1</span></div>
-          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">33.3%</span></div>
-        </div>
-      </a>
-      <a class="province-card" href="/en/data/bas-uele/" style="border-left-color:#993A2E;">
-        <h3>Bas-Uélé</h3>
-        <div class="pc-stats">
-          <div class="pc-stat"><span class="k">Confirmed cases</span><span class="v">3</span></div>
-          <div class="pc-stat"><span class="k">Deaths</span><span class="v">1</span></div>
-          <div class="pc-stat"><span class="k">Fatality rate</span><span class="v">33.3%</span></div>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="data-note">
-      <h2>How to read these figures</h2>
-      <p>Cases and deaths are <strong>cumulative totals</strong> since the start of the outbreak, never daily values. Figures in brackets are the change announced by the latest bulletin.</p>
-      <p class="dn-more"><a href="/en/about/#lecture">How these figures are read and checked →</a></p>
+      <p class="page-intro" style="margin-top:14px;"><a href="/en/response/">The full “Response” page →</a></p>
     </div>
   </section>
 
