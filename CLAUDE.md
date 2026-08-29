@@ -1674,12 +1674,18 @@ nouvelle exécution d'`update_data.py` rafraîchit (c'est ce qui a été fait).
 **Le SitRep 105 (27 août) superpose deux tableaux dans son PDF.** Ses pages 4
 et 5 impriment le tableau des alertes PAR-DESSUS une seconde copie du tableau
 des zones : le texte extrait y est illisible (« Alertes vér(Sifwiaébe+)s »,
-« Itu0r i 89,9 % », « Kyondo 76169 vus su1r2 28 3727 »). Trois conséquences,
-toutes du côté de la source : pas d'alertes ce jour-là (la page Riposte date
-son chiffre « au 26 août »), pas d'effectifs nationaux de contacts (le taux,
-87,3 %, vient de la bande de chiffres clés, intacte), et une seule province de
-contacts lisible (le Bas-Uélé, 60,4 %). Rien n'est à corriger — un trou
-plutôt qu'un chiffre corrompu.
+« Itu0r i 89,9 % », « Kyondo 76169 vus su1r2 28 3727 »). Mais chaque couche a
+sa police et son corps : `texte_par_couches()` dans `scripts/textes_pdf.py`
+regroupe les caractères par (police, corps) puis par ligne, et chaque couche
+redevient lisible — la phrase des contacts sort intacte de l'ArialMT 10,6
+(« 24 769 vus sur 28 372 à suivre », cinq provinces), les lignes du tableau
+des alertes de l'ArialMT 10,1 (six provinces, neuf nombres chacune, reçues =
+vivants + décédés). Les scripts des contacts et des alertes n'y recourent
+qu'en repli, quand la lecture ordinaire échoue ; pour les alertes, seulement
+à partir du 087, premier bulletin à porter le tableau par province — appliqué
+aux 084-086 il lisait 948 validées sur 1 141 reçues, leurs colonnes ne sont
+pas celles-là. Le texte par couches n'est pas dans l'ordre de lecture : il ne
+sert qu'aux motifs qui n'en dépendent pas.
 
 Le même bulletin a fait tomber deux hypothèses du pipeline, toutes deux
 corrigées le 29 août :
