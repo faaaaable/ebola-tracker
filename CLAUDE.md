@@ -226,9 +226,19 @@ donc l'etat, comme avant ; un canevas `data-cumul="1"` recoit, en vue
 quotidienne de `newCases` / `newDeaths`, la courbe de cumul de sa serie sur un
 second axe.
 
-**En tete de `/donnees/`**, depuis le 29 aout : le surtitre « Ensemble du
-pays » avec l'anneau vide de la barre laterale (idiome du statut sur les
-pages province), et une introduction a l'echelle du pays sans enumeration
+**Les sept pages de la rubrique « Données détaillées » ont la même tête**,
+depuis le 29 août : au-dessus, la rubrique — « Données détaillées »
+(`i18n.tabZones`) — avec la pastille d'identité (la couleur de la province,
+l'anneau vide pour le pays, ceux de la barre latérale) ; en titre, ce qu'on a
+cliqué — « Ensemble du pays » (`meta.h1` de la page `donnees`, le fil
+d'Ariane suit ; `title` et `description` gardent « Données détaillées par
+province et zone de santé » pour les moteurs), « Ebola en Ituri »… Le
+surtitre de statut des pages province (« Épicentre de l'épidémie »,
+« Transmission active ») a été retiré le même jour ; `province.statusLabel`
+reste calculé mais n'est plus affiché. Proposition du propriétaire, après
+deux essais écartés : le nom de la province en surtitre (il répétait le
+titre), puis la pastille dans le titre (elle ne disait plus la rubrique).
+L'introduction de la page pays est à l'échelle du pays, sans énumération
 des provinces (`provincesIntro`).
 
 **La maquette parallèle de `/donnees/` n'existe plus** : adoptée le 29 août,
