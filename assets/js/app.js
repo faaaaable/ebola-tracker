@@ -1163,7 +1163,7 @@ function renderOneChart(canvas, chartMode){
           { label:tr('alertesValideesLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.validees)), backgroundColor:PALETTE.info, stack:'a', order:2 },
           { label:tr('alertesAutresLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.recues - x.valeurs.validees)), backgroundColor:tint(PALETTE.info, .3), stack:'a', order:2 },
         ]};
-        const opts = { responsive:true, maintainAspectRatio:false,
+        const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
           plugins:{ legend:legende, tooltip:infobulle({ callbacks:{
             title:(items)=>{ const w = semaines[items[0].dataIndex]; return frDate(w.debut) + ' → ' + frDate(w.fin) + ' · ' + tr('releveCount')(w.releves); },
             label:c=>c.dataset.label + ' : ' + fmt(c.parsed.y), footer:totalEmpile } }) },
@@ -1181,7 +1181,7 @@ function renderOneChart(canvas, chartMode){
         { label:tr('alertesPartVerifieeLabel'), data:serie('partVerifiee'), borderColor:PALETTE.inkDim, borderWidth:1.5, pointRadius:1.5, tension:.15, spanGaps:false },
         { label:tr('alertesPartValideeLabel'), data:serie('partValidee'), borderColor:PALETTE.info, borderWidth:2, pointRadius:2, tension:.15, spanGaps:false },
       ]};
-      const opts = { responsive:true, maintainAspectRatio:false,
+      const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:legende, tooltip:infobulle({ callbacks:{ label:c=>c.dataset.label + ' : ' + fmtCfr(c.parsed.y) } }) },
         scales:{ x:axeX(true), y:axePct(Math.ceil(maxi/20)*20) } };
       dessiner('line', data, opts);
@@ -1212,7 +1212,7 @@ function renderOneChart(canvas, chartMode){
         { label:tr('laboPositifsLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.positifs)), backgroundColor:PALETTE.info, stack:'l', order:2 },
         { label:tr('laboNegatifsLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.echantillons - x.valeurs.positifs)), backgroundColor:tint(PALETTE.info, .3), stack:'l', order:2 },
       ]};
-      const opts = { responsive:true, maintainAspectRatio:false,
+      const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:legende, tooltip:infobulle({ callbacks:{
           title:(items)=>{ const w = semaines[items[0].dataIndex]; return frDate(w.debut) + ' → ' + frDate(w.fin) + ' · ' + tr('releveCount')(w.releves); },
           label:c=>c.dataset.label + ' : ' + (c.dataset.type === 'line' ? fmtCfr(c.parsed.y) : fmt(c.parsed.y)), footer:totalEmpile } }) },
@@ -1239,7 +1239,7 @@ function renderOneChart(canvas, chartMode){
           Object.assign({ type:'line', yAxisID:'y' }, jeuPont(taux, PALETTE.active, tr('contactsTauxLabel'))),
           { type:'bar', label:tr('contactsASuivreLabel'), data:aSuivre, backgroundColor:tint(PALETTE.active, .22), yAxisID:'y1', order:2, barPercentage:1, categoryPercentage:.94 },
         ]};
-        const opts = { responsive:true, maintainAspectRatio:false,
+        const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
           plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
                     tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>c.dataset.label + ' : ' + (c.dataset.type === 'line' ? fmtCfr(c.parsed.y) : fmt(c.parsed.y)) } }) },
           scales:{ x:axeX(true), y:axePct(100),
@@ -1281,7 +1281,7 @@ function renderOneChart(canvas, chartMode){
         ticks:Object.assign({}, axeTexte, { callback:v=>(graduation(v) ? v + '%' : ''), stepSize:20 }),
         grid:{ color:ctx=>((ctx.tick && (graduation(ctx.tick.value) || ctx.tick.value === 120)) ? PALETTE.lineSoft : 'transparent') },
       });
-      const opts = { responsive:true, maintainAspectRatio:false,
+      const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
                   tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>{
           const p = parDate[joursP[c.dataIndex]].provinces[c.dataset.label];
@@ -1327,7 +1327,7 @@ function renderOneChart(canvas, chartMode){
          ment. Retiree a la demande du proprietaire, 28 aout. */
       const maxi = Math.max(100, ...datasets.flatMap(ds => ds.data.filter(v => v !== null)));
       const data = { labels:jours.map(frDate), datasets };
-      const opts = { responsive:true, maintainAspectRatio:false,
+      const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
                   tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>{
           const p = parDate[jours[c.dataIndex]];
@@ -2585,7 +2585,10 @@ const largeurSemaine = {
     const rattrapages = Object.keys(RATTRAPAGE_ADMIN)
       .map(d => liste.find(w => w.debut <= d && d <= w.fin)).filter(Boolean)
       .map(w => frDate(w.debut) + ' → ' + frDate(w.fin));
-    const opts = { responsive:true, maintainAspectRatio:false,
+    /* Au survol, toute la pile — les six provinces de la semaine — et non le
+       seul segment sous le curseur : meme reglage que les autres barres
+       empilees du site. */
+    const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
       plugins:{
         legend:{ display:true, position:'bottom', labels:{ usePointStyle:true, color:PALETTE.inkDim, font:{family:PALETTE.font, size:11}, boxWidth:8, padding:12 } },
         tooltip:{ backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
