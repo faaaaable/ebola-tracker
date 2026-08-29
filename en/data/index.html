@@ -357,7 +357,7 @@
       </div>
       <!-- L'ordre de la barre repond a des questions successives : combien
            (l'ensemble, puis les cas, puis les deces), ou (par province), qui
-           (age et sexe), et que fait-on contre (suivi des contacts).
+           (age et sexe). « Que fait-on contre » vit sur la page Riposte.
            « Nouveaux cas » et « Nouveaux deces » restent VOISINS : ils
            partagent leur bascule de pas de temps et son etat, ce qui ne se
            decouvre que si les deux boutons se touchent. -->
@@ -381,7 +381,10 @@
              suppressions de code, et il suffit de remettre un bouton ici pour
              qu'ils reviennent. -->
         <button type="button" class="subtab-btn" data-mode="pyramide" data-i18n="chartModePyramide">Age and sex</button>
-        <button type="button" class="subtab-btn" data-mode="contactsFollowUp" data-i18n="chartModeContactsFollowUp">Contact follow-up</button>
+        <!-- « Suivi des contacts » a quitte la barre le 29 aout : la question
+             « que fait-on contre » a sa page, /riposte/, ou le meme graphique
+             porte en plus les effectifs et le detail par province. Le mode
+             reste dans app.js, comme les autres onglets retires. -->
       </nav>
     </div>
 
