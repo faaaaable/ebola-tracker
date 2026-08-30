@@ -1412,6 +1412,21 @@ quatre graphiques se lisent ensemble, et ce qui n'est pas cliqué n'est pas lu
 `riposte_seed()` dans `build_pages.py`, chacun daté quand sa série s'arrête
 avant le bulletin.
 
+**Trois cases au jour, une au glissant.** Alertes reçues, contacts vus et
+occupation des CTE sont la valeur du dernier bulletin — un taux de contacts
+se compare à un seuil quotidien (85 %), les alertes du jour sont une charge
+de travail, l'occupation est un stock. **La positivité, elle, cumule les
+sept derniers relevés** qui publient positifs et échantillons (décision du
+propriétaire, 30 août) : sur 370 à 500 échantillons par jour, la valeur du
+jour sautait de 13,3 à 21,8 puis 13,9 % en trois bulletins et contredisait
+le dernier point du graphique hebdomadaire (18,2 %). La case dit la
+période couverte (`riposteKpiPeriod`, « du 21 août au 27 août 2026 ») ; elle
+s'arrête avant le bulletin dès que celui-ci ne chiffre pas les
+échantillons — le 106 les tait pour la Tshopo et le Bas-Uélé, donc pas de
+total national ce jour-là. Elle ne coïncide pas exactement avec le dernier
+point du graphique, qui est une semaine calendaire close : c'est voulu, les
+deux se lisent ensemble.
+
 ### Les données
 
 | Fichier | Script | Profondeur | Ce qu'il lit |
