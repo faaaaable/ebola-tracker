@@ -5,10 +5,11 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 105**, rapportage
-du 27 août 2026 — 5 863 cas confirmés, 2 824 décès, létalité 48,2 %,
-**60 zones touchées** (Biena et Manguredjipa, au Nord-Kivu, sont les dernières
-arrivées).
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 106**, rapportage
+du 28 août 2026 — 5 945 cas confirmés, 2 862 décès, létalité 48,1 %,
+**60 zones touchées** (aucune nouvelle zone ; Biena et Manguredjipa, au
+Nord-Kivu, restent les dernières arrivées). Intégré **en local le 30 août**,
+non publié à cette date.
 
 ---
 
@@ -1787,6 +1788,46 @@ contrairement à ce que ce guide affirmait plus haut), et le 5 août passe de
 provinces et 1 850 dans sa bande de chiffres clés et son tableau détaillé.
 Le site lit le tableau des provinces pour toutes les dates ; il le fait
 maintenant aussi pour celle-là.
+
+**Le SitRep 106 (28 août) a numéroté et renommé ses tableaux** : « Tableau 1.
+Répartition des cas et décès confirmés par province touchée », « Tableau 2.
+Répartition des cas et décès confirmés par province et zone de santé, au
+28 août 2026 », « Tableau 3. Situation des alertes notifiées par province ».
+Trois endroits d'`update_data.py` cherchaient le titre du tableau des zones
+par comparaison exacte, sensible à la casse (« Cas et décès confirmés par
+province et zone de santé ») ; aucun ne le trouvait plus. Même symptôme
+qu'au 105, autre cause : « pas de détail par zone exploitable »,
+`latest.json` sans zone, `zones-history.json` figé au 105 — et rien d'autre
+ne bronchait, puisque les provinces et le national se lisaient bien.
+Corrigé le 30 août : `find_zone_section_start()` cherche le cœur du libellé
+sans égard à la casse ni à ce qui le précède, et sert aux trois lecteurs
+(`parse_province_summary_from_text`, `extract_zone_detail_rows`,
+`get_zone_section_text`). Second effet du même bulletin : la grille
+pdfplumber lit de nouveau le tableau des zones (61 lignes, là où le 105 ne
+rendait qu'une table PoE), et elle coupe « Makiso-⏎Kisangani » ; recollé par
+un tiret, cela donnait « Makiso--Kisangani », zone jamais vue — la
+recomposition n'ajoute plus de tiret quand la coupure en porte déjà un. Les
+60 zones ont été relues une par une contre les pages 2 et 3 du PDF, ainsi
+que les alertes (2 025 reçues, 1 639 vérifiées, 395 validées), le
+laboratoire (82 positifs = 82 nouveaux cas), les CTE et les contacts
+(84,4 %, 21 109 vus sur 25 015) : les autres extracteurs ont lu le 106 sans
+retouche. Reste non lu, et déjà vrai avant : la phrase du Bas-Uélé sous
+« Continuité des soins » (« 1 patient confirmé est en cours de soins pour
+3 lits disponibles »), qui n'a pas la forme « N patients sont hospitalisés
+pour M lits » attendue par `extraire_cte.py`. Les scripts d'inspection
+`inspect_province_summary.py`, `inspect_zone_section.py` et
+`scan_province_summary.py` gardent l'ancien libellé exact : ils ne sont pas
+dans le pipeline, mais ils ne verront pas le tableau du 106 tel quel.
+
+**Les outils de `scripts/verif/` et `audit_mobile.mjs` pointaient en dur sur
+un Chrome Windows** (`C:/Program Files/Google/Chrome/…`), et la machine n'a
+que Brave. Depuis le 30 août, `CHROME` dans l'environnement l'emporte, et à
+défaut le chemin dépend de la plateforme : Brave sur macOS, Chrome ailleurs.
+`visuel_evolution.mjs`, écrit sur le Mac, avait déjà Brave. Second
+obstacle sur la même machine : ces scripts utilisent `WebSocket` en global,
+qui n'existe qu'à partir de Node 22 — sous Node 20.20, lancer avec
+`node --experimental-websocket scripts/verif/capture_page.mjs …`, sinon
+`ReferenceError: WebSocket is not defined`.
 
 **Le tableau des zones porte QUATRE colonnes de jour, pas trois.** Apres la
 letalite viennent : nouveaux cas, deces communautaires, deces intra-CTE, puis
