@@ -1412,20 +1412,27 @@ quatre graphiques se lisent ensemble, et ce qui n'est pas cliqué n'est pas lu
 `riposte_seed()` dans `build_pages.py`, chacun daté quand sa série s'arrête
 avant le bulletin.
 
-**Trois cases au jour, une au glissant.** Alertes reçues, contacts vus et
-occupation des CTE sont la valeur du dernier bulletin — un taux de contacts
-se compare à un seuil quotidien (85 %), les alertes du jour sont une charge
-de travail, l'occupation est un stock. **La positivité, elle, cumule les
-sept derniers relevés** qui publient positifs et échantillons (décision du
-propriétaire, 30 août) : sur 370 à 500 échantillons par jour, la valeur du
-jour sautait de 13,3 à 21,8 puis 13,9 % en trois bulletins et contredisait
-le dernier point du graphique hebdomadaire (18,2 %). La case dit la
-période couverte (`riposteKpiPeriod`, « du 21 août au 27 août 2026 ») ; elle
-s'arrête avant le bulletin dès que celui-ci ne chiffre pas les
-échantillons — le 106 les tait pour la Tshopo et le Bas-Uélé, donc pas de
-total national ce jour-là. Elle ne coïncide pas exactement avec le dernier
-point du graphique, qui est une semaine calendaire close : c'est voulu, les
-deux se lisent ensemble.
+**Trois cases au glissant, une au jour.** Alertes reçues, positivité et
+contacts vus **cumulent les sept derniers relevés** qui publient la donnée
+(décision du propriétaire, 30 août — d'abord la positivité seule, puis les
+trois) : reçues et validées additionnées ; positifs sur échantillons ; vus
+cumulés sur à-suivre cumulés, la moyenne pondérée (à défaut d'effectifs sur
+l'un des sept, moyenne simple des taux, sans sous-titre d'effectifs). La
+valeur du jour était trop bruyante pour une case de tête — alertes du simple
+au double d'un bulletin à l'autre (1 164 le 22 août, 2 371 le 25),
+positivité de 13,3 à 21,8 puis 13,9 % en trois jours sur 370 à 500
+échantillons — et contredisait le dernier point des graphiques,
+hebdomadaires. **Une moyenne depuis le début a été écartée** : dominée par
+juin-juillet (56 % du dénominateur), elle ne bougerait plus — 21,5 % pour
+15,9 % sur sept relevés — et répondrait à une autre question que « où en est
+la riposte ». Chaque case nomme sa période (`riposteKpiPeriod`, « du 22 août
+au 28 août 2026 ») ; elle s'arrête avant le bulletin dès que celui-ci ne
+chiffre pas la donnée — le 106 tait les échantillons de la Tshopo et du
+Bas-Uélé, la positivité s'arrête donc au 27. Les sept relevés ne coïncident
+pas avec le dernier point des graphiques, semaine calendaire close : c'est
+voulu, les deux se lisent ensemble. **L'occupation des CTE reste au jour** :
+c'est un stock, pas un flux. Le libellé le dit — « (7 relevés) », « (7
+bulletins) », « (ripoti 7) ».
 
 ### Les données
 
