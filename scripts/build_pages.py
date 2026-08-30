@@ -1835,43 +1835,97 @@ def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
     vide = {"value": "—", "sub": esc(strings_lang["riposteKpiNone"])}
     out = {}
 
-    a = dernier(riposte["alertes"], garde=lambda p: (p.get("total") or {}).get("recues") is not None)
-    if a:
-        t = a["total"]
-        sub = interp(strings_lang["riposteKpiAlertesSub"], {"validees": fmt(t.get("validees"), lang)}) \
-            if t.get("validees") is not None else ""
-        out["ripAlertes"] = fmt(t["recues"], lang)
-        out["ripAlertesSub"] = esc(sub + au(a["date"]))
+    # Les trois premieres cases cumulent les SEPT derniers releves qui
+    # publient la donnee, et nomment la periode couverte — decision du
+    # proprietaire, 30 aout. La valeur du jour etait trop bruyante pour une
+    # case de tete : alertes recues du simple au double d'un bulletin a
+    # l'autre (1 164 le 22 aout, 2 371 le 25), positivite de 13,3 a 21,8
+    # puis 13,9 % en trois jours sur 370 a 500 echantillons, et elle
+    # contredisait le dernier point des graphiques, hebdomadaires. Une
+    # moyenne depuis le debut a ete ecartee : dominee par juin-juillet, elle
+    # ne bougerait plus (21,5 % pour 15,9 % sur sept releves). La periode
+    # peut s'arreter avant le bulletin — le 106 ne chiffre pas les
+    # echantillons de la Tshopo et du Bas-Uele, donc pas de total national
+    # ce jour-la. L'occupation des CTE reste au jour : c'est un stock.
+    RELEVES_GLISSANTS = 7
+
+    def derniers_releves(points, extraire):
+        """Les RELEVES_GLISSANTS derniers points ou `extraire` rend une
+        valeur, du plus recent au plus ancien : [(date, valeur), ...]."""
+        releves = []
+        for p in reversed(points or []):
+            v = extraire(p)
+            if v is None:
+                continue
+            releves.append((p["date"], v))
+            if len(releves) == RELEVES_GLISSANTS:
+                break
+        return releves
+
+    def periode(releves):
+        # Le libelle dit deja « 7 derniers releves » : ni bornes, ni date de
+        # fin, meme quand la fenetre s'arrete avant le bulletin (la
+        # positivite au 27 aout quand le 106 est du 28). Decision du
+        # proprietaire, 30 aout, apres avoir vu les bornes puis la date
+        # seule. Seule l'occupation des CTE, valeur du jour, reste datee
+        # quand elle manque au dernier bulletin.
+        return ""
+
+    def alertes_du_jour(p):
+        t = p.get("total") or {}
+        return (t["recues"], t.get("validees")) if t.get("recues") is not None else None
+    ra = derniers_releves(riposte["alertes"].get("parDate"), alertes_du_jour)
+    if ra:
+        recues = sum(v[0] for _, v in ra)
+        validees = [v[1] for _, v in ra if v[1] is not None]
+        sub = interp(strings_lang["riposteKpiAlertesSub"], {"validees": fmt(sum(validees), lang)}) \
+            if len(validees) == len(ra) else ""
+        out["ripAlertes"] = fmt(recues, lang)
+        out["ripAlertesSub"] = esc(sub + periode(ra))
     else:
         out["ripAlertes"], out["ripAlertesSub"] = vide["value"], vide["sub"]
 
-    def labo_ok(p):
+    def labo_du_jour(p):
         n = p.get("national") or {}
         t = p.get("total") or {}
-        return (n.get("positivite") is not None) or (t.get("positivite") is not None)
-    l = dernier(riposte["laboratoire"], garde=labo_ok)
-    if l:
-        n = l.get("national") or {}
-        t = l.get("total") or {}
-        src = n if n.get("positivite") is not None else t
-        out["ripPositivite"] = fmt_cfr(src["positivite"], lang)
+        src = n if n.get("echantillons") and n.get("positifs") is not None else t
+        if not src.get("echantillons") or src.get("positifs") is None:
+            return None
+        return (src["positifs"], src["echantillons"])
+    rl = derniers_releves(riposte["laboratoire"].get("parDate"), labo_du_jour)
+    if rl:
+        positifs = sum(v[0] for _, v in rl)
+        echantillons = sum(v[1] for _, v in rl)
+        out["ripPositivite"] = fmt_cfr(round(positifs / echantillons * 100, 1), lang)
         sub = interp(strings_lang["riposteKpiPositiviteSub"], {
-            "positifs": fmt(src.get("positifs"), lang),
-            "echantillons": fmt(src.get("echantillons"), lang)}) \
-            if src.get("positifs") is not None and src.get("echantillons") else ""
-        out["ripPositiviteSub"] = esc(sub + au(l["date"]))
+            "positifs": fmt(positifs, lang), "echantillons": fmt(echantillons, lang)})
+        out["ripPositiviteSub"] = esc(sub + periode(rl))
     else:
         out["ripPositivite"], out["ripPositiviteSub"] = vide["value"], vide["sub"]
 
-    c = dernier(riposte["contacts"], cle=None, garde=lambda p: p.get("contactsFollowUpRate") is not None) \
-        if isinstance(riposte["contacts"], list) else None
-    if c:
-        out["ripContacts"] = fmt_cfr(c["contactsFollowUpRate"], lang)
-        eff = c.get("contacts") or {}
-        sub = interp(strings_lang["riposteKpiContactsSub"], {
-            "vus": fmt(eff.get("vus"), lang), "aSuivre": fmt(eff.get("aSuivre"), lang)}) \
-            if eff.get("vus") is not None else ""
-        out["ripContactsSub"] = esc(sub + au(c["date"]))
+    # Contacts : vus cumules sur a-suivre cumules quand les sept releves
+    # portent les effectifs (la moyenne ponderee, celle qui a un sens :
+    # 21 109 sur 25 015 pese plus que 413 sur 413) ; a defaut, la moyenne
+    # simple des taux publies, sans effectifs en sous-titre.
+    def contacts_du_jour(p):
+        if p.get("contactsFollowUpRate") is None:
+            return None
+        eff = p.get("contacts") or {}
+        return (p["contactsFollowUpRate"], eff.get("vus"), eff.get("aSuivre"))
+    rc = derniers_releves(riposte["contacts"] if isinstance(riposte["contacts"], list) else [],
+                          contacts_du_jour)
+    if rc:
+        if all(v[1] is not None and v[2] for _, v in rc):
+            vus = sum(v[1] for _, v in rc)
+            a_suivre = sum(v[2] for _, v in rc)
+            taux = round(vus / a_suivre * 100, 1)
+            sub = interp(strings_lang["riposteKpiContactsSub"], {
+                "vus": fmt(vus, lang), "aSuivre": fmt(a_suivre, lang)})
+        else:
+            taux = round(sum(v[0] for _, v in rc) / len(rc), 1)
+            sub = ""
+        out["ripContacts"] = fmt_cfr(taux, lang)
+        out["ripContactsSub"] = esc(sub + periode(rc))
     else:
         out["ripContacts"], out["ripContactsSub"] = vide["value"], vide["sub"]
 
