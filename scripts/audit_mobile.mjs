@@ -35,7 +35,11 @@ const PAGES = process.argv.slice(4).map(a => {
 });
 mkdirSync(OUT, { recursive: true });
 
-const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+// Chrome sous Windows, Brave (meme moteur) sur le Mac ; CHROME dans
+// l'environnement pour tout autre chemin.
+const CHROME = process.env.CHROME || (process.platform === 'darwin'
+  ? '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser'
+  : 'C:/Program Files/Google/Chrome/Application/chrome.exe');
 const PORT = 9333;
 const chrome = spawn(CHROME, [
   '--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-first-run',

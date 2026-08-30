@@ -8,7 +8,11 @@ import { tmpdir } from 'node:os';
 
 const [URL_PAGE, SORTIE, MODE] = process.argv.slice(2);
 const W = Number(process.argv[5] || 1440);
-const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+// Chrome sous Windows, Brave (meme moteur) sur le Mac ; CHROME dans
+// l'environnement pour tout autre chemin.
+const CHROME = process.env.CHROME || (process.platform === 'darwin'
+  ? '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser'
+  : 'C:/Program Files/Google/Chrome/Application/chrome.exe');
 const PORT = 9351;
 const PROFILE = resolve(mkdtempSync(resolve(tmpdir(), 'onglet-')));
 

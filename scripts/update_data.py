@@ -440,7 +440,7 @@ def parse_province_summary_from_text(full_text):
     pour ne pas se faire piéger par d'autres tableaux du document
     (suivi des contacts, alertes, PoE/PoC) qui n'ont pas cette structure."""
     start = full_text.find("Répartition des cas et décès confirmés par province touchée")
-    end = full_text.find("Cas et décès confirmés par province et zone de santé")
+    end = find_zone_section_start(full_text)
     if start != -1 and end != -1 and end > start:
         section = full_text[start:end]
     else:
@@ -694,7 +694,7 @@ def extract_zone_detail_rows(pdf):
         page_text = page.extract_text() or ""
         if "Situation des alertes notifiées" in page_text:
             break
-        if "Cas et décès confirmés par province et zone de santé" in page_text:
+        if find_zone_section_start(page_text) != -1:
             in_section = True
         if not in_section:
             continue
@@ -716,7 +716,12 @@ def extract_zone_detail_rows(pdf):
                 name = row[0]
                 if not name or not str(name).strip():
                     continue
-                name = str(name).strip().replace("\n", "-")
+                # Un nom coupe sur deux lignes est recolle par un tiret —
+                # sauf s'il en porte deja un a la coupure : le SitRep 106
+                # imprime « Makiso-⏎Kisangani », qui devenait
+                # « Makiso--Kisangani », une zone jamais vue pour la carte
+                # et pour zones-history.json.
+                name = re.sub(r"-?\s*\n\s*", "-", str(name).strip())
                 if name.startswith("Province /"):
                     continue
                 if row[1] is None:
@@ -738,8 +743,26 @@ PROV_SUBTOTAL_RE = re.compile(
 )
 
 
+# Titre du tableau par zone, tel qu'il a varie d'un bulletin a l'autre :
+#   « Cas et décès confirmés par province et zone de santé (situation du
+#   27 août 2026) » jusqu'au SitRep 105, puis « Tableau 2. Répartition des
+#   cas et décès confirmés par province et zone de santé, au 28 août 2026 »
+#   au SitRep 106. La comparaison exacte, sensible a la casse, ratait le
+#   second : la section etait None, latest.json partait sans aucune zone et
+#   zones-history.json restait au 105. On cherche donc le coeur du libelle,
+#   sans egard a la casse ni a ce qui le precede.
+ZONE_SECTION_TITLE_RE = re.compile(
+    r"cas et décès confirmés par province et zone de santé", re.IGNORECASE)
+
+
+def find_zone_section_start(text):
+    """Position du titre du tableau par zone dans ``text``, ou -1."""
+    m = ZONE_SECTION_TITLE_RE.search(text)
+    return m.start() if m else -1
+
+
 def get_zone_section_text(full_text):
-    start = full_text.find("Cas et décès confirmés par province et zone de santé")
+    start = find_zone_section_start(full_text)
     if start == -1:
         return None
     # Plusieurs libellés candidats pour la fin de section : le texte exact

@@ -5,7 +5,11 @@ import { resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 
 const URL_PAGE = process.argv[2];
-const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+// Chrome sous Windows, Brave (meme moteur) sur le Mac ; CHROME dans
+// l'environnement pour tout autre chemin.
+const CHROME = process.env.CHROME || (process.platform === 'darwin'
+  ? '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser'
+  : 'C:/Program Files/Google/Chrome/Application/chrome.exe');
 const PORT = 9361;
 const PROFILE = resolve(mkdtempSync(resolve(tmpdir(), 'bascule-')));
 const chrome = spawn(CHROME, ['--headless=new','--disable-gpu','--hide-scrollbars','--no-first-run',
