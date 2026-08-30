@@ -1425,10 +1425,13 @@ positivité de 13,3 à 21,8 puis 13,9 % en trois jours sur 370 à 500
 hebdomadaires. **Une moyenne depuis le début a été écartée** : dominée par
 juin-juillet (56 % du dénominateur), elle ne bougerait plus — 21,5 % pour
 15,9 % sur sept relevés — et répondrait à une autre question que « où en est
-la riposte ». Chaque case nomme sa période (`riposteKpiPeriod`, « du 22 août
-au 28 août 2026 ») ; elle s'arrête avant le bulletin dès que celui-ci ne
-chiffre pas la donnée — le 106 tait les échantillons de la Tshopo et du
-Bas-Uélé, la positivité s'arrête donc au 27. Les sept relevés ne coïncident
+la riposte ». Les bornes de la fenêtre ne sont pas écrites — le libellé
+« 7 derniers relevés » suffit (elles l'ont été une heure, puis retirées à la
+demande du propriétaire). Une seule mention subsiste, celle d'avant : quand
+la fenêtre s'arrête AVANT le bulletin parce que celui-ci ne chiffre pas la
+donnée, le sous-titre le dit (`riposteKpiAsOf`, « au 27 août 2026 ») — le
+106 tait les échantillons de la Tshopo et du Bas-Uélé, la positivité
+s'arrête donc au 27 et l'écrit. Les sept relevés ne coïncident
 pas avec le dernier point des graphiques, semaine calendaire close : c'est
 voulu, les deux se lisent ensemble. **L'occupation des CTE reste au jour** :
 c'est un stock, pas un flux. Le libellé le dit — « (7 derniers relevés) », « (last 7
