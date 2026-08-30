@@ -1431,8 +1431,9 @@ chiffre pas la donnée — le 106 tait les échantillons de la Tshopo et du
 Bas-Uélé, la positivité s'arrête donc au 27. Les sept relevés ne coïncident
 pas avec le dernier point des graphiques, semaine calendaire close : c'est
 voulu, les deux se lisent ensemble. **L'occupation des CTE reste au jour** :
-c'est un stock, pas un flux. Le libellé le dit — « (7 relevés) », « (7
-bulletins) », « (ripoti 7) ».
+c'est un stock, pas un flux. Le libellé le dit — « (7 derniers relevés) », « (last 7
+bulletins) », « (ripoti 7 za mwisho) » ; « 7 relevés » seul, essayé
+d'abord, ne disait pas lesquels.
 
 ### Les données
 
