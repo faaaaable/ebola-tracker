@@ -2030,6 +2030,18 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
 
 ## Chantiers ouverts
 
+- **La vue « Par province » des alertes attend dans un `git stash`** (31 août,
+  « vue Par province des alertes (7 derniers bulletins) ») : troisième
+  bascule du cadre des alertes de `/riposte/` — une barre par province à
+  100 % de ses reçues (validées / invalidées / non vérifiées), effectif sous
+  le nom, transférées en pied d'infobulle, même fenêtre glissante que les
+  cases de tête. Construite, testée (`test_onglets` sans erreur), montrée,
+  puis mise de côté à la demande du propriétaire. `git stash pop` la
+  reprend ; elle touchait `app.js`, `i18n.js`, `site/pages/riposte.html` et
+  `capture_canvas.mjs` (clic d'une bascule `data-vue`), plus les pages
+  régénérées. Elle remplaçait un tableau essayé puis écarté le même jour —
+  en volumes bruts rien n'était comparable, en parts tout l'est.
+
 - **`.github/workflows/update_data.py`** : copie morte du script, 530 lignes
   contre 1 262, référencée nulle part. À examiner.
 - **Bas-Uélé** porte le rouge `#993A2E` comme couleur d'identité. S'il franchit
