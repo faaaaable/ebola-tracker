@@ -5,11 +5,14 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 106**, rapportage
-du 28 août 2026 — 5 945 cas confirmés, 2 862 décès, létalité 48,1 %,
-**60 zones touchées** (aucune nouvelle zone ; Biena et Manguredjipa, au
-Nord-Kivu, restent les dernières arrivées). Intégré **en local le 30 août**,
-non publié à cette date.
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 107**, rapportage
+du 29 août 2026 — 6 041 cas confirmés, 2 911 décès, létalité 48,2 %,
+**60 zones touchées** (aucune nouvelle zone). Intégré **en local le
+31 août**, non publié à cette date. Ses particularités : 41 décès
+communautaires en 24 h (record), 39 guéris, les CTE du Nord-Kivu absents de
+« Continuité des soins » (cte.json a un trou légitime ce jour-là, la veille
+disait 107,3 % d'occupation), et le Sud-Kivu publie des zéros au tableau
+des alertes là où le 106 disait « ND ».
 
 ---
 
@@ -1854,6 +1857,19 @@ obstacle sur la même machine : ces scripts utilisent `WebSocket` en global,
 qui n'existe qu'à partir de Node 22 — sous Node 20.20, lancer avec
 `node --experimental-websocket scripts/verif/capture_page.mjs …`, sinon
 `ReferenceError: WebSocket is not defined`.
+
+**Dans une ligne de zone rendue par pdfplumber, `None` n'est pas une
+cellule vide.** C'est une colonne absente de la grille, intercalée au
+hasard de la mise en page. Le SitRep 107 rend la queue de Wamba
+`['', None, None, '', None, '1', None, None, '1']` : l'index fixe de
+`parse_zone_day_columns` tombait sur les `None`, le recoupement
+comm + intra = total échouait, et le repli texte lisait « 1 1 » comme un
+nouveau cas suivi d'un total — le Haut-Uélé sommait 8 nouveaux cas pour 7
+déclarés, et Wamba affichait +1 pour un jour sans cas. Corrigé le 31 août :
+le chemin grille écarte les `None` avant de tester les positions, le
+recoupement reste exigé. La cellule vide `''` de Wamba dit alors zéro
+nouveau cas, et 0 + 1 = 1 se recoupe. Le texte brut, lui, reste ambigu par
+nature sur ces queues à deux nombres — c'est la grille qui tranche.
 
 **Le tableau des zones porte QUATRE colonnes de jour, pas trois.** Apres la
 letalite viennent : nouveaux cas, deces communautaires, deces intra-CTE, puis
