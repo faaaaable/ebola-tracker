@@ -1491,9 +1491,18 @@ def timeline_events(strings, sitreps, lang, i18n_lang, config=None, urls=None,
                         "source": entry["date"],
                     })
 
-    thresholds("confirmed", [1000, 2000, 3000, 4000, 5000],
+    # Un jalon tous les 1 000 franchis, derives de la serie plutot
+    # qu'ecrits en dur : la liste figee s'arretait a 5 000 quand le
+    # SitRep 107 passait les 6 000 cas (31 aout) — un chiffre ecrit en dur
+    # ne se recalcule jamais, regle du depot. Le prochain millier (7 000
+    # cas, 3 000 deces) apparaitra seul, au bulletin qui le franchit.
+    def paliers_1000(field):
+        maxi = max((s.get(field) or 0) for s in series) if series else 0
+        return range(1000, maxi + 1, 1000)
+
+    thresholds("confirmed", paliers_1000("confirmed"),
                "timelineMilestoneCasesTitle", "timelineMilestoneCasesText", "milestone")
-    thresholds("deaths", [1000, 2000],
+    thresholds("deaths", paliers_1000("deaths"),
                "timelineMilestoneDeathsTitle", "timelineMilestoneDeathsText", "milestone")
 
     if series:
