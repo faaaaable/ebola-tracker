@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-02",
-    "fin": "2026-08-28"
+    "fin": "2026-08-29"
   },
   "parDate": [
     {
@@ -1858,6 +1858,36 @@
         "lits": 1343,
         "hospitalisesAvecLits": 869,
         "occupation": 64.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-29",
+      "sitrepNumber": "107",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 550,
+          "lits": 978,
+          "occupation": 56.2
+        },
+        "Haut-Uélé": {
+          "hospitalises": 44,
+          "lits": 120,
+          "occupation": 36.7
+        },
+        "Tshopo": {
+          "hospitalises": 10,
+          "lits": 25,
+          "occupation": 40.0
+        }
+      },
+      "total": {
+        "hospitalises": 604,
+        "provinces": 3,
+        "lits": 1123,
+        "hospitalisesAvecLits": 604,
+        "occupation": 53.8
       },
       "source": "SitRep INSP (automatique)"
     }

@@ -1124,10 +1124,19 @@ def parse_zone_day_columns(row, i_letalite=None):
 
     # Chemin pdfplumber : les cellules vides sont conservees, donc les
     # positions tiennent. On ne s'y fie que si les trois valeurs se recoupent.
-    if len(tail) >= 4:
-        c, t, tot = norm_int(tail[1]), norm_int(tail[2]), norm_int(tail[3])
+    # Les None doivent d'abord etre ecartes : ce sont des colonnes absentes
+    # de la grille, pas des cellules vides — le SitRep 107 rend
+    # ['', None, None, '', None, '1', None, None, '1'] pour la queue de
+    # Wamba, et l'index fixe tombait sur None, faisait echouer le
+    # recoupement, et le repli texte lisait « 1 1 » comme un nouveau cas
+    # suivi d'un total : le Haut-Uele sommait 8 nouveaux cas pour 7
+    # declares. Une fois les None ecartes, la cellule vide de Wamba dit
+    # zero nouveau cas, et 0 + 1 = 1 se recoupe.
+    tail_cells = [x for x in tail if x is not None]
+    if len(tail_cells) >= 4:
+        c, t, tot = norm_int(tail_cells[1]), norm_int(tail_cells[2]), norm_int(tail_cells[3])
         if tot is not None and (c or 0) + (t or 0) == tot:
-            return norm_int(tail[0]) or 0, c or 0, t or 0, tot
+            return norm_int(tail_cells[0]) or 0, c or 0, t or 0, tot
 
     # Chemin texte brut : les cellules vides ont disparu, seules restent les
     # valeurs imprimees. On les compte pour savoir ce qu'on tient.
