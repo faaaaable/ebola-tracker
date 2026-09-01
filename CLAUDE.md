@@ -5,14 +5,24 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 107**, rapportage
-du 29 août 2026 — 6 041 cas confirmés, 2 911 décès, létalité 48,2 %,
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 108**, rapportage
+du 30 août 2026 — 6 100 cas confirmés, 2 950 décès, létalité 48,4 %,
 **60 zones touchées** (aucune nouvelle zone). Intégré **en local le
-31 août**, non publié à cette date. Ses particularités : 41 décès
-communautaires en 24 h (record), 39 guéris, les CTE du Nord-Kivu absents de
-« Continuité des soins » (cte.json a un trou légitime ce jour-là, la veille
-disait 107,3 % d'occupation), et le Sud-Kivu publie des zéros au tableau
-des alertes là où le 106 disait « ND ».
+1ᵉʳ septembre**, non publié à cette date. Ses particularités : 7 lignes de
+zone reconstruites depuis le texte brut (toutes vérifiées contre le PDF,
+zéro écart sur les 60 zones) ; le bulletin publie 32,0 % d'occupation CTE à
+la Tshopo quand ses propres nombres font 7/25 = 28 % (écart laissé visible,
+note de check_coherence) ; deux formulations labo inédites — « 1 swab reçu
+et testé » au Bas-Uélé, « 2 échantillons reçus, tous négatifs » à la
+Tshopo — ont demandé trois motifs nouveaux dans `extraire_laboratoire.py`
+(dont « dont 1 swab analysé » du 106) ; la réextraction n'a touché que les
+Tshopo des 106-107 et le 30 août, diff relu ligne à ligne, et le garde-fou
+« positifs du jour = nouveaux cas » repasse (59 = 59). Autre tournure
+inédite, côté CTE : le Nord-Kivu écrit « en sursaturation (128,2 % ;
+282/220) » — deux motifs ajoutés à `extraire_cte.py` (taux entre
+parenthèses, lits au dénominateur de la fraction), diff limité au seul
+30 août, national à 813/1 223 = 66,5 %. Le Sud-Kivu repasse à « ND » au
+tableau des alertes là où le 107 disait des zéros.
 
 ---
 
