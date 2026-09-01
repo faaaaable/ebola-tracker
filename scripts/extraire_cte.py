@@ -70,10 +70,15 @@ HOSPITALISES_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+(?:en\s+)?(?:hospitalisation|isolement)", re.I),
 ]
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
+# « en sursaturation (128,2 % ; 282/220) » (108 Nord-Kivu) : le dénominateur
+# de la fraction qui suit le taux est le nombre de lits
+LITS_FRACTION_RE = re.compile(r"%\s*;\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*\)")
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
     re.compile(r"lits\s*\((\d+(?:[,.]\d+)?)\s*%\)", re.I),
+    # « en sursaturation (128,2 % ; 282/220) » (108 Nord-Kivu)
+    re.compile(r"occupation[^%\n]{0,60}?\((\d+(?:[,.]\d+)?)\s*%\s*;", re.I),
 ]
 
 
@@ -90,7 +95,7 @@ def lire_prose(morceau):
     if hosp is None:
         return None
     ligne = {"hospitalises": hosp}
-    m = LITS_RE.search(morceau)
+    m = LITS_RE.search(morceau) or LITS_FRACTION_RE.search(morceau)
     if m:
         ligne["lits"] = entier(m.group(1))
     occ = None

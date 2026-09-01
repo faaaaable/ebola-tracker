@@ -84,7 +84,8 @@ REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bL[’']|\ble |\bla 
 
 ECHANTILLONS_RES = [
     # « 76 nouveaux échantillons collectés dont 39 ont été analysés » (B)
-    re.compile(r"[ée]chantillons?\s+(?:ont\s+[ée]t[ée]\s+)?(?:collect[ée]s?|re[çc]us?|pr[ée]lev[ée]s?)\s*,?\s*dont\s+(\d[\d ]{0,6}\d|\d)\s+(?:ont\s+[ée]t[ée]\s+)?analys[ée]s", re.I),
+    # « dont 1 swab analyse » (106 Tshopo) : « swab » peut s'intercaler, l'accent manquer
+    re.compile(r"[ée]chantillons?\s+(?:ont\s+[ée]t[ée]\s+)?(?:collect[ée]s?|re[çc]us?|pr[ée]lev[ée]s?)\s*,?\s*dont\s+(\d[\d ]{0,6}\d|\d)\s+(?:swabs?\s+)?(?:ont\s+[ée]t[ée]\s+)?analys[ée]s?", re.I),
     # « 7 échantillons ont été collectés et analysés » (B), « 1 échantillon reçu et analysé » (D)
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux?\s+)?[ée]chantillons?\s+(?:ont\s+[ée]t[ée]\s+)?(?:re[çc]us?|collect[ée]s?)\s+et\s+(?:analys[ée]s?|test[ée]s?)", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+(?:re[çc]us\s+et\s+|collect[ée]s\s+et\s+|re[çc]us,?\s+|nouveaux\s+)?(?:analys[ée]s|document[ée]s|test[ée]s)", re.I),
@@ -93,6 +94,11 @@ ECHANTILLONS_RES = [
     re.compile(r"[ée]chantillons\s+(?:re[çc]us|pr[ée]lev[ée]s)\s*,?\s*dont\s+(\d[\d ]{0,6}\d|\d)\s+(?:ont\s+[ée]t[ée]\s+)?analys[ée]s", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+ont\s+[ée]t[ée]\s+analys[ée]s", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+re[çc]us\b(?=[^.]*positi)", re.I),
+    # « 1 swab reçu et testé » (D, 108 Bas-Uélé)
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*swabs?\s+re[çc]us?\s+et\s+test[ée]s?", re.I),
+    # « 2 nouveaux échantillons ont été reçus, tous sont revenus négatifs » (D, 108 Tshopo) —
+    # en dernier : ailleurs, « reçus » sans « analysés » compte des échantillons pas encore testés
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+ont\s+[ée]t[ée]\s+re[çc]us\b(?=[^.]*(?:positi|n[ée]gati))", re.I),
 ]
 POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux?\s+)?r[ée]sultats?\s+positifs?", re.I),
@@ -166,6 +172,9 @@ def lire_province(morceau):
                                      candidats(POSITIFS_RES, morceau), positivite)
     if positifs is None and NEGATIFS_RE.search(morceau):
         positifs = 0
+    # « le résultat est revenu positif » : un seul échantillon, pas de chiffre
+    if positifs is None and re.search(r"le\s+r[ée]sultat\s+est\s+revenu\s+positif", morceau, re.I):
+        positifs = 1
     if positifs is None and positivite == 0:
         positifs = 0
     # « 1 nouveau résultat positif sur 4 échantillons (positivité 25 %) » se lit
