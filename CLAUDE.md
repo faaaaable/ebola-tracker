@@ -5,10 +5,29 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 108**, rapportage
-du 30 août 2026 — 6 100 cas confirmés, 2 950 décès, létalité 48,4 %,
-**60 zones touchées** (aucune nouvelle zone). Intégré **en local le
-1ᵉʳ septembre**, non publié à cette date. Ses particularités : 7 lignes de
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 109**, rapportage
+du 31 août 2026 — 6 186 cas confirmés, 3 007 décès, létalité 48,6 %,
+**60 zones touchées** (aucune nouvelle zone), 86 nouveaux cas et 57 décès du
+jour (43 communautaires, 14 intra-CTE). Intégré **en local le 2 septembre**,
+non publié à cette date. Il a fait tomber trois lectures, toutes corrigées le
+même jour et vérifiées ligne à ligne contre les pages 2 et 3 du PDF (six
+provinces et 60 zones, zéro écart) : (1) la grille pdfplumber du tableau des
+provinces a éclaté son en-tête sur cinq lignes avec une colonne « Nouveaux
+cas » en double, la lecture par en-tête est revenue vide et le repli texte ne
+connaissait que l'ancien ordre (nouveaux cas en fin de ligne) —
+`PROVINCE_SUMMARY_ROW_NEWFIRST_RE` lit désormais l'ordre du 104 dans le texte
+brut, les deux motifs s'excluant l'un l'autre ; (2) la ligne Total du tableau
+détaillé est rendue avec des `None` intercalés (`'48,6%', None, '86', None,
+'43', None, '14', None, '57'`) et les index fixes publiaient **486 décès
+communautaires** (la létalité) et 86 décès du jour (les nouveaux cas) — le
+national exige maintenant communautaires + intra-CTE = total, sinon il relit
+la ligne Total du texte ; (3) la section des CTE s'intitule « Prise en charge
+holistique », inconnue d'`extraire_cte.py`, qui l'accepte désormais (le mot
+« holistique » la distingue du « Prise en charge » des époques B et C), et
+« Huit (8) patients sont en isolement » au Sud-Kivu demandait une parenthèse
+optionnelle après le nombre. `check_coherence` repasse sans écart bloquant,
+les deux écarts non bloquants (positivités 038, 065, 072 ; occupation Tshopo
+108) étant antérieurs. Le 108 avait ses propres particularités : 7 lignes de
 zone reconstruites depuis le texte brut (toutes vérifiées contre le PDF,
 zéro écart sur les 60 zones) ; le bulletin publie 32,0 % d'occupation CTE à
 la Tshopo quand ses propres nombres font 7/25 = 28 % (écart laissé visible,
