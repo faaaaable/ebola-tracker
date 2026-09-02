@@ -58,14 +58,21 @@ def canon(nom):
 # et des indicateurs qui ressemblent à des hospitalisés du jour — le 060
 # donnait 753 hospitalisés au Nord-Kivu, son cumul de cas — et ces époques
 # ont un tableau, lu en premier.
-DEBUT_RE = re.compile(r"(?:^|\n)[^\n]{0,12}Continuit[ée] des soins[^\n]{0,60}\n", re.IGNORECASE)
+# Le SitRep 109 (31 août) renomme la section « Prise en charge holistique »,
+# avec la meme prose que « Continuite des soins » (« 539 patients sont
+# hospitalises pour 978 lits, soit un taux d'occupation de 55,1 % »). Le mot
+# « holistique » la distingue du « Prise en charge » des epoques B et C, qui
+# reste exclu.
+DEBUT_RE = re.compile(r"(?:^|\n)[^\n]{0,12}(?:Continuit[ée] des soins|Prise en charge holistique)[^\n]{0,60}\n", re.IGNORECASE)
 FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Communication|CREC|Logistique|S[ée]curit[ée]|Recherche)", re.IGNORECASE)
 REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bEn |\bAu |\bÀ la |\bA la |\bau |\ben |\bà la |\bL[’'])\s*(%s)\b" % PROVINCES_RE)
 
 HOSPITALISES_RES = [
     re.compile(r"occupation\s+atteint\s+(\d[\d ]{0,4}\d|\d)\s+patients", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades|cas suspects|cas)\s+(?:sont|restent|demeurent)?\s*(?:en\s+)?hospitalis", re.I),
-    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+sont\s+(?:en\s+)?isol", re.I),
+    # « Huit (8) patients sont en isolement pour 25 lits » (109 Sud-Kivu) : le
+    # nombre est entre parentheses, d'ou la parenthese fermante optionnelle.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\)?\s+(?:patients|malades)\s+sont\s+(?:en\s+)?isol", re.I),
     re.compile(r"port(?:e|ent|ant)\s+à\s+(\d[\d ]{0,4}\d|\d)\s+le\s+nombre\s+de\s+patients", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+(?:en\s+)?(?:hospitalisation|isolement)", re.I),
 ]

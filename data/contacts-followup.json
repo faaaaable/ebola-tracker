@@ -2018,5 +2018,15 @@
         "aSuivre": 297
       }
     }
+  },
+  {
+    "date": "2026-08-31",
+    "sitrepNumber": "109",
+    "contactsFollowUpRate": 88.0,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 25560,
+      "vus": 22499
+    }
   }
 ]

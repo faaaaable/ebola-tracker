@@ -394,6 +394,31 @@ PROVINCE_TOTAL_ROW_RE = re.compile(
 )
 
 
+# Meme ligne, dans l'ordre du SitRep 104 et suivants : les nouveaux cas
+# viennent JUSTE APRES le nom de la province, et la ligne se termine par la
+# fraction de zones et son pourcentage.
+#
+#     Ituri 49 5065 2 305 45,5% 28/36 (77,8 %)
+#     Total 86 6 186 3 007 48,6% 60/151 (39,7 %)
+#
+# Le chemin grille (roles_entete_resume) lisait cet ordre depuis le 104, mais
+# au SitRep 109 pdfplumber a eclate l'en-tete du tableau sur cinq lignes avec
+# une colonne « Nouveaux cas » en double : la grille est revenue vide, le repli
+# texte a pris la main, et il ne connaissait que l'ancien ordre — arret sur
+# « Table de repartition par province introuvable ». Ce motif complete le
+# repli. Il ne peut pas mordre sur une ligne de l'ancien format, qui se
+# termine par un nombre isole et non par la fraction : le `\s*$` final
+# l'exclut. Et l'ancien motif ne peut pas mordre sur une ligne du nouveau,
+# puisqu'il exige ce nombre isole apres la fraction.
+PROVINCE_SUMMARY_ROW_NEWFIRST_RE = re.compile(
+    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé|Total)\**\s+"
+    r"(?P<newcases>\d+)\s+"
+    r"(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
+    r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\([\d,]+\s*%\))?\s*$",
+    re.MULTILINE,
+)
+
+
 def _best_cas_deces_split(numbers_str, cfr_target):
     """Désambiguïse 'cas décès' quand les deux nombres sont collés sans
     séparateur fiable (ex: '4257 1 878' — impossible de savoir
@@ -451,6 +476,14 @@ def parse_province_summary_from_text(full_text):
     for line in section.split("\n"):
         line = line.strip()
         m = PROVINCE_SUMMARY_ROW_RE.match(line)
+        if not m:
+            # Ordre du SitRep 104 et suivants (nouveaux cas en deuxieme
+            # colonne) ; les deux motifs s'excluent mutuellement, voir
+            # PROVINCE_SUMMARY_ROW_NEWFIRST_RE.
+            m = PROVINCE_SUMMARY_ROW_NEWFIRST_RE.match(line)
+            if m:
+                print(f"  ! ligne « {m.group('name')} » relue dans l'ordre "
+                      "nouveaux cas en tete (texte brut).")
         if not m and total_row is None:
             # Le total, dont la fraction de zones peut avoir ete rejetee sur
             # une autre ligne par l'extraction (voir PROVINCE_TOTAL_ROW_RE).
@@ -1639,12 +1672,33 @@ def main():
 
     # Repli sur la ligne « Total » du tableau détaillé quand la lecture par
     # colonnes n'a rien donné : elle porte les mêmes chiffres, en clair.
+    #
+    # Et aussi quand la lecture par colonnes a donné quelque chose de FAUX.
+    # Au SitRep 109, la grille pdfplumber rend la ligne Total avec des
+    # cellules None intercalees — ['Total', '6186', '3007', None, '48,6%',
+    # None, '86', None, '43', None, '14', None, '57', None] — et les index
+    # fixes [4], [5], [6] tombaient sur la letalite (« 48,6% » lue 486
+    # deces communautaires), une case vide et les nouveaux cas (86 lus comme
+    # deces du jour). Rien n'etait None, le repli ne se declenchait pas, et
+    # le site aurait publie 486 deces communautaires en 24 h. La ligne Total
+    # imprime toujours la ventilation en clair (« 86 43 14 57 ») ; on exige
+    # donc que communautaires + intra-CTE = total, et sinon on la relit.
     if detail_total_text:
+        comm = national.get("newDeathsCommunity24h")
+        intra = national.get("newDeathsIntraCTE24h")
+        tot = national.get("newDeaths24h")
+        ventilation_ok = (comm is not None and intra is not None and tot is not None
+                          and comm + intra == tot)
+        if not ventilation_ok and any(national.get(k) is not None for k in
+                                      ("newDeaths24h", "newDeathsCommunity24h",
+                                       "newDeathsIntraCTE24h")):
+            print("  ! ventilation nationale des décès du jour incohérente en grille "
+                  f"({comm} + {intra} ≠ {tot}), relue sur la ligne « Total » du texte.")
         for key, field in (("newCases24h", "newcases"),
                            ("newDeaths24h", "total"),
                            ("newDeathsCommunity24h", "deathscomm"),
                            ("newDeathsIntraCTE24h", "deathsintracte")):
-            if national.get(key) is None:
+            if national.get(key) is None or (not ventilation_ok and key != "newCases24h"):
                 national[key] = norm_int(detail_total_text[field])
 
     fs = re.search(
