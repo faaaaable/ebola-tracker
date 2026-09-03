@@ -75,8 +75,16 @@ HOSPITALISES_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\)?\s+(?:patients|malades)\s+sont\s+(?:en\s+)?isol", re.I),
     re.compile(r"port(?:e|ent|ant)\s+à\s+(\d[\d ]{0,4}\d|\d)\s+le\s+nombre\s+de\s+patients", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+(?:en\s+)?(?:hospitalisation|isolement)", re.I),
+    # « Au terme de la journee, 62 patients, soit un taux d'occupation global
+    # de 51,7% (120 lits) » (110 Haut-Uele) : ni « hospitalises » ni
+    # « isolement », le nombre de patients est directement suivi du taux.
+    # En dernier, pour ne jamais prendre le pas sur les tournures explicites.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades),?\s+soit\s+un\s+taux\s+d[’']occupation", re.I),
 ]
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
+# « taux d'occupation global de 51,7% (120 lits) » (110 Haut-Uele) : les lits
+# entre parentheses apres le taux, sans « pour ».
+LITS_PARENTHESE_RE = re.compile(r"\((\d[\d ]{0,4}\d|\d)\s+lits\)", re.I)
 # « en sursaturation (128,2 % ; 282/220) » (108 Nord-Kivu) : le dénominateur
 # de la fraction qui suit le taux est le nombre de lits
 LITS_FRACTION_RE = re.compile(r"%\s*;\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*\)")
@@ -102,7 +110,8 @@ def lire_prose(morceau):
     if hosp is None:
         return None
     ligne = {"hospitalises": hosp}
-    m = LITS_RE.search(morceau) or LITS_FRACTION_RE.search(morceau)
+    m = (LITS_RE.search(morceau) or LITS_FRACTION_RE.search(morceau)
+         or LITS_PARENTHESE_RE.search(morceau))
     if m:
         ligne["lits"] = entier(m.group(1))
     occ = None

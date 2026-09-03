@@ -446,6 +446,52 @@ def _best_cas_deces_split(numbers_str, cfr_target):
     return best[1], best[2]
 
 
+def recoller_total_orphelin(section):
+    """Les lignes de la section, le libelle « Total » recolle a ses chiffres.
+
+    Au SitRep 110, pdfplumber rend la ligne Total du tableau resume sur DEUX
+    lignes de texte, le libelle seul SOUS ses chiffres :
+
+        64 6 250 3 039 48,6% 60/151 (39,7 %)
+        Total
+
+    Aucun motif ne mordait : les six provinces passaient, le total non, et le
+    script s'arretait sur « Table de repartition par province introuvable ».
+    On recolle un « Total » isole a la ligne de chiffres qui le precede — ou
+    qui le suit, si la mise en page inverse un jour l'ordre — et seulement
+    si la ligne recollee correspond a l'un des deux motifs du tableau resume.
+    Sans cette condition, un « Total » de n'importe quel autre tableau
+    pourrait s'accrocher a une ligne de nombres qui n'a rien a voir.
+    """
+    lignes = [l.strip() for l in section.split("\n")]
+
+    def resume(candidat):
+        return (PROVINCE_SUMMARY_ROW_RE.match(candidat)
+                or PROVINCE_SUMMARY_ROW_NEWFIRST_RE.match(candidat))
+
+    sortie = []
+    i = 0
+    while i < len(lignes):
+        line = lignes[i]
+        if line == "Total":
+            if sortie and sortie[-1][:1].isdigit() and resume("Total " + sortie[-1]):
+                sortie[-1] = "Total " + sortie[-1]
+                print("  ! libelle « Total » isole sous ses chiffres, "
+                      "ligne recollee (texte brut).")
+                i += 1
+                continue
+            suivante = lignes[i + 1] if i + 1 < len(lignes) else ""
+            if suivante[:1].isdigit() and resume("Total " + suivante):
+                sortie.append("Total " + suivante)
+                print("  ! libelle « Total » isole au-dessus de ses chiffres, "
+                      "ligne recollee (texte brut).")
+                i += 2
+                continue
+        sortie.append(line)
+        i += 1
+    return sortie
+
+
 def parse_province_summary_from_text(full_text):
     """Repli quand extract_province_summary() ne trouve pas la table via
     pdfplumber (mise en page en colonnes différente selon la source, vu
@@ -473,8 +519,7 @@ def parse_province_summary_from_text(full_text):
 
     provinces = []
     total_row = None
-    for line in section.split("\n"):
-        line = line.strip()
+    for line in recoller_total_orphelin(section):
         m = PROVINCE_SUMMARY_ROW_RE.match(line)
         if not m:
             # Ordre du SitRep 104 et suivants (nouveaux cas en deuxieme
@@ -1236,6 +1281,59 @@ def zone_row_to_dict(province, name, row):
     }
 
 
+def ventiler_par_soustraction(health_zones, provinces):
+    """Resout la ventilation communaute / CTE des zones restees ambigues.
+
+    Une queue reconstruite depuis le texte brut ne dit pas ou va son deuxieme
+    nombre : « Rwampara 964 341 35,4% 7 2 2 » (SitRep 110) est 7 nouveaux
+    cas, puis 2 communautaires OU 2 intra-CTE, puis le total 2. La ligne de
+    province, elle, est toujours lue en entier (PROV_SUBTOTAL_RE), et les
+    autres zones de la province viennent de la grille, sans ambiguite. Le
+    reste — communautaires de la province moins ceux des zones sures — est
+    donc ce que portent les zones ambigues, et on ne le publie que s'il
+    tombe juste : une seule zone ambigue dont le total peut l'accueillir,
+    ou plusieurs qui sont toutes a zero ou toutes au total. L'Ituri du 110 :
+    13 communautaires en province, 11 sur six zones sures, reste 2 pour
+    Rwampara qui totalise 2 — communautaires 2, intra-CTE 0. Le Nord-Kivu :
+    12 - 9 = 3 pour Beni, total 3.
+
+    Les lignes « A ventiler » ne comptent pas ici : elles ne portent que des
+    deces intra-CTE en attente de zone (note du bulletin), jamais de
+    communautaires, et le calcul ne passe que par la colonne communautaire.
+    Sinon, on laisse None : on sait qu'un des deux compteurs porte le total,
+    pas lequel, et on ne devine pas.
+    """
+    comm_prov = {p["name"]: p.get("newDeathsCommunity24h") for p in provinces}
+    for pname, comm in comm_prov.items():
+        if comm is None:
+            continue
+        zones = [z for z in health_zones if z["province"] == pname]
+        ambigues = [z for z in zones
+                    if z["deathsCommunity24h"] is None and z["deathsIntraCTE24h"] is None
+                    and (z["newDeaths24h"] or 0) > 0]
+        if not ambigues:
+            continue
+        surs = sum(z["deathsCommunity24h"] or 0 for z in zones if z not in ambigues)
+        reste = comm - surs
+        totaux = sum(z["newDeaths24h"] for z in ambigues)
+        if reste < 0 or reste > totaux:
+            continue
+        if len(ambigues) == 1:
+            parts = [reste]
+        elif reste == 0:
+            parts = [0] * len(ambigues)
+        elif reste == totaux:
+            parts = [z["newDeaths24h"] for z in ambigues]
+        else:
+            continue
+        for z, c in zip(ambigues, parts):
+            z["deathsCommunity24h"] = c
+            z["deathsIntraCTE24h"] = z["newDeaths24h"] - c
+            print(f"  · {z['name']} ({pname}) : ventilation des {z['newDeaths24h']} deces du "
+                  f"jour deduite de la ligne de province — {c} communautaire(s), "
+                  f"{z['deathsIntraCTE24h']} intra-CTE.")
+
+
 def parse_report_summary(pdf_path):
     fallback_num = extract_number_from_filename(pdf_path)
     with pdfplumber.open(pdf_path) as pdf:
@@ -1637,6 +1735,7 @@ def main():
             p["status"] = "active"
 
     health_zones = [zone_row_to_dict(prov, name, row) for prov, name, row in zones_raw]
+    ventiler_par_soustraction(health_zones, provinces)
 
     am = re.search(r"(\d[\d\s]*)\s*Aires de santé.*?Sur\s*(\d[\d\s]*)\s*\(", sidebar)
     health_areas = None

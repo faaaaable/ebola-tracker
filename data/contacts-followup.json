@@ -2028,5 +2028,15 @@
       "aSuivre": 25560,
       "vus": 22499
     }
+  },
+  {
+    "date": "2026-09-01",
+    "sitrepNumber": "110",
+    "contactsFollowUpRate": 89.0,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 18784,
+      "vus": 16719
+    }
   }
 ]
