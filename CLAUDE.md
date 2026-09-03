@@ -30,9 +30,12 @@ source, pas dans l'extraction, et restent visibles : le tableau 2 donne
 le tableau 1 et les faits saillants disent 1 (le site retient 1) ; et la
 section Laboratoire ne compte que 63 positifs du jour (39 + 20 + 4, rien pour
 la Tshopo) pour 64 nouveaux cas — l'écart « 63 vs 64 » de `check_coherence`
-est non bloquant et attendu. Rwampara et Beni ont leur ventilation des décès
-du jour à `None` (queues « 7 2 2 » et « 5 3 3 » reconstruites depuis le
-texte, ambiguës par nature), leurs totaux 2 et 3 sont justes. Le chemin grille
+est non bloquant et attendu. Rwampara et Beni avaient d'abord leur
+ventilation des décès du jour à `None` (queues « 7 2 2 » et « 5 3 3 »
+reconstruites depuis le texte, ambiguës par nature) ; le propriétaire a
+confirmé 2 et 3 décès communautaires, et `ventiler_par_soustraction()` les
+déduit désormais de la ligne de province (13 - 11 = 2 pour Rwampara,
+12 - 9 = 3 pour Beni), voir les pièges connus. Le chemin grille
 du tableau des provinces est hors jeu depuis que le 106 a mis le titre
 « Tableau 1. » en première ligne de la grille (`extract_province_summary`
 cherche « Province » en `t[0][0]`) : c'est le repli texte qui lit tout depuis.
@@ -1963,6 +1966,16 @@ que le bulletin imprime toujours (`parse_zone_day_columns()`, champ
 ligne la donne sans ambiguite, `None` sinon — un des deux compteurs porte le
 total, on ne sait pas lequel, et on ne devine pas. Les lignes de **province**,
 elles, ont toujours ete justes : `PROV_SUBTOTAL_RE` capture les quatre valeurs.
+
+Depuis le 3 septembre, une deduction ferme le trou sans deviner :
+`ventiler_par_soustraction()` retranche des communautaires de la ligne de
+province ceux des zones lues sans ambiguite, et attribue le reste aux zones
+ambigues — seulement si le compte tombe juste (une seule zone ambigue dont
+le total peut l'accueillir, ou plusieurs toutes a zero ou toutes au total).
+Le calcul ne passe que par la colonne communautaire, parce que les lignes
+« A ventiler », non conservees, ne portent que de l'intra-CTE. Sur le 110 :
+Rwampara 2 communautaires (13 - 11), Beni 3 (12 - 9), zero intra-CTE pour
+les deux, confirme par le proprietaire contre le PDF.
 
 Deux consequences a retenir. **Ne jamais additionner `deathsCommunity24h` et
 `deathsIntraCTE24h`** : passer par `zone_new_deaths()` cote generateur,
