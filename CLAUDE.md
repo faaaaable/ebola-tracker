@@ -5,11 +5,42 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 109**, rapportage
-du 31 août 2026 — 6 186 cas confirmés, 3 007 décès, létalité 48,6 %,
-**60 zones touchées** (aucune nouvelle zone), 86 nouveaux cas et 57 décès du
-jour (43 communautaires, 14 intra-CTE). Intégré **en local le 2 septembre**,
-non publié à cette date. Il a fait tomber trois lectures, toutes corrigées le
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 110**, rapportage
+du 1ᵉʳ septembre 2026 — 6 250 cas confirmés, 3 039 décès, létalité 48,6 %,
+1 439 guéris, 869 patients en CTE, suivi des contacts 89,0 % (16 719 vus sur
+18 784), **60 zones touchées** (aucune nouvelle zone), 64 nouveaux cas
+(Ituri 39, Nord-Kivu 20, Haut-Uélé 4, Tshopo 1) et 32 décès du jour
+(25 communautaires, 7 intra-CTE). Intégré **en local le 3 septembre**, non
+publié à cette date, six provinces et 60 zones relues une à une contre les
+pages 2 et 3 du PDF, zéro écart ; les cumuls prolongent exactement ceux du
+109 (+64 cas, +32 décès, +30 guéris, par province aussi). Deux lectures
+apprises : (1) la ligne Total du tableau des provinces est rendue sur deux
+lignes de texte, le libellé **seul sous ses chiffres** (« 64 6 250 3 039
+48,6% 60/151 (39,7 %) » puis « Total ») — aucun motif ne mordait, arrêt sur
+« Table de répartition par province introuvable » ; `recoller_total_orphelin`
+recolle un « Total » isolé à la ligne de chiffres voisine, seulement si la
+ligne recollée correspond à l'un des deux motifs du tableau résumé ; (2) le
+Haut-Uélé écrit « Au terme de la journée, 62 patients, soit un taux
+d'occupation global de 51,7% (120 lits) », sans « hospitalisés » ni « pour
+N lits » — deux motifs ajoutés en dernière position dans `extraire_cte.py`,
+diff limité au 1ᵉʳ septembre, et le total CTE passe de 807 à **869, le
+chiffre exact de la bande de chiffres clés**. Deux incohérences sont dans la
+source, pas dans l'extraction, et restent visibles : le tableau 2 donne
+**0 nouveau cas à la ligne Tshopo** quand sa zone Mangobo en porte 1 et que
+le tableau 1 et les faits saillants disent 1 (le site retient 1) ; et la
+section Laboratoire ne compte que 63 positifs du jour (39 + 20 + 4, rien pour
+la Tshopo) pour 64 nouveaux cas — l'écart « 63 vs 64 » de `check_coherence`
+est non bloquant et attendu. Rwampara et Beni ont leur ventilation des décès
+du jour à `None` (queues « 7 2 2 » et « 5 3 3 » reconstruites depuis le
+texte, ambiguës par nature), leurs totaux 2 et 3 sont justes. Le chemin grille
+du tableau des provinces est hors jeu depuis que le 106 a mis le titre
+« Tableau 1. » en première ligne de la grille (`extract_province_summary`
+cherche « Province » en `t[0][0]`) : c'est le repli texte qui lit tout depuis.
+
+Le **SitRep 109**, rapportage du 31 août 2026 — 6 186 cas confirmés, 3 007
+décès, létalité 48,6 %, 60 zones touchées, 86 nouveaux cas et 57 décès du
+jour (43 communautaires, 14 intra-CTE) — avait été intégré en local le
+2 septembre. Il a fait tomber trois lectures, toutes corrigées le
 même jour et vérifiées ligne à ligne contre les pages 2 et 3 du PDF (six
 provinces et 60 zones, zéro écart) : (1) la grille pdfplumber du tableau des
 provinces a éclaté son en-tête sur cinq lignes avec une colonne « Nouveaux
@@ -1899,6 +1930,23 @@ le chemin grille écarte les `None` avant de tester les positions, le
 recoupement reste exigé. La cellule vide `''` de Wamba dit alors zéro
 nouveau cas, et 0 + 1 = 1 se recoupe. Le texte brut, lui, reste ambigu par
 nature sur ces queues à deux nombres — c'est la grille qui tranche.
+
+**Le libellé « Total » du tableau des provinces peut tomber seul sur la ligne
+suivante.** Le SitRep 110 (1ᵉʳ septembre) rend la ligne Total du tableau 1 en
+deux lignes de texte : « 64 6 250 3 039 48,6% 60/151 (39,7 %) » puis
+« Total ». Les six provinces passaient, le total non, et le pipeline
+s'arrêtait proprement sur « Table de répartition par province introuvable ».
+Corrigé le 3 septembre : `recoller_total_orphelin()` recolle un « Total »
+isolé à la ligne de chiffres qui le précède (ou le suit), à la seule
+condition que la ligne recollée corresponde à l'un des deux motifs du tableau
+résumé — un « Total » d'un autre tableau ne peut pas s'accrocher à n'importe
+quelle suite de nombres. Le chemin grille, lui, ne voit plus ce tableau depuis
+le 106 : sa première ligne est le titre « Tableau 1. … », et
+`extract_province_summary` cherche « Province » en `t[0][0]`. La grille du
+110 était pourtant propre (en-tête sur une ligne, colonne « Nouveaux cas »
+en double mais vide) ; le remettre en service demanderait de sauter la ligne
+de titre et de vérifier que `roles_entete_resume` supporte la colonne en
+double. Non fait, le repli texte suffit et il est vérifié.
 
 **Le tableau des zones porte QUATRE colonnes de jour, pas trois.** Apres la
 letalite viennent : nouveaux cas, deces communautaires, deces intra-CTE, puis
