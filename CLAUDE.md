@@ -5,7 +5,33 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 110**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 111**, rapportage
+du 2 septembre 2026 — 6 342 cas confirmés, 3 072 décès, létalité 48,4 %,
+1 475 guéris, 770 patients en CTE, suivi des contacts 86,5 % (17 910 vus sur
+20 711), 60 zones touchées (aucune nouvelle), 92 nouveaux cas (Ituri 60,
+Nord-Kivu 25, Haut-Uélé 5, Tshopo 2) et 33 décès du jour (24 communautaires,
+9 intra-CTE). Intégré **en local le 4 septembre**, non publié à cette date.
+Vérification la plus forte à ce jour : pour chacune des 60 zones, cumul du
+111 moins cumul du 110 = nouveaux cas du jour, et de même pour les décès —
+zéro écart, et aucune ventilation communautaire / CTE restée vide (5 lignes
+reconstruites depuis le texte, toutes résolues par la grille ou par
+`ventiler_par_soustraction`). Une tournure apprise dans `extraire_cte.py` :
+le Nord-Kivu écrit « en⏎sursaturation (118,6 % ; 220 lits disponibles) » —
+le saut de ligne entre « en » et « sursaturation » échappait au motif du 108
+(qui interdit `\n`), et « 220 lits disponibles » n'avait ni « pour » ni
+fraction ; deux motifs ajoutés, le second exigeant « % ; » devant les lits,
+sans quoi il mordait sur la synthèse du SitRep 018 (« 71 lits disponibles au
+Nord-Kivu pour 8 patients »). Diff limité au 2 septembre. Le 111 ne dit rien
+des CTE du Sud-Kivu ni du Bas-Uélé : le total CTE du site fait 758 pour 770
+en bande de chiffres clés, l'écart est celui de la source. Coquille de la
+source à connaître : « les données de la ZS de Wamba (province de la Tshopo)
+n'ont pas été rapportées » — Wamba est au Haut-Uélé. Constaté au passage,
+non corrigé : le 1ᵉʳ juin (SitRep 018), `cte.json` porte 8 hospitalisés en
+Ituri qui sont en réalité les 8 patients du Nord-Kivu de la phrase de
+synthèse (« 71 lits disponibles au Nord-Kivu pour 8 patients ») — le morceau
+de l'Ituri avale cette synthèse, contre le principe de coupure.
+
+Le **SitRep 110**, rapportage
 du 1ᵉʳ septembre 2026 — 6 250 cas confirmés, 3 039 décès, létalité 48,6 %,
 1 439 guéris, 869 patients en CTE, suivi des contacts 89,0 % (16 719 vus sur
 18 784), **60 zones touchées** (aucune nouvelle zone), 64 nouveaux cas
