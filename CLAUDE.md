@@ -25,11 +25,17 @@ Nord-Kivu pour 8 patients »). Diff limité au 2 septembre. Le 111 ne dit rien
 des CTE du Sud-Kivu ni du Bas-Uélé : le total CTE du site fait 758 pour 770
 en bande de chiffres clés, l'écart est celui de la source. Coquille de la
 source à connaître : « les données de la ZS de Wamba (province de la Tshopo)
-n'ont pas été rapportées » — Wamba est au Haut-Uélé. Constaté au passage,
-non corrigé : le 1ᵉʳ juin (SitRep 018), `cte.json` porte 8 hospitalisés en
-Ituri qui sont en réalité les 8 patients du Nord-Kivu de la phrase de
-synthèse (« 71 lits disponibles au Nord-Kivu pour 8 patients ») — le morceau
-de l'Ituri avale cette synthèse, contre le principe de coupure.
+n'ont pas été rapportées » — Wamba est au Haut-Uélé. Constaté au passage et
+corrigé le même jour : le 1ᵉʳ juin (SitRep 018), `cte.json` portait 8
+hospitalisés en Ituri qui étaient les 8 patients du Nord-Kivu — « Le
+Nord-Kivu suit avec 8 patients en isolement » restait dans le morceau de
+l'Ituri parce que `REPERE_RE` ne connaissait pas « Le » devant un nom de
+province (seulement « L' », « En », « Au »…). « Le » ajouté, plus deux
+tournures de ce bulletin (« des patients hospitalisés (158/171) », « file
+active de 5 patients ») : le 1ᵉʳ juin lit désormais Ituri 158, Nord-Kivu 8,
+Sud-Kivu 5, conformes au tableau 4 du bulletin (158 / 8 en isolement ; le
+Sud-Kivu y est à 7, la prose dit 5, la prose est retenue faute de lecteur
+pour ce format de tableau de l'époque A). Seule cette date a bougé.
 
 Le **SitRep 110**, rapportage
 du 1ᵉʳ septembre 2026 — 6 250 cas confirmés, 3 039 décès, létalité 48,6 %,

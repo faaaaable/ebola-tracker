@@ -65,7 +65,11 @@ def canon(nom):
 # reste exclu.
 DEBUT_RE = re.compile(r"(?:^|\n)[^\n]{0,12}(?:Continuit[ée] des soins|Prise en charge holistique)[^\n]{0,60}\n", re.IGNORECASE)
 FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Communication|CREC|Logistique|S[ée]curit[ée]|Recherche)", re.IGNORECASE)
-REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bEn |\bAu |\bÀ la |\bA la |\bau |\ben |\bà la |\bL[’'])\s*(%s)\b" % PROVINCES_RE)
+# « Le Nord-Kivu suit avec 8 patients en isolement », « Le Sud-Kivu maintient
+# une file active de 5 patients » (SitRep 018) : sans « Le », ces phrases
+# restaient dans le morceau de l'Ituri, qui recevait les 8 patients du
+# Nord-Kivu. Corrige le 4 septembre 2026.
+REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bEn |\bAu |\bÀ la |\bA la |\bau |\ben |\bà la |\bLe |\bL[’'])\s*(%s)\b" % PROVINCES_RE)
 
 HOSPITALISES_RES = [
     re.compile(r"occupation\s+atteint\s+(\d[\d ]{0,4}\d|\d)\s+patients", re.I),
@@ -80,11 +84,21 @@ HOSPITALISES_RES = [
     # « isolement », le nombre de patients est directement suivi du taux.
     # En dernier, pour ne jamais prendre le pas sur les tournures explicites.
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades),?\s+soit\s+un\s+taux\s+d[’']occupation", re.I),
+    # « L'Ituri concentre 91 % des patients hospitalisés (158/171) » et « une
+    # file active de 5 patients au CTE Lwiro » (018, epoque A tardive).
+    re.compile(r"patients\s+hospitalis\w*\s*\((\d[\d ]{0,4}\d|\d)\s*/\s*\d", re.I),
+    re.compile(r"file\s+active\s+de\s+(\d[\d ]{0,4}\d|\d)\s+patients", re.I),
 ]
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
 # « taux d'occupation global de 51,7% (120 lits) » (110 Haut-Uele) : les lits
 # entre parentheses apres le taux, sans « pour ».
 LITS_PARENTHESE_RE = re.compile(r"\((\d[\d ]{0,4}\d|\d)\s+lits\)", re.I)
+# « en sursaturation (118,6 % ; 220 lits disponibles) » (111 Nord-Kivu) : les
+# lits suivent le taux, apres le point-virgule, sans fraction ni « pour ».
+# Le taux et le point-virgule sont exiges : sans eux, le motif mordait sur la
+# synthese du SitRep 018 (« 71 lits disponibles au Nord-Kivu pour 8
+# patients »), rattachee au morceau de l'Ituri.
+LITS_DISPONIBLES_RE = re.compile(r"%\s*;\s*(\d[\d ]{0,4}\d|\d)\s+lits\s+disponibles", re.I)
 # « en sursaturation (128,2 % ; 282/220) » (108 Nord-Kivu) : le dénominateur
 # de la fraction qui suit le taux est le nombre de lits
 LITS_FRACTION_RE = re.compile(r"%\s*;\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*\)")
@@ -94,6 +108,10 @@ OCCUPATION_RES = [
     re.compile(r"lits\s*\((\d+(?:[,.]\d+)?)\s*%\)", re.I),
     # « en sursaturation (128,2 % ; 282/220) » (108 Nord-Kivu)
     re.compile(r"occupation[^%\n]{0,60}?\((\d+(?:[,.]\d+)?)\s*%\s*;", re.I),
+    # « est en⏎sursaturation (118,6 % ; 220 lits disponibles) » (111 Nord-Kivu) :
+    # le saut de ligne entre « en » et « sursaturation » echappe au motif
+    # precedent, qui interdit \n ; le mot lui-meme suffit a ancrer le taux.
+    re.compile(r"sursaturation\s*\((\d+(?:[,.]\d+)?)\s*%", re.I),
 ]
 
 
@@ -111,7 +129,7 @@ def lire_prose(morceau):
         return None
     ligne = {"hospitalises": hosp}
     m = (LITS_RE.search(morceau) or LITS_FRACTION_RE.search(morceau)
-         or LITS_PARENTHESE_RE.search(morceau))
+         or LITS_PARENTHESE_RE.search(morceau) or LITS_DISPONIBLES_RE.search(morceau))
     if m:
         ligne["lits"] = entier(m.group(1))
     occ = None
