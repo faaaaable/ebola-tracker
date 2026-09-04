@@ -2354,6 +2354,85 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
   principale, d'où un raccord en pointillé dans la ville : à revoir si l'on
   touche à ce point, qui sert aussi aux bulles de l'accueil.
 
+- **Maquette « Flux & déplacés en cinq chapitres » — 4 septembre 2026, en
+  local, rien de publié.** La page en ligne n'existe toujours pas ; la page
+  locale d'origine est intacte. À côté d'elle, une MAQUETTE autonome dans
+  `tmp/proto-flux/` (gitignoré) écrite par `scripts/prototype_flux.py`, sur
+  le modèle de `prototype_riposte.py` : elle reprend telles quelles les
+  parties déjà construites (carte routée, diagramme, points, déplacés,
+  frontière, sources) en les EXTRAYANT du rendu de `flux-et-deplaces/`, et y
+  ajoute quatre chapitres neufs. Ordre proposé : où sont allés les habitants
+  du foyer, ce qui était annoncé et ce qui est arrivé, ce qu'on a compté sur
+  la route, où le virus peut aller maintenant, les déplacés et ce qui les
+  déplace.
+  - **Chapitre 1** : carte nationale des 519 zones, coloriée sur la rampe
+    `is-1..is-6` du site (on ne recolorie pas le site pour une page), échelle
+    logarithmique, QUATRE lectures au choix — part de cohorte détectée en mai,
+    jours de présence en juin pour les cohortes de l'Ituri et du Nord-Kivu,
+    jours de présence en juillet pour la cohorte de Kisangani. Légende bornée
+    en chiffres, CALCULÉE depuis les mêmes seuils que le coloriage. Infobulle
+    HTML au survol et au tap (idiome `cf-tip`), parce que le tableau ne montre
+    que trente zones quand la carte en colorie 136 : sans elle, les deux tiers
+    de la donnée sont visibles mais anonymes. Tableau à douze lignes, le reste
+    replié.
+  - **Trois gris à ne pas confondre**, et c'est le point d'honnêteté du
+    chapitre : gris clair = aucun membre détecté ; gris foncé = zone écartée
+    par Flowminder faute de données fiables (79 zones, dont Mangala et ses
+    263 cas) ; hachuré = hors des 90 premières destinations, valeur non
+    publiée (434 zones sur la vue Kisangani, le rapport ne publiant qu'un
+    top 90). Colorier ces dernières en « aucun » aurait été faux.
+  - **Chapitre 2, le seul bloc vivant** : les classements confrontés au
+    dernier bulletin, recalculés à chaque SitRep. Au 111 : cohorte de l'Ituri,
+    10 des 10 premières destinations touchées et 27 des 30 ; cohorte du
+    Nord-Kivu, 25 des 30. Trois zones annoncées et encore indemnes (Watsa,
+    Nyarambe, Biringi), neuf touchées sans avoir été vues, dont quatre étaient
+    écartées de l'étude. Personne d'autre ne peut produire ce bloc, faute
+    d'avoir la série des zones.
+  - **Kisangani à part, pas dans les compteurs.** Flowminder signale la ville
+    fin juin comme sans cas mais à risque ; le premier cas suit ; un rapport
+    rapide du 17 juillet cartographie ses sorties. Géographie tournée vers
+    l'ouest, 14 zones de Kinshasa dans les 50 premières. Bilan plus faible,
+    6 des 10 premières et 13 des 30 — mêler ce chiffre au 10 sur 10 de l'Ituri
+    abîmerait un message net avec un chiffre ambigu, alors que les deux ne se
+    comparent pas. Le texte dit que l'écart peut venir de la transmission
+    comme de la surveillance (les indemnes sont surtout des ports du fleuve)
+    et ne tranche pas.
+  - **`scripts/extraire_flowminder_tshopo.py`** : ce rapport n'a pas de
+    tableau sur HDX, ses valeurs ne sont que dans le PDF, imprimées sur trois
+    blocs de colonnes côte à côte — une lecture linéaire du texte en rend 83
+    sur 90. Le script lit les mots par leur POSITION (quatre colonnes à
+    abscisses fixes, trois blocs décalés d'un pas constant) et s'arrête si un
+    rang manque, se répète, ou si les valeurs ne décroissent pas. 90 sur 90.
+  - **Chapitre 4** : les dix zones les plus exposées à deux semaines selon le
+    modèle d'invasion de l'INRB (dépôt public, sortie quotidienne), avec leurs
+    intervalles, et le bilan rétrospectif calculé — sur les 12 zones ayant
+    déclaré leur premier cas depuis le 31 juillet, 8 étaient dans les vingt
+    premières du classement de ce jour-là. Demande d'écrire à l'INRB avant
+    réutilisation ; sans réponse, ce chapitre se réduit à un paragraphe et un
+    lien.
+  - **Chapitre 5** : les déplacés de l'OIM tels quels, plus les dix plus
+    grands déplacements de 2026 en Ituri et dans les Kivus d'après l'IDMC
+    (108 événements, tous liés au conflit, aucun à Ebola).
+  - **Postes frontaliers** : les sept points d'entrée vers l'Ouganda avec
+    leurs passagers hebdomadaires (Busunga 9 158, Mpondwe 7 326, Goli 4 150),
+    d'après un rapport d'Imperial College repris par l'INRB.
+  - **Entrées, toutes hors dépôt** : `~/Desktop/rapport ebola tracker/`
+    (42 fichiers, 218 Mo : Flowminder, OCHA, HOT OSM, Insecurity Insight, et
+    les trois rapports Flowminder en PDF dont celui de Kisangani), le dépôt
+    public `INRB-UMIE/BDBV2026-Data` et son modèle de risque, l'IDMC sur HDX.
+    Un état des lieux complet du dossier est dans
+    `~/Desktop/rapport ebola tracker/_ETAT-DES-LIEUX.md`.
+  - **Reste à faire** : le chapeau du chapitre 1 parle encore de trois
+    lectures alors qu'il y en a quatre ; la page est longue, environ quatre
+    écrans avant la carte routée, et le chapitre 4 est le candidat au
+    découpage s'il faut alléger ; basculer le fond de carte sur l'extraction
+    HOT (routes, localités, au 5 août, ODbL) à la place des extraits Overpass
+    faits à la main ; relire le swahili ; ajouter la liste des documents OIM à
+    `/rapports/` ; écrire à l'OIM (couche des déplacés) et à l'INRB.
+  - **`tmp/` est gitignoré** : la maquette elle-même ne survit pas à un
+    re-clone, seuls les scripts la reconstruisent — et ils sont eux-mêmes non
+    commités. Les commiter le jour où la page se publie.
+
 - **La vue « Par province » des alertes attend dans un `git stash`** (31 août,
   « vue Par province des alertes (7 derniers bulletins) ») : troisième
   bascule du cadre des alertes de `/riposte/` — une barre par province à
