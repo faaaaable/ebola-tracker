@@ -1337,11 +1337,26 @@ de deces, les 17 et 19 mai : ils ne comptent pas comme releves de la periode,
 et la note les enumere a cote des jours sans bulletin. La liste se recalcule,
 comme le reste.
 
-**La SEMAINE en cours n'est pas affichee.** A un jour sur sept, la barre
-tombait de 561 a 72 cas et se lisait comme une chute de l'epidemie. Le dernier
-point d'une courbe epidemique est toujours incomplet, et un point incomplet se
-lit toujours comme une amelioration. Rien n'est cache : la vue « par jour »
-montre ces journees a leur place, et la note le dit.
+**La SEMAINE en cours est tracée depuis le 4 septembre 2026, comme le mois
+en cours** (décision du propriétaire, « pour que les gens puissent vraiment
+suivre en temps réel »), sur les quatre graphiques hebdomadaires : Nouveaux
+cas et Nouveaux décès « par semaine », Nouveaux cas par province, alertes et
+échantillons de la page Riposte. Même idiome que le mois : emprise pleine,
+jours écoulés colorés au prorata du calendrier, jours à venir en gris uni à
+droite jusqu'au sommet de la pile, entrée « Jours à venir » dans la légende,
+« semaine en cours, arrêtée au … » dans l'infobulle, et la note nomme la
+semaine et compte les jours grisés (`chartWeekOngoing`,
+`chartWeekOngoingNote`, trois langues). `legendeAVenir()` ajoute l'entrée de
+légende à n'importe quelle configuration, `semaineOuverte()` calcule les
+ratios côté Riposte. Le masquage antérieur — à un jour sur sept la barre
+tombait de 561 à 72 cas et se lisait comme une chute — n'est plus la règle ;
+c'est la partie grisée qui empêche cette lecture, et la vue « par jour »
+reste là pour le détail. Piège rencontré en le faisant : `GRIS_MANQUE`,
+`GRIS_A_VENIR`, `hachureLegende` et le plugin `largeurSemaine` étaient
+définis SANS indentation mais À L'INTÉRIEUR de `renderOneChart`, après le
+bloc Riposte — « Cannot access 'largeurSemaine' before initialization » dès
+que Riposte les appelait ; remontés au niveau du fichier, avant la fonction.
+Intégré en local le 4 septembre, non publié à cette date.
 
 **Le MOIS en cours, lui, est trace — depuis le 26 aout.** Il l'etait sous la
 meme regle jusque-la, et le prix etait trop haut : trois barres pour quatre
