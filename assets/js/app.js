@@ -3902,12 +3902,17 @@ function renderReportsList(){
    Par defaut on n'affiche que le mois le plus recent : la page listait sinon
    quatre-vingt-dix bulletins d'affilee, ce qui noyait le lecteur. */
 let reportsMonthFilter = null;
+/* Vrai des que le lecteur a choisi un mois lui-meme. Avant cela, le filtre
+   SUIT le mois le plus recent a chaque rendu : le premier rendu se fait sur
+   REPORTS_SEED, une graine ecrite en dur qui s'arrete a aout, et se caler
+   « au premier rendu seulement » figeait la page sur aout alors que
+   latest.json apportait septembre juste apres (vu le 4 septembre 2026). */
+let reportsMonthChoisi = false;
 
 function renderReportsMonthNav(groups){
   const nav = document.getElementById('reportsMonthNav');
   if(!nav) return;
-  // Au premier rendu seulement : on se cale sur le mois le plus recent.
-  if(reportsMonthFilter === null && groups.length) reportsMonthFilter = groups[0].key;
+  if(!reportsMonthChoisi && groups.length) reportsMonthFilter = groups[0].key;
 
   const signature = groups.map(g=>g.key).join('|') + '#' + reportsMonthFilter;
   if(nav.dataset.built === signature) return;
@@ -3925,6 +3930,7 @@ function renderReportsMonthNav(groups){
   nav.querySelectorAll('.subtab-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       reportsMonthFilter = btn.getAttribute('data-month') || null;
+      reportsMonthChoisi = true;
       nav.querySelectorAll('.subtab-btn').forEach(b=>b.classList.toggle('active', b===btn));
       const search = document.getElementById('reportsSearch');
       if(search) search.value = '';   // un filtre chasse l'autre
