@@ -1654,6 +1654,99 @@ script de session ; `test_onglets.mjs` sur `/donnees/` sans erreur.
 
 ---
 
+## La page « Le virus » et le bloc des génomes
+
+**Publié le 4 septembre 2026.** La page a été réordonnée pour suivre le
+parcours du lecteur — espèce, transmission, incubation, évolution,
+**traitements et vaccins**, qui la maladie touche, génomes — au lieu de
+placer le remède avant la maladie. Une ligne d'ancres cliquables sous la
+bande de chiffres, même idiome que `/riposte/`. Deux sections retirées à la
+demande du propriétaire : « Réduire le risque de transmission » (six chaînes,
+trois langues) et l'avertissement médical de fin de page (`virusNote`).
+
+**Le bloc « Le virus lu dans son génome »** compte les génomes séquencés :
+trois chiffres, une colonne par mois de prélèvement, douze barres de zones
+puis une phrase calculée pour la queue de liste. Sa source est
+**Pathoplexus**, la base où l'INRB dépose ses séquences, interrogée par son
+API LAPIS **en agrégats seulement** — aucune séquence, aucune métadonnée
+individuelle n'est téléchargée, et c'est ce qui rend l'usage licite : sur
+754 séquences RDC, 690 sont sous conditions « restreintes », qui autorisent
+explicitement un travail non publié avec attribution et lien, mais réservent
+aux déposants la première analyse publiée. La note porte donc le lien et
+nomme le laboratoire de génomique des pathogènes de l'INRB.
+
+`scripts/extraire_genomes.py` produit `data/genomes.json`. **Il ne tourne pas
+dans le pipeline quotidien** : c'est un chiffre de contexte, rafraîchi à la
+main. Les libellés de lieu de Pathoplexus sont libres (« BUNIA »,
+« MUNGWALU », « rwampara », l'aire de santé « Hoho ») : ils passent par la
+normalisation du site plus les alias connus, et ce qui ne correspond à
+aucune zone est compté à part plutôt que deviné. Les 23 séquences de 2012,
+prélevées à Isiro lors de l'épidémie précédente, sont écartées.
+
+**Le creux d'août est un délai de dépôt, pas une baisse.** 114 génomes en
+mai, 254 en juin, 323 en juillet, 39 en août — mais 573 séquences ont été
+**mises en ligne** en août, dont 323 prélevées en juillet. Le mois le plus
+récent attend toujours son lot. La note le dit, et rappelle que le nombre de
+génomes suit la capacité de séquençage, pas le nombre de cas.
+
+**Le résumé grand public s'appuie sur des faits, pas sur des phrases.** Les
+résultats publiés par l'INRB et ses partenaires sur virological.org (9 juillet
+et 25 août 2026), plus une réplication de l'Imperial College, sont réécrits
+dans nos mots : nouveau passage depuis le réservoir animal (le virus ne
+descend ni de 2007 ni de 2012), ancêtre commun fin février 2026 soit trois
+mois avant la déclaration, doublement tous les 21 jours avec inflexion après
+juin. Un fait scientifique ne s'approprie pas, seule sa formulation est
+protégée : rien n'est recopié, aucune figure reproduite, la source est citée
+et liée. La note de crédit porte les intervalles (mi-janvier à fin mars, 15 à
+41 jours) — trois chiffres nus se seraient lus comme des certitudes.
+
+**Un paragraphe dit ce que les génomes NE disent PAS** : quelle zone a
+contaminé quelle autre. Première rédaction écartée par le propriétaire, qui
+parlait des « branches de l'arbre », terme jamais introduit ; la version
+publiée donne la raison concrète — le virus mute lentement au regard de la
+vitesse à laquelle il se déplace, donc d'une zone à l'autre les échantillons
+se ressemblent trop pour reconstituer les chaînes de transmission. Les
+auteurs eux-mêmes mettent en garde contre cette lecture.
+
+**Douze lignes, pas vingt-deux.** Neuf zones étaient à trois génomes ou
+moins, leur barre faisait deux pixels, et la section pesait deux cinquièmes
+de la page pour un chiffre de contexte. Les six premières lignes portent 90 %
+du total.
+
+**Chronologie** : jalon curé au 22 février 2026, « Le virus circule déjà,
+sans être vu », en tête de la frise. Seul endroit du site qui situe le début
+réel de la transmission face à la déclaration du 15 mai.
+
+**Deux corrections de mise en page qui valent partout** : dans un cadre, une
+figure garde 20 px d'air latéral (`.panel` n'a pas de rembourrage propre) ;
+sur téléphone, la valeur d'une barre `mb-bar` reste sur la ligne du nom au
+lieu de tomber sous la barre.
+
+### Publier sans publier « Flux & déplacés »
+
+Les deux chantiers partagent quatre fichiers, et la barre latérale de chaque
+page générée portait l'onglet Flux. Recette suivie le 4 septembre, à
+reprendre telle quelle tant que Flux reste en local :
+
+1. sauvegarder `site/strings.json`, `scripts/build_pages.py`,
+   `assets/css/site.css`, `site/pages.json` hors dépôt ;
+2. retirer de `pages.json` l'entrée `flux-deplaces` et son onglet ; retirer de
+   `build_pages.py` l'import du module, le bloc `if "flux" in needs` et l'appel
+   à `flux_seed` — **sinon le workflow GitHub plante sur un module non
+   commité** ; retirer de `strings.json` les 318 clés `flux*` — **sinon les
+   nombres de l'OIM sont publiquement lisibles sans page pour les rendre** ;
+3. régénérer, vérifier `grep -c flux` à zéro dans les pages et le sitemap,
+   commiter en excluant les fichiers du chantier ;
+4. restaurer les quatre fichiers, régénérer. Le générateur supprime puis
+   recrée les pages Flux via `site/.generated.json`.
+
+Les styles `cf-*` et `sk-*` restent dans `site.css`, inertes : les `mb-*`
+qu'ils accompagnent servent aux barres des génomes. La barre latérale groupée
+(Explorer / Comprendre / Le site), née du chantier Flux, est publiée : elle se
+tient à huit onglets comme à neuf.
+
+---
+
 ## Conventions établies
 
 **Couleurs.** Bleu `#005E82` = cas, rouge `#993A2E` = décès, partout. Chaque
