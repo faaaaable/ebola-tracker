@@ -2225,6 +2225,24 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
   être supprimé. Reste à faire avant publication : relire le swahili, écrire
   à dtmdrc@iom.int (classeur « destinations », accord sur la figure
   redessinée), ajouter la liste OIM à `/rapports/`.
+  **Carte des flux (4 septembre, en local)** : dans la section des flux,
+  avant le diagramme — fond OCHA de l'Ituri cadré sur Bunia (transformation
+  carte nationale → carte de province déduite des tracés, `affine()`), sept
+  points de contrôle en cercles (coordonnées lues sur la carte 1 du rapport,
+  `coordPoints`, approximatives et dites telles), flux de zone à zone en
+  arcs, et surtout **la charge des routes** : chaque trajet cartographiable
+  de la matrice (63 sur 105) suit le plus court chemin sur le réseau
+  OpenStreetMap du départ au point de contrôle puis à l'arrivée
+  (`scripts/construire_flux_routes.py`, entrée `tmp/routes/osm-bunia.json`
+  extrait Overpass hors dépôt, sortie `data/flux-routes.json`, 51 segments
+  à jeu de trajets constant + 749 routes de fond, 123 Ko). `assets/js/
+  flux.js` (chargé par le besoin `flux` de la page) : couches Points /
+  Routes / Flux / Déplacés, filtre par chef-lieu qui recalcule la charge,
+  infobulle, panneau départs / arrivées avec le point de passage, zoom et
+  déplacement. La couche Déplacés est construite mais éteinte, « à
+  confirmer avec l'OIM ». Chemins DÉDUITS, seul le point de contrôle est
+  observé ; Aru, Mahagi, Boga hors emprise OSM (raccords en pointillé) ;
+  attribution OpenStreetMap ODbL dans la note.
 
 - **La vue « Par province » des alertes attend dans un `git stash`** (31 août,
   « vue Par province des alertes (7 derniers bulletins) ») : troisième
