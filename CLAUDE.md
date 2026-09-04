@@ -2431,7 +2431,17 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
     `/rapports/` ; écrire à l'OIM (couche des déplacés) et à l'INRB.
   - **`tmp/` est gitignoré** : la maquette elle-même ne survit pas à un
     re-clone, seuls les scripts la reconstruisent — et ils sont eux-mêmes non
-    commités. Les commiter le jour où la page se publie.
+    commités. Les commiter le jour où la page se publie. En attendant, une
+    **copie de sauvegarde hors dépôt** existe dans
+    `~/Desktop/rapport ebola tracker/_maquette-flux/` (19 fichiers, 1,4 Mo) :
+    les sept scripts du chantier, le gabarit, `flux.js`, les deux fichiers de
+    données, les 106 chaînes `flux*` par langue extraites de `strings.json`,
+    l'entrée de `pages.json`, le rendu de la maquette, et un `LISEZ-MOI.md`
+    qui donne la marche à suivre pour tout remettre en place après un
+    re-clone. Fragilité connue et assumée : le modèle de risque de l'INRB,
+    les événements de l'IDMC et les passages aux points d'entrée sont lus
+    dans `/tmp`, effacé au redémarrage ; ils se retéléchargent en une
+    minute, le LISEZ-MOI dit où.
 
 - **La vue « Par province » des alertes attend dans un `git stash`** (31 août,
   « vue Par province des alertes (7 derniers bulletins) ») : troisième
