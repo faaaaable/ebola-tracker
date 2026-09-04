@@ -1704,7 +1704,13 @@ footer{
      avec des cibles a la taille du doigt. */
   .side-nav{flex-direction:column;gap:2px;font-size:16px;}
   .side-nav a{padding:12px 12px;}
-  .side-nav-title{font-size:11.5px;padding:16px 12px 4px;}
+  /* Resserres le 4 septembre 2026 : a 16 px de rembourrage haut et 8 px de
+     marge, les trois intertitres coutaient 124 px et le menu depassait de
+     quatre pixels la hauteur d'un ecran de telephone. A 10 px et 4 px, il
+     tient d'une traite sur une page ordinaire, et le groupement reste
+     lisible. Les pages province defilent de toute facon, provinces
+     depliees. */
+  .side-nav-title{font-size:11.5px;padding:10px 12px 3px;margin-top:4px;}
   .side-toggle{padding:12px 12px;}
   .side-sub a{font-size:14.5px;padding:10px 8px;}
   .side-foot{margin-top:0;padding-top:8px;border-top:1px solid var(--line);}

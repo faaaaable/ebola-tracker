@@ -4989,16 +4989,12 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
     if(etiquette) bouton.setAttribute('aria-label', etiquette);
     if(!ouvert) return;
     mesurerEntete();
-    /* Dans un menu qui occupe toute la page, replier les provinces n'economise
-       rien : on les deplie a l'ouverture. Le chevron continue de servir a les
-       refermer si la liste gene. */
-    const chevron = barre.querySelector('.side-toggle');
-    const provinces = chevron && document.getElementById(
-      chevron.getAttribute('aria-controls'));
-    if(provinces && provinces.hidden){
-      provinces.hidden = false;
-      chevron.setAttribute('aria-expanded', 'true');
-    }
+    /* Les provinces NE sont PAS depliees a l'ouverture (demande du
+       proprietaire, 4 septembre) : sept lignes de plus repoussaient les
+       rubriques suivantes hors de l'ecran, et l'on ouvrait le menu pour voir
+       les huit pages, pas les six provinces. Le chevron les ouvre d'un tap.
+       L'etat vient donc du generateur : deplie sur /donnees/ et sur les pages
+       province, ou il montre ou l'on se trouve, replie partout ailleurs. */
   }
 
   bouton.addEventListener('click', ()=>{
