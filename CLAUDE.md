@@ -2230,9 +2230,12 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
   carte nationale → carte de province déduite des tracés, `affine()`), sept
   points de contrôle en cercles (coordonnées lues sur la carte 1 du rapport,
   `coordPoints`, approximatives et dites telles), flux de zone à zone en
-  arcs, et surtout **la charge des routes** : chaque trajet cartographiable
-  de la matrice (63 sur 105) suit le plus court chemin sur le réseau
-  OpenStreetMap du départ au point de contrôle puis à l'arrivée
+  arcs, et surtout **la charge des routes** : chacun des 105 trajets de la
+  matrice suit le plus court chemin sur le réseau OpenStreetMap du départ au
+  point de contrôle puis à l'arrivée — 71 en entier, 30 sur leur seule
+  moitié connue (« Autres ZS d'Ituri », « Autres provinces / pays » n'ont
+  pas de position), le Nord-Kivu ramené à la sortie sud de l'emprise sur la
+  route de Beni avec une étiquette de direction, 4 sans chemin
   (`scripts/construire_flux_routes.py`, entrée `tmp/routes/osm-bunia.json`
   extrait Overpass hors dépôt, sortie `data/flux-routes.json`, 51 segments
   à jeu de trajets constant + 749 routes de fond, 123 Ko). `assets/js/
