@@ -1037,7 +1037,13 @@ const largeurSemaine = {
     if(!ratios) return;
     const futurs = (opts && opts.futurs) || [];
     const ctx = chart.ctx, aire = chart.chartArea;
-    chart.getDatasetMeta(0).data.forEach((el, i) => {
+    /* Le gris part du PREMIER JEU DE BARRES, pas du jeu 0 : sur le
+       laboratoire, le jeu 0 est la courbe de positivite, dont les points ne
+       portent pas d'emprise — le gris n'etait jamais dessine (vu le
+       4 septembre 2026, apres publication). */
+    const premierBarres = chart.data.datasets.findIndex(j => j.type !== 'line');
+    if(premierBarres < 0) return;
+    chart.getDatasetMeta(premierBarres).data.forEach((el, i) => {
       const r = ratios[i] === undefined ? 1 : ratios[i];
       if(r >= 0.999 || el.$largeurPleine === undefined) return;
       const gauche = el.$centre - el.$largeurPleine / 2 + el.width;
