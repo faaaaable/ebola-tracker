@@ -2136,6 +2136,43 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
 
 ## Chantiers ouverts
 
+- **Page « Mouvements de population » (prototype, mis de côté le 4 septembre
+  2026 à la demande du propriétaire).** Tout est en local, non commité :
+  `scripts/prototype_mobilite.py` écrit `tmp/mobilite/index.html` à partir de
+  la coquille de `riposte/index.html` (barre latérale avec une entrée
+  supplémentaire, fil d'Ariane, pied de page) et des transcriptions de
+  `report_iom/analyse/` (hors dépôt, `report_iom/` ajouté au `.gitignore` le
+  3 septembre — 192 Mo, dont 15 rapports de situation OIM multipays dans
+  `report_iom/sitrep-oim/`, téléchargés par `scripts/telecharger_via_brave.mjs`
+  parce que crisisresponse.iom.int et dtm.iom.int refusent curl et le
+  headless ; le script ouvre une fenêtre Brave visible, `VISIBLE=1`, et
+  `NAVIGUER=1` pour les liens `dtm_download_track`). La page : bandeau de
+  période (15 mai – 28 août 2026, « ne se met pas à jour »), trois chiffres,
+  un diagramme exhaustif origine → point de contrôle → destination (12, 7 et
+  15 nœuds, 149 rubans) mesuré sur les tracés vectoriels de la figure 9 du
+  tableau de bord OIM de la semaine 34 par `scripts/extraire_sankey_oim.py`
+  (marges recoupées à moins d'un point, sortie `report_iom/analyse/
+  sankey_fig9.json` ; la figure 10 se mesure pareil mais ses étiquettes sont
+  éclatées lettre à lettre, non fait), survol d'un nœud = entrants et
+  sortants ensemble, survol d'un ruban = la bande entière sur les deux
+  tronçons, tout en CSS `:has()` généré (une règle par nœud et par ruban) ;
+  tableau des sept points ; barres « que relient les trajets » ; déplacés
+  (deux tuiles, un tableau) ; prose axes et frontière ; sources par famille,
+  repliées. Décisions prises en route : titre « Mouvements de population »
+  plutôt que « Mobilité » (proposé, appliqué au prototype, à confirmer), la
+  figure des dix couloirs retirée au profit de la matrice, la tuile
+  « trajets entre deux zones actives » retirée (l'indicateur OIM ne compte
+  pas les trajets d'une zone active vers une zone indemne, qui sont pourtant
+  le mécanisme d'extension), paragraphe de lecture retiré, palette de sept
+  teintes validée en deutan. Piège d'unité : la figure 7 du rapport (dix
+  couloirs) est en parts de TOUS les trajets, la figure 9 en parts des 3 639
+  trajets renseignés — rapport constant 100/82, Bunia → Bunia 12,6 % contre
+  15,3 %. Pour intégrer : passer par `site/pages.json` + `strings.json` +
+  gabarit, traduire EN/SW, ajouter la liste OIM à `/rapports/`, écrire à
+  dtmdrc@iom.int (classeur « destinations », accord sur la figure
+  redessinée). Outil né du chantier : `scripts/verif/capture_survol.mjs`,
+  capture d'une section pendant le survol d'un élément.
+
 - **La vue « Par province » des alertes attend dans un `git stash`** (31 août,
   « vue Par province des alertes (7 derniers bulletins) ») : troisième
   bascule du cadre des alertes de `/riposte/` — une barre par province à
