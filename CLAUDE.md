@@ -2245,7 +2245,21 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
   déplacement. La couche Déplacés est construite mais éteinte, « à
   confirmer avec l'OIM ». Chemins DÉDUITS, seul le point de contrôle est
   observé ; Aru, Mahagi, Boga hors emprise OSM (raccords en pointillé) ;
-  attribution OpenStreetMap ODbL dans la note.
+  attribution OpenStreetMap ODbL dans la note. Depuis le 4 septembre au
+  soir : **deux cadrages** (Ituri / Bunia, boutons `data-cf-cadre`, la ville
+  d'après l'emprise des rues extraites — second extrait Overpass
+  `tmp/routes/osm-bunia-ville.json`, residential/service/track, rues de plus
+  de 400 m gardées en fond) ; **les trajets internes à une zone sont routés
+  du chef-lieu au point de contrôle** (une seule moitié, la suite est dans
+  la zone) ; **échelle des traits** dans la légende, trois étalons 5, 15 et
+  30 %, aux mêmes largeurs que les tronçons — largeurs en PIXELS ÉCRAN
+  (`vector-effect: non-scaling-stroke`, `largeur_route()` côté Python et la
+  même formule dans `chargerRoutes`), comme les cercles des points (rayon
+  divisé par le zoom, `data-r0`), les halos et corps des étiquettes
+  (`--cf-k`) et le décalage des étiquettes de points (recalculé en JS). Le
+  chef-lieu de Bunia de `zoneCoordinates` est à 1,7 km de la route
+  principale, d'où un raccord en pointillé dans la ville : à revoir si l'on
+  touche à ce point, qui sert aussi aux bulles de l'accueil.
 
 - **La vue « Par province » des alertes attend dans un `git stash`** (31 août,
   « vue Par province des alertes (7 derniers bulletins) ») : troisième
