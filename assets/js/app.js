@@ -966,7 +966,173 @@ function totalEmpile(items){
   return tr('chartStackTotal')(fmt(barres.reduce((t, i) => t + i.parsed.y, 0)));
 }
 
+/* Les deux gris, la hachure et le plugin de largeur vivaient a l'interieur de
+   renderOneChart, ecrits sans indentation : invisibles pour le code de la
+   page Riposte qui s'executait plus haut dans la meme fonction, et pour
+   legendeAVenir. Remontes au niveau du fichier le 4 septembre 2026. */
+const GRIS_MANQUE = () => ({
+  fond: PALETTE.bgAlt || '#efece5',
+  trait: PALETTE.line,
+  pointille: null,
+  hachure: true
+});
+const GRIS_A_VENIR = () => ({
+  fond: tint(PALETTE.bgAlt || '#efece5', 0.45),
+  trait: PALETTE.line,
+  pointille: [3, 3],
+  hachure: false
+});
+
+function hachureLegende(ctx){
+  const c = document.createElement('canvas');
+  c.width = c.height = 6;
+  const g = c.getContext('2d');
+  g.fillStyle = PALETTE.bgAlt || '#efece5';
+  g.fillRect(0, 0, 6, 6);
+  g.strokeStyle = PALETTE.line;
+  g.lineWidth = 1;
+  g.globalAlpha = 0.55;
+  g.beginPath(); g.moveTo(-1, 7); g.lineTo(7, -1); g.stroke();
+  return ctx.createPattern(c, 'repeat');
+}
+
+const largeurSemaine = {
+  id: 'largeurSemaine',
+  beforeDatasetsDraw(chart, args, opts){
+    const ratios = opts && opts.ratios;
+    if(!ratios) return;
+    let premierBarres = null;
+    chart.data.datasets.forEach((jeu, di) => {
+      if(jeu.type === 'line') return;
+      if(premierBarres === null) premierBarres = di;
+      chart.getDatasetMeta(di).data.forEach((el, i) => {
+        const r = ratios[i] === undefined ? 1 : ratios[i];
+        if(r >= 0.999) return;          // periode complete : emprise inchangee
+        el.$largeurPleine = el.width;   // relue, jamais reprise d'un rendu passe
+        el.$centre = el.x;
+        el.width = el.$largeurPleine * r;
+        // colle la partie pleine au bord gauche de l'emprise de la periode
+        el.x = el.$centre - el.$largeurPleine / 2 + el.width / 2;
+      });
+    });
+    /* Les points des courbes (positivite du laboratoire, moyenne du lieu du
+       deces) suivent la partie coloree : pose au centre de l'emprise entiere,
+       le point de la semaine en cours flottait au-dessus du gris des jours a
+       venir. Demande du proprietaire, 4 septembre 2026. */
+    if(premierBarres === null) return;
+    const barres = chart.getDatasetMeta(premierBarres).data;
+    chart.data.datasets.forEach((jeu, di) => {
+      if(jeu.type !== 'line') return;
+      chart.getDatasetMeta(di).data.forEach((pt, i) => {
+        const b = barres[i];
+        if(!b || b.$largeurPleine === undefined) return;
+        pt.x = b.x;                     // le centre de la partie pleine
+      });
+    });
+  },
+  /* Le gris se dessine APRES les barres : pose avant, il passerait dessous et
+     les bordures blanches des segments empiles le mordraient. */
+  afterDatasetsDraw(chart, args, opts){
+    const ratios = opts && opts.ratios;
+    if(!ratios) return;
+    const futurs = (opts && opts.futurs) || [];
+    const ctx = chart.ctx, aire = chart.chartArea;
+    chart.getDatasetMeta(0).data.forEach((el, i) => {
+      const r = ratios[i] === undefined ? 1 : ratios[i];
+      if(r >= 0.999 || el.$largeurPleine === undefined) return;
+      const gauche = el.$centre - el.$largeurPleine / 2 + el.width;
+      const large = el.$largeurPleine - el.width;
+      /* Le gris s'arrete au sommet de la pile, pas en haut du cadre : il dit
+         quelle PART de cette semaine manque, pas qu'il manquerait quelque
+         chose jusqu'au plafond du graphique. Sur les parts empilees a 100 %
+         du graphique des deces par lieu, ce sommet est justement le haut du
+         cadre — la regle vaut donc pour les deux. */
+      let sommet = aire.bottom;
+      chart.data.datasets.forEach((jeu, di) => {
+        if(jeu.type === 'line') return;
+        const e = chart.getDatasetMeta(di).data[i];
+        if(e && e.y < sommet) sommet = e.y;
+      });
+      const hautBarre = aire.bottom - sommet;
+      if(hautBarre <= 0) return;
+
+      /* Un bloc gris, hachure ou non. Le trait d'encadrement est pose dans les
+         deux cas : c'est lui qui rend le gris uni visible sur fond blanc. */
+      const bloc = (x, w, style) => {
+        if(w <= 0.5) return;
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(x, sommet, w, hautBarre);
+        ctx.clip();                     // sans clip, les diagonales debordent
+        ctx.fillStyle = style.fond;
+        ctx.fillRect(x, sommet, w, hautBarre);
+        if(style.hachure){
+          ctx.strokeStyle = style.trait;
+          ctx.lineWidth = 1;
+          ctx.globalAlpha = 0.55;
+          ctx.beginPath();
+          for(let d = x - hautBarre; d < x + w; d += 8){
+            ctx.moveTo(d, aire.bottom);
+            ctx.lineTo(d + hautBarre, sommet);
+          }
+          ctx.stroke();
+        }
+        ctx.restore();
+        ctx.save();
+        ctx.strokeStyle = style.trait;
+        ctx.lineWidth = 1;
+        if(style.pointille) ctx.setLineDash(style.pointille);
+        ctx.strokeRect(x + 0.5, sommet + 0.5, w - 1, hautBarre - 1);
+        ctx.restore();
+      };
+
+      const largeFutur = Math.min(large, el.$largeurPleine * (futurs[i] || 0));
+      bloc(gauche, large - largeFutur, GRIS_MANQUE());
+      bloc(gauche + (large - largeFutur), largeFutur, GRIS_A_VENIR());
+    });
+
+    /* Les elements retrouvent leur emprise pleine, le dessin fini. Sans quoi
+       le rendu suivant retrecirait une largeur deja retrecie, et le survol —
+       qui redessine — verrait la barre fondre a chaque passage de souris.
+       C'est aussi ce qui rend la zone sensible egale a l'emprise du mois : on
+       survole la partie grisee et l'infobulle du mois repond. */
+    chart.data.datasets.forEach((jeu, di) => {
+      if(jeu.type === 'line') return;
+      chart.getDatasetMeta(di).data.forEach(el => {
+        if(el.$largeurPleine === undefined) return;
+        el.width = el.$largeurPleine;
+        el.x = el.$centre;
+        el.$largeurPleine = undefined;
+        el.$centre = undefined;
+      });
+    });
+  }
+};
+
 const ctx0Epi = c => c.getContext('2d');
+
+/* Ajoute a une configuration de legende l'entree « Jours a venir » — un carre
+   gris sans jeu de donnees derriere, dessine par le plugin largeurSemaine —
+   et neutralise son clic. Meme mecanique que « Jours sans donnee » sur les
+   deces par lieu. Avec `sauf` vrai, ne fait rien : la legende ne doit nommer
+   cette couleur que si la bande grisee est tracee. */
+function legendeAVenir(legende, sauf){
+  if(sauf) return legende;
+  legende.labels = legende.labels || {};
+  legende.labels.generateLabels = chart => {
+    const base = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+    base.push({ text: tr('chartDaysToCome'), fillStyle: GRIS_A_VENIR().fond,
+                strokeStyle: GRIS_A_VENIR().trait, lineWidth: 1,
+                pointStyle: 'rect', hidden: false, datasetIndex: -1 });
+    return base;
+  };
+  const clic = legende.onClick;
+  legende.onClick = function(e, item, l){
+    if(item.datasetIndex === -1) return;
+    (clic || Chart.defaults.plugins.legend.onClick).call(this, e, item, l);
+  };
+  return legende;
+}
 
 /* Chaque mode declare la periode qu'il vient REELLEMENT de tracer, au moment
    ou il la trace. C'est le seul endroit qui la connaisse : la vue
@@ -1056,12 +1222,26 @@ function renderOneChart(canvas, chartMode){
         slot.chart.destroy(); slot.chart = null;
       }
       if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
-      else { slot.chart = new Chart(canvas.getContext('2d'), { type, data, options:opts }); }
+      else { slot.chart = new Chart(canvas.getContext('2d'), { type, data, options:opts, plugins:[largeurSemaine] }); }
       slot.lastMode = chartMode;
     };
+    /* Semaine ouverte : part du calendrier deja courue sur la derniere barre,
+       et ce qu'il faut ajouter aux options, a l'infobulle et a la note. */
+    const semaineOuverte = (semaines, derniere) => {
+      const w = semaines[semaines.length - 1];
+      if(!w || w.fin <= derniere) return null;
+      const ratios = semaines.map((x, i) => i < semaines.length - 1 ? 1 : nbJours(x.debut, derniere) / nbJours(x.debut, x.fin));
+      return { ratios, futurs:ratios.map(r => 1 - r), derniere, restants:nbJours(derniere, w.fin) - 1,
+               nom:tr('chartDeathPlaceWeekLabel')(frDate(w.debut), frDate(w.fin)) };
+    };
+    const titreSemaine = (semaines, ouverte) => (items) => {
+      const i = items[0].dataIndex, w = semaines[i];
+      const enc = (ouverte && i === semaines.length - 1) ? ' · ' + tr('chartWeekOngoing')(frDate(ouverte.derniere)) : '';
+      return frDate(w.debut) + ' → ' + frDate(w.fin) + enc + ' · ' + tr('releveCount')(w.releves);
+    };
+    const noteOuverte = ouverte => ouverte ? ' ' + tr('chartWeekOngoingNote')(ouverte.nom, ouverte.restants) : '';
     const noter = (texte) => { if(noteEl){ noteEl.textContent = texte; noteEl.style.display = 'block'; } };
-    /* Semaines calendaires completes : la semaine qui contient le dernier
-       point n'est gardee que si ce point tombe un dimanche. */
+    /* Semaines calendaires, la derniere pouvant etre en cours. */
     const parSemaine = (points, champs) => {
       const semaines = new Map();
       points.forEach(p => {
@@ -1074,7 +1254,9 @@ function renderOneChart(canvas, chartMode){
         semaines.set(cle, w);
       });
       const derniere = points[points.length - 1].date;
-      const pleines = [...semaines.values()].filter(w => w.releves > 0 && w.fin <= derniere)
+      /* La semaine en cours est gardee depuis le 4 septembre 2026 ; les
+         appelants la tracent ouverte (emprise pleine, jours a venir grises). */
+      const pleines = [...semaines.values()].filter(w => w.releves > 0)
         .sort((a, b) => a.debut.localeCompare(b.debut));
       if(!pleines.length) return pleines;
       /* Toutes les semaines du calendrier entre la premiere et la derniere :
@@ -1159,18 +1341,20 @@ function renderOneChart(canvas, chartMode){
       if(vueDe(canvas, 'volume') === 'volume'){
         const semaines = parSemaine(points, ['recues', 'validees']);
         if(!semaines.length){ vide(); return; }
+        const ouverte = semaineOuverte(semaines, points[points.length-1].date);
         const data = { labels:semaines.map(libelleSemaine), datasets:[
           { label:tr('alertesValideesLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.validees)), backgroundColor:PALETTE.info, stack:'a', order:2 },
           { label:tr('alertesAutresLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.recues - x.valeurs.validees)), backgroundColor:tint(PALETTE.info, .3), stack:'a', order:2 },
         ]};
         const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
-          plugins:{ legend:legende, tooltip:infobulle({ callbacks:{
-            title:(items)=>{ const w = semaines[items[0].dataIndex]; return frDate(w.debut) + ' → ' + frDate(w.fin) + ' · ' + tr('releveCount')(w.releves); },
-            label:c=>c.dataset.label + ' : ' + fmt(c.parsed.y), footer:totalEmpile } }) },
+          plugins:{ legend:legendeAVenir(Object.assign({}, legende, { labels:Object.assign({}, legende.labels) }), !ouverte), tooltip:infobulle({ callbacks:{
+            title:titreSemaine(semaines, ouverte),
+            label:c=>c.dataset.label + ' : ' + fmt(c.parsed.y), footer:totalEmpile } }),
+            largeurSemaine: ouverte ? { ratios:ouverte.ratios, futurs:ouverte.futurs } : undefined },
           scales:{ x:Object.assign(axeX(false), { stacked:true }), y:{ stacked:true, beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
         dessiner('bar', data, opts);
-        noterPeriode(slot, semaines[0].debut, semaines[semaines.length-1].fin);
-        noter(tr('chartNoteAlertesVolume')(semaines.filter(w=>w.releves).length, sans));
+        noterPeriode(slot, semaines[0].debut, ouverte ? ouverte.derniere : semaines[semaines.length-1].fin);
+        noter(tr('chartNoteAlertesVolume')(semaines.filter(w=>w.releves).length, sans) + noteOuverte(ouverte));
         return;
       }
       const jours = calendrier(points[0].date, points[points.length-1].date);
@@ -1205,6 +1389,7 @@ function renderOneChart(canvas, chartMode){
       });
       const semaines = parSemaine(points, ['echantillons', 'positifs']);
       if(!semaines.length){ vide(); return; }
+      const ouverte = semaineOuverte(semaines, points[points.length-1].date);
       const sans = sortedSitreps().filter(r => r.date >= points[0].date && !points.some(p => p.date === r.date && p.echantillons !== null && p.positifs !== null)).length;
       const positivite = semaines.map(w => (w.releves && w.valeurs.echantillons) ? Math.round(w.valeurs.positifs / w.valeurs.echantillons * 1000) / 10 : null);
       const data = { labels:semaines.map(libelleSemaine), datasets:[
@@ -1213,15 +1398,16 @@ function renderOneChart(canvas, chartMode){
         { label:tr('laboNegatifsLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.echantillons - x.valeurs.positifs)), backgroundColor:tint(PALETTE.info, .3), stack:'l', order:2 },
       ]};
       const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
-        plugins:{ legend:legende, tooltip:infobulle({ callbacks:{
-          title:(items)=>{ const w = semaines[items[0].dataIndex]; return frDate(w.debut) + ' → ' + frDate(w.fin) + ' · ' + tr('releveCount')(w.releves); },
-          label:c=>c.dataset.label + ' : ' + (c.dataset.type === 'line' ? fmtCfr(c.parsed.y) : fmt(c.parsed.y)), footer:totalEmpile } }) },
+        plugins:{ legend:legendeAVenir(Object.assign({}, legende, { labels:Object.assign({}, legende.labels) }), !ouverte), tooltip:infobulle({ callbacks:{
+          title:titreSemaine(semaines, ouverte),
+          label:c=>c.dataset.label + ' : ' + (c.dataset.type === 'line' ? fmtCfr(c.parsed.y) : fmt(c.parsed.y)), footer:totalEmpile } }),
+          largeurSemaine: ouverte ? { ratios:ouverte.ratios, futurs:ouverte.futurs } : undefined },
         scales:{ x:Object.assign(axeX(false), { stacked:true }),
                  y:{ stacked:true, beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } },
                  y1:Object.assign(axePct(100), { position:'right', grid:{ drawOnChartArea:false } }) } };
       dessiner('bar', data, opts);
-      noterPeriode(slot, semaines[0].debut, semaines[semaines.length-1].fin);
-      noter(tr('chartNoteLabo')(semaines.filter(w=>w.releves).length, sans));
+      noterPeriode(slot, semaines[0].debut, ouverte ? ouverte.derniere : semaines[semaines.length-1].fin);
+      noter(tr('chartNoteLabo')(semaines.filter(w=>w.releves).length, sans) + noteOuverte(ouverte));
       return;
     }
 
@@ -1844,128 +2030,6 @@ function renderOneChart(canvas, chartMode){
    Le sens commande la direction : « a venir » est le plus VIDE des deux —
    rien ne s'y est encore passe —, d'ou un aplat a 45 % et un cadre pointille.
    « Sans donnee » est plein et raye : quelque chose devrait s'y trouver. */
-const GRIS_MANQUE = () => ({
-  fond: PALETTE.bgAlt || '#efece5',
-  trait: PALETTE.line,
-  pointille: null,
-  hachure: true
-});
-const GRIS_A_VENIR = () => ({
-  fond: tint(PALETTE.bgAlt || '#efece5', 0.45),
-  trait: PALETTE.line,
-  pointille: [3, 3],
-  hachure: false
-});
-
-function hachureLegende(ctx){
-  const c = document.createElement('canvas');
-  c.width = c.height = 6;
-  const g = c.getContext('2d');
-  g.fillStyle = PALETTE.bgAlt || '#efece5';
-  g.fillRect(0, 0, 6, 6);
-  g.strokeStyle = PALETTE.line;
-  g.lineWidth = 1;
-  g.globalAlpha = 0.55;
-  g.beginPath(); g.moveTo(-1, 7); g.lineTo(7, -1); g.stroke();
-  return ctx.createPattern(c, 'repeat');
-}
-
-const largeurSemaine = {
-  id: 'largeurSemaine',
-  beforeDatasetsDraw(chart, args, opts){
-    const ratios = opts && opts.ratios;
-    if(!ratios) return;
-    chart.data.datasets.forEach((jeu, di) => {
-      if(jeu.type === 'line') return;
-      chart.getDatasetMeta(di).data.forEach((el, i) => {
-        const r = ratios[i] === undefined ? 1 : ratios[i];
-        if(r >= 0.999) return;          // periode complete : emprise inchangee
-        el.$largeurPleine = el.width;   // relue, jamais reprise d'un rendu passe
-        el.$centre = el.x;
-        el.width = el.$largeurPleine * r;
-        // colle la partie pleine au bord gauche de l'emprise de la periode
-        el.x = el.$centre - el.$largeurPleine / 2 + el.width / 2;
-      });
-    });
-  },
-  /* Le gris se dessine APRES les barres : pose avant, il passerait dessous et
-     les bordures blanches des segments empiles le mordraient. */
-  afterDatasetsDraw(chart, args, opts){
-    const ratios = opts && opts.ratios;
-    if(!ratios) return;
-    const futurs = (opts && opts.futurs) || [];
-    const ctx = chart.ctx, aire = chart.chartArea;
-    chart.getDatasetMeta(0).data.forEach((el, i) => {
-      const r = ratios[i] === undefined ? 1 : ratios[i];
-      if(r >= 0.999 || el.$largeurPleine === undefined) return;
-      const gauche = el.$centre - el.$largeurPleine / 2 + el.width;
-      const large = el.$largeurPleine - el.width;
-      /* Le gris s'arrete au sommet de la pile, pas en haut du cadre : il dit
-         quelle PART de cette semaine manque, pas qu'il manquerait quelque
-         chose jusqu'au plafond du graphique. Sur les parts empilees a 100 %
-         du graphique des deces par lieu, ce sommet est justement le haut du
-         cadre — la regle vaut donc pour les deux. */
-      let sommet = aire.bottom;
-      chart.data.datasets.forEach((jeu, di) => {
-        if(jeu.type === 'line') return;
-        const e = chart.getDatasetMeta(di).data[i];
-        if(e && e.y < sommet) sommet = e.y;
-      });
-      const hautBarre = aire.bottom - sommet;
-      if(hautBarre <= 0) return;
-
-      /* Un bloc gris, hachure ou non. Le trait d'encadrement est pose dans les
-         deux cas : c'est lui qui rend le gris uni visible sur fond blanc. */
-      const bloc = (x, w, style) => {
-        if(w <= 0.5) return;
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(x, sommet, w, hautBarre);
-        ctx.clip();                     // sans clip, les diagonales debordent
-        ctx.fillStyle = style.fond;
-        ctx.fillRect(x, sommet, w, hautBarre);
-        if(style.hachure){
-          ctx.strokeStyle = style.trait;
-          ctx.lineWidth = 1;
-          ctx.globalAlpha = 0.55;
-          ctx.beginPath();
-          for(let d = x - hautBarre; d < x + w; d += 8){
-            ctx.moveTo(d, aire.bottom);
-            ctx.lineTo(d + hautBarre, sommet);
-          }
-          ctx.stroke();
-        }
-        ctx.restore();
-        ctx.save();
-        ctx.strokeStyle = style.trait;
-        ctx.lineWidth = 1;
-        if(style.pointille) ctx.setLineDash(style.pointille);
-        ctx.strokeRect(x + 0.5, sommet + 0.5, w - 1, hautBarre - 1);
-        ctx.restore();
-      };
-
-      const largeFutur = Math.min(large, el.$largeurPleine * (futurs[i] || 0));
-      bloc(gauche, large - largeFutur, GRIS_MANQUE());
-      bloc(gauche + (large - largeFutur), largeFutur, GRIS_A_VENIR());
-    });
-
-    /* Les elements retrouvent leur emprise pleine, le dessin fini. Sans quoi
-       le rendu suivant retrecirait une largeur deja retrecie, et le survol —
-       qui redessine — verrait la barre fondre a chaque passage de souris.
-       C'est aussi ce qui rend la zone sensible egale a l'emprise du mois : on
-       survole la partie grisee et l'infobulle du mois repond. */
-    chart.data.datasets.forEach((jeu, di) => {
-      if(jeu.type === 'line') return;
-      chart.getDatasetMeta(di).data.forEach(el => {
-        if(el.$largeurPleine === undefined) return;
-        el.width = el.$largeurPleine;
-        el.x = el.$centre;
-        el.$largeurPleine = undefined;
-        el.$centre = undefined;
-      });
-    });
-  }
-};
 
   if(chartMode==='deathsPlace'){
     if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
@@ -2031,15 +2095,19 @@ const largeurSemaine = {
        Deux nuances d'un meme rouge, pas deux teintes etrangeres : ce sont tous
        des deces, seul le lieu change. Le plein revient a la communaute, la
        part qui alarme. */
-    /* Barres de largeur EGALE, depuis le 29 aout : la largeur variable
-       (plugin largeurSemaine, partie pleine au prorata des releves, gris
-       hachure pour les jours manquants, gris uni pour les jours a venir)
-       faisait grossir la derniere barre de bulletin en bulletin, et le
-       proprietaire ne voulait plus de ce mouvement. Ce que la largeur
-       encodait — les jours sans releve, la semaine en cours — passe dans la
-       note, en toutes lettres et en dates, et dans l'infobulle. */
+    /* Barres de largeur EGALE depuis le 29 aout : la partie pleine au prorata
+       des RELEVES et le gris hachure des jours sans releve faisaient grossir
+       la derniere barre de bulletin en bulletin, et le proprietaire ne
+       voulait plus de ce mouvement ; les jours sans releve sont dans la note.
+       Depuis le 4 septembre, la SEMAINE EN COURS recoit en revanche le gris
+       uni des jours a venir, au prorata du calendrier, comme tous les autres
+       graphiques hebdomadaires du site (demande du proprietaire). */
     const derniereLieu = DECES_LIEU.parDate
       .reduce((d, r) => (r.date > d ? r.date : d), DECES_LIEU.parDate[0].date);
+    const ouverteL = serie.length > 0 && serie[serie.length - 1].finSemaine > derniereLieu;
+    const ratiosL = ouverteL
+      ? serie.map((x, i) => i < serie.length - 1 ? 1 : nbJours(x.debut, derniereLieu) / nbJours(x.debut, x.finSemaine))
+      : null;
     const part = s => Math.round(s.comm / (s.comm + s.cte) * 1000) / 10;
     const data = {
       labels: serie.map(s => tr('chartWeekOf')(frDate(s.debut), frDate(s.finSemaine))),
@@ -2086,8 +2154,9 @@ const largeurSemaine = {
           titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
           callbacks: {
             title: items => {
-              const s = serie[items[0].dataIndex];
-              return tr('chartDeathPlaceWeekLabel')(frDate(s.debut), frDate(s.finSemaine))
+              const i = items[0].dataIndex, s = serie[i];
+              const enc = (ouverteL && i === serie.length - 1) ? ' · ' + tr('chartWeekOngoing')(frDate(derniereLieu)) : '';
+              return tr('chartDeathPlaceWeekLabel')(frDate(s.debut), frDate(s.finSemaine)) + enc
                    + ' · ' + tr('chartDeathPlaceWeekDays')(s.releves);
             },
             /* Les effectifs avec la part, toujours : 68 % sur 146 deces et
@@ -2102,7 +2171,11 @@ const largeurSemaine = {
         }
       }
     };
-    slot.chart = new Chart(canvas.getContext('2d'), { type: 'bar', data, options: opts });
+    if(ratiosL){
+      opts.plugins.largeurSemaine = { ratios: ratiosL, futurs: ratiosL.map(r => 1 - r) };
+      legendeAVenir(opts.plugins.legend);
+    }
+    slot.chart = new Chart(canvas.getContext('2d'), { type: 'bar', data, options: opts, plugins: [largeurSemaine] });
     slot.lastMode = 'deathsPlace';
     // Cette figure ne commence pas avec l'epidemie : les bulletins n'ont
     // distingue le lieu du deces qu'a partir du 13 juillet.
@@ -2141,7 +2214,10 @@ const largeurSemaine = {
       const derniereSem = serie[serie.length - 1];
       const enCours = (derniereSem && derniereSem.finSemaine > derniereLieu) ? derniereSem.releves : null;
       noteEl.textContent = tr('chartDeathPlaceNoteTemps')(
-        moyenne, serie.length, fmt(totalComm), fmt(totalCte), absents.length, liste, enCours);
+        moyenne, serie.length, fmt(totalComm), fmt(totalCte), absents.length, liste, enCours)
+        + (ouverteL ? ' ' + tr('chartWeekOngoingNote')(
+              tr('chartDeathPlaceWeekLabel')(frDate(derniereSem.debut), frDate(derniereSem.finSemaine)),
+              nbJours(derniereLieu, derniereSem.finSemaine) - 1) : '');
       noteEl.style.display = 'block';
     }
     return;
@@ -2564,7 +2640,10 @@ const largeurSemaine = {
       semaines.set(cle, w);
     });
     const derniere = hist[hist.length - 1].date;
-    const pleines = [...semaines.values()].filter(w => w.releves > 0 && w.fin <= derniere && Object.keys(w.valeurs).length)
+    /* La semaine en cours est gardee (4 septembre 2026), tracee comme sur
+       « Nouveaux cas » : emprise pleine, jours ecoules colores, jours a venir
+       grises par le plugin largeurSemaine. */
+    const pleines = [...semaines.values()].filter(w => w.releves > 0 && Object.keys(w.valeurs).length)
       .sort((a, b) => a.debut.localeCompare(b.debut));
     if(!pleines.length){ slot.lastMode = 'newCasesByProvince'; return; }
     const liste = [];
@@ -2573,6 +2652,10 @@ const largeurSemaine = {
       liste.push((w && w.releves > 0 && Object.keys(w.valeurs).length) ? w : { debut:cle, fin:dimancheDe(cle), releves:0, valeurs:{} });
       const d = new Date(cle + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + 7); cle = d.toISOString().slice(0, 10);
     }
+    const ouverte = liste[liste.length - 1].fin > derniere;
+    const ratiosP = ouverte
+      ? liste.map((w, i) => i < liste.length - 1 ? 1 : nbJours(w.debut, derniere) / nbJours(w.debut, w.fin))
+      : null;
     const totaux = liste.map(w => Object.values(w.valeurs).reduce((t, v) => t + v, 0));
     const valeur = (w, nom, i) => {
       if(!w.releves) return null;
@@ -2595,7 +2678,9 @@ const largeurSemaine = {
           titleColor:PALETTE.ink, bodyColor:PALETTE.ink, titleFont:{family:PALETTE.font}, bodyFont:{family:PALETTE.font},
           filter:(item) => item.parsed.y !== null && item.parsed.y !== 0,
           callbacks:{
-            title:(items) => { const w = liste[items[0].dataIndex]; return frDate(w.debut) + ' → ' + frDate(w.fin) + ' · ' + tr('releveCount')(w.releves); },
+            title:(items) => { const i = items[0].dataIndex, w = liste[i];
+              const enc = (ouverte && i === liste.length - 1) ? ' · ' + tr('chartWeekOngoing')(frDate(derniere)) : '';
+              return frDate(w.debut) + ' → ' + frDate(w.fin) + enc + ' · ' + tr('releveCount')(w.releves); },
             label:c => { const w = liste[c.dataIndex]; const brut = w.valeurs[c.dataset.label] || 0;
               return c.dataset.label + ' : ' + (vue === 'parts' ? fmtCfr(c.parsed.y) + ' (' + fmt(brut) + ')' : fmt(brut)); },
             footer:(items) => vue === 'parts' ? '' : totalEmpile(items) } } },
@@ -2603,11 +2688,20 @@ const largeurSemaine = {
                y: vue === 'parts'
                  ? { stacked:true, min:0, max:100, ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10}, callback:v=>v+'%' }, grid:{ color:PALETTE.lineSoft } }
                  : { stacked:true, beginAtZero:true, ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10}, callback:v=>fmt(v) }, grid:{ color:PALETTE.lineSoft } } } };
+    if(ratiosP){
+      opts.plugins.largeurSemaine = { ratios:ratiosP, futurs:ratiosP.map(r => 1 - r) };
+      legendeAVenir(opts.plugins.legend);
+    }
     if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
-    else { slot.chart = new Chart(canvas.getContext('2d'), { type:'bar', data, options:opts }); }
+    else { slot.chart = new Chart(canvas.getContext('2d'), { type:'bar', data, options:opts, plugins:[largeurSemaine] }); }
     slot.lastMode = 'newCasesByProvince';
-    noterPeriode(slot, liste[0].debut, liste[liste.length - 1].fin);
-    if(noteEl){ noteEl.textContent = tr('chartNoteNewCasesByProvince')(liste.filter(w => w.releves).length, rattrapages); noteEl.style.display = 'block'; }
+    noterPeriode(slot, liste[0].debut, ouverte ? derniere : liste[liste.length - 1].fin);
+    if(noteEl){
+      const w = liste[liste.length - 1];
+      noteEl.textContent = tr('chartNoteNewCasesByProvince')(liste.filter(x => x.releves).length, rattrapages)
+        + (ouverte ? ' ' + tr('chartWeekOngoingNote')(tr('chartDeathPlaceWeekLabel')(frDate(w.debut), frDate(w.fin)), nbJours(derniere, w.fin) - 1) : '');
+      noteEl.style.display = 'block';
+    }
     return;
   }
 
@@ -2815,14 +2909,15 @@ const largeurSemaine = {
     const derniereDate = s[s.length - 1].date;
     const enCours = toutes.length > 0 && toutes[toutes.length - 1].fin > derniereDate;
 
-    /* LA SEMAINE EN COURS RESTE MASQUEE, LE MOIS EN COURS EST TRACE. Ce qui
-       les separe est le rapport entre ce qu'on voit et ce qu'on attend : a un
-       jour sur sept, une semaine ne montre que 14 % d'elle-meme et sa barre ne
-       dit rien ; au 24 aout, le mois en montre 77 %, et l'effacer coutait plus
-       cher que l'afficher — trois barres pour quatre mois de donnees, la plus
-       recente etant justement celle qu'on vient chercher.
+    /* LA PERIODE EN COURS EST TRACEE, SEMAINE COMME MOIS. Jusqu'au
+       4 septembre 2026 la semaine en cours etait masquee (a un jour sur sept,
+       sa barre ne montrait que 14 % d'elle-meme et se lisait comme une chute)
+       et seul le mois en cours etait trace. Le proprietaire a demande la
+       semaine aussi, pour suivre l'epidemie au jour le jour : elle recoit le
+       meme traitement que le mois, et la note comme l'infobulle disent que la
+       barre est ouverte.
 
-       Reste a empecher la lecture fausse — « aout s'effondre » — qui avait
+       Ce qui empeche la lecture fausse — « aout s'effondre » — qui avait
        motive le masquage. La barre garde l'emprise pleine d'un mois, la part
        correspondant aux jours ecoules est coloree, les jours qui restent a
        courir sont gris hachures a droite : le vide se voit AVANT la hauteur.
@@ -2838,18 +2933,18 @@ const largeurSemaine = {
 
        Aucune date n'est ecrite : le mois cesse de lui-meme d'etre « en cours »
        au bulletin qui le termine, et sa barre se colore alors entierement. */
-    const moisEnCours = parMois && enCours;
-    const serie = (enCours && !parMois) ? toutes.slice(0, -1) : toutes;
+    const periodeEnCours = enCours;
+    const serie = toutes;
     /* Le decompte des periodes sous-estimees ne porte que sur les periodes
        CLOSES : le mois en cours n'a pas encore de total a declarer incomplet,
        et la phrase qui lui est propre s'en charge deja. */
-    const closes = moisEnCours ? serie.slice(0, -1) : serie;
+    const closes = periodeEnCours ? serie.slice(0, -1) : serie;
     const incompletes = closes.filter(p => p.releves < p.jours).length;
     /* Part du mois deja courue, sur ses jours de calendrier — et non sur les
        releves recus : ce que la partie grisee annonce, c'est du temps qui
        reste a venir, pas un bulletin qui manque. Un mois passe ampute d'un
        bulletin garde donc sa pleine largeur, son total etant definitif. */
-    const ratios = moisEnCours
+    const ratios = periodeEnCours
       ? serie.map((p, i) => i < serie.length - 1
                     ? 1
                     : nbJours(p.debut, derniereDate) / nbJours(p.debut, p.fin))
@@ -2876,8 +2971,8 @@ const largeurSemaine = {
                             : tr('chartDeathPlaceWeekLabel')(frDate(p.debut), frDate(p.fin));
       /* « 24 releves sur 24 » se lirait comme un mois complet : l'infobulle
          du mois en cours annonce d'abord qu'il l'est. */
-      const encours = moisEnCours && i === serie.length - 1
-                    ? ' · ' + tr('chartMonthOngoing')(frDate(derniereDate)) : '';
+      const encours = periodeEnCours && i === serie.length - 1
+                    ? ' · ' + tr(parMois ? 'chartMonthOngoing' : 'chartWeekOngoing')(frDate(derniereDate)) : '';
       return titre + encours + ' · ' + tr('chartPeriodDays')(p.releves, p.jours);
     };
     /* Une entree de legende sans jeu de donnees derriere : la bande grisee du
@@ -2893,7 +2988,7 @@ const largeurSemaine = {
 
        Elle n'apparait qu'avec la bande qu'elle explique : une legende qui
        nomme une couleur absente du trace est pire que pas de legende. */
-    if(moisEnCours){
+    if(periodeEnCours){
       optsN.plugins.legend.labels.generateLabels = chart => {
         const base = Chart.defaults.plugins.legend.labels.generateLabels(chart);
         base.push({
@@ -2917,11 +3012,11 @@ const largeurSemaine = {
       { type: 'bar', data: dataP, options: optsN,
         plugins: ratios ? [largeurSemaine] : [] });
     slot.lastMode = chartMode + '-' + periode;
-    /* La periode s'arrete au dernier dimanche revolu en vue hebdomadaire. En
-       vue mensuelle elle s'arrete au dernier bulletin, et non au 31 du mois en
-       cours : la barre couvre le mois entier, les donnees non. */
+    /* La periode s'arrete au dernier bulletin quand la derniere barre est
+       ouverte, et non au dimanche ou au 31 : la barre couvre la periode
+       entiere, les donnees non. */
     noterPeriode(slot, serie.length ? serie[0].debut : null,
-                       serie.length ? (moisEnCours ? derniereDate
+                       serie.length ? (periodeEnCours ? derniereDate
                                                    : serie[serie.length - 1].fin) : null);
     if(noteEl){
       const cle = deces ? (parMois ? 'chartMonthlyDeathsNote' : 'chartWeeklyDeathsNote')
@@ -2929,13 +3024,13 @@ const largeurSemaine = {
       /* En vue mensuelle, « enCours » ne vaut plus « une periode est cachee »
          mais « voici celle qui est encore ouverte » : la note la nomme et
          chiffre les jours grises, qui se recalculent au jour le jour. */
-      const ouvert = moisEnCours
-        ? { nom: moisAnnee(serie[serie.length - 1].debut),
+      const ouvert = periodeEnCours
+        ? { nom: parMois ? moisAnnee(serie[serie.length - 1].debut)
+                         : tr('chartDeathPlaceWeekLabel')(frDate(serie[serie.length - 1].debut), frDate(serie[serie.length - 1].fin)),
             jusqua: frDate(derniereDate),
             restants: nbJours(derniereDate, serie[serie.length - 1].fin) - 1 }
         : null;
-      noteEl.textContent = tr(cle)(closes.length, incompletes, absentes,
-                                   parMois ? ouvert : enCours, muets);
+      noteEl.textContent = tr(cle)(closes.length, incompletes, absentes, ouvert, muets);
       noteEl.style.display = 'block';
     }
     return;

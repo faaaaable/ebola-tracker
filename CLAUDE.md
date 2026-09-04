@@ -1356,7 +1356,12 @@ reste là pour le détail. Piège rencontré en le faisant : `GRIS_MANQUE`,
 définis SANS indentation mais À L'INTÉRIEUR de `renderOneChart`, après le
 bloc Riposte — « Cannot access 'largeurSemaine' before initialization » dès
 que Riposte les appelait ; remontés au niveau du fichier, avant la fonction.
-Intégré en local le 4 septembre, non publié à cette date.
+Le lieu du décès reçoit lui aussi le gris des jours à venir sur sa semaine
+en cours (au prorata du calendrier, PAS des relevés : les barres restent
+égales, décision du 29 août intacte), et les points des courbes — positivité
+du laboratoire, moyenne du lieu du décès — suivent la partie colorée de la
+barre ouverte au lieu du centre de l'emprise entière (second passage du
+plugin sur les jeux `line`). Publié le 4 septembre.
 
 **Le MOIS en cours, lui, est trace — depuis le 26 aout.** Il l'etait sous la
 meme regle jusque-la, et le prix etait trop haut : trois barres pour quatre

@@ -33,14 +33,19 @@ const loaded = new Promise(r => cdp.on(m => { if(m.method==='Page.loadEventFired
 await cdp.send('Page.navigate',{url:URL_PAGE},sessionId);
 await loaded; await sleep(2500);
 // Clic optionnel sur un sous-onglet avant la capture.
+// Le quatrieme argument est un data-mode, ou un selecteur CSS quelconque s'il
+// commence par [ . ou # ; le cinquieme, le data-chart du canevas a capturer
+// (par defaut le premier de la page).
 const MODE = process.argv[5];
+const CHART = process.argv[6];
 if(MODE){
+  const sel = /^[\[.#]/.test(MODE) ? MODE : `[data-mode="${MODE}"]`;
   await cdp.send('Runtime.evaluate',{expression:
-    `(()=>{const b=document.querySelector('[data-mode="${MODE}"]'); if(b) b.click();})()`},sessionId);
+    `(()=>{const b=document.querySelector(${JSON.stringify(sel)}); if(b) b.click();})()`},sessionId);
   await sleep(1500);
 }
 const r = await cdp.send('Runtime.evaluate',{expression:`(()=>{
-  const c=document.querySelector('canvas[data-chart]');
+  const c=document.querySelector(${JSON.stringify(CHART ? `canvas[data-chart="${CHART}"]` : 'canvas[data-chart]')});
   const ch=c && Chart.getChart(c);
   if(!ch) return JSON.stringify({erreur:'aucun graphique'});
   // Fige l'animation et redessine d'un coup : sinon la capture attrape un

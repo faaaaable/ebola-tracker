@@ -45,6 +45,8 @@ const I18N = {
     chartVueMonthly:"Par mois",
     chartPeriodDays:(n,total)=>`${n} relevé${n>1?'s':''} sur ${total}`,
     chartMonthOngoing:(date)=>`mois en cours, arrêté au ${date}`,
+    chartWeekOngoing:(date)=>`semaine en cours, arrêtée au ${date}`,
+    chartWeekOngoingNote:(nom,restants)=>`La semaine en cours, ${nom}, n'est pas terminée : sa barre couvre la semaine entière, mais seuls les jours écoulés sont colorés — ${restants > 1 ? `les ${restants} qui restent sont grisés` : `celui qui reste est grisé`} à droite, et sa hauteur montera encore.`,
     chartStackTotal:(n)=>`Total : ${n}`,
     chartDaysToCome:"Jours à venir",
     chartDailyNote:(absentes)=>`Nouveaux cas de chaque bulletin, calculés comme l'écart avec le bulletin précédent. `
@@ -66,7 +68,7 @@ const I18N = {
       + `faute de chiffre, ces deux journées sont affichées en entier dans la teinte claire. `
       + `Un décès n'entre dans la série qu'une fois confirmé — ceux survenus en communauté le sont souvent avec plusieurs jours de retard.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`Nouveaux décès agrégés par semaine calendaire, du lundi au dimanche. `
-      + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. ` : '')
+      + (enCours ? `La semaine en cours, ${enCours.nom}, n'est pas terminée : sa barre couvre la semaine entière, mais seuls les jours écoulés sont colorés — ${enCours.restants > 1 ? `les ${enCours.restants} qui restent sont grisés` : `celui qui reste est grisé`} à droite, et sa hauteur montera encore. ` : '')
       + `${absentes.length} bulletins manquent : les totaux sont des minimums. La vue « par jour » liste les dates. `
       + (muets.length ? `${muets.length > 1 ? `Les bulletins des ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} ne donnent` : `Le bulletin du ${muets[0]} ne donne`} aucun total de décès. ` : '')
       + `En juillet, deux journées de rattrapage sont affichées en entier, la part du jour n'étant pas publiée pour les décès : celle du 22 reste en teinte claire, faute de période déclarée ; celle du 30 rattrape les 28 et 29, que sa semaine contient. `
@@ -78,7 +80,7 @@ const I18N = {
       + `En juillet, deux journées de rattrapage sont affichées en entier, la part du jour n'étant pas publiée pour les décès : celle du 22 reste en teinte claire, faute de période déclarée ; celle du 30 rattrape les 28 et 29, que le mois contient. `
       + `Un décès n'entre dans la série qu'une fois confirmé, souvent avec plusieurs jours de retard quand il est survenu en communauté.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Nouveaux cas agrégés par semaine calendaire, du lundi au dimanche. `
-      + (enCours ? `La semaine en cours n'apparaît qu'une fois terminée : incomplète, sa barre se lirait comme une baisse. ` : '')
+      + (enCours ? `La semaine en cours, ${enCours.nom}, n'est pas terminée : sa barre couvre la semaine entière, mais seuls les jours écoulés sont colorés — ${enCours.restants > 1 ? `les ${enCours.restants} qui restent sont grisés` : `celui qui reste est grisé`} à droite, et sa hauteur montera encore. ` : '')
       + `${absentes.length} bulletins manquent : les totaux sont des minimums. La vue « par jour » liste les dates. `
       + `En juillet, seul le rattrapage du 22 garde sa teinte claire — le bulletin ne dit pas quelle période il harmonise ; celui du 30 rattrape les 28 et 29, que sa semaine contient.`,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`Nouveaux cas agrégés par mois calendaire. `
@@ -104,20 +106,19 @@ const I18N = {
     cteEnsembleLabel:"Toutes provinces",
     releveCount:(n)=>`${n} relevé${n>1?'s':''}`,
     chartWeekOf:(debut,fin)=>[debut,'→ '+fin],
-    chartNoteAlertesVolume:(semaines,sans)=>`Alertes reçues par les équipes de surveillance, additionnées par semaine calendaire, du lundi au dimanche, sur ${semaines} semaines. La part sombre est validée comme cas suspect après vérification. La semaine en cours n'apparaît qu'une fois terminée. `
+    chartNoteAlertesVolume:(semaines,sans)=>`Alertes reçues par les équipes de surveillance, additionnées par semaine calendaire, du lundi au dimanche, sur ${semaines} semaines. La part sombre est validée comme cas suspect après vérification. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas ce tableau : leurs journées manquent aux totaux, qui sont des minimums. ` : '')
       + `Jusqu'à début août, les alertes vérifiées et validées comptent aussi celles de la veille ; depuis, elles ne portent que sur la journée.`,
     chartNoteAlertesTaux:()=>`Part des alertes reçues qui ont été vérifiées, et part validée comme cas suspect, jour par jour. Une part validée qui monte peut dire que les alertes sont mieux ciblées — ou qu'il y a plus de malades. Jusqu'à début août, vérifiées et validées comptent aussi les alertes de la veille : la part peut alors dépasser 100 %.`,
     chartNoteLabo:(semaines,sans)=>`Échantillons analysés par semaine calendaire, positifs en couleur pleine, et positivité de la semaine — positifs sur analysés — sur l'axe de droite. Un positif n'est pas toujours un nouveau cas : les bulletins récents séparent les reprélèvements, les anciens non. `
-      + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas à la fois les échantillons et les positifs : leurs journées manquent aux totaux, qui sont des minimums. ` : '')
-      + `La semaine en cours n'apparaît qu'une fois terminée.`,
+      + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas à la fois les échantillons et les positifs : leurs journées manquent aux totaux, qui sont des minimums. ` : ''),
     chartNoteContactsNational:(seuil)=>`Part des contacts listés vus dans les dernières 24 heures, et, en barres claires sur l'axe de droite, le nombre de contacts à suivre ce jour-là. L'INSP retient un seuil de ${seuil} % depuis août ; l'OMS fixait une cible de 95 %. Ni l'un ni l'autre n'est tracé : une ligne au-dessus d'une courbe qui plafonne n'ouvre qu'une bande vide. Pointillés : jours sans bulletin, tracé purement illustratif.`,
     chartNoteContactsProvinces:()=>`La même part, province par province, les jours où le bulletin la détaille. Une province à 100 % suit souvent quelques dizaines de contacts ; l'Ituri en suit plus de dix mille. Pointillés : jours sans détail par province, tracé purement illustratif — jamais une valeur.`,
     chartNoteCte:(seuilLits)=>`Patients hospitalisés — confirmés et suspects — rapportés aux lits que le bulletin déclare, province par province. Jusqu'à début août le taux est recalculé depuis un tableau de patients et de lits ; depuis, c'est celui que le bulletin imprime. Au-dessus de 100 %, des malades sont installés hors des lits prévus. Les provinces de moins de ${seuilLits} lits ne sont pas tracées : un taux n'y veut rien dire. Pointillés : trous de cinq jours au plus, tracé purement illustratif ; les trous plus longs restent ouverts, le nombre de lits ayant pu changer entre-temps.`,
     chartModeByProvince:"Cas par province",
     chartModeNewCasesByProvince:"Nouveaux cas par province",
     chartVueCas:"Cas",
-    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Nouveaux cas confirmés par semaine calendaire, du lundi au dimanche, empilés par province, sur ${semaines} semaines. La semaine en cours n'apparaît qu'une fois terminée. En parts, chaque semaine est ramenée à 100 % : on lit d'où viennent les cas, pas combien il y en a. `
+    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Nouveaux cas confirmés par semaine calendaire, du lundi au dimanche, empilés par province, sur ${semaines} semaines. En parts, chaque semaine est ramenée à 100 % : on lit d'où viennent les cas, pas combien il y en a. `
       + (rattrapages.length ? `Les rattrapages administratifs des 22 et 30 juillet sont comptés dans leur semaine (${rattrapages.join(', ')}), leur province étant connue mais pas leur journée. ` : '')
       + `Les jours sans bulletin sont comptés par le bulletin suivant.`,
     chartModeSexes:"Cas et décès par sexe",
@@ -325,6 +326,8 @@ const I18N = {
     chartVueMonthly:"Monthly",
     chartPeriodDays:(n,total)=>`${n} report${n>1?'s':''} of ${total}`,
     chartMonthOngoing:(date)=>`month in progress, data to ${date}`,
+    chartWeekOngoing:(date)=>`week in progress, data to ${date}`,
+    chartWeekOngoingNote:(nom,restants)=>`The current week, ${nom}, is not over: its bar spans the whole week, but only the elapsed days are coloured — the ${restants > 1 ? `${restants} remaining are` : `remaining one is`} greyed out on the right, and its height will still rise.`,
     chartStackTotal:(n)=>`Total: ${n}`,
     chartDaysToCome:"Days to come",
     chartDailyNote:(absentes)=>`New cases from each bulletin, computed as the difference with the previous one. `
@@ -346,7 +349,7 @@ const I18N = {
       + `with no figure to go on, those two days are shown entirely in the lighter shade. `
       + `A death only enters the series once confirmed — those occurring in the community often are, several days late.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`New deaths aggregated by calendar week, Monday to Sunday. `
-      + (enCours ? `The current week only appears once complete: unfinished, its bar would read as a decline. ` : '')
+      + (enCours ? `The current week, ${enCours.nom}, is not over: its bar spans the whole week, but only the elapsed days are coloured — the ${enCours.restants > 1 ? `${enCours.restants} remaining are` : `remaining one is`} greyed out on the right, and its height will still rise. ` : '')
       + `${absentes.length} bulletins are missing: the totals are minimums. The daily view lists the dates. `
       + (muets.length ? `${muets.length > 1 ? `The bulletins of ${muets.slice(0,-1).join(', ')} and ${muets[muets.length-1]} give` : `The bulletin of ${muets[0]} gives`} no death total. ` : '')
       + `In July, two catch-up days are shown in full, the day's share not being published for deaths: that of the 22nd stays in the lighter shade, for want of a stated period; that of the 30th makes up for the 28th and 29th, which its week contains. `
@@ -358,7 +361,7 @@ const I18N = {
       + `In July, two catch-up days are shown in full, the day's share not being published for deaths: that of the 22nd stays in the lighter shade, for want of a stated period; that of the 30th makes up for the 28th and 29th, which the month contains. `
       + `A death only enters the series once confirmed, often several days late when it occurred in the community.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`New cases aggregated by calendar week, Monday to Sunday. `
-      + (enCours ? `The current week only appears once complete: unfinished, its bar would read as a decline. ` : '')
+      + (enCours ? `The current week, ${enCours.nom}, is not over: its bar spans the whole week, but only the elapsed days are coloured — the ${enCours.restants > 1 ? `${enCours.restants} remaining are` : `remaining one is`} greyed out on the right, and its height will still rise. ` : '')
       + `${absentes.length} bulletins are missing: the totals are minimums. The daily view lists the dates. `
       + `In July, only the catch-up of the 22nd keeps its lighter shade — the bulletin does not say which period it reconciles; that of the 30th makes up for the 28th and 29th, which its week contains.`,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`New cases aggregated by calendar month. `
@@ -384,20 +387,19 @@ const I18N = {
     cteEnsembleLabel:"All provinces",
     releveCount:(n)=>`${n} report${n>1?'s':''}`,
     chartWeekOf:(debut,fin)=>[debut,'→ '+fin],
-    chartNoteAlertesVolume:(semaines,sans)=>`Alerts received by surveillance teams, summed by calendar week, Monday to Sunday, over ${semaines} weeks. The dark share was validated as a suspected case after verification. The current week appears only once complete. `
+    chartNoteAlertesVolume:(semaines,sans)=>`Alerts received by surveillance teams, summed by calendar week, Monday to Sunday, over ${semaines} weeks. The dark share was validated as a suspected case after verification. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} do not give this table: their days are missing from the totals, which are minimums. ` : '')
       + `Until early August, verified and validated alerts also count those carried over from the day before; since then they add up day by day.`,
     chartNoteAlertesTaux:()=>`Share of alerts received that were verified, and share validated as suspected cases, day by day. A rising validated share may mean alerts are better targeted — or that there are more patients. Until early August, verified and validated also count alerts carried over from the day before: the share can then exceed 100%.`,
     chartNoteLabo:(semaines,sans)=>`Samples tested per calendar week, positives in full colour, and the week's positivity — positives over tested — on the right axis. A positive is not always a new case: recent bulletins separate repeat samples, older ones do not. `
-      + (sans ? `${sans} bulletin${sans>1?'s':''} do not give both samples and positives: their days are missing from the totals, which are minimums. ` : '')
-      + `The current week appears only once complete.`,
+      + (sans ? `${sans} bulletin${sans>1?'s':''} do not give both samples and positives: their days are missing from the totals, which are minimums. ` : ''),
     chartNoteContactsNational:(seuil)=>`Share of listed contacts seen in the previous 24 hours and, as light bars on the right axis, the number of contacts to follow that day. The INSP has used a ${seuil}% threshold since August; WHO set a 95% target. Neither is drawn: a line above a curve that plateaus only opens an empty band. Dashed segments: days without a bulletin, purely illustrative.`,
     chartNoteContactsProvinces:()=>`The same share, province by province, on the days the bulletin details it. A province at 100% often follows a few dozen contacts; Ituri follows more than ten thousand. Dashed segments: days without a breakdown by province, purely illustrative — never a value.`,
     chartNoteCte:(seuilLits)=>`Hospitalised patients — confirmed and suspected — relative to the beds the bulletin declares, province by province. Until early August the rate is recalculated from a table of patients and beds; since then it is the one the bulletin prints. Above 100%, patients are placed outside the planned beds. Provinces with fewer than ${seuilLits} beds are not drawn: a rate means nothing there. Dashed segments: gaps of five days or fewer, purely illustrative; longer gaps stay open, as the number of beds may have changed in between.`,
     chartModeByProvince:"Cases by province",
     chartModeNewCasesByProvince:"New cases by province",
     chartVueCas:"Cases",
-    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`New confirmed cases per calendar week, Monday to Sunday, stacked by province, over ${semaines} weeks. The current week appears only once complete. As shares, each week is scaled to 100%: you read where cases come from, not how many there are. `
+    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`New confirmed cases per calendar week, Monday to Sunday, stacked by province, over ${semaines} weeks. As shares, each week is scaled to 100%: you read where cases come from, not how many there are. `
       + (rattrapages.length ? `The administrative catch-ups of 22 and 30 July are counted in their week (${rattrapages.join(', ')}), their province being known but not their day. ` : '')
       + `Days without a bulletin are counted by the next one.`,
     chartModeSexes:"Cases and deaths by sex",
@@ -603,6 +605,8 @@ const I18N = {
     chartVueMonthly:"Kwa mwezi",
     chartPeriodDays:(n,total)=>`ripoti ${n} kati ya ${total}`,
     chartMonthOngoing:(date)=>`mwezi unaoendelea, data hadi ${date}`,
+    chartWeekOngoing:(date)=>`wiki inayoendelea, data hadi ${date}`,
+    chartWeekOngoingNote:(nom,restants)=>`Wiki inayoendelea, ${nom}, haijaisha: safu yake inashughulikia wiki nzima, lakini siku zilizopita pekee ndizo zenye rangi — ${restants} zilizobaki zimetiwa kijivu kulia, na urefu wake bado utapanda.`,
     chartStackTotal:(n)=>`Jumla: ${n}`,
     chartDaysToCome:"Siku zijazo",
     chartDailyNote:(absentes)=>`Visa vipya vya kila ripoti, vikihesabiwa kama tofauti na ripoti iliyotangulia. `
@@ -624,7 +628,7 @@ const I18N = {
       + `bila takwimu, siku hizo mbili zinaonyeshwa nzima kwa rangi hafifu. `
       + `Kifo kinaingia kwenye mfululizo tu baada ya kuthibitishwa — vile vilivyotokea jamiini mara nyingi huchelewa siku kadhaa.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`Vifo vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
-      + (enCours ? `Wiki inayoendelea inaonekana tu ikiisha: bila kukamilika, safu yake ingesomeka kama kupungua. ` : '')
+      + (enCours ? `Wiki inayoendelea, ${enCours.nom}, haijaisha: safu yake inashughulikia wiki nzima, lakini siku zilizopita pekee ndizo zenye rangi — ${enCours.restants} zilizobaki zimetiwa kijivu kulia, na urefu wake bado utapanda. ` : '')
       + `Ripoti ${absentes.length} hazipo: jumla ni kima cha chini. Mwonekano wa kila siku unaorodhesha tarehe. `
       + (muets.length ? `${muets.length > 1 ? `Ripoti za ${muets.slice(0,-1).join(', ')} na ${muets[muets.length-1]} hazitoi` : `Ripoti ya ${muets[0]} haitoi`} jumla ya vifo. ` : '')
       + `Julai, siku mbili za marekebisho zinaonyeshwa nzima, kwa kuwa sehemu ya siku haijachapishwa kwa vifo: ile ya tarehe 22 inabaki kwa rangi hafifu, kwa kukosa kipindi kilichotajwa; ile ya tarehe 30 inafidia tarehe 28 na 29, ambazo wiki yake inazibeba. `
@@ -636,7 +640,7 @@ const I18N = {
       + `Julai, siku mbili za marekebisho zinaonyeshwa nzima, kwa kuwa sehemu ya siku haijachapishwa kwa vifo: ile ya tarehe 22 inabaki kwa rangi hafifu, kwa kukosa kipindi kilichotajwa; ile ya tarehe 30 inafidia tarehe 28 na 29, ambazo mwezi unazibeba. `
       + `Kifo kinaingia kwenye mfululizo tu baada ya kuthibitishwa, mara nyingi kwa kuchelewa kikitokea jamiini.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Visa vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
-      + (enCours ? `Wiki inayoendelea inaonekana tu ikiisha: bila kukamilika, safu yake ingesomeka kama kupungua. ` : '')
+      + (enCours ? `Wiki inayoendelea, ${enCours.nom}, haijaisha: safu yake inashughulikia wiki nzima, lakini siku zilizopita pekee ndizo zenye rangi — ${enCours.restants} zilizobaki zimetiwa kijivu kulia, na urefu wake bado utapanda. ` : '')
       + `Ripoti ${absentes.length} hazipo: jumla ni kima cha chini. Mwonekano wa kila siku unaorodhesha tarehe. `
       + `Julai, ni marekebisho ya tarehe 22 pekee yanayobaki na rangi hafifu — ripoti haisemi ni kipindi gani yanasawazisha; yale ya tarehe 30 yanafidia tarehe 28 na 29, ambazo wiki yake inazibeba.`,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`Visa vipya vimekusanywa kwa mwezi wa kalenda. `
@@ -662,20 +666,19 @@ const I18N = {
     cteEnsembleLabel:"Majimbo yote",
     releveCount:(n)=>`Ripoti ${n}`,
     chartWeekOf:(debut,fin)=>[debut,'→ '+fin],
-    chartNoteAlertesVolume:(semaines,sans)=>`Tahadhari zilizopokelewa na timu za ufuatiliaji, zikijumlishwa kwa wiki ya kalenda, Jumatatu hadi Jumapili, kwa wiki ${semaines}. Sehemu nyeusi ilithibitishwa kama kisa kinachoshukiwa baada ya uhakiki. Wiki inayoendelea huonekana tu ikikamilika. `
+    chartNoteAlertesVolume:(semaines,sans)=>`Tahadhari zilizopokelewa na timu za ufuatiliaji, zikijumlishwa kwa wiki ya kalenda, Jumatatu hadi Jumapili, kwa wiki ${semaines}. Sehemu nyeusi ilithibitishwa kama kisa kinachoshukiwa baada ya uhakiki. `
       + (sans ? `Ripoti ${sans} hazitoi jedwali hili: siku zake hazimo kwenye jumla, ambazo ni viwango vya chini. ` : '')
       + `Hadi mwanzoni mwa Agosti, tahadhari zilizohakikiwa na kuthibitishwa zinahesabu pia zile za siku iliyotangulia; tangu wakati huo zinajumlishwa siku kwa siku.`,
     chartNoteAlertesTaux:()=>`Sehemu ya tahadhari zilizopokelewa ambazo zilihakikiwa, na sehemu iliyothibitishwa kama visa vinavyoshukiwa, siku kwa siku. Sehemu iliyothibitishwa inayopanda inaweza kumaanisha tahadhari zinalengwa vizuri zaidi — au kuna wagonjwa zaidi. Hadi mwanzoni mwa Agosti, zilizohakikiwa na kuthibitishwa zinahesabu pia tahadhari za siku iliyotangulia: sehemu inaweza kuzidi 100%.`,
     chartNoteLabo:(semaines,sans)=>`Sampuli zilizopimwa kwa wiki ya kalenda, chanya kwa rangi kamili, na kiwango cha chanya cha wiki — chanya kwa zilizopimwa — kwenye mhimili wa kulia. Chanya si mara zote kisa kipya: ripoti za hivi karibuni hutenganisha sampuli za kurudia, za zamani hazitenganishi. `
-      + (sans ? `Ripoti ${sans} hazitoi sampuli na chanya kwa pamoja: siku zake hazimo kwenye jumla, ambazo ni viwango vya chini. ` : '')
-      + `Wiki inayoendelea huonekana tu ikikamilika.`,
+      + (sans ? `Ripoti ${sans} hazitoi sampuli na chanya kwa pamoja: siku zake hazimo kwenye jumla, ambazo ni viwango vya chini. ` : ''),
     chartNoteContactsNational:(seuil)=>`Sehemu ya walioguswa walioorodheshwa walioonwa katika saa 24 zilizopita na, kama pau nyepesi kwenye mhimili wa kulia, idadi ya walioguswa wa kufuatiliwa siku hiyo. INSP inatumia kiwango cha ${seuil}% tangu Agosti; WHO iliweka lengo la 95%. Hakuna kinachochorwa: mstari juu ya mkondo unaosimama hufungua tu nafasi tupu. Nukta: siku zisizo na ripoti, mchoro wa kuonyesha tu.`,
     chartNoteContactsProvinces:()=>`Sehemu ile ile, jimbo kwa jimbo, siku ambazo ripoti inaielezea. Jimbo lenye 100% mara nyingi hufuatilia walioguswa makumi machache; Ituri inafuatilia zaidi ya elfu kumi. Nukta: siku zisizo na mgawanyo kwa jimbo, mchoro wa kuonyesha tu — kamwe si thamani.`,
     chartNoteCte:(seuilLits)=>`Wagonjwa waliolazwa — waliothibitishwa na wanaoshukiwa — ikilinganishwa na vitanda ambavyo ripoti inatangaza, jimbo kwa jimbo. Hadi mwanzoni mwa Agosti kiwango kinahesabiwa upya kutoka jedwali la wagonjwa na vitanda; tangu wakati huo ni kile ripoti inachapisha. Zaidi ya 100%, wagonjwa wanawekwa nje ya vitanda vilivyopangwa. Majimbo yenye vitanda chini ya ${seuilLits} hayachorwi: kiwango hakina maana hapo. Nukta: mapengo ya siku tano au chini, mchoro wa kuonyesha tu; mapengo marefu hubaki wazi, kwani idadi ya vitanda inaweza kuwa imebadilika.`,
     chartModeByProvince:"Visa kwa jimbo",
     chartModeNewCasesByProvince:"Visa vipya kwa jimbo",
     chartVueCas:"Visa",
-    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Visa vipya vilivyothibitishwa kwa wiki ya kalenda, Jumatatu hadi Jumapili, vikipangwa kwa jimbo, kwa wiki ${semaines}. Wiki inayoendelea huonekana tu ikikamilika. Kama sehemu, kila wiki hurejeshwa hadi 100%: unasoma visa vinatoka wapi, si vingapi. `
+    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Visa vipya vilivyothibitishwa kwa wiki ya kalenda, Jumatatu hadi Jumapili, vikipangwa kwa jimbo, kwa wiki ${semaines}. Kama sehemu, kila wiki hurejeshwa hadi 100%: unasoma visa vinatoka wapi, si vingapi. `
       + (rattrapages.length ? `Marekebisho ya kiutawala ya 22 na 30 Julai yanahesabiwa katika wiki yao (${rattrapages.join(', ')}), jimbo lao likijulikana lakini si siku yao. ` : '')
       + `Siku zisizo na ripoti zinahesabiwa na ripoti inayofuata.`,
     chartModeSexes:"Visa na vifo kwa jinsia",
