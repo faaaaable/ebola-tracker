@@ -1,5 +1,5 @@
   <section class="section">
-    <h1 class="page-title">{{meta.h1}}</h1>
+    <h1 class="page-title mb-titre">{{meta.h1}}</h1>
     <p class="lede">{{t.virusIntro}}</p>
 
     <div class="figure-band">
@@ -20,9 +20,70 @@
         <div class="fb-label">{{t.virusStat4Label}}</div>
       </div>
     </div>
+
+    <nav class="riposte-ancres" aria-label="{{t.virusAnchorsLabel}}">
+      <a href="#espece">{{t.virusAncreEspece}}</a>
+      <a href="#transmission">{{t.virusAncreTransmission}}</a>
+      <a href="#incubation">{{t.virusAncreIncubation}}</a>
+      <a href="#evolution">{{t.virusAncreEvolution}}</a>
+      <a href="#traitements">{{t.virusAncreTraitements}}</a>
+      <a href="#ages">{{t.virusAncreAges}}</a>
+      <a href="#genomes">{{t.virusAncreGenomes}}</a>
+    </nav>
   </section>
 
-  <section class="section section-split">
+  <section class="section section-split" id="espece">
+    <h2 class="section-title">{{t.virusHistoryTitle}}</h2>
+    <div class="prose">
+      {{t.virusHistoryBody}}
+    </div>
+  </section>
+
+  <section class="section section-split" id="transmission">
+    <h2 class="section-title">{{t.virusTransmissionTitle}}</h2>
+    <div>
+      <ul class="vlist">
+        <li>{{t.virusTransmissionLi1}}</li>
+        <li>{{t.virusTransmissionLi2}}</li>
+        <li>{{t.virusTransmissionLi3}}</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-split" id="incubation">
+    <h2 class="section-title">{{t.virusIncubTitle}}</h2>
+    <div>
+      <div class="incub">
+        <div class="incub-scale" aria-hidden="true">
+          <div class="incub-window"></div>
+        </div>
+        <div class="incub-marks">
+          <span>{{t.virusIncubMin}}</span>
+          <span class="is-avg">{{t.virusIncubAvg}}</span>
+          <span>{{t.virusIncubMax}}</span>
+        </div>
+      </div>
+      <p class="page-intro" style="margin-top:16px;">{{t.virusIncubNote}}</p>
+    </div>
+  </section>
+
+  <section class="section section-split" id="evolution">
+    <h2 class="section-title">{{t.virusPhasesTitle}}</h2>
+    <div>
+      <div class="vphases">
+        <div class="vphase vphase-dry">
+          <div class="vphase-tag">{{t.vphaseDryTag}}</div>
+          <p>{{t.vphaseDryText}}</p>
+        </div>
+        <div class="vphase vphase-wet">
+          <div class="vphase-tag">{{t.vphaseWetTag}}</div>
+          <p>{{t.vphaseWetText}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-split" id="traitements">
     <h2 class="section-title">{{t.virusCompareTitle}}</h2>
     <div>
       <p class="page-intro">{{t.virusCompareIntro}}</p>
@@ -72,50 +133,6 @@
     </div>
   </section>
 
-  <section class="section section-split">
-    <h2 class="section-title">{{t.virusTransmissionTitle}}</h2>
-    <div>
-      <ul class="vlist">
-        <li>{{t.virusTransmissionLi1}}</li>
-        <li>{{t.virusTransmissionLi2}}</li>
-        <li>{{t.virusTransmissionLi3}}</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section section-split">
-    <h2 class="section-title">{{t.virusIncubTitle}}</h2>
-    <div>
-      <div class="incub">
-        <div class="incub-scale" aria-hidden="true">
-          <div class="incub-window"></div>
-        </div>
-        <div class="incub-marks">
-          <span>{{t.virusIncubMin}}</span>
-          <span class="is-avg">{{t.virusIncubAvg}}</span>
-          <span>{{t.virusIncubMax}}</span>
-        </div>
-      </div>
-      <p class="page-intro" style="margin-top:16px;">{{t.virusIncubNote}}</p>
-    </div>
-  </section>
-
-  <section class="section section-split">
-    <h2 class="section-title">{{t.virusPhasesTitle}}</h2>
-    <div>
-      <div class="vphases">
-        <div class="vphase vphase-dry">
-          <div class="vphase-tag">{{t.vphaseDryTag}}</div>
-          <p>{{t.vphaseDryText}}</p>
-        </div>
-        <div class="vphase vphase-wet">
-          <div class="vphase-tag">{{t.vphaseWetTag}}</div>
-          <p>{{t.vphaseWetText}}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="section section-split" id="ages">
     <h2 class="section-title">{{t.virusAgesTitle}}</h2>
     <div>
@@ -139,23 +156,47 @@
     </div>
   </section>
 
-  <section class="section section-split">
-    <h2 class="section-title">{{t.virusPreventionTitle}}</h2>
+  <!-- Genomes sequences : comptes agreges lus dans Pathoplexus par
+       scripts/extraire_genomes.py (data/genomes.json). Un chiffre de
+       contexte, pas de suivi : il ne bouge qu'a la main. -->
+  <section class="section section-split" id="genomes">
+    <h2 class="section-title">{{t.virusGenomesTitle}}</h2>
     <div>
-      {{t.virusPreventionBody}}
-      <ul class="vlist">
-        <li>{{t.virusPreventionLi1}}</li>
-        <li>{{t.virusPreventionLi2}}</li>
-        <li>{{t.virusPreventionLi3}}</li>
-        <li>{{t.virusPreventionLi4}}</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section section-split">
-    <h2 class="section-title">{{t.virusHistoryTitle}}</h2>
-    <div class="prose">
-      {{t.virusHistoryBody}}
-      <div class="info-note">{{t.virusNote}}</div>
+      <p class="page-intro">{{t.virusGenomesIntro}}</p>
+      <div class="figure-band vg-band">
+        <div class="fb-item">
+          <div class="fb-value">{{seed.genomesSeq}}</div>
+          <div class="fb-label">{{t.virusGenomesStatSeq}}</div>
+        </div>
+        <div class="fb-item">
+          <div class="fb-value">{{seed.genomesZones}}</div>
+          <div class="fb-label">{{t.virusGenomesStatZones}}</div>
+        </div>
+        <div class="fb-item">
+          <div class="fb-value">{{seed.genomesPart}}</div>
+          <div class="fb-label">{{t.virusGenomesStatShare}}</div>
+        </div>
+      </div>
+      <div class="panel">
+        <figure class="mb-figure">
+          <figcaption>{{t.virusGenomesMonthsTitle}}</figcaption>
+          {{seed.genomesMois}}
+        </figure>
+      </div>
+      <div class="panel">
+        <figure class="mb-figure">
+          <figcaption>{{t.virusGenomesZonesTitle}}</figcaption>
+          {{seed.genomesBarres}}
+          <p class="mb-credit">{{seed.genomesAutres}}</p>
+        </figure>
+      </div>
+      <div class="info-note">{{seed.genomesNote}}</div>
+      <h3 class="sub-title">{{t.virusGenomesLuTitre}}</h3>
+      <div class="prose vg-lu">
+        <p>{{t.virusGenomesLuP1}}</p>
+        <p>{{t.virusGenomesLuP2}}</p>
+        <p>{{t.virusGenomesLuP3}}</p>
+      </div>
+      <div class="info-note">{{t.virusGenomesLuCredit}}</div>
     </div>
   </section>

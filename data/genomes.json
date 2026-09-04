@@ -1,0 +1,165 @@
+{
+ "source": "Pathoplexus, ebola-bdbv, via LAPIS (agregats)",
+ "consulte": "2026-09-04",
+ "totalRdc": 754,
+ "rdc2026": 731,
+ "parPays2026": {
+  "Uganda": 20,
+  "Democratic Republic of the Congo": 731,
+  "Germany": 2
+ },
+ "parMois": [
+  {
+   "mois": "2026-01",
+   "n": 1
+  },
+  {
+   "mois": "2026-05",
+   "n": 114
+  },
+  {
+   "mois": "2026-06",
+   "n": 254
+  },
+  {
+   "mois": "2026-07",
+   "n": 323
+  },
+  {
+   "mois": "2026-08",
+   "n": 39
+  }
+ ],
+ "parZone": [
+  {
+   "zone": "Bunia",
+   "province": "Ituri",
+   "n": 240
+  },
+  {
+   "zone": "Rwampara",
+   "province": "Ituri",
+   "n": 181
+  },
+  {
+   "zone": "Nizi",
+   "province": "Ituri",
+   "n": 81
+  },
+  {
+   "zone": "Mongbwalu",
+   "province": "Ituri",
+   "n": 59
+  },
+  {
+   "zone": "Lita",
+   "province": "Ituri",
+   "n": 46
+  },
+  {
+   "zone": "Mangala",
+   "province": "Ituri",
+   "n": 31
+  },
+  {
+   "zone": "Bambu",
+   "province": "Ituri",
+   "n": 19
+  },
+  {
+   "zone": "Nia-Nia",
+   "province": "Ituri",
+   "n": 10
+  },
+  {
+   "zone": "Tchomia",
+   "province": "Ituri",
+   "n": 10
+  },
+  {
+   "zone": "Komanda",
+   "province": "Ituri",
+   "n": 6
+  },
+  {
+   "zone": "Nyankunde",
+   "province": "Ituri",
+   "n": 6
+  },
+  {
+   "zone": "Drodro",
+   "province": "Ituri",
+   "n": 4
+  },
+  {
+   "zone": "Mandima",
+   "province": "Ituri",
+   "n": 4
+  },
+  {
+   "zone": "Aru",
+   "province": "Ituri",
+   "n": 3
+  },
+  {
+   "zone": "Damas",
+   "province": "Ituri",
+   "n": 3
+  },
+  {
+   "zone": "Fataki",
+   "province": "Ituri",
+   "n": 3
+  },
+  {
+   "zone": "Gethy",
+   "province": "Ituri",
+   "n": 3
+  },
+  {
+   "zone": "Kilo",
+   "province": "Ituri",
+   "n": 3
+  },
+  {
+   "zone": "Mambasa",
+   "province": "Ituri",
+   "n": 3
+  },
+  {
+   "zone": "Katwa",
+   "province": "Nord-Kivu",
+   "n": 2
+  },
+  {
+   "zone": "Aungba",
+   "province": "Ituri",
+   "n": 1
+  },
+  {
+   "zone": "Rimba",
+   "province": "Ituri",
+   "n": 1
+  }
+ ],
+ "autresLieux": {
+  "Hoho": 5,
+  "Lumumba": 1,
+  "SOTA": 1,
+  "Sukisa": 1,
+  "Bahwere": 1,
+  "Mandje": 1
+ },
+ "nonPrecise": 2,
+ "termes": {
+  "OPEN": 64,
+  "RESTRICTED": 690
+ },
+ "groupes": {
+  "Automated Ingest from INSDC/NCBI Virus by Loculus": 23,
+  "Pathogen Genomic Lab": 729,
+  "Charité Virologie": 1,
+  "NEIDL": 1
+ },
+ "zonesLocalisees": 719
+}

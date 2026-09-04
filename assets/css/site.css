@@ -178,9 +178,20 @@ ul,ol{margin:0;padding:0;}
 /* L'etat courant est un trait, pas une boite : un filet a gauche du lien,
    dans la couleur d'accent. Moins de rectangles a l'ecran, meme information. */
 .side-nav a:hover{color:var(--accent-strong);text-decoration:none;}
+/* Intertitres des trois groupes de la barre (Explorer, Comprendre, Le site),
+   les memes que les colonnes du pied de page. Petits et gris : ils
+   structurent, ils ne se cliquent pas. */
+.side-nav-title{
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-dim);padding:14px 10px 5px;
+  margin-top:8px;border-top:1px solid var(--line);
+}
+.side-nav-title:first-child{margin-top:0;border-top:0;padding-top:2px;}
+/* Depuis le 4 septembre 2026, plus de filet du tout : avec les intertitres
+   de groupe, le trait pesait trop, et le gras suffit a dire la page
+   courante (essai du proprietaire, a confirmer). */
 .side-nav a[aria-current="page"]{
   color:var(--ink);font-weight:600;
-  box-shadow:inset 3px 0 0 var(--accent-strong);border-radius:0;
 }
 
 /* Sous-liste des provinces, sous « Données détaillées ». Toujours visible :
@@ -451,6 +462,7 @@ ul,ol{margin:0;padding:0;}
 .riposte-ancres{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;}
 .riposte-ancres a{color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--line);}
 .riposte-ancres a:hover{border-bottom-color:var(--accent-strong);}
+.figure-band+.riposte-ancres{margin-top:20px;}
 /* Sur telephone, deux colonnes : ces quatre chiffres se comparent, comme les
    vignettes de province — empiles, on ne voit qu'un chiffre a la fois. */
 @media (max-width:760px){
@@ -1692,6 +1704,7 @@ footer{
      avec des cibles a la taille du doigt. */
   .side-nav{flex-direction:column;gap:2px;font-size:16px;}
   .side-nav a{padding:12px 12px;}
+  .side-nav-title{font-size:11.5px;padding:16px 12px 4px;}
   .side-toggle{padding:12px 12px;}
   .side-sub a{font-size:14.5px;padding:10px 8px;}
   .side-foot{margin-top:0;padding-top:8px;border-top:1px solid var(--line);}
@@ -2162,3 +2175,182 @@ footer{
      haut. pan-y le rend au navigateur ; la carte se deplace a l'horizontale. */
   .zonemap.is-zoomed{touch-action:pan-y;}
 }
+
+/* ================= Page « Flux & deplaces » =================
+   Diagramme de flux (sk-*), tableaux, barres et notes (mb-*) ecrits en dur par
+   scripts/flux_deplaces.py. Le survol du diagramme est en CSS :has(), une
+   regle par noeud et par ruban, generee dans le SVG lui-meme. */
+
+.mb-periode{margin:0 0 22px;padding:0 0 0 16px;border-left:3px solid var(--accent);
+  font-size:14.5px;line-height:1.6;color:var(--ink-dim);max-width:68ch;box-sizing:border-box;}
+.mb-periode strong{color:var(--ink);font-weight:600;}
+.mb-proto{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;}
+.mb-deux{grid-template-columns:repeat(2,minmax(0,1fr));}
+/* Trois cases en tete de « Flux & deplaces », resserrees : a pleine largeur elles
+   s'etiraient sur 990 px pour trois nombres. */
+.mb-trois{grid-template-columns:repeat(3,minmax(0,1fr));max-width:680px;}
+/* Titres plus longs que les 22ch des titres de page : « Flux et deplaces »
+   (38 caracteres) se coupait apres « et », « Le virus Ebola Bundibugyo »
+   (25) avant le nom de l'espece. */
+.mb-titre{max-width:40ch;}
+.mb-figure{margin:18px 0 6px;}
+/* Dans un cadre, la figure garde de l'air sur les cotes : .panel n'a pas de
+   rembourrage propre, et le titre de figure collait au bord. */
+.panel>.mb-figure{margin:18px 20px 16px;}
+.mb-figure figcaption{font-family:var(--font-serif);font-size:16.5px;font-weight:600;margin:0 0 4px;}
+.mb-figure .mb-sub{font-size:13px;color:var(--ink-faint);margin:0 0 12px;}
+.mb-flux{width:100%;height:auto;display:block;max-width:760px;}
+.mb-ruban{fill:var(--accent-info);fill-opacity:.42;transition:fill-opacity .15s;}
+.mb-ruban.mb-actif{fill:var(--accent-active);fill-opacity:.55;}
+.mb-flux:hover .mb-ruban{fill-opacity:.18;}
+.mb-flux .mb-ruban:hover{fill-opacity:.8;}
+.mb-noeud{fill:var(--ink-strong);}
+.mb-zone{font:600 13px var(--font-sans);fill:var(--ink);}
+.mb-col{font:700 11px var(--font-sans);fill:var(--ink-faint);letter-spacing:.08em;text-transform:uppercase;}
+.mb-val{font:600 11.5px var(--font-sans);fill:var(--ink);text-anchor:end;font-variant-numeric:tabular-nums;pointer-events:none;}
+.sk{max-width:940px;}
+.sk-ruban{fill-opacity:.42;stroke:var(--bg-panel);stroke-width:.8;stroke-opacity:.9;transition:fill-opacity .15s;}
+.sk:has(.sk-ruban:hover,.sk-g:hover) .sk-ruban{fill-opacity:.1;stroke-opacity:.12;}
+/* Le ruban sous le curseur s'allume seul, meme quand un noeud est survole :
+   la regle doit etre plus specifique que celle qui estompe l'ensemble. */
+.sk:has(.sk-ruban:hover) .sk-ruban:hover,.sk:has(.sk-g:hover) .sk-ruban:hover{fill-opacity:.95;stroke:var(--ink);stroke-width:1;stroke-opacity:1;}
+.sk-noeud{stroke:var(--bg-panel);stroke-width:1;}
+.sk-g{cursor:default;}
+.sk-g:hover .sk-noeud{stroke:var(--ink);stroke-width:1.5;}
+.sk-g:hover .sk-label{fill:var(--accent-hover);}
+.sk-label{font:600 12px var(--font-sans);fill:var(--ink);}
+.sk-label .sk-part{font-weight:400;fill:var(--ink-faint);font-variant-numeric:tabular-nums;}
+.sk-halo{paint-order:stroke;stroke:var(--bg-panel);stroke-width:4px;stroke-linejoin:round;}
+.sk-legende{gap:10px 16px;}
+.sk-leg i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-2px;}
+.mb-legende.sk-legende span::before{content:none;}
+.mb-h4{font-family:var(--font-serif);font-size:15px;font-weight:600;margin:16px 0 6px;}
+.mb-legende{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-dim);margin:8px 0 0;}
+.mb-legende span::before{content:"";display:inline-block;width:14px;height:10px;border-radius:2px;
+  margin-right:6px;vertical-align:-1px;background:var(--accent-info);opacity:.5;}
+.mb-legende .actif::before{background:var(--accent-active);opacity:.7;}
+.mb-legende .noeud::before{background:var(--ink-strong);opacity:1;width:8px;}
+.mb-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.mb-table th,.mb-table td{padding:7px 10px;border-bottom:1px solid var(--line-soft);text-align:left;}
+.mb-table th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:700;}
+.mb-table .num{text-align:right;font-variant-numeric:tabular-nums;}
+.mb-table tfoot td{font-weight:600;border-bottom:0;}
+details.mb-details{margin:10px 0 0;font-size:13.5px;}
+details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight:600;}
+.mb-bars{display:grid;gap:7px;margin:14px 0 4px;}
+.mb-bar{display:grid;grid-template-columns:minmax(150px,300px) 1fr 64px;align-items:center;gap:12px;font-size:13.5px;}
+.mb-bar-label{color:var(--ink);line-height:1.3;}
+.mb-bar-track{height:14px;background:var(--bg-alt);border-radius:3px;overflow:hidden;border:1px solid var(--line-soft);}
+.mb-bar-fill{height:100%;background:var(--accent-info);border-radius:0 3px 3px 0;}
+.mb-bar-actif .mb-bar-fill{background:var(--accent-active);}
+.mb-bar-actif .mb-bar-label{font-weight:600;}
+.mb-bar-val{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-strong);font-weight:600;}
+.mb-cote{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:18px;align-items:start;margin-top:14px;}
+@media (max-width:1100px){.mb-cote{grid-template-columns:1fr;}}
+.mb-duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:14px;}
+.mb-tuiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--radius-card);overflow:hidden;margin:14px 0;}
+.mb-tuiles div{background:var(--bg-panel);padding:14px 16px;}
+.mb-tuiles .v{font-size:26px;font-weight:700;color:var(--accent-strong);line-height:1;font-variant-numeric:tabular-nums;}
+.mb-tuiles .k{font-size:12.5px;color:var(--ink-faint);margin-top:7px;line-height:1.35;}
+.mb-credit{font-size:12px;color:var(--ink-faint);margin:10px 0 0;line-height:1.5;}
+.mb-sources li{margin:0 0 7px;font-size:13.5px;line-height:1.45;}
+.mb-familles{margin:10px 0 0;padding-left:18px;}
+.mb-familles li{margin:0 0 6px;font-size:13px;line-height:1.6;color:var(--ink-dim);}
+.mb-familles a{white-space:nowrap;}
+.mb-src-date{color:var(--ink-faint);font-size:12px;white-space:nowrap;}
+.mb-prose p{font-size:14.5px;line-height:1.7;max-width:68ch;margin:0 0 12px;}
+@media (max-width:640px){.mb-bar{grid-template-columns:1fr 60px;row-gap:3px;}.mb-bar-label{grid-row:1;grid-column:1;}.mb-bar-val{grid-row:1;grid-column:2;}.mb-bar-track{grid-row:2;grid-column:1/-1;}}
+
+/* Carte des flux de « Flux & deplaces » (option A, statique). */
+.cf-frame{max-width:860px;}
+.cf{display:block;width:100%;height:auto;}
+.cf-zone{fill:var(--bg-alt);stroke:var(--bg-panel);stroke-width:.6;}
+.cf-hors{fill:var(--bg);stroke:var(--line-soft);stroke-width:.6;}
+.cf-flux{fill:none;stroke-linecap:round;opacity:.72;transition:opacity .15s;}
+.cf-boucle{fill:none;stroke-dasharray:1.5 1.2;}
+.cf:has(.cf-flux:hover,.cf-point:hover) .cf-flux{opacity:.12;}
+.cf .cf-flux:hover{opacity:1;}
+.cf-point{fill:var(--ink);fill-opacity:.55;stroke:var(--ink);stroke-width:2.5px;vector-effect:non-scaling-stroke;transition:fill-opacity .15s;}
+.cf:has(.cf-flux:hover) .cf-point{fill-opacity:.35;}
+.cf .cf-point:hover{fill-opacity:1;stroke:var(--accent);}
+.cf-point-label{font:600 5.5px var(--font-sans);font-size:calc(5.5px / var(--cf-k,1));fill:var(--ink);paint-order:stroke;stroke:var(--bg-panel);stroke-width:calc(2.5px / var(--cf-k,1));stroke-linejoin:round;pointer-events:none;}
+.cf-zone-mark circle{fill:var(--ink-dim);}
+.cf-zone-mark text{font:500 5.5px var(--font-sans);font-size:calc(5.5px / var(--cf-k,1));fill:var(--ink-dim);paint-order:stroke;stroke:var(--bg-panel);stroke-width:calc(2px / var(--cf-k,1));pointer-events:none;}
+.cf-legende{gap:14px 20px;}
+.cf-legende span::before{content:none;}
+.cf-leg-point::before{content:"";display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--ink);opacity:.82;margin-right:7px;vertical-align:-1px;}
+.cf-leg-flux::before{content:"";display:inline-block;width:18px;height:3px;border-radius:2px;background:var(--accent-info);opacity:.8;margin-right:7px;vertical-align:2px;}
+
+/* Option B : commandes, panneau, infobulle, filtre et aplats des deplaces. */
+.cf-controls{margin:0 0 10px;}
+.cf-zoom .map-btn{min-width:32px;}
+.cf-reset{margin-left:auto;}
+.cf-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:16px;align-items:start;}
+@media (max-width:900px){.cf-layout{grid-template-columns:1fr;}}
+.cf-frame{position:relative;max-width:none;touch-action:none;}
+.cf{cursor:grab;}
+.cf:active{cursor:grabbing;}
+.cf-tip{position:absolute;z-index:3;pointer-events:none;background:var(--bg-panel);border:1px solid var(--line);
+  border-radius:var(--radius);padding:7px 10px;font-size:12.5px;line-height:1.45;color:var(--ink);max-width:260px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.cf-tip span{color:var(--ink-dim);font-size:12px;}
+.cf-panel{font-size:13px;line-height:1.5;color:var(--ink-dim);border-left:1px solid var(--line);padding-left:14px;min-height:120px;}
+.cf-panel h4{font-family:var(--font-serif);font-size:17px;margin:0 0 8px;color:var(--ink);}
+.cf-panel h5{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:12px 0 4px;display:flex;justify-content:space-between;}
+.cf-panel h5 span{color:var(--ink);font-variant-numeric:tabular-nums;}
+.cf-panel ul{list-style:none;margin:0;padding:0;}
+.cf-panel li{display:grid;grid-template-columns:1fr auto;gap:0 8px;padding:4px 0;border-bottom:1px solid var(--line-soft);}
+.cf-li-nom{color:var(--ink);} .cf-li-part{font-variant-numeric:tabular-nums;color:var(--ink);}
+.cf-li-via{grid-column:1/-1;font-size:11.5px;color:var(--ink-faint);}
+.cf-hint,.cf-vide{font-size:12.5px;color:var(--ink-faint);margin:6px 0;}
+.cf.cf-filtre .cf-flux{opacity:.06;}
+.cf.cf-filtre .cf-flux.cf-garde{opacity:.95;}
+.cf-zone-mark.cf-choisie circle{fill:var(--accent-strong);r:2.6;}
+.cf-zone-mark.cf-choisie text{fill:var(--accent-strong);font-weight:700;}
+.cf-pdi-1{fill:#E4EEF4;} .cf-pdi-2{fill:#B9D3E3;} .cf-pdi-3{fill:#86B3CF;} .cf-pdi-4{fill:#4F8DB3;} .cf-pdi-5{fill:#1F5F87;}
+.cf-pdi-legende{display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--ink-dim);margin:8px 0 0;}
+.cf-pdi-legende .cf-pdi-titre{flex-basis:100%;color:var(--ink-faint);}
+.cf-pdi-legende span[class^="cf-pdi-"]:not(.cf-pdi-titre)::before{content:"";display:inline-block;width:14px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--line);}
+.cf-pdi-legende .cf-pdi-1::before{background:#E4EEF4;} .cf-pdi-legende .cf-pdi-2::before{background:#B9D3E3;}
+.cf-pdi-legende .cf-pdi-3::before{background:#86B3CF;} .cf-pdi-legende .cf-pdi-4::before{background:#4F8DB3;} .cf-pdi-legende .cf-pdi-5::before{background:#1F5F87;}
+.cf-pdi-legende[hidden],.cf-reset[hidden],.cf-tip[hidden]{display:none;}
+
+/* Couche « Routes » : reseau OSM en fond, charge des trajets routes. */
+.cf-osm{fill:none;stroke:#D8D2CA;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;}
+.cf-osm-trunk,.cf-osm-primary{stroke-width:3px;stroke:#CFC7BD;} .cf-osm-secondary{stroke-width:2.2px;} .cf-osm-tertiary{stroke-width:1.5px;stroke:#E2DDD6;}
+.cf-route{fill:none;stroke:var(--accent-info);stroke-linecap:round;stroke-linejoin:round;opacity:.85;vector-effect:non-scaling-stroke;transition:opacity .15s,stroke-width .2s;}
+.cf-route.cf-vide{display:none;}
+.cf:has(.cf-route:hover) .cf-route{opacity:.25;}
+.cf .cf-route:hover{opacity:1;stroke:var(--accent-strong);}
+.cf-raccord{stroke:var(--accent-info);stroke-width:1.5px;stroke-dasharray:4 3;opacity:.6;fill:none;vector-effect:non-scaling-stroke;}
+.cf-leg-route::before{content:"";display:inline-block;width:18px;height:5px;border-radius:2px;background:var(--accent-info);opacity:.85;margin-right:7px;vertical-align:1px;}
+.cf-direction circle{fill:var(--accent-info);}
+.cf-direction text{font:600 5.5px var(--font-sans);font-size:calc(5.5px / var(--cf-k,1));fill:var(--accent-strong);paint-order:stroke;stroke:var(--bg-panel);stroke-width:calc(2.5px / var(--cf-k,1));}
+.cf-osm-residential{stroke-width:1px;stroke:#E6E1DA;}
+.cf-controls .map-mode{padding-left:18px;border-left:1px solid var(--line);}
+.cf-etalons{display:inline-flex;align-items:center;gap:10px;}
+.cf-etalons-titre{color:var(--ink-faint);}
+.cf-etalon{display:inline-flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums;}
+.cf-etalon svg{overflow:visible;} .cf-etalon line{stroke:var(--accent-info);stroke-linecap:round;opacity:.85;}
+
+/* Le virus > genomes sequences (Pathoplexus). Bande de trois chiffres
+   reprise de la tete de page ; colonnes par mois ; barres par zone (mb-bar). */
+.vg-band{margin:14px 0 18px;}
+.vg-band .fb-value{font-size:30px;}
+.vg-mois{display:grid;grid-template-columns:repeat(auto-fit,minmax(56px,1fr));gap:14px;align-items:end;margin:12px 0 4px;max-width:420px;}
+.vg-col{display:grid;grid-template-rows:auto 120px auto;gap:6px;text-align:center;font-size:13px;}
+.vg-n{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink-strong);align-self:end;}
+.vg-track{position:relative;background:var(--bg-alt);border:1px solid var(--line-soft);border-radius:3px;overflow:hidden;}
+.vg-fill{position:absolute;left:0;right:0;bottom:0;background:var(--accent-info);border-radius:3px 3px 0 0;}
+.vg-lab{color:var(--ink-dim);}
+.vg-bars .mb-bar{grid-template-columns:minmax(150px,220px) 1fr 52px;font-size:13px;}
+.vg-bars .mb-bar-track{height:11px;}
+.vg-bars .mb-bar-fill{min-width:2px;}
+.vg-prov{color:var(--ink-faint);font-size:12px;margin-left:4px;}
+@media (max-width:640px){.vg-bars .mb-bar{grid-template-columns:1fr 52px;}.vg-bars{gap:9px;}}
+/* Le virus > genomes : le resume grand public sous les figures. */
+.vg-lu{margin-top:6px;}
+.vg-lu p{margin:0 0 10px;}
+.vg-reste{font-size:13px;color:var(--ink-dim);margin:10px 0 0;}

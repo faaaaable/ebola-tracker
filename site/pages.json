@@ -22,14 +22,29 @@
     "Bas-Uélé": "bas-uele"
   },
   "mainNav": [
-    "accueil",
-    "donnees",
-    "riposte",
-    "chronologie",
-    "le-virus",
-    "faq",
-    "rapports",
-    "a-propos"
+    {
+      "titleKey": "footerExploreTitle",
+      "pages": [
+        "accueil",
+        "donnees",
+        "riposte"
+      ]
+    },
+    {
+      "titleKey": "footerUnderstandTitle",
+      "pages": [
+        "chronologie",
+        "le-virus",
+        "faq"
+      ]
+    },
+    {
+      "titleKey": "footerSiteTitle",
+      "pages": [
+        "rapports",
+        "a-propos"
+      ]
+    }
   ],
   "footerNav": [
     {

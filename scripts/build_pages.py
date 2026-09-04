@@ -30,6 +30,8 @@ import subprocess
 import sys
 from datetime import date
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
 MANIFEST = os.path.join(SITE, ".generated.json")
@@ -321,7 +323,23 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
     reecrit ensuite a partir des donnees du jour."""
     by_id = {p["id"]: p for p in config["pages"]}
     items = []
-    for page_id in config["mainNav"]:
+    # Depuis le 4 septembre 2026, la barre est groupee en trois blocs sous
+    # les memes intertitres que le pied de page (Explorer, Comprendre, Le
+    # site) : a neuf entrees, une liste plate se parcourt au lieu de se lire.
+    # mainNav est une liste de groupes { titleKey, pages } ; une liste plate
+    # d'identifiants reste acceptee, sans intertitre.
+    entrees = []
+    for groupe in config["mainNav"]:
+        if isinstance(groupe, dict):
+            entrees.append(("titre", groupe["titleKey"]))
+            entrees.extend(("page", pid) for pid in groupe["pages"])
+        else:
+            entrees.append(("page", groupe))
+    for genre, page_id in entrees:
+        if genre == "titre":
+            items.append('      <div class="side-nav-title">%s</div>'
+                         % esc(strings_lang[page_id]))
+            continue
         page = by_id[page_id]
         label = esc(label_for(page, strings_lang, i18n_lang))
         current = ' aria-current="page"' if page_id == current_id else ""
@@ -1157,6 +1175,62 @@ def fmt_pct(valeur, lang):
     return ("%.1f" % valeur).replace(".", loc(lang, "decimal"))
 
 
+def genomes_seeds(genomes, lang, strings_lang, i18n_lang):
+    """Le bloc « genomes » de la page Le virus : trois chiffres, les mois, les
+    zones. Comptes agreges lus dans Pathoplexus (data/genomes.json, produit a
+    la main par scripts/extraire_genomes.py) — un chiffre de contexte, pas de
+    suivi, d'ou la date de consultation ecrite dans la note.
+
+    Les barres reprennent l'idiome mb-bar de la page Flux (une barre par zone,
+    valeur a droite) ; les mois sont des colonnes, parce qu'un mois se lit
+    dans le temps et une zone dans une liste.
+    """
+    if not genomes:
+        return {}
+    zones = genomes["parZone"]
+    total = genomes["rdc2026"]
+    deux = sum(r["n"] for r in zones if r["zone"] in ("Bunia", "Rwampara"))
+    maxi = max(r["n"] for r in zones) if zones else 1
+    # Douze lignes suffisent : au-dela, les barres font deux pixels et la queue
+    # de la liste tient en une phrase. Les six premieres portent 90 % du total.
+    tetes, queue = zones[:12], zones[12:]
+    barres = []
+    for r in tetes:
+        barres.append('<div class="mb-bar"><div class="mb-bar-label">%s <span class="vg-prov">%s</span></div>'
+                      '<div class="mb-bar-track"><div class="mb-bar-fill" style="width:%.1f%%"></div></div>'
+                      '<div class="mb-bar-val">%s</div></div>'
+                      % (esc(r["zone"]), esc(r.get("province") or ""), r["n"] / maxi * 100, fmt(r["n"], lang)))
+    reste = ""
+    if queue:
+        reste = interp(strings_lang["virusGenomesReste"], {
+            "n": fmt(len(queue), lang),
+            "min": fmt(min(r["n"] for r in queue), lang),
+            "max": fmt(max(r["n"] for r in queue), lang)})
+    mois = [m for m in genomes["parMois"] if m["mois"] >= "2026-05"]
+    maxm = max(m["n"] for m in mois) if mois else 1
+    cols = []
+    for m in mois:
+        cols.append('<div class="vg-col"><div class="vg-n">%s</div><div class="vg-track"><div class="vg-fill" style="height:%.1f%%"></div></div>'
+                    '<div class="vg-lab">%s</div></div>'
+                    % (fmt(m["n"], lang), m["n"] / maxm * 100, esc(i18n_lang["months"][int(m["mois"][5:7]) - 1])))
+    autres = sum(genomes.get("autresLieux", {}).values())
+    return {
+        "seed.genomesSeq": fmt(total, lang),
+        "seed.genomesZones": fmt(len(zones), lang),
+        "seed.genomesPart": fmt_pct(100.0 * deux / total, lang) + loc(lang, "percent") if total else "",
+        "seed.genomesBarres": '<div class="mb-bars vg-bars">%s</div>%s' % (
+            "".join(barres), ('<p class="vg-reste">%s</p>' % esc(reste)) if reste else ""),
+        "seed.genomesMois": '<div class="vg-mois">%s</div>' % "".join(cols),
+        "seed.genomesAutres": interp(strings_lang["virusGenomesOther"], {
+            "n": fmt(autres, lang), "m": fmt(genomes.get("nonPrecise", 0), lang)}),
+        "seed.genomesNote": interp(strings_lang["virusGenomesNote"], {
+            "date": long_date(genomes["consulte"], i18n_lang),
+            "ouganda": fmt(genomes.get("parPays2026", {}).get("Uganda", 0), lang),
+            "ouvert": fmt(genomes.get("termes", {}).get("OPEN", 0), lang),
+            "restreint": fmt(genomes.get("termes", {}).get("RESTRICTED", 0), lang)}),
+    }
+
+
 def sex_rows_html(demographie, lang, strings_lang):
     """Deux barres empilees a 100 % : repartition femmes/hommes des cas, puis
     des deces.
@@ -1983,6 +2057,8 @@ def main():
     # Repartition par age : instantane fige au 5 aout 2026, l'INSP ayant
     # cesse de publier la figure ensuite. Voir scripts/demographie_figures.py.
     demographie = read_json(os.path.join(ROOT, "data", "demographie.json"))
+    # Genomes sequences (Pathoplexus, agregats) : data/genomes.json, a la main.
+    genomes = read_json(os.path.join(ROOT, "data", "genomes.json"))
     # Les quatre series de la page « Riposte ». Chacune a sa profondeur et ses
     # trous ; la page ecrit le dernier point de chacune, avec sa date quand
     # elle n'est pas celle du bulletin.
@@ -2072,6 +2148,7 @@ def main():
                 "deces": fmt(demographie["totaux"]["deces"], lang),
                 "partCas": fmt_pct(demographie["couverture"]["partCas"], lang),
                 "partDeces": fmt_pct(demographie["couverture"]["partDeces"], lang)}),
+            **genomes_seeds(genomes, lang, strings_lang, i18n_lang),
             "seed.reportsList": reports_list_html(latest.get("reports", []), lang, i18n_lang, strings_lang),
             "seed.whoReportsList": who_reports_list_html(who_reports, lang, i18n_lang, strings_lang),
             "seed.whoSectionStyle": "" if who_reports else "display:none;",
