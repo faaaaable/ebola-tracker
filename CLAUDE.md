@@ -1092,6 +1092,13 @@ page seule porte `page-title--large` (`max-width:none`) — sans `nowrap`, le
 titre se replie encore de lui-même sous 360 px. Les autres titres gardent
 le plafond.
 
+Un paragraphe d'introduction (`reportsPageIntro`, trois langues, classe
+`page-intro` sous le titre) dit ce que la page contient — bulletins INSP en
+PDF classés par mois, rapports hebdomadaires de l'OMS, provenance des
+contours — et rappelle que chaque nombre du site s'y retrouve. Demande du
+propriétaire du 5 septembre 2026 : « expliquer ce que les gens vont
+trouver ». Le swahili n'est pas relu.
+
 `report_chip()` produit une carte par bulletin, **cliquable dans son entier** —
 auparavant seule la petite icône était un lien, cible minuscule et carte qui
 paraissait inerte. Une navigation par mois et une recherche filtrent la liste
