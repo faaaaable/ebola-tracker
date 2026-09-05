@@ -461,8 +461,14 @@ un « tu conseilles quoi ? » :
    `.section-sub`. Une seule graphie de note sous les cadres : `.mb-credit`
    et `.vcompare-note` alignés sur `.map-note` (11,5 px, gris).
 
-La règle 5 proposée — une sortie « Pour aller plus loin » en bas des pages
-longues — n'est pas faite, en attente d'un retour sur les quatre autres.
+5. **Chaque page longue se termine par une sortie** « Pour aller plus loin »
+   (`#plus-loin`, liste `.plus-loin`) : deux liens choisis par sens, chacun
+   suivi d'une ligne sans chiffre. Riposte → Données, Le virus ; Le virus →
+   Riposte, FAQ ; Chronologie → Données, Sources. Les autres pages avaient
+   déjà leur sortie (Données « Que fait-on », provinces note de lecture,
+   Sources « Autres sources », FAQ « Votre question n'est pas là ? ») et
+   n'ont pas bougé. Clés `plusLoinTitle`, `*Loin1Link/Text`, `*Loin2Link/Text`.
+
 `test_onglets` sans erreur sur les cinq pages en chapitres.
 
 
