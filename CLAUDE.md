@@ -1874,6 +1874,15 @@ figure garde 20 px d'air latéral (`.panel` n'a pas de rembourrage propre) ;
 sur téléphone, la valeur d'une barre `mb-bar` reste sur la ligne du nom au
 lieu de tomber sous la barre.
 
+**Le pied de page suit les mêmes groupes que la barre latérale** depuis le
+5 septembre 2026 : « Sources & bulletins » y était sous Explorer alors que
+`mainNav` et le surtitre de la page la rangent sous « Le site »
+(`footerNav` dans `site/pages.json` : Explorer = accueil, données,
+riposte ; Comprendre = virus, chronologie, FAQ ; Le site = sources,
+à propos, contact). Attention en publiant : `pages.json` est l'un des
+trois fichiers mis de côté par la recette ci-dessous, ce déplacement doit
+être réappliqué sur la version de HEAD tant que Flux reste en local.
+
 ### Publier sans publier « Flux & déplacés »
 
 Les deux chantiers partagent quatre fichiers, et la barre latérale de chaque
