@@ -5,7 +5,41 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 111**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 112**, rapportage
+du 3 septembre 2026 (publié le 4) — 6 436 cas confirmés, 3 095 décès, létalité
+48,1 %, 1 495 guéris, 738 patients en CTE, suivi des contacts 88,5 % (21 678
+vus sur 24 497), 60 zones touchées (aucune nouvelle), 94 nouveaux cas (Ituri
+60, Nord-Kivu 25, Haut-Uélé 9) et 23 décès du jour (17 communautaires, 6
+intra-CTE dont 3 « à ventiler » en Ituri). Intégré **en local le
+5 septembre**, non publié à cette date. Même vérification qu'au 111 : pour
+chacune des 60 zones, cumul du 112 moins cumul du 111 = nouveaux cas du jour,
+idem pour les décès, zéro écart ; cinq ventilations déduites par
+`ventiler_par_soustraction` (Bunia 2, Komanda 4, Nizi 1, Rwampara 3,
+Kalunguta 1, toutes communautaires) ; laboratoire 94 positifs = 94 nouveaux
+cas ; alertes 1 792 reçues, 1 512 vérifiées, 345 validées, 190 transférées
+(le Sud-Kivu « n'a pas rapporté », ND rendu en zéros comme les cinq fois
+précédentes). Deux lectures apprises. (1) La ligne Total du tableau 1 est
+découpée une **troisième** façon : les chiffres seuls au-dessus, puis
+« Total » suivi de la seule fraction de zones (« 94 6 436 3 095 48,1% » ⏎
+« Total 60/151 (39,7 %) ») — `recoller_total_orphelin` recolle désormais
+libellé + chiffres + fraction, sous le même garde-fou, `TOTAL_FRACTION_SEULE_RE`
+n'acceptant après « Total » que la fraction (la ligne Total du tableau
+détaillé, à huit nombres, ne peut pas mordre). (2) La phrase des contacts ne
+nomme plus l'indicateur : « Une légère amélioration a été observée sur la
+proportion, soit 88,5 % (21 678 vus sur 24 497 à suivre) » — aucun des trois
+libellés de `CONTACTS_RE` n'y figure, le 112 sortait sans taux.
+`CONTACTS_VUS_SUR_RE` reconnaît le taux par la parenthèse « vus sur … à
+suivre » qui le suit, en dernier repli ; diff limité au 3 septembre. Les
+autres extracteurs ont lu le 112 sans retouche. Écart de la source, laissé
+visible : le Haut-Uélé publie 50,8 % d'occupation pour 62/128 = 48,4 % (note
+non bloquante de `check_coherence`, comme Tshopo 108). Total CTE du site
+727 pour 738 en bande de chiffres clés — Sud-Kivu et Bas-Uélé muets, comme au
+111. Orthographe : le 112 rend « Boma Mangbetu » avec une espace (40
+instantanés sur 47 l'écrivent ainsi, les 108-111 avec un tiret) ; la clé
+normalisée absorbe la différence, rien à corriger. Sous Node 20, les outils
+de `scripts/verif/` se lancent avec `node --experimental-websocket`.
+
+Le **SitRep 111**, rapportage
 du 2 septembre 2026 — 6 342 cas confirmés, 3 072 décès, létalité 48,4 %,
 1 475 guéris, 770 patients en CTE, suivi des contacts 86,5 % (17 910 vus sur
 20 711), 60 zones touchées (aucune nouvelle), 92 nouveaux cas (Ituri 60,
