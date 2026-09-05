@@ -1367,12 +1367,21 @@ function renderOneChart(canvas, chartMode){
       const parDate = {}; points.forEach(p => { parDate[p.date] = p; });
       const serie = (cle) => jours.map(d => (parDate[d] && parDate[d][cle] !== null && parDate[d][cle] !== undefined) ? parDate[d][cle] : null);
       const maxi = Math.max(100, ...serie('partVerifiee').filter(v=>v!==null), ...serie('partValidee').filter(v=>v!==null));
+      /* Les deux parts et, sous chacune, son pont en pointilles au-dessus des
+         jours sans bulletin (demande du proprietaire, 5 septembre 2026) :
+         meme idiome que les contacts et les CTE — un repere, jamais une
+         valeur, ignore par la legende et l'infobulle. Plafond null : la
+         part verifiee depasse 100 % jusqu'a debut aout. */
+      const partVerifiee = serie('partVerifiee'), partValidee = serie('partValidee');
       const data = { labels:jours.map(frDate), datasets:[
-        { label:tr('alertesPartVerifieeLabel'), data:serie('partVerifiee'), borderColor:PALETTE.inkDim, borderWidth:1.5, pointRadius:1.5, tension:.15, spanGaps:false },
-        { label:tr('alertesPartValideeLabel'), data:serie('partValidee'), borderColor:PALETTE.info, borderWidth:2, pointRadius:2, tension:.15, spanGaps:false },
+        { label:tr('alertesPartVerifieeLabel'), data:partVerifiee, borderColor:PALETTE.inkDim, borderWidth:1.5, pointRadius:1.5, tension:.15, spanGaps:false },
+        { label:tr('alertesPartValideeLabel'), data:partValidee, borderColor:PALETTE.info, borderWidth:2, pointRadius:2, tension:.15, spanGaps:false },
+        jeuPont(partVerifiee, PALETTE.inkDim, tr('alertesPartVerifieeLabel'), null, null),
+        jeuPont(partValidee, PALETTE.info, tr('alertesPartValideeLabel'), null, null),
       ]};
       const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
-        plugins:{ legend:legende, tooltip:infobulle({ callbacks:{ label:c=>c.dataset.label + ' : ' + fmtCfr(c.parsed.y) } }) },
+        plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
+                  tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>c.dataset.label + ' : ' + fmtCfr(c.parsed.y) } }) },
         scales:{ x:axeX(true), y:axePct(Math.ceil(maxi/20)*20) } };
       dessiner('line', data, opts);
       noterPeriode(slot, jours[0], jours[jours.length-1]);
