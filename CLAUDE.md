@@ -190,6 +190,10 @@ python scripts/download_all_sitreps.py       # récupère les nouveaux PDF depui
 python scripts/update_data.py                # latest.json, sitreps.json, zones-history, province-history
 python scripts/extract_contacts_followup.py  # contacts-followup.json
 python scripts/extraire_deces_lieu.py        # deces-lieu.json
+python scripts/extraire_alertes.py           # alertes.json      (page Riposte)
+python scripts/extraire_laboratoire.py       # laboratoire.json  (page Riposte)
+python scripts/extraire_cte.py               # cte.json          (page Riposte)
+python scripts/extraire_defis.py             # defis.json        (page Riposte, « Défis » cités)
 python scripts/build_pages.py                # régénère les 30 pages du site
 python scripts/check_coherence.py            # contrôle, ne modifie rien
 ```
@@ -1663,7 +1667,31 @@ permet pas de passer une instance de `bar` à `line`. Le code teste
 
 ---
 
-## La page « Riposte » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
+## La page « Riposte & défis » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
+
+**Renommée le 6 septembre 2026** (« La riposte et ses défis », onglet
+« Riposte & défis », adresse inchangée) quand elle a reçu les « Défis » des
+bulletins. Le principe : la chaîne dit ce qu'on fait, le lieu du décès dit
+ce qui échappe, les Défis disent pourquoi — et ils sont **sous le cadre
+qu'ils expliquent**, pas dans un chapitre à part. `extraire_defis.py` lit
+les sous-sections « Défis » en prose de l'époque D (084 et suivants) dans
+`data/defis.json` : un bloc par pilier, items cités **mot pour mot**,
+provinces citées, rattaché au titre numéroté qui précède (en sautant
+« Principales actions » et les puces — la numérotation est capricieuse,
+« 1.10.4 Défis » sous « 1.10.2 Sécurité »). `defis_seed()` dans
+`build_pages.py` route le dernier bulletin : surveillance → le suivi des
+contacts si le texte parle de contacts, sinon les alertes ; laboratoire →
+le laboratoire ; prise en charge et « Continuité des soins » → les CTE ;
+le reste → le chapitre **« Les autres fronts »** (prévention et
+enterrements, points d'entrée, communauté, vaccination ouverts ; santé
+mentale, logistique, sécurité, PSEA repliés). Trois règles : **citer,
+jamais reformuler ni classer** (le codage thématique demande un regard
+métier) ; **en français sur toutes les langues**, avec une ligne qui le
+dit (traduire un texte officiel automatiquement serait un risque) ; un
+bulletin sans section Défis **le dit** plutôt que de montrer le précédent.
+`check_coherence` vérifie que `defis.json` ne dépasse pas la date du
+rapport. La synthèse rédigée « ce qui a freiné depuis mai » est un autre
+objet, à la main, encore à écrire (voir chantiers ouverts).
 
 Construite le 28 août 2026, **en local, non commitée à cette date**. Elle
 répond à la question que `/donnees/` ne pose pas : que fait-on contre, et
@@ -2472,6 +2500,16 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
 ---
 
 ## Chantiers ouverts
+
+- **La synthèse des défis depuis mai**, décidée le 6 septembre 2026 avec
+  le propriétaire : un chapitre rédigé sur la page Riposte & défis, une
+  dizaine de difficultés datées (prestataires impayés, refus d'enterrement
+  sécurisé, CTE saturés, sang indisponible, zones qui ne rapportent pas…),
+  chacune avec les bulletins qui l'attestent, mise à jour à la main. Un
+  script ne doit pas décider que deux formulations désignent le même
+  problème. Matière première : `data/corpus/qualitatif.jsonl` (776
+  entrées, époques B à D) et `data/defis.json` ; à trier par thème avec
+  premières et dernières mentions avant d'écrire.
 
 - **Page « Flux & déplacés » — intégrée au générateur le 4 septembre 2026,
   en local, non publiée à cette date.** `/flux-et-deplaces/`,
