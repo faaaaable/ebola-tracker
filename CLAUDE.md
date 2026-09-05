@@ -1953,6 +1953,27 @@ une proportion n'aurait aucun sens.
 
 ---
 
+## Quatre retouches du 6 septembre 2026, en local
+
+- **La démographie dit qu'elle est figée dans son cadre** : à droite du titre
+  « Âge et sexe », `seed.agesFrozen` (« figée au 5 août 2026 : l'INSP ne
+  publie plus cette répartition »), calculé depuis `demographie.json`.
+- **Le virus, vaccins** : un paragraphe sobre après le tableau
+  (`virusVaccinUpdate`), écrit d'après les orientations provisoires de l'OMS
+  du 31 août 2026 lues sur IRIS (efficacité d'Ervebo contre Bundibugyo
+  inconnue, usage réservé à un cadre de recherche, priorité aux soignants et
+  au personnel de première ligne) et le SitRep 112 (vaccinations de ce
+  personnel). Aucun chiffre en dur, volontairement : « nous ne sommes pas
+  spécialistes ». Le « 0 vaccin homologué » reste vrai.
+- **La légende de la chronologie est un filtre** (`initTimelineFilter`,
+  boutons `aria-pressed`, mois vides masqués, jamais tout masquer).
+- **L'historique des zones n'est chargé que là où il sert** : curseur des
+  cartes et tableaux de zones (`besoinHistorique` dans l'init). Mesure
+  faite avant : GitHub Pages compresse, `zones-history.json` fait 15 Ko
+  sur le réseau pour 438 Ko sur disque, `app.js` 79 Ko pour 260 — le poids
+  réel d'une page est dans le script, la feuille de style et Chart.js, pas
+  dans les données. Le gain de cette retouche est donc modeste.
+
 ## Pièges connus
 
 **La zone de santé « Tshopo » porte le nom de sa province.** C'est la seule du
