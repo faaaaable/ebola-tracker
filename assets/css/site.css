@@ -363,6 +363,10 @@ ul,ol{margin:0;padding:0;}
   font-weight:600;line-height:1.2;letter-spacing:-0.01em;
   color:var(--ink);margin:0 0 12px;max-width:22ch;
 }
+/* Sans plafond : « Sources et bulletins officiels » (30 caracteres) cassait
+   en deux lignes sur ordinateur (demande du 5 septembre 2026). Pas de
+   nowrap — sur telephone le titre se replie encore de lui-meme. */
+.page-title--large{max-width:none;}
 .lede{
   font-family:var(--font-serif);
   font-size:22px;line-height:1.45;font-weight:400;
