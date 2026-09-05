@@ -77,6 +77,15 @@ CONTACTS_RE = re.compile(
 # exactement ce que l'ancienne regex confondait. On regarde le texte qui
 # précède immédiatement le nombre capturé.
 TARGET_RE = re.compile(r"cible", re.IGNORECASE)
+# SitRep 112 : la phrase de surveillance ne nomme plus le « suivi des
+# contacts » — « Une legere amelioration a ete observee sur la proportion,
+# soit 88,5 % (21 678 vus sur 24 497 a suivre) ». Le taux est reconnu par
+# ce qui le suit : la parenthese « vus sur … a suivre », propre a cet
+# indicateur. Le nombre peut se couper sur deux lignes (« 24 497\na suivre »).
+CONTACTS_VUS_SUR_RE = re.compile(
+    r"(\d+(?:[,.]\d+)?)\s*%\s*\(\s*\d[\d\s]*vus\s+sur\s+\d[\d\s]*(?:à|a)\s+suivre",
+    re.IGNORECASE,
+)
 
 
 def cell(c):
@@ -284,6 +293,11 @@ def rate_from_text(full_text):
         value = float(m.group(1).replace(",", "."))
         if 0 <= value <= 100:
             return value, "texte (repli)"
+    m = CONTACTS_VUS_SUR_RE.search(full_text)
+    if m:
+        value = float(m.group(1).replace(",", "."))
+        if 0 <= value <= 100:
+            return value, "texte (repli, taux devant « vus sur … à suivre »)"
     return None, None
 
 

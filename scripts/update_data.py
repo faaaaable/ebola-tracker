@@ -446,6 +446,13 @@ def _best_cas_deces_split(numbers_str, cfr_target):
     return best[1], best[2]
 
 
+# « Total » suivi de la seule fraction de zones (SitRep 112), voir
+# recoller_total_orphelin.
+TOTAL_FRACTION_SEULE_RE = re.compile(
+    r"^Total\**\s+(?P<fraction>\d+\s*(?:/|sur)\s*\d+\s*(?:\([\d,]+\s*%\))?)\s*$"
+)
+
+
 def recoller_total_orphelin(section):
     """Les lignes de la section, le libelle « Total » recolle a ses chiffres.
 
@@ -462,6 +469,17 @@ def recoller_total_orphelin(section):
     si la ligne recollee correspond a l'un des deux motifs du tableau resume.
     Sans cette condition, un « Total » de n'importe quel autre tableau
     pourrait s'accrocher a une ligne de nombres qui n'a rien a voir.
+
+    Au SitRep 112, troisieme decoupe : le libelle garde la fraction de zones
+    avec lui, et seuls les nombres sont rejetes sur la ligne du dessus :
+
+        94 6 436 3 095 48,1%
+        Total 60/151 (39,7 %)
+
+    On recolle alors « Total » + la ligne de chiffres + la fraction, sous le
+    meme garde-fou. TOTAL_FRACTION_SEULE_RE n'accepte, apres « Total », que
+    la fraction et son pourcentage : la ligne Total du tableau detaille
+    (« Total 6436 3095 48,1% 94 17 6 23 ») ne peut pas correspondre.
     """
     lignes = [l.strip() for l in section.split("\n")]
 
@@ -486,6 +504,15 @@ def recoller_total_orphelin(section):
                 print("  ! libelle « Total » isole au-dessus de ses chiffres, "
                       "ligne recollee (texte brut).")
                 i += 2
+                continue
+        mf = TOTAL_FRACTION_SEULE_RE.match(line)
+        if mf and sortie and sortie[-1][:1].isdigit():
+            candidat = "Total " + sortie[-1] + " " + mf.group("fraction")
+            if resume(candidat):
+                sortie[-1] = candidat
+                print("  ! libelle « Total » et fraction de zones sous leurs "
+                      "chiffres, ligne recollee (texte brut).")
+                i += 1
                 continue
         sortie.append(line)
         i += 1

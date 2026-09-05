@@ -10,8 +10,8 @@ du 3 septembre 2026 (publié le 4) — 6 436 cas confirmés, 3 095 décès, lét
 48,1 %, 1 495 guéris, 738 patients en CTE, suivi des contacts 88,5 % (21 678
 vus sur 24 497), 60 zones touchées (aucune nouvelle), 94 nouveaux cas (Ituri
 60, Nord-Kivu 25, Haut-Uélé 9) et 23 décès du jour (17 communautaires, 6
-intra-CTE dont 3 « à ventiler » en Ituri). Intégré **en local le
-5 septembre**, non publié à cette date. Même vérification qu'au 111 : pour
+intra-CTE dont 3 « à ventiler » en Ituri). Intégré et **publié le
+5 septembre**, sans le chantier Flux (recette « Publier sans publier »). Même vérification qu'au 111 : pour
 chacune des 60 zones, cumul du 112 moins cumul du 111 = nouveaux cas du jour,
 idem pour les décès, zéro écart ; cinq ventilations déduites par
 `ventiler_par_soustraction` (Bunia 2, Komanda 4, Nizi 1, Rwampara 3,
