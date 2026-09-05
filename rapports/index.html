@@ -77,7 +77,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=371ff11013">
+<link rel="stylesheet" href="/assets/css/site.css?v=8f9e9427d9">
 </head>
 <body>
 
@@ -192,10 +192,19 @@
       <main id="contenu">
   <section class="section">
     <div class="section-head">
-      <h1 class="page-title page-title--large">Sources et bulletins officiels</h1>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Le site</div>
+        <h1 class="page-title">Sources et bulletins officiels</h1>
+      </div>
     </div>
-    <p class="page-intro">Ce site ne produit aucun chiffre : il compile ceux que publient les institutions qui suivent l'épidémie. Cette page rassemble ces documents, tels qu'ils ont été publiés, pour que chacun puisse remonter à l'original, vérifier un nombre ou lire ce que le site ne montre pas.</p>
-    <div class="section-head" style="margin-top:26px;">
+    <p class="lede">Ce site ne produit aucun chiffre : il compile ceux que publient les institutions qui suivent l'épidémie.</p>
+    <p class="page-intro">Cette page rassemble ces documents, tels qu'ils ont été publiés, pour que chacun puisse remonter à l'original, vérifier un nombre ou lire ce que le site ne montre pas.</p>
+    <nav class="riposte-ancres" aria-label="Les trois sections">
+      <a href="#insp">1. SitRep quotidien (INSP)</a>
+      <a href="#who-reports-section">2. Weekly External Situation Report (OMS)</a>
+      <a href="#autres">3. Autres sources</a>
+    </nav>
+    <div class="section-head" id="insp" style="margin-top:26px;">
       <h2 class="section-title" data-i18n="reportsTitle">1. SitRep quotidien (INSP)</h2>
     </div>
     <p class="page-intro" data-i18n="reportsIntro">Chaque bulletin officiel publié par l'Institut National de Santé Publique de la République Démocratique du Congo (INSP) est archivé ici dès sa publication, au format PDF original — la source principale de ce site.</p>
@@ -1073,7 +1082,7 @@
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section">
+  <section class="section" id="autres">
     <div class="section-head">
       <h2 class="section-title" data-i18n="geoSourceTitle">3. Autres sources</h2>
     </div>

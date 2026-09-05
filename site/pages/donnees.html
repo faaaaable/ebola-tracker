@@ -12,11 +12,12 @@
              « Donnees detaillees » avec l'anneau vide de la barre laterale ;
              en titre, « Ensemble du pays », ce qu'on a clique. Decide le
              29 aout : la page s'appelait du nom de sa rubrique. -->
-        <div class="eyebrow" style="margin-bottom:6px;"><span class="dot dot-all"></span>{{i18n.tabZones}}</div>
+        <div class="eyebrow"><span class="dot dot-all"></span>{{i18n.tabZones}}</div>
         <h1 class="page-title">{{meta.h1}}</h1>
       </div>
-      <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">{{seed.zonesSub}}</div>
+      <div class="section-sub">{{seed.cartoAsOf}}</div>
     </div>
+    <p class="lede">{{t.ddLede}}</p>
     <p class="page-intro">{{t.provincesIntro}}</p>
     <nav class="riposte-ancres" aria-label="{{t.ddCombien}} · {{t.ddOu}} · {{t.ddQui}}">
       <a href="#combien">{{t.ddCombien}}</a>
@@ -147,6 +148,7 @@
 
       <div class="section-head" style="margin-top:32px;">
         <h3 class="section-title">{{i18n.zonesViewZone}}</h3>
+        <div class="section-sub" id="zonesTableSub" data-i18n="zonesTableSub">{{seed.zonesSub}}</div>
       </div>
       <!-- Le tableau par zone sort de sa bascule : toujours visible, avec sa
            recherche et son filtre. -->

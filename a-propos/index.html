@@ -77,7 +77,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=371ff11013">
+<link rel="stylesheet" href="/assets/css/site.css?v=8f9e9427d9">
 </head>
 <body>
 
@@ -191,16 +191,38 @@
 
       <main id="contenu">
   <section class="section">
-    <h1 class="page-title">À propos de ce site</h1>
-    <p class="about-lede">Ce site rassemble, jour après jour, ce que les autorités congolaises publient sur la 17ᵉ épidémie d'Ebola, ainsi que les rapports de situation de l'OMS qui les complètent — et rien d'autre.</p>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Le site</div>
+        <h1 class="page-title">À propos de ce site</h1>
+      </div>
+    </div>
+    <p class="lede">Ce site rassemble, jour après jour, ce que les autorités congolaises publient sur la 17ᵉ épidémie d'Ebola, ainsi que les rapports de situation de l'OMS qui les complètent — et rien d'autre.</p>
 
-    <!-- Reperes tires des donnees : ils suivent l'archive sans intervention. -->
-    <dl class="about-facts" aria-label="En bref">
-      <div><dt>Source</dt><dd>Bulletins de l'INSP et de l'OMS</dd></div>
-      <div><dt>Depuis le</dt><dd>14 mai 2026</dd></div>
-      <div><dt>Bulletins archivés</dt><dd>121 (105 INSP, 16 OMS)</dd></div>
-      <div><dt>Couverture</dt><dd>6 provinces, 60 zones de santé</dd></div>
-    </dl>
+    <!-- Reperes tires des donnees : ils suivent l'archive sans intervention.
+         Meme composant .kpis que les autres pages depuis le 5 septembre. -->
+    <div class="kpis riposte-kpis" aria-label="En bref">
+      <div class="kpi">
+        <div class="label">Source</div>
+        <div class="value">INSP et OMS</div>
+        <div class="delta">bulletins officiels</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Depuis le</div>
+        <div class="value">14 mai 2026</div>
+        <div class="delta">premier bulletin archivé</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Bulletins archivés</div>
+        <div class="value">121</div>
+        <div class="delta">105 INSP, 16 OMS</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Couverture</div>
+        <div class="value">6 provinces</div>
+        <div class="delta">60 zones de santé</div>
+      </div>
+    </div>
   </section>
 
   <section class="section">

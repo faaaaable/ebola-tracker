@@ -361,18 +361,23 @@ ul,ol{margin:0;padding:0;}
   font-family:var(--font-serif);
   font-size:clamp(26px,3.2vw,38px);
   font-weight:600;line-height:1.2;letter-spacing:-0.01em;
-  color:var(--ink);margin:0 0 12px;max-width:22ch;
+  color:var(--ink);margin:0 0 12px;
 }
-/* Sans plafond : « Sources et bulletins officiels » (30 caracteres) cassait
-   en deux lignes sur ordinateur (demande du 5 septembre 2026). Pas de
-   nowrap — sur telephone le titre se replie encore de lui-meme. */
-.page-title--large{max-width:none;}
+/* Plus de plafond a 22ch depuis le 5 septembre 2026 : « Sources et bulletins
+   officiels » cassait en deux lignes sur ordinateur, et l'harmonisation des
+   en-tetes a etendu la regle a toutes les pages. Pas de nowrap — sur
+   telephone un titre long se replie de lui-meme. */
+/* Le chapeau de chaque page, depuis le 5 septembre 2026 : une ou deux
+   phrases en serif sous le titre, le registre editorial du site. Ce qui
+   depasse deux phrases descend dans un .page-intro en dessous. */
 .lede{
   font-family:var(--font-serif);
   font-size:22px;line-height:1.45;font-weight:400;
   color:var(--ink-strong);
   max-width:640px;margin:0 0 28px;
 }
+.lede strong{font-weight:600;color:var(--ink);}
+.lede+.page-intro{margin-top:-8px;}
 .page-intro{
   font-size:14.5px;line-height:1.7;color:var(--ink-dim);
   max-width:68ch;margin:0 0 22px;
@@ -384,8 +389,11 @@ ul,ol{margin:0;padding:0;}
   border-radius:var(--radius-card);
 }
 
+/* Le surtitre de chaque page (5 septembre 2026) : la rubrique de la barre
+   laterale — « Donnees detaillees » avec la pastille d'identite, sinon le
+   groupe (Explorer, Comprendre, Le site) avec une bille bleue. */
 .eyebrow{
-  display:inline-flex;align-items:center;gap:7px;
+  display:inline-flex;align-items:center;gap:7px;margin-bottom:6px;
   font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
   color:var(--accent-strong);
 }
@@ -474,12 +482,17 @@ ul,ol{margin:0;padding:0;}
 .kpi.alerts .value,.kpi.labo .value{color:var(--accent-info);}
 .kpi.contacts .value{color:var(--accent-active);}
 .kpi.cte .value{color:var(--ink);}
+/* Reperes de tete de « Le virus » et « A propos », dans le meme composant
+   depuis le 5 septembre : un chiffre de contexte en bleu fort, l'alerte
+   (« 0 vaccin ») en rouge, les reperes textuels d'A propos en encre. */
+.kpi.figure .value{color:var(--accent-strong);}
+.kpi.alert .value{color:var(--accent-critical);}
 /* Quatre ancres vers les cadres, une ligne : ce n'est pas une navigation,
    juste un sommaire pour qui vient chercher un seul indicateur. */
 .riposte-ancres{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;}
 .riposte-ancres a{color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--line);}
 .riposte-ancres a:hover{border-bottom-color:var(--accent-strong);}
-.figure-band+.riposte-ancres{margin-top:20px;}
+.kpis+.riposte-ancres{margin-top:20px;}
 /* Sur telephone, deux colonnes : ces quatre chiffres se comparent, comme les
    vignettes de province — empiles, on ne voit qu'un chiffre a la fois. */
 @media (max-width:760px){
@@ -1052,6 +1065,8 @@ td.is-soft{color:var(--ink-faint);}
    ========================================================================== */
 
 /* ---- bandeau de chiffres cles ---- */
+/* Ne sert plus qu'a la bande des genomes, plus bas dans « Le virus » :
+   les reperes de TETE de page sont tous en .kpis depuis le 5 septembre. */
 .figure-band{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:1px;background:var(--line);
@@ -1405,27 +1420,8 @@ td.is-soft{color:var(--ink-faint);}
    temps. Le reste reste de la prose.
    ========================================================================== */
 
-.about-lede{
-  font-family:var(--font-serif);font-size:22px;font-weight:400;
-  line-height:1.45;letter-spacing:-0.01em;color:var(--ink);
-  max-width:46ch;margin:14px 0 0;text-wrap:balance;
-}
-
-/* Reperes : une bande de faits, sans cadre, separes par des filets. */
-.about-facts{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:var(--radius-card);
-  overflow:hidden;margin-top:28px;
-}
-.about-facts > div{background:var(--bg-panel);padding:15px 17px;}
-.about-facts dt{
-  font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-  color:var(--ink-label);margin-bottom:5px;
-}
-.about-facts dd{
-  margin:0;font-size:15px;font-weight:600;color:var(--ink);line-height:1.3;
-}
+/* .about-lede et .about-facts retires le 5 septembre 2026 : le chapeau est
+   .lede et les reperes sont en .kpis, comme partout. */
 
 /* La methode en trois temps. Le numero est dessine par le compteur de la
    liste : pas de puce a maintenir dans le HTML. */
@@ -2152,11 +2148,6 @@ footer{
   }
   .drill p{font-size:13.5px;line-height:1.6;color:var(--ink-dim);margin:0;max-width:60ch;}
 
-  /* ---- rang d'une province ---- */
-  .province-rank{
-    font-size:13.5px;line-height:1.6;color:var(--ink-dim);
-    margin:-12px 0 22px;max-width:68ch;
-  }
 
   /* ---- graphique sans donnee ---- */
   .chart-empty{

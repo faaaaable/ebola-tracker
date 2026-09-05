@@ -2134,8 +2134,13 @@ def main():
                 "total": fmt(len(latest.get("reports", [])) + len(who_reports), lang),
                 "insp": fmt(len(latest.get("reports", [])), lang),
                 "who": fmt(len(who_reports), lang)})),
+            "about.reportsSub": esc(interp(strings_lang["aboutFactReportsSub"], {
+                "insp": fmt(len(latest.get("reports", [])), lang),
+                "who": fmt(len(who_reports), lang)})),
             "about.scope": esc(interp(strings_lang["aboutFactScopeValue"], {
                 "provinces": fmt(len(provinces), lang),
+                "zones": fmt(len(latest.get("healthZones", [])), lang)})),
+            "about.scopeSub": esc(interp(strings_lang["aboutFactScopeSub"], {
                 "zones": fmt(len(latest.get("healthZones", [])), lang)})),
             "mapHint": hint_pair(strings_lang, "cartoHint", "cartoHintTouch"),
             "seed.provinceRows": province_rows_html(provinces, national, lang),

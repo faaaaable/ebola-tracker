@@ -1,23 +1,30 @@
   <section class="section">
-    <h1 class="page-title mb-titre">{{meta.h1}}</h1>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>{{t.footerUnderstandTitle}}</div>
+        <h1 class="page-title">{{meta.h1}}</h1>
+      </div>
+    </div>
     <p class="lede">{{t.virusIntro}}</p>
 
-    <div class="figure-band">
-      <div class="fb-item">
-        <div class="fb-value">{{t.virusStat1Value}}</div>
-        <div class="fb-label">{{t.virusStat1Label}}</div>
+    <!-- Meme bande de chiffres que Riposte et les provinces (.kpis) : un seul
+         composant pour les reperes de tete, decision du 5 septembre. -->
+    <div class="kpis riposte-kpis">
+      <div class="kpi figure">
+        <div class="label">{{t.virusStat1Label}}</div>
+        <div class="value">{{t.virusStat1Value}}</div>
       </div>
-      <div class="fb-item">
-        <div class="fb-value">{{t.virusStat2Value}}</div>
-        <div class="fb-label">{{t.virusStat2Label}}</div>
+      <div class="kpi figure">
+        <div class="label">{{t.virusStat2Label}}</div>
+        <div class="value">{{t.virusStat2Value}}</div>
       </div>
-      <div class="fb-item">
-        <div class="fb-value">{{t.virusStat3Value}}</div>
-        <div class="fb-label">{{t.virusStat3Label}}</div>
+      <div class="kpi figure">
+        <div class="label">{{t.virusStat3Label}}</div>
+        <div class="value">{{t.virusStat3Value}}</div>
       </div>
-      <div class="fb-item is-alert">
-        <div class="fb-value">{{t.virusStat4Value}}</div>
-        <div class="fb-label">{{t.virusStat4Label}}</div>
+      <div class="kpi alert">
+        <div class="label">{{t.virusStat4Label}}</div>
+        <div class="value">{{t.virusStat4Value}}</div>
       </div>
     </div>
 

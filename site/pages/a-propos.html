@@ -1,14 +1,36 @@
   <section class="section">
-    <h1 class="page-title">{{meta.h1}}</h1>
-    <p class="about-lede">{{t.aboutLede}}</p>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>{{t.footerSiteTitle}}</div>
+        <h1 class="page-title">{{meta.h1}}</h1>
+      </div>
+    </div>
+    <p class="lede">{{t.aboutLede}}</p>
 
-    <!-- Reperes tires des donnees : ils suivent l'archive sans intervention. -->
-    <dl class="about-facts" aria-label="{{t.aboutFactsTitle}}">
-      <div><dt>{{t.aboutFactSourceKey}}</dt><dd>{{t.aboutFactSourceValue}}</dd></div>
-      <div><dt>{{t.aboutFactSinceKey}}</dt><dd>{{about.since}}</dd></div>
-      <div><dt>{{t.aboutFactReportsKey}}</dt><dd>{{about.reports}}</dd></div>
-      <div><dt>{{t.aboutFactScopeKey}}</dt><dd>{{about.scope}}</dd></div>
-    </dl>
+    <!-- Reperes tires des donnees : ils suivent l'archive sans intervention.
+         Meme composant .kpis que les autres pages depuis le 5 septembre. -->
+    <div class="kpis riposte-kpis" aria-label="{{t.aboutFactsTitle}}">
+      <div class="kpi">
+        <div class="label">{{t.aboutFactSourceKey}}</div>
+        <div class="value">{{t.aboutFactSourceValue}}</div>
+        <div class="delta">{{t.aboutFactSourceSub}}</div>
+      </div>
+      <div class="kpi">
+        <div class="label">{{t.aboutFactSinceKey}}</div>
+        <div class="value">{{about.since}}</div>
+        <div class="delta">{{t.aboutFactSinceSub}}</div>
+      </div>
+      <div class="kpi">
+        <div class="label">{{t.aboutFactReportsKey}}</div>
+        <div class="value">{{about.reports}}</div>
+        <div class="delta">{{about.reportsSub}}</div>
+      </div>
+      <div class="kpi">
+        <div class="label">{{t.aboutFactScopeKey}}</div>
+        <div class="value">{{about.scope}}</div>
+        <div class="delta">{{about.scopeSub}}</div>
+      </div>
+    </div>
   </section>
 
   <section class="section">

@@ -1,9 +1,18 @@
   <section class="section">
     <div class="section-head">
-      <h1 class="page-title page-title--large">{{meta.h1}}</h1>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>{{t.footerSiteTitle}}</div>
+        <h1 class="page-title">{{meta.h1}}</h1>
+      </div>
     </div>
+    <p class="lede">{{t.reportsLede}}</p>
     <p class="page-intro">{{t.reportsPageIntro}}</p>
-    <div class="section-head" style="margin-top:26px;">
+    <nav class="riposte-ancres" aria-label="{{t.reportsAncresLabel}}">
+      <a href="#insp">{{i18n.reportsTitle}}</a>
+      <a href="#who-reports-section">{{i18n.whoReportsTitle}}</a>
+      <a href="#autres">{{i18n.geoSourceTitle}}</a>
+    </nav>
+    <div class="section-head" id="insp" style="margin-top:26px;">
       <h2 class="section-title" data-i18n="reportsTitle">{{i18n.reportsTitle}}</h2>
     </div>
     <p class="page-intro" data-i18n="reportsIntro">{{i18n.reportsIntro}}</p>
@@ -31,7 +40,7 @@
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section">
+  <section class="section" id="autres">
     <div class="section-head">
       <h2 class="section-title" data-i18n="geoSourceTitle">{{i18n.geoSourceTitle}}</h2>
     </div>
