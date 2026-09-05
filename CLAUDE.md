@@ -1953,7 +1953,7 @@ une proportion n'aurait aucun sens.
 
 ---
 
-## Quatre retouches du 6 septembre 2026, en local
+## Trois retouches du 6 septembre 2026
 
 - **La démographie dit qu'elle est figée dans son cadre** : à droite du titre
   « Âge et sexe », `seed.agesFrozen` (« figée au 5 août 2026 : l'INSP ne
@@ -1965,8 +1965,9 @@ une proportion n'aurait aucun sens.
   au personnel de première ligne) et le SitRep 112 (vaccinations de ce
   personnel). Aucun chiffre en dur, volontairement : « nous ne sommes pas
   spécialistes ». Le « 0 vaccin homologué » reste vrai.
-- **La légende de la chronologie est un filtre** (`initTimelineFilter`,
-  boutons `aria-pressed`, mois vides masqués, jamais tout masquer).
+- Un filtre par type de jalon sur la légende de la chronologie a été
+  construit, montré, puis **écarté par le propriétaire** le 6 septembre :
+  ne pas le refaire sans qu'il le redemande.
 - **L'historique des zones n'est chargé que là où il sert** : curseur des
   cartes et tableaux de zones (`besoinHistorique` dans l'init). Mesure
   faite avant : GitHub Pages compresse, `zones-history.json` fait 15 Ko

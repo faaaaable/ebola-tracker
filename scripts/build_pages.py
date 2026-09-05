@@ -2146,6 +2146,8 @@ def main():
             "seed.provinceRows": province_rows_html(provinces, national, lang),
             "seed.agesRows": ages_rows_html(demographie, lang, strings_lang),
             "seed.sexRows": sex_rows_html(demographie, lang, strings_lang),
+            "seed.agesFrozen": esc(interp(strings_lang["ddAgesFrozen"], {
+                "date": long_date(demographie["date"], i18n_lang)})),
             "seed.agesNote": interp(strings_lang["virusAgesNote"], {
                 "date": long_date(demographie["date"], i18n_lang),
                 "derniere": long_date(demographie["derniereFigurePubliee"], i18n_lang),

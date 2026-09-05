@@ -5377,7 +5377,10 @@ if(document.querySelector('.zonemap')) safeRun(initMap, 'initMap');
 applyStaticI18n();
 renderAll(); // premier rendu immediat avec les donnees de reference integrees
 safeRun(initTimelineScroller, 'timelineScroller');
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), loadZonesHistory(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie(), loadDecesLieu(), loadRiposte()]).then(()=>{
+/* L'historique des zones ne sert qu'au curseur des cartes et aux tableaux
+   de zones : les autres pages ne le chargent plus (5 septembre 2026). */
+const besoinHistorique = !!document.querySelector('#timelineSlider, #zonesDetailTable, #zonesProvinceTable');
+Promise.all([loadRemoteSitreps(), loadRemoteLatest(), besoinHistorique ? loadZonesHistory() : Promise.resolve(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie(), loadDecesLieu(), loadRiposte()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées

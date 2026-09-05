@@ -70,6 +70,7 @@
     "virusCompareTitle": "Traitements & vaccins : une différence clé selon l'espèce",
     "virusCompareIntro": "Les seuls traitements et le seul vaccin homologués contre Ebola ciblent l'espèce Zaïre — pas l'espèce Bundibugyo, en cause dans cette épidémie.",
     "virusCompareNote": "Pendant cette épidémie, plusieurs candidats sont évalués en essai clinique contre l'espèce Bundibugyo — dont l'anticorps à large spectre MBP134, l'antiviral remdesivir et l'obeldesivir en prophylaxie post-exposition — sous la coordination de l'OMS. En l'absence de traitement ciblé homologué, les soins de support intensifs (réhydratation, oxygénation, surveillance) restent le socle de la prise en charge et améliorent significativement les chances de survie.",
+    "virusVaccinUpdate": "Le 31 août 2026, l'OMS a précisé l'usage d'Ervebo, le vaccin homologué contre l'espèce Zaïre, face au virus Bundibugyo : efficacité inconnue contre cette espèce, emploi réservé à un cadre de recherche, en priorité pour les soignants et le personnel de première ligne. Les bulletins de l'INSP rapportent depuis début septembre des vaccinations de ce personnel.",
     "virusGenomesTitle": "Le virus lu dans son génome",
     "virusGenomesIntro": "Séquencer le génome du virus prélevé chez les malades permet de confirmer l'espèce, de dater le début réel de l'épidémie et de mesurer sa vitesse. Les laboratoires de l'INRB, à Bunia et à Kinshasa, déposent ces séquences dans la base publique Pathoplexus : c'est ce dépôt qui est compté ici.",
     "virusGenomesStatSeq": "génomes séquencés en RDC depuis mai 2026",
@@ -299,6 +300,7 @@
     "ddQui": "Qui",
     "ddQuiSub": "âge et sexe des cas et des décès",
     "ddQueFaitOn": "Que fait-on",
+    "ddAgesFrozen": "figée au {date} : l'INSP ne publie plus cette répartition",
     "ddQueFaitOnSub": "la riposte, en quatre chiffres",
     "ddRiposteLink": "Toute la page « La riposte » →",
     "ddNewCasesTitle": "Nouveaux cas et décès"
@@ -373,6 +375,7 @@
     "virusCompareTitle": "Treatments & vaccines: a key difference by species",
     "virusCompareIntro": "The only licensed Ebola treatments and vaccine target the Zaire species — not the Bundibugyo species behind this outbreak.",
     "virusCompareNote": "During this outbreak, several candidates are being evaluated in clinical trials against the Bundibugyo species — including the broad-spectrum antibody MBP134, the antiviral remdesivir, and obeldesivir for post-exposure prophylaxis — under WHO coordination. In the absence of a licensed targeted treatment, intensive supportive care (rehydration, oxygenation, monitoring) remains the cornerstone of care and significantly improves the chances of survival.",
+    "virusVaccinUpdate": "On 31 August 2026, WHO clarified the use of Ervebo, the vaccine licensed against the Zaire species, against Bundibugyo virus: efficacy against this species unknown, use restricted to a research setting, with priority for health workers and front-line staff. INSP bulletins report vaccinations of that staff since early September.",
     "virusGenomesTitle": "The virus read in its genome",
     "virusGenomesIntro": "Sequencing the genome of the virus sampled from patients confirms the species, dates the real start of the outbreak and measures its speed. INRB laboratories in Bunia and Kinshasa deposit these sequences in the public Pathoplexus database: that repository is what is counted here.",
     "virusGenomesStatSeq": "genomes sequenced in DRC since May 2026",
@@ -602,6 +605,7 @@
     "ddQui": "Who",
     "ddQuiSub": "age and sex of cases and deaths",
     "ddQueFaitOn": "What is being done",
+    "ddAgesFrozen": "frozen at {date}: the INSP no longer publishes this breakdown",
     "ddQueFaitOnSub": "the response, in four figures",
     "ddRiposteLink": "The full “Response” page →",
     "ddNewCasesTitle": "New cases and deaths"
@@ -953,6 +957,7 @@
     "virusCompareTitle": "Matibabu na chanjo: tofauti muhimu kulingana na aina",
     "virusCompareIntro": "Matibabu pekee na chanjo pekee zilizoidhinishwa dhidi ya Ebola zinalenga aina ya Zaire — si aina ya Bundibugyo, inayosababisha mlipuko huu.",
     "virusCompareNote": "Wakati wa mlipuko huu, dawa kadhaa zinazopendekezwa zinajaribiwa kliniki dhidi ya aina ya Bundibugyo — ikiwemo kingamwili ya wigo mpana MBP134, dawa ya kuua virusi remdesivir na obeldesivir kama kinga baada ya kuambukizwa — chini ya uratibu wa WHO. Kwa kukosekana kwa matibabu yaliyoidhinishwa yanayolenga aina hii, huduma za msaada wa hali ya juu (kurejesha maji mwilini, oksijeni, ufuatiliaji) zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi.",
+    "virusVaccinUpdate": "Tarehe 31 Agosti 2026, WHO ilifafanua matumizi ya Ervebo, chanjo iliyoidhinishwa dhidi ya aina ya Zaire, dhidi ya virusi vya Bundibugyo: ufanisi dhidi ya aina hii haujulikani, matumizi yamewekewa mipaka ya utafiti, kipaumbele kwa wahudumu wa afya na wafanyakazi wa mstari wa mbele. Ripoti za INSP zinaripoti chanjo za wafanyakazi hao tangu mwanzoni mwa Septemba.",
     "virusGenomesTitle": "Virusi inavyosomwa katika jenomu yake",
     "virusGenomesIntro": "Kupanga jenomu ya virusi kutoka kwa sampuli za wagonjwa huthibitisha aina, huweka tarehe ya kuanza kwa mlipuko na hupima kasi yake. Maabara za INRB huko Bunia na Kinshasa huweka mfuatano huu katika hifadhidata ya umma Pathoplexus: hifadhi hiyo ndiyo inayohesabiwa hapa.",
     "virusGenomesStatSeq": "jenomu zilizopangwa DRC tangu Mei 2026",
@@ -1182,6 +1187,7 @@
     "ddQui": "Nani",
     "ddQuiSub": "umri na jinsia ya visa na vifo",
     "ddQueFaitOn": "Kinachofanywa",
+    "ddAgesFrozen": "imesimama tarehe {date}: INSP haichapishi tena mgawanyo huu",
     "ddQueFaitOnSub": "mapambano, kwa takwimu nne",
     "ddRiposteLink": "Ukurasa mzima wa « Mapambano » →",
     "ddNewCasesTitle": "Visa vipya na vifo vipya"
