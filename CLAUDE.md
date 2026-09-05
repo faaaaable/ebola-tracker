@@ -390,6 +390,52 @@ pas suppressions.
 
 ## La structure du site
 
+**Un seul en-tête de page, en quatre couches, depuis le 5 septembre 2026.**
+Le propriétaire avait relevé que chaque page commençait autrement — bille
+ici, pas là ; chapeau en serif sur deux pages, en sans-serif sur sept ;
+trois composants différents pour une bande de chiffres. Toutes les pages
+hors accueil suivent désormais le même ordre, chaque couche pouvant
+manquer mais jamais être remplacée par autre chose :
+
+1. **Surtitre** (`.eyebrow`, capitales de 11 px, bille devant) : la rubrique
+   de la barre latérale. « Données détaillées » avec la pastille d'identité
+   sur les sept pages de données (couleur de la province, anneau vide pour
+   le pays) ; sinon le groupe de la barre — `footerExploreTitle`
+   (Riposte, Flux), `footerUnderstandTitle` (Chronologie, Le virus, FAQ),
+   `footerSiteTitle` (Sources, À propos, Contact) — avec la bille bleue.
+2. **Titre** `.page-title`, sans plafond de largeur (le `22ch` est parti,
+   `page-title--large` n'existe plus).
+3. **À droite du titre**, dans `.section-sub`, une seule formule pour les
+   pages qui vivent des bulletins : `seed.cartoAsOf` (« Situation au
+   3 sept. 2026 ») sur Données, provinces et Riposte ; « Période
+   observée : … » (`fluxSub`) sur Flux. Rien sur Sources, Chronologie,
+   Le virus, FAQ, À propos, Contact. Conséquence sur `/donnees/` : la ligne
+   « 60 zones touchées · SitRep N°112 » (`#zonesTableSub`, réécrite par le
+   script) est descendue à droite du titre « Par zone de santé », qu'elle
+   décrit ; la province ne montre plus « SitRep N°112 du 3 sept. »
+   (`seed.sitrepRef` reste calculé, inutilisé).
+4. **Chapeau** `.lede` : serif de 22 px, une ou deux phrases, 35 mots au
+   plus. Ce qui dépasse descend dans un `.page-intro` sans-serif juste
+   dessous (`.lede+.page-intro` resserre l'écart). Les chapeaux de
+   Données, Riposte, Flux et Sources ont été scindés en deux clés
+   (`ddLede`/`provincesIntro`, `riposteLede`/`riposteIntro`,
+   `fluxLede`/`fluxIntro`, `reportsLede`/`reportsPageIntro`) ; le chapeau
+   de province est `provinceIntro` en serif, le rang en dessous en
+   `page-intro`. `about-lede` a fusionné dans `lede`.
+
+Puis, quand ils existent : la **bande de chiffres**, toujours `.kpis
+riposte-kpis` (Le virus a quitté `figure-band`, qui ne sert plus qu'à la
+bande des génomes plus bas ; À propos a quitté sa liste `about-facts`, ses
+repères sont en valeur courte + détail : « INSP et OMS / bulletins
+officiels », « 121 / 105 INSP, 16 OMS ») ; puis les **ancres**
+`.riposte-ancres` dès trois chapitres (Sources en a reçu trois, sur des
+`id` `insp`, `who-reports-section`, `autres`). Deux modificateurs de
+`.kpi` : `figure` (chiffre de contexte, bleu fort) et `alert` (rouge).
+Vérifié par planche des dix en-têtes à 1 280 px (`tmp/verif/
+planche-tetes-apres.png`) et trois pages à 360 px ; `test_onglets` sans
+erreur sur Données, Riposte et Sources.
+
+
 **Trois langues, un seul générateur — et une table pour les conventions.**
 `LOCALES` dans `build_pages.py` porte, par langue : séparateur de milliers,
 séparateur décimal, forme du pourcent, **préfixe d'URL**, locale Open Graph et
