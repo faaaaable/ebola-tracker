@@ -1093,11 +1093,18 @@ titre se replie encore de lui-même sous 360 px. Les autres titres gardent
 le plafond.
 
 Un paragraphe d'introduction (`reportsPageIntro`, trois langues, classe
-`page-intro` sous le titre) dit ce que la page contient — bulletins INSP en
-PDF classés par mois, rapports hebdomadaires de l'OMS, provenance des
-contours — et rappelle que chaque nombre du site s'y retrouve. Demande du
-propriétaire du 5 septembre 2026 : « expliquer ce que les gens vont
-trouver ». Le swahili n'est pas relu.
+`page-intro` sous le titre) dit ce que la page est — le site ne produit
+aucun chiffre, il compile ceux des institutions qui suivent l'épidémie, et
+cette page en rassemble les documents tels que publiés, pour remonter à
+l'original. Volontairement **général, sans nommer les sources** : une
+première version les énumérait, le propriétaire l'a fait retirer le
+5 septembre 2026 (« un paragraphe plus général sans préciser les
+sources »). Les trois sections sont **numérotées** dans `i18n.js` —
+« 1. SitRep quotidien (INSP) », « 2. Weekly External Situation Report
+(OMS) », « 3. Autres sources » (ex-« Fond de carte », qui ne contient
+encore que la provenance des contours) — ; le numéro fait partie de la
+chaîne, il apparaît donc aussi dans l'`aria-label` du filtre par mois. Le
+swahili n'est pas relu.
 
 `report_chip()` produit une carte par bulletin, **cliquable dans son entier** —
 auparavant seule la petite icône était un lien, cible minuscule et carte qui
