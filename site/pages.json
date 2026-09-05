@@ -52,8 +52,7 @@
       "pages": [
         "accueil",
         "donnees",
-        "riposte",
-        "rapports"
+        "riposte"
       ]
     },
     {
@@ -67,6 +66,7 @@
     {
       "titleKey": "footerSiteTitle",
       "pages": [
+        "rapports",
         "a-propos",
         "contact"
       ]
