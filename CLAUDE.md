@@ -1106,6 +1106,15 @@ encore que la provenance des contours) — ; le numéro fait partie de la
 chaîne, il apparaît donc aussi dans l'`aria-label` du filtre par mois. Le
 swahili n'est pas relu.
 
+**Rapports OMS : 16 archivés, jusqu'au n°16 (données au 30 août 2026),
+ajouté le 5 septembre.** Le propriétaire avait transmis un lien IRIS qui
+était en fait le bitstream du n°12, déjà archivé (SHA-256 identique) ;
+le n°16 a été retrouvé par l'API IRIS (`/discover/search/objects`, puis
+`/core/items/<uuid>/bundles` → ORIGINAL → bitstreams), première page
+vérifiée. La liste `WHO_REPORTS` de `download_who_sitreps.py` reste la
+source de vérité ; `build_who_reports_index.py` reconstruit
+`who-reports.json` depuis les noms de fichiers.
+
 `report_chip()` produit une carte par bulletin, **cliquable dans son entier** —
 auparavant seule la petite icône était un lien, cible minuscule et carte qui
 paraissait inerte. Une navigation par mois et une recherche filtrent la liste

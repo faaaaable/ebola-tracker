@@ -51,6 +51,11 @@ WHO_REPORTS = [
     ("13", "2026-08-09", "https://iris.who.int/bitstreams/21922255-8b77-4612-bc0e-1064fafcf6ef/download"),
     ("14", "2026-08-16", "https://iris.who.int/bitstreams/7884afdb-fb05-4edf-b564-6a475fed0243/download"),
     ("15", "2026-08-23", "https://iris.who.int/bitstreams/2dfa5168-2ff5-474f-829b-33b715616b1f/download"),
+    # 16 : retrouve le 5 septembre 2026 par la meme API IRIS (item
+    # da465f8d-cb44-4d2c-a5b3-5d268d3abf16, mis en ligne le 1er septembre),
+    # via /core/items/<uuid>/bundles -> ORIGINAL -> bitstreams. Premiere
+    # page verifiee : « Report 16, Data as of 30 August 2026 ».
+    ("16", "2026-08-30", "https://iris.who.int/bitstreams/22a50ebd-a676-4a82-a40e-7feae57dc1fe/download"),
 ]
 
 

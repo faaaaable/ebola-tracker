@@ -194,12 +194,13 @@
     <div class="section-head">
       <h1 class="page-title page-title--large">Sources et bulletins officiels</h1>
     </div>
+    <p class="page-intro">Ce site ne produit aucun chiffre : il compile ceux que publient les institutions qui suivent l'épidémie. Cette page rassemble ces documents, tels qu'ils ont été publiés, pour que chacun puisse remonter à l'original, vérifier un nombre ou lire ce que le site ne montre pas.</p>
     <div class="section-head" style="margin-top:26px;">
-      <h2 class="section-title" data-i18n="reportsTitle">SitRep quotidien (INSP)</h2>
+      <h2 class="section-title" data-i18n="reportsTitle">1. SitRep quotidien (INSP)</h2>
     </div>
     <p class="page-intro" data-i18n="reportsIntro">Chaque bulletin officiel publié par l'Institut National de Santé Publique de la République Démocratique du Congo (INSP) est archivé ici dès sa publication, au format PDF original — la source principale de ce site.</p>
     <div class="panel" style="padding:16px;">
-      <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="SitRep quotidien (INSP)"></nav>
+      <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="1. SitRep quotidien (INSP)"></nav>
       <label class="visually-hidden" for="reportsSearch">Rechercher (N°, mois, année)…</label>
       <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="Rechercher (N°, mois, année)…" class="search-input">
       <div id="reportsList" class="reports-grid">
@@ -949,11 +950,18 @@
 
   <section class="section" id="who-reports-section" style="">
     <div class="section-head">
-      <h2 class="section-title" data-i18n="whoReportsTitle">Weekly External Situation Report (OMS)</h2>
+      <h2 class="section-title" data-i18n="whoReportsTitle">2. Weekly External Situation Report (OMS)</h2>
     </div>
     <p class="page-intro" data-i18n="whoReportsIntro">Bulletins hebdomadaires publiés par le Bureau régional Afrique de l'Organisation Mondiale de la Santé sur cette épidémie — une source indépendante de l'INSP, à un rythme hebdomadaire plutôt que quasi quotidien.</p>
     <div class="panel" style="padding:16px;">
       <div id="whoReportsList" class="reports-grid">
+        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_16_2026-08-30.pdf" target="_blank" rel="noopener" title="Télécharger le PDF">
+          <span class="rc-head">
+            <span class="rc-label">Rapport N°16</span>
+            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
+          </span>
+          <span class="rc-date"><span class="rc-date-prefix">Situation au </span>30 août 2026</span>
+        </a>
         <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_15_2026-08-23.pdf" target="_blank" rel="noopener" title="Télécharger le PDF">
           <span class="rc-head">
             <span class="rc-label">Rapport N°15</span>
@@ -1067,7 +1075,7 @@
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
   <section class="section">
     <div class="section-head">
-      <h2 class="section-title" data-i18n="geoSourceTitle">Fond de carte</h2>
+      <h2 class="section-title" data-i18n="geoSourceTitle">3. Autres sources</h2>
     </div>
     <p class="page-intro" data-i18n="geoSourceText">Les délimitations des zones de santé dessinées sur les cartes du site viennent du jeu de données « DR Congo – Health Zones » publié par OCHA RDC sur la plateforme HDX, d'après le Référentiel géographique commun de la République démocratique du Congo. Chaque forme est une zone de santé, l'unité de référence des bulletins officiels.</p>
   </section>
@@ -1143,7 +1151,7 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=1c28e8a994"></script>
+<script defer src="/assets/js/i18n.js?v=5fa24e25b3"></script>
 <script defer src="/assets/js/app.js?v=eef1e2d541"></script>
 
 </body>
