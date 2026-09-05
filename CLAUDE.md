@@ -435,6 +435,36 @@ Vérifié par planche des dix en-têtes à 1 280 px (`tmp/verif/
 planche-tetes-apres.png`) et trois pages à 360 px ; `test_onglets` sans
 erreur sur Données, Riposte et Sources.
 
+**Le corps des pages suit quatre règles depuis le même jour** (analyse
+de la planche `tmp/verif/planche-corps.png`, avant/après), décidées après
+un « tu conseilles quoi ? » :
+
+1. **Une page en chapitres a sa colonne de titres.** Le critère est
+   l'existence d'ancres : Données, Le virus, Riposte, Flux et Sources sont
+   en `section-split` (nom du chapitre et ligne italique dans la marge de
+   220 px, contenu à droite). Provinces, Chronologie, FAQ, À propos et
+   Contact restent pleine largeur. Coût assumé : les graphiques de Riposte
+   ont perdu 250 px à 1 280 px et prennent la largeur de ceux de Données.
+   Sur Sources, le premier chapitre a quitté la section d'en-tête pour
+   devenir une section à part (`#insp`).
+2. **Deux graphies de titre.** Le chapitre en capitales sans-serif
+   (`.section-title`) ; le cadre ou l'intertitre de texte en serif de
+   22 px (`.frame-title`), une seule taille partagée par sélecteur avec
+   `.prose h2`, `.tl-title`, `.data-note h2` et `.faq-more h2`. Sur
+   Données, « Nouveaux cas », « Par province »… sont donc en serif, ce qui
+   les distingue enfin des chapitres « Combien », « Où ».
+3. **Sous un chapitre** : la ligne italique, puis le paragraphe, dans cet
+   ordre.
+4. **Un cadre est titré au-dessus, jamais dedans** : les `figcaption` de
+   Flux et du bloc des génomes sont devenus des `h3.frame-title` dans un
+   `.section-head` avant le cadre, leur sous-titre `.mb-sub` une
+   `.section-sub`. Une seule graphie de note sous les cadres : `.mb-credit`
+   et `.vcompare-note` alignés sur `.map-note` (11,5 px, gris).
+
+La règle 5 proposée — une sortie « Pour aller plus loin » en bas des pages
+longues — n'est pas faite, en attente d'un retour sur les quatre autres.
+`test_onglets` sans erreur sur les cinq pages en chapitres.
+
 
 **Trois langues, un seul générateur — et une table pour les conventions.**
 `LOCALES` dans `build_pages.py` porte, par langue : séparateur de milliers,
