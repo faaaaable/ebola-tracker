@@ -2501,6 +2501,27 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
 
 ## Chantiers ouverts
 
+- **Maquette « Riposte & défis » en deux parties** (`/riposte-defis/`,
+  `/en/response-challenges/`, `/sw/mapambano-changamoto/`), 6 septembre 2026,
+  en local, `noindex` et hors sitemap. Alternative demandée par le
+  propriétaire à la page Riposte & défis publiée : la première partie est
+  la page Riposte telle quelle (cinq cadres, sans les citations), la
+  seconde est **rédigée** — neuf obstacles depuis mai, chacun un paragraphe
+  sourcé bulletin par bulletin — avec une mise en page qui n'existe nulle
+  part ailleurs : une bande sombre d'ouverture (seul endroit du site en
+  couleurs inversées), une frise « quand chaque obstacle apparaît dans les
+  bulletins » (un trait par bulletin, la barre de la première à la dernière
+  mention, calculée par mots-clés sur `data/corpus/qualitatif.jsonl` +
+  `data/defis.json`), puis une fiche numérotée par obstacle en deux
+  colonnes. Pièces : `data/defis-synthese.json` (textes fr/en, mots-clés —
+  **brouillon d'auteur à relire**, le swahili affiche le français avec la
+  note), `scripts/defis_synthese.py` (rendu écrit en dur), gabarit
+  `site/pages/riposte-defis.html`, styles `.dossier`, `.frise-*`,
+  `.fiche*`. Le générateur pose désormais la balise `robots` depuis
+  `page.noindex` (`layout_values["robots"]`). Si elle est adoptée, elle
+  remplace le gabarit de `/riposte/` et les citations sous les cadres
+  disparaissent ; sinon la supprimer avec ses trois pièces.
+
 - **La synthèse des défis depuis mai**, décidée le 6 septembre 2026 avec
   le propriétaire : un chapitre rédigé sur la page Riposte & défis, une
   dizaine de difficultés datées (prestataires impayés, refus d'enterrement
