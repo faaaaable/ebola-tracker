@@ -1086,6 +1086,12 @@ Suivi d'un lien vers le tableau complet filtré sur cette province.
 
 ### `/rapports/`
 
+Le titre « Sources et bulletins officiels » (30 caractères) tient sur une
+ligne depuis le 5 septembre 2026 : `.page-title` plafonne à 22ch, et cette
+page seule porte `page-title--large` (`max-width:none`) — sans `nowrap`, le
+titre se replie encore de lui-même sous 360 px. Les autres titres gardent
+le plafond.
+
 `report_chip()` produit une carte par bulletin, **cliquable dans son entier** —
 auparavant seule la petite icône était un lien, cible minuscule et carte qui
 paraissait inerte. Une navigation par mois et une recherche filtrent la liste
@@ -2098,7 +2104,16 @@ défaut le chemin dépend de la plateforme : Brave sur macOS, Chrome ailleurs.
 obstacle sur la même machine : ces scripts utilisent `WebSocket` en global,
 qui n'existe qu'à partir de Node 22 — sous Node 20.20, lancer avec
 `node --experimental-websocket scripts/verif/capture_page.mjs …`, sinon
-`ReferenceError: WebSocket is not defined`.
+`ReferenceError: WebSocket is not defined`. **Et ce plantage laisse un Brave
+headless orphelin** : le script a déjà lancé le navigateur sur son port fixe
+(9371 pour `capture_page`) quand il tombe, et ne le tue pas. Les lancements
+suivants échouent à prendre le port, se raccordent à l'ancienne instance,
+et celle-ci sert les pages déjà vues **depuis son cache** — le 5 septembre,
+dix-huit instances traînaient, et la page /rapports/ se capturait avec un
+CSS vieux de vingt minutes pendant que /en/reports/, jamais visitée par
+l'orphelin, sortait juste. Symptôme : une capture qui contredit une sonde
+DOM. Remède : `pkill -f 'headless=new.*remote-debugging-port=93'` (les
+instances de `scripts/verif/` seulement, jamais le Brave du propriétaire).
 
 **Dans une ligne de zone rendue par pdfplumber, `None` n'est pas une
 cellule vide.** C'est une colonne absente de la grille, intercalée au
