@@ -100,7 +100,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=8f9e9427d9">
+<link rel="stylesheet" href="/assets/css/site.css?v=928272dc7e">
 </head>
 <body>
 
@@ -264,13 +264,12 @@
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
        on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
        et non des onglets : ce qui n'est pas clique n'est pas lu. -->
-  <section class="section" id="alertes">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Tahadhari</h2>
-        <div class="section-sub">kile ufuatiliaji hupokea, na kile huhifadhi</div>
-      </div>
+  <section class="section section-split" id="alertes">
+    <div>
+      <h2 class="section-title">Tahadhari</h2>
+      <div class="section-sub">kile ufuatiliaji hupokea, na kile huhifadhi</div>
     </div>
+    <div>
     <p class="page-intro">Tahadhari ni taarifa — mgonjwa, kifo, uvumi — ambayo timu lazima ziende kuhakiki. Takriban moja kati ya tano huthibitishwa kama kisa kinachoshukiwa na kuchukuliwa sampuli. Tahadhari nyingi ni ufuatiliaji unaotafuta; sehemu iliyothibitishwa inaonyesha kile unachopata.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="alertesChart">
@@ -290,15 +289,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="laboratoire">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Maabara</h2>
-        <div class="section-sub">sampuli zilizopimwa na matokeo chanya</div>
-      </div>
+  <section class="section section-split" id="laboratoire">
+    <div>
+      <h2 class="section-title">Maabara</h2>
+      <div class="section-sub">sampuli zilizopimwa na matokeo chanya</div>
     </div>
+    <div>
     <p class="page-intro">Kiwango cha chanya ni sehemu ya sampuli zinazothibitisha virusi. Kinapima jinsi vipimo vinavyolengwa, si idadi ya walioambukizwa: kinapopanda wakati idadi ya sampuli haibadiliki, wagonjwa dhahiri tu ndio wanachukuliwa sampuli na wengine wanakosekana.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="laboChart">
@@ -312,15 +312,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="contacts">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Ufuatiliaji wa walioguswa</h2>
-        <div class="section-sub">watu walioathirika, walioonwa au waliopotea machoni</div>
-      </div>
+  <section class="section section-split" id="contacts">
+    <div>
+      <h2 class="section-title">Ufuatiliaji wa walioguswa</h2>
+      <div class="section-sub">watu walioathirika, walioonwa au waliopotea machoni</div>
     </div>
+    <div>
     <p class="page-intro">Kila kisa kilichothibitishwa huacha walioguswa wa kufuatiliwa kwa siku ishirini na moja. Idadi yao ni ukubwa wa mlipuko kama mapambano yanavyouona; sehemu inayoonwa kila siku ni mshiko wanaoshikilia — chini ya kiwango, watu walioathirika huambukiza bila kugunduliwa.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="contactsChart">
@@ -338,15 +339,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="cte">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Vituo vya matibabu</h2>
-        <div class="section-sub">wagonjwa waliolazwa na vitanda vilivyopo</div>
-      </div>
+  <section class="section section-split" id="cte">
+    <div>
+      <h2 class="section-title">Vituo vya matibabu</h2>
+      <div class="section-sub">wagonjwa waliolazwa na vitanda vilivyopo</div>
     </div>
+    <div>
     <p class="page-intro">Kituo cha matibabu kilichojaa hurudisha wagonjwa kwenye jamii, ambapo vifo hutokea nje ya huduma. Matumizi ya vitanda hulinganisha wagonjwa waliolazwa — waliothibitishwa na wanaoshukiwa — na vitanda ambavyo ripoti inatangaza; huzidi 100% pale wagonjwa wanapowekwa nje ya vitanda vilivyopangwa.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="cteChart">
@@ -360,17 +362,18 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
   <!-- Le lieu du deces suit l'occupation des CTE : l'un est la cause, l'autre
        la consequence. Venu de /donnees/ le 29 aout. -->
-  <section class="section" id="deces">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Mahali pa kifo</h2>
-        <div class="section-sub">katika jamii au katika kituo cha matibabu</div>
-      </div>
+  <section class="section section-split" id="deces">
+    <div>
+      <h2 class="section-title">Mahali pa kifo</h2>
+      <div class="section-sub">katika jamii au katika kituo cha matibabu</div>
     </div>
+    <div>
     <p class="page-intro">Vifo viwili kati ya vitatu vilivyothibitishwa hutokea nje ya vituo vya matibabu. Sehemu hiyo inaonyesha kile mapambano hayafikii: mgonjwa anayefia nyumbani hakutengwa wala kutibiwa, na aliwaweka wapendwa wake hatarini hadi mwisho.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="decesLieuChart">
@@ -385,6 +388,22 @@
       <div class="map-note chart-note"></div>
     </div>
     <p class="map-note">Vyanzo: ripoti za hali za INSP, zilizosomwa ripoti baada ya ripoti. Umbo la takwimu hizi limebadilika kila kipindi cha uandishi; ripoti ambayo maneno yake hayakuweza kusomwa huacha siku tupu badala ya thamani ya kubahatisha. Tahadhari na maabara hujumlishwa kwa wiki, Jumatatu hadi Jumapili, wiki inayoendelea ikionekana tu ikikamilika. Hakuna takwimu inayohesabiwa upya badala ya chanzo, isipokuwa matumizi ya vitanda wakati ripoti inatoa wagonjwa na vitanda bila kiwango.</p>
+  
+    </div>
+  </section>
+
+  <!-- La sortie de page (regle 5 du 5 septembre 2026) : deux liens, choisis
+       par sens, sans chiffre pour ne pas se perimer. -->
+  <section class="section section-split" id="plus-loin">
+    <div>
+      <h2 class="section-title">Kwa zaidi</h2>
+    </div>
+    <div>
+      <ul class="plus-loin">
+        <li><a href="/sw/takwimu/">Takwimu za kina →</a><span>Visa na vifo ambavyo mapambano yanafuatilia, siku baada ya siku na eneo la afya baada ya eneo.</span></li>
+        <li><a href="/sw/virusi/">Virusi →</a><span>Kwa nini aina hii haina chanjo wala tiba iliyoidhinishwa, na jinsi inavyoenea.</span></li>
+      </ul>
+    </div>
   </section>
 
       </main>

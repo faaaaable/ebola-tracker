@@ -151,7 +151,7 @@
         </div>
 {{seed.agesRows}}
       </div>
-      <h3 class="sub-title">{{t.virusSexTitle}}</h3>
+      <h3 class="frame-title">{{t.virusSexTitle}}</h3>
       <div class="sexes">
         <div class="ages-key" aria-hidden="true">
           <span class="ak ak-f">{{t.virusSexFemale}}</span>
@@ -184,26 +184,44 @@
           <div class="fb-label">{{t.virusGenomesStatShare}}</div>
         </div>
       </div>
-      <div class="panel">
-        <figure class="mb-figure">
-          <figcaption>{{t.virusGenomesMonthsTitle}}</figcaption>
-          {{seed.genomesMois}}
-        </figure>
+      <div class="section-head">
+        <h3 class="frame-title">{{t.virusGenomesMonthsTitle}}</h3>
       </div>
       <div class="panel">
         <figure class="mb-figure">
-          <figcaption>{{t.virusGenomesZonesTitle}}</figcaption>
+          {{seed.genomesMois}}
+        </figure>
+      </div>
+      <div class="section-head">
+        <h3 class="frame-title">{{t.virusGenomesZonesTitle}}</h3>
+      </div>
+      <div class="panel">
+        <figure class="mb-figure">
           {{seed.genomesBarres}}
           <p class="mb-credit">{{seed.genomesAutres}}</p>
         </figure>
       </div>
       <div class="info-note">{{seed.genomesNote}}</div>
-      <h3 class="sub-title">{{t.virusGenomesLuTitre}}</h3>
+      <h3 class="frame-title">{{t.virusGenomesLuTitre}}</h3>
       <div class="prose vg-lu">
         <p>{{t.virusGenomesLuP1}}</p>
         <p>{{t.virusGenomesLuP2}}</p>
         <p>{{t.virusGenomesLuP3}}</p>
       </div>
       <div class="info-note">{{t.virusGenomesLuCredit}}</div>
+    </div>
+  </section>
+
+  <!-- La sortie de page (regle 5 du 5 septembre 2026) : deux liens, choisis
+       par sens, sans chiffre pour ne pas se perimer. -->
+  <section class="section section-split" id="plus-loin">
+    <div>
+      <h2 class="section-title">{{t.plusLoinTitle}}</h2>
+    </div>
+    <div>
+      <ul class="plus-loin">
+        <li><a href="{{url.riposte}}">{{t.virusLoin1Link}} →</a><span>{{t.virusLoin1Text}}</span></li>
+        <li><a href="{{url.faq}}">{{t.virusLoin2Link}} →</a><span>{{t.virusLoin2Text}}</span></li>
+      </ul>
     </div>
   </section>

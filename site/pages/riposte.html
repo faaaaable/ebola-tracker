@@ -49,13 +49,12 @@
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
        on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
        et non des onglets : ce qui n'est pas clique n'est pas lu. -->
-  <section class="section" id="alertes">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">{{t.riposteAlertesTitle}}</h2>
-        <div class="section-sub">{{t.riposteAlertesSub}}</div>
-      </div>
+  <section class="section section-split" id="alertes">
+    <div>
+      <h2 class="section-title">{{t.riposteAlertesTitle}}</h2>
+      <div class="section-sub">{{t.riposteAlertesSub}}</div>
     </div>
+    <div>
     <p class="page-intro">{{t.riposteAlertesLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="alertesChart">
@@ -75,15 +74,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="laboratoire">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">{{t.riposteLaboTitle}}</h2>
-        <div class="section-sub">{{t.riposteLaboSub}}</div>
-      </div>
+  <section class="section section-split" id="laboratoire">
+    <div>
+      <h2 class="section-title">{{t.riposteLaboTitle}}</h2>
+      <div class="section-sub">{{t.riposteLaboSub}}</div>
     </div>
+    <div>
     <p class="page-intro">{{t.riposteLaboLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="laboChart">
@@ -97,15 +97,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="contacts">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">{{t.riposteContactsTitle}}</h2>
-        <div class="section-sub">{{t.riposteContactsSub}}</div>
-      </div>
+  <section class="section section-split" id="contacts">
+    <div>
+      <h2 class="section-title">{{t.riposteContactsTitle}}</h2>
+      <div class="section-sub">{{t.riposteContactsSub}}</div>
     </div>
+    <div>
     <p class="page-intro">{{t.riposteContactsLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="contactsChart">
@@ -123,15 +124,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="cte">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">{{t.riposteCteTitle}}</h2>
-        <div class="section-sub">{{t.riposteCteSub}}</div>
-      </div>
+  <section class="section section-split" id="cte">
+    <div>
+      <h2 class="section-title">{{t.riposteCteTitle}}</h2>
+      <div class="section-sub">{{t.riposteCteSub}}</div>
     </div>
+    <div>
     <p class="page-intro">{{t.riposteCteLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="cteChart">
@@ -145,17 +147,18 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
   <!-- Le lieu du deces suit l'occupation des CTE : l'un est la cause, l'autre
        la consequence. Venu de /donnees/ le 29 aout. -->
-  <section class="section" id="deces">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">{{t.riposteDecesTitle}}</h2>
-        <div class="section-sub">{{t.riposteDecesSub}}</div>
-      </div>
+  <section class="section section-split" id="deces">
+    <div>
+      <h2 class="section-title">{{t.riposteDecesTitle}}</h2>
+      <div class="section-sub">{{t.riposteDecesSub}}</div>
     </div>
+    <div>
     <p class="page-intro">{{t.riposteDecesLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="decesLieuChart">
@@ -170,4 +173,20 @@
       <div class="map-note chart-note"></div>
     </div>
     <p class="map-note">{{t.riposteSourcesNote}}</p>
+  
+    </div>
+  </section>
+
+  <!-- La sortie de page (regle 5 du 5 septembre 2026) : deux liens, choisis
+       par sens, sans chiffre pour ne pas se perimer. -->
+  <section class="section section-split" id="plus-loin">
+    <div>
+      <h2 class="section-title">{{t.plusLoinTitle}}</h2>
+    </div>
+    <div>
+      <ul class="plus-loin">
+        <li><a href="{{url.donnees}}">{{t.riposteLoin1Link}} →</a><span>{{t.riposteLoin1Text}}</span></li>
+        <li><a href="{{url.le-virus}}">{{t.riposteLoin2Link}} →</a><span>{{t.riposteLoin2Text}}</span></li>
+      </ul>
+    </div>
   </section>

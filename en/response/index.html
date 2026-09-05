@@ -100,7 +100,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=8f9e9427d9">
+<link rel="stylesheet" href="/assets/css/site.css?v=928272dc7e">
 </head>
 <body>
 
@@ -264,13 +264,12 @@
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
        on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
        et non des onglets : ce qui n'est pas clique n'est pas lu. -->
-  <section class="section" id="alertes">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Alerts</h2>
-        <div class="section-sub">what surveillance receives, and what it keeps</div>
-      </div>
+  <section class="section section-split" id="alertes">
+    <div>
+      <h2 class="section-title">Alerts</h2>
+      <div class="section-sub">what surveillance receives, and what it keeps</div>
     </div>
+    <div>
     <p class="page-intro">An alert is a report — a sick person, a death, a rumour — that teams must go and check. Roughly one in five is validated as a suspected case and sampled. Many alerts means surveillance is looking; the validated share says what it finds.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="alertesChart">
@@ -290,15 +289,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="laboratoire">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Laboratory</h2>
-        <div class="section-sub">samples tested and positive results</div>
-      </div>
+  <section class="section section-split" id="laboratoire">
+    <div>
+      <h2 class="section-title">Laboratory</h2>
+      <div class="section-sub">samples tested and positive results</div>
     </div>
+    <div>
     <p class="page-intro">Positivity is the share of samples that confirm the virus. It measures how well tests are targeted, not how many people are infected: when it rises while the number of samples stalls, only the obvious patients are being sampled and others are being missed.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="laboChart">
@@ -312,15 +312,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="contacts">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Contact follow-up</h2>
-        <div class="section-sub">exposed people, seen or lost from view</div>
-      </div>
+  <section class="section section-split" id="contacts">
+    <div>
+      <h2 class="section-title">Contact follow-up</h2>
+      <div class="section-sub">exposed people, seen or lost from view</div>
     </div>
+    <div>
     <p class="page-intro">Every confirmed case leaves contacts to follow for twenty-one days. Their number is the size of the outbreak as the response sees it; the share seen each day is the grip it keeps on it — below the threshold, exposed people transmit undetected.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="contactsChart">
@@ -338,15 +339,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="cte">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Treatment centres</h2>
-        <div class="section-sub">patients hospitalised and beds available</div>
-      </div>
+  <section class="section section-split" id="cte">
+    <div>
+      <h2 class="section-title">Treatment centres</h2>
+      <div class="section-sub">patients hospitalised and beds available</div>
     </div>
+    <div>
     <p class="page-intro">A saturated treatment centre pushes patients back into the community, where deaths occur outside care. Occupancy relates hospitalised patients — confirmed and suspected — to the beds the bulletin declares; it exceeds 100% where patients are placed outside the planned beds.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="cteChart">
@@ -360,17 +362,18 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
   <!-- Le lieu du deces suit l'occupation des CTE : l'un est la cause, l'autre
        la consequence. Venu de /donnees/ le 29 aout. -->
-  <section class="section" id="deces">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Place of death</h2>
-        <div class="section-sub">in the community or in a treatment centre</div>
-      </div>
+  <section class="section section-split" id="deces">
+    <div>
+      <h2 class="section-title">Place of death</h2>
+      <div class="section-sub">in the community or in a treatment centre</div>
     </div>
+    <div>
     <p class="page-intro">Two confirmed deaths in three occur outside treatment centres. That share says what the response does not reach: a patient who dies at home was neither isolated nor treated, and exposed their family to the end.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="decesLieuChart">
@@ -385,6 +388,22 @@
       <div class="map-note chart-note"></div>
     </div>
     <p class="map-note">Sources: INSP situation reports, read bulletin by bulletin. The form of these figures has changed with each editorial period; a bulletin whose wording could not be read leaves an empty day rather than a guessed value. Alerts and laboratory figures are aggregated by week, Monday to Sunday, the current week appearing only once complete. No figure is recalculated in place of the source, except occupancy when the bulletin gives patients and beds without the rate.</p>
+  
+    </div>
+  </section>
+
+  <!-- La sortie de page (regle 5 du 5 septembre 2026) : deux liens, choisis
+       par sens, sans chiffre pour ne pas se perimer. -->
+  <section class="section section-split" id="plus-loin">
+    <div>
+      <h2 class="section-title">Go further</h2>
+    </div>
+    <div>
+      <ul class="plus-loin">
+        <li><a href="/en/data/">Detailed data →</a><span>The cases and deaths the response is chasing, day by day and health zone by health zone.</span></li>
+        <li><a href="/en/the-virus/">The virus →</a><span>Why this species has no licensed vaccine or treatment, and how it spreads.</span></li>
+      </ul>
+    </div>
   </section>
 
       </main>

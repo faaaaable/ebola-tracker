@@ -2368,3 +2368,39 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .vg-lu{margin-top:6px;}
 .vg-lu p{margin:0 0 10px;}
 .vg-reste{font-size:13px;color:var(--ink-dim);margin:10px 0 0;}
+
+
+/* ---- Le corps des pages, harmonise le 5 septembre 2026 (regles 1 a 4) ----
+   1. Une page en chapitres (avec ancres) est en .section-split : Donnees,
+      Le virus, Riposte, Flux, Sources. Les autres restent pleine largeur.
+   2. Deux graphies de titre : le chapitre en capitales sans-serif
+      (.section-title), le cadre ou l'intertitre de texte en serif 22 px
+      (.frame-title) — une seule taille, partagee avec les intertitres
+      d'A propos (.prose h2), les jalons de la chronologie (.tl-title),
+      la note de lecture des provinces (.data-note h2) et le renvoi de la
+      FAQ (.faq-more h2).
+   3. Sous un chapitre : une ligne italique (.section-sub), puis un
+      paragraphe (.page-intro), dans cet ordre.
+   4. Un cadre est titre AU-DESSUS, dans un .section-head, jamais dedans ;
+      une seule graphie de note sous les cadres (11,5 px, gris). */
+.frame-title,.prose h2,.tl-title,.data-note h2,.faq-more h2{
+  font-family:var(--font-serif);font-size:22px;font-weight:600;line-height:1.25;
+  letter-spacing:-0.01em;text-transform:none;color:var(--ink);
+}
+/* Intertitre dans un texte : de l'air au-dessus ; dans un .section-head,
+   c'est la tete de cadre qui espace. */
+.frame-title{margin:28px 0 10px;}
+.section-head .frame-title{margin:0;}
+.vcompare-note,.mb-credit{font-size:11.5px;line-height:1.6;color:var(--ink-faint);}
+/* Dans la colonne de droite d'un chapitre, un cadre titre au-dessus garde
+   l'ecart des pages de donnees entre deux cadres. */
+.section-split .panel+.section-head{margin-top:26px;}
+.panel+.section-head{margin-top:26px;}
+
+/* 5. La sortie de page : « Pour aller plus loin », deux liens vers des pages
+   voisines par le sens, chacun suivi d'une ligne qui dit ce qu'on y trouve.
+   Meme forme que le lien de sortie du chapitre « Que fait-on » de Donnees. */
+.plus-loin{list-style:none;padding:0;margin:0;display:grid;gap:16px;max-width:68ch;}
+.plus-loin a{font-weight:600;color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--line);}
+.plus-loin a:hover{border-bottom-color:var(--accent-strong);}
+.plus-loin span{display:block;font-size:14.5px;line-height:1.7;color:var(--ink-dim);margin-top:2px;}

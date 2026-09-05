@@ -77,7 +77,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=8f9e9427d9">
+<link rel="stylesheet" href="/assets/css/site.css?v=928272dc7e">
 </head>
 <body>
 
@@ -204,15 +204,19 @@
       <a href="#who-reports-section">2. Weekly External Situation Report (WHO)</a>
       <a href="#autres">3. Other sources</a>
     </nav>
-    <div class="section-head" id="insp" style="margin-top:26px;">
+  </section>
+
+  <section class="section section-split" id="insp">
+    <div>
       <h2 class="section-title" data-i18n="reportsTitle">1. Daily SitRep (INSP)</h2>
     </div>
-    <p class="page-intro" data-i18n="reportsIntro">Every official bulletin published by the National Institute of Public Health of the Democratic Republic of the Congo (INSP) is archived here as soon as it's published, in its original PDF form — the main source for this site.</p>
-    <div class="panel" style="padding:16px;">
-      <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="1. Daily SitRep (INSP)"></nav>
-      <label class="visually-hidden" for="reportsSearch">Search (N°, month, year)…</label>
-      <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="Search (N°, month, year)…" class="search-input">
-      <div id="reportsList" class="reports-grid">
+    <div>
+      <p class="page-intro" data-i18n="reportsIntro">Every official bulletin published by the National Institute of Public Health of the Democratic Republic of the Congo (INSP) is archived here as soon as it's published, in its original PDF form — the main source for this site.</p>
+      <div class="panel" style="padding:16px;">
+        <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="1. Daily SitRep (INSP)"></nav>
+        <label class="visually-hidden" for="reportsSearch">Search (N°, month, year)…</label>
+        <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="Search (N°, month, year)…" class="search-input">
+        <div id="reportsList" class="reports-grid">
         <div class="reports-month-header" data-month-key="2026-8">Sep 2026</div>
         <a class="report-chip" href="/reports/SITREP_MVE_112.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="112 sep 2026 2026-09-03" title="Download PDF">
           <span class="rc-head">
@@ -953,17 +957,19 @@
           </span>
           <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>14 May 2026</span>
         </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="who-reports-section" style="">
-    <div class="section-head">
+  <section class="section section-split" id="who-reports-section" style="">
+    <div>
       <h2 class="section-title" data-i18n="whoReportsTitle">2. Weekly External Situation Report (WHO)</h2>
     </div>
-    <p class="page-intro" data-i18n="whoReportsIntro">Weekly bulletins published by the WHO Regional Office for Africa on this outbreak — a source independent from INSP, published weekly rather than near-daily.</p>
-    <div class="panel" style="padding:16px;">
-      <div id="whoReportsList" class="reports-grid">
+    <div>
+      <p class="page-intro" data-i18n="whoReportsIntro">Weekly bulletins published by the WHO Regional Office for Africa on this outbreak — a source independent from INSP, published weekly rather than near-daily.</p>
+      <div class="panel" style="padding:16px;">
+        <div id="whoReportsList" class="reports-grid">
         <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_16_2026-08-30.pdf" target="_blank" rel="noopener" title="Download PDF">
           <span class="rc-head">
             <span class="rc-label">Report N°16</span>
@@ -1076,17 +1082,20 @@
           </span>
           <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>18 May 2026</span>
         </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section" id="autres">
-    <div class="section-head">
+  <section class="section section-split" id="autres">
+    <div>
       <h2 class="section-title" data-i18n="geoSourceTitle">3. Other sources</h2>
     </div>
-    <p class="page-intro" data-i18n="geoSourceText">The health zone boundaries drawn on this site's maps come from the “DR Congo – Health Zones” dataset published by OCHA DRC on the HDX platform, based on the Democratic Republic of the Congo's common geographic reference (Référentiel géographique commun). Each shape is a health zone, the reference unit of the official bulletins.</p>
+    <div>
+      <p class="page-intro" data-i18n="geoSourceText">The health zone boundaries drawn on this site's maps come from the “DR Congo – Health Zones” dataset published by OCHA DRC on the HDX platform, based on the Democratic Republic of the Congo's common geographic reference (Référentiel géographique commun). Each shape is a health zone, the reference unit of the official bulletins.</p>
+    </div>
   </section>
 
 

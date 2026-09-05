@@ -100,7 +100,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=8f9e9427d9">
+<link rel="stylesheet" href="/assets/css/site.css?v=928272dc7e">
 </head>
 <body>
 
@@ -264,13 +264,12 @@
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
        on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
        et non des onglets : ce qui n'est pas clique n'est pas lu. -->
-  <section class="section" id="alertes">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Les alertes</h2>
-        <div class="section-sub">ce que la surveillance reçoit, et ce qu'elle en retient</div>
-      </div>
+  <section class="section section-split" id="alertes">
+    <div>
+      <h2 class="section-title">Les alertes</h2>
+      <div class="section-sub">ce que la surveillance reçoit, et ce qu'elle en retient</div>
     </div>
+    <div>
     <p class="page-intro">Une alerte est un signalement — un malade, un décès, une rumeur — que les équipes doivent aller vérifier. Une sur cinq environ est validée comme cas suspect et prélevée. Beaucoup d'alertes, c'est une surveillance qui cherche ; la part validée dit ce qu'elle trouve.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="alertesChart">
@@ -290,15 +289,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="laboratoire">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Le laboratoire</h2>
-        <div class="section-sub">échantillons analysés et résultats positifs</div>
-      </div>
+  <section class="section section-split" id="laboratoire">
+    <div>
+      <h2 class="section-title">Le laboratoire</h2>
+      <div class="section-sub">échantillons analysés et résultats positifs</div>
     </div>
+    <div>
     <p class="page-intro">La positivité est la part des échantillons qui confirment le virus. Elle mesure le ciblage des tests, pas la population infectée : quand elle monte alors que le nombre d'échantillons stagne, on ne prélève que les malades évidents et l'on en manque d'autres.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="laboChart">
@@ -312,15 +312,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="contacts">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Le suivi des contacts</h2>
-        <div class="section-sub">les personnes exposées, vues ou perdues de vue</div>
-      </div>
+  <section class="section section-split" id="contacts">
+    <div>
+      <h2 class="section-title">Le suivi des contacts</h2>
+      <div class="section-sub">les personnes exposées, vues ou perdues de vue</div>
     </div>
+    <div>
     <p class="page-intro">Chaque cas confirmé laisse des contacts à suivre pendant vingt et un jours. Leur nombre est la taille de l'épidémie vue par la riposte ; la part vue chaque jour est la prise qu'elle garde dessus — en dessous du seuil, des personnes exposées transmettent sans être détectées.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="contactsChart">
@@ -338,15 +339,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section class="section" id="cte">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Les centres de traitement</h2>
-        <div class="section-sub">patients hospitalisés et lits disponibles</div>
-      </div>
+  <section class="section section-split" id="cte">
+    <div>
+      <h2 class="section-title">Les centres de traitement</h2>
+      <div class="section-sub">patients hospitalisés et lits disponibles</div>
     </div>
+    <div>
     <p class="page-intro">Un centre de traitement saturé renvoie les malades vers la communauté, où les décès échappent à la prise en charge. L'occupation rapporte les patients hospitalisés — confirmés et suspects — aux lits que le bulletin déclare ; elle dépasse 100 % là où des malades sont installés hors des lits prévus.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="cteChart">
@@ -360,17 +362,18 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+  
+    </div>
   </section>
 
   <!-- Le lieu du deces suit l'occupation des CTE : l'un est la cause, l'autre
        la consequence. Venu de /donnees/ le 29 aout. -->
-  <section class="section" id="deces">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">Le lieu du décès</h2>
-        <div class="section-sub">en communauté ou en centre de traitement</div>
-      </div>
+  <section class="section section-split" id="deces">
+    <div>
+      <h2 class="section-title">Le lieu du décès</h2>
+      <div class="section-sub">en communauté ou en centre de traitement</div>
     </div>
+    <div>
     <p class="page-intro">Deux décès confirmés sur trois surviennent hors des centres de traitement. Cette part dit ce que la riposte n'atteint pas : un malade mort chez lui n'a été ni isolé ni soigné, et a exposé les siens jusqu'au bout.</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="decesLieuChart">
@@ -385,6 +388,22 @@
       <div class="map-note chart-note"></div>
     </div>
     <p class="map-note">Sources : rapports de situation de l'INSP, lus bulletin par bulletin. La forme de ces chiffres a changé à chaque époque de rédaction ; un bulletin dont la formulation n'a pas pu être lue laisse un jour vide plutôt qu'une valeur devinée. Les alertes et le laboratoire sont agrégés par semaine, du lundi au dimanche, la semaine en cours n'apparaissant qu'une fois terminée. Aucun chiffre n'est recalculé à la place de la source, sauf l'occupation quand le bulletin donne les patients et les lits sans le taux.</p>
+  
+    </div>
+  </section>
+
+  <!-- La sortie de page (regle 5 du 5 septembre 2026) : deux liens, choisis
+       par sens, sans chiffre pour ne pas se perimer. -->
+  <section class="section section-split" id="plus-loin">
+    <div>
+      <h2 class="section-title">Pour aller plus loin</h2>
+    </div>
+    <div>
+      <ul class="plus-loin">
+        <li><a href="/donnees/">Données détaillées →</a><span>Les cas et les décès que la riposte poursuit, jour après jour et zone de santé par zone de santé.</span></li>
+        <li><a href="/le-virus/">Le virus →</a><span>Pourquoi cette espèce n'a ni vaccin ni traitement homologué, et comment elle se transmet.</span></li>
+      </ul>
+    </div>
   </section>
 
       </main>
