@@ -1757,7 +1757,14 @@ qu'en D. La note du graphique le dit.
   « Nouveaux cas ». **Une semaine sans relevé reste une colonne vide** :
   deux barres collées se liraient comme deux semaines consécutives.
 - Les taux sont quotidiens, sur un calendrier jour par jour (idiome du
-  suivi des contacts), `spanGaps:false`.
+  suivi des contacts), `spanGaps:false`. **Chaque courbe de taux porte son
+  pont en pointillés** au-dessus des jours sans bulletin (`jeuPont`,
+  tremblement déterministe, teinte atténuée, ignoré par la légende et
+  l'infobulle) — contacts et CTE depuis le 28 août, la vue Taux des
+  alertes depuis le 5 septembre à la demande du propriétaire, avec un
+  plafond `null` parce que la part vérifiée dépasse 100 % jusqu'à début
+  août. La note de chaque cadre dit « tracé purement illustratif — jamais
+  une valeur ».
 - **Bascule par canevas** : `<nav data-chart-vue="alertesChart">`, état dans
   `vuesParCanvas` — quatre cadres cohabitent, une variable globale ne
   suffisait plus. `legendesDuGraphique` lit le titre dans `.section-title`
