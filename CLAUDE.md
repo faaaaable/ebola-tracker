@@ -2549,7 +2549,15 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
   **trois touches de bleu** dans la seconde partie (bande bleu nuit
   `#10283A`, barres de frise bleu pâle, numéros en `--accent-strong`),
   scopées `.dossier:not(.dossier-clair)` — la version non scopée avait
-  assombri la bande claire. Si elle est adoptée, elle remplace le gabarit
+  assombri la bande claire. Puis (même jour) : le sommaire de six liens au
+  pied de la bande claire retiré, la bande resserrée (354 px au lieu de
+  555), le chapeau de la page annonce les deux parties (`maqLede`), et une
+  **dixième fiche « Les équipes attaquées »** (`attaques`, entre insécurité
+  et points de contrôle) — les bulletins rapportent des agressions d'équipes
+  depuis le 17 juillet, sans jamais les chiffrer : pont Muchanga, PoC de
+  Mukulia, Mungamba, Croix-Rouge près d'Isiro, Rwampara, un mort dans un
+  accident à Bambu, un assassinat au Nord-Kivu, la menace de brûler le CTE
+  de Katwa. Mots-clés sans « bless » (« Faiblesse » le contient). Si elle est adoptée, elle remplace le gabarit
   de `/riposte/` et les citations sous les cadres disparaissent ; sinon la
   supprimer avec ses trois pièces.
 
