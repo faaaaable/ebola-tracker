@@ -469,7 +469,14 @@ un « tu conseilles quoi ? » :
    l'existence d'ancres : Données, Le virus, Riposte, Flux et Sources sont
    en `section-split` (nom du chapitre et ligne italique dans la marge de
    220 px, contenu à droite). Provinces, Chronologie, FAQ, À propos et
-   Contact restent pleine largeur. Coût assumé : les graphiques de Riposte
+   Contact restent pleine largeur. **Sources est revenue en pleine largeur
+   le 6 septembre** : ses chapitres sont des listes de documents, et la
+   colonne ne laissait que deux bulletins par ligne contre trois — le
+   propriétaire l'a vu parce que la section OMS tombait déjà sous son
+   titre : `app.js` (`renderWhoReports`) pose `style.display = 'block'` sur
+   `#who-reports-section` au chargement, ce qui annulait la grille de
+   `section-split` sur cette seule section. Règle affinée : la colonne va aux chapitres qui portent une
+   figure ou un texte, pas à une grille de documents. Coût assumé : les graphiques de Riposte
    ont perdu 250 px à 1 280 px et prennent la largeur de ceux de Données.
    Sur Sources, le premier chapitre a quitté la section d'en-tête pour
    devenir une section à part (`#insp`).
