@@ -2518,9 +2518,18 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
   note), `scripts/defis_synthese.py` (rendu écrit en dur), gabarit
   `site/pages/riposte-defis.html`, styles `.dossier`, `.frise-*`,
   `.fiche*`. Le générateur pose désormais la balise `robots` depuis
-  `page.noindex` (`layout_values["robots"]`). Si elle est adoptée, elle
-  remplace le gabarit de `/riposte/` et les citations sous les cadres
-  disparaissent ; sinon la supprimer avec ses trois pièces.
+  `page.noindex` (`layout_values["robots"]`). Suite du même jour, sur
+  demande : **la première partie a pris l'idiome de la seconde** — une bande
+  claire jumelle de la bande sombre (« Première partie · Ce que fait la
+  riposte », les quatre chiffres sur une rangée, le sommaire au pied), puis
+  les cinq cadres en `.cadre-fiche` (numéro serif bleu, titre, ligne
+  italique, paragraphe, cadre pleine largeur, sans colonne de titres) ; et
+  **trois touches de bleu** dans la seconde partie (bande bleu nuit
+  `#10283A`, barres de frise bleu pâle, numéros en `--accent-strong`),
+  scopées `.dossier:not(.dossier-clair)` — la version non scopée avait
+  assombri la bande claire. Si elle est adoptée, elle remplace le gabarit
+  de `/riposte/` et les citations sous les cadres disparaissent ; sinon la
+  supprimer avec ses trois pièces.
 
 - **La synthèse des défis depuis mai**, décidée le 6 septembre 2026 avec
   le propriétaire : un chapitre rédigé sur la page Riposte & défis, une
