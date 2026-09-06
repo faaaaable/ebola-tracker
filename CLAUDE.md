@@ -2530,6 +2530,18 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
 
 ## Chantiers ouverts
 
+- **Le bloc des provinces de l'accueil, cinq propositions — mis de côté le
+  6 septembre 2026.** Le propriétaire ne veut plus des six cases (« un
+  modèle que je retrouve sur d'autres sites »). Maquette autonome
+  `tmp/proto-provinces/` écrite par `scripts/prototype_provinces.py` (non
+  commité), qui charge la feuille de style du site : le bloc actuel en
+  référence, puis (1) une ligne par province avec la part du pays en filet,
+  (2) une barre pour le pays, cas puis décès, (3) les cercles à surface
+  proportionnelle, (4) une courbe de cumul par province avec les chiffres
+  du jour, (5) six colonnes de chiffres sans cadre. Avis donné : la 2 ou
+  la 4. Aucune décision prise, rien dans le site. Relancer le script
+  après un nouveau bulletin, il lit `latest.json` et `province-history.json`.
+
 - **Maquette « Riposte & défis » en deux parties** (`/riposte-defis/`,
   `/en/response-challenges/`, `/sw/mapambano-changamoto/`), 6 septembre 2026,
   en local, `noindex` et hors sitemap. Alternative demandée par le
