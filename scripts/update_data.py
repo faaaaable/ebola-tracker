@@ -1308,6 +1308,65 @@ def zone_row_to_dict(province, name, row):
     }
 
 
+def recouper_avec_la_veille(health_zones, meta):
+    """Le cumul de la veille tranche ce que la queue d'une ligne ne dit pas.
+
+    Une zone a un cumul de cas et un cumul de deces qui ne peuvent que
+    monter : la difference avec l'instantane precedent de zones-history.json
+    EST le nombre de nouveaux cas (et de nouveaux deces) du jour. C'est la
+    verification faite a la main a chaque bulletin depuis le 104 ; la voici
+    automatique, et elle corrige le seul cas ou l'on sait quoi faire.
+
+    Le SitRep 113 ecrit « Wamba 83 31 37,3% 1 1 » : le cumul de cas est reste
+    a 83, donc ce « 1 » n'est pas un nouveau cas — c'est un deces (intra-CTE,
+    la ligne de province le dit) suivi de son total. Le repli texte lisait
+    1 nouveau cas, et le Haut-Uele sommait 3 pour 2 declares. Le 107 avait
+    deja piege la meme queue de Wamba, par la grille.
+
+    Regle : si le cumul de cas n'a pas bouge et que la ligne annonce des
+    nouveaux cas, ils sont remis a zero et le premier nombre lu rejoint la
+    queue des deces (la ventilation reste a determiner par
+    ventiler_par_soustraction). Tout autre ecart entre cumul et nouveaux cas
+    ou deces est SIGNALE, jamais corrige : la source elle-meme n'est pas
+    toujours coherente (Tshopo au 110) et le site la recopie. Une zone
+    absente de la veille (nouvelle zone) n'est pas recoupee.
+    """
+    if not os.path.exists(ZONES_HISTORY_PATH):
+        return
+    try:
+        with open(ZONES_HISTORY_PATH, encoding="utf-8") as f:
+            existing = json.load(f)
+    except (OSError, ValueError):
+        return
+    numero = str((meta or {}).get("sitrepNumber") or "")
+    anterieurs = [e for e in existing if e.get("sitrep") and e["sitrep"] < numero]
+    if not anterieurs:
+        return
+    veille = max(anterieurs, key=lambda e: e["sitrep"])
+    par_cle = {(normalize_zone_key(z["name"]), z.get("province")): z for z in veille["zones"]}
+    for z in health_zones:
+        prev = par_cle.get((normalize_zone_key(z["name"]), z["province"]))
+        if not prev:
+            continue
+        d_cas = (z["cases"] or 0) - (prev.get("cases") or 0)
+        d_dec = (z["deaths"] or 0) - (prev.get("deaths") or 0)
+        if d_cas == 0 and (z["newCases24h"] or 0) > 0:
+            n = z["newCases24h"]
+            print(f"  · {z['name']} ({z['province']}) : cumul inchangé ({z['cases']}) mais {n} nouveau(x) cas lu(s) "
+                  f"— remis à 0, le nombre lu appartient aux décès (recoupement avec le SitRep {veille['sitrep']}).")
+            z["newCases24h"] = 0
+            if z["newDeaths24h"] == 0:
+                z["newDeaths24h"] = n
+                z["deathsCommunity24h"] = None
+                z["deathsIntraCTE24h"] = None
+        elif d_cas != (z["newCases24h"] or 0):
+            print(f"  ! {z['name']} ({z['province']}) : cumul {prev.get('cases')} -> {z['cases']} (+{d_cas}) "
+                  f"mais {z['newCases24h']} nouveau(x) cas annoncé(s) — laissé tel quel, à vérifier dans le PDF.")
+        if d_dec != (z["newDeaths24h"] or 0):
+            print(f"  ! {z['name']} ({z['province']}) : décès {prev.get('deaths')} -> {z['deaths']} (+{d_dec}) "
+                  f"mais {z['newDeaths24h']} décès du jour — laissé tel quel, à vérifier dans le PDF.")
+
+
 def ventiler_par_soustraction(health_zones, provinces):
     """Resout la ventilation communaute / CTE des zones restees ambigues.
 
@@ -1762,6 +1821,7 @@ def main():
             p["status"] = "active"
 
     health_zones = [zone_row_to_dict(prov, name, row) for prov, name, row in zones_raw]
+    recouper_avec_la_veille(health_zones, meta)
     ventiler_par_soustraction(health_zones, provinces)
 
     am = re.search(r"(\d[\d\s]*)\s*Aires de santé.*?Sur\s*(\d[\d\s]*)\s*\(", sidebar)

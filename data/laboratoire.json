@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-05-21",
-    "fin": "2026-09-03"
+    "fin": "2026-09-04"
   },
   "parDate": [
     {
@@ -2396,6 +2396,48 @@
         "echantillons": 514,
         "positifs": 94,
         "positivite": 18.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-04",
+      "sitrepNumber": "113",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 341,
+          "positifs": 53,
+          "vivants": 37,
+          "deces": 16,
+          "positivite": 15.5
+        },
+        "Nord-Kivu": {
+          "echantillons": 189,
+          "positifs": 31,
+          "vivants": 17,
+          "deces": 14,
+          "positivite": 16.4
+        },
+        "Haut-Uélé": {
+          "echantillons": 37,
+          "positifs": 2,
+          "positivite": 5.4
+        },
+        "Bas-Uélé": {
+          "echantillons": 5,
+          "positifs": 0,
+          "vivants": 3,
+          "deces": 2
+        },
+        "Tshopo": {
+          "echantillons": 3,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 5,
+        "echantillons": 575,
+        "positifs": 86,
+        "positivite": 15.0
       },
       "source": "SitRep INSP (automatique)"
     }
