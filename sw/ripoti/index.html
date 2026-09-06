@@ -206,17 +206,19 @@
     </nav>
   </section>
 
-  <section class="section section-split" id="insp">
-    <div>
+  <!-- Pleine largeur, pas de colonne de titres : les trois sections sont des
+       listes de documents, et la colonne ne laissait que deux bulletins par
+       ligne contre trois (demande du proprietaire, 6 septembre 2026). -->
+  <section class="section" id="insp">
+    <div class="section-head">
       <h2 class="section-title" data-i18n="reportsTitle">1. SitRep ya kila siku (INSP)</h2>
     </div>
-    <div>
-      <p class="page-intro" data-i18n="reportsIntro">Kila ripoti rasmi iliyochapishwa na Taasisi ya Kitaifa ya Afya ya Umma ya Jamhuri ya Kidemokrasia ya Kongo (INSP) huhifadhiwa hapa mara inapochapishwa, katika muundo asili wa PDF — chanzo kikuu cha tovuti hii.</p>
-      <div class="panel" style="padding:16px;">
-        <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="1. SitRep ya kila siku (INSP)"></nav>
-        <label class="visually-hidden" for="reportsSearch">Tafuta (Na., mwezi, mwaka)…</label>
-        <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="Tafuta (Na., mwezi, mwaka)…" class="search-input">
-        <div id="reportsList" class="reports-grid">
+    <p class="page-intro" data-i18n="reportsIntro">Kila ripoti rasmi iliyochapishwa na Taasisi ya Kitaifa ya Afya ya Umma ya Jamhuri ya Kidemokrasia ya Kongo (INSP) huhifadhiwa hapa mara inapochapishwa, katika muundo asili wa PDF — chanzo kikuu cha tovuti hii.</p>
+    <div class="panel" style="padding:16px;">
+      <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="1. SitRep ya kila siku (INSP)"></nav>
+      <label class="visually-hidden" for="reportsSearch">Tafuta (Na., mwezi, mwaka)…</label>
+      <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="Tafuta (Na., mwezi, mwaka)…" class="search-input">
+      <div id="reportsList" class="reports-grid">
         <div class="reports-month-header" data-month-key="2026-8">Sep. 2026</div>
         <a class="report-chip" href="/reports/SITREP_MVE_113.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="113 sep. 2026 2026-09-04" title="Pakua PDF">
           <span class="rc-head">
@@ -964,19 +966,17 @@
           </span>
           <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>14 Mei 2026</span>
         </a>
-        </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-split" id="who-reports-section" style="">
-    <div>
+  <section class="section" id="who-reports-section" style="">
+    <div class="section-head">
       <h2 class="section-title" data-i18n="whoReportsTitle">2. Weekly External Situation Report (WHO)</h2>
     </div>
-    <div>
-      <p class="page-intro" data-i18n="whoReportsIntro">Ripoti za kila wiki zilizochapishwa na Ofisi ya Kanda ya Afrika ya Shirika la Afya Duniani kuhusu mlipuko huu — chanzo huru kutoka INSP, kwa mwendo wa kila wiki badala ya karibu kila siku.</p>
-      <div class="panel" style="padding:16px;">
-        <div id="whoReportsList" class="reports-grid">
+    <p class="page-intro" data-i18n="whoReportsIntro">Ripoti za kila wiki zilizochapishwa na Ofisi ya Kanda ya Afrika ya Shirika la Afya Duniani kuhusu mlipuko huu — chanzo huru kutoka INSP, kwa mwendo wa kila wiki badala ya karibu kila siku.</p>
+    <div class="panel" style="padding:16px;">
+      <div id="whoReportsList" class="reports-grid">
         <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_16_2026-08-30.pdf" target="_blank" rel="noopener" title="Pakua PDF">
           <span class="rc-head">
             <span class="rc-label">Ripoti Na.16</span>
@@ -1089,20 +1089,17 @@
           </span>
           <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>18 Mei 2026</span>
         </a>
-        </div>
       </div>
     </div>
   </section>
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section section-split" id="autres">
-    <div>
+  <section class="section" id="autres">
+    <div class="section-head">
       <h2 class="section-title" data-i18n="geoSourceTitle">3. Vyanzo vingine</h2>
     </div>
-    <div>
-      <p class="page-intro" data-i18n="geoSourceText">Mipaka ya maeneo ya afya iliyochorwa kwenye ramani za tovuti hii inatoka kwenye seti ya data « DR Congo – Health Zones » iliyochapishwa na OCHA DRC kwenye jukwaa la HDX, kwa kuzingatia Rejea ya kijiografia ya pamoja ya Jamhuri ya Kidemokrasia ya Kongo. Kila umbo ni eneo la afya, kipimo cha rejea cha ripoti rasmi.</p>
-    </div>
+    <p class="page-intro" data-i18n="geoSourceText">Mipaka ya maeneo ya afya iliyochorwa kwenye ramani za tovuti hii inatoka kwenye seti ya data « DR Congo – Health Zones » iliyochapishwa na OCHA DRC kwenye jukwaa la HDX, kwa kuzingatia Rejea ya kijiografia ya pamoja ya Jamhuri ya Kidemokrasia ya Kongo. Kila umbo ni eneo la afya, kipimo cha rejea cha ripoti rasmi.</p>
   </section>
 
 

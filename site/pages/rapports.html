@@ -14,45 +14,42 @@
     </nav>
   </section>
 
-  <section class="section section-split" id="insp">
-    <div>
+  <!-- Pleine largeur, pas de colonne de titres : les trois sections sont des
+       listes de documents, et la colonne ne laissait que deux bulletins par
+       ligne contre trois (demande du proprietaire, 6 septembre 2026). -->
+  <section class="section" id="insp">
+    <div class="section-head">
       <h2 class="section-title" data-i18n="reportsTitle">{{i18n.reportsTitle}}</h2>
     </div>
-    <div>
-      <p class="page-intro" data-i18n="reportsIntro">{{i18n.reportsIntro}}</p>
-      <div class="panel" style="padding:16px;">
-        <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="{{i18n.reportsTitle}}"></nav>
-        <label class="visually-hidden" for="reportsSearch">{{i18n.reportsSearchPlaceholder}}</label>
-        <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="{{i18n.reportsSearchPlaceholder}}" class="search-input">
-        <div id="reportsList" class="reports-grid">
+    <p class="page-intro" data-i18n="reportsIntro">{{i18n.reportsIntro}}</p>
+    <div class="panel" style="padding:16px;">
+      <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="{{i18n.reportsTitle}}"></nav>
+      <label class="visually-hidden" for="reportsSearch">{{i18n.reportsSearchPlaceholder}}</label>
+      <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="{{i18n.reportsSearchPlaceholder}}" class="search-input">
+      <div id="reportsList" class="reports-grid">
 {{seed.reportsList}}
-        </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-split" id="who-reports-section" style="{{seed.whoSectionStyle}}">
-    <div>
+  <section class="section" id="who-reports-section" style="{{seed.whoSectionStyle}}">
+    <div class="section-head">
       <h2 class="section-title" data-i18n="whoReportsTitle">{{i18n.whoReportsTitle}}</h2>
     </div>
-    <div>
-      <p class="page-intro" data-i18n="whoReportsIntro">{{i18n.whoReportsIntro}}</p>
-      <div class="panel" style="padding:16px;">
-        <div id="whoReportsList" class="reports-grid">
+    <p class="page-intro" data-i18n="whoReportsIntro">{{i18n.whoReportsIntro}}</p>
+    <div class="panel" style="padding:16px;">
+      <div id="whoReportsList" class="reports-grid">
 {{seed.whoReportsList}}
-        </div>
       </div>
     </div>
   </section>
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section section-split" id="autres">
-    <div>
+  <section class="section" id="autres">
+    <div class="section-head">
       <h2 class="section-title" data-i18n="geoSourceTitle">{{i18n.geoSourceTitle}}</h2>
     </div>
-    <div>
-      <p class="page-intro" data-i18n="geoSourceText">{{i18n.geoSourceText}}</p>
-    </div>
+    <p class="page-intro" data-i18n="geoSourceText">{{i18n.geoSourceText}}</p>
   </section>
 
