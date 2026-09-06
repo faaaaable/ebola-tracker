@@ -5,7 +5,29 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 112**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 113**, rapportage
+du 4 septembre 2026 (publié le 5) — 6 522 cas confirmés, 3 134 décès, létalité
+48,1 %, 1 516 guéris, 817 patients en CTE (pour la première fois le total du
+site égale la bande de chiffres clés, le Sud-Kivu ayant rapporté ses 16
+patients pour 25 lits), suivi des contacts 86,0 % (21 909 vus sur 25 500),
+**61 zones touchées, une nouvelle : Kayna, au Nord-Kivu** (1 cas), 86 nouveaux
+cas (Ituri 53, Nord-Kivu 31, Haut-Uélé 2) et 39 décès du jour (30
+communautaires, 9 intra-CTE dont 7 « à ventiler » en Ituri). Intégré **en
+local le 6 septembre**, non publié à cette date. Une lecture apprise, et
+c'est la règle 11 proposée la veille devenue code : `recouper_avec_la_veille()`
+dans `update_data.py` compare chaque zone à l'instantané précédent de
+`zones-history.json`. Le 113 écrit « Wamba 83 31 37,3% 1 1 » — cumul de cas
+inchangé, donc ce « 1 » est un décès (intra-CTE, la ligne de province le
+dit) et son total, pas un nouveau cas ; le repli texte lisait 1 nouveau cas
+et le Haut-Uélé sommait 3 pour 2 déclarés. La règle ne corrige que ce cas
+(cumul inchangé et nouveaux cas annoncés → zéro, le nombre lu rejoint les
+décès) ; tout autre écart entre cumul et colonnes du jour est **signalé,
+jamais corrigé**. Aucun autre écart sur les 61 zones. Laboratoire 86
+positifs = 86 nouveaux cas ; alertes 2 144 reçues, 1 955 vérifiées, 399
+validées, 222 transférées, le Sud-Kivu de retour (8 reçues) ; les Défis
+lus sur neuf piliers. `check_coherence` sans écart bloquant.
+
+Le **SitRep 112**, rapportage
 du 3 septembre 2026 (publié le 4) — 6 436 cas confirmés, 3 095 décès, létalité
 48,1 %, 1 495 guéris, 738 patients en CTE, suivi des contacts 88,5 % (21 678
 vus sur 24 497), 60 zones touchées (aucune nouvelle), 94 nouveaux cas (Ituri
