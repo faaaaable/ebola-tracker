@@ -1892,6 +1892,71 @@ def province_chart_html(province, strings_lang, i18n_lang):
            esc(i18n_lang["chartShareBtn"])))
 
 
+PILIER_LIBELLE = {
+    "surveillance": "defiPilierSurveillance", "laboratoire": "defiPilierLaboratoire",
+    "pci_eds": "defiPilierPciEds", "soins": "defiPilierSoins", "poe_poc": "defiPilierPoePoc",
+    "crec": "defiPilierCrec", "vaccination": "defiPilierVaccination", "smsps": "defiPilierSmsps",
+    "logistique": "defiPilierLogistique", "securite": "defiPilierSecurite", "psea": "defiPilierPsea",
+    "coordination": "defiPilierCoordination", "autre": "defiPilierAutre",
+}
+AUTRES_FRONTS_OUVERTS = ["pci_eds", "poe_poc", "crec", "vaccination"]
+AUTRES_FRONTS_REPLIES = ["smsps", "logistique", "securite", "psea", "coordination", "autre"]
+
+
+def defis_seed(defis, lang, strings_lang, i18n_lang):
+    """Les « Defis » du dernier bulletin, cites mot pour mot sous le cadre
+    qu'ils expliquent (page « Riposte & defis », 6 septembre 2026).
+
+    surveillance -> le suivi des contacts si le texte parle de contacts,
+    sinon les alertes ; laboratoire -> le laboratoire ; soins -> les CTE ;
+    tout le reste -> le chapitre « Les autres fronts », quatre piliers
+    ouverts, les autres replies. Le site cite, il ne reformule pas ; sur
+    les pages anglaise et swahilie la citation reste en francais et le dit.
+    """
+    cles = ("defisAlertes", "defisContacts", "defisLabo", "defisCte", "defisAutres")
+    out = {k: "" for k in cles}
+    points = (defis or {}).get("parDate") or []
+    if not points:
+        return {"seed.%s" % k: v for k, v in out.items()}
+    p = points[-1]
+    ref = esc(interp(strings_lang["defiRef"], {
+        "num": p["sitrepNumber"], "date": long_date(p["date"], i18n_lang)}))
+    note_langue = strings_lang.get("defiLangNote") or ""
+
+    def bloc(b):
+        items = "".join("<p>%s</p>" % esc(t) for t in b["items"])
+        html = ('<div class="defi">'
+                '<div class="defi-tete"><span class="defi-etiquette">%s</span>'
+                '<span class="defi-pilier">%s</span><span class="section-sub">%s</span></div>'
+                '<blockquote class="defi-texte" lang="fr">%s</blockquote>'
+                % (esc(strings_lang["defiLabel"]), esc(strings_lang[PILIER_LIBELLE.get(b["pilier"], "defiPilierAutre")]),
+                   ref, items))
+        if note_langue:
+            html += '<p class="map-note">%s</p>' % esc(note_langue)
+        return html + "</div>"
+
+    par_pilier = {}
+    for b in p["piliers"]:
+        par_pilier.setdefault(b["pilier"], []).append(b)
+    for b in par_pilier.get("surveillance", []):
+        cible = "defisContacts" if any("contact" in t.lower() for t in b["items"]) else "defisAlertes"
+        out[cible] += bloc(b)
+    for b in par_pilier.get("laboratoire", []):
+        out["defisLabo"] += bloc(b)
+    for b in par_pilier.get("soins", []):
+        out["defisCte"] += bloc(b)
+    ouverts = "".join(bloc(b) for k in AUTRES_FRONTS_OUVERTS for b in par_pilier.get(k, []))
+    replies = "".join(bloc(b) for k in AUTRES_FRONTS_REPLIES for b in par_pilier.get(k, []))
+    if not ouverts and not replies:
+        out["defisAutres"] = '<p class="page-intro">%s</p>' % esc(interp(strings_lang["defiNone"], {"ref": ref}))
+    else:
+        out["defisAutres"] = ouverts
+        if replies:
+            out["defisAutres"] += ('<details class="defi-plus"><summary>%s</summary>%s</details>'
+                                   % (esc(strings_lang["defiAutresPlus"]), replies))
+    return {"seed.%s" % k: v for k, v in out.items()}
+
+
 def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
     """Les quatre chiffres de tete de la page « Riposte », ecrits en dur.
 
@@ -2067,6 +2132,7 @@ def main():
         "laboratoire": read_json(os.path.join(ROOT, "data", "laboratoire.json")),
         "contacts": read_json(os.path.join(ROOT, "data", "contacts-followup.json")),
         "cte": read_json(os.path.join(ROOT, "data", "cte.json")),
+        "defis": read_json(os.path.join(ROOT, "data", "defis.json")),
     }
     # Traces des zones de sante : geometrie figee, produite a part par
     # scripts/build_geo.py. Elle ne change qu'en cas de nouvelle province
@@ -2200,6 +2266,7 @@ def main():
             {"n": touched, "total": len(geo["zones"])}))
         common_seed["panelStats"] = panel_stats_html(national, lang, i18n_lang)
         common_seed.update(riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang))
+        common_seed.update(defis_seed(riposte.get("defis"), lang, strings_lang, i18n_lang))
 
         pages = [(page, None) for page in config["pages"]]
         pages += [(config["provincePage"], province) for province in provinces]
@@ -2340,6 +2407,9 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     values.update({"t.%s" % key: interp(value, url_values) if isinstance(value, str) else value
                    for key, value in strings_lang.items()})
     values["meta.h1"] = esc(meta["h1"])
+    # Une page « noindex » (maquette) le dit aussi dans sa balise robots, en
+    # plus d'etre absente du sitemap (6 septembre 2026).
+    values["robots"] = "noindex, follow" if page.get("noindex") else "index, follow"
     values["repository"] = site["repository"]
 
     if is_province:
@@ -2475,6 +2545,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         }, ensure_ascii=False))
 
     layout_values = {
+        "robots": values["robots"],
         "lang": lang,
         # Jetons de cache des fichiers statiques : c'est le gabarit qui porte
         # les balises <link> et <script>, donc c'est ici qu'ils doivent vivre.

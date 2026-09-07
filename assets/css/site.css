@@ -2404,3 +2404,136 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .plus-loin a{font-weight:600;color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--line);}
 .plus-loin a:hover{border-bottom-color:var(--accent-strong);}
 .plus-loin span{display:block;font-size:14.5px;line-height:1.7;color:var(--ink-dim);margin-top:2px;}
+
+/* ---- Les « Defis » du bulletin (page Riposte & defis, 6 septembre 2026) ----
+   Une citation mot pour mot sous le cadre qu'elle explique : etiquette et
+   pilier en capitales, la reference du bulletin a droite, le texte en
+   retrait derriere un filet, comme une citation. */
+.defi{margin:18px 0 0;}
+.defi-tete{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin-bottom:8px;}
+.defi-etiquette{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-label);}
+.defi-pilier{font-size:13px;font-weight:700;color:var(--ink);}
+.defi-tete .section-sub{margin-left:auto;}
+.defi-texte{margin:0;padding:2px 0 2px 16px;border-left:3px solid var(--line);max-width:68ch;}
+.defi-texte p{margin:0 0 8px;font-size:14px;line-height:1.65;color:var(--ink-dim);}
+.defi-texte p:last-child{margin-bottom:0;}
+.defi-texte p::before{content:"« ";color:var(--ink-faint);}
+.defi-texte p::after{content:" »";color:var(--ink-faint);}
+.defi .map-note{padding-top:6px;}
+.defi-plus{margin-top:22px;}
+.defi-plus summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent-strong);}
+.defi-plus[open] summary{margin-bottom:4px;}
+@media (max-width:760px){ .defi-tete .section-sub{margin-left:0;flex-basis:100%;} }
+
+/* ---- Maquette « Riposte & defis », seconde partie (6 septembre 2026) ----
+   Une bande sombre ouvre la partie redigee — seul endroit du site en
+   couleurs inversees, pour marquer le changement de registre : on passe
+   des chiffres au recit. Puis une frise des obstacles dans le temps, et
+   une fiche par obstacle, numerotee, en deux colonnes. */
+.dossier{background:var(--ink);color:var(--bg);border-top:none;margin:40px -48px 0;padding:56px 48px;border-radius:var(--radius-card);}
+.dossier-in{max-width:760px;}
+.dossier-eyebrow{color:var(--bg);opacity:.75;}
+.dossier-eyebrow .dot{background:var(--bg);}
+.dossier-titre{font-family:var(--font-serif);font-size:clamp(30px,3.6vw,44px);font-weight:600;line-height:1.1;letter-spacing:-0.015em;margin:8px 0 18px;color:var(--bg);}
+.dossier-lede{font-family:var(--font-serif);font-size:20px;line-height:1.45;margin:0 0 28px;color:var(--bg);opacity:.9;max-width:640px;}
+.dossier-chiffres{display:flex;flex-wrap:wrap;gap:8px 40px;}
+.dossier-chiffres div{display:flex;flex-direction:column;}
+.dossier-chiffres b{font-family:var(--font-serif);font-size:34px;font-weight:600;line-height:1;color:var(--bg);}
+.dossier-chiffres span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;opacity:.7;margin-top:6px;}
+.dossier-note{font-size:12px;opacity:.7;margin:18px 0 0;}
+.frise-section{border-top:none;padding-top:32px;}
+.frise{display:grid;gap:2px;}
+.frise-row{display:grid;grid-template-columns:260px minmax(0,1fr);align-items:center;gap:16px;min-height:30px;}
+.frise-label{font-size:12.5px;line-height:1.3;color:var(--ink-dim);}
+.frise-label a{color:inherit;text-decoration:none;}
+.frise-label a:hover{color:var(--ink);}
+.frise-num{font-family:var(--font-serif);font-weight:600;color:var(--ink-faint);margin-right:8px;font-variant-numeric:tabular-nums;}
+.frise-track{position:relative;height:18px;border-bottom:1px solid var(--line);}
+.frise-bar{position:absolute;top:5px;height:8px;background:var(--line);border-radius:4px;}
+.frise-track i{position:absolute;top:2px;width:1.5px;height:14px;background:var(--accent-strong);opacity:.8;}
+.frise-axe{min-height:22px;}
+.frise-axe .frise-track{border-bottom:none;height:18px;}
+.frise-axe span{position:absolute;top:0;font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em;transform:translateX(-50%);white-space:nowrap;}
+.frise-axe span.is-fin{transform:translateX(-100%);}
+.dossier-chiffres b.is-texte{font-size:22px;padding-top:8px;}
+.fiches-section{border-top:none;padding-top:8px;}
+.fiches{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 48px;}
+.fiche{display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;padding-top:18px;border-top:1px solid var(--line);}
+.fiche-num{font-family:var(--font-serif);font-size:40px;font-weight:600;line-height:1;color:var(--ink-faint);letter-spacing:-0.02em;}
+.fiche-corps .frame-title{margin:0 0 10px;font-size:20px;}
+.fiche-texte{font-size:14.5px;line-height:1.7;color:var(--ink-dim);margin:0 0 12px;}
+.fiche-trace{font-size:12px;line-height:1.6;color:var(--ink-faint);margin:0;}
+.fiche-prov{display:inline-flex;align-items:center;gap:5px;margin-left:10px;white-space:nowrap;}
+.fiche-prov i{width:7px;height:7px;border-radius:50%;display:inline-block;}
+@media (max-width:1180px){ .fiches{grid-template-columns:1fr;} .dossier{margin:40px -24px 0;padding:40px 24px;} }
+@media (max-width:760px){ .frise-row{grid-template-columns:130px minmax(0,1fr);gap:8px;} .dossier{margin:32px -16px 0;padding:32px 16px;border-radius:0;} .fiche{grid-template-columns:40px minmax(0,1fr);} .fiche-num{font-size:30px;} }
+
+/* La bande claire de la premiere partie : meme squelette que .dossier, les
+   couleurs inversees. Les quatre chiffres gardent leurs teintes (cas,
+   suivi, encre) et leur ligne de detail. */
+.dossier-clair{background:var(--bg-panel);color:var(--ink);border:1px solid var(--line);margin-top:8px;}
+.dossier-clair .dossier-eyebrow{color:var(--accent-strong);opacity:1;}
+.dossier-clair .dossier-eyebrow .dot{background:var(--accent);}
+.dossier-clair .dossier-titre,.dossier-clair .dossier-lede{color:var(--ink);}
+.dossier-clair .dossier-lede{color:var(--ink-strong);opacity:1;}
+.dossier-clair .dossier-chiffres{gap:14px 40px;}
+.dossier-clair .dossier-chiffres b{color:var(--ink);}
+.dossier-clair .dossier-chiffres b.alerts,.dossier-clair .dossier-chiffres b.labo{color:var(--accent-info);}
+.dossier-clair .dossier-chiffres b.contacts{color:var(--accent-active);}
+.dossier-clair .dossier-chiffres span{color:var(--ink-label);opacity:1;}
+.dossier-clair .dossier-chiffres small{font-size:11.5px;color:var(--ink-faint);margin-top:3px;line-height:1.4;max-width:22ch;}
+.dossier-ancres{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);}
+.dossier .dossier-ancres a{color:var(--accent-strong);}
+
+/* Les quatre chiffres de la bande claire sur une seule rangee : le bloc de
+   texte reste a 760 px, les chiffres prennent toute la largeur. */
+.dossier-clair .dossier-in{max-width:none;}
+.dossier-clair .dossier-lede{max-width:640px;}
+.dossier-clair .dossier-chiffres{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 28px;}
+@media (max-width:900px){ .dossier-clair .dossier-chiffres{grid-template-columns:repeat(2,minmax(0,1fr));} }
+
+/* Trois touches de bleu profond dans la seconde partie (demande du
+   6 septembre 2026, « très gris et noir ») : la bande d'ouverture passe de
+   l'encre a un bleu nuit tire de l'accent, ses reperes et sa bille en bleu
+   clair ; la barre de la frise en bleu pale au lieu du gris des filets ; le
+   numero de chaque fiche dans le bleu fort du site. Rien de plus : dans les
+   graphiques, le bleu veut dire « cas », il ne doit pas devenir un decor. */
+.dossier:not(.dossier-clair){background:#10283A;}
+.dossier:not(.dossier-clair) .dossier-eyebrow .dot{background:#8EC3DC;}
+.dossier:not(.dossier-clair) .dossier-eyebrow{color:#8EC3DC;opacity:1;}
+.dossier:not(.dossier-clair) .dossier-chiffres b{color:#CFE6F1;}
+.dossier:not(.dossier-clair) .dossier-chiffres span{color:#8EC3DC;opacity:.9;}
+.dossier:not(.dossier-clair) .dossier-lede{opacity:.92;}
+.frise-bar{background:#D6E6EE;}
+.frise-track i{background:var(--accent-strong);opacity:.85;}
+.frise-num{color:var(--accent-strong);opacity:.7;}
+.fiche-num{color:var(--accent-strong);opacity:.55;}
+.fiche{border-top-color:var(--line);}
+
+/* Premiere partie de la maquette : les cinq cadres prennent l'idiome des
+   fiches de la seconde — numero en serif bleu, titre, ligne italique,
+   paragraphe, puis le cadre — sur toute la largeur, sans colonne de titres
+   (6 septembre 2026). */
+.cadre-fiche{padding:34px 0;}
+.cadre-fiche .fiche-tete{display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;align-items:start;margin-bottom:10px;}
+.cadre-fiche .fiche-tete .frame-title{margin:0 0 4px;font-size:22px;}
+.cadre-fiche .fiche-tete .section-sub{display:block;}
+.cadre-corps{margin-left:60px;}
+.cadre-corps .fiche-texte{max-width:68ch;margin-bottom:14px;}
+.cadre-corps .panel{margin-top:0;}
+@media (max-width:760px){ .cadre-fiche .fiche-tete{grid-template-columns:40px minmax(0,1fr);} .cadre-corps{margin-left:0;} }
+
+/* Bande claire moins haute (6 septembre 2026) : rembourrage reduit, titre
+   et chapeau un cran plus petits, plus de sommaire au pied. */
+.dossier-clair{padding:32px 40px 28px;}
+.dossier-clair .dossier-titre{font-size:clamp(24px,2.6vw,32px);margin:6px 0 10px;}
+.dossier-clair .dossier-lede{font-size:16.5px;line-height:1.45;margin-bottom:18px;max-width:68ch;}
+.dossier-clair .dossier-chiffres b{font-size:30px;}
+@media (max-width:760px){ .dossier-clair{padding:24px 16px;} }
+
+/* Frise : le numero dans sa colonne, le libelle dans la sienne — un titre
+   qui se replie repart sous son premier mot, pas sous le numero (demande
+   du 6 septembre 2026). */
+.frise-label a{display:grid;grid-template-columns:24px minmax(0,1fr);gap:0 6px;align-items:baseline;}
+.frise-num{margin-right:0;}
+@media (max-width:760px){ .frise-label a{grid-template-columns:20px minmax(0,1fr);} }

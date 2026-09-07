@@ -13,8 +13,13 @@ Sud-Kivu — la somme égale la bande de chiffres clés), suivi des contacts
 85,7 % (20 459 vus sur 23 880), **61 zones touchées, aucune nouvelle**,
 82 nouveaux cas (Ituri 49, Nord-Kivu 31, Haut-Uélé 2) et 41 décès du jour
 (32 communautaires, 9 intra-CTE dont 5 « à ventiler » en Ituri, qui en
-compte désormais 366). Intégré **en local le 7 septembre**, non publié à
-cette date. Recoupement avec le 113 : pour chacune des 61 zones, cumul du
+compte désormais 366). Intégré et **publié le 7 septembre**, sans les deux
+chantiers en local — « Flux & déplacés » et la maquette « Riposte & défis »
+— par la recette « Publier sans publier », étendue ce jour à la maquette ;
+ce commit publie en revanche la page `/riposte/` renommée « Riposte &
+défis » avec les « Défis » du dernier bulletin cités sous chaque cadre
+(`defis_seed`, `data/defis.json`, `extraire_defis.py` ajouté au workflow).
+Recoupement avec le 113 : pour chacune des 61 zones, cumul du
 114 moins cumul du 113 = nouveaux cas du jour, idem pour les décès, zéro
 écart ; neuf ventilations déduites de la ligne de province (Bunia 6,
 Mongbwalu 2, Nia-Nia 2, Nizi 5, Biena 1, Butembo 4, Kyondo 3, Mabalako 1,
@@ -41,8 +46,8 @@ site égale la bande de chiffres clés, le Sud-Kivu ayant rapporté ses 16
 patients pour 25 lits), suivi des contacts 86,0 % (21 909 vus sur 25 500),
 **61 zones touchées, une nouvelle : Kayna, au Nord-Kivu** (1 cas), 86 nouveaux
 cas (Ituri 53, Nord-Kivu 31, Haut-Uélé 2) et 39 décès du jour (30
-communautaires, 9 intra-CTE dont 7 « à ventiler » en Ituri). Intégré **en
-local le 6 septembre**, non publié à cette date. Une lecture apprise, et
+communautaires, 9 intra-CTE dont 7 « à ventiler » en Ituri). Intégré et
+**publié le 6 septembre** (commit `925bbf9`). Une lecture apprise, et
 c'est la règle 11 proposée la veille devenue code : `recouper_avec_la_veille()`
 dans `update_data.py` compare chaque zone à l'instantané précédent de
 `zones-history.json`. Le 113 écrit « Wamba 83 31 37,3% 1 1 » — cumul de cas
@@ -1969,21 +1974,32 @@ riposte ; Comprendre = virus, chronologie, FAQ ; Le site = sources,
 trois fichiers mis de côté par la recette ci-dessous, ce déplacement doit
 être réappliqué sur la version de HEAD tant que Flux reste en local.
 
-### Publier sans publier « Flux & déplacés »
+### Publier sans publier « Flux & déplacés » ni la maquette « Riposte & défis »
 
-Les deux chantiers partagent quatre fichiers, et la barre latérale de chaque
-page générée portait l'onglet Flux. Recette suivie le 4 septembre, à
-reprendre telle quelle tant que Flux reste en local :
+Les chantiers partagent quatre fichiers avec le site publié, et la barre
+latérale de chaque page générée portait l'onglet Flux. Recette suivie le
+4 septembre pour Flux, étendue le 7 septembre à la maquette `riposte-defis`
+(`site/pages/riposte-defis.html`, `scripts/defis_synthese.py`,
+`data/defis-synthese.json`), à reprendre telle quelle tant que l'un des deux
+reste en local :
 
 1. sauvegarder `site/strings.json`, `scripts/build_pages.py`,
    `assets/css/site.css`, `site/pages.json` hors dépôt ;
-2. retirer de `pages.json` l'entrée `flux-deplaces` et son onglet ; retirer de
-   `build_pages.py` l'import du module, le bloc `if "flux" in needs` et l'appel
-   à `flux_seed` — **sinon le workflow GitHub plante sur un module non
-   commité** ; retirer de `strings.json` les 318 clés `flux*` — **sinon les
-   nombres de l'OIM sont publiquement lisibles sans page pour les rendre** ;
-3. régénérer, vérifier `grep -c flux` à zéro dans les pages et le sitemap,
-   commiter en excluant les fichiers du chantier ;
+2. retirer de `pages.json` les entrées `flux-deplaces` et `riposte-defis` et
+   l'onglet Flux ; retirer de `build_pages.py` les imports `flux_deplaces` et
+   `defis_synthese`, les lectures de `flux-deplaces.json` et
+   `flux-routes.json`, le bloc `if "flux" in needs`, les appels à `flux_seed`
+   et à `defis_synthese.render` — **sinon le workflow GitHub plante sur un
+   module non commité** ; retirer de `strings.json` les clés `flux*`, `maq*`
+   et `navFlux` (336 clés sur les trois langues le 7 septembre) — **sinon
+   les nombres de l'OIM et le brouillon de la maquette sont publiquement
+   lisibles sans page pour les rendre**. `defis_seed`, les clés `defi*` et
+   `data/defis.json` restent : ils servent à `/riposte/` ;
+3. régénérer — le générateur supprime lui-même les six pages des chantiers
+   via `site/.generated.json` —, vérifier `grep -il "flux\|riposte-defis\|
+   maquette"` muet sur les pages suivies et le sitemap (la page Données
+   garde un commentaire ancien « né en maquette parallèle », sans rapport),
+   commiter en excluant les fichiers des chantiers ;
 4. restaurer les quatre fichiers, régénérer. Le générateur supprime puis
    recrée les pages Flux via `site/.generated.json`.
 

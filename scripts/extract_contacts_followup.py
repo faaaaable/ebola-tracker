@@ -321,6 +321,15 @@ def rate_from_text(full_text):
 # suivre à moins d'un point du taux imprimé. Sinon seul le taux reste.
 PROVINCES_DETAIL_RE = r"Ituri|Nord[\s-]+Kivu|N-Kivu|Haut[\s-]+U[ée]l[ée]|H-U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|S-Kivu|Bas[\s-]+U[ée]l[ée]|B-U[ée]l[ée]"
 PROV_D_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%\s*\((\d[\d ]*)\s*/\s*(\d[\d ]*)\)" % PROVINCES_DETAIL_RE)
+# SitRep 110 et suivants : le taux precede la province — « 90,9% en Ituri
+# (10 302/11 339), 83,5% au Nord-Kivu (8 491/10 163), 69,6 % a la Tshopo
+# (238/342) ». Le 109 ne detaille pas les provinces. Le nombre peut se couper
+# sur deux lignes ou porter une espace apres la barre (« 12 173/ 13 362 »).
+PROV_D2_RE = re.compile(
+    r"(\d+(?:[,.]\d+)?)\s*%%\s+(?:en|au|à\s+la|a\s+la|dans\s+l[ae]|en\s+province\s+d[eu]|du|de\s+la)?\s*"
+    r"(%s)\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)" % PROVINCES_DETAIL_RE,
+    re.IGNORECASE,
+)
 # « (22\n091 vus sur 26 850 à suivre) » : le nombre peut se casser sur deux
 # lignes, d'où \s et non l'espace seule dans les milliers.
 # Un nombre est un groupe de un a trois chiffres suivi de groupes de trois :
@@ -371,6 +380,18 @@ def details_contacts(full_text, rows, taux_national=None):
     for pm in PROV_D_RE.finditer(full_text):
         nom = canon_detail(pm.group(1))
         taux = norm_pct(pm.group(2) + "%")
+        vus, a_suivre = norm_int(pm.group(3)), norm_int(pm.group(4))
+        if taux is None or nom in provinces:
+            continue
+        ligne = {"taux": taux}
+        ok = effectifs_verifies(vus, a_suivre, taux)
+        if ok:
+            ligne["vus"], ligne["aSuivre"] = ok
+        provinces[nom] = ligne
+    # D, taux devant la province (110 et suivants).
+    for pm in PROV_D2_RE.finditer(full_text):
+        nom = canon_detail(pm.group(2))
+        taux = norm_pct(pm.group(1) + "%")
         vus, a_suivre = norm_int(pm.group(3)), norm_int(pm.group(4))
         if taux is None or nom in provinces:
             continue

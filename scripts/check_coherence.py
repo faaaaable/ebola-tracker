@@ -214,9 +214,10 @@ alertes = _lire_optionnel("alertes.json")
 laboratoire = _lire_optionnel("laboratoire.json")
 contacts = _lire_optionnel("contacts-followup.json")
 cte = _lire_optionnel("cte.json")
+defis = _lire_optionnel("defis.json")
 date_rapport = meta.get("reportingDate") or ""
 
-for nom, fichier in (("alertes", alertes), ("laboratoire", laboratoire), ("cte", cte)):
+for nom, fichier in (("alertes", alertes), ("laboratoire", laboratoire), ("cte", cte), ("defis", defis)):
     if not fichier:
         check("%s.json present" % nom, False, "fichier absent", blocking_if_false=False)
         continue
