@@ -1992,12 +1992,14 @@ reste en local :
 1. sauvegarder `site/strings.json`, `scripts/build_pages.py`,
    `assets/css/site.css`, `site/pages.json` hors dépôt ;
 2. retirer de `pages.json` les entrées `flux-deplaces` et `riposte-defis` et
-   l'onglet Flux ; retirer de `build_pages.py` les imports `flux_deplaces` et
+   leurs deux onglets du groupe Explorer (depuis le 7 septembre la maquette a
+   le sien, « Riposte & défis », avec une pastille `navBadge` datée) ; retirer de `build_pages.py` les imports `flux_deplaces` et
    `defis_synthese`, les lectures de `flux-deplaces.json` et
    `flux-routes.json`, le bloc `if "flux" in needs`, les appels à `flux_seed`
    et à `defis_synthese.render` — **sinon le workflow GitHub plante sur un
    module non commité** ; retirer de `strings.json` les clés `flux*`, `maq*`
-   et `navFlux` (336 clés sur les trois langues le 7 septembre) — **sinon
+   `navFlux`, `navRiposteDefis` et `navBadgeNouveau` (336 clés sur les trois
+   langues le 7 septembre, plus les six de l'onglet) — **sinon
    les nombres de l'OIM et le brouillon de la maquette sont publiquement
    lisibles sans page pour les rendre**. `defis_seed`, les clés `defi*` et
    `data/defis.json` restent : ils servent à `/riposte/` ;
