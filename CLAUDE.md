@@ -1749,9 +1749,19 @@ propriétaire le dira — un `jusquau` facultatif la ferait expirer seule). La
 page a deux parties jumelles : une bande claire « La riposte » (quatre
 chiffres, puis les cadres alertes, laboratoire, contacts, CTE, lieu du
 décès, avec « Méthode et sources » replié sous le dernier), et une bande
-sombre « Les principales difficultés » : une frise des dix obstacles par
-bulletin (ordre de première mention, bulle CSS au survol de chaque trait
-avec numéro et date), puis dix fiches rédigées. Pièces :
+sombre « Les principales difficultés » : une frise des dix obstacles en
+**grille par semaine** (ordre de première mention ; une case par semaine
+depuis le premier bulletin, teintée selon la **part** des bulletins parus
+cette semaine-là qui citent l'obstacle — aucun, moins de la moitié, la
+plupart, tous ; survol par case sur grand écran, « 13 juil. → 19 juil. ·
+5 bulletins sur 7 »), puis dix fiches rédigées. La grille a remplacé le
+7 septembre les traits par bulletin, essayés d'abord puis écartés : à
+330 px ils faisaient un code-barres, et même à 1 000 px une ligne dense se
+lisait comme une présence continue là où l'obstacle va et vient (les
+« équipes attaquées » : deux semaines pleines, puis des vagues). La part
+et non le nombre, parce que la semaine du 26 juillet n'a que cinq
+bulletins (28 et 29 sans parution) et paraissait plus faible partout. La
+fiche garde la trace au bulletin près. Pièces :
 `scripts/defis_synthese.py` (rendu), `data/defis-synthese.json` (textes
 fr/en et mots-clés, le swahili affiche le français avec une note),
 `data/defis.json` (084 et suivants) et **`data/defis-anciens.json`** —
@@ -1759,10 +1769,10 @@ les Défis des bulletins 017 à 083 gelés depuis le corpus par
 `scripts/geler_defis_anciens.py`, parce que le corpus n'est pas versionné et
 qu'un clone frais rendait une frise qui commençait le 6 août. Sur
 téléphone (audit à 360 et 320 px du 7 septembre) : la bande sur la
-variable de gouttière, l'étiquette de frise au-dessus de sa piste, une
-colonne de fiches, et la bulle en `display:none` plutôt que
-`visibility:hidden` — cachée mais posée, elle faisait défiler la page de
-63 px. Les mots-clés d'un thème se vérifient contre les trous de sa ligne :
+variable de gouttière, l'étiquette de frise au-dessus de ses cases, une
+colonne de fiches. Piège rencontré avec les traits : une bulle CSS en
+`visibility:hidden` est cachée mais posée, et les dernières faisaient
+défiler la page de 63 px — `display:none`, toujours. Les mots-clés d'un thème se vérifient contre les trous de sa ligne :
 le 7 septembre, « capacité des CTE/CT insuffisante » (064-080) échappait au
 thème saturation, trois clés l'ont comblé ; les autres trous sont réels.
 
