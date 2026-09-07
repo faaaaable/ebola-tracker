@@ -1,5 +1,5 @@
 {
-  "_note": "Synthese REDIGEE des obstacles de la riposte, d'apres les sections « Defis » des bulletins (corpus qualitatif B-D + defis.json). Les regroupements sont ceux de l'auteur ; chaque paragraphe cite ses bulletins. Brouillon a relire par le proprietaire. Les mots-cles servent a dater les mentions (premiere, derniere, nombre de bulletins) pour la frise ; ils ne decident de rien d'autre.",
+  "_note": "Synthese REDIGEE des obstacles de la riposte, d'apres les sections « Defis » des bulletins (corpus qualitatif B-D + defis.json). Les regroupements sont ceux de l'auteur ; chaque paragraphe cite ses bulletins. Brouillon a relire par le proprietaire. Les mots-cles servent a dater les mentions (premiere, derniere, nombre de bulletins) pour la frise ; ils ne decident de rien d'autre. Le swahili (cle sw) a ete traduit le 7 septembre 2026 par l'assistant depuis le francais, a faire relire par un locuteur.",
   "debut": "2026-05-31",
   "themes": [
     {
@@ -20,6 +20,10 @@
       "en": {
         "titre": "Patients who refuse isolation, families who refuse decontamination",
         "texte": "The most constant obstacle: it appears in almost every bulletin since the first one that counted its difficulties, on 31 May. The form changes, the substance does not. Reluctance to swabbing in June; a positive body taken away to the family cemetery of Misebere, in Katwa zone, on 10 August; a burial refused “for religious convenience” in Bunia and three isolated people escaping overnight in Poko on 18 August. On 3 September, Ituri still records 21 refusals of isolation in a single day, and a Kalunguta team is assaulted in the Mataba area."
+      },
+      "sw": {
+        "titre": "Wagonjwa wanaokataa kutengwa, familia zinazokataa usafishaji",
+        "texte": "Hiki ndicho kikwazo cha kudumu zaidi: kinapatikana karibu katika kila ripoti tangu ile ya kwanza iliyohesabu changamoto zake, tarehe 31 Mei. Muundo hubadilika, msingi haubadiliki. Kusita kutoa sampuli mwezi Juni; mwili wa mgonjwa aliyethibitishwa kuchukuliwa kutoka makaburi ya familia huko Misebere, kanda ya Katwa, tarehe 10 Agosti; kukataa mazishi « kwa sababu za kidini » mjini Bunia na watu watatu waliotengwa kutoroka usiku huko Poko, tarehe 18 Agosti. Tarehe 3 Septemba, Ituri bado inahesabu watu 21 waliokataa kutengwa kwa siku moja, na timu ya Kalunguta inashambuliwa katika eneo la Mataba."
       }
     },
     {
@@ -39,6 +43,10 @@
       "en": {
         "titre": "Risky burials and bodies not swabbed",
         "texte": "A body that is not swabbed is a death that enters no count, and a burial without precautions is a chain of transmission. The bulletins say so from 31 May, with “reluctance to post-mortem swabbing”. On 24 July an attack at the Muchanga bridge paralyses burial teams in Nyankunde. On 10 August, ten failures in Mangala and four in Komanda. On 3 September, nine bodies go unswabbed in Bambu, Fataki and Mandima, “due to resistance”."
+      },
+      "sw": {
+        "titre": "Mazishi hatarishi na miili isiyochukuliwa sampuli",
+        "texte": "Mwili usiochukuliwa sampuli ni kifo kisichoingia katika hesabu yoyote, na mazishi bila tahadhari ni mnyororo wa maambukizi. Ripoti zinasema hivyo tangu 31 Mei, kwa « kusita kutoa sampuli baada ya kifo ». Tarehe 24 Julai, shambulio kwenye daraja la Muchanga linasimamisha timu za mazishi huko Nyankunde. Tarehe 10 Agosti, kushindwa mara kumi huko Mangala na mara nne huko Komanda. Tarehe 3 Septemba, miili tisa haichukuliwi sampuli huko Bambu, Fataki na Mandima, « kwa sababu ya upinzani »."
       }
     },
     {
@@ -61,6 +69,10 @@
       "en": {
         "titre": "Saturated treatment centres",
         "texte": "From 31 May, capacity is judged insufficient “despite the opening of Rwampara”. Ituri saturates at 103% on 18 June, North Kivu at 160% on 9 July; on 15 July the Bambu centre shows 316% occupancy. Extensions announced for Bambu and Nizi are still awaited in mid-August. On 3 September, North Kivu remains above 100% and more than half of its patients are treated in non-standard facilities. The treatment-centre curve above shows the same thing in figures."
+      },
+      "sw": {
+        "titre": "Vituo vya matibabu vilivyojaa",
+        "texte": "Tangu 31 Mei, uwezo unaonekana hautoshi « licha ya kufunguliwa kwa Rwampara ». Ituri inajaa kwa asilimia 103 tarehe 18 Juni, Nord-Kivu kwa asilimia 160 tarehe 9 Julai; tarehe 15 Julai, kituo cha Bambu kinaonyesha matumizi ya asilimia 316. Upanuzi uliotangazwa huko Bambu na Nizi bado unasubiriwa katikati ya Agosti. Tarehe 3 Septemba, Nord-Kivu inabaki juu ya asilimia 100 na zaidi ya nusu ya wagonjwa wake wanatibiwa katika miundo isiyokidhi viwango. Mchoro wa vituo vya matibabu, hapo juu, unaonyesha jambo lilelile kwa takwimu."
       }
     },
     {
@@ -79,6 +91,10 @@
       "en": {
         "titre": "Contacts lost to follow-up",
         "texte": "On 31 May, 43% of contacts are seen, against a 95% target. On 19 June, 69%. On 17 July the bulletin speaks of “sharp deterioration”: 61% in Ituri, 54% in Haut-Uélé. Since August the displayed target has come down to 85%, and the national rate exceeds it; but Bas-Uélé stays under 70%, “linked to insufficient dedicated teams”, the 3 September bulletin still says. A contact not seen is an exposed person who can fall ill without being expected."
+      },
+      "sw": {
+        "titre": "Walioguswa wasiofuatiliwa",
+        "texte": "Tarehe 31 Mei, asilimia 43 ya walioguswa wanaonekana, kwa lengo la asilimia 95. Tarehe 19 Juni, asilimia 69. Tarehe 17 Julai, ripoti inazungumzia « kuzorota kwa kiasi kikubwa »: asilimia 61 Ituri, asilimia 54 Haut-Uélé. Tangu Agosti lengo lililowekwa limeshuka hadi asilimia 85, na kiwango cha kitaifa kinakizidi; lakini Bas-Uélé inabaki chini ya asilimia 70, « kutokana na upungufu wa timu maalum », inasema tena ripoti ya 3 Septemba. Aliyeguswa asiyeonekana ni mtu aliye hatarini anayeweza kuugua bila kutarajiwa."
       }
     },
     {
@@ -98,6 +114,10 @@
       "en": {
         "titre": "Workers paid late or not paid",
         "texte": "Payment enters the difficulties on 12 July. On the 26th, the Bunia and Rwampara zones are on strike, and work resumes only after the military governor steps in. On 10 August, North Kivu's psychosocial pillar announces its own. On 15 August the strike deprives six Haut-Uélé control points of any reporting; on the 19th, five workers out of eighteen are paid in North Kivu. On 3 September, four Ituri control points are “on strike for lack of payment”. Forty-six bulletins mention it."
+      },
+      "sw": {
+        "titre": "Wahudumu wanaolipwa kwa kuchelewa au wasiolipwa",
+        "texte": "Malipo yanaingia kwenye changamoto tarehe 12 Julai. Tarehe 26, kanda za Bunia na Rwampara ziko kwenye mgomo, na kurudi kazini kunatangazwa tu baada ya kuingilia kati kwa gavana wa kijeshi. Tarehe 10 Agosti, nguzo ya kisaikolojia na kijamii ya Nord-Kivu inatangaza mgomo wake. Tarehe 15 Agosti, mgomo unanyima vituo sita vya ukaguzi vya Haut-Uélé uripotiaji wowote; tarehe 19, wahudumu watano kati ya kumi na wanane wanalipwa Nord-Kivu. Tarehe 3 Septemba, vituo vinne vya ukaguzi vya Ituri viko « kwenye mgomo kwa kukosa malipo ». Ripoti arobaini na sita zinalizungumzia."
       }
     },
     {
@@ -118,6 +138,10 @@
       "en": {
         "titre": "What is missing: drugs, supplies, blood, food",
         "texte": "The first bulletin to count its difficulties notes a “supply failure in essential medicines”. In late June, samples wait at the North Kivu laboratory. On 22 July, protective equipment and chlorine are short, and 175 triage units work out of 1,170. In mid-August, dozens of patients hospitalised in Ituri have “no food support”. On 3 September, Tshopo has had no safe blood for six days and its technical platform allows neither biochemistry nor haematology."
+      },
+      "sw": {
+        "titre": "Kinachokosekana: dawa, vifaa, damu, chakula",
+        "texte": "Ripoti ya kwanza kuhesabu changamoto zake inataja « upungufu wa usambazaji wa dawa muhimu ». Mwishoni mwa Juni, sampuli zinasubiri katika maabara ya Nord-Kivu. Tarehe 22 Julai, vifaa vya kujikinga na klorini vinakosekana, na vitengo 175 vya kupanga wagonjwa vinafanya kazi kati ya 1 170. Katikati ya Agosti, makumi ya wagonjwa waliolazwa Ituri hawana « msaada wowote wa chakula ». Tarehe 3 Septemba, Tshopo haina damu salama kwa siku sita na vifaa vyake vya maabara haviwezeshi biokemia wala hematolojia."
       }
     },
     {
@@ -138,6 +162,10 @@
       "en": {
         "titre": "Insecurity, which creates access problems",
         "texte": "An ADF incursion is reported as early as 2 June. “Insecurity and limited access (CODECO, ADF)” recurs verbatim from July to early August. The Muchanga bridge attack on 24 July stops the teams in Nyankunde. In mid-August, bulletins explain incomplete decontaminations by “insecurity in some villages” and untraceable addresses. On 3 September, the Avakubi control point remains closed “for security reasons”. Where teams cannot enter, the virus is neither counted nor followed."
+      },
+      "sw": {
+        "titre": "Ukosefu wa usalama, unaoleta matatizo ya kufika",
+        "texte": "Uvamizi wa ADF unaripotiwa tangu 2 Juni. « Ukosefu wa usalama na ufikiaji mdogo (CODECO, ADF) » unarudiwa neno kwa neno kuanzia Julai hadi mwanzoni mwa Agosti. Shambulio la daraja la Muchanga, tarehe 24 Julai, linasimamisha timu huko Nyankunde. Katikati ya Agosti, ripoti zinaeleza usafishaji usiokamilika kwa « ukosefu wa usalama katika vijiji fulani » na anwani zisizopatikana. Tarehe 3 Septemba, kituo cha ukaguzi cha Avakubi kinabaki kimefungwa « kwa sababu za kiusalama ». Pale ambapo timu haziingii, virusi havihesabiwi wala kufuatiliwa."
       }
     },
     {
@@ -160,6 +188,10 @@
       "en": {
         "titre": "Teams and health workers attacked",
         "texte": "The bulletins never count them, but they have reported them since 17 July: “insecurity targeting burial teams”, an attack at the Muchanga bridge, work paralysed in Nyankunde, the same sentence nineteen bulletins in a row. Then the facts sharpen. Workers and police assaulted at the Mukulia control point on 10 and 11 August. On the 19th, a team escorted by the army in Mungamba and the homes of two community relays targeted by arson. On the 20th, two Red Cross vehicles vandalised near Isiro, an ambulance attacked in Pawa. On the 24th, a burial team member killed in a road accident in Bambu, two others assaulted in Rwampara. On the 26th, the murder of a community animation cell chairman in North Kivu. On 4 September, residents threaten to burn the treatment centre under construction in Katwa."
+      },
+      "sw": {
+        "titre": "Timu na wahudumu wa afya wanaoshambuliwa",
+        "texte": "Ripoti hazizihesabu kamwe, lakini zinaziripoti tangu 17 Julai: « ukosefu wa usalama unaolenga timu za mazishi », shambulio kwenye daraja la Muchanga, shughuli zilizosimama Nyankunde, sentensi ileile katika ripoti kumi na tisa mfululizo. Kisha matukio yanabainika. Wahudumu na polisi wanashambuliwa kwenye kituo cha ukaguzi cha Mukulia tarehe 10 na 11 Agosti. Tarehe 19, timu inasindikizwa na jeshi huko Mungamba na nyumba za wahamasishaji wawili wa jamii zinalengwa kwa moto. Tarehe 20, magari mawili ya Msalaba Mwekundu yanaharibiwa karibu na Isiro, gari la wagonjwa linashambuliwa Pawa. Tarehe 24, mwanachama wa timu ya mazishi anakufa katika ajali huko Bambu, wengine wawili wanashambuliwa Rwampara. Tarehe 26, mauaji ya mwenyekiti wa kikundi cha uhamasishaji wa jamii Nord-Kivu. Tarehe 4 Septemba, wananchi wanatishia kuchoma kituo cha matibabu kinachojengwa Katwa."
       }
     },
     {
@@ -175,6 +207,10 @@
       "en": {
         "titre": "Control points that do not control",
         "texte": "Entry and control points are meant to spot travelling patients. On 3 August, 9 of Haut-Uélé's 38 priority points are active, and 4 of Tshopo's 19, just as two new zones are reached along the Nia-Nia axis. On 14 August, 26% are activated in Haut-Uélé, “for lack of training, supervision and support”. Since late August, only one of Ituri's eleven strategic sites works without interruption, and Magambe's counts 209 refusals of screening in a single day."
+      },
+      "sw": {
+        "titre": "Vituo vya ukaguzi visivyokagua",
+        "texte": "Vituo vya kuingia na vya ukaguzi vinapaswa kutambua wagonjwa wanaosafiri. Tarehe 3 Agosti, vituo 9 kati ya 38 vya kipaumbele vya Haut-Uélé vinafanya kazi, na 4 kati ya 19 vya Tshopo, wakati kanda mbili mpya zinafikiwa kando ya njia ya Nia-Nia. Tarehe 14 Agosti, asilimia 26 vimeanzishwa Haut-Uélé, « kwa kukosa mafunzo, usimamizi na msaada ». Tangu mwishoni mwa Agosti, kituo kimoja tu kati ya vituo kumi na moja vya kimkakati vya Ituri kinafanya kazi bila kukatizwa, na kile cha Magambe kinahesabu watu 209 waliokataa upimaji kwa siku moja."
       }
     },
     {
@@ -195,6 +231,10 @@
       "en": {
         "titre": "Complex reporting of information",
         "texte": "What the response does not measure, it cannot correct, and the site cannot show. On 17 July, North Kivu does not report its beds, and the occupancy rate is computed on the previous day's. On 7 August, “reporting completeness” is named as an obstacle to decision-making. On 26 August it stands at 83% nationally, 55% in Haut-Uélé and South Kivu. On 3 September, South Kivu “did not report” its alerts at all. On this site those days stay empty: when the source does not say, the site does not say."
+      },
+      "sw": {
+        "titre": "Uripotiaji mgumu wa taarifa",
+        "texte": "Kile mapambano hayapimi, hayawezi kukirekebisha, na tovuti haiwezi kukionyesha. Tarehe 17 Julai, Nord-Kivu hairipoti vitanda vyake, na kiwango cha matumizi kinahesabiwa kwa vile vya siku iliyotangulia. Tarehe 7 Agosti, « ukamilifu wa uripotiaji » unatajwa kama kikwazo cha kufanya maamuzi. Tarehe 26 Agosti, uko asilimia 83 kitaifa, asilimia 55 Haut-Uélé na Sud-Kivu. Tarehe 3 Septemba, Sud-Kivu « haikuripoti » tahadhari zake kabisa. Kwenye tovuti hii, siku hizo zinabaki tupu: chanzo kisiposema, tovuti haisemi."
       }
     }
   ]

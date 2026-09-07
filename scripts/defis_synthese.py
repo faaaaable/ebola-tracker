@@ -92,8 +92,14 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
     debut = S["debut"]
     total = jours(debut, fin) or 1
     nb_bulletins = len({e[1] for e in ent})
-    L = lang if lang in ("fr", "en") else "fr"
-    note_langue = lang not in ("fr", "en")
+    # Le swahili est rendu depuis le 7 septembre 2026 (traduction de
+    # l'assistant, a faire relire) ; toute autre langue tombe sur le francais
+    # avec la note. Un theme sans texte dans la langue retombe sur le francais.
+    L = lang if lang in ("fr", "en", "sw") else "fr"
+    note_langue = lang not in ("fr", "en", "sw")
+
+    def tl(t):
+        return t.get(L) or t["fr"]
     themes = []
     for t in S["themes"]:
         m = mentions(t, ent)
@@ -112,6 +118,9 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
         "en": ("Part two", "The main difficulties",
                "The ten main obstacles to the response, drawn from the “Challenges” sections of the INSP bulletins.",
                "obstacles", "bulletins read", "%s → %s", "period covered"),
+        "sw": ("Sehemu ya pili", "Changamoto kuu",
+               "Vikwazo kumi vikuu vya mapambano, vilivyotolewa katika sehemu za « Changamoto » za ripoti za INSP.",
+               "vikwazo", "ripoti zilizosomwa", "%s → %s", "kipindi kilichofunikwa"),
     }[L]
     html = ['<section class="section dossier" id="defis">',
             '<div class="dossier-in">',
@@ -142,13 +151,16 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
     # la trace au bulletin pres (« cite dans N bulletins, du SitRep X au Y »).
     from datetime import date as _date, timedelta as _td
     titre_frise = {"fr": "Des obstacles qui apparaissent dans chaque bulletin",
-                   "en": "Obstacles that appear in every bulletin"}[L]
+                   "en": "Obstacles that appear in every bulletin",
+                   "sw": "Vikwazo vinavyoonekana katika kila ripoti"}[L]
     sub_frise = {"fr": "une case par semaine, teintée selon la part des bulletins qui citent l'obstacle",
-                 "en": "one cell per week, shaded by the share of bulletins citing the obstacle"}[L]
+                 "en": "one cell per week, shaded by the share of bulletins citing the obstacle",
+                 "sw": "kisanduku kimoja kwa wiki, rangi kulingana na sehemu ya ripoti zinazotaja kikwazo"}[L]
     d0 = _date.fromisoformat(debut)
     nb_sem = (_date.fromisoformat(fin) - d0).days // 7 + 1
     mois_abbr = {"fr": ["", "janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
-                 "en": ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}[L]
+                 "en": ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                 "sw": ["", "Jan.", "Feb.", "Mac.", "Apr.", "Mei", "Juni", "Julai", "Ago.", "Sept.", "Okt.", "Nov.", "Des."]}[L]
     tete, mois_vu = [], None
     for k in range(nb_sem):
         ds_ = d0 + _td(days=7 * k + 3)  # le mois d'une semaine est celui de son milieu
@@ -160,7 +172,8 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
         k = (_date.fromisoformat(d) - d0).days // 7
         if 0 <= k < nb_sem:
             parus[k] += 1
-    survol = {"fr": "%s → %s · %d bulletin%s sur %d", "en": "%s → %s · %d bulletin%s of %d"}[L]
+    survol = {"fr": "%s → %s · %d bulletin%s sur %d", "en": "%s → %s · %d bulletin%s of %d",
+              "sw": "%s → %s · ripoti %d%s kati ya %d"}[L]
     html.append('<section class="section frise-section"><div class="section-head"><h3 class="frame-title">%s</h3>'
                 '<span class="section-sub">%s</span></div><div class="grille">'
                 '<div class="grille-tete"><div class="frise-label"></div><div class="grille-mois">%s</div></div>'
@@ -184,18 +197,20 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
         for k, (n, p) in enumerate(zip(comptes, parus)):
             ds_ = d0 + _td(days=7 * k)
             de_ = min(ds_ + _td(days=6), _date.fromisoformat(fin))
-            info = survol % (long_date(ds_.isoformat(), i18n_lang), long_date(de_.isoformat(), i18n_lang), n, "" if n == 1 else "s", p)
+            info = survol % (long_date(ds_.isoformat(), i18n_lang), long_date(de_.isoformat(), i18n_lang), n, "" if (n == 1 or L == "sw") else "s", p)
             cases.append('<i class="n%d" data-semaine="%s"></i>' % (niveau(n, p), esc(info)))
         html.append('<div class="grille-row"><div class="frise-label"><a href="#defi-%s"><span class="frise-num">%02d</span>%s</a></div>'
-                    '<div class="grille-cases">%s</div></div>' % (t["id"], i, esc(t[L]["titre"]), "".join(cases)))
+                    '<div class="grille-cases">%s</div></div>' % (t["id"], i, esc(tl(t)["titre"]), "".join(cases)))
     legende = {"fr": "part des bulletins de la semaine : aucun, moins de la moitié, la plupart, tous",
-               "en": "share of the week's bulletins: none, under half, most, all"}[L]
+               "en": "share of the week's bulletins: none, under half, most, all",
+               "sw": "sehemu ya ripoti za wiki: hakuna, chini ya nusu, nyingi, zote"}[L]
     html.append('<div class="grille-legende"><i class="n0"></i><i class="n1"></i><i class="n2"></i><i class="n3"></i><span>%s</span></div>' % esc(legende))
     html.append('</div></section>')
 
     # ---- fiches ----
     trace = {"fr": "Cité dans %d bulletins, du SitRep %s (%s) au SitRep %s (%s).",
-             "en": "Cited in %d bulletins, from SitRep %s (%s) to SitRep %s (%s)."}[L]
+             "en": "Cited in %d bulletins, from SitRep %s (%s) to SitRep %s (%s).",
+             "sw": "Imetajwa katika ripoti %d, kutoka SitRep %s (%s) hadi SitRep %s (%s)."}[L]
     html.append('<section class="section fiches-section"><ol class="fiches">')
     for i, (t, mm) in enumerate(themes, 1):
         pts = "".join('<span class="fiche-prov"><i style="background:%s"></i>%s</span>'
@@ -207,6 +222,6 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
         html.append('<li class="fiche" id="defi-%s"><span class="fiche-num">%02d</span><div class="fiche-corps">'
                     '<h3 class="frame-title">%s</h3><p class="fiche-texte">%s</p>'
                     '<p class="fiche-trace">%s %s</p></div></li>'
-                    % (t["id"], i, esc(t[L]["titre"]), esc(t[L]["texte"]), esc(tr), pts))
+                    % (t["id"], i, esc(tl(t)["titre"]), esc(tl(t)["texte"]), esc(tr), pts))
     html.append('</ol></section>')
     return {"seed.defisSynthese": "\n".join(html)}

@@ -2537,7 +2537,7 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
   .dossier-titre{font-size:28px;}
   .dossier-chiffres b.is-texte{font-size:22px;}
   .frise-label{padding:0;}
-  .frise-label a{padding:15px 0 9px;}  /* cible tactile >= 40 px ; la grille numero/libelle reste */
+  .frise-label a{padding:16px 0 10px;}  /* cible tactile >= 40 px ; la grille numero/libelle reste */
   .fiches{grid-template-columns:1fr;gap:26px;}
   .fiche{grid-template-columns:40px minmax(0,1fr);}
   .fiche-num{font-size:28px;}
@@ -2548,9 +2548,12 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
    larges pour rester une frise et non un tableau. Teinte = part des
    bulletins de la semaine qui citent l'obstacle. Survol par case sur
    grand ecran (bulle CSS, data-semaine). */
-.grille{display:grid;gap:4px;}
-.grille-tete,.grille-row{display:grid;grid-template-columns:260px minmax(0,1fr);gap:0 16px;align-items:center;}
-.grille-row{padding:3px 0;}
+.grille{display:grid;gap:0;}
+.grille-tete,.grille-row{display:grid;grid-template-columns:300px minmax(0,1fr);gap:0 16px;align-items:center;}
+.grille-tete{margin-bottom:4px;}
+/* Toutes les lignes a la meme hauteur, qu'un titre tienne sur une ou deux lignes : l'ecart entre deux rangees ne bouge pas (demande du 7 septembre 2026). La colonne des titres est passee de 260 a 300 px pour qu'aucun ne prenne trois lignes. */
+.grille-row{padding:0;height:44px;}
+.grille-row .frise-label{line-height:1.25;}
 .grille-mois,.grille-cases{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:3px;}
 .grille-mois span{font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;}
 .grille-mois span:last-child{display:flex;justify-content:flex-end;}  /* « sept. » deborde a gauche de sa case, pas hors de la page (+4 px a 360 px) */
@@ -2570,7 +2573,7 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 @media (max-width:760px){
   .grille-tete,.grille-row{grid-template-columns:1fr;gap:0;}
   .grille-tete .frise-label{display:none;}
-  .grille-row{padding:2px 0 8px;}
+  .grille-row{padding:2px 0 8px;height:auto;}
   .grille-cases i{height:14px;}
   .grille-cases i::after{display:none!important;}
   .grille-mois span{font-size:10px;}
