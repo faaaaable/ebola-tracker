@@ -1,0 +1,4375 @@
+{
+ "_comment": "Sections « Defis » des bulletins anterieurs a data/defis.json, gelees depuis data/corpus/qualitatif.jsonl par scripts/geler_defis_anciens.py. Lu par scripts/defis_synthese.py.",
+ "entrees": [
+  {
+   "date": "2026-05-31",
+   "sitrepNumber": "017",
+   "texte": "Réticence aux prélèvements post- mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-05-31",
+   "sitrepNumber": "017",
+   "texte": "Capacité insuffisante en CTE normés malgré l'ouverture de Rwampara",
+   "provinces": []
+  },
+  {
+   "date": "2026-05-31",
+   "sitrepNumber": "017",
+   "texte": "Faiblesse du suivi des contacts (taux global 43%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-05-31",
+   "sitrepNumber": "017",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-05-31",
+   "sitrepNumber": "017",
+   "texte": "(MEG) dans les HGR ciblés Manque de matériels PCI (EPI, DLM, chlore) au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-05-31",
+   "sitrepNumber": "017",
+   "texte": "Faible remontée des alertes dans les 3 provinces",
+   "provinces": []
+  },
+  {
+   "date": "2026-05-31",
+   "sitrepNumber": "017",
+   "texte": "Propagation de rumeurs et recettes traditionnelles",
+   "provinces": []
+  },
+  {
+   "date": "2026-05-31",
+   "sitrepNumber": "017",
+   "texte": "Insuffisance des ressources financières pour tous les piliers",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-01",
+   "sitrepNumber": "018",
+   "texte": "Réticence aux prélèvements post- mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-01",
+   "sitrepNumber": "018",
+   "texte": "Capacité insuffisante en CTE normés malgré l'ouverture de Rwampara",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-01",
+   "sitrepNumber": "018",
+   "texte": "Faiblesse du suivi des contacts (taux global 39,3%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-01",
+   "sitrepNumber": "018",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-01",
+   "sitrepNumber": "018",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM, chlore) au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Réticence aux prélèvements post- mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Capacité insuffisante en CTE normés malgré l'ouverture de Rwampara",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Faiblesse du suivi des contacts (taux global 45,5%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM, chlore) au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Faible remontée des alertes dans les 3",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "provinces Insuffisance des ressources financières pour tous les piliers ET ACTIONS PRIORITAIRES",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Action Formation des prestataires sur l'utilisation RADIONE",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Briefing des prestataires sur la surveillance",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "dans les zones touchées et à haut risque Briefing des agents communautaires",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "et la SBC (province Ituri) Accompagnement supervisé du Directeur dans les piliers techniques",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Rattrapage du suivi des contacts en",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Renforcement PCI et formation du personnel et autres zones nosocomiales",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Déploiement d'un tableau de bord quotidien",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "avec KPI par pilier Plan de rattrapage des 42 échantillons",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "au Nord Kivu Nord-Kivu : sortie du cas guéri à Goma incidents sécuritaires (incursion ADF),",
+   "provinces": [
+    "Nord-Kivu",
+    "Nord Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "texte": "Virunga, extension CREC à 15 000 Sud-Kivu : dotation de 2 véhicules installation d'un kit Internet à Miti-Murhesa, communication pour les IT/ECZS",
+   "provinces": [
+    "Sud-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "Réticence aux prélèvements post-mortem",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "(swabs) Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "Faiblesse du suivi des contacts (taux global 55,5 %, cible 95 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "147 résultats de laboratoire en attente au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "(délai > 5 jours) Rupture d'intrants PCI et tubes de prélèvement au",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "Nord-Kivu 20 évasions de patients (2 confirmés, 17 suspects Ituri + 1 confirmé Sud-Kivu)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Sud-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "Insécurité persistante (ADF, groupes armés)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "Défaut d'approvisionnement en",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "MEG dans les HGR ciblés Insuffisance des",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "texte": "ressources financières Incidents contre les équipes EDS (Katana, Mongbwalu, Bunia)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Réticence aux prélèvements post- mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "malgré l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 45,5%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM, chlore) au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Faible remontée des alertes dans les 3 provinces",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Insuffisance des ressources financières pour tous les piliers ET ACTIONS PRIORITAIRES",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Action Formation des prestataires sur l'utilisation RADIONE",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Briefing des prestataires sur la surveillance",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "dans les zones touchées et à haut risque Briefing des agents communautaires et la SBC (province Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Accompagnement supervisé du Directeur",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "dans les piliers techniques Rattrapage du suivi des contacts dans",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "41,2%) Renforcement PCI et formation du personnel et autres zones nosocomiales",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Plan de rattrapage des 42 échantillons",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "au Nord Kivu Nord-Kivu : sortie du cas guéri à Goma incidents sécuritaires (incursion ADF),",
+   "provinces": [
+    "Nord-Kivu",
+    "Nord Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "texte": "Virunga, extension CREC à 15 000 Sud-Kivu : dotation de 2 véhicules installation d'un kit Internet à Miti-Murhesa, communication pour les IT/ECZS",
+   "provinces": [
+    "Sud-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-05",
+   "sitrepNumber": "022",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-05",
+   "sitrepNumber": "022",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-05",
+   "sitrepNumber": "022",
+   "texte": "malgré l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 67,2%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "malgré l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 50,3%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI,",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "DLM, chlore) au Nord-Kivu Faible remontée des alertes dans les 3 provinces",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "Insuffisance des ressources financières pour tous les piliers ET ACTIONS PRIORITAIRES",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "Action Formation des prestataires sur l'utilisation",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "RADIONE Briefing des prestataires sur la surveillance",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "dans les zones touchées et à haut risque Briefing des agents communautaires et la SBC (province Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "Accompagnement supervisé du Directeur",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "dans les piliers techniques Rattrapage du suivi des contacts en",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "Renforcement PCI et formation du personnel",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "et autres zones nosocomiales Déploiement d'un tableau de bord quotidien avec KPI par pilier",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "texte": "Plan de rattrapage des 193 échantillons au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "malgré l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 64,4%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM, chlore) au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "Faible remontée des alertes dans les 3",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "provinces Insuffisance des ressources financières pour tous les piliers ET ACTIONS PRIORITAIRES",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "Action Formation des prestataires sur l'utilisation",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "Briefing des prestataires sur la surveillance",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "texte": "zones touchées et à haut risque Briefing des agents communautaires sur SBC (province Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-08",
+   "sitrepNumber": "025",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-08",
+   "sitrepNumber": "025",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-08",
+   "sitrepNumber": "025",
+   "texte": "malgré l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 56,3%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-08",
+   "sitrepNumber": "025",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-08",
+   "sitrepNumber": "025",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM,",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-08",
+   "sitrepNumber": "025",
+   "texte": "chlore) au Nord-Kivu Faible remontée des alertes dans les 3 provinces",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-08",
+   "sitrepNumber": "025",
+   "texte": "Insuffisance des ressources financières pour tous les piliers",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-09",
+   "sitrepNumber": "026",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-09",
+   "sitrepNumber": "026",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-09",
+   "sitrepNumber": "026",
+   "texte": "malgré l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 61,1%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-09",
+   "sitrepNumber": "026",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-09",
+   "sitrepNumber": "026",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM,",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-09",
+   "sitrepNumber": "026",
+   "texte": "chlore) au Nord-Kivu Faible remontée des alertes dans les 3",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-09",
+   "sitrepNumber": "026",
+   "texte": "provinces Insuffisance des ressources financières pour tous les piliers",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-10",
+   "sitrepNumber": "027",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-10",
+   "sitrepNumber": "027",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-10",
+   "sitrepNumber": "027",
+   "texte": "malgré l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 71,8%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-10",
+   "sitrepNumber": "027",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-10",
+   "sitrepNumber": "027",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM,",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-10",
+   "sitrepNumber": "027",
+   "texte": "chlore) au Nord-Kivu Faible remontée des alertes dans les 3 provinces",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-10",
+   "sitrepNumber": "027",
+   "texte": "Insuffisance des ressources financières pour tous les piliers",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "malgré l'ouverture de Rwampara Défaut d'approvisionnement en Médicaments Essentiels Génériques (MEG)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM, chlore) au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "Faible remontée des alertes dans les 3",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "provinces Insuffisance des ressources financières pour tous les piliers ET ACTIONS PRIORITAIRES",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "Action Formation des prestataires sur l'utilisation",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "Briefing des prestataires sur la surveillance",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "zones touchées et à haut risque Briefing des agents communautaires sur (province Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "Accompagnement supervisé du Directeur",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "piliers techniques Rattrapage du suivi des contacts en Ituri",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "Renforcement PCI et formation du personnel",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "zones nosocomiales Déploiement d'un tableau de bord quotidien pilier",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "Plan de rattrapage des échantillons en attente",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "Nord-Kivu : sortie du cas guéri à Goma sécuritaires (incursion ADF), formation PCI",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "texte": "CREC aux ménages Sud-Kivu : dotation de 2 véhicules supplémentaires, Internet à Miti-Murhesa, crédits de communication",
+   "provinces": [
+    "Sud-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-13",
+   "sitrepNumber": "030",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-13",
+   "sitrepNumber": "030",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-13",
+   "sitrepNumber": "030",
+   "texte": "malgré l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 56,5%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-13",
+   "sitrepNumber": "030",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-13",
+   "sitrepNumber": "030",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM,",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-13",
+   "sitrepNumber": "030",
+   "texte": "chlore) au Nord-Kivu Faible remontée des alertes dans les 3",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-13",
+   "sitrepNumber": "030",
+   "texte": "provinces Insuffisance des ressources financières pour tous les piliers",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-14",
+   "sitrepNumber": "031",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-14",
+   "sitrepNumber": "031",
+   "texte": "Capacité insuffisante en CTE normés",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-14",
+   "sitrepNumber": "031",
+   "texte": "malgré l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 63,1%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-14",
+   "sitrepNumber": "031",
+   "texte": "Défaut d'approvisionnement en Médicaments Essentiels Génériques",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-14",
+   "sitrepNumber": "031",
+   "texte": "(MEG) dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM,",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-14",
+   "sitrepNumber": "031",
+   "texte": "chlore) au Nord-Kivu Faible remontée des alertes dans les provinces de l’Ituri et Sud-Kivu",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Sud-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-14",
+   "sitrepNumber": "031",
+   "texte": "Insuffisance des ressources financières pour tous les piliers",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Capacité insuffisante en CTE normés malgré l'ouverture de Rwampara",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Faiblesse du suivi des contacts (taux global 64,4%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Insuffisance d’approvisionnement en Médicaments Essentiels Génériques (MEG)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM, chlore) au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Faible remontée des alertes dans les provinces de l’Ituri et Sud-Kivu",
+   "provinces": [
+    "Ituri",
+    "Sud-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Insuffisance des ressources financières pour tous les piliers ET ACTIONS PRIORITAIRES",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Action Renforcer les activités de sensibilisation et engagement",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "communautaire des leaders locaux Briefing des prestataires sur la surveillance MVE zones touchées et à haut risque",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Briefing des agents communautaires sur la surveillance",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "SBC (province Ituri) Accompagnement supervisé de la coordination provinciale dans les piliers techniques",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Rattrapage du suivi des contacts en Ituri reste",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Renforcement PCI et formation du personnel zones nosocomiales",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "Déploiement d'un tableau de bord quotidien",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "texte": "pilier Plan de rattrapage des échantillons en attente",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "Réticence aux prélèvements post mortem (swabs)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "Capacité insuffisante en CTE normés malgré",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "l'ouverture de Rwampara Faiblesse du suivi des contacts (taux global 71,6%, cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "Insuffisance d’approvisionnement en Médicaments Essentiels Génériques (MEG)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "dans les HGR ciblés Insuffisance de matériels PCI (EPI, DLM, chlore) au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "Faible remontée des alertes dans la province du Sud-Kivu",
+   "provinces": [
+    "Sud-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "Insuffisance des ressources financières pour tous les piliers ET ACTIONS PRIORITAIRES",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "Action Renforcer les activités de sensibilisation et engagement communautaire des leaders locaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "Briefing des prestataires sur la surveillance MVE",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "zones touchées et à haut risque Briefing des agents communautaires sur la surveillance SBC (province Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "Accompagnement supervisé de la coordination",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "provinciale dans les piliers techniques Rattrapage du suivi des contacts en Ituri reste",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "décroissante au Nord-Kivu Renforcement PCI et formation du personnel",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "zones nosocomiales Déploiement d'un tableau de bord quotidien",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "texte": "pilier Plan de rattrapage des échantillons en attente",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-17",
+   "sitrepNumber": "034",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-17",
+   "sitrepNumber": "034",
+   "texte": "Capacité insuffisante en CTE et saturation en Ituri (96,4%)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-17",
+   "sitrepNumber": "034",
+   "texte": "Faible performance du suivi des contacts (71,6% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-17",
+   "sitrepNumber": "034",
+   "texte": "Surveillance insuffisante (33% d’alertes investiguées en Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-17",
+   "sitrepNumber": "034",
+   "texte": "Cas confirmés non localisés ou non classifiés (~350 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-17",
+   "sitrepNumber": "034",
+   "texte": "Insuffisance d’approvisionnement",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-17",
+   "sitrepNumber": "034",
+   "texte": "en MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-17",
+   "sitrepNumber": "034",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au Nord-Kivu et diagnostic tardif",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-18",
+   "sitrepNumber": "035",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-18",
+   "sitrepNumber": "035",
+   "texte": "résistance communautaire Capacité insuffisante en CTE et saturation en Ituri (103,3%)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-18",
+   "sitrepNumber": "035",
+   "texte": "Faible performance du suivi des contacts (72,3% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-18",
+   "sitrepNumber": "035",
+   "texte": "Surveillance insuffisante (36,5% d’alertes investiguées en Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-18",
+   "sitrepNumber": "035",
+   "texte": "Cas confirmés non localisés ou non classifiés (~17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-18",
+   "sitrepNumber": "035",
+   "texte": "Insuffisance d’approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "résistance communautaire Capacité insuffisante en CTE et saturation en Ituri (88,3%)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "Faible performance du suivi des contacts (69,3% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "Cas confirmés non localisés ou non classifiés (~17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "Insuffisance d’approvisionnement",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "en MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "Stock des échantillons non encore analysés (backlog) au",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "laboratoire au Nord-Kivu et diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-20",
+   "sitrepNumber": "037",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-20",
+   "sitrepNumber": "037",
+   "texte": "résistance communautaire Capacité insuffisante en CTE et saturation en Ituri (82,8%)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-20",
+   "sitrepNumber": "037",
+   "texte": "Faible performance du suivi des contacts (67,0% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-20",
+   "sitrepNumber": "037",
+   "texte": "Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-20",
+   "sitrepNumber": "037",
+   "texte": "Cas confirmés non localisés ou non classifiés (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-20",
+   "sitrepNumber": "037",
+   "texte": "Insuffisance d’approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-20",
+   "sitrepNumber": "037",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-20",
+   "sitrepNumber": "037",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au Nord-Kivu et diagnostic tardif",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Capacité insuffisante en CTE et saturation en Ituri (84,1%)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Faible performance du suivi des contacts (70,8% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Cas confirmés non localisés ou non classifiés (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Insuffisance d’approvisionnement",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "en MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Stock des échantillons non encore analysés (backlog) au",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "laboratoire au Nord-Kivu et diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Insuffisance des ressources financières (gap 20 millions USD)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "texte": "Forte mobilité des populations",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-22",
+   "sitrepNumber": "039",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-22",
+   "sitrepNumber": "039",
+   "texte": "Capacité insuffisante en CTE et saturation en Ituri (87,0%)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-22",
+   "sitrepNumber": "039",
+   "texte": "Faible performance du suivi des contacts (72,8% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-22",
+   "sitrepNumber": "039",
+   "texte": "Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-22",
+   "sitrepNumber": "039",
+   "texte": "Cas confirmés non localisés ou non classifiés (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-22",
+   "sitrepNumber": "039",
+   "texte": "Insuffisance d’approvisionnement",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-22",
+   "sitrepNumber": "039",
+   "texte": "en MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-22",
+   "sitrepNumber": "039",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au Nord-Kivu et diagnostic tardif",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Capacité insuffisante en CTE et saturation en Ituri (91,3%)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Faible performance du suivi des contacts (77,1% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Cas confirmés non localisés ou non classifiés (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Insuffisance d’approvisionnement",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "en MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Stock des échantillons non encore analysés (backlog) au",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "laboratoire au Nord-Kivu et diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Insuffisance des ressources financières (gap 20 millions USD)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "texte": "Forte mobilité des populations",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Capacité insuffisante en CTE et proche de la saturation en Ituri (85,3%)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Faible performance du suivi des contacts (79,2% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Cas confirmés non localisés ou non classifiés (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Insuffisance d’approvisionnement",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "en MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Stock des échantillons non encore analysés (backlog) au",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "laboratoire au Nord-Kivu et diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Insuffisance des ressources financières (gap 20 millions USD)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "texte": "Forte mobilité des populations",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "résistance communautaire Capacité des CTE insuffisante et proche de la saturation en Ituri",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "(89,8%) Faible performance du suivi des contacts (82,8% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Insuffisance d’approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au Nord-Kivu et",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Insuffisance des ressources financières (gap 20 millions USD)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "texte": "Forte mobilité des populations",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "résistance communautaire Capacité des CTE insuffisante et saturation au Nord-Kivu (138,8%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Performance du suivi des contacts non optimale (87,1% vs",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Insuffisance d’approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au Nord-Kivu et",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Insuffisance des ressources financières (gap 20 millions USD)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "texte": "Forte mobilité des populations",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-29",
+   "sitrepNumber": "046",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-29",
+   "sitrepNumber": "046",
+   "texte": "Capacité des CTE insuffisante et saturation au Nord-Kivu (138,8%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-29",
+   "sitrepNumber": "046",
+   "texte": "Performance du suivi des contacts non optimale (82,5% vs",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-29",
+   "sitrepNumber": "046",
+   "texte": "cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-29",
+   "sitrepNumber": "046",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-29",
+   "sitrepNumber": "046",
+   "texte": "Insuffisance d’approvisionnement",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-29",
+   "sitrepNumber": "046",
+   "texte": "en MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-29",
+   "sitrepNumber": "046",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au Nord-Kivu et diagnostic tardif",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-30",
+   "sitrepNumber": "047",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et",
+   "provinces": []
+  },
+  {
+   "date": "2026-06-30",
+   "sitrepNumber": "047",
+   "texte": "résistance communautaire Capacité des CTE insuffisante et saturation au Nord-Kivu (138,8%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-06-30",
+   "sitrepNumber": "047",
+   "texte": "Performance du suivi des contacts non optimale (81,3% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-01",
+   "sitrepNumber": "048",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-01",
+   "sitrepNumber": "048",
+   "texte": "Capacité des CTE insuffisante et saturation au Nord-Kivu (138,8%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-01",
+   "sitrepNumber": "048",
+   "texte": "Performance du suivi des contacts non optimale (81,3% vs",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-01",
+   "sitrepNumber": "048",
+   "texte": "cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "résistance communautaire Capacité des CTE insuffisante et saturation au Nord-Kivu (138,8%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Performance du suivi des contacts non optimale (81,3% vs",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Insuffisance d’approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au Nord-Kivu et",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Insuffisance des ressources financières (gap 20 millions USD)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "texte": "Forte mobilité des populations",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Capacité des CTE insuffisante et saturation au Nord-Kivu (138,8%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Performance du suivi des contacts non optimale (81,3% vs",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Insuffisance d’approvisionnement",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "en MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Stock des échantillons non encore analysés (backlog) au",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "laboratoire au Nord-Kivu et diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Insuffisance des ressources financières (gap 20 millions USD)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "texte": "Forte mobilité des populations",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-04",
+   "sitrepNumber": "051",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-04",
+   "sitrepNumber": "051",
+   "texte": "communautaire Capacité des CTE insuffisante et saturation au Nord-Kivu (138,8%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-04",
+   "sitrepNumber": "051",
+   "texte": "Performance du suivi des contacts",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-04",
+   "sitrepNumber": "051",
+   "texte": "non optimale (81,3% vs cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-04",
+   "sitrepNumber": "051",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-04",
+   "sitrepNumber": "051",
+   "texte": "Insuffisance d’approvisionnement en",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-04",
+   "sitrepNumber": "051",
+   "texte": "MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-05",
+   "sitrepNumber": "052",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-05",
+   "sitrepNumber": "052",
+   "texte": "communautaire Capacité des CTE insuffisante et saturation au Nord-Kivu (137,0%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-05",
+   "sitrepNumber": "052",
+   "texte": "Performance du suivi des contacts non optimale (77,5% vs cible 95%)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-05",
+   "sitrepNumber": "052",
+   "texte": "Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "communautaire Capacité des CTE insuffisante et saturation au Nord-Kivu (115,0%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Performance du suivi des contacts",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "non optimale (75,2% vs cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Insuffisance d’approvisionnement en",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Nord-Kivu et diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Insuffisance des ressources financières (gap 20 millions USD)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "texte": "Forte mobilité des populations",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "communautaire Capacité des CTE insuffisante et saturation au Nord-Kivu (133,0%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "Performance du suivi des contacts",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "non optimale (78,6% vs cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "Insuffisance d’approvisionnement en",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "Nord-Kivu et diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "texte": "centres) Coordination insuffisante et faible utilisation des cadres COUSP",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-09",
+   "sitrepNumber": "056",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-09",
+   "sitrepNumber": "056",
+   "texte": "communautaire Capacité des CTE/CT insuffisante et saturation au Nord-Kivu (160,0%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-09",
+   "sitrepNumber": "056",
+   "texte": "Performance du suivi des contacts",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-09",
+   "sitrepNumber": "056",
+   "texte": "non optimale (78,1% vs cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-09",
+   "sitrepNumber": "056",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-09",
+   "sitrepNumber": "056",
+   "texte": "Insuffisance d’approvisionnement en",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-09",
+   "sitrepNumber": "056",
+   "texte": "MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "communautaire Capacité des CTE/CT insuffisante et saturation au Nord-Kivu (135,2%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "Performance du suivi des contacts",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "non optimale (71,7% vs cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "Insuffisance d’approvisionnement en",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "Nord-Kivu et diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "centres) Coordination insuffisante et faible",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "texte": "utilisation des cadres COUSP Insuffisance des ressources",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "Réticence aux prélèvements post mortem (EDS / swabs) et résistance",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "communautaire Capacité des CTE/CT insuffisante et saturation au Nord-Kivu (129,6%)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "Performance du suivi des contacts",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "non optimale (78,3% vs cible 95%) Faible remontée des alertes dans certaines ZS affectées",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "Cas confirmés non encore ventilés par zone de santé (17 cas)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "Insuffisance d’approvisionnement en",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "MEG et intrants médicaux Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "Stock des échantillons non encore analysés (backlog) au laboratoire au",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "Nord-Kivu et diagnostic tardif Insuffisance d’ambulances et de structures d’isolement (gap de 20",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "centres) Coordination insuffisante et faible",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "utilisation des cadres COUSP Insuffisance des ressources financières (gap 20 millions USD)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "Continuité des services essentiels",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "texte": "(CEHS) compromise Forte mobilité des populations",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Capacité des CTE/CT insuffisante ; saturation au Nord-Kivu (117,2 %)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Suivi des contacts sous la cible (81,5 % vs 95 %) et hétérogène (Nyankunde 28,9 %, Nia-Nia 36,2 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Faible remontée et investigation des alertes en Ituri ; incohérences ZS / DHIS2",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Aucun des nouveaux cas rattaché à un",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "contact listé (0 % le 12/07) Insuffisance d'ambulances et de structures d'isolement",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Backlog d'échantillons et diagnostic tardif au Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Personnel de première ligne infecté (114 cas, 36 décès, létalité 31,6 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Insécurité et accès limité (Nia-Nia, CODECO/ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Forte mobilité des populations et extension urbaine (Tshopo/Kisangani)",
+   "provinces": [
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Ressources insuffisantes : mobilité et paiement des prestataires",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "texte": "Continuité des services essentiels compromise ; intrants MEG et nutritionnels insuffisants TOUTE INFORMATION SUPPLEMENTAIRE, GENERAL DE L'INSP KAZADI 816 040 145 l'appui technique de l'Organisation Mondiale",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Non-paiement des équipes EDS (paralysie à Rwampara)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Capacité des CTE/CT insuffisante et saturation au Nord-Kivu (120,6 %)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Performance du suivi des contacts non optimale (Haut-Uélé 55,5 %)",
+   "provinces": [
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Installation de laboratoires de proximité (Isiro, Mambasa, Logo)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Non-paiement des équipes EDS (paralysie à Rwampara)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Capacité des CTE/CT insuffisante et saturation au Nord-Kivu (129,6 %)",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Performance du suivi des contacts non optimale (Haut-Uélé 55,5 %)",
+   "provinces": [
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Installation de laboratoires de proximité (Isiro, Mambasa, Logo et Fataki)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "texte": "d'activités sur communautaire dans ZS MONGBWALU",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs) et résistance communautaire",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Non-paiement des équipes EDS (paralysie à Rwampara)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Saturation des structures d'isolement : CT Bambu 316 % et CTE CME 157 % (Ituri, 15/07) ; capacités non",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "rapportées au Nord-Kivu le 15/07 (129,6 % au 14/07) Performance du suivi des contacts non optimale (Tshopo 50,0 % ; Ituri 78,1 %)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et formation limitée",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Installation de laboratoires de proximité (Butembo, Mambasa et Logo)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "texte": "d'activités sur Réunion de membres du pilier",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Nyankunde) Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "l'intervention du gouverneur militaire de l'Ituri) Capacité des CTE/CT insuffisante : occupation de 126,2 % au Nord-Kivu (capacités en lits non rapportées le 16/07, dénominateur reconduit du 15/07) et de 78 % en Ituri (541 patients pour 693 lits), dont 51 patients sévères ou critiques",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Performance du suivi des contacts en forte dégradation (Ituri 61,5 % contre 78,1 % le 15/07 ; Haut-Uélé 54,0 % ; Tshopo 72,0 % ; national",
+   "provinces": [
+    "Ituri",
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "66,9 %) Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Installation de laboratoires de proximité (Butembo, Mambasa et Logo)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 123,1 % au Nord-Kivu (capacités de lits : 141) et de 76,3 % en Ituri (539 patients pour 706 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Performance du suivi des contacts faible en Ituri 84,9 % ; Nord- Kivu 88,4%)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Installation de laboratoires de proximité (Butembo, Mambasa et Logo)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 128,4 % au Nord-Kivu (capacités de lits : 141) et de 69,3 % en Ituri (553 patients pour 798 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Performance du suivi des contacts faible en Haut-Uele 52,3%, en Ituri 81,3 % ; Nord-Kivu 83,8%",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Installation de laboratoires de proximité (Butembo, Mambasa et Logo)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 128,4 % au Nord-Kivu (capacités de lits : 141) et de 78,4 % en Ituri (556 patients pour 709 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Performance du suivi des contacts faible en Ituri 81,8 % ; Nord- Kivu 81,9%",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Installation de laboratoires de proximité (Butembo, Mambasa et Logo)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "texte": "d'activités sur des associations de Motard taximen tout cas suspect de MVE dans la province et 5 000 tubes à bouchon des US-CDC, ont été livrés à Bunia aux laboratoires et aux sites",
+   "provinces": [
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 129,1 % au Nord-Kivu (capacités de lits : 141) et de 78,5 % en Ituri (556 patients pour 708 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Performance du suivi des contacts faible en Ituri 77,2 % ; Nord- Kivu 81,7%",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Installation de laboratoires de proximité (Butembo, Mambasa et Logo)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 119,1 % au Nord-Kivu (capacités de lits : 141) et de 77,7 % en Ituri (551 patients pour 709 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Performance du suivi des contacts faible en Ituri 73,3 % ; Nord- Kivu 77,7%",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Installation de laboratoires de proximité (Butembo, Mambasa et Logo)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "texte": "d'activités sur le Formation",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 136,2 % au Nord-Kivu (capacités de lits : 141) et de 80,4 % en Ituri (570 patients pour 709 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Performance du suivi des contacts faible en Ituri 72,1 % ; Nord- Kivu 78,9%",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Installation de laboratoires de proximité (Butembo, Mambasa et Logo)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 126,9 % au Nord-Kivu (capacités de lits : 141) et de 81,2 % en Ituri (576 patients pour 709 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Performance du suivi des contacts faible en Ituri 73,8 % ; Nord- Kivu 83,1% ; Haut-Uele 72,1% et 90,9% Tshopo",
+   "provinces": [
+    "Ituri",
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Installation de laboratoires de proximité (Butembo et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 121,3 % au Nord-Kivu (capacités de lits : 141) et de 75,1 % en Ituri (602 patients pour 800 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Performance du suivi des contacts faible en Ituri 75,6% ; Nord- Kivu 83,7% ; Haut-Uele 64,8% et 90,9% Tshopo",
+   "provinces": [
+    "Ituri",
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Installation de laboratoires de proximité (Butembo et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 136,2 % au Nord-Kivu (capacités de lits : 141) et de 66,4 % en Ituri (531 patients pour 800 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Performance du suivi des contacts faible en Ituri 75,6% ; Nord- Kivu 85,2% et Haut-Uele 60,0",
+   "provinces": [
+    "Ituri",
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Installation de laboratoires de proximité (Butembo et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 134,0 % au Nord-Kivu (capacités de lits : 141) et de 67,3 % en Ituri (544 patients pour 808 lits) ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Performance du suivi des contacts faible en Ituri 77,6% ; Nord- Kivu 82,6% et Haut-Uele 60,0",
+   "provinces": [
+    "Ituri",
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (175/1 170, soit 15 %)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Installation de laboratoires de proximité (Butembo et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 143,3 % au Nord-Kivu (capacités de lits : 141, non rapportées depuis quatre cycles) et six structures au-delà de leur capacité pour les confirmés en Ituri, dont le CTE de Nizi à 322 % et le CTE",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "de Lita à 140 % ; Performance du suivi des contacts faible et en recul : Ituri 75,5 %, Nord- Kivu 74,7 %, Tshopo 66,2 % et Haut- Uélé 80,6 %, avec trois zones à 0 % en Ituri (Mahagi, Kambala, Boga) et",
+   "provinces": [
+    "Ituri",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Kabondo à 0 % à la Tshopo Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": [
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (181/1170, soit 15 %)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Installation de laboratoires de proximité (Rwampara, Fataki, Bambu-mine, Boga et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 139,0 % au Nord-Kivu (capacité de 141 lits : non rapportée depuis cinq cycles) et six structures au-delà de leur capacité pour les confirmés en Ituri, dont le CTE de Nizi à 322 % et le CTE de Lita à 140 % ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Performance du suivi des contacts insuffisante : Ituri 80,0 %, Nord-Kivu 74,7 %, Haut-Uélé 66,7 % et Sud-Kivu 100 %, la Tshopo n'ayant pas rapporté ; les ZS de Kambala, Damas et Mandima (Ituri) et de Rungu (Haut-",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Sud-Kivu",
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Uélé) sans données exploitables Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (181/1170, soit 15 %)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Installation de laboratoires de proximité (Rwampara, Fataki, Bambu-mine, Boga et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 128,4 % au Nord-Kivu (capacité de 141 lits : non rapportée depuis six cycles) et cinq structures au-delà ou à la limite de leur capacité pour les confirmés en Ituri, dont le CTE de Nizi à 278 % et le CTE ISTM à 110 % ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Performance du suivi des contacts insuffisante : Ituri 83,4 %, Nord-Kivu 75,0 % et Sud-Kivu 100 %, le Haut- Uélé et la Tshopo n'ayant pas rapporté ; les ZS de Damas, de Logo et de Kambala (Ituri) sont restées",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Sud-Kivu",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "sans données exploitables Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (181/1170, soit 15 %)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Installation de laboratoires de proximité (Rwampara, Fataki, Bambu-mine, Boga et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "texte": "d'activités sur le Briefing des IT et ITA Sur",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Capacité des CTE/CT insuffisante : occupation de 128,4 % au Nord-Kivu (capacité de 141 lits : non rapportée depuis six cycles) et cinq structures au-delà ou à la limite de leur capacité pour les confirmés en Ituri, dont le CTE de Nizi à 278 % et le CTE ISTM à 110 % ;",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Performance du suivi des contacts insuffisante : Ituri 83,4 %, Nord-Kivu 75,0 % et Sud-Kivu 100 %, le Haut- Uélé et la Tshopo n'ayant pas rapporté ; les ZS de Damas, de Logo et de Kambala (Ituri) sont restées",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Sud-Kivu",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "sans données exploitables Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Insuffisance d'approvisionnement en MEG et intrants médicaux",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (181/1170, soit 15 %)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Installation de laboratoires de proximité (Rwampara, Fataki, Bambu-mine, Boga et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "texte": "d'activités sur le Sensibilisation des chrétiens Réception",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri)",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "Performance du suivi des contacts insuffisante : Ituri 83,4 %, Nord-Kivu 75,0 % et Sud-Kivu 100 %, le Haut- Uélé et la Tshopo n'ayant pas rapporté ; les ZS de Damas, de Logo et de Kambala (Ituri) sont restées",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Sud-Kivu",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "sans données exploitables Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (181/1170, soit 15 %)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "Installation de laboratoires de proximité (Rwampara, Fataki, Bambu-mine, Boga et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "texte": "d'activités sur le Sensibilisation",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "Réticence aux prélèvements post- mortem (EDS/swabs), résistance communautaire et insécurité visant les équipes EDS (attaque au pont Muchanga, paralysie des activités à Nyankunde)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "Non-paiement des prestataires (grève dans les ZS de Bunia et de Rwampara ; reprise annoncée après l'intervention du gouverneur militaire de l'Ituri) Performance du suivi des contacts",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "insuffisante : Ituri 77,4 %, Nord-Kivu 74,1 %, Haut-Uélé 49,9 % et Sud-Kivu 100 %, la Tshopo n'ayant pas rapporté ; les ZS de Bambu, de Damas, de Kambala, de Kilo et de Lolwa (Ituri) sont restées sans",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Sud-Kivu",
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "contact listé alors qu'elles comptent des cas cumulés Insuffisance d'ambulances et prépositionnement aux PoC",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et unités de triage fonctionnelles limitées (182/1 170, soit 15 %)",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "Extension géographique (Haut-Uélé, Tshopo) et forte mobilité",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "Installation de laboratoires de proximité (Rwampara, Fataki, Bambu-mine, Boga et Mambasa)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "Insuffisance des ressources financières",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "Insécurité et accès limité (CODECO, ADF)",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "Continuité des services essentiels (CEHS) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "texte": "d'activités sur le Inauguration du CTE Rwankole",
+   "provinces": [
+    "Ituri"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "Résistance communautaire aux EDS et aux prélèvements post-mortem, et insécurité visant les équipes : agressions d'équipes dans les zones d'enterrement du Nord-Kivu et non- accessibilité du cimetière de Bundji",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "Non-paiement et démotivation des prestataires : grève avec manifestation des hygiénistes au CTE CME de Bunia (reprise timide), non- paiement d'une partie des prestataires du Nord-Kivu dont les policiers commis à la garde des ESS,",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "grève annoncée du pilier PEC psychosociale à Beni, démotivation signalée en Tshopo et au Sud-Kivu Performance du suivi des contacts insuffisante Insuffisance et immobilisation des",
+   "provinces": [
+    "Sud-Kivu",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "moyens d'évacuation : 4 des 29 ambulances de l'Ituri en panne et 1 refus de transfert à Bambu, absence d'ambulance dans 7 ZS du Nord-Kivu et de corbillards dans l'ensemble des ZS, manque de moyen de transport pour la supervision des PoC de la Tshopo",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "Insuffisance des intrants PCI (EPI, chlore) et couverture limitée du triage : 54 ménages de cas décontaminés sur 95 en Ituri (41 %) et 1 sur 22 à Katwa ; 6 % des ESS de la Tshopo (5/81) et 38,1 % de celles du Nord-Kivu (109/286) disposent d'un circuit de triage unidirectionnel",
+   "provinces": [
+    "Ituri",
+    "Nord-Kivu",
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "Extension géographique : deux nouvelles zones de santé atteintes en 24 heures — Gombari (Haut-Uélé) et Bafwasende (Tshopo) — toutes deux liées à l'axe Niania ; seuls 9 des 38 PoE/PoC prioritaires du Haut-Uélé (23,7 %) et 4 des 19 de la Tshopo (21,1 %) sont activés",
+   "provinces": [
+    "Haut-Uélé",
+    "Tshopo"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "Capacités diagnostiques décentralisées insuffisantes : laboratoires de proximité en cours d'installation (Rwampara, Fataki, Bambu-mine, Boga et Mambasa) ; au Haut-Uélé, machine installée à Isiro et 7 Radi One acquis mais analyses",
+   "provinces": [
+    "Haut-Uélé"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "non décentralisées au niveau zonal Insuffisance des ressources financières et non-respect des engagements de certains partenaires dans les ZS du Nord-Kivu",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "Insécurité et accès limité (CODECO, ADF) ; attaques récurrentes des équipes de réponse dans certaines aires de santé du Nord-Kivu et refus d'intervention des agents de sécurité sur les sites gérés par MSF",
+   "provinces": [
+    "Nord-Kivu"
+   ]
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "Continuité des services essentiels (CSSE) compromise",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "Capacité d'accueil insuffisante des CTE/CT",
+   "provinces": []
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "texte": "d'activités sur le de l’atelier de renforcement des capacités minimum des",
+   "provinces": []
+  }
+ ]
+}

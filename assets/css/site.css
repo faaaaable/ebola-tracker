@@ -178,6 +178,12 @@ ul,ol{margin:0;padding:0;}
 /* L'etat courant est un trait, pas une boite : un filet a gauche du lien,
    dans la couleur d'accent. Moins de rectangles a l'ecran, meme information. */
 .side-nav a:hover{color:var(--accent-strong);text-decoration:none;}
+/* Pastille « Nouveau » a droite d'un onglet (navBadge dans pages.json, datee).
+   Un battement lent d'opacite, 2,8 s, jamais en dessous de 45 % : on veut
+   que l'oeil la trouve, pas qu'elle clignote. Coupe par prefers-reduced-motion. */
+.side-nav a:has(.nav-badge){position:relative;padding-right:68px;}
+.nav-badge{position:absolute;right:8px;top:50%;transform:translateY(-50%);padding:2px 6px 1px;border:1px solid var(--accent-strong);border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.07em;line-height:1.3;text-transform:uppercase;color:var(--accent-strong);animation:nav-badge-pulse 2.8s ease-in-out infinite;}
+@keyframes nav-badge-pulse{0%,100%{opacity:1;}50%{opacity:.45;}}
 /* Intertitres des trois groupes de la barre (Explorer, Comprendre, Le site),
    les memes que les colonnes du pied de page. Petits et gris : ils
    structurent, ils ne se cliquent pas. */
@@ -2409,17 +2415,6 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
    Une citation mot pour mot sous le cadre qu'elle explique : etiquette et
    pilier en capitales, la reference du bulletin a droite, le texte en
    retrait derriere un filet, comme une citation. */
-.defi{margin:18px 0 0;}
-.defi-tete{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin-bottom:8px;}
-.defi-etiquette{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-label);}
-.defi-pilier{font-size:13px;font-weight:700;color:var(--ink);}
-.defi-tete .section-sub{margin-left:auto;}
-.defi-texte{margin:0;padding:2px 0 2px 16px;border-left:3px solid var(--line);max-width:68ch;}
-.defi-texte p{margin:0 0 8px;font-size:14px;line-height:1.65;color:var(--ink-dim);}
-.defi-texte p:last-child{margin-bottom:0;}
-.defi-texte p::before{content:"« ";color:var(--ink-faint);}
-.defi-texte p::after{content:" »";color:var(--ink-faint);}
-.defi .map-note{padding-top:6px;}
 @media (max-width:760px){ .defi-tete .section-sub{margin-left:0;flex-basis:100%;} }
 
 /* ---- Maquette « Riposte & defis », seconde partie (6 septembre 2026) ----
@@ -2427,7 +2422,8 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
    couleurs inversees, pour marquer le changement de registre : on passe
    des chiffres au recit. Puis une frise des obstacles dans le temps, et
    une fiche par obstacle, numerotee, en deux colonnes. */
-.dossier{background:var(--ink);color:var(--bg);border-top:none;margin:40px -48px 0;padding:56px 48px;border-radius:var(--radius-card);}
+/* La bande deborde de la gouttiere : sur la variable, pas en dur — a 48 px fixes elle depassait de 2 x 28 px sur telephone (audit du 7 septembre 2026). */
+.dossier{background:var(--ink);color:var(--bg);border-top:none;margin:40px calc(-1 * var(--gutter)) 0;padding:56px var(--gutter);border-radius:var(--radius-card);}
 .dossier-in{max-width:760px;}
 .dossier-eyebrow{color:var(--bg);opacity:.75;}
 .dossier-eyebrow .dot{background:var(--bg);}
@@ -2439,20 +2435,11 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .dossier-chiffres span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;opacity:.7;margin-top:6px;}
 .dossier-note{font-size:12px;opacity:.7;margin:18px 0 0;}
 .frise-section{border-top:none;padding-top:32px;}
-.frise{display:grid;gap:2px;}
-.frise-row{display:grid;grid-template-columns:260px minmax(0,1fr);align-items:center;gap:16px;min-height:30px;}
 .frise-label{font-size:12.5px;line-height:1.3;color:var(--ink-dim);}
 .frise-label a{color:inherit;text-decoration:none;}
 .frise-label a:hover{color:var(--ink);}
 .frise-num{font-family:var(--font-serif);font-weight:600;color:var(--ink-faint);margin-right:8px;font-variant-numeric:tabular-nums;}
-.frise-track{position:relative;height:18px;border-bottom:1px solid var(--line);}
-.frise-bar{position:absolute;top:5px;height:8px;background:var(--line);border-radius:4px;}
-.frise-track i{position:absolute;top:2px;width:1.5px;height:14px;background:var(--accent-strong);opacity:.8;}
-.frise-axe{min-height:22px;}
-.frise-axe .frise-track{border-bottom:none;height:18px;}
-.frise-axe span{position:absolute;top:0;font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em;transform:translateX(-50%);white-space:nowrap;}
-.frise-axe span.is-fin{transform:translateX(-100%);}
-.dossier-chiffres b.is-texte{font-size:22px;padding-top:8px;}
+.dossier-chiffres b.is-texte{font-size:27px;padding-top:5px;}
 .fiches-section{border-top:none;padding-top:8px;}
 .fiches{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 48px;}
 .fiche{display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;padding-top:18px;border-top:1px solid var(--line);}
@@ -2463,11 +2450,19 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .fiche-prov{display:inline-flex;align-items:center;gap:5px;margin-left:10px;white-space:nowrap;}
 .fiche-prov i{width:7px;height:7px;border-radius:50%;display:inline-block;}
 @media (max-width:1180px){ .fiches{grid-template-columns:1fr;} .dossier{margin:40px -24px 0;padding:40px 24px;} }
-@media (max-width:760px){ .frise-row{grid-template-columns:130px minmax(0,1fr);gap:8px;} .dossier{margin:32px -16px 0;padding:32px 16px;border-radius:0;} .fiche{grid-template-columns:40px minmax(0,1fr);} .fiche-num{font-size:30px;} }
 
 /* La bande claire de la premiere partie : meme squelette que .dossier, les
    couleurs inversees. Les quatre chiffres gardent leurs teintes (cas,
    suivi, encre) et leur ligne de detail. */
+/* Tete de la maquette : le chapeau colle a l'encadre de la premiere partie — 76 px de vide (28 + 40 + 8) ramenes a 20 (7 septembre 2026). */
+.maq-tete{padding-bottom:0;}
+.maq-methode{margin-top:10px;}
+.maq-methode summary{cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-strong);list-style:none;}
+.maq-methode summary::before{content:"+ ";}
+.maq-methode[open] summary::before{content:"− ";}
+.maq-methode summary::-webkit-details-marker{display:none;}
+.maq-methode .map-note{margin-top:10px;}
+.maq-tete .lede{margin-bottom:12px;}
 .dossier-clair{background:var(--bg-panel);color:var(--ink);border:1px solid var(--line);margin-top:8px;}
 .dossier-clair .dossier-eyebrow{color:var(--accent-strong);opacity:1;}
 .dossier-clair .dossier-eyebrow .dot{background:var(--accent);}
@@ -2501,8 +2496,6 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .dossier:not(.dossier-clair) .dossier-chiffres b{color:#CFE6F1;}
 .dossier:not(.dossier-clair) .dossier-chiffres span{color:#8EC3DC;opacity:.9;}
 .dossier:not(.dossier-clair) .dossier-lede{opacity:.92;}
-.frise-bar{background:#D6E6EE;}
-.frise-track i{background:var(--accent-strong);opacity:.85;}
 .frise-num{color:var(--accent-strong);opacity:.7;}
 .fiche-num{color:var(--accent-strong);opacity:.55;}
 .fiche{border-top-color:var(--line);}
@@ -2534,3 +2527,51 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .frise-label a{display:grid;grid-template-columns:24px minmax(0,1fr);gap:0 6px;align-items:baseline;}
 .frise-num{margin-right:0;}
 @media (max-width:760px){ .frise-label a{grid-template-columns:20px minmax(0,1fr);} }
+
+/* Riposte & defis sur telephone (audit a 360 px du 7 septembre 2026) : la
+   frise met l'etiquette au-dessus de sa piste, les fiches passent en une
+   colonne, les chiffres de la bande se resserrent, la bande perd ses coins. */
+@media (max-width:760px){
+  /* Pleine largeur d'ecran : la gouttiere vaut 24 px dans la bande et 20 px dans .wrap a 360 px, d'ou 4 px de defilement horizontal avec la marge negative (audit du 7 septembre 2026). */
+  .dossier{border-radius:0;padding-top:36px;padding-bottom:36px;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding-left:20px;padding-right:20px;}
+  .dossier-titre{font-size:28px;}
+  .dossier-chiffres b.is-texte{font-size:22px;}
+  .frise-label{padding:0;}
+  .frise-label a{padding:15px 0 9px;}  /* cible tactile >= 40 px ; la grille numero/libelle reste */
+  .fiches{grid-template-columns:1fr;gap:26px;}
+  .fiche{grid-template-columns:40px minmax(0,1fr);}
+  .fiche-num{font-size:28px;}
+}
+
+/* La frise des obstacles est une grille par semaine (7 septembre 2026) :
+   colonne des titres a gauche, quatorze cases par ligne, plus basses que
+   larges pour rester une frise et non un tableau. Teinte = part des
+   bulletins de la semaine qui citent l'obstacle. Survol par case sur
+   grand ecran (bulle CSS, data-semaine). */
+.grille{display:grid;gap:4px;}
+.grille-tete,.grille-row{display:grid;grid-template-columns:260px minmax(0,1fr);gap:0 16px;align-items:center;}
+.grille-row{padding:3px 0;}
+.grille-mois,.grille-cases{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:3px;}
+.grille-mois span{font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;}
+.grille-mois span:last-child{display:flex;justify-content:flex-end;}  /* « sept. » deborde a gauche de sa case, pas hors de la page (+4 px a 360 px) */
+.grille-cases i{display:block;position:relative;height:22px;border-radius:3px;background:var(--accent-strong);}
+.grille-cases i.n0,.grille-legende i.n0{background:var(--line);opacity:.6;}
+.grille-cases i.n1,.grille-legende i.n1{opacity:.3;}
+.grille-cases i.n2,.grille-legende i.n2{opacity:.62;}
+.grille-cases i.n3,.grille-legende i.n3{opacity:1;}
+.grille-cases i::after{content:attr(data-semaine);position:absolute;bottom:26px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--font-sans);font-style:normal;font-size:11.5px;font-weight:500;letter-spacing:.01em;line-height:1;color:var(--bg);background:var(--ink);padding:5px 8px;border-radius:4px;display:none;pointer-events:none;z-index:2;}
+.grille-cases i:hover{opacity:1;outline:2px solid var(--ink);outline-offset:-2px;}
+.grille-cases i:hover::after{display:block;}
+.grille-cases i:first-child::after{left:0;transform:none;}
+.grille-cases i:last-child::after{left:auto;right:0;transform:none;}
+.grille-legende{display:flex;align-items:center;gap:4px;margin-top:12px;font-size:11.5px;color:var(--ink-dim);}
+.grille-legende i{display:inline-block;width:16px;height:10px;border-radius:2px;background:var(--accent-strong);}
+.grille-legende span{margin-left:6px;}
+@media (max-width:760px){
+  .grille-tete,.grille-row{grid-template-columns:1fr;gap:0;}
+  .grille-tete .frise-label{display:none;}
+  .grille-row{padding:2px 0 8px;}
+  .grille-cases i{height:14px;}
+  .grille-cases i::after{display:none!important;}
+  .grille-mois span{font-size:10px;}
+}

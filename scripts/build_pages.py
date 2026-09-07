@@ -31,6 +31,7 @@ import sys
 from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import defis_synthese  # maquette « Riposte & defis », seconde partie redigee
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
@@ -342,6 +343,13 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
             continue
         page = by_id[page_id]
         label = esc(label_for(page, strings_lang, i18n_lang))
+        # Pastille « Nouveau » a droite d'un onglet, pour annoncer une page :
+        # navBadge = {key} dans pages.json, retiree a la main quand le
+        # proprietaire le dit (decision du 7 septembre 2026) ; un « jusquau »
+        # facultatif (AAAA-MM-JJ) la fait expirer seule.
+        badge = page.get("navBadge")
+        if badge and date.today().isoformat() <= badge.get("jusquau", "9999-12-31"):
+            label += ' <span class="nav-badge">%s</span>' % esc(strings_lang[badge["key"]])
         current = ' aria-current="page"' if page_id == current_id else ""
         if page_id != "donnees":
             items.append('      <a href="%s"%s>%s</a>'
@@ -1892,61 +1900,6 @@ def province_chart_html(province, strings_lang, i18n_lang):
            esc(i18n_lang["chartShareBtn"])))
 
 
-PILIER_LIBELLE = {
-    "surveillance": "defiPilierSurveillance", "laboratoire": "defiPilierLaboratoire",
-    "pci_eds": "defiPilierPciEds", "soins": "defiPilierSoins", "poe_poc": "defiPilierPoePoc",
-    "crec": "defiPilierCrec", "vaccination": "defiPilierVaccination", "smsps": "defiPilierSmsps",
-    "logistique": "defiPilierLogistique", "securite": "defiPilierSecurite", "psea": "defiPilierPsea",
-    "coordination": "defiPilierCoordination", "autre": "defiPilierAutre",
-}
-
-
-def defis_seed(defis, lang, strings_lang, i18n_lang):
-    """Les « Defis » du dernier bulletin, cites mot pour mot sous le cadre
-    qu'ils expliquent (page « Riposte & defis », 6 septembre 2026).
-
-    surveillance -> le suivi des contacts si le texte parle de contacts,
-    sinon les alertes ; laboratoire -> le laboratoire ; soins -> les CTE.
-    Les autres piliers ne sont pas cites : le chapitre « Les autres fronts »
-    qui les portait a ete retire le 7 septembre 2026 a la demande du
-    proprietaire. Le site cite, il ne reformule pas ; sur les pages anglaise
-    et swahilie la citation reste en francais et le dit.
-    """
-    cles = ("defisAlertes", "defisContacts", "defisLabo", "defisCte")
-    out = {k: "" for k in cles}
-    points = (defis or {}).get("parDate") or []
-    if not points:
-        return {"seed.%s" % k: v for k, v in out.items()}
-    p = points[-1]
-    ref = esc(interp(strings_lang["defiRef"], {
-        "num": p["sitrepNumber"], "date": long_date(p["date"], i18n_lang)}))
-    note_langue = strings_lang.get("defiLangNote") or ""
-
-    def bloc(b):
-        items = "".join("<p>%s</p>" % esc(t) for t in b["items"])
-        html = ('<div class="defi">'
-                '<div class="defi-tete"><span class="defi-etiquette">%s</span>'
-                '<span class="defi-pilier">%s</span><span class="section-sub">%s</span></div>'
-                '<blockquote class="defi-texte" lang="fr">%s</blockquote>'
-                % (esc(strings_lang["defiLabel"]), esc(strings_lang[PILIER_LIBELLE.get(b["pilier"], "defiPilierAutre")]),
-                   ref, items))
-        if note_langue:
-            html += '<p class="map-note">%s</p>' % esc(note_langue)
-        return html + "</div>"
-
-    par_pilier = {}
-    for b in p["piliers"]:
-        par_pilier.setdefault(b["pilier"], []).append(b)
-    for b in par_pilier.get("surveillance", []):
-        cible = "defisContacts" if any("contact" in t.lower() for t in b["items"]) else "defisAlertes"
-        out[cible] += bloc(b)
-    for b in par_pilier.get("laboratoire", []):
-        out["defisLabo"] += bloc(b)
-    for b in par_pilier.get("soins", []):
-        out["defisCte"] += bloc(b)
-    return {"seed.%s" % k: v for k, v in out.items()}
-
-
 def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
     """Les quatre chiffres de tete de la page « Riposte », ecrits en dur.
 
@@ -2256,7 +2209,7 @@ def main():
             {"n": touched, "total": len(geo["zones"])}))
         common_seed["panelStats"] = panel_stats_html(national, lang, i18n_lang)
         common_seed.update(riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang))
-        common_seed.update(defis_seed(riposte.get("defis"), lang, strings_lang, i18n_lang))
+        common_seed.update(defis_synthese.render(lang, strings_lang, i18n_lang, long_date, esc, PROVINCE_COLORS))
 
         pages = [(page, None) for page in config["pages"]]
         pages += [(config["provincePage"], province) for province in provinces]

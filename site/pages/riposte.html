@@ -1,4 +1,4 @@
-  <section class="section">
+  <section class="section maq-tete">
     <div class="section-head">
       <div>
         <div class="eyebrow"><span class="dot"></span>{{t.footerExploreTitle}}</div>
@@ -7,55 +7,34 @@
       <div class="section-sub">{{seed.ripAsOf}}</div>
     </div>
 
-    <p class="lede">{{t.riposteLede}}</p>
-    <p class="page-intro">{{t.riposteIntro}}</p>
+    <p class="lede">{{t.maqLede}}</p>
+  </section>
 
-    <!-- Quatre chiffres du dernier bulletin, ecrits en dur par le generateur :
-         visibles sans JavaScript, donc indexables. Chacun porte sa date quand
-         elle n'est pas celle du bulletin — les quatre series n'ont pas la
-         meme profondeur ni la meme regularite. -->
-    <div class="kpis riposte-kpis">
-      <div class="kpi alerts">
-        <div class="label">{{t.riposteKpiAlertes}}</div>
-        <div class="value">{{seed.ripAlertes}}</div>
-        <div class="delta">{{seed.ripAlertesSub}}</div>
-      </div>
-      <div class="kpi labo">
-        <div class="label">{{t.riposteKpiPositivite}}</div>
-        <div class="value">{{seed.ripPositivite}}</div>
-        <div class="delta">{{seed.ripPositiviteSub}}</div>
-      </div>
-      <div class="kpi contacts">
-        <div class="label">{{t.riposteKpiContacts}}</div>
-        <div class="value">{{seed.ripContacts}}</div>
-        <div class="delta">{{seed.ripContactsSub}}</div>
-      </div>
-      <div class="kpi cte">
-        <div class="label">{{t.riposteKpiOccupation}}</div>
-        <div class="value">{{seed.ripOccupation}}</div>
-        <div class="delta">{{seed.ripOccupationSub}}</div>
+  <!-- Premiere partie : la bande claire, jumelle de la bande sombre qui ouvre
+       la seconde — memes couches (surtitre, titre, chapeau, chiffres), les
+       couleurs inversees pour le contraste (6 septembre 2026). Les quatre
+       chiffres de tete y prennent la graphie des reperes du dossier. -->
+  <section class="section dossier dossier-clair" id="riposte-partie">
+    <div class="dossier-in">
+      <div class="eyebrow dossier-eyebrow"><span class="dot"></span>{{t.maqPartieUn}}</div>
+      <h2 class="dossier-titre">{{t.maqPartieUnTitre}}</h2>
+      <p class="dossier-lede">{{t.maqPartieUnLede}}</p>
+      <div class="dossier-chiffres">
+        <div><b class="alerts">{{seed.ripAlertes}}</b><span>{{t.riposteKpiAlertes}}</span><small>{{seed.ripAlertesSub}}</small></div>
+        <div><b class="labo">{{seed.ripPositivite}}</b><span>{{t.riposteKpiPositivite}}</span><small>{{seed.ripPositiviteSub}}</small></div>
+        <div><b class="contacts">{{seed.ripContacts}}</b><span>{{t.riposteKpiContacts}}</span><small>{{seed.ripContactsSub}}</small></div>
+        <div><b class="cte">{{seed.ripOccupation}}</b><span>{{t.riposteKpiOccupation}}</span><small>{{seed.ripOccupationSub}}</small></div>
       </div>
     </div>
-
-    <nav class="riposte-ancres" aria-label="{{t.riposteAnchorsLabel}}">
-      <a href="#alertes">{{t.riposteAlertesTitle}}</a>
-      <a href="#laboratoire">{{t.riposteLaboTitle}}</a>
-      <a href="#contacts">{{t.riposteContactsTitle}}</a>
-      <a href="#cte">{{t.riposteCteTitle}}</a>
-      <a href="#deces">{{t.riposteDecesTitle}}</a>
-    </nav>
   </section>
 
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
        on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
        et non des onglets : ce qui n'est pas clique n'est pas lu. -->
-  <section class="section section-split" id="alertes">
-    <div>
-      <h2 class="section-title">{{t.riposteAlertesTitle}}</h2>
-      <div class="section-sub">{{t.riposteAlertesSub}}</div>
-    </div>
-    <div>
-    <p class="page-intro">{{t.riposteAlertesLede}}</p>
+  <section class="section cadre-fiche" id="alertes">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">{{t.riposteAlertesTitle}}</h2><div class="section-sub">{{t.riposteAlertesSub}}</div></div></div>
+    <div class="cadre-corps">
+      <p class="fiche-texte">{{t.riposteAlertesLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="alertesChart">
         <button type="button" class="share-btn">
@@ -75,17 +54,13 @@
       <div class="map-note chart-note"></div>
     </div>
   
-    {{seed.defisAlertes}}
     </div>
   </section>
 
-  <section class="section section-split" id="laboratoire">
-    <div>
-      <h2 class="section-title">{{t.riposteLaboTitle}}</h2>
-      <div class="section-sub">{{t.riposteLaboSub}}</div>
-    </div>
-    <div>
-    <p class="page-intro">{{t.riposteLaboLede}}</p>
+  <section class="section cadre-fiche" id="laboratoire">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">{{t.riposteLaboTitle}}</h2><div class="section-sub">{{t.riposteLaboSub}}</div></div></div>
+    <div class="cadre-corps">
+      <p class="fiche-texte">{{t.riposteLaboLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="laboChart">
         <button type="button" class="share-btn">
@@ -99,17 +74,13 @@
       <div class="map-note chart-note"></div>
     </div>
   
-    {{seed.defisLabo}}
     </div>
   </section>
 
-  <section class="section section-split" id="contacts">
-    <div>
-      <h2 class="section-title">{{t.riposteContactsTitle}}</h2>
-      <div class="section-sub">{{t.riposteContactsSub}}</div>
-    </div>
-    <div>
-    <p class="page-intro">{{t.riposteContactsLede}}</p>
+  <section class="section cadre-fiche" id="contacts">
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">{{t.riposteContactsTitle}}</h2><div class="section-sub">{{t.riposteContactsSub}}</div></div></div>
+    <div class="cadre-corps">
+      <p class="fiche-texte">{{t.riposteContactsLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="contactsChart">
         <button type="button" class="share-btn">
@@ -127,17 +98,13 @@
       <div class="map-note chart-note"></div>
     </div>
   
-    {{seed.defisContacts}}
     </div>
   </section>
 
-  <section class="section section-split" id="cte">
-    <div>
-      <h2 class="section-title">{{t.riposteCteTitle}}</h2>
-      <div class="section-sub">{{t.riposteCteSub}}</div>
-    </div>
-    <div>
-    <p class="page-intro">{{t.riposteCteLede}}</p>
+  <section class="section cadre-fiche" id="cte">
+    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">{{t.riposteCteTitle}}</h2><div class="section-sub">{{t.riposteCteSub}}</div></div></div>
+    <div class="cadre-corps">
+      <p class="fiche-texte">{{t.riposteCteLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="cteChart">
         <button type="button" class="share-btn">
@@ -151,19 +118,15 @@
       <div class="map-note chart-note"></div>
     </div>
   
-    {{seed.defisCte}}
     </div>
   </section>
 
   <!-- Le lieu du deces suit l'occupation des CTE : l'un est la cause, l'autre
        la consequence. Venu de /donnees/ le 29 aout. -->
-  <section class="section section-split" id="deces">
-    <div>
-      <h2 class="section-title">{{t.riposteDecesTitle}}</h2>
-      <div class="section-sub">{{t.riposteDecesSub}}</div>
-    </div>
-    <div>
-    <p class="page-intro">{{t.riposteDecesLede}}</p>
+  <section class="section cadre-fiche" id="deces">
+    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">{{t.riposteDecesTitle}}</h2><div class="section-sub">{{t.riposteDecesSub}}</div></div></div>
+    <div class="cadre-corps">
+      <p class="fiche-texte">{{t.riposteDecesLede}}</p>
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="decesLieuChart">
         <button type="button" class="share-btn">
@@ -174,15 +137,24 @@
       <div class="chart-panel">
         <canvas id="decesLieuChart" data-chart="deathsPlace"></canvas>
       </div>
-      <div class="map-note chart-note"></div>
+      <!-- Charniere allegee (7 septembre 2026) : trois lignes sous le graphique,
+           la note complete du graphique (ecrite par app.js dans .chart-note)
+           et les sources repliees derriere « Méthode et sources ». -->
+      <p class="map-note">{{t.maqDecesNoteCourte}}</p>
+      <details class="maq-methode">
+        <summary>{{t.maqMethodeTitre}}</summary>
+        <div class="map-note chart-note"></div>
+        <p class="map-note">{{t.riposteSourcesNote}}</p>
+      </details>
     </div>
-    <p class="map-note">{{t.riposteSourcesNote}}</p>
   
     </div>
   </section>
 
   <!-- La sortie de page (regle 5 du 5 septembre 2026) : deux liens, choisis
        par sens, sans chiffre pour ne pas se perimer. -->
+  {{seed.defisSynthese}}
+
   <section class="section section-split" id="plus-loin">
     <div>
       <h2 class="section-title">{{t.plusLoinTitle}}</h2>
