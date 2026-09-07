@@ -411,19 +411,19 @@
       "navLabelKey": "t:navRiposte",
       "meta": {
         "fr": {
-          "title": "Riposte & défis : alertes, tests, contacts, centres de traitement et obstacles — Ebola RDC",
-          "h1": "La riposte et ses défis",
-          "description": "Ce que fait la riposte contre l'épidémie d'Ebola en RDC, bulletin après bulletin : alertes reçues et validées, échantillons testés et positivité, suivi des contacts par province, occupation des centres de traitement, et ce que les bulletins disent des obstacles."
+          "title": "La riposte : alertes, tests, contacts et centres de traitement — Ebola RDC",
+          "h1": "La riposte",
+          "description": "Ce que fait la riposte contre l'épidémie d'Ebola en RDC, bulletin après bulletin : alertes reçues et validées, échantillons testés et positivité, suivi des contacts par province, occupation des centres de traitement."
         },
         "en": {
-          "title": "Response & challenges: alerts, testing, contacts, treatment centres and obstacles — DRC Ebola",
-          "h1": "The response and its challenges",
-          "description": "What the response to the DRC Ebola outbreak is doing, bulletin by bulletin: alerts received and validated, samples tested and positivity, contact follow-up by province, treatment centre occupancy, and what the bulletins say about the obstacles."
+          "title": "The response: alerts, testing, contacts and treatment centres — DRC Ebola",
+          "h1": "The response",
+          "description": "What the response to the DRC Ebola outbreak is doing, bulletin by bulletin: alerts received and validated, samples tested and positivity, contact follow-up by province, treatment centre occupancy."
         },
         "sw": {
-          "title": "Mapambano na changamoto: tahadhari, vipimo, walioguswa, vituo vya matibabu na vikwazo — Ebola DRC",
-          "h1": "Mapambano na changamoto zake",
-          "description": "Kile mapambano dhidi ya mlipuko wa Ebola nchini DRC yanafanya, ripoti baada ya ripoti: tahadhari zilizopokelewa na kuthibitishwa, sampuli zilizopimwa na kiwango cha uambukizo, ufuatiliaji wa walioguswa kwa jimbo, matumizi ya vitanda vya vituo vya matibabu, na kile ripoti zinasema kuhusu vikwazo."
+          "title": "Mapambano: tahadhari, vipimo, walioguswa na vituo vya matibabu — Ebola DRC",
+          "h1": "Mapambano",
+          "description": "Kile mapambano dhidi ya mlipuko wa Ebola nchini DRC yanafanya, ripoti baada ya ripoti: tahadhari zilizopokelewa na kuthibitishwa, sampuli zilizopimwa na kiwango cha uambukizo, ufuatiliaji wa walioguswa kwa jimbo, matumizi ya vitanda vya vituo vya matibabu."
         }
       }
     },

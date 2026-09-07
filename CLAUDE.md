@@ -16,9 +16,14 @@ Sud-Kivu — la somme égale la bande de chiffres clés), suivi des contacts
 compte désormais 366). Intégré et **publié le 7 septembre**, sans les deux
 chantiers en local — « Flux & déplacés » et la maquette « Riposte & défis »
 — par la recette « Publier sans publier », étendue ce jour à la maquette ;
-ce commit publie en revanche la page `/riposte/` renommée « Riposte &
-défis » avec les « Défis » du dernier bulletin cités sous chaque cadre
-(`defis_seed`, `data/defis.json`, `extraire_defis.py` ajouté au workflow).
+ce commit publie en revanche sur `/riposte/` les « Défis » du dernier
+bulletin cités sous chaque cadre (`defis_seed`, `data/defis.json`,
+`extraire_defis.py` ajouté au workflow). **Corrigé le même jour, à la
+demande du propriétaire** : la page avait été renommée « Riposte & défis »
+et dotée d'un chapitre « Les autres fronts » sans qu'il l'ait demandé — la
+page et son onglet redeviennent « La riposte », le chapitre est retiré
+(gabarit, `defis_seed`, clés `defiAutres*` et `defiNone`), seules les
+citations sous les quatre cadres restent.
 Recoupement avec le 113 : pour chacune des 61 zones, cumul du
 114 moins cumul du 113 = nouveaux cas du jour, idem pour les décès, zéro
 écart ; neuf ventilations déduites de la ligne de province (Bunia 6,
@@ -1730,11 +1735,12 @@ permet pas de passer une instance de `bar` à `line`. Le code teste
 
 ---
 
-## La page « Riposte & défis » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
+## La page « La riposte » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
 
-**Renommée le 6 septembre 2026** (« La riposte et ses défis », onglet
-« Riposte & défis », adresse inchangée) quand elle a reçu les « Défis » des
-bulletins. Le principe : la chaîne dit ce qu'on fait, le lieu du décès dit
+**Elle a reçu les « Défis » des bulletins le 6 septembre 2026.** Elle avait
+été renommée « Riposte & défis » à cette occasion ; le propriétaire ne
+l'avait pas demandé et l'a fait défaire le 7 septembre : titre, onglet et
+liens sont revenus à « La riposte ». Le principe : la chaîne dit ce qu'on fait, le lieu du décès dit
 ce qui échappe, les Défis disent pourquoi — et ils sont **sous le cadre
 qu'ils expliquent**, pas dans un chapitre à part. `extraire_defis.py` lit
 les sous-sections « Défis » en prose de l'époque D (084 et suivants) dans
@@ -1745,9 +1751,9 @@ provinces citées, rattaché au titre numéroté qui précède (en sautant
 `build_pages.py` route le dernier bulletin : surveillance → le suivi des
 contacts si le texte parle de contacts, sinon les alertes ; laboratoire →
 le laboratoire ; prise en charge et « Continuité des soins » → les CTE ;
-le reste → le chapitre **« Les autres fronts »** (prévention et
-enterrements, points d'entrée, communauté, vaccination ouverts ; santé
-mentale, logistique, sécurité, PSEA repliés). Trois règles : **citer,
+les autres piliers ne sont pas cités — le chapitre « Les autres fronts »
+qui les portait (quatre piliers ouverts, quatre repliés) a été **retiré le
+7 septembre 2026 à la demande du propriétaire**. Trois règles : **citer,
 jamais reformuler ni classer** (le codage thématique demande un regard
 métier) ; **en français sur toutes les langues**, avec une ligne qui le
 dit (traduire un texte officiel automatiquement serait un risque) ; un

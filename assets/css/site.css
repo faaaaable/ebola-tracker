@@ -2420,9 +2420,6 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .defi-texte p::before{content:"« ";color:var(--ink-faint);}
 .defi-texte p::after{content:" »";color:var(--ink-faint);}
 .defi .map-note{padding-top:6px;}
-.defi-plus{margin-top:22px;}
-.defi-plus summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent-strong);}
-.defi-plus[open] summary{margin-bottom:4px;}
 @media (max-width:760px){ .defi-tete .section-sub{margin-left:0;flex-basis:100%;} }
 
 /* ---- Maquette « Riposte & defis », seconde partie (6 septembre 2026) ----

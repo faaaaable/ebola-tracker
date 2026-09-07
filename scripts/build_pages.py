@@ -1899,8 +1899,6 @@ PILIER_LIBELLE = {
     "logistique": "defiPilierLogistique", "securite": "defiPilierSecurite", "psea": "defiPilierPsea",
     "coordination": "defiPilierCoordination", "autre": "defiPilierAutre",
 }
-AUTRES_FRONTS_OUVERTS = ["pci_eds", "poe_poc", "crec", "vaccination"]
-AUTRES_FRONTS_REPLIES = ["smsps", "logistique", "securite", "psea", "coordination", "autre"]
 
 
 def defis_seed(defis, lang, strings_lang, i18n_lang):
@@ -1908,12 +1906,13 @@ def defis_seed(defis, lang, strings_lang, i18n_lang):
     qu'ils expliquent (page « Riposte & defis », 6 septembre 2026).
 
     surveillance -> le suivi des contacts si le texte parle de contacts,
-    sinon les alertes ; laboratoire -> le laboratoire ; soins -> les CTE ;
-    tout le reste -> le chapitre « Les autres fronts », quatre piliers
-    ouverts, les autres replies. Le site cite, il ne reformule pas ; sur
-    les pages anglaise et swahilie la citation reste en francais et le dit.
+    sinon les alertes ; laboratoire -> le laboratoire ; soins -> les CTE.
+    Les autres piliers ne sont pas cites : le chapitre « Les autres fronts »
+    qui les portait a ete retire le 7 septembre 2026 a la demande du
+    proprietaire. Le site cite, il ne reformule pas ; sur les pages anglaise
+    et swahilie la citation reste en francais et le dit.
     """
-    cles = ("defisAlertes", "defisContacts", "defisLabo", "defisCte", "defisAutres")
+    cles = ("defisAlertes", "defisContacts", "defisLabo", "defisCte")
     out = {k: "" for k in cles}
     points = (defis or {}).get("parDate") or []
     if not points:
@@ -1945,15 +1944,6 @@ def defis_seed(defis, lang, strings_lang, i18n_lang):
         out["defisLabo"] += bloc(b)
     for b in par_pilier.get("soins", []):
         out["defisCte"] += bloc(b)
-    ouverts = "".join(bloc(b) for k in AUTRES_FRONTS_OUVERTS for b in par_pilier.get(k, []))
-    replies = "".join(bloc(b) for k in AUTRES_FRONTS_REPLIES for b in par_pilier.get(k, []))
-    if not ouverts and not replies:
-        out["defisAutres"] = '<p class="page-intro">%s</p>' % esc(interp(strings_lang["defiNone"], {"ref": ref}))
-    else:
-        out["defisAutres"] = ouverts
-        if replies:
-            out["defisAutres"] += ('<details class="defi-plus"><summary>%s</summary>%s</details>'
-                                   % (esc(strings_lang["defiAutresPlus"]), replies))
     return {"seed.%s" % k: v for k, v in out.items()}
 
 
