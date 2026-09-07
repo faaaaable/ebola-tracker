@@ -5,7 +5,36 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 113**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 114**, rapportage
+du 5 septembre 2026 (publié le 6) — 6 604 cas confirmés, 3 175 décès, létalité
+48,1 %, 1 548 guéris, 851 patients en CTE (510 en Ituri pour 978 lits, 253 au
+Nord-Kivu pour 220 lits soit 115 %, 65 au Haut-Uélé, 6 à la Tshopo, 17 au
+Sud-Kivu — la somme égale la bande de chiffres clés), suivi des contacts
+85,7 % (20 459 vus sur 23 880), **61 zones touchées, aucune nouvelle**,
+82 nouveaux cas (Ituri 49, Nord-Kivu 31, Haut-Uélé 2) et 41 décès du jour
+(32 communautaires, 9 intra-CTE dont 5 « à ventiler » en Ituri, qui en
+compte désormais 366). Intégré **en local le 7 septembre**, non publié à
+cette date. Recoupement avec le 113 : pour chacune des 61 zones, cumul du
+114 moins cumul du 113 = nouveaux cas du jour, idem pour les décès, zéro
+écart ; neuf ventilations déduites de la ligne de province (Bunia 6,
+Mongbwalu 2, Nia-Nia 2, Nizi 5, Biena 1, Butembo 4, Kyondo 3, Mabalako 1,
+Masereka 1, toutes communautaires). Laboratoire 82 positifs = 82 nouveaux
+cas (Ituri 49/292, Nord-Kivu 31/96, Haut-Uélé 2/8, Bas-Uélé 0/3, Tshopo
+0/5) ; alertes 1 628 reçues, 1 369 vérifiées, 286 validées, 136
+transférées, le Sud-Kivu « n'a pas rapporté » (ND rendu en zéros) ; les
+Défis lus sur neuf piliers. `check_coherence` sans écart bloquant, les deux
+écarts « connus de la source » (positivité 038/065/072, occupation CTE
+108/112) inchangés. Une lecture apprise : **le suivi des contacts par
+province manquait depuis le 109**. La phrase de surveillance a inversé
+l'ordre au 110 — « 90,9% en Ituri (10 302/11 339), 83,5% au Nord-Kivu
+(8 491/10 163) » là où le 108 écrivait « Ituri 89,4 % (11 829/13 235) » —
+et `PROV_D_RE` ne voyait plus rien. `PROV_D2_RE` dans
+`extract_contacts_followup.py` lit le taux devant la province, avec les
+mêmes garde-fous (vus ≤ à suivre, vus / à suivre à un point du taux) ; les
+110 à 114 retrouvent leurs cinq provinces, le 109 n'en détaille aucune, les
+points antérieurs n'ont pas bougé (diff en ajouts purs).
+
+Le **SitRep 113**, rapportage
 du 4 septembre 2026 (publié le 5) — 6 522 cas confirmés, 3 134 décès, létalité
 48,1 %, 1 516 guéris, 817 patients en CTE (pour la première fois le total du
 site égale la bande de chiffres clés, le Sud-Kivu ayant rapporté ses 16
