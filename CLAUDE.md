@@ -24,7 +24,10 @@ et dotée d'un chapitre « Les autres fronts » sans qu'il l'ait demandé — la
 page et son onglet redeviennent « La riposte », le chapitre est retiré
 (gabarit, `defis_seed`, clés `defiAutres*` et `defiNone`), seules les
 citations sous les quatre cadres restent.
-Recoupement avec le 113 : pour chacune des 61 zones, cumul du
+**Suite du 7 septembre, en local** : la maquette « Riposte & défis » a pris
+l'adresse `/riposte/` (fragment, titres, onglet, pastille « Nouveau »), voir
+la section de la page ; le corpus des Défis d'avant le 084 est gelé dans
+`data/defis-anciens.json`. Recoupement avec le 113 : pour chacune des 61 zones, cumul du
 114 moins cumul du 113 = nouveaux cas du jour, idem pour les décès, zéro
 écart ; neuf ventilations déduites de la ligne de province (Bunia 6,
 Mongbwalu 2, Nia-Nia 2, Nizi 5, Biena 1, Butembo 4, Kyondo 3, Mabalako 1,
@@ -1735,12 +1738,38 @@ permet pas de passer une instance de `bar` à `line`. Le code teste
 
 ---
 
-## La page « La riposte » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
+## La page « Riposte & défis » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
 
-**Elle a reçu les « Défis » des bulletins le 6 septembre 2026.** Elle avait
-été renommée « Riposte & défis » à cette occasion ; le propriétaire ne
-l'avait pas demandé et l'a fait défaire le 7 septembre : titre, onglet et
-liens sont revenus à « La riposte ». Le principe : la chaîne dit ce qu'on fait, le lieu du décès dit
+**Depuis le 7 septembre 2026 (en local), c'est l'ancienne maquette
+`riposte-defis` qui vit à cette adresse**, décision du propriétaire : l'adresse
+ne bouge pas (indexée, liée, partagée), le fragment `site/pages/riposte.html`
+est celui de la maquette, l'onglet dit « Riposte & défis » avec une pastille
+« Nouveau » (`navBadge` dans `pages.json`, retirée à la main quand le
+propriétaire le dira — un `jusquau` facultatif la ferait expirer seule). La
+page a deux parties jumelles : une bande claire « La riposte » (quatre
+chiffres, puis les cadres alertes, laboratoire, contacts, CTE, lieu du
+décès, avec « Méthode et sources » replié sous le dernier), et une bande
+sombre « Les principales difficultés » : une frise des dix obstacles par
+bulletin (ordre de première mention, bulle CSS au survol de chaque trait
+avec numéro et date), puis dix fiches rédigées. Pièces :
+`scripts/defis_synthese.py` (rendu), `data/defis-synthese.json` (textes
+fr/en et mots-clés, le swahili affiche le français avec une note),
+`data/defis.json` (084 et suivants) et **`data/defis-anciens.json`** —
+les Défis des bulletins 017 à 083 gelés depuis le corpus par
+`scripts/geler_defis_anciens.py`, parce que le corpus n'est pas versionné et
+qu'un clone frais rendait une frise qui commençait le 6 août. Sur
+téléphone (audit à 360 et 320 px du 7 septembre) : la bande sur la
+variable de gouttière, l'étiquette de frise au-dessus de sa piste, une
+colonne de fiches, et la bulle en `display:none` plutôt que
+`visibility:hidden` — cachée mais posée, elle faisait défiler la page de
+63 px. Les mots-clés d'un thème se vérifient contre les trous de sa ligne :
+le 7 septembre, « capacité des CTE/CT insuffisante » (064-080) échappait au
+thème saturation, trois clés l'ont comblé ; les autres trous sont réels.
+
+Historique : la page avait reçu le 6 septembre les « Défis » du dernier
+bulletin cités sous chaque cadre (`defis_seed`) et un chapitre « Les autres
+fronts », publiés par erreur le 7 puis retirés le jour même ; la bascule
+vers la maquette a ensuite remplacé tout cela. Le principe : la chaîne dit ce qu'on fait, le lieu du décès dit
 ce qui échappe, les Défis disent pourquoi — et ils sont **sous le cadre
 qu'ils expliquent**, pas dans un chapitre à part. `extraire_defis.py` lit
 les sous-sections « Défis » en prose de l'époque D (084 et suivants) dans
@@ -1980,34 +2009,29 @@ riposte ; Comprendre = virus, chronologie, FAQ ; Le site = sources,
 trois fichiers mis de côté par la recette ci-dessous, ce déplacement doit
 être réappliqué sur la version de HEAD tant que Flux reste en local.
 
-### Publier sans publier « Flux & déplacés » ni la maquette « Riposte & défis »
+### Publier sans publier « Flux & déplacés »
 
-Les chantiers partagent quatre fichiers avec le site publié, et la barre
-latérale de chaque page générée portait l'onglet Flux. Recette suivie le
-4 septembre pour Flux, étendue le 7 septembre à la maquette `riposte-defis`
-(`site/pages/riposte-defis.html`, `scripts/defis_synthese.py`,
-`data/defis-synthese.json`), à reprendre telle quelle tant que l'un des deux
-reste en local :
+Le chantier partage quatre fichiers avec le site publié, et la barre
+latérale de chaque page générée porte l'onglet Flux. Recette suivie le
+4 septembre, à reprendre telle quelle tant que Flux reste en local. (Du 6 au
+7 septembre elle couvrait aussi la maquette `riposte-defis` ; celle-ci a
+rejoint `/riposte/` le 7 et se publie désormais avec le reste.)
 
 1. sauvegarder `site/strings.json`, `scripts/build_pages.py`,
    `assets/css/site.css`, `site/pages.json` hors dépôt ;
-2. retirer de `pages.json` les entrées `flux-deplaces` et `riposte-defis` et
-   leurs deux onglets du groupe Explorer (depuis le 7 septembre la maquette a
-   le sien, « Riposte & défis », avec une pastille `navBadge` datée) ; retirer de `build_pages.py` les imports `flux_deplaces` et
-   `defis_synthese`, les lectures de `flux-deplaces.json` et
-   `flux-routes.json`, le bloc `if "flux" in needs`, les appels à `flux_seed`
-   et à `defis_synthese.render` — **sinon le workflow GitHub plante sur un
-   module non commité** ; retirer de `strings.json` les clés `flux*`, `maq*`
-   `navFlux`, `navRiposteDefis` et `navBadgeNouveau` (336 clés sur les trois
-   langues le 7 septembre, plus les six de l'onglet) — **sinon
-   les nombres de l'OIM et le brouillon de la maquette sont publiquement
-   lisibles sans page pour les rendre**. `defis_seed`, les clés `defi*` et
-   `data/defis.json` restent : ils servent à `/riposte/` ;
-3. régénérer — le générateur supprime lui-même les six pages des chantiers
-   via `site/.generated.json` —, vérifier `grep -il "flux\|riposte-defis\|
-   maquette"` muet sur les pages suivies et le sitemap (la page Données
-   garde un commentaire ancien « né en maquette parallèle », sans rapport),
-   commiter en excluant les fichiers des chantiers ;
+2. retirer de `pages.json` l'entrée `flux-deplaces` et son onglet du groupe
+   Explorer ; retirer de `build_pages.py` l'import `flux_deplaces`, les
+   lectures de `flux-deplaces.json` et `flux-routes.json`, le bloc
+   `if "flux" in needs` et l'appel à `flux_seed` — **sinon le workflow GitHub
+   plante sur un module non commité** ; retirer de `strings.json` les clés
+   `flux*` et `navFlux` (324 clés sur les trois langues le 7 septembre) —
+   **sinon les nombres de l'OIM sont publiquement lisibles sans page pour
+   les rendre**. Tout ce qui sert à « Riposte & défis » (`defis_synthese`,
+   clés `maq*`, `navBadgeNouveau`, `defis-synthese.json`,
+   `defis-anciens.json`) reste : c'est publié ;
+3. régénérer — le générateur supprime lui-même les trois pages Flux via
+   `site/.generated.json` —, vérifier `grep -il "flux"` muet sur les pages
+   suivies et le sitemap, commiter en excluant les fichiers du chantier ;
 4. restaurer les quatre fichiers, régénérer. Le générateur supprime puis
    recrée les pages Flux via `site/.generated.json`.
 
