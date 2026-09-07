@@ -24,8 +24,8 @@ et dotée d'un chapitre « Les autres fronts » sans qu'il l'ait demandé — la
 page et son onglet redeviennent « La riposte », le chapitre est retiré
 (gabarit, `defis_seed`, clés `defiAutres*` et `defiNone`), seules les
 citations sous les quatre cadres restent.
-**Suite du 7 septembre, en local** : la maquette « Riposte & défis » a pris
-l'adresse `/riposte/` (fragment, titres, onglet, pastille « Nouveau »), voir
+**Suite du 7 septembre, publiée le jour même (commit `5ae7d35`)** : la
+maquette « Riposte & défis » a pris l'adresse `/riposte/` (fragment, titres, onglet, pastille « Nouveau »), voir
 la section de la page ; le corpus des Défis d'avant le 084 est gelé dans
 `data/defis-anciens.json`. Recoupement avec le 113 : pour chacune des 61 zones, cumul du
 114 moins cumul du 113 = nouveaux cas du jour, idem pour les décès, zéro
@@ -1740,8 +1740,8 @@ permet pas de passer une instance de `bar` à `line`. Le code teste
 
 ## La page « Riposte & défis » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
 
-**Depuis le 7 septembre 2026 (en local), c'est l'ancienne maquette
-`riposte-defis` qui vit à cette adresse**, décision du propriétaire : l'adresse
+**Depuis le 7 septembre 2026 (publié le jour même, commit `5ae7d35`), c'est
+l'ancienne maquette `riposte-defis` qui vit à cette adresse**, décision du propriétaire : l'adresse
 ne bouge pas (indexée, liée, partagée), le fragment `site/pages/riposte.html`
 est celui de la maquette, l'onglet dit « Riposte & défis » avec une pastille
 « Nouveau » (`navBadge` dans `pages.json`, retirée à la main quand le
