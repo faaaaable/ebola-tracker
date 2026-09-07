@@ -1763,7 +1763,10 @@ et non le nombre, parce que la semaine du 26 juillet n'a que cinq
 bulletins (28 et 29 sans parution) et paraissait plus faible partout. La
 fiche garde la trace au bulletin près. Pièces :
 `scripts/defis_synthese.py` (rendu), `data/defis-synthese.json` (textes
-fr/en et mots-clés, le swahili affiche le français avec une note),
+fr/en/sw et mots-clés — **le swahili a été traduit le 7 septembre par
+l'assistant depuis le français, à faire relire par un locuteur** ; jusque-là
+la page swahilie affichait le français avec une note, et c'est encore le
+repli pour toute autre langue ou un thème sans texte),
 `data/defis.json` (084 et suivants) et **`data/defis-anciens.json`** —
 les Défis des bulletins 017 à 083 gelés depuis le corpus par
 `scripts/geler_defis_anciens.py`, parce que le corpus n'est pas versionné et
