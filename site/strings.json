@@ -318,7 +318,15 @@
     "aboutFollowBody": "Les nouveautés du site et les points de situation sont annoncés sur X :",
     "contactFollowBody": "Pour suivre les mises à jour sans écrire :",
     "menuFollowX": "Suivre",
-    "followXLabel": "Suivre @{compte} sur X"
+    "followXLabel": "Suivre @{compte} sur X",
+    "provinceTimelineTitle": "Chronologie {in}",
+    "provinceTimelineSub": "seuils à l'échelle de la province — faire défiler",
+    "provinceTimelineStartTitle": "Le foyer de l'épidémie",
+    "provinceTimelineCasesText": "{the} franchit la barre des {n} cas confirmés.",
+    "provinceTimelineDeathsText": "{the} franchit la barre des {n} décès.",
+    "provinceTimelineZonesText": "{n} zone{n?s} de santé touchée{n?s} {in}. Nouvelle{k?s} ce jour-là : {zones}.",
+    "provinceTimelineZonesFirstText": "Premier bulletin à détailler les zones {in} : il en liste {n} — {zones}.",
+    "provinceTimelineLatestText": "{the} compte {cases} cas confirmés et {deaths} décès au dernier bulletin."
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -638,7 +646,15 @@
     "aboutFollowBody": "New pages and situation updates are announced on X:",
     "contactFollowBody": "To follow updates without writing:",
     "menuFollowX": "Follow",
-    "followXLabel": "Follow @{compte} on X"
+    "followXLabel": "Follow @{compte} on X",
+    "provinceTimelineTitle": "Timeline {in}",
+    "provinceTimelineSub": "thresholds scaled to the province — scroll sideways",
+    "provinceTimelineStartTitle": "Where the outbreak began",
+    "provinceTimelineCasesText": "{name} passes {n} confirmed cases.",
+    "provinceTimelineDeathsText": "{name} passes {n} deaths.",
+    "provinceTimelineZonesText": "{n} health zone{n?s} affected {in}. New that day: {zones}.",
+    "provinceTimelineZonesFirstText": "First bulletin to detail the zones {in}: it lists {n} — {zones}.",
+    "provinceTimelineLatestText": "{name} counts {cases} confirmed cases and {deaths} deaths in the latest bulletin."
   },
   "timelineEvents": [
     {
@@ -1235,6 +1251,14 @@
     "aboutFollowBody": "Kurasa mpya na taarifa za hali zinatangazwa kwenye X:",
     "contactFollowBody": "Kufuatilia masasisho bila kuandika:",
     "menuFollowX": "Fuata",
-    "followXLabel": "Fuata @{compte} kwenye X"
+    "followXLabel": "Fuata @{compte} kwenye X",
+    "provinceTimelineTitle": "Matukio {in}",
+    "provinceTimelineSub": "vizingiti kulingana na ukubwa wa jimbo — sogeza kando",
+    "provinceTimelineStartTitle": "Mlipuko ulipoanzia",
+    "provinceTimelineCasesText": "{name} inapita visa {n} vilivyothibitishwa.",
+    "provinceTimelineDeathsText": "{name} inapita vifo {n}.",
+    "provinceTimelineZonesText": "Kanda {n} za afya zimeathirika {in}. Mpya siku hiyo: {zones}.",
+    "provinceTimelineZonesFirstText": "Ripoti ya kwanza kuorodhesha kanda {in}: inataja {n} — {zones}.",
+    "provinceTimelineLatestText": "{name} ina visa {cases} vilivyothibitishwa na vifo {deaths} katika ripoti ya hivi karibuni."
   }
 }

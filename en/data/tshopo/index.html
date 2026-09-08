@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=131bb9115f">
+<link rel="stylesheet" href="/assets/css/site.css?v=e0c5d78eb8">
 </head>
 <body>
 
@@ -248,7 +248,7 @@
       <div class="kpi confirmed">
         <div class="label">Confirmed cases</div>
         <div class="value">22</div>
-        <div class="delta"></div>
+        <div class="delta">+0 (24h)</div>
       </div>
       <div class="kpi deaths">
         <div class="label">Deaths</div>
@@ -263,11 +263,9 @@
     </section>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">Health zone map</h2>
-      <span class="section-sub">7 of 23 zones affected</span>
-    </div>
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">Health zone map</h2><div class="section-sub">7 of 23 zones affected</div></div></div>
+    <div class="cadre-corps">
 
     <div class="carto-layout">
       <div class="zonemap-frame">
@@ -449,12 +447,12 @@
         <div class="sub" id="cartoSub"><span class="on-hover">Hover a zone to see its toll.</span><span class="on-touch">Tap a zone to see its toll.</span></div>
       </div>
     </div>
+    </div>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">Affected health zones in Tshopo</h2>
-    </div>
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Affected health zones in Tshopo</h2></div></div>
+    <div class="cadre-corps">
     <div class="zones-block">
       <div class="panel panel-fit" style="padding:16px;">
         <!-- Le tableau se partage en image, note comprise, comme les figures. -->
@@ -534,8 +532,110 @@
       <p class="map-note zones-note">A province's total can differ from the sum of its health zones: the bulletins count cases and deaths not yet assigned to a zone separately. The site leaves them where the source puts them.</p>
     </div>
     <p class="drill"><a href="/en/data/?province=Tshopo">Open the full zone table, filtered on Tshopo →</a></p>
+    </div>
   </section>
 
+
+
+  <!-- La chronologie de la province (8 septembre 2026) : la piste
+       horizontale de l'accueil, avec ses couleurs, seuils calcules a
+       l'echelle de la province. Rendue par build_pages.py. -->
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Timeline in Tshopo</h2><div class="section-sub">thresholds scaled to the province — scroll sideways</div></div></div>
+    <div class="cadre-corps">
+    <ul class="tl-legend">
+      <li class="is-official">Official milestone</li>
+      <li class="is-spread">Geographic spread</li>
+      <li class="is-milestone">Threshold crossed</li>
+    </ul>
+    <div class="th-scroller">
+      <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="Timeline in Tshopo">
+        <ol class="th-track">
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-06-30">30 Jun 2026</time>
+            <h3 class="th-title">The outbreak reaches Tshopo</h3>
+            <p class="th-text">First case reported on 30 June 2026, initially counted in Ituri: the bulletin only gives the province a line of its own on 10 July.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-10">10 Jul 2026</time>
+            <h3 class="th-title">3 health zones affected</h3>
+            <p class="th-text">First bulletin to detail the zones in Tshopo: it lists 3 — Lubunga, Makiso-Kisangani and Mangobo.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-10">10 Jul 2026</time>
+            <h3 class="th-title">2 deaths</h3>
+            <p class="th-text">Tshopo passes 2 deaths.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-17">17 Jul 2026</time>
+            <h3 class="th-title">5 confirmed cases</h3>
+            <p class="th-text">Tshopo passes 5 confirmed cases.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-17">17 Jul 2026</time>
+            <h3 class="th-title">4 deaths</h3>
+            <p class="th-text">Tshopo passes 4 deaths.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-30">30 Jul 2026</time>
+            <h3 class="th-title">4 health zones affected</h3>
+            <p class="th-text">4 health zones affected in Tshopo. New that day: Kabondo.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-05">5 Aug 2026</time>
+            <h3 class="th-title">6 health zones affected</h3>
+            <p class="th-text">6 health zones affected in Tshopo. New that day: Bafwasende.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-12">12 Aug 2026</time>
+            <h3 class="th-title">10 confirmed cases</h3>
+            <p class="th-text">Tshopo passes 10 confirmed cases.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-12">12 Aug 2026</time>
+            <h3 class="th-title">6 deaths</h3>
+            <p class="th-text">Tshopo passes 6 deaths.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-19">19 Aug 2026</time>
+            <h3 class="th-title">15 confirmed cases</h3>
+            <p class="th-text">Tshopo passes 15 confirmed cases.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-20">20 Aug 2026</time>
+            <h3 class="th-title">8 deaths</h3>
+            <p class="th-text">Tshopo passes 8 deaths.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-09-01">1 Sep 2026</time>
+            <h3 class="th-title">20 confirmed cases</h3>
+            <p class="th-text">Tshopo passes 20 confirmed cases.</p>
+          </li>
+          <li class="th-item is-current">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-09-05">5 Sep 2026</time>
+            <h3 class="th-title">Latest available toll</h3>
+            <p class="th-text">Tshopo counts 22 confirmed cases and 9 deaths in the latest bulletin.</p>
+          </li>
+        </ol>
+      </div>
+      <button class="th-nav is-prev" type="button" data-th-nav="-1" aria-controls="timelineTeaser" aria-label="Previous milestones" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="th-nav is-next" type="button" data-th-nav="1" aria-controls="timelineTeaser" aria-label="Next milestones" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    </div>
+  </section>
 
 
   <section class="section">

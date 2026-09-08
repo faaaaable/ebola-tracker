@@ -1885,16 +1885,16 @@ def jeton_version(chemin_relatif):
 SEUIL_COURBE_PROVINCE = 50
 
 
-def province_chart_html(province, strings_lang, i18n_lang):
+def province_chart_html(province, strings_lang, i18n_lang, numero="03"):
     if (province.get("confirmed") or 0) < SEUIL_COURBE_PROVINCE:
         return ""
+    # Cadre numerote, comme la page Riposte & defis (demande du proprietaire,
+    # 8 septembre 2026) : le numero suit ceux du gabarit (carte 01, zones 02).
     return (
-        '  <section class="section">\n'
-        '    <div class="section-head">\n'
-        '      <h2 class="section-title">%s</h2>\n'
-        '      <span class="section-sub">%s</span>\n'
-        '    </div>\n'
-        '\n'
+        '  <section class="section cadre-fiche">\n'
+        '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
+        '<div class="section-sub">%s</div></div></div>\n'
+        '    <div class="cadre-corps">\n'
         '    <div class="panel chart-panel-wrap">\n'
         # Le graphique de province se partage comme les autres : figure et note
         # comprises. Le libelle vient d'i18n, comme partout ailleurs.
@@ -1909,15 +1909,175 @@ def province_chart_html(province, strings_lang, i18n_lang):
         '      </div>\n'
         '      <div class="map-note chart-note"></div>\n'
         '    </div>\n'
+        '    </div>\n'
         '  </section>\n'
         # Le titre porte le nom de la province entre parentheses. Sans lui,
         # « Evolution de l'epidemie » est mot pour mot l'intitule du premier
         # sous-onglet de /donnees/, qui lui trace le pays entier : un lecteur
         # arrive par le menu lateral n'a rien pour distinguer les deux courbes.
-        % (esc(interp(strings_lang["provinceChartTitle"],
+        % (esc(numero),
+           esc(interp(strings_lang["provinceChartTitle"],
                       {"name": province["name"]})),
            esc(strings_lang["provinceChartSub"]),
            esc(i18n_lang["chartShareBtn"])))
+
+
+
+# ---------------------------------------------------------------------------
+# La frise des pages province (8 septembre 2026) : la piste horizontale de
+# l'accueil, memes genres et memes couleurs, seuils a l'echelle de la
+# province.
+# ---------------------------------------------------------------------------
+TH_FLECHE_PREV = ('<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" '
+                  'stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>')
+TH_FLECHE_NEXT = ('<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" '
+                  'stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>')
+
+
+def pas_arrondi(maxi, cible=6):
+    """Un pas « rond » (1, 2 ou 5 fois une puissance de dix) tel que le
+    maximum donne environ `cible` jalons : 5 326 cas -> 1 000, 1 000 ->
+    200, 249 -> 50, 22 -> 5, 3 -> 1. Jamais moins de 1."""
+    if not maxi or maxi <= 0:
+        return 1
+    brut = maxi / float(cible)
+    if brut <= 1:
+        return 1
+    import math
+    # Le nombre rond LE PLUS PROCHE (en logarithme), pas le premier au-dessus :
+    # 28 zones sur cinq paliers font 5,6 — le premier au-dessus donnait 10,
+    # et l'Ituri n'avait que deux jalons de zones.
+    puissance = 10 ** math.floor(math.log10(brut))
+    candidats = [m * puissance for m in (1, 2, 5, 10)]
+    return int(min(candidats, key=lambda c: abs(math.log10(c) - math.log10(brut))))
+
+
+def province_timeline_events(name, forms, strings, lang, i18n_lang, province_history,
+                             zones_history, geo, latest_zones):
+    strings_lang = strings[lang]
+    events = []
+    # 1. L'arrivee de l'epidemie, telle que les bulletins la racontent
+    #    (provinceArrivals : dates dans la prose). Pour l'Ituri, le foyer.
+    arrival = next((a for a in strings.get("provinceArrivals", []) if a["province"] == name), None)
+    if arrival:
+        texte = arrival.get("page" + lang.capitalize()) or arrival.get(lang) or ""
+        titre = (strings_lang["provinceTimelineStartTitle"] if arrival.get("timeline") is False
+                 else interp(strings_lang["timelineSpreadTitle"], forms))
+        events.append({"date": arrival["date"], "kind": "official", "title": titre, "text": esc(texte)})
+
+    # 2. La serie de la province : cas et deces cumules par date.
+    serie = []
+    for jour in sorted(province_history or [], key=lambda d: d["date"]):
+        for pv in jour.get("provinces", []):
+            if pv.get("name") == name:
+                serie.append({"date": jour["date"], "confirmed": pv.get("confirmed"), "deaths": pv.get("deaths")})
+    def seuils(champ, cle_texte):
+        maxi = max((x.get(champ) or 0) for x in serie) if serie else 0
+        pas = pas_arrondi(maxi)
+        atteints = set()
+        for x in serie:
+            v = x.get(champ)
+            if v is None:
+                continue
+            for seuil in range(pas, maxi + 1, pas):
+                if v >= seuil and seuil not in atteints:
+                    atteints.add(seuil)
+                    titre_cle = "timelineMilestoneCasesTitle" if champ == "confirmed" else "timelineMilestoneDeathsTitle"
+                    events.append({"date": x["date"], "kind": "milestone",
+                                   "title": interp(strings_lang[titre_cle], {"n": fmt(seuil, lang)}),
+                                   "text": esc(interp(strings_lang[cle_texte], dict(forms, n=fmt(seuil, lang))))})
+    seuils("confirmed", "provinceTimelineCasesText")
+    seuils("deaths", "provinceTimelineDeathsText")
+
+    # 3. Les zones touchees, par paliers a l'echelle de la province — meme
+    #    identite des zones que zone_milestone_events (alias + deux lettres).
+    entries = sorted([e for e in zones_history if e.get("date")], key=lambda e: e["date"])
+    aliases = geo.get("aliases", {})
+    connues = {z["key"] for z in geo["zones"] if normalise_zone(z["province"]) == normalise_zone(name)}
+    def identite(nom):
+        base = normalise_zone(nom); key = aliases.get(base, base)
+        if key in connues:
+            return key
+        proches = sorted((_edit_distance(k, key), k) for k in connues if abs(len(k) - len(key)) <= 2 and _edit_distance(k, key) <= 2)
+        if proches and (len(proches) == 1 or proches[0][0] < proches[1][0]):
+            return proches[0][1]
+        return key
+    nom_courant = {identite(z["name"]): z["name"] for z in latest_zones if z.get("province") == name}
+    vues, arrivees_par_date = set(), []
+    for e in entries:
+        noms = []
+        for z in e.get("zones", []):
+            if z.get("province") != name or not (z.get("cases") or 0) > 0:
+                continue
+            k = identite(z["name"])
+            if k in vues:
+                continue
+            vues.add(k)
+            noms.append(nom_courant.get(k) or (z["name"].title() if z["name"].isupper() else z["name"]))
+        if noms:
+            arrivees_par_date.append((e["date"], sorted(noms, key=normalise_zone)))
+    total_zones = len(vues)
+    pas_z = pas_arrondi(total_zones, cible=4)
+    cumul, atteints = 0, set()
+    et = strings_lang["timelineListAnd"]
+    def liste(items):
+        return items[0] if len(items) == 1 else ", ".join(items[:-1]) + et + items[-1]
+    for i, (d, noms) in enumerate(arrivees_par_date):
+        cumul += len(noms)
+        franchis = [x for x in range(pas_z, total_zones + 1, pas_z) if cumul >= x and x not in atteints]
+        if not franchis:
+            continue
+        atteints.update(franchis)
+        if i == 0 and len(noms) > 1:
+            texte = interp(strings_lang["provinceTimelineZonesFirstText"], dict(forms, n=fmt(cumul, lang), zones=liste(noms)))
+        else:
+            texte = interp(strings_lang["provinceTimelineZonesText"], dict(forms, n=fmt(cumul, lang), k=len(noms), zones=liste(noms)))
+        events.append({"date": d, "kind": "spread",
+                       "title": interp(strings_lang["timelineMilestoneZonesTitle"], {"n": fmt(cumul, lang)}),
+                       "text": esc(texte)})
+
+    # 4. Le dernier bilan.
+    if serie:
+        last = serie[-1]
+        events.append({"date": last["date"], "kind": "current",
+                       "title": strings_lang["timelineLatestTitle"],
+                       "text": esc(interp(strings_lang["provinceTimelineLatestText"],
+                                          dict(forms, cases=fmt(last.get("confirmed"), lang), deaths=fmt(last.get("deaths"), lang))))})
+    ordre = {"official": 0, "spread": 1, "milestone": 2, "current": 3}
+    events.sort(key=lambda e: (e["date"], ordre.get(e["kind"], 9)))
+    return events
+
+
+def province_timeline_html(name, forms, strings, lang, i18n_lang, province_history,
+                           zones_history, geo, latest_zones, numero="04"):
+    """La section « Chronologie {in} » : la piste horizontale de l'accueil
+    (memes classes, memes fleches — l'id timelineTeaser est celui que le
+    script attend, il n'existe pas ailleurs sur une page province), une
+    legende, et des jalons a l'echelle de la province."""
+    strings_lang = strings[lang]
+    events = province_timeline_events(name, forms, strings, lang, i18n_lang, province_history,
+                                      zones_history, geo, latest_zones)
+    if not events:
+        return ""
+    items = render_timeline(events, strings_lang, i18n_lang, heading="h3")
+    legende = ('    <ul class="tl-legend">\n      <li class="is-official">%s</li>\n'
+               '      <li class="is-spread">%s</li>\n      <li class="is-milestone">%s</li>\n    </ul>\n'
+               % (esc(strings_lang["timelineKindOfficial"]), esc(strings_lang["timelineKindSpread"]),
+                  esc(strings_lang["timelineKindMilestone"])))
+    return ('  <section class="section cadre-fiche">\n'
+            '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2><div class="section-sub">%s</div></div></div>\n'
+            '    <div class="cadre-corps">\n'
+            '%s'
+            '    <div class="th-scroller">\n'
+            '      <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="%s">\n'
+            '        <ol class="th-track">\n%s\n        </ol>\n      </div>\n'
+            '      <button class="th-nav is-prev" type="button" data-th-nav="-1" aria-controls="timelineTeaser" aria-label="%s" hidden>%s</button>\n'
+            '      <button class="th-nav is-next" type="button" data-th-nav="1" aria-controls="timelineTeaser" aria-label="%s" hidden>%s</button>\n'
+            '    </div>\n    </div>\n  </section>\n'
+            % (esc(numero), esc(interp(strings_lang["provinceTimelineTitle"], forms)), esc(strings_lang["provinceTimelineSub"]),
+               legende, esc(interp(strings_lang["provinceTimelineTitle"], forms)), items,
+               esc(strings_lang["timelineScrollPrev"]), TH_FLECHE_PREV,
+               esc(strings_lang["timelineScrollNext"]), TH_FLECHE_NEXT))
 
 
 def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
@@ -2229,6 +2389,12 @@ def main():
             {"n": touched, "total": len(geo["zones"])}))
         common_seed["panelStats"] = panel_stats_html(national, lang, i18n_lang)
         common_seed.update(riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang))
+        # La frise de chaque page province (8 septembre 2026).
+        common_seed["provinceTimelines"] = {
+            _p["name"]: province_timeline_html(_p["name"], province_forms(config, _p["name"], lang), strings, lang, i18n_lang,
+                                               province_history, zones_history, geo, latest.get("healthZones", []),
+                                               numero="04" if (_p.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE else "03")
+            for _p in provinces}
         common_seed.update(defis_synthese.render(lang, strings_lang, i18n_lang, long_date, esc, PROVINCE_COLORS))
         # A propos et Contact : un paragraphe vers le compte X, ou rien.
         compte_x = (config["site"].get("xProfile") or "").strip().lstrip("@")
@@ -2441,6 +2607,9 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.shareSentence": esc(share),
             "province.newDeaths": esc(interp(strings_lang["provinceNewDeaths"],
                                              {"n": fmt(new_deaths, lang)})),
+            # Meme forme que les deces, demande du proprietaire le 8 septembre 2026.
+            "province.newCases": esc(interp(strings_lang["provinceNewDeaths"],
+                                            {"n": fmt(province.get("newCases24h") or 0, lang)})),
             "province.zonesTitle": esc(interp(strings_lang["provinceZonesTitle"], forms)),
             "province.zonesTable": province_zones_table_html(
                 zones, forms, lang, strings_lang, i18n_lang),
@@ -2448,6 +2617,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
             "province.chart": province_chart_html(province, strings_lang, i18n_lang),
+            "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
             "province.query": name.replace(" ", "%20"),
             # Rang dans le pays, puis quand ca a commence, puis quand ca a
             # bouge pour la derniere fois : un bloc temporel qui se lit d'un

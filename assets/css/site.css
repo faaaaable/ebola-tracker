@@ -2599,3 +2599,6 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
   .lang-x{display:none;}
   .suivre-x{display:inline-flex;}
 }
+
+/* Cadres numerotes des pages Donnees et province (8 septembre 2026) : un peu d'air entre la tete du cadre et son premier intertitre. */
+.cadre-corps > .section-head:first-child{margin-top:10px;}

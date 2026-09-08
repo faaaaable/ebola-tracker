@@ -23,7 +23,7 @@
       <div class="kpi confirmed">
         <div class="label">{{t.provincesCardCases}}</div>
         <div class="value">{{province.cases}}</div>
-        <div class="delta"></div>
+        <div class="delta">{{province.newCases}}</div>
       </div>
       <div class="kpi deaths">
         <div class="label">{{t.provincesCardDeaths}}</div>
@@ -38,11 +38,9 @@
     </section>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">{{t.provinceMapTitle}}</h2>
-      <span class="section-sub">{{province.mapZones}}</span>
-    </div>
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">{{t.provinceMapTitle}}</h2><div class="section-sub">{{province.mapZones}}</div></div></div>
+    <div class="cadre-corps">
 
     <div class="carto-layout">
       <div class="zonemap-frame">
@@ -103,12 +101,12 @@
         <div class="sub" id="cartoSub">{{mapHint}}</div>
       </div>
     </div>
+    </div>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">{{province.zonesTitle}}</h2>
-    </div>
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">{{province.zonesTitle}}</h2></div></div>
+    <div class="cadre-corps">
     <div class="zones-block">
       <div class="panel panel-fit" style="padding:16px;">
         <!-- Le tableau se partage en image, note comprise, comme les figures. -->
@@ -123,9 +121,15 @@
       <p class="map-note zones-note">{{t.zonesSumNote}}</p>
     </div>
     <p class="drill"><a href="{{url.donnees}}?province={{province.query}}">{{province.fullTable}} →</a></p>
+    </div>
   </section>
 
 {{province.chart}}
+
+  <!-- La chronologie de la province (8 septembre 2026) : la piste
+       horizontale de l'accueil, avec ses couleurs, seuils calcules a
+       l'echelle de la province. Rendue par build_pages.py. -->
+{{province.timeline}}
 
   <section class="section">
     <div class="data-note">

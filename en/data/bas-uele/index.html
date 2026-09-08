@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=131bb9115f">
+<link rel="stylesheet" href="/assets/css/site.css?v=e0c5d78eb8">
 </head>
 <body>
 
@@ -248,7 +248,7 @@
       <div class="kpi confirmed">
         <div class="label">Confirmed cases</div>
         <div class="value">4</div>
-        <div class="delta"></div>
+        <div class="delta">+0 (24h)</div>
       </div>
       <div class="kpi deaths">
         <div class="label">Deaths</div>
@@ -263,11 +263,9 @@
     </section>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">Health zone map</h2>
-      <span class="section-sub">3 of 11 zones affected</span>
-    </div>
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">Health zone map</h2><div class="section-sub">3 of 11 zones affected</div></div></div>
+    <div class="cadre-corps">
 
     <div class="carto-layout">
       <div class="zonemap-frame">
@@ -385,12 +383,12 @@
         <div class="sub" id="cartoSub"><span class="on-hover">Hover a zone to see its toll.</span><span class="on-touch">Tap a zone to see its toll.</span></div>
       </div>
     </div>
+    </div>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">Affected health zones in Bas-Uélé</h2>
-    </div>
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Affected health zones in Bas-Uélé</h2></div></div>
+    <div class="cadre-corps">
     <div class="zones-block">
       <div class="panel panel-fit" style="padding:16px;">
         <!-- Le tableau se partage en image, note comprise, comme les figures. -->
@@ -438,8 +436,104 @@
       <p class="map-note zones-note">A province's total can differ from the sum of its health zones: the bulletins count cases and deaths not yet assigned to a zone separately. The site leaves them where the source puts them.</p>
     </div>
     <p class="drill"><a href="/en/data/?province=Bas-Uélé">Open the full zone table, filtered on Bas-Uélé →</a></p>
+    </div>
   </section>
 
+
+
+  <!-- La chronologie de la province (8 septembre 2026) : la piste
+       horizontale de l'accueil, avec ses couleurs, seuils calcules a
+       l'echelle de la province. Rendue par build_pages.py. -->
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Timeline in Bas-Uélé</h2><div class="section-sub">thresholds scaled to the province — scroll sideways</div></div></div>
+    <div class="cadre-corps">
+    <ul class="tl-legend">
+      <li class="is-official">Official milestone</li>
+      <li class="is-spread">Geographic spread</li>
+      <li class="is-milestone">Threshold crossed</li>
+    </ul>
+    <div class="th-scroller">
+      <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="Timeline in Bas-Uélé">
+        <ol class="th-track">
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-12">12 Aug 2026</time>
+            <h3 class="th-title">The outbreak reaches Bas-Uélé</h3>
+            <p class="th-text">First confirmed case on 12 August 2026.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-12">12 Aug 2026</time>
+            <h3 class="th-title">1 health zones affected</h3>
+            <p class="th-text">1 health zone affected in Bas-Uélé. New that day: Buta.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-12">12 Aug 2026</time>
+            <h3 class="th-title">1 confirmed cases</h3>
+            <p class="th-text">Bas-Uélé passes 1 confirmed cases.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-12">12 Aug 2026</time>
+            <h3 class="th-title">1 deaths</h3>
+            <p class="th-text">Bas-Uélé passes 1 deaths.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-18">18 Aug 2026</time>
+            <h3 class="th-title">2 health zones affected</h3>
+            <p class="th-text">2 health zones affected in Bas-Uélé. New that day: Viadana.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-18">18 Aug 2026</time>
+            <h3 class="th-title">2 confirmed cases</h3>
+            <p class="th-text">Bas-Uélé passes 2 confirmed cases.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-24">24 Aug 2026</time>
+            <h3 class="th-title">3 health zones affected</h3>
+            <p class="th-text">3 health zones affected in Bas-Uélé. New that day: Ganga.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-24">24 Aug 2026</time>
+            <h3 class="th-title">3 confirmed cases</h3>
+            <p class="th-text">Bas-Uélé passes 3 confirmed cases.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-28">28 Aug 2026</time>
+            <h3 class="th-title">2 deaths</h3>
+            <p class="th-text">Bas-Uélé passes 2 deaths.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-30">30 Aug 2026</time>
+            <h3 class="th-title">4 confirmed cases</h3>
+            <p class="th-text">Bas-Uélé passes 4 confirmed cases.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-30">30 Aug 2026</time>
+            <h3 class="th-title">3 deaths</h3>
+            <p class="th-text">Bas-Uélé passes 3 deaths.</p>
+          </li>
+          <li class="th-item is-current">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-09-05">5 Sep 2026</time>
+            <h3 class="th-title">Latest available toll</h3>
+            <p class="th-text">Bas-Uélé counts 4 confirmed cases and 3 deaths in the latest bulletin.</p>
+          </li>
+        </ol>
+      </div>
+      <button class="th-nav is-prev" type="button" data-th-nav="-1" aria-controls="timelineTeaser" aria-label="Previous milestones" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="th-nav is-next" type="button" data-th-nav="1" aria-controls="timelineTeaser" aria-label="Next milestones" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    </div>
+  </section>
 
 
   <section class="section">

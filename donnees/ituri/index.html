@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=131bb9115f">
+<link rel="stylesheet" href="/assets/css/site.css?v=e0c5d78eb8">
 </head>
 <body>
 
@@ -248,7 +248,7 @@
       <div class="kpi confirmed">
         <div class="label">Cas confirmés</div>
         <div class="value">5 326</div>
-        <div class="delta"></div>
+        <div class="delta">+49 (24 h)</div>
       </div>
       <div class="kpi deaths">
         <div class="label">Décès</div>
@@ -263,11 +263,9 @@
     </section>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">Carte des zones de santé</h2>
-      <span class="section-sub">28 zones touchées sur 36</span>
-    </div>
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">Carte des zones de santé</h2><div class="section-sub">28 zones touchées sur 36</div></div></div>
+    <div class="cadre-corps">
 
     <div class="carto-layout">
       <div class="zonemap-frame">
@@ -406,12 +404,12 @@
         <div class="sub" id="cartoSub"><span class="on-hover">Survolez une zone pour voir son bilan.</span><span class="on-touch">Touchez une zone pour voir son bilan.</span></div>
       </div>
     </div>
+    </div>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">Zones de santé touchées en Ituri</h2>
-    </div>
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Zones de santé touchées en Ituri</h2></div></div>
+    <div class="cadre-corps">
     <div class="zones-block">
       <div class="panel panel-fit" style="padding:16px;">
         <!-- Le tableau se partage en image, note comprise, comme les figures. -->
@@ -659,14 +657,12 @@
       <p class="map-note zones-note">Le total d'une province peut différer de la somme de ses zones de santé : les bulletins comptent à part les cas et décès qui ne sont pas encore rattachés à une zone. Le site les laisse là où la source les place.</p>
     </div>
     <p class="drill"><a href="/donnees/?province=Ituri">Ouvrir le tableau complet des zones, filtré sur l'Ituri →</a></p>
+    </div>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">Évolution de l'épidémie (Ituri)</h2>
-      <span class="section-sub">barres : nouveaux cas par jour · courbe : cumul</span>
-    </div>
-
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Évolution de l'épidémie (Ituri)</h2><div class="section-sub">barres : nouveaux cas par jour · courbe : cumul</div></div></div>
+    <div class="cadre-corps">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="provinceChart">
         <button type="button" class="share-btn">
@@ -678,6 +674,126 @@
         <canvas id="provinceChart" data-chart="provinceEpidemic"></canvas>
       </div>
       <div class="map-note chart-note"></div>
+    </div>
+    </div>
+  </section>
+
+
+  <!-- La chronologie de la province (8 septembre 2026) : la piste
+       horizontale de l'accueil, avec ses couleurs, seuils calcules a
+       l'echelle de la province. Rendue par build_pages.py. -->
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">Chronologie en Ituri</h2><div class="section-sub">seuils à l'échelle de la province — faire défiler</div></div></div>
+    <div class="cadre-corps">
+    <ul class="tl-legend">
+      <li class="is-official">Jalon officiel</li>
+      <li class="is-spread">Extension géographique</li>
+      <li class="is-milestone">Seuil franchi</li>
+    </ul>
+    <div class="th-scroller">
+      <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="Chronologie en Ituri">
+        <ol class="th-track">
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-08">8 mai 2026</time>
+            <h3 class="th-title">Le foyer de l'épidémie</h3>
+            <p class="th-text">L'épidémie y a démarré : officiellement notifiée le 8 mai 2026, déclarée le 15 mai.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-21">21 mai 2026</time>
+            <h3 class="th-title">6 zones de santé touchées</h3>
+            <p class="th-text">Premier bulletin à détailler les zones en Ituri : il en liste 6 — Bambu, Bunia, Mongbwalu, Nizi, Nyankunde et Rwampara.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-29">29 mai 2026</time>
+            <h3 class="th-title">14 zones de santé touchées</h3>
+            <p class="th-text">14 zones de santé touchées en Ituri. Nouvelles ce jour-là : Aungba, Damas, Gethy, Komanda, Lita et Mangala.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-06-01">1 juin 2026</time>
+            <h3 class="th-title">16 zones de santé touchées</h3>
+            <p class="th-text">16 zones de santé touchées en Ituri. Nouvelles ce jour-là : Logo et Mambasa.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-06-13">13 juin 2026</time>
+            <h3 class="th-title">20 zones de santé touchées</h3>
+            <p class="th-text">20 zones de santé touchées en Ituri. Nouvelle ce jour-là : Nia-Nia.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-06-23">23 juin 2026</time>
+            <h3 class="th-title">1 000 cas confirmés</h3>
+            <p class="th-text">l'Ituri franchit la barre des 1 000 cas confirmés.</p>
+          </li>
+          <li class="th-item is-spread">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-06">6 juil. 2026</time>
+            <h3 class="th-title">25 zones de santé touchées</h3>
+            <p class="th-text">25 zones de santé touchées en Ituri. Nouvelle ce jour-là : Boga.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-07">7 juil. 2026</time>
+            <h3 class="th-title">500 décès</h3>
+            <p class="th-text">l'Ituri franchit la barre des 500 décès.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-17">17 juil. 2026</time>
+            <h3 class="th-title">2 000 cas confirmés</h3>
+            <p class="th-text">l'Ituri franchit la barre des 2 000 cas confirmés.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-22">22 juil. 2026</time>
+            <h3 class="th-title">1 000 décès</h3>
+            <p class="th-text">l'Ituri franchit la barre des 1 000 décès.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-07-30">30 juil. 2026</time>
+            <h3 class="th-title">3 000 cas confirmés</h3>
+            <p class="th-text">l'Ituri franchit la barre des 3 000 cas confirmés.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-05">5 août 2026</time>
+            <h3 class="th-title">1 500 décès</h3>
+            <p class="th-text">l'Ituri franchit la barre des 1 500 décès.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-13">13 août 2026</time>
+            <h3 class="th-title">4 000 cas confirmés</h3>
+            <p class="th-text">l'Ituri franchit la barre des 4 000 cas confirmés.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-20">20 août 2026</time>
+            <h3 class="th-title">2 000 décès</h3>
+            <p class="th-text">l'Ituri franchit la barre des 2 000 décès.</p>
+          </li>
+          <li class="th-item is-milestone">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-08-30">30 août 2026</time>
+            <h3 class="th-title">5 000 cas confirmés</h3>
+            <p class="th-text">l'Ituri franchit la barre des 5 000 cas confirmés.</p>
+          </li>
+          <li class="th-item is-current">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-09-05">5 sept. 2026</time>
+            <h3 class="th-title">Dernier bilan disponible</h3>
+            <p class="th-text">l'Ituri compte 5 326 cas confirmés et 2 398 décès au dernier bulletin.</p>
+          </li>
+        </ol>
+      </div>
+      <button class="th-nav is-prev" type="button" data-th-nav="-1" aria-controls="timelineTeaser" aria-label="Jalons précédents" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="th-nav is-next" type="button" data-th-nav="1" aria-controls="timelineTeaser" aria-label="Jalons suivants" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
     </div>
   </section>
 
