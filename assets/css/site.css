@@ -2702,7 +2702,7 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
      seule la taille du nom suit la largeur. */
   .ag-marque{font-size:clamp(38px,12vw,60px);}
   .ag-nav{flex-direction:column;gap:4px;margin-bottom:6px;}
-  .ag-nav-next{margin-left:0;}
+  .ag-nav-next{margin-left:auto;text-align:right;}   /* suivante a droite, comme sur ordinateur (9 septembre 2026) */
   .ag-edition{font-size:clamp(10px,3.2vw,12.5px);letter-spacing:.14em;gap:10px;}
   .ag-edition span{white-space:nowrap;}
 }
