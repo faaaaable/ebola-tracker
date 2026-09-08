@@ -1234,6 +1234,17 @@ s'adaptent a la largeur du tableau sans la dicter, comme la note.
 
 ### Les pages province
 
+**Cadres numérotés, depuis le 8 septembre 2026.** À la demande du propriétaire
+(« ça structure le visuel »), la page Données et les pages province
+reprennent l'idiome de Riposte & défis : `section.cadre-fiche` avec
+`.fiche-tete` (numéro serif `.fiche-num`, `.frame-title`, `.section-sub`)
+puis `.cadre-corps`. Données : 01 Combien, 02 Où, 03 Qui, 04 Que fait-on
+(les anciens `.section-split` à deux colonnes ont disparu). Province : 01
+carte, 02 zones, 03 courbe quand elle existe (seuil
+`SEUIL_COURBE_PROVINCE`), puis la frise — 04, ou 03 sans courbe ; le
+numéro se passe à `province_chart_html()` et `province_timeline_html()`.
+La note « Comment lire ces chiffres » reste hors numérotation.
+
 **La frise des pages province, depuis le 8 septembre 2026.** Le propriétaire
 avait d'abord fait construire quatre blocs (riposte de la province, lieu du
 décès, obstacles cités, chronologie verticale des zones), puis les a fait
