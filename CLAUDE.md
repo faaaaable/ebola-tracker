@@ -2067,7 +2067,8 @@ affiche un **résumé rédigé par l'assistant**, pas des citations, écrit **au
 signal du propriétaire** chaque fois qu'un nouveau bulletin est intégré
 (« c'est moi qui donne le go »), rangé dans `data/bulletin-notes.json`
 (`<num>.defis.{fr,en,sw}`, `defisDate`), daté sur la page, les neuf blocs
-mot pour mot restant repliés dessous. Jamais généré en silence. Sans
+mot pour mot restant repliés dessous. La rubrique manuscrite « À surveiller »
+essayée le même jour a été retirée à la demande du propriétaire. Jamais généré en silence. Sans
 résumé, la lettre retombe sur un sommaire composé (piliers et provinces
 citées). Le résumé ne contient que des faits et des nombres présents dans
 les blocs. Tant
