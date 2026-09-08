@@ -2071,7 +2071,8 @@ gabarit via `{{bodyClass}}`), `/bulletin/revue/` (couverture bleu nuit plein
 écran avec numéro et sommaire, chapitres à bande bicolore et « en bref »
 latéral) et `/bulletin/agence/` (bande ambre, prose à gauche et colonne
 des chiffres collante à droite ; l'objet encadré a été retiré le
-8 septembre 2026). **C'est la variante
+8 septembre 2026). **Seule la variante agence subsiste, sous `/bulletin/`**
+(voir plus bas). **C'est la variante
 retenue le 8 septembre 2026** : sa manchette est centrée (`.ag-manchette`),
 « LA LETTRE » en très grand serif capitales, puis la ligne « Édition n° 114
 ◆ 5 sept. 2026 » entre deux filets, puis le sous-titre en italique
@@ -2125,6 +2126,28 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   Les résumés des n°100 à 113 ont été rédigés le 8 septembre 2026 (fr/en/sw,
   `bulletin-notes.json`), d'après les blocs de `defis.json`. Les lettres sans
   résumé rédigé retombent sur le sommaire composé.
+- **Vaccination = cumuls, jamais un chiffre du jour** (analyse des
+  bulletins 104 à 114, 8 septembre 2026). Le SitRep écrit « Au total, 1 834
+  personnes vaccinées dont 1 375 à la Tshopo et 459 au Bas-Uélé » (n°112),
+  « cumul personnes vaccinées : 486 » (n°113), « au profit de 500 personnes
+  ... stock résiduel à zéro » (n°114, qui suit le cumul 486 de la veille),
+  ou le chiffre du jour de lancement (20 à Buta le 26 août, 122 à Kisangani
+  le 27), lui aussi un cumul ce jour-là. `extract_piliers.lire_vaccination`
+  range donc tout en `cumulParProvince` (province = la première citée avant
+  le nombre, sinon la phrase précédente, le texte des tableaux s'intercalant),
+  et la lettre additionne le **dernier cumul connu de chaque province** à
+  sa date, en datant ceux qui viennent d'un bulletin antérieur : « 1 875
+  personnes vaccinées avec Ervebo depuis le début de la campagne, le
+  26 août : 1 375 dans la Tshopo (chiffre du 3 sept.), 500 dans le
+  Bas-Uélé ». Case « Vaccinés Ervebo (cumul) ».
+- **Les maquettes cadres, gazette et revue ont été supprimées** le
+  8 septembre (pages, gabarits, assembleurs, CSS `.gz-*`/`.rv-*`, clés
+  `gzNumero`, `lettreEyebrowGz`, `lettreNumero`, `lettreObjetLabel`,
+  `lettrePrecedent`). La page `bulletin` (`/bulletin/`, `/en/bulletin/`,
+  `/sw/ripoti/mpya/`, gabarit `site/pages/bulletin.html` =
+  `{{seed.bulletinAgence}}`) est la lettre du dernier bulletin, mise en page
+  agence ; l'URL définitive et l'entrée de menu restent à décider avant la
+  mise en ligne (toujours `noindex`).
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
