@@ -2190,6 +2190,13 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   (`cadre-fiche`), son surtitre dit « Comprendre » (elle a changé de
   groupe), et les préfixes « 1. », « 2. », « 3. » des titres `reportsTitle`,
   `whoReportsTitle`, `geoSourceTitle` ont été retirés de `i18n.js`.
+- **Manchette sans redondance (8 septembre, « go local »)** : le sous-titre
+  `bulSousTitre` ne porte plus ni date ni numéro, déjà sur la ligne
+  d'édition ; il dit « Résumé du bulletin de l'INSP ». Le pied de lettre
+  n'a plus de lien « Le PDF du bulletin » séparé : la référence du SitRep
+  est elle-même le lien vers le PDF (`lettrePied` sans `{url}`). Le
+  glossaire s'appelle « Glossaire · les mots du bulletin », dix mots en
+  ordre alphabétique dans chaque langue.
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
