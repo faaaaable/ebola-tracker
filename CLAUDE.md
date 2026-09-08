@@ -2200,7 +2200,7 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
 - **Manchette et rythme (8 septembre, « go local »)** : la ligne d'édition
   dit « Bulletin n° 114 ◆ Situation au 5 sept. 2026 » (`agEdition`,
   `lettreSituationAu`), le sous-titre « Résumé du bulletin de l'INSP,
-  publié à chaque nouveau bulletin » ; le pied ajoute « Une lettre paraît à
+  à chaque nouvelle parution » ; le pied ajoute « Une lettre paraît à
   chaque bulletin de l'INSP ; le précédent date du {date} »
   (`lettreRythme` / `lettreRythmeSeul`, date du bulletin précédent passée à
   `_lettre` par `render`). On dit « bulletin », jamais « SitRep », sauf dans
