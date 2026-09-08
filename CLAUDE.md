@@ -2055,6 +2055,21 @@ tient à huit onglets comme à neuf.
 
 ---
 
+## Le compte X du site
+
+`site.xProfile` dans `site/pages.json` (« EbolaTrackerRDC », sans le @,
+renseigné le 8 septembre 2026) alimente trois emplacements : « Suivre
+sur X » en dernière entrée de la colonne « Le site » du pied de page,
+un chapitre « Suivre le site » sur À propos, une ligne sous le formulaire
+de Contact — trois langues, icône X en trait (`X_ICONE`), lien `rel="me"`.
+Tout passe par `lien_x()` dans `build_pages.py` : **champ vide, rien n'est
+rendu**, jamais de lien mort. Les balises `twitter:` du gabarit ne
+désignent pas ce compte (choix du propriétaire, points 1 et 3 d'une liste
+de quatre écartés le 8 septembre : la carte de partage et la barre
+latérale).
+
+---
+
 ## Conventions établies
 
 **Couleurs.** Bleu `#005E82` = cas, rouge `#993A2E` = décès, partout. Chaque
