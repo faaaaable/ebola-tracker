@@ -2054,7 +2054,19 @@ riposte ; Comprendre = virus, chronologie, FAQ ; Le site = sources,
 trois fichiers mis de côté par la recette ci-dessous, ce déplacement doit
 être réappliqué sur la version de HEAD tant que Flux reste en local.
 
-### Publier sans publier « Flux & déplacés »
+### Publier sans publier « Flux & déplacés » (et la maquette « Le bulletin »)
+
+**Depuis le 8 septembre 2026, une seconde maquette vit en local : « Le
+bulletin »** (`scripts/bulletin.py`, gabarit `site/pages/bulletin.html`,
+entrée `bulletin` de `pages.json` en `noindex`, clés `bul*` et
+`defiPilier_*` de `strings.json`, styles `.bul-*`, import `bulletin` et
+appel `bulletin.render` dans `build_pages.py`). Option 2 des propositions
+du 8 septembre : une page par bulletin, avec archive ; la maquette ne rend
+que le dernier, à `/bulletin/`, `/en/bulletin/`, `/sw/ripoti/mpya/`. Tant
+qu'elle n'est pas validée, la recette ci-dessous la retire comme Flux :
+entrée de `pages.json`, import et appel dans `build_pages.py`, clés
+`bul*` et `defiPilier_*`.
+
 
 Le chantier partage quatre fichiers avec le site publié, et la barre
 latérale de chaque page générée porte l'onglet Flux. Recette suivie le
