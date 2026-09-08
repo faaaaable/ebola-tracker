@@ -316,7 +316,9 @@
     "footerFollowX": "Suivre sur X",
     "aboutFollowTitle": "Suivre le site",
     "aboutFollowBody": "Les nouveautés du site et les points de situation sont annoncés sur X :",
-    "contactFollowBody": "Pour suivre les mises à jour sans écrire :"
+    "contactFollowBody": "Pour suivre les mises à jour sans écrire :",
+    "menuFollowX": "Suivre",
+    "followXLabel": "Suivre @{compte} sur X"
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -634,7 +636,9 @@
     "footerFollowX": "Follow on X",
     "aboutFollowTitle": "Follow the site",
     "aboutFollowBody": "New pages and situation updates are announced on X:",
-    "contactFollowBody": "To follow updates without writing:"
+    "contactFollowBody": "To follow updates without writing:",
+    "menuFollowX": "Follow",
+    "followXLabel": "Follow @{compte} on X"
   },
   "timelineEvents": [
     {
@@ -1229,6 +1233,8 @@
     "footerFollowX": "Fuata kwenye X",
     "aboutFollowTitle": "Fuata tovuti",
     "aboutFollowBody": "Kurasa mpya na taarifa za hali zinatangazwa kwenye X:",
-    "contactFollowBody": "Kufuatilia masasisho bila kuandika:"
+    "contactFollowBody": "Kufuatilia masasisho bila kuandika:",
+    "menuFollowX": "Fuata",
+    "followXLabel": "Fuata @{compte} kwenye X"
   }
 }

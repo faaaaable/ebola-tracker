@@ -2280,7 +2280,18 @@ def alternates_html(config, urls, alt_paths):
                   % esc(urls.absolute(alt_paths[defaut])))
     return "\n".join(lignes)
 
-def lang_switch_html(config, alt_paths, lang):
+def glyphe_x(config, strings_lang, classe):
+    """Le glyphe X seul (sans texte visible), lien vers le compte du site,
+    ou chaine vide sans compte. Libelle accessible dans la langue de la page."""
+    compte = (config["site"].get("xProfile") or "").strip().lstrip("@")
+    if not compte:
+        return ""
+    libelle = interp(strings_lang["followXLabel"], {"compte": compte})
+    return ('<a class="%s" href="https://x.com/%s" rel="me noopener" target="_blank" '
+            'title="@%s" aria-label="%s">%s</a>' % (classe, esc(compte), esc(compte), esc(libelle), X_ICONE))
+
+
+def lang_switch_html(config, alt_paths, lang, strings_lang=None):
     """Le selecteur de langue, une entree par langue declaree.
 
     Il etait cable en dur sur deux boutons FR et EN, avec quatre jetons de
@@ -2300,6 +2311,13 @@ def lang_switch_html(config, alt_paths, lang):
                esc(loc(code, "label")),
                ' aria-current="true"' if courante else "",
                esc(code.upper())))
+    # Au bout de la rangee, sur ordinateur : le glyphe X vers le compte du
+    # site (8 septembre 2026). Cache sous 900 px, ou l'en-tete est plein ;
+    # le telephone a son lien dans le pied du menu.
+    if strings_lang is not None:
+        gx = glyphe_x(config, strings_lang, "lang-btn lang-x")
+        if gx:
+            boutons.append("        " + gx)
     return ('      <div class="lang-switch" role="group" aria-label="%s">\n%s\n      </div>'
             % (esc(labels), "\n".join(boutons)))
 
@@ -2537,7 +2555,13 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "headAssets": head_assets(besoins),
         "homeUrl": urls.path("accueil", lang),
         "t.siteTitleLinkLabel": esc(strings_lang["siteTitleLinkLabel"]),
-        "langSwitch": lang_switch_html(config, alt_paths, lang),
+        "langSwitch": lang_switch_html(config, alt_paths, lang, strings_lang),
+        # Telephone : « Suivre » avec le glyphe, dans le pied du menu (a la
+        # place de l'ancien bouton Partager). Rien sans compte.
+        "suivreXMenu": ('      <a class="share-btn suivre-x" href="https://x.com/%s" rel="me noopener" target="_blank" aria-label="%s">%s <span>%s</span></a>'
+                        % (esc((config["site"].get("xProfile") or "").strip().lstrip("@")),
+                           esc(interp(strings_lang["followXLabel"], {"compte": (config["site"].get("xProfile") or "").strip().lstrip("@")})),
+                           X_ICONE, esc(strings_lang["menuFollowX"]))) if (config["site"].get("xProfile") or "").strip() else "",
         "nav": build_nav(config, urls, lang, strings_lang, i18n_lang,
                          None if is_province else page.get("id"), provinces,
                          expand_provinces=is_province or page.get("id") in

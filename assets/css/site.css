@@ -2586,3 +2586,16 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .lien-x{white-space:nowrap;}  /* l'icone et l'identifiant restent ensemble */
 .lien-x svg{vertical-align:-1px;margin-right:4px;}
 .contact-x{margin-top:14px;}
+
+/* Compte X dans l'en-tete (8 septembre 2026) : sur ordinateur, un glyphe au
+   bout de la rangee des langues, meme gris que les codes ; sur telephone,
+   un lien « Suivre » dans le pied du menu, la ou etait Partager. */
+.lang-x{margin-left:8px;padding:5px 3px;color:var(--ink-label);}
+.lang-x svg{width:12px;height:12px;display:block;}
+.lang-x:hover{color:var(--accent-strong);}
+.suivre-x{display:none;text-decoration:none;}
+.suivre-x svg{width:13px;height:13px;}
+@media (max-width:900px){
+  .lang-x{display:none;}
+  .suivre-x{display:inline-flex;}
+}
