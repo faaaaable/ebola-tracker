@@ -2197,6 +2197,15 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   est elle-même le lien vers le PDF (`lettrePied` sans `{url}`). Le
   glossaire s'appelle « Glossaire · les mots du bulletin », dix mots en
   ordre alphabétique dans chaque langue.
+- **Manchette et rythme (8 septembre, « go local »)** : la ligne d'édition
+  dit « Bulletin n° 114 ◆ Situation au 5 sept. 2026 » (`agEdition`,
+  `lettreSituationAu`), le sous-titre « Résumé du bulletin de l'INSP,
+  publié à chaque nouveau bulletin » ; le pied ajoute « Une lettre paraît à
+  chaque bulletin de l'INSP ; le précédent date du {date} »
+  (`lettreRythme` / `lettreRythmeSeul`, date du bulletin précédent passée à
+  `_lettre` par `render`). On dit « bulletin », jamais « SitRep », sauf dans
+  la référence exacte du pied. Sous 430 px la ligne d'édition passe sur
+  deux lignes centrées sans filets ni losange.
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
