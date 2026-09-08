@@ -2068,8 +2068,12 @@ entrée `bulletin` de `pages.json` en `noindex`, clés `bul*`, `lettre*`,
 `page.bodyClass` = `lettre-gazette`, la classe de corps est posée par le
 gabarit via `{{bodyClass}}`), `/bulletin/revue/` (couverture bleu nuit plein
 écran avec numéro et sommaire, chapitres à bande bicolore et « en bref »
-latéral) et `/bulletin/agence/` (bande ambre, ligne d'édition, objet
-encadré, prose à gauche et colonne des chiffres collante à droite).
+latéral) et `/bulletin/agence/` (bande ambre, objet encadré, prose à
+gauche et colonne des chiffres collante à droite). **C'est la variante
+retenue le 8 septembre 2026** : sa manchette est centrée (`.ag-manchette`),
+« LA LETTRE » en très grand serif capitales, puis la ligne « Édition n° 114
+◆ 5 sept. 2026 » entre deux filets, puis le sous-titre en italique
+(`bulSousTitre`), le tout fermé par un double filet.
 `/bulletin/` garde le format en cadres numérotés. Option 2 des propositions
 du 8 septembre : une page par bulletin, avec archive ; la maquette ne rend
 que le dernier, à `/bulletin/`, `/en/bulletin/`, `/sw/ripoti/mpya/`. **Règle du 8 septembre 2026 pour les Défis de la lettre** : le chapitre 05
