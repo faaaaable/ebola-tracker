@@ -2062,7 +2062,15 @@ entrée `bulletin` de `pages.json` en `noindex`, clés `bul*` et
 `defiPilier_*` de `strings.json`, styles `.bul-*`, import `bulletin` et
 appel `bulletin.render` dans `build_pages.py`). Option 2 des propositions
 du 8 septembre : une page par bulletin, avec archive ; la maquette ne rend
-que le dernier, à `/bulletin/`, `/en/bulletin/`, `/sw/ripoti/mpya/`. Tant
+que le dernier, à `/bulletin/`, `/en/bulletin/`, `/sw/ripoti/mpya/`. **Règle du 8 septembre 2026 pour les Défis de la lettre** : le chapitre 05
+affiche un **résumé rédigé par l'assistant**, pas des citations, écrit **au
+signal du propriétaire** chaque fois qu'un nouveau bulletin est intégré
+(« c'est moi qui donne le go »), rangé dans `data/bulletin-notes.json`
+(`<num>.defis.{fr,en,sw}`, `defisDate`), daté sur la page, les neuf blocs
+mot pour mot restant repliés dessous. Jamais généré en silence. Sans
+résumé, la lettre retombe sur un sommaire composé (piliers et provinces
+citées). Le résumé ne contient que des faits et des nombres présents dans
+les blocs. Tant
 qu'elle n'est pas validée, la recette ci-dessous la retire comme Flux :
 entrée de `pages.json`, import et appel dans `build_pages.py`, clés
 `bul*` et `defiPilier_*`.
