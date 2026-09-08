@@ -2073,7 +2073,10 @@ gauche et colonne des chiffres collante à droite). **C'est la variante
 retenue le 8 septembre 2026** : sa manchette est centrée (`.ag-manchette`),
 « LA LETTRE » en très grand serif capitales, puis la ligne « Édition n° 114
 ◆ 5 sept. 2026 » entre deux filets, puis le sous-titre en italique
-(`bulSousTitre`), le tout fermé par un double filet.
+(`bulSousTitre`), le tout fermé par un double filet. **Même dessin sur
+téléphone** (demande du 8 septembre) : pas de variante mobile, seules les
+tailles du nom et du sous-titre suivent la largeur (`clamp` en `vw`), le
+sous-titre restant sur une ligne.
 `/bulletin/` garde le format en cadres numérotés. Option 2 des propositions
 du 8 septembre : une page par bulletin, avec archive ; la maquette ne rend
 que le dernier, à `/bulletin/`, `/en/bulletin/`, `/sw/ripoti/mpya/`. **Règle du 8 septembre 2026 pour les Défis de la lettre** : le chapitre 05
