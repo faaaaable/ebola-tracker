@@ -2181,6 +2181,15 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   publiée, la recette retire aussi le groupe Actualité de `mainNav`, La
   lettre de `footerNav` et la clé `navNewsTitle`, ; celle de Riposte & défis reste
   publiée jusqu'au signal du propriétaire.
+- **Retouches du 8 septembre (« go local »)** : dans la lettre, les cases
+  reprennent les libellés du site « Patients en isolement » et « Taux de
+  létalité » (clés `i18n`, les clés `lettreKpiHospitalises` /
+  `lettreKpiLetalite` ont été retirées) ; le chapitre 05 s'appelle « Les
+  difficultés rencontrées » (`lettreDefisTitle`). La page Sources &
+  bulletins a ses trois parties en cadres numérotés 01, 02, 03
+  (`cadre-fiche`), son surtitre dit « Comprendre » (elle a changé de
+  groupe), et les préfixes « 1. », « 2. », « 3. » des titres `reportsTitle`,
+  `whoReportsTitle`, `geoSourceTitle` ont été retirés de `i18n.js`.
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
