@@ -2533,6 +2533,9 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
    colonne, les chiffres de la bande se resserrent, la bande perd ses coins. */
 @media (max-width:760px){
   /* Pleine largeur d'ecran : la gouttiere vaut 24 px dans la bande et 20 px dans .wrap a 360 px, d'ou 4 px de defilement horizontal avec la marge negative (audit du 7 septembre 2026). */
+  /* Dans le menu deplie, la pastille suit le mot au lieu de se coller au bord droit (demande du 8 septembre 2026). */
+  .side-nav a:has(.nav-badge){padding-right:10px;}
+  .nav-badge{position:static;transform:none;margin-left:8px;vertical-align:middle;}
   .dossier{border-radius:0;padding-top:36px;padding-bottom:36px;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding-left:20px;padding-right:20px;}
   .dossier-titre{font-size:28px;}
   .dossier-chiffres b.is-texte{font-size:22px;}
