@@ -2238,7 +2238,7 @@ def head_assets(needs):
 
 def main():
     config = read_json(os.path.join(SITE, "pages.json"))
-    # Une page par lettre, /bulletin/<num>/ (8 septembre 2026) : ajoutee
+    # Une page par lettre, /lettre/<num>/ (8 septembre 2026) : ajoutee
     # avant le calcul des URL pour que la navigation entre lettres les trouve.
     config["pages"] = config["pages"] + bulletin.pages_lettres(config)
     global SITE_LANGUAGES

@@ -634,9 +634,9 @@
       "id": "bulletin",
       "fragment": "bulletin.html",
       "slug": {
-        "fr": "bulletin/",
-        "en": "bulletin/",
-        "sw": "ripoti/mpya/"
+        "fr": "lettre/",
+        "en": "letter/",
+        "sw": "barua/"
       },
       "needs": [
         "bulletin"

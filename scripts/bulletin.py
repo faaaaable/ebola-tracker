@@ -79,7 +79,7 @@ def _instantanes():
 
 
 def pages_lettres(config):
-    """Les pages /bulletin/<num>/ a ajouter a config["pages"] avant de
+    """Les pages /lettre/<num>/ a ajouter a config["pages"] avant de
     construire les URL : une par instantane, mise en page « agence »."""
     modele = next(p for p in config["pages"] if p["id"] == "bulletin")
     titres = {"fr": "La lettre n°%s — Ebola RDC", "en": "The letter no. %s — Ebola DRC", "sw": "Barua na. %s — Ebola DRC"}
@@ -91,7 +91,8 @@ def pages_lettres(config):
         pages.append({"id": "bulletin-%s" % num, "fragment": "bulletin-num.html", "lettreNum": num,
                       "noindex": modele.get("noindex", False), "needs": ["bulletin"], "changefreq": "daily", "priority": "0.6",
                       "schema": [], "navLabelKey": modele["navLabelKey"], "bodyClass": modele.get("bodyClass", ""),
-                      "slug": {"fr": "bulletin/%s/" % num, "en": "bulletin/%s/" % num, "sw": "ripoti/mpya/%s/" % num},
+                      # /lettre/<num>/, /en/letter/<num>/, /sw/barua/<num>/ : sous le slug de la page (9 septembre 2026)
+                      "slug": {lg: "%s%s/" % (sl, num) for lg, sl in modele["slug"].items()},
                       "meta": meta})
     return pages
 
@@ -421,7 +422,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     html.append(cadre("05", S["lettreDefisTitle"], "", corps, "defis", p_de, corps[len(p_de):]))
 
     # ---------------------------------------------------------------- pied
-    pied = P("lettrePied", ref=meta.get("sitrepRef") or "", url="ebola-tracker.org/bulletin/%s" % num)
+    pied = P("lettrePied", ref=meta.get("sitrepRef") or "")
     # Le rythme de parution, avec la date du bulletin precedent (8 septembre 2026).
     pied += " " + (P("lettreRythme", date=long_date(prec_date, i18n_lang)) if prec_date else S["lettreRythmeSeul"])
     if non_publie:
