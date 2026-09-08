@@ -2068,8 +2068,9 @@ entrée `bulletin` de `pages.json` en `noindex`, clés `bul*`, `lettre*`,
 `page.bodyClass` = `lettre-gazette`, la classe de corps est posée par le
 gabarit via `{{bodyClass}}`), `/bulletin/revue/` (couverture bleu nuit plein
 écran avec numéro et sommaire, chapitres à bande bicolore et « en bref »
-latéral) et `/bulletin/agence/` (bande ambre, objet encadré, prose à
-gauche et colonne des chiffres collante à droite). **C'est la variante
+latéral) et `/bulletin/agence/` (bande ambre, prose à gauche et colonne
+des chiffres collante à droite ; l'objet encadré a été retiré le
+8 septembre 2026). **C'est la variante
 retenue le 8 septembre 2026** : sa manchette est centrée (`.ag-manchette`),
 « LA LETTRE » en très grand serif capitales, puis la ligne « Édition n° 114
 ◆ 5 sept. 2026 » entre deux filets, puis le sous-titre en italique
