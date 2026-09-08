@@ -2176,11 +2176,11 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   ne sont plus dans la colonne : le propriétaire a tranché qu'ils vivent
   dans le pied de page (`footerNav` : Explorer avec La lettre en deuxième,
   Comprendre avec Sources & bulletins puis FAQ, Le site avec À propos et
-  Contact). La pastille « Nouveau » est passée de Riposte & défis à La
-  lettre, comme sur les aperçus validés. Tant que la lettre n'est pas
+  Contact). La pastille « Nouveau » est sur les deux entrées, La lettre et
+  Riposte & défis (« je veux les deux pastilles nouveau », 8 septembre). Tant que la lettre n'est pas
   publiée, la recette retire aussi le groupe Actualité de `mainNav`, La
-  lettre de `footerNav` et la clé `navNewsTitle`, et remet la pastille sur
-  Riposte & défis (ou l'enlève si le propriétaire l'a dit).
+  lettre de `footerNav` et la clé `navNewsTitle`, ; celle de Riposte & défis reste
+  publiée jusqu'au signal du propriétaire.
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
