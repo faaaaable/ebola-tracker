@@ -32,6 +32,7 @@ from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import defis_synthese  # maquette « Riposte & defis », seconde partie redigee
+import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
@@ -2237,6 +2238,9 @@ def head_assets(needs):
 
 def main():
     config = read_json(os.path.join(SITE, "pages.json"))
+    # Une page par lettre, /bulletin/<num>/ (8 septembre 2026) : ajoutee
+    # avant le calcul des URL pour que la navigation entre lettres les trouve.
+    config["pages"] = config["pages"] + bulletin.pages_lettres(config)
     global SITE_LANGUAGES
     SITE_LANGUAGES = list(config["site"]["languages"])
     strings = read_json(os.path.join(SITE, "strings.json"))
@@ -2403,6 +2407,7 @@ def main():
                                                numero="04" if (_p.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE else "03")
             for _p in provinces}
         common_seed.update(defis_synthese.render(lang, strings_lang, i18n_lang, long_date, esc, PROVINCE_COLORS))
+        common_seed.update(bulletin.render(lang, strings_lang, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp, province_forms, PROVINCE_COLORS, urls))
         # A propos et Contact : un paragraphe vers le compte X, ou rien.
         compte_x = (config["site"].get("xProfile") or "").strip().lstrip("@")
         lx = lien_x(config, "@" + compte_x) if compte_x else ""
@@ -2413,6 +2418,8 @@ def main():
         pages += [(config["provincePage"], province) for province in provinces]
 
         for page, province in pages:
+            if page.get("lettreNum"):
+                common_seed["seed.lettreNum"] = common_seed["seed.lettres"][page["lettreNum"]]
             generated.append(render_page(
                 page, province, lang, config, strings, strings_lang, i18n_lang,
                 urls, layout, common_seed, url_values, faq_plain,
@@ -2711,6 +2718,9 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
 
     layout_values = {
         "robots": values["robots"],
+        # Classe de corps facultative (page.bodyClass) : les maquettes de la
+        # lettre en ont besoin pour changer de chrome (8 septembre 2026).
+        "bodyClass": (' class="%s"' % esc(page["bodyClass"])) if page.get("bodyClass") else "",
         "lang": lang,
         # Jetons de cache des fichiers statiques : c'est le gabarit qui porte
         # les balises <link> et <script>, donc c'est ici qu'ils doivent vivre.

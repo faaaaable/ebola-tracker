@@ -25,6 +25,12 @@
   },
   "mainNav": [
     {
+      "titleKey": "navNewsTitle",
+      "pages": [
+        "bulletin"
+      ]
+    },
+    {
       "titleKey": "footerExploreTitle",
       "pages": [
         "accueil",
@@ -37,14 +43,7 @@
       "pages": [
         "chronologie",
         "le-virus",
-        "faq"
-      ]
-    },
-    {
-      "titleKey": "footerSiteTitle",
-      "pages": [
-        "rapports",
-        "a-propos"
+        "rapports"
       ]
     }
   ],
@@ -53,6 +52,7 @@
       "titleKey": "footerExploreTitle",
       "pages": [
         "accueil",
+        "bulletin",
         "donnees",
         "riposte"
       ]
@@ -60,15 +60,15 @@
     {
       "titleKey": "footerUnderstandTitle",
       "pages": [
-        "le-virus",
         "chronologie",
+        "le-virus",
+        "rapports",
         "faq"
       ]
     },
     {
       "titleKey": "footerSiteTitle",
       "pages": [
-        "rapports",
         "a-propos",
         "contact"
       ]
@@ -628,6 +628,43 @@
           "h1": "Mawasiliano",
           "description": "Kuripoti kosa, kupendekeza chanzo au kuuliza swali kuhusu tovuti hii."
         }
+      }
+    },
+    {
+      "id": "bulletin",
+      "fragment": "bulletin.html",
+      "slug": {
+        "fr": "bulletin/",
+        "en": "bulletin/",
+        "sw": "ripoti/mpya/"
+      },
+      "needs": [
+        "bulletin"
+      ],
+      "changefreq": "daily",
+      "priority": "0.6",
+      "schema": [],
+      "navLabelKey": "t:bulEyebrow",
+      "meta": {
+        "fr": {
+          "title": "La lettre — résumé quotidien du bulletin Ebola RDC",
+          "h1": "La lettre",
+          "description": "Le résumé quotidien du bulletin de l'INSP : bilan, provinces, riposte, difficultés."
+        },
+        "en": {
+          "title": "The letter — daily summary of the DRC Ebola bulletin",
+          "h1": "The letter",
+          "description": "The daily summary of the INSP bulletin: toll, provinces, response, difficulties."
+        },
+        "sw": {
+          "title": "Barua — muhtasari wa kila siku wa ripoti ya Ebola DRC",
+          "h1": "Barua",
+          "description": "Muhtasari wa kila siku wa ripoti ya INSP: hali, majimbo, mapambano, changamoto."
+        }
+      },
+      "bodyClass": "lettre-agence",
+      "navBadge": {
+        "key": "navBadgeNouveau"
       }
     }
   ],

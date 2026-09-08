@@ -102,6 +102,182 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/bulletin/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/100/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/100/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/100/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/100/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/100/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/101/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/101/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/101/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/101/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/101/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/102/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/102/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/102/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/102/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/102/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/103/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/103/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/103/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/103/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/103/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/104/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/104/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/104/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/104/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/104/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/105/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/105/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/105/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/105/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/105/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/106/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/106/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/106/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/106/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/106/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/107/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/107/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/107/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/107/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/107/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/108/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/108/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/108/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/108/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/108/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/109/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/109/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/109/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/109/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/109/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/110/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/110/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/110/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/110/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/110/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/111/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/111/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/111/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/111/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/111/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/112/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/112/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/112/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/112/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/112/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/113/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/113/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/113/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/113/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/113/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/bulletin/114/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/114/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/114/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/114/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/114/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/donnees/ituri/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
@@ -267,6 +443,182 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/bulletin/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/100/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/100/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/100/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/100/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/100/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/101/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/101/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/101/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/101/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/101/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/102/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/102/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/102/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/102/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/102/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/103/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/103/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/103/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/103/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/103/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/104/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/104/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/104/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/104/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/104/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/105/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/105/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/105/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/105/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/105/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/106/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/106/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/106/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/106/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/106/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/107/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/107/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/107/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/107/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/107/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/108/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/108/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/108/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/108/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/108/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/109/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/109/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/109/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/109/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/109/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/110/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/110/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/110/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/110/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/110/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/111/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/111/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/111/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/111/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/111/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/112/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/112/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/112/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/112/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/112/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/113/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/113/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/113/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/113/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/113/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/bulletin/114/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/114/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/114/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/114/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/114/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/data/ituri/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
@@ -429,6 +781,182 @@
     <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/100/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/100/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/100/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/100/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/100/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/101/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/101/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/101/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/101/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/101/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/102/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/102/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/102/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/102/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/102/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/103/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/103/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/103/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/103/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/103/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/104/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/104/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/104/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/104/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/104/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/105/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/105/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/105/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/105/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/105/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/106/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/106/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/106/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/106/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/106/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/107/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/107/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/107/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/107/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/107/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/108/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/108/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/108/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/108/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/108/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/109/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/109/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/109/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/109/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/109/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/110/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/110/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/110/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/110/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/110/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/111/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/111/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/111/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/111/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/111/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/112/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/112/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/112/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/112/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/112/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/113/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/113/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/113/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/113/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/113/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/ripoti/mpya/114/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/bulletin/114/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/bulletin/114/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/mpya/114/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/bulletin/114/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>

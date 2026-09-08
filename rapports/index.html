@@ -77,7 +77,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=e0c5d78eb8">
+<link rel="stylesheet" href="/assets/css/site.css?v=88a9749d2b">
 </head>
 <body>
 
@@ -134,6 +134,8 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Navigation principale">
+      <div class="side-nav-title">Actualité</div>
+      <a href="/bulletin/">La lettre <span class="nav-badge">Nouveau</span></a>
       <div class="side-nav-title">Explorer</div>
       <a href="/">Vue d'ensemble</a>
       <div class="side-group">
@@ -156,10 +158,7 @@
       <div class="side-nav-title">Comprendre</div>
       <a href="/chronologie/">Chronologie</a>
       <a href="/le-virus/">Le virus</a>
-      <a href="/faq/">FAQ</a>
-      <div class="side-nav-title">Le site</div>
       <a href="/rapports/" aria-current="page">Sources &amp; bulletins</a>
-      <a href="/a-propos/">À propos</a>
     </nav>
 
     <div class="side-foot">
@@ -195,29 +194,30 @@
   <section class="section">
     <div class="section-head">
       <div>
-        <div class="eyebrow"><span class="dot"></span>Le site</div>
+        <div class="eyebrow"><span class="dot"></span>Comprendre</div>
         <h1 class="page-title">Sources et bulletins officiels</h1>
       </div>
     </div>
     <p class="lede">Ce site ne produit aucun chiffre : il compile ceux que publient les institutions qui suivent l'épidémie.</p>
     <p class="page-intro">Cette page rassemble ces documents, tels qu'ils ont été publiés, pour que chacun puisse remonter à l'original, vérifier un nombre ou lire ce que le site ne montre pas.</p>
     <nav class="riposte-ancres" aria-label="Les trois sections">
-      <a href="#insp">1. SitRep quotidien (INSP)</a>
-      <a href="#who-reports-section">2. Weekly External Situation Report (OMS)</a>
-      <a href="#autres">3. Autres sources</a>
+      <a href="#insp">SitRep quotidien (INSP)</a>
+      <a href="#who-reports-section">Weekly External Situation Report (OMS)</a>
+      <a href="#autres">Autres sources</a>
     </nav>
   </section>
 
   <!-- Pleine largeur, pas de colonne de titres : les trois sections sont des
        listes de documents, et la colonne ne laissait que deux bulletins par
        ligne contre trois (demande du proprietaire, 6 septembre 2026). -->
-  <section class="section" id="insp">
-    <div class="section-head">
-      <h2 class="section-title" data-i18n="reportsTitle">1. SitRep quotidien (INSP)</h2>
-    </div>
+  <!-- Cadres numerotes 01, 02, 03 comme sur les autres pages (demande du
+       8 septembre 2026). -->
+  <section class="section cadre-fiche" id="insp">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title" data-i18n="reportsTitle">SitRep quotidien (INSP)</h2></div></div>
+    <div class="cadre-corps">
     <p class="page-intro" data-i18n="reportsIntro">Chaque bulletin officiel publié par l'Institut National de Santé Publique de la République Démocratique du Congo (INSP) est archivé ici dès sa publication, au format PDF original — la source principale de ce site.</p>
     <div class="panel" style="padding:16px;">
-      <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="1. SitRep quotidien (INSP)"></nav>
+      <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="SitRep quotidien (INSP)"></nav>
       <label class="visually-hidden" for="reportsSearch">Rechercher (N°, mois, année)…</label>
       <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="Rechercher (N°, mois, année)…" class="search-input">
       <div id="reportsList" class="reports-grid">
@@ -977,12 +977,12 @@
         </a>
       </div>
     </div>
+    </div>
   </section>
 
-  <section class="section" id="who-reports-section" style="">
-    <div class="section-head">
-      <h2 class="section-title" data-i18n="whoReportsTitle">2. Weekly External Situation Report (OMS)</h2>
-    </div>
+  <section class="section cadre-fiche" id="who-reports-section" style="">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title" data-i18n="whoReportsTitle">Weekly External Situation Report (OMS)</h2></div></div>
+    <div class="cadre-corps">
     <p class="page-intro" data-i18n="whoReportsIntro">Bulletins hebdomadaires publiés par le Bureau régional Afrique de l'Organisation Mondiale de la Santé sur cette épidémie — une source indépendante de l'INSP, à un rythme hebdomadaire plutôt que quasi quotidien.</p>
     <div class="panel" style="padding:16px;">
       <div id="whoReportsList" class="reports-grid">
@@ -1100,15 +1100,16 @@
         </a>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section" id="autres">
-    <div class="section-head">
-      <h2 class="section-title" data-i18n="geoSourceTitle">3. Autres sources</h2>
-    </div>
+  <section class="section cadre-fiche" id="autres">
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title" data-i18n="geoSourceTitle">Autres sources</h2></div></div>
+    <div class="cadre-corps">
     <p class="page-intro" data-i18n="geoSourceText">Les délimitations des zones de santé dessinées sur les cartes du site viennent du jeu de données « DR Congo – Health Zones » publié par OCHA RDC sur la plateforme HDX, d'après le Référentiel géographique commun de la République démocratique du Congo. Chaque forme est une zone de santé, l'unité de référence des bulletins officiels.</p>
+    </div>
   </section>
 
 
@@ -1120,6 +1121,7 @@
         <h2>Explorer</h2>
         <ul>
         <li><a href="/">Vue d'ensemble</a></li>
+        <li><a href="/bulletin/">La lettre</a></li>
         <li><a href="/donnees/">Données détaillées</a></li>
         <li><a href="/riposte/">Riposte &amp; défis</a></li>
         </ul>
@@ -1127,15 +1129,15 @@
       <div class="footer-col">
         <h2>Comprendre</h2>
         <ul>
-        <li><a href="/le-virus/">Le virus</a></li>
         <li><a href="/chronologie/">Chronologie</a></li>
+        <li><a href="/le-virus/">Le virus</a></li>
+        <li><a href="/rapports/">Sources &amp; bulletins</a></li>
         <li><a href="/faq/">FAQ</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h2>Le site</h2>
         <ul>
-        <li><a href="/rapports/">Sources &amp; bulletins</a></li>
         <li><a href="/a-propos/">À propos</a></li>
         <li><a href="/contact/">Contact</a></li>
         <li><a href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" class="lien-x footer-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> Suivre sur X</a></li>
@@ -1183,7 +1185,7 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=3846eed446"></script>
+<script defer src="/assets/js/i18n.js?v=9a6d114799"></script>
 <script defer src="/assets/js/app.js?v=5a77068f53"></script>
 
 </body>

@@ -2055,7 +2055,19 @@ riposte ; Comprendre = virus, chronologie, FAQ ; Le site = sources,
 trois fichiers mis de côté par la recette ci-dessous, ce déplacement doit
 être réappliqué sur la version de HEAD tant que Flux reste en local.
 
-### Publier sans publier « Flux & déplacés » (et la maquette « Le bulletin »)
+### Publier sans publier « Flux & déplacés » (et, jusqu'au 8 septembre, la maquette « Le bulletin »)
+
+**La lettre est publiée depuis le 8 septembre 2026 au soir** (« commit and
+push sauf flux et déplacés ») : `/bulletin/` et les quinze archives
+`/bulletin/100/` à `/bulletin/114/` en trois langues, indexables (le
+`noindex` a été retiré de l'entrée `bulletin` et `pages_lettres` reprend
+celui du modèle), dans le sitemap, avec le menu resserré (Actualité /
+Explorer / Comprendre), les deux pastilles « Nouveau », la page Sources &
+bulletins en cadres numérotés, `scripts/extract_piliers.py` ajouté au
+workflow après `extraire_defis.py`, `data/lettres/`, `data/piliers.json` et
+`data/bulletin-notes.json` versionnés. La recette ci-dessous ne concerne
+donc plus que Flux : tout ce qui touche à la lettre se publie avec le
+reste. Le premier paragraphe qui suit décrit l'état antérieur.
 
 **Depuis le 8 septembre 2026, une seconde maquette vit en local : « Le
 bulletin »** (`scripts/bulletin.py`, gabarit `site/pages/bulletin.html`,
@@ -2177,10 +2189,8 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   dans le pied de page (`footerNav` : Explorer avec La lettre en deuxième,
   Comprendre avec Sources & bulletins puis FAQ, Le site avec À propos et
   Contact). La pastille « Nouveau » est sur les deux entrées, La lettre et
-  Riposte & défis (« je veux les deux pastilles nouveau », 8 septembre). Tant que la lettre n'est pas
-  publiée, la recette retire aussi le groupe Actualité de `mainNav`, La
-  lettre de `footerNav` et la clé `navNewsTitle`, ; celle de Riposte & défis reste
-  publiée jusqu'au signal du propriétaire.
+  Riposte & défis (« je veux les deux pastilles nouveau », 8 septembre). Publié le 8 septembre au soir avec la lettre ; les deux pastilles restent
+  jusqu'au signal du propriétaire.
 - **Retouches du 8 septembre (« go local »)** : dans la lettre, les cases
   reprennent les libellés du site « Patients en isolement » et « Taux de
   létalité » (clés `i18n`, les clés `lettreKpiHospitalises` /
@@ -2233,14 +2243,8 @@ mot pour mot restant repliés dessous. La rubrique manuscrite « À surveiller �
 essayée le même jour a été retirée à la demande du propriétaire. Jamais généré en silence. Sans
 résumé, la lettre retombe sur un sommaire composé (piliers et provinces
 citées). Le résumé ne contient que des faits et des nombres présents dans
-les blocs. Tant
-qu'elle n'est pas validée, la recette ci-dessous la retire comme Flux :
-entrées `bulletin*` de `pages.json`, import, appel de `bulletin.render`, ligne
-`config["pages"] + bulletin.pages_lettres(config)` et bloc `lettreNum` de la
-boucle des pages dans `build_pages.py`, clés `bul*`, `lettre*`, `gz*`, `ag*`
-et `defiPilier_*`. Restent hors dépôt publié tant que la lettre est locale :
-`site/pages/bulletin-num.html`, `data/lettres/`, `data/piliers.json`,
-`scripts/extract_piliers.py`, `data/bulletin-notes.json`.
+les blocs. (Jusqu'au 8 septembre au soir, la recette retirait aussi la lettre ; elle
+est publiée depuis, voir en tête de section.)
 
 
 Le chantier partage quatre fichiers avec le site publié, et la barre

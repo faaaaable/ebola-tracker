@@ -1,0 +1,1271 @@
+{
+ "periode": {
+  "debut": "2026-05-21",
+  "fin": "2026-09-05"
+ },
+ "parDate": [
+  {
+   "date": "2026-05-21",
+   "sitrepNumber": "007",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-05-22",
+   "sitrepNumber": "008",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-05-23",
+   "sitrepNumber": "009",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-05-24",
+   "sitrepNumber": "010",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-05-25",
+   "sitrepNumber": "011",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-05-27",
+   "sitrepNumber": "013",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-05-29",
+   "sitrepNumber": "015",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-01",
+   "sitrepNumber": "018",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-02",
+   "sitrepNumber": "019",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-03",
+   "sitrepNumber": "020",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-04",
+   "sitrepNumber": "021",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-05",
+   "sitrepNumber": "022",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-06",
+   "sitrepNumber": "023",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-07",
+   "sitrepNumber": "024",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-08",
+   "sitrepNumber": "025",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-09",
+   "sitrepNumber": "026",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-10",
+   "sitrepNumber": "027",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-11",
+   "sitrepNumber": "028",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-13",
+   "sitrepNumber": "030",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-14",
+   "sitrepNumber": "031",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-15",
+   "sitrepNumber": "032",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-16",
+   "sitrepNumber": "033",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-17",
+   "sitrepNumber": "034",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-18",
+   "sitrepNumber": "035",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-19",
+   "sitrepNumber": "036",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-20",
+   "sitrepNumber": "037",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 3,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-21",
+   "sitrepNumber": "038",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-22",
+   "sitrepNumber": "039",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-23",
+   "sitrepNumber": "040",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-24",
+   "sitrepNumber": "041",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-25",
+   "sitrepNumber": "042",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-27",
+   "sitrepNumber": "044",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 29,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-29",
+   "sitrepNumber": "046",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 29,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-06-30",
+   "sitrepNumber": "047",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 29,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-01",
+   "sitrepNumber": "048",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 98.2,
+    "refusScreening": 0
+   },
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 29,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-02",
+   "sitrepNumber": "049",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 29,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-03",
+   "sitrepNumber": "050",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-04",
+   "sitrepNumber": "051",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-05",
+   "sitrepNumber": "052",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 22,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-06",
+   "sitrepNumber": "053",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-07",
+   "sitrepNumber": "054",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 22,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-08",
+   "sitrepNumber": "055",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 38,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-09",
+   "sitrepNumber": "056",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-10",
+   "sitrepNumber": "057",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-11",
+   "sitrepNumber": "058",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-12",
+   "sitrepNumber": "059",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-13",
+   "sitrepNumber": "060",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-14",
+   "sitrepNumber": "061",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-15",
+   "sitrepNumber": "062",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-17",
+   "sitrepNumber": "064",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-18",
+   "sitrepNumber": "065",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-19",
+   "sitrepNumber": "066",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-20",
+   "sitrepNumber": "067",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-21",
+   "sitrepNumber": "068",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-22",
+   "sitrepNumber": "069",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-23",
+   "sitrepNumber": "070",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-24",
+   "sitrepNumber": "071",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-25",
+   "sitrepNumber": "072",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-26",
+   "sitrepNumber": "073",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-27",
+   "sitrepNumber": "074",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-30",
+   "sitrepNumber": "077",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-07-31",
+   "sitrepNumber": "078",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-01",
+   "sitrepNumber": "079",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-02",
+   "sitrepNumber": "080",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-03",
+   "sitrepNumber": "081",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-04",
+   "sitrepNumber": "082",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-05",
+   "sitrepNumber": "083",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-06",
+   "sitrepNumber": "084",
+   "poe": null,
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-07",
+   "sitrepNumber": "085",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 98,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-08",
+   "sitrepNumber": "086",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 102,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-09",
+   "sitrepNumber": "087",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 128,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-10",
+   "sitrepNumber": "088",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 124,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-11",
+   "sitrepNumber": "089",
+   "poe": {
+    "personnes": null,
+    "screenesPct": null,
+    "refusScreening": 2148
+   },
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 92,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-12",
+   "sitrepNumber": "090",
+   "poe": {
+    "personnes": null,
+    "screenesPct": null,
+    "refusScreening": 86
+   },
+   "rings": {
+    "ouverts": 19,
+    "attendus": 143
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 46,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-13",
+   "sitrepNumber": "091",
+   "poe": {
+    "personnes": null,
+    "screenesPct": null,
+    "refusScreening": 2139
+   },
+   "rings": {
+    "ouverts": 23,
+    "attendus": 167
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 54,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-14",
+   "sitrepNumber": "092",
+   "poe": {
+    "personnes": null,
+    "screenesPct": null,
+    "refusScreening": 2035
+   },
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 80,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-15",
+   "sitrepNumber": "093",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 97.5,
+    "refusScreening": 2187
+   },
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 43,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-16",
+   "sitrepNumber": "094",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 96.4,
+    "refusScreening": 2373
+   },
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 43,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-17",
+   "sitrepNumber": "095",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 97.5,
+    "refusScreening": 2383
+   },
+   "rings": {
+    "ouverts": 7,
+    "attendus": 152
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 122,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-18",
+   "sitrepNumber": "096",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 97.8,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 19,
+    "attendus": 74
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 135,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-19",
+   "sitrepNumber": "097",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 98.3,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 19,
+    "attendus": 70
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 124,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-20",
+   "sitrepNumber": "098",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 98.6,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 17,
+    "attendus": 52
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 66,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-21",
+   "sitrepNumber": "099",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 98.6,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 21,
+    "attendus": 80
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 117,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-22",
+   "sitrepNumber": "100",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 97.6,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 14,
+    "attendus": 57
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 3,
+    "swabes": null,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-23",
+   "sitrepNumber": "101",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 97.6,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 18,
+    "attendus": 79
+   },
+   "eds": {
+    "alertes": 121,
+    "realisees": 37,
+    "swabes": 36,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-24",
+   "sitrepNumber": "102",
+   "poe": {
+    "personnes": 264624,
+    "screenesPct": 97.9,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 23,
+    "attendus": 59
+   },
+   "eds": {
+    "alertes": 44,
+    "realisees": 44,
+    "swabes": 44,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-25",
+   "sitrepNumber": "103",
+   "poe": null,
+   "rings": {
+    "ouverts": 21,
+    "attendus": 101
+   },
+   "eds": {
+    "alertes": 123,
+    "realisees": 116,
+    "swabes": 107,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-26",
+   "sitrepNumber": "104",
+   "poe": {
+    "personnes": 261402,
+    "screenesPct": 98.0,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 31,
+    "attendus": 50
+   },
+   "eds": {
+    "alertes": 141,
+    "realisees": 121,
+    "swabes": 102,
+    "nonSwabes": null
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Bas-Uélé": 20
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-27",
+   "sitrepNumber": "105",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 98.0,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 28,
+    "attendus": 74
+   },
+   "eds": {
+    "alertes": 150,
+    "realisees": 127,
+    "swabes": 118,
+    "nonSwabes": null
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Tshopo": 122
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-28",
+   "sitrepNumber": "106",
+   "poe": {
+    "personnes": 263678,
+    "screenesPct": 97.8,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 29,
+    "attendus": 33
+   },
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-29",
+   "sitrepNumber": "107",
+   "poe": {
+    "personnes": 264693,
+    "screenesPct": 97.5,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 33,
+    "attendus": 45
+   },
+   "eds": null,
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-30",
+   "sitrepNumber": "108",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 98.2,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 18,
+    "attendus": 41
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 128,
+    "swabes": 117,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-08-31",
+   "sitrepNumber": "109",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 98.5,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 16,
+    "attendus": 30
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 119,
+    "swabes": 108,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-01",
+   "sitrepNumber": "110",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 98.41,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 19,
+    "attendus": 45
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 136,
+    "swabes": 116,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-02",
+   "sitrepNumber": "111",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 97.8,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 18,
+    "attendus": 55
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 131,
+    "swabes": 120,
+    "nonSwabes": null
+   },
+   "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-03",
+   "sitrepNumber": "112",
+   "poe": {
+    "personnes": 255169,
+    "screenesPct": 98.1,
+    "refusScreening": 209
+   },
+   "rings": {
+    "ouverts": 20,
+    "attendus": 27
+   },
+   "eds": {
+    "alertes": 129,
+    "realisees": 103,
+    "swabes": 93,
+    "nonSwabes": null
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Tshopo": 1375,
+     "Bas-Uélé": 459
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-04",
+   "sitrepNumber": "113",
+   "poe": {
+    "personnes": 267016,
+    "screenesPct": 98.1,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 12,
+    "attendus": 41
+   },
+   "eds": {
+    "alertes": 124,
+    "realisees": 105,
+    "swabes": 96,
+    "nonSwabes": null
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Bas-Uélé": 486
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-05",
+   "sitrepNumber": "114",
+   "poe": {
+    "personnes": 258604,
+    "screenesPct": 98.2,
+    "refusScreening": 2809
+   },
+   "rings": {
+    "ouverts": 31,
+    "attendus": 93
+   },
+   "eds": {
+    "alertes": 152,
+    "realisees": 113,
+    "swabes": 104,
+    "nonSwabes": 30
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Bas-Uélé": 500
+    },
+    "rupture": true
+   },
+   "source": "SitRep INSP (automatique)"
+  }
+ ]
+}

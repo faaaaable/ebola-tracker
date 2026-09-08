@@ -2602,3 +2602,116 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 
 /* Cadres numerotes des pages Donnees et province (8 septembre 2026) : un peu d'air entre la tete du cadre et son premier intertitre. */
 .cadre-corps > .section-head:first-child{margin-top:10px;}
+
+/* Maquette « Le bulletin » (8 septembre 2026), en local. */
+.bul-table td:first-child .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px;}
+.bul-table td:first-child a{color:inherit;text-decoration:none;}
+.bul-table td:first-child a:hover{color:var(--accent-strong);}
+.kpi.zones .value{color:var(--accent-active);}
+.bul-defi{border-top:1px solid var(--line);padding:10px 0;}
+.bul-defi summary{cursor:pointer;list-style:none;display:flex;gap:12px;align-items:baseline;}
+.bul-defi summary::-webkit-details-marker{display:none;}
+.bul-defi summary::before{content:"+";width:14px;color:var(--accent-strong);font-weight:700;}
+.bul-defi[open] summary::before{content:"−";}
+.bul-defi .prov-defi-pilier{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-strong);}
+.bul-defi blockquote{margin:8px 0 4px 26px;padding:2px 0 2px 14px;border-left:2px solid var(--line);}
+.bul-defi blockquote p{margin:0 0 8px;font-size:14px;line-height:1.55;color:var(--ink-strong);}
+.bul-defi blockquote p:last-child{margin-bottom:0;}
+.bul-detail{margin-top:12px;}
+
+/* Format lettre de la maquette « Le bulletin » (8 septembre 2026). */
+.lettre-objet{font-family:var(--font-sans);font-size:13px;color:var(--ink-dim);margin:0 0 14px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-panel);}
+.lettre-objet span{font-weight:700;color:var(--ink);margin-right:6px;}
+.lettre-texte{font-family:var(--font-serif);font-size:17px;line-height:1.55;color:var(--ink-strong);max-width:70ch;}
+.lettre-extraits{list-style:none;margin:0 0 12px;padding:0;max-width:70ch;}
+.lettre-extraits li{font-family:var(--font-serif);font-size:15px;line-height:1.5;color:var(--ink-strong);padding:6px 0 6px 14px;border-left:2px solid var(--line);margin-bottom:8px;}
+.lettre-defis .prov-defi{margin-top:14px;}
+.lettre-pied{max-width:70ch;}
+
+/* ===================== La lettre, mise en page agence (8 septembre 2026) ===================== */
+/* --- 3. Le bulletin d'agence : bande ambre, deux colonnes --- */
+.ag{color:var(--ink);}
+.ag-barre{height:12px;background:var(--accent-active);margin:0 calc(-1 * var(--gutter));}
+/* Manchette centree : nom en tres grand, ligne d'edition entre deux filets, sous-titre. */
+.ag-manchette{text-align:center;padding:30px 0 22px;margin-bottom:24px;border-bottom:3px double var(--line);}
+.ag-marque{margin:0;font-family:var(--font-serif);font-weight:700;font-size:clamp(40px,7vw,84px);line-height:.95;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);white-space:nowrap;}
+.ag-edition{display:flex;align-items:center;justify-content:center;gap:14px;margin:18px auto 0;max-width:520px;font-size:12.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);}
+.ag-edition::before,.ag-edition::after{content:"";flex:1;height:1px;background:var(--ink);opacity:.35;}
+.ag-edition i{width:7px;height:7px;background:var(--accent-active);transform:rotate(45deg);flex:none;}
+.ag-sous{font-family:var(--font-serif);font-style:italic;font-size:clamp(12px,3.9vw,19px);color:var(--ink-dim);margin:14px 0 0;white-space:nowrap;}
+.ag-nav{display:flex;justify-content:space-between;gap:16px;padding:12px 0 20px;font-size:12.5px;letter-spacing:.04em;}
+.ag-nav a{color:var(--ink-dim);text-decoration:none;border-bottom:1px solid transparent;}
+.ag-nav a:hover{color:var(--ink);border-bottom-color:var(--ink);}
+.ag-nav-next{margin-left:auto;}
+.ag-pied .ag-nav{padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid var(--line);}
+.ag-archive{margin:10px 0 0;font-size:12px;color:var(--ink-dim);}
+.ag-archive a{color:var(--ink-dim);}
+.ag-archive b{color:var(--ink);}
+.ag-lexique{margin-top:14px;font-size:12.5px;color:var(--ink-dim);}
+.ag-lexique summary{cursor:pointer;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:11px;color:var(--ink);}
+.ag-lexique ul{margin:8px 0 0;padding-left:18px;line-height:1.55;}
+.ag-lexique li{margin:3px 0;}
+.ag-objet{display:flex;gap:10px;align-items:center;margin:16px 0 22px;padding:12px 14px;background:var(--bg-panel);border:1px solid var(--line);font-size:14px;font-weight:600;}
+.ag-objet i{width:10px;height:10px;background:var(--accent-active);flex:none;}
+.ag-infos{font-size:12.5px;color:var(--ink-dim);margin:0 0 22px;}
+.ag-grille{display:grid;grid-template-columns:minmax(0,13fr) minmax(280px,7fr);gap:36px;align-items:start;}
+.ag-jour{font-family:var(--font-serif);font-size:19px;line-height:1.5;margin:0 0 22px;}
+.ag-chap{border-top:1px solid var(--line);padding:16px 0 8px;}
+.ag-titre{font-family:var(--font-sans);font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-active);margin:0 0 10px;display:flex;gap:10px;align-items:baseline;}
+.ag-titre span{color:var(--ink-faint);}
+.ag-prose .lettre-texte{font-size:16px;}
+.ag-chiffres{position:sticky;top:16px;background:var(--bg-panel);border:1px solid var(--line);padding:16px;}
+.ag-chiffres-titre{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:12px;}
+.ag-bloc{margin-bottom:16px;}
+.ag-bloc-titre{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-active);margin-bottom:6px;}
+.ag-bloc .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+.ag-bloc .kpi{padding:10px 12px;}
+.ag-bloc .kpi .value{font-size:20px;}
+.ag-bloc .panel{padding:8px !important;}
+.ag-bloc table{font-size:11.5px;}
+/* Le tableau des provinces se cale sur sa colonne etroite : colonnes a largeur libre, et un cadre qui defile plutot que la page (audit a 360 px, +80 px). */
+.ag-bloc .province-summary td:first-child,.ag-bloc .province-summary th:first-child,.ag-bloc .province-summary td.is-num,.ag-bloc .province-summary th.is-num{width:auto;}
+.ag-bloc .panel{overflow-x:auto;}
+.ag-bloc .province-summary{width:100%;}
+.ag-bloc .drill,.ag-bloc .bul-detail,.ag-bloc .lettre-defis,.ag-bloc .map-note{display:none;}
+.ag-pied{margin-top:30px;padding:16px;background:var(--bg-panel);border:1px solid var(--line);font-size:12.5px;color:var(--ink-dim);}
+.ag-chiffres-inline{display:none;margin:12px 0 6px;}
+.ag-chiffres-inline .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+.ag-chiffres-inline .kpi{padding:10px 12px;}
+/* Cases de chiffres de la lettre : libelle, valeur et delta centres (8 septembre 2026). */
+.ag-bloc .kpi,.ag-chiffres-inline .kpi{text-align:center;}
+/* Nombre impair de cases : la derniere prend toute la largeur, pas de cellule vide. */
+.ag-bloc .kpi:last-child:nth-child(odd),.ag-chiffres-inline .kpi:last-child:nth-child(odd){grid-column:1/-1;}
+.ag-chiffres-inline .kpi .value{font-size:22px;}
+.ag-chiffres-inline .panel{overflow-x:auto;}
+.ag-chiffres-inline .province-summary{width:100%;font-size:12px;}
+.ag-chiffres-inline .province-summary td:first-child,.ag-chiffres-inline .province-summary th:first-child,.ag-chiffres-inline .province-summary td.is-num,.ag-chiffres-inline .province-summary th.is-num{width:auto;}
+.ag-chiffres-inline .drill{display:none;}
+@media (max-width:900px){
+  .ag-grille{grid-template-columns:minmax(0,1fr);}   /* regle perdue le 8 septembre a la suppression des maquettes, remise */
+  .ag-chiffres{display:none;}
+  .ag-chiffres-inline{display:block;}
+  /* Le tableau des provinces tient dans 320 px sans defilement (8 septembre 2026). */
+  .ag-chiffres-inline .panel{padding:4px !important;}
+  .ag-chiffres-inline table{font-size:10.5px;width:100%;}
+  .ag-chiffres-inline th,.ag-chiffres-inline td{padding:6px 2px;}
+  .ag-chiffres-inline th{font-size:9px;letter-spacing:0;line-height:1.15;}
+  .ag-chiffres-inline .bul-table td:first-child{font-size:10px;}
+  .ag-chiffres-inline .bul-table td:first-child .dot{margin-right:4px;}
+  /* Manchette : meme dessin que sur ordinateur (demande du 8 septembre),
+     seule la taille du nom suit la largeur. */
+  .ag-marque{font-size:clamp(38px,12vw,60px);}
+  .ag-nav{flex-direction:column;gap:4px;margin-bottom:6px;}
+  .ag-nav-next{margin-left:0;}
+  .ag-edition{font-size:clamp(10px,3.2vw,12.5px);letter-spacing:.14em;gap:10px;}
+  .ag-edition span{white-space:nowrap;}
+}
+
+.ag-objet{margin-top:18px;}
+/* Sous 430 px la ligne d'edition ne tient plus sur une ligne : deux lignes
+   centrees, sans filets ni losange (8 septembre 2026). */
+@media (max-width:430px){
+  .ag-edition{flex-direction:column;gap:3px;font-size:11px;letter-spacing:.16em;max-width:none;}
+  .ag-edition i,.ag-edition::before,.ag-edition::after{display:none;}
+  .ag-sous{white-space:normal;font-size:15px;line-height:1.4;}
+}

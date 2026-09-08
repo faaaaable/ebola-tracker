@@ -1,7 +1,7 @@
   <section class="section">
     <div class="section-head">
       <div>
-        <div class="eyebrow"><span class="dot"></span>{{t.footerSiteTitle}}</div>
+        <div class="eyebrow"><span class="dot"></span>{{t.footerUnderstandTitle}}</div>
         <h1 class="page-title">{{meta.h1}}</h1>
       </div>
     </div>
@@ -17,10 +17,11 @@
   <!-- Pleine largeur, pas de colonne de titres : les trois sections sont des
        listes de documents, et la colonne ne laissait que deux bulletins par
        ligne contre trois (demande du proprietaire, 6 septembre 2026). -->
-  <section class="section" id="insp">
-    <div class="section-head">
-      <h2 class="section-title" data-i18n="reportsTitle">{{i18n.reportsTitle}}</h2>
-    </div>
+  <!-- Cadres numerotes 01, 02, 03 comme sur les autres pages (demande du
+       8 septembre 2026). -->
+  <section class="section cadre-fiche" id="insp">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title" data-i18n="reportsTitle">{{i18n.reportsTitle}}</h2></div></div>
+    <div class="cadre-corps">
     <p class="page-intro" data-i18n="reportsIntro">{{i18n.reportsIntro}}</p>
     <div class="panel" style="padding:16px;">
       <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="{{i18n.reportsTitle}}"></nav>
@@ -30,26 +31,27 @@
 {{seed.reportsList}}
       </div>
     </div>
+    </div>
   </section>
 
-  <section class="section" id="who-reports-section" style="{{seed.whoSectionStyle}}">
-    <div class="section-head">
-      <h2 class="section-title" data-i18n="whoReportsTitle">{{i18n.whoReportsTitle}}</h2>
-    </div>
+  <section class="section cadre-fiche" id="who-reports-section" style="{{seed.whoSectionStyle}}">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title" data-i18n="whoReportsTitle">{{i18n.whoReportsTitle}}</h2></div></div>
+    <div class="cadre-corps">
     <p class="page-intro" data-i18n="whoReportsIntro">{{i18n.whoReportsIntro}}</p>
     <div class="panel" style="padding:16px;">
       <div id="whoReportsList" class="reports-grid">
 {{seed.whoReportsList}}
       </div>
     </div>
+    </div>
   </section>
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section" id="autres">
-    <div class="section-head">
-      <h2 class="section-title" data-i18n="geoSourceTitle">{{i18n.geoSourceTitle}}</h2>
-    </div>
+  <section class="section cadre-fiche" id="autres">
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title" data-i18n="geoSourceTitle">{{i18n.geoSourceTitle}}</h2></div></div>
+    <div class="cadre-corps">
     <p class="page-intro" data-i18n="geoSourceText">{{i18n.geoSourceText}}</p>
+    </div>
   </section>
 
