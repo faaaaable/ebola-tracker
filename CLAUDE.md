@@ -2225,6 +2225,12 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   ligne sur téléphone sans que l'audit de débordement le voie ; remise dans
   le bloc `@media (max-width:900px)`. Leçon : après un nettoyage CSS,
   regarder une capture mobile entière, pas seulement l'audit.
+- **Adresse définitive (9 septembre 2026)** : `/lettre/`, `/en/letter/`,
+  `/sw/barua/`, archives `/lettre/<num>/` etc. (slug de la page + numéro,
+  `pages_lettres`). Les adresses `/bulletin/…` de la veille au soir ont été
+  supprimées sans renvoi, la page ayant moins de deux heures d'existence et
+  aucun lien partagé (choix du propriétaire : « supprimer l'ancienne adresse
+  et la rajouter par la nouvelle »). Le pied de lettre ne cite plus d'URL.
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
