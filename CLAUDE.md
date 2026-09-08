@@ -258,6 +258,7 @@ python scripts/extraire_alertes.py           # alertes.json      (page Riposte)
 python scripts/extraire_laboratoire.py       # laboratoire.json  (page Riposte)
 python scripts/extraire_cte.py               # cte.json          (page Riposte)
 python scripts/extraire_defis.py             # defis.json        (page Riposte, « Défis » cités)
+python scripts/extract_piliers.py            # piliers.json      (La lettre : EDS, rings, vaccination, PoC/PoE) — local, pas encore dans le workflow
 python scripts/build_pages.py                # régénère les 30 pages du site
 python scripts/check_coherence.py            # contrôle, ne modifie rien
 ```
@@ -2078,6 +2079,50 @@ retenue le 8 septembre 2026** : sa manchette est centrée (`.ag-manchette`),
 téléphone** (demande du 8 septembre) : pas de variante mobile, seules les
 tailles du nom et du sous-titre suivent la largeur (`clamp` en `vw`), le
 sous-titre restant sur une ligne.
+
+**Ce que la lettre dit de plus depuis le 8 septembre 2026** (sept
+suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
+- **Tendance** : dans le chapeau, le chiffre du jour est situé par rapport à
+  la moyenne des sept derniers jours (au-dessus / en dessous / dans la
+  moyenne, seuils ±10 %, clés `lettreJourNiveau*`) ; dans le bilan, la
+  moyenne par jour de cas et de décès sur sept jours contre les sept
+  précédents (`lettreTendance`). Calcul sur les cumuls de `sitreps.json` aux
+  dates les plus proches de J-7 et J-14, divisés par l'écart réel en jours
+  (les bulletins ne sont pas tous quotidiens).
+- **Dernière zone nouvelle** : « Aucune nouvelle zone de santé depuis le
+  {date} » (`lettreJourZonesDepuis`), date lue dans `zones-history.json`.
+- **Zones actives sur 21 jours** dans « Où » (`lettreZonesActives`) : une
+  zone est active si son cumul de cas a bougé depuis l'instantané le plus
+  proche 21 jours avant.
+- **Trois piliers de plus** dans « La riposte », lus par
+  `scripts/extract_piliers.py` → `data/piliers.json` (une entrée par
+  bulletin, prose en sections 1.2 PoC/PoE, 1.4 PCI/EDS, 1.6 Vaccination) :
+  enterrements dignes et sécurisés (alertes, réalisés, corps prélevés, non
+  prélevés pour résistance ; sommes des provinces qui donnent le chiffre),
+  rings ouverts / attendus, personnes vaccinées Ervebo et rupture de stock,
+  personnes passées aux points de contrôle, part screenée, refus de
+  dépistage. Chaque phrase n'existe que si le bulletin donne le nombre ;
+  deux cases de plus dans la colonne (EDS, vaccinés). Le nombre de
+  vaccinés est cité tel quel (« le bulletin fait état de ») car le SitRep
+  mélange chiffres du jour et cumuls. Le total PoC/PoE d'une ligne de
+  tableau à chiffres espacés se retrouve par la segmentation dont le
+  dernier nombre est la somme des autres (`_total_ligne`).
+- **Une page par lettre, `/bulletin/<num>/`** (en `/en/bulletin/<num>/`,
+  sw `/sw/ripoti/mpya/<num>/`), mise en page agence, `noindex` tant que la
+  lettre est une maquette. Mécanisme : `data/lettres/<num>.json` est la
+  **copie de `data/latest.json`** au moment où le bulletin est intégré
+  (`bulletin._instantanes()` fige le dernier à chaque génération) ; les
+  séries par date gardent l'historique d'elles-mêmes. Les n°100 à 113 ont
+  été repris depuis l'historique git de `latest.json` (`git show
+  <commit>:data/latest.json`). `bulletin.pages_lettres(config)` ajoute les
+  pages à `config["pages"]` dans `build_pages.main` avant le calcul des URL ;
+  gabarit `site/pages/bulletin-num.html` = `{{seed.lettreNum}}`, posé page
+  par page dans la boucle. Navigation précédente / suivante sous la
+  manchette (`.ag-nav`), liste de toutes les lettres dans le pied
+  (`.ag-archive`). `/bulletin/agence/` reste la lettre du dernier bulletin.
+- Le résumé des Défis du n°114 a été resserré et corrigé (les 2 581 refus
+  de dépistage sont aux points de contrôle en Ituri, plus 228 au Haut-Uélé).
+  Les lettres sans résumé rédigé retombent sur le sommaire composé.
 `/bulletin/` garde le format en cadres numérotés. Option 2 des propositions
 du 8 septembre : une page par bulletin, avec archive ; la maquette ne rend
 que le dernier, à `/bulletin/`, `/en/bulletin/`, `/sw/ripoti/mpya/`. **Règle du 8 septembre 2026 pour les Défis de la lettre** : le chapitre 05
@@ -2093,8 +2138,12 @@ résumé, la lettre retombe sur un sommaire composé (piliers et provinces
 citées). Le résumé ne contient que des faits et des nombres présents dans
 les blocs. Tant
 qu'elle n'est pas validée, la recette ci-dessous la retire comme Flux :
-entrées `bulletin*` de `pages.json`, import et appel dans `build_pages.py`,
-clés `bul*`, `lettre*`, `gz*`, `ag*` et `defiPilier_*`.
+entrées `bulletin*` de `pages.json`, import, appel de `bulletin.render`, ligne
+`config["pages"] + bulletin.pages_lettres(config)` et bloc `lettreNum` de la
+boucle des pages dans `build_pages.py`, clés `bul*`, `lettre*`, `gz*`, `ag*`
+et `defiPilier_*`. Restent hors dépôt publié tant que la lettre est locale :
+`site/pages/bulletin-num.html`, `data/lettres/`, `data/piliers.json`,
+`scripts/extract_piliers.py`, `data/bulletin-notes.json`.
 
 
 Le chantier partage quatre fichiers avec le site publié, et la barre
