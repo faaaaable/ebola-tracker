@@ -2168,6 +2168,19 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   de santé, CTE, enterrement sécurisé, ceinture de prévention, point de
   contrôle, volet de la riposte). Les quinze résumés ont été réécrits dans
   ce langage.
+- **Menu resserré (8 septembre 2026, « go local »)** : colonne en trois
+  groupes et sept entrées, `mainNav` = Actualité (`navNewsTitle` :
+  Actualité / Latest / Habari mpya) avec La lettre seule, Explorer (Vue
+  d'ensemble, Données détaillées, Riposte & défis, Flux en local),
+  Comprendre (Chronologie, Le virus, Sources & bulletins). FAQ et À propos
+  ne sont plus dans la colonne : le propriétaire a tranché qu'ils vivent
+  dans le pied de page (`footerNav` : Explorer avec La lettre en deuxième,
+  Comprendre avec Sources & bulletins puis FAQ, Le site avec À propos et
+  Contact). La pastille « Nouveau » est passée de Riposte & défis à La
+  lettre, comme sur les aperçus validés. Tant que la lettre n'est pas
+  publiée, la recette retire aussi le groupe Actualité de `mainNav`, La
+  lettre de `footerNav` et la clé `navNewsTitle`, et remet la pastille sur
+  Riposte & défis (ou l'enlève si le propriétaire l'a dit).
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
