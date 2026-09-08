@@ -2148,6 +2148,26 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   `{{seed.bulletinAgence}}`) est la lettre du dernier bulletin, mise en page
   agence ; l'URL définitive et l'entrée de menu restent à décider avant la
   mise en ligne (toujours `noindex`).
+- **Règle de lisibilité (8 septembre 2026, « il faut que la lecture soit
+  claire pour les gens qui ne connaissent pas les termes »)** : la lettre
+  et ses résumés s'écrivent en langage courant. Pas de « pilier »
+  (→ « volet de la riposte » ou « équipe de la riposte »), « complétude »
+  (→ « part des rapports attendus transmis »), « PPL » (→ « soignants »,
+  « personnels de première ligne »), « PCI » (→ « hygiène »,
+  « désinfection »), « screening » (→ « contrôle de température »),
+  « swab / prélevé » pour un corps (→ « testé »), « isolement » refusé
+  (→ « refus d'être hospitalisé »), « listage » (→ « recensement des
+  contacts »), « ESS / structures non normées » (→ « structures non prévues
+  pour Ebola »), « stratégie avancée » (→ « équipes mobiles »), « létalité »
+  (→ « part des malades décédés »), « positivité » (→ « part des tests
+  positifs »), « à ventiler » (→ « pas encore attribués à une zone »). Les
+  phrases générées (`lettre*`) et les cases de la lettre ont leurs propres
+  clés (`lettreKpi*`), distinctes de celles de la page Riposte. Un
+  **lexique** replié ferme chaque lettre (`lettreLexiqueTitre`,
+  `lettreLex*`, dix mots : cas confirmé, cas suspect, alerte, contact, zone
+  de santé, CTE, enterrement sécurisé, ceinture de prévention, point de
+  contrôle, volet de la riposte). Les quinze résumés ont été réécrits dans
+  ce langage.
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
