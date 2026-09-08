@@ -2087,6 +2087,22 @@ tient à huit onglets comme à neuf.
 
 ---
 
+## Le nom du site dans Google
+
+Google affiche un **nom de site** au-dessus de l'adresse dans ses résultats,
+lu dans `WebSite.name` des données structurées de la page d'accueil et dans
+`og:site_name`. Il veut une valeur unique et stable ; trois noms selon la
+langue (« Suivi Ebola RDC », « DRC Ebola Tracker », « Ufuatiliaji… ») le
+faisaient retomber sur le domaine — l'adresse s'affichait deux fois.
+Depuis le 8 septembre 2026, `site.brandName` (« Ebola Tracker ») alimente
+`WebSite.name`, `isPartOf` des articles et `og:site_name` sur toutes les
+pages ; les noms traduits et le domaine sont en `alternateName`. La marque
+de la barre latérale (« ebola-tracker.org ») et les titres de page ne
+changent pas. Google met des jours à des semaines à reprendre un nom de
+site ; demander l'inspection de l'accueil dans la Search Console accélère.
+
+---
+
 ## Le compte X du site
 
 `site.xProfile` dans `site/pages.json` (« EbolaTrackerRDC », sans le @,
