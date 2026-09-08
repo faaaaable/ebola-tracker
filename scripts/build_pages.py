@@ -495,10 +495,17 @@ def build_json_ld(kinds, context):
 
     for kind in kinds:
         if kind == "website":
+            # Le NOM DE SITE que Google affiche au-dessus de l'adresse dans ses
+            # resultats : il le lit ici (WebSite.name de la page d'accueil) et
+            # dans og:site_name, et veut une valeur unique et stable — trois
+            # noms differents selon la langue le faisaient retomber sur le
+            # domaine. « Ebola Tracker » partout (site.brandName), les noms
+            # traduits en alternateName (8 septembre 2026).
             blocks.append(json_ld({
                 "@context": "https://schema.org",
                 "@type": "WebSite",
-                "name": context["siteName"],
+                "name": context["brandName"],
+                "alternateName": context["siteNameAlternates"],
                 "url": context["origin"] + "/",
                 "inLanguage": list(SITE_LANGUAGES),
             }))
@@ -539,7 +546,7 @@ def build_json_ld(kinds, context):
                 "url": canonical,
                 "inLanguage": lang,
                 "isPartOf": {"@type": "WebSite",
-                             "name": context["siteName"],
+                             "name": context["brandName"],
                              "url": context["origin"] + "/"},
             }))
         elif kind == "faq":
@@ -2639,6 +2646,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     schema_context = {
         "meta": meta, "lang": lang, "canonical": canonical, "origin": origin,
         "siteName": strings_lang["siteTitleMain"],
+        "brandName": site.get("brandName") or strings_lang["siteTitleMain"],
+        "siteNameAlternates": sorted({strings[code]["siteTitleMain"] for code in site["languages"]} | {"ebola-tracker.org"}),
         "keywords": ["Ebola", "RDC", "DRC", "épidémie", "santé publique",
                      "Bundibugyo", "SitRep"],
         "faqPlain": faq_plain,
@@ -2712,7 +2721,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "description": esc(meta["description"]),
         "canonical": canonical,
         "alternates": alternates_html(config, urls, alt_paths),
-        "siteName": esc(strings_lang["siteTitleMain"]),
+        # og:site_name : le meme nom de marque que WebSite.name, pour Google.
+        "siteName": esc(site.get("brandName") or strings_lang["siteTitleMain"]),
         "ogType": "website" if page.get("id") == "accueil" else "article",
         "ogLocale": loc(lang, "ogLocale"),
         "ogLocaleAlt": ", ".join(loc(other, "ogLocale")

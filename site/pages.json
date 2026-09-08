@@ -12,7 +12,8 @@
       "sw"
     ],
     "defaultLanguage": "fr",
-    "xProfile": "EbolaTrackerRDC"
+    "xProfile": "EbolaTrackerRDC",
+    "brandName": "Ebola Tracker"
   },
   "provinceSlugs": {
     "Ituri": "ituri",
