@@ -2122,7 +2122,14 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   (`.ag-archive`). `/bulletin/agence/` reste la lettre du dernier bulletin.
 - Le résumé des Défis du n°114 a été resserré et corrigé (les 2 581 refus
   de dépistage sont aux points de contrôle en Ituri, plus 228 au Haut-Uélé).
-  Les lettres sans résumé rédigé retombent sur le sommaire composé.
+  Les résumés des n°100 à 113 ont été rédigés le 8 septembre 2026 (fr/en/sw,
+  `bulletin-notes.json`), d'après les blocs de `defis.json`. Les lettres sans
+  résumé rédigé retombent sur le sommaire composé.
+- **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
+  chaque cas : décontamination du domicile et des structures fréquentées,
+  kits, repérage des contacts) se disent **« ceintures de prévention
+  (rings) »** dans la lettre et les résumés, choix du propriétaire du
+  8 septembre ; pas « anneaux de décontamination ».
 `/bulletin/` garde le format en cadres numérotés. Option 2 des propositions
 du 8 septembre : une page par bulletin, avec archive ; la maquette ne rend
 que le dernier, à `/bulletin/`, `/en/bulletin/`, `/sw/ripoti/mpya/`. **Règle du 8 septembre 2026 pour les Défis de la lettre** : le chapitre 05
