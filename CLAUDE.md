@@ -2058,9 +2058,19 @@ trois fichiers mis de côté par la recette ci-dessous, ce déplacement doit
 
 **Depuis le 8 septembre 2026, une seconde maquette vit en local : « Le
 bulletin »** (`scripts/bulletin.py`, gabarit `site/pages/bulletin.html`,
-entrée `bulletin` de `pages.json` en `noindex`, clés `bul*` et
-`defiPilier_*` de `strings.json`, styles `.bul-*`, import `bulletin` et
-appel `bulletin.render` dans `build_pages.py`). Option 2 des propositions
+entrée `bulletin` de `pages.json` en `noindex`, clés `bul*`, `lettre*`,
+`gz*`, `ag*` et `defiPilier_*` de `strings.json`, styles `.bul-*`,
+`.lettre-*`, `.gz-*`, `.rv-*`, `.ag-*`, import `bulletin` et appel
+`bulletin.render` dans `build_pages.py`, `data/bulletin-notes.json`).
+**Trois mises en page** en comparaison depuis le 8 septembre, mêmes blocs
+(`chapitres` dans `bulletin.py`, trois assembleurs) : `/bulletin/gazette/`
+(journal d'un jour, manchette à double filet, sans barre latérale —
+`page.bodyClass` = `lettre-gazette`, la classe de corps est posée par le
+gabarit via `{{bodyClass}}`), `/bulletin/revue/` (couverture bleu nuit plein
+écran avec numéro et sommaire, chapitres à bande bicolore et « en bref »
+latéral) et `/bulletin/agence/` (bande ambre, ligne d'édition, objet
+encadré, prose à gauche et colonne des chiffres collante à droite).
+`/bulletin/` garde le format en cadres numérotés. Option 2 des propositions
 du 8 septembre : une page par bulletin, avec archive ; la maquette ne rend
 que le dernier, à `/bulletin/`, `/en/bulletin/`, `/sw/ripoti/mpya/`. **Règle du 8 septembre 2026 pour les Défis de la lettre** : le chapitre 05
 affiche un **résumé rédigé par l'assistant**, pas des citations, écrit **au
@@ -2073,8 +2083,8 @@ résumé, la lettre retombe sur un sommaire composé (piliers et provinces
 citées). Le résumé ne contient que des faits et des nombres présents dans
 les blocs. Tant
 qu'elle n'est pas validée, la recette ci-dessous la retire comme Flux :
-entrée de `pages.json`, import et appel dans `build_pages.py`, clés
-`bul*` et `defiPilier_*`.
+entrées `bulletin*` de `pages.json`, import et appel dans `build_pages.py`,
+clés `bul*`, `lettre*`, `gz*`, `ag*` et `defiPilier_*`.
 
 
 Le chantier partage quatre fichiers avec le site publié, et la barre
