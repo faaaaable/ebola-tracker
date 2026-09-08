@@ -1234,35 +1234,26 @@ s'adaptent a la largeur du tableau sans la dicter, comme la note.
 
 ### Les pages province
 
-**Quatre blocs ajoutés le 8 septembre 2026** (propositions 1 à 4 sur six,
-retenues par le propriétaire ; les deux écartées : « zones les plus actives
-sur sept jours » et un chapeau rédigé par province), sous la courbe, rendus
-par `build_pages.py` dans `common_seed["provinceExtras"]` puis
-`province.riposte`, `province.deces`, `province.defis`, `province.chrono` :
-
-- **La riposte {in}** — `province_riposte_html()` : les quatre chiffres de
-  la page Riposte, pour la province, même règle (sept derniers relevés qui
-  publient la donnée pour cette province, occupation des CTE au jour,
-  « non publié » sinon), grille `.kpis.kpis-riposte`, lien vers `/riposte/`.
-- **Le lieu du décès {in}** — `province_deces_html()` : le graphique
-  hebdomadaire de Riposte filtré par `data-province`, lu par `app.js`
-  (`provinceFiltre` dans le mode `deathsPlace`, note
-  `chartDeathPlaceNoteProvince`), pour les provinces à `assezDeVolume`
-  dans `deces-lieu.json` (Ituri, Nord-Kivu, Haut-Uélé) ; pour les autres,
-  la phrase qui dit combien de décès sont classés et renvoie au national.
-- **Ce que le dernier bulletin dit des obstacles {in}** —
-  `province_defis_html()` : les blocs « Défis » de `defis.json` dont les
-  provinces citent celle-ci, mot pour mot, pilier en étiquette
-  (`PILIER_LIBELLE`, clés `defiPilier*` revenues dans `strings.json`) ; en
-  anglais et en swahili la citation reste en français avec la note ; un
-  bulletin qui ne cite pas la province le dit.
-- **Quand chaque zone a été touchée {in}** — `province_chrono_html()` :
-  première apparition de chaque zone dans `zones-history.json`, noms
-  canonisés par `normalise_zone()` et la table d'alias des tracés (« Nia
-  Nia » / « Nia-Nia », « ARU » / « Aru »), groupée par date dans la frise
-  verticale `.tl` de la chronologie ; les zones déjà présentes au premier
-  instantané (SitRep 007, 21 mai) sont regroupées en tête avec la mention
-  qui le dit, et la note sous la frise explique la règle.
+**La frise des pages province, depuis le 8 septembre 2026.** Le propriétaire
+avait d'abord fait construire quatre blocs (riposte de la province, lieu du
+décès, obstacles cités, chronologie verticale des zones), puis les a fait
+retirer le jour même au profit d'une seule chose : **la piste horizontale
+de l'accueil**, mêmes classes `.timeline-h.is-inline` / `.th-track` /
+`.th-item.is-*`, mêmes flèches (`id="timelineTeaser"`, celui que
+`initTimelineScroller` attend, absent ailleurs d'une page province), même
+légende `.tl-legend`, mêmes couleurs — bleu jalon officiel, ambre extension
+géographique, rouge seuil franchi, vert dernier bilan. Rendue par
+`province_timeline_html()` via `common_seed["provinceTimelines"]` et le
+jeton `province.timeline`. Les jalons : l'arrivée de l'épidémie
+(`provinceArrivals`, dates dans la prose ; « Le foyer de l'épidémie » pour
+l'Ituri), les seuils de cas et de décès, les paliers de zones touchées, le
+dernier bilan. **Les seuils s'adaptent à la province** : `pas_arrondi()`
+choisit un pas 1, 2 ou 5 fois une puissance de dix pour obtenir environ six
+jalons quel que soit le maximum — 1 000 cas en Ituri, 200 au Nord-Kivu, 50
+au Haut-Uélé, 5 dans la Tshopo, 1 au Sud-Kivu ; cinq paliers pour les
+zones. Les zones gardent l'identité de `zone_milestone_events` (alias des
+tracés, deux lettres près dans la province). Textes `provinceTimeline*`
+dans `strings.json`, trois langues.
 
 `province_zones_table_html()` produit un tableau statique des zones touchées de
 la province, trié par cas décroissants. Les variations de 24 h ont **leur
