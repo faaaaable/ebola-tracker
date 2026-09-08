@@ -2581,3 +2581,8 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
   .grille-cases i::after{display:none!important;}
   .grille-mois span{font-size:10px;}
 }
+
+/* Lien vers le compte X : icone en trait avant le libelle, dans le pied et sur A propos / Contact (8 septembre 2026). */
+.lien-x{white-space:nowrap;}  /* l'icone et l'identifiant restent ensemble */
+.lien-x svg{vertical-align:-1px;margin-right:4px;}
+.contact-x{margin-top:14px;}

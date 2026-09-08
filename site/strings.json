@@ -312,7 +312,11 @@
     "ddNewCasesTitle": "Nouveaux cas et décès",
     "maqDecesNoteCourte": "Part hebdomadaire des décès confirmés survenus en communauté plutôt qu'en centre de traitement, sur l'ensemble du pays. La ligne pointillée marque la moyenne des semaines couvertes : c'est elle le résultat, pas les creux et les bosses. Les bulletins ne distinguent les deux lieux que depuis le 13 juillet.",
     "maqMethodeTitre": "Méthode et sources",
-    "navBadgeNouveau": "Nouveau"
+    "navBadgeNouveau": "Nouveau",
+    "footerFollowX": "Suivre sur X",
+    "aboutFollowTitle": "Suivre le site",
+    "aboutFollowBody": "Les nouveautés du site et les points de situation sont annoncés sur X :",
+    "contactFollowBody": "Pour suivre les mises à jour sans écrire :"
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -626,7 +630,11 @@
     "ddNewCasesTitle": "New cases and deaths",
     "maqDecesNoteCourte": "Weekly share of confirmed deaths that occurred in the community rather than in a treatment centre, nationwide. The dotted line marks the average over the weeks covered: that is the result, not the dips and bumps. Bulletins only distinguish the two places since 13 July.",
     "maqMethodeTitre": "Method and sources",
-    "navBadgeNouveau": "New"
+    "navBadgeNouveau": "New",
+    "footerFollowX": "Follow on X",
+    "aboutFollowTitle": "Follow the site",
+    "aboutFollowBody": "New pages and situation updates are announced on X:",
+    "contactFollowBody": "To follow updates without writing:"
   },
   "timelineEvents": [
     {
@@ -1217,6 +1225,10 @@
     "ddNewCasesTitle": "Visa vipya na vifo vipya",
     "maqDecesNoteCourte": "Sehemu ya kila wiki ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, nchi nzima. Mstari wa nukta unaonyesha wastani wa wiki zilizofunikwa: huo ndio matokeo, si kupanda na kushuka. Ripoti zinatofautisha mahali hapo pawili tangu tarehe 13 Julai tu.",
     "maqMethodeTitre": "Mbinu na vyanzo",
-    "navBadgeNouveau": "Mpya"
+    "navBadgeNouveau": "Mpya",
+    "footerFollowX": "Fuata kwenye X",
+    "aboutFollowTitle": "Fuata tovuti",
+    "aboutFollowBody": "Kurasa mpya na taarifa za hali zinatangazwa kwenye X:",
+    "contactFollowBody": "Kufuatilia masasisho bila kuandika:"
   }
 }

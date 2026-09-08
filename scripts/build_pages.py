@@ -418,6 +418,21 @@ def build_breadcrumb(urls, lang, strings_lang, trail):
             % (esc(strings_lang["breadcrumbLabel"]), "\n".join(parts)))
 
 
+X_ICONE = ('<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+           '<path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg>')
+
+
+def lien_x(config, libelle, classe=""):
+    """Lien vers le compte X du site (site.xProfile dans pages.json, sans le
+    @), ou chaine vide tant qu'il n'est pas renseigne — rien n'est rendu
+    plutot qu'un lien mort (8 septembre 2026)."""
+    compte = (config["site"].get("xProfile") or "").strip().lstrip("@")
+    if not compte:
+        return ""
+    return ('<a href="https://x.com/%s" rel="me noopener" target="_blank" class="lien-x%s">%s %s</a>'
+            % (esc(compte), (" " + classe) if classe else "", X_ICONE, esc(libelle)))
+
+
 def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces):
     by_id = {p["id"]: p for p in config["pages"]}
     columns = []
@@ -427,6 +442,11 @@ def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces):
             links.append('        <li><a href="%s">%s</a></li>'
                          % (urls.path(page_id, lang),
                             esc(label_for(by_id[page_id], strings_lang, i18n_lang))))
+        # « Suivre sur X » ferme la colonne « Le site », quand le compte existe.
+        if column["titleKey"] == "footerSiteTitle":
+            lx = lien_x(config, strings_lang["footerFollowX"], "footer-x")
+            if lx:
+                links.append('        <li>%s</li>' % lx)
         columns.append(
             '      <div class="footer-col">\n'
             '        <h2>%s</h2>\n'
@@ -2210,6 +2230,11 @@ def main():
         common_seed["panelStats"] = panel_stats_html(national, lang, i18n_lang)
         common_seed.update(riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang))
         common_seed.update(defis_synthese.render(lang, strings_lang, i18n_lang, long_date, esc, PROVINCE_COLORS))
+        # A propos et Contact : un paragraphe vers le compte X, ou rien.
+        compte_x = (config["site"].get("xProfile") or "").strip().lstrip("@")
+        lx = lien_x(config, "@" + compte_x) if compte_x else ""
+        common_seed["seed.suivreXApropos"] = ('<h2>%s</h2>\n      <p>%s %s</p>' % (esc(strings_lang["aboutFollowTitle"]), esc(strings_lang["aboutFollowBody"]), lx)) if lx else ""
+        common_seed["seed.suivreXContact"] = ('<p class="map-note contact-x">%s %s</p>' % (esc(strings_lang["contactFollowBody"]), lx)) if lx else ""
 
         pages = [(page, None) for page in config["pages"]]
         pages += [(config["provincePage"], province) for province in provinces]
