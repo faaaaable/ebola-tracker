@@ -2206,6 +2206,15 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   `_lettre` par `render`). On dit « bulletin », jamais « SitRep », sauf dans
   la référence exacte du pied. Sous 430 px la ligne d'édition passe sur
   deux lignes centrées sans filets ni losange.
+- **Navigation répétée en bas** (8 septembre) : la barre « Lettre
+  précédente / suivante » est sous la manchette et en tête du pied
+  (`.ag-pied .ag-nav`), à gauche et à droite sur ordinateur, empilée sous
+  900 px. Incident du même jour : la suppression des maquettes avait
+  effacé la règle mobile `.ag-grille{grid-template-columns:minmax(0,1fr)}`
+  (sa ligne commençait par `.rv-corps,`), la prose s'affichait un mot par
+  ligne sur téléphone sans que l'audit de débordement le voie ; remise dans
+  le bloc `@media (max-width:900px)`. Leçon : après un nettoyage CSS,
+  regarder une capture mobile entière, pas seulement l'audit.
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
