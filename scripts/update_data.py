@@ -840,6 +840,35 @@ ZONE_LINE_RE = re.compile(
     r"(?P<cas>\d[\d ]*|NA)\s+(?P<deces>\d[\d ]*|NA)\s+(?P<cfr>[\d,]+\s*%|NA)\s*(?P<tail>.*)$"
 )
 
+# SitRep 116 : « Buta 1 1 1 0 ». La letalite de cette zone est imprimee « 1 »
+# et non « 100,0% » — un ratio brut, sans le format pourcentage. Sans le
+# « % » qui sert de repere, la ligne ne correspondait a rien et Buta manquait
+# de latest.json (60 zones detaillees pour 61 declarees). Ce motif ne lit
+# qu'un ratio 0 ou 1, sur une ligne a nombres simples (pas de milliers) et a
+# queue non vide, et l'appelant ne le retient QUE si le ratio est celui des
+# deux cumuls : 1 quand deces = cas > 0, 0 quand deces = 0. Rien n'est
+# devine : la cellule dit exactement ce que les deux colonnes precedentes
+# disent deja. Un « 1 » qui serait un nouveau cas (cas = 3, deces = 1, puis
+# « 1 ») ne passe pas, 1/3 n'etant ni 0 ni 1.
+ZONE_LINE_RATIO_RE = re.compile(
+    r"^(?P<name>[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ'\.\- ]*?)\s+"
+    r"(?P<cas>\d+)\s+(?P<deces>\d+)\s+(?P<cfr>[01])\s+(?P<tail>\d+(?:\s+\d+)*)\s*$"
+)
+
+
+def zone_line_ratio_match(line):
+    """« Buta 1 1 1 0 » -> (match, « 100,0% ») si le ratio est verifie, sinon None."""
+    m = ZONE_LINE_RATIO_RE.match(line)
+    if not m:
+        return None
+    cas, deces, ratio = int(m.group("cas")), int(m.group("deces")), int(m.group("cfr"))
+    if cas <= 0 or deces > cas:
+        return None
+    attendu = 1 if deces == cas else (0 if deces == 0 else None)
+    if attendu is None or attendu != ratio:
+        return None
+    return m, ("100,0%" if ratio == 1 else "0,0%")
+
 PROV_SUBTOTAL_RE = re.compile(
     r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé)\s+"
     r"(?P<cas>\d[\d ]*)\s+(?P<deces>\d[\d ]*)\s+(?P<cfr>[\d,]+\s*%)\s+"
@@ -1079,8 +1108,17 @@ def gap_fill_missing_zones(full_text, zones_raw):
         if current_province is None:
             continue
         m = ZONE_LINE_RE.match(line)
+        cfr_texte = m.group("cfr") if m else None
         if not m:
-            continue
+            # Letalite imprimee en ratio brut (« Buta 1 1 1 0 », SitRep 116),
+            # retenue seulement si elle redit les deux cumuls.
+            ratio = zone_line_ratio_match(line)
+            if not ratio:
+                continue
+            m, cfr_texte = ratio
+            print(f"  · {m.group('name').strip()} ({current_province}) : létalité imprimée "
+                  f"« {m.group('cfr')} » sans le signe %, relue {cfr_texte} = "
+                  f"{m.group('deces')}/{m.group('cas')}.")
         name = m.group("name").strip()
         if is_placeholder_zone_name(name):
             continue
@@ -1088,7 +1126,7 @@ def gap_fill_missing_zones(full_text, zones_raw):
         existing = by_key.get(key)
         if existing is not None and existing[1] == current_province:
             continue
-        row = [name, m.group("cas"), m.group("deces"), m.group("cfr")]
+        row = [name, m.group("cas"), m.group("deces"), cfr_texte]
         tail_nums = re.findall(r"\d+", m.group("tail"))
         row += tail_nums
         by_key[key] = (name, current_province, row)

@@ -226,6 +226,20 @@ for nom, fichier in (("alertes", alertes), ("laboratoire", laboratoire), ("cte",
     check("%s.json ne depasse pas la date du rapport" % nom,
           bool(derniere) and derniere <= date_rapport, "%s vs %s" % (derniere, date_rapport))
 
+# Depuis le 9 septembre 2026, le resume des Defis de la lettre s'ecrit a
+# chaque integration, sans attendre de signal. Un bulletin qui a ses blocs
+# « Defis » mais pas de resume dans bulletin-notes.json retombe sur le
+# sommaire compose : ce n'est pas faux, c'est incomplet — note, pas blocage.
+if defis:
+    num_courant = str(meta.get("sitrepNumber") or "")
+    a_des_defis = any(str(p.get("sitrepNumber")) == num_courant and p.get("piliers")
+                      for p in defis.get("parDate", []))
+    notes_lettre = _lire_optionnel("bulletin-notes.json") or {}
+    resume = ((notes_lettre.get(num_courant) or {}).get("defis") or {}).get("fr")
+    check("la lettre du rapport courant a son resume des Defis",
+          (not a_des_defis) or bool(resume), "SitRep %s sans resume dans bulletin-notes.json" % num_courant,
+          blocking_if_false=False)
+
 if laboratoire:
     impossibles = []
     ecarts = []

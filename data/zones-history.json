@@ -25018,6 +25018,12 @@
         "deaths": 1
       },
       {
+        "name": "Buta",
+        "province": "Bas-Uélé",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
         "name": "Viadana",
         "province": "Bas-Uélé",
         "cases": 1,
@@ -25028,12 +25034,6 @@
         "province": "Bas-Uélé",
         "cases": 2,
         "deaths": 2
-      },
-      {
-        "name": "Buta",
-        "province": "Bas-Uélé",
-        "cases": 1,
-        "deaths": 1
       }
     ]
   }
