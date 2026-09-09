@@ -68,6 +68,35 @@ Ce que ces deux bulletins ont appris :
   53,1 %) ; alertes du 115, Tshopo 100 vérifiées pour 99 reçues. Recoupement
   115 → 116 zone par zone : aucun écart signalé par `recouper_avec_la_veille`
   (les alertes vues au premier passage comparaient le 116 au 114).
+- **Les lettres 090 à 099 existent depuis le 9 septembre 2026, en local**
+  (« fais-le, grande vigilance à la cohérence des chiffres »), l'archive
+  commence donc le 12 août. Méthode : un **bac à sable hors dépôt** (copie
+  de `scripts/`, `data/`, `reports/`), les PDF postérieurs mis de côté, et
+  `update_data.py` lancé dix fois, un PDF de plus à chaque passe — le
+  lecteur d'aujourd'hui, pas l'historique git de `latest.json` (qui porte
+  pour ces numéros des versions instables : 094 avec 76, 73 puis 54 zones,
+  095 avec 0, 18 puis 20, et un 094 dont le texte disait « N°093 » avant
+  que le fichier soit remplacé le 20 août). Chaque instantané a été comparé
+  aux séries du site (`sitreps`, `province-history`, `zones-history`,
+  `contacts-followup`) : national, provinces, 57 à 54 zones, cumuls et
+  nouveaux cas identiques sur les dix jours. Trois choses corrigées en
+  passant : (1) le 090 écrit « Haut Uélé * 119 55 46,2% 6/13 » — espace
+  au lieu du tiret, espace AVANT l'astérisque — et la province manquait
+  aussi bien de l'instantané que de `province-history.json` au 12 août ;
+  `PROVINCE_SUMMARY_ROW_RE` et `_NEWFIRST_RE` acceptent `Haut[- ]Uélé`,
+  `Bas[- ]Uélé` et `\s*\**`, les trois lecteurs passent par
+  `canon_province()` (le 092 sortait « Haut Uélé » tel quel), et le 12 août
+  a reçu Haut-Uélé 119/55 dans `province-history.json` ; (2) `sitreps.json`
+  n'avait pas de guéris avant le 14 août — 965 (090) et 976 (091) ajoutés
+  depuis la bande de chiffres clés, les 81 dates antérieures restent à
+  `null` ; (3) le 099 imprime 84,7 % de suivi des contacts dans sa bande et
+  84,4 % dans sa phrase de surveillance (19 829 vus sur 23 492 = 84,4 %) —
+  l'instantané porte 84,4, la valeur vérifiée que le site affiche déjà.
+  Les noms de zones des instantanés sont ceux de `latest.json` du jour
+  (`Boma Mangbetu` et non `Boma-Mangbetu`), par clé normalisée. Le 116
+  relu avec le lecteur corrigé ne bouge pas. Dix résumés des Défis rédigés
+  (fr/en/sw), le swahili à faire relire. Avant le 090, pas d'instantané
+  versionné et les Défis d'avant le 084 ont un autre format : on s'arrête là.
 - **Les lettres 115 et 116 ont leur résumé rédigé des Défis** depuis le
   9 septembre (fr/en/sw dans `bulletin-notes.json`), et **la règle change
   ce jour, décision du propriétaire** : le résumé s'écrit à chaque
@@ -2301,7 +2330,8 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   regarder une capture mobile entière, pas seulement l'audit.
 - **Adresse définitive (9 septembre 2026)** : `/lettre/`, `/en/letter/`,
   `/sw/barua/`, archives `/lettre/<num>/` etc. (slug de la page + numéro,
-  `pages_lettres`). Les adresses `/bulletin/…` de la veille au soir ont été
+  `pages_lettres`). **L'archive commence au n°090 (12 août 2026)** depuis
+  le 9 septembre au soir, voir en tête de guide. Les adresses `/bulletin/…` de la veille au soir ont été
   supprimées sans renvoi, la page ayant moins de deux heures d'existence et
   aucun lien partagé (choix du propriétaire : « supprimer l'ancienne adresse
   et la rajouter par la nouvelle »). Le pied de lettre ne cite plus d'URL.
