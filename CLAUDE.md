@@ -50,20 +50,31 @@ Ce que ces deux bulletins ont appris :
   en dernier repli pour le taux et à défaut de `NATIONAL_D_RE` pour les
   effectifs, mêmes garde-fous ; diff limité aux 6 et 7 septembre.
 - **Le 116 imprime « Buta 1 1 1 0 »** : la létalité de cette zone du
-  Bas-Uélé est rendue « 1 » et non « 100,0% », `index_letalite_zone` ne la
-  reconnaît pas, la ligne est écartée comme non fiable et Buta manque de
-  `latest.json` (60 zones détaillées pour 61 déclarées, Bas-Uélé 3 cas pour
-  4, carte 6 756 pour 6 757) — trois écarts non bloquants de
-  `check_coherence`, signalés, pas corrigés. `zones-history.json` garde Buta
-  par report de la dernière valeur (1 cas, 1 décès, inchangés depuis le 115).
-  Rien n'a été deviné.
+  Bas-Uélé est rendue « 1 » et non « 100,0% ». Sans le « % » qui sert de
+  repère, la ligne ne correspondait à rien et Buta manquait de `latest.json`
+  (60 zones détaillées pour 61 déclarées, Bas-Uélé 3 cas pour 4, carte
+  6 756 pour 6 757), publié ainsi le 9 septembre au matin. **Corrigé le
+  même jour à la demande du propriétaire (« rajoute Buta »)** :
+  `ZONE_LINE_RATIO_RE` et `zone_line_ratio_match()` dans `update_data.py`
+  lisent un ratio brut 0 ou 1 à la place de la létalité, **seulement s'il
+  redit les deux cumuls** (1 quand décès = cas > 0, 0 quand décès = 0),
+  sur une ligne à nombres simples et à queue non vide — « Buta 1 1 1 0 »
+  donne 1 cas, 1 décès, 100,0 %, 0 nouveau cas, 0 décès du jour, et le
+  script l'annonce (« létalité imprimée « 1 » sans le signe %, relue
+  100,0% = 1/1 »). Un « 1 » qui serait un nouveau cas (3 cas, 1 décès)
+  ne passe pas. Les trois écarts ont disparu, 61 zones dans `latest.json`.
 - Écarts de la source, laissés visibles : occupation CTE du 115 (Nord-Kivu
   123,2 % publiés pour 262/220 = 119,1 % ; Haut-Uélé 50,8 % pour 68/128 =
   53,1 %) ; alertes du 115, Tshopo 100 vérifiées pour 99 reçues. Recoupement
   115 → 116 zone par zone : aucun écart signalé par `recouper_avec_la_veille`
   (les alertes vues au premier passage comparaient le 116 au 114).
-- **Les lettres 115 et 116 n'ont pas de résumé rédigé des Défis** : elles
-  retombent sur le sommaire composé, en attendant le go du propriétaire.
+- **Les lettres 115 et 116 ont leur résumé rédigé des Défis** depuis le
+  9 septembre (fr/en/sw dans `bulletin-notes.json`), et **la règle change
+  ce jour, décision du propriétaire** : le résumé s'écrit à chaque
+  intégration d'un bulletin, sans attendre son go (« que tu le fasses
+  automatiquement à chaque fois »). `check_coherence` le rappelle par une
+  note non bloquante quand le bulletin courant a des blocs « Défis » et pas
+  de résumé. Voir la règle des Défis de la lettre, plus bas.
 
 Le **SitRep 114**, rapportage
 du 5 septembre 2026 (publié le 6) — 6 604 cas confirmés, 3 175 décès, létalité
@@ -318,6 +329,9 @@ python scripts/extraire_alertes.py           # alertes.json      (page Riposte)
 python scripts/extraire_laboratoire.py       # laboratoire.json  (page Riposte)
 python scripts/extraire_cte.py               # cte.json          (page Riposte)
 python scripts/extraire_defis.py             # defis.json        (page Riposte, « Défis » cités)
+#   puis, À LA MAIN, le résumé des Défis du bulletin dans data/bulletin-notes.json
+#   (fr/en/sw, langage courant) — à chaque bulletin, sans attendre de signal,
+#   règle du 9 septembre 2026 ; check_coherence le note s'il manque
 python scripts/extract_piliers.py            # piliers.json      (La lettre : EDS, rings, vaccination, PoC/PoE) — local, pas encore dans le workflow
 python scripts/build_pages.py                # régénère les 30 pages du site
 python scripts/check_coherence.py            # contrôle, ne modifie rien
@@ -2302,8 +2316,10 @@ que le dernier, à `/bulletin/`, `/en/bulletin/`, `/sw/ripoti/mpya/`. **Règle d
 affiche un **résumé rédigé par l'assistant**, pas des citations, **qui va
 droit au but** (pas de phrase d'ouverture du type « Neuf piliers signalent
 des obstacles » : on commence par le premier fait, demande du 8 septembre),
-écrit **au signal du propriétaire** chaque fois qu'un nouveau bulletin est intégré
-(« c'est moi qui donne le go »), rangé dans `data/bulletin-notes.json`
+écrit **à chaque intégration d'un nouveau bulletin, sans attendre de
+signal** — décision du propriétaire du 9 septembre 2026 (« que tu le fasses
+automatiquement à chaque fois ») qui remplace le « c'est moi qui donne le
+go » de la veille ; `check_coherence` le note s'il manque —, rangé dans `data/bulletin-notes.json`
 (`<num>.defis.{fr,en,sw}`, `defisDate`), daté sur la page, les neuf blocs
 mot pour mot restant repliés dessous. La rubrique manuscrite « À surveiller »
 essayée le même jour a été retirée à la demande du propriétaire. Jamais généré en silence. Sans
