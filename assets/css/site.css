@@ -2629,15 +2629,18 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .lettre-pied{max-width:70ch;}
 
 /* ===================== La lettre, mise en page agence (8 septembre 2026) ===================== */
-/* --- 3. Le bulletin d'agence : bande ambre, deux colonnes --- */
+/* --- 3. Le bulletin d'agence : bande bleue, deux colonnes --- */
+/* Bande, losange, titres de chapitres et de blocs en --accent-strong depuis le
+   9 septembre 2026 (proprietaire) : l'ambre est la couleur de l'isolement et du
+   suivi des contacts, elle ne signifiait rien ici ; le bleu est celui du site. */
 .ag{color:var(--ink);}
-.ag-barre{height:12px;background:var(--accent-active);margin:0 calc(-1 * var(--gutter));}
+.ag-barre{height:12px;background:var(--accent-strong);margin:0 calc(-1 * var(--gutter));}
 /* Manchette centree : nom en tres grand, ligne d'edition entre deux filets, sous-titre. */
 .ag-manchette{text-align:center;padding:30px 0 22px;margin-bottom:24px;border-bottom:3px double var(--line);}
 .ag-marque{margin:0;font-family:var(--font-serif);font-weight:700;font-size:clamp(40px,7vw,84px);line-height:.95;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);white-space:nowrap;}
 .ag-edition{display:flex;align-items:center;justify-content:center;gap:14px;margin:18px auto 0;max-width:520px;font-size:12.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);}
 .ag-edition::before,.ag-edition::after{content:"";flex:1;height:1px;background:var(--ink);opacity:.35;}
-.ag-edition i{width:7px;height:7px;background:var(--accent-active);transform:rotate(45deg);flex:none;}
+.ag-edition i{width:7px;height:7px;background:var(--accent-strong);transform:rotate(45deg);flex:none;}
 .ag-sous{font-family:var(--font-serif);font-style:italic;font-size:clamp(12px,3.9vw,19px);color:var(--ink-dim);margin:14px 0 0;white-space:nowrap;}
 .ag-nav{display:flex;justify-content:space-between;gap:16px;padding:12px 0 20px;font-size:12.5px;letter-spacing:.04em;}
 .ag-nav a{color:var(--ink-dim);text-decoration:none;border-bottom:1px solid transparent;}
@@ -2652,18 +2655,18 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .ag-lexique ul{margin:8px 0 0;padding-left:18px;line-height:1.55;}
 .ag-lexique li{margin:3px 0;}
 .ag-objet{display:flex;gap:10px;align-items:center;margin:16px 0 22px;padding:12px 14px;background:var(--bg-panel);border:1px solid var(--line);font-size:14px;font-weight:600;}
-.ag-objet i{width:10px;height:10px;background:var(--accent-active);flex:none;}
+.ag-objet i{width:10px;height:10px;background:var(--accent-strong);flex:none;}
 .ag-infos{font-size:12.5px;color:var(--ink-dim);margin:0 0 22px;}
 .ag-grille{display:grid;grid-template-columns:minmax(0,13fr) minmax(280px,7fr);gap:36px;align-items:start;}
 .ag-jour{font-family:var(--font-serif);font-size:19px;line-height:1.5;margin:0 0 22px;}
 .ag-chap{border-top:1px solid var(--line);padding:16px 0 8px;}
-.ag-titre{font-family:var(--font-sans);font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-active);margin:0 0 10px;display:flex;gap:10px;align-items:baseline;}
+.ag-titre{font-family:var(--font-sans);font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-strong);margin:0 0 10px;display:flex;gap:10px;align-items:baseline;}
 .ag-titre span{color:var(--ink-faint);}
 .ag-prose .lettre-texte{font-size:16px;}
 .ag-chiffres{position:sticky;top:16px;background:var(--bg-panel);border:1px solid var(--line);padding:16px;}
 .ag-chiffres-titre{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:12px;}
 .ag-bloc{margin-bottom:16px;}
-.ag-bloc-titre{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-active);margin-bottom:6px;}
+.ag-bloc-titre{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-strong);margin-bottom:6px;}
 .ag-bloc .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
 .ag-bloc .kpi{padding:10px 12px;}
 .ag-bloc .kpi .value{font-size:20px;}

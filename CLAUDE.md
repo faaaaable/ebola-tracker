@@ -2335,6 +2335,15 @@ suggestions acceptées d'un coup, « fais toutes les modifs en local ») :
   supprimées sans renvoi, la page ayant moins de deux heures d'existence et
   aucun lien partagé (choix du propriétaire : « supprimer l'ancienne adresse
   et la rajouter par la nouvelle »). Le pied de lettre ne cite plus d'URL.
+- **La lettre est bleue, plus ambre (9 septembre 2026, « c'est mieux »)** :
+  la bande de tête `.ag-barre`, le losange de la ligne d'édition, les
+  titres de chapitres `.ag-titre`, les titres de blocs `.ag-bloc-titre`
+  et le carré `.ag-objet i` sont en `--accent-strong`, le bleu des dates
+  et des chapitres numérotés. L'ambre `--accent-active` est la couleur
+  de sens de l'isolement et du suivi des contacts (case de l'accueil,
+  extensions de la chronologie, badges de létalité moyenne) : en bandeau
+  elle ne signifiait rien ; elle reste sur les cases « Contacts suivis »
+  et « Zones touchées » de la colonne, où elle a son sens.
 - **Vocabulaire** : les « rings » du bulletin (l'intervention PCI autour de
   chaque cas : décontamination du domicile et des structures fréquentées,
   kits, repérage des contacts) se disent **« ceintures de prévention
