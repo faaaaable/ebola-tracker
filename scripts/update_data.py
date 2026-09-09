@@ -358,8 +358,14 @@ def compacte_ligne(row):
     return cellules
 
 
+# « Haut Uélé * 119 55 46,2% 6/13 (46,1 %) 6 » (SitRep 090) : le nom avec
+# une espace au lieu du tiret, puis une espace AVANT l'asterisque de renvoi.
+# Le motif n'acceptait ni l'un ni l'autre : la province manquait de
+# latest.json et de province-history.json (12 aout), sans autre message que
+# « 48 zones touchees » au lieu de 54. Vu le 9 septembre 2026 en refaisant
+# les lettres 090-099 ; le nom est ensuite ramene a sa forme canonique.
 PROVINCE_SUMMARY_ROW_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé|Total)\**\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Total)\s*\**\s+"
     r"(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
     r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\([\d,]+\s*%\))?\s+"
     r"(?P<newcases>\d+)\s*$",
@@ -411,7 +417,7 @@ PROVINCE_TOTAL_ROW_RE = re.compile(
 # l'exclut. Et l'ancien motif ne peut pas mordre sur une ligne du nouveau,
 # puisqu'il exige ce nombre isole apres la fraction.
 PROVINCE_SUMMARY_ROW_NEWFIRST_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé|Total)\**\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Total)\s*\**\s+"
     r"(?P<newcases>\d+)\s+"
     r"(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
     r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\([\d,]+\s*%\))?\s*$",
@@ -586,7 +592,9 @@ def parse_province_summary_from_text(full_text):
         if m.group("name") == "Total":
             total_row = ["Total", cas, deces, cfr_target, None, int(m.group("newcases"))]
         else:
-            row_dict["name"] = PROVINCE_CANON.get(m.group("name"), m.group("name"))
+            # canon_province et non PROVINCE_CANON.get : « Haut Uélé » (092,
+            # 090) n'est pas une cle de la table, et sortait tel quel.
+            row_dict["name"] = canon_province(m.group("name")) or m.group("name")
             provinces.append(row_dict)
 
     if not provinces or total_row is None:
@@ -733,7 +741,7 @@ def parse_province_summary_par_entete(table, roles):
         zm = re.search(r"(\d+)\s*/\s*(\d+)", zones)
         n_zones, tot_zones = (int(zm.group(1)), int(zm.group(2))) if zm else (None, None)
         provinces.append({
-            "name": PROVINCE_CANON.get(name, name),
+            "name": canon_province(name) or name,
             "confirmed": norm_int(cas),
             "deaths": norm_int(deces),
             "cfr": letalite_de_ligne(cfr),
@@ -775,7 +783,7 @@ def parse_province_summary(table):
         # renvoyait toujours 0 (vu avec le SitRep 096 : row[5] était None,
         # la vraie valeur était en row[7]).
         provinces.append({
-            "name": PROVINCE_CANON.get(name, name),
+            "name": canon_province(name) or name,
             "confirmed": norm_int(row[1]),
             "deaths": norm_int(row[2]),
             "cfr": letalite_de_ligne(row[3] if len(row) > 3 else None),

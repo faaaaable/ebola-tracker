@@ -1,0 +1,1860 @@
+{
+ "meta": {
+  "sitrepNumber": "095",
+  "sitrepRef": "SitRep N°095/MVEBDB/17/08/2026",
+  "sourceNumberMismatch": null,
+  "reportingDate": "2026-08-17",
+  "publicationDate": "2026-08-18",
+  "source": "INSP RDC / Task Force Présidentielle Ebola 17"
+ },
+ "national": {
+  "confirmed": 5105,
+  "deaths": 2420,
+  "recovered": 1091,
+  "cfr": 47.4,
+  "inCTE": 782,
+  "contactsFollowUpRate": 84.1,
+  "provincesAffected": 6,
+  "healthZonesAffected": {
+   "n": 55,
+   "total": 151
+  },
+  "healthAreasAffected": {
+   "n": 246,
+   "total": 3104
+  },
+  "newCases24h": 84,
+  "newDeaths24h": 42,
+  "newDeathsCommunity24h": 29,
+  "newDeathsIntraCTE24h": 13
+ },
+ "provinces": [
+  {
+   "name": "Ituri",
+   "confirmed": 4309,
+   "deaths": 1915,
+   "cfr": 44.4,
+   "healthZonesAffected": {
+    "n": 28,
+    "total": 36
+   },
+   "newCases24h": 52,
+   "newDeathsCommunity24h": 25,
+   "newDeathsIntraCTE24h": 12,
+   "status": "active-epicenter"
+  },
+  {
+   "name": "Nord-Kivu",
+   "confirmed": 633,
+   "deaths": 431,
+   "cfr": 68.1,
+   "healthZonesAffected": {
+    "n": 12,
+    "total": 34
+   },
+   "newCases24h": 26,
+   "newDeathsCommunity24h": 3,
+   "newDeathsIntraCTE24h": 0,
+   "status": "active"
+  },
+  {
+   "name": "Haut-Uélé",
+   "confirmed": 145,
+   "deaths": 65,
+   "cfr": 44.8,
+   "healthZonesAffected": {
+    "n": 6,
+    "total": 13
+   },
+   "newCases24h": 6,
+   "newDeathsCommunity24h": 1,
+   "newDeathsIntraCTE24h": 1,
+   "status": "active"
+  },
+  {
+   "name": "Tshopo",
+   "confirmed": 14,
+   "deaths": 7,
+   "cfr": 50.0,
+   "healthZonesAffected": {
+    "n": 7,
+    "total": 23
+   },
+   "newCases24h": 0,
+   "newDeathsCommunity24h": 0,
+   "newDeathsIntraCTE24h": 0,
+   "status": "active"
+  },
+  {
+   "name": "Sud-Kivu",
+   "confirmed": 3,
+   "deaths": 1,
+   "cfr": 33.3,
+   "healthZonesAffected": {
+    "n": 1,
+    "total": 34
+   },
+   "newCases24h": 0,
+   "newDeathsCommunity24h": 0,
+   "newDeathsIntraCTE24h": 0,
+   "status": "active"
+  },
+  {
+   "name": "Bas-Uélé",
+   "confirmed": 1,
+   "deaths": 1,
+   "cfr": 100.0,
+   "healthZonesAffected": {
+    "n": 1,
+    "total": 11
+   },
+   "newCases24h": 0,
+   "newDeathsCommunity24h": 0,
+   "newDeathsIntraCTE24h": 0,
+   "status": "active"
+  }
+ ],
+ "healthZones": [
+  {
+   "name": "Adja",
+   "province": "Ituri",
+   "cases": 11,
+   "deaths": 1,
+   "cfr": 9.1,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Aru",
+   "province": "Ituri",
+   "cases": 7,
+   "deaths": 6,
+   "cfr": 85.7,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Ariwara",
+   "province": "Ituri",
+   "cases": 8,
+   "deaths": 2,
+   "cfr": 25.0,
+   "newCases24h": 1,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Aungba",
+   "province": "Ituri",
+   "cases": 11,
+   "deaths": 5,
+   "cfr": 45.5,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Bambu",
+   "province": "Ituri",
+   "cases": 112,
+   "deaths": 26,
+   "cfr": 23.2,
+   "newCases24h": 3,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": 1,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Boga",
+   "province": "Ituri",
+   "cases": 1,
+   "deaths": 1,
+   "cfr": 100.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Bunia",
+   "province": "Ituri",
+   "cases": 1194,
+   "deaths": 372,
+   "cfr": 31.2,
+   "newCases24h": 20,
+   "newDeaths24h": 14,
+   "deathsCommunity24h": 14,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Damas",
+   "province": "Ituri",
+   "cases": 25,
+   "deaths": 9,
+   "cfr": 36.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Drodro",
+   "province": "Ituri",
+   "cases": 13,
+   "deaths": 6,
+   "cfr": 46.2,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Fataki",
+   "province": "Ituri",
+   "cases": 71,
+   "deaths": 30,
+   "cfr": 42.3,
+   "newCases24h": 2,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Gethy",
+   "province": "Ituri",
+   "cases": 5,
+   "deaths": 2,
+   "cfr": 40.0,
+   "newCases24h": 1,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": 1,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Kilo",
+   "province": "Ituri",
+   "cases": 31,
+   "deaths": 12,
+   "cfr": 38.7,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Komanda",
+   "province": "Ituri",
+   "cases": 51,
+   "deaths": 35,
+   "cfr": 68.6,
+   "newCases24h": 3,
+   "newDeaths24h": 3,
+   "deathsCommunity24h": 3,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Lita",
+   "province": "Ituri",
+   "cases": 183,
+   "deaths": 104,
+   "cfr": 56.8,
+   "newCases24h": 2,
+   "newDeaths24h": 2,
+   "deathsCommunity24h": 2,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Logo",
+   "province": "Ituri",
+   "cases": 11,
+   "deaths": 5,
+   "cfr": 45.5,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Lolwa",
+   "province": "Ituri",
+   "cases": 15,
+   "deaths": 4,
+   "cfr": 26.7,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Mahagi",
+   "province": "Ituri",
+   "cases": 4,
+   "deaths": 1,
+   "cfr": 25.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Mambasa",
+   "province": "Ituri",
+   "cases": 14,
+   "deaths": 7,
+   "cfr": 50.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Mandima",
+   "province": "Ituri",
+   "cases": 23,
+   "deaths": 14,
+   "cfr": 60.9,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Mangala",
+   "province": "Ituri",
+   "cases": 165,
+   "deaths": 92,
+   "cfr": 55.8,
+   "newCases24h": 3,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Nia-Nia",
+   "province": "Ituri",
+   "cases": 175,
+   "deaths": 103,
+   "cfr": 58.9,
+   "newCases24h": 5,
+   "newDeaths24h": 3,
+   "deathsCommunity24h": 3,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Nizi",
+   "province": "Ituri",
+   "cases": 543,
+   "deaths": 240,
+   "cfr": 44.2,
+   "newCases24h": 4,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Nyankunde",
+   "province": "Ituri",
+   "cases": 121,
+   "deaths": 35,
+   "cfr": 28.9,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Rimba",
+   "province": "Ituri",
+   "cases": 9,
+   "deaths": 4,
+   "cfr": 44.4,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Rwampara",
+   "province": "Ituri",
+   "cases": 863,
+   "deaths": 332,
+   "cfr": 38.5,
+   "newCases24h": 7,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": 1,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Tchomia",
+   "province": "Ituri",
+   "cases": 50,
+   "deaths": 25,
+   "cfr": 50.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Beni",
+   "province": "Nord-Kivu",
+   "cases": 96,
+   "deaths": 71,
+   "cfr": 74.0,
+   "newCases24h": 3,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": 1,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Butembo",
+   "province": "Nord-Kivu",
+   "cases": 118,
+   "deaths": 96,
+   "cfr": 81.4,
+   "newCases24h": 6,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": 1,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Kalunguta",
+   "province": "Nord-Kivu",
+   "cases": 13,
+   "deaths": 6,
+   "cfr": 46.2,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Katwa",
+   "province": "Nord-Kivu",
+   "cases": 306,
+   "deaths": 199,
+   "cfr": 65.0,
+   "newCases24h": 15,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": 1,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Kyondo",
+   "province": "Nord-Kivu",
+   "cases": 15,
+   "deaths": 12,
+   "cfr": 80.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Lubero",
+   "province": "Nord-Kivu",
+   "cases": 1,
+   "deaths": 1,
+   "cfr": 100.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Mabalako",
+   "province": "Nord-Kivu",
+   "cases": 2,
+   "deaths": 1,
+   "cfr": 50.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Masereka",
+   "province": "Nord-Kivu",
+   "cases": 7,
+   "deaths": 4,
+   "cfr": 57.1,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Musienene",
+   "province": "Nord-Kivu",
+   "cases": 63,
+   "deaths": 35,
+   "cfr": 55.6,
+   "newCases24h": 1,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Oicha",
+   "province": "Nord-Kivu",
+   "cases": 6,
+   "deaths": 4,
+   "cfr": 66.7,
+   "newCases24h": 1,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Vuhovi",
+   "province": "Nord-Kivu",
+   "cases": 5,
+   "deaths": 2,
+   "cfr": 40.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Boma Mangbetu",
+   "province": "Haut-Uélé",
+   "cases": 23,
+   "deaths": 8,
+   "cfr": 34.8,
+   "newCases24h": 1,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Gombari",
+   "province": "Haut-Uélé",
+   "cases": 1,
+   "deaths": 1,
+   "cfr": 100.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Isiro",
+   "province": "Haut-Uélé",
+   "cases": 47,
+   "deaths": 22,
+   "cfr": 46.8,
+   "newCases24h": 5,
+   "newDeaths24h": 2,
+   "deathsCommunity24h": 1,
+   "deathsIntraCTE24h": 1
+  },
+  {
+   "name": "Pawa",
+   "province": "Haut-Uélé",
+   "cases": 20,
+   "deaths": 14,
+   "cfr": 70.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Wamba",
+   "province": "Haut-Uélé",
+   "cases": 53,
+   "deaths": 20,
+   "cfr": 37.7,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Kabondo",
+   "province": "Tshopo",
+   "cases": 3,
+   "deaths": 2,
+   "cfr": 66.7,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Makiso-Kisangani",
+   "province": "Tshopo",
+   "cases": 5,
+   "deaths": 4,
+   "cfr": 80.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Mangobo",
+   "province": "Tshopo",
+   "cases": 2,
+   "deaths": 1,
+   "cfr": 50.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Miti-Murhesa",
+   "province": "Sud-Kivu",
+   "cases": 3,
+   "deaths": 1,
+   "cfr": 33.3,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Buta",
+   "province": "Bas-Uélé",
+   "cases": 1,
+   "deaths": 1,
+   "cfr": 100.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Kambala",
+   "province": "Ituri",
+   "cases": 2,
+   "deaths": 0,
+   "cfr": 0.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Mongbwalu",
+   "province": "Ituri",
+   "cases": 591,
+   "deaths": 282,
+   "cfr": 47.7,
+   "newCases24h": 1,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": null,
+   "deathsIntraCTE24h": null
+  },
+  {
+   "name": "Goma",
+   "province": "Nord-Kivu",
+   "cases": 1,
+   "deaths": 0,
+   "cfr": 0.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Rungu",
+   "province": "Haut-Uélé",
+   "cases": 1,
+   "deaths": 0,
+   "cfr": 0.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Bafwasende",
+   "province": "Tshopo",
+   "cases": 1,
+   "deaths": 0,
+   "cfr": 0.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Lubunga",
+   "province": "Tshopo",
+   "cases": 1,
+   "deaths": 0,
+   "cfr": 0.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Tshopo",
+   "province": "Tshopo",
+   "cases": 1,
+   "deaths": 0,
+   "cfr": 0.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  },
+  {
+   "name": "Wanie-Rukula",
+   "province": "Tshopo",
+   "cases": 1,
+   "deaths": 0,
+   "cfr": 0.0,
+   "newCases24h": 0,
+   "newDeaths24h": 0,
+   "deathsCommunity24h": 0,
+   "deathsIntraCTE24h": 0
+  }
+ ],
+ "cte": [
+  {
+   "province": "Ituri",
+   "bedsInstalled": 973,
+   "bedsConfirmed": 496,
+   "bedsSuspect": 477,
+   "occupiedConfirmed": 179,
+   "occupiedSuspect": 259,
+   "admissions24h": 83,
+   "recovered24h": 42,
+   "saturatedZonesConfirmed": [
+    "Bambu",
+    "Nizi"
+   ],
+   "saturatedZonesSuspect": [
+    "Nyankunde",
+    "Fataki",
+    "Rwankole",
+    "Kigonze"
+   ]
+  },
+  {
+   "province": "Nord-Kivu",
+   "admissionsCumulative": 231,
+   "admissions24h": 63,
+   "admissions24hConfirmed": 6,
+   "admissions24hSuspect": 57,
+   "recovered24h": 5,
+   "deaths24h": 10,
+   "nonCases24h": 36,
+   "hospitalized": 180,
+   "hospitalizedConfirmed": 24,
+   "hospitalizedSuspect": 146
+  },
+  {
+   "province": "Haut-Uélé",
+   "admissions24h": 11,
+   "admissions24hConfirmed": 1,
+   "admissions24hSuspect": 10,
+   "recovered24h": 4,
+   "hospitalized": 53,
+   "hospitalizedConfirmed": 31,
+   "hospitalizedSuspect": 22,
+   "bedsInstalled": 78,
+   "occupancyRate": 67.9
+  },
+  {
+   "province": "Tshopo",
+   "admissions24h": 2,
+   "admissions24hConfirmed": 1,
+   "admissions24hSuspect": 1,
+   "hospitalized": 5,
+   "bedsInstalled": 12,
+   "occupancyRate": 41.7
+  },
+  {
+   "province": "Sud-Kivu",
+   "hospitalized": 11,
+   "hospitalizedDetail": {
+    "Katana": 7,
+    "Miti-Murhesa": 4
+   }
+  }
+ ],
+ "surveillance": [
+  {
+   "province": "Haut-Uélé",
+   "alertsReceivedAlive": 22,
+   "alertsReceivedDead": 4,
+   "alertsTotal": 26,
+   "alertsValidatedAlive": 17,
+   "alertsValidatedDead": 4,
+   "alertsInvalidatedAlive": 5,
+   "alertsInvalidatedDead": 0,
+   "suspectsInvestigated": 21,
+   "suspectsTransferredCTE": 14
+  },
+  {
+   "province": "Ituri",
+   "alertsReceivedAlive": 529,
+   "alertsReceivedDead": 39,
+   "alertsTotal": 568,
+   "alertsValidatedAlive": 124,
+   "alertsValidatedDead": 38,
+   "alertsInvalidatedAlive": 270,
+   "alertsInvalidatedDead": 0,
+   "suspectsInvestigated": 122,
+   "suspectsTransferredCTE": 98
+  },
+  {
+   "province": "Nord-Kivu",
+   "alertsReceivedAlive": 824,
+   "alertsReceivedDead": 58,
+   "alertsTotal": 882,
+   "alertsValidatedAlive": 76,
+   "alertsValidatedDead": 58,
+   "alertsInvalidatedAlive": 741,
+   "alertsInvalidatedDead": 0,
+   "suspectsInvestigated": 132,
+   "suspectsTransferredCTE": 67
+  },
+  {
+   "province": "Sud-Kivu",
+   "alertsReceivedAlive": 15,
+   "alertsReceivedDead": 0,
+   "alertsTotal": 15,
+   "alertsValidatedAlive": 3,
+   "alertsValidatedDead": 0,
+   "alertsInvalidatedAlive": 12,
+   "alertsInvalidatedDead": 0,
+   "suspectsInvestigated": 3,
+   "suspectsTransferredCTE": 3
+  },
+  {
+   "province": "Tshopo",
+   "alertsReceivedAlive": 39,
+   "alertsReceivedDead": 1,
+   "alertsTotal": 40,
+   "alertsValidatedAlive": 7,
+   "alertsValidatedDead": 1,
+   "alertsInvalidatedAlive": 32,
+   "alertsInvalidatedDead": 0,
+   "suspectsInvestigated": 8,
+   "suspectsTransferredCTE": 5
+  }
+ ],
+ "surveillanceTotal": {
+  "alertsReceivedAlive": 1429,
+  "alertsReceivedDead": 102,
+  "alertsTotal": 1531,
+  "alertsValidatedAlive": 227,
+  "alertsValidatedDead": 101,
+  "alertsInvalidatedAlive": 1060,
+  "alertsInvalidatedDead": 0,
+  "suspectsInvestigated": 286,
+  "suspectsTransferredCTE": 187
+ },
+ "poePoc": [
+  {
+   "province": "Ituri",
+   "travelersScreened": 134082,
+   "activePoints": 1,
+   "activePointsTotal": 11
+  },
+  {
+   "province": "Haut-Uélé",
+   "travelersScreened": 18379,
+   "screeningRate": 99.5,
+   "activePoints": 10,
+   "activePointsTotal": 38
+  },
+  {
+   "province": "Tshopo",
+   "travelersScreened": 6152,
+   "activePoints": 7,
+   "activePointsTotal": 20,
+   "screeningRate": 99.3
+  }
+ ],
+ "poePocTotal": {
+  "travelersScreened": 158613,
+  "screeningRate": 97.4
+ },
+ "reports": [
+  {
+   "sitrepNumber": "001",
+   "reportingDate": "2026-05-14",
+   "publicationDate": "2026-05-15",
+   "file": "reports/SITREP_MVE_001.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "002",
+   "reportingDate": "2026-05-17",
+   "publicationDate": "2026-05-18",
+   "file": "reports/SITREP_MVE_002.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "004",
+   "reportingDate": "2026-05-19",
+   "publicationDate": "2026-05-20",
+   "file": "reports/SITREP_MVE_004.pdf",
+   "confirmed": 33,
+   "deaths": 4,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "005",
+   "reportingDate": "2026-05-19",
+   "publicationDate": "2026-05-20",
+   "file": "reports/SITREP_MVE_005.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "006",
+   "reportingDate": "2026-05-20",
+   "publicationDate": "2026-05-21",
+   "file": "reports/SITREP_MVE_006.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "007",
+   "reportingDate": "2026-05-21",
+   "publicationDate": "2026-05-22",
+   "file": "reports/SITREP_MVE_007.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "008",
+   "reportingDate": "2026-05-22",
+   "publicationDate": "2026-05-23",
+   "file": "reports/SITREP_MVE_008.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "009",
+   "reportingDate": "2026-05-23",
+   "publicationDate": "2026-05-24",
+   "file": "reports/SITREP_MVE_009.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "010",
+   "reportingDate": "2026-05-24",
+   "publicationDate": "2026-05-25",
+   "file": "reports/SITREP_MVE_010.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "011",
+   "reportingDate": "2026-05-25",
+   "publicationDate": "2026-05-26",
+   "file": "reports/SITREP_MVE_011.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "012",
+   "reportingDate": "2026-05-26",
+   "publicationDate": "2026-05-26",
+   "file": "reports/SITREP_MVE_012.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "013",
+   "reportingDate": "2026-05-27",
+   "publicationDate": "2026-05-28",
+   "file": "reports/SITREP_MVE_013.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "014",
+   "reportingDate": "2026-05-28",
+   "publicationDate": "2026-05-29",
+   "file": "reports/SITREP_MVE_014.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "015",
+   "reportingDate": "2026-05-29",
+   "publicationDate": "2026-05-30",
+   "file": "reports/SITREP_MVE_015.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "016",
+   "reportingDate": "2026-05-30",
+   "publicationDate": "2026-05-31",
+   "file": "reports/SITREP_MVE_016.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "017",
+   "reportingDate": "2026-05-31",
+   "publicationDate": "2026-06-01",
+   "file": "reports/SITREP_MVE_017.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "018",
+   "reportingDate": "2026-06-01",
+   "publicationDate": "2026-06-02",
+   "file": "reports/SITREP_MVE_018.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "019",
+   "reportingDate": "2026-06-02",
+   "publicationDate": "2026-06-03",
+   "file": "reports/SITREP_MVE_019.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "020",
+   "reportingDate": "2026-06-03",
+   "publicationDate": "2026-06-04",
+   "file": "reports/SITREP_MVE_020.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "021",
+   "reportingDate": "2026-06-04",
+   "publicationDate": "2026-06-05",
+   "file": "reports/SITREP_MVE_021.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "022",
+   "reportingDate": "2026-06-05",
+   "publicationDate": "2026-06-06",
+   "file": "reports/SITREP_MVE_022.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "023",
+   "reportingDate": "2026-06-06",
+   "publicationDate": "2026-06-07",
+   "file": "reports/SITREP_MVE_023.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "024",
+   "reportingDate": "2026-06-07",
+   "publicationDate": "2026-06-08",
+   "file": "reports/SITREP_MVE_024.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "025",
+   "reportingDate": "2026-06-08",
+   "publicationDate": "2026-06-09",
+   "file": "reports/SITREP_MVE_025.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "026",
+   "reportingDate": "2026-06-09",
+   "publicationDate": "2026-06-10",
+   "file": "reports/SITREP_MVE_026.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "027",
+   "reportingDate": "2026-06-10",
+   "publicationDate": "2026-06-11",
+   "file": "reports/SITREP_MVE_027.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "028",
+   "reportingDate": "2026-06-11",
+   "publicationDate": "2026-06-12",
+   "file": "reports/SITREP_MVE_028.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "030",
+   "reportingDate": "2026-06-13",
+   "publicationDate": "2026-06-14",
+   "file": "reports/SITREP_MVE_030.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "031",
+   "reportingDate": "2026-06-14",
+   "publicationDate": "2026-06-15",
+   "file": "reports/SITREP_MVE_031.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "032",
+   "reportingDate": "2026-06-15",
+   "publicationDate": "2026-06-16",
+   "file": "reports/SITREP_MVE_032.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "033",
+   "reportingDate": "2026-06-16",
+   "publicationDate": "2026-06-17",
+   "file": "reports/SITREP_MVE_033.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "034",
+   "reportingDate": "2026-06-17",
+   "publicationDate": "2026-06-18",
+   "file": "reports/SITREP_MVE_034.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "035",
+   "reportingDate": "2026-06-18",
+   "publicationDate": "2026-06-19",
+   "file": "reports/SITREP_MVE_035.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "036",
+   "reportingDate": "2026-06-19",
+   "publicationDate": "2026-06-20",
+   "file": "reports/SITREP_MVE_036.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "037",
+   "reportingDate": "2026-06-20",
+   "publicationDate": "2026-06-21",
+   "file": "reports/SITREP_MVE_037.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "038",
+   "reportingDate": "2026-06-21",
+   "publicationDate": "2026-06-22",
+   "file": "reports/SITREP_MVE_038.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "039",
+   "reportingDate": "2026-06-22",
+   "publicationDate": "2026-06-23",
+   "file": "reports/SITREP_MVE_039.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "040",
+   "reportingDate": "2026-06-23",
+   "publicationDate": "2026-06-24",
+   "file": "reports/SITREP_MVE_040.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "041",
+   "reportingDate": "2026-06-24",
+   "publicationDate": "2026-06-25",
+   "file": "reports/SITREP_MVE_041.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "042",
+   "reportingDate": "2026-06-25",
+   "publicationDate": "2026-06-26",
+   "file": "reports/SITREP_MVE_042.pdf",
+   "confirmed": 1203,
+   "deaths": 321,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "044",
+   "reportingDate": "2026-06-27",
+   "publicationDate": "2026-06-28",
+   "file": "reports/SITREP_MVE_044.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "046",
+   "reportingDate": "2026-06-29",
+   "publicationDate": "2026-06-30",
+   "file": "reports/SITREP_MVE_046.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "047",
+   "reportingDate": "2026-06-30",
+   "publicationDate": "2026-07-01",
+   "file": "reports/SITREP_MVE_047.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "048",
+   "reportingDate": "2026-07-01",
+   "publicationDate": "2026-07-02",
+   "file": "reports/SITREP_MVE_048.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "049",
+   "reportingDate": "2026-07-02",
+   "publicationDate": "2026-07-03",
+   "file": "reports/SITREP_MVE_049.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "050",
+   "reportingDate": "2026-07-03",
+   "publicationDate": "2026-07-04",
+   "file": "reports/SITREP_MVE_050.pdf",
+   "confirmed": 1528,
+   "deaths": 492,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "051",
+   "reportingDate": "2026-07-04",
+   "publicationDate": "2026-07-05",
+   "file": "reports/SITREP_MVE_051.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "052",
+   "reportingDate": "2026-07-05",
+   "publicationDate": "2026-07-06",
+   "file": "reports/SITREP_MVE_052.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "053",
+   "reportingDate": "2026-07-06",
+   "publicationDate": "2026-07-07",
+   "file": "reports/SITREP_MVE_053.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "054",
+   "reportingDate": "2026-07-07",
+   "publicationDate": "2026-07-08",
+   "file": "reports/SITREP_MVE_054.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "055",
+   "reportingDate": "2026-07-08",
+   "publicationDate": "2026-07-09",
+   "file": "reports/SITREP_MVE_055.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "056",
+   "reportingDate": "2026-07-09",
+   "publicationDate": "2026-07-10",
+   "file": "reports/SITREP_MVE_056.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "057",
+   "reportingDate": "2026-07-10",
+   "publicationDate": "2026-07-11",
+   "file": "reports/SITREP_MVE_057.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "058",
+   "reportingDate": "2026-07-11",
+   "publicationDate": "2026-07-12",
+   "file": "reports/SITREP_MVE_058.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "059",
+   "reportingDate": "2026-07-12",
+   "publicationDate": null,
+   "file": "reports/SITREP_MVE_059.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": "058",
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "060",
+   "reportingDate": "2026-07-13",
+   "publicationDate": "2026-07-14",
+   "file": "reports/SITREP_MVE_060.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "061",
+   "reportingDate": "2026-07-14",
+   "publicationDate": "2026-07-15",
+   "file": "reports/SITREP_MVE_061.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "062",
+   "reportingDate": "2026-07-15",
+   "publicationDate": "2026-07-16",
+   "file": "reports/SITREP_MVE_062.pdf",
+   "confirmed": 2124,
+   "deaths": 828,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "064",
+   "reportingDate": "2026-07-17",
+   "publicationDate": "2026-07-18",
+   "file": "reports/SITREP_MVE_064.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "065",
+   "reportingDate": "2026-07-18",
+   "publicationDate": "2026-07-19",
+   "file": "reports/SITREP_MVE_065.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "066",
+   "reportingDate": "2026-07-19",
+   "publicationDate": "2026-07-20",
+   "file": "reports/SITREP_MVE_066.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "067",
+   "reportingDate": "2026-07-20",
+   "publicationDate": "2026-07-21",
+   "file": "reports/SITREP_MVE_067.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "068",
+   "reportingDate": "2026-07-21",
+   "publicationDate": "2026-07-22",
+   "file": "reports/SITREP_MVE_068.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "069",
+   "reportingDate": "2026-07-22",
+   "publicationDate": "2026-07-23",
+   "file": "reports/SITREP_MVE_069.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "070",
+   "reportingDate": "2026-07-23",
+   "publicationDate": "2026-07-24",
+   "file": "reports/SITREP_MVE_070.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "071",
+   "reportingDate": "2026-07-24",
+   "publicationDate": "2026-07-25",
+   "file": "reports/SITREP_MVE_071.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "072",
+   "reportingDate": "2026-07-25",
+   "publicationDate": "2026-07-26",
+   "file": "reports/SITREP_MVE_072.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "073",
+   "reportingDate": "2026-07-26",
+   "publicationDate": "2026-07-27",
+   "file": "reports/SITREP_MVE_073.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "074",
+   "reportingDate": "2026-07-27",
+   "publicationDate": "2026-07-28",
+   "file": "reports/SITREP_MVE_074.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "077",
+   "reportingDate": "2026-07-30",
+   "publicationDate": "2026-07-31",
+   "file": "reports/SITREP_MVE_077.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "078",
+   "reportingDate": "2026-07-31",
+   "publicationDate": "2026-08-01",
+   "file": "reports/SITREP_MVE_078.pdf",
+   "confirmed": 3674,
+   "deaths": 1621,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "079",
+   "reportingDate": "2026-08-01",
+   "publicationDate": "2026-08-02",
+   "file": "reports/SITREP_MVE_079.pdf",
+   "confirmed": 3748,
+   "deaths": 1657,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "080",
+   "reportingDate": "2026-08-02",
+   "publicationDate": "2026-08-03",
+   "file": "reports/SITREP_MVE_080.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "081",
+   "reportingDate": "2026-08-03",
+   "publicationDate": "2026-08-04",
+   "file": "reports/SITREP_MVE_081.pdf",
+   "confirmed": null,
+   "deaths": null,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": true,
+   "deathsExtractionFailed": true
+  },
+  {
+   "sitrepNumber": "082",
+   "reportingDate": "2026-08-04",
+   "publicationDate": "2026-08-05",
+   "file": "reports/SITREP_MVE_082.pdf",
+   "confirmed": 3973,
+   "deaths": 1801,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "083",
+   "reportingDate": "2026-08-05",
+   "publicationDate": "2026-08-06",
+   "file": "reports/SITREP_MVE_083.pdf",
+   "confirmed": 4053,
+   "deaths": 1851,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "084",
+   "reportingDate": "2026-08-06",
+   "publicationDate": "2026-08-07",
+   "file": "reports/SITREP_MVE_084.pdf",
+   "confirmed": 4120,
+   "deaths": 1887,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "085",
+   "reportingDate": "2026-08-07",
+   "publicationDate": "2026-08-08",
+   "file": "reports/SITREP_MVE_085.pdf",
+   "confirmed": 4209,
+   "deaths": 1916,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "086",
+   "reportingDate": "2026-08-08",
+   "publicationDate": "2026-08-09",
+   "file": "reports/SITREP_MVE_086.pdf",
+   "confirmed": 4294,
+   "deaths": 1960
+  },
+  {
+   "sitrepNumber": "087",
+   "reportingDate": "2026-08-09",
+   "publicationDate": "2026-08-10",
+   "file": "reports/SITREP_MVE_087.pdf",
+   "confirmed": 4381,
+   "deaths": 2011
+  },
+  {
+   "sitrepNumber": "088",
+   "reportingDate": "2026-08-10",
+   "publicationDate": "2026-08-11",
+   "file": "reports/SITREP_MVE_088.pdf",
+   "confirmed": 4449,
+   "deaths": 2061
+  },
+  {
+   "sitrepNumber": "089",
+   "reportingDate": "2026-08-11",
+   "publicationDate": "2026-08-12",
+   "file": "reports/SITREP_MVE_089.pdf",
+   "confirmed": 4566,
+   "deaths": 2128
+  },
+  {
+   "sitrepNumber": "090",
+   "reportingDate": "2026-08-12",
+   "publicationDate": "2026-08-13",
+   "file": "reports/SITREP_MVE_090.pdf",
+   "confirmed": 4665,
+   "deaths": 2184
+  },
+  {
+   "sitrepNumber": "091",
+   "reportingDate": "2026-08-13",
+   "publicationDate": "2026-08-14",
+   "file": "reports/SITREP_MVE_091.pdf",
+   "confirmed": 4727,
+   "deaths": 2214,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "092",
+   "reportingDate": "2026-08-14",
+   "publicationDate": "2026-08-15",
+   "file": "reports/SITREP_MVE_092.pdf",
+   "confirmed": 4843,
+   "deaths": 2272,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "093",
+   "reportingDate": "2026-08-15",
+   "publicationDate": "2026-08-16",
+   "file": "reports/SITREP_MVE_093.pdf",
+   "confirmed": 4945,
+   "deaths": 2325,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "094",
+   "reportingDate": "2026-08-16",
+   "publicationDate": "2026-08-17",
+   "file": "reports/SITREP_MVE_094.pdf",
+   "confirmed": 5021,
+   "deaths": 2378,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "095",
+   "reportingDate": "2026-08-17",
+   "publicationDate": "2026-08-18",
+   "file": "reports/SITREP_MVE_095.pdf",
+   "confirmed": 5105,
+   "deaths": 2420,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-04-24",
+   "label": "Détection des premiers cas suspects"
+  },
+  {
+   "date": "2026-05-15",
+   "label": "Confirmation biologique du virus Ebola Bundibugyo — déclaration officielle de la 17ᵉ épidémie"
+  },
+  {
+   "date": "2026-05-17",
+   "label": "Déclaration de l'urgence de santé publique de portée nationale"
+  },
+  {
+   "date": "2026-05-18",
+   "label": "Déclaration de l'urgence de santé publique de portée continentale"
+  }
+ ]
+}
