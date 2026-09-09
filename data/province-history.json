@@ -2453,5 +2453,75 @@
         "deaths": 3
       }
     ]
+  },
+  {
+    "date": "2026-09-06",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 5365,
+        "deaths": 2426
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 1039,
+        "deaths": 681
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 253,
+        "deaths": 106
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 22,
+        "deaths": 9
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Bas-Uélé",
+        "confirmed": 4,
+        "deaths": 3
+      }
+    ]
+  },
+  {
+    "date": "2026-09-07",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 5406,
+        "deaths": 2450
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 1066,
+        "deaths": 697
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 256,
+        "deaths": 107
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 22,
+        "deaths": 9
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Bas-Uélé",
+        "confirmed": 4,
+        "deaths": 3
+      }
+    ]
   }
 ]

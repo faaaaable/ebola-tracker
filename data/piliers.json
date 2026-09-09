@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-21",
-  "fin": "2026-09-05"
+  "fin": "2026-09-07"
  },
  "parDate": [
   {
@@ -1265,6 +1265,51 @@
     },
     "rupture": true
    },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-06",
+   "sitrepNumber": "115",
+   "poe": {
+    "personnes": 252682,
+    "screenesPct": 98.1,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 15,
+    "attendus": 69
+   },
+   "eds": {
+    "alertes": 133,
+    "realisees": 109,
+    "swabes": 101,
+    "nonSwabes": null
+   },
+   "vaccination": {
+    "cumulParProvince": {},
+    "rupture": true
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-07",
+   "sitrepNumber": "116",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 98.5,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 62,
+    "attendus": 110
+   },
+   "eds": {
+    "alertes": 143,
+    "realisees": 133,
+    "swabes": 123,
+    "nonSwabes": null
+   },
+   "vaccination": null,
    "source": "SitRep INSP (automatique)"
   }
  ]

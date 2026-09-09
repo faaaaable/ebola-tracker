@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-09-05"
+    "fin": "2026-09-07"
   },
   "parDate": [
     {
@@ -2159,6 +2159,80 @@
         "lits": 1376,
         "hospitalisesAvecLits": 851,
         "occupation": 61.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-06",
+      "sitrepNumber": "115",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 484,
+          "lits": 978,
+          "occupation": 49.5
+        },
+        "Nord-Kivu": {
+          "hospitalises": 262,
+          "lits": 220,
+          "occupation": 123.2
+        },
+        "Haut-Uélé": {
+          "hospitalises": 68,
+          "lits": 128,
+          "occupation": 50.8
+        },
+        "Tshopo": {
+          "hospitalises": 5,
+          "lits": 25,
+          "occupation": 20.0
+        }
+      },
+      "total": {
+        "hospitalises": 819,
+        "provinces": 4,
+        "lits": 1351,
+        "hospitalisesAvecLits": 819,
+        "occupation": 60.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-07",
+      "sitrepNumber": "116",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 473,
+          "lits": 978,
+          "occupation": 48.4
+        },
+        "Nord-Kivu": {
+          "hospitalises": 254,
+          "lits": 220,
+          "occupation": 115.5
+        },
+        "Haut-Uélé": {
+          "hospitalises": 62,
+          "lits": 128,
+          "occupation": 48.4
+        },
+        "Tshopo": {
+          "hospitalises": 4,
+          "lits": 25,
+          "occupation": 16.0
+        },
+        "Sud-Kivu": {
+          "hospitalises": 20,
+          "occupation": 80.0
+        }
+      },
+      "total": {
+        "hospitalises": 813,
+        "provinces": 5,
+        "lits": 1351,
+        "hospitalisesAvecLits": 793,
+        "occupation": 58.7
       },
       "source": "SitRep INSP (automatique)"
     }
