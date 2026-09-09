@@ -5,7 +5,67 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 114**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 116**, rapportage
+du 7 septembre 2026 (publié le 8) — 6 757 cas confirmés, 3 267 décès, létalité
+48,3 %, 1 590 guéris, 813 patients en CTE, suivi des contacts 88,3 % (21 359
+vus sur 24 719), **61 zones touchées, aucune nouvelle**, 71 nouveaux cas
+(Ituri 41, Nord-Kivu 27, Haut-Uélé 3) et 41 décès du jour (31
+communautaires, 10 intra-CTE). Intégré **en local le 9 septembre**, avec le
+**SitRep 115** — rapportage du 6 septembre (publié le 7), 6 686 cas, 3 226
+décès, létalité 48,3 %, 1 563 guéris, 819 en CTE, suivi des contacts 85,3 %
+(20 888 vus sur 24 479 ; Ituri 87,0 %, Nord-Kivu 85,4 %, Haut-Uélé 76,1 %,
+Bas-Uélé 70,4 %, Tshopo 59,1 %), 61 zones sans nouvelle, 82 nouveaux cas
+(Ituri 39, Nord-Kivu 39, Haut-Uélé 4) et 51 décès du jour (36
+communautaires, 15 intra-CTE : 12 en Ituri, 2 au Nord-Kivu, 1 au Haut-Uélé).
+Ce que ces deux bulletins ont appris :
+- **Le 115 n'est pas dans la liste `insp.cd/category/sitrep/`** que parcourt
+  `download_all_sitreps.py` (la liste saute du 114 au 116), mais son article
+  existe (`/sitrep-n115-mvebdb-07-09-2026/`) et se trouve par la recherche
+  du site (`insp.cd/?s=SitRep+115`), avec son PDF. Le propriétaire avait
+  transmis un autre exemplaire, hébergé sur `administration.sante.gouv.cd` :
+  **une autre édition du même bulletin**, signée « Incident Manager
+  Adjoint » et non par le Directeur général de l'INSP, sections renumérotées
+  2.x avec des « Défi majeur », 340 aires de santé au lieu de 246, une prose
+  analytique (« Stabilisation des nouveaux cas à 82 ») — mêmes chiffres
+  clés. Les extracteurs sont calés sur le format INSP (neuf blocs « Défis »,
+  mêmes titres que le 114 et le 116) : c'est l'exemplaire d'insp.cd qui est
+  dans `reports/`. Les sept anciens numéros manquants (003, 029…) ne
+  répondent pas à cette recherche, vérifié le même jour. Un repli du script
+  de téléchargement par la recherche, pour un numéro absent de la liste,
+  serait utile ; non fait.
+- **Deux bulletins d'un coup se traitent l'un après l'autre** :
+  `update_data.py` ne lit en détail que le dernier PDF de `reports/`
+  (`find_latest_report`), les autres n'entrent que par cas et décès dans la
+  liste des rapports. Le 116 traité seul laissait le 115 sans guéris
+  (`recovered: null` dans `sitreps.json`), sans instantané de zones ni de
+  provinces, sans lettre figée. Recette : mettre le 116 de côté, lancer
+  `update_data.py` puis `build_pages.py` (la lettre 115 se fige à la
+  génération), remettre le 116, relancer les deux. Les autres extracteurs
+  lisent tous les PDF et n'ont pas ce problème.
+- **La phrase des contacts a changé une troisième fois au 116** : « Des
+  24 719 contacts à suivre pour la journée du 07 septembre, 21 359 d'entre
+  eux ont été vus, soit une proportion journalière de 88,3 % » — ni « suivi
+  des contacts » ni « vus sur … à suivre ». `CONTACTS_DENTRE_EUX_RE` dans
+  `extract_contacts_followup.py` lit les trois nombres (à suivre, vus, taux),
+  en dernier repli pour le taux et à défaut de `NATIONAL_D_RE` pour les
+  effectifs, mêmes garde-fous ; diff limité aux 6 et 7 septembre.
+- **Le 116 imprime « Buta 1 1 1 0 »** : la létalité de cette zone du
+  Bas-Uélé est rendue « 1 » et non « 100,0% », `index_letalite_zone` ne la
+  reconnaît pas, la ligne est écartée comme non fiable et Buta manque de
+  `latest.json` (60 zones détaillées pour 61 déclarées, Bas-Uélé 3 cas pour
+  4, carte 6 756 pour 6 757) — trois écarts non bloquants de
+  `check_coherence`, signalés, pas corrigés. `zones-history.json` garde Buta
+  par report de la dernière valeur (1 cas, 1 décès, inchangés depuis le 115).
+  Rien n'a été deviné.
+- Écarts de la source, laissés visibles : occupation CTE du 115 (Nord-Kivu
+  123,2 % publiés pour 262/220 = 119,1 % ; Haut-Uélé 50,8 % pour 68/128 =
+  53,1 %) ; alertes du 115, Tshopo 100 vérifiées pour 99 reçues. Recoupement
+  115 → 116 zone par zone : aucun écart signalé par `recouper_avec_la_veille`
+  (les alertes vues au premier passage comparaient le 116 au 114).
+- **Les lettres 115 et 116 n'ont pas de résumé rédigé des Défis** : elles
+  retombent sur le sommaire composé, en attendant le go du propriétaire.
+
+Le **SitRep 114**, rapportage
 du 5 septembre 2026 (publié le 6) — 6 604 cas confirmés, 3 175 décès, létalité
 48,1 %, 1 548 guéris, 851 patients en CTE (510 en Ituri pour 978 lits, 253 au
 Nord-Kivu pour 220 lits soit 115 %, 65 au Haut-Uélé, 6 à la Tshopo, 17 au
