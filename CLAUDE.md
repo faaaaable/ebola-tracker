@@ -5,7 +5,31 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 116**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 117**, rapportage
+du 8 septembre 2026 (publié le 9) — 6 843 cas confirmés, 3 310 décès, létalité
+48,4 %, 1 611 guéris, 833 patients en CTE (la somme des cinq provinces qui
+rapportent égale la bande de chiffres clés), suivi des contacts 86,5 %
+(21 723 vus sur 25 108, lu par `CONTACTS_DENTRE_EUX_RE` ajouté au 116),
+**61 zones touchées, aucune nouvelle**, 86 nouveaux cas (Ituri 55, Nord-Kivu
+27, Haut-Uélé 2, Tshopo 2) et 43 décès du jour (19 communautaires, 24
+intra-CTE dont 21 en Ituri). Laboratoire 86 positifs = 86 nouveaux cas ;
+alertes 2 140 reçues, 1 389 vérifiées, 408 validées, 229 transférées. Intégré
+**en local le 10 septembre**, résumé des Défis rédigé dans la foulée
+(règle du 9 septembre), `check_coherence` sans écart bloquant, deux notes
+anciennes inchangées. La référence imprimée est « N°117/MVEBDB/08/09/2026 »
+avec la date de rapportage, là où le 116 mettait sa date de publication
+(« N°116/…/08/09 ») : deux bulletins portent la même date dans leur
+référence, le site les distingue par `reportingDate`. Une tournure apprise
+dans `extraire_cte.py` : le Nord-Kivu écrit « en sursaturation (130,5 % ;
+287/220 lits disponibles) », la fraction du 108 et le « lits disponibles »
+du 111 dans la même parenthèse — aucun des deux motifs ne la lisait, les
+lits manquaient et `bulletin.py` plantait (`KeyError: 'lits'`) sur la
+province saturée. `LITS_FRACTION_RE` accepte désormais « lits disponibles »
+après la fraction (diff de `cte.json` limité au 8 septembre), et la lettre
+ne tombe plus quand une province saturée n'a pas de lits : elle la cite
+avec son taux (`lettreCteItemTaux`, trois langues) au lieu de ses lits.
+
+Le **SitRep 116**, rapportage
 du 7 septembre 2026 (publié le 8) — 6 757 cas confirmés, 3 267 décès, létalité
 48,3 %, 1 590 guéris, 813 patients en CTE, suivi des contacts 88,3 % (21 359
 vus sur 24 719), **61 zones touchées, aucune nouvelle**, 71 nouveaux cas
