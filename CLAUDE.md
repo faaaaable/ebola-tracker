@@ -2160,6 +2160,23 @@ trois fichiers mis de côté par la recette ci-dessous, ce déplacement doit
 
 ### Publier sans publier « Flux & déplacés » (et, jusqu'au 8 septembre, la maquette « Le bulletin »)
 
+**Depuis le 10 septembre 2026, cette recette ne sert plus : le chantier Flux
+est HORS DU DÉPÔT.** À la demande du propriétaire (« tu mets tout de côté,
+toutes les maquettes, ne fais rien apparaître quand je te demande de mettre
+le site en local »), tout ce qui était en local sans être publié a été
+déplacé dans `~/Desktop/rapport ebola tracker/_mis-de-cote-2026-09-10/`
+(100 Mo, `LISEZ-MOI.md` à la racine) : `flux/` porte le chantier complet
+(fichiers propres à leur chemin d'origine, `flux.patch` = le diff des trois
+fichiers partagés, `fichiers-partages/` = leurs copies entières,
+`tmp/routes/` les extraits OpenStreetMap, `tmp/proto-flux/` la maquette en
+cinq chapitres) ; `maquettes/` porte les scripts `prototype_*.py` et leurs
+rendus `tmp/proto-*` des 6 et 9 septembre (provinces, accueil en planche,
+accueil en trois figures, carte A/B, trois habillages et trois places de
+l'encadré), plus les deux fichiers Natural Earth des rivières et lacs. Le
+dépôt est depuis identique au site publié, `tmp/` ne garde que `audit/`,
+`verif/` et `visuels/`. Remise en place : copier les fichiers, `git apply
+flux.patch`, régénérer. La section qui suit décrit l'état antérieur.
+
 **La lettre est publiée depuis le 8 septembre 2026 au soir** (« commit and
 push sauf flux et déplacés ») : `/bulletin/` et les quinze archives
 `/bulletin/100/` à `/bulletin/114/` en trois langues, indexables (le
@@ -2995,8 +3012,25 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
 
 ## Chantiers ouverts
 
+- **Les maquettes de l'accueil (9 septembre 2026) sont hors dépôt**, dans
+  `~/Desktop/rapport ebola tracker/_mis-de-cote-2026-09-10/maquettes/` avec
+  leurs scripts : l'accueil en planche d'atlas ; en-tête, menu et carte
+  gardés avec trois figures dessous (bande des bulletins, un trait par
+  jour ; nouveaux cas et jalons sur un même axe ; provinces à l'échelle) ;
+  la carte A « atlas » (cadrage épicentre, médaillon, zones étiquetées) et
+  B « journal » (encadré en phrases, fond de rivières) ; trois habillages
+  de l'encadré (registre, marge, cartouche) ; trois places de l'encadré
+  (bandeau au-dessus, cartouche dans la carte avec infobulle sur la zone,
+  règle sous la carte dont les chiffres suivent le curseur des dates).
+  Décisions prises en chemin par le propriétaire, à garder si l'on
+  reprend : la bascule Zones colorées / Cercles est jugée superflue sur
+  l'accueil ; pas de rivières, carte épurée ; une seule couleur d'accent
+  pour les chiffres, le bleu, les autres en encre ; barres des quatorze
+  derniers jours sous l'encadré, avec infobulle date + cas, masquées au
+  survol d'une zone ; « SitRep n°X » à droite de « Situation au … » ;
+  nombres alignés à gauche de leur colonne. Aucune décision finale.
 - **Le bloc des provinces de l'accueil, cinq propositions — mis de côté le
-  6 septembre 2026.** Le propriétaire ne veut plus des six cases (« un
+  6 septembre 2026, hors dépôt depuis le 10.** Le propriétaire ne veut plus des six cases (« un
   modèle que je retrouve sur d'autres sites »). Maquette autonome
   `tmp/proto-provinces/` écrite par `scripts/prototype_provinces.py` (non
   commité), qui charge la feuille de style du site : le bloc actuel en
@@ -3056,7 +3090,9 @@ mesures qui ont tranché, et consignent ce qui a été écarté.
   premières et dernières mentions avant d'écrire.
 
 - **Page « Flux & déplacés » — intégrée au générateur le 4 septembre 2026,
-  en local, non publiée à cette date.** `/flux-et-deplaces/`,
+  en local, non publiée à cette date ; SORTIE DU DÉPÔT le 10 septembre**
+  (voir « Publier sans publier », en tête : tout est dans
+  `~/Desktop/rapport ebola tracker/_mis-de-cote-2026-09-10/flux/`). `/flux-et-deplaces/`,
   `/en/flows-and-displacement/`, `/sw/mtiririko-na-wakimbizi/`, entrée
   « Flux & déplacés » dans le groupe Explorer de la barre, après La riposte.
   Elle décrit une PÉRIODE (ce que l'OIM a observé du 15 mai au 28 août 2026)
