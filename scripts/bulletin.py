@@ -344,7 +344,14 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         s4 = P("lettreCte", taux=pct(t["occupation"]), hospitalises=fmt(t.get("hospitalisesAvecLits") or t.get("hospitalises"), lang), lits=fmt(t.get("lits"), lang))
         satures = [(nom, v) for nom, v in (pk.get("provinces") or {}).items() if (v.get("occupation") or 0) > 100]
         if satures:
-            s4 += " " + P("lettreCteSature", liste=_liste([P("lettreCteItem", the=forms(nom)["the"], hospitalises=fmt(v["hospitalises"], lang), lits=fmt(v["lits"], lang)) for nom, v in satures], et))
+            # Une province saturee dont le bulletin ne donne pas les lits (le 117
+            # ecrivait « 287/220 lits disponibles » avant que le motif soit lu)
+            # est citee avec son taux plutot que de faire tomber la lettre.
+            s4 += " " + P("lettreCteSature", liste=_liste([
+                (P("lettreCteItem", the=forms(nom)["the"], hospitalises=fmt(v["hospitalises"], lang), lits=fmt(v["lits"], lang))
+                 if v.get("lits") is not None else
+                 P("lettreCteItemTaux", the=forms(nom)["the"], hospitalises=fmt(v["hospitalises"], lang), taux=pct(v["occupation"])))
+                for nom, v in satures], et))
         phrases.append(s4)
         cases += kpi("cte", S["lettreKpiCte"], pct(t["occupation"]), P("lettreKpiCteSub", hospitalises=fmt(t.get("hospitalisesAvecLits") or t.get("hospitalises"), lang), lits=fmt(t.get("lits"), lang)))
     else:

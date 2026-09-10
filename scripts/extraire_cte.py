@@ -101,7 +101,11 @@ LITS_PARENTHESE_RE = re.compile(r"\((\d[\d ]{0,4}\d|\d)\s+lits\)", re.I)
 LITS_DISPONIBLES_RE = re.compile(r"%\s*;\s*(\d[\d ]{0,4}\d|\d)\s+lits\s+disponibles", re.I)
 # « en sursaturation (128,2 % ; 282/220) » (108 Nord-Kivu) : le dénominateur
 # de la fraction qui suit le taux est le nombre de lits
-LITS_FRACTION_RE = re.compile(r"%\s*;\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*\)")
+# « en sursaturation (130,5 % ; 287/220 lits disponibles) » (117 Nord-Kivu) :
+# la fraction du 108 ET le « lits disponibles » du 111 dans la meme parenthese.
+# Sans ce motif, le 117 sortait avec l'occupation mais sans les lits, et la
+# lettre plantait sur la province saturee.
+LITS_FRACTION_RE = re.compile(r"%\s*;\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*(?:\)|lits\s+disponibles)")
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
