@@ -80,6 +80,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/glossaire/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/glossaire/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/glossary/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/kamusi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/glossaire/"/>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/a-propos/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/a-propos/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/about/"/>
@@ -564,6 +575,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/glossary/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/glossaire/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/glossary/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/kamusi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/glossaire/"/>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/about/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/a-propos/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/about/"/>
@@ -1045,6 +1067,17 @@
     <lastmod>2026-09-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/kamusi/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/glossaire/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/glossary/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/kamusi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/glossaire/"/>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
 
   <url>

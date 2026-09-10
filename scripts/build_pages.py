@@ -1758,6 +1758,18 @@ def faq_items_html(strings, lang, url_values):
     return "\n".join(parts), plain
 
 
+def glossaire_items_html(strings, lang):
+    """Les entrees du glossaire, terme en serif et definition en dessous."""
+    parts = []
+    for item in strings["glossaireItems"]:
+        parts.append(
+            '      <div class="gl-item">\n'
+            "        <dt>%s</dt>\n"
+            "        <dd>%s</dd>\n"
+            "      </div>" % (esc(item[lang]["t"]), esc(item[lang]["d"])))
+    return "\n".join(parts)
+
+
 def province_map_values(province_maps, name, zones, config, lang, strings_lang, aliases):
     """Jetons de la carte d'une province, ou des valeurs vides si sa geometrie
     n'a pas encore ete produite."""
@@ -2363,6 +2375,7 @@ def main():
             "provinceCardsPlain": cards,
             "provinceTableRows": province_table_rows_html(provinces, urls, lang),
             "faqItems": faq_html,
+            "glossaireItems": glossaire_items_html(strings, lang),
         }
 
         events = timeline_events(strings, sitreps, lang, i18n_lang,

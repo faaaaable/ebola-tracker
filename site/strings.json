@@ -141,6 +141,8 @@
     "faqIntro": "Les questions qui reviennent le plus souvent sur cette épidémie et sur la façon dont ce site est construit.",
     "faqMoreTitle": "Votre question n'est pas là ?",
     "faqMoreBody": "Écrivez-nous : les questions récurrentes finissent par rejoindre cette page.",
+    "navGlossaire": "Glossaire",
+    "glossaireLede": "Les mots des bulletins et de ce site, tels qu’ils y sont employés. Quinze entrées, du cas confirmé au rapport de situation.",
     "aboutOpenDataTitle": "Accès aux données",
     "aboutOpenDataBody": "Toutes les données affichées sur ce site proviennent des bulletins officiels archivés dans l'onglet <a href=\"{url.rapports}\">Sources et bulletins</a>, où chacun est consultable au format PDF d'origine.",
     "aboutContactTitle": "Une erreur, une question ?",
@@ -619,6 +621,8 @@
     "faqIntro": "The questions that come up most often about this outbreak and about how this site is built.",
     "faqMoreTitle": "Your question isn't here?",
     "faqMoreBody": "Write to us: recurring questions eventually make it onto this page.",
+    "navGlossaire": "Glossary",
+    "glossaireLede": "The words used in the bulletins and on this site, as they are used here. Fifteen entries, from confirmed case to situation report.",
     "aboutOpenDataTitle": "Access to the data",
     "aboutOpenDataBody": "All the data shown on this site comes from the official bulletins archived in the <a href=\"{url.rapports}\">Sources and bulletins</a> section, where each one can be read as its original PDF.",
     "aboutContactTitle": "Found an error, got a question?",
@@ -1167,6 +1171,218 @@
       }
     }
   ],
+  "glossaireItems": [
+    {
+      "fr": {
+        "t": "Cas confirmé",
+        "d": "Personne dont l’infection est établie par un test de laboratoire. Seuls les cas confirmés sont comptés sur ce site."
+      },
+      "en": {
+        "t": "Confirmed case",
+        "d": "A person whose infection is established by a laboratory test. Only confirmed cases are counted on this site."
+      },
+      "sw": {
+        "t": "Kisa kilichothibitishwa",
+        "d": "Mtu ambaye maambukizi yake yamethibitishwa kwa kipimo cha maabara. Tovuti hii inahesabu visa vilivyothibitishwa pekee."
+      }
+    },
+    {
+      "fr": {
+        "t": "Cas probable",
+        "d": "Malade ou défunt qui présentait les signes de la maladie et un lien avec un cas confirmé, sans prélèvement analysé."
+      },
+      "en": {
+        "t": "Probable case",
+        "d": "A patient or deceased person who showed signs of the disease and had a link to a confirmed case, without a tested sample."
+      },
+      "sw": {
+        "t": "Kisa kinachowezekana",
+        "d": "Mgonjwa au marehemu aliyeonyesha dalili za ugonjwa na uhusiano na kisa kilichothibitishwa, bila sampuli iliyopimwa."
+      }
+    },
+    {
+      "fr": {
+        "t": "Cas suspect",
+        "d": "Personne dont les symptômes évoquent Ebola, en attente d’un test. Devient confirmé, probable ou écarté."
+      },
+      "en": {
+        "t": "Suspected case",
+        "d": "A person whose symptoms suggest Ebola, awaiting a test. Becomes confirmed, probable or ruled out."
+      },
+      "sw": {
+        "t": "Kisa kinachoshukiwa",
+        "d": "Mtu ambaye dalili zake zinaashiria Ebola, anayesubiri kipimo. Huwa kimethibitishwa, kinachowezekana au kimeondolewa."
+      }
+    },
+    {
+      "fr": {
+        "t": "Alerte",
+        "d": "Signalement d’un cas suspect ou d’un décès à vérifier. Elle est « validée » quand elle répond à la définition de cas suspect."
+      },
+      "en": {
+        "t": "Alert",
+        "d": "A report of a suspected case or death to be checked. It is “validated” when it meets the suspected-case definition."
+      },
+      "sw": {
+        "t": "Tahadhari",
+        "d": "Taarifa ya kisa kinachoshukiwa au kifo kinachohitaji kuhakikiwa. Inakuwa « imethibitishwa » inapokidhi ufafanuzi wa kisa kinachoshukiwa."
+      }
+    },
+    {
+      "fr": {
+        "t": "Contact",
+        "d": "Personne exposée à un malade : famille, soignant, voisin. Elle est suivie pendant 21 jours, la durée maximale d’incubation."
+      },
+      "en": {
+        "t": "Contact",
+        "d": "A person exposed to a patient: family, carer, neighbour. They are followed for 21 days, the maximum incubation period."
+      },
+      "sw": {
+        "t": "Mtu aliyekutana na mgonjwa",
+        "d": "Mtu aliyekaribiana na mgonjwa: familia, mhudumu, jirani. Anafuatiliwa kwa siku 21, muda wa juu wa kuatamia."
+      }
+    },
+    {
+      "fr": {
+        "t": "Suivi des contacts",
+        "d": "Part des contacts effectivement vus chaque jour par les équipes. L’OMS vise 95 % ; en RDC le taux tourne autour de 85 %."
+      },
+      "en": {
+        "t": "Contact follow-up",
+        "d": "The share of contacts actually seen each day by the teams. WHO aims for 95%; in the DRC the rate hovers around 85%."
+      },
+      "sw": {
+        "t": "Ufuatiliaji wa waliokutana na wagonjwa",
+        "d": "Sehemu ya watu waliokutana na wagonjwa wanaoonwa kila siku na timu. WHO inalenga 95%; nchini DRC kiwango kiko karibu 85%."
+      }
+    },
+    {
+      "fr": {
+        "t": "Décès communautaire",
+        "d": "Décès d’un cas confirmé survenu hors d’un centre de traitement, à domicile ou en chemin. Il signale un malade que la riposte n’a pas atteint à temps."
+      },
+      "en": {
+        "t": "Community death",
+        "d": "The death of a confirmed case outside a treatment centre, at home or on the way. It signals a patient the response did not reach in time."
+      },
+      "sw": {
+        "t": "Kifo cha jamii",
+        "d": "Kifo cha kisa kilichothibitishwa nje ya kituo cha matibabu, nyumbani au njiani. Kinaashiria mgonjwa ambaye mapambano hayakumfikia kwa wakati."
+      }
+    },
+    {
+      "fr": {
+        "t": "CTE",
+        "d": "Centre de traitement Ebola : structure où les malades sont isolés et soignés. « Patients en isolement » désigne les malades qui s’y trouvent."
+      },
+      "en": {
+        "t": "ETC",
+        "d": "Ebola treatment centre: the facility where patients are isolated and cared for. “Patients in isolation” means the patients who are there."
+      },
+      "sw": {
+        "t": "CTE",
+        "d": "Kituo cha matibabu ya Ebola: mahali wagonjwa wanapotengwa na kutibiwa. « Wagonjwa waliotengwa » ni wagonjwa waliomo humo."
+      }
+    },
+    {
+      "fr": {
+        "t": "Guéri",
+        "d": "Malade sorti d’un CTE après deux tests négatifs à 48 heures d’intervalle."
+      },
+      "en": {
+        "t": "Recovered",
+        "d": "A patient discharged from an ETC after two negative tests 48 hours apart."
+      },
+      "sw": {
+        "t": "Aliyepona",
+        "d": "Mgonjwa aliyetoka CTE baada ya vipimo viwili hasi kwa tofauti ya saa 48."
+      }
+    },
+    {
+      "fr": {
+        "t": "Létalité",
+        "d": "Part des cas confirmés qui sont décédés. Elle se calcule sur les cumuls depuis le début de l’épidémie."
+      },
+      "en": {
+        "t": "Case fatality",
+        "d": "The share of confirmed cases who have died. It is calculated on cumulative totals since the start of the outbreak."
+      },
+      "sw": {
+        "t": "Kiwango cha vifo",
+        "d": "Sehemu ya visa vilivyothibitishwa vilivyofariki. Kinahesabiwa kwa jumla tangu mwanzo wa mlipuko."
+      }
+    },
+    {
+      "fr": {
+        "t": "Zone de santé",
+        "d": "Unité de base du système sanitaire congolais, 519 pour tout le pays. Chaque zone se divise en aires de santé."
+      },
+      "en": {
+        "t": "Health zone",
+        "d": "The basic unit of the Congolese health system, 519 for the whole country. Each zone is divided into health areas."
+      },
+      "sw": {
+        "t": "Eneo la afya",
+        "d": "Kitengo cha msingi cha mfumo wa afya wa Kongo, 519 kwa nchi nzima. Kila eneo limegawanywa katika maeneo madogo ya afya."
+      }
+    },
+    {
+      "fr": {
+        "t": "Épicentre",
+        "d": "Zone d’où part l’épidémie et où elle se concentre. En 2026, Bunia et l’Ituri."
+      },
+      "en": {
+        "t": "Epicentre",
+        "d": "The zone where the outbreak starts and where it is concentrated. In 2026, Bunia and Ituri."
+      },
+      "sw": {
+        "t": "Kitovu cha mlipuko",
+        "d": "Eneo ambako mlipuko unaanzia na kujikita. Mwaka 2026, Bunia na Ituri."
+      }
+    },
+    {
+      "fr": {
+        "t": "Bundibugyo",
+        "d": "L’une des espèces d’ebolavirus, distincte de l’espèce Zaïre des épidémies précédentes. Aucun vaccin homologué ne la vise."
+      },
+      "en": {
+        "t": "Bundibugyo",
+        "d": "One of the ebolavirus species, distinct from the Zaire species of previous outbreaks. No licensed vaccine targets it."
+      },
+      "sw": {
+        "t": "Bundibugyo",
+        "d": "Mojawapo ya spishi za virusi vya Ebola, tofauti na spishi ya Zaire ya milipuko iliyopita. Hakuna chanjo iliyoidhinishwa dhidi yake."
+      }
+    },
+    {
+      "fr": {
+        "t": "Enterrement digne et sécurisé",
+        "d": "Inhumation conduite par une équipe formée, car le corps d’un défunt reste contagieux."
+      },
+      "en": {
+        "t": "Safe and dignified burial",
+        "d": "A burial carried out by a trained team, because the body of a deceased person remains contagious."
+      },
+      "sw": {
+        "t": "Mazishi salama na yenye heshima",
+        "d": "Mazishi yanayofanywa na timu iliyofunzwa, kwa sababu mwili wa marehemu bado unaambukiza."
+      }
+    },
+    {
+      "fr": {
+        "t": "SitRep",
+        "d": "Rapport de situation quotidien de l’INSP, la source principale de ce site. Chaque bulletin porte un numéro."
+      },
+      "en": {
+        "t": "SitRep",
+        "d": "The daily situation report of the INSP, the main source of this site. Each bulletin has a number."
+      },
+      "sw": {
+        "t": "SitRep",
+        "d": "Ripoti ya hali ya kila siku ya INSP, chanzo kikuu cha tovuti hii. Kila ripoti ina namba."
+      }
+    }
+  ],
   "provinceArrivals": [
     {
       "province": "Ituri",
@@ -1374,6 +1590,8 @@
     "faqIntro": "Maswali yanayoulizwa mara nyingi kuhusu mlipuko huu na jinsi tovuti hii ilivyojengwa.",
     "faqMoreTitle": "Swali lako halipo hapa?",
     "faqMoreBody": "Tuandikie: maswali yanayojirudia hatimaye huingia kwenye ukurasa huu.",
+    "navGlossaire": "Kamusi",
+    "glossaireLede": "Maneno ya ripoti na ya tovuti hii, jinsi yanavyotumika hapa. Maingizo kumi na tano, kutoka kisa kilichothibitishwa hadi ripoti ya hali.",
     "aboutOpenDataTitle": "Upatikanaji wa takwimu",
     "aboutOpenDataBody": "Takwimu zote zinazoonyeshwa kwenye tovuti hii zinatoka kwenye ripoti rasmi zilizohifadhiwa kwenye kichupo cha <a href=\"{url.rapports}\">Vyanzo na ripoti</a>, ambapo kila moja inaweza kusomwa katika muundo wake asili wa PDF.",
     "aboutContactTitle": "Kosa au swali?",

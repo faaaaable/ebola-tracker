@@ -63,7 +63,8 @@
         "chronologie",
         "le-virus",
         "rapports",
-        "faq"
+        "faq",
+        "glossaire"
       ]
     },
     {
@@ -562,6 +563,39 @@
           "title": "Maswali yanayoulizwa mara kwa mara — Ebola DRC 2026",
           "h1": "Maswali yanayoulizwa mara kwa mara",
           "description": "Majibu ya maswali yanayoulizwa mara nyingi kuhusu mlipuko, takwimu zinazoonyeshwa na vyanzo vyake."
+        }
+      }
+    },
+    {
+      "id": "glossaire",
+      "fragment": "glossaire.html",
+      "slug": {
+        "fr": "glossaire/",
+        "en": "glossary/",
+        "sw": "kamusi/"
+      },
+      "needs": [],
+      "changefreq": "monthly",
+      "priority": "0.5",
+      "schema": [
+        "article"
+      ],
+      "navLabelKey": "t:navGlossaire",
+      "meta": {
+        "fr": {
+          "title": "Glossaire — les mots de l’épidémie d’Ebola en RDC",
+          "h1": "Glossaire",
+          "description": "Cas confirmé, probable ou suspect, alerte, contact, décès communautaire, CTE, létalité, zone de santé : les mots des bulletins et de ce site, définis tels qu’ils y sont employés."
+        },
+        "en": {
+          "title": "Glossary — the words of the Ebola outbreak in the DRC",
+          "h1": "Glossary",
+          "description": "Confirmed, probable or suspected case, alert, contact, community death, ETC, case fatality, health zone: the words of the bulletins and of this site, defined as they are used here."
+        },
+        "sw": {
+          "title": "Kamusi — maneno ya mlipuko wa Ebola nchini DRC",
+          "h1": "Kamusi",
+          "description": "Kisa kilichothibitishwa, kinachowezekana au kinachoshukiwa, tahadhari, CTE, kiwango cha vifo, eneo la afya: maneno ya ripoti na ya tovuti hii, yakifafanuliwa jinsi yanavyotumika hapa."
         }
       }
     },

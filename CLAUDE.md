@@ -631,6 +631,21 @@ Vérifié par planche des dix en-têtes à 1 280 px (`tmp/verif/
 planche-tetes-apres.png`) et trois pages à 360 px ; `test_onglets` sans
 erreur sur Données, Riposte et Sources.
 
+**Le glossaire (`/glossaire/`, `/en/glossary/`, `/sw/kamusi/`) existe depuis
+le 10 septembre 2026.** Quinze entrées (cas confirmé, probable, suspect,
+alerte, contact, suivi des contacts, décès communautaire, CTE, guéri,
+létalité, zone de santé, épicentre, Bundibugyo, enterrement digne et
+sécurisé, SitRep), définies comme le site les emploie, dans
+`glossaireItems` de `strings.json` (`t` et `d` par langue, rendues par
+`glossaire_items_html`), fragment `glossaire.html`, styles `.gl-list`.
+**Décision du propriétaire : la page n'est reliée que depuis la colonne
+« Comprendre » du pied de page** (`footerNav`), après FAQ — ni colonne
+latérale, ni section sur l'accueil. Les deux autres formes ont été
+maquettées et écartées le même jour (section en bas de l'accueil, entrée
+dans la colonne). En-tête à quatre couches comme les autres pages :
+surtitre `footerUnderstandTitle`, titre, chapeau `glossaireLede`, rien à
+droite du titre. Le swahili est à faire relire.
+
 **Le corps des pages suit quatre règles depuis le même jour** (analyse
 de la planche `tmp/verif/planche-corps.png`, avant/après), décidées après
 un « tu conseilles quoi ? » :

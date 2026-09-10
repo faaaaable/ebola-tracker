@@ -1,0 +1,18 @@
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>{{t.footerUnderstandTitle}}</div>
+        <h1 class="page-title">{{meta.h1}}</h1>
+      </div>
+    </div>
+    <p class="lede">{{t.glossaireLede}}</p>
+
+    <!-- Les entrees viennent de strings.json (glossaireItems), une par terme
+         et par langue, rendues par glossaire_items_html dans build_pages.py.
+         La page n'est reliee que depuis la colonne « Comprendre » du pied de
+         page, decision du proprietaire du 10 septembre 2026 : ni colonne
+         laterale, ni section sur l'accueil. -->
+    <dl class="gl-list">
+{{glossaireItems}}
+    </dl>
+  </section>
