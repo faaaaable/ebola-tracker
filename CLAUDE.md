@@ -2504,6 +2504,18 @@ et `fmtCfr()` (`app.js`) doivent produire **exactement** la meme chaine : le
 JavaScript reecrit les elements que le generateur a remplis, et un taux qui
 change d'ecriture au chargement se voit. Les deux se corrigent ensemble.
 
+**Police des chiffres du panneau de la carte.** Depuis le 10 septembre 2026,
+les cinq chiffres nationaux à droite de la carte d'accueil, et le bilan de la
+zone survolée, sont en **Bricolage Grotesque** (graisse 700, écarts en 600,
+largeur 87,5, chargée dans `site/layout.html`). Décision du propriétaire après
+une maquette de six polices sur le panneau réel : Public Sans en gras sur cinq
+lignes de couleurs différentes faisait « trop IA style ». Le choix s'est fait
+entre Fraunces (serif, la plus proche du titre), Playfair Display (didone, dont
+les déliés souffrent sur un petit écran Android) et Bricolage, retenue parce
+qu'elle reste dans la famille des sans du site. Tout le reste — bandeau
+`.kpis`, tableaux, graphiques — garde Public Sans ; l'étendre est possible
+mais n'a pas été demandé. Les couleurs du panneau n'ont pas bougé.
+
 **Notes de graphique.** Elles portent d'abord le fait, ensuite les réserves.
 Un lecteur ne lit pas trois lignes de mise en garde avant d'atteindre
 l'information.

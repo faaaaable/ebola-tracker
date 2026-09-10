@@ -439,6 +439,24 @@ ul,ol{margin:0;padding:0;}
   font-variant-numeric:tabular-nums;
 }
 .cd-fig .d{font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;}
+/* Les chiffres du panneau de la carte sont en Bricolage Grotesque, decision
+   du proprietaire du 10 septembre 2026 (« push and commit l'option
+   bricolage ») apres une maquette de six polices : Public Sans en gras
+   sur cinq lignes de couleurs differentes faisait « tableau de bord
+   automatique ». Une grotesque un peu resserree (largeur 87,5), aux formes
+   franches, qui reste dans la famille des sans du site — les tableaux et
+   graphiques gardent Public Sans. Chargee dans site/layout.html, seulement
+   pour ce panneau. Les deux etats du panneau la partagent : les cinq
+   chiffres nationaux au repos et le bilan de la zone survolee. */
+.cd-fig .v,.cd-nat .v{
+  font-family:'Bricolage Grotesque',var(--font-sans);
+  font-variation-settings:"opsz" 48,"wdth" 87.5;letter-spacing:-0.015em;
+}
+.cd-fig .d,.cd-nat .d{
+  font-family:'Bricolage Grotesque',var(--font-sans);
+  font-variation-settings:"opsz" 12,"wdth" 87.5;
+}
+.cd-fig .v{font-size:29px;}
 .cd-fig.is-cases .v{color:var(--accent-info);}
 .cd-fig.is-cases .d{color:var(--accent-info);}
 .cd-fig.is-deaths .v{color:var(--accent-critical);}
@@ -1015,7 +1033,7 @@ td.is-soft{color:var(--ink-faint);}
   .carto-layout{grid-template-columns:minmax(0,1fr) 250px;gap:20px;}
   .carto-detail{padding:14px;}
   .carto-detail .name{font-size:18px;}
-  .cd-nat .v{font-size:17px;}
+  .cd-nat .v{font-size:19px;}
 }
 
 @media (min-width:1401px) and (max-width:1680px){
@@ -2113,11 +2131,11 @@ footer{
   /* La valeur et son ecart tiennent sur la meme ligne, alignes a droite. */
   .cd-nat .n{display:flex;align-items:baseline;gap:7px;}
   .cd-nat .v{
-    font-size:19px;font-weight:700;line-height:1.1;
+    font-size:21px;font-weight:700;line-height:1.1;
     font-variant-numeric:tabular-nums;color:var(--ink);
   }
   .cd-nat .d{
-    font-size:11.5px;font-weight:600;color:var(--ink-faint);
+    font-size:12px;font-weight:600;color:var(--ink-faint);
     font-variant-numeric:tabular-nums;
   }
   .cd-nat .d:empty{display:none;}
