@@ -2503,7 +2503,11 @@ mot pour mot restant repliés dessous. La rubrique manuscrite « À surveiller �
 essayée le même jour a été retirée à la demande du propriétaire. Jamais généré en silence. Sans
 résumé, la lettre retombe sur un sommaire composé (piliers et provinces
 citées). Le résumé ne contient que des faits et des nombres présents dans
-les blocs. (Jusqu'au 8 septembre au soir, la recette retirait aussi la lettre ; elle
+les blocs. **Et il est court, depuis le 11 septembre 2026** (« c'est
+beaucoup trop long là, résume et synthétise plus ») : environ 120 mots,
+une phrase par province, un à quatre faits chacune, les plus marquants du
+bulletin — pas la liste des zones ni des postes, qui reste dans les neuf
+blocs repliés. Le 119 fait 130 mots là où le 118 en faisait 400. (Jusqu'au 8 septembre au soir, la recette retirait aussi la lettre ; elle
 est publiée depuis, voir en tête de section.)
 
 
