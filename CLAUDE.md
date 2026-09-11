@@ -5,7 +5,60 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 118**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 119**, rapportage
+du 10 septembre 2026 (publié le 11) — 7 022 cas confirmés, 3 398 décès,
+létalité 48,4 %, 1 671 guéris, 837 patients en CTE, suivi des contacts 87,6 %
+(25 117 vus sur 28 672 ; Ituri 90,0 %, Nord-Kivu 86,7 %, Bas-Uélé 77,6 %,
+Haut-Uélé 76,1 %, Tshopo 72,9 %), **une septième province, le Sud-Ubangi,
+par la zone de santé de Bulu** — un cas confirmé, décédé, « un sujet âgé de
+23 ans, de sexe masculin, qui est parti de la province du Sud-Kivu depuis le
+10 juillet 2026 » —, donc **62 zones touchées sur 167** (151 + les 16 du
+Sud-Ubangi), 80 nouveaux cas (Nord-Kivu 43, Ituri 30, Haut-Uélé 6,
+Sud-Ubangi 1) et 49 décès du jour (31 communautaires, 18 intra-CTE : 12 en
+Ituri, 4 au Haut-Uélé, 2 au Nord-Kivu). Laboratoire 80 positifs = 80
+nouveaux cas ; alertes 2 254 reçues, 1 846 vérifiées, 429 validées, le
+Sud-Ubangi « ND ». Intégré **en local le 11 septembre**, résumé des Défis
+rédigé dans la foulée, `check_coherence` sans écart bloquant, deux notes
+anciennes inchangées. **Ce que la septième province a demandé** — la
+première depuis le Bas-Uélé au 090, et la première hors du nord-est :
+- `update_data.py` : « Sud Ubangi » / « Sud-Ubangi » dans
+  `PROVINCE_NAMES_MAIN`, `PROVINCE_CANON`, `PROVINCE_NAMES`, les deux motifs
+  du tableau 1 (`PROVINCE_SUMMARY_ROW_RE`, `_NEWFIRST_RE`) et
+  `PROV_SUBTOTAL_RE`. Sans cela, le premier passage avait lu « Sud Ubangi »
+  et « Bulu » comme **deux zones du Bas-Uélé** (63 zones, 6 provinces) — le
+  message « zone(s) jamais vue(s) » est ce qui l'a révélé. Le total de
+  zones **n'est plus le 151 écrit en dur** : c'est la somme des totaux des
+  provinces (167). Et `PROV_SUBTOTAL_RE` accepte `Bas[ -]Uélé` : le 119
+  écrit « Bas-Uélé 4 3 75,0% 0 0 0 0 » avec un tiret là où le 118 mettait
+  une espace, et la province perdait ses décès du jour ; les sous-totaux
+  sont désormais indexés par nom canonique.
+- Extracteurs : la province dans `PROVINCES_RE` (alertes, laboratoire,
+  CTE), dans les tables de canonisation (contacts, décès-lieu, piliers,
+  défis, `defis_synthese`). Le laboratoire écrit « 1 nouveau résultat
+  positif (1 décès) sur l'échantillon analysé » — singulier, sans chiffre :
+  réécrit « 1 échantillon analysé » avant lecture, motif singulier ajouté,
+  sinon 79 positifs pour 80 cas.
+- Site : `provinceSlugs` (→ `/donnees/sud-ubangi/`, `/en/data/sud-ubangi/`,
+  `/sw/takwimu/sud-ubangi/`, 146 fichiers générés au lieu de 143),
+  `provinceGrammar`, le repère Gemena dans `mapLandmarks.places`,
+  `PROVINCE_COLORS` dans `build_pages.py` et `app.js` (**#B0487D**, un
+  magenta : seule teinte encore libre qui se sépare du rouge du Bas-Uélé et
+  du violet de la Tshopo en deutéranopie), `PROVINCES`,
+  `PROVINCE_TABLE_DATA_SEED` et `PROVINCE_AGG_COORDS` d'`app.js`,
+  `provinceArrivals` (jalon du 10 septembre, la note du Bas-Uélé ne dit
+  plus « dernière province ») et la FAQ « Sept provinces » (trois langues).
+  `build_geo.py` relancé : `province-maps.json` a son septième cadrage,
+  `zones-overview.json` et `health-zones.geojson` bougent d'une ligne.
+- **Cinquième tournure des contacts** : « Parmi les 28 672 en cours de
+  suivi, 25 117 ont été vus, correspondant à une proportion journalière de
+  suivi à 87, 6% » — à suivre avant vus, « correspondant à », « de suivi
+  à ». `CONTACTS_PARMI_LES_RE`, mêmes garde-fous.
+- Non lu, et laissé tel quel : le Nord-Kivu n'imprime plus ses lits
+  (« 311 patients … en sursaturation (141,4%) »), la lettre le cite avec
+  son taux ; le Sud-Ubangi n'a pas de ligne CTE ni de contacts, et sa ligne
+  d'alertes est « ND » (rendue en zéros, comme le Sud-Kivu).
+
+Le **SitRep 118**, rapportage
 du 9 septembre 2026 (publié le 10) — 6 942 cas confirmés, 3 349 décès, létalité
 48,2 %, 1 647 guéris, 823 patients en CTE, suivi des contacts 84,4 % (19 945
 vus sur 23 630 ; Nord-Kivu 86,1 %, Ituri 83,6 %, Bas-Uélé 80,3 %, Tshopo
@@ -528,7 +581,7 @@ visiteurs gardent l'ancienne version en cache sous l'ancienne URL.
 
 ### Le site
 
-Huit pages, chacune en FR et EN : accueil, `donnees/` (+ six pages province),
+Huit pages, chacune en FR et EN : accueil, `donnees/` (+ sept pages province depuis le 119),
 `rapports/`, `le-virus/`, `chronologie/`, `faq/`, `a-propos/`, `contact/`.
 
 Les graphiques sont rendus côté client par `assets/js/app.js` avec Chart.js.
