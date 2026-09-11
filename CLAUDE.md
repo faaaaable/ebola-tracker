@@ -2033,7 +2033,12 @@ téléphone (audit à 360 et 320 px du 7 septembre) : la bande sur la
 variable de gouttière, l'étiquette de frise au-dessus de ses cases, une
 colonne de fiches. Piège rencontré avec les traits : une bulle CSS en
 `visibility:hidden` est cachée mais posée, et les dernières faisaient
-défiler la page de 63 px — `display:none`, toujours. Les mots-clés d'un thème se vérifient contre les trous de sa ligne :
+défiler la page de 63 px — `display:none`, toujours. **La grille a autant de colonnes que de semaines, et c'est le HTML qui le
+dit** : `defis_synthese.py` pose `style="--sem:N"` sur `.grille`, et
+`site.css` lit `repeat(var(--sem,14), …)`. Jusqu'au 11 septembre 2026 le
+« 14 » était écrit en dur : à la quinzième semaine (SitRep 119), la
+dernière case de chaque ligne passait à la ligne sous juin, en « double
+rectangle ». Les mots-clés d'un thème se vérifient contre les trous de sa ligne :
 le 7 septembre, « capacité des CTE/CT insuffisante » (064-080) échappait au
 thème saturation, trois clés l'ont comblé ; les autres trous sont réels.
 
