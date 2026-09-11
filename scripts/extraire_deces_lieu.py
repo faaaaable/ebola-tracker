@@ -61,6 +61,8 @@ NOMS = {
     "Sud Kivu": "Sud-Kivu",
     "Bas-Uélé": "Bas-Uélé",
     "Bas Uélé": "Bas-Uélé",
+    "Sud-Ubangi": "Sud-Ubangi",
+    "Sud Ubangi": "Sud-Ubangi",
 }
 
 LIGNE_PROVINCE = re.compile(

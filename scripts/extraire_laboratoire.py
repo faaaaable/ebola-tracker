@@ -51,13 +51,13 @@ from update_data import extract_meta, PROVINCE_CANON  # noqa: E402
 
 OUTPUT_PATH = os.path.join(ROOT, "data", "laboratoire.json")
 
-PROVINCES_RE = r"Ituri|Nord[\s-]+Kivu|Haut[\s-]+U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|Bas[\s-]+U[ée]l[ée]"
+PROVINCES_RE = r"Ituri|Nord[\s-]+Kivu|Haut[\s-]+U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|Bas[\s-]+U[ée]l[ée]|Sud[\s-]+Ubangi"
 
 
 def canon(nom):
     """« Haut Uélé », « Haut-Uele », « Haut\nUélé » -> « Haut-Uélé », etc."""
     n = re.sub(r"[\s-]+", " ", nom).replace("Uele", "Uélé").replace("Uelé", "Uélé").replace("Uélè", "Uélé")
-    n = {"Nord Kivu": "Nord-Kivu", "Sud Kivu": "Sud-Kivu", "Haut Uélé": "Haut-Uélé"}.get(n, n)
+    n = {"Nord Kivu": "Nord-Kivu", "Sud Kivu": "Sud-Kivu", "Haut Uélé": "Haut-Uélé", "Sud Ubangi": "Sud-Ubangi"}.get(n, n)
     return PROVINCE_CANON.get(n, n)
 
 
@@ -94,6 +94,8 @@ ECHANTILLONS_RES = [
     re.compile(r"[ée]chantillons\s+(?:re[çc]us|pr[ée]lev[ée]s)\s*,?\s*dont\s+(\d[\d ]{0,6}\d|\d)\s+(?:ont\s+[ée]t[ée]\s+)?analys[ée]s", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+ont\s+[ée]t[ée]\s+analys[ée]s", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+re[çc]us\b(?=[^.]*positi)", re.I),
+    # « 1 échantillon analysé » au singulier (119 Sud-Ubangi, « sur l'échantillon analysé » réécrit en amont)
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillon\s+analys[ée]\b", re.I),
     # « 1 swab reçu et testé » (D, 108 Bas-Uélé)
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*swabs?\s+re[çc]us?\s+et\s+test[ée]s?", re.I),
     # « 2 nouveaux échantillons ont été reçus, tous sont revenus négatifs » (D, 108 Tshopo) —
@@ -166,6 +168,8 @@ def lire_province(morceau):
     c = COUPURE_RE.search(morceau)
     if c:
         morceau = morceau[:c.start()]
+    # « sur l'échantillon analysé » (119, Sud-Ubangi) : un seul, sans chiffre
+    morceau = re.sub(r"\bl[’']\s*([ée]chantillon\s+(?:re[çc]u\s+et\s+)?analys[ée]\b)", r"1 \1", morceau, flags=re.I)
     mp = POSITIVITE_RE.search(morceau)
     positivite = pourcent(mp.group(1)) if mp else None
     echantillons, positifs = choisir(candidats(ECHANTILLONS_RES, morceau),

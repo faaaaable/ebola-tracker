@@ -38,7 +38,7 @@ from update_data import extract_meta  # noqa: E402
 OUTPUT_PATH = os.path.join(ROOT, "data", "defis.json")
 PREMIER_BULLETIN = 84   # epoque D : avant, les defis sont un tableau, non lu ici
 
-PROVINCES = ["Ituri", "Nord-Kivu", "Sud-Kivu", "Haut-Uélé", "Bas-Uélé", "Tshopo"]
+PROVINCES = ["Ituri", "Nord-Kivu", "Sud-Kivu", "Haut-Uélé", "Bas-Uélé", "Tshopo", "Sud-Ubangi"]
 
 # Le pilier d'apres le titre de sa section. Ordre important : « Continuite
 # des soins » avant « soins » n'a pas de defis propre ; « Securite » est un

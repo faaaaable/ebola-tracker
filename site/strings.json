@@ -1061,15 +1061,15 @@
     {
       "fr": {
         "q": "Quelles provinces sont touchées ?",
-        "a": "<p>Six provinces sont concernées : l'Ituri, épicentre de l'épidémie, le Nord-Kivu, le Haut-Uélé, la Tshopo, le Sud-Kivu et le Bas-Uélé. Le détail province par province, avec les zones de santé atteintes, est disponible sur la page <a href=\"{url.donnees}\">Provinces</a>.</p>"
+        "a": "<p>Sept provinces sont concernées : l'Ituri, épicentre de l'épidémie, le Nord-Kivu, le Haut-Uélé, la Tshopo, le Sud-Kivu, le Bas-Uélé et, depuis le 10 septembre 2026, le Sud-Ubangi. Le détail province par province, avec les zones de santé atteintes, est disponible sur la page <a href=\"{url.donnees}\">Provinces</a>.</p>"
       },
       "en": {
         "q": "Which provinces are affected?",
-        "a": "<p>Six provinces are affected: Ituri, the epicentre of the outbreak, North Kivu, Haut-Uélé, Tshopo, South Kivu and Bas-Uélé. The province-by-province breakdown, with affected health zones, is available on the <a href=\"{url.donnees}\">Provinces</a> page.</p>"
+        "a": "<p>Seven provinces are affected: Ituri, the epicentre of the outbreak, North Kivu, Haut-Uélé, Tshopo, South Kivu, Bas-Uélé and, since 10 September 2026, Sud-Ubangi. The province-by-province breakdown, with affected health zones, is available on the <a href=\"{url.donnees}\">Provinces</a> page.</p>"
       },
       "sw": {
         "q": "Ni majimbo gani yameathirika?",
-        "a": "<p>Majimbo sita yanahusika: Ituri, kitovu cha mlipuko, Kivu Kaskazini, Haut-Uélé, Tshopo, Kivu Kusini na Bas-Uélé. Takwimu za kila jimbo, pamoja na maeneo ya afya yaliyoathirika, zinapatikana kwenye ukurasa wa <a href=\"{url.donnees}\">Majimbo</a>.</p>"
+        "a": "<p>Majimbo saba yanahusika: Ituri, kitovu cha mlipuko, Kivu Kaskazini, Haut-Uélé, Tshopo, Kivu Kusini, Bas-Uélé na, tangu tarehe 10 Septemba 2026, Sud-Ubangi. Takwimu za kila jimbo, pamoja na maeneo ya afya yaliyoathirika, zinapatikana kwenye ukurasa wa <a href=\"{url.donnees}\">Majimbo</a>.</p>"
       }
     },
     {
@@ -1441,12 +1441,23 @@
       "province": "Bas-Uélé",
       "date": "2026-08-12",
       "sitrep": "090",
-      "fr": "« Une nouvelle province nouvellement affectée (Bas Uélé : ZS Buta) » : un cas confirmé, un décès. La sixième et dernière province touchée à ce jour.",
-      "en": "“A newly affected province (Bas Uélé: Buta health zone)”: one confirmed case, one death. The sixth and, to date, last province affected.",
+      "fr": "« Une nouvelle province nouvellement affectée (Bas Uélé : ZS Buta) » : un cas confirmé, un décès. La sixième province touchée.",
+      "en": "“A newly affected province (Bas Uélé: Buta health zone)”: one confirmed case, one death. The sixth province affected.",
       "pageFr": "Premier cas confirmé le 12 août 2026.",
       "pageEn": "First confirmed case on 12 August 2026.",
       "pageSw": "Kisa cha kwanza kilichothibitishwa tarehe 12 Agosti 2026.",
-      "sw": "« Jimbo jipya lililoathirika hivi karibuni (Bas Uélé: eneo la afya la Buta) »: kisa kimoja kilichothibitishwa, kifo kimoja. Jimbo la sita na la mwisho lililoathirika hadi sasa."
+      "sw": "« Jimbo jipya lililoathirika hivi karibuni (Bas Uélé: eneo la afya la Buta) »: kisa kimoja kilichothibitishwa, kifo kimoja. Jimbo la sita lililoathirika."
+    },
+    {
+      "province": "Sud-Ubangi",
+      "date": "2026-09-10",
+      "sitrep": "119",
+      "fr": "« Une nouvelle province a été touchée, notamment celle du Sud Ubangi à travers la zone de santé de Bulu » : un cas confirmé, décédé, un homme de 23 ans parti du Sud-Kivu le 10 juillet. La septième province touchée, la première hors du nord-est.",
+      "en": "“A new province has been affected, Sud Ubangi, through the Bulu health zone”: one confirmed case, deceased, a 23-year-old man who left South Kivu on 10 July. The seventh province affected, the first outside the north-east.",
+      "sw": "« Jimbo jipya limeathirika, Sud Ubangi, kupitia eneo la afya la Bulu »: kisa kimoja kilichothibitishwa, kilichofariki, mwanamume wa miaka 23 aliyeondoka Kivu Kusini tarehe 10 Julai. Jimbo la saba lililoathirika, la kwanza nje ya kaskazini-mashariki.",
+      "pageFr": "Premier cas confirmé le 10 septembre 2026.",
+      "pageEn": "First confirmed case on 10 September 2026.",
+      "pageSw": "Kisa cha kwanza kilichothibitishwa tarehe 10 Septemba 2026."
     }
   ],
   "sw": {

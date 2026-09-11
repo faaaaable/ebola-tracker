@@ -63,7 +63,7 @@ CONTACTS_EXCLUDED_SITREPS = {"028"}
 TABLE_TITLE_RE = re.compile(r"Tableau\s*\d*\s*[.:]\s*Suivi des contacts", re.IGNORECASE)
 TABLE_HEADER_RE = re.compile(r"Taux\s+de\s+suivi", re.IGNORECASE)
 PROVINCE_RE = re.compile(
-    r"^(Ituri|Nord-Kivu|Sud-Kivu|Haut-Uélé|Tshopo|Bas Uélé)\s*\*?$", re.IGNORECASE
+    r"^(Ituri|Nord-Kivu|Sud-Kivu|Haut-Uélé|Tshopo|Bas Uélé|Sud[ -]Ubangi)\s*\*?$", re.IGNORECASE
 )
 
 # Repli pour les bulletins SANS ce tableau (017, et à partir du 059 où la
@@ -108,6 +108,18 @@ CONTACTS_PARMI_RE = re.compile(
     r"(\d[\d\s]*?)\s*parmi\s+les\s+(\d[\d\s]*?)\s+en\s+cours\s+de\s+suivi"
     r"\s+ont\s+été\s+vus\s*,?\s*(?:exprimant|soit)\s+une\s+proportion"
     r"(?:\s+journali[èe]re)?\s+de\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+# SitRep 119 : cinquieme tournure — « Parmi les 28 672 en cours de suivi,
+# 25 117 ont été vus, correspondant à une proportion journalière de suivi à
+# 87, 6% ». Les a suivre AVANT les vus cette fois, « correspondant à » et
+# « de suivi à » devant le taux. Groupes : a suivre, vus, taux.
+CONTACTS_PARMI_LES_RE = re.compile(
+    r"parmi\s+les\s+(\d[\d\s]*?)\s+en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+ont\s+été\s+vus"
+    r"\s*,?\s*(?:correspondant\s+à|soit|exprimant)\s+une\s+proportion(?:\s+journali[èe]re)?"
+    r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,
 )
 
@@ -337,6 +349,11 @@ def rate_from_text(full_text):
         value = taux_texte(m.group(3))
         if 0 <= value <= 100:
             return value, "texte (repli, « parmi les … en cours de suivi ont été vus »)"
+    m = CONTACTS_PARMI_LES_RE.search(full_text)
+    if m:
+        value = taux_texte(m.group(3))
+        if 0 <= value <= 100:
+            return value, "texte (repli, « Parmi les … en cours de suivi, … ont été vus »)"
     return None, None
 
 
@@ -358,7 +375,7 @@ def rate_from_text(full_text):
 #
 # Un effectif n'est gardé que s'il se vérifie : vus ≤ à suivre, et vus / à
 # suivre à moins d'un point du taux imprimé. Sinon seul le taux reste.
-PROVINCES_DETAIL_RE = r"Ituri|Nord[\s-]+Kivu|N-Kivu|Haut[\s-]+U[ée]l[ée]|H-U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|S-Kivu|Bas[\s-]+U[ée]l[ée]|B-U[ée]l[ée]"
+PROVINCES_DETAIL_RE = r"Ituri|Nord[\s-]+Kivu|N-Kivu|Haut[\s-]+U[ée]l[ée]|H-U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|S-Kivu|Bas[\s-]+U[ée]l[ée]|B-U[ée]l[ée]|Sud[\s-]+Ubangi"
 PROV_D_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%\s*\((\d[\d ]*)\s*/\s*(\d[\d ]*)\)" % PROVINCES_DETAIL_RE)
 # SitRep 110 et suivants : le taux precede la province — « 90,9% en Ituri
 # (10 302/11 339), 83,5% au Nord-Kivu (8 491/10 163), 69,6 % a la Tshopo
@@ -393,7 +410,7 @@ def canon_detail(nom):
     n = re.sub(r"[\s-]+", " ", nom).replace("Uele", "Uélé")
     n = {"N Kivu": "Nord-Kivu", "Nord Kivu": "Nord-Kivu", "S Kivu": "Sud-Kivu",
          "Sud Kivu": "Sud-Kivu", "H Uélé": "Haut-Uélé", "Haut Uélé": "Haut-Uélé",
-         "B Uélé": "Bas-Uélé", "Bas Uélé": "Bas-Uélé"}.get(n, n)
+         "B Uélé": "Bas-Uélé", "Bas Uélé": "Bas-Uélé", "Sud Ubangi": "Sud-Ubangi"}.get(n, n)
     return n
 
 
@@ -432,6 +449,13 @@ def details_contacts(full_text, rows, taux_national=None):
                 vus, a_suivre = norm_int(m.group(1)), norm_int(m.group(2))
                 if effectifs_verifies(vus, a_suivre, taux_national):
                     out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
+            else:
+                # SitRep 119 : « Parmi les 28 672 en cours de suivi, 25 117 ont été vus »
+                m = CONTACTS_PARMI_LES_RE.search(full_text)
+                if m:
+                    a_suivre, vus = norm_int(m.group(1)), norm_int(m.group(2))
+                    if effectifs_verifies(vus, a_suivre, taux_national):
+                        out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
     for pm in PROV_D_RE.finditer(full_text):
         nom = canon_detail(pm.group(1))
         taux = norm_pct(pm.group(2) + "%")

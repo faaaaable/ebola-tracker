@@ -21,7 +21,8 @@
     "Haut-Uélé": "haut-uele",
     "Tshopo": "tshopo",
     "Sud-Kivu": "sud-kivu",
-    "Bas-Uélé": "bas-uele"
+    "Bas-Uélé": "bas-uele",
+    "Sud-Ubangi": "sud-ubangi"
   },
   "mainNav": [
     {
@@ -106,6 +107,11 @@
       "in": "dans la Tshopo",
       "of": "de la Tshopo",
       "the": "la Tshopo"
+    },
+    "Sud-Ubangi": {
+      "in": "dans le Sud-Ubangi",
+      "of": "du Sud-Ubangi",
+      "the": "le Sud-Ubangi"
     }
   },
   "cartogram": {
@@ -319,6 +325,13 @@
         "lat": -4.4419,
         "lon": 15.2663,
         "kind": "capital"
+      },
+      {
+        "name": "Gemena",
+        "province": "Sud-Ubangi",
+        "lat": 3.2531,
+        "lon": 19.7739,
+        "kind": "province-capital"
       }
     ]
   },

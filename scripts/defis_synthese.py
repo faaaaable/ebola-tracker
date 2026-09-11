@@ -21,7 +21,7 @@ DEFIS = os.path.join(ROOT, "data", "defis.json")
 # Les bulletins d'avant le 084, geles depuis le corpus (non versionne) par
 # scripts/geler_defis_anciens.py — voir ce script pour la raison.
 DEFIS_ANCIENS = os.path.join(ROOT, "data", "defis-anciens.json")
-PROVINCES = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas-Uélé"]
+PROVINCES = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas-Uélé", "Sud-Ubangi"]
 
 
 def sa(t):
@@ -30,7 +30,7 @@ def sa(t):
 
 
 def canon_prov(p):
-    return {"Nord Kivu": "Nord-Kivu", "Sud Kivu": "Sud-Kivu", "Haut Uélé": "Haut-Uélé", "Bas Uélé": "Bas-Uélé"}.get(p, p)
+    return {"Nord Kivu": "Nord-Kivu", "Sud Kivu": "Sud-Kivu", "Haut Uélé": "Haut-Uélé", "Bas Uélé": "Bas-Uélé", "Sud Ubangi": "Sud-Ubangi"}.get(p, p)
 
 
 def entrees():
@@ -175,9 +175,12 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
     survol = {"fr": "%s → %s · %d bulletin%s sur %d", "en": "%s → %s · %d bulletin%s of %d",
               "sw": "%s → %s · ripoti %d%s kati ya %d"}[L]
     html.append('<section class="section frise-section"><div class="section-head"><h3 class="frame-title">%s</h3>'
-                '<span class="section-sub">%s</span></div><div class="grille">'
+                '<span class="section-sub">%s</span></div><div class="grille" style="--sem:%d">'
                 '<div class="grille-tete"><div class="frise-label"></div><div class="grille-mois">%s</div></div>'
-                % (esc(titre_frise), esc(sub_frise), "".join(tete)))
+                % (esc(titre_frise), esc(sub_frise), nb_sem, "".join(tete)))
+    # --sem : le nombre de colonnes suit les semaines. Il etait ecrit « 14 »
+    # dans site.css ; a la quinzieme semaine (SitRep 119, 10 septembre 2026)
+    # la derniere case de chaque ligne passait a la ligne sous juin.
 
     def niveau(n, p):
         if n == 0 or p == 0:

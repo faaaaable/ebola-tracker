@@ -46,13 +46,13 @@ from update_data import extract_meta, PROVINCE_CANON  # noqa: E402
 
 OUTPUT_PATH = os.path.join(ROOT, "data", "alertes.json")
 
-PROVINCES_RE = r"Ituri|Nord[\s-]+Kivu|Haut[\s-]+U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|Bas[\s-]+U[ée]l[ée]"
+PROVINCES_RE = r"Ituri|Nord[\s-]+Kivu|Haut[\s-]+U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|Bas[\s-]+U[ée]l[ée]|Sud[\s-]+Ubangi"
 
 
 def canon(nom):
     """« Haut Uélé », « Haut-Uele », « Haut\nUélé » -> « Haut-Uélé », etc."""
     n = re.sub(r"[\s-]+", " ", nom).replace("Uele", "Uélé").replace("Uelé", "Uélé").replace("Uélè", "Uélé")
-    n = {"Nord Kivu": "Nord-Kivu", "Sud Kivu": "Sud-Kivu", "Haut Uélé": "Haut-Uélé"}.get(n, n)
+    n = {"Nord Kivu": "Nord-Kivu", "Sud Kivu": "Sud-Kivu", "Haut Uélé": "Haut-Uélé", "Sud Ubangi": "Sud-Ubangi"}.get(n, n)
     return PROVINCE_CANON.get(n, n)
 
 

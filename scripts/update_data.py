@@ -36,10 +36,12 @@ PROVINCE_HISTORY_PATH = "data/province-history.json"
 # suffisent maintenant à le traiter proprement ; l'exclusion est retirée.
 ZONES_HISTORY_EXCLUDED_SITREPS = set()
 
-PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé"]
+PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé", "Sud Ubangi"]
 PROVINCE_CANON = {
     "Ituri": "Ituri", "Nord-Kivu": "Nord-Kivu", "Haut-Uélé": "Haut-Uélé",
     "Tshopo": "Tshopo", "Sud-Kivu": "Sud-Kivu", "Bas Uélé": "Bas-Uélé",
+    # SitRep 119 (10 septembre 2026) : septieme province, par la zone de Bulu.
+    "Sud Ubangi": "Sud-Ubangi", "Sud-Ubangi": "Sud-Ubangi",
 }
 
 
@@ -365,7 +367,7 @@ def compacte_ligne(row):
 # « 48 zones touchees » au lieu de 54. Vu le 9 septembre 2026 en refaisant
 # les lettres 090-099 ; le nom est ensuite ramene a sa forme canonique.
 PROVINCE_SUMMARY_ROW_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Total)\s*\**\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Sud[- ]Ubangi|Total)\s*\**\s+"
     r"(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
     r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\([\d,]+\s*%\))?\s+"
     r"(?P<newcases>\d+)\s*$",
@@ -417,7 +419,7 @@ PROVINCE_TOTAL_ROW_RE = re.compile(
 # l'exclut. Et l'ancien motif ne peut pas mordre sur une ligne du nouveau,
 # puisqu'il exige ce nombre isole apres la fraction.
 PROVINCE_SUMMARY_ROW_NEWFIRST_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Total)\s*\**\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Sud[- ]Ubangi|Total)\s*\**\s+"
     r"(?P<newcases>\d+)\s+"
     r"(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
     r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\([\d,]+\s*%\))?\s*$",
@@ -603,7 +605,7 @@ def parse_province_summary_from_text(full_text):
 
 
 PROVINCE_NAMES = ("Ituri", "Nord-Kivu", "Haut-Uélé", "Haut Uélé", "Tshopo",
-                  "Sud-Kivu", "Bas Uélé", "Bas-Uélé", "Total")
+                  "Sud-Kivu", "Bas Uélé", "Bas-Uélé", "Sud Ubangi", "Sud-Ubangi", "Total")
 
 
 def roles_entete_resume(table):
@@ -878,7 +880,7 @@ def zone_line_ratio_match(line):
     return m, ("100,0%" if ratio == 1 else "0,0%")
 
 PROV_SUBTOTAL_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut-Uélé|Tshopo|Sud-Kivu|Bas Uélé)\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut[ -]Uélé|Tshopo|Sud-Kivu|Bas[ -]Uélé|Sud[ -]Ubangi)\s+"
     r"(?P<cas>\d[\d ]*)\s+(?P<deces>\d[\d ]*)\s+(?P<cfr>[\d,]+\s*%)\s+"
     r"(?P<newcases>\d[\d ]*)\s+(?P<deathscomm>\d[\d ]*)\s+"
     r"(?P<deathsintracte>\d[\d ]*)\s+(?P<total>\d[\d ]*)\s*$"
@@ -1002,7 +1004,9 @@ def extract_province_subtotals_from_text(full_text):
         line = line.strip()
         m = PROV_SUBTOTAL_RE.match(line)
         if m:
-            out[m.group("name")] = {
+            # Cle canonique : le 119 ecrit « Bas-Uélé » la ou le 118 ecrivait
+            # « Bas Uélé », et la province perdait ses deces du jour.
+            out[canon_province(m.group("name")) or m.group("name")] = {
                 "cas": m.group("cas"), "deces": m.group("deces"), "cfr": m.group("cfr"),
                 "newcases": m.group("newcases"), "deathscomm": m.group("deathscomm"),
                 "deathsintracte": m.group("deathsintracte"), "total": m.group("total"),
@@ -1830,8 +1834,7 @@ def main():
     old_provinces = {p["name"]: p for p in current.get("provinces", [])}
     for p in provinces:
         canon = p["name"]
-        src_name = next((k for k, v in PROVINCE_CANON.items() if v == canon), canon)
-        sub = province_subtotals_text.get(src_name)
+        sub = province_subtotals_text.get(canon)
         if sub:
             p["newDeathsCommunity24h"] = norm_int(sub["deathscomm"]) or 0
             p["newDeathsIntraCTE24h"] = norm_int(sub["deathsintracte"]) or 0
@@ -1879,7 +1882,10 @@ def main():
         }
 
     zones_total_n = sum(p["healthZonesAffected"]["n"] or 0 for p in provinces)
-    zones_total_tot = 151
+    # Somme des totaux de zones des provinces (36+34+13+23+34+11 = 151 jusqu'au
+    # 118 ; 167 depuis le 119 et les 16 zones du Sud-Ubangi), 151 a defaut.
+    _tots = [p["healthZonesAffected"]["total"] for p in provinces]
+    zones_total_tot = sum(_tots) if _tots and all(_tots) else 151
 
     # Faute de letalite dans la ligne « Total » (cas du SitRep 103), on garde
     # celle des indicateurs de tete plutot que d'inventer.

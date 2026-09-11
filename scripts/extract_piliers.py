@@ -118,7 +118,8 @@ def lire_pci(corps):
 
 PROVINCES = {"Ituri": "Ituri", "Nord-Kivu": "Nord-Kivu", "Nord Kivu": "Nord-Kivu", "Sud-Kivu": "Sud-Kivu", "Sud Kivu": "Sud-Kivu",
              "Haut-Uélé": "Haut-Uélé", "Haut Uélé": "Haut-Uélé", "Bas-Uélé": "Bas-Uélé", "Bas Uélé": "Bas-Uélé", "Tshopo": "Tshopo",
-             "Buta": "Bas-Uélé", "Makiso": "Tshopo", "Kisangani": "Tshopo"}
+             "Buta": "Bas-Uélé", "Makiso": "Tshopo", "Kisangani": "Tshopo",
+             "Sud-Ubangi": "Sud-Ubangi", "Sud Ubangi": "Sud-Ubangi", "Bulu": "Sud-Ubangi"}
 
 
 def _province(phrase):
@@ -159,7 +160,7 @@ def lire_vaccination(corps, texte_entier):
         _province_ici = lambda m: _province(phr[:m.start()]) or _province(prec) or _province(phr)
         m = re.search(r"Au total, " + NUM + r" personnes ont été vaccinées", phr)
         if m:
-            for n, prov in re.findall(NUM + r" (?:à la|au|en) (Tshopo|Bas.Uélé|Haut.Uélé|Ituri|Nord.Kivu|Sud.Kivu)", phr):
+            for n, prov in re.findall(NUM + r" (?:à la|au|en) (Tshopo|Bas.Uélé|Haut.Uélé|Sud.Ubangi|Ituri|Nord.Kivu|Sud.Kivu)", phr):
                 pose(_province(prov), entier(n))
             continue
         m = re.search(r"cumul (?:des )?personnes vaccinées\s*:\s*" + NUM, phr)

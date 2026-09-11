@@ -587,6 +587,9 @@ def build_json_ld(kinds, context):
 PROVINCE_COLORS = {
     "Ituri": "#005E82", "Nord-Kivu": "#A06F30", "Haut-Uélé": "#327957",
     "Tshopo": "#6B5CA5", "Sud-Kivu": "#5A544C", "Bas-Uélé": "#993A2E",
+    # Septieme province, SitRep 119 (10 septembre 2026) : un magenta, seule
+    # teinte encore libre qui se separe du rouge et du violet en deuteranopie.
+    "Sud-Ubangi": "#B0487D",
 }
 
 

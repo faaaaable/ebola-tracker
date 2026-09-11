@@ -81,7 +81,8 @@ const PROVINCES = [
   { name:"Haut-Uélé",  share:0.026, epicenter:false },
   { name:"Tshopo",     share:0.002, epicenter:false },
   { name:"Sud-Kivu",   share:0.001, epicenter:false },
-  { name:"Bas-Uélé",   share:0.0002, epicenter:false }
+  { name:"Bas-Uélé",   share:0.0002, epicenter:false },
+  { name:"Sud-Ubangi", share:0.0001, epicenter:false }
 ];
 /* Répartition par province — INSP RDC, SitRep N°092/MVEBDB du 14/08/2026 (cas et
    décès cumulés, rapport le plus récent disponible) ; statut de transmission :
@@ -95,7 +96,8 @@ const PROVINCE_TABLE_DATA_SEED = [
   { name:"Haut-Uélé", confirmed:135,  deaths:62,   cfr:45.9,  status:"active",           healthZonesAffected:{n:6, total:13}, newCases24h:12 },
   { name:"Tshopo",    confirmed:11,   deaths:6,    cfr:54.5,  status:"active",           healthZonesAffected:{n:7, total:23}, newCases24h:0  },
   { name:"Sud-Kivu",  confirmed:3,    deaths:1,    cfr:33.3,  status:"inactive", healthZonesAffected:{n:1,total:34}, newCases24h:0 },
-  { name:"Bas-Uélé",  confirmed:1,    deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:11}, newCases24h:0  }
+  { name:"Bas-Uélé",  confirmed:1,    deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:11}, newCases24h:0  },
+  { name:"Sud-Ubangi", confirmed:1,   deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:16}, newCases24h:1  }
 ];
 
 /* Indicateurs nationaux complémentaires — SitRep N°092/MVEBDB du 14/08/2026.
@@ -231,7 +233,8 @@ const PROVINCE_AGG_COORDS = {
   "Sud-Kivu":[-2.5085,28.8608],
   "Haut-Uélé":[2.7833,27.6167],
   "Tshopo":[0.5167,25.2],
-  "Bas-Uélé":[2.795,24.734]
+  "Bas-Uélé":[2.795,24.734],
+  "Sud-Ubangi":[3.2531,19.7739]
 };
 // Repère fixe pour la capitale — pas lié aux données épidémiques, affiché
 // en permanence (aujourd'hui comme sur le curseur temporel), contrairement
@@ -4063,7 +4066,8 @@ let zonesSearchVal = '';
 /* Couleurs distinctes par province, pour le point dans le tableau des zones. */
 const PROVINCE_COLORS = {
   "Ituri":PALETTE.info, "Nord-Kivu":PALETTE.active, "Haut-Uélé":PALETTE.stable,
-  "Tshopo":"#6B5CA5", "Sud-Kivu":PALETTE.inkDim, "Bas-Uélé":PALETTE.critical
+  "Tshopo":"#6B5CA5", "Sud-Kivu":PALETTE.inkDim, "Bas-Uélé":PALETTE.critical,
+  "Sud-Ubangi":"#B0487D"
 };
 function cfrBadgeClass(cfr){
   if(cfr < 30) return 'zone-badge-low';

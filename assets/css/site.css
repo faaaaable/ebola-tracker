@@ -2584,7 +2584,7 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 /* Toutes les lignes a la meme hauteur, qu'un titre tienne sur une ou deux lignes : l'ecart entre deux rangees ne bouge pas (demande du 7 septembre 2026). La colonne des titres est passee de 260 a 300 px pour qu'aucun ne prenne trois lignes. */
 .grille-row{padding:0;height:44px;}
 .grille-row .frise-label{line-height:1.25;}
-.grille-mois,.grille-cases{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:3px;}
+.grille-mois,.grille-cases{display:grid;grid-template-columns:repeat(var(--sem,14),minmax(0,1fr));gap:3px;}
 .grille-mois span{font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;}
 .grille-mois span:last-child{display:flex;justify-content:flex-end;}  /* « sept. » deborde a gauche de sa case, pas hors de la page (+4 px a 360 px) */
 .grille-cases i{display:block;position:relative;height:22px;border-radius:3px;background:var(--accent-strong);}
