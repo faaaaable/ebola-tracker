@@ -5,7 +5,37 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 117**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 118**, rapportage
+du 9 septembre 2026 (publié le 10) — 6 942 cas confirmés, 3 349 décès, létalité
+48,2 %, 1 647 guéris, 823 patients en CTE, suivi des contacts 84,4 % (19 945
+vus sur 23 630 ; Nord-Kivu 86,1 %, Ituri 83,6 %, Bas-Uélé 80,3 %, Tshopo
+83,5 %, Haut-Uélé 79,7 %), **61 zones touchées, aucune nouvelle**, 99 nouveaux
+cas (Ituri 47, Nord-Kivu 46, Haut-Uélé 6) et 39 décès du jour (29
+communautaires, 10 intra-CTE : 7 en Ituri, 2 au Nord-Kivu, 1 au Haut-Uélé).
+Laboratoire 99 positifs = 99 nouveaux cas ; alertes 1 941 reçues, 1 666
+vérifiées, 386 validées, 205 transférées. Intégré **en local le
+11 septembre**, résumé des Défis rédigé dans la foulée (règle du
+9 septembre), `check_coherence` sans écart bloquant, deux notes anciennes
+inchangées. Une **quatrième tournure des contacts** apprise dans
+`extract_contacts_followup.py` : « 19 945 parmi les 23 630 en cours de suivi
+ont été vus, exprimant une proportion journalière de 84, 4% » — les vus
+avant les à suivre, « parmi » à la place de « d'entre eux », et une espace
+glissée après la virgule du taux. `CONTACTS_PARMI_RE` la lit (taux, puis
+effectifs nationaux, mêmes garde-fous que les trois motifs précédents) et
+`taux_texte()` retire les espaces autour du séparateur décimal ; sans lui le
+118 sortait « sans cette donnée » alors que `latest.json` portait déjà
+84,4 % par une autre voie. Les cinq provinces se lisent par `PROV_D2_RE`
+inchangé. Les 823 patients en CTE de la bande ne se retrouvent pas dans
+`cte.json`, qui somme 805 sur quatre provinces : le Sud-Kivu n'écrit que
+« 18 cas suspects restent en isolement », sans lits ni « hospitalisés », et
+805 + 18 = 823 — la bande compte les suspects isolés, le tableau des CTE ne
+les voit pas. Deux lignes de zones (Rwampara, Pawa) ont une cellule vide
+dans la grille des décès du jour ; `update_data` a déduit leur ventilation
+de la ligne de province comme prévu, et le total national a été relu sur la
+ligne « Total » du texte après une grille illisible (« 482 + 61151404 »),
+repli déjà en place depuis le 099.
+
+Le **SitRep 117**, rapportage
 du 8 septembre 2026 (publié le 9) — 6 843 cas confirmés, 3 310 décès, létalité
 48,4 %, 1 611 guéris, 833 patients en CTE (la somme des cinq provinces qui
 rapportent égale la bande de chiffres clés), suivi des contacts 86,5 %
