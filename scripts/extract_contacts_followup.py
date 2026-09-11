@@ -99,6 +99,22 @@ CONTACTS_DENTRE_EUX_RE = re.compile(
     r"(?:\s+journali[èe]re)?\s+de\s+(\d+(?:[,.]\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,
 )
+# SitRep 118 : quatrieme tournure, les vus AVANT les a suivre et « parmi »
+# a la place de « d'entre eux » — « 19 945 parmi les 23 630 en cours de
+# suivi ont été vus, exprimant une proportion journalière de 84, 4% ». Le
+# taux s'ecrit avec une espace apres la virgule (« 84, 4% »), d'ou le \s*
+# de part et d'autre du separateur decimal. Groupes : vus, a suivre, taux.
+CONTACTS_PARMI_RE = re.compile(
+    r"(\d[\d\s]*?)\s*parmi\s+les\s+(\d[\d\s]*?)\s+en\s+cours\s+de\s+suivi"
+    r"\s+ont\s+été\s+vus\s*,?\s*(?:exprimant|soit)\s+une\s+proportion"
+    r"(?:\s+journali[èe]re)?\s+de\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+def taux_texte(brut):
+    """« 84, 4 » -> 84.4 : une espace peut s'etre glissee autour de la virgule."""
+    return float(re.sub(r"\s+", "", brut).replace(",", "."))
 
 
 def cell(c):
@@ -316,6 +332,11 @@ def rate_from_text(full_text):
         value = float(m.group(3).replace(",", "."))
         if 0 <= value <= 100:
             return value, "texte (repli, « d'entre eux ont été vus, soit une proportion de »)"
+    m = CONTACTS_PARMI_RE.search(full_text)
+    if m:
+        value = taux_texte(m.group(3))
+        if 0 <= value <= 100:
+            return value, "texte (repli, « parmi les … en cours de suivi ont été vus »)"
     return None, None
 
 
@@ -403,6 +424,14 @@ def details_contacts(full_text, rows, taux_national=None):
             a_suivre, vus = norm_int(m.group(1)), norm_int(m.group(2))
             if effectifs_verifies(vus, a_suivre, taux_national):
                 out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
+        else:
+            # SitRep 118 : « 19 945 parmi les 23 630 en cours de suivi ont
+            # été vus » — les vus d'abord, puis les a suivre.
+            m = CONTACTS_PARMI_RE.search(full_text)
+            if m:
+                vus, a_suivre = norm_int(m.group(1)), norm_int(m.group(2))
+                if effectifs_verifies(vus, a_suivre, taux_national):
+                    out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
     for pm in PROV_D_RE.finditer(full_text):
         nom = canon_detail(pm.group(1))
         taux = norm_pct(pm.group(2) + "%")
