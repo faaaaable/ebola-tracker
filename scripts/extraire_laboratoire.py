@@ -118,6 +118,7 @@ NOUVEAUX_CAS_RE = re.compile(r"dont\s+(\d+)\s+nouveaux\s+cas", re.I)
 VIVANTS_DECES_RE = re.compile(r"\((\d+)\s*vivants?\s+et\s+(\d+)\s*d[ée]c[èe]s\)", re.I)
 POSITIVITE_RE = re.compile(r"positivit[ée][^%\d\n]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I)
 NEGATIFS_RE = re.compile(r"n[ée]gatifs?\b|aucun[^.;\n]{0,30}?positif", re.I)
+TOUS_POSITIFS_RE = re.compile(r"(?:s[’']est\s+r[ée]v[ée]l[ée]\s+positif\b|tous\s+se\s+sont\s+r[ée]v[ée]l[ée]s\s+positifs|tous\s+(?:sont\s+)?revenus\s+positifs)", re.I)
 
 
 def candidats(regexes, texte):
@@ -176,6 +177,13 @@ def lire_province(morceau):
                                      candidats(POSITIFS_RES, morceau), positivite)
     if positifs is None and NEGATIFS_RE.search(morceau):
         positifs = 0
+    # « 1 échantillon reçu et testé (1 vivant), s'est révélé positif » (120,
+    # Bas-Uélé et Tshopo), « 3 échantillons reçus et testés (vivants) tous se
+    # sont révélés positifs » (121, Tshopo) : tous positifs, le nombre est
+    # celui des échantillons. Sans cela le total du jour restait à null et le
+    # garde-fou « positifs = nouveaux cas » ne pouvait pas jouer (14 septembre 2026).
+    if positifs is None and echantillons and TOUS_POSITIFS_RE.search(morceau):
+        positifs = echantillons
     # « le résultat est revenu positif » : un seul échantillon, pas de chiffre
     if positifs is None and re.search(r"le\s+r[ée]sultat\s+est\s+revenu\s+positif", morceau, re.I):
         positifs = 1

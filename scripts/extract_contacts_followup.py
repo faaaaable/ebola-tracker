@@ -123,6 +123,16 @@ CONTACTS_PARMI_LES_RE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 
+# SitRep 121 (12 septembre 2026) : « S'agissant de la proportion du suivi des
+# contacts, elle se situe à 91,3% (24 476/26 816) » — le taux d'abord, puis
+# la fraction vus / a suivre entre parentheses, sans « vus » ni « a suivre ».
+# Groupes : taux, vus, a suivre. Memes garde-fous que les autres motifs.
+CONTACTS_SITUE_RE = re.compile(
+    r"proportion\s+du\s+suivi\s+des\s+contacts\s*,?\s*(?:elle\s+)?se\s+situe\s+(?:à|a)\s+"
+    r"(\d+(?:\s*[,.]\s*\d+)?)\s*%\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)",
+    re.IGNORECASE | re.DOTALL,
+)
+
 
 def taux_texte(brut):
     """« 84, 4 » -> 84.4 : une espace peut s'etre glissee autour de la virgule."""
@@ -456,6 +466,13 @@ def details_contacts(full_text, rows, taux_national=None):
                     a_suivre, vus = norm_int(m.group(1)), norm_int(m.group(2))
                     if effectifs_verifies(vus, a_suivre, taux_national):
                         out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
+                else:
+                    # SitRep 121 : « elle se situe à 91,3% (24 476/26 816) »
+                    m = CONTACTS_SITUE_RE.search(full_text)
+                    if m:
+                        vus, a_suivre = norm_int(m.group(2)), norm_int(m.group(3))
+                        if effectifs_verifies(vus, a_suivre, taux_national):
+                            out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
     for pm in PROV_D_RE.finditer(full_text):
         nom = canon_detail(pm.group(1))
         taux = norm_pct(pm.group(2) + "%")
