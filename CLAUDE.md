@@ -5,7 +5,54 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 119**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 121**, rapportage
+du 12 septembre 2026 (publié le 13) — 7 200 cas confirmés, 3 475 décès,
+létalité 48,3 %, 1 712 guéris, 923 patients en CTE, 62 zones touchées sur
+167 dans 7 provinces (aucune nouvelle depuis Bulu au 119), 87 nouveaux cas
+(Ituri 44, Nord-Kivu 37, Haut-Uélé 3, Tshopo 3) et 38 décès du jour (28
+communautaires, 10 intra-CTE : 6 en Ituri, 4 au Nord-Kivu). Intégré **en
+local le 14 septembre 2026 avec le SitRep 120** — rapportage du
+11 septembre (publié le 12), 7 113 cas, 3 437 décès, 48,3 %, 1 692 guéris,
+855 en CTE, 91 nouveaux cas (Nord-Kivu 50, Ituri 33, Haut-Uélé 6, Tshopo 1,
+Bas-Uélé 1), 39 décès du jour (32 communautaires, 7 intra-CTE), suivi des
+contacts 87,5 % (23 416 vus sur 26 763) — par la recette des deux bulletins
+(le 121 mis de côté, `update_data` + `build_pages` sur le 120 pour figer sa
+lettre, puis le 121). Sept provinces et 62 zones relues contre les pages 2
+et 3 des deux PDF, zéro écart ; `check_coherence` sans écart bloquant, les
+deux notes anciennes inchangées ; résumés des Défis rédigés pour les deux
+(131 et 142 mots). Deux choses apprises :
+- **Sixième tournure des contacts au 121** : « S'agissant de la proportion
+  du suivi des contacts, elle se situe à 91,3% (24 476/26 816) » — le taux
+  d'abord, la fraction vus / à suivre entre parenthèses sans « vus » ni « à
+  suivre ». `CONTACTS_SITUE_RE` dans `extract_contacts_followup.py`, en
+  dernier repli, mêmes garde-fous ; diff limité au 12 septembre. Sans lui
+  le point avait son taux et ses cinq provinces mais pas ses effectifs.
+- **Le 121 publie deux taux de suivi** : 88,0 % dans la bande de chiffres
+  clés, 91,3 % dans la phrase de surveillance, dont la fraction fait bien
+  91,3. `latest.json` porte la bande (88,0, clé `contactsFollowUpRate`,
+  que le site n'affiche nulle part), `contacts-followup.json` la phrase
+  vérifiée (91,3, ce que la page Riposte montre) — même cas que le 099
+  (84,7 / 84,4), même choix.
+- **Deux tournures de laboratoire, « tous positifs »** : le 120 écrit
+  « Bas-Uélé : 1 échantillon reçu et testé (1 vivant), s'est révélé
+  positif » (idem Tshopo), le 121 « Tshopo : 3 échantillons reçus et
+  testés (vivants) tous se sont révélés positifs ». Aucun nombre de
+  positifs imprimé : les deux provinces sortaient à `null`, le total du
+  jour aussi, et le garde-fou « positifs = nouveaux cas » ne jouait pas.
+  `TOUS_POSITIFS_RE` dans `extraire_laboratoire.py` retient le nombre
+  d'échantillons, symétrique du « tous négatifs » existant ; diff limité
+  aux 11 et 12 septembre, et le garde-fou repasse (91 = 91, 87 = 87 ; le
+  Bas-Uélé du 121, « tous se sont révélés négatifs », reste à 0).
+Les six visuels pour X (dossier `tmp/proto-visuels/`, hors dépôt, copie
+dans `~/Desktop/rapport ebola tracker/_mis-de-cote-2026-09-10/maquettes/
+proto-visuels-x/`) sont refaits au 121 le même jour, en deux langues :
+code-barre (ex-rayures), calendrier avec les deux rattrapages marqués,
+tapis, « 1 point, 1 malade », escalier, et une carte des sept provinces
+ajoutée le 13 septembre (contours par superposition trait épais puis
+remplissage, province par province). Chaque image porte en bas à gauche
+la date des dernières données et le numéro du bulletin.
+
+Le **SitRep 119**, rapportage
 du 10 septembre 2026 (publié le 11) — 7 022 cas confirmés, 3 398 décès,
 létalité 48,4 %, 1 671 guéris, 837 patients en CTE, suivi des contacts 87,6 %
 (25 117 vus sur 28 672 ; Ituri 90,0 %, Nord-Kivu 86,7 %, Bas-Uélé 77,6 %,
