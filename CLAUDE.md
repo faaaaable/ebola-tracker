@@ -1995,6 +1995,46 @@ periode est-elle finie », et non « a-t-elle tous ses releves ».
 courbe de décès. Absent sous 50 cas cumulés. Signale les trous de plus de trois
 jours au lieu de relier par-dessus.
 
+**Il a ses trois pas de temps depuis le 15 septembre 2026** — Jour / Semaine /
+Mois, la bascule de `/donnees/` posée dans le cadre de chaque page province
+(Ituri, Nord-Kivu, Haut-Uélé ; les quatre autres n'ont pas de graphique). Le
+câblage existait déjà et n'a pas bougé : `<nav data-vue-periode>` vise le
+canevas de son propre `.chart-panel-wrap`. Trois choses ont dû suivre :
+- **La part rapportée d'un rattrapage n'existe pas à l'échelle d'une
+  province.** `partsQuotidiennes` et `agregeNouveauxCas` prennent un dernier
+  argument `partConnue` ; à `false`, la journée entière bascule en teinte
+  claire, comme du côté des décès. Sans lui l'Ituri aurait hérité des 97 cas
+  du 22 juillet, qui sont ceux du pays. La règle d'empan, elle, joue comme au
+  national : le 30 juillet nomme les journées qu'il rattrape, sa semaine et
+  son mois les contiennent, ses cas y passent en couleur pleine.
+- **Les deux courbes de cumul ne suivent pas en vue agrégée**, et le second
+  axe part avec elles. C'est l'idiome du site — sur `/donnees/` le cumul n'est
+  tracé qu'en vue quotidienne — et la raison se voit à l'écran : agrégées, les
+  barres sont larges et jointives, et la courbe des cas, qui porte la teinte
+  de la province, disparaît dedans. Le même piège que l'ambre du Nord-Kivu, à
+  l'échelle de la barre.
+- **La note se recompose.** `provinceChartCatchup` nomme les deux rattrapages
+  et les dit clairs : vrai au jour le jour, faux dès qu'on agrège. La phrase
+  agrégée est celle du pays, désormais **partagée** : `CATCHUP_AGREGE` en tête
+  d'`i18n.js` (trois langues, deux formes selon la période) alimente
+  `chartWeeklyNote`, `chartMonthlyNote` et la nouvelle clé
+  `chartCatchupAggregated`. Écrite deux fois, elle aurait divergé au premier
+  correctif ; vérifié que les notes nationales rendent le texte à l'identique
+  avant / après. La phrase des trous, elle, ne vaut qu'en vue quotidienne :
+  agréger rattache ces cas à la période du bulletin suivant au lieu de les
+  laisser sans barre.
+
+Piège rencontré en le faisant : la bascule est **masquée par défaut**
+(`navNew.style.display = 'none'` dans `renderOneChart`, hors `newCases` et
+`newDeaths`) — le HTML était correct et rien ne s'affichait.
+`provinceEpidemic` est dans la liste depuis. Corrigé au passage, sans rapport
+avec la bascule : le « au » de la note des trous était écrit en dur, et les
+pages anglaise et swahilie affichaient « from 16 Jul au 21 Jul » ; il passe
+par `chartDeathPlaceWeekLabel`, qui le porte dans les trois langues. Vérifié
+par sonde à 1 280 et 360 px, trois langues, trois vues et retour :
+`test_onglets` sans erreur sur `/donnees/` et sur les pages province, vues
+nationales inchangées.
+
 **`byProvince`** — six courbes de cumul, une par province, chacune à sa teinte
 d'identité, sous le titre « Cas par province ». Il s'appelait « Cas cumulés /
 région » jusqu'au 26 août : ni la RDC ni le reste du site n'emploient
