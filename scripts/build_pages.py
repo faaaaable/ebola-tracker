@@ -1927,6 +1927,14 @@ def province_chart_html(province, strings_lang, i18n_lang, numero="03"):
         '          <span data-i18n="chartShareBtn">%s</span>\n'
         '        </button>\n'
         '      </div>\n'
+        # Trois pas de temps, comme les cadres de /donnees/ (15 septembre 2026).
+        # La bascule vise le canevas de SON cadre (`.chart-panel-wrap`), le
+        # cablage d'`app.js` est generique : rien a declarer de plus.
+        '      <nav class="subtab-nav chart-vue-nav" data-vue-periode>\n'
+        '        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">%s</button>\n'
+        '        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">%s</button>\n'
+        '        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">%s</button>\n'
+        '      </nav>\n'
         '      <div class="chart-panel">\n'
         '        <canvas id="provinceChart" data-chart="provinceEpidemic"></canvas>\n'
         '      </div>\n'
@@ -1942,7 +1950,10 @@ def province_chart_html(province, strings_lang, i18n_lang, numero="03"):
            esc(interp(strings_lang["provinceChartTitle"],
                       {"name": province["name"]})),
            esc(strings_lang["provinceChartSub"]),
-           esc(i18n_lang["chartShareBtn"])))
+           esc(i18n_lang["chartShareBtn"]),
+           esc(i18n_lang["chartVueDaily"]),
+           esc(i18n_lang["chartVueWeekly"]),
+           esc(i18n_lang["chartVueMonthly"])))
 
 
 

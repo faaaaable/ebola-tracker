@@ -1,6 +1,20 @@
 /* Dictionnaire de traduction - source unique pour le rendu JS ET pour
    la generation statique des pages (scripts/build_pages.py le lit via
    scripts/dump_i18n.mjs). */
+/* La phrase qui explique le rattrapage une fois les jours agreges. Elle vaut
+   pour le pays (« Nouveaux cas » par semaine et par mois) ET pour le
+   graphique de chaque province depuis le 15 septembre 2026 : ecrite deux
+   fois, elle aurait diverge au premier correctif. Seul le mot qui nomme la
+   periode change. */
+const CATCHUP_AGREGE = {
+  fr: parMois => parMois ? `En juillet, seul le rattrapage du 22 garde sa teinte claire — le bulletin ne dit pas quelle période il harmonise ; celui du 30 rattrape les 28 et 29, que le mois contient.`
+                       : `En juillet, seul le rattrapage du 22 garde sa teinte claire — le bulletin ne dit pas quelle période il harmonise ; celui du 30 rattrape les 28 et 29, que sa semaine contient.`,
+  en: parMois => parMois ? `In July, only the catch-up of the 22nd keeps its lighter shade — the bulletin does not say which period it reconciles; that of the 30th makes up for the 28th and 29th, which the month contains.`
+                       : `In July, only the catch-up of the 22nd keeps its lighter shade — the bulletin does not say which period it reconciles; that of the 30th makes up for the 28th and 29th, which its week contains.`,
+  sw: parMois => parMois ? `Julai, ni marekebisho ya tarehe 22 pekee yanayobaki na rangi hafifu — ripoti haisemi ni kipindi gani yanasawazisha; yale ya tarehe 30 yanafidia tarehe 28 na 29, ambazo mwezi unazibeba.`
+                       : `Julai, ni marekebisho ya tarehe 22 pekee yanayobaki na rangi hafifu — ripoti haisemi ni kipindi gani yanasawazisha; yale ya tarehe 30 yanafidia tarehe 28 na 29, ambazo wiki yake inazibeba.`,
+};
+
 const I18N = {
   fr: {
     eyebrow:"Suivi en direct — épidémie d'Ebola",
@@ -82,11 +96,12 @@ const I18N = {
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Nouveaux cas agrégés par semaine calendaire, du lundi au dimanche. `
       + (enCours ? `La semaine en cours, ${enCours.nom}, n'est pas terminée : sa barre couvre la semaine entière, mais seuls les jours écoulés sont colorés — ${enCours.restants > 1 ? `les ${enCours.restants} qui restent sont grisés` : `celui qui reste est grisé`} à droite, et sa hauteur montera encore. ` : '')
       + `${absentes.length} bulletins manquent : les totaux sont des minimums. La vue « par jour » liste les dates. `
-      + `En juillet, seul le rattrapage du 22 garde sa teinte claire — le bulletin ne dit pas quelle période il harmonise ; celui du 30 rattrape les 28 et 29, que sa semaine contient.`,
+      + CATCHUP_AGREGE.fr(false),
+    chartCatchupAggregated:CATCHUP_AGREGE.fr,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`Nouveaux cas agrégés par mois calendaire. `
       + (enCours ? `Le mois en cours, ${enCours.nom}, n'est pas terminé : sa barre couvre le mois entier, mais seuls les jours écoulés sont colorés — les ${enCours.restants} qui restent sont grisés à droite, et sa hauteur montera encore. ` : '')
       + `${absentes.length} bulletins manquent, et le premier mois ne commence qu'au premier bulletin publié : les totaux sont des minimums. La vue « par jour » liste les dates. `
-      + `En juillet, seul le rattrapage du 22 garde sa teinte claire — le bulletin ne dit pas quelle période il harmonise ; celui du 30 rattrape les 28 et 29, que le mois contient.`,
+      + CATCHUP_AGREGE.fr(true),
     chartModeCumulative:"Cas/décès cumulés",
     chartModeDaily:"Nouveaux cas par jour",
     chartModeContactsFollowUp:"Suivi des contacts",
@@ -363,11 +378,12 @@ const I18N = {
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`New cases aggregated by calendar week, Monday to Sunday. `
       + (enCours ? `The current week, ${enCours.nom}, is not over: its bar spans the whole week, but only the elapsed days are coloured — the ${enCours.restants > 1 ? `${enCours.restants} remaining are` : `remaining one is`} greyed out on the right, and its height will still rise. ` : '')
       + `${absentes.length} bulletins are missing: the totals are minimums. The daily view lists the dates. `
-      + `In July, only the catch-up of the 22nd keeps its lighter shade — the bulletin does not say which period it reconciles; that of the 30th makes up for the 28th and 29th, which its week contains.`,
+      + CATCHUP_AGREGE.en(false),
+    chartCatchupAggregated:CATCHUP_AGREGE.en,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`New cases aggregated by calendar month. `
       + (enCours ? `The current month, ${enCours.nom}, is not over: its bar covers the whole month, but only the days elapsed are coloured — the ${enCours.restants} remaining are greyed out on the right, and its height will keep rising. ` : '')
       + `${absentes.length} bulletins are missing, and the first month only starts at the first one published: the totals are minimums. The daily view lists the dates. `
-      + `In July, only the catch-up of the 22nd keeps its lighter shade — the bulletin does not say which period it reconciles; that of the 30th makes up for the 28th and 29th, which the month contains.`,
+      + CATCHUP_AGREGE.en(true),
     chartModeCumulative:"Cumulative cases/deaths",
     chartModeDaily:"New cases per day",
     chartModeContactsFollowUp:"Contact follow-up",
@@ -642,11 +658,12 @@ const I18N = {
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Visa vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
       + (enCours ? `Wiki inayoendelea, ${enCours.nom}, haijaisha: safu yake inashughulikia wiki nzima, lakini siku zilizopita pekee ndizo zenye rangi — ${enCours.restants} zilizobaki zimetiwa kijivu kulia, na urefu wake bado utapanda. ` : '')
       + `Ripoti ${absentes.length} hazipo: jumla ni kima cha chini. Mwonekano wa kila siku unaorodhesha tarehe. `
-      + `Julai, ni marekebisho ya tarehe 22 pekee yanayobaki na rangi hafifu — ripoti haisemi ni kipindi gani yanasawazisha; yale ya tarehe 30 yanafidia tarehe 28 na 29, ambazo wiki yake inazibeba.`,
+      + CATCHUP_AGREGE.sw(false),
+    chartCatchupAggregated:CATCHUP_AGREGE.sw,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`Visa vipya vimekusanywa kwa mwezi wa kalenda. `
       + (enCours ? `Mwezi unaoendelea, ${enCours.nom}, haujakamilika: safu yake inashika mwezi mzima, lakini siku zilizopita pekee ndizo zenye rangi — siku ${enCours.restants} zilizosalia zimepakwa kijivu upande wa kulia, na urefu wake utaendelea kupanda. ` : '')
       + `Ripoti ${absentes.length} hazipo, na mwezi wa kwanza unaanza tu na ripoti ya kwanza iliyochapishwa: jumla ni kima cha chini. Mwonekano wa kila siku unaorodhesha tarehe. `
-      + `Julai, ni marekebisho ya tarehe 22 pekee yanayobaki na rangi hafifu — ripoti haisemi ni kipindi gani yanasawazisha; yale ya tarehe 30 yanafidia tarehe 28 na 29, ambazo mwezi unazibeba.`,
+      + CATCHUP_AGREGE.sw(true),
     chartModeCumulative:"Visa/vifo vilivyokusanywa",
     chartModeDaily:"Visa vipya kwa siku",
     chartModeContactsFollowUp:"Ufuatiliaji wa walioguswa",

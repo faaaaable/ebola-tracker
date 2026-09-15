@@ -870,7 +870,7 @@ function empanRattrapage(date){
    100 ces jours-la. Faute de part publiee, la journee entiere passe en teinte
    claire — meme choix que les graphiques de province, ou la part n'est connue
    qu'au niveau national. On marque l'incertitude, on ne la chiffre pas. */
-function partsQuotidiennes(s, champ){
+function partsQuotidiennes(s, champ, partConnue){
   const nom = champ || 'confirmed';
   const deltas = []; let prev = null;
   for(const r of s){
@@ -884,7 +884,12 @@ function partsQuotidiennes(s, champ){
   const partRapportee = date => {
     const r = RATTRAPAGE_ADMIN[date];
     if(r === undefined) return undefined;
-    return nom === 'confirmed' ? r.jour : 0;
+    /* partConnue === false : la part rapportee du jour n'existe pas a cette
+       echelle. Les bulletins ne la publient qu'au NIVEAU NATIONAL — une
+       province qui recevrait les 97 cas du 22 juillet afficherait un chiffre
+       du pays. Toute la journee bascule alors en teinte claire, exactement
+       comme du cote des deces, dont la part n'est pas publiee non plus. */
+    return (nom === 'confirmed' && partConnue !== false) ? r.jour : 0;
   };
   return {
     rapporte: s.map((r, i) => {
@@ -910,11 +915,11 @@ function partsQuotidiennes(s, champ){
    serie couvre : mai ne commence qu'au premier bulletin, le 14, et ses 31
    jours de calendrier feraient passer un mois complet pour un mois a moitie
    renseigne. */
-function agregeNouveauxCas(s, granularite, champ){
+function agregeNouveauxCas(s, granularite, champ, partConnue){
   const mois = granularite === 'mois';
   const debutDe = mois ? premierDuMois : lundiDe;
   const finDe   = mois ? dernierDuMois : dimancheDe;
-  const parts = partsQuotidiennes(s, champ);
+  const parts = partsQuotidiennes(s, champ, partConnue);
   const premiere = s[0].date, derniere = s[s.length - 1].date;
   const periodes = new Map();
   s.forEach((r, i) => {
@@ -1180,9 +1185,15 @@ function renderOneChart(canvas, chartMode){
      changement d'onglet. */
   const navVue = wrap ? wrap.querySelector('[data-pyramide-vue]') : null;
   if(navVue) navVue.style.display = (chartMode === 'pyramide') ? '' : 'none';
+  /* La bascule Jour / Semaine / Mois n'a de sens que pour les modes qui
+     savent agreger : les deux series de /donnees/ et, depuis le
+     15 septembre 2026, le graphique de chaque page province. Partout
+     ailleurs elle se referme — un onglet qui ne repond pas est pire que pas
+     d'onglet. */
   const navNew = wrap ? wrap.querySelector('[data-vue-periode]') : null;
   if(navNew) navNew.style.display =
-    (chartMode === 'newCases' || chartMode === 'newDeaths') ? '' : 'none';
+    (chartMode === 'newCases' || chartMode === 'newDeaths'
+     || chartMode === 'provinceEpidemic') ? '' : 'none';
   /* Une bascule generique (data-chart-vue) peut n'appartenir qu'a un mode
      d'une barre d'onglets : data-for-mode le dit, et elle ne s'affiche
      qu'avec lui. Sans l'attribut (page Riposte), elle reste telle quelle. */
@@ -2506,6 +2517,7 @@ function renderOneChart(canvas, chartMode){
     const ECART_MAX_JOURS = 3;
     const RATTRAPAGE = new Set(['2026-07-22', '2026-07-30']);
     const nom = nomProvinceCanonique(window.PROVINCE_NAME || '');
+    const periode = vuePeriodeDe(canvas);
 
     const pts = [];
     for(const h of PROVINCE_HISTORY){
@@ -2537,7 +2549,11 @@ function renderOneChart(canvas, chartMode){
         const iso = veille.getFullYear() + '-'
           + String(veille.getMonth() + 1).padStart(2, '0') + '-'
           + String(veille.getDate()).padStart(2, '0');
-        trous.push(frDate(iso) + ' au ' + frDate(pts[i].date));
+        /* « du 16 juil. au 21 juil. » : le mot de liaison etait ecrit en dur
+           en francais, et les pages anglaise et swahilie affichaient « from
+           16 Jul au 21 Jul ». La cle qui date les semaines le porte deja dans
+           les trois langues (15 septembre 2026). */
+        trous.push(tr('chartDeathPlaceWeekLabel')(frDate(iso), frDate(pts[i].date)));
         rapporte.push(null); rattrape.push(null);
         continue;
       }
@@ -2609,8 +2625,91 @@ function renderOneChart(canvas, chartMode){
               grid: { display: false } }
       }
     };
+    /* TROIS PAS DE TEMPS SUR LE GRAPHIQUE DE PROVINCE, comme sur /donnees/
+       (demande du 15 septembre 2026). Le calcul est celui du national —
+       `agregeNouveauxCas`, memes bornes du lundi au dimanche, meme regle
+       d'empan pour les rattrapages — a une difference pres, passee en dernier
+       argument : la part rapportee d'une journee de rattrapage n'est PAS
+       connue pour une province, les bulletins ne la publiant qu'au niveau
+       national. La journee entiere bascule donc en teinte claire, comme en
+       vue quotidienne juste au-dessus ; sans ce garde-fou la province
+       heriterait des 97 cas du 22 juillet, qui sont ceux du pays.
+
+       LES DEUX COURBES DE CUMUL NE SUIVENT PAS. C'est l'idiome du site — sur
+       /donnees/, le cumul n'est trace qu'en vue quotidienne — et la raison
+       se voit a l'ecran : agregees, les barres sont larges et jointives, et
+       la courbe des cas, qui porte la teinte de la province, disparait
+       dedans. Le meme piege que l'ambre du Nord-Kivu, a l'echelle de la
+       barre cette fois. Le second axe part avec elles. */
+    if(periode !== 'quotidien'){
+      const parMois = periode === 'mensuel';
+      const serie = agregeNouveauxCas(pts, parMois ? 'mois' : 'semaine', 'confirmed', false);
+      const derniereDate = pts[pts.length - 1].date;
+      const ouverte = serie.length > 0 && serie[serie.length - 1].fin > derniereDate;
+      /* Part de la periode deja courue, sur ses jours de CALENDRIER et non sur
+         les releves recus : le gris annonce du temps a venir, pas un bulletin
+         qui manque. Meme idiome que le mois en cours de /donnees/. */
+      const ratios = ouverte
+        ? serie.map((p, i) => i < serie.length - 1
+                      ? 1
+                      : nbJours(p.debut, derniereDate) / nbJours(p.debut, p.fin))
+        : null;
+      const barreP = (label, data, couleur) => ({
+        label, data, backgroundColor: couleur,
+        borderRadius: 2, stack: 'd', categoryPercentage: 1, barPercentage: .96
+      });
+      const dataA = {
+        // Deux lignes sous une barre hebdomadaire, ses bornes ; un mois se nomme.
+        labels: serie.map(p => parMois ? moisAnnee(p.debut)
+                                       : [frDate(p.debut), '\u2192 ' + frDate(p.fin)]),
+        datasets: [
+          barreP(tr('chartWeeklyCases'), serie.map(p => p.cas), teinte),
+          barreP(tr('catchupLabel'), serie.map(p => p.rattrapage), tint(teinte, .35))
+        ]
+      };
+      /* L'infobulle annonce la periode calendaire COMPLETE, et le compte de
+         releves dit ce qu'on en sait : une semaine a trois bulletins sur sept
+         n'est pas comparable a une semaine pleine, et c'est la qu'on le lit. */
+      opts.plugins.tooltip.callbacks.title = items => {
+        const p = serie[items[0].dataIndex];
+        const titre = parMois ? moisAnnee(p.debut)
+                              : tr('chartDeathPlaceWeekLabel')(frDate(p.debut), frDate(p.fin));
+        const encours = ouverte && items[0].dataIndex === serie.length - 1
+                      ? ' \u00b7 ' + tr(parMois ? 'chartMonthOngoing' : 'chartWeekOngoing')(frDate(derniereDate)) : '';
+        return titre + encours + ' \u00b7 ' + tr('chartPeriodDays')(p.releves, p.jours);
+      };
+      delete opts.scales.y1;
+      if(ratios){
+        opts.plugins.legend = legendeAVenir(opts.plugins.legend);
+        opts.plugins.largeurSemaine = { ratios, futurs: ratios.map(r => 1 - r) };
+      }
+      if(noteEl){
+        /* La note se recompose : la phrase des trous ne vaut qu'en vue
+           quotidienne (« aucune barre du … »), puisque agreger rattache ces
+           cas a la periode du bulletin suivant au lieu de les laisser sans
+           barre. Celle du rattrapage ne reste que s'il en subsiste en teinte
+           claire — le 30 juillet nomme les journees qu'il rattrape, la semaine
+           du 27 comme le mois de juillet les contiennent, et ses cas y passent
+           en couleur pleine. */
+        const bouts = [];
+        /* `provinceChartCatchup` nomme les DEUX rattrapages et les dit clairs :
+           vrai au jour le jour, faux des qu'on agrege, ou le 30 juillet repasse
+           en couleur pleine. La phrase agregee est celle du pays, partagee. */
+        if(serie.some(p => p.rattrapage > 0)) bouts.push(tr('chartCatchupAggregated')(parMois));
+        if(ouverte) bouts.push(tr(parMois ? 'chartMonthOngoing' : 'chartWeekOngoing')(frDate(derniereDate)));
+        noteEl.textContent = bouts.join(' \u00b7 ');
+        noteEl.style.display = bouts.length ? 'block' : 'none';
+      }
+      slot.chart = new Chart(canvas.getContext('2d'),
+        { type: 'bar', data: dataA, options: opts,
+          plugins: ratios ? [largeurSemaine] : [] });
+      slot.lastMode = 'provinceEpidemic-' + periode;
+      noterPeriode(slot, serie.length ? serie[0].debut : null,
+                         serie.length ? (ouverte ? derniereDate : serie[serie.length - 1].fin) : null);
+      return;
+    }
     slot.chart = new Chart(canvas.getContext('2d'), { type: 'bar', data, options: opts });
-    slot.lastMode = 'provinceEpidemic';
+    slot.lastMode = 'provinceEpidemic-quotidien';
     noterPeriode(slot, pts.length ? pts[0].date : null,
                        pts.length ? pts[pts.length - 1].date : null);
     return;

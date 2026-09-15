@@ -571,6 +571,11 @@
           <span data-i18n="chartShareBtn">Share</span>
         </button>
       </div>
+      <nav class="subtab-nav chart-vue-nav" data-vue-periode>
+        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">Daily</button>
+        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">Weekly</button>
+        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">Monthly</button>
+      </nav>
       <div class="chart-panel">
         <canvas id="provinceChart" data-chart="provinceEpidemic"></canvas>
       </div>
@@ -795,8 +800,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=9a6d114799"></script>
-<script defer src="/assets/js/app.js?v=545650f1cf"></script>
+<script defer src="/assets/js/i18n.js?v=73aceb3fc7"></script>
+<script defer src="/assets/js/app.js?v=4ed2d82963"></script>
 
 </body>
 </html>
