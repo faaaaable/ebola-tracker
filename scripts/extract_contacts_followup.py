@@ -124,11 +124,12 @@ CONTACTS_PARMI_LES_RE = re.compile(
 )
 
 # SitRep 121 (12 septembre 2026) : « S'agissant de la proportion du suivi des
-# contacts, elle se situe à 91,3% (24 476/26 816) » — le taux d'abord, puis
+# contacts, elle se situe à 91,3% (24 476/26 816) », 122 : « Concernant le taux
+# de suivi des contacts, il se situe à 78,6 % (21 935/27 905) » — le taux d'abord, puis
 # la fraction vus / a suivre entre parentheses, sans « vus » ni « a suivre ».
 # Groupes : taux, vus, a suivre. Memes garde-fous que les autres motifs.
 CONTACTS_SITUE_RE = re.compile(
-    r"proportion\s+du\s+suivi\s+des\s+contacts\s*,?\s*(?:elle\s+)?se\s+situe\s+(?:à|a)\s+"
+    r"(?:proportion\s+du|taux\s+de)\s+suivi\s+des\s+contacts\s*,?\s*(?:elle|il)?\s*se\s+situe\s+(?:à|a)\s+"
     r"(\d+(?:\s*[,.]\s*\d+)?)\s*%\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)",
     re.IGNORECASE | re.DOTALL,
 )

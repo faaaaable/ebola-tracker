@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-09-12"
+    "fin": "2026-09-13"
   },
   "parDate": [
     {
@@ -3523,6 +3523,122 @@
           "provinces": [
             "Ituri",
             "Tshopo"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            "Couverture encore insuffisante des activités PSEA, seules 13 des 36 zones de santé de l’Ituri (36,1 %) connaissant le mécanisme de signalement ; absence de cartographie des intervenants et refus d’alignement de certains partenaires ; insuffisance de supports de sensibilisation de masse ; manque de kits informatiques et de fournitures de bureau pour le pilier."
+          ],
+          "provinces": [
+            "Ituri"
+          ]
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-13",
+      "sitrepNumber": "122",
+      "piliers": [
+        {
+          "pilier": "surveillance",
+          "titre": "Surveillance épidémiologique",
+          "items": [
+            "Suivi des contacts sous-optimal dans 3 provinces sur les 5 ayant des contacts en cours de suivi avec un recul important au cours des dernières 24 heures dans la province du Nord- Kivu."
+          ],
+          "provinces": []
+        },
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "Opérationnalisation sous-optimale des PoE/PoC couplée à une faible complétude de rapportage au Haut-Uélé (54,5 %, 6/11) et au Sud-Kivu (55,5 %, 5/9) ; persistance de l'insécurité entravant la mise en service du PoC d'Avakubi (Ituri) et poursuite de la grève pour non-paiement des prestataires de trois PoC (Nzebi, Galay et Base Yedi) ; faible encodage des alertes dans DHIS2 Tracker en Ituri ; à la Tshopo, 18 PoC activés sur les 30 planifiés ; au Sud- Kivu, absence de dispositif d'isolement aux PoE de Kavimvira, Kalundu Port SNCC et Baraka."
+          ],
+          "provinces": [
+            "Ituri",
+            "Sud-Kivu",
+            "Haut-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "En Ituri : faible ouverture des rings (41,0 % ; 25/61) ; insuffisance d’équipes de décontamination et manque de mobilité dans plusieurs zones de santé ; insuffisance d’intrants EDS ; 9 corps non swabés, à Mandima faute d’intrants et d’équipes et ailleurs par refus des familles ; résistances communautaires à Bambu, Komanda, Nia-Nia et Mangala.",
+            "Au Nord-Kivu : faible décontamination des ménages (22,4 % ; 11/49) ; manque de traçabilité de certains ménages-cas éligibles ; manque de mobilité pour le déploiement des équipes PCI provinciales ; nécessité d’activer, de former et de motiver les équipes de décontamination dans les ZS non couvertes (Katwa, Biena, Masereka, Kyondo, Mabalako et Vuhovi.",
+            "À la Tshopo : insuffisance d’intrants PCI dans les ménages, écoles, marchés et églises ; faible proportion d’ESS ayant un score PCI supérieur à 80 % (2,2 % ; 2/92) et incinérateur de l’HGR Makiso-Kisangani toujours en panne. Au Haut-Uélé : absence de dotation de kits PCI communautaires, absence d’unités de triage dans les ESS et faible promptitude des données journalières des zones de santé.",
+            "Au Bas-Uélé : absence de zones de gestion des déchets et d’unités de triage conformes dans les 20 ESS hotspots de 5 zones de santé, insuffisance de poubelles et de dispositifs de lavage des mains, prestataires non formés en PCI dans les 5 ZS prioritaires (Buta, Ganga, Viadana, Titule et Poko) et absence de superviseurs PCI."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "Prise en charge encore partiellement hors normes et capacités limitées : En Ituri, les CTE/CT saturés du côté des suspects : Nizi, Mambasa, Lolwa, Kilo, Mangala et Mandima. Au Nord-Kivu, 45 % des patients hospitalisés sont pris en charge hors-CTE, aucun lit n’est disponible à Butembo et à Katwa. À la Tshopo, l’absence de sang sécurisé et un plateau technique limité. Au Bas-Uélé, l’absence de CTE/CT et d’ambulance limite l’isolement des cas."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "Faible adhésion des PPL à la vaccination et insuffisance d’outils de gestion à la Tshopo, où le site de vaccination de Bafwasende demeure non activé. Au Bas-Uélé, absence de microplan de vaccination des PPL dans les six zones de santé prioritaires (Aketi, Ango, Bili, Buta, Ganga et Viadana)."
+          ],
+          "provinces": [
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "crec",
+          "titre": "Communication sur les risques et engagement communautaire",
+          "items": [
+            "Persistance des résistances communautaires : à la Tshopo, le besoin de dispositifs de lavage des mains dans les établissements scolaires et la rumeur d’une prime de 300 USD pour toute alerte de cas ou de décès ont alimenté des infodémies résolues dans les 48 heures, un cas confirmé évadé du CTE demeure à domicile et le pilier connaît une rupture d’affiches et de banderoles. En Ituri, insuffisance de moyens de déplacement pour appuyer les autres piliers, imprimante en panne et absence de connexion internet pour le pilier. Au Haut-Uélé, rupture totale des outils de visibilité et des matériels de communication dans toutes les zones de santé touchées. Au Bas-Uélé, impraticabilité des routes vers certaines zones et aires de santé, manque de moyens de transport et de crédit téléphonique, démotivation des acteurs de terrain et faible remontée des rapports des zones de santé."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "En Ituri, faible couverture des interventions SMSPS, seules 10 des 28 zones de santé étant couvertes. Au Nord-Kivu, faible couverture des interventions autour des derniers cas confirmés dans les ZS de Biena, Manguredjipa, Kayna, Lubero, Masereka, Kalunguta, Mabalako, Mutwanga et Vuhovi ; absence de crèches dans 10 zones de santé affectées et insuffisance de ressources humaines et de motivation. Au Haut-Uélé, absence de matériel informatique pour le pilier ; difficulté de mobilité des APS à Wamba et à Boma Mangbetu ; démotivation du personnel faute de paiement. À la Tshopo, absence de prestataires SMSPS à Wanie-Rukula, Bafwasende et Isangi et faible participation des partenaires. Au Bas-Uélé, absence de psychologue dans la zone de santé de Ganga."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité",
+          "items": [
+            "Au Nord-Kivu, manque d’un véhicule permanent pour l’équipe de sécurité, absence de motivation pécuniaire des agents et non-paiement des policiers et agents de sécurité commis à la garde des ESS ; absence d’appui des éléments de sécurité dans plusieurs PoC de l’axe Butembo (Kangote, Kyaghala, Mususa et Komba) ; retard de paiement des acteurs de la riposte et non- respect des engagements de certains partenaires dans plusieurs zones de santé."
+          ],
+          "provinces": [
+            "Nord-Kivu"
           ]
         },
         {
