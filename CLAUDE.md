@@ -5,7 +5,45 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 121**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 122**, rapportage
+du 13 septembre 2026 (publié le 14) — 7 258 cas confirmés, 3 510 décès,
+létalité 48,4 %, 1 726 guéris, 905 patients en CTE, suivi des contacts
+**78,6 %** (21 935 vus sur 27 905), 62 zones touchées sur 167 dans 7
+provinces, 58 nouveaux cas (Ituri 44, Nord-Kivu 12, Haut-Uélé 2) et 35
+décès du jour (23 communautaires, 12 intra-CTE : 6 en Ituri, 6 au
+Nord-Kivu). Intégré **en local le 15 septembre 2026**, sept provinces et
+62 zones relues contre les pages 2 et 3 du PDF, zéro écart ;
+`check_coherence` sans écart bloquant, les deux notes anciennes
+inchangées ; résumé des Défis rédigé dans la foulée (137 mots). Le suivi
+des contacts **recule de 91,3 % à 78,6 % en un jour** (Nord-Kivu 69,2 %,
+Haut-Uélé 65,7 %), et le **Sud-Ubangi a ses premiers contacts suivis**
+(16 vus sur 39, 41,0 %). Deux tournures apprises :
+- **`extraire_cte.py` : « N patients sont pris en charge en hospitalisation
+  pour M lits »** (Ituri 472/1 015, Haut-Uélé 69/134), « 332 patients sont
+  pris en charge en hospitalisation, soit un taux d'occupation global en
+  sursaturation (145,6 %) » (Nord-Kivu, sans lits) et « 7 patients restent
+  en isolement » (Bas-Uélé). Un verbe s'intercale entre les patients et le
+  mot qui les qualifie, ce que les motifs existants exigeaient collés :
+  **quatre provinces sur six manquaient**, le total du site tombait à 25
+  pour 905 en bande. Un motif ajouté (« sont pris en charge en », « restent
+  en », « sont placés en » devant hospitalisation / isolement) et le 122
+  tombe **exactement sur la bande, 905**. Effet de bord vérifié et gardé :
+  le **106 (28 août)** gagne le Sud-Kivu, « 26 patients restent en
+  isolement », total 869 → 895 pour **896 annoncés en bande** — l'écart
+  tombe de 27 à 1, ce dernier patient étant celui du Bas-Uélé (« 1 patient
+  confirmé est en cours de soins pour 3 lits disponibles »), tournure
+  toujours non lue et déjà signalée ici. Aucune autre date ne bouge.
+- **Septième tournure des contacts** : « Concernant le taux de suivi des
+  contacts, il se situe à 78,6 % (21 935/27 905) » — le « taux de » du 122
+  là où le 121 mettait « la proportion du », et « il » au lieu de
+  « elle ». `CONTACTS_SITUE_RE` accepte les deux, mêmes garde-fous ; diff
+  limité au 13 septembre. Sans cela le point gardait son taux et ses cinq
+  provinces mais perdait ses effectifs nationaux.
+Laboratoire : 58 positifs = 58 nouveaux cas, garde-fou vérifié ; le
+Sud-Ubangi n'entre pas (« 3 échantillons collectés dont 2 sont expédiés à
+Kinshasa (INRB) », aucun résultat).
+
+Le **SitRep 121**, rapportage
 du 12 septembre 2026 (publié le 13) — 7 200 cas confirmés, 3 475 décès,
 létalité 48,3 %, 1 712 guéris, 923 patients en CTE, 62 zones touchées sur
 167 dans 7 provinces (aucune nouvelle depuis Bulu au 119), 87 nouveaux cas
