@@ -2752,24 +2752,21 @@ mais n'a pas été demandé. Les couleurs du panneau n'ont pas bougé.
 Un lecteur ne lit pas trois lignes de mise en garde avant d'atteindre
 l'information.
 
-**Seuils.** `SEUIL_COURBE_PROVINCE = 20` dans `build_pages.py` : sous ce
-cumul, une province n'a pas de graphique — la courbe serait plate et les
-barres invisibles. **Abaissé de 50 à 20 le 15 septembre 2026, à la demande du
-propriétaire, pour la Tshopo** (28 cas) : elle a 16 journées avec au moins un
-cas et un maximum de 3, de quoi lire une forme. Restent dehors le Bas-Uélé
-(5 cas, 4 journées à 1), le Sud-Kivu (3) et le Sud-Ubangi (1), dont le cumul
-n'a **jamais bougé** depuis leur première ligne : leur graphique serait
-littéralement vide. Le numéro du cadre suit la même constante — la Tshopo
-passe à 01 carte, 02 zones, 03 graphique, 04 frise. Deux défauts sont
-apparus avec elle, invisibles tant qu'aucune province à petits nombres
-n'avait de graphique :
+**Seuils.** `SEUIL_COURBE_PROVINCE = 50` dans `build_pages.py` : sous 50 cas
+cumulés, une province n'a pas de graphique — la courbe serait plate et les
+barres invisibles. Tshopo, Sud-Kivu, Bas-Uélé et Sud-Ubangi sont concernés.
+**Essayé à 20 le 15 septembre 2026** pour donner le sien à la Tshopo (28 cas,
+16 journées avec au moins un cas, 3 au plus), montré, puis **remis à 50 le
+même jour** — « on ne va pas garder cette idée là ». Ne pas y revenir sans
+qu'il le redemande. Deux corrections nées de cet essai sont **gardées**,
+justes indépendamment du seuil et invisibles tant qu'aucune province à
+petits nombres n'a de graphique :
 - **`precision: 0` sur les deux axes du mode `provinceEpidemic`.** Chart.js
   graduait l'axe 0 / 0,5 / 1 / 1,5 quand le maximum est 3 : chaque demi-cas
   est un effectif impossible. Sans effet sur l'Ituri, dont l'axe monte à 350.
 - **Le jeu « Rattrapage » n'est ajouté en vue agrégée que s'il porte quelque
-  chose.** La Tshopo n'a pris aucun cas le 22 juillet et celui du 30 tombe
-  dans sa semaine : sa légende annonçait une couleur absente du tracé, ce que
-  ce dépôt tient pour pire que pas de légende.
+  chose** : une légende qui nomme une couleur absente du tracé est pire que
+  pas de légende.
 `seuilLisibilite = 20` dans `deces-lieu.json` écarte de même les provinces où
 une proportion n'aurait aucun sens.
 
