@@ -16,10 +16,10 @@
     <p class="lede">{{province.intro}}</p>
     <p class="page-intro">{{province.rank}}</p>
 
-    <!-- Trois cases calees sur leur contenu, pas sur la largeur de la page :
+    <!-- Cinq cases (trois jusqu'au 16 septembre 2026) calees sur leur contenu, pas sur la largeur de la page :
          etirees sur 900 px, elles etaient a moitie vides (demande du
          proprietaire, 29 aout). Sur telephone elles reprennent la largeur. -->
-    <section class="kpis kpis-province" aria-label="{{meta.h1}}">
+    <section class="kpis kpis-province{{province.ripKpisClass}}" aria-label="{{meta.h1}}">
       <div class="kpi confirmed">
         <div class="label">{{t.provincesCardCases}}</div>
         <div class="value">{{province.cases}}</div>
@@ -35,7 +35,7 @@
         <div class="value">{{province.cfr}}</div>
         <div class="delta" data-i18n="cfrDelta">{{i18n.cfrDelta}}</div>
       </div>
-    </section>
+{{province.ripKpis}}    </section>
   </section>
 
   <section class="section cadre-fiche">

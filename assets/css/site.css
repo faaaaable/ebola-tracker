@@ -489,6 +489,16 @@ ul,ol{margin:0;padding:0;}
   .kpis-province{width:auto;grid-template-columns:repeat(3,1fr);}
   .kpis-province .kpi{padding-right:12px;}
 }
+/* Cinq cases depuis le 16 septembre 2026 (sauf Bas-Uele, Sud-Kivu et
+   Sud-Ubangi, restees a trois) : sur un ecran moyen, le bilan (trois cases)
+   sur une ligne et la riposte (deux cases) sur la suivante, sans case vide —
+   six colonnes, trois cases de deux, deux cases de trois. */
+.kpis-province.has-riposte{grid-template-columns:repeat(5,minmax(130px,max-content));}
+@media (max-width:1100px){
+  .kpis-province.has-riposte{width:auto;grid-template-columns:repeat(6,1fr);}
+  .kpis-province.has-riposte .kpi{grid-column:span 2;}
+  .kpis-province.has-riposte .kpi.contacts,.kpis-province.has-riposte .kpi.cte{grid-column:span 3;}
+}
 .kpi .label{font-size:10.5px;color:var(--ink-label);margin-bottom:4px;letter-spacing:.02em;}
 .kpi .value{font-size:28px;font-weight:700;line-height:1.1;}
 .kpi .delta{font-size:11px;color:var(--ink-faint);margin-top:3px;}

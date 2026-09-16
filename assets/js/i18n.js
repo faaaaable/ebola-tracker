@@ -133,7 +133,7 @@ const I18N = {
     chartModeByProvince:"Cas par province",
     chartModeNewCasesByProvince:"Nouveaux cas par province",
     chartVueCas:"Cas",
-    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Nouveaux cas confirmés par semaine calendaire, du lundi au dimanche, empilés par province, sur ${semaines} semaines. En parts, chaque semaine est ramenée à 100 % : on lit d'où viennent les cas, pas combien il y en a. `
+    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Nouveaux cas confirmés par semaine calendaire, du lundi au dimanche, empilés par province, sur ${semaines} semaines. `
       + (rattrapages.length ? `Les rattrapages administratifs des 22 et 30 juillet sont comptés dans leur semaine (${rattrapages.join(', ')}), leur province étant connue mais pas leur journée. ` : '')
       + `Les jours sans bulletin sont comptés par le bulletin suivant.`,
     chartModeSexes:"Cas et décès par sexe",
@@ -415,7 +415,7 @@ const I18N = {
     chartModeByProvince:"Cases by province",
     chartModeNewCasesByProvince:"New cases by province",
     chartVueCas:"Cases",
-    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`New confirmed cases per calendar week, Monday to Sunday, stacked by province, over ${semaines} weeks. As shares, each week is scaled to 100%: you read where cases come from, not how many there are. `
+    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`New confirmed cases per calendar week, Monday to Sunday, stacked by province, over ${semaines} weeks. `
       + (rattrapages.length ? `The administrative catch-ups of 22 and 30 July are counted in their week (${rattrapages.join(', ')}), their province being known but not their day. ` : '')
       + `Days without a bulletin are counted by the next one.`,
     chartModeSexes:"Cases and deaths by sex",
@@ -695,7 +695,7 @@ const I18N = {
     chartModeByProvince:"Visa kwa jimbo",
     chartModeNewCasesByProvince:"Visa vipya kwa jimbo",
     chartVueCas:"Visa",
-    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Visa vipya vilivyothibitishwa kwa wiki ya kalenda, Jumatatu hadi Jumapili, vikipangwa kwa jimbo, kwa wiki ${semaines}. Kama sehemu, kila wiki hurejeshwa hadi 100%: unasoma visa vinatoka wapi, si vingapi. `
+    chartNoteNewCasesByProvince:(semaines,rattrapages)=>`Visa vipya vilivyothibitishwa kwa wiki ya kalenda, Jumatatu hadi Jumapili, vikipangwa kwa jimbo, kwa wiki ${semaines}. `
       + (rattrapages.length ? `Marekebisho ya kiutawala ya 22 na 30 Julai yanahesabiwa katika wiki yao (${rattrapages.join(', ')}), jimbo lao likijulikana lakini si siku yao. ` : '')
       + `Siku zisizo na ripoti zinahesabiwa na ripoti inayofuata.`,
     chartModeSexes:"Visa na vifo kwa jinsia",

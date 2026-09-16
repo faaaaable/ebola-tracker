@@ -2255,6 +2255,95 @@ def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
     return {"seed.%s" % k: v for k, v in out.items()}
 
 
+# Provinces sans les deux cases de riposte en tete de page (decision du
+# proprietaire, 16 septembre 2026) : trop peu de cas pour que le taux de
+# contacts ou l'occupation des CTE disent quelque chose, et des series
+# interrompues (Sud-Kivu depuis le 5 aout, rien pour les CTE du Bas-Uele et du
+# Sud-Ubangi).
+PROVINCES_SANS_CASES_RIPOSTE = {"Bas-Uélé", "Sud-Kivu", "Sud-Ubangi"}
+
+
+def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lang):
+    """Contacts vus et occupation des CTE d'UNE province, pour ses cases de tete
+    (demande du proprietaire, 16 septembre 2026).
+
+    Memes regles que les cases nationales de `riposte_seed` : les contacts
+    cumulent les sept derniers releves ou la province publie son taux (vus
+    sur a-suivre quand les sept portent les effectifs, sinon moyenne simple
+    des taux) ; l'occupation reste la valeur du dernier releve, datee si ce
+    n'est pas le dernier bulletin. Une province sans donnee affiche « non
+    publie ». Le Nord-Kivu ne publie plus son nombre de lits depuis le
+    10 septembre : son sous-titre ne donne alors que les hospitalises."""
+    date_bulletin = meta_data.get("reportingDate")
+    au = lambda d: "" if (not d or d == date_bulletin) else " · " + interp(
+        strings_lang["riposteKpiAsOf"], {"date": long_date(d, i18n_lang)})
+    out = {}
+
+    releves = []
+    for pt in reversed(riposte["contacts"] if isinstance(riposte["contacts"], list) else []):
+        v = (pt.get("provinces") or {}).get(name) or {}
+        if v.get("taux") is None:
+            continue
+        releves.append(dict(v, date=pt["date"]))
+        if len(releves) == 7:
+            break
+    if releves:
+        if all(v.get("vus") is not None and v.get("aSuivre") for v in releves):
+            vus = sum(v["vus"] for v in releves)
+            a_suivre = sum(v["aSuivre"] for v in releves)
+            taux = round(vus / a_suivre * 100, 1)
+            sub = interp(strings_lang["riposteKpiContactsSub"],
+                         {"vus": fmt(vus, lang), "aSuivre": fmt(a_suivre, lang)})
+        else:
+            taux, sub = round(sum(v["taux"] for v in releves) / len(releves), 1), ""
+        # Datee quand la province a cesse de publier : le Sud-Kivu s'arrete
+        # au 5 aout, et son 100 % se lisait comme un chiffre du jour.
+        out["province.ripContacts"] = fmt_cfr(taux, lang)
+        out["province.ripContactsSub"] = esc((sub + au(releves[0]["date"])).lstrip(" ·"))
+    else:
+        out["province.ripContacts"] = "—"
+        out["province.ripContactsSub"] = esc(strings_lang["riposteKpiNone"])
+
+    k = None
+    for pt in reversed(riposte["cte"].get("parDate", [])):
+        v = (pt.get("provinces") or {}).get(name) or {}
+        if v.get("occupation") is not None:
+            k = (pt["date"], v)
+            break
+    if k:
+        date, v = k
+        if v.get("lits") and v.get("hospitalises") is not None:
+            sub = interp(strings_lang["riposteKpiOccupationSub"],
+                         {"hospitalises": fmt(v["hospitalises"], lang), "lits": fmt(v["lits"], lang)})
+        elif v.get("hospitalises") is not None:
+            sub = interp(strings_lang["provinceKpiOccupationSubSansLits"],
+                         {"hospitalises": fmt(v["hospitalises"], lang)})
+        else:
+            sub = ""
+        out["province.ripOccupation"] = fmt_cfr(v["occupation"], lang)
+        out["province.ripOccupationSub"] = esc((sub + au(date)).lstrip(" ·"))
+    else:
+        out["province.ripOccupation"] = "—"
+        out["province.ripOccupationSub"] = esc(strings_lang["riposteKpiNone"])
+    if name in PROVINCES_SANS_CASES_RIPOSTE:
+        return {"province.ripKpis": "", "province.ripKpisClass": ""}
+    return {
+        "province.ripKpisClass": " has-riposte",
+        "province.ripKpis": (
+            '      <div class="kpi contacts">\n'
+            '        <div class="label">%s</div>\n'
+            '        <div class="value">%s</div>\n'
+            '        <div class="delta">%s</div>\n'
+            '      </div>\n'
+            '      <div class="kpi cte">\n'
+            '        <div class="label">%s</div>\n'
+            '        <div class="value">%s</div>\n'
+            '        <div class="delta">%s</div>\n'
+            '      </div>\n'
+            % (esc(strings_lang["riposteKpiContacts"]), out["province.ripContacts"], out["province.ripContactsSub"],
+               esc(strings_lang["riposteKpiOccupation"]), out["province.ripOccupation"], out["province.ripOccupationSub"]))}
+
+
 def head_assets(needs):
     tags = []
     if "leaflet" in needs:
@@ -2433,6 +2522,10 @@ def main():
             {"n": touched, "total": len(geo["zones"])}))
         common_seed["panelStats"] = panel_stats_html(national, lang, i18n_lang)
         common_seed.update(riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang))
+        # Contacts vus et occupation des CTE de chaque province (16 sept. 2026).
+        common_seed["provinceRiposte"] = {
+            _p["name"]: province_riposte_seed(riposte, _p["name"], meta_data, lang, strings_lang, i18n_lang)
+            for _p in provinces}
         # La frise de chaque page province (8 septembre 2026).
         common_seed["provinceTimelines"] = {
             _p["name"]: province_timeline_html(_p["name"], province_forms(config, _p["name"], lang), strings, lang, i18n_lang,
@@ -2666,6 +2759,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.chart": province_chart_html(province, strings_lang, i18n_lang),
             "province.zonesNum": "03" if (province.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE else "02",
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
+            **common_seed.get("provinceRiposte", {}).get(name, {
+                "province.ripKpis": "", "province.ripKpisClass": ""}),
             "province.query": name.replace(" ", "%20"),
             # Rang dans le pays, puis quand ca a commence, puis quand ca a
             # bouge pour la derniere fois : un bloc temporel qui se lit d'un

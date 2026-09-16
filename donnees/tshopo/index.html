@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=b477429137">
+<link rel="stylesheet" href="/assets/css/site.css?v=95ddd8b2d4">
 </head>
 <body>
 
@@ -241,10 +241,10 @@
     <p class="lede">Au 13 sept. 2026, la province de la Tshopo comptabilise <strong>28 cas confirmés</strong> et <strong>10 décès</strong> depuis le début de l'épidémie, soit un taux de létalité de 35,7 %. Les cas se répartissent sur 7 des 23 zones de santé de la province.</p>
     <p class="page-intro">4ᵉ province la plus touchée sur 7, avec 0,4 % des cas confirmés du pays. Premier cas rapporté le 30 juin 2026, d'abord compté en Ituri : le bulletin n'attribue une ligne à la province que le 10 juillet. Dernier cas signalé le 12 sept. 2026.</p>
 
-    <!-- Trois cases calees sur leur contenu, pas sur la largeur de la page :
+    <!-- Cinq cases (trois jusqu'au 16 septembre 2026) calees sur leur contenu, pas sur la largeur de la page :
          etirees sur 900 px, elles etaient a moitie vides (demande du
          proprietaire, 29 aout). Sur telephone elles reprennent la largeur. -->
-    <section class="kpis kpis-province" aria-label="Ebola dans la Tshopo">
+    <section class="kpis kpis-province has-riposte" aria-label="Ebola dans la Tshopo">
       <div class="kpi confirmed">
         <div class="label">Cas confirmés</div>
         <div class="value">28</div>
@@ -259,6 +259,16 @@
         <div class="label">Létalité</div>
         <div class="value">35,7 %</div>
         <div class="delta" data-i18n="cfrDelta">décès / cas confirmés</div>
+      </div>
+      <div class="kpi contacts">
+        <div class="label">Contacts vus (7 derniers relevés)</div>
+        <div class="value">75,3 %</div>
+        <div class="delta">1 469 vus sur 1 952 à suivre · au 12 sept. 2026</div>
+      </div>
+      <div class="kpi cte">
+        <div class="label">Occupation des CTE</div>
+        <div class="value">25,8 %</div>
+        <div class="delta">8 hospitalisés pour 31 lits</div>
       </div>
     </section>
   </section>
@@ -737,7 +747,7 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=73aceb3fc7"></script>
+<script defer src="/assets/js/i18n.js?v=53856e91fa"></script>
 <script defer src="/assets/js/app.js?v=c3b7016e31"></script>
 
 </body>
