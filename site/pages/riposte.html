@@ -134,6 +134,14 @@
           <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
         </button>
       </div>
+      <!-- Le pays ou l'une des trois provinces qui classent assez de deces
+           pour qu'une part hebdomadaire ait un sens (16 septembre 2026). -->
+      <nav class="subtab-nav chart-vue-nav" data-chart-vue="decesLieuChart">
+        <button type="button" class="subtab-btn active" data-vue="pays" data-i18n="navDataTables">{{i18n.navDataTables}}</button>
+        <button type="button" class="subtab-btn" data-vue="Ituri">Ituri</button>
+        <button type="button" class="subtab-btn" data-vue="Nord-Kivu">Nord-Kivu</button>
+        <button type="button" class="subtab-btn" data-vue="Haut-Uélé">Haut-Uélé</button>
+      </nav>
       <div class="chart-panel">
         <canvas id="decesLieuChart" data-chart="deathsPlace"></canvas>
       </div>

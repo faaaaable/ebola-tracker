@@ -351,13 +351,21 @@
           <span data-i18n="chartShareBtn">Shiriki</span>
         </button>
       </div>
+      <!-- Le pays ou l'une des trois provinces qui classent assez de deces
+           pour qu'une part hebdomadaire ait un sens (16 septembre 2026). -->
+      <nav class="subtab-nav chart-vue-nav" data-chart-vue="decesLieuChart">
+        <button type="button" class="subtab-btn active" data-vue="pays" data-i18n="navDataTables">Nchi nzima</button>
+        <button type="button" class="subtab-btn" data-vue="Ituri">Ituri</button>
+        <button type="button" class="subtab-btn" data-vue="Nord-Kivu">Nord-Kivu</button>
+        <button type="button" class="subtab-btn" data-vue="Haut-Uélé">Haut-Uélé</button>
+      </nav>
       <div class="chart-panel">
         <canvas id="decesLieuChart" data-chart="deathsPlace"></canvas>
       </div>
       <!-- Charniere allegee (7 septembre 2026) : trois lignes sous le graphique,
            la note complete du graphique (ecrite par app.js dans .chart-note)
            et les sources repliees derriere « Méthode et sources ». -->
-      <p class="map-note">Sehemu ya kila wiki ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, nchi nzima. Mstari wa nukta unaonyesha wastani wa wiki zilizofunikwa: huo ndio matokeo, si kupanda na kushuka. Ripoti zinatofautisha mahali hapo pawili tangu tarehe 13 Julai tu.</p>
+      <p class="map-note">Sehemu ya kila wiki ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, nchi nzima au katika mojawapo ya majimbo matatu yaliyoathirika zaidi. Mstari wa nukta unaonyesha wastani wa wiki zilizofunikwa: huo ndio matokeo, si kupanda na kushuka. Ripoti zinatofautisha mahali hapo pawili tangu tarehe 13 Julai tu.</p>
       <details class="maq-methode">
         <summary>Mbinu na vyanzo</summary>
         <div class="map-note chart-note"></div>
@@ -490,8 +498,8 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=53856e91fa"></script>
-<script defer src="/assets/js/app.js?v=c3b7016e31"></script>
+<script defer src="/assets/js/i18n.js?v=1bf5a7e12f"></script>
+<script defer src="/assets/js/app.js?v=fcc05d6f00"></script>
 
 </body>
 </html>

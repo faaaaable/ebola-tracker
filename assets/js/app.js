@@ -1225,6 +1225,16 @@ function renderOneChart(canvas, chartMode){
      aient leur vraie largeur — meme idiome que le suivi des contacts. */
   const RIPOSTE_MODES = ['alertes', 'laboratoire', 'contactsRiposte', 'cte'];
   if(RIPOSTE_MODES.includes(chartMode)){
+    /* UNE PROVINCE (16 septembre 2026) : sur les pages de l'Ituri, du
+       Nord-Kivu et du Haut-Uele, le canevas porte data-province et chaque
+       mode lit la colonne de la province au lieu du total. Les cles des
+       fichiers ne sont pas toujours ecrites comme le nom canonique. */
+    const provRip = canvas.dataset.province ? nomProvinceCanonique(canvas.dataset.province) : null;
+    const colonne = obj => {
+      if(!provRip || !obj) return null;
+      for(const [k, v] of Object.entries(obj)) if(nomProvinceCanonique(k) === provRip) return v;
+      return null;
+    };
     const vide = () => {
       if(slot.chart){ slot.chart.destroy(); slot.chart = null; }
       slot.lastMode = chartMode;
@@ -1353,10 +1363,21 @@ function renderOneChart(canvas, chartMode){
     /* ---- Alertes : volume par semaine, ou taux par jour ---- */
     if(chartMode === 'alertes'){
       if(!ALERTES || !ALERTES.parDate.length){ vide(); return; }
-      const points = ALERTES.parDate.map(p => ({
-        date:p.date, recues:(p.total||{}).recues ?? null, validees:(p.total||{}).validees ?? null,
-        verifiees:(p.total||{}).verifiees ?? null, partVerifiee:(p.total||{}).partVerifiee ?? null,
-        partValidee:(p.total||{}).partValidee ?? null }));
+      /* Pour une province, les parts se recalculent : le bulletin ne les
+         imprime qu'au total. Memes definitions — verifiees et validees sur
+         recues. */
+      const pointsTous = ALERTES.parDate.map(p => {
+        if(!provRip) return {
+          date:p.date, recues:(p.total||{}).recues ?? null, validees:(p.total||{}).validees ?? null,
+          verifiees:(p.total||{}).verifiees ?? null, partVerifiee:(p.total||{}).partVerifiee ?? null,
+          partValidee:(p.total||{}).partValidee ?? null };
+        const v = colonne(p.provinces) || {};
+        const part = x => (x !== undefined && x !== null && v.recues) ? Math.round(x / v.recues * 1000) / 10 : null;
+        return { date:p.date, recues:v.recues ?? null, validees:v.validees ?? null, verifiees:v.verifiees ?? null,
+                 partVerifiee:part(v.verifiees), partValidee:part(v.validees) };
+      });
+      const points = provRip ? pointsTous.filter(p => p.recues !== null) : pointsTous;
+      if(!points.length){ vide(); return; }
       const sans = sortedSitreps().filter(r => r.date >= points[0].date && !points.some(p => p.date === r.date)).length;
       if(vueDe(canvas, 'volume') === 'volume'){
         const semaines = parSemaine(points, ['recues', 'validees']);
@@ -1412,14 +1433,17 @@ function renderOneChart(canvas, chartMode){
          reprelevements. */
       const points = LABORATOIRE.parDate.map(p => {
         const n = p.national || {}, t = p.total || {};
-        const src = (n.echantillons && n.positifs !== null && n.positifs !== undefined) ? n : t;
+        const src = provRip ? (colonne(p.provinces) || {})
+                  : (n.echantillons && n.positifs !== null && n.positifs !== undefined) ? n : t;
         const positifs = (src.nouveauxCas !== undefined && src.nouveauxCas !== null) ? src.nouveauxCas : (src.positifs ?? null);
         return { date:p.date, echantillons:src.echantillons ?? null, positifs };
       });
-      const semaines = parSemaine(points, ['echantillons', 'positifs']);
+      const pointsLus = provRip ? points.filter(p => p.echantillons !== null && p.positifs !== null) : points;
+      if(!pointsLus.length){ vide(); return; }
+      const semaines = parSemaine(pointsLus, ['echantillons', 'positifs']);
       if(!semaines.length){ vide(); return; }
-      const ouverte = semaineOuverte(semaines, points[points.length-1].date);
-      const sans = sortedSitreps().filter(r => r.date >= points[0].date && !points.some(p => p.date === r.date && p.echantillons !== null && p.positifs !== null)).length;
+      const ouverte = semaineOuverte(semaines, pointsLus[pointsLus.length-1].date);
+      const sans = sortedSitreps().filter(r => r.date >= pointsLus[0].date && !pointsLus.some(p => p.date === r.date && p.echantillons !== null && p.positifs !== null)).length;
       const positivite = semaines.map(w => (w.releves && w.valeurs.echantillons) ? Math.round(w.valeurs.positifs / w.valeurs.echantillons * 1000) / 10 : null);
       const data = { labels:semaines.map(libelleSemaine), datasets:[
         { type:'line', label:tr('laboPositiviteLabel'), data:positivite, yAxisID:'y1', borderColor:PALETTE.critical, borderWidth:2, pointRadius:2.5, pointBackgroundColor:PALETTE.critical, tension:.2, order:0 },
@@ -1446,10 +1470,16 @@ function renderOneChart(canvas, chartMode){
       const SEUIL_INSP = 85;
       const jours = calendrier(CONTACTS_FOLLOWUP[0].date, CONTACTS_FOLLOWUP[CONTACTS_FOLLOWUP.length-1].date);
       const parDate = {}; CONTACTS_FOLLOWUP.forEach(r => { parDate[r.date] = r; });
-      if(vueDe(canvas, 'national') === 'national'){
-        const taux = jours.map(d => parDate[d] ? parDate[d].contactsFollowUpRate : null);
-        const aSuivre = jours.map(d => (parDate[d] && parDate[d].contacts) ? parDate[d].contacts.aSuivre : null);
-        const data = { labels:jours.map(frDate), datasets:[
+      if(provRip || vueDe(canvas, 'national') === 'national'){
+        /* Une province : sa part et ses contacts a suivre, a partir du
+           premier jour ou le bulletin la detaille. */
+        const colonneDu = d => parDate[d] ? colonne(parDate[d].provinces) : null;
+        const joursC = provRip ? jours.slice(Math.max(0, jours.findIndex(d => colonneDu(d)))) : jours;
+        if(provRip && !joursC.some(d => colonneDu(d))){ vide(); return; }
+        const taux = joursC.map(d => provRip ? ((colonneDu(d) || {}).taux ?? null) : (parDate[d] ? parDate[d].contactsFollowUpRate : null));
+        const aSuivre = joursC.map(d => provRip ? ((colonneDu(d) || {}).aSuivre ?? null)
+                                        : ((parDate[d] && parDate[d].contacts) ? parDate[d].contacts.aSuivre : null));
+        const data = { labels:joursC.map(frDate), datasets:[
           { type:'line', label:tr('contactsTauxLabel'), data:taux, borderColor:PALETTE.active, borderWidth:2, pointRadius:2, pointBackgroundColor:PALETTE.active, tension:.15, spanGaps:false, yAxisID:'y', order:0 },
           Object.assign({ type:'line', yAxisID:'y' }, jeuPont(taux, PALETTE.active, tr('contactsTauxLabel'))),
           { type:'bar', label:tr('contactsASuivreLabel'), data:aSuivre, backgroundColor:tint(PALETTE.active, .22), yAxisID:'y1', order:2, barPercentage:1, categoryPercentage:.94 },
@@ -1460,7 +1490,7 @@ function renderOneChart(canvas, chartMode){
           scales:{ x:axeX(true), y:axePct(100),
                    y1:{ position:'right', beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ drawOnChartArea:false } } } };
         dessiner('bar', data, opts);
-        noterPeriode(slot, jours[0], jours[jours.length-1]);
+        noterPeriode(slot, joursC[0], joursC[joursC.length-1]);
         noter(tr('chartNoteContactsNational')(SEUIL_INSP));
         return;
       }
@@ -1519,9 +1549,18 @@ function renderOneChart(canvas, chartMode){
       /* Meme seuil de lisibilite que le lieu du deces : sous 20 lits, un taux
          n'a aucun sens — la Tshopo passe de 5 a 40 % pour un patient. */
       const SEUIL_LITS = 20;
-      const lisible = v => v && v.occupation !== undefined && (v.lits || 0) >= SEUIL_LITS;
+      /* Sur une page province, un taux sans nombre de lits reste tracé : le
+         Nord-Kivu ne publie plus ses lits depuis le 10 septembre, et sa page
+         perdait ses derniers jours, ceux ou il depasse 140 %. Seul un nombre
+         de lits publie et trop petit l'ecarte. */
+      const lisible = v => v && v.occupation !== undefined && v.occupation !== null
+        && (provRip ? !(v.lits && v.lits < SEUIL_LITS) : (v.lits || 0) >= SEUIL_LITS);
       const noms = [];
-      avecLits.forEach(p => Object.entries(p.provinces || {}).forEach(([n, v]) => { if(lisible(v) && !noms.includes(n)) noms.push(n); }));
+      avecLits.forEach(p => Object.entries(p.provinces || {}).forEach(([n, v]) => {
+        if(provRip && nomProvinceCanonique(n) !== provRip) return;
+        if(lisible(v) && !noms.includes(n)) noms.push(n);
+      }));
+      if(provRip && !noms.length){ vide(); return; }
       const ordre = Object.keys(PROVINCE_COLORS);
       noms.sort((a, b) => ordre.indexOf(a) - ordre.indexOf(b));
       const serieProv = nom => jours.map(d => (parDate[d] && lisible(parDate[d].provinces[nom])) ? parDate[d].provinces[nom].occupation : null);
@@ -1552,7 +1591,7 @@ function renderOneChart(canvas, chartMode){
         scales:{ x:axeX(true), y:axePct(Math.ceil(maxi/20)*20) } };
       dessiner('line', data, opts);
       noterPeriode(slot, jours[0], jours[jours.length-1]);
-      noter(tr('chartNoteCte')(SEUIL_LITS));
+      noter(provRip ? tr('chartNoteCteProvince')() : tr('chartNoteCte')(SEUIL_LITS));
       return;
     }
   }
@@ -2083,7 +2122,18 @@ function renderOneChart(canvas, chartMode){
       return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0')
            + '-' + String(d.getDate()).padStart(2, '0');
     };
+    /* UNE PROVINCE OU LE PAYS (16 septembre 2026). Sur une page province, le
+       canevas porte data-province ; sur la page Riposte, la bascule
+       data-chart-vue choisit « pays » ou une province. Seules l'Ituri, le
+       Nord-Kivu et le Haut-Uele sont proposes : ailleurs, moins d'un deces
+       classe par semaine, et une part ne dit plus rien.
+       Les RELEVES restent ceux du bulletin, pas de la province : une province
+       sans deces un jour-la n'apparait pas dans la colonne, et ce silence ne
+       se distingue pas d'un bulletin qui ne classe rien. */
+    const vueLieu = canvas.dataset.province || vueDe(canvas, 'pays');
+    const provinceLieu = vueLieu === 'pays' ? null : nomProvinceCanonique(vueLieu);
     const semaines = new Map();
+    let classesPays = 0, classesIturi = 0;
     for(const jour of DECES_LIEU.parDate){
       const cle = lundi(jour.date);
       const s = semaines.get(cle) || { debut: cle, fin: jour.date,
@@ -2093,7 +2143,11 @@ function renderOneChart(canvas, chartMode){
         // releves qui suit dit, lui, ce qu'on en connait.
         finSemaine: dimanche(cle),
         comm: 0, cte: 0, releves: 0 };
-      for(const v of Object.values(jour.provinces || {})){
+      for(const [nomP, v] of Object.entries(jour.provinces || {})){
+        const n = (v.communautaires || 0) + (v.intraCte || 0);
+        classesPays += n;
+        if(nomProvinceCanonique(nomP) === 'Ituri') classesIturi += n;
+        if(provinceLieu && nomProvinceCanonique(nomP) !== provinceLieu) continue;
         s.comm += v.communautaires || 0;
         s.cte  += v.intraCte || 0;
       }
@@ -2242,8 +2296,15 @@ function renderOneChart(canvas, chartMode){
       const liste = plages.map(g => g.debut === g.fin ? frDate(g.debut) : frDate(g.debut) + ' → ' + frDate(g.fin)).join(', ');
       const derniereSem = serie[serie.length - 1];
       const enCours = (derniereSem && derniereSem.finSemaine > derniereLieu) ? derniereSem.releves : null;
-      noteEl.textContent = tr('chartDeathPlaceNoteTemps')(
-        moyenne, serie.length, fmt(totalComm), fmt(totalCte), absents.length, liste, enCours)
+      /* Le poids de l'Ituri etait ecrit en dur (77 %) : il se calcule, et
+         il avait deja glisse a 71 % au 13 septembre. */
+      const partIturi = classesPays ? Math.round(classesIturi / classesPays * 100) : null;
+      const parSemaine = serie.length ? Math.round((totalComm + totalCte) / serie.length) : 0;
+      noteEl.textContent = (provinceLieu
+        ? tr('chartDeathPlaceNoteProvince')(provinceLieu,
+            moyenne, serie.length, fmt(totalComm), fmt(totalCte), parSemaine, absents.length, liste, enCours)
+        : tr('chartDeathPlaceNoteTemps')(
+            moyenne, serie.length, fmt(totalComm), fmt(totalCte), absents.length, liste, enCours, partIturi))
         + (ouverteL ? ' ' + tr('chartWeekOngoingNote')(
               tr('chartDeathPlaceWeekLabel')(frDate(derniereSem.debut), frDate(derniereSem.finSemaine)),
               nbJours(derniereLieu, derniereSem.finSemaine) - 1) : '');
@@ -4673,6 +4734,10 @@ function legendesDuGraphique(canvas){
      du 11 mai au 23 aout 2026 ». Elle est lue en haut, avant la figure, et ne
      depend pas de ce que l'axe a reussi a afficher — ses graduations sautent
      un libelle sur deux des que l'ecran retrecit. */
+  /* Un graphique restreint a une province (pages province, 16 septembre
+     2026) le dit en tete du sous-titre : partagee, l'image perdrait sinon la
+     page qui le disait. */
+  if(canvas.dataset.province) sousTitre = sousTitre ? canvas.dataset.province + ' · ' + sousTitre : canvas.dataset.province;
   const periode = periodeTexte(chartSlot(canvas).periode);
   if(periode) sousTitre = sousTitre ? sousTitre + ' · ' + periode : periode;
   const noteEl = wrap ? wrap.querySelector('.chart-note') : null;

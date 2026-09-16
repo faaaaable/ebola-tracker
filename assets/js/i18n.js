@@ -124,11 +124,12 @@ const I18N = {
     chartNoteAlertesVolume:(semaines,sans)=>`Alertes reçues par les équipes de surveillance, additionnées par semaine calendaire, du lundi au dimanche, sur ${semaines} semaines. La part sombre est validée comme cas suspect après vérification. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas ce tableau : leurs journées manquent aux totaux, qui sont des minimums. ` : '')
       + `Jusqu'à début août, les alertes vérifiées et validées comptent aussi celles de la veille ; depuis, elles ne portent que sur la journée.`,
-    chartNoteAlertesTaux:()=>`Part des alertes reçues qui ont été vérifiées, et part validée comme cas suspect, jour par jour. Une part validée qui monte peut dire que les alertes sont mieux ciblées — ou qu'il y a plus de malades. Jusqu'à début août, vérifiées et validées comptent aussi les alertes de la veille : la part peut alors dépasser 100 %. Pointillés : jours sans bulletin, tracé purement illustratif — jamais une valeur.`,
+    chartNoteAlertesTaux:()=>`Part des alertes reçues qui ont été vérifiées, et part validée comme cas suspect, jour par jour. Une part validée qui monte peut dire que les alertes sont mieux ciblées — ou qu'il y a plus de malades. Jusqu'à début août, vérifiées et validées comptent aussi les alertes de la veille : la part peut alors dépasser 100 %. Pointillés : jours sans la donnée — pas de bulletin, ou un bulletin qui ne la donne pas —, tracé purement illustratif, jamais une valeur.`,
     chartNoteLabo:(semaines,sans)=>`Échantillons analysés par semaine calendaire, positifs en couleur pleine, et positivité de la semaine — positifs sur analysés — sur l'axe de droite. Un positif n'est pas toujours un nouveau cas : les bulletins récents séparent les reprélèvements, les anciens non. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas à la fois les échantillons et les positifs : leurs journées manquent aux totaux, qui sont des minimums. ` : ''),
-    chartNoteContactsNational:(seuil)=>`Part des contacts listés vus dans les dernières 24 heures, et, en barres claires sur l'axe de droite, le nombre de contacts à suivre ce jour-là. L'INSP retient un seuil de ${seuil} % depuis août ; l'OMS fixait une cible de 95 %. Ni l'un ni l'autre n'est tracé : une ligne au-dessus d'une courbe qui plafonne n'ouvre qu'une bande vide. Pointillés : jours sans bulletin, tracé purement illustratif.`,
+    chartNoteContactsNational:(seuil)=>`Part des contacts listés vus dans les dernières 24 heures, et, en barres claires sur l'axe de droite, le nombre de contacts à suivre ce jour-là. L'INSP retient un seuil de ${seuil} % depuis août ; l'OMS fixait une cible de 95 %. Ni l'un ni l'autre n'est tracé : une ligne au-dessus d'une courbe qui plafonne n'ouvre qu'une bande vide. Pointillés : jours sans la donnée — pas de bulletin, ou un bulletin qui ne la donne pas —, tracé purement illustratif.`,
     chartNoteContactsProvinces:()=>`La même part, province par province, les jours où le bulletin la détaille. Une province à 100 % suit souvent quelques dizaines de contacts ; l'Ituri en suit plus de dix mille. Pointillés : jours sans détail par province, tracé purement illustratif — jamais une valeur.`,
+    chartNoteCteProvince:()=>`Patients hospitalisés — confirmés et suspects — rapportés aux lits que le bulletin déclare pour la province. Jusqu'à début août le taux est recalculé depuis un tableau de patients et de lits ; depuis, c'est celui que le bulletin imprime, même quand il ne donne plus le nombre de lits. Au-dessus de 100 %, des malades sont installés hors des lits prévus. Pointillés : trous de cinq jours au plus, tracé purement illustratif ; les trous plus longs restent ouverts, le nombre de lits ayant pu changer entre-temps.`,
     chartNoteCte:(seuilLits)=>`Patients hospitalisés — confirmés et suspects — rapportés aux lits que le bulletin déclare, province par province. Jusqu'à début août le taux est recalculé depuis un tableau de patients et de lits ; depuis, c'est celui que le bulletin imprime. Au-dessus de 100 %, des malades sont installés hors des lits prévus. Les provinces de moins de ${seuilLits} lits ne sont pas tracées : un taux n'y veut rien dire. Pointillés : trous de cinq jours au plus, tracé purement illustratif ; les trous plus longs restent ouverts, le nombre de lits ayant pu changer entre-temps.`,
     chartModeByProvince:"Cas par province",
     chartModeNewCasesByProvince:"Nouveaux cas par province",
@@ -161,7 +162,7 @@ const I18N = {
     chartDeathPlaceAverage:(p,n)=>`Moyenne des ${n} semaines : ${String(p).replace('.',',')} %`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} au ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`${n} relevé${n>1?'s':''} sur 7`,
-    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours)=>
+    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours,partIturi)=>
       `Part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, agrégée sur l'ensemble du pays et regroupée par semaine. `
       + `Sur les ${semaines} semaines couvertes, cette part n'a pas de tendance : elle oscille autour de ${String(part).replace('.',',')} % `
       + `— ${comm} décès en communauté contre ${cte} en centre — et les écarts d'une semaine à l'autre restent dans le bruit `
@@ -170,7 +171,14 @@ const I18N = {
       + `Trois réserves. Les bulletins antérieurs au 13 juillet ne distinguent pas les deux lieux, la fenêtre ne peut pas remonter plus loin. `
       + (manquants ? `${manquants} jour${manquants>1?'s':''} sans relevé du lieu (${liste}) : seules les parts sont comparables d'une semaine à l'autre, jamais les effectifs. ` : `Aucun jour ne manque à la série. `)
       + (enCours ? `La dernière barre est la semaine en cours, sur ${enCours} relevé${enCours>1?'s':''} sur sept. ` : '')
-      + `Enfin l'Ituri pèse 77 % des décès classés, si bien que cette courbe nationale suit d'abord la sienne.`,
+      + (partIturi != null ? `Enfin l'Ituri pèse ${partIturi} % des décès classés, si bien que cette courbe nationale suit d'abord la sienne : les boutons au-dessus du graphique montrent chaque province.` : ''),
+    chartDeathPlaceNoteProvince:(nom,part,semaines,comm,cte,parSemaine,manquants,liste,enCours)=>
+      `${nom} : part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, regroupée par semaine. `
+      + `Sur les ${semaines} semaines où la province compte des décès classés, ${comm} sont survenus en communauté et ${cte} en centre, soit ${String(part).replace('.',',')} % en moyenne (ligne pointillée). `
+      + (parSemaine < 30 ? `Avec environ ${parSemaine} décès classés par semaine, un seul décès déplace la part de plusieurs points : seule une évolution sur plusieurs semaines a un sens. ` : '')
+      + `Les bulletins antérieurs au 13 juillet ne distinguent pas les deux lieux. `
+      + (manquants ? `${manquants} jour${manquants>1?'s':''} sans relevé du lieu (${liste}) : seules les parts se comparent d'une semaine à l'autre, jamais les effectifs. ` : '')
+      + (enCours ? `La dernière barre est la semaine en cours, sur ${enCours} relevé${enCours>1?'s':''} sur sept.` : ''),
     chartDeathPlaceCommunity:"En communauté",
     chartDeathPlaceCte:"En centre de traitement",
     chartDeathPlaceMissing:"Jours sans donnée",
@@ -406,11 +414,12 @@ const I18N = {
     chartNoteAlertesVolume:(semaines,sans)=>`Alerts received by surveillance teams, summed by calendar week, Monday to Sunday, over ${semaines} weeks. The dark share was validated as a suspected case after verification. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} do not give this table: their days are missing from the totals, which are minimums. ` : '')
       + `Until early August, verified and validated alerts also count those carried over from the day before; since then they add up day by day.`,
-    chartNoteAlertesTaux:()=>`Share of alerts received that were verified, and share validated as suspected cases, day by day. A rising validated share may mean alerts are better targeted — or that there are more patients. Until early August, verified and validated also count alerts carried over from the day before: the share can then exceed 100%. Dotted lines: days without a bulletin, purely illustrative — never a value.`,
+    chartNoteAlertesTaux:()=>`Share of alerts received that were verified, and share validated as suspected cases, day by day. A rising validated share may mean alerts are better targeted — or that there are more patients. Until early August, verified and validated also count alerts carried over from the day before: the share can then exceed 100%. Dotted lines: days without the figure — no bulletin, or a bulletin that does not give it — purely illustrative, never a value.`,
     chartNoteLabo:(semaines,sans)=>`Samples tested per calendar week, positives in full colour, and the week's positivity — positives over tested — on the right axis. A positive is not always a new case: recent bulletins separate repeat samples, older ones do not. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} do not give both samples and positives: their days are missing from the totals, which are minimums. ` : ''),
-    chartNoteContactsNational:(seuil)=>`Share of listed contacts seen in the previous 24 hours and, as light bars on the right axis, the number of contacts to follow that day. The INSP has used a ${seuil}% threshold since August; WHO set a 95% target. Neither is drawn: a line above a curve that plateaus only opens an empty band. Dashed segments: days without a bulletin, purely illustrative.`,
+    chartNoteContactsNational:(seuil)=>`Share of listed contacts seen in the previous 24 hours and, as light bars on the right axis, the number of contacts to follow that day. The INSP has used a ${seuil}% threshold since August; WHO set a 95% target. Neither is drawn: a line above a curve that plateaus only opens an empty band. Dashed segments: days without the figure — no bulletin, or a bulletin that does not give it — purely illustrative.`,
     chartNoteContactsProvinces:()=>`The same share, province by province, on the days the bulletin details it. A province at 100% often follows a few dozen contacts; Ituri follows more than ten thousand. Dashed segments: days without a breakdown by province, purely illustrative — never a value.`,
+    chartNoteCteProvince:()=>`Hospitalised patients — confirmed and suspected — relative to the beds the bulletin declares for the province. Until early August the rate is recalculated from a table of patients and beds; since then it is the one the bulletin prints, even when it no longer gives the number of beds. Above 100%, patients are placed outside the planned beds. Dashed segments: gaps of five days or fewer, purely illustrative; longer gaps stay open, as the number of beds may have changed in between.`,
     chartNoteCte:(seuilLits)=>`Hospitalised patients — confirmed and suspected — relative to the beds the bulletin declares, province by province. Until early August the rate is recalculated from a table of patients and beds; since then it is the one the bulletin prints. Above 100%, patients are placed outside the planned beds. Provinces with fewer than ${seuilLits} beds are not drawn: a rate means nothing there. Dashed segments: gaps of five days or fewer, purely illustrative; longer gaps stay open, as the number of beds may have changed in between.`,
     chartModeByProvince:"Cases by province",
     chartModeNewCasesByProvince:"New cases by province",
@@ -443,7 +452,7 @@ const I18N = {
     chartDeathPlaceAverage:(p,n)=>`${n}-week average: ${p}%`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} to ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`${n} report${n>1?'s':''} of 7`,
-    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours)=>
+    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours,partIturi)=>
       `Share of confirmed deaths occurring in the community rather than in a treatment centre, aggregated nationally and grouped by week. `
       + `Across the ${semaines} weeks covered there is no trend: the share hovers around ${part}% `
       + `— ${comm} community deaths against ${cte} in treatment centres — and week-to-week variation stays within the sampling noise `
@@ -451,7 +460,14 @@ const I18N = {
       + `Three caveats. Bulletins before 13 July do not distinguish the two places, so the window cannot reach further back. `
       + (manquants ? `${manquants} day${manquants>1?'s':''} without the place of death (${liste}): only shares are comparable between weeks, never counts. ` : `No day is missing from the series. `)
       + (enCours ? `The last bar is the current week, on ${enCours} report${enCours>1?'s':''} out of seven. ` : '')
-      + `And Ituri accounts for 77% of classified deaths, so this national curve mainly follows its own.`,
+      + (partIturi != null ? `And Ituri accounts for ${partIturi}% of classified deaths, so this national curve mainly follows its own: the buttons above the chart show each province.` : ''),
+    chartDeathPlaceNoteProvince:(nom,part,semaines,comm,cte,parSemaine,manquants,liste,enCours)=>
+      `${nom}: share of confirmed deaths occurring in the community rather than in a treatment centre, grouped by week. `
+      + `Across the ${semaines} weeks in which the province has classified deaths, ${comm} occurred in the community and ${cte} in treatment centres, an average of ${part}% (dashed line). `
+      + (parSemaine < 30 ? `With about ${parSemaine} classified deaths a week, a single death moves the share by several points: only a change over several weeks is meaningful. ` : '')
+      + `Bulletins before 13 July do not distinguish the two places. `
+      + (manquants ? `${manquants} day${manquants>1?'s':''} without the place of death (${liste}): only shares are comparable between weeks, never counts. ` : '')
+      + (enCours ? `The last bar is the current week, on ${enCours} report${enCours>1?'s':''} out of seven.` : ''),
     chartDeathPlaceCommunity:"In the community",
     chartDeathPlaceCte:"In a treatment centre",
     chartDeathPlaceMissing:"Days without data",
@@ -686,11 +702,12 @@ const I18N = {
     chartNoteAlertesVolume:(semaines,sans)=>`Tahadhari zilizopokelewa na timu za ufuatiliaji, zikijumlishwa kwa wiki ya kalenda, Jumatatu hadi Jumapili, kwa wiki ${semaines}. Sehemu nyeusi ilithibitishwa kama kisa kinachoshukiwa baada ya uhakiki. `
       + (sans ? `Ripoti ${sans} hazitoi jedwali hili: siku zake hazimo kwenye jumla, ambazo ni viwango vya chini. ` : '')
       + `Hadi mwanzoni mwa Agosti, tahadhari zilizohakikiwa na kuthibitishwa zinahesabu pia zile za siku iliyotangulia; tangu wakati huo zinajumlishwa siku kwa siku.`,
-    chartNoteAlertesTaux:()=>`Sehemu ya tahadhari zilizopokelewa ambazo zilihakikiwa, na sehemu iliyothibitishwa kama visa vinavyoshukiwa, siku kwa siku. Sehemu iliyothibitishwa inayopanda inaweza kumaanisha tahadhari zinalengwa vizuri zaidi — au kuna wagonjwa zaidi. Hadi mwanzoni mwa Agosti, zilizohakikiwa na kuthibitishwa zinahesabu pia tahadhari za siku iliyotangulia: sehemu inaweza kuzidi 100%. Vitone: siku zisizo na ripoti, mchoro wa kuonyesha tu — kamwe si thamani.`,
+    chartNoteAlertesTaux:()=>`Sehemu ya tahadhari zilizopokelewa ambazo zilihakikiwa, na sehemu iliyothibitishwa kama visa vinavyoshukiwa, siku kwa siku. Sehemu iliyothibitishwa inayopanda inaweza kumaanisha tahadhari zinalengwa vizuri zaidi — au kuna wagonjwa zaidi. Hadi mwanzoni mwa Agosti, zilizohakikiwa na kuthibitishwa zinahesabu pia tahadhari za siku iliyotangulia: sehemu inaweza kuzidi 100%. Vitone: siku zisizo na takwimu hii — hakuna ripoti, au ripoti isiyoitoa — mchoro wa kuonyesha tu, kamwe si thamani.`,
     chartNoteLabo:(semaines,sans)=>`Sampuli zilizopimwa kwa wiki ya kalenda, chanya kwa rangi kamili, na kiwango cha chanya cha wiki — chanya kwa zilizopimwa — kwenye mhimili wa kulia. Chanya si mara zote kisa kipya: ripoti za hivi karibuni hutenganisha sampuli za kurudia, za zamani hazitenganishi. `
       + (sans ? `Ripoti ${sans} hazitoi sampuli na chanya kwa pamoja: siku zake hazimo kwenye jumla, ambazo ni viwango vya chini. ` : ''),
-    chartNoteContactsNational:(seuil)=>`Sehemu ya walioguswa walioorodheshwa walioonwa katika saa 24 zilizopita na, kama pau nyepesi kwenye mhimili wa kulia, idadi ya walioguswa wa kufuatiliwa siku hiyo. INSP inatumia kiwango cha ${seuil}% tangu Agosti; WHO iliweka lengo la 95%. Hakuna kinachochorwa: mstari juu ya mkondo unaosimama hufungua tu nafasi tupu. Nukta: siku zisizo na ripoti, mchoro wa kuonyesha tu.`,
+    chartNoteContactsNational:(seuil)=>`Sehemu ya walioguswa walioorodheshwa walioonwa katika saa 24 zilizopita na, kama pau nyepesi kwenye mhimili wa kulia, idadi ya walioguswa wa kufuatiliwa siku hiyo. INSP inatumia kiwango cha ${seuil}% tangu Agosti; WHO iliweka lengo la 95%. Hakuna kinachochorwa: mstari juu ya mkondo unaosimama hufungua tu nafasi tupu. Nukta: siku zisizo na takwimu hii — hakuna ripoti, au ripoti isiyoitoa — mchoro wa kuonyesha tu.`,
     chartNoteContactsProvinces:()=>`Sehemu ile ile, jimbo kwa jimbo, siku ambazo ripoti inaielezea. Jimbo lenye 100% mara nyingi hufuatilia walioguswa makumi machache; Ituri inafuatilia zaidi ya elfu kumi. Nukta: siku zisizo na mgawanyo kwa jimbo, mchoro wa kuonyesha tu — kamwe si thamani.`,
+    chartNoteCteProvince:()=>`Wagonjwa waliolazwa — waliothibitishwa na wanaoshukiwa — ikilinganishwa na vitanda ambavyo ripoti inatangaza kwa jimbo. Hadi mwanzoni mwa Agosti kiwango kinahesabiwa upya kutoka jedwali la wagonjwa na vitanda; tangu wakati huo ni kile ripoti inachapisha, hata isipotoa tena idadi ya vitanda. Zaidi ya 100%, wagonjwa wanawekwa nje ya vitanda vilivyopangwa. Nukta: mapengo ya siku tano au chini, mchoro wa kuonyesha tu; mapengo marefu hubaki wazi, kwani idadi ya vitanda inaweza kuwa imebadilika.`,
     chartNoteCte:(seuilLits)=>`Wagonjwa waliolazwa — waliothibitishwa na wanaoshukiwa — ikilinganishwa na vitanda ambavyo ripoti inatangaza, jimbo kwa jimbo. Hadi mwanzoni mwa Agosti kiwango kinahesabiwa upya kutoka jedwali la wagonjwa na vitanda; tangu wakati huo ni kile ripoti inachapisha. Zaidi ya 100%, wagonjwa wanawekwa nje ya vitanda vilivyopangwa. Majimbo yenye vitanda chini ya ${seuilLits} hayachorwi: kiwango hakina maana hapo. Nukta: mapengo ya siku tano au chini, mchoro wa kuonyesha tu; mapengo marefu hubaki wazi, kwani idadi ya vitanda inaweza kuwa imebadilika.`,
     chartModeByProvince:"Visa kwa jimbo",
     chartModeNewCasesByProvince:"Visa vipya kwa jimbo",
@@ -723,7 +740,7 @@ const I18N = {
     chartDeathPlaceAverage:(p,n)=>`Wastani wa wiki ${n}: ${p} %`,
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} hadi ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`ripoti ${n} kati ya 7`,
-    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours)=>
+    chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours,partIturi)=>
       `Sehemu ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, kwa nchi nzima na kwa wiki. `
       + `Katika wiki ${semaines} zilizofunikwa, sehemu hii haina mwelekeo: inazunguka karibu ${part} % `
       + `— vifo ${comm} katika jamii dhidi ya ${cte} kituoni — na tofauti kutoka wiki hadi wiki zinabaki ndani ya `
@@ -732,7 +749,14 @@ const I18N = {
       + `Tahadhari tatu. Ripoti za kabla ya tarehe 13 Julai hazitofautishi maeneo mawili, dirisha haliwezi kurudi nyuma zaidi. `
       + (manquants ? `Siku ${manquants} bila mahali pa kifo (${liste}): ni sehemu tu zinazoweza kulinganishwa kutoka wiki hadi wiki, kamwe si idadi. ` : `Hakuna siku inayokosekana kwenye mfululizo. `)
       + (enCours ? `Pau la mwisho ni wiki inayoendelea, kwa ripoti ${enCours} kati ya saba. ` : '')
-      + `Hatimaye Ituri inabeba 77 % ya vifo vilivyoainishwa, hivyo mkondo huu wa kitaifa unafuata kwanza wake.`,
+      + (partIturi != null ? `Hatimaye Ituri inabeba ${partIturi} % ya vifo vilivyoainishwa, hivyo mkondo huu wa kitaifa unafuata kwanza wake: vitufe vilivyo juu ya chati vinaonyesha kila jimbo.` : ''),
+    chartDeathPlaceNoteProvince:(nom,part,semaines,comm,cte,parSemaine,manquants,liste,enCours)=>
+      `${nom}: sehemu ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, kwa wiki. `
+      + `Katika wiki ${semaines} ambazo jimbo lina vifo vilivyoainishwa, vifo ${comm} vilitokea katika jamii na ${cte} kituoni, wastani wa ${part} % (mstari wa nukta). `
+      + (parSemaine < 30 ? `Kwa takriban vifo ${parSemaine} vilivyoainishwa kwa wiki, kifo kimoja kinabadilisha sehemu kwa pointi kadhaa: ni mabadiliko ya wiki kadhaa tu yenye maana. ` : '')
+      + `Ripoti za kabla ya tarehe 13 Julai hazitofautishi maeneo mawili. `
+      + (manquants ? `Siku ${manquants} bila mahali pa kifo (${liste}): ni sehemu tu zinazoweza kulinganishwa kutoka wiki hadi wiki, kamwe si idadi. ` : '')
+      + (enCours ? `Pau la mwisho ni wiki inayoendelea, kwa ripoti ${enCours} kati ya saba.` : ''),
     chartDeathPlaceCommunity:"Katika jamii",
     chartDeathPlaceCte:"Katika kituo cha matibabu",
     chartDeathPlaceMissing:"Siku zisizo na takwimu",

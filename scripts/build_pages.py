@@ -1913,6 +1913,112 @@ def jeton_version(chemin_relatif):
 SEUIL_COURBE_PROVINCE = 50
 
 
+# Provinces dont la page porte le cadre « Le lieu du deces » (16 septembre
+# 2026) : les trois qui classent assez de deces chaque semaine pour qu'une part
+# ait un sens. Les memes que les boutons du graphique de la page Riposte.
+PROVINCES_LIEU_DECES = ("Ituri", "Nord-Kivu", "Haut-Uélé")
+
+
+# Provinces dont la page porte le cadre « La riposte » : le Haut-Uele en a ete
+# retire a la demande du proprietaire (16 septembre 2026), comme le cadre « Sur
+# le terrain » de toutes les provinces, supprime le meme jour.
+PROVINCES_RIPOSTE = ("Ituri", "Nord-Kivu")
+
+
+def province_numeros(province):
+    """Les numeros des cadres d'une page province, dans l'ordre de la page :
+    carte, [courbe], zones, [lieu du deces], [riposte], chronologie.
+    Un seul calcul pour le gabarit et les fonctions qui ecrivent les cadres :
+    chaque ajout decalait la chronologie a la main (16 septembre 2026)."""
+    n, nums = 1, {"carte": "01"}
+    def suivant(cle):
+        nonlocal n
+        n += 1
+        nums[cle] = "%02d" % n
+    if (province.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE:
+        suivant("courbe")
+    suivant("zones")
+    if province.get("name") in PROVINCES_LIEU_DECES:
+        suivant("lieu")
+    if province.get("name") in PROVINCES_RIPOSTE:
+        suivant("riposte")
+    suivant("chrono")
+    return nums
+
+
+BOUTON_PARTAGE = (
+    '      <div class="chart-actions" data-export-chart="%s">\n'
+    '        <button type="button" class="share-btn">\n'
+    '          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>\n'
+    '          <span data-i18n="chartShareBtn">%s</span>\n'
+    '        </button>\n'
+    '      </div>\n')
+
+
+def province_riposte_charts_html(province, strings_lang, i18n_lang, numero):
+    """Cadre « La riposte » (16 septembre 2026) : les quatre graphiques de la
+    page Riposte, restreints a la province, derriere des onglets sur un seul
+    canevas — quatre cadres auraient allonge la page d'autant."""
+    if province.get("name") not in PROVINCES_RIPOSTE:
+        return ""
+    onglets = [("contactsRiposte", "riposteContactsTitle"), ("cte", "riposteCteTitle"),
+               ("alertes", "riposteAlertesTitle"), ("laboratoire", "riposteLaboTitle")]
+    boutons = "".join(
+        '        <button type="button" class="subtab-btn%s" data-mode="%s">%s</button>\n'
+        % (" active" if i == 0 else "", mode, esc(strings_lang[cle]))
+        for i, (mode, cle) in enumerate(onglets))
+    return (
+        '  <section class="section cadre-fiche" id="riposte">\n'
+        '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
+        '<div class="section-sub">%s</div></div></div>\n'
+        '    <div class="cadre-corps">\n'
+        '    <nav class="subtab-nav" data-chart-tabs="provRiposteChart">\n%s    </nav>\n'
+        '    <div class="panel chart-panel-wrap">\n%s'
+        '      <div class="chart-panel">\n'
+        '        <canvas id="provRiposteChart" data-chart="contactsRiposte" data-province="%s"></canvas>\n'
+        '      </div>\n'
+        # Les blancs : verifie le 16 septembre 2026 sur l'Ituri et le Nord-Kivu,
+        # chacun est une donnee absente du bulletin pour la province — aucun
+        # zero publie, aucun jour ecarte par un filtre.
+        '      <p class="map-note">%s</p>\n'
+        '      <div class="map-note chart-note"></div>\n'
+        '    </div>\n'
+        '    </div>\n'
+        '  </section>\n'
+        % (esc(numero), esc(strings_lang["provinceRiposteTitle"]), esc(strings_lang["provinceRiposteSub"]),
+           boutons, BOUTON_PARTAGE % ("provRiposteChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"]),
+           esc(strings_lang["provinceRiposteBlancs"])))
+
+
+def province_deces_lieu_html(province, strings_lang, i18n_lang, numero="04"):
+    """Le cadre « Le lieu du deces » d'une page province : le graphique de la
+    page Riposte, restreint a la province par data-province. Place sous le
+    tableau des zones, avant la chronologie."""
+    if province.get("name") not in PROVINCES_LIEU_DECES:
+        return ""
+    return (
+        '  <section class="section cadre-fiche" id="deces">\n'
+        '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
+        '<div class="section-sub">%s</div></div></div>\n'
+        '    <div class="cadre-corps">\n'
+        '    <div class="panel chart-panel-wrap">\n'
+        '      <div class="chart-actions" data-export-chart="decesLieuChart">\n'
+        '        <button type="button" class="share-btn">\n'
+        '          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>\n'
+        '          <span data-i18n="chartShareBtn">%s</span>\n'
+        '        </button>\n'
+        '      </div>\n'
+        '      <div class="chart-panel">\n'
+        '        <canvas id="decesLieuChart" data-chart="deathsPlace" data-province="%s"></canvas>\n'
+        '      </div>\n'
+        '      <div class="map-note chart-note"></div>\n'
+        '    </div>\n'
+        '    </div>\n'
+        '  </section>\n'
+        % (esc(numero), esc(strings_lang["riposteDecesTitle"]), esc(strings_lang["provinceDecesLieuSub"]),
+           esc(i18n_lang["chartShareBtn"]), esc(province["name"])))
+
+
 def province_chart_html(province, strings_lang, i18n_lang, numero="02"):
     if (province.get("confirmed") or 0) < SEUIL_COURBE_PROVINCE:
         return ""
@@ -2530,7 +2636,7 @@ def main():
         common_seed["provinceTimelines"] = {
             _p["name"]: province_timeline_html(_p["name"], province_forms(config, _p["name"], lang), strings, lang, i18n_lang,
                                                province_history, zones_history, geo, latest.get("healthZones", []),
-                                               numero="04" if (_p.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE else "03")
+                                               numero=province_numeros(_p)["chrono"])
             for _p in provinces}
         common_seed.update(defis_synthese.render(lang, strings_lang, i18n_lang, long_date, esc, PROVINCE_COLORS))
         common_seed.update(bulletin.render(lang, strings_lang, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp, province_forms, PROVINCE_COLORS, urls))
@@ -2757,6 +2863,10 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
             "province.chart": province_chart_html(province, strings_lang, i18n_lang),
+            "province.decesLieu": province_deces_lieu_html(
+                province, strings_lang, i18n_lang, numero=province_numeros(province).get("lieu", "")),
+            "province.riposteCharts": province_riposte_charts_html(
+                province, strings_lang, i18n_lang, numero=province_numeros(province).get("riposte", "")),
             "province.zonesNum": "03" if (province.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE else "02",
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
             **common_seed.get("provinceRiposte", {}).get(name, {
@@ -2775,7 +2885,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     # qui n'a pas de graphique. « needs » est declare par type de page,
     # or ici le besoin varie d'une province a l'autre.
     besoins = list(page.get("needs", []))
-    if is_province and "chart" in besoins and not values.get("province.chart"):
+    if is_province and "chart" in besoins and not values.get("province.chart") \
+            and not values.get("province.decesLieu") and not values.get("province.riposteCharts"):
         besoins.remove("chart")
 
     canonical = urls.absolute(path)
