@@ -104,8 +104,13 @@
     </div>
   </section>
 
+  <!-- La courbe de la province remonte au-dessus du tableau des zones
+       (demande du proprietaire, 16 septembre 2026) : 02 quand elle existe,
+       et le tableau prend 03. Sous le seuil, pas de courbe et le tableau
+       reste 02. -->
+{{province.chart}}
   <section class="section cadre-fiche">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">{{province.zonesTitle}}</h2></div></div>
+    <div class="fiche-tete"><span class="fiche-num">{{province.zonesNum}}</span><div><h2 class="frame-title">{{province.zonesTitle}}</h2></div></div>
     <div class="cadre-corps">
     <div class="zones-block">
       <div class="panel panel-fit" style="padding:16px;">
@@ -123,8 +128,6 @@
     <p class="drill"><a href="{{url.donnees}}?province={{province.query}}">{{province.fullTable}} →</a></p>
     </div>
   </section>
-
-{{province.chart}}
 
   <!-- La chronologie de la province (8 septembre 2026) : la piste
        horizontale de l'accueil, avec ses couleurs, seuils calcules a

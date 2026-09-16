@@ -1905,14 +1905,20 @@ def jeton_version(chemin_relatif):
 # en trois mois, le Bas-Uele 2. La ligne est plate, les barres invisibles, et
 # le lecteur croit a une panne d'affichage. Le seuil vaut pour l'avenir : une
 # province qui le franchit gagne sa courbe au prochain build, sans code.
+# Sous ce cumul, une province n'a pas de graphique : la courbe serait plate et
+# les barres invisibles. Essaye a 20 le 15 septembre 2026 pour donner le sien
+# a la Tshopo (28 cas, 16 journees avec au moins un cas), puis REMIS a 50 le
+# meme jour — « on ne va pas garder cette idee la ». Ne pas y revenir sans
+# qu'il le redemande.
 SEUIL_COURBE_PROVINCE = 50
 
 
-def province_chart_html(province, strings_lang, i18n_lang, numero="03"):
+def province_chart_html(province, strings_lang, i18n_lang, numero="02"):
     if (province.get("confirmed") or 0) < SEUIL_COURBE_PROVINCE:
         return ""
     # Cadre numerote, comme la page Riposte & defis (demande du proprietaire,
-    # 8 septembre 2026) : le numero suit ceux du gabarit (carte 01, zones 02).
+    # 8 septembre 2026) : carte 01, courbe 02, zones 03 depuis le 16 septembre
+    # 2026, ou la courbe est remontee au-dessus du tableau des zones.
     return (
         '  <section class="section cadre-fiche">\n'
         '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
@@ -2658,6 +2664,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
             "province.chart": province_chart_html(province, strings_lang, i18n_lang),
+            "province.zonesNum": "03" if (province.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE else "02",
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
             "province.query": name.replace(" ", "%20"),
             # Rang dans le pays, puis quand ca a commence, puis quand ca a

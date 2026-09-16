@@ -2616,12 +2616,17 @@ function renderOneChart(canvas, chartMode){
         x: { ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
                       maxRotation: 45, minRotation: 45, autoSkip: true, maxTicksLimit: 20 },
              grid: { display: false } },
+        /* `precision: 0` : un cas est un etre humain, il ne se coupe pas en
+           deux. Sans lui, une province a petits nombres — la Tshopo, 3 cas
+           par jour au plus — recoit de Chart.js un axe gradue 0 / 0,5 / 1 /
+           1,5, ou chaque demi-cas est un effectif impossible (15 septembre
+           2026). Invisible sur l'Ituri, dont l'axe monte a 350. */
         y: { ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
-                      callback: v => fmt(v) },
+                      precision: 0, callback: v => fmt(v) },
              grid: { color: PALETTE.lineSoft }, beginAtZero: true },
         y1: { position: 'right', beginAtZero: true,
               ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
-                       callback: v => fmt(v) },
+                       precision: 0, callback: v => fmt(v) },
               grid: { display: false } }
       }
     };
@@ -2662,10 +2667,15 @@ function renderOneChart(canvas, chartMode){
         // Deux lignes sous une barre hebdomadaire, ses bornes ; un mois se nomme.
         labels: serie.map(p => parMois ? moisAnnee(p.debut)
                                        : [frDate(p.debut), '\u2192 ' + frDate(p.fin)]),
-        datasets: [
-          barreP(tr('chartWeeklyCases'), serie.map(p => p.cas), teinte),
-          barreP(tr('catchupLabel'), serie.map(p => p.rattrapage), tint(teinte, .35))
-        ]
+        /* Le jeu du rattrapage n'existe que s'il reste quelque chose a
+           montrer : agregee, une province peut n'avoir aucune barre claire —
+           la Tshopo n'a pris aucun cas le 22 juillet, et celui du 30 tombe
+           dans sa semaine. Une legende qui nomme une couleur absente du
+           trace est pire que pas de legende. */
+        datasets: [barreP(tr('chartWeeklyCases'), serie.map(p => p.cas), teinte)]
+          .concat(serie.some(p => p.rattrapage > 0)
+                  ? [barreP(tr('catchupLabel'), serie.map(p => p.rattrapage), tint(teinte, .35))]
+                  : [])
       };
       /* L'infobulle annonce la periode calendaire COMPLETE, et le compte de
          releves dit ce qu'on en sait : une semaine a trois bulletins sur sept
