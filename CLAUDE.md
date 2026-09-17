@@ -5,7 +5,45 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 122**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 124**, rapportage
+du 15 septembre 2026 (publié le 16) — 7 404 cas confirmés, 3 577 décès,
+létalité 48,3 %, 1 776 guéris, 930 patients en CTE, suivi des contacts
+**87,4 %** (28 065 vus sur 32 094), 62 zones touchées sur 167 dans 7
+provinces, 59 nouveaux cas (Ituri 35, Nord-Kivu 21, Bas-Uélé 2, Tshopo 1) et
+32 décès du jour (16 communautaires, 16 intra-CTE). Intégré **en local le
+17 septembre 2026 avec le SitRep 123** — rapportage du 14 septembre (publié
+le 15), 7 345 cas, 3 545 décès, 48,3 %, 1 753 guéris, 938 en CTE, 87 nouveaux
+cas (Ituri 57, Nord-Kivu 21, Haut-Uélé 9), 35 décès du jour (26
+communautaires, 9 intra-CTE), contacts 89,3 % (31 389 / 35 158) — par la
+recette des deux bulletins. Sept provinces et 62 zones relues contre les
+pages 2 et 3 des deux PDF, zéro écart (nouveaux cas du jour compris pour le
+124) ; `check_coherence` sans écart bloquant ; résumés des Défis rédigés
+(122 et 126 mots). Cinq choses apprises, chaque diff limité aux 14 et
+15 septembre :
+- **Le titre du tableau des zones perd « de santé » au 124** : « Répartition
+  des cas et décès confirmés par province et zone du 15 septembre 2026 ».
+  `ZONE_SECTION_TITLE_RE` (`update_data.py`) exigeait « zone de santé » :
+  aucune zone lue, `zones-history.json` resté au 123 et décès du jour par
+  province à `null`. « de santé » devient facultatif.
+- **Les aires de santé du 123 sortaient à 3 246 sur 3 104** : la colonne de
+  gauche recollée donne « dont 3 2 46 Aires de santé », le « 3 » venant d'une
+  autre phrase. On garde le plus long suffixe de chiffres qui ne dépasse pas
+  le total (246). Donnée que le site n'affiche pas, corrigée quand même.
+- **Huitième et neuvième tournures des contacts** : « La proportion des
+  contacts suivis est de 89,3 % (31 389/35 158) » (123) puis « … se situe à
+  87,4 % (28 065/32 094) » (124). `CONTACTS_SITUE_RE` accepte les deux ; sans
+  elles les deux points perdaient leurs effectifs nationaux.
+- **Laboratoire du Nord-Kivu au 124** : « 21 échantillons reçus et testés
+  (14 vivants et 7 décès) sur 160 échantillons analysés (positivité de
+  13,1%) » — les 21 sont les positifs. `RECUS_TESTES_SUR_RE`
+  (`extraire_laboratoire.py`) ne joue que si vivants + décès = 21 et 21/160
+  = la positivité publiée ; le total du jour tombe à 59 positifs pour
+  59 nouveaux cas.
+- **Voyageurs aux PoE/PoC** : « Nombre de personnes passées aux 147 864 …
+  PoE/PoC » (123 et 124), « passées aux » intercalé avant les nombres ;
+  `extract_piliers.py` le tolère (260 546 et 275 520).
+
+Le SitRep 122, rapportage
 du 13 septembre 2026 (publié le 14) — 7 258 cas confirmés, 3 510 décès,
 létalité 48,4 %, 1 726 guéris, 905 patients en CTE, suivi des contacts
 **78,6 %** (21 935 vus sur 27 905), 62 zones touchées sur 167 dans 7
