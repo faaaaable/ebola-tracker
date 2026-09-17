@@ -118,6 +118,9 @@ NOUVEAUX_CAS_RE = re.compile(r"dont\s+(\d+)\s+nouveaux\s+cas", re.I)
 VIVANTS_DECES_RE = re.compile(r"\((\d+)\s*vivants?\s+et\s+(\d+)\s*d[ée]c[èe]s\)", re.I)
 POSITIVITE_RE = re.compile(r"positivit[ée][^%\d\n]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I)
 NEGATIFS_RE = re.compile(r"n[ée]gatifs?\b|aucun[^.;\n]{0,30}?positif", re.I)
+RECUS_TESTES_SUR_RE = re.compile(
+    r"(\d[\d ]{0,4}\d|\d)\s*[ée]chantillons\s+re[çc]us\s+et\s+test[ée]s\s*"
+    r"\((\d+)\s*vivants?\s+et\s+(\d+)\s*d[ée]c[èe]s\)\s*sur\s+(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+analys[ée]s", re.I)
 TOUS_POSITIFS_RE = re.compile(r"(?:s[’']est\s+r[ée]v[ée]l[ée]\s+positif\b|tous\s+se\s+sont\s+r[ée]v[ée]l[ée]s\s+positifs|tous\s+(?:sont\s+)?revenus\s+positifs)", re.I)
 
 
@@ -175,6 +178,20 @@ def lire_province(morceau):
     positivite = pourcent(mp.group(1)) if mp else None
     echantillons, positifs = choisir(candidats(ECHANTILLONS_RES, morceau),
                                      candidats(POSITIFS_RES, morceau), positivite)
+    # « Nord-Kivu : 21 échantillons reçus et testés (14 vivants et 7 décès) sur
+    # 160 échantillons analysés (positivité de 13,1%) » (124, 15 septembre
+    # 2026) : le bulletin a ecrit « échantillons reçus et testés » la ou il
+    # ecrivait « nouveaux résultats positifs » la veille. Les 21 sont les
+    # positifs — 14 vivants et 7 deces font 21, et 21 sur 160 font 13,1 % —,
+    # les 160 les analyses. Lu tel quel, le Nord-Kivu passait a 21 echantillons
+    # sans positif, et le total du jour a null. Le motif ne joue que si les
+    # deux verifications tombent juste.
+    mr = RECUS_TESTES_SUR_RE.search(morceau)
+    if mr:
+        n, total = int(re.sub(r"\D", "", mr.group(1))), int(re.sub(r"\D", "", mr.group(4)))
+        if int(mr.group(2)) + int(mr.group(3)) == n and total >= n and (
+                positivite is None or abs(n / total * 100 - positivite) <= 0.15):
+            echantillons, positifs = total, n
     if positifs is None and NEGATIFS_RE.search(morceau):
         positifs = 0
     # « 1 échantillon reçu et testé (1 vivant), s'est révélé positif » (120,

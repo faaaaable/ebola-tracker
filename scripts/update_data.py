@@ -895,8 +895,14 @@ PROV_SUBTOTAL_RE = re.compile(
 #   second : la section etait None, latest.json partait sans aucune zone et
 #   zones-history.json restait au 105. On cherche donc le coeur du libelle,
 #   sans egard a la casse ni a ce qui le precede.
+#   Le SitRep 124 (15 septembre 2026) abrege encore : « Tableau 2. Répartition
+#   des cas et décès confirmés par province et zone du 15 septembre 2026 »,
+#   sans « de santé » — aucune zone lue, zones-history.json reste au 123, et
+#   les deces du jour par province tombent a null. « de santé » devient
+#   facultatif ; « et zone » suivi d'un espace suffit a ne pas confondre avec
+#   le Tableau 1, « par province touchée ».
 ZONE_SECTION_TITLE_RE = re.compile(
-    r"cas et décès confirmés par province et zone de santé", re.IGNORECASE)
+    r"cas et décès confirmés par province et zone(?: de santé)?\b", re.IGNORECASE)
 
 
 def find_zone_section_start(text):
@@ -1873,13 +1879,24 @@ def main():
     recouper_avec_la_veille(health_zones, meta)
     ventiler_par_soustraction(health_zones, provinces)
 
+    # La colonne de gauche est recollee mot a mot avec le texte voisin : le 123
+    # (14 septembre 2026) donne « dont 3 2 46 Aires de santé », ou le « 3 »
+    # appartient a une autre phrase et « 2 46 » est le 246 du PDF — lu d'un
+    # bloc, 3 246 aires touchees sur 3 104. On garde le plus long suffixe de
+    # chiffres qui ne depasse pas le total ; rien, s'il n'y en a pas.
     am = re.search(r"(\d[\d\s]*)\s*Aires de santé.*?Sur\s*(\d[\d\s]*)\s*\(", sidebar)
     health_areas = None
     if am:
-        health_areas = {
-            "n": norm_int(am.group(1)),
-            "total": norm_int(am.group(2)),
-        }
+        total_aires = norm_int(am.group(2))
+        morceaux = am.group(1).split()
+        n_aires = None
+        for i in range(len(morceaux)):
+            v = norm_int("".join(morceaux[i:]))
+            if v is not None and (not total_aires or v <= total_aires):
+                n_aires = v
+                break
+        if n_aires is not None:
+            health_areas = {"n": n_aires, "total": total_aires}
 
     zones_total_n = sum(p["healthZonesAffected"]["n"] or 0 for p in provinces)
     # Somme des totaux de zones des provinces (36+34+13+23+34+11 = 151 jusqu'au

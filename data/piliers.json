@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-21",
-  "fin": "2026-09-13"
+  "fin": "2026-09-15"
  },
  "parDate": [
   {
@@ -1458,6 +1458,58 @@
    "vaccination": {
     "cumulParProvince": {
      "Tshopo": 2307
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-14",
+   "sitrepNumber": "123",
+   "poe": {
+    "personnes": 260546,
+    "screenesPct": 98.1,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 113,
+    "attendus": 189
+   },
+   "eds": {
+    "alertes": 140,
+    "realisees": 118,
+    "swabes": 110,
+    "nonSwabes": null
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Tshopo": 2460
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-15",
+   "sitrepNumber": "124",
+   "poe": {
+    "personnes": 275520,
+    "screenesPct": 98.1,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 49,
+    "attendus": 80
+   },
+   "eds": {
+    "alertes": 147,
+    "realisees": 132,
+    "swabes": 124,
+    "nonSwabes": null
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Tshopo": 2544
     },
     "rupture": false
    },

@@ -128,8 +128,14 @@ CONTACTS_PARMI_LES_RE = re.compile(
 # de suivi des contacts, il se situe à 78,6 % (21 935/27 905) » — le taux d'abord, puis
 # la fraction vus / a suivre entre parentheses, sans « vus » ni « a suivre ».
 # Groupes : taux, vus, a suivre. Memes garde-fous que les autres motifs.
+# Huitieme et neuvieme tournures (SitReps 123 et 124, 14 et 15 septembre
+# 2026) : « La proportion des contacts suivis est de 89,3 % (31 389/35 158) »,
+# puis « … se situe à 87,4 % (28 065/32 094) ». Les contacts deviennent le
+# sujet, « suivis » remplace « suivi des ». Sans elles, les deux points avaient
+# leur taux et leurs provinces, pas leurs effectifs nationaux.
 CONTACTS_SITUE_RE = re.compile(
-    r"(?:proportion\s+du|taux\s+de)\s+suivi\s+des\s+contacts\s*,?\s*(?:elle|il)?\s*se\s+situe\s+(?:à|a)\s+"
+    r"(?:(?:proportion\s+du|taux\s+de)\s+suivi\s+des\s+contacts\s*,?\s*(?:elle|il)?\s*se\s+situe\s+(?:à|a)"
+    r"|proportion\s+des\s+contacts\s+suivis\s+(?:se\s+situe\s+(?:à|a)|est\s+de))\s+"
     r"(\d+(?:\s*[,.]\s*\d+)?)\s*%\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)",
     re.IGNORECASE | re.DOTALL,
 )

@@ -210,7 +210,10 @@ def _total_ligne(jetons):
 
 def lire_poe(corps):
     t = corps
-    m = re.search(r"Nombre de personnes((?:\s+(?:\d[\d ]*|ND|NA))+)", t)
+    # Les SitReps 123 et 124 (14 et 15 septembre 2026) coupent autrement le
+    # libelle de la ligne : « Nombre de personnes passées aux 147 864 … PoE/PoC »
+    # — « passées aux » s'intercale avant les nombres, et le total manquait.
+    m = re.search(r"Nombre de personnes(?:\s+passées\s+aux)?((?:\s+(?:\d[\d ]*|ND|NA))+)", t)
     personnes = None
     if m:
         # Une ligne de tableau : six provinces puis le total, chiffres a

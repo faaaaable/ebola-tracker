@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-05-21",
-    "fin": "2026-09-13"
+    "fin": "2026-09-15"
   },
   "parDate": [
     {
@@ -2811,6 +2811,93 @@
         "echantillons": 387,
         "positifs": 58,
         "positivite": 15.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-14",
+      "sitrepNumber": "123",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 203,
+          "positifs": 57,
+          "vivants": 40,
+          "deces": 17,
+          "positivite": 28.1
+        },
+        "Nord-Kivu": {
+          "echantillons": 151,
+          "positifs": 21,
+          "vivants": 13,
+          "deces": 8,
+          "positivite": 13.9
+        },
+        "Haut-Uélé": {
+          "echantillons": 45,
+          "positifs": 9,
+          "vivants": 8,
+          "deces": 1,
+          "positivite": 20.0
+        },
+        "Tshopo": {
+          "echantillons": 5,
+          "positifs": 0
+        },
+        "Bas-Uélé": {
+          "echantillons": 5,
+          "positifs": 0,
+          "vivants": 4,
+          "deces": 1
+        }
+      },
+      "total": {
+        "provinces": 5,
+        "echantillons": 409,
+        "positifs": 87,
+        "positivite": 21.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-15",
+      "sitrepNumber": "124",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 177,
+          "positifs": 35,
+          "vivants": 27,
+          "deces": 8,
+          "positivite": 19.8
+        },
+        "Nord-Kivu": {
+          "echantillons": 160,
+          "positifs": 21,
+          "vivants": 14,
+          "deces": 7,
+          "positivite": 13.1
+        },
+        "Haut-Uélé": {
+          "echantillons": 13,
+          "positifs": 0
+        },
+        "Tshopo": {
+          "echantillons": 6,
+          "positifs": 1,
+          "positivite": 16.7
+        },
+        "Bas-Uélé": {
+          "echantillons": 6,
+          "positifs": 2,
+          "vivants": 1,
+          "deces": 1,
+          "positivite": 33.3
+        }
+      },
+      "total": {
+        "provinces": 5,
+        "echantillons": 362,
+        "positifs": 59,
+        "positivite": 16.3
       },
       "source": "SitRep INSP (automatique)"
     }
