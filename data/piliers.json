@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-21",
-  "fin": "2026-09-15"
+  "fin": "2026-09-16"
  },
  "parDate": [
   {
@@ -1510,6 +1510,33 @@
    "vaccination": {
     "cumulParProvince": {
      "Tshopo": 2544
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-16",
+   "sitrepNumber": "125",
+   "poe": {
+    "personnes": 262535,
+    "screenesPct": 97.8,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 41,
+    "attendus": 47
+   },
+   "eds": {
+    "alertes": 63,
+    "realisees": 57,
+    "swabes": 63,
+    "nonSwabes": null
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Tshopo": 2810,
+     "Bas-Uélé": 600
     },
     "rupture": false
    },

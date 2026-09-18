@@ -116,9 +116,13 @@ CONTACTS_PARMI_RE = re.compile(
 # 25 117 ont été vus, correspondant à une proportion journalière de suivi à
 # 87, 6% ». Les a suivre AVANT les vus cette fois, « correspondant à » et
 # « de suivi à » devant le taux. Groupes : a suivre, vus, taux.
+# Dixieme tournure au SitRep 125 (16 septembre 2026) : « Parmi les 29 873
+# contacts en cours de suivi, 26 181 ont été vus au cours des dernières
+# 24 heures, exprimant une proportion de suivi de 87,6% » — le mot
+# « contacts » s'intercale, et une incise separe « vus » du taux.
 CONTACTS_PARMI_LES_RE = re.compile(
-    r"parmi\s+les\s+(\d[\d\s]*?)\s+en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+ont\s+été\s+vus"
-    r"\s*,?\s*(?:correspondant\s+à|soit|exprimant)\s+une\s+proportion(?:\s+journali[èe]re)?"
+    r"parmi\s+les\s+(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+ont\s+été\s+vus"
+    r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+une\s+proportion(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,
 )
@@ -416,6 +420,20 @@ NATIONAL_D_RE = re.compile(r"(%s)\s*vus\s+sur\s+(%s)\s+(?:à|a)\s+suivre" % (NOM
 NATIONAL_C_RE = re.compile(r"(?<![\d])(%s)\s*/\s*(%s)\s*vus\b" % (NOMBRE, NOMBRE), re.IGNORECASE)
 # Forme libre des premiers bulletins D (086-092) : « performances faibles au
 # Haut-Uélé (76,1 %) et au Nord-Kivu (80,2 %) ; l'Ituri atteint 87,7% ».
+# SitRep 125 : « 90,7% (13 535/14 926) en Ituri » — les effectifs s'intercalent
+# entre le taux et la province ; et la premiere province est nommee en tete de
+# phrase : « Au Bas-Uélé, 172 contacts ont été vus sur 180 en cours de suivi,
+# soit 95,6% ». Sans ces deux motifs, le 125 n'avait aucun detail par province.
+PROV_D3_RE = re.compile(
+    r"(\d+(?:[,.]\d+)?)\s*%%\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)\s*"
+    r"(?:en|au|à\s+la|a\s+la|dans\s+l[ae]|du|de\s+la)\s*(%s)" % PROVINCES_DETAIL_RE,
+    re.IGNORECASE,
+)
+PROV_D4_RE = re.compile(
+    r"(?:au|en|à\s+la|a\s+la|dans\s+l[ae])\s+(%s)\s*,\s*(\d[\d\s]*?)\s+contacts\s+ont\s+été\s+vus\s+sur\s+"
+    r"(\d[\d\s]*?)\s+en\s+cours\s+de\s+suivi\s*,?\s*soit\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE,
+    re.IGNORECASE,
+)
 PROV_D1_RE = re.compile(r"(%s)\s*\((\d+(?:[,.]\d+)?)\s*%%\)" % PROVINCES_DETAIL_RE)
 PROV_D1_ATTEINT_RE = re.compile(r"l[’']?\s*(%s)\s+(?:atteint|est à|se situe à)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
 PROV_C_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
@@ -496,6 +514,42 @@ def details_contacts(full_text, rows, taux_national=None):
         nom = canon_detail(pm.group(2))
         taux = norm_pct(pm.group(1) + "%")
         vus, a_suivre = norm_int(pm.group(3)), norm_int(pm.group(4))
+        if taux is None or nom in provinces:
+            continue
+        ligne = {"taux": taux}
+        ok = effectifs_verifies(vus, a_suivre, taux)
+        if ok:
+            ligne["vus"], ligne["aSuivre"] = ok
+        provinces[nom] = ligne
+    # D, effectifs entre le taux et la province (125). CES DEUX MOTIFS NE
+    # LISENT QUE LE VOISINAGE DE LA PHRASE NATIONALE DES CONTACTS : la meme
+    # forme sert ailleurs a tout autre chose, et le SitRep 051 y perdait ses
+    # provinces au profit de « 17,6 % (43/244) du Nord-Kivu », qui parle des
+    # cas suspects vivants validés (verifie le 18 septembre 2026).
+    depart = None
+    for rx in (CONTACTS_PARMI_LES_RE, CONTACTS_PARMI_RE, CONTACTS_DENTRE_EUX_RE,
+               CONTACTS_SITUE_RE, CONTACTS_VUS_SUR_RE):
+        mm = rx.search(full_text)
+        if mm:
+            depart = mm
+            break
+    zone_contacts = full_text[depart.start():depart.end() + 700] if depart else ""
+    for pm in PROV_D3_RE.finditer(zone_contacts):
+        nom = canon_detail(pm.group(4))
+        taux = norm_pct(pm.group(1) + "%")
+        vus, a_suivre = norm_int(pm.group(2)), norm_int(pm.group(3))
+        if taux is None or nom in provinces:
+            continue
+        ligne = {"taux": taux}
+        ok = effectifs_verifies(vus, a_suivre, taux)
+        if ok:
+            ligne["vus"], ligne["aSuivre"] = ok
+        provinces[nom] = ligne
+    # D, province en tete de phrase (125), meme voisinage.
+    for pm in PROV_D4_RE.finditer(zone_contacts):
+        nom = canon_detail(pm.group(1))
+        taux = norm_pct(pm.group(4) + "%")
+        vus, a_suivre = norm_int(pm.group(2)), norm_int(pm.group(3))
         if taux is None or nom in provinces:
             continue
         ligne = {"taux": taux}

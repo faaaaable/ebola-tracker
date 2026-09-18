@@ -5,7 +5,33 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 124**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 125**, rapportage
+du 16 septembre 2026 (publié le 17) — 7 475 cas confirmés, 3 605 décès,
+létalité 48,2 %, 1 798 guéris, 905 patients en CTE, suivi des contacts
+**87,6 %** (26 181 vus sur 29 873), 62 zones touchées sur 167 dans 7
+provinces, 71 nouveaux cas (Ituri 41, Nord-Kivu 27, Haut-Uélé 2, Tshopo 1) et
+28 décès du jour (18 communautaires, 10 intra-CTE). Intégré **en local le
+18 septembre 2026** ; sept provinces et 62 zones relues contre les pages 2 et
+3 du PDF, zéro écart ; `check_coherence` sans écart bloquant ; résumé des
+Défis rédigé (124 mots). Trois tournures apprises :
+- **Dixième tournure des contacts** : « Parmi les 29 873 contacts en cours de
+  suivi, 26 181 ont été vus au cours des dernières 24 heures, exprimant une
+  proportion de suivi de 87,6% » — le mot « contacts » s'intercale et une
+  incise sépare « vus » du taux. `CONTACTS_PARMI_LES_RE` élargi.
+- **Contacts par province, deux formes neuves** : « 90,7 % (13 535/14 926) en
+  Ituri » (effectifs entre le taux et la province) et « Au Bas-Uélé, 172
+  contacts ont été vus sur 180 en cours de suivi, soit 95,6 % » (province en
+  tête). `PROV_D3_RE` et `PROV_D4_RE`. **Ils ne lisent que le voisinage de la
+  phrase nationale** : appliqués au texte entier, ils attrapaient au 051
+  « 17,6 % (43/244) du Nord-Kivu », qui parle des cas suspects vivants
+  validés, et le 4 juillet perdait ses vraies provinces.
+- **`extraire_cte.py` : « 5 patients demeurent en isolement »** (Bas-Uélé),
+  quatrième verbe après « sont pris en charge en », « restent en » et « sont
+  placés en ». Effet de bord vérifié et gardé : le Bas-Uélé rentre aussi au
+  **120** (833 → 839) et au **121** (916 → 923, exactement la bande du
+  bulletin).
+
+Le SitRep 124, rapportage
 du 15 septembre 2026 (publié le 16) — 7 404 cas confirmés, 3 577 décès,
 létalité 48,3 %, 1 776 guéris, 930 patients en CTE, suivi des contacts
 **87,4 %** (28 065 vus sur 32 094), 62 zones touchées sur 167 dans 7

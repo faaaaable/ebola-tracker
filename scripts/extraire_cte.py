@@ -82,7 +82,7 @@ HOSPITALISES_RES = [
     # « 472 patients sont pris en charge en hospitalisation pour 1015 lits » et
     # « 7 patients restent en isolement » (122) : un verbe s'intercale entre les
     # patients et le mot qui les qualifie, que les motifs ci-dessus collent.
-    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+(?:sont\s+pris\s+en\s+charge\s+en|restent\s+en|sont\s+plac[ée]s?\s+en)\s+(?:hospitalisation|isolement)", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+(?:sont\s+pris\s+en\s+charge\s+en|restent\s+en|demeurent\s+en|sont\s+plac[ée]s?\s+en)\s+(?:hospitalisation|isolement)", re.I),
     # « Au terme de la journee, 62 patients, soit un taux d'occupation global
     # de 51,7% (120 lits) » (110 Haut-Uele) : ni « hospitalises » ni
     # « isolement », le nombre de patients est directement suivi du taux.
