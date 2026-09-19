@@ -5,7 +5,30 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 126**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 127**, rapportage
+du 18 septembre 2026 (publié le 19) — 7 614 cas confirmés, 3 676 décès,
+létalité 48,3 %, 1 864 guéris, 909 patients en isolement/CTE, suivi des
+contacts **87,8 %**, 73 nouveaux cas (Ituri 46, Nord-Kivu 18, Haut-Uélé 6,
+Tshopo 3) et 37 décès du jour (25 communautaires, 12 intra-CTE). **Une
+nouvelle zone de santé, Dungu au Haut-Uélé** — la première depuis Bulu au
+119 — donc **63 zones touchées sur 167**, et le Haut-Uélé passe de 6 à 7 sur
+13. Intégré **en local le 20 septembre 2026** ; sept provinces et 63 zones
+relues contre les pages 2 et 3 du PDF, zéro écart ; laboratoire 73 positifs
+pour 73 nouveaux cas ; `check_coherence` sans écart bloquant, les deux écarts
+anciens de la source inchangés ; résumé des Défis rédigé (115 mots).
+
+**Ce que la nouvelle zone a demandé : rien.** Contrairement au Sud-Ubangi du
+119, Dungu est dans une province déjà touchée, et le fond de carte OCHA la
+porte sous le nom exact « Dungu » en Haut-Uélé : correspondance exacte sur la
+clé normalisée, aucun alias à ajouter, la zone se colorie. `update_data`
+l'a signalée comme « zone jamais vue dans aucun rapport antérieur, à vérifier
+manuellement » — c'est le garde-fou qui fonctionne, et la une du bulletin
+confirme : « Une nouvelle zone de santé a été touchée au cours des dernières
+24 heures, notamment celle de Dungu dans la province du Haut-Uélé ». Elle
+entre avec 1 cas, 1 décès, et sa ventilation du jour est déduite de la ligne
+de province (1 décès communautaire).
+
+Le SitRep 126, rapportage
 du 17 septembre 2026 (publié le 18) — 7 541 cas confirmés, 3 639 décès,
 létalité 48,3 %, 1 823 guéris, 930 patients en isolement/CTE, suivi des
 contacts **87,2 %**, 62 zones touchées sur 167 dans 7 provinces (aucune
