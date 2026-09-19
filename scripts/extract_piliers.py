@@ -89,15 +89,15 @@ def lire_pci(corps):
         eds[cle] = (eds[cle] or 0) + v
 
     for p in puces(corps):
-        for m in re.finditer(r"(\d+) rings? (?:ont été|a été) ouverts? (?:sur les|autour des|sur) (\d+)", p):
+        for m in re.finditer(r"(\d+) rings?(?: ouverts?)? (?:ont été|a été) ouverts? (?:sur les|autour des|sur) (\d+)", p):
             rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(2))
         m = re.search(r"les (\d+) rings attendus ont tous été ouverts", p)
         if m:
             rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(1))
         if "EDS" not in p:
             continue
-        m = (re.search(r"(\d+|[A-Za-zéÉ]+) alertes(?: EDS)? ont été enregistrées", p)
-             or re.search(r"reçu (\d+) alertes", p) or re.search(r"(\d+) alertes ont été enregistrées", p))
+        m = (re.search(r"(\d+|[A-Za-zéÉ]+) alertes?(?: EDS)? (?:ont|a) été enregistrées?", p)
+             or re.search(r"reçu (\d+) alertes?", p))
         if m:
             v = nombre_ou_mot(m.group(1))
             if v is not None:
