@@ -225,7 +225,15 @@
    "sitrepNumber": "036",
    "poe": null,
    "rings": null,
-   "eds": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 4,
+    "swabes": null,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1
+    }
+   },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
   },
@@ -238,7 +246,10 @@
     "alertes": null,
     "realisees": 3,
     "swabes": null,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -266,7 +277,15 @@
    "sitrepNumber": "040",
    "poe": null,
    "rings": null,
-   "eds": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 5,
+    "swabes": null,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1
+    }
+   },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
   },
@@ -297,7 +316,10 @@
     "alertes": null,
     "realisees": 29,
     "swabes": null,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -308,10 +330,14 @@
    "poe": null,
    "rings": null,
    "eds": {
-    "alertes": null,
-    "realisees": 29,
+    "alertes": 32,
+    "realisees": 47,
     "swabes": null,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -325,7 +351,10 @@
     "alertes": null,
     "realisees": 29,
     "swabes": null,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -341,9 +370,13 @@
    "rings": null,
    "eds": {
     "alertes": null,
-    "realisees": 29,
-    "swabes": null,
-    "nonSwabes": null
+    "realisees": 66,
+    "swabes": 24,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1,
+     "swabes": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -357,7 +390,10 @@
     "alertes": null,
     "realisees": 29,
     "swabes": null,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -376,7 +412,16 @@
    "sitrepNumber": "051",
    "poe": null,
    "rings": null,
-   "eds": null,
+   "eds": {
+    "alertes": 29,
+    "realisees": null,
+    "swabes": 28,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "swabes": 1
+    }
+   },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
   },
@@ -389,7 +434,10 @@
     "alertes": null,
     "realisees": 22,
     "swabes": null,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -412,7 +460,10 @@
     "alertes": null,
     "realisees": 22,
     "swabes": null,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -426,7 +477,10 @@
     "alertes": null,
     "realisees": 38,
     "swabes": null,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -436,7 +490,15 @@
    "sitrepNumber": "056",
    "poe": null,
    "rings": null,
-   "eds": null,
+   "eds": {
+    "alertes": null,
+    "realisees": null,
+    "swabes": 27,
+    "nonSwabes": null,
+    "provinces": {
+     "swabes": 1
+    }
+   },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
   },
@@ -445,7 +507,15 @@
    "sitrepNumber": "057",
    "poe": null,
    "rings": null,
-   "eds": null,
+   "eds": {
+    "alertes": 6,
+    "realisees": null,
+    "swabes": null,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1
+    }
+   },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
   },
@@ -454,7 +524,16 @@
    "sitrepNumber": "058",
    "poe": null,
    "rings": null,
-   "eds": null,
+   "eds": {
+    "alertes": 24,
+    "realisees": null,
+    "swabes": 24,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "swabes": 1
+    }
+   },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
   },
@@ -661,7 +740,16 @@
    "sitrepNumber": "084",
    "poe": null,
    "rings": null,
-   "eds": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 46,
+    "swabes": 43,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1,
+     "swabes": 1
+    }
+   },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
   },
@@ -671,10 +759,15 @@
    "poe": null,
    "rings": null,
    "eds": {
-    "alertes": null,
+    "alertes": 74,
     "realisees": 98,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 88,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -685,10 +778,15 @@
    "poe": null,
    "rings": null,
    "eds": {
-    "alertes": null,
+    "alertes": 82,
     "realisees": 102,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 87,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -699,10 +797,15 @@
    "poe": null,
    "rings": null,
    "eds": {
-    "alertes": null,
+    "alertes": 85,
     "realisees": 128,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 124,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -713,10 +816,15 @@
    "poe": null,
    "rings": null,
    "eds": {
-    "alertes": null,
+    "alertes": 92,
     "realisees": 124,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 146,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -731,10 +839,15 @@
    },
    "rings": null,
    "eds": {
-    "alertes": null,
+    "alertes": 101,
     "realisees": 92,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 78,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -752,10 +865,15 @@
     "attendus": 143
    },
    "eds": {
-    "alertes": null,
-    "realisees": 46,
-    "swabes": null,
-    "nonSwabes": null
+    "alertes": 140,
+    "realisees": 116,
+    "swabes": 102,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -773,10 +891,15 @@
     "attendus": 167
    },
    "eds": {
-    "alertes": null,
+    "alertes": 81,
     "realisees": 54,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 44,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -791,10 +914,15 @@
    },
    "rings": null,
    "eds": {
-    "alertes": null,
-    "realisees": 80,
-    "swabes": null,
-    "nonSwabes": null
+    "alertes": 132,
+    "realisees": 130,
+    "swabes": 126,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -809,10 +937,15 @@
    },
    "rings": null,
    "eds": {
-    "alertes": null,
+    "alertes": 47,
     "realisees": 43,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 38,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -827,10 +960,15 @@
    },
    "rings": null,
    "eds": {
-    "alertes": null,
+    "alertes": 45,
     "realisees": 43,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 45,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -848,10 +986,15 @@
     "attendus": 152
    },
    "eds": {
-    "alertes": null,
+    "alertes": 85,
     "realisees": 122,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 114,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 3,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -869,10 +1012,15 @@
     "attendus": 74
    },
    "eds": {
-    "alertes": null,
+    "alertes": 157,
     "realisees": 135,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 109,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -890,10 +1038,15 @@
     "attendus": 70
    },
    "eds": {
-    "alertes": null,
+    "alertes": 134,
     "realisees": 124,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 110,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 4,
+     "realisees": 2,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -911,10 +1064,15 @@
     "attendus": 52
    },
    "eds": {
-    "alertes": null,
+    "alertes": 131,
     "realisees": 66,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 94,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 2,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -932,10 +1090,15 @@
     "attendus": 80
    },
    "eds": {
-    "alertes": null,
+    "alertes": 136,
     "realisees": 117,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 94,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 4,
+     "realisees": 4,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -953,10 +1116,15 @@
     "attendus": 57
    },
    "eds": {
-    "alertes": null,
+    "alertes": 3,
     "realisees": 3,
-    "swabes": null,
-    "nonSwabes": null
+    "swabes": 2,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 1,
+     "swabes": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -975,9 +1143,15 @@
    },
    "eds": {
     "alertes": 121,
-    "realisees": 37,
-    "swabes": 36,
-    "nonSwabes": null
+    "realisees": 107,
+    "swabes": 100,
+    "nonSwabes": 16,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 3,
+     "nonSwabes": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -998,7 +1172,12 @@
     "alertes": 44,
     "realisees": 44,
     "swabes": 44,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 1,
+     "swabes": 1
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -1012,10 +1191,15 @@
     "attendus": 101
    },
    "eds": {
-    "alertes": 123,
+    "alertes": 125,
     "realisees": 116,
-    "swabes": 107,
-    "nonSwabes": null
+    "swabes": 109,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 2,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -1036,7 +1220,12 @@
     "alertes": 141,
     "realisees": 121,
     "swabes": 102,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1062,7 +1251,12 @@
     "alertes": 150,
     "realisees": 127,
     "swabes": 118,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1117,10 +1311,15 @@
     "attendus": 41
    },
    "eds": {
-    "alertes": null,
+    "alertes": 87,
     "realisees": 128,
-    "swabes": 117,
-    "nonSwabes": null
+    "swabes": 120,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 4,
+     "swabes": 5
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -1138,10 +1337,15 @@
     "attendus": 30
    },
    "eds": {
-    "alertes": null,
+    "alertes": 93,
     "realisees": 119,
     "swabes": 108,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 2,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -1159,10 +1363,15 @@
     "attendus": 45
    },
    "eds": {
-    "alertes": null,
+    "alertes": 126,
     "realisees": 136,
     "swabes": 116,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -1180,10 +1389,15 @@
     "attendus": 55
    },
    "eds": {
-    "alertes": null,
+    "alertes": 91,
     "realisees": 131,
-    "swabes": 120,
-    "nonSwabes": null
+    "swabes": 121,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 2,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -1204,7 +1418,12 @@
     "alertes": 129,
     "realisees": 103,
     "swabes": 93,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1231,7 +1450,12 @@
     "alertes": 124,
     "realisees": 105,
     "swabes": 96,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1257,7 +1481,13 @@
     "alertes": 152,
     "realisees": 113,
     "swabes": 104,
-    "nonSwabes": 30
+    "nonSwabes": 30,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 3,
+     "nonSwabes": 1
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1283,7 +1513,13 @@
     "alertes": 133,
     "realisees": 109,
     "swabes": 101,
-    "nonSwabes": null
+    "nonSwabes": 5,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2,
+     "nonSwabes": 1
+    }
    },
    "vaccination": {
     "cumulParProvince": {},
@@ -1304,10 +1540,15 @@
     "attendus": 110
    },
    "eds": {
-    "alertes": 143,
+    "alertes": 148,
     "realisees": 133,
     "swabes": 123,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -1328,7 +1569,12 @@
     "alertes": 117,
     "realisees": 106,
     "swabes": 93,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1354,7 +1600,13 @@
     "alertes": 139,
     "realisees": 117,
     "swabes": 65,
-    "nonSwabes": null
+    "nonSwabes": 2,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 2,
+     "swabes": 1,
+     "nonSwabes": 1
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1380,7 +1632,13 @@
     "alertes": 158,
     "realisees": 126,
     "swabes": 105,
-    "nonSwabes": null
+    "nonSwabes": 14,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 2,
+     "nonSwabes": 1
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1406,7 +1664,12 @@
     "alertes": 134,
     "realisees": 117,
     "swabes": 101,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 3
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1429,10 +1692,15 @@
     "attendus": 121
    },
    "eds": {
-    "alertes": 97,
+    "alertes": 158,
     "realisees": 134,
     "swabes": 125,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 4,
+     "realisees": 4,
+     "swabes": 3
+    }
    },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
@@ -1453,7 +1721,13 @@
     "alertes": 129,
     "realisees": 122,
     "swabes": 110,
-    "nonSwabes": 9
+    "nonSwabes": 9,
+    "provinces": {
+     "alertes": 4,
+     "realisees": 4,
+     "swabes": 5,
+     "nonSwabes": 1
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1479,7 +1753,12 @@
     "alertes": 140,
     "realisees": 118,
     "swabes": 110,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 4,
+     "realisees": 4,
+     "swabes": 5
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1505,7 +1784,13 @@
     "alertes": 148,
     "realisees": 132,
     "swabes": 124,
-    "nonSwabes": null
+    "nonSwabes": 10,
+    "provinces": {
+     "alertes": 4,
+     "realisees": 3,
+     "swabes": 3,
+     "nonSwabes": 1
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1531,7 +1816,12 @@
     "alertes": 64,
     "realisees": 57,
     "swabes": 63,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 2,
+     "swabes": 3
+    }
    },
    "vaccination": {
     "cumulParProvince": {
@@ -1558,7 +1848,12 @@
     "alertes": 76,
     "realisees": 62,
     "swabes": 61,
-    "nonSwabes": null
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 2,
+     "swabes": 2
+    }
    },
    "vaccination": {
     "cumulParProvince": {

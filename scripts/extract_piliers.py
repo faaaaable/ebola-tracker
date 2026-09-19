@@ -84,35 +84,96 @@ def lire_pci(corps):
     corps non preleves), sommes des provinces qui donnent le chiffre."""
     rings_o = rings_a = None
     eds = {"alertes": None, "realisees": None, "swabes": None, "nonSwabes": None}
+    # Combien de provinces alimentent chaque champ. Les trois nombres ne
+    # couvrent PAS forcement les memes : au 111, seul l'Ituri publie ses
+    # alertes quand le Nord-Kivu ne donne que ses EDS et ses swabs, si bien
+    # que les EDS realises depassent les alertes sans que rien soit faux.
+    # Sans ce compte, la lettre alignait trois nombres incomparables.
+    eds_prov = {"alertes": set(), "realisees": set(), "swabes": set(), "nonSwabes": set()}
+    puce_en_cours = [0]
 
     def add(cle, v):
         eds[cle] = (eds[cle] or 0) + v
+        eds_prov[cle].add(puce_en_cours[0])
 
-    for p in puces(corps):
+    for numero_puce, p in enumerate(puces(corps)):
+        puce_en_cours[0] = numero_puce
         for m in re.finditer(r"(\d+) rings?(?: ouverts?)? (?:ont été|a été) ouverts? (?:sur les|autour des|sur) (\d+)", p):
             rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(2))
         m = re.search(r"les (\d+) rings attendus ont tous été ouverts", p)
         if m:
             rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(1))
-        if "EDS" not in p:
+        # Le sigle ne suffit pas : au 103, la Tshopo ecrit « Deux alertes de
+        # deces ont ete recues et 2 corps swabes » sans jamais dire « EDS »,
+        # et la puce entiere etait sautee.
+        if not re.search(r"\bEDS\b|enterrement|inhum|swab|[ée]couvillon|corps pr[ée]lev", p, re.IGNORECASE):
             continue
-        m = (re.search(r"(\d+|[A-Za-zéÉ]+) alertes?(?: EDS)? (?:ont|a) été enregistrées?", p)
-             or re.search(r"reçu (\d+) alertes?", p))
-        if m:
-            v = nombre_ou_mot(m.group(1))
-            if v is not None:
-                add("alertes", v)
-        m = re.search(r"(\d+) EDS réalis", p) or re.search(r"réalisé (\d+) EDS", p)
-        if m:
-            add("realisees", int(m.group(1)))
-        m = re.search(r"(\d+) corps swab", p) or re.search(r"swabé (?:les )?(\d+) corps", p)
-        if m:
-            add("swabes", int(m.group(1)))
-        m = re.search(r"(\d+) corps n[’']ayant pu", p) or re.search(r"(\d+) corps non swab", p)
-        if m:
-            add("nonSwabes", int(m.group(1)))
+        # Un motif par tournure vue dans le corpus ; le premier qui mord
+        # l'emporte, mais PHRASE PAR PHRASE : une puce peut porter deux
+        # provinces (au 103, le Nord-Kivu et la Tshopo dans la meme), et une
+        # lecture par puce perdait la seconde.
+        #
+        # Exception, le recapitulatif « soit N EDS sur M alertes » : quand il
+        # est la, la phrase qui precede detaille les memes EDS par lieu
+        # (menages, structures de soins, CTE) et tout compter doublerait le
+        # total. Il vaut alors pour la puce entiere.
+        #
+        # Tournures ajoutees le 19 septembre 2026, apres la question d'un
+        # lecteur sur l'origine de ces chiffres : « 70 EDS ont ete realises »
+        # en phrase isolee (101, Ituri), « 62 ont ete swabes » (101), « les 2
+        # corps ont ete swabes » (101), « 61 alertes ont ete recues » (121,
+        # Nord-Kivu, la ou le motif attendait « enregistrees »), « Deux
+        # alertes de deces ont ete recues » (103, Tshopo, nombre en lettres),
+        # et les formes anciennes « N corps preleves post-mortem » ou « par
+        # ecouvillonnage » (084 a 100).
+        MOT = r"(\d+|[A-Za-zéÉ]+)"
+        MOTIFS = (
+            ("alertes", [MOT + r" alertes?(?: EDS)?(?: de d[ée]c[èe]s)? (?:ont|a) [ée]t[ée] (?:enregistr|re[çc]u)",
+                         r"re[çc]u " + MOT + r" alertes?",
+                         r"EDS r[ée]alis\w+ sur (\d+) alertes",
+                         MOT + r" alertes?(?: EDS)? re[çc]ues?",
+                         MOT + r" alertes? de d[ée]c[èe]s"]),
+            ("realisees", [r"(\d+) EDS (?:ont [ée]t[ée] |a [ée]t[ée] )?r[ée]alis",
+                           r"r[ée]alis[ée] (?:les )?(\d+) EDS"]),
+            ("swabes", [r"(\d+) corps (?:ont [ée]t[ée] |a [ée]t[ée] )?(?:pr[ée]lev|swab|[ée]couvillonn)",
+                        r"(\d+) corps (?:ont [ée]t[ée] )?swab",
+                        r"swab[ée] (?:les )?(\d+) corps",
+                        r"les (\d+) corps ont [ée]t[ée] swab",
+                        r"(\d+) ont [ée]t[ée] swab",
+                        r"(\d+) corps pr[ée]lev"]),
+            ("nonSwabes", [r"(\d+) corps n[’']ayant pu",
+                           r"(\d+) corps non swab",
+                           r"(\d+) corps n[’']ont pu [êe]tre swab",
+                           r"(\d+) n[’']ont pas pu [êe]tre swab"]),
+        )
+
+        def lire_phrase(txt, cles):
+            for cle, motifs in MOTIFS:
+                if cle not in cles:
+                    continue
+                for motif in motifs:
+                    m = re.search(motif, txt, re.IGNORECASE)
+                    if m:
+                        v = nombre_ou_mot(m.group(1))
+                        if v is not None:
+                            add(cle, v)
+                        break
+
+        recap = re.search(r"soit (\d+) EDS sur (\d+) alertes", p, re.IGNORECASE)
+        if recap:
+            add("realisees", int(recap.group(1)))
+            add("alertes", int(recap.group(2)))
+            restantes = {"swabes", "nonSwabes"}
+        else:
+            restantes = {"alertes", "realisees", "swabes", "nonSwabes"}
+        for phrase in re.split(r"\s*;\s*|(?<=[.)])\s+(?=[A-ZÀ-Ý])", p):
+            lire_phrase(phrase, restantes)
+
     rings = {"ouverts": rings_o, "attendus": rings_a} if rings_a else None
-    eds = eds if any(v is not None for v in eds.values()) else None
+    if any(v is not None for v in eds.values()):
+        eds["provinces"] = {k: len(v) for k, v in eds_prov.items() if v}
+    else:
+        eds = None
     return rings, eds
 
 

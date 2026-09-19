@@ -363,11 +363,22 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     if pp:
         rg, ed, va, po = pp.get("rings"), pp.get("eds"), pp.get("vaccination"), pp.get("poe")
         if ed and ed.get("alertes") is not None and ed.get("realisees") is not None:
-            s5 = P("lettreEds", alertes=fmt(ed["alertes"], lang), realisees=fmt(ed["realisees"], lang), swabes=fmt(ed.get("swabes"), lang) if ed.get("swabes") is not None else "—")
+            # Les trois nombres ne couvrent pas toujours les memes provinces :
+            # au 111, seul l'Ituri publie ses signalements quand le Nord-Kivu
+            # ne donne que ses enterrements, si bien que les EDS realises
+            # depassent les deces signales sans que rien soit faux. Les aligner
+            # dans une meme phrase, ou ecrire « N realises sur M signales »,
+            # ferait lire un rapport qui n'existe pas (19 septembre 2026).
+            couv = ed.get("provinces") or {}
+            memes = len({couv.get(k) for k in ("alertes", "realisees", "swabes") if couv.get(k)}) <= 1
+            cle = "lettreEds" if memes else "lettreEdsPartiel"
+            s5 = P(cle, alertes=fmt(ed["alertes"], lang), realisees=fmt(ed["realisees"], lang), swabes=fmt(ed.get("swabes"), lang) if ed.get("swabes") is not None else "—")
             if ed.get("nonSwabes"):
                 s5 += " " + P("lettreEdsRefus", n=fmt(ed["nonSwabes"], lang))
             phrases.append(s5)
-            cases += kpi("eds", S["lettreKpiEds"], fmt(ed["realisees"], lang), P("lettreKpiEdsSub", realisees=fmt(ed["realisees"], lang), alertes=fmt(ed["alertes"], lang)))
+            sous = (P("lettreKpiEdsSub", realisees=fmt(ed["realisees"], lang), alertes=fmt(ed["alertes"], lang))
+                    if memes else P("lettreKpiEdsSubSeul", realisees=fmt(ed["realisees"], lang)))
+            cases += kpi("eds", S["lettreKpiEds"], fmt(ed["realisees"], lang), sous)
         if rg and rg.get("attendus"):
             phrases.append(P("lettreRings", ouverts=fmt(rg.get("ouverts") or 0, lang), attendus=fmt(rg["attendus"], lang)))
         # Vaccination : le bulletin ne donne que des cumuls, par province ou
