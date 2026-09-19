@@ -5,7 +5,30 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 125**, rapportage
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 126**, rapportage
+du 17 septembre 2026 (publié le 18) — 7 541 cas confirmés, 3 639 décès,
+létalité 48,3 %, 1 823 guéris, 930 patients en isolement/CTE, suivi des
+contacts **87,2 %**, 62 zones touchées sur 167 dans 7 provinces (aucune
+nouvelle), 66 nouveaux cas (Ituri 37, Nord-Kivu 20, Tshopo 5, Haut-Uélé 4) et
+34 décès du jour (16 communautaires, 18 intra-CTE). Intégré **en local le
+19 septembre 2026** ; sept provinces et 62 zones relues contre les pages 2 et 3
+du PDF, zéro écart (la somme des zones de l'Ituri accuse les 477 décès « pas
+encore attribués à une zone », écart attendu et visible par construction) ;
+`check_coherence` sans écart bloquant, les deux écarts anciens de la source
+inchangés ; résumé des Défis rédigé (131 mots). Rien de neuf à apprendre au
+lecteur, et une tournure à connaître :
+- **Le Nord-Kivu écrit « 20 échantillons résultats positifs (13 vivants et
+  7 décès) sur 171 échantillons analysés »** — « échantillons » à la place de
+  « nouveaux résultats », ce qu'aucun motif ne lit. La province est quand même
+  sortie à 20 positifs par la déduction vivants + décès (`positifsDeduits`), et
+  le garde-fou du jour repasse exactement : 37 + 20 + 4 + 5 + 0 = 66 positifs
+  pour 66 nouveaux cas. Un motif dédié serait plus sûr que la déduction ; non
+  fait, la déduction suffit tant que le bulletin publie la ventilation.
+- Le tableau des zones porte, comme d'habitude, la ligne « Tshopo 1 0 0,0% 0 »
+  de la zone de santé homonyme de sa province : lue comme une zone, pas comme
+  un en-tête, et la Tshopo reste à 7 zones.
+
+Le SitRep 125, rapportage
 du 16 septembre 2026 (publié le 17) — 7 475 cas confirmés, 3 605 décès,
 létalité 48,2 %, 1 798 guéris, 905 patients en CTE, suivi des contacts
 **87,6 %** (26 181 vus sur 29 873), 62 zones touchées sur 167 dans 7
