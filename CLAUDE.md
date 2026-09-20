@@ -95,10 +95,52 @@ exactement ce pour quoi le seuil existe. Le KPI national d'occupation passe de
 il était absent faute de lits. Les lettres 125, 126 et 127 suivent.
 
 **Le taux du Nord-Kivu change de sens le 15 septembre**, et la note sous le
-graphique le dit désormais : le bulletin cesse de rapporter tous ses patients à
-sa capacité totale pour ne compter que ses structures normées, et le taux tombe
-de 152,6 % à 94,7 %. Ce n'est pas une décrue. Nouvelle chaîne
-`provinceKpiOccupationSubNormes` en fr/en/sw ; le swahili reste à faire relire.
+graphique le dit désormais. **Attention : ce n'est pas le dénominateur qui
+change, contrairement à ce que le premier jet de cette note et du commit
+`5053475d` affirmaient.** Le nombre de lits ne bouge pas — 228 du 11 au
+18 septembre, ce que confirme le dénominateur implicite reconstitué depuis le
+taux publié (317/1,390 = 228, 342/1,50 = 228, 348/1,526 = 228). C'est le
+**numérateur** qui change : jusqu'au 14, l'INSP rapporte *tous* les patients
+hospitalisés à ces 228 lits ; depuis le 15, il ne retient que ceux des
+structures normées (216 sur 373). Les 157 malades couchés hors des lits
+prévus — ce que le dépassement de 100 % sert précisément à signaler —
+sortent du calcul, et le taux tombe de 152,6 % à 94,7 % pendant que le nombre
+de patients monte. Le SitRep 127 le dit lui-même dans ses Défis : « 42,9 % des
+patients hospitalisés sont pris en charge en dehors des structures normées »
+(168/392 = 42,9 %, nos chiffres tombent sur les siens).
+
+**Le site trace donc la série à définition constante** — tous les hospitalisés
+rapportés aux lits déclarés — décision du propriétaire le 20 septembre 2026,
+après avoir vu la courbe plonger. À définition constante, la saturation
+continue de monter : 152,6 % le 14, puis 163,6, 164,9, **176,8** le 17 et
+171,9 le 18. Le taux du bulletin est conservé dans `occupationPubliee`, et
+`numerateur()` rend désormais toujours le total hospitalisé.
+
+**La capacité du 15 septembre est déduite, et confirmée.** Le SitRep 124 donne
+« 216 dans les structures dédiées » et 94,7 % sans jamais écrire le nombre de
+lits : 216/0,947 fait 228,1. `confirmer_lits_deduits()` ne retient une
+déduction que si le bulletin a imprimé la même capacité à moins de trois lits
+près dans les sept jours voisins — le 125 et le 126 impriment 228. Le nouveau
+contrôle `check_coherence`, « taux publié = normés / lits là où la province
+distingue », vérifie le couple et passe.
+
+**Conséquence sur le KPI national, à surveiller.** L'occupation nationale
+passe de 48,3 % le 14 septembre à **64,0 %** le 15 : le Nord-Kivu entre dans le
+cumul (il n'avait pas de lits du 10 au 14) *et* y entre avec ses 373 patients.
+C'est le défaut de périmètre qui avait fait retirer la ligne « Toutes
+provinces » du graphique le 28 août — un cumul qui change de périmètre sans le
+dire. Les lettres 124 à 127 portent la nouvelle valeur (64,0 / 62,7 / 64,0 /
+63,7 %).
+
+La chaîne `provinceKpiOccupationSubNormes` ajoutée le 20 septembre n'est plus
+utilisée : le sous-titre redevient « 392 hospitalisés pour 228 lits », cohérent
+avec le taux affiché. Elle reste dans `strings.json` en fr/en/sw.
+
+**Tout ce bloc « définition constante » est EN LOCAL**, non commité à la
+demande du propriétaire — `extraire_cte.py`, `build_pages.py`,
+`check_coherence.py`, `i18n.js`, `app.js`, `data/cte.json` et les pages
+régénérées. Le dépôt publié en est resté au commit `5053475d`, qui trace encore
+le taux publié.
 
 **Le 6 août et le 7 septembre restent sans barre, et c'est correct.** Le 084 ne
 publie aucun effectif (« Le suivi des contacts est à 83,7% », rien d'autre). Le
