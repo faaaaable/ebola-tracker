@@ -2523,7 +2523,11 @@
         "Nord-Kivu": {
           "hospitalises": 373,
           "hospitalisesNormes": 216,
-          "occupation": 94.7
+          "occupationPubliee": 94.7,
+          "litsDeduits": true,
+          "occupation": 163.6,
+          "lits": 228,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 63,
@@ -2547,9 +2551,9 @@
       "total": {
         "hospitalises": 930,
         "provinces": 6,
-        "lits": 1207,
-        "hospitalisesAvecLits": 546,
-        "occupation": 45.2
+        "lits": 1435,
+        "hospitalisesAvecLits": 919,
+        "occupation": 64.0
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -2567,7 +2571,9 @@
           "hospitalises": 376,
           "lits": 228,
           "hospitalisesNormes": 221,
-          "occupation": 96.9
+          "occupationPubliee": 96.9,
+          "occupation": 164.9,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 62,
@@ -2592,8 +2598,8 @@
         "hospitalises": 905,
         "provinces": 6,
         "lits": 1435,
-        "hospitalisesAvecLits": 745,
-        "occupation": 51.9
+        "hospitalisesAvecLits": 900,
+        "occupation": 62.7
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -2611,7 +2617,9 @@
           "hospitalises": 403,
           "lits": 228,
           "hospitalisesNormes": 217,
-          "occupation": 95.2
+          "occupationPubliee": 95.2,
+          "occupation": 176.8,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 61,
@@ -2636,8 +2644,8 @@
         "hospitalises": 930,
         "provinces": 6,
         "lits": 1437,
-        "hospitalisesAvecLits": 733,
-        "occupation": 51.0
+        "hospitalisesAvecLits": 919,
+        "occupation": 64.0
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -2655,7 +2663,9 @@
           "hospitalises": 392,
           "lits": 228,
           "hospitalisesNormes": 224,
-          "occupation": 98.2
+          "occupationPubliee": 98.2,
+          "occupation": 171.9,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 63,
@@ -2675,8 +2685,8 @@
         "hospitalises": 909,
         "provinces": 5,
         "lits": 1412,
-        "hospitalisesAvecLits": 731,
-        "occupation": 51.8
+        "hospitalisesAvecLits": 899,
+        "occupation": 63.7
       },
       "source": "SitRep INSP (automatique)"
     }

@@ -1591,10 +1591,10 @@ function renderOneChart(canvas, chartMode){
                   tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>{
           const p = parDate[jours[c.dataIndex]];
           const src = p.provinces[c.dataset.label];
-          /* Le taux porte sur les structures normees quand la province
-             distingue les deux : 224 sur 228 lits, pas 392. */
-          const num = src && (src.hospitalisesNormes ?? src.hospitalises);
-          return c.dataset.label + ' : ' + fmtCfr(c.parsed.y) + (src && src.lits ? ' (' + fmt(num) + ' / ' + fmt(src.lits) + ')' : '');
+          /* Tous les hospitalises sur les lits declares — la definition que
+             la courbe tient d'un bout a l'autre, y compris la ou le bulletin
+             ne compte plus que ses structures normees. */
+          return c.dataset.label + ' : ' + fmtCfr(c.parsed.y) + (src && src.lits ? ' (' + fmt(src.hospitalises) + ' / ' + fmt(src.lits) + ')' : '');
         } } }) },
         scales:{ x:axeX(true), y:axePct(Math.ceil(maxi/20)*20) } };
       dessiner('line', data, opts);

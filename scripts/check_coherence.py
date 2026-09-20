@@ -277,17 +277,27 @@ if cte:
     ecarts = []
     for p in cte.get("parDate", []):
         for prov, c in (p.get("provinces") or {}).items():
-            # Le taux porte sur les structures normees quand la province
-            # distingue les deux (Nord-Kivu depuis le 16 septembre 2026) :
-            # 224 sur 228 lits font 98,2 %, les 392 hospitalises en feraient
-            # 172. Meme numerateur que extraire_cte.numerateur().
-            h = c.get("hospitalisesNormes", c.get("hospitalises"))
-            l, o = c.get("lits"), c.get("occupation")
+            # Tous les hospitalises sur les lits declares : la definition
+            # constante que le site tient. Meme numerateur que
+            # extraire_cte.numerateur().
+            h, l, o = c.get("hospitalises"), c.get("lits"), c.get("occupation")
             if h is not None and l and o is not None and not c.get("occupationCalculee") \
                     and abs(h / l * 100 - o) > 1.5:
                 ecarts.append("%s %s" % (p["sitrepNumber"], prov))
     check("cte : occupation publiee = hospitalises / lits (a 1,5 pt)", not ecarts,
           ", ".join(ecarts[:6]), blocking_if_false=False)
+    # Le taux du bulletin, la ou il ne porte que sur les structures normees :
+    # il doit tomber sur le couple (normes, lits) que nous avons lu, sinon la
+    # lecture est fausse — et c'est ce controle qui protege la capacite
+    # deduite du 15 septembre 2026.
+    ecarts = []
+    for p in cte.get("parDate", []):
+        for prov, c in (p.get("provinces") or {}).items():
+            n, l, o = c.get("hospitalisesNormes"), c.get("lits"), c.get("occupationPubliee")
+            if n is not None and l and o is not None and abs(n / l * 100 - o) > 1.5:
+                ecarts.append("%s %s" % (p["sitrepNumber"], prov))
+    check("cte : taux publie = normes / lits la ou la province distingue", not ecarts,
+          ", ".join(ecarts[:6]))
 
 if contacts:
     impossibles = []

@@ -139,11 +139,19 @@ OCCUPATION_RES = [
 
 
 def numerateur(ligne):
-    """L'effectif que le taux d'occupation rapporte aux lits : celui des
-    structures normées quand la province distingue les deux (Nord-Kivu depuis
-    le 15 septembre 2026, 42,9 % de ses patients pris en charge ailleurs),
-    le total hospitalisé sinon."""
-    return ligne.get("hospitalisesNormes", ligne.get("hospitalises"))
+    """L'effectif que le site rapporte aux lits : TOUS les patients
+    hospitalisés, toujours, y compris ceux installés hors des lits prévus.
+
+    C'est la définition que l'INSP a tenue jusqu'au 14 septembre 2026, et
+    celle qui mesure la saturation. Depuis le 15 il ne met au numérateur que
+    les patients des structures normées du Nord-Kivu (216 sur 373), ce qui
+    fait tomber le taux publié de 152,6 % à 94,7 % alors que le nombre de
+    patients monte : les 157 malades couchés hors lits prévus — justement ce
+    que le dépassement de 100 % sert à signaler — sortent du calcul. Le site
+    rétablit donc la série à définition constante, et garde le taux du
+    bulletin dans `occupationPubliee`. Décision du propriétaire, 20 septembre
+    2026."""
+    return ligne.get("hospitalises")
 
 
 def premier(regexes, texte):
@@ -179,7 +187,24 @@ def lire_prose(morceau):
         if mo:
             occ = pourcent(mo.group(1))
             break
-    if occ is not None:
+    normes = ligne.get("hospitalisesNormes")
+    if occ is not None and normes is not None and normes != hosp:
+        # Le taux publie ne porte que sur les structures normees : on le garde
+        # tel quel, et on trace la serie a definition constante. Les lits, que
+        # le 124 ne publie pas, se deduisent alors du couple publie
+        # (216 vus comme 94,7 % font 228,1) — mais seulement si la deduction
+        # retombe sur une capacite que le bulletin a imprimee par ailleurs,
+        # sinon on ne deduit rien.
+        ligne["occupationPubliee"] = occ
+        if not ligne.get("lits"):
+            deduits = round(normes / occ * 100)
+            ligne["litsDeduits"] = deduits
+        if ligne.get("lits"):
+            ligne["occupation"] = round(hosp / ligne["lits"] * 100, 1)
+            ligne["occupationCalculee"] = True
+        else:
+            ligne["occupation"] = occ
+    elif occ is not None:
         ligne["occupation"] = occ
     elif ligne.get("lits"):
         ligne["occupation"] = round(numerateur(ligne) / ligne["lits"] * 100, 1)
@@ -321,6 +346,52 @@ def avertissements(nom, ligne):
     return out
 
 
+def confirmer_lits_deduits(points):
+    """Les lits deduits d'un couple publie ne sont retenus que si le bulletin
+    a imprime la meme capacite a moins de trois lits pres, dans les sept jours
+    qui precedent ou qui suivent.
+
+    Le 124 (15 septembre 2026) donne « 216 dans les structures dédiées » et
+    94,7 % sans jamais ecrire le nombre de lits : 216/0,947 fait 228,1, et le
+    125 comme le 126 impriment 228. La deduction est donc confirmee. Sans ce
+    garde-fou, une coquille de la source fabriquerait une capacite qui n'a
+    jamais existe."""
+    for i, p in enumerate(points):
+        for nom, ligne in (p.get("provinces") or {}).items():
+            deduits = ligne.get("litsDeduits")
+            if not deduits or ligne.get("lits"):
+                continue
+            voisins = []
+            for q in points[max(0, i - 7):i + 8]:
+                v = (q.get("provinces") or {}).get(nom) or {}
+                if q is not p and v.get("lits") and not v.get("litsDeduits"):
+                    voisins.append(v["lits"])
+            proche = [l for l in voisins if abs(l - deduits) <= 3]
+            if proche:
+                ligne["lits"] = min(proche, key=lambda l: abs(l - deduits))
+                ligne["litsDeduits"] = True
+                if ligne.get("hospitalises") and ligne["lits"]:
+                    ligne["occupation"] = round(
+                        ligne["hospitalises"] / ligne["lits"] * 100, 1)
+                    ligne["occupationCalculee"] = True
+            else:
+                del ligne["litsDeduits"]
+
+
+def recalculer_total(point):
+    """Le cumul national suit les lignes de province, y compris celles dont la
+    capacite vient d'etre confirmee."""
+    provinces = point.get("provinces") or {}
+    avec_lits = [v for v in provinces.values() if v.get("lits")]
+    total = point["total"]
+    for cle in ("lits", "hospitalisesAvecLits", "occupation"):
+        total.pop(cle, None)
+    if avec_lits:
+        total["lits"] = sum(v["lits"] for v in avec_lits)
+        total["hospitalisesAvecLits"] = sum(numerateur(v) for v in avec_lits)
+        total["occupation"] = round(total["hospitalisesAvecLits"] / total["lits"] * 100, 1)
+
+
 def lire_rapport(chemin):
     texte = texte_du_rapport(chemin)
     meta = extract_meta(texte, fallback_number=numero(chemin))
@@ -375,6 +446,9 @@ def main():
     for p in points:
         par_date[p["date"]] = p
     final = sorted(par_date.values(), key=lambda p: p["date"])
+    confirmer_lits_deduits(final)
+    for p in final:
+        recalculer_total(p)
     sortie = {
         "periode": {"debut": final[0]["date"], "fin": final[-1]["date"]} if final else None,
         "parDate": final,

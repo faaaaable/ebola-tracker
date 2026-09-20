@@ -2379,10 +2379,10 @@ def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lan
     des taux) ; l'occupation reste la valeur du dernier releve, datee si ce
     n'est pas le dernier bulletin. Une province sans donnee affiche « non
     publie ». Le Nord-Kivu n'a pas publie son nombre de lits du 10 au
-    15 septembre : son sous-titre ne donne alors que les hospitalises. Depuis
-    le 16 il le publie de nouveau, mais pour ses seules structures normees
-    (228 lits) : le sous-titre donne alors les deux effectifs, « 224 des 392
-    hospitalises pour 228 lits », le taux ne portant que sur les premiers."""
+    14 septembre : son sous-titre ne donne alors que les hospitalises. Depuis
+    le 15, le taux qu'il imprime ne porte plus que sur ses structures normees
+    et le site retablit la definition constante (tous les hospitalises sur les
+    228 lits) : le sous-titre redevient « 392 hospitalises pour 228 lits »."""
     date_bulletin = meta_data.get("reportingDate")
     au = lambda d: "" if (not d or d == date_bulletin) else " · " + interp(
         strings_lang["riposteKpiAsOf"], {"date": long_date(d, i18n_lang)})
@@ -2421,17 +2421,7 @@ def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lan
             break
     if k:
         date, v = k
-        normes = v.get("hospitalisesNormes")
-        if v.get("lits") and normes is not None and normes != v.get("hospitalises"):
-            # Le Nord-Kivu depuis le 16 septembre 2026 : 392 hospitalises dont
-            # 224 dans les structures normees, et c'est ce dernier nombre que
-            # le taux rapporte aux 228 lits. Afficher « 392 pour 228 » ferait
-            # mentir le sous-titre de 74 points.
-            sub = interp(strings_lang["provinceKpiOccupationSubNormes"],
-                         {"normes": fmt(normes, lang),
-                          "hospitalises": fmt(v["hospitalises"], lang),
-                          "lits": fmt(v["lits"], lang)})
-        elif v.get("lits") and v.get("hospitalises") is not None:
+        if v.get("lits") and v.get("hospitalises") is not None:
             sub = interp(strings_lang["riposteKpiOccupationSub"],
                          {"hospitalises": fmt(v["hospitalises"], lang), "lits": fmt(v["lits"], lang)})
         elif v.get("hospitalises") is not None:
