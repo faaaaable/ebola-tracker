@@ -52,6 +52,54 @@ moyenne simple des taux (87,0 %, sans sous-titre) à la moyenne pondérée
 (**87,1 %**, 186 691 vus sur 214 289 à suivre), les sept relevés portant de
 nouveau leurs effectifs. Régénération complète, aucune autre date touchée.
 
+**La courbe Nord-Kivu du graphique des CTE perdait 16 dates sur 59** (vu par
+le propriétaire le 20 septembre 2026, corrigé le jour même). Trois causes, dont
+une seule de notre fait :
+- **Du 16 au 18 septembre, les lits étaient publiés et nous ne les lisions
+  pas.** « 392 patients sont hospitalisés dont 224 dans les structures normées
+  **avec une capacité d'accueil de 228 lits**, soit un taux d'occupation global
+  de 98,2 % » (127) — `LITS_RE` n'attend que « pour N lits ». Nouveau
+  `LITS_CAPACITE_RE`, ancré sur « lits » et non sur « de », parce que le 125
+  glisse son numéro de page au milieu : « capacité d'accueil **6** de 228
+  lits ».
+- **Le taux porte sur les seules structures normées**, pas sur tous les
+  hospitalisés : 224/228 font 98,2 %, quand 392/228 en feraient 172. D'où
+  `HOSPITALISES_NORMES_RE` et le champ `hospitalisesNormes`, et une fonction
+  `numerateur()` dans `extraire_cte.py` — le même numérateur sert au contrôle
+  par province, au cumul `hospitalisesAvecLits`, à `check_coherence`, au
+  sous-titre de la page province et à l'infobulle du graphique. Sans ça,
+  ajouter les 228 lits déclenchait un écart bloquant et faussait le KPI
+  national.
+- **Du 10 au 15 septembre, la source ne publie aucun dénominateur** — « 311
+  patients sont hospitalisés, soit un taux d'occupation global en sursaturation
+  (141,4 %) ». Le filtre de la vue nationale traitait `lits` absent comme 0 lit
+  et écartait le point, alors que la page province le traçait : **les deux vues
+  jugeaient le même point différemment**. Le seuil porte désormais sur
+  l'effectif connu — le dénominateur s'il est publié, les hospitalisés sinon —
+  et la même règle vaut dans les deux vues. « Pas de lits publiés » et « moins
+  de 20 lits » sont deux choses différentes ; les confondre coûtait au
+  Nord-Kivu neuf jours de courbe pour 311 à 403 patients.
+- **Les 7-12 et le 29 août (7 dates) sont irréparables** : le Nord-Kivu n'a pas
+  de section de prise en charge chiffrée ces jours-là (le 086 ne donne que des
+  admissions cumulées, le 107 ne le mentionne pas). Le trou du 7 au 12 août
+  fait 6 jours, donc au-delà de `MAX_TROU_CTE` : pas de pointillé, par choix —
+  la province passe de 141 à 206 lits pendant ce trou.
+
+Effet mesuré de la règle, vérifié province par province avant de l'écrire : la
+vue nationale gagne 6 dates au Nord-Kivu (plus 3 par l'extraction, soit les 9)
+et 1 au Sud-Kivu ; les pages province perdent 4 points qui ne voulaient rien
+dire — la Tshopo à 5 et 8 patients les 12 et 13 août, le Haut-Uélé à **4**
+patients pour 100 % le 19 août, le Sud-Kivu à 19 le 8 septembre. C'est
+exactement ce pour quoi le seuil existe. Le KPI national d'occupation passe de
+42,8 % à **51,8 %** (731 sur 1 412 lits) : le Nord-Kivu rejoint le cumul, dont
+il était absent faute de lits. Les lettres 125, 126 et 127 suivent.
+
+**Le taux du Nord-Kivu change de sens le 15 septembre**, et la note sous le
+graphique le dit désormais : le bulletin cesse de rapporter tous ses patients à
+sa capacité totale pour ne compter que ses structures normées, et le taux tombe
+de 152,6 % à 94,7 %. Ce n'est pas une décrue. Nouvelle chaîne
+`provinceKpiOccupationSubNormes` en fr/en/sw ; le swahili reste à faire relire.
+
 **Le 6 août et le 7 septembre restent sans barre, et c'est correct.** Le 084 ne
 publie aucun effectif (« Le suivi des contacts est à 83,7% », rien d'autre). Le
 116 en publie, mais ils se contredisent : 21 359 vus sur 24 719 à suivre font
