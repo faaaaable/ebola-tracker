@@ -28,6 +28,36 @@ confirme : « Une nouvelle zone de santé a été touchée au cours des dernièr
 entre avec 1 cas, 1 décès, et sa ventilation du jour est déduite de la ligne
 de province (1 décès communautaire).
 
+**Les barres du 17 et du 18 septembre manquaient au graphique des contacts**
+(vu par le propriétaire le 20 septembre 2026, corrigé le jour même). Les barres
+du graphique de la riposte tracent les contacts *à suivre*, pas le taux : sans
+`contacts.aSuivre`, la courbe passe et la barre manque. Les 126 et 127 avaient
+leur taux — lu par le repli générique sur « taux de suivi des contacts … % » —
+mais ni effectifs nationaux ni provinces, faute de motif. Deux tournures
+apprises :
+- **Onzième tournure des contacts (126)** : « **Sur les** 31 902 contacts en
+  cours de suivi, 27 842 ont été vus au cours des dernières 24 heures, soit une
+  proportion de suivi de 87,2% » — « Sur les » à la place de « Parmi les ».
+  `CONTACTS_PARMI_LES_RE` accepte désormais les deux.
+- **Douzième tournure des contacts (127)** : « Au cours des dernières 24
+  heures, 26 803 **ont été vus parmi les** 30 541 contacts en cours de suivi,
+  soit une proportion de suivi de 87,8% » — les vus ouvrent la phrase et
+  « parmi les » ne vient qu'**après** « ont été vus », ce qu'aucun des deux
+  motifs « parmi » ne lisait. Nouveau `CONTACTS_VUS_PARMI_RE`.
+
+Comme les motifs de province ne lisent que le voisinage de la phrase nationale,
+les deux dates ont retrouvé du même coup leurs six provinces. Effet de bord
+voulu : la case nationale « Contacts vus (7 derniers relevés) » repasse de la
+moyenne simple des taux (87,0 %, sans sous-titre) à la moyenne pondérée
+(**87,1 %**, 186 691 vus sur 214 289 à suivre), les sept relevés portant de
+nouveau leurs effectifs. Régénération complète, aucune autre date touchée.
+
+**Le 6 août et le 7 septembre restent sans barre, et c'est correct.** Le 084 ne
+publie aucun effectif (« Le suivi des contacts est à 83,7% », rien d'autre). Le
+116 en publie, mais ils se contredisent : 21 359 vus sur 24 719 à suivre font
+86,4 %, quand la même phrase imprime 88,3 % — `effectifs_verifies` les rejette
+au-delà d'un point d'écart. Ne pas « réparer » ces deux-là.
+
 Le SitRep 126, rapportage
 du 17 septembre 2026 (publié le 18) — 7 541 cas confirmés, 3 639 décès,
 létalité 48,3 %, 1 823 guéris, 930 patients en isolement/CTE, suivi des
