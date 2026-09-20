@@ -136,11 +136,8 @@ La chaîne `provinceKpiOccupationSubNormes` ajoutée le 20 septembre n'est plus
 utilisée : le sous-titre redevient « 392 hospitalisés pour 228 lits », cohérent
 avec le taux affiché. Elle reste dans `strings.json` en fr/en/sw.
 
-**Tout ce bloc « définition constante » est EN LOCAL**, non commité à la
-demande du propriétaire — `extraire_cte.py`, `build_pages.py`,
-`check_coherence.py`, `i18n.js`, `app.js`, `data/cte.json` et les pages
-régénérées. Le dépôt publié en est resté au commit `5053475d`, qui trace encore
-le taux publié.
+Relu en local sur la page Riposte avant publication, puis **publié le
+20 septembre 2026**.
 
 **Le 6 août et le 7 septembre restent sans barre, et c'est correct.** Le 084 ne
 publie aucun effectif (« Le suivi des contacts est à 83,7% », rien d'autre). Le
