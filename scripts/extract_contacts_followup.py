@@ -120,10 +120,30 @@ CONTACTS_PARMI_RE = re.compile(
 # contacts en cours de suivi, 26 181 ont été vus au cours des dernières
 # 24 heures, exprimant une proportion de suivi de 87,6% » — le mot
 # « contacts » s'intercale, et une incise separe « vus » du taux.
+# Onzieme tournure au SitRep 126 (17 septembre 2026) : « Sur les 31 902
+# contacts en cours de suivi, 27 842 ont été vus au cours des dernières
+# 24 heures, soit une proportion de suivi de 87,2% » — « Sur les » remplace
+# « Parmi les », d'ou l'alternative en tete du motif. Sans elle, le 17
+# septembre n'avait ni effectifs nationaux ni provinces, et sa barre de
+# contacts a suivre manquait au graphique de la riposte.
 CONTACTS_PARMI_LES_RE = re.compile(
-    r"parmi\s+les\s+(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+ont\s+été\s+vus"
+    r"(?:parmi|sur)\s+les\s+(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+ont\s+été\s+vus"
     r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+une\s+proportion(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
+    re.IGNORECASE | re.DOTALL,
+)
+
+# SitRep 127 (18 septembre 2026) : douzieme tournure — « Au cours des
+# dernières 24 heures, 26 803 ont été vus parmi les 30 541 contacts en cours
+# de suivi, soit une proportion de suivi de 87,8% ». Les vus ouvrent la
+# phrase et « parmi les » ne vient qu'APRES « ont été vus » : ni
+# CONTACTS_PARMI_RE (qui attend « … parmi les … ont été vus ») ni
+# CONTACTS_PARMI_LES_RE (qui attend la tournure en tete) n'y tombent.
+# Groupes : vus, a suivre, taux.
+CONTACTS_VUS_PARMI_RE = re.compile(
+    r"(\d[\d\s]*?)\s*ont\s+été\s+vus\s+parmi\s+les\s+(\d[\d\s]*?)\s+(?:contacts\s+)?"
+    r"en\s+cours\s+de\s+suivi\s*,?\s*(?:correspondant\s+à|soit|exprimant)\s+une\s+proportion"
+    r"(?:\s+journali[èe]re)?(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,
 )
 
@@ -375,6 +395,11 @@ def rate_from_text(full_text):
         value = taux_texte(m.group(3))
         if 0 <= value <= 100:
             return value, "texte (repli, « Parmi les … en cours de suivi, … ont été vus »)"
+    m = CONTACTS_VUS_PARMI_RE.search(full_text)
+    if m:
+        value = taux_texte(m.group(3))
+        if 0 <= value <= 100:
+            return value, "texte (repli, « … ont été vus parmi les … en cours de suivi »)"
     return None, None
 
 
@@ -492,12 +517,20 @@ def details_contacts(full_text, rows, taux_national=None):
                     if effectifs_verifies(vus, a_suivre, taux_national):
                         out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
                 else:
-                    # SitRep 121 : « elle se situe à 91,3% (24 476/26 816) »
-                    m = CONTACTS_SITUE_RE.search(full_text)
+                    # SitRep 127 : « 26 803 ont été vus parmi les 30 541
+                    # contacts en cours de suivi » — les vus en tete.
+                    m = CONTACTS_VUS_PARMI_RE.search(full_text)
                     if m:
-                        vus, a_suivre = norm_int(m.group(2)), norm_int(m.group(3))
+                        vus, a_suivre = norm_int(m.group(1)), norm_int(m.group(2))
                         if effectifs_verifies(vus, a_suivre, taux_national):
                             out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
+                    else:
+                        # SitRep 121 : « elle se situe à 91,3% (24 476/26 816) »
+                        m = CONTACTS_SITUE_RE.search(full_text)
+                        if m:
+                            vus, a_suivre = norm_int(m.group(2)), norm_int(m.group(3))
+                            if effectifs_verifies(vus, a_suivre, taux_national):
+                                out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
     for pm in PROV_D_RE.finditer(full_text):
         nom = canon_detail(pm.group(1))
         taux = norm_pct(pm.group(2) + "%")
@@ -527,8 +560,8 @@ def details_contacts(full_text, rows, taux_national=None):
     # provinces au profit de « 17,6 % (43/244) du Nord-Kivu », qui parle des
     # cas suspects vivants validés (verifie le 18 septembre 2026).
     depart = None
-    for rx in (CONTACTS_PARMI_LES_RE, CONTACTS_PARMI_RE, CONTACTS_DENTRE_EUX_RE,
-               CONTACTS_SITUE_RE, CONTACTS_VUS_SUR_RE):
+    for rx in (CONTACTS_PARMI_LES_RE, CONTACTS_PARMI_RE, CONTACTS_VUS_PARMI_RE,
+               CONTACTS_DENTRE_EUX_RE, CONTACTS_SITUE_RE, CONTACTS_VUS_SUR_RE):
         mm = rx.search(full_text)
         if mm:
             depart = mm
