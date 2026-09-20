@@ -1549,12 +1549,17 @@ function renderOneChart(canvas, chartMode){
       /* Meme seuil de lisibilite que le lieu du deces : sous 20 lits, un taux
          n'a aucun sens — la Tshopo passe de 5 a 40 % pour un patient. */
       const SEUIL_LITS = 20;
-      /* Sur une page province, un taux sans nombre de lits reste tracé : le
-         Nord-Kivu ne publie plus ses lits depuis le 10 septembre, et sa page
-         perdait ses derniers jours, ceux ou il depasse 140 %. Seul un nombre
-         de lits publie et trop petit l'ecarte. */
+      /* Le seuil porte sur l'effectif CONNU, pas sur les lits seuls : le
+         denominateur quand la province le publie, le nombre d'hospitalises
+         sinon. « Pas de lits publies » et « moins de 20 lits » sont deux
+         choses differentes, et les confondre coutait au Nord-Kivu ses neuf
+         derniers jours sur la vue nationale — 311 a 403 patients — alors que
+         sa propre page les tracait (corrige le 20 septembre 2026). La regle
+         ecarte toujours ce pour quoi le seuil existe : la Tshopo a 5 patients
+         le 12 aout, le Haut-Uele a 4 le 19, ou un patient vaut 20 points. */
+      const effectif = v => v.lits || v.hospitalises || 0;
       const lisible = v => v && v.occupation !== undefined && v.occupation !== null
-        && (provRip ? !(v.lits && v.lits < SEUIL_LITS) : (v.lits || 0) >= SEUIL_LITS);
+        && effectif(v) >= SEUIL_LITS;
       const noms = [];
       avecLits.forEach(p => Object.entries(p.provinces || {}).forEach(([n, v]) => {
         if(provRip && nomProvinceCanonique(n) !== provRip) return;
@@ -1586,12 +1591,15 @@ function renderOneChart(canvas, chartMode){
                   tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>{
           const p = parDate[jours[c.dataIndex]];
           const src = p.provinces[c.dataset.label];
-          return c.dataset.label + ' : ' + fmtCfr(c.parsed.y) + (src && src.lits ? ' (' + fmt(src.hospitalises) + ' / ' + fmt(src.lits) + ')' : '');
+          /* Le taux porte sur les structures normees quand la province
+             distingue les deux : 224 sur 228 lits, pas 392. */
+          const num = src && (src.hospitalisesNormes ?? src.hospitalises);
+          return c.dataset.label + ' : ' + fmtCfr(c.parsed.y) + (src && src.lits ? ' (' + fmt(num) + ' / ' + fmt(src.lits) + ')' : '');
         } } }) },
         scales:{ x:axeX(true), y:axePct(Math.ceil(maxi/20)*20) } };
       dessiner('line', data, opts);
       noterPeriode(slot, jours[0], jours[jours.length-1]);
-      noter(provRip ? tr('chartNoteCteProvince')() : tr('chartNoteCte')(SEUIL_LITS));
+      noter(provRip ? tr('chartNoteCteProvince')(SEUIL_LITS) : tr('chartNoteCte')(SEUIL_LITS));
       return;
     }
   }

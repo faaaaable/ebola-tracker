@@ -277,7 +277,12 @@ if cte:
     ecarts = []
     for p in cte.get("parDate", []):
         for prov, c in (p.get("provinces") or {}).items():
-            h, l, o = c.get("hospitalises"), c.get("lits"), c.get("occupation")
+            # Le taux porte sur les structures normees quand la province
+            # distingue les deux (Nord-Kivu depuis le 16 septembre 2026) :
+            # 224 sur 228 lits font 98,2 %, les 392 hospitalises en feraient
+            # 172. Meme numerateur que extraire_cte.numerateur().
+            h = c.get("hospitalisesNormes", c.get("hospitalises"))
+            l, o = c.get("lits"), c.get("occupation")
             if h is not None and l and o is not None and not c.get("occupationCalculee") \
                     and abs(h / l * 100 - o) > 1.5:
                 ecarts.append("%s %s" % (p["sitrepNumber"], prov))

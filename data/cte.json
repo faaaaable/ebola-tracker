@@ -2522,6 +2522,7 @@
         },
         "Nord-Kivu": {
           "hospitalises": 373,
+          "hospitalisesNormes": 216,
           "occupation": 94.7
         },
         "Haut-Uélé": {
@@ -2564,6 +2565,8 @@
         },
         "Nord-Kivu": {
           "hospitalises": 376,
+          "lits": 228,
+          "hospitalisesNormes": 221,
           "occupation": 96.9
         },
         "Haut-Uélé": {
@@ -2588,9 +2591,9 @@
       "total": {
         "hospitalises": 905,
         "provinces": 6,
-        "lits": 1207,
-        "hospitalisesAvecLits": 524,
-        "occupation": 43.4
+        "lits": 1435,
+        "hospitalisesAvecLits": 745,
+        "occupation": 51.9
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -2606,6 +2609,8 @@
         },
         "Nord-Kivu": {
           "hospitalises": 403,
+          "lits": 228,
+          "hospitalisesNormes": 217,
           "occupation": 95.2
         },
         "Haut-Uélé": {
@@ -2630,9 +2635,9 @@
       "total": {
         "hospitalises": 930,
         "provinces": 6,
-        "lits": 1209,
-        "hospitalisesAvecLits": 516,
-        "occupation": 42.7
+        "lits": 1437,
+        "hospitalisesAvecLits": 733,
+        "occupation": 51.0
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -2648,6 +2653,8 @@
         },
         "Nord-Kivu": {
           "hospitalises": 392,
+          "lits": 228,
+          "hospitalisesNormes": 224,
           "occupation": 98.2
         },
         "Haut-Uélé": {
@@ -2667,9 +2674,9 @@
       "total": {
         "hospitalises": 909,
         "provinces": 5,
-        "lits": 1184,
-        "hospitalisesAvecLits": 507,
-        "occupation": 42.8
+        "lits": 1412,
+        "hospitalisesAvecLits": 731,
+        "occupation": 51.8
       },
       "source": "SitRep INSP (automatique)"
     }

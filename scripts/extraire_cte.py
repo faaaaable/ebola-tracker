@@ -110,6 +110,21 @@ LITS_DISPONIBLES_RE = re.compile(r"%\s*;\s*(\d[\d ]{0,4}\d|\d)\s+lits\s+disponib
 # Sans ce motif, le 117 sortait avec l'occupation mais sans les lits, et la
 # lettre plantait sur la province saturee.
 LITS_FRACTION_RE = re.compile(r"%\s*;\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*(?:\)|lits\s+disponibles)")
+# « 392 patients sont hospitalisés dont 224 dans les structures normées avec
+# une capacité d'accueil de 228 lits, soit un taux d'occupation global de
+# 98,2 % » (125 a 127, Nord-Kivu) : la capacite remplace « pour N lits », et
+# le taux porte sur les seuls patients des structures normees — 224/228 fait
+# bien 98,2 %, quand 392/228 en ferait 172. Sans ce motif, la province sortait
+# avec son taux mais sans lits, et la vue nationale du graphique des CTE
+# l'ecartait : neuf jours de courbe perdus (vu le 20 septembre 2026).
+# Le 125 glisse le numero de page au milieu de la tournure — « capacité
+# d'accueil 6 de 228 lits » — d'ou l'ancrage sur « lits » et non sur « de ».
+LITS_CAPACITE_RE = re.compile(
+    r"capacit[ée]\s+d[’']\s*accueil[^.;%]{0,24}?(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
+# Le denominateur du taux quand la province distingue les deux : « dont 224
+# dans les structures normées », « dont 216 dans les structures dédiées ».
+HOSPITALISES_NORMES_RE = re.compile(
+    r"dont\s+(\d[\d ]{0,4}\d|\d)\s+dans\s+les\s+structures\s+(?:norm[ée]es|d[ée]di[ée]es)", re.I)
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
@@ -121,6 +136,14 @@ OCCUPATION_RES = [
     # precedent, qui interdit \n ; le mot lui-meme suffit a ancrer le taux.
     re.compile(r"sursaturation\s*\((\d+(?:[,.]\d+)?)\s*%", re.I),
 ]
+
+
+def numerateur(ligne):
+    """L'effectif que le taux d'occupation rapporte aux lits : celui des
+    structures normées quand la province distingue les deux (Nord-Kivu depuis
+    le 15 septembre 2026, 42,9 % de ses patients pris en charge ailleurs),
+    le total hospitalisé sinon."""
+    return ligne.get("hospitalisesNormes", ligne.get("hospitalises"))
 
 
 def premier(regexes, texte):
@@ -137,9 +160,19 @@ def lire_prose(morceau):
         return None
     ligne = {"hospitalises": hosp}
     m = (LITS_RE.search(morceau) or LITS_FRACTION_RE.search(morceau)
-         or LITS_PARENTHESE_RE.search(morceau) or LITS_DISPONIBLES_RE.search(morceau))
+         or LITS_PARENTHESE_RE.search(morceau) or LITS_DISPONIBLES_RE.search(morceau)
+         or LITS_CAPACITE_RE.search(morceau))
     if m:
         ligne["lits"] = entier(m.group(1))
+    # Les hospitalises des seules structures normees, quand la province
+    # distingue les deux : c'est EUX que le taux publie rapporte aux lits.
+    # Garde-fou : pas plus que le total hospitalise, et le couple doit tomber
+    # sur le taux publie, sinon on ne garde que le nombre.
+    mn = HOSPITALISES_NORMES_RE.search(morceau)
+    if mn:
+        normes = entier(mn.group(1))
+        if normes is not None and normes <= hosp:
+            ligne["hospitalisesNormes"] = normes
     occ = None
     for rx in OCCUPATION_RES:
         mo = rx.search(morceau)
@@ -149,7 +182,7 @@ def lire_prose(morceau):
     if occ is not None:
         ligne["occupation"] = occ
     elif ligne.get("lits"):
-        ligne["occupation"] = round(hosp / ligne["lits"] * 100, 1)
+        ligne["occupation"] = round(numerateur(ligne) / ligne["lits"] * 100, 1)
         ligne["occupationCalculee"] = True
     # Admissions, sorties et guéris sont dans la même phrase, mais sous des
     # tournures trop variables pour être publiés sans relecture : on ne garde
@@ -280,7 +313,7 @@ def lire_par_tableau(texte):
 # ----------------------------------------------------------------- commun
 def avertissements(nom, ligne):
     out = []
-    h, l, o = ligne.get("hospitalises"), ligne.get("lits"), ligne.get("occupation")
+    h, l, o = numerateur(ligne), ligne.get("lits"), ligne.get("occupation")
     if h is not None and l and o is not None and not ligne.get("occupationCalculee"):
         calc = round(h / l * 100, 1)
         if abs(calc - o) > 1.5:
@@ -313,7 +346,7 @@ def lire_rapport(chemin):
     }
     if avec_lits:
         total["lits"] = sum(p["lits"] for p in avec_lits)
-        total["hospitalisesAvecLits"] = sum(p["hospitalises"] for p in avec_lits)
+        total["hospitalisesAvecLits"] = sum(numerateur(p) for p in avec_lits)
         total["occupation"] = round(total["hospitalisesAvecLits"] / total["lits"] * 100, 1)
     return {
         "date": meta["reportingDate"],
