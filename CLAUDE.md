@@ -28,6 +28,44 @@ confirme : « Une nouvelle zone de santé a été touchée au cours des dernièr
 entre avec 1 cas, 1 décès, et sa ventilation du jour est déduite de la ligne
 de province (1 décès communautaire).
 
+**La vaccination est extraite en détail** (20 septembre 2026, avant toute
+décision sur la page Riposte). La campagne Ervebo démarre le 26 août 2026 au
+Bas-Uélé (20 PPL à Buta), la Tshopo suit le 27. Au 18 septembre, **deux
+provinces sur sept vaccinent** : la Tshopo (3 369) et le Bas-Uélé (708).
+L'Ituri lance le 19 septembre à Bunia avec MSF, le Nord-Kivu en est à la chaîne
+de froid, le Sud-Ubangi à 300 doses, le Haut-Uélé et le Sud-Kivu à rien. La
+cible n'est pas la population : ce sont les **PPL et TPL** (personnels et
+travailleurs de première ligne), plus les contacts à haut risque au Bas-Uélé.
+
+Une section **« 1.6. Vaccination »** existe depuis le SitRep 112 (3 septembre)
+et figure dans les **seize bulletins suivants sans exception**, sous le même
+numéro, avec « Principales actions » puis « Défis » — un ancrage bien plus sûr
+que ce qu'on a pour les contacts ou les CTE. `extract_piliers.py` y lit
+désormais, par province : `cumul`, `cible`, `couverture`, `zones` (la
+ventilation par zone de santé) avec `zonesSomme`, `doses` (congelées,
+décongelées, au niveau des zones, déployées, reçues/exprimées, date de
+péremption) et `mapi`. Le `cumulParProvince` d'origine est inchangé, donc la
+lettre ne bouge pas.
+
+**Trois pièges, et le contrôle qui va avec.** Le **124 recopie la ventilation
+du 123** (somme 2 460 pour un cumul 2 544) : d'où `zonesSomme` à côté du cumul,
+et un contrôle non bloquant dans `check_coherence` qui le signale — un
+graphique qui empile les zones doit savoir qu'il lui manque 84 personnes ce
+jour-là. La **cible oscille** — 11 703 au 117, 11 000 aux 118 et 119, 11 703
+ensuite — et le taux publié suit la cible citée : on garde les deux nombres
+bruts. Le bulletin ne publie **jamais de vaccinés du jour**, seulement des
+cumuls (+197, +227, +147, +153, +84, +266, +253, +306) ; le 13 septembre en
+couvre deux, le 121 ne disant rien de la Tshopo. Deux autres contrôles ont été
+ajoutés : le cumul ne recule jamais (bloquant) et la couverture se recalcule
+sur la cible à un demi-point près. **Ce dernier passe de justesse au 117** (14,0
+publié contre 13,5 recalculé, 0,48 d'écart) : si la source arrondit encore plus
+grossièrement, il faudra desserrer le seuil.
+
+Une tournure à laquelle l'extraction a failli se laisser prendre : la province
+**revient dans « Défis » après « Principales actions »**, et au 127 le second
+paragraphe (« risque de péremption des 631 doses ») écrasait le premier, qui
+portait le cumul. La fusion complète désormais sans jamais écraser.
+
 **Les barres du 17 et du 18 septembre manquaient au graphique des contacts**
 (vu par le propriétaire le 20 septembre 2026, corrigé le jour même). Les barres
 du graphique de la riposte tracent les contacts *à suivre*, pas le taux : sans
@@ -780,7 +818,7 @@ python scripts/extraire_defis.py             # defis.json        (page Riposte, 
 #   puis, À LA MAIN, le résumé des Défis du bulletin dans data/bulletin-notes.json
 #   (fr/en/sw, langage courant) — à chaque bulletin, sans attendre de signal,
 #   règle du 9 septembre 2026 ; check_coherence le note s'il manque
-python scripts/extract_piliers.py            # piliers.json      (La lettre : EDS, rings, vaccination, PoC/PoE) — local, pas encore dans le workflow
+python scripts/extract_piliers.py            # piliers.json      (La lettre : EDS, rings, vaccination, PoC/PoE)
 python scripts/build_pages.py                # régénère les 30 pages du site
 python scripts/check_coherence.py            # contrôle, ne modifie rien
 ```
