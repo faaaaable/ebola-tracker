@@ -5,17 +5,41 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 127**, rapportage
-du 18 septembre 2026 (publié le 19) — 7 614 cas confirmés, 3 676 décès,
-létalité 48,3 %, 1 864 guéris, 909 patients en isolement/CTE, suivi des
-contacts **87,8 %**, 73 nouveaux cas (Ituri 46, Nord-Kivu 18, Haut-Uélé 6,
-Tshopo 3) et 37 décès du jour (25 communautaires, 12 intra-CTE). **Une
-nouvelle zone de santé, Dungu au Haut-Uélé** — la première depuis Bulu au
-119 — donc **63 zones touchées sur 167**, et le Haut-Uélé passe de 6 à 7 sur
-13. Intégré **en local le 20 septembre 2026** ; sept provinces et 63 zones
-relues contre les pages 2 et 3 du PDF, zéro écart ; laboratoire 73 positifs
-pour 73 nouveaux cas ; `check_coherence` sans écart bloquant, les deux écarts
-anciens de la source inchangés ; résumé des Défis rédigé (115 mots).
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 128**, rapportage
+du 19 septembre 2026 (publié le 20) — 7 672 cas confirmés, 3 699 décès,
+létalité 48,2 %, 1 879 guéris, 886 patients en isolement/CTE, 63 zones touchées
+sur 167 dans 7 provinces (aucune nouvelle), **58 nouveaux cas** (Ituri 38,
+Nord-Kivu 14, Haut-Uélé 5, Tshopo 1) et 23 décès du jour. Intégré le
+**21 septembre 2026** ; laboratoire 58 positifs pour 58 nouveaux cas, garde-fou
+du jour vérifié ; `check_coherence` sans écart bloquant, les trois écarts
+connus de la source inchangés ; résumé des Défis rédigé (110 mots).
+
+**Le suivi des contacts tombe à 79,9 %**, sous le seuil de 85 % que l'INSP s'est
+fixé, après cinq jours passés au-dessus. Le précédent décrochage datait du
+13 septembre (78,6 %), lui aussi isolé entre deux séries hautes.
+
+**La vaccination s'étend au Bas-Uélé** : deux zones de santé entrent dans la
+campagne, **Poko** (71 vaccinés) et **Viadana** (42), où la vaccination
+compassionnelle vient de démarrer, et Ganga passe de 158 à 324. La province
+atteint 987 vaccinés, la Tshopo 3 576 (30,6 % de sa cible), soit **4 563 au
+total** et dix zones de santé au tableau du cadre 05. **L'Ituri a tenu son
+lancement officiel** au Grand Laboratoire de Bunia avec l'appui de MSF : elle
+n'a pas encore de chiffre, mais sera la troisième province à vacciner. Le stock
+de doses décongelées de la Tshopo descend de 631 à **424**, toujours à échéance
+du 24 septembre.
+
+**La lettre donne désormais le chiffre du jour de la vaccination**, à la
+demande du propriétaire (21 septembre 2026) : « Depuis le bulletin précédent,
+207 de plus dans la Tshopo et 279 de plus dans le Bas-Uélé, en deux jours. »
+Le bulletin ne publiant **que des cumuls**, l'écart est dérivé du cumul
+précédent de chaque province, et deux garde-fous étaient nécessaires. Une
+province qui saute un bulletin donne un écart portant sur plusieurs jours : la
+lettre l'écrit en toutes lettres (« en deux jours », « en onze jours » au 125,
+qui enjambe la rupture de stock du Bas-Uélé). Et surtout, **une province
+n'apparaît que si elle publie un cumul neuf ce jour-là** — sans cette
+condition, le cumul reporté faisait réapparaître le même écart d'une lettre à
+l'autre, et les 108 du Bas-Uélé du 17 septembre s'affichaient dans la lettre
+126 *et* dans la 127.
 
 **Ce que la nouvelle zone a demandé : rien.** Contrairement au Sud-Ubangi du
 119, Dungu est dans une province déjà touchée, et le fond de carte OCHA la
