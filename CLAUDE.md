@@ -1241,14 +1241,40 @@ refactoring et avant d'ajouter la moindre chaîne swahili, les pages FR et EN
 étaient identiques au caractère près, hormis le sélecteur. Sans ce jalon, une
 régression se serait perdue dans les 725 lignes du chantier.
 
-**Le swahili n'a pas été relu par un locuteur.** Il couvre l'intégralité du
-site — 220 chaînes de `strings.json`, 142 d'`i18n.js` dont 40 fonctions, la
-FAQ, les jalons de chronologie, les textes d'arrivée par province, les slugs
-(`/sw/takwimu/`, `/sw/ripoti/`, `/sw/matukio/`) et les `meta`. Ce qui est
-vérifié mécaniquement l'est : aucune variable `{n}` perdue ni inventée, aucune
-clé manquante dans les trois blocs. Ce qui ne l'est pas : la justesse des
-formulations sanitaires — prévention, traitements et vaccins, avertissement.
-À faire relire avant de s'y fier.
+**Le swahili n'a toujours pas été relu par un locuteur.** Il couvre
+l'intégralité du site — 507 chaînes de `strings.json`, celles d'`i18n.js` dont
+les fonctions, la FAQ, les jalons de chronologie, les textes d'arrivée par
+province, les slugs (`/sw/takwimu/`, `/sw/ripoti/`, `/sw/matukio/`) et les
+`meta`. Ce qui est vérifié mécaniquement l'est : aucune variable `{n}` perdue
+ni inventée, aucune clé manquante dans les trois blocs, aucune chaîne restée en
+français. Ce qui ne l'est pas : la justesse des formulations sanitaires.
+**`python -c` d'export : `tmp/relecture-swahili.txt` met les 655 chaînes
+français/swahili côte à côte, prêtes à envoyer** (régénérable, `tmp/` n'est pas
+versionné).
+
+**Une passe de cohérence terminologique a été faite le 21 septembre 2026**,
+après remarque du propriétaire (« le swahili est toujours tel quel ») : ce qui
+ne demande pas d'être locuteur, c'est-à-dire l'emploi d'un même terme partout.
+Quatre écarts corrigés.
+
+- **« Contacts » se disait de quatre façons.** Le terme établi est
+  **`walioguswa`** (sept emplois dans `i18n.js`, dont le titre de la section).
+  Trois exceptions traînaient dans `strings.json` : `lettreKpiContacts` disait
+  *waliowasiliana*, « ceux qui ont **communiqué** entre eux » — un faux ami en
+  épidémiologie ; `provinceRiposteSub` disait *waliokutana na wagonjwa* ; et
+  `riposteVaccinAussi` comme le lede de la vaccination disaient *waliogusana na
+  wagonjwa*, ajoutés la veille.
+- **Le lexique définissait un mot que le site n'emploie pas** : l'entrée
+  « zone de santé » s'intitulait *Kanda ya afya*, quand le site écrit *eneo la
+  afya* vingt-quatre fois. Le lecteur cherchait la définition d'un terme sous un
+  autre nom.
+- `vaccChartUnite`, chaîne morte dans les trois langues depuis la
+  simplification de l'infobulle, est supprimée.
+
+Ce qui a été vérifié et laissé tel quel : les alternances *wamechanjwa* /
+*waliochanjwa* et *wamelazwa* / *waliolazwa* suivent la construction — forme
+relative pour les libellés, forme de phrase pour les phrases. Ce n'est pas du
+désordre, ne pas « harmoniser » sans locuteur.
 
 **Le choix de langue est entièrement manuel**, décision du 25 août. Le site
 est statique : aucun serveur ne peut négocier `Accept-Language`, et aucune
