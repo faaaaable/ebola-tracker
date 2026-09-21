@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-21",
-  "fin": "2026-09-18"
+  "fin": "2026-09-19"
  },
  "parDate": [
   {
@@ -2111,6 +2111,67 @@
        "decongelees": 631,
        "peremption": "2026-09-24"
       }
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-19",
+   "sitrepNumber": "128",
+   "poe": {
+    "personnes": 265594,
+    "screenesPct": 96.6,
+    "refusScreening": 0
+   },
+   "rings": null,
+   "eds": {
+    "alertes": 101,
+    "realisees": 81,
+    "swabes": 68,
+    "nonSwabes": 12,
+    "provinces": {
+     "alertes": 3,
+     "realisees": 1,
+     "swabes": 2,
+     "nonSwabes": 1
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Tshopo": 3576,
+     "Bas-Uélé": 987
+    },
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 3576,
+      "cible": 11703,
+      "couverture": 30.6,
+      "zones": {
+       "Makiso-Kisangani": 1876,
+       "Kabondo": 486,
+       "Mangobo": 422,
+       "Tshopo": 326,
+       "Bafwasende": 291,
+       "Lubunga": 175
+      },
+      "zonesSomme": 3576,
+      "doses": {
+       "congelees": 500,
+       "decongelees": 424,
+       "peremption": "2026-09-24"
+      }
+     },
+     "Bas-Uélé": {
+      "cumul": 987,
+      "zones": {
+       "Buta": 550,
+       "Ganga": 324,
+       "Poko": 71,
+       "Viadana": 42
+      },
+      "zonesSomme": 987
      }
     }
    },

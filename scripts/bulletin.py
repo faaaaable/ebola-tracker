@@ -36,6 +36,31 @@ def _point(serie, date, cle="parDate"):
     return None
 
 
+# « en deux jours » se lit mieux que « en 2 jours » dans une lettre ecrite en
+# langage courant ; au-dela de neuf, le chiffre reprend la main.
+JOURS_EN_LETTRES = {
+    "fr": {2: "deux", 3: "trois", 4: "quatre", 5: "cinq", 6: "six", 7: "sept",
+           8: "huit", 9: "neuf"},
+    "en": {2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven",
+           8: "eight", 9: "nine"},
+    "sw": {2: "mbili", 3: "tatu", 4: "nne", 5: "tano", 6: "sita", 7: "saba",
+           8: "nane", 9: "tisa"},
+}
+
+
+def _jours_mot(n, lang, fmt):
+    return JOURS_EN_LETTRES.get(lang, {}).get(n) or fmt(n, lang)
+
+
+def _nb_jours(debut, fin):
+    """Jours entre deux dates ISO, pour dire sur combien de temps porte un
+    ecart de cumul quand une province saute un bulletin."""
+    import datetime
+    a = datetime.date(*map(int, debut.split("-")))
+    b = datetime.date(*map(int, fin.split("-")))
+    return (b - a).days
+
+
 def _liste(items, et):
     items = list(items)
     return items[0] if len(items) == 1 else (", ".join(items[:-1]) + et + items[-1]) if items else ""
@@ -385,11 +410,18 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # par zone (voir extract_piliers.lire_vaccination). On additionne le
         # dernier cumul connu de chaque province a la date de la lettre, en
         # datant ceux qui viennent d'un bulletin anterieur.
-        connus, debut = {}, None
+        connus, avant, debut = {}, {}, None
         for e in piliers_data.get("parDate", []):
             if e["date"] > date:
                 break
             for prov, v in ((e.get("vaccination") or {}).get("cumulParProvince") or {}).items():
+                # Le cumul precedent de CETTE province, pour en tirer le chiffre
+                # du jour : le bulletin ne publie jamais de vaccines du jour,
+                # seulement des cumuls (demande du proprietaire, 21 septembre
+                # 2026). Une province qui saute un bulletin donne un ecart qui
+                # porte sur plusieurs jours, et la lettre le dit.
+                if prov in connus and connus[prov][0] != v:
+                    avant[prov] = connus[prov]
                 connus[prov] = (v, e["date"]); debut = debut or e["date"]
         if connus or (va and va.get("rupture")):
             s6 = ""
@@ -404,6 +436,30 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                 total = sum(v for v, _ in connus.values())
                 s6 = P("lettreVaccination", total=fmt(total, lang), debut=long_date(debut, i18n_lang), detail=_liste(items, et))
                 cases += kpi("vaccin", S["lettreKpiVaccin"], fmt(total, lang), P("lettreKpiVaccinSub", date=long_date(debut, i18n_lang)))
+                # Ce que la journee a ajoute, province par province.
+                neufs = []
+                for prov, (v, d_) in sorted(connus.items(), key=lambda x: -x[1][0]):
+                    # Seulement les provinces qui publient un cumul NEUF ce
+                    # jour-la : sinon le meme ecart reparait de lettre en
+                    # lettre, le cumul etant reporte. Le Bas-Uele ne publie
+                    # rien le 18 septembre, et ses 108 du 17 s'affichaient
+                    # deux fois (corrige le 21 septembre 2026).
+                    if prov not in avant or d_ != date:
+                        continue
+                    v0, d0 = avant[prov]
+                    if v <= v0:
+                        continue
+                    f = forms(prov)
+                    jours = _nb_jours(d0, d_)
+                    if jours > 1:
+                        neufs.append(P("lettreVaccinJourItemJours", n=fmt(v - v0, lang),
+                                       jours=_jours_mot(jours, lang, fmt),
+                                       the=f["the"], **{"in": f["in"]}))
+                    else:
+                        neufs.append(P("lettreVaccinJourItem", n=fmt(v - v0, lang),
+                                       the=f["the"], **{"in": f["in"]}))
+                if neufs:
+                    s6 += " " + P("lettreVaccinationJour", detail=_liste(neufs, et))
             if va and va.get("rupture"):
                 s6 = (s6 + " " if s6 else "") + S["lettreVaccinationRupture"]
             phrases.append(s6)
