@@ -2375,6 +2375,38 @@ periode est-elle finie », et non « a-t-elle tous ses releves ».
 courbe de décès. Absent sous 50 cas cumulés. Signale les trous de plus de trois
 jours au lieu de relier par-dessus.
 
+**Son axe est un calendrier jour par jour depuis le 21 septembre 2026.** Il ne
+portait que les jours de bulletin, collés les uns aux autres, et les journées
+sans bulletin disparaissaient de la vue : vingt au Nord-Kivu (104 relevés pour
+124 jours), dix-huit en Ituri, sept au Haut-Uélé. La barre du 17 juillet, qui
+porte les cas du 16 et du 17, se lisait comme une journée ordinaire, et rien ne
+distinguait une série continue d'une série à trous. Le calendrier rend à chaque
+jour sa place : un jour sans bulletin est un blanc de la largeur d'une barre, et
+le trou de douze jours du 20 au 31 mai se voit enfin pour ce qu'il est. Même
+idiome que le suivi des contacts et les taux de la riposte, où il sert depuis le
+début à donner aux trous leur vraie largeur. Trois conséquences :
+- **Les cumuls traversent le blanc.** `spanGaps: true` sur les deux courbes,
+  sans point aux jours manquants : le cumul, lui, ne s'interrompt pas.
+- **Un zéro n'est pas un blanc.** Six journées du Nord-Kivu et six du
+  Haut-Uélé sont relevées à 0 nouveau cas ; leur barre de hauteur nulle
+  devenait indiscernable d'une journée sans donnée dès lors que le blanc
+  signifie quelque chose. `minBarLength: 2` leur laisse un trait au ras de
+  l'axe, et l'infobulle affiche ce 0 au lieu de le filtrer — en vue
+  quotidienne le filtre ne retient plus que les nuls, la vue agrégée remet le
+  filtre d'origine, où un zéro est une série vide. Corollaire : une journée
+  n'est portée que par une des deux séries, l'autre est `null` et non 0, sans
+  quoi deux traits se superposeraient sous la barre claire d'un rattrapage.
+- **La note s'ouvre sur le compte**, `provinceChartBlanks` (fr/en/sw), avant
+  la phrase des trous longs et celle des rattrapages. Sa réserve « sauf
+  indication contraire » renvoie à la phrase suivante : les cas d'un trou de
+  plus de trois jours ne sont reportés sur aucune journée.
+
+La vue quotidienne seule change ; Semaine et Mois agrègent comme avant. Vérifié
+sur les trois provinces, en 1 280 et 360 px, dans les trois langues —
+`test_onglets` sans erreur sur les pages province, `/donnees/`, `/en/data/` et
+`/sw/takwimu/`. En 360 px, 124 barres au lieu de 104 : le mur d'août-septembre
+reste un mur, les blancs de mai-juillet se lisent.
+
 **Il a ses trois pas de temps depuis le 15 septembre 2026** — Jour / Semaine /
 Mois, la bascule de `/donnees/` posée dans le cadre de chaque page province
 (Ituri, Nord-Kivu, Haut-Uélé ; les quatre autres n'ont pas de graphique). Le

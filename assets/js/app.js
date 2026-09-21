@@ -2762,8 +2762,7 @@ function renderOneChart(canvas, chartMode){
     }
 
     const jours = iso => Math.round(new Date(iso + 'T00:00:00').getTime() / 86400000);
-    const rapporte = [null];
-    const rattrape = [null];
+    const parDate = new Map();
     const trous = [];
     for(let i = 1; i < pts.length; i++){
       const ecart = jours(pts[i].date) - jours(pts[i-1].date);
@@ -2778,17 +2777,46 @@ function renderOneChart(canvas, chartMode){
            16 Jul au 21 Jul ». La cle qui date les semaines le porte deja dans
            les trois langues (15 septembre 2026). */
         trous.push(tr('chartDeathPlaceWeekLabel')(frDate(iso), frDate(pts[i].date)));
-        rapporte.push(null); rattrape.push(null);
-        continue;
+        continue;          // la journee de retour reste sans barre
       }
       const delta = Math.max(0, pts[i].confirmed - pts[i-1].confirmed);
       const estRattrapage = RATTRAPAGE.has(pts[i].date);
-      rapporte.push(estRattrapage ? 0 : delta);
-      rattrape.push(estRattrapage ? delta : 0);
+      /* Une seule des deux series porte la journee, l'autre est nulle et non
+         zero : un zero vaut desormais un trait au ras de l'axe (minBarLength),
+         et deux traits superposes sous la barre claire d'un rattrapage ne
+         diraient rien. */
+      parDate.set(pts[i].date, { rapporte: estRattrapage ? null : delta,
+                                 rattrape: estRattrapage ? delta : null });
     }
+
+    /* CALENDRIER JOUR PAR JOUR (21 septembre 2026). L'axe portait les seuls
+       jours de bulletin, colles les uns aux autres : le Nord-Kivu a 104
+       releves pour 124 jours, et vingt journees sans bulletin disparaissaient
+       de la vue — la barre du 17 juillet, qui porte les cas du 16 et du 17,
+       se lisait comme une journee ordinaire, et rien ne distinguait une serie
+       continue d'une serie a trous. Le calendrier rend a chaque jour sa
+       place : un jour sans bulletin est un blanc de la largeur d'une barre.
+       Meme idiome que le suivi des contacts et les taux de la riposte, ou il
+       sert depuis le debut a donner aux trous leur vraie largeur.
+
+       Les deux courbes de cumul gardent `spanGaps: true` et traversent les
+       blancs sans point : le cumul, lui, ne s'interrompt pas. */
+    const releves = new Map(pts.map(pt => [pt.date, pt]));
+    const joursCal = [];
+    for(let d = dateDe(pts[0].date), fin = dateDe(pts[pts.length - 1].date);
+        d <= fin; d.setDate(d.getDate() + 1)) joursCal.push(isoDe(d));
+    const sansReleve = joursCal.filter(iso => !releves.has(iso)).length;
+    const valeur = (iso, champ) => parDate.has(iso) ? parDate.get(iso)[champ] : null;
+    const rapporte = joursCal.map(iso => valeur(iso, 'rapporte'));
+    const rattrape = joursCal.map(iso => valeur(iso, 'rattrape'));
 
     if(noteEl){
       const bouts = [];
+      /* Le blanc se voit, il ne se devine pas : la note dit combien de jours
+         il couvre et ou passent leurs cas. La reserve « sauf indication
+         contraire » renvoie a la phrase suivante, celle des trous longs, dont
+         les cas ne sont justement reportes sur aucune journee. */
+      if(sansReleve) bouts.push(tr('provinceChartBlanks')(sansReleve));
       if(trous.length) bouts.push(tr('provinceChartGap')(trous.join(' ; ')));
       if(pts.some(pt => RATTRAPAGE.has(pt.date))) bouts.push(tr('provinceChartCatchup'));
       noteEl.textContent = bouts.join(' ');
@@ -2797,12 +2825,19 @@ function renderOneChart(canvas, chartMode){
 
     const teinte = PROVINCE_COLORS[nom] || PALETTE.info;
     const data = {
-      labels: pts.map(pt => frDate(pt.date)),
+      labels: joursCal.map(iso => frDate(iso)),
       datasets: [
+        /* `minBarLength` : sur un calendrier, une journee relevee a zero cas
+           dessine une barre de hauteur nulle, indiscernable du blanc d'une
+           journee sans bulletin — six jours au Nord-Kivu, six au Haut-Uele.
+           Deux pixels au ras de l'axe suffisent a dire « compte, et compte
+           zero », la ou le blanc dit « on ne sait pas ». */
         { label: tr('dailyChartLabel'), data: rapporte, backgroundColor: teinte,
-          borderRadius: 2, stack: 'd', categoryPercentage: 1, barPercentage: .96 },
+          borderRadius: 2, minBarLength: 2, stack: 'd',
+          categoryPercentage: 1, barPercentage: .96 },
         { label: tr('catchupLabel'), data: rattrape, backgroundColor: tint(teinte, .35),
-          borderRadius: 2, stack: 'd', categoryPercentage: 1, barPercentage: .96 },
+          borderRadius: 2, minBarLength: 2, stack: 'd',
+          categoryPercentage: 1, barPercentage: .96 },
         /* La courbe des cas reprend la teinte des barres, et celle des deces
            le rouge du site. Meme encodage que le graphique de l'accueil : la
            couleur dit de quoi on parle, la forme dit quelle lecture.
@@ -2812,11 +2847,13 @@ function renderOneChart(canvas, chartMode){
            strictement invisible sur ses propres barres. Le probleme
            disparait avec la teinte de la province, quelle qu'elle soit. */
         { type: 'line', label: tr('chartCumulativeLabel'),
-          data: pts.map(pt => pt.confirmed), yAxisID: 'y1',
+          data: joursCal.map(iso => releves.has(iso) ? releves.get(iso).confirmed : null),
+          yAxisID: 'y1',
           borderColor: teinte, borderWidth: 2, tension: .25,
           pointRadius: 0, fill: false, spanGaps: true, order: 0 },
         { type: 'line', label: tr('chartCumulativeDeathsLabel'),
-          data: pts.map(pt => pt.deaths), yAxisID: 'y1',
+          data: joursCal.map(iso => releves.has(iso) ? releves.get(iso).deaths : null),
+          yAxisID: 'y1',
           borderColor: PALETTE.critical, borderWidth: 2, tension: .25,
           pointRadius: 0, fill: false, spanGaps: true, order: 0 }
       ]
@@ -2832,7 +2869,12 @@ function renderOneChart(canvas, chartMode){
           titleColor: PALETTE.ink, bodyColor: PALETTE.ink,
           titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font },
           footerColor: PALETTE.ink, footerFont: { family: PALETTE.font },
-          filter: item => item.parsed.y !== 0,
+          /* Un jour sans bulletin n'a que des nuls : tous ses items tombent,
+             et Chart.js n'ouvre aucune infobulle sur le blanc. Le zero, lui,
+             reste affiche — c'est un comptage, et l'infobulle est le seul
+             endroit ou il se lit en toutes lettres. La vue agregee remet le
+             filtre d'origine plus bas : la, un zero est une serie vide. */
+          filter: item => item.parsed.y !== null,
           callbacks: { footer: totalEmpile }
         }
       },
@@ -2913,6 +2955,7 @@ function renderOneChart(canvas, chartMode){
         return titre + encours + ' \u00b7 ' + tr('chartPeriodDays')(p.releves, p.jours);
       };
       delete opts.scales.y1;
+      opts.plugins.tooltip.filter = item => item.parsed.y !== 0;
       if(ratios){
         opts.plugins.legend = legendeAVenir(opts.plugins.legend);
         opts.plugins.largeurSemaine = { ratios, futurs: ratios.map(r => 1 - r) };
