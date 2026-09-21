@@ -28,6 +28,71 @@ confirme : « Une nouvelle zone de santé a été touchée au cours des dernièr
 entre avec 1 cas, 1 décès, et sa ventilation du jour est déduite de la ligne
 de province (1 décès communautaire).
 
+**La page Riposte a une partie « La vaccination »** (21 septembre 2026),
+en **cadre 05**, entre les centres de traitement et le lieu du décès — qui
+passe en 06. Elle ferme la chaîne de la riposte : signaler, tester, suivre,
+soigner, prévenir. C'est le seul pilier qui devance l'épidémie au lieu d'y
+réagir.
+
+**Ce que le cadre porte**, après trois tours de maquettes montrées en local :
+un paragraphe unique qui dit qui est vacciné, le chiffre d'ensemble
+(4 077 personnes), un graphique du cumul par province, un tableau par zone de
+santé dans son propre cadre, et la note. Pas de couverture de la cible, pas de
+stock de doses, pas d'état des provinces qui ne vaccinent pas encore : écartés
+par le propriétaire, qui a recentré la partie sur **l'évolution** — qui est
+vacciné, combien, quand et où.
+
+**Le graphique : deux courbes non empilées, une par province.** L'aire empilée
+essayée d'abord écrasait le Bas-Uélé (708 contre 3 369) et déformait sa
+trajectoire, puisque dans un empilement seule la couche du bas a une base
+plate. Séparées, les deux provinces redeviennent lisibles et le **palier de
+onze jours du Bas-Uélé** — la rupture de stock d'Ervebo à Buta, du 5 au
+16 septembre — se lit franchement. Chaque courbe porte son nom et son dernier
+chiffre en bout, pour éviter l'aller-retour vers la légende. Le tracé est
+**progressif** : l'escalier, plus fidèle aux relevés, a été essayé puis écarté
+par le propriétaire.
+
+**Deux plats qui ne disent pas la même chose, et le graphique doit les
+distinguer.** Entre le **28 août et le 2 septembre, aucun chiffre n'est
+publié** : la marche du 3 septembre est un rattrapage de publication, pas une
+flambée de vaccinations en un jour. Un plugin `plageSansDonnees` grise cette
+plage et l'étiquette « aucun chiffre publié ». Le palier du Bas-Uélé, lui, est
+un arrêt réel et n'est pas grisé. Sans cette distinction, les deux se
+lisent pareil et le graphique ment. La note sous le graphique le redit en
+toutes lettres.
+
+**Le tableau par zone de santé** est dans un cadre séparé, resserré à 376 px :
+huit lignes, de Makiso-Kisangani (1 830) à Ganga (158). Des effectifs, pas des
+taux — aucune cible par zone n'est publiée. La date n'y figure plus ligne par
+ligne (décision du propriétaire) : c'est la légende qui dit que chaque province
+est à son dernier relevé publié. **Le Bas-Uélé est donc au 17 septembre**, pas
+au 18, faute de publication le dernier jour.
+
+**Ce qui a été écarté en chemin, et pourquoi**, pour ne pas le réessayer :
+- **Des barres du flux quotidien par zone** : les cumuls par zone reculent une
+  fois (Mangobo passe de 368 à 352 le 16 septembre, la source se corrige) et
+  une barre négative n'a pas de sens.
+- **Un empilement par zone de santé** : huit couches demandent huit teintes
+  séparables sur une même rampe, et `validate_palette.js` les refuse — la paire
+  la plus claire reste sous le seuil de 15 même en écartant les paliers. Les
+  deux couleurs de province, elles, passent tous les contrôles en clair comme
+  en sombre (ΔE 18,9 ; #8D7FCC et #CE7A52 en sombre).
+- **Des vignettes par zone de santé** (petits multiples) : montrées, puis
+  retirées à la demande du propriétaire.
+- **Le rythme hebdomadaire** : la seule forme qui montrerait l'essoufflement,
+  et où le « Bas-Uélé : 0 » de la semaine du 7 au 13 septembre saute aux yeux.
+  Prématuré à trois semaines et demie de données, et la barre de la deuxième
+  semaine hérite du rattrapage de publication. **À reprendre vers la mi-octobre**,
+  quand il y aura six à huit semaines et trois ou quatre provinces : le mode est
+  déjà déclaré dans `RIPOSTE_MODES`, il ne manque qu'un bloc de dessin.
+
+**Deux pièges de câblage rencontrés**, qui resserviront : une clé de texte
+destinée au graphique doit aller dans **`assets/js/i18n.js`** et non dans
+`site/strings.json` — le premier sert au client, le second au rendu serveur, et
+un titre mis au mauvais endroit ne s'affiche jamais. Et le **`footer` de
+l'infobulle Chart.js ne se rendait pas** ici : le total des deux provinces est
+passé par `afterBody`.
+
 **La vaccination est extraite en détail** (20 septembre 2026, avant toute
 décision sur la page Riposte). La campagne Ervebo démarre le 26 août 2026 au
 Bas-Uélé (20 PPL à Buta), la Tshopo suit le 27. Au 18 septembre, **deux
