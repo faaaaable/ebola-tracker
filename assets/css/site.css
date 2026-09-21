@@ -730,6 +730,11 @@ ul,ol{margin:0;padding:0;}
    inclinee, debordait a gauche et se faisait rogner. */
 .chart-panel{padding:18px 26px 18px 30px;height:380px;}
 
+/* Huit barres horizontales tiennent moins bien dans 380 px que soixante points
+   d'une courbe : le cadre de la vaccination prend sa propre hauteur, calculee
+   sur le nombre de zones de sante publiees (20 septembre 2026). */
+.chart-panel-barres{height:340px;}
+
 /* Deux figures cote a cote, pour le seul mode qui en trace deux. Tant que le
    second cadre est masque, la boite flex n'a qu'un enfant en flex:1 et le
    rendu est identique a ce qu'il etait avec le canvas seul. */
@@ -2509,6 +2514,38 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .dossier-clair .dossier-chiffres b{color:var(--ink);}
 .dossier-clair .dossier-chiffres b.alerts,.dossier-clair .dossier-chiffres b.labo{color:var(--accent-info);}
 .dossier-clair .dossier-chiffres b.contacts{color:var(--accent-active);}
+
+/* Les trois chiffres du cadre « La vaccination ». Ils vivent dans un cadre
+   clair et non dans la bande du dossier : ils reprennent donc la graphie des
+   reperes, mais l'encre du corps de page. La couleur est celle de la Tshopo
+   dans PROVINCE_COLORS — la province qui porte la campagne — et non une
+   teinte neuve : le graphique juste en dessous la reprend barre par barre. */
+/* Le detail par zone de sante, sous le graphique de la vaccination. Il tient
+   dans la largeur du panneau et ne defile pas : huit lignes au plus tant que
+   deux provinces vaccinent. */
+.vaccin-zones{margin-top:18px;padding:20px 24px 18px;}
+/* Serre : huit lignes de trois colonnes courtes n'ont pas besoin de toute la
+   largeur du cadre, et un tableau etire eloigne le nombre de son libelle. */
+.vaccin-table{width:auto;min-width:0;}
+.vaccin-table th,.vaccin-table td{padding:7px 14px 7px 0;}
+.vaccin-table th:first-child,.vaccin-table td:first-child{width:170px;}
+.vaccin-table th:nth-child(2),.vaccin-table td:nth-child(2){width:110px;}
+.vaccin-table td.is-num,.vaccin-table th.is-num{text-align:right;width:96px;padding-right:0;}
+.vaccin-table td.is-num{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500;}
+.vaccin-table th{position:static;background:none;}
+.vaccin-table-note{margin:12px 0 0;}
+@media (max-width:560px){
+  .vaccin-table th:first-child,.vaccin-table td:first-child{width:auto;}
+  .vaccin-table th:nth-child(2),.vaccin-table td:nth-child(2){width:auto;}
+}
+.fiche-chiffres{margin:0 0 22px;gap:14px 40px;}
+.fiche-chiffres b{color:var(--ink);font-size:30px;}
+.fiche-chiffres b.vaccin{color:#6B5CA5;}
+.fiche-chiffres span{color:var(--ink-label);opacity:1;}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .fiche-chiffres b.vaccin{color:#A99BD8;}
+}
+:root[data-theme="dark"] .fiche-chiffres b.vaccin{color:#A99BD8;}
 .dossier-clair .dossier-chiffres span{color:var(--ink-label);opacity:1;}
 .dossier-clair .dossier-chiffres small{font-size:11.5px;color:var(--ink-faint);margin-top:3px;line-height:1.4;max-width:22ch;}
 .dossier-ancres{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);}

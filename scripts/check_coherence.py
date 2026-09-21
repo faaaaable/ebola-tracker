@@ -215,6 +215,7 @@ laboratoire = _lire_optionnel("laboratoire.json")
 contacts = _lire_optionnel("contacts-followup.json")
 cte = _lire_optionnel("cte.json")
 defis = _lire_optionnel("defis.json")
+piliers = _lire_optionnel("piliers.json")
 date_rapport = meta.get("reportingDate") or ""
 
 for nom, fichier in (("alertes", alertes), ("laboratoire", laboratoire), ("cte", cte), ("defis", defis)):
@@ -312,6 +313,35 @@ if contacts:
     derniere = contacts[-1]["date"] if contacts else None
     check("contacts-followup.json ne depasse pas la date du rapport",
           bool(derniere) and derniere <= date_rapport, "%s vs %s" % (derniere, date_rapport))
+
+if piliers:
+    # Vaccination : trois invariants de la source. La somme des zones doit
+    # tomber sur le cumul — le SitRep 124 recopie la ventilation du 123 et
+    # y perd 84 personnes, ecart connu, non bloquant. Un cumul ne peut pas
+    # baisser. Et le taux publie doit se recalculer sur la cible citee, a
+    # un demi-point pres : c'est le seul garde-fou contre une cible mal lue.
+    ecarts, recul, taux = [], [], []
+    dernier = {}
+    for e in piliers.get("parDate", []):
+        for prov, v in ((e.get("vaccination") or {}).get("provinces") or {}).items():
+            cumul, somme = v.get("cumul"), v.get("zonesSomme")
+            if cumul is not None and somme is not None and somme != cumul:
+                ecarts.append("%s %s (%d vs %d)" % (e["sitrepNumber"], prov, somme, cumul))
+            if cumul is not None:
+                if prov in dernier and cumul < dernier[prov]:
+                    recul.append("%s %s (%d apres %d)" % (e["sitrepNumber"], prov, cumul, dernier[prov]))
+                dernier[prov] = cumul
+            cible, couv = v.get("cible"), v.get("couverture")
+            if cumul and cible and couv is not None and abs(cumul / cible * 100 - couv) > 0.5:
+                taux.append("%s %s" % (e["sitrepNumber"], prov))
+    check("vaccination : somme des zones = cumul publie", not ecarts,
+          ", ".join(ecarts[:4]), blocking_if_false=False)
+    check("vaccination : le cumul ne recule jamais", not recul, ", ".join(recul[:4]))
+    check("vaccination : couverture publiee = cumul / cible (a 0,5 pt)", not taux,
+          ", ".join(taux[:4]), blocking_if_false=False)
+    dp = [e["date"] for e in piliers.get("parDate", []) if e.get("date")]
+    check("piliers.json ne depasse pas la date du rapport",
+          bool(dp) and max(dp) <= date_rapport, "%s vs %s" % (max(dp) if dp else "-", date_rapport))
 
 print()
 if notes:

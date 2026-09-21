@@ -2356,9 +2356,67 @@ def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
     else:
         out["ripOccupation"], out["ripOccupationSub"] = vide["value"], vide["sub"]
 
+    out.update(vaccination_seed(riposte.get("piliers"), date_bulletin, lang,
+                                strings_lang, i18n_lang, vide, au))
+
     out["ripAsOf"] = esc(interp(strings_lang["cartoAsOf"],
                                 {"date": long_date(date_bulletin or "", i18n_lang)}))
     return {"seed.%s" % k: v for k, v in out.items()}
+
+
+# Les provinces qui ne vaccinent pas encore, dans l'ordre ou la page les cite :
+# celles qui ont commence d'abord, puis celles qui s'y preparent.
+def vaccination_seed(piliers, date_bulletin, lang, strings_lang, i18n_lang, vide, au):
+    """Les trois chiffres du cadre « La vaccination » et l'etat des provinces.
+
+    Le cumul national additionne le DERNIER cumul connu de chaque province,
+    comme la lettre : le Bas-Uele ne publie pas tous les jours, et son 708 du
+    17 septembre vaut encore le 18. La couverture reste celle de la seule
+    province qui publie une cible — il n'existe pas de cible nationale, et en
+    inventer une en sommant les cibles connues donnerait un taux flatteur
+    calcule sur les seules provinces avancees."""
+    out = {}
+    points = (piliers or {}).get("parDate") or []
+    dernier = {}
+    for p in points:
+        for prov, v in (((p.get("vaccination") or {}).get("provinces")) or {}).items():
+            if v.get("cumul") is not None:
+                dernier[prov] = dict(v, date=p["date"])
+    if not dernier:
+        out["ripVaccines"], out["ripVaccinZones"] = vide["value"], ""
+        return out
+
+    total = sum(v["cumul"] for v in dernier.values())
+    ordre = sorted(dernier, key=lambda n: -dernier[n]["cumul"])
+    out["ripVaccines"] = fmt(total, lang)
+
+    # Le detail par zone de sante, toutes provinces confondues, de la plus
+    # vaccinee a la moins vaccinee. Chaque province porte la date de SON
+    # dernier releve : le Bas-Uele ne publie pas tous les jours, et sa
+    # ventilation du 17 vaut encore le 18.
+    lignes = []
+    for n in ordre:
+        for zone, nb in (dernier[n].get("zones") or {}).items():
+            lignes.append((zone, n, nb, dernier[n]["date"]))
+    lignes.sort(key=lambda l: -l[2])
+    if lignes:
+        corps = "".join(
+            "<tr><td>%s</td><td>%s</td><td class=\"is-num\">%s</td></tr>"
+            % (esc(zone), esc(prov), fmt(nb, lang))
+            for zone, prov, nb, date in lignes)
+        out["ripVaccinZones"] = (
+            '<table class="province-summary vaccin-table">'
+            '<thead><tr><th>%s</th><th>%s</th><th class="is-num">%s</th></tr></thead>'
+            '<tbody>%s</tbody></table>'
+            '<p class="map-note vaccin-table-note">%s</p>'
+            % (esc(strings_lang["riposteVaccinTableZone"]),
+               esc(strings_lang["riposteVaccinTableProvince"]),
+               esc(strings_lang["riposteVaccinTableN"]), corps,
+               esc(strings_lang["riposteVaccinTableLegende"])))
+    else:
+        out["ripVaccinZones"] = ""
+
+    return out
 
 
 # Provinces sans les deux cases de riposte en tete de page (decision du
@@ -2497,6 +2555,7 @@ def main():
         "contacts": read_json(os.path.join(ROOT, "data", "contacts-followup.json")),
         "cte": read_json(os.path.join(ROOT, "data", "cte.json")),
         "defis": read_json(os.path.join(ROOT, "data", "defis.json")),
+        "piliers": read_json(os.path.join(ROOT, "data", "piliers.json")),
     }
     # Traces des zones de sante : geometrie figee, produite a part par
     # scripts/build_geo.py. Elle ne change qu'en cas de nouvelle province

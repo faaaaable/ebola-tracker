@@ -477,7 +477,7 @@ async function loadContactsFollowup(){
 /* Les quatre series de la page « Riposte ». Chacune est un objet
    { periode, parDate:[…] } ecrit par son script d'extraction ; les contacts
    reutilisent CONTACTS_FOLLOWUP, enrichi des effectifs et des provinces. */
-let ALERTES = null, LABORATOIRE = null, CTE = null;
+let ALERTES = null, LABORATOIRE = null, CTE = null, PILIERS = null;
 async function loadRiposte(){
   const charge = async (nom) => {
     try{
@@ -487,8 +487,9 @@ async function loadRiposte(){
       return (d && Array.isArray(d.parDate)) ? d : null;
     }catch(e){ console.warn('data/' + nom + ' indisponible.', e); return null; }
   };
-  [ALERTES, LABORATOIRE, CTE] = await Promise.all([
-    charge('alertes.json'), charge('laboratoire.json'), charge('cte.json')]);
+  [ALERTES, LABORATOIRE, CTE, PILIERS] = await Promise.all([
+    charge('alertes.json'), charge('laboratoire.json'), charge('cte.json'),
+    charge('piliers.json')]);
 }
 
 /* Répartition par âge des cas et des décès. Contrairement aux autres séries,
@@ -1004,6 +1005,84 @@ function hachureLegende(ctx){
   return ctx.createPattern(c, 'repeat');
 }
 
+/* Etiquettes au bout des barres horizontales. Huit barres se lisent mieux
+   avec leur nombre ecrit qu'avec un axe a parcourir des yeux — et le nombre
+   porte l'encre du texte, jamais la couleur de la barre : la couleur dit
+   deja la province, la repeter sur le chiffre n'ajoute rien et abime le
+   contraste. Inactif tant qu'un graphique ne l'allume pas. */
+const valeursEnBout = {
+  id: 'valeursEnBout',
+  afterDatasetsDraw(chart, args, opts){
+    if(!opts || !opts.actif) return;
+    const ctx = chart.ctx;
+    ctx.save();
+    ctx.font = '600 11px ' + PALETTE.font;
+    ctx.fillStyle = PALETTE.inkDim;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    chart.data.datasets.forEach((ds, i) => {
+      const meta = chart.getDatasetMeta(i);
+      if(meta.hidden) return;
+      meta.data.forEach((barre, j) => {
+        const v = ds.data[j];
+        if(v === null || v === undefined) return;
+        ctx.fillText(fmt(v), barre.x + 7, barre.y);
+      });
+    });
+    ctx.restore();
+  },
+};
+
+/* La plage de dates que le bulletin ne documente pas : grisee et nommee, pour
+   qu'une droite tracee au travers ne se lise pas comme une progression reelle. */
+const plageSansDonnees = {
+  id: 'plageSansDonnees',
+  beforeDatasetsDraw(chart, args, opts){
+    if(!opts || opts.de == null || opts.de < 0 || opts.a <= opts.de) return;
+    const { ctx, chartArea:aire, scales:{ x } } = chart;
+    const x1 = x.getPixelForValue(opts.de), x2 = x.getPixelForValue(opts.a);
+    ctx.save();
+    ctx.fillStyle = PALETTE.inkFaint;
+    ctx.globalAlpha = .08;
+    ctx.fillRect(x1, aire.top, x2 - x1, aire.bottom - aire.top);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = PALETTE.inkFaint;
+    ctx.font = '500 10.5px ' + PALETTE.font;
+    ctx.textAlign = 'center';
+    (opts.texte || '').split('|').forEach((ligne, i) => {
+      ctx.fillText(ligne, (x1 + x2) / 2, aire.top + 18 + i * 13);
+    });
+    ctx.restore();
+  },
+};
+
+/* Le nom et la derniere valeur au bout de chaque courbe. Avec deux series
+   seulement, l'oeil ne devrait pas avoir a faire l'aller-retour vers la
+   legende — et le chiffre de fin est celui qu'on vient chercher. */
+const boutsDeCourbe = {
+  id: 'boutsDeCourbe',
+  afterDatasetsDraw(chart, args, opts){
+    if(!opts || !opts.actif) return;
+    const ctx = chart.ctx;
+    ctx.save();
+    ctx.font = '600 11.5px ' + PALETTE.font;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    chart.data.datasets.forEach((ds, i) => {
+      const meta = chart.getDatasetMeta(i);
+      if(meta.hidden || !meta.data.length) return;
+      let j = ds.data.length - 1;
+      while(j >= 0 && (ds.data[j] === null || ds.data[j] === undefined)) j--;
+      if(j < 0) return;
+      const pt = meta.data[j];
+      ctx.fillStyle = ds.borderColor;
+      ctx.beginPath(); ctx.arc(pt.x, pt.y, 3.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillText(ds.label + ' ' + fmt(ds.data[j]), pt.x + 9, pt.y);
+    });
+    ctx.restore();
+  },
+};
+
 const largeurSemaine = {
   id: 'largeurSemaine',
   beforeDatasetsDraw(chart, args, opts){
@@ -1223,7 +1302,7 @@ function renderOneChart(canvas, chartMode){
      qu'elle n'est pas finie — meme regle que « Nouveaux cas ». Les taux
      restent quotidiens, sur un calendrier jour par jour pour que les trous
      aient leur vraie largeur — meme idiome que le suivi des contacts. */
-  const RIPOSTE_MODES = ['alertes', 'laboratoire', 'contactsRiposte', 'cte'];
+  const RIPOSTE_MODES = ['alertes', 'laboratoire', 'contactsRiposte', 'cte', 'vaccination'];
   if(RIPOSTE_MODES.includes(chartMode)){
     /* UNE PROVINCE (16 septembre 2026) : sur les pages de l'Ituri, du
        Nord-Kivu et du Haut-Uele, le canevas porte data-province et chaque
@@ -1252,7 +1331,7 @@ function renderOneChart(canvas, chartMode){
         slot.chart.destroy(); slot.chart = null;
       }
       if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
-      else { slot.chart = new Chart(canvas.getContext('2d'), { type, data, options:opts, plugins:[largeurSemaine] }); }
+      else { slot.chart = new Chart(canvas.getContext('2d'), { type, data, options:opts, plugins:[largeurSemaine, valeursEnBout, plageSansDonnees, boutsDeCourbe] }); }
       slot.lastMode = chartMode;
     };
     /* Semaine ouverte : part du calendrier deja courue sur la derniere barre,
@@ -1600,6 +1679,82 @@ function renderOneChart(canvas, chartMode){
       dessiner('line', data, opts);
       noterPeriode(slot, jours[0], jours[jours.length-1]);
       noter(provRip ? tr('chartNoteCteProvince')(SEUIL_LITS) : tr('chartNoteCte')(SEUIL_LITS));
+      return;
+    }
+
+    /* ---- Vaccination : le cumul des vaccines, jour apres jour ----
+       Une aire empilee et non des barres par zone : ce que la partie doit
+       montrer, c'est l'EVOLUTION — combien, et quand (demande du
+       proprietaire, 21 septembre 2026). Deux couches seulement, une par
+       province, parce que huit zones de sante demanderaient huit teintes
+       separables sur une meme rampe et qu'aucune ne passe le controle.
+
+       Deux plats se ressemblent et ne disent pas la meme chose : du 28 aout
+       au 2 septembre le bulletin ne publie RIEN (la marche du 3 est un
+       rattrapage de publication, pas une flambee), tandis que le palier du
+       Bas-Uele entre le 5 et le 16 est un arret reel, la rupture de stock
+       d'Ervebo a Buta. Le premier est grise, le second ne l'est pas. */
+    if(chartMode === 'vaccination'){
+      const points = (PILIERS && PILIERS.parDate) || [];
+      const cumuls = points.map(p => ({ date:p.date, prov:((p.vaccination || {}).cumulParProvince) || {} }))
+                           .filter(p => Object.keys(p.prov).length);
+      if(!cumuls.length){ vide(); return; }
+      const jours = calendrier(cumuls[0].date, cumuls[cumuls.length - 1].date);
+      const parDate = {}; cumuls.forEach(p => { parDate[p.date] = p.prov; });
+      const noms = [];
+      cumuls.forEach(p => Object.keys(p.prov).forEach(n => { if(!noms.includes(n)) noms.push(n); }));
+      const ordre = Object.keys(PROVINCE_COLORS);
+      noms.sort((a, b) => ordre.indexOf(a) - ordre.indexOf(b));
+      /* Le dernier cumul connu est reporte tant que le bulletin n'en publie
+         pas de nouveau — meme report que la lettre. */
+      const report = {};
+      const series = {}; noms.forEach(n => { series[n] = []; });
+      jours.forEach(d => {
+        Object.assign(report, parDate[d] || {});
+        noms.forEach(n => series[n].push(report[n] === undefined ? null : report[n]));
+      });
+      const data = { labels:jours.map(frDate), datasets:noms.map(nom => ({
+        label:nom, data:series[nom],
+        borderColor:PROVINCE_COLORS[nom] || PALETTE.inkDim,
+        backgroundColor:PROVINCE_COLORS[nom] || PALETTE.inkDim,
+        /* Trace progressif et non en escalier (choix du proprietaire,
+           21 septembre 2026). Le report des cumuls fait deja le plat des
+           jours sans publication — le 12 septembre garde la valeur du 11 —
+           et la montee vers le releve suivant reste une interpolation : la
+           note sous le graphique dit lesquels ne sont pas mesures. */
+        borderWidth:2.2, pointRadius:0, pointHoverRadius:4, tension:.12, fill:false,
+      })) };
+      /* La plage que le bulletin ne documente pas, en jours d'index. */
+      const trou = [jours.indexOf('2026-08-28'), jours.indexOf('2026-09-02')];
+      const opts = { responsive:true, maintainAspectRatio:false,
+        interaction:{ mode:'index', intersect:false },
+        plugins:{ legend:legende,
+                  title:{ display:true, text:tr('vaccChartTitre'), align:'center',
+                          color:PALETTE.ink, padding:{ bottom:16 },
+                          font:{ family:PALETTE.font, size:16, weight:'700' } },
+                  plageSansDonnees:{ de:trou[0], a:trou[1], texte:tr('vaccChartTrou') },
+                  boutsDeCourbe:{ actif:true },
+                  tooltip:infobulle({ callbacks:{
+                    label:c => c.dataset.label + ' : ' + fmt(c.parsed.y),
+                    /* Le total des deux provinces sous chaque infobulle : c'est
+                       le chiffre que la page met en tete, et l'empilement le
+                       montre sans le nommer. Somme des series REPORTEES, donc
+                       toujours les deux provinces, meme le jour ou l'une
+                       d'elles ne publie rien. */
+                    afterBody:items => {
+                      const i = items[0].dataIndex;
+                      const t = noms.reduce((acc, n) => acc + (series[n][i] || 0), 0);
+                      return tr('vaccChartTotal')(fmt(t));
+                    },
+                  } }) },
+        layout:{ padding:{ right:104 } },
+        scales:{ x:axeX(true),
+                 y:{ beginAtZero:true,
+                     ticks:Object.assign({}, axeTexte, { callback:v => fmt(v) }),
+                     grid:{ color:PALETTE.line } } } };
+      dessiner('line', data, opts);
+      noterPeriode(slot, jours[0], jours[jours.length - 1]);
+      noter(tr('chartNoteVaccination')());
       return;
     }
   }

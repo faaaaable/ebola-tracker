@@ -194,6 +194,153 @@ def _province(phrase):
     return meilleur[1] if meilleur else None
 
 
+# ---------------------------------------------------------------- vaccination
+# Le detail que la section « 1.6. Vaccination » publie depuis le 8 septembre
+# 2026 (SitRep 117), toujours sous la meme tournure :
+#
+#   « À la Tshopo, 3 369 personnes ont été vaccinées à ce jour sur 11 703
+#     TPL/PPL ciblés (28,8 %), dont 1 830 à Makiso-Kisangani, 466 à Kabondo,
+#     422 à Mangobo, 316 à Tshopo, 173 à Bafwasende et 162 à Lubunga ; le
+#     stock disponible au dépôt Hub s'élève à 500 doses congelées et 631
+#     doses décongelées expirant le 24 septembre 2026. »
+#
+# Le Bas-Uele ecrit la meme chose sans cible : « 708 PPL ont été vaccinées à
+# ce jour, dont 550 à Buta et 158 à Ganga ».
+VAC_CUMUL_RE = re.compile(
+    NUM + r"\s+(?:PPL|TPL|personnes)\s+ont\s+été\s+vaccinée?s\s+à\s+ce\s+jour", re.I)
+VAC_CIBLE_RE = re.compile(
+    r"sur\s+" + NUM + r"\s+(?:TPL/PPL\s+)?(?:cibles?|ciblés|ciblées)"
+    r"(?:\s+TPL/PPL)?\s*\(\s*(\d+(?:[,.]\d+)?)\s*%", re.I)
+# « dont 1 830 à Makiso-Kisangani, 466 à Kabondo … et 162 à Lubunga » : on ne
+# lit QUE ce segment, jusqu'au point-virgule ou a la fin de la phrase, sinon
+# le motif mord sur « 500 doses à Bafwasende » et sur les autres piliers.
+VAC_DONT_RE = re.compile(r"\bdont\s+((?:\d[\d   ]*\d|\d)\s+à\s+[^;.]{0,220})", re.I)
+VAC_ZONE_RE = re.compile(
+    r"(\d[\d   ]*\d|\d)\s+à\s+([A-ZÉÈÀ][\w’'\-]*(?:[- ][A-ZÉÈÀ][\w’'\-]*)*)")
+VAC_CONGELEES_RE = re.compile(NUM + r"\s+doses\s+congelées", re.I)
+VAC_DECONGELEES_RE = re.compile(NUM + r"\s+doses\s+décongelées", re.I)
+VAC_SOLDE_RE = re.compile(
+    r"(?:solde|stock)[^;.]{0,70}?(?:s[’']\s*(?:élève|établit|établissant)\s+à|de)\s+" + NUM + r"\s+doses", re.I)
+# « le solde s'établissant à 721 doses au niveau des zones et à 2 000 doses
+# congelées au dépôt Hub » (118, 119) : deux soldes dans la meme phrase.
+VAC_AUX_ZONES_RE = re.compile(NUM + r"\s+doses\s+au\s+niveau\s+des\s+zones", re.I)
+VAC_DEPLOYEES_RE = re.compile(NUM + r"\s+doses\s+ont\s+été\s+déployées", re.I)
+# « Insuffisance des doses disponibles à la Tshopo (4 500 reçues pour 11 000
+# exprimées) » : la tension d'approvisionnement, citee dans les Defis.
+VAC_RECUES_RE = re.compile(
+    r"\(\s*" + NUM + r"\s+reçues\s+pour\s+" + NUM + r"\s+exprimées", re.I)
+VAC_PEREMPTION_RE = re.compile(
+    r"(?:expirant|péremption[^;.]{0,30}?)\s+(?:le|au)\s+(\d{1,2}\s+\w+\s+\d{4})", re.I)
+VAC_MAPI_RE = re.compile(NUM + r"\s+MAPI\s+mineures", re.I)
+VAC_MAPI_GRAVE_RE = re.compile(r"(?:sans\s+aucune|aucune)\s+MAPI\s+grave", re.I)
+# Les entrees de la section, une par province.
+VAC_ENTREE_RE = re.compile(
+    r"(?:À|A)\s+la\s+Tshopo|Au\s+Bas[-\s]?Uélé|En\s+Ituri|Au\s+Nord[-\s]?Kivu"
+    r"|Au\s+Haut[-\s]?Uélé|Au?\s+Sud[-\s]?Ubangi|Au\s+Sud[-\s]?Kivu", re.I)
+
+MOIS = {"janvier": 1, "février": 2, "fevrier": 2, "mars": 3, "avril": 4, "mai": 5,
+        "juin": 6, "juillet": 7, "août": 8, "aout": 8, "septembre": 9,
+        "octobre": 10, "novembre": 11, "décembre": 12, "decembre": 12}
+
+
+def _date_iso(texte):
+    m = re.match(r"(\d{1,2})\s+(\w+)\s+(\d{4})", texte.strip())
+    if not m or m.group(2).lower() not in MOIS:
+        return None
+    return "%s-%02d-%02d" % (m.group(3), MOIS[m.group(2).lower()], int(m.group(1)))
+
+
+def _segments_provinces(t):
+    """La section decoupee en un morceau par province citee."""
+    bornes = list(VAC_ENTREE_RE.finditer(t))
+    for i, m in enumerate(bornes):
+        fin = bornes[i + 1].start() if i + 1 < len(bornes) else len(t)
+        prov = _province(m.group(0))
+        if prov:
+            yield prov, t[m.start():fin]
+
+
+def lire_vaccination_detail(corps):
+    """{province: {cumul, cible, couverture, zones, zonesSomme, doses, mapi}}
+
+    Le taux publie suit la cible que le bulletin cite, et celle-ci a change
+    sous nos yeux : 11 703 au 117, 11 000 aux 118 et 119, 11 703 ensuite. On
+    garde les deux nombres bruts, a charge du site de recalculer s'il veut une
+    serie comparable.
+
+    La somme des zones tombe exactement sur le cumul dans neuf bulletins sur
+    dix — mais le 124 recopie la ventilation du 123 (somme 2 460 pour un cumul
+    2 544). On garde la somme a cote du cumul : un graphique qui empile les
+    zones doit savoir qu'il lui manque 84 personnes ce jour-la."""
+    out = {}
+    t = " ".join((corps or "").split())
+    for prov, seg in _segments_provinces(t):
+        ligne = {}
+        m = VAC_CUMUL_RE.search(seg)
+        if m:
+            ligne["cumul"] = entier(m.group(1))
+        m = VAC_CIBLE_RE.search(seg)
+        if m:
+            ligne["cible"] = entier(m.group(1))
+            ligne["couverture"] = float(m.group(2).replace(",", "."))
+        m = VAC_DONT_RE.search(seg)
+        if m:
+            zones = {}
+            for n, nom in VAC_ZONE_RE.findall(m.group(1)):
+                nom = nom.strip()
+                if nom not in zones:
+                    zones[nom] = entier(n)
+            if zones:
+                ligne["zones"] = zones
+                ligne["zonesSomme"] = sum(zones.values())
+        doses = {}
+        mc, md = VAC_CONGELEES_RE.search(seg), VAC_DECONGELEES_RE.search(seg)
+        if mc:
+            doses["congelees"] = entier(mc.group(1))
+        if md:
+            doses["decongelees"] = entier(md.group(1))
+        mz = VAC_AUX_ZONES_RE.search(seg)
+        if mz:
+            doses["auxZones"] = entier(mz.group(1))
+        mdep = VAC_DEPLOYEES_RE.search(seg)
+        if mdep:
+            doses["deployees"] = entier(mdep.group(1))
+        if not doses:
+            ms = VAC_SOLDE_RE.search(seg)
+            if ms:
+                doses["disponibles"] = entier(ms.group(1))
+        mr = VAC_RECUES_RE.search(seg)
+        if mr:
+            doses["recues"] = entier(mr.group(1))
+            doses["exprimees"] = entier(mr.group(2))
+        mp = VAC_PEREMPTION_RE.search(seg)
+        if mp:
+            iso = _date_iso(mp.group(1))
+            if iso:
+                doses["peremption"] = iso
+        if doses:
+            ligne["doses"] = doses
+        mm = VAC_MAPI_RE.search(seg)
+        if mm:
+            ligne["mapi"] = {"mineures": entier(mm.group(1)),
+                             "graves": 0 if VAC_MAPI_GRAVE_RE.search(seg) else None}
+        # Une province peut revenir dans « Défis » apres « Principales
+        # actions » : au 127, « risque de péremption des 631 doses » y ajoute
+        # une date que le premier morceau n'a pas. On complete donc sans
+        # jamais ecraser — sinon le cumul de la Tshopo disparaissait derriere
+        # le paragraphe des defis (vu le 20 septembre 2026).
+        if not ligne:
+            continue
+        deja = out.setdefault(prov, {})
+        for cle, val in ligne.items():
+            if isinstance(val, dict) and isinstance(deja.get(cle), dict):
+                for k, v in val.items():
+                    deja[cle].setdefault(k, v)
+            else:
+                deja.setdefault(cle, val)
+    return out
+
+
 def lire_vaccination(corps, texte_entier):
     """Personnes vaccinees Ervebo, EN CUMUL par province.
 
@@ -235,9 +382,18 @@ def lire_vaccination(corps, texte_entier):
             pose(_province_ici(m), entier(m.group(1)))
         prec = phr
     rupture = bool(re.search(r"[Rr]upture de stock d[’']Ervebo|stock résiduel à zéro", t))
-    if not cumul and not rupture:
+    detail = lire_vaccination_detail(corps)
+    # Le cumul detaille fait foi quand il existe : il vient de la tournure
+    # explicite « N ont été vaccinées à ce jour », la plus sure des deux.
+    for prov, ligne in detail.items():
+        if ligne.get("cumul") is not None:
+            cumul[prov] = max(cumul.get(prov, 0), ligne["cumul"])
+    if not cumul and not rupture and not detail:
         return None
-    return {"cumulParProvince": cumul, "rupture": rupture}
+    out = {"cumulParProvince": cumul, "rupture": rupture}
+    if detail:
+        out["provinces"] = detail
+    return out
 
 
 def _total_ligne(jetons):

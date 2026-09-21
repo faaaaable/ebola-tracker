@@ -121,10 +121,50 @@
     </div>
   </section>
 
+
+  <!-- La vaccination vient apres les CTE et avant le lieu du deces (demande du
+       proprietaire, 21 septembre 2026) : elle ferme la chaine de la riposte —
+       signaler, tester, suivre, soigner, prevenir — et le lieu du deces, qui
+       en est la consequence, passe en 06. C'est le seul pilier qui ne reagit
+       pas a l'epidemie mais la devance. Le cadre restera plus maigre que les
+       autres tant que deux provinces seulement vaccinent ; l'Ituri est entree
+       le 19 septembre. -->
+  <section class="section cadre-fiche" id="vaccination">
+    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">{{t.riposteVaccinTitle}}</h2><div class="section-sub">{{t.riposteVaccinSub}}</div></div></div>
+    <div class="cadre-corps">
+      <p class="fiche-texte">{{t.riposteVaccinLede}}</p>
+      <div class="dossier-chiffres fiche-chiffres">
+        <div><b class="vaccin">{{seed.ripVaccines}}</b><span>{{t.riposteKpiVaccines}}</span></div>
+      </div>
+    <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="vaccinationChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+        </button>
+      </div>
+      <div class="chart-panel chart-panel-barres">
+        <canvas id="vaccinationChart" data-chart="vaccination"></canvas>
+      </div>
+      <!-- La note du graphique n'est plus repliee derriere « Methode et
+           sources » : elle porte les deux avertissements sans lesquels les
+           paliers se lisent de travers. -->
+      <div class="map-note chart-note"></div>
+    </div>
+      <!-- Le detail par zone de sante dans son propre cadre, detache du
+           graphique (21 septembre 2026) : la courbe dit les provinces, le
+           tableau dit ou, dans chacune. -->
+      <div class="panel vaccin-zones">
+        {{seed.ripVaccinZones}}
+      </div>
+
+    </div>
+  </section>
+
   <!-- Le lieu du deces suit l'occupation des CTE : l'un est la cause, l'autre
        la consequence. Venu de /donnees/ le 29 aout. -->
   <section class="section cadre-fiche" id="deces">
-    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">{{t.riposteDecesTitle}}</h2><div class="section-sub">{{t.riposteDecesSub}}</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">{{t.riposteDecesTitle}}</h2><div class="section-sub">{{t.riposteDecesSub}}</div></div></div>
     <div class="cadre-corps">
       <p class="fiche-texte">{{t.riposteDecesLede}}</p>
     <div class="panel chart-panel-wrap">

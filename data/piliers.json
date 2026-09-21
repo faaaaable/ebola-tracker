@@ -1493,7 +1493,15 @@
     "cumulParProvince": {
      "Bas-Uélé": 500
     },
-    "rupture": true
+    "rupture": true,
+    "provinces": {
+     "Bas-Uélé": {
+      "mapi": {
+       "mineures": 104,
+       "graves": 0
+      }
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1550,7 +1558,18 @@
      "swabes": 3
     }
    },
-   "vaccination": null,
+   "vaccination": {
+    "cumulParProvince": {},
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "doses": {
+       "recues": 3000,
+       "exprimees": 11000
+      }
+     }
+    }
+   },
    "source": "SitRep INSP (automatique)"
   },
   {
@@ -1580,7 +1599,25 @@
     "cumulParProvince": {
      "Tshopo": 1582
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 1582,
+      "cible": 11703,
+      "couverture": 14.0,
+      "zones": {
+       "Makiso-Kisangani": 1079,
+       "Kabondo": 269,
+       "Mangobo": 234
+      },
+      "zonesSomme": 1582,
+      "doses": {
+       "disponibles": 2918,
+       "recues": 3000,
+       "exprimees": 11000
+      }
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1612,7 +1649,28 @@
     "cumulParProvince": {
      "Tshopo": 1779
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 1779,
+      "cible": 11000,
+      "couverture": 16.2,
+      "zones": {
+       "Makiso-Kisangani": 1142,
+       "Kabondo": 291,
+       "Mangobo": 271,
+       "Tshopo": 75
+      },
+      "zonesSomme": 1779,
+      "doses": {
+       "congelees": 2000,
+       "auxZones": 721,
+       "deployees": 2500,
+       "recues": 4500,
+       "exprimees": 11000
+      }
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1644,7 +1702,29 @@
     "cumulParProvince": {
      "Tshopo": 2006
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 2006,
+      "cible": 11000,
+      "couverture": 18.2,
+      "zones": {
+       "Makiso-Kisangani": 1311,
+       "Kabondo": 301,
+       "Mangobo": 287,
+       "Tshopo": 89,
+       "Lubunga": 18
+      },
+      "zonesSomme": 2006,
+      "doses": {
+       "congelees": 1500,
+       "auxZones": 494,
+       "deployees": 2500,
+       "recues": 4500,
+       "exprimees": 11000
+      }
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1675,7 +1755,27 @@
     "cumulParProvince": {
      "Tshopo": 2153
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 2153,
+      "cible": 11703,
+      "couverture": 18.4,
+      "zones": {
+       "Makiso-Kisangani": 1378,
+       "Kabondo": 312,
+       "Mangobo": 298,
+       "Tshopo": 122,
+       "Lubunga": 43
+      },
+      "zonesSomme": 2153,
+      "doses": {
+       "congelees": 1500,
+       "auxZones": 847,
+       "deployees": 3000
+      }
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1733,7 +1833,22 @@
     "cumulParProvince": {
      "Tshopo": 2307
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 2307,
+      "cible": 11703,
+      "couverture": 19.7,
+      "zones": {
+       "Makiso-Kisangani": 1448,
+       "Mangobo": 313,
+       "Kabondo": 312,
+       "Tshopo": 150,
+       "Lubunga": 84
+      },
+      "zonesSomme": 2307
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1764,7 +1879,22 @@
     "cumulParProvince": {
      "Tshopo": 2460
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 2460,
+      "cible": 11703,
+      "couverture": 21.0,
+      "zones": {
+       "Makiso-Kisangani": 1495,
+       "Mangobo": 368,
+       "Kabondo": 331,
+       "Tshopo": 170,
+       "Lubunga": 96
+      },
+      "zonesSomme": 2460
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1796,7 +1926,22 @@
     "cumulParProvince": {
      "Tshopo": 2544
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 2544,
+      "cible": 11703,
+      "couverture": 21.7,
+      "zones": {
+       "Makiso-Kisangani": 1495,
+       "Mangobo": 368,
+       "Kabondo": 331,
+       "Tshopo": 170,
+       "Lubunga": 96
+      },
+      "zonesSomme": 2460
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1828,7 +1973,34 @@
      "Tshopo": 2810,
      "Bas-Uélé": 600
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 2810,
+      "cible": 11703,
+      "couverture": 24.0,
+      "zones": {
+       "Makiso-Kisangani": 1633,
+       "Kabondo": 381,
+       "Mangobo": 352,
+       "Tshopo": 280,
+       "Lubunga": 126,
+       "Bafwasende": 38
+      },
+      "zonesSomme": 2810,
+      "doses": {
+       "congelees": 500
+      }
+     },
+     "Bas-Uélé": {
+      "cumul": 600,
+      "zones": {
+       "Buta": 550,
+       "Ganga": 50
+      },
+      "zonesSomme": 600
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1860,7 +2032,35 @@
      "Tshopo": 3063,
      "Bas-Uélé": 708
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 3063,
+      "cible": 11703,
+      "couverture": 26.2,
+      "zones": {
+       "Makiso-Kisangani": 1684,
+       "Kabondo": 454,
+       "Mangobo": 363,
+       "Tshopo": 290,
+       "Lubunga": 149,
+       "Bafwasende": 123
+      },
+      "zonesSomme": 3063,
+      "doses": {
+       "congelees": 500,
+       "decongelees": 937
+      }
+     },
+     "Bas-Uélé": {
+      "cumul": 708,
+      "zones": {
+       "Buta": 550,
+       "Ganga": 158
+      },
+      "zonesSomme": 708
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -1891,7 +2091,28 @@
     "cumulParProvince": {
      "Tshopo": 3369
     },
-    "rupture": false
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 3369,
+      "cible": 11703,
+      "couverture": 28.8,
+      "zones": {
+       "Makiso-Kisangani": 1830,
+       "Kabondo": 466,
+       "Mangobo": 422,
+       "Tshopo": 316,
+       "Bafwasende": 173,
+       "Lubunga": 162
+      },
+      "zonesSomme": 3369,
+      "doses": {
+       "congelees": 500,
+       "decongelees": 631,
+       "peremption": "2026-09-24"
+      }
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   }
