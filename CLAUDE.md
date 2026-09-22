@@ -2777,6 +2777,45 @@ qu'en D. La note du graphique le dit.
   l'entrée de légende n'a pas de jeu (`datasetIndex: -1`) et le filtre des
   ponts la lisait comme un dataset — `legendePartielle` la laisse passer
   avant de rendre la main au filtre d'origine.
+- **Cinq journées récupérées à l'extraction** (22 septembre 2026).
+  `scripts/extraire_laboratoire.py` ne lisait que deux formes : la phrase
+  nationale et le tableau par province. Dix-neuf rapports n'en portaient
+  aucune alors que leur section laboratoire existe — les bulletins de la
+  fin mai tiennent le point dans un tableau « Indicateurs clés » à une ou
+  deux colonnes, et le 059 l'écrit en prose, province par province. Deux
+  replis ont été ajoutés, `point_du_jour()` et `provinces_redigees()`,
+  **qui ne s'exécutent que si la lecture normale n'a rien rendu** : les
+  102 journées déjà extraites ne peuvent pas bouger, et le contrôle
+  avant/après l'a vérifié — 0 date perdue, 0 date modifiée. Gain : les
+  20, 29, 30 et 31 mai (laboratoire de Bunia, sans détail provincial,
+  `source: "SitRep INSP (point du jour)"`) et le 12 juillet (Ituri 203/27,
+  Nord-Kivu 99/6).
+- **La règle de sûreté de ces replis** : un tableau à deux colonnes colle
+  ses nombres — « Nbre d'échantillons analysés 3 648 » vaut 3 puis 648,
+  et aucun motif ne peut le trancher seul. Les deux hypothèses sont lues
+  et **seule celle que le taux imprimé valide à 0,3 point près est
+  gardée** ; si plusieurs passent, la journée est écartée. C'est ce qui
+  fait tomber le 27 mai : son taux imprimé vaut 0 %, et un taux nul valide
+  aussi bien 0 positif sur 3 que sur 3 648. Sans taux imprimé, on
+  n'accepte qu'une lecture sans ambiguïté, un seul nombre de chaque côté.
+- **Piège rencontré, et rattrapé par le contrôle avant/après** : le
+  premier jet nommait ses constantes `POSITIFS_RES` et `NOMBRE_RE`,
+  écrasant les constantes du même nom déjà utilisées par
+  `lire_province()`. 95 journées se sont retrouvées corrompues — l'Ituri
+  du 3 juin passait de 18 positifs à 0 — sans qu'aucune exception ne soit
+  levée. D'où le préfixe `JOUR_` sur tout le bloc, et la règle : **après
+  toute modification de l'extracteur, comparer l'ancien et le nouveau
+  JSON date par date**, jamais se fier au seul compte de dates.
+- **Pas de déduction supplémentaire à espérer.** Un solveur qui propage
+  toutes les identités disponibles (positifs = échantillons × taux,
+  positifs = vivants + décès, total = somme des provinces, et les
+  réciproques à une inconnue) ne rend rien de plus. Les 50 entrées qui
+  bloquent portent les positifs **sans** les échantillons et **sans** le
+  taux : une province qui ne dit pas combien elle a analysé ne publie pas
+  de pourcentage calculé dessus. Le seul cas inverse, l'Ituri du 4 juin
+  (199 échantillons, 32,6 %, positifs absents), est refusé à raison par le
+  seuil de `lire_province()` : aucun entier ne redonne 32,6 % — 65
+  donnerait 32,7 %, 64 donnerait 32,2 %. La source est incohérente là.
 - **Pourquoi 41 journées sont blanches** (analyse du 22 septembre 2026) :
   21 d'entre elles ont pourtant des données, mais **une seule province
   partielle suffit à annuler le total national** — le Nord-Kivu donne ses
