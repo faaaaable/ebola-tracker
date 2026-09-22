@@ -2717,6 +2717,26 @@ qu'en D. La note du graphique le dit.
   calendaire, blanc à chaque journée sans bulletin, `minBarLength` pour
   qu'une journée relevée à zéro garde son trait, et un pied d'infobulle
   qui donne le total reçu (`alertesRecuesTotal`).
+- **Le 17 septembre est écarté des alertes** (`JOURNEES_ECARTEES` dans
+  `scripts/extraire_alertes.py`, 22 septembre 2026). La vue par jour l'a
+  fait voir d'un coup : 1 329 alertes validées comme cas suspects, contre
+  350 à 430 les jours voisins. Le tableau 3 du SitRep 126 donne pour
+  l'Ituri 1 058 validées et 140 invalidées, là où le 18 donne 232 pour 667
+  et le 19, 238 pour 813 : **les colonnes « validées » et « invalidées »
+  sont interverties dans ce bulletin**, et échangées elles rentrent
+  exactement dans la série. La lecture est conforme à l'en-tête du tableau
+  — l'erreur est en amont, et la corriger ici reviendrait à réécrire la
+  source. La journée entière est retirée plutôt que la seule valeur
+  fautive : son total reçu est vraisemblable, mais une barre sans sa part
+  validée ne se lirait pas mieux, et cette part est justement ce que les
+  trois vues montrent. **La liste est nominative et doit le rester** : on
+  n'écarte pas une journée parce que son chiffre surprend, seulement
+  lorsque le bulletin se contredit lui-même.
+- **Les dépassements de juillet, eux, ne sont pas des erreurs.** L'Ituri y
+  valide jusqu'à 212 % de ses alertes vérifiées (282 sur 133, le
+  15 juillet) : à cette époque les vérifiées et validées comptent aussi
+  celles de la veille, ce que la note du cadre dit déjà. Ne pas les
+  écarter — ils sont expliqués, pas incohérents.
 - **Bascule par canevas** : `<nav data-chart-vue="alertesChart">`, état dans
   `vuesParCanvas` — quatre cadres cohabitent, une variable globale ne
   suffisait plus. `legendesDuGraphique` lit le titre dans `.section-title`
