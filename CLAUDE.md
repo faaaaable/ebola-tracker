@@ -2704,6 +2704,19 @@ qu'en D. La note du graphique le dit.
   plafond `null` parce que la part vérifiée dépasse 100 % jusqu'à début
   août. La note de chaque cadre dit « tracé purement illustratif — jamais
   une valeur ».
+- **Les alertes ont trois vues depuis le 22 septembre 2026** (demande du
+  propriétaire) : « Par semaine », « Par jour » et « Taux ». Les deux
+  premières portent le même indicateur à deux échelles, la troisième en
+  porte un autre — d'où les libellés de granularité, partagés avec le
+  cadre du laboratoire, plutôt que l'ancien « Volume ». La série des
+  alertes est **la mieux tenue du bulletin** : 95 journées relevées sur
+  105, contre 98 sur 110 au laboratoire. La vue par semaine y cachait donc
+  peu de choses, sauf l'à-coup du jour — de 257 à 2 819 signalements — et
+  la montée de la recherche active, d'environ 450 alertes par jour début
+  juin à 2 000 en septembre. Même idiome que le laboratoire : axe
+  calendaire, blanc à chaque journée sans bulletin, `minBarLength` pour
+  qu'une journée relevée à zéro garde son trait, et un pied d'infobulle
+  qui donne le total reçu (`alertesRecuesTotal`).
 - **Bascule par canevas** : `<nav data-chart-vue="alertesChart">`, état dans
   `vuesParCanvas` — quatre cadres cohabitent, une variable globale ne
   suffisait plus. `legendesDuGraphique` lit le titre dans `.section-title`
