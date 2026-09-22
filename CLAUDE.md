@@ -2791,6 +2791,16 @@ qu'en D. La note du graphique le dit.
   l'entrée de légende n'a pas de jeu (`datasetIndex: -1`) et le filtre des
   ponts la lisait comme un dataset — `legendePartielle` la laisse passer
   avant de rendre la main au filtre d'origine.
+- **La vue par jour commence au 2 juin** (`DEBUT_JOUR`, demande du
+  propriétaire, 22 septembre 2026). Avant cette date la source ne donne que
+  quatre relevés isolés — 20, 29, 30 et 31 mai —, séparés par des semaines
+  entières sans rien : sur un axe calendaire ils tiraient un tiers de la
+  largeur pour quatre barres, et leur positivité de dépistage ciblé (77 %
+  le 29 mai, sur 70 échantillons) écrasait l'échelle de droite. La borne
+  ramène la vue à 110 jours dont **12 blancs seulement**, contre 123 jours
+  et 20 blancs, et les barres y gagnent le double de largeur. Ces journées
+  restent dans les données et dans la vue par semaine, qui les agrège sans
+  déformer l'échelle — c'est le partage de travail entre les deux vues.
 - **Cinq journées récupérées à l'extraction** (22 septembre 2026).
   `scripts/extraire_laboratoire.py` ne lisait que deux formes : la phrase
   nationale et le tableau par province. Dix-neuf rapports n'en portaient
