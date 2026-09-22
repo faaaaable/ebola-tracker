@@ -1,9 +1,21 @@
 {
   "periode": {
-    "debut": "2026-05-21",
+    "debut": "2026-05-20",
     "fin": "2026-09-19"
   },
   "parDate": [
+    {
+      "date": "2026-05-20",
+      "sitrepNumber": "006",
+      "provinces": {},
+      "total": {
+        "provinces": 0,
+        "echantillons": 35,
+        "positifs": 12,
+        "positivite": 34.3
+      },
+      "source": "SitRep INSP (point du jour)"
+    },
     {
       "date": "2026-05-21",
       "sitrepNumber": "007",
@@ -22,6 +34,42 @@
         "positivite": 45.9
       },
       "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-05-29",
+      "sitrepNumber": "015",
+      "provinces": {},
+      "total": {
+        "provinces": 0,
+        "echantillons": 70,
+        "positifs": 54,
+        "positivite": 77.1
+      },
+      "source": "SitRep INSP (point du jour)"
+    },
+    {
+      "date": "2026-05-30",
+      "sitrepNumber": "016",
+      "provinces": {},
+      "total": {
+        "provinces": 0,
+        "echantillons": 52,
+        "positifs": 19,
+        "positivite": 36.5
+      },
+      "source": "SitRep INSP (point du jour)"
+    },
+    {
+      "date": "2026-05-31",
+      "sitrepNumber": "017",
+      "provinces": {},
+      "total": {
+        "provinces": 0,
+        "echantillons": 18,
+        "positifs": 12,
+        "positivite": 66.7
+      },
+      "source": "SitRep INSP (point du jour)"
     },
     {
       "date": "2026-06-02",
@@ -833,6 +881,29 @@
         "echantillons": 350,
         "positifs": 53,
         "positivite": 15.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-12",
+      "sitrepNumber": "059",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 203,
+          "positifs": 27,
+          "positivite": 13.3
+        },
+        "Nord-Kivu": {
+          "echantillons": 99,
+          "positifs": 6,
+          "positivite": 6.1
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 302,
+        "positifs": 33,
+        "positivite": 10.9
       },
       "source": "SitRep INSP (automatique)"
     },

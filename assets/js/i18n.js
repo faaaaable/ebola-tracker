@@ -113,6 +113,11 @@ const I18N = {
     alertesAutresLabel:"Autres alertes reçues",
     alertesPartVerifieeLabel:"Part vérifiée",
     alertesPartValideeLabel:"Part validée",
+    laboAnalysesLabel:(n)=>`Échantillons analysés : ${n}`,
+    laboReprelevements:(n,debut,fin)=>`Un échantillon positif n'est pas toujours un malade de plus : les patients déjà confirmés sont reprélevés, et leurs échantillons ressortent positifs. ${n ? `${n === 1 ? `Un seul bulletin, le ${debut}, compte` : `${n} bulletins seulement, du ${debut} au ${fin}, comptent`} ces reprélèvements à part : la courbe retient alors les nouveaux cas, et tous les positifs les autres jours.` : `Aucun bulletin de la période ne les compte à part : la courbe compte tous les positifs, un même malade pouvant l'être plusieurs fois.`}`,
+    laboPartielLabel:(provinces,n)=>`Compte partiel — ${provinces} ${n > 1 ? 'ne donnent pas leurs échantillons' : 'ne donne pas ses échantillons'}`,
+    laboPartielLegende:"Compte partiel",
+    laboPositivitePartielle:(taux)=>`Positivité des provinces comptées : ${taux}`,
     laboNegatifsLabel:"Échantillons négatifs",
     laboPositifsLabel:"Résultats positifs",
     laboPositiviteLabel:"Positivité",
@@ -125,7 +130,8 @@ const I18N = {
       + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas ce tableau : leurs journées manquent aux totaux, qui sont des minimums. ` : '')
       + `Jusqu'à début août, les alertes vérifiées et validées comptent aussi celles de la veille ; depuis, elles ne portent que sur la journée.`,
     chartNoteAlertesTaux:()=>`Part des alertes reçues qui ont été vérifiées, et part validée comme cas suspect, jour par jour. Une part validée qui monte peut dire que les alertes sont mieux ciblées — ou qu'il y a plus de malades. Jusqu'à début août, vérifiées et validées comptent aussi les alertes de la veille : la part peut alors dépasser 100 %. Pointillés : jours sans la donnée — pas de bulletin, ou un bulletin qui ne la donne pas —, tracé purement illustratif, jamais une valeur.`,
-    chartNoteLabo:(semaines,sans)=>`Échantillons analysés par semaine calendaire, positifs en couleur pleine, et positivité de la semaine — positifs sur analysés — sur l'axe de droite. Un positif n'est pas toujours un nouveau cas : les bulletins récents séparent les reprélèvements, les anciens non. `
+    chartNoteLaboJour:(lus,sans,partiels)=>`Échantillons analysés jour par jour, positifs en couleur pleine, et positivité de la journée — positifs sur analysés — sur l'axe de droite. L'axe suit le calendrier : ${lus} journées sont relevées, dont ${partiels} hachurées, où une province ne donne pas ses échantillons : leur volume est la somme des provinces complètes, donc un minimum, et leur point de positivité est creux — il ne porte que ces provinces, non le pays entier. Les ${sans} journées blanches n'ont pas de bulletin, ou un bulletin trop incomplet pour être compté ; leurs analyses ne sont reportées sur aucune autre. Pointillés : le trait qui relie les deux bords d'un trou, purement illustratif, jamais une valeur.`,
+    chartNoteLabo:(semaines,sans)=>`Échantillons analysés par semaine calendaire, positifs en couleur pleine, et positivité de la semaine — positifs sur analysés — sur l'axe de droite. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas à la fois les échantillons et les positifs : leurs journées manquent aux totaux, qui sont des minimums. ` : ''),
     chartNoteContactsNational:(seuil)=>`Part des contacts listés vus dans les dernières 24 heures, et, en barres claires sur l'axe de droite, le nombre de contacts à suivre ce jour-là. L'INSP retient un seuil de ${seuil} % depuis août ; l'OMS fixait une cible de 95 %. Ni l'un ni l'autre n'est tracé : une ligne au-dessus d'une courbe qui plafonne n'ouvre qu'une bande vide. Pointillés : jours sans la donnée — pas de bulletin, ou un bulletin qui ne la donne pas —, tracé purement illustratif.`,
     chartNoteContactsProvinces:()=>`La même part, province par province, les jours où le bulletin la détaille. Une province à 100 % suit souvent quelques dizaines de contacts ; l'Ituri en suit plus de dix mille. Pointillés : jours sans détail par province, tracé purement illustratif — jamais une valeur.`,
@@ -408,6 +414,11 @@ const I18N = {
     alertesAutresLabel:"Other alerts received",
     alertesPartVerifieeLabel:"Share verified",
     alertesPartValideeLabel:"Share validated",
+    laboAnalysesLabel:(n)=>`Samples tested: ${n}`,
+    laboReprelevements:(n,debut,fin)=>`A positive sample is not always one more patient: already-confirmed patients are sampled again, and their samples come back positive. ${n ? `${n === 1 ? `A single bulletin, on ${debut}, counts` : `Only ${n} bulletins, from ${debut} to ${fin}, count`} those repeat samples separately: the curve then keeps the new cases, and every positive on the other days.` : `No bulletin in the period counts them separately: the curve counts every positive, and one patient can be counted more than once.`}`,
+    laboPartielLabel:(provinces,n)=>`Partial count — ${provinces} ${n > 1 ? 'do not report their samples' : 'does not report its samples'}`,
+    laboPartielLegende:"Partial count",
+    laboPositivitePartielle:(taux)=>`Positivity of the counted provinces: ${taux}`,
     laboNegatifsLabel:"Negative samples",
     laboPositifsLabel:"Positive results",
     laboPositiviteLabel:"Positivity",
@@ -420,7 +431,8 @@ const I18N = {
       + (sans ? `${sans} bulletin${sans>1?'s':''} do not give this table: their days are missing from the totals, which are minimums. ` : '')
       + `Until early August, verified and validated alerts also count those carried over from the day before; since then they add up day by day.`,
     chartNoteAlertesTaux:()=>`Share of alerts received that were verified, and share validated as suspected cases, day by day. A rising validated share may mean alerts are better targeted — or that there are more patients. Until early August, verified and validated also count alerts carried over from the day before: the share can then exceed 100%. Dotted lines: days without the figure — no bulletin, or a bulletin that does not give it — purely illustrative, never a value.`,
-    chartNoteLabo:(semaines,sans)=>`Samples tested per calendar week, positives in full colour, and the week's positivity — positives over tested — on the right axis. A positive is not always a new case: recent bulletins separate repeat samples, older ones do not. `
+    chartNoteLaboJour:(lus,sans,partiels)=>`Samples tested day by day, positives in full colour, and the day's positivity — positives over tested — on the right axis. The axis follows the calendar: ${lus} days are recorded, ${partiels} of them hatched, where one province does not report its samples: their volume is the sum of the complete provinces, hence a minimum, and their positivity point is hollow — it covers those provinces only, not the whole country. The ${sans} blank days have no bulletin, or one too incomplete to count; their tests are not carried over to any other day. Dotted line: the link between the two edges of a gap, purely illustrative, never a value.`,
+    chartNoteLabo:(semaines,sans)=>`Samples tested per calendar week, positives in full colour, and the week's positivity — positives over tested — on the right axis. `
       + (sans ? `${sans} bulletin${sans>1?'s':''} do not give both samples and positives: their days are missing from the totals, which are minimums. ` : ''),
     chartNoteContactsNational:(seuil)=>`Share of listed contacts seen in the previous 24 hours and, as light bars on the right axis, the number of contacts to follow that day. The INSP has used a ${seuil}% threshold since August; WHO set a 95% target. Neither is drawn: a line above a curve that plateaus only opens an empty band. Dashed segments: days without the figure — no bulletin, or a bulletin that does not give it — purely illustrative.`,
     chartNoteContactsProvinces:()=>`The same share, province by province, on the days the bulletin details it. A province at 100% often follows a few dozen contacts; Ituri follows more than ten thousand. Dashed segments: days without a breakdown by province, purely illustrative — never a value.`,
@@ -701,6 +713,11 @@ const I18N = {
     alertesAutresLabel:"Tahadhari nyingine zilizopokelewa",
     alertesPartVerifieeLabel:"Sehemu iliyohakikiwa",
     alertesPartValideeLabel:"Sehemu iliyothibitishwa",
+    laboAnalysesLabel:(n)=>`Sampuli zilizopimwa: ${n}`,
+    laboReprelevements:(n,debut,fin)=>`Sampuli chanya si mara zote mgonjwa mwingine: wagonjwa waliothibitishwa tayari huchukuliwa sampuli tena, nazo hurudi chanya. ${n ? `${n === 1 ? `Ripoti moja tu, tarehe ${debut}, inahesabu` : `Ripoti ${n} tu, kuanzia ${debut} hadi ${fin}, zinahesabu`} sampuli hizo za kurudia kando: hapo mkondo huchukua visa vipya, na chanya zote siku nyingine.` : `Hakuna ripoti ya kipindi hiki inayozihesabu kando: mkondo unahesabu chanya zote, na mgonjwa mmoja anaweza kuhesabiwa zaidi ya mara moja.`}`,
+    laboPartielLabel:(provinces,n)=>`Hesabu pungufu — ${provinces} ${n > 1 ? 'hayajatoa sampuli zake' : 'halijatoa sampuli zake'}`,
+    laboPartielLegende:"Hesabu pungufu",
+    laboPositivitePartielle:(taux)=>`Kiwango cha chanya cha majimbo yaliyohesabiwa: ${taux}`,
     laboNegatifsLabel:"Sampuli hasi",
     laboPositifsLabel:"Matokeo chanya",
     laboPositiviteLabel:"Kiwango cha chanya",
@@ -713,7 +730,8 @@ const I18N = {
       + (sans ? `Ripoti ${sans} hazitoi jedwali hili: siku zake hazimo kwenye jumla, ambazo ni viwango vya chini. ` : '')
       + `Hadi mwanzoni mwa Agosti, tahadhari zilizohakikiwa na kuthibitishwa zinahesabu pia zile za siku iliyotangulia; tangu wakati huo zinajumlishwa siku kwa siku.`,
     chartNoteAlertesTaux:()=>`Sehemu ya tahadhari zilizopokelewa ambazo zilihakikiwa, na sehemu iliyothibitishwa kama visa vinavyoshukiwa, siku kwa siku. Sehemu iliyothibitishwa inayopanda inaweza kumaanisha tahadhari zinalengwa vizuri zaidi — au kuna wagonjwa zaidi. Hadi mwanzoni mwa Agosti, zilizohakikiwa na kuthibitishwa zinahesabu pia tahadhari za siku iliyotangulia: sehemu inaweza kuzidi 100%. Vitone: siku zisizo na takwimu hii — hakuna ripoti, au ripoti isiyoitoa — mchoro wa kuonyesha tu, kamwe si thamani.`,
-    chartNoteLabo:(semaines,sans)=>`Sampuli zilizopimwa kwa wiki ya kalenda, chanya kwa rangi kamili, na kiwango cha chanya cha wiki — chanya kwa zilizopimwa — kwenye mhimili wa kulia. Chanya si mara zote kisa kipya: ripoti za hivi karibuni hutenganisha sampuli za kurudia, za zamani hazitenganishi. `
+    chartNoteLaboJour:(lus,sans,partiels)=>`Sampuli zilizopimwa siku kwa siku, chanya kwa rangi kamili, na kiwango cha chanya cha siku — chanya kwa zilizopimwa — kwenye mhimili wa kulia. Mhimili unafuata kalenda: siku ${lus} zimerekodiwa, kati yake ${partiels} zina mistari ya mlalo, ambapo jimbo moja halitoi sampuli zake: kiasi chake ni jumla ya majimbo kamili, yaani kiwango cha chini, na alama yake ya kiwango cha chanya ni tupu ndani — inahusu majimbo hayo tu, si nchi nzima. Siku ${sans} zilizo wazi hazina ripoti, au zina ripoti pungufu mno; vipimo vyake havihamishiwi siku nyingine yoyote. Mistari ya nukta: kiunganishi kati ya pande mbili za pengo, kwa mfano tu, si thamani.`,
+    chartNoteLabo:(semaines,sans)=>`Sampuli zilizopimwa kwa wiki ya kalenda, chanya kwa rangi kamili, na kiwango cha chanya cha wiki — chanya kwa zilizopimwa — kwenye mhimili wa kulia. `
       + (sans ? `Ripoti ${sans} hazitoi sampuli na chanya kwa pamoja: siku zake hazimo kwenye jumla, ambazo ni viwango vya chini. ` : ''),
     chartNoteContactsNational:(seuil)=>`Sehemu ya walioguswa walioorodheshwa walioonwa katika saa 24 zilizopita na, kama pau nyepesi kwenye mhimili wa kulia, idadi ya walioguswa wa kufuatiliwa siku hiyo. INSP inatumia kiwango cha ${seuil}% tangu Agosti; WHO iliweka lengo la 95%. Hakuna kinachochorwa: mstari juu ya mkondo unaosimama hufungua tu nafasi tupu. Nukta: siku zisizo na takwimu hii — hakuna ripoti, au ripoti isiyoitoa — mchoro wa kuonyesha tu.`,
     chartNoteContactsProvinces:()=>`Sehemu ile ile, jimbo kwa jimbo, siku ambazo ripoti inaielezea. Jimbo lenye 100% mara nyingi hufuatilia walioguswa makumi machache; Ituri inafuatilia zaidi ya elfu kumi. Nukta: siku zisizo na mgawanyo kwa jimbo, mchoro wa kuonyesha tu — kamwe si thamani.`,

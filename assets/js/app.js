@@ -1209,6 +1209,34 @@ const ctx0Epi = c => c.getContext('2d');
    et neutralise son clic. Meme mecanique que « Jours sans donnee » sur les
    deces par lieu. Avec `sauf` vrai, ne fait rien : la legende ne doit nommer
    cette couleur que si la bande grisee est tracee. */
+/* Meme mecanique que legendeAVenir, pour la hachure des comptes partiels du
+   laboratoire (22 septembre 2026) : une barre rayee sans entree de legende
+   oblige a ouvrir l'infobulle pour comprendre ce qu'elle vaut. */
+function legendePartielle(legende, motif, combien){
+  if(!combien) return legende;
+  legende.labels = legende.labels || {};
+  /* L'entree ajoutee ne designe aucun jeu (datasetIndex -1) : le filtre des
+     ponts, qui lit `data.datasets[item.datasetIndex].pont`, tombait dessus.
+     On la laisse passer avant de rendre la main au filtre d'origine. */
+  const filtreBase = legende.labels.filter;
+  legende.labels.filter = (item, data) =>
+    item.datasetIndex === -1 ? true : (!filtreBase || filtreBase(item, data));
+  const genererBase = legende.labels.generateLabels;
+  legende.labels.generateLabels = chart => {
+    const base = (genererBase || Chart.defaults.plugins.legend.labels.generateLabels)(chart);
+    base.push({ text: tr('laboPartielLegende'), fillStyle: motif,
+                strokeStyle: PALETTE.line, lineWidth: 1,
+                pointStyle: 'rect', hidden: false, datasetIndex: -1 });
+    return base;
+  };
+  const clic = legende.onClick;
+  legende.onClick = function(e, item, l){
+    if(item.datasetIndex === -1) return;
+    (clic || Chart.defaults.plugins.legend.onClick).call(this, e, item, l);
+  };
+  return legende;
+}
+
 function legendeAVenir(legende, sauf){
   if(sauf) return legende;
   legende.labels = legende.labels || {};
@@ -1241,8 +1269,25 @@ function noterPeriode(slot, debut, fin){
   slot.periode = (debut || fin) ? { debut: debut || null, fin: fin || null } : null;
 }
 /* Rend un graphique dans le canvas donne. Le mode dit ce qu'il montre. */
+/* Le pied des infobulles etait blanc sur le fond clair du panneau : le
+   defaut de Chart.js, que rien ne redefinissait globalement. Tout ce qui y
+   passait restait invisible — le « Total » des barres empilees depuis
+   toujours, et le nombre d'echantillons analyses du laboratoire (releve du
+   22 septembre 2026, apres capture de l'infobulle). Le pose ici, sur le
+   defaut global, plutot que dans chaque jeu d'options : reassignees a un
+   graphique deja construit, les options locales retombent sur les defauts
+   pour les cles que ceux-ci portent, et la correction ne prenait pas. */
+function reglerInfobulles(){
+  if(typeof Chart === 'undefined' || reglerInfobulles.fait) return;
+  Chart.defaults.plugins.tooltip.footerColor = PALETTE.ink;
+  Chart.defaults.plugins.tooltip.footerFont = { family: PALETTE.font, weight: '500' };
+  Chart.defaults.plugins.tooltip.footerMarginTop = 8;
+  reglerInfobulles.fait = true;
+}
+
 function renderOneChart(canvas, chartMode){
   const slot = chartSlot(canvas);
+  reglerInfobulles();
   if(typeof Chart === 'undefined'){
     canvas.replaceWith(Object.assign(document.createElement('div'), {
       style:'display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);',
@@ -1324,6 +1369,13 @@ function renderOneChart(canvas, chartMode){
       backgroundColor:PALETTE.panel, borderColor:PALETTE.line, borderWidth:1,
       titleColor:PALETTE.ink, bodyColor:PALETTE.ink,
       titleFont:{family:PALETTE.font}, bodyFont:{family:PALETTE.font},
+      /* Le pied etait BLANC sur le fond clair du panneau — la couleur par
+         defaut de Chart.js, jamais redefinie ici (releve du 22 septembre
+         2026). Tout ce qui y passait etait ecrit sans etre lisible : le
+         « Total » des barres empilees depuis toujours, et le nombre
+         d'echantillons analyses du laboratoire. */
+      footerColor:PALETTE.ink, footerFont:{family:PALETTE.font, weight:'500'},
+      footerMarginTop:8,
     }, extra || {});
     const legende = { display:true, position:'top', labels:{ usePointStyle:true, color:PALETTE.inkDim, font:{family:PALETTE.font, size:11}, boxWidth:8 } };
     const dessiner = (type, data, opts) => {
@@ -1349,7 +1401,10 @@ function renderOneChart(canvas, chartMode){
       return frDate(w.debut) + ' → ' + frDate(w.fin) + enc + ' · ' + tr('releveCount')(w.releves);
     };
     const noteOuverte = ouverte => ouverte ? ' ' + tr('chartWeekOngoingNote')(ouverte.nom, ouverte.restants) : '';
-    const noter = (texte) => { if(noteEl){ noteEl.textContent = texte; noteEl.style.display = 'block'; } };
+    /* Les notes s'assemblent par concatenation de phrases, dont certaines
+       portent deja leur espace final : on normalise ici plutot que de
+       compter les espaces a chaque point de collage. */
+    const noter = (texte) => { if(noteEl){ noteEl.textContent = String(texte).replace(/\s+/g, ' ').trim(); noteEl.style.display = 'block'; } };
     /* Semaines calendaires, la derniere pouvant etre en cours. */
     const parSemaine = (points, champs) => {
       const semaines = new Map();
@@ -1505,6 +1560,43 @@ function renderOneChart(canvas, chartMode){
 
     /* ---- Laboratoire : echantillons par semaine, positivite en courbe ---- */
     if(chartMode === 'laboratoire'){
+      /* Le pied de l'infobulle donne le nombre d'echantillons analyses
+         (22 septembre 2026, demande du proprietaire). Positifs + negatifs
+         redonnent par construction le total analyse : autant le nommer.
+         `totalEmpile` ecrivait « Total : 362 », vrai mais muet, et se taisait
+         des qu'une seule des deux barres portait — un jour a zero positif
+         perdait justement son compte de tests. */
+      /* « Un positif n'est pas toujours un malade de plus » : la phrase vit
+         dans i18n (`laboReprelevements`), les deux vues la partagent, et son
+         compte se calcule ici. L'ancienne version annoncait l'inverse de la
+         donnee — « les bulletins recents separent les reprelevements, les
+         anciens non » — alors que seuls ceux du 10 au 14 aout les separent,
+         et aucun depuis (releve du 22 septembre 2026). */
+      /* La hachure dit « compte incomplet » partout sur ce site
+         (GRIS_MANQUE) ; teintee de la couleur de la barre, elle garde ici la
+         distinction positifs / negatifs. */
+      const motifPartiel = (couleur) => {
+        const c = document.createElement('canvas');
+        c.width = c.height = 6;
+        const g = c.getContext('2d');
+        g.fillStyle = tint(couleur, .62);
+        g.fillRect(0, 0, 6, 6);
+        g.strokeStyle = couleur;
+        g.lineWidth = 1.1;
+        g.beginPath(); g.moveTo(-1, 7); g.lineTo(7, -1); g.stroke();
+        return canvas.getContext('2d').createPattern(c, 'repeat');
+      };
+      const noteReprelevements = (pts) => {
+        const sep = pts.filter(p => p.separe && p.positifs !== null);
+        return ' ' + tr('laboReprelevements')(sep.length,
+          sep.length ? frDate(sep[0].date) : '',
+          sep.length ? frDate(sep[sep.length - 1].date) : '');
+      };
+      const analysesEmpilees = (items) => {
+        const barres = items.filter(i => i.dataset.type !== 'line'
+                                      && Number.isFinite(i.parsed && i.parsed.y));
+        return barres.length ? tr('laboAnalysesLabel')(fmt(barres.reduce((t, i) => t + i.parsed.y, 0))) : '';
+      };
       if(!LABORATOIRE || !LABORATOIRE.parDate.length){ vide(); return; }
       /* La phrase nationale (epoque D) prime sur la somme des provinces, qui
          n'existe que si chaque province lue porte les deux nombres. Les
@@ -1514,11 +1606,149 @@ function renderOneChart(canvas, chartMode){
         const n = p.national || {}, t = p.total || {};
         const src = provRip ? (colonne(p.provinces) || {})
                   : (n.echantillons && n.positifs !== null && n.positifs !== undefined) ? n : t;
-        const positifs = (src.nouveauxCas !== undefined && src.nouveauxCas !== null) ? src.nouveauxCas : (src.positifs ?? null);
-        return { date:p.date, echantillons:src.echantillons ?? null, positifs };
+        const separe = src.nouveauxCas !== undefined && src.nouveauxCas !== null;
+        const positifs = separe ? src.nouveauxCas : (src.positifs ?? null);
+        /* COMPTE PARTIEL (22 septembre 2026). Le total national n'est calcule
+           que si CHAQUE province lue porte ses echantillons ET ses positifs :
+           une seule province qui donne ses positifs sans ses echantillons
+           faisait disparaitre la journee entiere — 17 journees, dont le
+           28 aout ou quatre provinces sont completes et le seul Bas-Uele
+           manque. On somme alors les provinces completes : le volume est un
+           minimum, ce que dit la hachure, et la positivite n'est pas tracee
+           puisque le numerateur est presque complet quand le denominateur ne
+           l'est jamais — elle serait surestimee. */
+        if(!provRip && (src.echantillons === null || src.echantillons === undefined || positifs === null)){
+          const provs = p.provinces || {};
+          const noms = Object.keys(provs);
+          const pleines = noms.filter(x => provs[x].echantillons !== null && provs[x].echantillons !== undefined
+                                        && provs[x].positifs !== null && provs[x].positifs !== undefined);
+          const manquantes = noms.filter(x => !pleines.includes(x));
+          if(pleines.length && manquantes.length){
+            return { date:p.date,
+                     echantillons:pleines.reduce((t, x) => t + provs[x].echantillons, 0),
+                     positifs:pleines.reduce((t, x) => t + (provs[x].nouveauxCas ?? provs[x].positifs), 0),
+                     separe:pleines.some(x => provs[x].nouveauxCas !== null && provs[x].nouveauxCas !== undefined),
+                     partiel:manquantes };
+          }
+        }
+        return { date:p.date, echantillons:src.echantillons ?? null, positifs, separe };
       });
-      const pointsLus = provRip ? points.filter(p => p.echantillons !== null && p.positifs !== null) : points;
+      /* La vue par semaine ignore les comptes partiels : une barre
+         hebdomadaire ne peut pas etre a moitie hachuree, et une semaine
+         melant journees completes et partielles ne se lirait plus. Ses
+         totaux restent ceux du pays entier, et sa note le dit deja. */
+      const pointsLus = provRip ? points.filter(p => p.echantillons !== null && p.positifs !== null)
+                                : points.map(p => p.partiel ? { date:p.date, echantillons:null, positifs:null, separe:false } : p);
       if(!pointsLus.length){ vide(); return; }
+
+      /* ---- Sous-onglet « Par jour » (22 septembre 2026, demande du
+         proprietaire). Les memes echantillons, releve par releve, la ou la
+         vue par semaine lisse les a-coups de publication : le laboratoire
+         de Goma a analyse 673 echantillons un jour et 292 un autre de la
+         meme semaine, et c'est cette irregularite-la qui se lit ici.
+
+         L'axe suit le calendrier, comme le graphique quotidien d'une
+         province : 81 journees seulement sur 122 portent a la fois les
+         echantillons et les positifs, et les 41 autres doivent garder leur
+         largeur — collees les unes aux autres, elles feraient croire a une
+         serie continue. Le blanc dit « pas de bulletin » ; minBarLength
+         laisse deux pixels a une journee relevee a zero, qui dit « compte,
+         et compte zero ». Les pointillés relient les deux bords d'un trou :
+         un trace illustratif, jamais une valeur — la note le repete. */
+      if(vueDe(canvas, 'semaine') === 'jour'){
+        /* La vue par jour commence au 2 juin (demande du proprietaire,
+           22 septembre 2026). Avant cette date, la source ne donne que
+           quatre releves isoles — 20, 29, 30 et 31 mai — separes par des
+           semaines entieres sans rien : sur un axe calendaire, ils tiraient
+           un tiers de la largeur pour quatre barres, et leur positivite de
+           depistage cible (77 % le 29 mai, sur 70 echantillons) ecrasait la
+           lecture du reste. La serie devient continue a partir du 2 juin.
+           Ces journees restent dans les donnees et dans la vue par semaine,
+           qui les agrege sans deformer l'echelle. */
+        const DEBUT_JOUR = '2026-06-02';
+        const lisibles = points.filter(p => p.date >= DEBUT_JOUR
+                                         && p.echantillons !== null && p.positifs !== null);
+        if(!lisibles.length){ vide(); return; }
+        const joursL = calendrier(lisibles[0].date, lisibles[lisibles.length-1].date);
+        const releve = new Map(lisibles.map(p => [p.date, p]));
+        const sansJour = joursL.filter(d => !releve.has(d)).length;
+        const auJour = (d, f) => releve.has(d) ? f(releve.get(d)) : null;
+        const positifsJ = joursL.map(d => auJour(d, p => p.positifs));
+        const negatifsJ = joursL.map(d => auJour(d, p => p.echantillons - p.positifs));
+        /* La positivite d'une journee partielle est EXACTE pour les provinces
+           comptees — positifs et echantillons y viennent du meme perimetre.
+           Elle ne couvre simplement pas le pays, d'ou le point creux : plein
+           = tout le pays, creux = les provinces comptees. L'ecart avec le
+           taux national, estime en rendant a la province absente le volume
+           qu'elle declare les journees voisines, va de 0,2 a 5 points
+           (mesure du 22 septembre 2026, detail dans CLAUDE.md). Une premiere
+           estimation par la mediane de la province sur toute la periode
+           donnait 13 a 16 points en juin : elle pretait au Nord-Kivu de juin
+           les 93 echantillons quotidiens qu'il n'analysera qu'en aout. */
+        const positiviteJ = joursL.map(d => auJour(d, p => p.echantillons
+          ? Math.round(p.positifs / p.echantillons * 1000) / 10 : null));
+        const partielJ = joursL.map(d => auJour(d, p => p.partiel || null));
+        /* Le taux des provinces comptees est EXACT — positifs et echantillons
+           y viennent du meme perimetre — mais il ne mesure pas ce que mesurent
+           les autres points : le 5 juin, 31,3 % sur les provinces completes
+           contre une quinzaine de pour cent une fois le Nord-Kivu rendu au
+           denominateur. Ecart median 0,6 point sur les 17 journees, mais 13 a
+           16 points sur les trois de juin. Il vit donc dans l'infobulle, ou il
+           se nomme, et non sur la courbe, ou il se ferait passer pour un taux
+           national. */
+        const nPartiels = partielJ.filter(Boolean).length;
+        const motifPos = motifPartiel(PALETTE.info), motifNeg = motifPartiel(tint(PALETTE.info, .3));
+        const teinte = (base, motif) => partielJ.map(p => p ? motif : base);
+        const dataJ = { labels:joursL.map(frDate), datasets:[
+          { type:'line', label:tr('laboPositiviteLabel'), data:positiviteJ, yAxisID:'y1', borderColor:PALETTE.critical,
+            borderWidth:2, tension:.15, spanGaps:false, order:0,
+            /* Point creux : le taux ne porte que les provinces comptees. Un
+               peu plus grand que le point plein, sans quoi l'anneau se
+               refermerait a l'oeil. */
+            pointRadius:partielJ.map(p => p ? 2.8 : 1.8),
+            pointBackgroundColor:partielJ.map(p => p ? PALETTE.bg : PALETTE.critical),
+            pointBorderColor:PALETTE.critical,
+            pointBorderWidth:partielJ.map(p => p ? 1.6 : 0) },
+          Object.assign({ type:'line', yAxisID:'y1' }, jeuPont(positiviteJ, PALETTE.critical, tr('laboPositiviteLabel'))),
+          { type:'bar', label:tr('laboPositifsLabel'), data:positifsJ,
+            backgroundColor:teinte(PALETTE.info, motifPos),
+            stack:'l', minBarLength:2, order:2, categoryPercentage:1, barPercentage:.96 },
+          { type:'bar', label:tr('laboNegatifsLabel'), data:negatifsJ,
+            backgroundColor:teinte(tint(PALETTE.info, .3), motifNeg),
+            stack:'l', minBarLength:2, order:2, categoryPercentage:1, barPercentage:.96 },
+        ]};
+        const optsJ = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+          plugins:{ legend:legendePartielle(Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }), motifNeg, nPartiels),
+                    /* Un jour blanc n'a que des nuls : tous ses items tombent
+                       et aucune infobulle ne s'ouvre sur le vide. */
+                    tooltip:infobulle({ filter:item => !item.dataset.pont && item.parsed.y !== null, callbacks:{
+                      /* Sur une journee partielle, la courbe ne dit pas
+                         « Positivite » mais « Positivite des provinces
+                         comptees » : le meme mot pour deux perimetres
+                         vaudrait mieux ne rien ecrire. */
+                      label:c=>{
+                        const valeur = c.dataset.type === 'line' ? fmtCfr(c.parsed.y) : fmt(c.parsed.y);
+                        return (c.dataset.type === 'line' && partielJ[c.dataIndex])
+                          ? tr('laboPositivitePartielle')(valeur)
+                          : c.dataset.label + ' : ' + valeur;
+                      },
+                      /* Le pied nomme la province qui manque : sans elle, le
+                         « 567 analyses » du 28 aout se lirait comme un compte
+                         du pays entier. */
+                      footer:(items) => {
+                        const manque = partielJ[items[0].dataIndex];
+                        return manque ? [analysesEmpilees(items),
+                                         tr('laboPartielLabel')(manque.join(', '), manque.length)]
+                                      : analysesEmpilees(items);
+                      } } }) },
+          scales:{ x:Object.assign(axeX(true), { stacked:true }),
+                   y:{ stacked:true, beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } },
+                   y1:Object.assign(axePct(100), { position:'right', grid:{ drawOnChartArea:false } }) } };
+        dessiner('bar', dataJ, optsJ);
+        noterPeriode(slot, joursL[0], joursL[joursL.length-1]);
+        noter(tr('chartNoteLaboJour')(releve.size, sansJour, nPartiels) + noteReprelevements(lisibles));
+        return;
+      }
       const semaines = parSemaine(pointsLus, ['echantillons', 'positifs']);
       if(!semaines.length){ vide(); return; }
       const ouverte = semaineOuverte(semaines, pointsLus[pointsLus.length-1].date);
@@ -1532,14 +1762,15 @@ function renderOneChart(canvas, chartMode){
       const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:legendeAVenir(Object.assign({}, legende, { labels:Object.assign({}, legende.labels) }), !ouverte), tooltip:infobulle({ callbacks:{
           title:titreSemaine(semaines, ouverte),
-          label:c=>c.dataset.label + ' : ' + (c.dataset.type === 'line' ? fmtCfr(c.parsed.y) : fmt(c.parsed.y)), footer:totalEmpile } }),
+          label:c=>c.dataset.label + ' : ' + (c.dataset.type === 'line' ? fmtCfr(c.parsed.y) : fmt(c.parsed.y)), footer:analysesEmpilees } }),
           largeurSemaine: ouverte ? { ratios:ouverte.ratios, futurs:ouverte.futurs } : undefined },
         scales:{ x:Object.assign(axeX(false), { stacked:true }),
                  y:{ stacked:true, beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } },
                  y1:Object.assign(axePct(100), { position:'right', grid:{ drawOnChartArea:false } }) } };
       dessiner('bar', data, opts);
       noterPeriode(slot, semaines[0].debut, ouverte ? ouverte.derniere : semaines[semaines.length-1].fin);
-      noter(tr('chartNoteLabo')(semaines.filter(w=>w.releves).length, sans) + noteOuverte(ouverte));
+      noter(tr('chartNoteLabo')(semaines.filter(w=>w.releves).length, sans)
+            + noteReprelevements(pointsLus) + noteOuverte(ouverte));
       return;
     }
 

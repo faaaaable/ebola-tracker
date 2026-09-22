@@ -68,6 +68,13 @@
           <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
         </button>
       </div>
+      <!-- Par semaine : le volume analyse, lisse des a-coups de publication.
+           Par jour : le meme volume releve par releve, sur un axe calendaire
+           ou les journees sans bulletin restent en blanc. -->
+      <nav class="subtab-nav chart-vue-nav" data-chart-vue="laboChart">
+        <button type="button" class="subtab-btn active" data-vue="semaine" data-i18n="chartVueWeekly">{{i18n.chartVueWeekly}}</button>
+        <button type="button" class="subtab-btn" data-vue="jour" data-i18n="chartVueDaily">{{i18n.chartVueDaily}}</button>
+      </nav>
       <div class="chart-panel">
         <canvas id="laboChart" data-chart="laboratoire"></canvas>
       </div>
