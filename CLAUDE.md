@@ -2726,6 +2726,25 @@ qu'en D. La note du graphique le dit.
   `minBarLength:2` distingue une journée relevée à zéro d'une journée sans
   bulletin. Note dédiée `chartNoteLaboJour`, qui compte les blancs à
   chaque rendu — le compte se périmerait s'il était écrit en dur.
+- **Le pied de l'infobulle du laboratoire nomme le total** depuis le
+  22 septembre 2026 : « Échantillons analysés : 292 » au lieu du
+  `totalEmpile` générique « Total : 292 ». Positifs + négatifs redonnent
+  par construction le nombre de tests, et c'est le chiffre que le lecteur
+  cherche. `analysesEmpilees` remplace `totalEmpile` **dans les deux
+  vues** du cadre — la même quantité ne peut pas s'appeler « Total » par
+  semaine et « Échantillons analysés » par jour — et, contrairement à
+  `totalEmpile`, il ne se tait pas quand une seule barre porte : une
+  journée à zéro positif perdait justement son compte de tests.
+- **Pourquoi 41 journées sont blanches** (analyse du 22 septembre 2026) :
+  21 d'entre elles ont pourtant des données, mais **une seule province
+  partielle suffit à annuler le total national** — le Nord-Kivu donne ses
+  positifs sans ses échantillons 9 jours, le Sud-Kivu 7. Le 28 août,
+  quatre provinces sont complètes et le seul Bas-Uélé fait disparaître la
+  journée. S'y ajoutent 14 jours dont le bulletin n'a pas de section
+  laboratoire exploitable (dont les onze premiers, du 22 mai au
+  1er juin) et 6 jours sans bulletin. **Aucun trou depuis le
+  1er septembre** : les 19 bulletins de septembre portent tous le total
+  des provinces.
 - **La vue par province a de l'air au-dessus de 100 %** (cadre à 110, aucune
   graduation au-dessus de 100) : Tshopo et Sud-Kivu y sont à 100 % des jours
   entiers, et leurs points se collaient au cadre. Demande du propriétaire du
