@@ -2759,11 +2759,18 @@ qu'en D. La note du graphique le dit.
   entrée de légende « Compte partiel » (`legendePartielle`, sur le modèle
   de `legendeAVenir`) et un pied d'infobulle qui **nomme la province
   manquante** : sans lui, les « 567 analyses » du 28 août se liraient
-  comme un compte du pays entier. **Leur positivité n'est pas tracée** :
-  les positifs y sont presque complets — la province manquante en déclare
-  souvent zéro — quand les échantillons ne le sont jamais, et le taux
-  serait systématiquement surestimé ; le pont pointillé enjambe, comme sur
-  un jour sans bulletin. **La vue par semaine les ignore** : une barre
+  comme un compte du pays entier. **Leur positivité n'est pas tracée, mais
+  elle est donnée dans l'infobulle** (`laboPositivitePartielle`), nommée
+  « positivité des provinces comptées ». Elle est **exacte** — positifs et
+  échantillons y viennent du même périmètre ; ce qu'elle n'est pas, c'est
+  comparable aux autres points, qui couvrent le pays. Mesure du
+  22 septembre 2026, en estimant les échantillons manquants par la médiane
+  de la province : écart médian **0,6 point** sur les 17 journées, sous
+  3 points pour 14 d'entre elles, mais **13 à 16 points les 3, 5 et 6 juin**,
+  où le Nord-Kivu manque au dénominateur en déclarant zéro positif — le
+  5 juin, 31,3 % contre une quinzaine de pour cent. Un point pareil sur la
+  courbe nationale serait faux du simple au double ; dans l'infobulle, il
+  se nomme. Le pont pointillé enjambe, comme sur un jour sans bulletin. **La vue par semaine les ignore** : une barre
   hebdomadaire ne peut pas être à moitié hachurée, et une semaine mêlant
   journées complètes et partielles ne se lirait plus. Piège rencontré :
   l'entrée de légende n'a pas de jeu (`datasetIndex: -1`) et le filtre des
