@@ -146,8 +146,20 @@
     </div>
   </section>
 
+  <!-- LE TITRE ET SA LIGNE ITALIQUE TIENNENT DANS UNE SEULE CELLULE. La section
+       est une grille a deux colonnes : pose nu apres le titre, le sous-titre
+       occuperait la cellule du contenu et renverrait la rangee des provinces
+       sous lui. Meme structure que les autres chapitres en section-split.
+
+       La ligne dit une fois ce que les sept colonnes portent : le grand
+       chiffre y est nu, les deces seuls sont nommes. Un sujet se nomme en
+       tete, pas dans chaque cellule — et l'asymetrie est ce qui donne a la
+       case sa hierarchie de lecture. -->
   <section class="section section-split">
-    <h2 class="section-title">{{t.teaserProvincesTitle}}</h2>
+    <div>
+      <h2 class="section-title">{{t.teaserProvincesTitle}}</h2>
+      <div class="section-sub section-sub-provinces">{{t.teaserProvincesSub}}</div>
+    </div>
     <div>
       <div class="province-grid">
 {{provinceCardsPlain}}
