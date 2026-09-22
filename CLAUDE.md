@@ -2714,6 +2714,20 @@ qu'en D. La note du graphique le dit.
 - Le laboratoire trace les **nouveaux cas** comme positifs quand le bulletin
   sépare les reprélèvements, la phrase nationale de l'époque D primant sur
   la somme des provinces.
+- **La note disait l'inverse de la donnée jusqu'au 22 septembre 2026.**
+  « Un positif n'est pas toujours un nouveau cas : les bulletins récents
+  séparent les reprélèvements, les anciens non » — or **seuls ceux du 10
+  au 14 août les séparent**, et aucun depuis, septembre compris. Le
+  lecteur pouvait croire la partie récente de la courbe nettoyée des
+  reprélèvements ; c'est la seule partie qui ne l'est pas. La phrase vit
+  désormais dans `laboReprelevements`, **partagée par les deux vues**, et
+  son compte est calculé au rendu sur les points réellement tracés : la
+  vue par semaine annonce 3 bulletins (ceux dont le total national porte
+  `nouveauxCas`, du 12 au 14 août), la vue par jour n'en annonce aucun —
+  ces journées-là n'ont pas d'échantillons et y sont blanches. Les deux
+  comptes sont justes parce qu'ils décrivent chacun ce que leur courbe
+  montre. `noter()` normalise les espaces : les phrases se concatènent et
+  certaines portent déjà le leur.
 - **Le laboratoire a deux vues depuis le 22 septembre 2026** (demande du
   propriétaire) : « Par semaine », inchangée et toujours par défaut, et
   « Par jour », qui pose les mêmes échantillons sur un calendrier jour par
