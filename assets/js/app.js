@@ -1083,6 +1083,96 @@ const boutsDeCourbe = {
   },
 };
 
+/* ============ LA RUPTURE DES BARRES DE RATTRAPAGE ============ */
+/* L'AXE NE SE LAISSE PAS DICTER PAR UN RATTRAPAGE. Le 22 juillet vaut 369 cas
+   quand la journee mediane en vaut 63 et le plus fort jour ORDINAIRE 143 :
+   l'axe montait a 400, la bande 150-400 ne servait qu'a deux barres sur cent
+   dix-neuf, et les cent dix-sept autres etaient tassees dans le quart du bas.
+   Une journee moyenne occupait 16 % de la hauteur du cadre.
+
+   Le plafond se cale donc sur le plus fort jour ordinaire, et les deux barres
+   de rattrapage sortent du cadre. RIEN N'EST CACHE : elles sont coupees en
+   dent de scie, leur total ecrit dans le blanc de la coupe, et l'infobulle
+   donne toujours les deux parts. C'est la meme nuance que la teinte claire,
+   poussee d'un cran — non seulement la journee ne peut pas revendiquer ces
+   cas, mais elle ne peut pas non plus donner l'echelle du graphique.
+
+   La regle ne se declenche que la ou elle gagne quelque chose : sous 1,4 fois
+   le pic ordinaire, couper couterait plus en lecture que la hauteur rendue.
+   C'est ce qui la neutralise d'elle-meme des qu'une vue agrege — par semaine,
+   le 22 juillet se dilue dans les siens et ne depasse plus rien. */
+const MARGE_PLAFOND = 1.12, DECLENCHE_RUPTURE = 1.4, RESERVE_BARRES = .25;
+function plafondSansRattrapage(rapporte, rattrapage){
+  let ordinaire = 0, plusHaute = 0;
+  for(let i = 0; i < rapporte.length; i++){
+    const r = rapporte[i] || 0, c = rattrapage[i] || 0;
+    plusHaute = Math.max(plusHaute, r + c);
+    if(!c) ordinaire = Math.max(ordinaire, r);
+  }
+  if(!ordinaire || plusHaute < ordinaire * DECLENCHE_RUPTURE) return null;
+  /* Un plafond rond, sinon l'axe se gradue en 143, 172, 201 : le pas est pris
+     a un dixieme de l'ordre de grandeur, double — 160 pour 143, 34 pour 30. */
+  const brut = ordinaire * MARGE_PLAFOND;
+  const pas = Math.pow(10, Math.floor(Math.log10(brut)) - 1) * 2;
+  return Math.ceil(brut / pas) * pas;
+}
+
+/* Les journees qui passent par-dessus ce plafond, et de combien. */
+function barresCoupees(rapporte, rattrapage, plafond, couleur){
+  if(!plafond) return [];
+  const coupees = [];
+  for(let i = 0; i < rapporte.length; i++){
+    const total = (rapporte[i] || 0) + (rattrapage[i] || 0);
+    if(total > plafond) coupees.push({ index: i, total, couleur });
+  }
+  return coupees;
+}
+
+const ruptureRattrapage = {
+  id: 'ruptureRattrapage',
+  afterDatasetsDraw(chart, args, opts){
+    const coupees = opts && opts.coupees;
+    if(!coupees || !coupees.length) return;
+    const ctx = chart.ctx, aire = chart.chartArea;
+    /* L'emprise (x, width) est lue sur le premier jeu de BARRES : la courbe de
+       cumul n'en a pas, et c'est elle le jeu 0 sur certains cadres. */
+    const premierBarres = chart.data.datasets.findIndex(j => j.type !== 'line');
+    if(premierBarres < 0) return;
+    const barres = chart.getDatasetMeta(premierBarres).data;
+    ctx.save();
+    coupees.forEach(({ index, total, couleur }) => {
+      const el = barres[index];
+      if(!el) return;
+      const demi = Math.max(el.width, 7) / 2 + 1;
+      const g = el.x - demi, d = el.x + demi;
+      const yc = aire.top + 24, amp = 3, dents = 3;
+      /* Le haut de la barre est efface jusqu'au bord du cadre, et la coupe
+         dentelee. Une pointe unique se lisait comme une fleche « ca monte
+         encore » ; la dent de scie, elle, est le signe recu d'une rupture —
+         et un sommet plat se serait lu comme une vraie valeur posee sur le
+         plafond. Aucun trait ne la souligne : la barre s'arrete, c'est tout,
+         un liftage de couleur en aurait fait un symbole de plus a decoder. */
+      ctx.beginPath();
+      ctx.moveTo(g, yc + amp);
+      for(let k = 1; k <= dents * 2; k++){
+        ctx.lineTo(g + (d - g) * k / (dents * 2), yc + (k % 2 ? -amp : amp));
+      }
+      ctx.lineTo(d, aire.top + 1);
+      ctx.lineTo(g, aire.top + 1);
+      ctx.closePath();
+      ctx.fillStyle = PALETTE.panel;
+      ctx.fill();
+      /* Le total dans le blanc de la coupe : aucune autre barre n'est chiffree
+         ici, le rapprochement se fait sans legende. */
+      ctx.font = '600 10.5px ' + PALETTE.font;
+      ctx.fillStyle = PALETTE.inkDim;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(fmt(total), el.x, aire.top + 11);
+    });
+    ctx.restore();
+  },
+};
+
 const largeurSemaine = {
   id: 'largeurSemaine',
   beforeDatasetsDraw(chart, args, opts){
@@ -3714,8 +3804,13 @@ function renderOneChart(canvas, chartMode){
      « cumulative » tracait justement les deux courbes de cumul seules — la
      redondance est devenue totale le jour ou la courbe des deces a rejoint
      ce graphique. */
+  let plafondBarres = null, coupees = [];
   {
     const { rapporte: reportedPortion, rattrapage: catchupPortion } = partsQuotidiennes(s);
+    /* L'axe se cale sur le plus fort jour ordinaire ; les rattrapages qui le
+       depassent sont coupes et chiffres. Voir `plafondSansRattrapage`. */
+    plafondBarres = plafondSansRattrapage(reportedPortion, catchupPortion);
+    coupees = barresCoupees(reportedPortion, catchupPortion, plafondBarres, PALETTE.info);
     // Barres verticales simples : couleur pleine pour la part vraiment
     // rapportée ce jour-là, teinte plus claire empilée par-dessus pour la
     // part de rattrapage — uniquement visible sur les deux dates de
@@ -3810,10 +3905,34 @@ function renderOneChart(canvas, chartMode){
       y:{ ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10}, callback:v=>fmt(v) }, grid:{ color:PALETTE.lineSoft }, beginAtZero:true }
     }
   };
+  if(plafondBarres){
+    opts.scales.y.max = plafondBarres;
+    opts.plugins.ruptureRattrapage = { coupees };
+  }
   if(chartMode === 'epidemic'){
+    /* LES CUMULS CEDENT LE BAS DU CADRE AUX BARRES. Tant que l'axe des barres
+       montait a 400, les deux courbes couraient au-dessus d'elles sans jamais
+       les rencontrer. Le plafond les a fait monter de 16 a 35 % de la hauteur,
+       et la courbe des deces — 3 699 sur un axe a 8 000, soit 46 % — s'est
+       retrouvee en plein dans la foret de barres de septembre, qui en occupe
+       55 %. Un ecrasement regle, un croisement cree.
+
+       L'axe de droite part donc SOUS ZERO, d'un quart de sa plage : les deux
+       courbes remontent d'autant et retrouvent leur bande, au-dessus des
+       barres. Un cumul ne descendant jamais sous zero, l'axe ne ment sur rien
+       — mais ses graduations negatives ne designeraient rien non plus, et se
+       taisent. Le quart est un compromis : assez pour degager la fin de
+       periode, ou le conflit est reel, pas assez pour aplatir la forme des
+       courbes, que l'oeil vient lire.
+
+       Sans plafond sur les barres, rien de tout cela n'a lieu d'etre et l'axe
+       repart de zero. */
+    const hautCumul = Math.max(...s.map(r => r.confirmed || 0));
+    const socle = plafondBarres ? -Math.round(hautCumul * RESERVE_BARRES / 100) * 100 : 0;
     opts.scales.y1 = {
-      position:'right', beginAtZero:true,
-      ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10}, callback:v=>fmt(v) },
+      position:'right', beginAtZero:!socle, min: socle || undefined,
+      ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10},
+              callback:v => v < 0 ? '' : fmt(v) },
       grid:{ display:false }
     };
   }
@@ -3825,12 +3944,18 @@ function renderOneChart(canvas, chartMode){
   // quotidien) pour ne jamais hériter du plugin de pourcentage attaché
   // à cette autre instance.
   const wantedType = 'bar';
-  if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode === 'communityDeaths')){
+  /* Le plugin de rupture est inline : une instance nee sans lui ne le prendrait
+     pas a la mise a jour, d'ou le marqueur et la recreation. */
+  if(slot.chart && (slot.chart.config.type !== wantedType || slot.lastMode === 'communityDeaths'
+                    || !slot.chart.$rupture)){
     slot.chart.destroy();
     slot.chart = null;
   }
   if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
-  else { slot.chart = new Chart(ctx, { type:wantedType, data, options:opts }); }
+  else {
+    slot.chart = new Chart(ctx, { type:wantedType, data, options:opts, plugins:[ruptureRattrapage] });
+    slot.chart.$rupture = true;
+  }
   slot.lastMode = chartMode;
   noterPeriode(slot, s[0].date, s[s.length - 1].date);
 }

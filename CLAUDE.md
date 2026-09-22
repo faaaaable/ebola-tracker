@@ -1455,6 +1455,46 @@ de grandeur ne se comparent pas : une centaine contre plusieurs milliers, un
 axe unique écraserait les barres. Une seconde série de barres, translucide,
 isole les deux dates de rattrapage administratif.
 
+**L'AXE NE SE LAISSE PAS DICTER PAR UN RATTRAPAGE** (22 septembre 2026). Le
+22 juillet vaut 369 cas quand la journée médiane en vaut 63 et le plus fort
+jour ORDINAIRE 143 : l'axe montait à 400, la bande 150-400 ne servait qu'à deux
+barres sur cent dix-neuf, et les cent dix-sept autres étaient tassées dans le
+quart du bas — 16 % de la hauteur du cadre pour une journée moyenne. Le plafond
+se cale désormais sur le plus fort jour ordinaire (`plafondSansRattrapage`,
+× 1,12, arrondi au pas rond : 180), et les deux barres de rattrapage sortent du
+cadre. Rien n'est caché : `ruptureRattrapage` les coupe en dent de scie et
+écrit leur total dans le blanc de la coupe, l'infobulle donne toujours les deux
+parts. C'est la nuance de la teinte claire poussée d'un cran — non seulement la
+journée ne peut pas revendiquer ces cas, mais elle ne peut pas non plus donner
+l'échelle.
+
+**La coupe est dentelée, pas pointue.** Première version, un chevron unique :
+il se lisait comme une flèche « ça continue de monter ». La dent de scie est le
+signe reçu d'une rupture. Et aucun trait de couleur ne la souligne — un symbole
+de plus à décoder n'ajoutait rien.
+
+**RELEVER LES BARRES COÛTE LE CROISEMENT DES COURBES, ET LES DEUX RÉGLAGES SE
+TIENNENT.** Tant que l'axe montait à 400, les cumuls couraient au-dessus des
+barres sans jamais les rencontrer. À 180, les barres passent de 16 à 35 % de la
+hauteur et la courbe des décès — 3 699 sur un axe à 8 000, soit 46 % — s'est
+retrouvée en plein dans la forêt de septembre, qui en occupe 55 %. Un
+écrasement réglé, un croisement créé. L'axe de droite part donc SOUS ZÉRO, d'un
+quart de sa plage, graduations négatives muettes : un cumul ne descend jamais
+sous zéro, l'axe ne ment sur rien. **Le quart est un compromis assumé** — il
+dégage la fin de période, où le conflit est réel, mais la courbe des décès
+frôle encore deux ou trois barres hautes ; dégager complètement demanderait
+45 %, et les courbes s'aplatiraient au point de perdre la forme qu'on vient y
+lire. Toucher à `plafondBarres` sans regarder `RESERVE_BARRES` refera le
+croisement.
+
+**Trois constantes gouvernent le cadre**, en tête du plugin :
+`MARGE_PLAFOND` (1,12), `DECLENCHE_RUPTURE` (1,4) et `RESERVE_BARRES` (0,25).
+Le déclencheur est ce qui neutralise la règle d'elle-même dès qu'une vue
+agrège : par semaine, le 22 juillet se dilue dans les siens et ne dépasse plus
+rien, donc aucune coupe. **La vue « par jour » de `/donnees/` porte les mêmes
+deux barres et le même écrasement — le helper est partagé, il n'y est pas
+encore branché.**
+
 `epidemic` **n'a plus de bascule** — elle appartient depuis le 26 aout a
 l'onglet `newCases`, avec un troisieme pas de temps. Le graphique redevient ce
 qu'il etait : le quotidien, et les cumuls par-dessus.
