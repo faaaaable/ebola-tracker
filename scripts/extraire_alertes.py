@@ -303,6 +303,31 @@ def lire_rapport(chemin):
     }, alertes
 
 
+# ---------------------------------------------------------------------------
+# JOURNEES ECARTEES (22 septembre 2026)
+#
+# Une journee n'est retiree que lorsque le bulletin lui-meme se contredit, et
+# jamais parce que son chiffre surprend : la liste est nominative, chacune
+# porte son diagnostic, et elle doit rester courte.
+#
+# Ecarter la journee ENTIERE plutot que la seule valeur fautive : le total
+# recu du jour est vraisemblable, mais une barre sans sa part validee ne se
+# lirait pas mieux qu'une barre fausse, et la part validee est justement ce
+# que les trois vues du cadre montrent.
+# ---------------------------------------------------------------------------
+
+JOURNEES_ECARTEES = {
+    # SitRep 126, tableau 3 : l'Ituri y declare 1 058 alertes validees comme
+    # cas suspects pour 140 invalidees, soit 88 % des vérifiées, quand les
+    # deux journees suivantes donnent 232 pour 667, puis 238 pour 813. Les
+    # colonnes « validees » et « invalidees » sont interverties dans ce
+    # bulletin : echangees, elles rentrent exactement dans la serie. La
+    # lecture du tableau est conforme a son en-tete — l'erreur est en amont,
+    # et la corriger ici reviendrait a reecrire la source.
+    "2026-09-17": "SitRep 126 : colonnes validees / invalidees interverties pour l'Ituri",
+}
+
+
 def main():
     points, alertes, sans = [], [], []
     for chemin in rapports():
@@ -319,6 +344,11 @@ def main():
     par_date = {}
     for p in points:
         par_date[p["date"]] = p
+    ecartees = []
+    for date, motif in JOURNEES_ECARTEES.items():
+        if date in par_date:
+            del par_date[date]
+            ecartees.append("%s — %s" % (date, motif))
     final = sorted(par_date.values(), key=lambda p: p["date"])
     sortie = {
         "periode": {"debut": final[0]["date"], "fin": final[-1]["date"]} if final else None,
@@ -335,6 +365,8 @@ def main():
         final[0]["date"] if final else "-", final[-1]["date"] if final else "-",
         ", ".join("%d par %s" % (n, m) for m, n in sorted(methodes.items()))))
     print("Rapports sans tableau d'alertes lisible (%d) : %s" % (len(sans), ", ".join(sans)))
+    for e in ecartees:
+        print("Journee ecartee : %s" % e)
     if alertes:
         print("\n%d avertissement(s) :" % len(alertes))
         for a in alertes:

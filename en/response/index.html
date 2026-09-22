@@ -238,7 +238,7 @@
       <h2 class="dossier-titre">The response</h2>
       <p class="dossier-lede">Four key indicators of the response: report, test, follow, treat.</p>
       <div class="dossier-chiffres">
-        <div><b class="alerts">15,869</b><span>Alerts received (last 7 bulletins)</span><small>3,720 validated as suspected cases</small></div>
+        <div><b class="alerts">15,028</b><span>Alerts received (last 7 bulletins)</span><small>2,836 validated as suspected cases</small></div>
         <div><b class="labo">17.9%</b><span>Test positivity (last 7 bulletins)</span><small>472 positive out of 2,634 samples</small></div>
         <div><b class="contacts">85.5%</b><span>Contacts seen (last 7 bulletins)</span><small>188,534 seen out of 220,431 to follow</small></div>
         <div><b class="cte">62.7%</b><span>Treatment centre occupancy</span><small>886 hospitalised for 1,412 beds</small></div>
@@ -260,10 +260,12 @@
           <span data-i18n="chartShareBtn">Share</span>
         </button>
       </div>
-      <!-- Volume : combien de signalements par semaine, et combien deviennent
-           des cas suspects. Taux : les memes parts, jour par jour. -->
+      <!-- Le volume des signalements, par semaine ou jour par jour, et la
+           part qui devient des cas suspects. Les deux premieres vues portent
+           le meme indicateur a deux echelles, la troisieme en porte un autre. -->
       <nav class="subtab-nav chart-vue-nav" data-chart-vue="alertesChart">
-        <button type="button" class="subtab-btn active" data-vue="volume" data-i18n="chartVueVolume">Volume</button>
+        <button type="button" class="subtab-btn active" data-vue="volume" data-i18n="chartVueWeekly">Weekly</button>
+        <button type="button" class="subtab-btn" data-vue="jour" data-i18n="chartVueDaily">Daily</button>
         <button type="button" class="subtab-btn" data-vue="taux" data-i18n="chartVueTaux">Rates</button>
       </nav>
       <div class="chart-panel">
@@ -547,8 +549,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=4267c4e964"></script>
-<script defer src="/assets/js/app.js?v=cc30eaf513"></script>
+<script defer src="/assets/js/i18n.js?v=adc9392e49"></script>
+<script defer src="/assets/js/app.js?v=b6047fc673"></script>
 
 </body>
 </html>

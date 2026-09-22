@@ -1535,6 +1535,45 @@ function renderOneChart(canvas, chartMode){
       const jours = calendrier(points[0].date, points[points.length-1].date);
       const parDate = {}; points.forEach(p => { parDate[p.date] = p; });
       const serie = (cle) => jours.map(d => (parDate[d] && parDate[d][cle] !== null && parDate[d][cle] !== undefined) ? parDate[d][cle] : null);
+
+      /* ---- Volume jour par jour (22 septembre 2026, demande du
+         proprietaire, apres la meme vue sur le laboratoire). Les alertes
+         sont la serie la mieux tenue du bulletin : 95 journees relevees sur
+         105, contre 98 sur 110 au laboratoire, et la vue par semaine y cache
+         donc peu de choses — sauf l'a-coup du jour, de 257 a 2 819
+         signalements. Meme idiome que le laboratoire : axe calendaire, blanc
+         a chaque journee sans bulletin, minBarLength pour qu'une journee
+         relevee a zero garde un trait. ---- */
+      if(vueDe(canvas, 'volume') === 'jour'){
+        const recuesJ = serie('recues'), valideesJ = serie('validees');
+        const autresJ = jours.map((d, i) => (recuesJ[i] === null || valideesJ[i] === null)
+          ? null : recuesJ[i] - valideesJ[i]);
+        const sansJour = jours.filter((d, i) => recuesJ[i] === null || valideesJ[i] === null).length;
+        if(!jours.length || autresJ.every(v => v === null)){ vide(); return; }
+        const dataJ = { labels:jours.map(frDate), datasets:[
+          { label:tr('alertesValideesLabel'), data:valideesJ, backgroundColor:PALETTE.info,
+            stack:'a', minBarLength:2, order:2, categoryPercentage:1, barPercentage:.96 },
+          { label:tr('alertesAutresLabel'), data:autresJ, backgroundColor:tint(PALETTE.info, .3),
+            stack:'a', minBarLength:2, order:2, categoryPercentage:1, barPercentage:.96 },
+        ]};
+        const optsJ = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+          plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels) }),
+                    /* Une journee blanche n'a que des nuls : aucune infobulle
+                       ne s'ouvre sur le vide. */
+                    tooltip:infobulle({ filter:item => item.parsed.y !== null, callbacks:{
+                      label:c=>c.dataset.label + ' : ' + fmt(c.parsed.y),
+                      footer:(items) => {
+                        const barres = items.filter(i => Number.isFinite(i.parsed && i.parsed.y));
+                        return barres.length ? tr('alertesRecuesTotal')(fmt(barres.reduce((t, i) => t + i.parsed.y, 0))) : '';
+                      } } }) },
+          scales:{ x:Object.assign(axeX(true), { stacked:true }),
+                   y:{ stacked:true, beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
+        dessiner('bar', dataJ, optsJ);
+        noterPeriode(slot, jours[0], jours[jours.length-1]);
+        noter(tr('chartNoteAlertesJour')(jours.length - sansJour, sansJour));
+        return;
+      }
+
       const maxi = Math.max(100, ...serie('partVerifiee').filter(v=>v!==null), ...serie('partValidee').filter(v=>v!==null));
       /* Les deux parts et, sous chacune, son pont en pointilles au-dessus des
          jours sans bulletin (demande du proprietaire, 5 septembre 2026) :

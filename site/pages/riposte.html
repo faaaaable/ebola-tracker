@@ -42,10 +42,12 @@
           <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
         </button>
       </div>
-      <!-- Volume : combien de signalements par semaine, et combien deviennent
-           des cas suspects. Taux : les memes parts, jour par jour. -->
+      <!-- Le volume des signalements, par semaine ou jour par jour, et la
+           part qui devient des cas suspects. Les deux premieres vues portent
+           le meme indicateur a deux echelles, la troisieme en porte un autre. -->
       <nav class="subtab-nav chart-vue-nav" data-chart-vue="alertesChart">
-        <button type="button" class="subtab-btn active" data-vue="volume" data-i18n="chartVueVolume">{{i18n.chartVueVolume}}</button>
+        <button type="button" class="subtab-btn active" data-vue="volume" data-i18n="chartVueWeekly">{{i18n.chartVueWeekly}}</button>
+        <button type="button" class="subtab-btn" data-vue="jour" data-i18n="chartVueDaily">{{i18n.chartVueDaily}}</button>
         <button type="button" class="subtab-btn" data-vue="taux" data-i18n="chartVueTaux">{{i18n.chartVueTaux}}</button>
       </nav>
       <div class="chart-panel">

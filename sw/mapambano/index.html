@@ -238,7 +238,7 @@
       <h2 class="dossier-titre">Mapambano</h2>
       <p class="dossier-lede">Viashiria vinne muhimu vya mapambano: kuripoti, kupima, kufuatilia, kutibu.</p>
       <div class="dossier-chiffres">
-        <div><b class="alerts">15,869</b><span>Tahadhari zilizopokelewa (ripoti 7 za mwisho)</span><small>3,720 zimethibitishwa kama visa vinavyoshukiwa</small></div>
+        <div><b class="alerts">15,028</b><span>Tahadhari zilizopokelewa (ripoti 7 za mwisho)</span><small>2,836 zimethibitishwa kama visa vinavyoshukiwa</small></div>
         <div><b class="labo">17.9%</b><span>Kiwango cha vipimo chanya (ripoti 7 za mwisho)</span><small>472 chanya kati ya sampuli 2,634</small></div>
         <div><b class="contacts">85.5%</b><span>Walioguswa walioonwa (ripoti 7 za mwisho)</span><small>188,534 walionwa kati ya 220,431 wa kufuatiliwa</small></div>
         <div><b class="cte">62.7%</b><span>Matumizi ya vitanda vya CTE</span><small>886 wamelazwa kwa vitanda 1,412</small></div>
@@ -260,10 +260,12 @@
           <span data-i18n="chartShareBtn">Shiriki</span>
         </button>
       </div>
-      <!-- Volume : combien de signalements par semaine, et combien deviennent
-           des cas suspects. Taux : les memes parts, jour par jour. -->
+      <!-- Le volume des signalements, par semaine ou jour par jour, et la
+           part qui devient des cas suspects. Les deux premieres vues portent
+           le meme indicateur a deux echelles, la troisieme en porte un autre. -->
       <nav class="subtab-nav chart-vue-nav" data-chart-vue="alertesChart">
-        <button type="button" class="subtab-btn active" data-vue="volume" data-i18n="chartVueVolume">Idadi</button>
+        <button type="button" class="subtab-btn active" data-vue="volume" data-i18n="chartVueWeekly">Kwa wiki</button>
+        <button type="button" class="subtab-btn" data-vue="jour" data-i18n="chartVueDaily">Kwa siku</button>
         <button type="button" class="subtab-btn" data-vue="taux" data-i18n="chartVueTaux">Viwango</button>
       </nav>
       <div class="chart-panel">
@@ -547,8 +549,8 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=4267c4e964"></script>
-<script defer src="/assets/js/app.js?v=cc30eaf513"></script>
+<script defer src="/assets/js/i18n.js?v=adc9392e49"></script>
+<script defer src="/assets/js/app.js?v=b6047fc673"></script>
 
 </body>
 </html>
