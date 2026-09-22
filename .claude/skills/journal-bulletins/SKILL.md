@@ -595,3 +595,370 @@ inédite, côté CTE : le Nord-Kivu écrit « en sursaturation (128,2 % ;
 parenthèses, lits au dénominateur de la fraction), diff limité au seul
 30 août, national à 813/1 223 = 66,5 %. Le Sud-Kivu repasse à « ND » au
 tableau des alertes là où le 107 disait des zéros.
+
+---
+
+# Pieges connus
+
+Deplaces de CLAUDE.md le 22 septembre 2026 : ils decrivent des pieges d'extraction et de
+lecture des PDF, exactement le perimetre de ce journal.
+
+**La zone de santé « Tshopo » porte le nom de sa province.** C'est la seule du
+pays. Les deux chemins d'extraction la prenaient pour un en-tête et
+l'avalaient — corrigé le 24 août par la règle : une ligne qui porte le nom de
+la province **en cours** décrit une zone homonyme, pas un nouvel en-tête.
+
+**`province-history.json` ne dit pas quand une province a eu son premier cas.**
+Aucune n'y apparaît jamais à zéro : chacune entre avec un cumul déjà constitué.
+Les vraies dates d'arrivée sont curées dans `site/strings.json` sous
+`provinceArrivals`, chacune avec le numéro du bulletin qui l'établit.
+
+**Ré-extraire un ancien bulletin ne redonne pas toujours les mêmes noms de
+zone.** Un rattrapage sur les 13 et 14 août a produit « Makiso--Kisangani »
+avec deux tirets. Toujours diffuser avant de publier un rattrapage.
+
+**Deux dates portent un rattrapage administratif** et non de vraies
+notifications : le 22 juillet (+272 cas) et le 30 juillet (+172). Elles sont
+codées en dur dans `RATTRAPAGE_ADMIN` (`app.js`), avec ce que chacune rattrape.
+Seul le 22 juillet garde sa teinte distincte une fois agrégé — le 30 juillet
+nomme ses journées, et la semaine comme le mois les contiennent.
+
+**Sept bulletins manquent** à l'archive : 003, 029, 043, 045, 063, 075, 076.
+
+**Les vignettes de province tiennent sur deux colonnes des 320 px.** Elles
+s'empilaient sur une seule colonne sous ~420 px — 1 018 px de haut a 375 px,
+soit 23 % de la page d'accueil — parce que la grille demandait 180 px minimum
+par carte et qu'un ecran de 375 px n'offre que 335 px de contenu. Deux
+colonnes ramenent le bloc a 611 px et la page de 4 339 a 3 932 px.
+
+La raison n'est pas la place gagnee, c'est la **comparaison** : ces six cartes
+n'existent que pour situer les provinces entre elles, et l'Ituri contre le
+Nord-Kivu — 4 655 contre 728 — se lit d'un coup d'oeil quand les deux sont
+cote a cote. Le site adoptait deja cette disposition des 430 px ; les
+telephones etroits en heritaient d'une autre par accident de seuil.
+
+**LA CHRONOLOGIE MARQUE LA 10e, 20e, 30e… ZONE TOUCHEE — JAMAIS UNE ENTREE
+PAR ZONE.** Demande du proprietaire le 27 aout : voir la propagation zone par
+zone. Une entree par arrivee aurait fait 60 lignes sur 32 dates, noyant les
+jalons rediges ; le 29 mai seul en aurait apporte sept. `zone_milestone_events`
+produit donc un jalon par seuil de `ZONE_MILESTONES` (10, 20, 30, 40, 50, 75,
+100), de type `spread` comme les arrivees de province, dont le texte nomme les
+zones arrivees le jour du franchissement, groupees par province — cinq entrees
+au SitRep 103. Le compte est celui des zones DISTINCTES ayant declare au moins
+un cas dans un bulletin, cumule dans l'ordre de `zones-history.json` : une
+zone touchee le reste, meme ramenee a zero ensuite (Bambu), c'est le sens que
+les bulletins donnent a « zones touchees ». Il tombe sur 58, le chiffre
+officiel du jour.
+
+Trois pieges, tous traites dans la fonction :
+- **Le 21 mai n'est pas une arrivee de dix zones**, c'est le premier bulletin
+  a publier un tableau par zone. Son texte le dit autrement
+  (`timelineMilestoneZonesFirstText`).
+- **Une meme zone ecrite de deux facons** — « Gety » le 29 mai, « Gethy »
+  le 9 aout, « Makiso-Kisangani » avec une double espace — se rapproche du
+  fond de carte : cle exacte d'abord, puis a deux caracteres pres DANS LA
+  MEME PROVINCE, le plus proche gagnant s'il est seul a cette distance
+  (« gety » est a 1 de « gethy » et a 2 de « rethy », autre zone de l'Ituri).
+  Aru et Adi, voisines a deux lettres, ont chacune leur cle exacte et ne se
+  melangent pas. Sans ce rapprochement le compte donnait 60, puis 59.
+- **Le nom affiche est celui du dernier bulletin** (`latest.json`) quand la
+  zone y figure — « Nia-Nia » comme dans les tableaux du site, pas le
+  « Nia Nia » ou le « BAMBU » de la premiere mention.
+
+Le titre porte le seuil (« 20 zones »), le texte le compte exact du jour
+(« 22 zones … ») : meme convention que les jalons de cas, dont le titre dit
+« 1 000 cas » quand le bilan du jour en dit 1 003.
+
+**Un carrousel horizontal a ete propose puis ecarte.** La chronologie peut
+defiler parce qu'elle est sequentielle ; six provinces ne se lisent pas dans
+un ordre impose, et ce qui sort de l'ecran n'est pas lu — les quatre dernieres
+provinces auraient disparu, alors que leur presence dit a elle seule que
+l'epidemie touche six provinces. Deux carrousels sur une meme page se genent
+aussi : on ne sait plus ce qui bouge lateralement.
+
+**L'apercu de chronologie de l'accueil tient six jalons, et il faut deux
+fleches pour les atteindre.** Il en montrait quatre, soit 928 px : sur un
+ecran de 1920 px la piste dispose de 1 332 px, il restait donc **404 px de
+vide a droite**. Six cases font 1 392 px — le vide disparait et le leger
+debordement signale qu'il y a une suite. Sur mobile le defilement passe de
+840 a 1 260 px. Ce sont les six **premiers** jalons, dans l'ordre : l'apercu
+raconte le demarrage, « Toute la chronologie » mene au reste. Une selection
+etalee sur toute la periode a ete essayee puis ecartee le 25 aout — sauter
+d'avril a aout en six cases donne l'impression d'une chronologie trouee, et
+l'accueil porte deja l'etat present plus haut (carte, compteurs, graphique).
+
+La piste **defilait deja** mais personne ne pouvait s'en servir sur
+ordinateur : macOS pose des barres en superposition qui n'apparaissent qu'en
+cours de geste, et une souris a molette verticale n'a aucun axe horizontal.
+D'ou deux fleches, activees par `initTimelineScroller()` dans `app.js` et
+affichees sous `@media (pointer:fine)` seulement — au doigt le geste suffit.
+Elles sont `hidden` dans le HTML et revelees par le script : sans JavaScript,
+un bouton mort serait pire que pas de bouton. En bout de course elles
+s'estompent au lieu de disparaitre, sinon la piste sauterait sous le curseur.
+Aucune phrase n'accompagne la piste : `timelineScrollHint` a ete affichee une
+journee puis **supprimee**, avec son style et sa cle. Elle disait ce que le
+dessin montre deja — sur toutes les largeurs de telephone courantes, la case
+suivante est coupee au bord droit et il en reste 52 a 86 % de visible, jamais
+une coupure pile qui ferait croire la piste terminee ; sur ordinateur les
+fleches tiennent ce role. Et l'accessibilite etait deja couverte sans texte
+visible : la piste porte `role="region"` et l'etiquette « Chronologie de
+l'epidemie, defilement horizontal ». Regle a retenir pour ce depot : **ne pas
+ecrire ce que la mise en page montre**, et verifier la coupure avant de
+conclure qu'elle se voit.
+
+**Un chiffre ecrit dans `strings.json` ne se met jamais a jour.** La legende
+de la carte annoncait « Les 464 zones sans cas rapporté restent en gris »
+quand la carte en dessinait 462 : le total etait juste a 55 zones touchees et
+n'a plus bouge depuis. Retire le 25 aout — le gris se comprend sans legende,
+et un chiffre qu'aucun script ne recalcule finit toujours par mentir. Deux
+autres survivent, sans consequence : `provincesTableIntro` parle de « 55 zones
+touchées » en FR et EN, mais **cette cle n'est referencee nulle part**.
+
+**Les captures d'écran des graphiques sont instables** : ils s'animent au
+chargement et se redessinent hors écran. Interroger le canevas
+(`chart.options.animation = false; chart.update('none'); canvas.toDataURL()`)
+plutôt que faire une copie d'écran de page.
+
+**Le format a change une CINQUIEME fois au SitRep 102, sur une seule ligne.**
+La table de repartition par province etait la, lisible, ses six provinces
+reconnues — mais le pipeline s'est arrete sur « Table de repartition par
+province introuvable ». En cause, la ligne « Total » seule : pdfplumber a
+rejete sa cellule « 58/151 (38,4 %) » sur les lignes qui l'encadrent.
+
+```
+58/151 (38,4
+Total 5 656 2 715 48,0% 72
+%)
+```
+
+`PROVINCE_SUMMARY_ROW_RE` exige cette fraction de zones — c'est elle qui
+empeche le motif de mordre sur les autres tableaux du document. Sans total,
+`parse_province_summary_from_text()` renvoie `(None, None)` et le script leve
+une `ValueError`. **Il a echoue proprement** : `data/` intact, le site est
+reste sur le bulletin precedent — c'est le comportement voulu.
+
+Corrige par `PROVINCE_TOTAL_ROW_RE`, un motif dedie a cette seule ligne. Il ne
+relache pas la garde : « Total » en tete est deja tres specifique, et les deux
+cumuls, la letalite et **un unique** nombre en fin de ligne restent exiges — la
+ligne Total du tableau detaille, qui en porte quatre (« 72 18 17 35 »), ne peut
+pas correspondre. La fraction de zones n'est de toute facon pas conservee :
+`total_row` la stocke deja a `None` et elle est recalculee depuis la somme des
+provinces.
+
+**Le meme bulletin a fait juger 50 lignes de zone « non fiables »** contre zero
+au 101 — et pourtant les 58 zones sont sorties exactes, verifiees une par une
+contre le PDF. Le repli sur le texte brut fait son travail ; le compteur de
+lignes ecartees mesure la deformation du tableau, pas la qualite du resultat.
+Il reste un signal a recouper, jamais un verdict.
+
+**Le format a changé une SIXIÈME fois au SitRep 104 : les nouveaux cas sont
+passés en deuxième colonne du tableau des provinces.** Jusqu'au 103, l'ordre
+était nom, cas, décès, létalité, zones, nouveaux cas ; le 104 écrit
+« Ituri 52 4802 2 159 45,0% 28/36 (77,8 %) ». La lecture par position de
+`parse_province_summary()` — cas en `row[1]`, décès en `row[2]`, nouveaux cas
+en `row[-1]` après retrait des cellules vides — a produit **sans aucun
+avertissement** 52 cas confirmés en Ituri, 4 802 décès, 2 836 778 nouveaux
+cas (la fraction de zones lue comme un entier) et 481 nouveaux cas nationaux
+(la létalité « 48,1% » de la ligne Total, dont la cellule nouveaux cas est
+vide). Ni repli, ni ligne jugée non fiable : le tableau était propre, seul son
+ordre avait changé. C'est le cas d'école de la synchronisation en pause.
+
+Depuis le 28 août, `roles_entete_resume()` lit l'en-tête du tableau (fusion
+des lignes d'en-tête colonne par colonne, puis un rôle par colonne :
+province, nouveaux cas, cas, décès, létalité, zones) et
+`nouveaux_cas_en_tete()` décide : si les nouveaux cas précèdent les cas
+cumulés, `parse_province_summary_par_entete()` lit chaque cellule **par
+l'index de son en-tête, sur la ligne brute** — la ligne Total garde sa
+cellule vide à sa place au lieu de se décaler. Sinon la lecture par position
+est inchangée : vérifié sur les 67 bulletins où pdfplumber trouve le tableau,
+68 lignes de province identiques à `province-history.json`, seul le 104
+détecté. La ligne Total est rendue dans l'ordre historique parce que l'aval
+la lit par position (`prov_total_row[1]`, `[2]`, `[3]`, `[-1]`) ; le total
+national de nouveaux cas vient alors de la ligne Total du tableau détaillé,
+qui le porte en clair (81).
+
+À relire après chaque nouveau bulletin, tant que la synchronisation est
+manuelle : **les six lignes de province de `latest.json` contre la page 2 du
+PDF**, cas et décès. `check_coherence.py` l'aurait signalé en bout de chaîne
+(somme des provinces contre le national : 81 pour 5 794), mais après que
+`province-history.json` avait déjà reçu la ligne fausse du 26 août — le
+contrôle arrête la publication, il ne répare pas l'historique, que seule une
+nouvelle exécution d'`update_data.py` rafraîchit (c'est ce qui a été fait).
+
+**Le SitRep 105 (27 août) superpose deux tableaux dans son PDF.** Ses pages 4
+et 5 impriment le tableau des alertes PAR-DESSUS une seconde copie du tableau
+des zones : le texte extrait y est illisible (« Alertes vér(Sifwiaébe+)s »,
+« Itu0r i 89,9 % », « Kyondo 76169 vus su1r2 28 3727 »). Mais chaque couche a
+sa police et son corps : `texte_par_couches()` dans `scripts/textes_pdf.py`
+regroupe les caractères par (police, corps) puis par ligne, et chaque couche
+redevient lisible — la phrase des contacts sort intacte de l'ArialMT 10,6
+(« 24 769 vus sur 28 372 à suivre », cinq provinces), les lignes du tableau
+des alertes de l'ArialMT 10,1 (six provinces, neuf nombres chacune, reçues =
+vivants + décédés). Les scripts des contacts et des alertes n'y recourent
+qu'en repli, quand la lecture ordinaire échoue ; pour les alertes, seulement
+à partir du 087, premier bulletin à porter le tableau par province — appliqué
+aux 084-086 il lisait 948 validées sur 1 141 reçues, leurs colonnes ne sont
+pas celles-là. Le texte par couches n'est pas dans l'ordre de lecture : il ne
+sert qu'aux motifs qui n'en dépendent pas.
+
+Le même bulletin a fait tomber deux hypothèses du pipeline, toutes deux
+corrigées le 29 août :
+
+- **La section des zones n'avait plus de borne de fin.** `get_zone_section_text`
+  la cherchait au titre « Situation des alertes notifiées » ou « Suivi des
+  indicateurs aux PoE/PoC » ; sans l'un des deux, elle renvoyait `None`,
+  aucune zone n'était lue, `latest.json` partait avec zéro zone et
+  `zones-history.json` restait au 104 — sans autre message que « pas de
+  détail par zone exploitable ». D'autres titres sont acceptés, et à défaut
+  la section s'arrête à la ligne « Total » qui clôt le tableau des zones —
+  ce qui, ici, laisse dehors la copie corrompue de la page 4.
+- **La grille pdfplumber du tableau des provinces a éclaté sa ligne Total** :
+  « 5 863 » et « 48,2% » sur une ligne, « 2 824 » seul sur la suivante, et
+  une colonne vide intercalée avant « Zones de santé » (la fraction en
+  colonne 5, l'en-tête en colonne 6). `parse_province_summary_par_entete`
+  rattache les lignes de continuation à la précédente et lit la colonne
+  voisine sans en-tête quand la cellule attendue est vide. Sans cela :
+  décès nationaux `None`, zones par province `None`.
+
+Et une troisième, plus ancienne : **une entrée de la liste des rapports dont
+les cas avaient été lus mais pas les décès n'était jamais reprise** — seul
+l'échec des cas déclenchait une relecture. `sitreps.json` gardait
+« 5863/None » pour le 27 août et `check_coherence` bloquait. La relecture
+vaut désormais aussi pour les décès, avec un drapeau
+`deathsExtractionFailed` pour ne pas retenter à chaque run les bulletins qui
+n'en publient pas. Effet de bord, assumé : quatre-vingts anciennes entrées
+ont été relues une fois, et **deux points de `sitreps.json` ont changé** —
+le 19 mai reçoit ses 4 décès (le SitRep 004 les imprime, « Total 33 4 ND »,
+contrairement à ce que ce guide affirmait plus haut), et le 5 août passe de
+1 850 à 1 851 décès : le SitRep 083 écrit 1 851 dans son tableau des
+provinces et 1 850 dans sa bande de chiffres clés et son tableau détaillé.
+Le site lit le tableau des provinces pour toutes les dates ; il le fait
+maintenant aussi pour celle-là.
+
+**Le SitRep 106 (28 août) a numéroté et renommé ses tableaux** : « Tableau 1.
+Répartition des cas et décès confirmés par province touchée », « Tableau 2.
+Répartition des cas et décès confirmés par province et zone de santé, au
+28 août 2026 », « Tableau 3. Situation des alertes notifiées par province ».
+Trois endroits d'`update_data.py` cherchaient le titre du tableau des zones
+par comparaison exacte, sensible à la casse (« Cas et décès confirmés par
+province et zone de santé ») ; aucun ne le trouvait plus. Même symptôme
+qu'au 105, autre cause : « pas de détail par zone exploitable »,
+`latest.json` sans zone, `zones-history.json` figé au 105 — et rien d'autre
+ne bronchait, puisque les provinces et le national se lisaient bien.
+Corrigé le 30 août : `find_zone_section_start()` cherche le cœur du libellé
+sans égard à la casse ni à ce qui le précède, et sert aux trois lecteurs
+(`parse_province_summary_from_text`, `extract_zone_detail_rows`,
+`get_zone_section_text`). Second effet du même bulletin : la grille
+pdfplumber lit de nouveau le tableau des zones (61 lignes, là où le 105 ne
+rendait qu'une table PoE), et elle coupe « Makiso-⏎Kisangani » ; recollé par
+un tiret, cela donnait « Makiso--Kisangani », zone jamais vue — la
+recomposition n'ajoute plus de tiret quand la coupure en porte déjà un. Les
+60 zones ont été relues une par une contre les pages 2 et 3 du PDF, ainsi
+que les alertes (2 025 reçues, 1 639 vérifiées, 395 validées), le
+laboratoire (82 positifs = 82 nouveaux cas), les CTE et les contacts
+(84,4 %, 21 109 vus sur 25 015) : les autres extracteurs ont lu le 106 sans
+retouche. Reste non lu, et déjà vrai avant : la phrase du Bas-Uélé sous
+« Continuité des soins » (« 1 patient confirmé est en cours de soins pour
+3 lits disponibles »), qui n'a pas la forme « N patients sont hospitalisés
+pour M lits » attendue par `extraire_cte.py`. Les scripts d'inspection
+`inspect_province_summary.py`, `inspect_zone_section.py` et
+`scan_province_summary.py` gardent l'ancien libellé exact : ils ne sont pas
+dans le pipeline, mais ils ne verront pas le tableau du 106 tel quel.
+
+**Les outils de `scripts/verif/` et `audit_mobile.mjs` pointaient en dur sur
+un Chrome Windows** (`C:/Program Files/Google/Chrome/…`), et la machine n'a
+que Brave. Depuis le 30 août, `CHROME` dans l'environnement l'emporte, et à
+défaut le chemin dépend de la plateforme : Brave sur macOS, Chrome ailleurs.
+`visuel_evolution.mjs`, écrit sur le Mac, avait déjà Brave. Second
+obstacle sur la même machine : ces scripts utilisent `WebSocket` en global,
+qui n'existe qu'à partir de Node 22 — sous Node 20.20, lancer avec
+`node --experimental-websocket scripts/verif/capture_page.mjs …`, sinon
+`ReferenceError: WebSocket is not defined`. **Et ce plantage laisse un Brave
+headless orphelin** : le script a déjà lancé le navigateur sur son port fixe
+(9371 pour `capture_page`) quand il tombe, et ne le tue pas. Les lancements
+suivants échouent à prendre le port, se raccordent à l'ancienne instance,
+et celle-ci sert les pages déjà vues **depuis son cache** — le 5 septembre,
+dix-huit instances traînaient, et la page /rapports/ se capturait avec un
+CSS vieux de vingt minutes pendant que /en/reports/, jamais visitée par
+l'orphelin, sortait juste. Symptôme : une capture qui contredit une sonde
+DOM. Remède : `pkill -f 'headless=new.*remote-debugging-port=93'` (les
+instances de `scripts/verif/` seulement, jamais le Brave du propriétaire).
+
+**Dans une ligne de zone rendue par pdfplumber, `None` n'est pas une
+cellule vide.** C'est une colonne absente de la grille, intercalée au
+hasard de la mise en page. Le SitRep 107 rend la queue de Wamba
+`['', None, None, '', None, '1', None, None, '1']` : l'index fixe de
+`parse_zone_day_columns` tombait sur les `None`, le recoupement
+comm + intra = total échouait, et le repli texte lisait « 1 1 » comme un
+nouveau cas suivi d'un total — le Haut-Uélé sommait 8 nouveaux cas pour 7
+déclarés, et Wamba affichait +1 pour un jour sans cas. Corrigé le 31 août :
+le chemin grille écarte les `None` avant de tester les positions, le
+recoupement reste exigé. La cellule vide `''` de Wamba dit alors zéro
+nouveau cas, et 0 + 1 = 1 se recoupe. Le texte brut, lui, reste ambigu par
+nature sur ces queues à deux nombres — c'est la grille qui tranche.
+
+**Le libellé « Total » du tableau des provinces peut tomber seul sur la ligne
+suivante.** Le SitRep 110 (1ᵉʳ septembre) rend la ligne Total du tableau 1 en
+deux lignes de texte : « 64 6 250 3 039 48,6% 60/151 (39,7 %) » puis
+« Total ». Les six provinces passaient, le total non, et le pipeline
+s'arrêtait proprement sur « Table de répartition par province introuvable ».
+Corrigé le 3 septembre : `recoller_total_orphelin()` recolle un « Total »
+isolé à la ligne de chiffres qui le précède (ou le suit), à la seule
+condition que la ligne recollée corresponde à l'un des deux motifs du tableau
+résumé — un « Total » d'un autre tableau ne peut pas s'accrocher à n'importe
+quelle suite de nombres. Le chemin grille, lui, ne voit plus ce tableau depuis
+le 106 : sa première ligne est le titre « Tableau 1. … », et
+`extract_province_summary` cherche « Province » en `t[0][0]`. La grille du
+110 était pourtant propre (en-tête sur une ligne, colonne « Nouveaux cas »
+en double mais vide) ; le remettre en service demanderait de sauter la ligne
+de titre et de vérifier que `roles_entete_resume` supporte la colonne en
+double. Non fait, le repli texte suffit et il est vérifié.
+
+**Le tableau des zones porte QUATRE colonnes de jour, pas trois.** Apres la
+letalite viennent : nouveaux cas, deces communautaires, deces intra-CTE, puis
+un **total** des deces. Ce total etait ignore, et `zone_row_to_dict()` lisait
+les colonnes par position. Or le PDF **n'imprime pas la cellule vide** quand
+une zone n'a de deces que dans une seule des deux categories : la lecture
+tombait alors sur le total en croyant lire l'intra-CTE, et « 3 deces
+communautaires » devenait « 3 communautaires + 3 intra-CTE ». Le site publiait
+le double sur neuf zones sur dix — Bunia (+6) pour 3 deces reels au SitRep 101,
+le Nord-Kivu repartissant 16 deces sur trois zones quand la province en
+declarait 8. Corrige le 25 aout : **le total fait foi**, il est la seule valeur
+que le bulletin imprime toujours (`parse_zone_day_columns()`, champ
+`newDeaths24h`). La ventilation communaute / CTE n'est renseignee que si la
+ligne la donne sans ambiguite, `None` sinon — un des deux compteurs porte le
+total, on ne sait pas lequel, et on ne devine pas. Les lignes de **province**,
+elles, ont toujours ete justes : `PROV_SUBTOTAL_RE` capture les quatre valeurs.
+
+Depuis le 3 septembre, une deduction ferme le trou sans deviner :
+`ventiler_par_soustraction()` retranche des communautaires de la ligne de
+province ceux des zones lues sans ambiguite, et attribue le reste aux zones
+ambigues — seulement si le compte tombe juste (une seule zone ambigue dont
+le total peut l'accueillir, ou plusieurs toutes a zero ou toutes au total).
+Le calcul ne passe que par la colonne communautaire, parce que les lignes
+« A ventiler », non conservees, ne portent que de l'intra-CTE. Sur le 110 :
+Rwampara 2 communautaires (13 - 11), Beni 3 (12 - 9), zero intra-CTE pour
+les deux, confirme par le proprietaire contre le PDF.
+
+Deux consequences a retenir. **Ne jamais additionner `deathsCommunity24h` et
+`deathsIntraCTE24h`** : passer par `zone_new_deaths()` cote generateur,
+`fmtCfr`/`newDeaths24h` cote `app.js`. Et le controle qui manquait est
+desormais dans `check_coherence.py` : *nouveaux deces des zones <= province*.
+Inegalite large, car les lignes « a ventiler » restent hors des zones — ce qui
+en fait un filet a trous : sur l'Ituri, ou 250 deces attendent leur zone, un
+doublement passerait encore inapercu. Il attrape le Nord-Kivu et le Haut-Uele,
+qui n'ont pas de reserve.
+
+**Les annotations `X | None` cassent sur le Python de la machine.** Le seul
+interpréteur disponible est 3.9.6, où PEP 604 n'existe pas : une signature
+`def f() -> str | None` lève `TypeError: unsupported operand type(s) for |` à
+l'import, avant la moindre ligne exécutée. `download_all_sitreps.py` en portait
+trois — corrigé le 25 août par `from __future__ import annotations` en tête de
+fichier, qui rend toutes les annotations paresseuses sans rien réécrire. Le
+workflow GitHub ne l'avait jamais vu : il tourne sur un Python plus récent.
+Vérifier ce point sur tout script repris d'ailleurs.
+
+**Sous Windows, `sys.stdin` décode en cp1252.** Un motif contenant un accent ne
+correspondra pas au HTML lu sur l'entrée standard.
+
+---
