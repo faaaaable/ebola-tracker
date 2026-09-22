@@ -2749,6 +2749,26 @@ qu'en D. La note du graphique le dit.
   semaine et « Échantillons analysés » par jour — et, contrairement à
   `totalEmpile`, il ne se tait pas quand une seule barre porte : une
   journée à zéro positif perdait justement son compte de tests.
+- **Les comptes partiels rendent 17 journées à la vue par jour**
+  (22 septembre 2026, après l'analyse ci-dessous et sur choix du
+  propriétaire). Quand une seule province retient ses échantillons, la
+  courbe somme les provinces complètes au lieu de perdre la journée :
+  **98 journées tracées sur 122 au lieu de 81**, les blancs tombent de 41
+  à 24. Ces journées portent la **hachure** `motifPartiel` — teintée de la
+  couleur de la barre pour garder positifs et négatifs distincts —, une
+  entrée de légende « Compte partiel » (`legendePartielle`, sur le modèle
+  de `legendeAVenir`) et un pied d'infobulle qui **nomme la province
+  manquante** : sans lui, les « 567 analyses » du 28 août se liraient
+  comme un compte du pays entier. **Leur positivité n'est pas tracée** :
+  les positifs y sont presque complets — la province manquante en déclare
+  souvent zéro — quand les échantillons ne le sont jamais, et le taux
+  serait systématiquement surestimé ; le pont pointillé enjambe, comme sur
+  un jour sans bulletin. **La vue par semaine les ignore** : une barre
+  hebdomadaire ne peut pas être à moitié hachurée, et une semaine mêlant
+  journées complètes et partielles ne se lirait plus. Piège rencontré :
+  l'entrée de légende n'a pas de jeu (`datasetIndex: -1`) et le filtre des
+  ponts la lisait comme un dataset — `legendePartielle` la laisse passer
+  avant de rendre la main au filtre d'origine.
 - **Pourquoi 41 journées sont blanches** (analyse du 22 septembre 2026) :
   21 d'entre elles ont pourtant des données, mais **une seule province
   partielle suffit à annuler le total national** — le Nord-Kivu donne ses
