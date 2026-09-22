@@ -434,6 +434,34 @@ def lien_x(config, libelle, classe=""):
             % (esc(compte), (" " + classe) if classe else "", X_ICONE, esc(libelle)))
 
 
+RSS_ICONE = ('<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+             '<circle cx="6.2" cy="17.8" r="2.2"/>'
+             '<path d="M4 4.5v3.2c6.1 0 11.1 5 11.1 11.1h3.2C18.3 11.1 12.1 4.5 4 4.5z"/>'
+             '<path d="M4 10.4v3.2c3 0 5.4 2.4 5.4 5.4h3.2c0-4.7-3.9-8.6-8.6-8.6z"/></svg>')
+
+TELEGRAM_ICONE = ('<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+                  '<path d="M21.9 4.3 18.7 19c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 12.7 1.4 11.2c-1-.3-1.1-1 .2-1.5L20.5 3c.9-.3 1.6.2 1.4 1.3z"/></svg>')
+
+
+def lien_flux(config, lang, libelle):
+    """Le flux RSS de la langue courante. Toujours rendu : il existe des que
+    le site est genere (scripts/build_feeds.py)."""
+    return ('<a href="%s/feed.xml" class="lien-flux footer-x">%s %s</a>'
+            % (loc(lang, "urlPrefix"), RSS_ICONE, esc(libelle)))
+
+
+def lien_telegram(config, libelle):
+    """Le canal Telegram (site.telegram dans pages.json, « @canal » ou son
+    adresse complete), ou chaine vide tant qu'il n'est pas ouvert — meme
+    regle que lien_x() : jamais de lien mort (22 septembre 2026)."""
+    canal = (config["site"].get("telegram") or "").strip()
+    if not canal:
+        return ""
+    url = canal if canal.startswith("http") else "https://t.me/%s" % canal.lstrip("@")
+    return ('<a href="%s" rel="noopener" target="_blank" class="lien-telegram footer-x">%s %s</a>'
+            % (esc(url), TELEGRAM_ICONE, esc(libelle)))
+
+
 def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces):
     by_id = {p["id"]: p for p in config["pages"]}
     columns = []
@@ -448,6 +476,13 @@ def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces):
             lx = lien_x(config, strings_lang["footerFollowX"], "footer-x")
             if lx:
                 links.append('        <li>%s</li>' % lx)
+            # Puis les deux canaux d'abonnement (22 septembre 2026) : le flux
+            # toujours, le canal Telegram seulement s'il est ouvert.
+            links.append('        <li>%s</li>'
+                         % lien_flux(config, lang, strings_lang["footerFollowRss"]))
+            lt = lien_telegram(config, strings_lang["footerFollowTelegram"])
+            if lt:
+                links.append('        <li>%s</li>' % lt)
         columns.append(
             '      <div class="footer-col">\n'
             '        <h2>%s</h2>\n'
@@ -2724,6 +2759,12 @@ def main():
     generated.append("sitemap.xml")
     write_404(config, urls, strings, i18n, layout)
     generated.append("404.html")
+    # Les flux RSS, un par langue (22 septembre 2026). Declares dans le
+    # manifeste : sans cela remove_stale les prendrait pour des restes et les
+    # effacerait au passage suivant. Import tardif — build_feeds importe
+    # build_pages pour ses conventions de langue.
+    import build_feeds
+    generated.extend(build_feeds.build(verbose=False))
 
     remove_stale(generated)
     write(MANIFEST, json.dumps(sorted(generated), ensure_ascii=False, indent=1) + "\n")
@@ -3033,6 +3074,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "description": esc(meta["description"]),
         "canonical": canonical,
         "alternates": alternates_html(config, urls, alt_paths),
+        # Le flux de la langue courante, annonce dans le <head> : c'est par
+        # cette balise que les lecteurs et les relais (Slack, Brevo) le
+        # trouvent depuis n'importe quelle page.
+        "feedUrl": origin + loc(lang, "urlPrefix") + "/feed.xml",
+        "t.feedTitle": esc(strings_lang["feedTitle"]),
         # og:site_name : le meme nom de marque que WebSite.name, pour Google.
         "siteName": esc(site.get("brandName") or strings_lang["siteTitleMain"]),
         "ogType": "website" if page.get("id") == "accueil" else "article",

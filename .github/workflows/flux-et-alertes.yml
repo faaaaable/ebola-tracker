@@ -1,0 +1,91 @@
+name: Flux RSS et alertes Telegram
+
+# Une lettre paraît → le flux est refait et les abonnés sont prévenus.
+#
+# Le déclencheur est le fichier source d'une lettre, pas une heure fixe :
+# c'est l'arrivée de data/lettres/<num>.json sur main qui rend la lettre
+# publique, donc c'est elle qui doit prévenir. bulletin-notes.json est
+# surveillé lui aussi parce qu'il porte le résumé des Défis, parfois
+# ajouté dans un second commit ; l'annonce attend ce résumé (voir
+# scripts/notifier_telegram.py), et ce second passage la débloque.
+#
+# Sans secret Telegram configuré, le job ne fait que le flux RSS : rien à
+# désactiver ici tant que les canaux ne sont pas ouverts.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/lettres/**'
+      - 'data/bulletin-notes.json'
+  workflow_dispatch:
+    inputs:
+      num:
+        description: "Numéro de lettre à annoncer (vide = la plus récente)"
+        required: false
+      essai:
+        description: "Essai à blanc : affiche le message sans l'envoyer"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write  # le flux régénéré et data/notifie.json sont commités
+
+# Deux lettres poussées coup sur coup ne doivent pas s'annoncer en
+# parallèle : le second passage écraserait l'état du premier.
+concurrency:
+  group: flux-et-alertes
+  cancel-in-progress: false
+
+jobs:
+  flux-et-alertes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v5
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Installer Node
+        # scripts/dump_i18n.mjs : les libellés des chiffres viennent de
+        # assets/js/i18n.js, comme pour les pages.
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Régénérer les flux RSS
+        run: python3 scripts/build_feeds.py
+
+      - name: Annoncer la lettre sur Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID_FR: ${{ secrets.TELEGRAM_CHAT_ID_FR }}
+          TELEGRAM_CHAT_ID_EN: ${{ secrets.TELEGRAM_CHAT_ID_EN }}
+          TELEGRAM_CHAT_ID_SW: ${{ secrets.TELEGRAM_CHAT_ID_SW }}
+          # Les saisies du lancement manuel passent par l'environnement, pas
+          # par ${{ }} dans la commande : une valeur interpolée dans un
+          # « run: » est du texte injecté dans le shell.
+          NUM: ${{ inputs.num }}
+          ESSAI: ${{ inputs.essai }}
+        run: |
+          args=""
+          if [ -n "$NUM" ]; then args="--num $NUM"; fi
+          if [ "$ESSAI" = "true" ]; then args="$args --essai"; fi
+          python3 scripts/notifier_telegram.py $args
+
+      - name: Publier le flux et l'état des annonces
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add feed.xml en/feed.xml sw/feed.xml data/notifie.json
+          if git diff --cached --quiet; then
+            echo "Rien à publier."
+          else
+            git commit -m "Flux RSS et alertes : mise à jour automatique"
+            # Une lettre poussée pendant le job laisserait le push derrière
+            # la branche : on se replace dessus avant de publier.
+            git pull --rebase --autostash
+            git push
+          fi

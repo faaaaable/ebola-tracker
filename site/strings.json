@@ -507,7 +507,12 @@
   "lettreSituationAu": "Situation au {date}",
   "bulSousTitre": "Résumé du bulletin de l'INSP, à chaque nouvelle parution",
   "lettreEdsPartiel": "Enterrements sécurisés, faits par des équipes protégées pour éviter la contagion : {realisees} enterrements réalisés et {swabes} corps testés. Les {alertes} décès signalés ne viennent pas des mêmes provinces : toutes ne publient pas ces chiffres, et les trois ne se comparent pas.",
-  "lettreKpiEdsSubSeul": "{realisees} réalisés"
+  "lettreKpiEdsSubSeul": "{realisees} réalisés",
+  "feedTitle": "Ebola Tracker — la lettre",
+  "feedDescription": "Chaque bulletin de l'épidémie d'Ebola en RDC, résumé le jour de sa parution : chiffres nationaux et ce que la lettre retient.",
+  "feedItemTitle": "La lettre n°{num}",
+  "footerFollowRss": "Suivre par flux RSS",
+  "footerFollowTelegram": "Canal Telegram"
  },
  "en": {
   "skipToContent": "Skip to main content",
@@ -1016,7 +1021,12 @@
   "lettreSituationAu": "Situation as of {date}",
   "bulSousTitre": "Summary of the INSP bulletin, with each new release",
   "lettreEdsPartiel": "Safe burials, carried out by protected teams to avoid contagion: {realisees} burials carried out and {swabes} bodies tested. The {alertes} deaths reported do not come from the same provinces: not all of them publish these figures, and the three numbers are not comparable.",
-  "lettreKpiEdsSubSeul": "{realisees} carried out"
+  "lettreKpiEdsSubSeul": "{realisees} carried out",
+  "feedTitle": "Ebola Tracker — the letter",
+  "feedDescription": "Every situation report on the Ebola outbreak in the DRC, summarised on the day it is published: national figures and what the letter takes from it.",
+  "feedItemTitle": "The letter no. {num}",
+  "footerFollowRss": "Follow by RSS feed",
+  "footerFollowTelegram": "Telegram channel"
  },
  "timelineEvents": [
   {
@@ -2025,6 +2035,11 @@
   "lettreSituationAu": "Hali tarehe {date}",
   "bulSousTitre": "Muhtasari wa ripoti ya INSP, kila toleo jipya linapotoka",
   "lettreEdsPartiel": "Mazishi salama, yanayofanywa na timu zilizokingwa ili kuepusha maambukizi: mazishi {realisees} yamefanyika na miili {swabes} imepimwa. Vifo {alertes} vilivyoripotiwa havitoki majimbo yaleyale: si majimbo yote yanayochapisha takwimu hizi, na namba hizo tatu hazilinganishwi.",
-  "lettreKpiEdsSubSeul": "{realisees} yamefanyika"
+  "lettreKpiEdsSubSeul": "{realisees} yamefanyika",
+  "feedTitle": "Ebola Tracker — barua",
+  "feedDescription": "Kila taarifa ya mlipuko wa Ebola nchini DRC, kwa muhtasari siku inapochapishwa: takwimu za kitaifa na yale barua inayoyachukua.",
+  "feedItemTitle": "Barua na. {num}",
+  "footerFollowRss": "Fuata kwa mkondo wa RSS",
+  "footerFollowTelegram": "Kituo cha Telegram"
  }
 }
