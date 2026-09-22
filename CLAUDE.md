@@ -1491,9 +1491,28 @@ croisement.
 `MARGE_PLAFOND` (1,12), `DECLENCHE_RUPTURE` (1,4) et `RESERVE_BARRES` (0,25).
 Le déclencheur est ce qui neutralise la règle d'elle-même dès qu'une vue
 agrège : par semaine, le 22 juillet se dilue dans les siens et ne dépasse plus
-rien, donc aucune coupe. **La vue « par jour » de `/donnees/` porte les mêmes
-deux barres et le même écrasement — le helper est partagé, il n'y est pas
-encore branché.**
+rien, donc aucune coupe.
+
+**LA MÊME RÈGLE SUR LES PAGES PROVINCE** (22 septembre 2026), posée sur le bloc
+`provinceEpidemic` après le retour de la vue agrégée. L'Ituri était le cas le
+plus sévère du site : pic ordinaire 119, barre du 22 juillet 347, axe à 350 —
+des barres courantes à 15 % de la hauteur. Son axe tombe à 140.
+
+**Un seul bloc dessine les six provinces : la règle est branchée sur le bloc,
+et `DECLENCHE_RUPTURE` fait le tri.** Vérifié page par page — le Nord-Kivu ne
+bascule pas (pic 50, rattrapage 41, sous le seuil), le Haut-Uélé non plus (15
+contre 14). **Seul l'Ituri coupe.** Côté province la journée entière de
+rattrapage est en teinte claire, sa part rapportée n'étant pas publiée à cette
+échelle : elle sort du calcul du pic ordinaire par la même porte qu'au
+national — une barre qui porte du rattrapage ne donne pas l'échelle.
+
+**Quatre provinces n'ont aucun graphique** et ne sont donc pas concernées :
+`SEUIL_COURBE_PROVINCE = 50` dans `build_pages.py` (Bas-Uélé, Sud-Kivu,
+Sud-Ubangi, Tshopo). Piège de test : on cherche un canevas qui n'existe pas.
+
+**Reste non branché : la vue « par jour » de `/donnees/`** — l'onglet
+« Nouveaux cas » de l'ensemble du pays, bloc distinct de celui de l'accueil. Il
+porte les mêmes deux barres et le même écrasement, et le helper est partagé.
 
 `epidemic` **n'a plus de bascule** — elle appartient depuis le 26 aout a
 l'onglet `newCases`, avec un troisieme pas de temps. Le graphique redevient ce

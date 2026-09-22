@@ -1118,14 +1118,25 @@ function plafondSansRattrapage(rapporte, rattrapage){
 }
 
 /* Les journees qui passent par-dessus ce plafond, et de combien. */
-function barresCoupees(rapporte, rattrapage, plafond, couleur){
+function barresCoupees(rapporte, rattrapage, plafond){
   if(!plafond) return [];
   const coupees = [];
   for(let i = 0; i < rapporte.length; i++){
     const total = (rapporte[i] || 0) + (rattrapage[i] || 0);
-    if(total > plafond) coupees.push({ index: i, total, couleur });
+    if(total > plafond) coupees.push({ index: i, total });
   }
   return coupees;
+}
+
+/* Le socle de l'axe des cumuls — voir « les cumuls cedent le bas du cadre ».
+   Arrondi a deux chiffres significatifs, pour que l'axe se gradue rond a
+   toutes les echelles : le pays compte en milliers de cas, la Tshopo en
+   dizaines, et -1 918 comme -47,5 auraient donne des graduations batardes. */
+function socleCumuls(hautCumul){
+  const x = hautCumul * RESERVE_BARRES;
+  if(!(x > 0)) return 0;
+  const pas = Math.pow(10, Math.max(0, Math.floor(Math.log10(x)) - 1));
+  return -Math.round(x / pas) * pas;
 }
 
 const ruptureRattrapage = {
@@ -1140,7 +1151,7 @@ const ruptureRattrapage = {
     if(premierBarres < 0) return;
     const barres = chart.getDatasetMeta(premierBarres).data;
     ctx.save();
-    coupees.forEach(({ index, total, couleur }) => {
+    coupees.forEach(({ index, total }) => {
       const el = barres[index];
       if(!el) return;
       const demi = Math.max(el.width, 7) / 2 + 1;
@@ -3345,7 +3356,31 @@ function renderOneChart(canvas, chartMode){
                          serie.length ? (ouverte ? derniereDate : serie[serie.length - 1].fin) : null);
       return;
     }
-    slot.chart = new Chart(canvas.getContext('2d'), { type: 'bar', data, options: opts });
+    /* MEME REGLE QU'A L'ACCUEIL, ET POUR LA MEME RAISON — en pire ici : le
+       22 juillet vaut 347 cas en Ituri quand le plus fort jour ordinaire en
+       vaut 119, et l'axe montait a 350 pour des barres courantes a 15 % de la
+       hauteur. Le calcul est celui du pays, aux memes constantes, pose apres
+       le retour de la vue agregee : agreger dilue deja le rattrapage, et
+       `DECLENCHE_RUPTURE` y renonce de lui-meme.
+
+       Cote province la journee entiere de rattrapage est en teinte claire —
+       sa part rapportee n'est pas publiee a cette echelle — donc elle sort du
+       calcul du pic ordinaire par la meme porte que le national : une barre
+       qui porte du rattrapage ne donne pas l'echelle.
+
+       LA REGLE VAUT POUR LES SIX PROVINCES, un seul bloc les dessinant. Elle
+       ne se declenche que la ou elle sert : la Tshopo n'a pris aucun cas le
+       22 juillet, son graphique ne bouge pas. */
+    const plafondP = plafondSansRattrapage(rapporte, rattrape);
+    if(plafondP){
+      opts.scales.y.max = plafondP;
+      opts.plugins.ruptureRattrapage = { coupees: barresCoupees(rapporte, rattrape, plafondP) };
+      opts.scales.y1.min = socleCumuls(Math.max(...pts.map(pt => pt.confirmed || 0)));
+      opts.scales.y1.beginAtZero = false;
+      opts.scales.y1.ticks.callback = v => v < 0 ? '' : fmt(v);
+    }
+    slot.chart = new Chart(canvas.getContext('2d'),
+      { type: 'bar', data, options: opts, plugins: [ruptureRattrapage] });
     slot.lastMode = 'provinceEpidemic-quotidien';
     noterPeriode(slot, pts.length ? pts[0].date : null,
                        pts.length ? pts[pts.length - 1].date : null);
@@ -3810,7 +3845,7 @@ function renderOneChart(canvas, chartMode){
     /* L'axe se cale sur le plus fort jour ordinaire ; les rattrapages qui le
        depassent sont coupes et chiffres. Voir `plafondSansRattrapage`. */
     plafondBarres = plafondSansRattrapage(reportedPortion, catchupPortion);
-    coupees = barresCoupees(reportedPortion, catchupPortion, plafondBarres, PALETTE.info);
+    coupees = barresCoupees(reportedPortion, catchupPortion, plafondBarres);
     // Barres verticales simples : couleur pleine pour la part vraiment
     // rapportée ce jour-là, teinte plus claire empilée par-dessus pour la
     // part de rattrapage — uniquement visible sur les deux dates de
@@ -3927,8 +3962,7 @@ function renderOneChart(canvas, chartMode){
 
        Sans plafond sur les barres, rien de tout cela n'a lieu d'etre et l'axe
        repart de zero. */
-    const hautCumul = Math.max(...s.map(r => r.confirmed || 0));
-    const socle = plafondBarres ? -Math.round(hautCumul * RESERVE_BARRES / 100) * 100 : 0;
+    const socle = plafondBarres ? socleCumuls(Math.max(...s.map(r => r.confirmed || 0))) : 0;
     opts.scales.y1 = {
       position:'right', beginAtZero:!socle, min: socle || undefined,
       ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10},
