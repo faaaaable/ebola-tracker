@@ -991,32 +991,60 @@ td.is-soft{color:var(--ink-faint);}
    plutot qu'une largeur minimale, pour que le nombre de provinces puisse
    changer sans casser la mise en page. Les chiffres passent alors en lignes
    empilees, seule facon de rester lisible dans une colonne etroite. */
+/* PLUS DE CARTE, UNE COLONNE COIFFEE D'UN FILET (22 septembre 2026). Les
+   vignettes etaient des boites a bordure gauche coloree portant trois paires
+   libelle/valeur en capitales — le gabarit qu'on voit partout, « ca fait
+   beaucoup trop IA », meme reproche que la police des chiffres du panneau de
+   la carte le 10 septembre. Ne restent que le filet, le nom, le chiffre.
+
+   LE FILET PORTE L'IDENTITE, LE TEXTE GARDE L'ENCRE. Le nom du Nord-Kivu
+   ecrit dans son ambre tombe a 3,9 de contraste quand le site s'impose 4,5 ;
+   et c'est deja la regle ailleurs — le chiffre porte l'encre, le trait a cote
+   porte la province. La teinte arrive par `--teinte`, posee par le
+   generateur depuis PROVINCE_COLORS.
+
+   La letalite est tombee avec les libelles : a cet endroit la question est ou
+   est l'epidemie, pas comment elle tue. Elle reste sur chaque page province.
+   Six variantes montrees en local avant celle-ci. */
 .province-grid{
-  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:10px;
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:20px;
 }
-.province-card{
+.province-col{
   display:block;text-decoration:none;color:inherit;min-width:0;
-  background:var(--bg-panel);border:1px solid var(--line);
-  border-left:3px solid var(--accent);
-  border-radius:var(--radius-card);padding:13px 14px;
+  border-top:2px solid var(--teinte,var(--accent));padding:12px 0 0;
+  transition:border-top-width .12s ease, padding-top .12s ease;
 }
-.province-card:hover{
-  text-decoration:none;border-color:var(--accent);
-  box-shadow:0 6px 18px rgba(31,26,19,.06);
+/* Le survol epaissit le filet vers le BAS — la colonne remonte d'autant, le
+   texte ne bouge pas d'un pixel et la rangee ne tressaute pas. */
+.province-col:hover{
+  text-decoration:none;border-top-width:5px;padding-top:9px;
 }
-.province-card h2,.province-card h3{
-  font-family:var(--font-serif);font-size:16px;font-weight:600;
-  margin:0 0 10px;color:var(--ink);letter-spacing:-0.01em;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+/* ET LE TEXTE GROSSIT PAR `transform`, JAMAIS PAR `font-size`. Agrandir la
+   police relance la mise en page : la colonne survolee gagne trois pixels de
+   haut, la rangee entiere s'allonge et tout ce qui suit descend — sur une
+   grille de sept colonnes egales, le saut se voit. Une mise a l'echelle ne
+   touche pas au flux, l'origine a gauche garde les trois lignes alignees sur
+   le meme bord, et les ecarts verticaux ne bougent pas. */
+.pcol-nom,.pcol-cas,.pcol-deces{
+  transform-origin:left center;
+  transition:transform .13s ease;
 }
-.pc-stats{display:flex;flex-direction:column;gap:4px;}
-.pc-stat{display:flex;align-items:baseline;justify-content:space-between;gap:6px;}
-.pc-stat .k{
-  font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--ink-label);white-space:nowrap;
+.province-col:hover .pcol-nom,
+.province-col:hover .pcol-cas,
+.province-col:hover .pcol-deces{
+  transform:scale(1.045);
 }
-.pc-stat .v{
-  font-size:16px;font-weight:700;color:var(--ink);line-height:1.15;
+.pcol-nom{
+  display:block;font-family:var(--font-serif);font-size:14.5px;font-weight:600;
+  color:var(--ink-dim);
+  margin-bottom:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.pcol-cas{
+  display:block;font-family:var(--font-serif);font-size:29px;font-weight:600;
+  color:var(--ink);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+}
+.pcol-deces{
+  display:block;margin-top:9px;font-size:12px;color:var(--ink-faint);
   font-variant-numeric:tabular-nums;
 }
 .pc-zones{
@@ -1051,11 +1079,6 @@ td.is-soft{color:var(--ink-faint);}
   .cd-nat .v{font-size:19px;}
 }
 
-@media (min-width:1401px) and (max-width:1680px){
-  .pc-stat{flex-direction:column;align-items:flex-start;gap:0;}
-  .pc-stat .k{line-height:1.35;}
-}
-
 /* Empile ou non, sous ~1400 px la carte tombe a 85 px de large : le libelle
    lui-meme n'y tient plus. Six colonnes n'ont alors plus de sens, la grille
    s'enroule. Seuil releve de 1080 a 1400 px : entre les deux, tous les 13
@@ -1077,21 +1100,18 @@ td.is-soft{color:var(--ink-faint);}
   .province-grid{
     grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
   }
-  /* Le libelle passe au-dessus du chiffre sur toute la plage, meme remede que
-     sur les 13 pouces plus haut. A 375 px la carte n'offre que 135 px de
-     contenu et « Cas confirmés » cote a cote avec « 4 655 » en demande
-     exactement 135 : le chiffre sortait de sa carte.
+  /* Le cote a cote libelle/valeur n'existe plus, donc le remede non plus : la
+     colonne empile le nom, le chiffre et les deces par construction. Elle
+     encaisse d'elle-meme un chiffre plus long — le cumul progresse de 86 cas
+     par jour et franchira les 10 000 vers le 13 octobre 2026, ce qui cassait
+     l'ancienne mise en page a 375 px.
 
-     Un seuil intermediaire a 385 px avait ete essaye — de 390 a 420 px la
-     carte offre 142 px et le cote a cote y tenait, pour 37 px de moins par
-     rangee. Ecarte le 25 aout apres mesure : en remplacant les valeurs par
-     « 10 000 » et « 5 000 », le cote a cote deborde des 390 px alors que
-     l'empilement tient. Le cumul progresse de 86 cas par jour et franchira
-     les 10 000 vers le 13 octobre 2026 — la mise en page se serait cassee
-     toute seule, et c'est exactement le defaut qu'on venait de corriger.
-     L'empilement encaisse un chiffre plus long sans rien demander. */
-  .pc-stat{flex-direction:column;align-items:flex-start;gap:0;}
-  .pc-stat .k{line-height:1.35;}
+     La colonne se resserre seulement : le filet et le nom tiennent a 150 px,
+     le chiffre descend d'un cran pour que « 10 000 » passe. */
+  .province-col{padding-top:10px;}
+  .pcol-cas{font-size:24px;}
+  .pcol-nom{font-size:13.5px;margin-bottom:7px;}
+  .pcol-deces{margin-top:7px;font-size:11.5px;}
 }
 
 /* ==========================================================================

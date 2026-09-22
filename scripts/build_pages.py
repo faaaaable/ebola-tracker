@@ -1100,31 +1100,39 @@ def province_series(history, name):
 
 
 def province_cards_html(provinces, urls, lang, strings_lang):
+    """Une colonne par province, coiffee d'un filet dans sa teinte d'identite.
+
+    LA COULEUR EST DANS LE FILET, JAMAIS DANS LE TEXTE. Le nom du Nord-Kivu
+    ecrit dans son ambre tombe a 3,9 de contraste quand le site s'impose 4,5 —
+    et c'est deja la regle ailleurs : le chiffre porte l'encre, la pastille ou
+    le trait a cote porte l'identite.
+
+    Ce qui a remplace les cartes bordees a gauche (22 septembre 2026) : trois
+    paires libelle/valeur en capitales dans une boite, c'etait le gabarit qu'on
+    voit partout — « ca fait beaucoup trop IA », meme reproche que la police
+    des chiffres du panneau de la carte le 10 septembre. La letalite est
+    tombee au passage : a cet endroit la question est ou est l'epidemie, pas
+    comment elle tue ; elle reste sur chaque page province. Six variantes
+    montrees en local avant celle-ci.
+
+    Le compte de deces s'ecrit en toutes lettres sous le chiffre des cas —
+    plus aucun libelle en capitales : c'est le mot qui porte l'unite.
+    """
     cards = []
     for province in sorted(provinces, key=lambda p: -(p.get("confirmed") or 0)):
-        # Plus de « 28 zones touchees sur 36 » sous les trois chiffres : le
-        # compte de zones vit en tete de /donnees/ et dans la chronologie, et
-        # la carte au-dessus le montre. Demande du proprietaire, 27 aout.
-        zones_line = ""
+        deces = province.get("deaths")
         cards.append(
-            '      <a class="province-card" href="%s" style="border-left-color:%s;">\n'
-            "        <h3>%s</h3>\n"
-            '        <div class="pc-stats">\n'
-            '          <div class="pc-stat"><span class="k">%s</span>'
-            '<span class="v">%s</span></div>\n'
-            '          <div class="pc-stat"><span class="k">%s</span>'
-            '<span class="v">%s</span></div>\n'
-            '          <div class="pc-stat"><span class="k">%s</span>'
-            '<span class="v">%s</span></div>\n'
-            "        </div>%s\n"
+            '      <a class="province-col" href="%s" style="--teinte:%s;">\n'
+            '        <span class="pcol-nom">%s</span>\n'
+            '        <span class="pcol-cas">%s</span>\n'
+            '        <span class="pcol-deces">%s</span>\n'
             "      </a>" % (
                 urls.province_path(province["name"], lang),
                 PROVINCE_COLORS.get(province["name"], "var(--ink-faint)"),
                 esc(province["name"]),
-                esc(strings_lang["provincesCardCases"]), fmt(province.get("confirmed"), lang),
-                esc(strings_lang["provincesCardDeaths"]), fmt(province.get("deaths"), lang),
-                esc(strings_lang["provincesCardCfr"]), fmt_cfr(province.get("cfr"), lang),
-                zones_line))
+                fmt(province.get("confirmed"), lang),
+                esc(interp(strings_lang["provincesCardDeathsInline"],
+                           {"n": fmt(deces, lang)}))))
     return "\n".join(cards)
 
 

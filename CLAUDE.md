@@ -773,6 +773,59 @@ base à tenir.
 
 ---
 
+## La rangée des provinces, en bas de l'accueil
+
+**Les six vignettes sont devenues sept colonnes coiffées d'un filet**
+(22 septembre 2026). C'étaient des boîtes à bordure gauche colorée portant
+trois paires libellé/valeur en capitales — cas, décès, létalité. Reproche du
+propriétaire : « ça fait beaucoup trop IA », le même qu'à la police des
+chiffres du panneau de la carte le 10 septembre. La règle du 27 août « moins
+de boîtes, plus de traits » les avait explicitement épargnées ; un mois plus
+tard elles étaient le dernier endroit de l'accueil à porter une boîte.
+
+Ne restent que **le filet, le nom, le chiffre, les décès**. `province_col` /
+`.pcol-*` remplacent `.province-card` / `.pc-stat`.
+
+- **LE FILET PORTE L'IDENTITÉ, LE TEXTE GARDE L'ENCRE.** La teinte arrive par
+  `--teinte`, posée par le générateur depuis `PROVINCE_COLORS`. Écrire le nom
+  dans la couleur de sa province était la première idée : l'ambre du Nord-Kivu
+  tombe à **3,9 de contraste** sur son fond quand le site s'impose 4,5. C'est
+  déjà la règle ailleurs — le chiffre porte l'encre, le trait à côté porte la
+  province.
+- **La létalité est tombée avec les libellés.** À cet endroit la question est
+  où est l'épidémie, pas comment elle tue ; elle reste sur chaque page
+  province. Décision du propriétaire.
+- **Le compte de décès s'écrit en toutes lettres** sous le chiffre des cas,
+  clé `provincesCardDeathsInline` : plus aucun libellé en capitales, c'est le
+  mot qui porte l'unité. L'anglais accorde (`{n} death{n?s}` — « 1 death » au
+  Sud-Kivu), le swahili place le nom devant le nombre (« vifo 850 »).
+- **LE TEXTE GROSSIT AU SURVOL PAR `transform`, JAMAIS PAR `font-size`.**
+  Agrandir la police relance la mise en page : la colonne survolée gagne trois
+  pixels de haut et toute la rangée s'allonge. Mesuré après coup : la grille
+  fait 102,06 px au repos **comme au survol**. Même principe pour le filet, qui
+  passe de 2 à 5 px en reprenant l'épaisseur sur le padding.
+- **La règle mobile `.pc-stat` a disparu**, avec le côte à côte libellé/valeur
+  qu'elle rattrapait. La colonne empile par construction et encaisse un chiffre
+  plus long — le cumul franchira 10 000 vers le 13 octobre 2026, ce qui cassait
+  l'ancienne mise en page à 375 px. Deux colonnes dès 320 px, vérifié.
+
+**Dix variantes montrées en local avant celle-ci**, en trois planches
+(`tmp/propositions-provinces*.html`, gitignoré). Écartées : la liste-relevé à
+filets horizontaux, la liste à jauges, le classement avec part du pays, le
+relevé à sparklines (sous dix cas la courbe ne dit plus rien), les colonnes à
+deux chiffres côte à côte, le carré à fond uni, le carré teinté à 9 % et le
+carré teinté par paliers de la carte — celui-ci doublait le cartogramme du haut
+de page et mettait l'Ituri et le Nord-Kivu dans la même teinte à un facteur
+quatre d'écart.
+
+**LA RÉSERVE QUI RESTE, ET QUI VAUT D'ÊTRE RELUE AVANT D'Y REVENIR : la
+hiérarchie n'est pas encodée.** L'Ituri (5 913) et le Sud-Ubangi (1) occupent
+la même largeur, la même taille de chiffre, le même poids — la forme dit « sept
+provinces comparables » quand une seule fait 77 % des cas. C'est exactement ce
+que la grille de cartes ratait, et la rangée le garde. La variante A3 du
+troisième jeu le réglait pour le prix d'un filet à deux couleurs (partie
+colorée = part des cas). Montrée, non retenue ce jour-là.
+
 ## Conventions établies
 
 **Couleurs.** Bleu `#005E82` = cas, rouge `#993A2E` = décès, partout. Chaque

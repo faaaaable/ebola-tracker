@@ -625,7 +625,9 @@ nomme ses journées, et la semaine comme le mois les contiennent.
 
 **Sept bulletins manquent** à l'archive : 003, 029, 043, 045, 063, 075, 076.
 
-**Les vignettes de province tiennent sur deux colonnes des 320 px.** Elles
+**Les vignettes de province tiennent sur deux colonnes des 320 px.** (Elles
+ne sont plus des vignettes depuis le 22 septembre 2026 mais des colonnes a
+filet ; les deux colonnes et le raisonnement ci-dessous valent toujours.) Elles
 s'empilaient sur une seule colonne sous ~420 px — 1 018 px de haut a 375 px,
 soit 23 % de la page d'accueil — parce que la grille demandait 180 px minimum
 par carte et qu'un ecran de 375 px n'offre que 335 px de contenu. Deux

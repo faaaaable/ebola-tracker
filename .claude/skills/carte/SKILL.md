@@ -92,8 +92,11 @@ les bascules des graphiques et des tableaux (`.subtab-btn`) sous 900 px :
 sept onglets soulignes enroules sur trois lignes se lisaient comme du texte.
 Sur ordinateur, tout reste en traits. Le pied de
 page a ete mis en une ligne puis REMIS en quatre colonnes a la demande du
-proprietaire — ne pas le rouvrir. Le titre et les cartes de provinces restent
-tels quels par choix explicite.
+proprietaire — ne pas le rouvrir. Le titre reste tel quel par choix explicite.
+**Les cartes de province, elles, ont fini par tomber le 22 septembre 2026** —
+voir « La rangee des provinces » dans CLAUDE.md : la regle du 27 aout les avait
+epargnees, un mois plus tard elles etaient le dernier endroit de l'accueil a
+porter une boite a bordure coloree.
 
 **LA PONCTUATION FRANCAISE EST INSECABLE.** Depuis le 27 aout, dans les
 textes francais de `site/strings.json` (bloc `fr`, et les valeurs `fr` des
