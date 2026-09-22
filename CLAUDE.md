@@ -2759,18 +2759,19 @@ qu'en D. La note du graphique le dit.
   entrée de légende « Compte partiel » (`legendePartielle`, sur le modèle
   de `legendeAVenir`) et un pied d'infobulle qui **nomme la province
   manquante** : sans lui, les « 567 analyses » du 28 août se liraient
-  comme un compte du pays entier. **Leur positivité n'est pas tracée, mais
-  elle est donnée dans l'infobulle** (`laboPositivitePartielle`), nommée
-  « positivité des provinces comptées ». Elle est **exacte** — positifs et
-  échantillons y viennent du même périmètre ; ce qu'elle n'est pas, c'est
-  comparable aux autres points, qui couvrent le pays. Mesure du
-  22 septembre 2026, en estimant les échantillons manquants par la médiane
-  de la province : écart médian **0,6 point** sur les 17 journées, sous
-  3 points pour 14 d'entre elles, mais **13 à 16 points les 3, 5 et 6 juin**,
-  où le Nord-Kivu manque au dénominateur en déclarant zéro positif — le
-  5 juin, 31,3 % contre une quinzaine de pour cent. Un point pareil sur la
-  courbe nationale serait faux du simple au double ; dans l'infobulle, il
-  se nomme. Le pont pointillé enjambe, comme sur un jour sans bulletin. **La vue par semaine les ignore** : une barre
+  comme un compte du pays entier. **Leur positivité est tracée, en point
+  creux** — plein = le pays, creux = les provinces comptées —, et
+  l'infobulle y remplace « Positivité » par « Positivité des provinces
+  comptées » : le même mot ne peut pas désigner deux périmètres. Ce taux
+  est **exact**, positifs et échantillons venant du même périmètre.
+  **Deux estimations successives de son écart au taux national**, le
+  22 septembre 2026 : par la médiane de la province sur toute la période,
+  13 à 16 points en juin — chiffre **faux**, il prêtait au Nord-Kivu de
+  juin les 93 échantillons quotidiens qu'il n'analyse qu'en août ; par les
+  journées voisines de la province, **0,2 à 5 points**, le maximum étant
+  le 6 juin. C'est la seconde qui vaut, et c'est elle qui a fait tracer le
+  point. Leçon : un estimateur global sur une épidémie qui change d'échelle
+  en trois mois ne vaut rien, il faut estimer localement. **La vue par semaine les ignore** : une barre
   hebdomadaire ne peut pas être à moitié hachurée, et une semaine mêlant
   journées complètes et partielles ne se lirait plus. Piège rencontré :
   l'entrée de légende n'a pas de jeu (`datasetIndex: -1`) et le filtre des
