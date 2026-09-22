@@ -2740,6 +2740,20 @@ qu'en D. La note du graphique le dit.
   `minBarLength:2` distingue une journée relevée à zéro d'une journée sans
   bulletin. Note dédiée `chartNoteLaboJour`, qui compte les blancs à
   chaque rendu — le compte se périmerait s'il était écrit en dur.
+- **Le pied des infobulles était blanc sur fond clair — invisible sur tout
+  le site** (relevé le 22 septembre 2026 en capturant une infobulle plutôt
+  qu'en lisant son contenu). `infobulle()` posait `titleColor` et
+  `bodyColor`, jamais `footerColor` : Chart.js appliquait donc son défaut,
+  `#fff`. Tout ce qui passait par un pied était écrit sans être lu — le
+  « Total » des barres empilées **depuis l'origine des graphiques**, et le
+  nombre d'échantillons analysés du laboratoire. Corrigé dans
+  `reglerInfobulles()`, appelé au premier rendu, **sur les défauts globaux
+  de Chart.js** : posé dans `infobulle()`, le réglage ne prenait pas, les
+  options réassignées à un graphique déjà construit retombant sur les
+  défauts pour les clés que ceux-ci portent. Leçon : une valeur d'options
+  qu'on croit posée se vérifie en sondant `chart.options`, et un rendu se
+  vérifie en le regardant — le texte était bien dans `tooltip.footer`,
+  parfaitement récupérable par sonde, et parfaitement illisible à l'écran.
 - **Le pied de l'infobulle du laboratoire nomme le total** depuis le
   22 septembre 2026 : « Échantillons analysés : 292 » au lieu du
   `totalEmpile` générique « Total : 292 ». Positifs + négatifs redonnent
