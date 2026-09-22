@@ -2714,6 +2714,18 @@ qu'en D. La note du graphique le dit.
 - Le laboratoire trace les **nouveaux cas** comme positifs quand le bulletin
   sépare les reprélèvements, la phrase nationale de l'époque D primant sur
   la somme des provinces.
+- **Le laboratoire a deux vues depuis le 22 septembre 2026** (demande du
+  propriétaire) : « Par semaine », inchangée et toujours par défaut, et
+  « Par jour », qui pose les mêmes échantillons sur un calendrier jour par
+  jour. 81 journées sur 122 portent à la fois les échantillons et les
+  positifs ; les 41 autres restent **en blanc, à leur vraie largeur** —
+  collées, elles feraient croire à une série continue, et c'est
+  précisément l'irrégularité de publication que la vue quotidienne montre
+  (673 échantillons un jour, 292 un autre de la même semaine). La courbe
+  de positivité y porte son pont en pointillés comme les autres taux, et
+  `minBarLength:2` distingue une journée relevée à zéro d'une journée sans
+  bulletin. Note dédiée `chartNoteLaboJour`, qui compte les blancs à
+  chaque rendu — le compte se périmerait s'il était écrit en dur.
 - **La vue par province a de l'air au-dessus de 100 %** (cadre à 110, aucune
   graduation au-dessus de 100) : Tshopo et Sud-Kivu y sont à 100 % des jours
   entiers, et leurs points se collaient au cadre. Demande du propriétaire du
@@ -3112,6 +3124,57 @@ rendu**, jamais de lien mort. Les balises `twitter:` du gabarit ne
 désignent pas ce compte (choix du propriétaire, points 1 et 3 d'une liste
 de quatre écartés le 8 septembre : la carte de partage et la barre
 latérale).
+
+---
+
+## Les flux RSS et l'alerte Telegram (22 septembre 2026)
+
+Demande du propriétaire : « que les visiteurs puissent recevoir une
+notification quand j'ajoute la mise à jour d'un nouveau SitRep ».
+
+**Le flux est le socle, pas un canal de plus.** `scripts/build_feeds.py`
+écrit `/feed.xml`, `/en/feed.xml` et `/sw/feed.xml`, vingt entrées
+chacun, à partir de `data/lettres/<num>.json` et du résumé des Défis de
+`data/bulletin-notes.json`. Rien n'y est saisi à la main : un flux qui
+raconterait autre chose que la page qu'il annonce serait pire que pas de
+flux. `build_pages.py` l'appelle en fin de génération et **déclare les
+trois fichiers dans le manifeste** — sans quoi `remove_stale` les
+effacerait au passage suivant. Le `<link rel="alternate">` du gabarit les
+annonce depuis chaque page. C'est par là que passent les relais que le
+dépôt n'a pas à connaître : Slack, Teams, et les services qui changent un
+flux en lettre par courriel.
+
+**Ce qu'on dit d'une lettre vit à un seul endroit.** `build_feeds.annonce()`
+rend titre, adresse, chiffres de tête et résumé ; le flux et Telegram y
+passent tous les deux.
+
+**Le point d'entrée du visiteur** est la colonne « Le site » du pied de
+page, sous « Suivre sur X » : « Suivre par flux RSS » (toujours) et
+« Canal Telegram ». Ce dernier passe par `lien_telegram()` et
+`site.telegram` dans `pages.json` — **vide tant que le canal n'est pas
+ouvert, et alors rien n'est rendu**, exactement comme `xProfile` avant le
+8 septembre. Ouvrir le canal, c'est renseigner ce champ et poser les
+secrets ; aucun code à toucher.
+
+**Telegram** : `scripts/notifier_telegram.py`, un canal public par langue,
+appelé par `.github/workflows/flux-et-alertes.yml` quand `data/lettres/**`
+ou `data/bulletin-notes.json` arrive sur `main`. Secrets
+`TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID_FR` / `_EN` / `_SW` ; **une
+langue sans canal est sautée**, on peut n'ouvrir que le français. Le dépôt
+ne garde aucune adresse ni aucune donnée d'abonné — c'est Telegram qui
+tient la liste. Deux garde-fous : `data/notifie.json` retient les numéros
+déjà annoncés (une reprise du workflow ne renvoie pas la même lettre), et
+**l'annonce attend le résumé des Défis** ; sans lui le message se
+réduirait à trois chiffres, et le commit qui l'apporte relance le
+workflow. `--essai` montre les messages sans rien envoyer.
+
+**Écarté.** WhatsApp : la Cloud API demande un Business Manager vérifié, un
+numéro dédié et des modèles approuvés un par un, pour une facturation au
+message ; les Canaux WhatsApp sont gratuits mais n'ont pas d'API — une
+publication à la main. Le courriel viendra du flux (Brevo, Buttondown)
+plutôt que d'un formulaire maison : collecter des adresses, c'est un
+double opt-in, un désabonnement, SPF/DKIM/DMARC sur le domaine et une
+base à tenir.
 
 ---
 
