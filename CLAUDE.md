@@ -45,6 +45,11 @@ source, publiés en l'état le 23 septembre 2026 :**
   probablement bougé sans que le nombre de lits suive. Le site garde les deux,
   `occupationPubliee` et la série à définition constante.
   **Ni l'un ni l'autre n'est encore inscrit en « écart connu » — à trancher.**
+  Mais **le saut de capacité qui va avec est désormais nommé dans la note du
+  graphique** : le Nord-Kivu passe de 228 à 308 lits le 21 septembre, sa courbe
+  tombe de 138,6 à 109,7 % pendant que les patients montent de 316 à 338, et
+  `chartNoteCteCapacite` le dit en toutes lettres, calculé. Détail dans la
+  skill `page-riposte`.
 
 **UN CUMUL NE RECULE PAS : LE GRAPHIQUE DE VACCINATION PORTE LA VALEUR
 RÉVISÉE** (23 septembre 2026, décision du propriétaire). Tracée telle quelle,

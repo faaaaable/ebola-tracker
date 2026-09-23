@@ -211,6 +211,26 @@ qu'en D. La note du graphique le dit.
   `vuesParCanvas` — quatre cadres cohabitent, une variable globale ne
   suffisait plus. `legendesDuGraphique` lit le titre dans `.section-title`
   et la vue dans `.chart-vue-nav`, donc l'export porte les deux.
+- **UNE CAPACITE QUI SAUTE FAIT BAISSER UN TAUX SANS QUE RIEN NE SE
+  DESSERRE, ET LA NOTE LE DIT** (23 septembre 2026). Le 21 septembre le
+  Nord-Kivu passe de 228 a 308 lits — le CTE de Matanda ouvre a Katwa — et sa
+  courbe tombe de 138,6 a 109,7 % pendant que le nombre de patients MONTE, de
+  316 a 338. Le lecteur y voit une saturation qui se relache ; c'est le
+  denominateur qui a grandi d'un tiers. Meme piege que le 15 septembre, a
+  l'envers : ce jour-la c'etait le NUMERATEUR qui changeait de definition, et
+  la regle adoptee alors — tracer a definition constante — ne protege pas de
+  celui-ci, puisque la definition ne bouge pas.
+  `chartNoteCteCapacite` nomme le saut, tout calcule : date, province,
+  capacites avant et apres, et le SENS du nombre de patients ce jour-la
+  (« augmente » ou « ne baisse pas d'autant »). Deux choix qui vont ensemble :
+  seuil a un tiers de variation, et **le saut le plus RECENT seulement** — la
+  serie en compte d'autres (l'Ituri en aout, le Nord-Kivu pendant son trou du
+  3 au 12) et les nommer tous ferait de la note un inventaire.
+  **Piege attrape a l'ecran et pas dans le code** : la premiere version
+  affichait le saut du Haut-Uele du 21 aout (78 a 130 lits). Les provinces
+  sont parcourues l'une apres l'autre et le resultat etait ecrase sans
+  comparer les dates — donc le dernier PARCOURU, pas le plus RECENT. Sans
+  regarder la note rendue, ca passait pour juste.
 - **Sous 20 lits, pas de taux d'occupation** (`SEUIL_LITS`) : la Tshopo
   passait de 5 à 40 % pour un patient. Même seuil de lisibilité que le lieu
   du décès.

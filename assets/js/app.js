@@ -2053,7 +2053,55 @@ function renderOneChart(canvas, chartMode){
         scales:{ x:axeX(true), y:axePct(Math.ceil(maxi/20)*20) } };
       dessiner('line', data, opts);
       noterPeriode(slot, jours[0], jours[jours.length-1]);
-      noter(provRip ? tr('chartNoteCteProvince')(SEUIL_LITS) : tr('chartNoteCte')(SEUIL_LITS));
+      /* UNE CAPACITE QUI SAUTE FAIT BAISSER UN TAUX SANS QUE RIEN NE SE
+         DESSERRE. Le 21 septembre 2026, le Nord-Kivu passe de 228 a 308 lits
+         — le CTE de Matanda ouvre a Katwa — et sa courbe tombe de 138,6 a
+         109,7 % pendant que le nombre de patients MONTE, de 316 a 338. Le
+         lecteur y voit une saturation qui se relache ; c'est le
+         denominateur qui a grandi de plus d'un tiers.
+
+         C'est le meme piege que le 15 septembre, a l'envers : ce jour-la
+         c'etait le NUMERATEUR qui changeait de definition, et la regle
+         adoptee alors — tracer la serie a definition constante — ne protege
+         pas de celui-ci, puisque la definition ne bouge pas.
+
+         La note nomme donc le dernier saut, et elle le CALCULE : date,
+         province, capacite avant et apres, et le sens dans lequel va le
+         nombre de patients ce jour-la. Ecrite en dur elle vaudrait pour ce
+         21 septembre et mentirait au suivant.
+
+         Seuil a un tiers, et le DERNIER saut seulement : la serie en compte
+         d'autres — l'Ituri gagne des lits en aout, le Nord-Kivu aussi
+         pendant son trou du 3 au 12 — et les nommer tous ferait de la note
+         un inventaire. Celui qui compte est celui que l'oeil rencontre, au
+         bout de la courbe. */
+      const SAUT_CAPACITE = 1 / 3;
+      let saut = null;
+      noms.forEach(nom => {
+        let precedent = null;
+        jours.forEach(d => {
+          const v = parDate[d] && parDate[d].provinces[nom];
+          if(!lisible(v) || !v.lits) return;
+          if(precedent && precedent.lits
+             && Math.abs(v.lits - precedent.lits) / precedent.lits >= SAUT_CAPACITE
+             /* Le plus RECENT, pas le dernier parcouru : les provinces sont
+                lues l'une apres l'autre, et sans cette comparaison la note
+                retenait le saut du Haut-Uele du 21 aout parce qu'il passait
+                en dernier dans la boucle. */
+             && (!saut || d > saut.date)){
+            saut = { date:d, nom, avant:precedent.lits, apres:v.lits,
+                     patientsAvant:precedent.hospitalises, patientsApres:v.hospitalises };
+          }
+          precedent = v;
+        });
+      });
+      const bouts = [provRip ? tr('chartNoteCteProvince')(SEUIL_LITS) : tr('chartNoteCte')(SEUIL_LITS)];
+      if(saut){
+        bouts.push(tr('chartNoteCteCapacite')(
+          frDate(saut.date), saut.nom, fmt(saut.avant), fmt(saut.apres),
+          saut.patientsApres > saut.patientsAvant));
+      }
+      noter(bouts.join(' '));
       return;
     }
 
