@@ -513,7 +513,6 @@
     "feedTitle": "Ebola Tracker — la lettre",
     "feedDescription": "Chaque bulletin de l'épidémie d'Ebola en RDC, résumé le jour de sa parution : chiffres nationaux et ce que la lettre retient.",
     "feedItemTitle": "La lettre n°{num}",
-    "footerFollowRss": "Suivre par flux RSS",
     "footerFollowTelegram": "Canal Telegram"
   },
   "en": {
@@ -1029,7 +1028,6 @@
     "feedTitle": "Ebola Tracker — the letter",
     "feedDescription": "Every situation report on the Ebola outbreak in the DRC, summarised on the day it is published: national figures and what the letter takes from it.",
     "feedItemTitle": "The letter no. {num}",
-    "footerFollowRss": "Follow by RSS feed",
     "footerFollowTelegram": "Telegram channel"
   },
   "timelineEvents": [
@@ -2045,7 +2043,6 @@
     "feedTitle": "Ebola Tracker — barua",
     "feedDescription": "Kila taarifa ya mlipuko wa Ebola nchini DRC, kwa muhtasari siku inapochapishwa: takwimu za kitaifa na yale barua inayoyachukua.",
     "feedItemTitle": "Barua na. {num}",
-    "footerFollowRss": "Fuata kwa mkondo wa RSS",
     "footerFollowTelegram": "Kituo cha Telegram"
   }
 }

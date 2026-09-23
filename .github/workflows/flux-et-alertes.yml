@@ -1,6 +1,6 @@
-name: Flux RSS et alertes Telegram
+name: Alertes Telegram
 
-# Une lettre paraît → le flux est refait et les abonnés sont prévenus.
+# Une lettre paraît → les abonnés du canal Telegram sont prévenus.
 #
 # Le déclencheur est le fichier source d'une lettre, pas une heure fixe :
 # c'est l'arrivée de data/lettres/<num>.json sur main qui rend la lettre
@@ -55,8 +55,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Régénérer les flux RSS
-        run: python3 scripts/build_feeds.py
+      # LE FLUX RSS A ETE RETIRE DU SITE le 23 septembre 2026 : plus d'étape
+      # de régénération, et `build_feeds.py` n'est plus exécuté comme script.
+      # Le MODULE reste — notifier_telegram lui emprunte annonce(), contexte()
+      # et _lettres(), et l'alerte Telegram tomberait avec lui.
 
       - name: Annoncer la lettre sur Telegram
         env:
@@ -75,15 +77,15 @@ jobs:
           if [ "$ESSAI" = "true" ]; then args="$args --essai"; fi
           python3 scripts/notifier_telegram.py $args
 
-      - name: Publier le flux et l'état des annonces
+      - name: Publier l'état des annonces
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add feed.xml en/feed.xml sw/feed.xml data/notifie.json
+          git add data/notifie.json
           if git diff --cached --quiet; then
             echo "Rien à publier."
           else
-            git commit -m "Flux RSS et alertes : mise à jour automatique"
+            git commit -m "Alertes Telegram : etat des annonces"
             # Une lettre poussée pendant le job laisserait le push derrière
             # la branche : on se replace dessus avant de publier.
             git pull --rebase --autostash

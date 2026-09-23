@@ -809,30 +809,38 @@ latérale).
 
 ---
 
-## Les flux RSS et l'alerte Telegram (22 septembre 2026)
+## L'alerte Telegram (22 septembre 2026)
 
 Demande du propriétaire : « que les visiteurs puissent recevoir une
 notification quand j'ajoute la mise à jour d'un nouveau SitRep ».
 
-**Le flux est le socle, pas un canal de plus.** `scripts/build_feeds.py`
-écrit `/feed.xml`, `/en/feed.xml` et `/sw/feed.xml`, vingt entrées
-chacun, à partir de `data/lettres/<num>.json` et du résumé des Défis de
-`data/bulletin-notes.json`. Rien n'y est saisi à la main : un flux qui
-raconterait autre chose que la page qu'il annonce serait pire que pas de
-flux. `build_pages.py` l'appelle en fin de génération et **déclare les
-trois fichiers dans le manifeste** — sans quoi `remove_stale` les
-effacerait au passage suivant. Le `<link rel="alternate">` du gabarit les
-annonce depuis chaque page. C'est par là que passent les relais que le
-dépôt n'a pas à connaître : Slack, Teams, et les services qui changent un
-flux en lettre par courriel.
+**LE FLUX RSS A ÉTÉ RETIRÉ DU SITE LE 23 SEPTEMBRE 2026.** Plus de
+`/feed.xml`, `/en/feed.xml` ni `/sw/feed.xml`, plus de `<link
+rel="alternate">` dans le gabarit, plus de lien au pied de page, plus
+d'étape de régénération dans le workflow. `remove_stale` a effacé les
+trois fichiers de lui-même dès qu'ils ont quitté le manifeste, et la clé
+`footerFollowRss` est partie avec eux.
+
+**MAIS `scripts/build_feeds.py` RESTE, ET IL NE FAUT PAS LE SUPPRIMER.**
+`notifier_telegram.py` lui emprunte `annonce()`, `contexte()`,
+`_lettres()` et `_resume()` : le module est devenu une bibliothèque de
+composition de message, il n'est simplement plus exécuté comme script.
+Les clés `feedTitle`, `feedDescription` et `feedItemTitle` de
+`strings.json` restent pour la même raison — c'est le texte de l'annonce
+Telegram. Sa fonction `build()` n'a plus d'appelant ; elle est laissée en
+place pour que le flux puisse revenir sans être réécrit.
+
+**Ce que dit une lettre vit à un seul endroit.** `build_feeds.annonce()`
+rend titre, adresse, chiffres de tête et résumé — c'est ce que Telegram
+envoie.
 
 **Ce qu'on dit d'une lettre vit à un seul endroit.** `build_feeds.annonce()`
 rend titre, adresse, chiffres de tête et résumé ; le flux et Telegram y
 passent tous les deux.
 
 **Le point d'entrée du visiteur** est la colonne « Le site » du pied de
-page, sous « Suivre sur X » : « Suivre par flux RSS » (toujours) et
-« Canal Telegram ». Ce dernier passe par `lien_telegram()` et
+page, sous « Suivre sur X » : « Canal Telegram » seul depuis le retrait du
+flux. Ce dernier passe par `lien_telegram()` et
 `site.telegram` dans `pages.json` — **vide tant que le canal n'est pas
 ouvert, et alors rien n'est rendu**, exactement comme `xProfile` avant le
 8 septembre. Ouvrir le canal, c'est renseigner ce champ et poser les
