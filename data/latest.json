@@ -1,19 +1,19 @@
 {
   "meta": {
-    "sitrepNumber": "128",
-    "sitrepRef": "SitRep N°128/MVEBDB/19/09/2026",
+    "sitrepNumber": "130",
+    "sitrepRef": "SitRep N°130/MVE-BDBV/21/09/2026",
     "sourceNumberMismatch": null,
-    "reportingDate": "2026-09-19",
-    "publicationDate": "2026-09-20",
+    "reportingDate": "2026-09-21",
+    "publicationDate": "2026-09-22",
     "source": "INSP RDC / Task Force Présidentielle Ebola 17"
   },
   "national": {
-    "confirmed": 7672,
-    "deaths": 3699,
-    "recovered": 1879,
-    "cfr": 48.2,
-    "inCTE": 886,
-    "contactsFollowUpRate": 79.9,
+    "confirmed": 7773,
+    "deaths": 3759,
+    "recovered": 1935,
+    "cfr": 48.4,
+    "inCTE": 839,
+    "contactsFollowUpRate": 84.5,
     "provincesAffected": 7,
     "healthZonesAffected": {
       "n": 63,
@@ -23,66 +23,66 @@
       "n": 246,
       "total": 3104
     },
-    "newCases24h": 58,
-    "newDeaths24h": 23,
-    "newDeathsCommunity24h": 13,
-    "newDeathsIntraCTE24h": 10
+    "newCases24h": 40,
+    "newDeaths24h": 27,
+    "newDeathsCommunity24h": 14,
+    "newDeathsIntraCTE24h": 13
   },
   "provinces": [
     {
       "name": "Ituri",
-      "confirmed": 5913,
-      "deaths": 2703,
-      "cfr": 45.7,
+      "confirmed": 5966,
+      "deaths": 2737,
+      "cfr": 45.9,
       "healthZonesAffected": {
         "n": 28,
         "total": 36
       },
-      "newCases24h": 38,
-      "newDeathsCommunity24h": 9,
-      "newDeathsIntraCTE24h": 6,
+      "newCases24h": 19,
+      "newDeathsCommunity24h": 4,
+      "newDeathsIntraCTE24h": 11,
       "status": "active-epicenter"
     },
     {
       "name": "Nord-Kivu",
-      "confirmed": 1402,
-      "deaths": 850,
+      "confirmed": 1438,
+      "deaths": 872,
       "cfr": 60.6,
       "healthZonesAffected": {
         "n": 16,
         "total": 34
       },
-      "newCases24h": 14,
-      "newDeathsCommunity24h": 4,
-      "newDeathsIntraCTE24h": 3,
+      "newCases24h": 13,
+      "newDeathsCommunity24h": 8,
+      "newDeathsIntraCTE24h": 2,
       "status": "active"
     },
     {
       "name": "Haut-Uélé",
-      "confirmed": 307,
-      "deaths": 126,
-      "cfr": 41.0,
+      "confirmed": 316,
+      "deaths": 129,
+      "cfr": 40.8,
       "healthZonesAffected": {
         "n": 7,
         "total": 13
       },
       "newCases24h": 5,
-      "newDeathsCommunity24h": 0,
+      "newDeathsCommunity24h": 1,
       "newDeathsIntraCTE24h": 0,
       "status": "active"
     },
     {
       "name": "Tshopo",
-      "confirmed": 39,
-      "deaths": 14,
-      "cfr": 35.9,
+      "confirmed": 42,
+      "deaths": 15,
+      "cfr": 35.7,
       "healthZonesAffected": {
         "n": 7,
         "total": 23
       },
-      "newCases24h": 1,
-      "newDeathsCommunity24h": 0,
-      "newDeathsIntraCTE24h": 1,
+      "newCases24h": 3,
+      "newDeathsCommunity24h": 1,
+      "newDeathsIntraCTE24h": 0,
       "status": "active"
     },
     {
@@ -176,13 +176,13 @@
     {
       "name": "Bambu",
       "province": "Ituri",
-      "cases": 193,
-      "deaths": 39,
-      "cfr": 20.2,
-      "newCases24h": 6,
-      "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "cases": 196,
+      "deaths": 41,
+      "cfr": 20.9,
+      "newCases24h": 0,
+      "newDeaths24h": 1,
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 1
     },
     {
       "name": "Boga",
@@ -198,13 +198,13 @@
     {
       "name": "Bunia",
       "province": "Ituri",
-      "cases": 1654,
-      "deaths": 517,
-      "cfr": 31.3,
-      "newCases24h": 8,
-      "newDeaths24h": 4,
-      "deathsCommunity24h": 4,
-      "deathsIntraCTE24h": 0
+      "cases": 1666,
+      "deaths": 523,
+      "cfr": 31.4,
+      "newCases24h": 4,
+      "newDeaths24h": 3,
+      "deathsCommunity24h": 1,
+      "deathsIntraCTE24h": 2
     },
     {
       "name": "Damas",
@@ -234,10 +234,10 @@
       "cases": 81,
       "deaths": 30,
       "cfr": 37.0,
-      "newCases24h": 1,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Gethy",
@@ -276,19 +276,19 @@
       "name": "Komanda",
       "province": "Ituri",
       "cases": 147,
-      "deaths": 89,
-      "cfr": 60.5,
-      "newCases24h": 1,
-      "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deaths": 91,
+      "cfr": 61.9,
+      "newCases24h": 0,
+      "newDeaths24h": 1,
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 1
     },
     {
       "name": "Lita",
       "province": "Ituri",
-      "cases": 273,
-      "deaths": 135,
-      "cfr": 49.5,
+      "cases": 276,
+      "deaths": 138,
+      "cfr": 50.0,
       "newCases24h": 1,
       "newDeaths24h": 0,
       "deathsCommunity24h": null,
@@ -330,13 +330,13 @@
     {
       "name": "Mambasa",
       "province": "Ituri",
-      "cases": 21,
+      "cases": 22,
       "deaths": 9,
-      "cfr": 42.9,
-      "newCases24h": 0,
+      "cfr": 40.9,
+      "newCases24h": 1,
       "newDeaths24h": 0,
-      "deathsCommunity24h": 0,
-      "deathsIntraCTE24h": 0
+      "deathsCommunity24h": null,
+      "deathsIntraCTE24h": null
     },
     {
       "name": "Mandima",
@@ -352,41 +352,41 @@
     {
       "name": "Mangala",
       "province": "Ituri",
-      "cases": 333,
-      "deaths": 146,
-      "cfr": 43.8,
-      "newCases24h": 2,
-      "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "cases": 341,
+      "deaths": 149,
+      "cfr": 43.7,
+      "newCases24h": 4,
+      "newDeaths24h": 3,
+      "deathsCommunity24h": 3,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Mongbwalu",
       "province": "Ituri",
-      "cases": 686,
-      "deaths": 319,
-      "cfr": 46.5,
-      "newCases24h": 7,
-      "newDeaths24h": 4,
-      "deathsCommunity24h": 4,
-      "deathsIntraCTE24h": 0
+      "cases": 691,
+      "deaths": 322,
+      "cfr": 46.6,
+      "newCases24h": 2,
+      "newDeaths24h": 1,
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 1
     },
     {
       "name": "Nia-Nia",
       "province": "Ituri",
-      "cases": 266,
-      "deaths": 141,
-      "cfr": 53.0,
-      "newCases24h": 4,
-      "newDeaths24h": 1,
-      "deathsCommunity24h": 1,
-      "deathsIntraCTE24h": 0
+      "cases": 269,
+      "deaths": 148,
+      "cfr": 55.0,
+      "newCases24h": 0,
+      "newDeaths24h": 3,
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 3
     },
     {
       "name": "Nizi",
       "province": "Ituri",
-      "cases": 754,
-      "deaths": 274,
+      "cases": 761,
+      "deaths": 276,
       "cfr": 36.3,
       "newCases24h": 5,
       "newDeaths24h": 0,
@@ -396,9 +396,9 @@
     {
       "name": "Nyankunde",
       "province": "Ituri",
-      "cases": 126,
+      "cases": 127,
       "deaths": 36,
-      "cfr": 28.6,
+      "cfr": 28.3,
       "newCases24h": 0,
       "newDeaths24h": 0,
       "deathsCommunity24h": 0,
@@ -418,13 +418,13 @@
     {
       "name": "Rwampara",
       "province": "Ituri",
-      "cases": 1046,
-      "deaths": 352,
-      "cfr": 33.7,
-      "newCases24h": 3,
-      "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "cases": 1056,
+      "deaths": 358,
+      "cfr": 33.9,
+      "newCases24h": 2,
+      "newDeaths24h": 3,
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 3
     },
     {
       "name": "Tchomia",
@@ -440,13 +440,13 @@
     {
       "name": "Beni",
       "province": "Nord-Kivu",
-      "cases": 275,
-      "deaths": 191,
-      "cfr": 69.5,
-      "newCases24h": 4,
-      "newDeaths24h": 5,
-      "deathsCommunity24h": 2,
-      "deathsIntraCTE24h": 3
+      "cases": 289,
+      "deaths": 204,
+      "cfr": 70.6,
+      "newCases24h": 8,
+      "newDeaths24h": 7,
+      "deathsCommunity24h": 6,
+      "deathsIntraCTE24h": 1
     },
     {
       "name": "Biena",
@@ -462,13 +462,13 @@
     {
       "name": "Butembo",
       "province": "Nord-Kivu",
-      "cases": 252,
-      "deaths": 161,
-      "cfr": 63.9,
-      "newCases24h": 3,
-      "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "cases": 253,
+      "deaths": 162,
+      "cfr": 64.0,
+      "newCases24h": 1,
+      "newDeaths24h": 1,
+      "deathsCommunity24h": 1,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Goma",
@@ -484,9 +484,9 @@
     {
       "name": "Kalunguta",
       "province": "Nord-Kivu",
-      "cases": 43,
-      "deaths": 15,
-      "cfr": 34.9,
+      "cases": 49,
+      "deaths": 16,
+      "cfr": 32.7,
       "newCases24h": 2,
       "newDeaths24h": 1,
       "deathsCommunity24h": 1,
@@ -495,12 +495,12 @@
     {
       "name": "Katwa",
       "province": "Nord-Kivu",
-      "cases": 542,
-      "deaths": 343,
-      "cfr": 63.3,
-      "newCases24h": 2,
-      "newDeaths24h": 1,
-      "deathsCommunity24h": 1,
+      "cases": 544,
+      "deaths": 344,
+      "cfr": 63.2,
+      "newCases24h": 0,
+      "newDeaths24h": 0,
+      "deathsCommunity24h": 0,
       "deathsIntraCTE24h": 0
     },
     {
@@ -528,13 +528,13 @@
     {
       "name": "Lubero",
       "province": "Nord-Kivu",
-      "cases": 16,
-      "deaths": 7,
-      "cfr": 43.8,
-      "newCases24h": 1,
+      "cases": 20,
+      "deaths": 10,
+      "cfr": 50.0,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Mabalako",
@@ -550,10 +550,10 @@
     {
       "name": "Manguredjipa",
       "province": "Nord-Kivu",
-      "cases": 10,
-      "deaths": 3,
-      "cfr": 30.0,
-      "newCases24h": 0,
+      "cases": 12,
+      "deaths": 4,
+      "cfr": 33.3,
+      "newCases24h": 1,
       "newDeaths24h": 0,
       "deathsCommunity24h": 0,
       "deathsIntraCTE24h": 0
@@ -561,9 +561,9 @@
     {
       "name": "Masereka",
       "province": "Nord-Kivu",
-      "cases": 24,
+      "cases": 25,
       "deaths": 9,
-      "cfr": 37.5,
+      "cfr": 36.0,
       "newCases24h": 0,
       "newDeaths24h": 0,
       "deathsCommunity24h": 0,
@@ -575,17 +575,17 @@
       "cases": 121,
       "deaths": 65,
       "cfr": 53.7,
-      "newCases24h": 1,
+      "newCases24h": 0,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Mutwanga",
       "province": "Nord-Kivu",
-      "cases": 8,
+      "cases": 9,
       "deaths": 2,
-      "cfr": 25.0,
+      "cfr": 22.2,
       "newCases24h": 0,
       "newDeaths24h": 0,
       "deathsCommunity24h": 0,
@@ -594,9 +594,9 @@
     {
       "name": "Oicha",
       "province": "Nord-Kivu",
-      "cases": 13,
-      "deaths": 10,
-      "cfr": 76.9,
+      "cases": 14,
+      "deaths": 11,
+      "cfr": 78.6,
       "newCases24h": 0,
       "newDeaths24h": 0,
       "deathsCommunity24h": 0,
@@ -605,13 +605,13 @@
     {
       "name": "Vuhovi",
       "province": "Nord-Kivu",
-      "cases": 22,
-      "deaths": 6,
-      "cfr": 27.3,
+      "cases": 26,
+      "deaths": 7,
+      "cfr": 26.9,
       "newCases24h": 1,
-      "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "newDeaths24h": 1,
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 1
     },
     {
       "name": "Boma Mangbetu",
@@ -649,9 +649,9 @@
     {
       "name": "Isiro",
       "province": "Haut-Uélé",
-      "cases": 98,
-      "deaths": 42,
-      "cfr": 42.9,
+      "cases": 99,
+      "deaths": 43,
+      "cfr": 43.4,
       "newCases24h": 0,
       "newDeaths24h": 0,
       "deathsCommunity24h": 0,
@@ -660,13 +660,13 @@
     {
       "name": "Pawa",
       "province": "Haut-Uélé",
-      "cases": 68,
+      "cases": 70,
       "deaths": 32,
-      "cfr": 47.1,
-      "newCases24h": 1,
+      "cfr": 45.7,
+      "newCases24h": 2,
       "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "deathsCommunity24h": 0,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Rungu",
@@ -682,13 +682,13 @@
     {
       "name": "Wamba",
       "province": "Haut-Uélé",
-      "cases": 99,
-      "deaths": 34,
+      "cases": 105,
+      "deaths": 36,
       "cfr": 34.3,
-      "newCases24h": 4,
-      "newDeaths24h": 0,
-      "deathsCommunity24h": null,
-      "deathsIntraCTE24h": null
+      "newCases24h": 3,
+      "newDeaths24h": 1,
+      "deathsCommunity24h": 1,
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Bafwasende",
@@ -726,23 +726,23 @@
     {
       "name": "Makiso-Kisangani",
       "province": "Tshopo",
-      "cases": 20,
+      "cases": 22,
       "deaths": 9,
-      "cfr": 45.0,
-      "newCases24h": 1,
-      "newDeaths24h": 1,
+      "cfr": 40.9,
+      "newCases24h": 2,
+      "newDeaths24h": 0,
       "deathsCommunity24h": 0,
-      "deathsIntraCTE24h": 1
+      "deathsIntraCTE24h": 0
     },
     {
       "name": "Mangobo",
       "province": "Tshopo",
-      "cases": 4,
-      "deaths": 2,
-      "cfr": 50.0,
-      "newCases24h": 0,
-      "newDeaths24h": 0,
-      "deathsCommunity24h": 0,
+      "cases": 5,
+      "deaths": 3,
+      "cfr": 60.0,
+      "newCases24h": 1,
+      "newDeaths24h": 1,
+      "deathsCommunity24h": 1,
       "deathsIntraCTE24h": 0
     },
     {
@@ -2279,6 +2279,28 @@
       "file": "reports/SITREP_MVE_128.pdf",
       "confirmed": 7672,
       "deaths": 3699,
+      "sourceNumberMismatch": null,
+      "confirmedExtractionFailed": false,
+      "deathsExtractionFailed": false
+    },
+    {
+      "sitrepNumber": "129",
+      "reportingDate": "2026-09-20",
+      "publicationDate": "2026-09-21",
+      "file": "reports/SITREP_MVE_129.pdf",
+      "confirmed": 7733,
+      "deaths": 3732,
+      "sourceNumberMismatch": null,
+      "confirmedExtractionFailed": false,
+      "deathsExtractionFailed": false
+    },
+    {
+      "sitrepNumber": "130",
+      "reportingDate": "2026-09-21",
+      "publicationDate": "2026-09-22",
+      "file": "reports/SITREP_MVE_130.pdf",
+      "confirmed": 7773,
+      "deaths": 3759,
       "sourceNumberMismatch": null,
       "confirmedExtractionFailed": false,
       "deathsExtractionFailed": false

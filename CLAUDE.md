@@ -5,14 +5,63 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 128**, rapportage
-du 19 septembre 2026 (publié le 20) — 7 672 cas confirmés, 3 699 décès,
-létalité 48,2 %, 1 879 guéris, 886 patients en isolement/CTE, 63 zones touchées
-sur 167 dans 7 provinces (aucune nouvelle), **58 nouveaux cas** (Ituri 38,
-Nord-Kivu 14, Haut-Uélé 5, Tshopo 1) et 23 décès du jour. Intégré le
-**21 septembre 2026** ; laboratoire 58 positifs pour 58 nouveaux cas, garde-fou
-du jour vérifié ; `check_coherence` sans écart bloquant, les trois écarts
-connus de la source inchangés ; résumé des Défis rédigé (110 mots).
+Dernier bulletin intégré à la rédaction de ce guide : **SitRep 130**, rapportage
+du 21 septembre 2026 (publié le 22) — 7 773 cas confirmés, 3 759 décès,
+létalité 48,4 %, 1 935 guéris, 839 patients en isolement/CTE, 63 zones touchées
+sur 167 dans 7 provinces (aucune nouvelle), **40 nouveaux cas** (Ituri 19,
+Nord-Kivu 13, Haut-Uélé 5, Tshopo 3) et 27 décès du jour (14 communautaires,
+13 intra-CTE), suivi des contacts à 84,5 %. **Les 129 et 130 ont été intégrés
+ensemble le 23 septembre 2026**, résumés des Défis rédigés pour les deux
+(121 et 119 mots).
+
+**DEUX BULLETINS D'UN COUP : `update_data` NE RETRAITE QUE LE PLUS RÉCENT.**
+Le 129 était absent de `zones-history` et de `province-history`, qui sautaient
+du 19 au 21 — alors que son PDF porte bien ses deux tableaux, vérifié. Rattrapé
+par `backfill_zones_history` puis `backfill_province_history`, avec diffusion
+avant/après : une seule date ajoutée, aucune autre valeur touchée, aucune
+orthographe de zone changée. **Le réflexe à garder : après une intégration
+multiple, compter les dates des historiques avant de publier.**
+
+**La lettre du 129 n'existait pas non plus**, même cause — `_instantanes()` ne
+fige que le dernier. Reconstruite en faisant repasser le pipeline à sa date,
+`SITREP_MVE_130.pdf` écarté le temps d'une génération, puis remis. La lettre
+est donc exactement celle qu'un traitement à la date aurait produite (122
+rapports listés, Ituri à 5 947). Effet de bord **bienvenu** de l'aller-retour :
+`sitreps.json` récupère les **1 902 guéris du 20 septembre**, que le traitement
+en position non-dernière n'avait pas lus. Un seul fichier de `data/` modifié
+par l'opération, et c'est ce gain.
+
+**`check_coherence` sort avec DEUX ÉCARTS BLOQUANTS, tous deux imputables à la
+source, publiés en l'état le 23 septembre 2026 :**
+- **`vaccination : le cumul ne recule jamais` — 129 Bas-Uélé (874 après 987).**
+  Le 128 publie « 987 dont 550 Buta, **324 Ganga**, 71 Poko, 42 Viadana », le
+  129 « 874 dont 550 Buta, **211 Ganga**, 71 Poko, 42 Viadana ». Une seule zone
+  bouge, chaque total tombe juste sur sa propre ventilation : la source s'est
+  corrigée sur Ganga. Voir « Un cumul ne recule pas » ci-dessous.
+- **`cte : taux publié = normés / lits` — 130 Nord-Kivu.** Le bulletin écrit
+  « 338 hospitalisés dont 274 dans les structures normées pour 308 lits, soit
+  66,2 % » — or 274/308 fait 89,0 %. Les 128 et 129 étaient cohérents (95,6 %
+  et 91,2 %). C'est le jour où le CTE de Matanda ouvre à Katwa : la capacité a
+  probablement bougé sans que le nombre de lits suive. Le site garde les deux,
+  `occupationPubliee` et la série à définition constante.
+  **Ni l'un ni l'autre n'est encore inscrit en « écart connu » — à trancher.**
+
+**UN CUMUL NE RECULE PAS : LE GRAPHIQUE DE VACCINATION PORTE LA VALEUR
+RÉVISÉE** (23 septembre 2026, décision du propriétaire). Tracée telle quelle,
+la courbe du Bas-Uélé redescendait de 987 à 874 — et lissée, la chute se lisait
+comme une décrue progressive qui n'a jamais eu lieu. La correction de la source
+est donc appliquée rétroactivement à sa propre série : le 19 septembre porte
+874. Une première version sortait le point du tracé et le laissait en cercle
+creux à 987 ; écartée le jour même — deux chiffres pour un même jour se
+contredisaient à l'œil, et la note suffit. Le test est **générique**, la série
+relue à rebours : tout cumul supérieur à un relevé postérieur est ramené à la
+valeur retenue ensuite, et la note nomme date, province et les deux chiffres,
+tous calculés. Détail sous « Le graphique » ci-dessous.
+
+**Le 130 se contredit aussi dans ses Défis** : il écrit « 34,2 % des patients
+hospitalisés hors structures normées » quand sa propre phrase de prise en
+charge donne 64/338 = 18,9 %. Le 34,2 % est recopié du 129. Le résumé de la
+lettre reprend le chiffre publié — règle du miroir.
 
 **Le suivi des contacts tombe à 79,9 %**, sous le seuil de 85 % que l'INSP s'est
 fixé, après cinq jours passés au-dessus. Le précédent décrochage datait du
@@ -75,6 +124,31 @@ onze jours du Bas-Uélé** — la rupture de stock d'Ervebo à Buta, du 5 au
 chiffre en bout, pour éviter l'aller-retour vers la légende. Le tracé est
 **progressif** : l'escalier, plus fidèle aux relevés, a été essayé puis écarté
 par le propriétaire.
+
+**UN CUMUL NE RECULE PAS : LA COURBE PORTE LA VALEUR RÉVISÉE** (23 septembre
+2026). Le 19 septembre le bulletin donne 987 vaccinés au Bas-Uélé, le lendemain
+874 — une seule zone bouge, Ganga, de 324 à 211, les trois autres sont
+identiques, et chaque total tombe juste sur sa propre ventilation. Personne
+n'est dévacciné : c'est la source qui se corrige, et le tableau par zone de la
+page affiche déjà 211. La correction est **appliquée rétroactivement à la
+série** — le 19 septembre porte 874 —, comme le fait toute donnée de santé
+publique révisée.
+
+**Une première version a été montrée puis écartée le jour même** : elle sortait
+le point du tracé et le laissait en cercle creux à 987, avec son entrée de
+légende « Valeur révisée ». Deux chiffres pour un même jour se contredisaient à
+l'œil, et la note suffit. La clé `vaccChartRevisee` a été supprimée avec elle —
+**ne pas la refaire sans que le propriétaire le redemande.**
+
+Le test est **générique**, jamais codé en dur sur une province : la série est
+relue à rebours, et tout cumul supérieur à un relevé POSTÉRIEUR est ramené à la
+valeur retenue ensuite. La note se recompose avec date, province, valeur
+publiée et valeur retenue, toutes calculées (`vaccChartRevision`, trois
+langues) — écrite en dur elle se périmerait au relevé suivant.
+
+Piège rencontré : `boutsDeCourbe` étiquette tous les jeux, et l'étiquette de la
+série retirée chevauchait celle du Bas-Uélé. Un jeu peut désormais refuser son
+étiquette de bout avec `sansBout: true`.
 
 **Deux plats qui ne disent pas la même chose, et le graphique doit les
 distinguer.** Entre le **28 août et le 2 septembre, aucun chiffre n'est

@@ -1071,6 +1071,10 @@ const boutsDeCourbe = {
     chart.data.datasets.forEach((ds, i) => {
       const meta = chart.getDatasetMeta(i);
       if(meta.hidden || !meta.data.length) return;
+      /* Un jeu peut refuser son etiquette de bout : la serie des valeurs
+         revisees du graphique de vaccination se pose a quelques pixels de la
+         courbe qu'elle corrige, et les deux etiquettes se chevauchaient. */
+      if(ds.sansBout) return;
       let j = ds.data.length - 1;
       while(j >= 0 && (ds.data[j] === null || ds.data[j] === undefined)) j--;
       if(j < 0) return;
@@ -2070,6 +2074,45 @@ function renderOneChart(canvas, chartMode){
       const cumuls = points.map(p => ({ date:p.date, prov:((p.vaccination || {}).cumulParProvince) || {} }))
                            .filter(p => Object.keys(p.prov).length);
       if(!cumuls.length){ vide(); return; }
+      /* UN CUMUL NE RECULE PAS : LE POINT REVISE PORTE LA VALEUR CORRIGEE.
+         Le 19 septembre 2026 le bulletin donne 987 vaccines au Bas-Uele, le
+         lendemain 874 — une seule zone bouge, Ganga, de 324 a 211, les trois
+         autres sont identiques. Ce n'est pas une baisse, personne n'est
+         devaccine : c'est la source qui se corrige, et le tableau par zone de
+         la page affiche deja 211.
+
+         Tracee telle quelle, la courbe redescendait — et lissee, la chute se
+         lisait comme une decrue progressive qui n'a jamais eu lieu.
+
+         LA COURBE PORTE DONC LA VALEUR REVISEE, y compris a la date ou le
+         bulletin en donnait une autre : c'est la correction de la source
+         appliquee retroactivement a sa propre serie, comme le fait toute
+         donnee de sante publique revisee. Choix du proprietaire, 23 septembre
+         2026, apres une premiere version qui sortait le point du trace et le
+         laissait en cercle creux : deux chiffres pour un meme jour se
+         contredisaient a l'oeil, et la note suffit a dire ce qui s'est passe.
+
+         Rien n'est efface : la note nomme la date, la valeur publiee et la
+         valeur retenue, et ces trois-la sont calculees depuis les donnees.
+
+         Le test est generique et se fait en remontant le temps : tout point
+         publie superieur a un point publie POSTERIEUR a ete revise. Si le cas
+         se reproduit sur une autre province, il sera traite tout seul. */
+      const revisions = [];
+      const dernierRetenu = {};
+      for(let i = cumuls.length - 1; i >= 0; i--){
+        const p = cumuls[i];
+        Object.keys(p.prov).forEach(n => {
+          const v = p.prov[n];
+          if(dernierRetenu[n] !== undefined && v > dernierRetenu[n]){
+            revisions.push({ date:p.date, nom:n, publie:v, retenu:dernierRetenu[n] });
+            p.prov[n] = dernierRetenu[n];
+          } else {
+            dernierRetenu[n] = v;
+          }
+        });
+      }
+      revisions.reverse();
       const jours = calendrier(cumuls[0].date, cumuls[cumuls.length - 1].date);
       const parDate = {}; cumuls.forEach(p => { parDate[p.date] = p.prov; });
       const noms = [];
@@ -2095,6 +2138,7 @@ function renderOneChart(canvas, chartMode){
            note sous le graphique dit lesquels ne sont pas mesures. */
         borderWidth:2.2, pointRadius:0, pointHoverRadius:4, tension:.12, fill:false,
       })) };
+
       /* La plage que le bulletin ne documente pas, en jours d'index. */
       const trou = [jours.indexOf('2026-08-28'), jours.indexOf('2026-09-02')];
       const opts = { responsive:true, maintainAspectRatio:false,
@@ -2125,7 +2169,14 @@ function renderOneChart(canvas, chartMode){
                      grid:{ color:PALETTE.line } } } };
       dessiner('line', data, opts);
       noterPeriode(slot, jours[0], jours[jours.length - 1]);
-      noter(tr('chartNoteVaccination')());
+      /* La phrase de revision est CALCULEE — dates, province et chiffres
+         viennent des donnees, jamais du texte : ecrite en dur, elle se
+         perimerait au premier releve suivant. */
+      const bouts = [tr('chartNoteVaccination')()];
+      revisions.forEach(r => {
+        bouts.push(tr('vaccChartRevision')(frDate(r.date), r.nom, fmt(r.publie), fmt(r.retenu)));
+      });
+      noter(bouts.join(' '));
       return;
     }
   }
