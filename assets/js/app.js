@@ -1059,6 +1059,13 @@ const plageSansDonnees = {
 /* Le nom et la derniere valeur au bout de chaque courbe. Avec deux series
    seulement, l'oeil ne devrait pas avoir a faire l'aller-retour vers la
    legende — et le chiffre de fin est celui qu'on vient chercher. */
+/* Le seuil telephone du site, celui du CSS et des cercles de la carte : une
+   seule ecriture, pour que le JavaScript et la feuille de style ne divergent
+   pas d'un pixel. */
+function surTelephone(){
+  return !!(window.matchMedia && window.matchMedia('(max-width:760px)').matches);
+}
+
 const boutsDeCourbe = {
   id: 'boutsDeCourbe',
   afterDatasetsDraw(chart, args, opts){
@@ -2196,7 +2203,16 @@ function renderOneChart(canvas, chartMode){
                           color:PALETTE.ink, padding:{ bottom:16 },
                           font:{ family:PALETTE.font, size:16, weight:'700' } },
                   plageSansDonnees:{ de:trou[0], a:trou[1], texte:tr('vaccChartTrou') },
-                  boutsDeCourbe:{ actif:true },
+                  /* PAS D'ETIQUETTE DE BOUT SUR TELEPHONE (23 septembre
+                     2026, le proprietaire les a vues s'afficher par-dessus
+                     l'axe). A 360 px le nom et le chiffre se posent sur les
+                     graduations et sur la mention « aucun chiffre publie »,
+                     et les 104 px reserves pour eux mangent un tiers de la
+                     largeur de trace. La legende porte deja les deux noms,
+                     juste au-dessus : l'aller-retour qu'elles evitaient sur
+                     grand ecran ne coute rien ici. Meme seuil que le reste
+                     du site. */
+                  boutsDeCourbe:{ actif: !surTelephone() },
                   tooltip:infobulle({ callbacks:{
                     label:c => c.dataset.label + ' : ' + fmt(c.parsed.y),
                     /* Le total des deux provinces sous chaque infobulle : c'est
@@ -2210,7 +2226,7 @@ function renderOneChart(canvas, chartMode){
                       return tr('vaccChartTotal')(fmt(t));
                     },
                   } }) },
-        layout:{ padding:{ right:104 } },
+        layout:{ padding:{ right: surTelephone() ? 8 : 104 } },
         scales:{ x:axeX(true),
                  y:{ beginAtZero:true,
                      ticks:Object.assign({}, axeTexte, { callback:v => fmt(v) }),

@@ -126,7 +126,15 @@ trajectoire, puisque dans un empilement seule la couche du bas a une base
 plate. Séparées, les deux provinces redeviennent lisibles et le **palier de
 onze jours du Bas-Uélé** — la rupture de stock d'Ervebo à Buta, du 5 au
 16 septembre — se lit franchement. Chaque courbe porte son nom et son dernier
-chiffre en bout, pour éviter l'aller-retour vers la légende. Le tracé est
+chiffre en bout, pour éviter l'aller-retour vers la légende — **sauf sur
+téléphone, depuis le 23 septembre 2026** : à 360 px le nom et le chiffre se
+posaient sur les graduations et sur la mention « aucun chiffre publié », et
+les 104 px réservés pour eux prenaient **un tiers de la largeur de tracé**,
+comprimant les deux courbes au point de les rendre illisibles. Sous le seuil
+de 760 px les étiquettes tombent et le padding est récupéré ; la légende, juste
+au-dessus du cadre, rend l'aller-retour indolore à cette taille. `surTelephone()`
+lit ce seuil une seule fois pour tout `app.js`, comme le CSS et les cercles de
+la carte. Le tracé est
 **progressif** : l'escalier, plus fidèle aux relevés, a été essayé puis écarté
 par le propriétaire.
 
