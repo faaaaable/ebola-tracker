@@ -5,7 +5,7 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-**SitRep 131 intégré EN LOCAL le 24 septembre 2026** (rapportage du 22, publié
+**SitRep 131 intégré et PUBLIÉ le 24 septembre 2026** (commit `3ad2b0ba` ; rapportage du 22, publié
 le 23) — 7 820 cas, 3 779 décès, létalité 48,3 %, 1 951 guéris, 885 en CTE,
 47 nouveaux cas (Ituri 35, Nord-Kivu 11, **Sud-Ubangi 1 : deuxième cas à
 Bulu**), 20 décès du jour (13 communautaires, 7 intra-CTE), suivi des contacts
@@ -22,7 +22,7 @@ deux écarts bloquants anciens restent seuls. Deux motifs ajoutés :
 Le laboratoire compte 46 positifs pour 47 cas : la section n'a pas de ligne
 Sud-Ubangi (non bloquant, source). Résumé des Défis rédigé (119 mots).
 
-Dernier bulletin publié : **SitRep 130**, rapportage
+Bulletin précédent : **SitRep 130**, rapportage
 du 21 septembre 2026 (publié le 22) — 7 773 cas confirmés, 3 759 décès,
 létalité 48,4 %, 1 935 guéris, 839 patients en isolement/CTE, 63 zones touchées
 sur 167 dans 7 provinces (aucune nouvelle), **40 nouveaux cas** (Ituri 19,
