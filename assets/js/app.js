@@ -6314,3 +6314,64 @@ Promise.all([loadRemoteSitreps(), loadRemoteLatest(), besoinHistorique ? loadZon
   renderAll();        // puis on ré-affiche avec les données à jour si trouvées
   safeRun(setupTimeline, 'setupTimeline');
 });
+
+/* Nouvelles de l'epidemie : la mosaique rendue par actus_items_html
+   (build_pages.py). La page est regeneree a chaque collecte, pas chaque
+   jour : « Aujourd'hui », « Hier » et l'etiquette « Nouveau » se calculent
+   donc ici, a l'heure du lecteur. */
+(function(){
+  var mos = document.querySelector('.actus-mos');
+  if (!mos) return;
+  var auj = new Date(); auj.setHours(0, 0, 0, 0);
+  function jours(iso){ return Math.round((auj - new Date(iso + 'T00:00:00')) / 864e5); }
+  var cases = Array.prototype.slice.call(mos.querySelectorAll('.actu-case'));
+
+  mos.querySelectorAll('.actu-lien').forEach(function(a){
+    var n = jours(a.dataset.date), t = a.querySelector('.actu-quand');
+    if (t && n <= 0) t.textContent = mos.dataset.auj;
+    else if (t && n === 1) t.textContent = mos.dataset.hier;
+    else if (t && n < 7) t.textContent = mos.dataset.jours.replace('{n}', n);
+    // « Nouveau » : moins de 48 h.
+    var neuf = a.querySelector('.actu-neuf'); if (neuf && n > 1) neuf.remove();
+  });
+
+  // L'onglet de date va sur le premier article VISIBLE de chaque groupe :
+  // recalcule a chaque filtre.
+  function onglets(){
+    mos.querySelectorAll('.actu-onglet').forEach(function(o){ o.remove(); });
+    var vu = {};
+    cases.forEach(function(c){
+      c.classList.remove('actu-debut');
+      if (c.hidden || vu[c.dataset.groupe]) return;
+      vu[c.dataset.groupe] = 1;
+      var o = document.createElement('span'), txt = c.dataset.libelle;
+      o.className = 'actu-onglet';
+      var n = c.dataset.sorte === 'jour' ? jours(c.dataset.groupe) : 99;
+      if (n <= 0) { o.innerHTML = '<span class="p"></span>'; o.appendChild(document.createTextNode(mos.dataset.auj + ' ')); }
+      else if (n === 1) o.appendChild(document.createTextNode(mos.dataset.hier + ' '));
+      if (n <= 1) { var i = document.createElement('i'); i.textContent = txt; o.appendChild(i); }
+      else o.textContent = txt;
+      c.classList.add('actu-debut'); c.appendChild(o);
+    });
+  }
+  // Pas de trou en bout de grille : la derniere case visible s'elargit
+  // d'autant de colonnes qu'il en manque a la derniere rangee.
+  function remplir(){
+    var cols = getComputedStyle(mos).gridTemplateColumns.split(' ').length;
+    var vis = cases.filter(function(c){ c.style.gridColumn = ''; return !c.hidden; });
+    var r = vis.length % cols;
+    if (r) vis[vis.length - 1].style.gridColumn = 'span ' + (cols - r + 1);
+  }
+  document.querySelectorAll('.actus-puce').forEach(function(p){
+    p.addEventListener('click', function(){
+      document.querySelectorAll('.actus-puce').forEach(function(q){
+        q.classList.toggle('on', q === p); q.setAttribute('aria-pressed', q === p ? 'true' : 'false');
+      });
+      var cat = p.dataset.cat;
+      cases.forEach(function(c){ c.hidden = !!cat && c.dataset.cat !== cat; });
+      onglets(); remplir();
+    });
+  });
+  onglets(); remplir();
+  window.addEventListener('resize', remplir);
+})();

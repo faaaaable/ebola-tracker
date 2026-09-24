@@ -29,7 +29,8 @@
     {
       "titleKey": "navNewsTitle",
       "pages": [
-        "bulletin"
+        "bulletin",
+        "actualites"
       ]
     },
     {
@@ -55,6 +56,7 @@
       "pages": [
         "accueil",
         "bulletin",
+        "actualites",
         "donnees",
         "riposte"
       ]
@@ -443,9 +445,6 @@
           "h1": "Mapambano na changamoto zake",
           "description": "Kile mapambano dhidi ya mlipuko wa Ebola nchini DRC yanafanya, ripoti baada ya ripoti: tahadhari zilizopokelewa na kuthibitishwa, sampuli zilizopimwa na kiwango cha uambukizo, ufuatiliaji wa walioguswa kwa jimbo, matumizi ya vitanda vya vituo vya matibabu, na kile ripoti zinasema kuhusu vikwazo."
         }
-      },
-      "navBadge": {
-        "key": "navBadgeNouveau"
       }
     },
     {
@@ -710,7 +709,38 @@
           "description": "Muhtasari wa kila siku wa ripoti ya INSP: hali, majimbo, mapambano, changamoto."
         }
       },
-      "bodyClass": "lettre-agence",
+      "bodyClass": "lettre-agence"
+    },
+    {
+      "id": "actualites",
+      "fragment": "actualites.html",
+      "slug": {
+        "fr": "actualites/",
+        "en": "news/",
+        "sw": "habari/"
+      },
+      "needs": [],
+      "changefreq": "daily",
+      "priority": "0.6",
+      "schema": [],
+      "navLabelKey": "t:navActus",
+      "meta": {
+        "fr": {
+          "title": "Nouvelles de l'épidémie — Ebola en RDC",
+          "h1": "Nouvelles de l'épidémie",
+          "description": "Communiqués et articles sur l'épidémie d'Ebola en RDC : OMS, MSF, OCHA, autorités congolaises, RFI, France 24… publiés chaque jour avec un lien vers leur source."
+        },
+        "en": {
+          "title": "Outbreak news — Ebola in the DRC",
+          "h1": "Outbreak news",
+          "description": "Statements and articles on the Ebola outbreak in the DRC — WHO, MSF, OCHA, Congolese authorities, RFI, France 24, The Guardian… published daily with a link to their source."
+        },
+        "sw": {
+          "title": "Habari za mlipuko — Ebola nchini DRC",
+          "h1": "Habari za mlipuko",
+          "description": "Taarifa na makala kuhusu mlipuko wa Ebola nchini DRC — WHO, MSF, OCHA, mamlaka za Kongo, RFI, France 24… zinazochapishwa kila siku pamoja na kiungo cha chanzo chake."
+        }
+      },
       "navBadge": {
         "key": "navBadgeNouveau"
       }

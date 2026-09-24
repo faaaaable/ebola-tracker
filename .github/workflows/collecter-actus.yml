@@ -1,0 +1,67 @@
+name: Collecte des nouvelles de l'epidemie
+
+# Toutes les trois heures, scripts/collecter_actus.py lit les flux de MSF, de
+# l'OMS, de ReliefWeb, de la Primature, de l'ACP et des medias (RFI,
+# France 24, The Guardian) et range les articles nouveaux dans
+# data/actus.json, leur vignette dans assets/actus/. MSF, l'OMS, la Primature
+# et l'ACP paraissent aussitot sur /actualites/ ; ReliefWeb et les medias
+# attendent une validation (collecter_actus.py --attente / --valider /
+# --ecarter).
+#
+# Trois heures et pas six : le flux RSS de ReliefWeb ne garde que ses vingt
+# derniers articles, toutes thematiques RDC confondues, soit deux a trois
+# jours — une collecte trop espacee en laisserait passer.
+#
+# Un push fait avec GITHUB_TOKEN ne declenche pas build-pages.yml : ce
+# workflow regenere donc les pages lui-meme.
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collecter-actus
+  cancel-in-progress: false
+
+jobs:
+  collecter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v5
+
+      - name: Installer Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Installer Node
+        # build_pages.py lit assets/js/i18n.js par scripts/dump_i18n.mjs.
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer Pillow
+        # Pour reduire les vignettes ; sans lui, la collecte passe quand meme
+        # et les vignettes sont rattrapees au passage suivant.
+        run: pip install pillow
+
+      - name: Collecter
+        run: python scripts/collecter_actus.py
+
+      - name: Regenerer les pages si une nouvelle est publiee
+        run: |
+          if git diff --quiet data/actus.json; then
+            echo "Rien de nouveau."
+            exit 0
+          fi
+          python scripts/build_pages.py
+          git config user.name "actus-bot"
+          git config user.email "actus-bot@users.noreply.github.com"
+          git add data/actus.json assets/actus $(python -c "import json;print(' '.join(json.load(open('site/.generated.json'))))") site/.generated.json
+          git commit -m "Nouvelles de l'epidemie : collecte du $(date -u +'%Y-%m-%d %H:%M') UTC"
+          git pull --rebase origin main
+          git push

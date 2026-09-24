@@ -1805,6 +1805,135 @@ def glossaire_items_html(strings, lang):
     return "\n".join(parts)
 
 
+# Les emetteurs sont enregistres par data/actus.json sous leur sigle
+# francais ; les autres langues ont le leur.
+SIGLES_ACTUS = {
+    "OMS": {"en": "WHO", "sw": "WHO"},
+    "OMS Afrique": {"en": "WHO Africa", "sw": "WHO Afrika"},
+    "OIM": {"en": "IOM", "sw": "IOM"},
+    "PAM": {"en": "WFP", "sw": "WFP"},
+    "FICR": {"en": "IFRC", "sw": "IFRC"},
+    "Primature": {"en": "DRC Prime Minister", "sw": "Waziri Mkuu wa DRC"},
+}
+
+# Un media qui publie dans plusieurs langues (RFI, France 24, ACP) couvre la meme
+# nouvelle dans chacune : chaque page ne garde que ses articles dans sa
+# langue, sinon la depeche apparaitrait deux fois. Pas de flux en swahili :
+# la page swahilie prend le francais, langue de l'est de la RDC.
+LANGUE_MEDIAS = {"fr": "fr", "en": "en", "sw": "fr"}
+
+
+# Les categories de la page, dans l'ordre des filtres. Un emetteur absent
+# d'ici tombe dans « Autres » (Africa CDC, ReliefWeb).
+CATEGORIES_ACTUS = [
+    ("onu", "actusCatOnu", {"OMS", "OMS Afrique", "OCHA", "OIM", "PAM", "UNICEF"}),
+    ("ong", "actusCatOng", {"MSF", "CARE", "FICR", "Mercy Corps"}),
+    ("rdc", "actusCatRdc", {"Primature", "ACP", "Ministère de la Santé"}),
+    ("medias", "actusCatMedias", {"RFI", "France 24", "The Guardian"}),
+]
+# La teinte de chaque emetteur : pastille de la source et vignette dessinee
+# quand l'article n'a pas d'image.
+TEINTES_ACTUS = {
+    "MSF": "#A8322A", "OMS": "#1B6C8C", "OMS Afrique": "#1B6C8C", "OCHA": "#2E5E8C",
+    "OIM": "#3A4F8F", "Africa CDC": "#2F6F4B", "CARE": "#B0682A", "Mercy Corps": "#8C2F3F",
+    "RFI": "#C8102E", "France 24": "#0B5CAD", "The Guardian": "#052962",
+    "Primature": "#6B4A1F", "ACP": "#2A4B7C",
+}
+MOIS_LONGS_ACTUS = {
+    "fr": ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août",
+           "septembre", "octobre", "novembre", "décembre"],
+    "en": ["January", "February", "March", "April", "May", "June", "July", "August",
+           "September", "October", "November", "December"],
+    "sw": ["Januari", "Februari", "Machi", "Aprili", "Mei", "Juni", "Julai", "Agosti",
+           "Septemba", "Oktoba", "Novemba", "Desemba"],
+}
+
+
+def actus_choisis(actus, lang):
+    """Les articles publies que montre la page de cette langue, du plus recent
+    au plus ancien."""
+    voulue = LANGUE_MEDIAS.get(lang, lang)
+    items = [x for x in actus.get("items", []) if x.get("statut") == "publie"
+             and (not x.get("media") or x.get("langue") == voulue)]
+    # Un communique traduit (« paire » commune) : la version dans la langue
+    # de la page, sinon la premiere venue.
+    paires = {}
+    for x in items:
+        if x.get("paire"):
+            garde = paires.get(x["paire"])
+            if garde is None or (x.get("langue") == voulue and garde.get("langue") != voulue):
+                paires[x["paire"]] = x
+    items = [x for x in items if not x.get("paire") or paires[x["paire"]] is x]
+    items.sort(key=lambda x: (x["date"], x["id"]), reverse=True)
+    return items
+
+
+def actus_items_html(actus, lang, i18n_lang, strings_lang):
+    """La page Nouvelles : une mosaique de cases de meme taille, la plus
+    recente en premier. La date n'occupe pas de case : c'est un onglet pose
+    sur le premier article de chaque groupe, par jour dans le mois en cours,
+    par mois avant (app.js le deplace quand un filtre masque des cases, et
+    elargit la derniere case pour qu'aucune rangee n'ait de trou). Chaque case
+    mene a sa source ; le site n'en reprend que le titre."""
+    items = actus_choisis(actus, lang)
+    if not items:
+        return '        <p class="actus-vide">%s</p>' % esc(strings_lang["actusVide"])
+    mois_longs = MOIS_LONGS_ACTUS.get(lang, MOIS_LONGS_ACTUS["en"])
+    ce_mois = date.today().isoformat()[:7]
+
+    def categorie(x):
+        return next((cle for cle, _, noms in CATEGORIES_ACTUS if x["source"] in noms), "autres")
+
+    comptes = {}
+    for x in items:
+        comptes[categorie(x)] = comptes.get(categorie(x), 0) + 1
+    puces = ['<button type="button" class="actus-puce on" data-cat="">%s <b>%d</b></button>'
+             % (esc(strings_lang["actusToutes"]), len(items))]
+    for cle, libelle, _ in CATEGORIES_ACTUS + [("autres", "actusCatAutres", set())]:
+        if comptes.get(cle):
+            puces.append('<button type="button" class="actus-puce" data-cat="%s">%s <b>%d</b></button>'
+                         % (cle, esc(strings_lang[libelle]), comptes[cle]))
+
+    cases = []
+    for x in items:
+        if x["date"][:7] == ce_mois:
+            groupe, sorte = x["date"], "jour"
+            libelle = "%d %s" % (int(x["date"][8:]), mois_longs[int(x["date"][5:7]) - 1])
+        else:
+            groupe, sorte = x["date"][:7], "mois"
+            libelle = "%s %s" % (mois_longs[int(x["date"][5:7]) - 1], x["date"][:4])
+        source = SIGLES_ACTUS.get(x["source"], {}).get(lang, x["source"])
+        teinte = TEINTES_ACTUS.get(x["source"], "#5A544C")
+        if x.get("image") and os.path.exists(os.path.join(ROOT, "assets", "actus", x["id"] + ".jpg")):
+            visuel = ('<div class="actu-vis" style="--t:%s"><img src="/assets/actus/%s.jpg" alt="" '
+                      'loading="lazy" decoding="async"></div>' % (teinte, x["id"]))
+        else:
+            visuel = ('<div class="actu-vis actu-vis-vide" style="--t:%s"><span class="actu-sigle">%s</span></div>'
+                      % (teinte, esc(source)))
+        # La langue n'est dite que quand elle differe de celle de la page :
+        # un lecteur swahiliphone lit toujours une langue etrangere, il n'a
+        # pas besoin qu'on le lui repete a chaque case.
+        lg = ""
+        if x.get("langue") and x["langue"] != lang and lang != "sw":
+            lg = ' <span class="actu-lg" title="%s">%s</span>' % (
+                esc(strings_lang["actusLangue_" + x["langue"]]), x["langue"].upper())
+        cases.append(
+            '          <article class="actu-case" data-cat="%s" data-groupe="%s" data-sorte="%s" data-libelle="%s">'
+            '<a class="actu-lien" href="%s" target="_blank" rel="noopener"%s data-date="%s"%s>%s'
+            '<div class="actu-voile"></div><div class="actu-txt"><div class="actu-meta">'
+            '<span class="actu-src" style="--t:%s">%s</span> · <time class="actu-quand" datetime="%s">%s</time>%s'
+            ' <span class="actu-neuf">%s</span></div><h3>%s</h3></div></a></article>' % (
+                categorie(x), groupe, sorte, esc(libelle), esc(x["url"]),
+                ' hreflang="%s"' % x["langue"] if x.get("langue") else "", x["date"],
+                ' title="%s"' % esc(x["resume"]) if x.get("resume") else "", visuel,
+                teinte, esc(source), x["date"], esc(short_date(x["date"], i18n_lang)), lg,
+                esc(strings_lang["actusNouveau"]), esc(x["titre"])))
+    return ('        <div class="actus-puces" role="group" aria-label="%s">%s</div>\n'
+            '        <div class="actus-mos" data-auj="%s" data-hier="%s" data-jours="%s">\n%s\n        </div>' % (
+                esc(strings_lang["actusFiltres"]), "".join(puces), esc(strings_lang["actusAujourdhui"]),
+                esc(strings_lang["actusHier"]), esc(strings_lang["actusIlYa"]), "\n".join(cases)))
+
+
 def province_map_values(province_maps, name, zones, config, lang, strings_lang, aliases):
     """Jetons de la carte d'une province, ou des valeurs vides si sa geometrie
     n'a pas encore ete produite."""
@@ -2571,6 +2700,8 @@ def main():
     zones_history = read_json(os.path.join(ROOT, "data", "zones-history.json"))
     sitreps = read_json(os.path.join(ROOT, "data", "sitreps.json"))
     who_reports = read_json(os.path.join(ROOT, "data", "who-reports.json"))
+    chemin_actus = os.path.join(ROOT, "data", "actus.json")
+    actus = read_json(chemin_actus) if os.path.exists(chemin_actus) else {"items": []}
     social_updates = read_json(os.path.join(ROOT, "data", "social-updates.json"))
     province_history = read_json(os.path.join(ROOT, "data", "province-history.json"))
     # Repartition par age : instantane fige au 5 aout 2026, l'INSP ayant
@@ -2685,6 +2816,7 @@ def main():
             "provinceTableRows": province_table_rows_html(provinces, urls, lang),
             "faqItems": faq_html,
             "glossaireItems": glossaire_items_html(strings, lang),
+            "actusItems": actus_items_html(actus, lang, i18n_lang, strings_lang),
         }
 
         events = timeline_events(strings, sitreps, lang, i18n_lang,

@@ -1464,6 +1464,45 @@ td.is-soft{color:var(--ink-faint);}
 .gl-item dd{margin:0;font-size:13px;line-height:1.55;color:var(--ink-dim);}
 @media (max-width:640px){.gl-list{grid-template-columns:1fr;}}
 
+/* Nouvelles de l'epidemie (/actualites/) : une mosaique de cases toutes de
+   la meme taille, 4 colonnes (2 sur telephone). La date est un onglet sombre
+   pose sur le premier article de chaque groupe ; app.js elargit la derniere
+   case pour qu'aucune rangee n'ait de trou. Retenue le 23 septembre 2026
+   apres trois maquettes : la une, le fil, la mosaique. */
+.actus{margin-top:22px;}
+.actus-vide{color:var(--ink-dim);}
+.actus-puces{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 4px;}
+.actus-puce{font:500 12.5px var(--font-sans);border:1px solid var(--line);background:var(--bg-panel);color:var(--ink-strong);border-radius:999px;padding:5px 11px;cursor:pointer;}
+.actus-puce b{font-weight:600;color:var(--ink-faint);margin-left:3px;}
+.actus-puce.on{background:var(--ink);border-color:var(--ink);color:var(--bg);}
+.actus-puce.on b{color:inherit;opacity:.75;}
+.actus-mos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:210px;gap:12px;margin-top:14px;}
+.actu-case{position:relative;border-radius:10px;overflow:hidden;}
+.actu-case[hidden]{display:none;}
+.actu-case.actu-debut{box-shadow:inset 0 3px 0 var(--ink);}
+.actu-lien{position:absolute;inset:0;display:block;color:#fff;text-decoration:none;}
+.actu-vis{position:absolute;inset:0;overflow:hidden;background:var(--t);}
+.actu-vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.actu-lien:hover .actu-vis img,.actu-lien:focus-visible .actu-vis img{transform:scale(1.05);}
+.actu-vis-vide{background:var(--t) repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 2px,transparent 2px 14px);}
+.actu-sigle{position:absolute;left:16px;top:40px;font:600 30px/1 var(--font-serif);color:#fff;opacity:.95;}
+.actu-voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.78) 100%);}
+.actu-txt{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;}
+.actu-meta{font-size:12px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.actu-src{font-weight:700;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--t);padding:2px 6px;border-radius:3px;}
+.actu-lg{font-size:10px;font-weight:600;border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:0 4px;}
+.actu-neuf{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--accent-critical);border-radius:3px;padding:1px 5px;}
+.actu-txt h3{font:600 16px/1.3 var(--font-serif);margin:6px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.actu-onglet{position:absolute;z-index:2;top:0;left:0;display:flex;align-items:baseline;gap:6px;background:var(--ink);color:var(--bg);padding:6px 11px 6px 12px;border-radius:10px 0 8px 0;font:700 12px/1 var(--font-sans);letter-spacing:.05em;text-transform:uppercase;pointer-events:none;}
+.actu-onglet i{font-style:normal;font-weight:500;opacity:.7;letter-spacing:.03em;}
+.actu-onglet .p{width:7px;height:7px;border-radius:50%;background:#4FC08D;align-self:center;animation:actu-pouls 2s infinite;}
+@keyframes actu-pouls{0%{box-shadow:0 0 0 0 rgba(79,192,141,.6);}70%{box-shadow:0 0 0 7px rgba(79,192,141,0);}100%{box-shadow:0 0 0 0 rgba(79,192,141,0);}}
+@media (prefers-reduced-motion:reduce){.actu-onglet .p{animation:none;}.actu-vis img{transition:none;}}
+@media (max-width:900px){.actus-mos{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:180px;}}
+@media (max-width:600px){.actus-mos{grid-auto-rows:160px;gap:8px;}.actu-txt{padding:10px;}.actu-txt h3{font-size:13.5px;-webkit-line-clamp:4;}.actu-quand,.actu-lg{display:none;}.actu-onglet{font-size:10.5px;padding:5px 8px;}.actu-sigle{font-size:22px;left:10px;top:32px;}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .actu-onglet{background:#F2EEE8;color:#1F1A13;}}
+:root[data-theme="dark"] .actu-onglet{background:#F2EEE8;color:#1F1A13;}
+
 .faq-item{border-bottom:1px solid var(--line-soft);}
 .faq-item:last-child{border-bottom:none;}
 .faq-item summary{
