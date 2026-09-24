@@ -5,7 +5,24 @@ déclarée le 15 mai 2026). Il compile les bulletins officiels de l'INSP et les
 rapports hebdomadaires de l'OMS. Trilingue FR/EN/SW, statique, servi par GitHub
 Pages sur `ebola-tracker.org` depuis la branche `main`.
 
-Dernier bulletin intégré à la rédaction de ce guide : **SitRep 130**, rapportage
+**SitRep 131 intégré EN LOCAL le 24 septembre 2026** (rapportage du 22, publié
+le 23) — 7 820 cas, 3 779 décès, létalité 48,3 %, 1 951 guéris, 885 en CTE,
+47 nouveaux cas (Ituri 35, Nord-Kivu 11, **Sud-Ubangi 1 : deuxième cas à
+Bulu**), 20 décès du jour (13 communautaires, 7 intra-CTE), suivi des contacts
+**78,3 %**. Tableaux relus contre les pages 2 et 3 du PDF, zéro écart ; les
+deux écarts bloquants anciens restent seuls. Deux motifs ajoutés :
+- **Treizième tournure des contacts** : « Parmi 32 745 contacts en cours de
+  suivi, 25 652 contacts ont été vus » — « Parmi » sans « les », « contacts »
+  répété avant « ont été vus ». `CONTACTS_PARMI_LES_RE` rend les deux
+  facultatifs ; seule la date du 22 change.
+- **La vaccination change de tournure au 130** (section renumérotée 2.6) :
+  « 3 874 TPL et PPL ont été vaccinés sur 3 549 pré-enregistrés (109 %), soit
+  33 % de la cible de 11 703 ». `VAC_CUMUL_TPL_RE` et `VAC_CIBLE_SOIT_RE`.
+  **Le 130 était parti en ligne sans le cumul de la Tshopo (3 774)** : rattrapé.
+Le laboratoire compte 46 positifs pour 47 cas : la section n'a pas de ligne
+Sud-Ubangi (non bloquant, source). Résumé des Défis rédigé (119 mots).
+
+Dernier bulletin publié : **SitRep 130**, rapportage
 du 21 septembre 2026 (publié le 22) — 7 773 cas confirmés, 3 759 décès,
 létalité 48,4 %, 1 935 guéris, 839 patients en isolement/CTE, 63 zones touchées
 sur 167 dans 7 provinces (aucune nouvelle), **40 nouveaux cas** (Ituri 19,
