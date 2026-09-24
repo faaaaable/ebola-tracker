@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-09-21"
+  "fin": "2026-09-22"
  },
  "parDate": [
   {
@@ -2276,16 +2276,69 @@
     }
    },
    "vaccination": {
-    "cumulParProvince": {},
+    "cumulParProvince": {
+     "Tshopo": 3774
+    },
     "rupture": false,
     "provinces": {
      "Tshopo": {
+      "cumul": 3774,
+      "cible": 11703,
+      "couverture": 32.0,
       "zones": {
        "Makiso-Kisangani": 1909
       },
       "zonesSomme": 1909,
       "doses": {
        "decongelees": 726
+      }
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-22",
+   "sitrepNumber": "131",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 97.7,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 42,
+    "attendus": 80
+   },
+   "eds": {
+    "alertes": 158,
+    "realisees": 131,
+    "swabes": 125,
+    "nonSwabes": 38,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2,
+     "nonSwabes": 2
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Tshopo": 3874
+    },
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 3874,
+      "cible": 11703,
+      "couverture": 33.0,
+      "zones": {
+       "Makiso-Kisangani": 1909,
+       "Kabondo": 513,
+       "Bafwasende": 458
+      },
+      "zonesSomme": 2880,
+      "doses": {
+       "decongelees": 626
       }
      }
     }

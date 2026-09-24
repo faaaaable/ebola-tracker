@@ -208,6 +208,15 @@ def _province(phrase):
 # ce jour, dont 550 à Buta et 158 à Ganga ».
 VAC_CUMUL_RE = re.compile(
     NUM + r"\s+(?:PPL|TPL|personnes)\s+ont\s+été\s+vaccinée?s\s+à\s+ce\s+jour", re.I)
+# Depuis le SitRep 130 (21 septembre 2026), section renumerotee « 2.6 » et
+# nouvelle tournure, sans « à ce jour » : « À la Tshopo, 3 874 TPL et PPL ont
+# été vaccinés sur 3 549 pré-enregistrés (109 %), soit 33 % de la cible de
+# 11 703, dont 1 909 à Makiso-Kisangani… » (131). Le 130 est parti en ligne
+# sans son cumul (3 774) faute de ce motif : rattrape a l'integration du 131.
+VAC_CUMUL_TPL_RE = re.compile(
+    NUM + r"\s+(?:TPL\s+et\s+PPL|PPL\s+et\s+TPL)\s+ont\s+été\s+vaccinée?s", re.I)
+VAC_CIBLE_SOIT_RE = re.compile(
+    r"soit\s+(\d+(?:[,.]\d+)?)\s*%\s+de\s+la\s+cible\s+de\s+" + NUM, re.I)
 VAC_CIBLE_RE = re.compile(
     r"sur\s+" + NUM + r"\s+(?:TPL/PPL\s+)?(?:cibles?|ciblés|ciblées)"
     r"(?:\s+TPL/PPL)?\s*\(\s*(\d+(?:[,.]\d+)?)\s*%", re.I)
@@ -276,13 +285,18 @@ def lire_vaccination_detail(corps):
     t = " ".join((corps or "").split())
     for prov, seg in _segments_provinces(t):
         ligne = {}
-        m = VAC_CUMUL_RE.search(seg)
+        m = VAC_CUMUL_RE.search(seg) or VAC_CUMUL_TPL_RE.search(seg)
         if m:
             ligne["cumul"] = entier(m.group(1))
         m = VAC_CIBLE_RE.search(seg)
         if m:
             ligne["cible"] = entier(m.group(1))
             ligne["couverture"] = float(m.group(2).replace(",", "."))
+        else:
+            m = VAC_CIBLE_SOIT_RE.search(seg)
+            if m:
+                ligne["cible"] = entier(m.group(2))
+                ligne["couverture"] = float(m.group(1).replace(",", "."))
         m = VAC_DONT_RE.search(seg)
         if m:
             zones = {}

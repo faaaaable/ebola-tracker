@@ -586,6 +586,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/lettre/131/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/131/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/131/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/131/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/131/"/>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/donnees/ituri/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
@@ -1246,6 +1257,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/letter/131/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/131/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/131/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/131/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/131/"/>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/data/ituri/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
@@ -1900,6 +1922,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/130/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/130/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/130/"/>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/barua/131/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/131/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/131/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/131/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/131/"/>
     <lastmod>2026-09-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>

@@ -126,8 +126,13 @@ CONTACTS_PARMI_RE = re.compile(
 # « Parmi les », d'ou l'alternative en tete du motif. Sans elle, le 17
 # septembre n'avait ni effectifs nationaux ni provinces, et sa barre de
 # contacts a suivre manquait au graphique de la riposte.
+# SitRep 131 (22 septembre 2026) : treizieme tournure — « Parmi 32 745
+# contacts en cours de suivi, 25 652 contacts ont été vus au cours des
+# dernières 24 heures, soit une proportion de suivi de 78,3 % » : « Parmi »
+# sans « les », et « contacts » repete devant « ont été vus ». Les deux mots
+# sont desormais facultatifs.
 CONTACTS_PARMI_LES_RE = re.compile(
-    r"(?:parmi|sur)\s+les\s+(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+ont\s+été\s+vus"
+    r"(?:parmi|sur)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
     r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+une\s+proportion(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,
