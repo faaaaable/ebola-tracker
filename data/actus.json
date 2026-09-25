@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "ffe7cea2",
+   "date": "2026-09-25",
+   "titre": "Ituri : la jeunesse appelle à la paix et à la riposte contre Ebola",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ituri-la-jeunesse-appelle-a-la-paix-et-a-la-riposte-contre-ebola/",
+   "langue": "fr",
+   "resume": "Le conseil provincial de la jeunesse de l'Ituri dans le Nord-Est de la République démocratique du Congo(RDC) a exhorté,…",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ff5186a0",
    "date": "2026-09-25",
    "titre": "La déforestation est la première cause de l’épidémie d’Ebola (Expert en environnement)",
@@ -54,6 +67,19 @@
    "image": true
   },
   {
+   "id": "d459b343",
+   "date": "2026-09-25",
+   "titre": "Ebola à Lolwa : l’attente de trois jours des résultats freine la riposte (Médecin-chef de zone)",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-lolwa-lattente-de-trois-jours-des-resultats-freine-la-riposte-medecin-chef-de-zone/",
+   "langue": "fr",
+   "resume": "Le délai pouvant atteindre trois jours pour obtenir les résultats des échantillons constitue l’un des principaux défis auxquels fait…",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "d13f4472",
    "date": "2026-09-25",
    "titre": "Ebola : une formation des enseignants sur les mesures de prévention prévue en Ituri",
@@ -80,6 +106,19 @@
    "image": true
   },
   {
+   "id": "bd0f1af6",
+   "date": "2026-09-25",
+   "titre": "Ebola en RDC : les États-Unis annoncent une aide supplémentaire de 267 millions USD",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/09/25/actualite/sante/ebola-en-rdc-les-etats-unis-annoncent-une-aide-supplementaire-de-267",
+   "langue": "fr",
+   "resume": "Droit tiers\" /> Les États-Unis ont annoncé, mardi 23 septembre, une aide humanitaire et sanitaire directe supplémentaire de 267 millions de dollars pour soutenir la riposte contre l’épidémie d’Ebola en République démocratique du Congo.",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "a202de40",
    "date": "2026-09-25",
    "titre": "Haut-Uélé: baisse des cas d’Ebola dans la zone de santé d’Isiro",
@@ -87,6 +126,58 @@
    "url": "https://acp.cd/province/haut-uele-baisse-des-cas-debola-dans-la-zone-de-sante-disiro/",
    "langue": "fr",
    "resume": "Une baisse remarquable des cas positifs de malades affectés par la maladie à virus Ebola, a été constatée à Isiro,…",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "a025b65c",
+   "date": "2026-09-25",
+   "titre": "Ituri : le nouveau chef de la santé appelle à anticiper la phase post-Ebola",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ituri-le-nouveau-chef-de-la-sante-appelle-a-anticiper-la-phase-post-ebola/",
+   "langue": "fr",
+   "resume": "Bunia, 25 septembre 2026 (ACP). – Le nouveau chef de la Division provinciale de la santé (DPS) de l’Ituri, dans le Nord-Est de la…",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "95d267fc",
+   "date": "2026-09-25",
+   "titre": "Inquiétude dans une école primaire de Mambasa après le décès d’un élève atteint d’Ebola",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/09/25/actualite/sante/inquietude-dans-une-ecole-primaire-de-mambasa-apres-le-deces-dun-eleve",
+   "langue": "fr",
+   "resume": "Vue du Centre de traitement Ebola de Beni (Nord-Kivu). Septembre 2026. Radio Okapi/ Ph. Marc Maro Fimbo\" /> Une inquiétude règne depuis jeudi 24 septembre à l’école primaire de Lalia, située près de Biakato-centre, dans le territoire de Mambasa, en Ituri.",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "905ce137",
+   "date": "2026-09-25",
+   "titre": "Ituri : le nouveau chef de la santé s’engage à consolider les acquis contre Ebola",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ituri-le-nouveau-chef-de-la-sante-sengage-a-consolider-les-acquis-contre-ebola/",
+   "langue": "fr",
+   "resume": "Le nouveau chef de la Division provinciale de la santé (DPS) de l'Ituri, dans le Nord-Est de la République…",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "7ae4422d",
+   "date": "2026-09-25",
+   "titre": "DR Congo: Young doctor dies of Ebola as cases surge beyond epicentre",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/09/25/dr-congo-young-doctor-dies-of-ebola-as-cases-surge-beyond-epicentre/",
+   "langue": "en",
+   "resume": "Victor Kingombe died at an Ebola treatment centre in Kisangani, three months after Tshopo province first reported cases.",
    "statut": "publie",
    "collecte": "2026-09-25",
    "media": true,
@@ -119,6 +210,31 @@
    "image": true
   },
   {
+   "id": "639a8ac8",
+   "date": "2026-09-25",
+   "titre": "Ituri : renforcement des capacités des journalistes sur la couverture de riposte contre Ebola",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ituri-renforcement-des-capacites-des-journalistes-sur-la-couverture-de-riposte-contre-ebola/",
+   "langue": "fr",
+   "resume": "Un atelier de renforcement des capacités des journalistes sur les mesures de protection, afin de contribuer à la sensibilisation…",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "3c639207",
+   "date": "2026-09-25",
+   "titre": "Communicable disease threats report, 19-25 September, week 39",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-19-25-september-week-39",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 19-25 September, and includes updates on respiratory virus epidemiology in the EU/EEA Ebola, ECDC expert deployment, West Nile Virus, Crimean-Congo haemorrhagic fever, dengue, chikungunya, and…",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
+   "image": true
+  },
+  {
    "id": "3963bee6",
    "date": "2026-09-25",
    "titre": "Ebola à Isiro : le personnel soignant attend l’arrivée des vaccins pour se protéger",
@@ -139,6 +255,19 @@
    "url": "https://acp.cd/province/ebola-un-notable-recommande-le-renforcement-de-la-sensibilisation-communautaire-a-oicha/",
    "langue": "fr",
    "resume": "Le renforcement de la sensibilisation communautaire contre Ebola ainsi que l'observance des mesures préventives ont été recommandés vendredi, auprès…",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "05df257c",
+   "date": "2026-09-25",
+   "titre": "Beni : deux morts et des blessés dans une altercation entre la police et des jeunes au cimetière de Rwangoma",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/09/25/actualite/societe/beni-deux-morts-et-des-blesses-dans-une-altercation-entre-la-police-et",
+   "langue": "fr",
+   "resume": "Photo ONU/Martine Perret\" /> Deux personnes ont perdu la vie et plusieurs autres blessées jeudi 24 septembre lors d’incidents survenus dans le quartier Rwangoma, dans la ville de Beni (Nord-Kivu).",
    "statut": "publie",
    "collecte": "2026-09-25",
    "media": true,
@@ -508,6 +637,19 @@
    "image": true
   },
   {
+   "id": "7054995b",
+   "date": "2026-09-23",
+   "titre": "Ebola surveillance expands beyond DR Congo borders as IOM steps up efforts",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/09/23/ebola-surveillance-expands-beyond-dr-congo-borders-as-iom-steps-up-efforts/",
+   "langue": "en",
+   "resume": "As the Ebola outbreak in the DRC reaches unprecedented levels, disease surveillance is spreading beyond the country's borders. The International Organization for Migration tracks the epidemic along major travel routes, with the help of neighbouring governments.",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "695ab24c",
    "date": "2026-09-23",
    "titre": "Festival Ngoma à Kisangani : le public soumis au lavage des mains contre Ebola.",
@@ -529,6 +671,19 @@
    "resume": "Quinze écoles de la commune rurale de Mangina à Beni, au Nord-Kivu, dans l'Est de la République démocratique du…",
    "statut": "publie",
    "collecte": "2026-09-24",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "2e0aa7ef",
+   "date": "2026-09-23",
+   "titre": "Des motards et mouvements citoyens sensibilisés aux enterrements sécurisés contre Ebola à Beni",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/09/24/actualite/sante/des-motards-et-mouvements-citoyens-sensibilises-aux-enterrements",
+   "langue": "fr",
+   "resume": "Des motards de Kinshasa, le 07/02/2020, réunis devant le siège de l’UDPS pour protester contre une décision du gouverneur de la ville, Gentiny Ngobila, instaurant la taxe de circulation des motos-taxis.",
+   "statut": "publie",
+   "collecte": "2026-09-25",
    "media": true,
    "image": true
   },
@@ -841,6 +996,30 @@
    "image": true
   },
   {
+   "id": "d6a159e3",
+   "date": "2026-09-18",
+   "titre": "Ebola en Ituri : plus de 200 personnes déjà incluses dans l’essai clinique EBO-PEP",
+   "source": "ALIMA",
+   "url": "https://alima.ngo/actualites/partenariat/ebo-pep-ituri-200-inclusions-ebola/",
+   "langue": "fr",
+   "resume": "Plus de 200 contacts à haut risque de la maladie à virus Ebola Bundibugyo ont été inclus dans l’essai EBO-PEP. Celui-ci ne cesse d’élargir son recrutement sur le terrain, pour suivre la dynamique de l’épidémie.",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "image": true
+  },
+  {
+   "id": "8ff993fd",
+   "date": "2026-09-18",
+   "titre": "Communicable disease threats report, 12-18 September, week 38",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-12-18-september-week-38",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 12-18 September, and includes updates on Ebola, malaria, botulism, avian influenza A(H9N2), influenza A(H5), respiratory virus epidemiology in the EU/.EEA, West Nile virus infections…",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
+   "image": true
+  },
+  {
    "id": "64b4e3ee",
    "date": "2026-09-18",
    "titre": "Le pic de l’épidémie d’Ebola en RD Congo n’est toujours pas confirmé selon Africa CDC",
@@ -889,6 +1068,18 @@
    "statut": "publie",
    "collecte": "2026-09-23",
    "paire": "07b10926",
+   "image": true
+  },
+  {
+   "id": "d5570b8c",
+   "date": "2026-09-17",
+   "titre": "Ebola en Ituri : l’approche innovante et intégrée d’ALIMA face à l’épidémie donne des résultats probants",
+   "source": "ALIMA",
+   "url": "https://alima.ngo/actualites/ebola-ituri-rdc-riposte-alima/",
+   "langue": "fr",
+   "resume": "En Ituri (RDC), épicentre de l'épidémie d'Ebola, ALIMA déploie une riposte intégrée : centres de traitement, diagnostic rapide, mobilisation communautaire et innovation médicale, avec déjà plus de 660 guérisons enregistrées.",
+   "statut": "publie",
+   "collecte": "2026-09-25",
    "image": true
   },
   {
@@ -1096,6 +1287,18 @@
    "image": true
   },
   {
+   "id": "e06a3abb",
+   "date": "2026-09-14",
+   "titre": "RDC : atteint d’Ebola, le pasteur Yanga raconte sa guérison",
+   "source": "ALIMA",
+   "url": "https://alima.ngo/actualites/video/ebola-rdc-pasteur-gueri-rwampara/",
+   "langue": "fr",
+   "resume": "En RDC, le pasteur Yanga a contracté Ebola en s'occupant de son frère malade, contaminant ainsi cinq de ses proches. Pris en charge par ALIMA au centre de traitement de Rwampara, il est ressorti guéri après vingt jours.",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "image": false
+  },
+  {
    "id": "49825697",
    "date": "2026-09-14",
    "titre": "Ebola en RDC: premières à donner les soins, «les femmes sont de plus en plus touchées» selon l’ONU",
@@ -1122,6 +1325,18 @@
    "image": true
   },
   {
+   "id": "f669f0d3",
+   "date": "2026-09-11",
+   "titre": "« Une ONG qui fait les choses autrement » : The Lancet retrace le rôle d’ALIMA dans la riposte à Ebola en RDC",
+   "source": "ALIMA",
+   "url": "https://alima.ngo/actualites/lancet-alima-riposte-ebola-rdc/",
+   "langue": "fr",
+   "resume": "Dans un reportage de sa rubrique World Report, The Lancet présente ALIMA comme un pilier opérationnel et scientifique de la riposte à Ebola en RDC, entre centres de traitement en Ituri, essai clinique EBO-PEP et modèle de partenariat né au Niger en 2009.",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "image": true
+  },
+  {
    "id": "ea2c1ff4",
    "date": "2026-09-11",
    "titre": "RDC: Ebola n’a pas atteint son pic mais il y a «une tendance à la baisse» dans sa progression, selon les autorités",
@@ -1145,6 +1360,18 @@
    "statut": "publie",
    "collecte": "2026-09-24",
    "media": true,
+   "image": true
+  },
+  {
+   "id": "67dacb60",
+   "date": "2026-09-11",
+   "titre": "Communicable disease threats report, 5 - 11 September, week 37",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-5-11-september-week-37",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 5 -12 September, and includes updates on Ebola, an overview of respiratory virus epidemiology in the EU/EEA, West Nile virus, Crimean-Congo haemorrhagic fever, dengue, chikungunya, and vibrio.",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
    "image": true
   },
   {
@@ -1260,6 +1487,18 @@
    "statut": "ecarte",
    "collecte": "2026-09-24",
    "media": true
+  },
+  {
+   "id": "c0e31bfd",
+   "date": "2026-09-04",
+   "titre": "Communicable disease threats report, 29 August - 4 September, week 36",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-29-august-4-september-week-36",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 29 August - 4 September, and includes updates on Ebola, SARS-CoV-2 variant classification, West Nile virus, Crimean-Congo haemorrhagic fever, dengue, chikungunya, vibrio, Middle East respiratory…",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
+   "image": true
   },
   {
    "id": "59aff904",
@@ -1436,6 +1675,18 @@
    "statut": "ecarte",
    "collecte": "2026-09-24",
    "media": true
+  },
+  {
+   "id": "ecef5d84",
+   "date": "2026-08-28",
+   "titre": "Communicable disease threats report, 22 - 28 August, week 35",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-22-28-august-week-35",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 22 - 28 August, and includes updates on diphtheria, Ebola, swine influenza A(H1N2), respiratory virus epidemiology, Crimean-Congo haemorrhagic fever, dengue, chikungunya virus disease, Vibrio…",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
+   "image": true
   },
   {
    "id": "a1354c56",
@@ -1666,6 +1917,18 @@
    "image": true
   },
   {
+   "id": "bf708f1d",
+   "date": "2026-08-21",
+   "titre": "Communicable disease threats report, 15 - 21 August 2026, week 34",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-15-21-august-2026-week-34",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 15-21 August 2026, and includes updates on Ebola, respiratory virus epidemiology in the EU/EEA, swine flu, West Nile virus, Crimean-Congo haemorrhagic fever, dengue, chikungunya, vibrio…",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
+   "image": true
+  },
+  {
    "id": "9b8639b4",
    "date": "2026-08-21",
    "titre": "Ebola outbreak in DR Congo growing 'exponentially' as death toll passes 2,500",
@@ -1859,6 +2122,18 @@
    "image": true
   },
   {
+   "id": "df675c66",
+   "date": "2026-08-14",
+   "titre": "Communicable disease threats report, 8 - 14 August 2026, week 33",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-8-14-august-2026-week-33",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 8 - 14 August 2026, and includes updates on Ebola, chikungunya, dengue, West Nile Virus infection, Crimean-Congo haemorrhagic fever, Vibrio, respiratory virus epidemiology in the EU/EEA, World…",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
+   "image": true
+  },
+  {
    "id": "c94c6a90",
    "date": "2026-08-14",
    "titre": "DR Congo's Ebola outbreak spreads to sixth province",
@@ -1976,6 +2251,18 @@
    "image": true
   },
   {
+   "id": "78b1a0e0",
+   "date": "2026-08-07",
+   "titre": "Communicable disease threats report, 1 - 7 August 2026, week 32",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-1-7-august-2026-week-32",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 1 - 7 August 2026, and includes updates on Ebola, chikungunya, dengue, West Nile Virus infection, Crimean-Congo haemorrhagic fever, Vibrio, respiratory virus epidemiology in the EU/EEA, World…",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
+   "image": true
+  },
+  {
    "id": "447d8f9f",
    "date": "2026-08-07",
    "titre": "'DRC's largest Ebola outbreak on record: Active conflict and armed groups hamper the response'",
@@ -2053,6 +2340,18 @@
    "image": true
   },
   {
+   "id": "b4522bb2",
+   "date": "2026-07-31",
+   "titre": "Communicable disease threats report, 25 - 31 July 2026, week 31",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-25-31-july-2026-week-31",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 27 - 31 July 2026, and includes updates on Ebola, West Nile Virus infections, Crimean-Congo haemorrhagic fever, dengue, avian influenza A(H9N2), expert deployment, cholera, chikungunya virus…",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
+   "image": true
+  },
+  {
    "id": "855f53d3",
    "date": "2026-07-31",
    "titre": "Ebola outbreak in DRC the fastest growing in the history of the virus",
@@ -2102,6 +2401,18 @@
    "statut": "publie",
    "collecte": "2026-09-24",
    "media": true,
+   "image": true
+  },
+  {
+   "id": "52e3c135",
+   "date": "2026-07-24",
+   "titre": "Communicable disease threats report, 18 - 24 July 2026, week 30",
+   "source": "ECDC",
+   "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-18-24-july-2026-week-30",
+   "langue": "en",
+   "resume": "This issue of the ECDC Communicable Disease Threats Report (CDTR) covers the period 18 - 24 July 2026, and includes updates on Ebola, West Nile Virus infections, Crimean-Congo haemorrhagic fever, malaria, dengue, expert deployment, World Pride, and an overview of respiratory…",
+   "statut": "ecarte",
+   "collecte": "2026-09-25",
    "image": true
   },
   {

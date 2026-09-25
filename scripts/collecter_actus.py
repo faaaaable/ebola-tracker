@@ -40,6 +40,7 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -96,6 +97,24 @@ SOURCES = [
      "statut": "attente", "media": True, "langue": "en"},
     {"id": "guardian", "nom": "The Guardian", "url": "https://www.theguardian.com/world/ebola/rss",
      "statut": "attente", "media": True, "langue": "en"},
+    # Ajouts du 25 septembre 2026, apres le releve de 118 flux fait par Hermes
+    # et recontrole ici. Radio Okapi et Africanews sont generalistes (4 et 2
+    # articles sur Ebola sur 50) et publies SANS VALIDATION, a la demande du
+    # proprietaire : le filtre est donc resserre au titre et au debut du
+    # resume — « Beni : deux morts [...] au cimetiere » passe, Ebola y est
+    # nomme des la deuxieme phrase. Radio Okapi a change d'adresse : son
+    # ancien rss.xml est fige au 15 juillet.
+    {"id": "okapi", "nom": "Radio Okapi", "url": "https://www.radiookapi.net/feed",
+     "statut": "publie", "filtre": "debut", "media": True, "langue": "fr"},
+    {"id": "africanews", "nom": "Africanews", "url": "https://www.africanews.com/feed/",
+     "statut": "publie", "filtre": "debut", "media": True, "langue": "en"},
+    # ALIMA, ONG medicale en premiere ligne en Ituri : son flux melange toute
+    # son actualite, l'epidemie doit etre nommee dans le titre.
+    {"id": "alima", "nom": "ALIMA", "url": "https://alima.ngo/feed/",
+     "statut": "publie", "filtre": "titre", "langue": "fr"},
+    # L'ECDC n'est pas lu (decision du proprietaire, 25 septembre 2026) : pas
+    # de flux Ebola, et son rapport hebdomadaire sur les menaces couvre toutes
+    # les maladies de la semaine, Ebola parmi huit ou dix.
     # Les autorites congolaises (essai du 24 septembre 2026). Le ministere de
     # la Sante n'a ni flux ni actualites sur son site : il communique sur X,
     # a saisir a la main (--ajouter).
@@ -134,6 +153,9 @@ PREFIXE_RW = re.compile(r"^(DR Congo|RD Congo|Democratic Republic of the Congo)\
 
 
 def lire(url):
+    # Une adresse d'image peut porter un caractere non ASCII (« © » chez
+    # ALIMA) : urllib refuse de l'envoyer tel quel.
+    url = urllib.parse.quote(url, safe=":/?&=%#+,;@~!$'()*[]")
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=40) as r:
         return r.read()
