@@ -73,6 +73,13 @@ Le déclencheur est ce qui neutralise la règle d'elle-même dès qu'une vue
 agrège : par semaine, le 22 juillet se dilue dans les siens et ne dépasse plus
 rien, donc aucune coupe.
 
+**ET SUR « ENSEMBLE DU PAYS »** (`/donnees/`, 25 septembre 2026, demande du
+propriétaire) : la vue par jour des cadres `newCases` et `newDeaths` prend le
+même plafond, la même coupe dentelée et la même étiquette du total (cas : 180,
+369 et 245 coupés ; décès : 76, 236 et 100 coupés). Un plafond hors du pas de
+la grille — 76 pour des graduations de 10 — tait son étiquette, sinon « 76 »
+se collait à « 70 ». Les vues par semaine et par mois ne changent pas.
+
 **LA MÊME RÈGLE SUR LES PAGES PROVINCE** (22 septembre 2026), posée sur le bloc
 `provinceEpidemic` après le retour de la vue agrégée. L'Ituri était le cas le
 plus sévère du site : pic ordinaire 119, barre du 22 juillet 347, axe à 350 —

@@ -3785,7 +3785,20 @@ function renderOneChart(canvas, chartMode){
           grid: { drawOnChartArea: false } };
       }
       optsN.plugins.tooltip.callbacks.title = items => frDate(s[items[0].dataIndex].date);
-      slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataJ, options: optsN });
+      /* Les journees de rattrapage rognees, comme a l'accueil et sur les
+         pages province (demande du proprietaire, 25 septembre 2026) : meme
+         plafond, meme coupe dentelee, meme etiquette du total. La regle ne
+         se declenche que si une barre de rattrapage ecrase les autres. */
+      const plafondN = plafondSansRattrapage(parts.rapporte, parts.rattrapage);
+      if(plafondN){
+        optsN.scales.y.max = plafondN;
+        /* Un plafond hors du pas de la grille (76 decès pour des graduations
+           de 10) s'etiquetterait colle a la derniere graduation : il se tait. */
+        if(plafondN % 10) optsN.scales.y.ticks.callback = v => v === plafondN ? '' : fmt(v);
+        optsN.plugins.ruptureRattrapage = { coupees: barresCoupees(parts.rapporte, parts.rattrapage, plafondN) };
+      }
+      slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataJ, options: optsN,
+                                                plugins: [ruptureRattrapage] });
       slot.lastMode = chartMode + '-quotidien';
       noterPeriode(slot, s[0].date, s[s.length - 1].date);
       if(noteEl){
