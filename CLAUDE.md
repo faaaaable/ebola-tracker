@@ -48,8 +48,8 @@ rapports listés, Ituri à 5 947). Effet de bord **bienvenu** de l'aller-retour 
 en position non-dernière n'avait pas lus. Un seul fichier de `data/` modifié
 par l'opération, et c'est ce gain.
 
-**`check_coherence` sort avec DEUX ÉCARTS BLOQUANTS, tous deux imputables à la
-source, publiés en l'état le 23 septembre 2026 :**
+**`check_coherence` sortait avec DEUX ÉCARTS BLOQUANTS, tous deux imputables à la
+source, publiés en l'état le 23 septembre 2026 — tranchés le 25 septembre :**
 - **`vaccination : le cumul ne recule jamais` — 129 Bas-Uélé (874 après 987).**
   Le 128 publie « 987 dont 550 Buta, **324 Ganga**, 71 Poko, 42 Viadana », le
   129 « 874 dont 550 Buta, **211 Ganga**, 71 Poko, 42 Viadana ». Une seule zone
@@ -58,10 +58,20 @@ source, publiés en l'état le 23 septembre 2026 :**
 - **`cte : taux publié = normés / lits` — 130 Nord-Kivu.** Le bulletin écrit
   « 338 hospitalisés dont 274 dans les structures normées pour 308 lits, soit
   66,2 % » — or 274/308 fait 89,0 %. Les 128 et 129 étaient cohérents (95,6 %
-  et 91,2 %). C'est le jour où le CTE de Matanda ouvre à Katwa : la capacité a
-  probablement bougé sans que le nombre de lits suive. Le site garde les deux,
+  et 91,2 %). **Relu le 25 septembre : c'est une coquille sur le taux.** La
+  même phrase poursuit « 64 patients (18,9 %) restent pris en charge dans des
+  ESS hors CTE » : 338 − 64 = 274 et 64/338 = 18,9 %, le numérateur tient ;
+  et **204/308 = 66,2 % exactement**. L'hypothèse d'une capacité qui aurait
+  bougé à l'ouverture de Matanda est donc écartée. Le site garde les deux,
   `occupationPubliee` et la série à définition constante.
-  **Ni l'un ni l'autre n'est encore inscrit en « écart connu » — à trancher.**
+  **Les deux sont inscrits depuis le 25 septembre 2026 dans `EXCEPTIONS_SOURCE`
+de `check_coherence.py`**, avec la citation du bulletin. Une exception vise un
+contrôle, un bulletin, une province **et les valeurs lues** : si la relecture
+change, ou si un autre bulletin dérape de la même façon, le contrôle redevient
+bloquant (vérifié en décalant 274 d'une unité). Les deux cas passent en écart
+non bloquant ; le script sort « Aucun écart bloquant. ». Écartés : corriger
+`cte.json` ou `piliers.json` (réécrire la source), et rendre les deux
+contrôles non bloquants en entier (ils ne protégeraient plus de rien).
   Mais **le saut de capacité qui va avec est désormais nommé dans la note du
   graphique** : le Nord-Kivu passe de 228 à 308 lits le 21 septembre, sa courbe
   tombe de 138,6 à 109,7 % pendant que les patients montent de 316 à 338, et
