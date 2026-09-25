@@ -1151,7 +1151,26 @@ const ruptureRattrapage = {
     if(premierBarres < 0) return;
     const barres = chart.getDatasetMeta(premierBarres).data;
     ctx.save();
-    coupees.forEach(({ index, total }) => {
+    ctx.font = '600 10.5px ' + PALETTE.font;
+    /* Les totaux se placent d'abord, centres sur leur barre, puis s'ecartent
+       s'ils se touchent : sur mobile le 22 et le 30 juillet ne sont qu'a une
+       vingtaine de pixels, et « 369 » en fait autant — les deux chiffres se
+       percutaient. Chaque paire qui se chevauche s'ouvre autour de son
+       milieu, 6 px entre les deux, sans sortir du cadre (25 septembre 2026). */
+    const etiquettes = coupees.map(({ index, total }) => {
+      const el = barres[index];
+      return el ? { x: el.x, texte: fmt(total), l: ctx.measureText(fmt(total)).width } : null;
+    }).filter(Boolean).sort((p, q) => p.x - q.x);
+    const ECART = 6;
+    for(let i = 1; i < etiquettes.length; i++){
+      const p = etiquettes[i - 1], q = etiquettes[i];
+      const manque = (p.x + p.l / 2 + ECART) - (q.x - q.l / 2);
+      if(manque > 0){ p.x -= manque / 2; q.x += manque / 2; }
+    }
+    etiquettes.forEach(e => {
+      e.x = Math.min(Math.max(e.x, aire.left + e.l / 2), aire.right - e.l / 2);
+    });
+    coupees.forEach(({ index }) => {
       const el = barres[index];
       if(!el) return;
       const demi = Math.max(el.width, 7) / 2 + 1;
@@ -1173,13 +1192,12 @@ const ruptureRattrapage = {
       ctx.closePath();
       ctx.fillStyle = PALETTE.panel;
       ctx.fill();
-      /* Le total dans le blanc de la coupe : aucune autre barre n'est chiffree
-         ici, le rapprochement se fait sans legende. */
-      ctx.font = '600 10.5px ' + PALETTE.font;
-      ctx.fillStyle = PALETTE.inkDim;
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText(fmt(total), el.x, aire.top + 11);
     });
+    /* Le total dans le blanc de la coupe : aucune autre barre n'est chiffree
+       ici, le rapprochement se fait sans legende. */
+    ctx.fillStyle = PALETTE.inkDim;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    etiquettes.forEach(e => ctx.fillText(e.texte, e.x, aire.top + 11));
     ctx.restore();
   },
 };
