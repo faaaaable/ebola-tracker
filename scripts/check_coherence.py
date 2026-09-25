@@ -36,6 +36,33 @@ def check(label, ok, detail="", blocking_if_false=True):
         (blocking if blocking_if_false else notes).append("%s %s" % (label, detail))
 
 
+# Ecarts bloquants verifies a la main sur le PDF et imputes a la source
+# (25 septembre 2026). Chaque exception vise un bulletin, une province et les
+# valeurs lues : si la relecture change, ou si un autre bulletin derape,
+# le controle redevient bloquant.
+EXCEPTIONS_SOURCE = {
+    # « 338 patients sont hospitalises dont 274 dans les structures normees
+    # pour 308 lits, soit un taux d'occupation de 66,2 % ; 64 patients
+    # (18,9 %) restent [...] hors CTE ». 338 - 64 = 274 confirme le
+    # numerateur ; 66,2 % est 204/308 : coquille sur le taux.
+    ("cte_normes", "130", "Nord-Kivu"): (274, 308, 66.2),
+    # 128 : « 987 [...] dont 550 a Buta, 324 a Ganga, 71 a Poko et 42 a
+    # Viadana » ; 129 : « 874 [...] 211 a Ganga ». Chaque total tombe sur sa
+    # ventilation, seule Ganga bouge : la source s'est corrigee. Le
+    # graphique porte la valeur revisee (decision du 23 septembre 2026).
+    ("vaccination_recul", "129", "Bas-Uélé"): (874, 987),
+}
+
+
+def trier(controle, trouves):
+    """Separe les ecarts en (nouveaux, connus). trouves : (sitrep, prov, valeurs, texte)."""
+    nouveaux, connus = [], []
+    for num, prov, valeurs, texte in trouves:
+        attendu = EXCEPTIONS_SOURCE.get((controle, num, prov))
+        (connus if attendu is not None and tuple(attendu) == tuple(valeurs) else nouveaux).append(texte)
+    return nouveaux, connus
+
+
 latest = read("latest.json")
 sitreps = read("sitreps.json")
 zones_history = read("zones-history.json")
@@ -296,9 +323,13 @@ if cte:
         for prov, c in (p.get("provinces") or {}).items():
             n, l, o = c.get("hospitalisesNormes"), c.get("lits"), c.get("occupationPubliee")
             if n is not None and l and o is not None and abs(n / l * 100 - o) > 1.5:
-                ecarts.append("%s %s" % (p["sitrepNumber"], prov))
-    check("cte : taux publie = normes / lits la ou la province distingue", not ecarts,
-          ", ".join(ecarts[:6]))
+                ecarts.append((p["sitrepNumber"], prov, (n, l, o), "%s %s" % (p["sitrepNumber"], prov)))
+    nouveaux, connus = trier("cte_normes", ecarts)
+    check("cte : taux publie = normes / lits la ou la province distingue", not nouveaux,
+          ", ".join(nouveaux[:6]))
+    if connus:
+        check("cte : taux publie = normes / lits, coquilles de la source", False,
+              ", ".join(connus), blocking_if_false=False)
 
 if contacts:
     impossibles = []
@@ -329,14 +360,19 @@ if piliers:
                 ecarts.append("%s %s (%d vs %d)" % (e["sitrepNumber"], prov, somme, cumul))
             if cumul is not None:
                 if prov in dernier and cumul < dernier[prov]:
-                    recul.append("%s %s (%d apres %d)" % (e["sitrepNumber"], prov, cumul, dernier[prov]))
+                    recul.append((e["sitrepNumber"], prov, (cumul, dernier[prov]),
+                                  "%s %s (%d apres %d)" % (e["sitrepNumber"], prov, cumul, dernier[prov])))
                 dernier[prov] = cumul
             cible, couv = v.get("cible"), v.get("couverture")
             if cumul and cible and couv is not None and abs(cumul / cible * 100 - couv) > 0.5:
                 taux.append("%s %s" % (e["sitrepNumber"], prov))
     check("vaccination : somme des zones = cumul publie", not ecarts,
           ", ".join(ecarts[:4]), blocking_if_false=False)
-    check("vaccination : le cumul ne recule jamais", not recul, ", ".join(recul[:4]))
+    nouveaux, connus = trier("vaccination_recul", recul)
+    check("vaccination : le cumul ne recule jamais", not nouveaux, ", ".join(nouveaux[:4]))
+    if connus:
+        check("vaccination : cumul revise a la baisse par la source", False,
+              ", ".join(connus), blocking_if_false=False)
     check("vaccination : couverture publiee = cumul / cible (a 0,5 pt)", not taux,
           ", ".join(taux[:4]), blocking_if_false=False)
     dp = [e["date"] for e in piliers.get("parDate", []) if e.get("date")]

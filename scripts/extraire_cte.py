@@ -122,9 +122,12 @@ LITS_FRACTION_RE = re.compile(r"%\s*;\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d
 LITS_CAPACITE_RE = re.compile(
     r"capacit[ée]\s+d[’']\s*accueil[^.;%]{0,24}?(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
 # Le denominateur du taux quand la province distingue les deux : « dont 224
-# dans les structures normées », « dont 216 dans les structures dédiées ».
+# dans les structures normées », « dont 216 dans les structures dédiées »,
+# « dont 250 dans les structures de prise en charge normées » (132, sans
+# nombre de lits : la capacite se deduit alors du taux et se recoupe).
 HOSPITALISES_NORMES_RE = re.compile(
-    r"dont\s+(\d[\d ]{0,4}\d|\d)\s+dans\s+les\s+structures\s+(?:norm[ée]es|d[ée]di[ée]es)", re.I)
+    r"dont\s+(\d[\d ]{0,4}\d|\d)\s+dans\s+les\s+structures\s+(?:de\s+prise\s+en\s+charge\s+)?"
+    r"(?:norm[ée]es|d[ée]di[ée]es)", re.I)
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),

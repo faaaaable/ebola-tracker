@@ -174,6 +174,10 @@ qu'en D. La note du graphique le dit.
   plafond `null` parce que la part vérifiée dépasse 100 % jusqu'à début
   août. La note de chaque cadre dit « tracé purement illustratif — jamais
   une valeur ».
+- **« Par jour » est l'onglet ouvert d'abord, aux alertes comme au
+  laboratoire** (25 septembre 2026, demande du propriétaire) : premier
+  bouton, classe `active` dans `site/pages/riposte.html`, et défaut
+  `vueDe(canvas, 'jour')` dans `app.js` — les deux doivent bouger ensemble.
 - **Les alertes ont trois vues depuis le 22 septembre 2026** (demande du
   propriétaire) : « Par semaine », « Par jour » et « Taux ». Les deux
   premières portent le même indicateur à deux échelles, la troisième en

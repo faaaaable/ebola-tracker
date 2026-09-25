@@ -1625,7 +1625,7 @@ function renderOneChart(canvas, chartMode){
       const points = provRip ? pointsTous.filter(p => p.recues !== null) : pointsTous;
       if(!points.length){ vide(); return; }
       const sans = sortedSitreps().filter(r => r.date >= points[0].date && !points.some(p => p.date === r.date)).length;
-      if(vueDe(canvas, 'volume') === 'volume'){
+      if(vueDe(canvas, 'jour') === 'volume'){
         const semaines = parSemaine(points, ['recues', 'validees']);
         if(!semaines.length){ vide(); return; }
         const ouverte = semaineOuverte(semaines, points[points.length-1].date);
@@ -1656,7 +1656,7 @@ function renderOneChart(canvas, chartMode){
          signalements. Meme idiome que le laboratoire : axe calendaire, blanc
          a chaque journee sans bulletin, minBarLength pour qu'une journee
          relevee a zero garde un trait. ---- */
-      if(vueDe(canvas, 'volume') === 'jour'){
+      if(vueDe(canvas, 'jour') === 'jour'){
         const recuesJ = serie('recues'), valideesJ = serie('validees');
         const autresJ = jours.map((d, i) => (recuesJ[i] === null || valideesJ[i] === null)
           ? null : recuesJ[i] - valideesJ[i]);
@@ -1806,7 +1806,7 @@ function renderOneChart(canvas, chartMode){
          laisse deux pixels a une journee relevee a zero, qui dit « compte,
          et compte zero ». Les pointillés relient les deux bords d'un trou :
          un trace illustratif, jamais une valeur — la note le repete. */
-      if(vueDe(canvas, 'semaine') === 'jour'){
+      if(vueDe(canvas, 'jour') === 'jour'){
         /* La vue par jour commence au 2 juin (demande du proprietaire,
            22 septembre 2026). Avant cette date, la source ne donne que
            quatre releves isoles — 20, 29, 30 et 31 mai — separes par des

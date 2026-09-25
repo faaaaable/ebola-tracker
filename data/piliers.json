@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-09-22"
+  "fin": "2026-09-23"
  },
  "parDate": [
   {
@@ -2339,6 +2339,56 @@
       "zonesSomme": 2880,
       "doses": {
        "decongelees": 626
+      }
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-23",
+   "sitrepNumber": "132",
+   "poe": {
+    "personnes": 243796,
+    "screenesPct": 98.1,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 51,
+    "attendus": 76
+   },
+   "eds": {
+    "alertes": 150,
+    "realisees": 115,
+    "swabes": 123,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 4,
+     "realisees": 2,
+     "swabes": 3
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 66,
+     "Tshopo": 4058
+    },
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 4058,
+      "cible": 11703,
+      "couverture": 35.0,
+      "zones": {
+       "Makiso-Kisangani": 2035,
+       "Kabondo": 521,
+       "Bafwasende": 458,
+       "Mangobo": 456
+      },
+      "zonesSomme": 3470,
+      "doses": {
+       "decongelees": 442,
+       "peremption": "2026-10-05"
       }
      }
     }
