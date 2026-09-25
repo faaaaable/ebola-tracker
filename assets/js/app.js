@@ -1112,7 +1112,7 @@ const boutsDeCourbe = {
    le pic ordinaire, couper couterait plus en lecture que la hauteur rendue.
    C'est ce qui la neutralise d'elle-meme des qu'une vue agrege — par semaine,
    le 22 juillet se dilue dans les siens et ne depasse plus rien. */
-const MARGE_PLAFOND = 1.12, DECLENCHE_RUPTURE = 1.4, RESERVE_BARRES = .25;
+const MARGE_PLAFOND = 1.12, DECLENCHE_RUPTURE = 1.4;
 function plafondSansRattrapage(rapporte, rattrapage){
   let ordinaire = 0, plusHaute = 0;
   for(let i = 0; i < rapporte.length; i++){
@@ -1137,17 +1137,6 @@ function barresCoupees(rapporte, rattrapage, plafond){
     if(total > plafond) coupees.push({ index: i, total });
   }
   return coupees;
-}
-
-/* Le socle de l'axe des cumuls — voir « les cumuls cedent le bas du cadre ».
-   Arrondi a deux chiffres significatifs, pour que l'axe se gradue rond a
-   toutes les echelles : le pays compte en milliers de cas, la Tshopo en
-   dizaines, et -1 918 comme -47,5 auraient donne des graduations batardes. */
-function socleCumuls(hautCumul){
-  const x = hautCumul * RESERVE_BARRES;
-  if(!(x > 0)) return 0;
-  const pas = Math.pow(10, Math.max(0, Math.floor(Math.log10(x)) - 1));
-  return -Math.round(x / pas) * pas;
 }
 
 const ruptureRattrapage = {
@@ -3485,14 +3474,12 @@ function renderOneChart(canvas, chartMode){
 
        LA REGLE VAUT POUR LES SIX PROVINCES, un seul bloc les dessinant. Elle
        ne se declenche que la ou elle sert : la Tshopo n'a pris aucun cas le
-       22 juillet, son graphique ne bouge pas. */
+       22 juillet, son graphique ne bouge pas. Le plafond seul : l'axe des
+       cumuls repart de zero, comme a l'accueil (25 septembre 2026). */
     const plafondP = plafondSansRattrapage(rapporte, rattrape);
     if(plafondP){
       opts.scales.y.max = plafondP;
       opts.plugins.ruptureRattrapage = { coupees: barresCoupees(rapporte, rattrape, plafondP) };
-      opts.scales.y1.min = socleCumuls(Math.max(...pts.map(pt => pt.confirmed || 0)));
-      opts.scales.y1.beginAtZero = false;
-      opts.scales.y1.ticks.callback = v => v < 0 ? '' : fmt(v);
     }
     slot.chart = new Chart(canvas.getContext('2d'),
       { type: 'bar', data, options: opts, plugins: [ruptureRattrapage] });
@@ -4076,12 +4063,16 @@ function renderOneChart(canvas, chartMode){
        courbes, que l'oeil vient lire.
 
        Sans plafond sur les barres, rien de tout cela n'a lieu d'etre et l'axe
-       repart de zero. */
-    const socle = plafondBarres ? socleCumuls(Math.max(...s.map(r => r.confirmed || 0))) : 0;
+       repart de zero.
+
+       ABANDONNE SUR L'ACCUEIL LE 25 SEPTEMBRE 2026 (demande du proprietaire :
+       « je n'aime pas que la courbe des cumules parte plus haut ») : les deux
+       courbes partent de zero, au pied du cadre, quitte a croiser les barres.
+       Idem sur les pages province. */
     opts.scales.y1 = {
-      position:'right', beginAtZero:!socle, min: socle || undefined,
+      position:'right', beginAtZero:true,
       ticks:{ color:PALETTE.inkFaint, font:{family:PALETTE.font, size:10},
-              callback:v => v < 0 ? '' : fmt(v) },
+              callback:v => fmt(v) },
       grid:{ display:false }
     };
   }

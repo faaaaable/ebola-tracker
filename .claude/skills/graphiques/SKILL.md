@@ -58,11 +58,17 @@ sous zéro, l'axe ne ment sur rien. **Le quart est un compromis assumé** — il
 dégage la fin de période, où le conflit est réel, mais la courbe des décès
 frôle encore deux ou trois barres hautes ; dégager complètement demanderait
 45 %, et les courbes s'aplatiraient au point de perdre la forme qu'on vient y
-lire. Toucher à `plafondBarres` sans regarder `RESERVE_BARRES` refera le
-croisement.
+lire.
 
-**Trois constantes gouvernent le cadre**, en tête du plugin :
-`MARGE_PLAFOND` (1,12), `DECLENCHE_RUPTURE` (1,4) et `RESERVE_BARRES` (0,25).
+**LE SOCLE SOUS ZÉRO EST ABANDONNÉ LE 25 SEPTEMBRE 2026, à l'accueil comme sur
+les pages province** (demande du propriétaire : « je n'aime pas que la courbe
+des cumulés parte plus haut »). Les deux axes partagent leur zéro, au pied du
+cadre ; la courbe des décès traverse les barres de fin de période, et c'est
+accepté. `socleCumuls` et `RESERVE_BARRES` sont supprimés. Ne pas les
+réintroduire sans que le propriétaire le demande.
+
+**Deux constantes gouvernent le cadre**, en tête du plugin :
+`MARGE_PLAFOND` (1,12) et `DECLENCHE_RUPTURE` (1,4).
 Le déclencheur est ce qui neutralise la règle d'elle-même dès qu'une vue
 agrège : par semaine, le 22 juillet se dilue dans les siens et ne dépasse plus
 rien, donc aucune coupe.
