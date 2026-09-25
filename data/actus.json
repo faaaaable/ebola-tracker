@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "ea801ae7",
+   "date": "2026-09-25",
+   "titre": "UNICEF Democratic Republic of the Congo Humanitarian Situation Report No. 3 – Ebola Outbreak (Bundibugyo Virus), 31 August",
+   "source": "UNICEF",
+   "url": "https://reliefweb.int/report/democratic-republic-congo/unicef-democratic-republic-congo-humanitarian-situation-report-no-3-ebola-outbreak-bundibugyo-virus-31-august",
+   "langue": "en",
+   "resume": "Highlights UNICEF is scaling up its response from 49 to 60 affected and high-risk health zones, supporting Government-led efforts across community-based surveillance, RCCE, IPC/WASH, nutrition, MHPSS, clinical care, PSEA and continuity of essential services.",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "via": "ReliefWeb",
+   "image": true
+  },
+  {
+   "id": "c43abba5",
+   "date": "2026-09-25",
+   "titre": "Tshopo : un élu national appelle à la vigilance face à Ebola à Kisangani",
+   "source": "ACP",
+   "url": "https://acp.cd/province/tshopo-un-elu-national-appelle-a-la-vigilance-face-a-ebola-a-kisangani/",
+   "langue": "fr",
+   "resume": "Le député national élu de la ville de Kisangani, chef-lieu de la province de la Tshopo, au Nord-Est de…",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "f94a08f7",
    "date": "2026-09-24",
    "titre": "Crisis Analysis Team - Analyse d'incidents Ebola août 2026",
@@ -120,6 +146,19 @@
    "image": true
   },
   {
+   "id": "9e1599c5",
+   "date": "2026-09-24",
+   "titre": "Ebola Bundibugyo Virus Disease Outbreak Democratic Republic of the Congo | Uganda Weekly External Situation Report 19, Data as of 20 September 2026",
+   "source": "OMS",
+   "url": "https://reliefweb.int/report/democratic-republic-congo/ebola-bundibugyo-virus-disease-outbreak-democratic-republic-congo-uganda-weekly-external-situation-report-19-data-20-september-2026",
+   "langue": "en",
+   "resume": "Event description The Bundibugyo virus disease (BVD) outbreak in the Democratic Republic of the Congo has expanded further, with Dungu Health Zone in Haut-Uélé Province, bordering South Sudan, being the latest affected, bringing the total number of health zones affected to 63…",
+   "statut": "publie",
+   "collecte": "2026-09-25",
+   "via": "ReliefWeb",
+   "image": true
+  },
+  {
    "id": "923e24fc",
    "date": "2026-09-24",
    "titre": "Ebola: une réunion du G20 débloque 2,6 milliards de dollars d’engagements dans la lutte contre l’épidémie",
@@ -127,7 +166,7 @@
    "url": "https://www.rfi.fr/fr/afrique/20260924-ebola-une-r%C3%A9union-du-g20-d%C3%A9bloque-2-6-milliards-de-dollars-d-engagements-dans-la-lutte-contre-l-%C3%A9pid%C3%A9mie",
    "langue": "fr",
    "resume": "À New York, une réunion du G20 consacrée à Ebola a permis de réunir environ 2,6 milliards de dollars d’engagements, selon Jean Kaseya, le directeur général d’Africa CDC.",
-   "statut": "attente",
+   "statut": "publie",
    "collecte": "2026-09-24",
    "media": true,
    "image": true
@@ -192,7 +231,7 @@
    "url": "https://www.rfi.fr/fr/podcasts/appels-sur-l-actualit%C3%A9/20260924-rdc-comment-expliquer-l-absence-de-tshisekedi-%C3%A0-l-onu",
    "langue": "fr",
    "resume": "La République démocratique du Congo est représentée à l’Assemblée générale des Nations unies par la Première ministre Judith Suminwa, et non par le président Félix Tshisekedi. Aucune raison officielle n’a été donnée pour expliquer cette absence.",
-   "statut": "attente",
+   "statut": "publie",
    "collecte": "2026-09-24",
    "media": true,
    "image": true
