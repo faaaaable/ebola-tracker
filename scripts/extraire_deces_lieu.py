@@ -65,9 +65,14 @@ NOMS = {
     "Sud Ubangi": "Sud-Ubangi",
 }
 
+# Un cumul, avec ou sans espace des milliers. Depuis le SitRep 133 les cas
+# s'ecrivent eux aussi « 6 067 » : l'ancien [\d ]{1,7} prenait alors
+# « 6 067 2 » pour les cas et laissait « 784 » aux deces de l'Ituri (2 784).
+# Un groupe de milliers fait exactement trois chiffres.
+CUMUL = r"(?:\d{1,3}(?:[ \u00a0\u202f]\d{3})+|\d{1,6})"
 LIGNE_PROVINCE = re.compile(
-    r"\b(%s)\s+([\d ]{1,7})\s+([\d ]{1,6})\s+([\d,]+)\s*%%\s+"
-    r"(\d{1,4})\s+(\d{1,4})\s+(\d{1,4})\s+(\d{1,4})\b" % "|".join(NOMS)
+    r"\b(%s)\s+(%s)\s+(%s)\s+([\d,]+)\s*%%\s+"
+    r"(\d{1,4})\s+(\d{1,4})\s+(\d{1,4})\s+(\d{1,4})\b" % ("|".join(NOMS), CUMUL, CUMUL)
 )
 
 

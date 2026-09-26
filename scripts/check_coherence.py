@@ -46,6 +46,13 @@ EXCEPTIONS_SOURCE = {
     # (18,9 %) restent [...] hors CTE ». 338 - 64 = 274 confirme le
     # numerateur ; 66,2 % est 204/308 : coquille sur le taux.
     ("cte_normes", "130", "Nord-Kivu"): (274, 308, 66.2),
+    # « 365 patients sont hospitalises dont 251 dans les structures de prise
+    # en charge normees, soit un taux d'occupation de 81,5 % (354 lits) ».
+    # 251/354 = 70,9 % ; 81,5 % est 251/308, la capacite des 130 a 132. Soit
+    # la capacite a grandi et le taux est calcule sur l'ancienne, soit 354
+    # est une coquille. Le site garde ce qui est imprime (354, 103,1 %) ; a
+    # trancher au SitRep 134 selon le nombre de lits qu'il imprime.
+    ("cte_normes", "133", "Nord-Kivu"): (251, 354, 81.5),
     # 128 : « 987 [...] dont 550 a Buta, 324 a Ganga, 71 a Poko et 42 a
     # Viadana » ; 129 : « 874 [...] 211 a Ganga ». Chaque total tombe sur sa
     # ventilation, seule Ganga bouge : la source s'est corrigee. Le
@@ -368,6 +375,19 @@ if piliers:
                 taux.append("%s %s" % (e["sitrepNumber"], prov))
     check("vaccination : somme des zones = cumul publie", not ecarts,
           ", ".join(ecarts[:4]), blocking_if_false=False)
+    # Le meme invariant sur cumulParProvince, que lit le graphique : au 133,
+    # 135 vaccines du jour en Ituri etaient ranges a la Tshopo (4 058 la
+    # veille) et le controle ne regardait que le cumul detaille.
+    dernier_g, vus = {}, {r[3] for r in recul}
+    for e in piliers.get("parDate", []):
+        for prov, cumul in ((e.get("vaccination") or {}).get("cumulParProvince") or {}).items():
+            if cumul is None:
+                continue
+            if prov in dernier_g and cumul < dernier_g[prov]:
+                texte = "%s %s (%d apres %d)" % (e["sitrepNumber"], prov, cumul, dernier_g[prov])
+                if texte not in vus:
+                    recul.append((e["sitrepNumber"], prov, (cumul, dernier_g[prov]), texte))
+            dernier_g[prov] = cumul
     nouveaux, connus = trier("vaccination_recul", recul)
     check("vaccination : le cumul ne recule jamais", not nouveaux, ", ".join(nouveaux[:4]))
     if connus:

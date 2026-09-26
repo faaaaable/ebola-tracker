@@ -307,7 +307,10 @@ les blocs. **Et il est court, depuis le 11 septembre 2026** (« c'est
 beaucoup trop long là, résume et synthétise plus ») : environ 120 mots,
 une phrase par province, un à quatre faits chacune, les plus marquants du
 bulletin — pas la liste des zones ni des postes, qui reste dans les neuf
-blocs repliés. Le 119 fait 130 mots là où le 118 en faisait 400. (Jusqu'au 8 septembre au soir, la recette retirait aussi la lettre ; elle
+blocs repliés. Le 119 fait 130 mots là où le 118 en faisait 400.
+**Un peu plus fourni depuis le 26 septembre 2026** (« rédige légèrement plus
+de contenu ») : environ 160 mots, toutes les provinces qui ont des Défis,
+trois à cinq faits chacune. Le 133 (164 mots) est le modèle. (Jusqu'au 8 septembre au soir, la recette retirait aussi la lettre ; elle
 est publiée depuis, voir en tête de section.)
 
 

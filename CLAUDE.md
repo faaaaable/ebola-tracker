@@ -78,6 +78,14 @@ contrôles non bloquants en entier (ils ne protégeraient plus de rien).
   `chartNoteCteCapacite` le dit en toutes lettres, calculé. Détail dans la
   skill `page-riposte`.
 
+**À TRANCHER AU SITREP 134 : LES LITS DU NORD-KIVU.** Le 133 écrit « 251 dans
+les structures de prise en charge normées, soit un taux d'occupation de
+81,5 % (354 lits) » : 251/354 = 70,9 %, et 81,5 % est 251/308, la capacité des
+130 à 132. Le site garde l'imprimé (354 lits, 103,1 %), inscrit dans
+`EXCEPTIONS_SOURCE`. Si le 134 imprime 354, la capacité a grandi et
+`chartNoteCteCapacite` dit juste ; s'il revient à 308, le 354 était une
+coquille et le 133 doit passer à 308 (118,5 %).
+
 **UN CUMUL NE RECULE PAS : LE GRAPHIQUE DE VACCINATION PORTE LA VALEUR
 RÉVISÉE** (23 septembre 2026, décision du propriétaire). Tracée telle quelle,
 la courbe du Bas-Uélé redescendait de 987 à 874 — et lissée, la chute se lisait

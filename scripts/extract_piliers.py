@@ -374,8 +374,15 @@ def lire_vaccination(corps, texte_entier):
         if prov and v is not None:
             cumul[prov] = max(cumul.get(prov, 0), v)
     prec = ""
-    for phr in re.split(r"(?<=[.;])\s+", t):
+    # La puce « • » separe aussi deux provinces : au 133, « La Tshopo n'a
+    # transmis aucune donnée de vaccination • En Ituri, [...] 135 personnes
+    # ont été vaccinées » donnait 135 vaccines a la Tshopo (4 058 la veille).
+    for phr in re.split(r"(?<=[.;])\s+|\s*•\s*", t):
         if "vaccin" not in phr.lower():
+            prec = phr; continue
+        # Un chiffre du jour n'est pas un cumul (Ituri, 133 : « 135 personnes
+        # ont été vaccinées au cours des dernières 24 heures »).
+        if re.search(r"derni[èe]res 24 ?h", phr):
             prec = phr; continue
         # La province : citee avant le nombre dans la phrase, sinon dans la
         # phrase precedente (« Tshopo : lancement ... ; 122 personnes vaccinees »).
@@ -385,6 +392,11 @@ def lire_vaccination(corps, texte_entier):
             for n, prov in re.findall(NUM + r" (?:à la|au|en) (Tshopo|Bas.Uélé|Haut.Uélé|Sud.Ubangi|Ituri|Nord.Kivu|Sud.Kivu)", phr):
                 pose(_province(prov), entier(n))
             continue
+        # « 66 PPL ont été vaccinés à Bunia du 21 au 23 septembre, portant le
+        # cumul à 96 » (132) : le cumul est le second nombre, pas le premier.
+        m = re.search(r"portant le cumul à " + NUM, phr)
+        if m:
+            pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         m = re.search(r"cumul (?:des )?personnes vaccinées\s*:\s*" + NUM, phr)
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue

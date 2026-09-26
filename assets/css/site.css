@@ -755,6 +755,12 @@ ul,ol{margin:0;padding:0;}
    bordure a l'autre. On l'aligne sur le cadre du graphique — 30 px — et on
    lui donne de quoi respirer sous elle. */
 .chart-note{padding:12px 30px 18px;}
+/* Meme defaut pour les notes ecrites en dur dans le cadre, a cote du canevas
+   (« Un espace vide signifie… » des pages province, la note des deces
+   communautaires de Riposte) : collees a la bordure gauche jusqu'au
+   26 septembre 2026. Alignees sur la note du graphique. */
+.chart-panel-wrap > .map-note:not(.chart-note){padding:12px 30px 0;}
+.chart-panel-wrap > .map-note:not(.chart-note):last-child{padding-bottom:18px;}
 
 @media (max-width:760px){
   .chart-panel{height:300px;padding:14px 12px;}
@@ -770,6 +776,8 @@ ul,ol{margin:0;padding:0;}
   .chart-duo > .chart-panel{flex:0 0 auto;}
   .chart-duo > .chart-panel-duo{border-left:none;border-top:1px solid var(--line-soft);}
   .chart-note{padding:10px 14px 14px;}
+  .chart-panel-wrap > .map-note:not(.chart-note){padding:10px 14px 0;}
+  .chart-panel-wrap > .map-note:not(.chart-note):last-child{padding-bottom:14px;}
 }
 
 .subtab-nav{display:flex;gap:4px;flex-wrap:wrap;}
@@ -2569,6 +2577,12 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .maq-methode[open] summary::before{content:"− ";}
 .maq-methode summary::-webkit-details-marker{display:none;}
 .maq-methode .map-note{margin-top:10px;}
+/* Pose dans un cadre de graphique, le depliant « Methode et sources » etait
+   colle a la bordure gauche, comme les notes en dur : meme marge qu'elles, et
+   la note depliee ne double pas son propre rembourrage (26 septembre 2026). */
+.chart-panel-wrap > .maq-methode{padding:0 30px 18px;}
+.chart-panel-wrap > .maq-methode .chart-note{padding-left:0;padding-right:0;}
+@media (max-width:760px){ .chart-panel-wrap > .maq-methode{padding:0 14px 14px;} }
 .maq-tete .lede{margin-bottom:12px;}
 .dossier-clair{background:var(--bg-panel);color:var(--ink);border:1px solid var(--line);margin-top:8px;}
 .dossier-clair .dossier-eyebrow{color:var(--accent-strong);opacity:1;}
