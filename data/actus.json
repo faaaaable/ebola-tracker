@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "f4d96107",
+   "date": "2026-09-26",
+   "titre": "RDC: l'intelligence artificielle utilisée dans la riposte à l'épidémie d'Ebola",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20260926-rdc-l-intelligence-artificielle-utilis%C3%A9e-dans-la-riposte-%C3%A0-l-%C3%A9pid%C3%A9mie-d-ebola",
+   "langue": "fr",
+   "resume": "Dans l’est de la RDC, les équipes qui luttent contre Ebola doivent parfois intervenir dans des zones difficiles d’accès. Des outils numériques, notamment l’intelligence artificielle, sont mobilisés pour accélérer la circulation des informations, du terrain jusqu’à leur analyse.",
+   "statut": "attente",
+   "collecte": "2026-09-26",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ffe7cea2",
    "date": "2026-09-25",
    "titre": "Ituri : la jeunesse appelle à la paix et à la riposte contre Ebola",
