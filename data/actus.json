@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "73fd96ea",
+   "date": "2026-09-27",
+   "titre": "Ebola: Sharp jump in cases in North Kivu while outbreak slows in Ituri",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/09/27/ebola-sharp-jump-in-cases-in-north-kivu-while-outbreak-slows-in-ituri/",
+   "langue": "en",
+   "resume": "Cases fell 26% this month in Ituri province, which has until now been the epicenter of the outbreak. But North Kivu, which neighbors Ituri, saw a worrying 73% increase over that same period",
+   "statut": "publie",
+   "collecte": "2026-09-27",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "1bf88b40",
+   "date": "2026-09-27",
+   "titre": "À Goma, des marchés manquent de latrines et de dispositifs de lavage des mains",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/09/27/actualite/societe/goma-des-marches-manquent-de-latrines-et-de-dispositifs-de-lavage-des",
+   "langue": "fr",
+   "resume": "Radio Okapi/Ph. Denise Lukesso\" /> Plusieurs marchés publics de Goma, dans le Nord-Kivu, ne disposent pas suffisamment de latrines ni de dispositifs de lavage des mains, selon des associations locales engagées dans la protection de l’environnement.",
+   "statut": "publie",
+   "collecte": "2026-09-27",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "f4d96107",
    "date": "2026-09-26",
    "titre": "RDC: l'intelligence artificielle utilisée dans la riposte à l'épidémie d'Ebola",
