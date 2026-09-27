@@ -78,6 +78,33 @@ contrôles non bloquants en entier (ils ne protégeraient plus de rien).
   `chartNoteCteCapacite` le dit en toutes lettres, calculé. Détail dans la
   skill `page-riposte`.
 
+**AUDIT DES VIDES DES GRAPHIQUES (27 septembre 2026).** Chaque date vide a été
+confrontée à son SitRep ; 13 défauts de lecture corrigés, chacun comparé date
+par date avant/après. Les règles qui en restent :
+- **Tableau des provinces** : `completer_provinces()` (`update_data.py`) ajoute
+  à l'historique les provinces que la lecture du tableau manque — appel de note
+  collé (« Nord-Kivu1 »), astérisques, dernière colonne vide ou « ND »,
+  sous-total de zone — **seulement si la somme retombe exactement sur le total
+  national**, cas ET décès. Appelé par `update_data` et
+  `backfill_province_history`.
+- **Fin mai** : `PROVINCES_FIN_MAI`, table nommée et citée (cas seuls, sauf le
+  29 mai) ; 20 et 22 mai laissés vides, la source s'y contredit. Décision du
+  propriétaire.
+- **Contacts** : le tableau est lu **toujours**, en complément ; une ligne dont
+  les effectifs se vérifient fait foi, taux compris. Deux effectifs nationaux
+  contradictoires : celui qui égale la somme des provinces l'emporte. Le 028
+  (11 juin) n'exclut plus que le national et l'Ituri. `LECTURES_NOMMEES` pour
+  015 et 016.
+- **Alertes** : titres « par ZS » (084-086) et « Indicateurs de surveillance »
+  (048) ; « investiguées » coupé sur deux lignes en juin ; « 9 63 » recollé
+  seulement si la colonne Total le prouve ; validées du 084 écartées
+  (`VALIDEES_ECARTEES`).
+- **Laboratoire** : un titre de section numéroté passe devant le repère large ;
+  tableau « Indicateurs laboratoire » lu par colonne.
+- **CTE** : « N lits sur N », « capacité provinciale à N lits », « des lits
+  occupés » ; 081 et 083 en lecture nommée (deux colonnes entrelacées).
+Compte rendu complet : page privée « Les vides des graphiques ».
+
 **À TRANCHER AU SITREP 134 : LES LITS DU NORD-KIVU.** Le 133 écrit « 251 dans
 les structures de prise en charge normées, soit un taux d'occupation de
 81,5 % (354 lits) » : 251/354 = 70,9 %, et 81,5 % est 251/308, la capacité des
