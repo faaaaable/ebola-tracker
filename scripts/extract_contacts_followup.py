@@ -156,8 +156,13 @@ CONTACTS_PARMI_RE = re.compile(
 # dernières 24 heures, soit une proportion de suivi de 78,3 % » : « Parmi »
 # sans « les », et « contacts » repete devant « ont été vus ». Les deux mots
 # sont desormais facultatifs.
+# SitRep 134 (25 septembre 2026) : quatorzieme tournure — « Des 30 018
+# contacts en cours de suivi, 23 364 contacts ont été vus au cours des
+# dernières 24 heures, soit une proportion de suivi de 77,8% » : « Des »
+# remplace « Parmi » ; le reste est deja couvert. Le « des » est ancre en
+# debut de mot pour ne pas mordre sur « … des contacts ».
 CONTACTS_PARMI_LES_RE = re.compile(
-    r"(?:parmi|sur)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
+    r"(?:parmi|sur|\bdes)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
     r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+une\s+proportion(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,
@@ -493,6 +498,16 @@ PROV_D4_RE = re.compile(
     r"(\d[\d\s]*?)\s+en\s+cours\s+de\s+suivi\s*,?\s*soit\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE,
     re.IGNORECASE,
 )
+# SitRep 134 : la premiere province ouvre la phrase et le taux suit, avec les
+# effectifs entre parentheses — « Au Sud Ubangi, cette proportion était de
+# 92,9 % (91/98), 85,2 % (121/142) au Bas-Uélé, … ». Les suivantes relevent de
+# PROV_D3_RE ; sans ce motif le Sud-Ubangi manquait, et la somme des provinces
+# ne retombait plus sur les 23 364 vus nationaux.
+PROV_D5_RE = re.compile(
+    r"(?:au|en|à\s+la|a\s+la|dans\s+l[ae])\s+(%s)\s*,\s*cette\s+proportion\s+(?:était|etait|est)\s+de\s+"
+    r"(\d+(?:[,.]\d+)?)\s*%%\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)" % PROVINCES_DETAIL_RE,
+    re.IGNORECASE,
+)
 PROV_D1_RE = re.compile(r"(%s)\s*\((\d+(?:[,.]\d+)?)\s*%%\)" % PROVINCES_DETAIL_RE)
 PROV_D1_ATTEINT_RE = re.compile(r"l[’']?\s*(%s)\s+(?:atteint|est à|se situe à)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
 PROV_C_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
@@ -623,6 +638,18 @@ def details_contacts(full_text, rows, taux_national=None):
         nom = canon_detail(pm.group(1))
         taux = norm_pct(pm.group(4) + "%")
         vus, a_suivre = norm_int(pm.group(2)), norm_int(pm.group(3))
+        if taux is None or nom in provinces:
+            continue
+        ligne = {"taux": taux}
+        ok = effectifs_verifies(vus, a_suivre, taux)
+        if ok:
+            ligne["vus"], ligne["aSuivre"] = ok
+        provinces[nom] = ligne
+    # D, province en tete et « cette proportion était de » (134), meme voisinage.
+    for pm in PROV_D5_RE.finditer(zone_contacts):
+        nom = canon_detail(pm.group(1))
+        taux = norm_pct(pm.group(2) + "%")
+        vus, a_suivre = norm_int(pm.group(3)), norm_int(pm.group(4))
         if taux is None or nom in provinces:
             continue
         ligne = {"taux": taux}

@@ -215,8 +215,17 @@ VAC_CUMUL_RE = re.compile(
 # sans son cumul (3 774) faute de ce motif : rattrape a l'integration du 131.
 VAC_CUMUL_TPL_RE = re.compile(
     NUM + r"\s+(?:TPL\s+et\s+PPL|PPL\s+et\s+TPL)\s+ont\s+été\s+vaccinée?s", re.I)
+# SitRep 134 (25 septembre 2026) : le cumul devient le sujet — « Le cumul
+# provincial atteint 4 628 PPL et TPL vaccinés, soit 39,5 % de la cible
+# (11 703) » a la Tshopo, « le cumul atteint 1 000 personnes vaccinées, soit
+# 7,6 % de la cible du microplan (13 202) » au Bas-Uélé, qui publie une cible
+# pour la premiere fois. Sans ce motif, la Tshopo perdait son cumul.
+VAC_CUMUL_ATTEINT_RE = re.compile(
+    r"cumul(?:\s+provincial)?\s+atteint\s+" + NUM
+    + r"\s+(?:TPL\s+et\s+PPL|PPL\s+et\s+TPL|PPL|TPL|personnes)\s+vaccinée?s", re.I)
 VAC_CIBLE_SOIT_RE = re.compile(
-    r"soit\s+(\d+(?:[,.]\d+)?)\s*%\s+de\s+la\s+cible\s+de\s+" + NUM, re.I)
+    r"soit\s+(\d+(?:[,.]\d+)?)\s*%\s+de\s+la\s+cible\s+"
+    r"(?:de\s+|(?:du\s+microplan\s*)?\(\s*)" + NUM, re.I)
 VAC_CIBLE_RE = re.compile(
     r"sur\s+" + NUM + r"\s+(?:TPL/PPL\s+)?(?:cibles?|ciblés|ciblées)"
     r"(?:\s+TPL/PPL)?\s*\(\s*(\d+(?:[,.]\d+)?)\s*%", re.I)
@@ -285,7 +294,8 @@ def lire_vaccination_detail(corps):
     t = " ".join((corps or "").split())
     for prov, seg in _segments_provinces(t):
         ligne = {}
-        m = VAC_CUMUL_RE.search(seg) or VAC_CUMUL_TPL_RE.search(seg)
+        m = (VAC_CUMUL_RE.search(seg) or VAC_CUMUL_TPL_RE.search(seg)
+             or VAC_CUMUL_ATTEINT_RE.search(seg))
         if m:
             ligne["cumul"] = entier(m.group(1))
         m = VAC_CIBLE_RE.search(seg)

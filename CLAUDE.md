@@ -105,7 +105,19 @@ par date avant/après. Les règles qui en restent :
   occupés » ; 081 et 083 en lecture nommée (deux colonnes entrelacées).
 Compte rendu complet : page privée « Les vides des graphiques ».
 
-**À TRANCHER AU SITREP 134 : LES LITS DU NORD-KIVU.** Le 133 écrit « 251 dans
+**SitRep 134 intégré et PUBLIÉ le 28 septembre 2026** (rapportage du 25, publié
+le 26) — 7 989 cas, 3 852 décès, 43 nouveaux cas, 19 décès du jour, contacts
+77,8 %. Trois motifs ajoutés : **quatorzième tournure des contacts** (« Des
+30 018 contacts en cours de suivi, 23 364 contacts ont été vus »), **province en
+tête** (« Au Sud Ubangi, cette proportion était de 92,9 % (91/98) », `PROV_D5_RE`,
+qui rend aussi son Sud-Ubangi au 133) et **cumul vaccinal en sujet** (« Le cumul
+provincial atteint 4 628 PPL et TPL vaccinés, soit 39,5 % de la cible (11 703) »,
+`VAC_CUMUL_ATTEINT_RE`). Le Bas-Uélé publie sa première cible (13 202).
+
+**À TRANCHER AU SITREP 135 (reporté du 134) : LES LITS DU NORD-KIVU.** Le 134
+n'imprime aucun nombre de lits : « 351 patients sont hospitalisés dont 271 dans
+les structures normées, soit un taux d'occupation de 70,9 % » — et 70,9 % est
+exactement 251/354, le calcul du 133 : taux recopié, question non tranchée. Le 133 écrit « 251 dans
 les structures de prise en charge normées, soit un taux d'occupation de
 81,5 % (354 lits) » : 251/354 = 70,9 %, et 81,5 % est 251/308, la capacité des
 130 à 132. Le site garde l'imprimé (354 lits, 103,1 %), inscrit dans
