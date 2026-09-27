@@ -2,6 +2,45 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "fe5ab3e6",
+   "date": "2026-09-27",
+   "titre": "Ebola à Beni : engagement collectif des jeunes d’une aire de santé contre la désinformation",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-beni-engagement-collectif-des-jeunes-dune-aire-de-sante-contre-la-desinformation/",
+   "langue": "fr",
+   "resume": "Les jeunes leaders de l’aire de santé de Butsili ont pris l’engagement de lutter contre la désinformation après une…",
+   "statut": "publie",
+   "collecte": "2026-09-27",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "d36e1fc0",
+   "date": "2026-09-27",
+   "titre": "Pour Ebola et insécurité : le congrès de BUREC renvoyé en décembre 2027",
+   "source": "ACP",
+   "url": "https://acp.cd/province/pour-ebola-et-insecurite-le-congres-dun-parti-politique-renvoye-en-decembre-2027/",
+   "langue": "fr",
+   "resume": "Le 3ème Congrès de la formation politique Bloc Uni pour la Renaissance et l'Émergence du Congo (BUREC), initialement prévu…",
+   "statut": "publie",
+   "collecte": "2026-09-27",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "83174420",
+   "date": "2026-09-27",
+   "titre": "Ebola à Beni : des jeunes vandalisent une structure sanitaire après la mort d’un proche",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-beni-des-jeunes-vandalisent-une-structure-sanitaire-apres-la-mort-dun-proche/",
+   "langue": "fr",
+   "resume": "Une structure sanitaire au quartier Mambango à Beni, au Nord-Kivu, dans l'Est de la République démocratique du Congo, a…",
+   "statut": "publie",
+   "collecte": "2026-09-27",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "73fd96ea",
    "date": "2026-09-27",
    "titre": "Ebola: Sharp jump in cases in North Kivu while outbreak slows in Ituri",
@@ -15,6 +54,32 @@
    "image": true
   },
   {
+   "id": "3aa34cf8",
+   "date": "2026-09-27",
+   "titre": "La situation d’Ebola évolue favorablement en RDC, selon le ministère de la Santé",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/09/27/actualite/sante/la-situation-debola-evolue-favorablement-en-rdc-selon-le-ministere-de-la",
+   "langue": "fr",
+   "resume": "Ph. Radio Okapi/Marc Maro Fimbo\" /> Le ministère de la Santé publique fait état d’une évolution globalement favorable de la maladie à virus Ebola en République démocratique du Congo.",
+   "statut": "publie",
+   "collecte": "2026-09-27",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "2dc5bc89",
+   "date": "2026-09-27",
+   "titre": "Ebola à Beni : les jeunes d’une aire de santé s’engagent contre la désinformation",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-beni-les-jeunes-dune-aire-de-sante-sengagent-contre-la-desinformation/",
+   "langue": "fr",
+   "resume": "Les jeunes activistes des mouvements citoyens, responsables d'associations de l’aire de santé de Butsili ont pris l’engagement de lutter…",
+   "statut": "publie",
+   "collecte": "2026-09-27",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "1bf88b40",
    "date": "2026-09-27",
    "titre": "À Goma, des marchés manquent de latrines et de dispositifs de lavage des mains",
@@ -22,6 +87,19 @@
    "url": "https://www.radiookapi.net/2026/09/27/actualite/societe/goma-des-marches-manquent-de-latrines-et-de-dispositifs-de-lavage-des",
    "langue": "fr",
    "resume": "Radio Okapi/Ph. Denise Lukesso\" /> Plusieurs marchés publics de Goma, dans le Nord-Kivu, ne disposent pas suffisamment de latrines ni de dispositifs de lavage des mains, selon des associations locales engagées dans la protection de l’environnement.",
+   "statut": "publie",
+   "collecte": "2026-09-27",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "0c418c19",
+   "date": "2026-09-27",
+   "titre": "Ebola à Mambasa : la manipulation des dépouilles interdites aux personnes non habilitées",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-mambasa-la-manipulation-des-depouilles-interdites-aux-personnes-non-habilitees/",
+   "langue": "fr",
+   "resume": "La manipulation des dépouilles des personnes décédées d’Ebola est interdite aux personnes non habilitées, a rappelé dimanche un acteur…",
    "statut": "publie",
    "collecte": "2026-09-27",
    "media": true,
