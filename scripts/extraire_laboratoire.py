@@ -68,8 +68,18 @@ FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Prévention et Contrôle|PCI\b|Pr[ée]vent
                     re.IGNORECASE)
 
 
+# Un titre de section NUMEROTE passe devant (audit du 27 septembre 2026) : le
+# repere large s'arretait sur la premiere ligne qui cite un laboratoire —
+# « des laboratoires et des structures » (048), « Installation des
+# laboratoires de diagnostic » (049), « résultat de laboratoire (INRB) »
+# (060) — et la vraie section, plus loin, n'etait jamais lue.
+DEBUT_NUMEROTE_RE = re.compile(
+    r"\n[ \t]*(?:▍[ \t]*)?\d+(?:\.\d+)+\.?[ \t]*(?:[—–-][ \t]*)?Laboratoire\b(?:\s*[:—–-]\s*tests et positivit[ée])?"
+    r"|\n[ \t]*Tableau\s*\d+\s*[:.]\s*Indicateurs\s+laboratoire[^\n]*", re.IGNORECASE)
+
+
 def section_laboratoire(texte):
-    m = DEBUT_RE.search(texte)
+    m = DEBUT_NUMEROTE_RE.search(texte) or DEBUT_RE.search(texte)
     if not m:
         return None
     reste = texte[m.end():]
@@ -87,7 +97,8 @@ ECHANTILLONS_RES = [
     # « dont 1 swab analyse » (106 Tshopo) : « swab » peut s'intercaler, l'accent manquer
     re.compile(r"[ée]chantillons?\s+(?:ont\s+[ée]t[ée]\s+)?(?:collect[ée]s?|re[çc]us?|pr[ée]lev[ée]s?)\s*,?\s*dont\s+(\d[\d ]{0,6}\d|\d)\s+(?:swabs?\s+)?(?:ont\s+[ée]t[ée]\s+)?analys[ée]s?", re.I),
     # « 7 échantillons ont été collectés et analysés » (B), « 1 échantillon reçu et analysé » (D)
-    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux?\s+)?[ée]chantillons?\s+(?:ont\s+[ée]t[ée]\s+)?(?:re[çc]us?|collect[ée]s?)\s+et\s+(?:analys[ée]s?|test[ée]s?)", re.I),
+    # « 57 échantillons prélevés et analysés » (021, Nord-Kivu)
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux?\s+)?[ée]chantillons?\s+(?:ont\s+[ée]t[ée]\s+)?(?:re[çc]us?|collect[ée]s?|pr[ée]lev[ée]s?)\s+et\s+(?:analys[ée]s?|test[ée]s?)", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+(?:re[çc]us\s+et\s+|collect[ée]s\s+et\s+|re[çc]us,?\s+|nouveaux\s+)?(?:analys[ée]s|document[ée]s|test[ée]s)", re.I),
     re.compile(r"sur\s+(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons", re.I),
     re.compile(r"\((\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+analys[ée]s\)", re.I),
@@ -372,6 +383,38 @@ def provinces_redigees(section):
     return lues
 
 
+# « Tableau 4 : Indicateurs laboratoire (01 juillet 2026) / Indicateur Ituri
+# Nord Kivu Sud Kivu / Échantillons analysés 132 96 0 / Échantillons positifs
+# 50 4 - » (048) : une colonne par province. Lu avant le decoupage par repere,
+# qui n'a rien a trouver dans un tableau.
+TABLEAU_ENTETE_RE = re.compile(r"\n\s*Indicateurs?\s+((?:(?:%s)\s*)+)\n" % PROVINCES_RE)
+TABLEAU_ANALYSES_RE = re.compile(r"\n\s*[ÉE]chantillons?\s+analys[ée]s\s+([^\n]+)")
+TABLEAU_POSITIFS_RE = re.compile(r"\n\s*[ÉE]chantillons?\s+positifs\s+([^\n]+)")
+
+
+def lire_tableau(section):
+    em = TABLEAU_ENTETE_RE.search(section)
+    ma, mp = TABLEAU_ANALYSES_RE.search(section), TABLEAU_POSITIFS_RE.search(section)
+    if not (em and ma and mp):
+        return {}
+    noms = [canon(x) for x in re.findall(PROVINCES_RE, em.group(1))]
+    def valeurs(ligne):
+        jetons = ligne.split()
+        return [None if j in ("-", "—", "ND", "NA") else entier(j) for j in jetons]
+    va, vp = valeurs(ma.group(1)), valeurs(mp.group(1))
+    if len(va) != len(noms) or len(vp) != len(noms):
+        return {}
+    lues = {}
+    for nom, e, p in zip(noms, va, vp):
+        if e:
+            ligne = {"echantillons": e}
+            if p is not None and p <= e:
+                ligne["positifs"] = p
+                ligne["positivite"] = round(p / e * 100, 1)
+            lues[nom] = ligne
+    return lues
+
+
 def lire_rapport(chemin):
     texte = texte_du_rapport(chemin)
     meta = extract_meta(texte, fallback_number=numero(chemin))
@@ -384,8 +427,10 @@ def lire_rapport(chemin):
         national = {"echantillons": entier(mn.group(1)), "positifs": entier(mn.group(2)),
                     "positivite": pourcent(mn.group(3))}
     reperes = list(REPERE_RE.finditer(section))
-    provinces = {}
+    provinces = lire_tableau(section)
     alertes = []
+    if provinces:
+        reperes = []
     for i, m in enumerate(reperes):
         nom = canon(m.group(1))
         fin = reperes[i + 1].start() if i + 1 < len(reperes) else len(section)

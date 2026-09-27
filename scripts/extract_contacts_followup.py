@@ -59,8 +59,33 @@ OUTPUT_PATH = "data/contacts-followup.json"
 # rend leurs vraies valeurs (70,8 % et 82,7 %) — celle du 038 est d'ailleurs
 # confirmée à l'identique par la lecture manuelle du rapport OMS du 21 juin.
 CONTACTS_EXCLUDED_SITREPS = {"028"}
+# L'exclusion du 028 ne vaut que pour ce qu'elle vise (audit du 27 septembre
+# 2026) : la note 3 du bulletin impute le taux global a « des données non
+# rapportées dans la province de l'Ituri ». Le Nord-Kivu (700 vus sur 1 037,
+# 67,5 %) et le Sud-Kivu (185 sur 224, 82,6 %) se tiennent et sont gardes ;
+# le national et l'Ituri restent ecartes.
+CONTACTS_PROVINCES_GARDEES = {"028": {"Nord-Kivu", "Sud-Kivu"}}
 
-TABLE_TITLE_RE = re.compile(r"Tableau\s*\d*\s*[.:]\s*Suivi des contacts", re.IGNORECASE)
+# Deux bulletins de fin mai ne portent le suivi des contacts que dans des
+# cases qu'aucun motif generique ne lit sans risque. Lus a la main, cites :
+LECTURES_NOMMEES = {
+    # 015 (29 mai), tableau I des indicateurs par province : « Sous total
+    # Ituri 60 13 52 245 35 0 2671 487 18,23% », « Sous total Nord-Kivi 0 0 0
+    # 15 6 2 529 480 90,74% », « Total 60 13 54 263 42 2 3200 967 30,22% ».
+    # Remplace la lecture manuelle du rapport OMS 03 (30,2 %), meme valeur.
+    "015": {"contactsFollowUpRate": 30.2, "contacts": {"aSuivre": 3200, "vus": 967},
+            "provinces": {"Ituri": {"taux": 18.2, "vus": 487, "aSuivre": 2671},
+                          "Nord-Kivu": {"taux": 90.7, "vus": 480, "aSuivre": 529}}},
+    # 016 (30 mai), encadre de tete : « … 2 45,2% » sous « Taux de suivi de
+    # contacts ». Aucun effectif.
+    "016": {"contactsFollowUpRate": 45.2},
+}
+
+# « TABLEAU 4 — SUIVI DES CONTACTS DES CAS CONFIRMES » a l'epoque C (059 et
+# suivants) : un tiret long remplace le point. Sans lui, le tableau n'etait
+# jamais localise et le 12 juillet prenait le 81,5 % de l'encadre de tete
+# au lieu du 82,1 % du tableau (10 156 / 12 370) — audit du 27 septembre 2026.
+TABLE_TITLE_RE = re.compile(r"Tableau\s*\d*\s*[.:—–-]\s*Suivi des contacts", re.IGNORECASE)
 TABLE_HEADER_RE = re.compile(r"Taux\s+de\s+suivi", re.IGNORECASE)
 PROVINCE_RE = re.compile(
     r"^(Ituri|Nord-Kivu|Sud-Kivu|Haut-Uélé|Tshopo|Bas Uélé|Sud[ -]Ubangi)\s*\*?$", re.IGNORECASE
@@ -427,13 +452,17 @@ def rate_from_text(full_text):
 # Un effectif n'est gardé que s'il se vérifie : vus ≤ à suivre, et vus / à
 # suivre à moins d'un point du taux imprimé. Sinon seul le taux reste.
 PROVINCES_DETAIL_RE = r"Ituri|Nord[\s-]+Kivu|N-Kivu|Haut[\s-]+U[ée]l[ée]|H-U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|S-Kivu|Bas[\s-]+U[ée]l[ée]|B-U[ée]l[ée]|Sud[\s-]+Ubangi"
-PROV_D_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%\s*\((\d[\d ]*)\s*/\s*(\d[\d ]*)\)" % PROVINCES_DETAIL_RE)
+# Le nombre peut se couper sur deux lignes : « Le Haut-Uélé 83,8% (1 031/1\n231) »
+# (16 aout) — \s et non l'espace seule, comme dans les motifs voisins.
+PROV_D_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%\s*\((\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)" % PROVINCES_DETAIL_RE)
 # SitRep 110 et suivants : le taux precede la province — « 90,9% en Ituri
 # (10 302/11 339), 83,5% au Nord-Kivu (8 491/10 163), 69,6 % a la Tshopo
 # (238/342) ». Le 109 ne detaille pas les provinces. Le nombre peut se couper
 # sur deux lignes ou porter une espace apres la barre (« 12 173/ 13 362 »).
+# Un numero de page peut s'intercaler : « 77,9 % à la 4 Tshopo (218/280) »
+# (13 septembre), d'ou le (?:\d{1,2}\s+)? devant la province.
 PROV_D2_RE = re.compile(
-    r"(\d+(?:[,.]\d+)?)\s*%%\s+(?:en|au|à\s+la|a\s+la|dans\s+l[ae]|en\s+province\s+d[eu]|du|de\s+la)?\s*"
+    r"(\d+(?:[,.]\d+)?)\s*%%\s+(?:en|au|à\s+la|a\s+la|dans\s+l[ae]|en\s+province\s+d[eu]|du|de\s+la)?\s*(?:\d{1,2}\s+)?"
     r"(%s)\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)" % PROVINCES_DETAIL_RE,
     re.IGNORECASE,
 )
@@ -467,8 +496,13 @@ PROV_D4_RE = re.compile(
 PROV_D1_RE = re.compile(r"(%s)\s*\((\d+(?:[,.]\d+)?)\s*%%\)" % PROVINCES_DETAIL_RE)
 PROV_D1_ATTEINT_RE = re.compile(r"l[’']?\s*(%s)\s+(?:atteint|est à|se situe à)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
 PROV_C_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
+# L'asterisque d'une note peut suivre le NOMBRE et non le nom : « Ituri
+# 6 244* 4 540 72,7% » (21 juin), « Nord-Kivu 1 938* 1 387 » (22 juin). Et un
+# nombre peut s'ecrire d'un bloc : « Nord-Kivu 1037 700 67,5% » (11 juin).
 PROV_LIGNE_B_RE = re.compile(
-    r"\n\s*(%s)\s*\*?\s+(\d{1,3}(?: \d{3})*)\s+(\d{1,3}(?: \d{3})*)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
+    r"\n\s*(%s)\s*\**\s+(\d{1,3}(?: \d{3})+|\d+)\*?\s+(\d{1,3}(?: \d{3})+|\d+)\*?\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
+TOTAL_LIGNE_B_RE = re.compile(
+    r"\n\s*Total\s*\*?\s+(\d{1,3}(?: \d{3})*)\*?\s+(\d{1,3}(?: \d{3})*)\*?\s+(\d+(?:[,.]\d+)?)\s*%")
 
 
 def canon_detail(nom):
@@ -492,6 +526,7 @@ def details_contacts(full_text, rows, taux_national=None):
     """{"contacts": {"aSuivre", "vus"}, "provinces": {nom: {"taux", "vus", "aSuivre"}}}"""
     out = {}
     provinces = {}
+    total_tableau = None
     # D — la phrase de surveillance, puis chaque province entre parenthèses.
     m = NATIONAL_D_RE.search(full_text)
     if m:
@@ -608,21 +643,38 @@ def details_contacts(full_text, rows, taux_national=None):
     # l'en-tête et la ligne Total dans sa grille ; les provinces sont dans le
     # texte de la page, sous le titre du tableau : « Ituri* 9 335 7 825 83,8% ».
     # Les groupes de trois chiffres délimitent les nombres.
-    if not provinces:
-        mt = TABLE_TITLE_RE.search(full_text)
-        if mt:
-            zone = full_text[mt.end():mt.end() + 700]
-            for pm in PROV_LIGNE_B_RE.finditer(zone):
-                nom = canon_detail(pm.group(1))
-                a_suivre, vus = norm_int(pm.group(2)), norm_int(pm.group(3))
-                taux = norm_pct(pm.group(4) + "%")
-                if taux is None or nom in provinces:
-                    continue
-                ligne = {"taux": taux}
-                ok = effectifs_verifies(vus, a_suivre, taux)
-                if ok:
-                    ligne["vus"], ligne["aSuivre"] = ok
-                provinces[nom] = ligne
+    #
+    # LE TABLEAU EST LU TOUJOURS, EN COMPLEMENT (audit du 27 septembre 2026).
+    # Il ne l'etait que si rien d'autre n'avait donne de province : du 13
+    # juillet au 5 aout, la bande de chiffres cles (taux sans effectifs)
+    # passait devant, et l'Ituri perdait 21 jours d'effectifs, le Nord-Kivu
+    # 14 — les barres « contacts a suivre » des pages province. Il ajoute une
+    # province absente, ou les effectifs d'une province qui n'a que son taux
+    # quand les deux taux concordent ; il ne remplace jamais un taux deja lu.
+    mt = TABLE_TITLE_RE.search(full_text)
+    if mt:
+        zone = full_text[mt.end():mt.end() + 700]
+        for pm in PROV_LIGNE_B_RE.finditer(zone):
+            nom = canon_detail(pm.group(1))
+            a_suivre, vus = norm_int(pm.group(2)), norm_int(pm.group(3))
+            taux = norm_pct(pm.group(4) + "%")
+            if taux is None:
+                continue
+            ok = effectifs_verifies(vus, a_suivre, taux)
+            # Une ligne dont les effectifs se verifient fait foi, taux compris :
+            # le 13 juillet, la bande de chiffres cles donnait a l'Ituri le
+            # 67,4 % national (« NATIONAL 753 366 67,4 % Ituri 553 ») quand le
+            # tableau porte « Ituri 10 011 6 206 62,0 % ».
+            if ok:
+                provinces[nom] = {"taux": taux, "vus": ok[0], "aSuivre": ok[1]}
+            elif nom not in provinces:
+                provinces[nom] = {"taux": taux}
+        # La ligne Total : candidate aux effectifs nationaux, departagee plus
+        # bas par la somme des provinces.
+        tm = TOTAL_LIGNE_B_RE.search(zone)
+        if tm:
+            total_tableau = effectifs_verifies(norm_int(tm.group(2)), norm_int(tm.group(1)),
+                                               norm_pct(tm.group(3) + "%"))
     if rows and "contacts" not in out:
         total_row = next((r for r in rows if first_cell(r).lower().startswith("total")), None)
         if total_row:
@@ -671,6 +723,30 @@ def details_contacts(full_text, rows, taux_national=None):
                         taux = norm_pct(pm.group(2) + "%")
                         if taux is not None and nom not in provinces:
                             provinces[nom] = {"taux": taux}
+    # Deux effectifs nationaux peuvent se contredire : la ligne Total du
+    # tableau et la bande de chiffres cles. Celui qui egale la somme des
+    # provinces l'emporte — le 14 juillet c'est le tableau (12 050 = 9 731 +
+    # 2 172 + 147), le 30 juillet la bande (17 828, le tableau imprimant
+    # 17 863 pour des provinces qui font 17 828).
+    comptees = [p for p in provinces.values() if "aSuivre" in p]
+    somme = (sum(p["aSuivre"] for p in comptees), sum(p["vus"] for p in comptees)) \
+        if comptees and len(comptees) == len(provinces) else None
+    candidats = []
+    if total_tableau:
+        candidats.append((total_tableau[1], total_tableau[0]))
+    mb = NATIONAL_C_RE.search(full_text)
+    if mb:
+        x, y = norm_int(mb.group(1)), norm_int(mb.group(2))
+        if x is not None and y is not None:
+            candidats.append((max(x, y), min(x, y)))
+    actuel = out.get("contacts")
+    if actuel is None and total_tableau:
+        out["contacts"] = {"aSuivre": total_tableau[1], "vus": total_tableau[0]}
+    elif actuel is not None and somme and (actuel["aSuivre"], actuel["vus"]) != somme:
+        for c in candidats:
+            if c == somme and effectifs_verifies(c[1], c[0], taux_national):
+                out["contacts"] = {"aSuivre": c[0], "vus": c[1]}
+                break
     if provinces:
         out["provinces"] = provinces
     return out
@@ -693,8 +769,26 @@ def main():
             with pdfplumber.open(pdf_path) as pdf:
                 full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
                 meta = extract_meta(full_text, fallback_number=fallback_num)
-                if meta.get("sitrepNumber") in CONTACTS_EXCLUDED_SITREPS:
+                num = meta.get("sitrepNumber")
+                if num in LECTURES_NOMMEES and meta.get("reportingDate"):
+                    point = {"date": meta["reportingDate"], "sitrepNumber": num,
+                             "source": "SitRep INSP (lecture nommée)"}
+                    point.update(json.loads(json.dumps(LECTURES_NOMMEES[num])))
+                    results.append(point)
+                    by_method["lecture nommée"] = by_method.get("lecture nommée", 0) + 1
+                    continue
+                if num in CONTACTS_EXCLUDED_SITREPS:
                     excluded += 1
+                    gardees = CONTACTS_PROVINCES_GARDEES.get(num)
+                    if gardees and meta.get("reportingDate"):
+                        rows = find_contacts_rows(pdf)
+                        det = details_contacts(full_text, rows, None)
+                        prov = {k: v for k, v in (det.get("provinces") or {}).items() if k in gardees}
+                        if prov:
+                            results.append({"date": meta["reportingDate"], "sitrepNumber": num,
+                                            "contactsFollowUpRate": None,
+                                            "source": "SitRep INSP (automatique)",
+                                            "provinces": prov})
                     continue
                 rows = find_contacts_rows(pdf)
                 rate, method, warn = rate_from_table(rows) if rows else (None, None, None)
@@ -702,6 +796,14 @@ def main():
             print(f"  ! {name} : erreur de lecture ({e})")
             continue
 
+        # La grille pdfplumber decale parfois les colonnes (082 : 36,9 % lus
+        # pour « Total 17 781 13 393 75,3 % » imprime). Quand la ligne Total
+        # du texte existe et la contredit, c'est elle qui fait foi.
+        if rate is not None:
+            r_txt, m_txt, _ = rate_from_lines(full_text)
+            if r_txt is not None and abs(r_txt - rate) > 0.15:
+                warn = f"grille {rate}% contre ligne Total du texte {r_txt}% : le texte est retenu"
+                rate, method = r_txt, m_txt
         if rate is None:
             rate, method, warn = rate_from_lines(full_text)
         if rate is None:
@@ -728,8 +830,11 @@ def main():
             for cle in ("contacts", "provinces"):
                 if cle not in details and cle in secours:
                     details[cle] = secours[cle]
-            if len(details.get("provinces") or {}) < len(secours.get("provinces") or {}):
-                details["provinces"] = secours["provinces"]
+            # Le secours COMPLETE les provinces sans remplacer celles deja
+            # lues avec leurs effectifs (le remplacement faisait perdre au
+            # 1er aout le Haut-Uelé, ou les effectifs de l'Ituri).
+            for nom, ligne in (secours.get("provinces") or {}).items():
+                details.setdefault("provinces", {}).setdefault(nom, ligne)
         point.update(details)
         results.append(point)
 

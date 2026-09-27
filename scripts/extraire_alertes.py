@@ -65,7 +65,10 @@ def decoupages(ligne, n):
     la bonne. On renvoie toutes les lectures possibles, l'appelant choisit —
     celle qui se vérifie, ou à défaut la première, où le préfixe de milliers
     est le plus court et le plus à gauche (« 1 014 » plutôt que « 7 146 »)."""
-    jetons = ligne.strip().split()
+    # Un astérisque isolé est un renvoi de note, pas une cellule : « 166 * 237
+    # 6 409 » (020) se lisait 166 / 237 / 6409 au lieu de 166 / 237 / 6 / 409.
+    jetons = [j for j in ligne.strip().split() if j.strip("*")]
+    jetons = [j.rstrip("*") if j[:-1].isdigit() else j for j in jetons]
     if len(jetons) < n:
         return []
     if len(jetons) == n:
@@ -96,7 +99,9 @@ def cellules(ligne, n, valide=None):
 
 
 # ------------------------------------------------------------------ D
-TITRE_D_RE = re.compile(r"Situation des alertes notifi[ée]es par province", re.I)
+# « par ZS » aux 084-086 (6-8 aout) : meme tableau, memes neuf colonnes,
+# une ligne par province malgre le titre (audit du 27 septembre 2026).
+TITRE_D_RE = re.compile(r"Situation des alertes notifi[ée]es par (?:province|ZS)", re.I)
 LIGNE_D_RE = re.compile(r"\n\s*(%s)\s*\*?\s+([^\n]+)" % PROVINCES_RE)
 TOTAL_D_RE = re.compile(r"\n\s*Total\s*(?:\n\s*)?G[ée]n[ée]ral\s+([^\n]+)", re.I)
 
@@ -162,13 +167,19 @@ def lire_D_couches(chemin):
 
 
 # --------------------------------------------------------------- B et C
-TITRE_BC_RE = re.compile(r"Gestion des alertes [ée]pid[ée]miologiques", re.I)
+# « Tableau 1 : Indicateurs de surveillance » au 048 (1er juillet).
+TITRE_BC_RE = re.compile(r"Gestion des alertes [ée]pid[ée]miologiques|Indicateurs de surveillance \(", re.I)
 ENTETE_RE = re.compile(r"Indicateurs?\s+((?:(?:%s|Total|Ensemble|Global)\s*)+)\n" % PROVINCES_RE)
 LIGNES_BC = {
     "recues": re.compile(r"\n\s*(?:Nouvelles\s+alertes(?:\s+re[çc]ues)?|Alertes\s+remont[ée]es)\s+([^\n]+)", re.I),
-    "verifiees": re.compile(r"\n\s*Alertes\s+investigu[ée]es\s+([^\n]+)", re.I),
+    # Juin : le libelle se coupe autour des nombres — « Alertes\n133 215 11 359\n
+    # investiguées » (020-037) ; d'ou la seconde forme.
+    "verifiees": re.compile(r"\n\s*Alertes\s+investigu[ée]es\s+([^\n]+)|\n\s*Alertes\s*\n\s*([\d \u00a0\u202f]+?)\s*\n\s*investigu[ée]es", re.I),
     "validees_v": re.compile(r"\n\s*(?:Alertes\s+valid[ée]es\s*(?:[—–-]\s*)?)?[Vv]ivantes\s+([^\n]+)"),
     "validees_d": re.compile(r"\n\s*(?:Alertes\s+valid[ée]es\s*(?:[—–-]\s*)?)?[Dd][ée]c[ée]d[ée]es(?:\s*\(comm\.?\))?\s+([^\n]+)"),
+    # Juin : « Alertes validées 104 44 5 153 », sans detail vivantes/decedees,
+    # parfois avec des parts entre parentheses (« 72 (74,2%) »).
+    "validees": re.compile(r"\n\s*Alertes\s+valid[ée]es\s+(\d[^\n]+)", re.I),
     "suspects": re.compile(r"\n\s*Total\s+des\s+cas\s+suspects(?:\s+du\s+jour)?\s+([^\n]+)", re.I),
 }
 
@@ -200,11 +211,31 @@ def lire_BC(texte):
         if i_total is None or c[i_total] is None:
             return True
         return c[i_total] == sum(v or 0 for k, v in enumerate(c) if k != i_total)
+    def recoller(brut):
+        """« 223 726 14 9 63 » : une espace parasite au milieu d'un nombre
+        (053 et 054, 6 et 7 juillet ; le texte confirme 963). Deux jetons
+        voisins ne sont recolles que si la colonne Total le prouve."""
+        jetons = brut.split()
+        if i_total is None or len(jetons) != n + 1:
+            return None
+        for k in range(len(jetons) - 1):
+            if jetons[k].isdigit() and jetons[k + 1].isdigit():
+                essai = jetons[:k] + [jetons[k] + jetons[k + 1]] + jetons[k + 2:]
+                c = cellules(" ".join(essai), n)
+                if c and c[i_total] is not None and somme_ok(c):
+                    return c
+        return None
     lignes = {}
     for cle, rx in LIGNES_BC.items():
         lm = rx.search(section)
         if lm:
-            c = cellules(lm.group(1), n, valide=somme_ok)
+            brut = next(g for g in lm.groups() if g is not None)
+            brut = re.sub(r"\(\s*\d+(?:[,.]\d+)?\s*%\s*\)|\(\s*24\s*h\s*\)", " ", brut)
+            c = cellules(brut, n, valide=somme_ok)
+            if c and not somme_ok(c):
+                c = recoller(brut) or c
+            elif not c:
+                c = recoller(brut)
             if c:
                 lignes[cle] = c
     if "recues" not in lignes:
@@ -223,6 +254,8 @@ def lire_BC(texte):
             d = (lignes.get("validees_d") or [None] * n)[k]
             if v is not None or d is not None:
                 ligne["validees"] = (v or 0) + (d or 0)
+        elif "validees" in lignes and lignes["validees"][k] is not None:
+            ligne["validees"] = lignes["validees"][k]
         elif "suspects" in lignes and lignes["suspects"][k] is not None:
             ligne["validees"] = lignes["suspects"][k]
         if nom in ("Total", "Ensemble", "Global"):
@@ -316,6 +349,17 @@ def lire_rapport(chemin):
 # que les trois vues du cadre montrent.
 # ---------------------------------------------------------------------------
 
+# Les validees seules sont ecartees ce jour-la ; recues et verifiees restent.
+VALIDEES_ECARTEES = {
+    # SitRep 084 (6 aout), « Situation des alertes notifiées par ZS » : le
+    # Nord-Kivu y declare 559 + 26 validees et 116 + 4 invalidees, soit 705
+    # verifiees pour 585 recues ; le total general en tire 948 validees sur
+    # 1 141 (83 %), quand les jours voisins sont a 20-34 %. Les recues
+    # (1 141) et les verifiees (1 070) sont confirmees par le texte : « 1 141
+    # alertes ont été enregistrées, dont 1 070 vérifiées ».
+    "2026-08-06": "SitRep 084 : ligne Nord-Kivu incoherente (705 verifiees pour 585 recues)",
+}
+
 JOURNEES_ECARTEES = {
     # SitRep 126, tableau 3 : l'Ituri y declare 1 058 alertes validees comme
     # cas suspects pour 140 invalidees, soit 88 % des vérifiées, quand les
@@ -349,6 +393,14 @@ def main():
         if date in par_date:
             del par_date[date]
             ecartees.append("%s — %s" % (date, motif))
+    for date, motif in VALIDEES_ECARTEES.items():
+        p = par_date.get(date)
+        if p:
+            for ligne in [p["total"]] + list(p["provinces"].values()):
+                ligne.pop("validees", None)
+                ligne.pop("partValidee", None)
+            p["validesEcartees"] = motif
+            ecartees.append("%s (validees seules) — %s" % (date, motif))
     final = sorted(par_date.values(), key=lambda p: p["date"])
     sortie = {
         "periode": {"debut": final[0]["date"], "fin": final[-1]["date"]} if final else None,

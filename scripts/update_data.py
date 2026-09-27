@@ -1622,6 +1622,102 @@ def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
     return sitreps
 
 
+# ---------------------------------------------------------------------------
+# COMPLEMENT DES TABLEAUX PAR PROVINCE (audit du 27 septembre 2026)
+#
+# Huit bulletins portent une ligne de province que la lecture du tableau ne
+# reconnait pas : un appel de note colle au nom (« Nord-Kivu1 73 43 58,9% »,
+# 033), des asterisques (« Haut-Uélé 22* 13* », 064), une derniere colonne
+# vide (« Haut-Uélé 16 10 62,5 % 4 / 13 (30,8 %) », 065-067) ou « ND »
+# (« Tshopo 7 5 71,4 % 5 / 23 (21,7 %) ND », 080), un sous-total de zone la
+# ou la province manque au tableau (« Sous-total Nord-Kivu 40 24 60,0% »,
+# 028), ou un tableau entier ignore (019). Ce complement passe APRES la
+# lecture normale et n'ajoute que des provinces absentes. Son garde-fou : la
+# somme de toutes les provinces doit retomber EXACTEMENT sur le total
+# national, en cas comme en deces — c'est ce qui l'empeche de lire un autre
+# tableau (contacts, alertes) qui aurait la meme allure.
+# ---------------------------------------------------------------------------
+_NB = r"(\d{1,3}(?:[ \u00a0\u202f]\d{3})+|\d{1,5})"
+COMPLEMENT_PROVINCE_RE = re.compile(
+    r"(?:Sous-total\s+)?\b(Ituri|Nord[ -]Kivu|Sud[ -]Kivu|Haut[ -]U[ée]l[ée]|Tshopo|Bas[ -]U[ée]l[ée]|Sud[ -]Ubangi)"
+    r"[*¹²³\d]{0,2}\s+" + _NB + r"\*?\s+" + _NB + r"\*?\s+(\d{1,3},\d)\s*%", re.I)
+
+
+def completer_provinces(full_text, provinces, national):
+    """provinces complete, ou provinces inchange si rien ne se verifie.
+    national : (cas, deces) du bulletin."""
+    import itertools
+    if not national or national[0] is None or national[1] is None:
+        return provinces
+    deja = {canon_province(p.get("name")) for p in provinces}
+    cands = {}
+    texte = re.sub(r"\s+", " ", full_text)
+    for m in COMPLEMENT_PROVINCE_RE.finditer(texte):
+        nom = canon_province(m.group(1))
+        if not nom or nom in deja:
+            continue
+        cas, deces = int(re.sub(r"\D", "", m.group(2))), int(re.sub(r"\D", "", m.group(3)))
+        cfr = float(m.group(4).replace(",", "."))
+        if 0 < cas and deces <= cas and abs(deces / cas * 100 - cfr) < 0.6:
+            cands.setdefault(nom, [])
+            if (cas, deces) not in cands[nom]:
+                cands[nom].append((cas, deces))
+    if not cands:
+        return provinces
+    base_c = sum(p.get("confirmed") or 0 for p in provinces)
+    base_d = sum(p.get("deaths") or 0 for p in provinces)
+    noms = sorted(cands)
+    # Le plus grand ensemble de provinces ajoutees qui tombe juste l'emporte.
+    for k in range(len(noms), 0, -1):
+        for choix in itertools.combinations(noms, k):
+            for valeurs in itertools.product(*(cands[n] for n in choix)):
+                if base_c + sum(v[0] for v in valeurs) == national[0] \
+                        and base_d + sum(v[1] for v in valeurs) == national[1]:
+                    ajout = [{"name": n, "confirmed": v[0], "deaths": v[1]}
+                             for n, v in zip(choix, valeurs)]
+                    print("  ! complement par province : " + ", ".join(
+                        "%s %d/%d" % (a["name"], a["confirmed"], a["deaths"]) for a in ajout))
+                    return list(provinces) + ajout
+    return provinces
+
+
+# Fin mai (006-016), les bulletins changent de forme chaque jour et ne donnent
+# pas de tableau par province : les cas confirmes par province s'y lisent dans
+# une phrase ou s'additionnent par zone, les deces presque jamais. Lus a la
+# main, chacun tombe exactement sur le total national du jour. Les 20 et
+# 22 mai restent vides : la source s'y contredit (61 et 88 pour 64 et 91).
+# Decision du proprietaire, 27 septembre 2026 : afficher les cas seuls.
+PROVINCES_FIN_MAI = {
+    # 007, tableau IV par zone, total 83 : Ituri 78 (dont 4 « échantillons
+    # sans fiche »), Nord-Kivu 4, Sud-Kivu 1.
+    "2026-05-21": {"Ituri": (78, None), "Nord-Kivu": (4, None), "Sud-Kivu": (1, None)},
+    # 009 : « Cumul de cas confirmés en Ituri au 23 Mai 2026 : 94 cas, Nord
+    # Kivu 6 cas et Sud Kivu 1cas ».
+    "2026-05-23": {"Ituri": (94, None), "Nord-Kivu": (6, None), "Sud-Kivu": (1, None)},
+    # 010, tableau II par zone, total 105 : Ituri 94 (dont 6 « échantillons
+    # sans fiche »), Nord-Kivu 10, Sud-Kivu 1.
+    "2026-05-24": {"Ituri": (94, None), "Nord-Kivu": (10, None), "Sud-Kivu": (1, None)},
+    # 011, tableau II par zone, total 106 : Ituri 94, Nord-Kivu 11, Sud-Kivu 1.
+    "2026-05-25": {"Ituri": (94, None), "Nord-Kivu": (11, None), "Sud-Kivu": (1, None)},
+    # 012 : « 121 cas dont 110 en Ituri, 10 au Nord-Kivu et 1 au Sud-Kivu ».
+    "2026-05-26": {"Ituri": (110, None), "Nord-Kivu": (10, None), "Sud-Kivu": (1, None)},
+    # 013, sous-totaux du tableau II : 110, 14, 1 (total 125).
+    "2026-05-27": {"Ituri": (110, None), "Nord-Kivu": (14, None), "Sud-Kivu": (1, None)},
+    # 015, tableau I par province : « Sous total Ituri 60 13 52 245 35 … »,
+    # Nord-Kivu 15 et 6, Sud-Kivu 3 et 1 ; total 263 et 42. Cas ET deces.
+    "2026-05-29": {"Ituri": (245, 35), "Nord-Kivu": (15, 6), "Sud-Kivu": (3, 1)},
+    # 016 : « 282 cas, dont 264 en Ituri, 15 au Nord-Kivu et 3 au Sud-Kivu ».
+    "2026-05-30": {"Ituri": (264, None), "Nord-Kivu": (15, None), "Sud-Kivu": (3, None)},
+}
+
+
+def provinces_fin_mai(date):
+    table = PROVINCES_FIN_MAI.get(date)
+    if not table:
+        return None
+    return [{"name": n, "confirmed": c, "deaths": d} for n, (c, d) in table.items()]
+
+
 def rebuild_province_history(meta, provinces):
     """Historique quotidien des cumuls par province — cas ET décès.
 
@@ -1982,7 +2078,10 @@ def main():
     sitreps = rebuild_sitreps_json(reports, national_recovered_by_sitrep)
 
     rebuild_zones_history(meta, health_zones)
-    rebuild_province_history(meta, provinces)
+    # L'historique recoit les provinces que le tableau n'a pas livrees, si
+    # elles se verifient contre le total national (voir completer_provinces).
+    rebuild_province_history(meta, provinces_fin_mai(meta.get("reportingDate")) or completer_provinces(
+        full_text, provinces, (national.get("confirmed"), national.get("deaths"))))
 
     print(f"data/latest.json mis à jour : SitRep {meta['sitrepNumber']} "
           f"({national['confirmed']} cas, {national['deaths']} décès) — "

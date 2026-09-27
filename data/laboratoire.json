@@ -72,6 +72,18 @@
       "source": "SitRep INSP (point du jour)"
     },
     {
+      "date": "2026-06-01",
+      "sitrepNumber": "018",
+      "provinces": {},
+      "total": {
+        "provinces": 0,
+        "echantillons": 76,
+        "positifs": 23,
+        "positivite": 30.3
+      },
+      "source": "SitRep INSP (point du jour)"
+    },
+    {
       "date": "2026-06-02",
       "sitrepNumber": "019",
       "provinces": {
@@ -121,13 +133,13 @@
           "positivite": 32.6
         },
         "Nord-Kivu": {
-          "echantillons": null,
+          "echantillons": 57,
           "positifs": 6
         }
       },
       "total": {
         "provinces": 2,
-        "echantillons": null,
+        "echantillons": 256,
         "positifs": null
       },
       "source": "SitRep INSP (automatique)"
@@ -143,7 +155,7 @@
           "positivite": 33.0
         },
         "Nord-Kivu": {
-          "echantillons": null,
+          "echantillons": 11,
           "positifs": 0
         },
         "Sud-Kivu": {
@@ -153,8 +165,9 @@
       },
       "total": {
         "provinces": 3,
-        "echantillons": null,
-        "positifs": 36
+        "echantillons": 126,
+        "positifs": 36,
+        "positivite": 28.6
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -168,7 +181,7 @@
           "positivite": 28.7
         },
         "Nord-Kivu": {
-          "echantillons": null,
+          "echantillons": 6,
           "positifs": 0
         },
         "Sud-Kivu": {
@@ -178,8 +191,9 @@
       },
       "total": {
         "provinces": 3,
-        "echantillons": null,
-        "positifs": 27
+        "echantillons": 106,
+        "positifs": 27,
+        "positivite": 25.5
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -665,15 +679,49 @@
       "date": "2026-07-01",
       "sitrepNumber": "048",
       "provinces": {
+        "Ituri": {
+          "echantillons": 132,
+          "positifs": 50,
+          "positivite": 37.9
+        },
         "Nord-Kivu": {
-          "echantillons": null,
+          "echantillons": 96,
+          "positifs": 4,
+          "positivite": 4.2
+        }
+      },
+      "total": {
+        "provinces": 2,
+        "echantillons": 228,
+        "positifs": 54,
+        "positivite": 23.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-02",
+      "sitrepNumber": "049",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 100,
+          "positifs": 33,
+          "positivite": 33.0
+        },
+        "Nord-Kivu": {
+          "echantillons": 94,
+          "positifs": 9,
+          "positivite": 9.6
+        },
+        "Sud-Kivu": {
+          "echantillons": 2,
           "positifs": 0
         }
       },
       "total": {
-        "provinces": 1,
-        "echantillons": null,
-        "positifs": 0
+        "provinces": 3,
+        "echantillons": 196,
+        "positifs": 42,
+        "positivite": 21.4
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -911,15 +959,22 @@
       "date": "2026-07-13",
       "sitrepNumber": "060",
       "provinces": {
+        "Ituri": {
+          "echantillons": 229,
+          "positifs": 42,
+          "positivite": 18.3
+        },
         "Nord-Kivu": {
-          "echantillons": null,
-          "positifs": 76
+          "echantillons": 99,
+          "positifs": 5,
+          "positivite": 6.5
         }
       },
       "total": {
-        "provinces": 1,
-        "echantillons": null,
-        "positifs": 76
+        "provinces": 2,
+        "echantillons": 328,
+        "positifs": 47,
+        "positivite": 14.3
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -974,14 +1029,23 @@
       "sitrepNumber": "064",
       "provinces": {
         "Ituri": {
-          "echantillons": null,
-          "positifs": 2
+          "echantillons": 211,
+          "positifs": 75,
+          "vivants": 61,
+          "deces": 14,
+          "positivite": 35.5
+        },
+        "Nord-Kivu": {
+          "echantillons": 119,
+          "positifs": 8,
+          "positivite": 6.7
         }
       },
       "total": {
-        "provinces": 1,
-        "echantillons": null,
-        "positifs": 2
+        "provinces": 2,
+        "echantillons": 330,
+        "positifs": 83,
+        "positivite": 25.2
       },
       "source": "SitRep INSP (automatique)"
     },

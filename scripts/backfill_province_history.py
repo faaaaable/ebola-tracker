@@ -21,7 +21,11 @@ import os
 
 import pdfplumber
 
+import json
+
 from update_data import (
+    completer_provinces,
+    provinces_fin_mai,
     extract_meta,
     extract_number_from_filename,
     extract_province_summary,
@@ -31,6 +35,8 @@ from update_data import (
 )
 
 REPORTS_DIR = "reports"
+with open(os.path.join("data", "sitreps.json"), encoding="utf-8") as _f:
+    NATIONAL = {e["date"]: (e.get("confirmed"), e.get("deaths")) for e in json.load(_f)}
 
 
 def main():
@@ -69,6 +75,11 @@ def main():
             failed.append((num, f"erreur : {e}"))
             continue
 
+        # Fin mai : la table nommee (cas seuls, sauf le 29). Ensuite, le
+        # complement verifie contre le total national de sitreps.json.
+        date = meta.get("reportingDate")
+        provinces = provinces_fin_mai(date) or completer_provinces(
+            full_text, provinces or [], NATIONAL.get(date))
         if not provinces:
             failed.append((num, "aucune donnée province exploitable"))
             continue

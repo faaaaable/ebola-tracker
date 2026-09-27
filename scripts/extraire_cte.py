@@ -73,6 +73,12 @@ REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bEn |\bAu |\bÀ la |
 
 HOSPITALISES_RES = [
     re.compile(r"occupation\s+atteint\s+(\d[\d ]{0,4}\d|\d)\s+patients", re.I),
+    # « L'occupation des structures de prise en charge atteint 488 lits sur
+    # 833 (59 %) » (084, 6 aout) : les patients comptes en lits occupes.
+    re.compile(r"occupation[^.;]{0,60}?atteint\s+(\d[\d ]{0,4}\d|\d)\s+lits\s+sur\s+\d", re.I),
+    # « 53 patients sont pris en charge (36 confirmés et 17 suspects) » (097,
+    # Haut-Uele) : la ventilation entre parentheses ancre la tournure.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+sont\s+pris\s+en\s+charge\s*\(\d", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades|cas suspects|cas)\s+(?:sont|restent|demeurent)?\s*(?:en\s+)?hospitalis", re.I),
     # « Huit (8) patients sont en isolement pour 25 lits » (109 Sud-Kivu) : le
     # nombre est entre parentheses, d'ou la parenthese fermante optionnelle.
@@ -93,7 +99,7 @@ HOSPITALISES_RES = [
     re.compile(r"patients\s+hospitalis\w*\s*\((\d[\d ]{0,4}\d|\d)\s*/\s*\d", re.I),
     re.compile(r"file\s+active\s+de\s+(\d[\d ]{0,4}\d|\d)\s+patients", re.I),
 ]
-LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
+LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits|atteint\s+\d[\d ]{0,4}\s+lits\s+sur\s+(\d[\d ]{0,4}\d|\d)", re.I)
 # « taux d'occupation global de 51,7% (120 lits) » (110 Haut-Uele) : les lits
 # entre parentheses apres le taux, sans « pour ».
 LITS_PARENTHESE_RE = re.compile(r"\((\d[\d ]{0,4}\d|\d)\s+lits\)", re.I)
@@ -119,8 +125,9 @@ LITS_FRACTION_RE = re.compile(r"%\s*;\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d
 # l'ecartait : neuf jours de courbe perdus (vu le 20 septembre 2026).
 # Le 125 glisse le numero de page au milieu de la tournure — « capacité
 # d'accueil 6 de 228 lits » — d'ou l'ancrage sur « lits » et non sur « de ».
+# « portant la capacité provinciale à 130 lits » (097, Haut-Uele).
 LITS_CAPACITE_RE = re.compile(
-    r"capacit[ée]\s+d[’']\s*accueil[^.;%]{0,24}?(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
+    r"capacit[ée]\s+(?:d[’']\s*accueil|provinciale\s+à)[^.;%]{0,24}?(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
 # Le denominateur du taux quand la province distingue les deux : « dont 224
 # dans les structures normées », « dont 216 dans les structures dédiées »,
 # « dont 250 dans les structures de prise en charge normées » (132, sans
@@ -131,6 +138,8 @@ HOSPITALISES_NORMES_RE = re.compile(
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
+    # « 68 patients sont en isolement, soit 56,7% des lits occupés » (104)
+    re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+des\s+lits\s+occup", re.I),
     re.compile(r"lits\s*\((\d+(?:[,.]\d+)?)\s*%\)", re.I),
     # « en sursaturation (128,2 % ; 282/220) » (108 Nord-Kivu)
     re.compile(r"occupation[^%\n]{0,60}?\((\d+(?:[,.]\d+)?)\s*%\s*;", re.I),
@@ -174,7 +183,7 @@ def lire_prose(morceau):
          or LITS_PARENTHESE_RE.search(morceau) or LITS_DISPONIBLES_RE.search(morceau)
          or LITS_CAPACITE_RE.search(morceau))
     if m:
-        ligne["lits"] = entier(m.group(1))
+        ligne["lits"] = entier(next(g for g in m.groups() if g))
     # Les hospitalises des seules structures normees, quand la province
     # distingue les deux : c'est EUX que le taux publie rapporte aux lits.
     # Garde-fou : pas plus que le total hospitalise, et le couple doit tomber
@@ -395,6 +404,20 @@ def recalculer_total(point):
         total["occupation"] = round(total["hospitalisesAvecLits"] / total["lits"] * 100, 1)
 
 
+# Les 081 et 083 (3 et 5 aout) sont mis en page sur deux colonnes que
+# l'extraction du texte entrelace : « → Ituri : 21 nouveaux guéris ; 471
+# patients en isolement visites, 22 lors de 7 causeries éducatives, 30 en
+# (302 confirmés, 169 suspects) sur 833 lits, soit 56,5 % … d'occupation ».
+# Aucun motif ne s'y fie sans risque ; lus a la main (audit du 27 septembre
+# 2026) et ajoutes s'ils manquent.
+LECTURES_NOMMEES = {
+    "081": {"Ituri": {"hospitalises": 471, "lits": 833, "occupation": 56.5}},
+    # « 468 patients en isolement … pour 833 lits (56 %), dont 271 confirmés et
+    # 197 suspects »
+    "083": {"Ituri": {"hospitalises": 468, "lits": 833, "occupation": 56.0}},
+}
+
+
 def lire_rapport(chemin):
     texte = texte_du_rapport(chemin)
     meta = extract_meta(texte, fallback_number=numero(chemin))
@@ -408,6 +431,10 @@ def lire_rapport(chemin):
     if not provinces:
         provinces = lire_par_prose(texte)
         methode = "prose"
+    for nom, ligne in LECTURES_NOMMEES.get(meta["sitrepNumber"], {}).items():
+        if nom not in provinces:
+            provinces[nom] = dict(ligne)
+            methode = methode if provinces else "lecture nommée"
     if not provinces:
         return None, []
     alertes = []
