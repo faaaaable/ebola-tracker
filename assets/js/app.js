@@ -2240,15 +2240,15 @@ function renderOneChartBrut(canvas, chartMode){
         borderWidth:2.2, pointRadius:0, pointHoverRadius:4, tension:.12, fill:false,
       })) };
 
-      /* La plage que le bulletin ne documente pas, en jours d'index. */
-      const trou = [jours.indexOf('2026-08-28'), jours.indexOf('2026-09-02')];
       const opts = { responsive:true, maintainAspectRatio:false,
         interaction:{ mode:'index', intersect:false },
         plugins:{ legend:legende,
                   title:{ display:true, text:tr('vaccChartTitre'), align:'center',
                           color:PALETTE.ink, padding:{ bottom:16 },
                           font:{ family:PALETTE.font, size:16, weight:'700' } },
-                  plageSansDonnees:{ de:trou[0], a:trou[1], texte:tr('vaccChartTrou') },
+                  /* La bande grisee « aucun chiffre publie » du 28 aout au
+                     2 septembre est retiree (27 septembre 2026, demande du
+                     proprietaire) : la note dit ce trou de publication. */
                   /* PAS D'ETIQUETTE DE BOUT SUR TELEPHONE (23 septembre
                      2026, le proprietaire les a vues s'afficher par-dessus
                      l'axe). A 360 px le nom et le chiffre se posent sur les

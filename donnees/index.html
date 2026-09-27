@@ -322,7 +322,7 @@
                 <th data-i18n="provinceTh1">Province</th>
                 <th class="is-num" data-i18n="zonesTh3">Cas cumulés</th>
                 <th class="is-num" data-i18n-html="provinceTh3">&lt;span class=&quot;on-large&quot;&gt;Part du pays&lt;/span&gt;&lt;span class=&quot;on-phone&quot;&gt;% pays&lt;/span&gt;</th>
-                <th class="is-num" data-i18n="zonesTh4">Décès</th>
+                <th class="is-num" data-i18n="zonesTh4">Décès cumulés</th>
                 <th class="is-num" data-i18n="zonesTh5">Létalité</th>
                 <th class="is-num" data-i18n="provinceTh2">Zones touchées</th>
                 <th class="is-num" data-i18n="zonesTh6">Nouv. cas (24h)</th>
@@ -404,8 +404,9 @@
           </table>
         </div>
       </div>
-      <!-- La note de lecture remonte sous le tableau qu'elle explique. -->
-      <p class="map-note">Les cas et les décès sont des <strong>totaux cumulés</strong> depuis le début de l'épidémie, jamais des valeurs du jour. Les chiffres entre parenthèses sont la variation annoncée par le dernier bulletin.</p>
+      <!-- Sous le tableau, le lien vers la lecture des chiffres (27 septembre
+           2026) : les en-tetes disent ce qui est cumule et ce qui est du jour. -->
+      <p class="map-note dn-more"><a href="/a-propos/#lecture">Comment ces chiffres sont lus et vérifiés →</a></p>
 
       <div class="section-head" style="margin-top:32px;">
         <h3 class="frame-title">Nouveaux cas par province</h3>
@@ -597,8 +598,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=99839208d7"></script>
-<script defer src="/assets/js/app.js?v=2dfe7ce47e"></script>
+<script defer src="/assets/js/i18n.js?v=c1b07d71ff"></script>
+<script defer src="/assets/js/app.js?v=0daee85b76"></script>
 
 </body>
 </html>
