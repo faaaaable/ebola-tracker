@@ -2138,17 +2138,16 @@ def province_riposte_charts_html(province, strings_lang, i18n_lang, numero):
         '      <div class="chart-panel">\n'
         '        <canvas id="provRiposteChart" data-chart="contactsRiposte" data-province="%s"></canvas>\n'
         '      </div>\n'
-        # Les blancs : verifie le 16 septembre 2026 sur l'Ituri et le Nord-Kivu,
-        # chacun est une donnee absente du bulletin pour la province — aucun
-        # zero publie, aucun jour ecarte par un filtre.
-        '      <p class="map-note">%s</p>\n'
+        # Les blancs et les pointilles : dits depuis le 27 septembre 2026 par
+        # la phrase standard qu'app.js (annoterTrous) ajoute a la note, comme
+        # sous tous les graphiques. Verifie le 16 septembre sur l'Ituri et le
+        # Nord-Kivu : chaque blanc est une donnee absente du bulletin.
         '      <div class="map-note chart-note"></div>\n'
         '    </div>\n'
         '    </div>\n'
         '  </section>\n'
         % (esc(numero), esc(strings_lang["provinceRiposteTitle"]), esc(strings_lang["provinceRiposteSub"]),
-           boutons, BOUTON_PARTAGE % ("provRiposteChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"]),
-           esc(strings_lang["provinceRiposteBlancs"])))
+           boutons, BOUTON_PARTAGE % ("provRiposteChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"])))
 
 
 def province_deces_lieu_html(province, strings_lang, i18n_lang, numero="04"):

@@ -605,3 +605,23 @@ permet pas de passer une instance de `bar` à `line`. Le code teste
 `slot.chart.config.type` et détruit si besoin.
 
 ---
+
+## Les trous et les pointillés : deux phrases standard (27 septembre 2026)
+
+Demande du propriétaire : une seule formulation partout. `annoterTrous()` (app.js),
+appelée après chaque `renderOneChart`, inspecte le graphique RENDU et ajoute en fin
+de note :
+- `noteBlancs` — « Un espace vide signifie une absence de données ou une donnée
+  incomplète, jamais un zéro. » — si une série visible a une valeur nulle entre sa
+  première et sa dernière valeur ;
+- `notePointilles` — « Les pointillés sont purement illustratifs. » — si un jeu
+  marqué `pont: true` (tout pont de liaison doit porter ce marqueur) a des valeurs.
+
+Ne jamais réécrire ces phrases dans une note : les notes ne gardent que les faits
+propres au graphique (journées relevées sur N, hachures du laboratoire, règle des
+cinq jours des CTE, report des cas au bulletin suivant). Exceptions : la ligne de
+moyenne du lieu des décès (pointillée mais c'est une mesure, pas de marqueur
+`pont`) et les zones pointillées de la carte (donnée agrégée par province).
+La phrase en dur « Un espace vide signifie que les bulletins… » des pages province
+est supprimée (`provinceRiposteBlancs`).
+

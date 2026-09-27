@@ -1404,7 +1404,46 @@ function reglerInfobulles(){
   reglerInfobulles.fait = true;
 }
 
+/* LES DEUX PHRASES STANDARD (27 septembre 2026, demande du proprietaire) :
+   sous tout graphique qui montre un trou, « Un espace vide signifie une
+   absence de donnees ou une donnee incomplete, jamais un zero » ; sous tout
+   graphique qui trace des pointilles de liaison, « Les pointilles sont
+   purement illustratifs ». Une cle chacune, ajoutee ici apres le rendu et
+   jamais recopiee dans une note : elles ne peuvent plus diverger d'un cadre
+   a l'autre, et ne s'ecrivent que la ou elles sont vraies — le graphique
+   rendu est inspecte, pas le mode.
+   Trou : une valeur nulle ENTRE la premiere et la derniere valeur d'une
+   serie (avant ou apres, c'est une serie qui commence ou s'arrete).
+   Pointilles : un jeu marque « pont ». La moyenne pointillee du lieu des
+   deces n'en est pas un — elle vaut une mesure — et reste hors du compte,
+   comme les zones pointillees de la carte. */
+function annoterTrous(canvas){
+  const chart = chartSlot(canvas).chart;
+  const wrap = canvas.closest('.chart-panel-wrap');
+  const noteEl = wrap ? wrap.querySelector('.chart-note') : null;
+  if(!chart || !noteEl) return;
+  let trou = false, pont = false;
+  chart.data.datasets.forEach((ds, i) => {
+    if(!chart.isDatasetVisible(i) || !Array.isArray(ds.data)) return;
+    const vals = ds.data.map(v => (v && typeof v === 'object') ? v.y : v);
+    const connu = vals.map(v => v !== null && v !== undefined && !Number.isNaN(v));
+    if(ds.pont){ if(connu.some(Boolean)) pont = true; return; }
+    const premier = connu.indexOf(true), dernier = connu.lastIndexOf(true);
+    for(let k = premier + 1; k < dernier; k++) if(!connu[k]){ trou = true; break; }
+  });
+  const phrases = [trou && tr('noteBlancs'), pont && tr('notePointilles')].filter(Boolean);
+  if(!phrases.length) return;
+  const avant = noteEl.textContent.trim();
+  noteEl.textContent = (avant ? avant + ' ' : '') + phrases.join(' ');
+  noteEl.style.display = 'block';
+}
+
 function renderOneChart(canvas, chartMode){
+  renderOneChartBrut(canvas, chartMode);
+  annoterTrous(canvas);
+}
+
+function renderOneChartBrut(canvas, chartMode){
   const slot = chartSlot(canvas);
   reglerInfobulles();
   if(typeof Chart === 'undefined'){
@@ -3156,7 +3195,7 @@ function renderOneChart(canvas, chartMode){
       labels,
       datasets: [
         {
-          data: bridgeValues,
+          data: bridgeValues, pont: true,
           borderColor: tint(PALETTE.active, .35),
           borderWidth: 1.5,
           borderDash: [4,4],
