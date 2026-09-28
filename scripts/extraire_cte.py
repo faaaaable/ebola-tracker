@@ -263,6 +263,14 @@ LITS_LIGNE_RE = re.compile(r"\n\s*Nombre\s+de\s+lits\s+([^\n]+)")
 # « 60 Patients au lit (J-1) 551 170 … » : le « 860 » de la ligne des lits
 # s'est cassé sur deux lignes, et son morceau ouvre celle des patients.
 PATIENTS_LIGNE_RE = re.compile(r"\n(?:\d+\s+)?Patients?\s+au\s+lit\s*\(J-1\)\s+([^\n]+)")
+# Du 059 au 080 le meme tableau porte aussi « Patients en isolement (fin J)
+# 551 168 ND 3 722 » : c'est le chiffre du jour, celui que la une, la prose et
+# les « Defis » du bulletin citent (« 77,7 % en Ituri (551 patients pour 709
+# lits) », 069). « Au lit (J-1) » est celui de la veille : le lire decalait la
+# courbe d'un jour sur 19 bulletins (trouve le 28 septembre 2026 en croisant
+# les Defis avec cte.json). Du 019 au 058, seule la ligne J-1 existe : elle
+# reste lue, et le point porte `patientsVeille`.
+PATIENTS_FIN_J_RE = re.compile(r"\n(?:\d+\s+)?Patients?\s+en\s+isolement\s*\(fin\s*J\)\s+([^\n]+)")
 
 
 def decoupages(ligne, n):
@@ -304,6 +312,32 @@ def cellules(ligne, n, valide=None):
     return cands[0]
 
 
+def cellule_perdue(ligne, n, i_total, somme_ok, vides=None):
+    """Une ligne a laquelle il manque une cellule vide (064 : « Patients en
+    isolement (fin J) 548 174 ND 722 » sous cinq colonnes). On replace la
+    cellule manquante a chaque position hors total ou, si `vides` est donne,
+    seulement la ou la ligne de la veille porte « ND » (une province qui ne
+    rapporte pas un jour ne rapporte pas le suivant) ; la lecture n'est retenue
+    que si la somme retombe sur le total ET que toutes les positions possibles
+    donnent les memes chiffres aux memes provinces. Sinon, rien."""
+    if i_total is None:
+        return None
+    lectures = []
+    for courte in decoupages(ligne, n - 1) or []:
+        for k in range(n):
+            if k == i_total or (vides is not None and k not in vides):
+                continue
+            c = courte[:k] + [None] + courte[k:]
+            if c[i_total] is not None and somme_ok(c):
+                lectures.append(c)
+    if not lectures:
+        return None
+    for c in lectures[1:]:
+        if any((a or 0) != (b or 0) for a, b in zip(c, lectures[0])):
+            return None
+    return lectures[0]
+
+
 def lire_par_tableau(texte):
     """Le tableau d'occupation de l'époque C : une colonne par province."""
     # Le tableau des soins est le seul dont l'en-tete precede une ligne
@@ -334,7 +368,25 @@ def lire_par_tableau(texte):
         if i_total is None or c[i_total] is None:
             return True
         return c[i_total] == sum(v or 0 for k, v in enumerate(c) if k != i_total)
-    patients = cellules(mp.group(1), n, valide=somme_ok)
+    mf = PATIENTS_FIN_J_RE.search(texte, mp.end())
+    patients = None
+    if mf and mf.start() - mp.end() < 2000:
+        # la ligne du jour ne remplace celle de la veille que si sa somme tombe
+        # juste : `cellules` rendrait sinon un decoupage non verifie
+        patients = next((c for c in decoupages(mf.group(1), n) if i_total is not None and somme_ok(c)), None) \
+            or cellule_perdue(mf.group(1), n, i_total, somme_ok,
+                              vides={k for k, v in enumerate(cellules(mp.group(1), n, valide=somme_ok) or []) if v is None})
+        # 061, 062, 080 : la ligne de la veille est elle-meme incomplete (cellules
+        # vides non imprimees, pas de total au 080) et n'a jamais verifie sa somme.
+        # La ligne du jour, de meme forme, est alors lue de la meme facon : pas
+        # plus exigeant pour l'une que pour l'autre.
+        if patients is None and not any(i_total is not None and somme_ok(c) for c in decoupages(mp.group(1), n) or []) \
+                and len(mf.group(1).split()) == len(mp.group(1).split()):
+            patients = cellules(mf.group(1), n, valide=somme_ok)
+        veille = False
+    if patients is None:
+        patients = cellules(mp.group(1), n, valide=somme_ok)
+        veille = True
     lits = cellules(ml.group(1), n, valide=somme_ok) if ml and ml.start() < mp.start() + 2000 else None
     if patients is None:
         return {}
@@ -345,6 +397,8 @@ def lire_par_tableau(texte):
         if patients[k] is None:
             continue
         ligne = {"hospitalises": patients[k]}
+        if veille:
+            ligne["patientsVeille"] = True
         if lits and lits[k]:
             ligne["lits"] = lits[k]
             ligne["occupation"] = round(patients[k] / lits[k] * 100, 1)

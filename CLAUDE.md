@@ -141,6 +141,17 @@ publié tombait déjà juste — Haut-Uélé le 26 août (68/120), Sud-Kivu les 
 ces jours-là décalé de 0,3 à 0,7 point (le périmètre s'élargit). Accepté par le
 propriétaire.
 
+**LE TABLEAU DES CTE DE L'EPOQUE C SE LIT A « FIN J », PAS A « J-1 »** (28 septembre
+2026). Du 061 au 080, `extraire_cte.py` lisait « Patients au lit (J-1) », le chiffre
+de la veille, quand la une, la prose et les « Défis » du même bulletin citent
+« Patients en isolement (fin J) » : au 069, 557 au lieu de 551 en Ituri. Trouvé en
+croisant les taux des « Défis » avec `cte.json` (10 concordances sur 35 avant, 30
+après). 17 bulletins changent, aucune date perdue ; la ligne du jour n'est retenue
+que si sa somme tombe sur le total, ou, au 064 (une cellule vide non imprimée),
+si la case manquante est une province à « ND » la veille. Du 019 au 058 seule la
+ligne J-1 existe : elle reste, et le point porte `patientsVeille`. Les lettres
+(depuis le 090) ne bougent pas.
+
 **UN CUMUL NE RECULE PAS : LE GRAPHIQUE DE VACCINATION PORTE LA VALEUR
 RÉVISÉE** (23 septembre 2026, décision du propriétaire). Tracée telle quelle,
 la courbe du Bas-Uélé redescendait de 987 à 874 — et lissée, la chute se lisait
