@@ -100,7 +100,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=a4e06ee069">
+<link rel="stylesheet" href="/assets/css/site.css?v=942875a45a">
 </head>
 <body>
 
@@ -237,25 +237,41 @@
     </div>
     <p class="lede">Here, the whole country: every confirmed case and death since the outbreak was declared on 15 May 2026, as published in the INSP bulletins.</p>
     <p class="page-intro">The pace of new cases day by day and week by week, each province's share of that total, the age and sex of patients. The tables then go down to the health zone, and each province has its own page, updated from the same bulletins.</p>
+    <!-- LA FICHE D'UN TERRITOIRE (28 septembre 2026) : meme plan que les
+         pages province — le point, cas, deces (et lieu du deces), ou, qui,
+         la riposte, la chronologie. La carte du pays reste a l'accueil. -->
+    <section class="kpis kpis-province" aria-label="Whole country">
+      <div class="kpi confirmed">
+        <div class="label">Confirmed cases</div>
+        <div class="value">8,067</div>
+        <div class="delta">+78 (24h)</div>
+      </div>
+      <div class="kpi deaths">
+        <div class="label">Deaths</div>
+        <div class="value">3,901</div>
+        <div class="delta">+49 (24h)</div>
+      </div>
+      <div class="kpi cfr">
+        <div class="label">Fatality rate</div>
+        <div class="value">48.4%</div>
+        <div class="delta" data-i18n="cfrDelta">deaths / confirmed cases</div>
+      </div>
+    </section>
+    <p class="page-intro fiche-point">Last 7 days: 395 cases and 202 deaths, against 472 cases and 224 deaths in the previous 7 days.</p>
     <nav class="riposte-ancres" aria-label="How many · Where · Who">
-      <a href="#combien">How many</a>
+      <a href="#cas">New cases</a>
+      <a href="#deces">New deaths</a>
       <a href="#ou">Where</a>
       <a href="#qui">Who</a>
-      <a href="#riposte">What is being done</a>
+      <a href="#riposte">The response</a>
+      <a href="#chronologie">Timeline</a>
     </nav>
   </section>
 
-  <!-- ============ COMBIEN ============ -->
-  <section class="section cadre-fiche" id="combien">
-    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">How many</h2><div class="section-sub">cases and deaths, day after day</div></div></div>
+  <!-- ============ CAS ============ -->
+  <section class="section cadre-fiche" id="cas">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">New cases</h2><div class="section-sub">bars: new cases per day · line: cumulative</div></div></div>
     <div class="cadre-corps">
-      <!-- Deux cadres, un par serie : le quotidien porte la courbe de cumul de
-           sa serie (ce que faisait « Evolution de l'epidemie » pour les deux a
-           la fois), et la bascule Jour / Semaine / Mois est propre a chaque
-           cadre. Decision du proprietaire, 29 aout. -->
-      <div class="section-head">
-        <h3 class="frame-title">New cases</h3>
-      </div>
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="casChart">
           <button type="button" class="share-btn">
@@ -273,10 +289,13 @@
         </div>
         <div class="map-note chart-note"></div>
       </div>
+    </div>
+  </section>
 
-      <div class="section-head" style="margin-top:32px;">
-        <h3 class="frame-title">New deaths</h3>
-      </div>
+  <!-- ============ DECES ============ -->
+  <section class="section cadre-fiche" id="deces">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">New deaths</h2><div class="section-sub">bars: new deaths per day · line: cumulative</div></div></div>
+    <div class="cadre-corps">
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="decesChart">
           <button type="button" class="share-btn">
@@ -295,12 +314,42 @@
         <div class="map-note chart-note"></div>
       </div>
 
+      <!-- Le lieu du deces, venu de la page Riposte le 28 septembre 2026 :
+           combien de deces, puis ou ils surviennent. -->
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">Place of death</h3>
+        <span class="section-sub">in the community or in a treatment centre</span>
+      </div>
+      <p class="fiche-texte">Two confirmed deaths in three occur outside treatment centres. That share says what the response does not reach: a patient who dies at home was neither isolated nor treated, and exposed their family to the end.</p>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="decesLieuChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">Share</span>
+          </button>
+        </div>
+        <nav class="subtab-nav chart-vue-nav" data-chart-vue="decesLieuChart">
+          <button type="button" class="subtab-btn active" data-vue="pays" data-i18n="navDataTables">Whole country</button>
+          <button type="button" class="subtab-btn" data-vue="Ituri">Ituri</button>
+          <button type="button" class="subtab-btn" data-vue="Nord-Kivu">Nord-Kivu</button>
+          <button type="button" class="subtab-btn" data-vue="Haut-Uélé">Haut-Uélé</button>
+        </nav>
+        <div class="chart-panel">
+          <canvas id="decesLieuChart" data-chart="deathsPlace"></canvas>
+        </div>
+        <p class="map-note">Weekly share of confirmed deaths that occurred in the community rather than in a treatment centre, nationwide or in one of the three hardest-hit provinces. The dotted line marks the average over the weeks covered: that is the result, not the dips and bumps. Bulletins only distinguish the two places since 13 July.</p>
+        <details class="maq-methode">
+          <summary>Method and sources</summary>
+          <div class="map-note chart-note"></div>
+          <p class="map-note">Sources: INSP situation reports, read bulletin by bulletin. The form of these figures has changed with each editorial period; a bulletin whose wording could not be read leaves an empty day rather than a guessed value. Alerts and laboratory figures are aggregated by week, Monday to Sunday, the current week appearing only once complete. No figure is recalculated in place of the source, except occupancy when the bulletin gives patients and beds without the rate.</p>
+        </details>
+      </div>
     </div>
   </section>
 
   <!-- ============ OU ============ -->
   <section class="section cadre-fiche" id="ou">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Where</h2><div class="section-sub">by province and by health zone</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Where</h2><div class="section-sub">by province and by health zone</div></div></div>
     <div class="cadre-corps">
       <div class="section-head">
         <h3 class="frame-title">By province</h3>
@@ -463,7 +512,7 @@
 
   <!-- ============ QUI ============ -->
   <section class="section cadre-fiche" id="qui">
-    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Who</h2><div class="section-sub">age and sex of cases and deaths</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">Who</h2><div class="section-sub">age and sex of cases and deaths</div></div></div>
     <div class="cadre-corps">
       <div class="section-head">
         <h3 class="frame-title">Age and sex</h3>
@@ -493,9 +542,11 @@
     </div>
   </section>
 
-  <!-- ============ QUE FAIT-ON ============ -->
+  <!-- ============ LA RIPOSTE ============ -->
+  <!-- Chiffres des 7 derniers releves et difficultes du dernier bulletin,
+       rendus par fiche_riposte_html() comme sur les pages province. -->
   <section class="section cadre-fiche" id="riposte">
-    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">What is being done</h2><div class="section-sub">the response, in four figures</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">The response</h2><div class="section-sub">figures from the last 7 reports and the challenges in the latest bulletin</div></div></div>
     <div class="cadre-corps">
       <div class="kpis riposte-kpis">
         <div class="kpi alerts">
@@ -519,7 +570,71 @@
           <div class="delta">768 hospitalised for 1,507 beds</div>
         </div>
       </div>
-      <p class="page-intro" style="margin-top:14px;"><a href="/en/response/">The full “Response & challenges” page →</a></p>
+      <h3 class="frame-title fiche-sous-titre">Reported challenges</h3>
+      <p class="fiche-texte">In Ituri, four treatment centres lack space, 18 patients have no guaranteed meals, one body was not sampled at a control point and another point remains shut by insecurity. In Nord-Kivu, armed men killed a worker screening travellers at a control point in Kalunguta; one hospitalised patient in three (105 of 328) is treated outside the treatment centres, 39% of patients die in them, only one home in three has been decontaminated (7 of 22), and health workers are still not vaccinated. In Haut-Uélé, no vaccination data is being sent. In Tshopo, the vaccine has run out in three zones with 47 doses left, coverage stands at 42.3%, only 2 health facilities out of 99 meet hygiene standards and the Kisangani hospital incinerator is broken. In Bas-Uélé, there is still no compliant treatment centre and no ambulance, and antenatal visits are falling (58% in August).</p>
+      <p class="map-note">Summary of the “Challenges” in bulletin no. 135 (26 Sep 2026), written in plain language by ebola-tracker.org.</p>
+      <p class="drill"><a href="/en/response/">The full response, province by province →</a> · <a href="/en/letter/135/">Letter no. 135 →</a></p>
+    </div>
+  </section>
+
+
+  <!-- ============ CHRONOLOGIE ============ -->
+  <section class="section cadre-fiche" id="chronologie">
+    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">Timeline</h2></div></div>
+    <div class="cadre-corps">
+      <div class="th-scroller">
+        <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="Outbreak timeline, horizontal scrolling">
+          <ol class="th-track">
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-02-22">22 Feb 2026</time>
+            <h3 class="th-title">The virus is already circulating, unseen</h3>
+            <p class="th-text">Reconstructed after the fact from sequenced genomes, the common ancestor of the sampled viruses dates back to late February, between mid-January and late March. The outbreak therefore ran for nearly three months before it was declared.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-04-24">24 Apr 2026</time>
+            <h3 class="th-title">First suspected cases</h3>
+            <p class="th-text">Cases of unexplained haemorrhagic fever are detected in Ituri province. Samples are sent for analysis.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-14">14 May 2026</time>
+            <h3 class="th-title">First situation report</h3>
+            <p class="th-text">The first INSP SitRep devoted to this outbreak is published: it records 8 confirmed cases and 4 deaths.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-15">15 May 2026</time>
+            <h3 class="th-title">Laboratory confirmation and outbreak declaration</h3>
+            <p class="th-text">Testing confirms Ebola virus, Bundibugyo species. The authorities officially declare the 17th Ebola outbreak in the Democratic Republic of the Congo.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-17">17 May 2026</time>
+            <h3 class="th-title">Public health emergency of national concern</h3>
+            <p class="th-text">The DRC declares a public health emergency at national level and activates its response: treatment centres, contact tracing, border screening points.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-18">18 May 2026</time>
+            <h3 class="th-title">Public health emergency of continental security</h3>
+            <p class="th-text">The emergency is extended to continental level, opening the way to a regionally coordinated response.</p>
+          </li>
+          </ol>
+        </div>
+        <button class="th-nav is-prev" type="button" data-th-nav="-1"
+                aria-controls="timelineTeaser" aria-label="Previous milestones" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="th-nav is-next" type="button" data-th-nav="1"
+                aria-controls="timelineTeaser" aria-label="Next milestones" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <p class="drill"><a href="/en/timeline/">The full timeline →</a></p>
     </div>
   </section>
 

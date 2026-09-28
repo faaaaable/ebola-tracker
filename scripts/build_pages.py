@@ -28,7 +28,7 @@ import os
 import re
 import subprocess
 import sys
-from datetime import date
+from datetime import date, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import defis_synthese  # maquette « Riposte & defis », seconde partie redigee
@@ -2082,6 +2082,17 @@ SEUIL_COURBE_PROVINCE = 50
 COURBE_PROVINCE_FORCEE = {"Tshopo": 10}
 
 
+# Sous ce cumul, la fiche n'a pas de cadre « La riposte » : trois chiffres
+# « non publie » et une phrase de difficultes absente ne disent rien
+# (decision du proprietaire, 28 septembre 2026 — Sud-Kivu, Bas-Uele et
+# Sud-Ubangi, 2 a 10 cas ; la Tshopo, 43, le garde).
+SEUIL_RIPOSTE_FICHE = 40
+
+
+def a_une_riposte(province):
+    return (province.get("confirmed") or 0) >= SEUIL_RIPOSTE_FICHE
+
+
 def a_une_courbe(province):
     return ((province.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE
             or province.get("name") in COURBE_PROVINCE_FORCEE)
@@ -2101,8 +2112,8 @@ PROVINCES_RIPOSTE = ("Ituri", "Nord-Kivu")
 
 def province_numeros(province):
     """Les numeros des cadres d'une page province, dans l'ordre de la page :
-    carte, [courbe des cas, courbe des deces], zones, [lieu du deces],
-    [riposte], chronologie.
+    carte, [courbe des cas, courbe des deces et lieu du deces], zones,
+    riposte, chronologie — le plan de la fiche du 28 septembre 2026.
     Un seul calcul pour le gabarit et les fonctions qui ecrivent les cadres :
     chaque ajout decalait la chronologie a la main (16 septembre 2026)."""
     n, nums = 1, {"carte": "01"}
@@ -2114,9 +2125,7 @@ def province_numeros(province):
         suivant("courbe")
         suivant("deces")
     suivant("zones")
-    if province.get("name") in PROVINCES_LIEU_DECES:
-        suivant("lieu")
-    if province.get("name") in PROVINCES_RIPOSTE:
+    if a_une_riposte(province):
         suivant("riposte")
     suivant("chrono")
     return nums
@@ -2165,6 +2174,28 @@ def province_riposte_charts_html(province, strings_lang, i18n_lang, numero):
            boutons, BOUTON_PARTAGE % ("provRiposteChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"])))
 
 
+def lieu_deces_bloc(province, strings_lang, i18n_lang):
+    """Le lieu du deces, SOUS la courbe des deces de la fiche (28 septembre
+    2026) : c'est la meme question — combien, puis ou ils meurent. Meme
+    graphique que la page Riposte, restreint a la province par data-province,
+    pour les trois provinces qui classent assez de deces."""
+    if province.get("name") not in PROVINCES_LIEU_DECES:
+        return ""
+    return (
+        '      <div class="section-head" style="margin-top:32px;">\n'
+        '        <h3 class="frame-title">%s</h3>\n'
+        '        <span class="section-sub">%s</span>\n'
+        '      </div>\n'
+        '      <div class="panel chart-panel-wrap">\n%s'
+        '        <div class="chart-panel">\n'
+        '          <canvas id="decesLieuChart" data-chart="deathsPlace" data-province="%s"></canvas>\n'
+        '        </div>\n'
+        '        <div class="map-note chart-note"></div>\n'
+        '      </div>\n'
+        % (esc(strings_lang["riposteDecesTitle"]), esc(strings_lang["provinceDecesLieuSub"]),
+           BOUTON_PARTAGE % ("decesLieuChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"])))
+
+
 def province_deces_lieu_html(province, strings_lang, i18n_lang, numero="04"):
     """Le cadre « Le lieu du deces » d'une page province : le graphique de la
     page Riposte, restreint a la province par data-province. Place sous le
@@ -2195,7 +2226,7 @@ def province_deces_lieu_html(province, strings_lang, i18n_lang, numero="04"):
 
 
 def _cadre_courbe_province(province, strings_lang, i18n_lang, numero, canvas_id, champ,
-                            cle_titre, cle_sous_titre):
+                            cle_titre, cle_sous_titre, apres=""):
     plafond = COURBE_PROVINCE_FORCEE.get(province.get("name"))
     attrs = ' data-y-max="%d"' % plafond if plafond else ""
     if champ != "confirmed":
@@ -2230,6 +2261,7 @@ def _cadre_courbe_province(province, strings_lang, i18n_lang, numero, canvas_id,
         '      </div>\n'
         '      <div class="map-note chart-note"></div>\n'
         '    </div>\n'
+        '%s'
         '    </div>\n'
         '  </section>\n'
         # Le titre porte le nom de la province entre parentheses. Sans lui,
@@ -2245,7 +2277,7 @@ def _cadre_courbe_province(province, strings_lang, i18n_lang, numero, canvas_id,
            esc(i18n_lang["chartVueDaily"]),
            esc(i18n_lang["chartVueWeekly"]),
            esc(i18n_lang["chartVueMonthly"]),
-           canvas_id, attrs))
+           canvas_id, attrs, apres))
 
 
 def province_chart_html(province, strings_lang, i18n_lang):
@@ -2261,7 +2293,8 @@ def province_chart_html(province, strings_lang, i18n_lang):
                                    "provinceChartTitle", "provinceChartSub")
             + _cadre_courbe_province(province, strings_lang, i18n_lang, nums["deces"],
                                      "provinceDeathsChart", "deaths",
-                                     "provinceDeathsChartTitle", "provinceDeathsChartSub"))
+                                     "provinceDeathsChartTitle", "provinceDeathsChartSub",
+                                     apres=lieu_deces_bloc(province, strings_lang, i18n_lang)))
 
 
 
@@ -2689,8 +2722,8 @@ def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lan
         out["province.ripOccupation"] = "—"
         out["province.ripOccupationSub"] = esc(strings_lang["riposteKpiNone"])
     if name in PROVINCES_SANS_CASES_RIPOSTE:
-        return {"province.ripKpis": "", "province.ripKpisClass": ""}
-    return {
+        return dict(out, **{"province.ripKpis": "", "province.ripKpisClass": ""})
+    return dict(out, **{
         "province.ripKpisClass": " has-riposte",
         "province.ripKpis": (
             '      <div class="kpi contacts">\n'
@@ -2704,7 +2737,130 @@ def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lan
             '        <div class="delta">%s</div>\n'
             '      </div>\n'
             % (esc(strings_lang["riposteKpiContacts"]), out["province.ripContacts"], out["province.ripContactsSub"],
-               esc(strings_lang["riposteKpiOccupation"]), out["province.ripOccupation"], out["province.ripOccupationSub"]))}
+               esc(strings_lang["riposteKpiOccupation"]), out["province.ripOccupation"], out["province.ripOccupationSub"]))})
+
+
+# --------------------------------------------------------------------------
+# La fiche d'un territoire (28 septembre 2026)
+#
+# Le pays et chaque province suivent desormais le meme plan, a deux echelles :
+# le point (chiffres cles et sept derniers jours), [carte], cas, deces (et le
+# lieu du deces dessous), ou, [qui], la riposte, la chronologie. Demande du
+# proprietaire apres l'avis du 28 septembre : « j'ai l'impression de devenir
+# confus sur comment agencer toutes ces infos ». La regle qui en sort : une
+# information a UNE page qui la detaille — les graphiques de la riposte vivent
+# sur la page Riposte, ou l'on compare les provinces ; la fiche n'en garde que
+# les chiffres et les difficultes du dernier bulletin, avec les liens.
+# --------------------------------------------------------------------------
+
+def point_sept_jours(serie):
+    """{cas, deces, casAvant, decesAvant} sur deux fenetres de 7 jours
+    CALENDAIRES, a partir d'une serie cumulee [(date, cas, deces)]. Le cumul
+    retenu pour une date est le dernier releve a cette date ou avant : un jour
+    sans bulletin ne compte ni zero ni double. None si l'une des bornes manque
+    (province trop recente pour deux semaines pleines)."""
+    serie = sorted((r for r in serie if r[0]), key=lambda r: r[0])
+    if len(serie) < 2:
+        return None
+    fin = date.fromisoformat(serie[-1][0])
+
+    def cumul(i, jours):
+        borne = (fin - timedelta(days=jours)).isoformat()
+        v = None
+        for r in serie:
+            if r[0] > borne:
+                break
+            if r[i] is not None:
+                v = r[i]
+        return v
+    out = {}
+    for i, cle in ((1, "cas"), (2, "deces")):
+        a, b, c = cumul(i, 0), cumul(i, 7), cumul(i, 14)
+        if a is None or b is None or c is None:
+            return None
+        out[cle], out[cle + "Avant"] = max(0, a - b), max(0, b - c)
+    return out
+
+
+def fiche_point_html(serie, lang, strings_lang):
+    p = point_sept_jours(serie)
+    if not p:
+        return ""
+    return '<p class="page-intro fiche-point">%s</p>' % esc(interp(
+        strings_lang["fichePoint"], {k: fmt(v, lang) for k, v in p.items()}))
+
+
+PHRASE_RE = re.compile(r"(?<=[.!?])\s+(?=[A-ZÀ-ÖØ-Ý])")
+
+
+def difficultes_province(texte, name):
+    """Les phrases du resume des Defis qui parlent de la province. Le resume
+    est ecrit a la main a chaque bulletin, UNE phrase par province, ouverte
+    par son nom (« Au Nord-Kivu, … », « In Nord-Kivu, … », « Nord-Kivu, … ») :
+    le nom dans les quarante premiers caracteres suffit a la reconnaitre."""
+    phrases = [x.strip() for x in PHRASE_RE.split(texte or "") if x.strip()]
+    return " ".join(x for x in phrases if name in x[:40])
+
+
+def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang):
+    """Le cadre « La riposte » d'une fiche : des chiffres (liste de
+    (classe, libelle, valeur, sous-titre), deja echappes), les difficultes du
+    dernier bulletin, leur source, puis les liens vers la page qui detaille."""
+    cases = "".join(
+        '        <div class="kpi %s">\n          <div class="label">%s</div>\n'
+        '          <div class="value">%s</div>\n          <div class="delta">%s</div>\n        </div>\n'
+        % k for k in kpis)
+    bloc_kpis = '      <div class="kpis riposte-kpis">\n%s      </div>\n' % cases if kpis else ""
+    return (
+        '  <section class="section cadre-fiche" id="riposte">\n'
+        '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
+        '<div class="section-sub">%s</div></div></div>\n'
+        '    <div class="cadre-corps">\n%s'
+        '      <h3 class="frame-title fiche-sous-titre">%s</h3>\n'
+        '      <p class="fiche-texte">%s</p>\n'
+        '      <p class="map-note">%s</p>\n'
+        '      <p class="drill">%s</p>\n'
+        '    </div>\n  </section>\n'
+        % (esc(numero), esc(strings_lang["ficheRiposteTitle"]), esc(strings_lang["ficheRiposteSub"]),
+           bloc_kpis, esc(strings_lang["ficheDifficultesTitle"]), esc(difficultes), esc(source),
+           " · ".join('<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens)))
+
+
+def positivite_province(riposte, name, lang, strings_lang):
+    """Positivite des 7 derniers releves de la province : positifs cumules sur
+    echantillons cumules, comme la case nationale."""
+    releves = []
+    for pt in reversed(riposte["laboratoire"].get("parDate", [])):
+        v = (pt.get("provinces") or {}).get(name) or {}
+        if v.get("echantillons") and v.get("positifs") is not None:
+            releves.append(v)
+            if len(releves) == 7:
+                break
+    if not releves:
+        return "—", esc(strings_lang["riposteKpiNone"])
+    pos = sum(v["positifs"] for v in releves)
+    ech = sum(v["echantillons"] for v in releves)
+    return (fmt_cfr(round(pos / ech * 100, 1), lang),
+            esc(interp(strings_lang["riposteKpiPositiviteSub"],
+                       {"positifs": fmt(pos, lang), "echantillons": fmt(ech, lang)})))
+
+
+def vaccines_province(riposte, name, meta_data, lang, strings_lang, i18n_lang):
+    """Dernier cumul de vaccines publie pour la province (le bulletin ne
+    publie que des cumuls), date quand il n'est pas du dernier bulletin."""
+    pts = riposte["piliers"]
+    pts = pts.get("parDate", pts) if isinstance(pts, dict) else pts
+    if isinstance(pts, dict):
+        pts = [dict(v, date=v.get("date", k)) for k, v in sorted(pts.items())]
+    for pt in reversed(pts or []):
+        v = ((pt.get("vaccination") or {}).get("cumulParProvince") or {}).get(name)
+        if v:
+            # Toujours date : c'est un cumul, et la province peut avoir
+            # cesse de le publier depuis plusieurs bulletins.
+            d = pt.get("date")
+            return fmt(v, lang), esc(interp(strings_lang["riposteKpiAsOf"],
+                                            {"date": long_date(d, i18n_lang)}))
+    return "—", esc(strings_lang["riposteKpiNone"])
 
 
 def head_assets(needs):
@@ -2747,6 +2903,7 @@ def main():
     # Les quatre series de la page « Riposte ». Chacune a sa profondeur et ses
     # trous ; la page ecrit le dernier point de chacune, avec sa date quand
     # elle n'est pas celle du bulletin.
+    notes_bulletins = read_json(os.path.join(ROOT, "data", "bulletin-notes.json"))
     riposte = {
         "alertes": read_json(os.path.join(ROOT, "data", "alertes.json")),
         "laboratoire": read_json(os.path.join(ROOT, "data", "laboratoire.json")),
@@ -2807,6 +2964,10 @@ def main():
             "seed.recovered": fmt(national.get("recovered"), lang),
             "seed.inCTE": fmt(national.get("inCTE"), lang),
             "seed.cfr": fmt_cfr(national.get("cfr"), lang),
+            "seed.newCasesLine": esc(interp(strings_lang["provinceNewDeaths"],
+                                            {"n": fmt(national.get("newCases24h") or 0, lang)})),
+            "seed.newDeathsLine": esc(interp(strings_lang["provinceNewDeaths"],
+                                             {"n": fmt(national.get("newDeaths24h") or 0, lang)})),
             "seed.zonesSub": zones_sub(national, meta_data, lang, i18n_lang, strings_lang),
             "seed.sitrepRef": sitrep_ref(meta_data, lang, i18n_lang, strings_lang),
             # Reperes de la page « A propos » : tires des donnees, jamais
@@ -2893,6 +3054,61 @@ def main():
         common_seed["provinceRiposte"] = {
             _p["name"]: province_riposte_seed(riposte, _p["name"], meta_data, lang, strings_lang, i18n_lang)
             for _p in provinces}
+        # La fiche de chaque territoire (28 septembre 2026) : le point des
+        # sept derniers jours et le cadre « La riposte ».
+        num_notes = sorted((k for k, v in notes_bulletins.items()
+                            if k.isdigit() and (v.get("defis") or {}).get(lang)), key=int)
+        note = notes_bulletins[num_notes[-1]] if num_notes else {}
+        texte_defis = (note.get("defis") or {}).get(lang, "")
+        source_defis = interp(strings_lang["ficheDifficultesSource"], {
+            "num": num_notes[-1] if num_notes else "",
+            "date": long_date(note.get("defisDate", ""), i18n_lang)}) if num_notes else ""
+        lien_lettre = (urls.path("bulletin-%s" % num_notes[-1], lang),
+                       interp(strings_lang["ficheLienLettre"], {"num": num_notes[-1]})) \
+            if num_notes else None
+        common_seed["provinceFiche"] = {}
+        for _p in provinces:
+            _n = _p["name"]
+            _serie = []
+            for h in province_history:
+                q = next((x for x in h.get("provinces", []) if x.get("name") == _n), None)
+                if q:
+                    _serie.append((h["date"], q.get("confirmed"), q.get("deaths")))
+            _rs = common_seed["provinceRiposte"][_n]
+            _kpis = []
+            if _n not in PROVINCES_SANS_CASES_RIPOSTE:
+                _pos, _pos_sub = positivite_province(riposte, _n, lang, strings_lang)
+                _vac, _vac_sub = vaccines_province(riposte, _n, meta_data, lang, strings_lang, i18n_lang)
+                _kpis = [
+                    ("contacts", esc(strings_lang["riposteKpiContacts"]),
+                     _rs["province.ripContacts"], _rs["province.ripContactsSub"]),
+                    ("cte", esc(strings_lang["riposteKpiOccupation"]),
+                     _rs["province.ripOccupation"], _rs["province.ripOccupationSub"]),
+                    ("labo", esc(strings_lang["riposteKpiPositivite"]), _pos, _pos_sub),
+                    ("vaccin", esc(strings_lang["ficheKpiVaccines"]), _vac, _vac_sub)]
+            _diff = difficultes_province(texte_defis, _n) or strings_lang["ficheDifficultesAucune"]
+            _liens = [(urls.path("riposte", lang), strings_lang["ficheLienRiposte"])]
+            if lien_lettre:
+                _liens.append(lien_lettre)
+            common_seed["provinceFiche"][_n] = {
+                "province.point": fiche_point_html(_serie, lang, strings_lang),
+                "province.riposteIci": fiche_riposte_html(
+                    province_numeros(_p)["riposte"], _kpis, _diff, source_defis, _liens, strings_lang)
+                if a_une_riposte(_p) else "",
+            }
+        # Le pays : meme plan, memes cases que l'ancien « Que fait-on ».
+        common_seed["seed.point"] = fiche_point_html(
+            [(r["date"], r.get("confirmed"), r.get("deaths")) for r in sitreps], lang, strings_lang)
+        _liens = [(urls.path("riposte", lang), strings_lang["ficheLienRiposte"])]
+        if lien_lettre:
+            _liens.append(lien_lettre)
+        common_seed["seed.riposteIci"] = fiche_riposte_html(
+            "05",
+            [("alerts", esc(strings_lang["riposteKpiAlertes"]), common_seed["seed.ripAlertes"], common_seed["seed.ripAlertesSub"]),
+             ("labo", esc(strings_lang["riposteKpiPositivite"]), common_seed["seed.ripPositivite"], common_seed["seed.ripPositiviteSub"]),
+             ("contacts", esc(strings_lang["riposteKpiContacts"]), common_seed["seed.ripContacts"], common_seed["seed.ripContactsSub"]),
+             ("cte", esc(strings_lang["riposteKpiOccupation"]), common_seed["seed.ripOccupation"], common_seed["seed.ripOccupationSub"])],
+            texte_defis or strings_lang["ficheDifficultesAucune"], source_defis, _liens, strings_lang)
         # La frise de chaque page province (8 septembre 2026).
         common_seed["provinceTimelines"] = {
             _p["name"]: province_timeline_html(_p["name"], province_forms(config, _p["name"], lang), strings, lang, i18n_lang,
@@ -3123,14 +3339,9 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
             "province.chart": province_chart_html(province, strings_lang, i18n_lang),
-            "province.decesLieu": province_deces_lieu_html(
-                province, strings_lang, i18n_lang, numero=province_numeros(province).get("lieu", "")),
-            "province.riposteCharts": province_riposte_charts_html(
-                province, strings_lang, i18n_lang, numero=province_numeros(province).get("riposte", "")),
+            **common_seed.get("provinceFiche", {}).get(name, {}),
             "province.zonesNum": province_numeros(province)["zones"],
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
-            **common_seed.get("provinceRiposte", {}).get(name, {
-                "province.ripKpis": "", "province.ripKpisClass": ""}),
             "province.query": name.replace(" ", "%20"),
             # Rang dans le pays, puis quand ca a commence, puis quand ca a
             # bouge pour la derniere fois : un bloc temporel qui se lit d'un
@@ -3145,8 +3356,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     # qui n'a pas de graphique. « needs » est declare par type de page,
     # or ici le besoin varie d'une province a l'autre.
     besoins = list(page.get("needs", []))
-    if is_province and "chart" in besoins and not values.get("province.chart") \
-            and not values.get("province.decesLieu") and not values.get("province.riposteCharts"):
+    if is_province and "chart" in besoins and not values.get("province.chart"):
         besoins.remove("chart")
 
     canonical = urls.absolute(path)

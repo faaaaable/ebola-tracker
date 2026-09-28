@@ -100,7 +100,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=a4e06ee069">
+<link rel="stylesheet" href="/assets/css/site.css?v=942875a45a">
 </head>
 <body>
 
@@ -388,43 +388,9 @@
     </div>
   </section>
 
-  <!-- Le lieu du deces suit l'occupation des CTE : l'un est la cause, l'autre
-       la consequence. Venu de /donnees/ le 29 aout. -->
-  <section class="section cadre-fiche" id="deces">
-    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">Le lieu du décès</h2><div class="section-sub">en communauté ou en centre de traitement</div></div></div>
-    <div class="cadre-corps">
-      <p class="fiche-texte">Deux décès confirmés sur trois surviennent hors des centres de traitement. Cette part dit ce que la riposte n'atteint pas : un malade mort chez lui n'a été ni isolé ni soigné, et a exposé les siens jusqu'au bout.</p>
-    <div class="panel chart-panel-wrap">
-      <div class="chart-actions" data-export-chart="decesLieuChart">
-        <button type="button" class="share-btn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
-          <span data-i18n="chartShareBtn">Partager</span>
-        </button>
-      </div>
-      <!-- Le pays ou l'une des trois provinces qui classent assez de deces
-           pour qu'une part hebdomadaire ait un sens (16 septembre 2026). -->
-      <nav class="subtab-nav chart-vue-nav" data-chart-vue="decesLieuChart">
-        <button type="button" class="subtab-btn active" data-vue="pays" data-i18n="navDataTables">Ensemble du pays</button>
-        <button type="button" class="subtab-btn" data-vue="Ituri">Ituri</button>
-        <button type="button" class="subtab-btn" data-vue="Nord-Kivu">Nord-Kivu</button>
-        <button type="button" class="subtab-btn" data-vue="Haut-Uélé">Haut-Uélé</button>
-      </nav>
-      <div class="chart-panel">
-        <canvas id="decesLieuChart" data-chart="deathsPlace"></canvas>
-      </div>
-      <!-- Charniere allegee (7 septembre 2026) : trois lignes sous le graphique,
-           la note complete du graphique (ecrite par app.js dans .chart-note)
-           et les sources repliees derriere « Méthode et sources ». -->
-      <p class="map-note">Part hebdomadaire des décès confirmés survenus en communauté plutôt qu'en centre de traitement, sur l'ensemble du pays ou dans l'une des trois provinces les plus touchées. La ligne pointillée marque la moyenne des semaines couvertes : c'est elle le résultat, pas les creux et les bosses. Les bulletins ne distinguent les deux lieux que depuis le 13 juillet.</p>
-      <details class="maq-methode">
-        <summary>Méthode et sources</summary>
-        <div class="map-note chart-note"></div>
-        <p class="map-note">Sources : rapports de situation de l'INSP, lus bulletin par bulletin. La forme de ces chiffres a changé à chaque époque de rédaction ; un bulletin dont la formulation n'a pas pu être lue laisse un jour vide plutôt qu'une valeur devinée. Les alertes et le laboratoire sont agrégés par semaine, du lundi au dimanche, la semaine en cours n'apparaissant qu'une fois terminée. Aucun chiffre n'est recalculé à la place de la source, sauf l'occupation quand le bulletin donne les patients et les lits sans le taux.</p>
-      </details>
-    </div>
-  
-    </div>
-  </section>
+  <!-- Le lieu du deces est parti le 28 septembre 2026 sous la courbe des
+       deces, sur « Ensemble du pays » et sur les pages province : c'est un
+       resultat de l'epidemie, pas une action de la riposte. -->
 
   <!-- La sortie de page (regle 5 du 5 septembre 2026) : deux liens, choisis
        par sens, sans chiffre pour ne pas se perimer. -->

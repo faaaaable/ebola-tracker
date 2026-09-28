@@ -19,25 +19,41 @@
     </div>
     <p class="lede">{{t.ddLede}}</p>
     <p class="page-intro">{{t.provincesIntro}}</p>
+    <!-- LA FICHE D'UN TERRITOIRE (28 septembre 2026) : meme plan que les
+         pages province — le point, cas, deces (et lieu du deces), ou, qui,
+         la riposte, la chronologie. La carte du pays reste a l'accueil. -->
+    <section class="kpis kpis-province" aria-label="{{meta.h1}}">
+      <div class="kpi confirmed">
+        <div class="label">{{t.provincesCardCases}}</div>
+        <div class="value">{{seed.confirmed}}</div>
+        <div class="delta">{{seed.newCasesLine}}</div>
+      </div>
+      <div class="kpi deaths">
+        <div class="label">{{t.provincesCardDeaths}}</div>
+        <div class="value">{{seed.deaths}}</div>
+        <div class="delta">{{seed.newDeathsLine}}</div>
+      </div>
+      <div class="kpi cfr">
+        <div class="label">{{t.provincesCardCfr}}</div>
+        <div class="value">{{seed.cfr}}</div>
+        <div class="delta" data-i18n="cfrDelta">{{i18n.cfrDelta}}</div>
+      </div>
+    </section>
+    {{seed.point}}
     <nav class="riposte-ancres" aria-label="{{t.ddCombien}} · {{t.ddOu}} · {{t.ddQui}}">
-      <a href="#combien">{{t.ddCombien}}</a>
+      <a href="#cas">{{i18n.chartModeNewCases}}</a>
+      <a href="#deces">{{i18n.chartModeNewDeaths}}</a>
       <a href="#ou">{{t.ddOu}}</a>
       <a href="#qui">{{t.ddQui}}</a>
-      <a href="#riposte">{{t.ddQueFaitOn}}</a>
+      <a href="#riposte">{{t.ficheRiposteTitle}}</a>
+      <a href="#chronologie">{{t.navTimeline}}</a>
     </nav>
   </section>
 
-  <!-- ============ COMBIEN ============ -->
-  <section class="section cadre-fiche" id="combien">
-    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">{{t.ddCombien}}</h2><div class="section-sub">{{t.ddCombienSub}}</div></div></div>
+  <!-- ============ CAS ============ -->
+  <section class="section cadre-fiche" id="cas">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">{{i18n.chartModeNewCases}}</h2><div class="section-sub">{{t.provinceChartSub}}</div></div></div>
     <div class="cadre-corps">
-      <!-- Deux cadres, un par serie : le quotidien porte la courbe de cumul de
-           sa serie (ce que faisait « Evolution de l'epidemie » pour les deux a
-           la fois), et la bascule Jour / Semaine / Mois est propre a chaque
-           cadre. Decision du proprietaire, 29 aout. -->
-      <div class="section-head">
-        <h3 class="frame-title">{{i18n.chartModeNewCases}}</h3>
-      </div>
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="casChart">
           <button type="button" class="share-btn">
@@ -55,10 +71,13 @@
         </div>
         <div class="map-note chart-note"></div>
       </div>
+    </div>
+  </section>
 
-      <div class="section-head" style="margin-top:32px;">
-        <h3 class="frame-title">{{i18n.chartModeNewDeaths}}</h3>
-      </div>
+  <!-- ============ DECES ============ -->
+  <section class="section cadre-fiche" id="deces">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">{{i18n.chartModeNewDeaths}}</h2><div class="section-sub">{{t.provinceDeathsChartSub}}</div></div></div>
+    <div class="cadre-corps">
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="decesChart">
           <button type="button" class="share-btn">
@@ -77,12 +96,42 @@
         <div class="map-note chart-note"></div>
       </div>
 
+      <!-- Le lieu du deces, venu de la page Riposte le 28 septembre 2026 :
+           combien de deces, puis ou ils surviennent. -->
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">{{t.riposteDecesTitle}}</h3>
+        <span class="section-sub">{{t.riposteDecesSub}}</span>
+      </div>
+      <p class="fiche-texte">{{t.riposteDecesLede}}</p>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="decesLieuChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+          </button>
+        </div>
+        <nav class="subtab-nav chart-vue-nav" data-chart-vue="decesLieuChart">
+          <button type="button" class="subtab-btn active" data-vue="pays" data-i18n="navDataTables">{{i18n.navDataTables}}</button>
+          <button type="button" class="subtab-btn" data-vue="Ituri">Ituri</button>
+          <button type="button" class="subtab-btn" data-vue="Nord-Kivu">Nord-Kivu</button>
+          <button type="button" class="subtab-btn" data-vue="Haut-Uélé">Haut-Uélé</button>
+        </nav>
+        <div class="chart-panel">
+          <canvas id="decesLieuChart" data-chart="deathsPlace"></canvas>
+        </div>
+        <p class="map-note">{{t.maqDecesNoteCourte}}</p>
+        <details class="maq-methode">
+          <summary>{{t.maqMethodeTitre}}</summary>
+          <div class="map-note chart-note"></div>
+          <p class="map-note">{{t.riposteSourcesNote}}</p>
+        </details>
+      </div>
     </div>
   </section>
 
   <!-- ============ OU ============ -->
   <section class="section cadre-fiche" id="ou">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">{{t.ddOu}}</h2><div class="section-sub">{{t.ddOuSub}}</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">{{t.ddOu}}</h2><div class="section-sub">{{t.ddOuSub}}</div></div></div>
     <div class="cadre-corps">
       <div class="section-head">
         <h3 class="frame-title">{{i18n.zonesViewProvince}}</h3>
@@ -176,7 +225,7 @@
 
   <!-- ============ QUI ============ -->
   <section class="section cadre-fiche" id="qui">
-    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">{{t.ddQui}}</h2><div class="section-sub">{{t.ddQuiSub}}</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">{{t.ddQui}}</h2><div class="section-sub">{{t.ddQuiSub}}</div></div></div>
     <div class="cadre-corps">
       <div class="section-head">
         <h3 class="frame-title">{{i18n.chartModePyramide}}</h3>
@@ -206,32 +255,32 @@
     </div>
   </section>
 
-  <!-- ============ QUE FAIT-ON ============ -->
-  <section class="section cadre-fiche" id="riposte">
-    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">{{t.ddQueFaitOn}}</h2><div class="section-sub">{{t.ddQueFaitOnSub}}</div></div></div>
+  <!-- ============ LA RIPOSTE ============ -->
+  <!-- Chiffres des 7 derniers releves et difficultes du dernier bulletin,
+       rendus par fiche_riposte_html() comme sur les pages province. -->
+{{seed.riposteIci}}
+
+  <!-- ============ CHRONOLOGIE ============ -->
+  <section class="section cadre-fiche" id="chronologie">
+    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">{{t.navTimeline}}</h2></div></div>
     <div class="cadre-corps">
-      <div class="kpis riposte-kpis">
-        <div class="kpi alerts">
-          <div class="label">{{t.riposteKpiAlertes}}</div>
-          <div class="value">{{seed.ripAlertes}}</div>
-          <div class="delta">{{seed.ripAlertesSub}}</div>
+      <div class="th-scroller">
+        <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="{{t.timelineRegionLabel}}">
+          <ol class="th-track">
+{{timelineTeaser}}
+          </ol>
         </div>
-        <div class="kpi labo">
-          <div class="label">{{t.riposteKpiPositivite}}</div>
-          <div class="value">{{seed.ripPositivite}}</div>
-          <div class="delta">{{seed.ripPositiviteSub}}</div>
-        </div>
-        <div class="kpi contacts">
-          <div class="label">{{t.riposteKpiContacts}}</div>
-          <div class="value">{{seed.ripContacts}}</div>
-          <div class="delta">{{seed.ripContactsSub}}</div>
-        </div>
-        <div class="kpi cte">
-          <div class="label">{{t.riposteKpiOccupation}}</div>
-          <div class="value">{{seed.ripOccupation}}</div>
-          <div class="delta">{{seed.ripOccupationSub}}</div>
-        </div>
+        <button class="th-nav is-prev" type="button" data-th-nav="-1"
+                aria-controls="timelineTeaser" aria-label="{{t.timelineScrollPrev}}" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="th-nav is-next" type="button" data-th-nav="1"
+                aria-controls="timelineTeaser" aria-label="{{t.timelineScrollNext}}" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
-      <p class="page-intro" style="margin-top:14px;"><a href="{{url.riposte}}">{{t.ddRiposteLink}}</a></p>
+      <p class="drill"><a href="{{url.chronologie}}">{{t.teaserTimelineMore}} →</a></p>
     </div>
   </section>

@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=a4e06ee069">
+<link rel="stylesheet" href="/assets/css/site.css?v=942875a45a">
 </head>
 <body>
 
@@ -245,7 +245,7 @@
     <!-- Cinq cases (trois jusqu'au 16 septembre 2026) calees sur leur contenu, pas sur la largeur de la page :
          etirees sur 900 px, elles etaient a moitie vides (demande du
          proprietaire, 29 aout). Sur telephone elles reprennent la largeur. -->
-    <section class="kpis kpis-province has-riposte" aria-label="Ebola en Ituri">
+    <section class="kpis kpis-province" aria-label="Ebola en Ituri">
       <div class="kpi confirmed">
         <div class="label">Cas confirmés</div>
         <div class="value">6 155</div>
@@ -261,17 +261,12 @@
         <div class="value">46,0 %</div>
         <div class="delta" data-i18n="cfrDelta">décès / cas confirmés</div>
       </div>
-      <div class="kpi contacts">
-        <div class="label">Contacts vus (7 derniers relevés)</div>
-        <div class="value">80,6 %</div>
-        <div class="delta">83 529 vus sur 103 604 à suivre</div>
-      </div>
-      <div class="kpi cte">
-        <div class="label">Occupation des CTE</div>
-        <div class="value">37,4 %</div>
-        <div class="delta">380 hospitalisés pour 1 015 lits</div>
-      </div>
     </section>
+    <!-- Le point (28 septembre 2026) : les sept derniers jours contre les
+         sept precedents, cas et deces, calcules. Les cases de riposte qui
+         suivaient les trois chiffres sont descendues dans le cadre « La
+         riposte » : l'en-tete dit ou en est l'epidemie, pas la riposte. -->
+    <p class="page-intro fiche-point">Sur les 7 derniers jours : 242 cas et 131 décès, contre 298 cas et 144 décès les 7 jours précédents.</p>
   </section>
 
   <section class="section cadre-fiche">
@@ -418,12 +413,10 @@
     </div>
   </section>
 
-  <!-- La courbe de la province remonte au-dessus du tableau des zones
-       (demande du proprietaire, 16 septembre 2026) : 02 quand elle existe,
-       et le tableau prend 03. Sous le seuil, pas de courbe et le tableau
-       reste 02. -->
+  <!-- Cas puis deces (et lieu du deces), au-dessus du tableau des zones.
+       Numeros calcules par province_numeros(). -->
   <section class="section cadre-fiche">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Évolution de l'épidémie (Ituri)</h2><div class="section-sub">barres : nouveaux cas par jour · courbe : cumul</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Nouveaux cas (Ituri)</h2><div class="section-sub">barres : nouveaux cas par jour · courbe : cumul</div></div></div>
     <div class="cadre-corps">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="provinceChart">
@@ -464,6 +457,22 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">Le lieu du décès</h3>
+        <span class="section-sub">en communauté ou en centre de traitement, semaine par semaine</span>
+      </div>
+      <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="decesLieuChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Partager</span>
+        </button>
+      </div>
+        <div class="chart-panel">
+          <canvas id="decesLieuChart" data-chart="deathsPlace" data-province="Ituri"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
     </div>
   </section>
 
@@ -720,47 +729,40 @@
     </div>
   </section>
 
-  <!-- Le lieu du deces, pour l'Ituri, le Nord-Kivu et le Haut-Uele
-       (16 septembre 2026) : vide pour les autres provinces. -->
-  <section class="section cadre-fiche" id="deces">
-    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">Le lieu du décès</h2><div class="section-sub">en communauté ou en centre de traitement, semaine par semaine</div></div></div>
-    <div class="cadre-corps">
-    <div class="panel chart-panel-wrap">
-      <div class="chart-actions" data-export-chart="decesLieuChart">
-        <button type="button" class="share-btn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
-          <span data-i18n="chartShareBtn">Partager</span>
-        </button>
-      </div>
-      <div class="chart-panel">
-        <canvas id="decesLieuChart" data-chart="deathsPlace" data-province="Ituri"></canvas>
-      </div>
-      <div class="map-note chart-note"></div>
-    </div>
-    </div>
-  </section>
-
+  <!-- LA FICHE D'UN TERRITOIRE (28 septembre 2026) : meme plan que
+       « Ensemble du pays ». Le lieu du deces est passe sous la courbe des
+       deces ; les graphiques de riposte de l'Ituri et du Nord-Kivu ont
+       laisse la place au cadre « La riposte » — chiffres, difficultes du
+       dernier bulletin, liens vers la page Riposte, ou l'on compare. -->
   <section class="section cadre-fiche" id="riposte">
-    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">La riposte</h2><div class="section-sub">suivi des contacts, centres de traitement, alertes et laboratoire</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">La riposte</h2><div class="section-sub">les chiffres des 7 derniers relevés et les difficultés du dernier bulletin</div></div></div>
     <div class="cadre-corps">
-    <nav class="subtab-nav" data-chart-tabs="provRiposteChart">
-        <button type="button" class="subtab-btn active" data-mode="contactsRiposte">Le suivi des contacts</button>
-        <button type="button" class="subtab-btn" data-mode="cte">Les centres de traitement</button>
-        <button type="button" class="subtab-btn" data-mode="alertes">Les alertes</button>
-        <button type="button" class="subtab-btn" data-mode="laboratoire">Le laboratoire</button>
-    </nav>
-    <div class="panel chart-panel-wrap">
-      <div class="chart-actions" data-export-chart="provRiposteChart">
-        <button type="button" class="share-btn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
-          <span data-i18n="chartShareBtn">Partager</span>
-        </button>
+      <div class="kpis riposte-kpis">
+        <div class="kpi contacts">
+          <div class="label">Contacts vus (7 derniers relevés)</div>
+          <div class="value">80,6 %</div>
+          <div class="delta">83 529 vus sur 103 604 à suivre</div>
+        </div>
+        <div class="kpi cte">
+          <div class="label">Occupation des CTE</div>
+          <div class="value">37,4 %</div>
+          <div class="delta">380 hospitalisés pour 1 015 lits</div>
+        </div>
+        <div class="kpi labo">
+          <div class="label">Positivité des tests (7 derniers relevés)</div>
+          <div class="value">16,5 %</div>
+          <div class="delta">242 positifs sur 1 464 échantillons</div>
+        </div>
+        <div class="kpi vaccin">
+          <div class="label">Personnes vaccinées</div>
+          <div class="value">436</div>
+          <div class="delta">au 26 sept. 2026</div>
+        </div>
       </div>
-      <div class="chart-panel">
-        <canvas id="provRiposteChart" data-chart="contactsRiposte" data-province="Ituri"></canvas>
-      </div>
-      <div class="map-note chart-note"></div>
-    </div>
+      <h3 class="frame-title fiche-sous-titre">Les difficultés signalées</h3>
+      <p class="fiche-texte">En Ituri, quatre centres de traitement manquent de place, 18 patients n'ont pas de repas assuré, un corps n'a pas été prélevé à un poste de contrôle et un autre poste reste fermé pour insécurité.</p>
+      <p class="map-note">Résumé des « Défis » du bulletin n°135 (26 sept. 2026), rédigé par ebola-tracker.org en langage courant.</p>
+      <p class="drill"><a href="/riposte/">Toute la riposte, province par province →</a> · <a href="/lettre/135/">La lettre n°135 →</a></p>
     </div>
   </section>
 
@@ -769,7 +771,7 @@
        horizontale de l'accueil, avec ses couleurs, seuils calcules a
        l'echelle de la province. Rendue par build_pages.py. -->
   <section class="section cadre-fiche">
-    <div class="fiche-tete"><span class="fiche-num">07</span><div><h2 class="frame-title">Chronologie en Ituri</h2><div class="section-sub">seuils à l'échelle de la province — faire défiler</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">Chronologie en Ituri</h2><div class="section-sub">seuils à l'échelle de la province — faire défiler</div></div></div>
     <div class="cadre-corps">
     <ul class="tl-legend">
       <li class="is-official">Jalon officiel</li>

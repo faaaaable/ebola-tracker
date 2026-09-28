@@ -2871,3 +2871,11 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
   .ag-edition i,.ag-edition::before,.ag-edition::after{display:none;}
   .ag-sous{white-space:normal;font-size:15px;line-height:1.4;}
 }
+
+/* La fiche d'un territoire (28 septembre 2026) : la phrase des sept derniers
+   jours sous les chiffres cles, et le sous-titre des difficultes dans le
+   cadre « La riposte ». */
+.fiche-point{margin:14px 0 0;color:var(--ink);font-size:15px;}
+.cadre-fiche .fiche-sous-titre{margin:26px 0 8px;font-size:16px;}
+.cadre-fiche .riposte-kpis + .fiche-sous-titre{margin-top:8px;}
+.fiche-point + .riposte-ancres{margin-top:22px;}

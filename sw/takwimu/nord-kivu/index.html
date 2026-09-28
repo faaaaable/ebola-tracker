@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=a4e06ee069">
+<link rel="stylesheet" href="/assets/css/site.css?v=942875a45a">
 </head>
 <body>
 
@@ -245,7 +245,7 @@
     <!-- Cinq cases (trois jusqu'au 16 septembre 2026) calees sur leur contenu, pas sur la largeur de la page :
          etirees sur 900 px, elles etaient a moitie vides (demande du
          proprietaire, 29 aout). Sur telephone elles reprennent la largeur. -->
-    <section class="kpis kpis-province has-riposte" aria-label="Ebola katika Nord-Kivu">
+    <section class="kpis kpis-province" aria-label="Ebola katika Nord-Kivu">
       <div class="kpi confirmed">
         <div class="label">Visa vilivyothibitishwa</div>
         <div class="value">1,523</div>
@@ -261,17 +261,12 @@
         <div class="value">59.5%</div>
         <div class="delta" data-i18n="cfrDelta">vifo / visa vilivyothibitishwa</div>
       </div>
-      <div class="kpi contacts">
-        <div class="label">Walioguswa walioonwa (ripoti 7 za mwisho)</div>
-        <div class="value">80.1%</div>
-        <div class="delta">79,169 walionwa kati ya 98,818 wa kufuatiliwa</div>
-      </div>
-      <div class="kpi cte">
-        <div class="label">Matumizi ya vitanda vya CTE</div>
-        <div class="value">92.7%</div>
-        <div class="delta">328 wamelazwa kwa vitanda 354</div>
-      </div>
     </section>
+    <!-- Le point (28 septembre 2026) : les sept derniers jours contre les
+         sept precedents, cas et deces, calcules. Les cases de riposte qui
+         suivaient les trois chiffres sont descendues dans le cadre « La
+         riposte » : l'en-tete dit ou en est l'epidemie, pas la riposte. -->
+    <p class="page-intro fiche-point">Siku 7 zilizopita: visa 121 na vifo 56, ikilinganishwa na visa 133 na vifo 64 katika siku 7 zilizotangulia.</p>
   </section>
 
   <section class="section cadre-fiche">
@@ -415,12 +410,10 @@
     </div>
   </section>
 
-  <!-- La courbe de la province remonte au-dessus du tableau des zones
-       (demande du proprietaire, 16 septembre 2026) : 02 quand elle existe,
-       et le tableau prend 03. Sous le seuil, pas de courbe et le tableau
-       reste 02. -->
+  <!-- Cas puis deces (et lieu du deces), au-dessus du tableau des zones.
+       Numeros calcules par province_numeros(). -->
   <section class="section cadre-fiche">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Mwenendo wa mlipuko (Nord-Kivu)</h2><div class="section-sub">safu: visa vipya kwa siku · mkondo: jumla</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Visa vipya (Nord-Kivu)</h2><div class="section-sub">safu: visa vipya kwa siku · mkondo: jumla</div></div></div>
     <div class="cadre-corps">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="provinceChart">
@@ -461,6 +454,22 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">Mahali pa kifo</h3>
+        <span class="section-sub">katika jamii au katika kituo cha matibabu, wiki kwa wiki</span>
+      </div>
+      <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="decesLieuChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Shiriki</span>
+        </button>
+      </div>
+        <div class="chart-panel">
+          <canvas id="decesLieuChart" data-chart="deathsPlace" data-province="Nord-Kivu"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
     </div>
   </section>
 
@@ -621,47 +630,40 @@
     </div>
   </section>
 
-  <!-- Le lieu du deces, pour l'Ituri, le Nord-Kivu et le Haut-Uele
-       (16 septembre 2026) : vide pour les autres provinces. -->
-  <section class="section cadre-fiche" id="deces">
-    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">Mahali pa kifo</h2><div class="section-sub">katika jamii au katika kituo cha matibabu, wiki kwa wiki</div></div></div>
-    <div class="cadre-corps">
-    <div class="panel chart-panel-wrap">
-      <div class="chart-actions" data-export-chart="decesLieuChart">
-        <button type="button" class="share-btn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
-          <span data-i18n="chartShareBtn">Shiriki</span>
-        </button>
-      </div>
-      <div class="chart-panel">
-        <canvas id="decesLieuChart" data-chart="deathsPlace" data-province="Nord-Kivu"></canvas>
-      </div>
-      <div class="map-note chart-note"></div>
-    </div>
-    </div>
-  </section>
-
+  <!-- LA FICHE D'UN TERRITOIRE (28 septembre 2026) : meme plan que
+       « Ensemble du pays ». Le lieu du deces est passe sous la courbe des
+       deces ; les graphiques de riposte de l'Ituri et du Nord-Kivu ont
+       laisse la place au cadre « La riposte » — chiffres, difficultes du
+       dernier bulletin, liens vers la page Riposte, ou l'on compare. -->
   <section class="section cadre-fiche" id="riposte">
-    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">Mapambano</h2><div class="section-sub">ufuatiliaji wa walioguswa, vituo vya matibabu, tahadhari na maabara</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">Mapambano</h2><div class="section-sub">takwimu za ripoti 7 za mwisho na changamoto za ripoti ya mwisho</div></div></div>
     <div class="cadre-corps">
-    <nav class="subtab-nav" data-chart-tabs="provRiposteChart">
-        <button type="button" class="subtab-btn active" data-mode="contactsRiposte">Ufuatiliaji wa walioguswa</button>
-        <button type="button" class="subtab-btn" data-mode="cte">Vituo vya matibabu</button>
-        <button type="button" class="subtab-btn" data-mode="alertes">Tahadhari</button>
-        <button type="button" class="subtab-btn" data-mode="laboratoire">Maabara</button>
-    </nav>
-    <div class="panel chart-panel-wrap">
-      <div class="chart-actions" data-export-chart="provRiposteChart">
-        <button type="button" class="share-btn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
-          <span data-i18n="chartShareBtn">Shiriki</span>
-        </button>
+      <div class="kpis riposte-kpis">
+        <div class="kpi contacts">
+          <div class="label">Walioguswa walioonwa (ripoti 7 za mwisho)</div>
+          <div class="value">80.1%</div>
+          <div class="delta">79,169 walionwa kati ya 98,818 wa kufuatiliwa</div>
+        </div>
+        <div class="kpi cte">
+          <div class="label">Matumizi ya vitanda vya CTE</div>
+          <div class="value">92.7%</div>
+          <div class="delta">328 wamelazwa kwa vitanda 354</div>
+        </div>
+        <div class="kpi labo">
+          <div class="label">Kiwango cha vipimo chanya (ripoti 7 za mwisho)</div>
+          <div class="value">9.8%</div>
+          <div class="delta">121 chanya kati ya sampuli 1,233</div>
+        </div>
+        <div class="kpi vaccin">
+          <div class="label">Watu waliochanjwa</div>
+          <div class="value">—</div>
+          <div class="delta">haijachapishwa</div>
+        </div>
       </div>
-      <div class="chart-panel">
-        <canvas id="provRiposteChart" data-chart="contactsRiposte" data-province="Nord-Kivu"></canvas>
-      </div>
-      <div class="map-note chart-note"></div>
-    </div>
+      <h3 class="frame-title fiche-sous-titre">Changamoto zilizoripotiwa</h3>
+      <p class="fiche-texte">Nord-Kivu, watu wenye silaha walimuua mhudumu aliyekuwa akiwakagua wasafiri kwenye kituo cha Kalunguta; mgonjwa mmoja kati ya watatu waliolazwa (105 kati ya 328) anatibiwa nje ya vituo vya matibabu, asilimia 39 ya wagonjwa hufariki humo, nyumba moja tu kati ya tatu imesafishwa (7 kati ya 22), na wahudumu wa afya bado hawajachanjwa.</p>
+      <p class="map-note">Muhtasari wa « Changamoto » za ripoti namba 135 (26 Sep. 2026), ulioandikwa kwa lugha rahisi na ebola-tracker.org.</p>
+      <p class="drill"><a href="/sw/mapambano/">Mapambano yote, jimbo kwa jimbo →</a> · <a href="/sw/barua/135/">Barua namba 135 →</a></p>
     </div>
   </section>
 
@@ -670,7 +672,7 @@
        horizontale de l'accueil, avec ses couleurs, seuils calcules a
        l'echelle de la province. Rendue par build_pages.py. -->
   <section class="section cadre-fiche">
-    <div class="fiche-tete"><span class="fiche-num">07</span><div><h2 class="frame-title">Matukio katika Nord-Kivu</h2><div class="section-sub">vizingiti kulingana na ukubwa wa jimbo — sogeza kando</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">Matukio katika Nord-Kivu</h2><div class="section-sub">vizingiti kulingana na ukubwa wa jimbo — sogeza kando</div></div></div>
     <div class="cadre-corps">
     <ul class="tl-legend">
       <li class="is-official">Hatua rasmi</li>

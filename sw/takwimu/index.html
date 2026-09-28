@@ -100,7 +100,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=a4e06ee069">
+<link rel="stylesheet" href="/assets/css/site.css?v=942875a45a">
 </head>
 <body>
 
@@ -237,25 +237,41 @@
     </div>
     <p class="lede">Hapa, nchi nzima: visa na vifo vyote vilivyothibitishwa tangu mlipuko ulipotangazwa tarehe 15 Mei 2026, kama ripoti za INSP zinavyovichapisha.</p>
     <p class="page-intro">Mwendo wa visa vipya siku baada ya siku na wiki baada ya wiki, sehemu ya kila jimbo katika jumla hiyo, umri na jinsia ya wagonjwa. Majedwali kisha hushuka hadi eneo la afya, na kila jimbo lina ukurasa wake, unaosasishwa kutoka ripoti zile zile.</p>
+    <!-- LA FICHE D'UN TERRITOIRE (28 septembre 2026) : meme plan que les
+         pages province — le point, cas, deces (et lieu du deces), ou, qui,
+         la riposte, la chronologie. La carte du pays reste a l'accueil. -->
+    <section class="kpis kpis-province" aria-label="Nchi nzima">
+      <div class="kpi confirmed">
+        <div class="label">Visa vilivyothibitishwa</div>
+        <div class="value">8,067</div>
+        <div class="delta">+78 (saa 24)</div>
+      </div>
+      <div class="kpi deaths">
+        <div class="label">Vifo</div>
+        <div class="value">3,901</div>
+        <div class="delta">+49 (saa 24)</div>
+      </div>
+      <div class="kpi cfr">
+        <div class="label">Kiwango cha vifo</div>
+        <div class="value">48.4%</div>
+        <div class="delta" data-i18n="cfrDelta">vifo / visa vilivyothibitishwa</div>
+      </div>
+    </section>
+    <p class="page-intro fiche-point">Siku 7 zilizopita: visa 395 na vifo 202, ikilinganishwa na visa 472 na vifo 224 katika siku 7 zilizotangulia.</p>
     <nav class="riposte-ancres" aria-label="Ngapi · Wapi · Nani">
-      <a href="#combien">Ngapi</a>
+      <a href="#cas">Visa vipya</a>
+      <a href="#deces">Vifo vipya</a>
       <a href="#ou">Wapi</a>
       <a href="#qui">Nani</a>
-      <a href="#riposte">Kinachofanywa</a>
+      <a href="#riposte">Mapambano</a>
+      <a href="#chronologie">Matukio</a>
     </nav>
   </section>
 
-  <!-- ============ COMBIEN ============ -->
-  <section class="section cadre-fiche" id="combien">
-    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">Ngapi</h2><div class="section-sub">visa na vifo, siku baada ya siku</div></div></div>
+  <!-- ============ CAS ============ -->
+  <section class="section cadre-fiche" id="cas">
+    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">Visa vipya</h2><div class="section-sub">safu: visa vipya kwa siku · mkondo: jumla</div></div></div>
     <div class="cadre-corps">
-      <!-- Deux cadres, un par serie : le quotidien porte la courbe de cumul de
-           sa serie (ce que faisait « Evolution de l'epidemie » pour les deux a
-           la fois), et la bascule Jour / Semaine / Mois est propre a chaque
-           cadre. Decision du proprietaire, 29 aout. -->
-      <div class="section-head">
-        <h3 class="frame-title">Visa vipya</h3>
-      </div>
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="casChart">
           <button type="button" class="share-btn">
@@ -273,10 +289,13 @@
         </div>
         <div class="map-note chart-note"></div>
       </div>
+    </div>
+  </section>
 
-      <div class="section-head" style="margin-top:32px;">
-        <h3 class="frame-title">Vifo vipya</h3>
-      </div>
+  <!-- ============ DECES ============ -->
+  <section class="section cadre-fiche" id="deces">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Vifo vipya</h2><div class="section-sub">safu: vifo vipya kwa siku · mkondo: jumla</div></div></div>
+    <div class="cadre-corps">
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="decesChart">
           <button type="button" class="share-btn">
@@ -295,12 +314,42 @@
         <div class="map-note chart-note"></div>
       </div>
 
+      <!-- Le lieu du deces, venu de la page Riposte le 28 septembre 2026 :
+           combien de deces, puis ou ils surviennent. -->
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">Mahali pa kifo</h3>
+        <span class="section-sub">katika jamii au katika kituo cha matibabu</span>
+      </div>
+      <p class="fiche-texte">Vifo viwili kati ya vitatu vilivyothibitishwa hutokea nje ya vituo vya matibabu. Sehemu hiyo inaonyesha kile mapambano hayafikii: mgonjwa anayefia nyumbani hakutengwa wala kutibiwa, na aliwaweka wapendwa wake hatarini hadi mwisho.</p>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="decesLieuChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">Shiriki</span>
+          </button>
+        </div>
+        <nav class="subtab-nav chart-vue-nav" data-chart-vue="decesLieuChart">
+          <button type="button" class="subtab-btn active" data-vue="pays" data-i18n="navDataTables">Nchi nzima</button>
+          <button type="button" class="subtab-btn" data-vue="Ituri">Ituri</button>
+          <button type="button" class="subtab-btn" data-vue="Nord-Kivu">Nord-Kivu</button>
+          <button type="button" class="subtab-btn" data-vue="Haut-Uélé">Haut-Uélé</button>
+        </nav>
+        <div class="chart-panel">
+          <canvas id="decesLieuChart" data-chart="deathsPlace"></canvas>
+        </div>
+        <p class="map-note">Sehemu ya kila wiki ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, nchi nzima au katika mojawapo ya majimbo matatu yaliyoathirika zaidi. Mstari wa nukta unaonyesha wastani wa wiki zilizofunikwa: huo ndio matokeo, si kupanda na kushuka. Ripoti zinatofautisha mahali hapo pawili tangu tarehe 13 Julai tu.</p>
+        <details class="maq-methode">
+          <summary>Mbinu na vyanzo</summary>
+          <div class="map-note chart-note"></div>
+          <p class="map-note">Vyanzo: ripoti za hali za INSP, zilizosomwa ripoti baada ya ripoti. Umbo la takwimu hizi limebadilika kila kipindi cha uandishi; ripoti ambayo maneno yake hayakuweza kusomwa huacha siku tupu badala ya thamani ya kubahatisha. Tahadhari na maabara hujumlishwa kwa wiki, Jumatatu hadi Jumapili, wiki inayoendelea ikionekana tu ikikamilika. Hakuna takwimu inayohesabiwa upya badala ya chanzo, isipokuwa matumizi ya vitanda wakati ripoti inatoa wagonjwa na vitanda bila kiwango.</p>
+        </details>
+      </div>
     </div>
   </section>
 
   <!-- ============ OU ============ -->
   <section class="section cadre-fiche" id="ou">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Wapi</h2><div class="section-sub">kwa jimbo na kwa eneo la afya</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Wapi</h2><div class="section-sub">kwa jimbo na kwa eneo la afya</div></div></div>
     <div class="cadre-corps">
       <div class="section-head">
         <h3 class="frame-title">Kwa jimbo</h3>
@@ -463,7 +512,7 @@
 
   <!-- ============ QUI ============ -->
   <section class="section cadre-fiche" id="qui">
-    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Nani</h2><div class="section-sub">umri na jinsia ya visa na vifo</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">Nani</h2><div class="section-sub">umri na jinsia ya visa na vifo</div></div></div>
     <div class="cadre-corps">
       <div class="section-head">
         <h3 class="frame-title">Umri na jinsia</h3>
@@ -493,9 +542,11 @@
     </div>
   </section>
 
-  <!-- ============ QUE FAIT-ON ============ -->
+  <!-- ============ LA RIPOSTE ============ -->
+  <!-- Chiffres des 7 derniers releves et difficultes du dernier bulletin,
+       rendus par fiche_riposte_html() comme sur les pages province. -->
   <section class="section cadre-fiche" id="riposte">
-    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">Kinachofanywa</h2><div class="section-sub">mapambano, kwa takwimu nne</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">Mapambano</h2><div class="section-sub">takwimu za ripoti 7 za mwisho na changamoto za ripoti ya mwisho</div></div></div>
     <div class="cadre-corps">
       <div class="kpis riposte-kpis">
         <div class="kpi alerts">
@@ -519,7 +570,71 @@
           <div class="delta">768 wamelazwa kwa vitanda 1,507</div>
         </div>
       </div>
-      <p class="page-intro" style="margin-top:14px;"><a href="/sw/mapambano/">Ukurasa mzima wa « Mapambano na changamoto » →</a></p>
+      <h3 class="frame-title fiche-sous-titre">Changamoto zilizoripotiwa</h3>
+      <p class="fiche-texte">Ituri, vituo vinne vya matibabu vinakosa nafasi, wagonjwa 18 hawana uhakika wa chakula, mwili mmoja haukuchukuliwa sampuli kwenye kituo cha ukaguzi na kituo kingine bado kimefungwa kwa sababu ya ukosefu wa usalama. Nord-Kivu, watu wenye silaha walimuua mhudumu aliyekuwa akiwakagua wasafiri kwenye kituo cha Kalunguta; mgonjwa mmoja kati ya watatu waliolazwa (105 kati ya 328) anatibiwa nje ya vituo vya matibabu, asilimia 39 ya wagonjwa hufariki humo, nyumba moja tu kati ya tatu imesafishwa (7 kati ya 22), na wahudumu wa afya bado hawajachanjwa. Haut-Uélé, hakuna takwimu za chanjo zinazotumwa. Tshopo, chanjo imeisha katika kanda tatu na dozi 47 zimebaki, kiwango cha chanjo kimefika asilimia 42,3, vituo 2 tu kati ya 99 vinafuata kanuni za usafi na kichomea taka cha hospitali ya Kisangani kimeharibika. Bas-Uélé, bado hakuna kituo cha matibabu kinachokidhi viwango wala gari la wagonjwa, na mahudhurio ya kliniki za wajawazito yanapungua (asilimia 58 mwezi Agosti).</p>
+      <p class="map-note">Muhtasari wa « Changamoto » za ripoti namba 135 (26 Sep. 2026), ulioandikwa kwa lugha rahisi na ebola-tracker.org.</p>
+      <p class="drill"><a href="/sw/mapambano/">Mapambano yote, jimbo kwa jimbo →</a> · <a href="/sw/barua/135/">Barua namba 135 →</a></p>
+    </div>
+  </section>
+
+
+  <!-- ============ CHRONOLOGIE ============ -->
+  <section class="section cadre-fiche" id="chronologie">
+    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">Matukio</h2></div></div>
+    <div class="cadre-corps">
+      <div class="th-scroller">
+        <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="Matukio ya mlipuko, husogea kwa mlalo">
+          <ol class="th-track">
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-02-22">22 Feb. 2026</time>
+            <h3 class="th-title">Virusi tayari vinaenea, bila kuonekana</h3>
+            <p class="th-text">Kwa kufuatilia nyuma kutoka jenomu zilizopangwa, babu wa pamoja wa virusi vilivyochukuliwa anarudi mwishoni mwa Februari, kati ya katikati ya Januari na mwisho wa Machi. Hivyo mlipuko uliendelea karibu miezi mitatu kabla ya kutangazwa.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-04-24">24 Apr. 2026</time>
+            <h3 class="th-title">Visa vya kwanza vinavyotiliwa shaka</h3>
+            <p class="th-text">Visa vya homa ya kuvuja damu isiyoelezeka vinagunduliwa katika jimbo la Ituri. Sampuli zinatumwa kwa uchunguzi.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-14">14 Mei 2026</time>
+            <h3 class="th-title">Ripoti ya kwanza ya hali</h3>
+            <p class="th-text">Kuchapishwa kwa SitRep ya kwanza ya INSP kuhusu mlipuko huu: visa 8 vilivyothibitishwa na vifo 4 vimeorodheshwa.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-15">15 Mei 2026</time>
+            <h3 class="th-title">Uthibitisho wa kimaabara na kutangazwa kwa mlipuko</h3>
+            <p class="th-text">Uchunguzi unathibitisha virusi vya Ebola, aina ya Bundibugyo. Mamlaka zinatangaza rasmi mlipuko wa 17 wa Ebola katika Jamhuri ya Kidemokrasia ya Kongo.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-17">17 Mei 2026</time>
+            <h3 class="th-title">Dharura ya afya ya umma ya kitaifa</h3>
+            <p class="th-text">DRC inatangaza dharura ya afya ya umma kwa kiwango cha kitaifa na kuanzisha mapambano: vituo vya matibabu, ufuatiliaji wa walioguswa, vituo vya ukaguzi mipakani.</p>
+          </li>
+          <li class="th-item is-official">
+            <span class="th-dot" aria-hidden="true"></span>
+            <time class="th-date" datetime="2026-05-18">18 Mei 2026</time>
+            <h3 class="th-title">Dharura ya afya ya umma ya kibara</h3>
+            <p class="th-text">Dharura inapanuliwa hadi kiwango cha bara, ikifungua njia ya uratibu wa kikanda wa mapambano.</p>
+          </li>
+          </ol>
+        </div>
+        <button class="th-nav is-prev" type="button" data-th-nav="-1"
+                aria-controls="timelineTeaser" aria-label="Matukio yaliyotangulia" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="th-nav is-next" type="button" data-th-nav="1"
+                aria-controls="timelineTeaser" aria-label="Matukio yanayofuata" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <p class="drill"><a href="/sw/matukio/">Matukio yote →</a></p>
     </div>
   </section>
 

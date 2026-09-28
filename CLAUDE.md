@@ -1013,6 +1013,24 @@ colorée = part des cas). Montrée, non retenue ce jour-là.
 
 ## Conventions établies
 
+**La fiche d'un territoire (28 septembre 2026).** « Ensemble du pays » et les
+pages province suivent le MEME plan, a deux echelles : en-tete (chiffres cles
+et phrase des 7 derniers jours contre les 7 precedents, `point_sept_jours`),
+[01 carte, province seulement — celle du pays reste a l'accueil], cas, deces
+avec le lieu du deces dessous, ou (zones / provinces), [qui, pays seulement],
+la riposte, la chronologie. Numeros calcules par `province_numeros()`.
+**Regle : une information a UNE page qui la detaille.** Les graphiques de la
+riposte vivent sur la page Riposte, ou l'on compare les provinces ; la fiche
+n'en garde que quatre chiffres (contacts vus, occupation, positivite,
+vaccines) et « Les difficultes signalees » — la phrase de la province dans le
+resume des Defis de la lettre (`difficultes_province`, nom dans les 40
+premiers caracteres), d'ou l'importance d'ecrire ce resume UNE phrase par
+province, ouverte par son nom. Le lieu du deces a quitte la page Riposte. Les
+graphiques de riposte a onglets de l'Ituri et du Nord-Kivu ont ete retires des
+fiches. Sous `SEUIL_RIPOSTE_FICHE` (40 cas), pas de cadre riposte (Sud-Kivu,
+Bas-Uele, Sud-Ubangi). Piste discutee, non faite : une page Riposte filtree
+par `?province=` pour le lecteur qui veut creuser.
+
 **Couleurs.** Bleu `#005E82` = cas, rouge `#993A2E` = décès, partout. Chaque
 province a sa teinte d'identité (`PROVINCE_COLORS`), utilisée sur les pastilles
 du menu, le tableau, les cartes de province et les barres de son graphique.
