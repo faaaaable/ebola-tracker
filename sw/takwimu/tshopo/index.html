@@ -105,7 +105,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
-
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <link rel="stylesheet" href="/assets/css/site.css?v=a4e06ee069">
 </head>
 <body>
@@ -465,9 +465,31 @@
        (demande du proprietaire, 16 septembre 2026) : 02 quand elle existe,
        et le tableau prend 03. Sous le seuil, pas de courbe et le tableau
        reste 02. -->
+  <section class="section cadre-fiche">
+    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Mwenendo wa mlipuko (Tshopo)</h2><div class="section-sub">safu: visa vipya kwa siku · mkondo: jumla</div></div></div>
+    <div class="cadre-corps">
+    <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="provinceChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Shiriki</span>
+        </button>
+      </div>
+      <nav class="subtab-nav chart-vue-nav" data-vue-periode>
+        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">Kwa siku</button>
+        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">Kwa wiki</button>
+        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">Kwa mwezi</button>
+      </nav>
+      <div class="chart-panel">
+        <canvas id="provinceChart" data-chart="provinceEpidemic" data-y-max="10"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+    </div>
+  </section>
 
   <section class="section cadre-fiche">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Maeneo ya afya yaliyoathirika katika Tshopo</h2></div></div>
+    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Maeneo ya afya yaliyoathirika katika Tshopo</h2></div></div>
     <div class="cadre-corps">
     <div class="zones-block">
       <div class="panel panel-fit" style="padding:16px;">
@@ -560,7 +582,7 @@
        horizontale de l'accueil, avec ses couleurs, seuils calcules a
        l'echelle de la province. Rendue par build_pages.py. -->
   <section class="section cadre-fiche">
-    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Matukio katika Tshopo</h2><div class="section-sub">vizingiti kulingana na ukubwa wa jimbo — sogeza kando</div></div></div>
+    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">Matukio katika Tshopo</h2><div class="section-sub">vizingiti kulingana na ukubwa wa jimbo — sogeza kando</div></div></div>
     <div class="cadre-corps">
     <ul class="tl-legend">
       <li class="is-official">Hatua rasmi</li>
@@ -767,7 +789,7 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
 <script defer src="/assets/js/i18n.js?v=e89508a832"></script>
-<script defer src="/assets/js/app.js?v=0daee85b76"></script>
+<script defer src="/assets/js/app.js?v=d8aed5c43b"></script>
 
 </body>
 </html>

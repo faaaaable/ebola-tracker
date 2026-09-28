@@ -1260,7 +1260,11 @@ parce qu'elles doivent etre lues sans avoir a ouvrir quoi que ce soit :
 - **Ne pas refaire le filtre par type de jalon** de la chronologie (construit,
   montre, ecarte le 6 septembre 2026) sans que le proprietaire le redemande.
 - **Ne pas redescendre `SEUIL_COURBE_PROVINCE` sous 50** (essaye a 20 le
-  15 septembre 2026, remis a 50 le meme jour).
+  15 septembre 2026, remis a 50 le meme jour). Les exceptions passent par
+  `COURBE_PROVINCE_FORCEE` (`build_pages.py`), province par province : la
+  Tshopo y est depuis le 28 septembre 2026, a la demande du proprietaire,
+  avec l'axe des nouveaux cas quotidiens fixe a 10 (`data-y-max`, vue par
+  jour seulement).
 - **Ne pas rallumer `community-deaths-daily.json`** sans corriger son defaut :
   il ne valide qu'une province quand son libelle annonce le pays.
 

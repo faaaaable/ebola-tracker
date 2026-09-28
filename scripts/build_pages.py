@@ -2073,6 +2073,19 @@ def jeton_version(chemin_relatif):
 # qu'il le redemande.
 SEUIL_COURBE_PROVINCE = 50
 
+# Exceptions nommees au seuil, avec le plafond de l'axe des nouveaux cas
+# quotidiens. La Tshopo (43 cas, 5 au plus en une journee) a son graphique a la
+# demande du proprietaire le 28 septembre 2026, axe fixe a 10 : a cette echelle
+# une journee a 1 cas reste lisible, et l'axe ne saute pas d'un bulletin a
+# l'autre. Le seuil general, lui, reste a 50 ; les vues par semaine et par mois
+# gardent leur axe automatique (une semaine peut depasser 10).
+COURBE_PROVINCE_FORCEE = {"Tshopo": 10}
+
+
+def a_une_courbe(province):
+    return ((province.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE
+            or province.get("name") in COURBE_PROVINCE_FORCEE)
+
 
 # Provinces dont la page porte le cadre « Le lieu du deces » (16 septembre
 # 2026) : les trois qui classent assez de deces chaque semaine pour qu'une part
@@ -2096,7 +2109,7 @@ def province_numeros(province):
         nonlocal n
         n += 1
         nums[cle] = "%02d" % n
-    if (province.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE:
+    if a_une_courbe(province):
         suivant("courbe")
     suivant("zones")
     if province.get("name") in PROVINCES_LIEU_DECES:
@@ -2180,8 +2193,10 @@ def province_deces_lieu_html(province, strings_lang, i18n_lang, numero="04"):
 
 
 def province_chart_html(province, strings_lang, i18n_lang, numero="02"):
-    if (province.get("confirmed") or 0) < SEUIL_COURBE_PROVINCE:
+    if not a_une_courbe(province):
         return ""
+    plafond = COURBE_PROVINCE_FORCEE.get(province.get("name"))
+    y_max = ' data-y-max="%d"' % plafond if plafond else ""
     # Cadre numerote, comme la page Riposte & defis (demande du proprietaire,
     # 8 septembre 2026) : carte 01, courbe 02, zones 03 depuis le 16 septembre
     # 2026, ou la courbe est remontee au-dessus du tableau des zones.
@@ -2208,7 +2223,7 @@ def province_chart_html(province, strings_lang, i18n_lang, numero="02"):
         '        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">%s</button>\n'
         '      </nav>\n'
         '      <div class="chart-panel">\n'
-        '        <canvas id="provinceChart" data-chart="provinceEpidemic"></canvas>\n'
+        '        <canvas id="provinceChart" data-chart="provinceEpidemic"%s></canvas>\n'
         '      </div>\n'
         '      <div class="map-note chart-note"></div>\n'
         '    </div>\n'
@@ -2225,7 +2240,8 @@ def province_chart_html(province, strings_lang, i18n_lang, numero="02"):
            esc(i18n_lang["chartShareBtn"]),
            esc(i18n_lang["chartVueDaily"]),
            esc(i18n_lang["chartVueWeekly"]),
-           esc(i18n_lang["chartVueMonthly"])))
+           esc(i18n_lang["chartVueMonthly"]),
+           y_max))
 
 
 
@@ -3091,7 +3107,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                 province, strings_lang, i18n_lang, numero=province_numeros(province).get("lieu", "")),
             "province.riposteCharts": province_riposte_charts_html(
                 province, strings_lang, i18n_lang, numero=province_numeros(province).get("riposte", "")),
-            "province.zonesNum": "03" if (province.get("confirmed") or 0) >= SEUIL_COURBE_PROVINCE else "02",
+            "province.zonesNum": "03" if a_une_courbe(province) else "02",
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
             **common_seed.get("provinceRiposte", {}).get(name, {
                 "province.ripKpis": "", "province.ripKpisClass": ""}),

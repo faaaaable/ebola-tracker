@@ -3534,7 +3534,13 @@ function renderOneChartBrut(canvas, chartMode){
        22 juillet, son graphique ne bouge pas. Le plafond seul : l'axe des
        cumuls repart de zero, comme a l'accueil (25 septembre 2026). */
     const plafondP = plafondSansRattrapage(rapporte, rattrape);
-    if(plafondP){
+    /* Plafond fixe pose par le generateur (`data-y-max`) pour une province a
+       petits nombres — la Tshopo, axe a 10 (28 septembre 2026). Il ne vaut
+       qu'en vue quotidienne : ce bloc n'est atteint qu'apres le retour des
+       vues agregees. */
+    if(canvas.dataset.yMax){
+      opts.scales.y.max = Number(canvas.dataset.yMax);
+    } else if(plafondP){
       opts.scales.y.max = plafondP;
       opts.plugins.ruptureRattrapage = { coupees: barresCoupees(rapporte, rattrape, plafondP) };
     }
