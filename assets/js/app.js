@@ -2102,6 +2102,12 @@ function renderOneChartBrut(canvas, chartMode){
       const data = { labels:jours.map(frDate), datasets };
       const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
+                  /* Le titre dans le graphique, comme « Nombre de personnes
+                     vaccinees » (demande du proprietaire, 28 septembre 2026) :
+                     l'axe ne disait que des pourcentages, sans dire de quoi. */
+                  title:{ display:true, text:tr('cteChartTitre'), align:'center',
+                          color:PALETTE.ink, padding:{ bottom:16 },
+                          font:{ family:PALETTE.font, size:16, weight:'700' } },
                   tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>{
           const p = parDate[jours[c.dataIndex]];
           const src = p.provinces[c.dataset.label];
