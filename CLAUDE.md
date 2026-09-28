@@ -1027,9 +1027,20 @@ resume des Defis de la lettre (`difficultes_province`, nom dans les 40
 premiers caracteres), d'ou l'importance d'ecrire ce resume UNE phrase par
 province, ouverte par son nom. Le lieu du deces a quitte la page Riposte. Les
 graphiques de riposte a onglets de l'Ituri et du Nord-Kivu ont ete retires des
-fiches. Sous `SEUIL_RIPOSTE_FICHE` (40 cas), pas de cadre riposte (Sud-Kivu,
-Bas-Uele, Sud-Ubangi). Piste discutee, non faite : une page Riposte filtree
-par `?province=` pour le lecteur qui veut creuser.
+fiches. **Le cadre riposte n'est que sur `PROVINCES_RIPOSTE_FICHE` = Ituri et
+Nord-Kivu** (28 septembre 2026) : un seuil a 40 cas a d'abord ecarte le
+Sud-Kivu, le Bas-Uele et le Sud-Ubangi, puis le proprietaire a retire le
+Haut-Uele et la Tshopo, « donnees trop instables a cause du petit
+echantillon ». Sur ces deux fiches le cadre est DEVELOPPE : apres les
+quatre chiffres, les graphiques de la page Riposte restreints par
+`data-province` (alertes, laboratoire, contacts, CTE, vaccination avec son
+tableau par zone), chacun seulement si la province a au moins
+`RELEVES_MIN_GRAPHIQUE` (10) releves, 3 pour la vaccination ; puis les
+difficultes et, replie, « Ce que dit le bulletin, pilier par pilier » :
+les propositions des blocs « Defis » du dernier bulletin qui concernent la
+province (`extraits_defis_province` : coupe aux « ; », points et « : »
+suivis d'une province, jamais dans une parenthese ; une zone de sante nommee
+vaut sa province).
 
 **Couleurs.** Bleu `#005E82` = cas, rouge `#993A2E` = décès, partout. Chaque
 province a sa teinte d'identité (`PROVINCE_COLORS`), utilisée sur les pastilles

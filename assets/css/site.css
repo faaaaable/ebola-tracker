@@ -2879,3 +2879,7 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .cadre-fiche .fiche-sous-titre{margin:26px 0 8px;font-size:16px;}
 .cadre-fiche .riposte-kpis + .fiche-sous-titre{margin-top:8px;}
 .fiche-point + .riposte-ancres{margin-top:22px;}
+.fiche-extraits{margin:4px 0 18px;}
+.fiche-extraits-liste{margin:10px 0 8px;padding-left:18px;font-size:14px;line-height:1.6;color:var(--ink-dim);max-width:78ch;}
+.fiche-extraits-liste li{margin-bottom:8px;}
+.fiche-extraits-liste b{color:var(--ink);font-weight:600;}

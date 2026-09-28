@@ -1665,6 +1665,13 @@ function renderOneChartBrut(canvas, chartMode){
           partValidee:(p.total||{}).partValidee ?? null };
         const v = colonne(p.provinces) || {};
         const part = x => (x !== undefined && x !== null && v.recues) ? Math.round(x / v.recues * 1000) / 10 : null;
+        /* Une ligne ou les validees depassent les recues se contredit : la
+           Tshopo le 15 juillet (39 validees pour 4 recues, SitRep 062) et le
+           22 juillet (4 pour 2, SitRep 069). Tracee, elle donnait une barre
+           « autres alertes » negative. La journee reste en blanc — donnee
+           incomplete, comme ailleurs (28 septembre 2026). */
+        if(v.recues != null && v.validees != null && v.validees > v.recues)
+          return { date:p.date, recues:null, validees:null, verifiees:null, partVerifiee:null, partValidee:null };
         return { date:p.date, recues:v.recues ?? null, validees:v.validees ?? null, verifiees:v.verifiees ?? null,
                  partVerifiee:part(v.verifiees), partValidee:part(v.validees) };
       });
@@ -2220,6 +2227,13 @@ function renderOneChartBrut(canvas, chartMode){
       cumuls.forEach(p => Object.keys(p.prov).forEach(n => { if(!noms.includes(n)) noms.push(n); }));
       const ordre = Object.keys(PROVINCE_COLORS);
       noms.sort((a, b) => ordre.indexOf(a) - ordre.indexOf(b));
+      /* Sur une page province (28 septembre 2026), la seule courbe de la
+         province ; le total des provinces n'a plus lieu d'etre. */
+      if(provRip){
+        const garde = noms.filter(n => nomProvinceCanonique(n) === provRip);
+        noms.length = 0; noms.push(...garde);
+        if(!noms.length){ vide(); return; }
+      }
       /* Le dernier cumul connu est reporte tant que le bulletin n'en publie
          pas de nouveau — meme report que la lettre. */
       const report = {};
@@ -2267,6 +2281,7 @@ function renderOneChartBrut(canvas, chartMode){
                        toujours les deux provinces, meme le jour ou l'une
                        d'elles ne publie rien. */
                     afterBody:items => {
+                      if(provRip) return '';
                       const i = items[0].dataIndex;
                       const t = noms.reduce((acc, n) => acc + (series[n][i] || 0), 0);
                       return tr('vaccChartTotal')(fmt(t));

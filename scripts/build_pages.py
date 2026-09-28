@@ -2082,15 +2082,19 @@ SEUIL_COURBE_PROVINCE = 50
 COURBE_PROVINCE_FORCEE = {"Tshopo": 10}
 
 
-# Sous ce cumul, la fiche n'a pas de cadre « La riposte » : trois chiffres
-# « non publie » et une phrase de difficultes absente ne disent rien
-# (decision du proprietaire, 28 septembre 2026 — Sud-Kivu, Bas-Uele et
-# Sud-Ubangi, 2 a 10 cas ; la Tshopo, 43, le garde).
-SEUIL_RIPOSTE_FICHE = 40
+# Les provinces dont la fiche porte le cadre « La riposte » (decisions du
+# proprietaire, 28 septembre 2026). D'abord un seuil a 40 cas, qui ecartait
+# le Sud-Kivu, le Bas-Uele et le Sud-Ubangi (2 a 10 cas) ; puis, une fois les
+# graphiques developpes montres, le Haut-Uele et la Tshopo aussi : « les
+# donnees semblent trop instables a cause du petit echantillon » — 47
+# echantillons en sept releves a la Tshopo, un centre de 31 lits, des lignes
+# d'alertes qui se contredisent. Leur riposte reste sur la page Riposte, a
+# cote des autres provinces.
+PROVINCES_RIPOSTE_FICHE = ("Ituri", "Nord-Kivu")
 
 
 def a_une_riposte(province):
-    return (province.get("confirmed") or 0) >= SEUIL_RIPOSTE_FICHE
+    return province.get("name") in PROVINCES_RIPOSTE_FICHE
 
 
 def a_une_courbe(province):
@@ -2802,7 +2806,8 @@ def difficultes_province(texte, name):
     return " ".join(x for x in phrases if name in x[:40])
 
 
-def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang):
+def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
+                       graphiques="", extraits=""):
     """Le cadre « La riposte » d'une fiche : des chiffres (liste de
     (classe, libelle, valeur, sous-titre), deja echappes), les difficultes du
     dernier bulletin, leur source, puis les liens vers la page qui detaille."""
@@ -2815,15 +2820,186 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang):
         '  <section class="section cadre-fiche" id="riposte">\n'
         '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
         '<div class="section-sub">%s</div></div></div>\n'
-        '    <div class="cadre-corps">\n%s'
+        '    <div class="cadre-corps">\n%s%s'
         '      <h3 class="frame-title fiche-sous-titre">%s</h3>\n'
         '      <p class="fiche-texte">%s</p>\n'
-        '      <p class="map-note">%s</p>\n'
+        '      <p class="map-note">%s</p>\n%s'
         '      <p class="drill">%s</p>\n'
         '    </div>\n  </section>\n'
         % (esc(numero), esc(strings_lang["ficheRiposteTitle"]), esc(strings_lang["ficheRiposteSub"]),
-           bloc_kpis, esc(strings_lang["ficheDifficultesTitle"]), esc(difficultes), esc(source),
+           bloc_kpis, graphiques, esc(strings_lang["ficheDifficultesTitle"]), esc(difficultes), esc(source),
+           extraits,
            " · ".join('<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens)))
+
+
+# La riposte developpee sur la fiche (28 septembre 2026, demande du
+# proprietaire : « que chaque page province, en commencant par les 4 plus
+# affectees, ait sur sa propre page la partie riposte/defis developpee, qui
+# inclut notamment les graphiques »). Les memes graphiques que la page
+# Riposte, restreints a la province par data-province, dans l'ordre de la
+# chaine : signaler, tester, suivre, soigner, prevenir. Un graphique ne
+# s'affiche que si la province a au moins RELEVES_MIN_GRAPHIQUE releves de sa
+# serie (3 pour la vaccination, qui ne publie que des cumuls) : sinon un
+# cadre presque vide se lirait comme une panne.
+RELEVES_MIN_GRAPHIQUE = 10
+
+PROVINCE_MARQUEUR_RE = re.compile(
+    r"^(?:en|au|aux|à\s+la|a\s+la|dans\s+la|dans\s+le)\s+"
+    r"(Ituri|Nord[\s-]Kivu|Haut[\s-]U[ée]l[ée]|Tshopo|Sud[\s-]Kivu|Bas[\s-]U[ée]l[ée]|Sud[\s-]Ubangi)\b",
+    re.IGNORECASE)
+PROVINCE_NOM_RE = re.compile(
+    r"\b(Ituri|Nord[\s-]Kivu|Haut[\s-]U[ée]l[ée]|Tshopo|Sud[\s-]Kivu|Bas[\s-]U[ée]l[ée]|Sud[\s-]Ubangi)\b",
+    re.IGNORECASE)
+
+
+def _canon_prov(nom):
+    n = re.sub(r"[\s-]+", "-", nom.strip())
+    for c in PROVINCE_COLORS:
+        if c.lower().replace("é", "e") == n.lower().replace("é", "e"):
+            return c
+    return n
+
+
+def _propositions(item):
+    """Coupe un bloc en propositions aux « ; », aux points et aux « : » suivis
+    d'une province, JAMAIS a l'interieur d'une parenthese — « (50,0 % ; 1/2) »
+    reste entier."""
+    morceaux, cour, prof, i = [], "", 0, 0
+    while i < len(item):
+        c = item[i]
+        prof += (c == "(") - (c == ")")
+        coupe = prof == 0 and (c == ";" or (c in ".:" and item[i + 1:i + 2] == " "))
+        if coupe and c == ":" and not PROVINCE_MARQUEUR_RE.match(item[i + 1:].lstrip()):
+            coupe = False
+        if coupe:
+            morceaux.append(cour); cour = ""
+        else:
+            cour += c
+        i += 1
+    morceaux.append(cour)
+    return [m.strip(" .;:") for m in morceaux if m.strip(" .;:")]
+
+
+def extraits_defis_province(defis, name, zone_prov=None):
+    """[(pilier, texte)] : ce que les blocs « Defis » du DERNIER bulletin
+    disent de la province, cites tels quels. Un bloc melange souvent les
+    provinces (« En Ituri, … ; au Nord-Kivu, … ») : il est coupe en
+    propositions (point-virgule, point, deux-points), chacune rattachee a la
+    province qu'elle ouvre (« Au Nord-Kivu, … »), a defaut a la seule
+    province qu'elle nomme, a defaut a la province en cours."""
+    points = (defis or {}).get("parDate") or []
+    if not points:
+        return [], None
+    dernier = points[-1]
+    out = []
+    for pil in dernier.get("piliers", []):
+        garde = []
+        for item in pil.get("items", []):
+            courante = None
+            for prop in _propositions(item):
+                m = PROVINCE_MARQUEUR_RE.match(prop)
+                noms = {_canon_prov(x) for x in PROVINCE_NOM_RE.findall(prop)}
+                # Une zone de sante nommee vaut sa province : « ruptures de
+                # medicaments a Boma Mangbetu, Isiro, Wamba et Pawa » est un
+                # defi du Haut-Uele sans que le bulletin le dise.
+                for zone, prov in (zone_prov or {}).items():
+                    if re.search(r"\b%s\b" % re.escape(zone), prop):
+                        noms.add(prov)
+                if m:
+                    courante = _canon_prov(m.group(1))
+                elif len(noms) == 1:
+                    courante = next(iter(noms))
+                # Une proposition qui nomme des provinces leur appartient
+                # (« absence de donnees du Bas-Uele et du Haut-Uele » n'est
+                # pas un defi de l'Ituri) ; sinon elle continue la courante.
+                if (name in noms) if noms else (courante == name):
+                    garde.append(prop)
+        if garde:
+            texte = " ; ".join(garde)
+            out.append((pil.get("titre", ""), texte[0].upper() + texte[1:] + "."))
+    return out, dernier.get("sitrepNumber")
+
+
+def extraits_defis_html(extraits, num, strings_lang):
+    if not extraits:
+        return ""
+    items = "".join('        <li><b>%s.</b> %s</li>\n' % (esc(t), esc(x)) for t, x in extraits)
+    return ('      <details class="maq-methode fiche-extraits">\n'
+            '        <summary>%s</summary>\n'
+            '        <ul class="fiche-extraits-liste">\n%s        </ul>\n'
+            '        <p class="map-note">%s</p>\n'
+            '      </details>\n'
+            % (esc(strings_lang["ficheDefisCitesTitle"]), items,
+               esc(interp(strings_lang["ficheDefisCitesNote"], {"num": num or ""}))))
+
+
+def _releves(serie, name, cle):
+    pts = serie.get("parDate", []) if isinstance(serie, dict) else (serie or [])
+    return sum(1 for p in pts if ((p.get("provinces") or {}).get(name) or {}).get(cle) is not None)
+
+
+def vaccin_zones_province_html(piliers, name, lang, strings_lang, i18n_lang):
+    pts = (piliers or {}).get("parDate") or []
+    der = None
+    for p in pts:
+        v = (((p.get("vaccination") or {}).get("provinces")) or {}).get(name) or {}
+        if v.get("zones"):
+            der = (p["date"], v["zones"])
+    if not der:
+        return ""
+    date_z, zones = der
+    corps = "".join('<tr><td>%s</td><td class="is-num">%s</td></tr>' % (esc(z), fmt(n, lang))
+                    for z, n in sorted(zones.items(), key=lambda kv: -kv[1]))
+    return ('      <div class="panel vaccin-zones">\n'
+            '        <table class="province-summary vaccin-table"><thead><tr><th>%s</th><th class="is-num">%s</th></tr></thead>'
+            '<tbody>%s</tbody></table>\n'
+            '        <p class="map-note vaccin-table-note">%s</p>\n      </div>\n'
+            % (esc(strings_lang["riposteVaccinTableZone"]), esc(strings_lang["riposteVaccinTableN"]), corps,
+               esc(interp(strings_lang["riposteKpiAsOf"], {"date": long_date(date_z, i18n_lang)}))))
+
+
+def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang):
+    """Les graphiques de la page Riposte, restreints a la province."""
+    def nav(canvas_id, vues):
+        return ('        <nav class="subtab-nav chart-vue-nav" data-chart-vue="%s">\n%s        </nav>\n'
+                % (canvas_id, "".join(
+                    '          <button type="button" class="subtab-btn%s" data-vue="%s" data-i18n="%s">%s</button>\n'
+                    % (" active" if i == 0 else "", v, k, esc(i18n_lang[k])) for i, (v, k) in enumerate(vues))))
+
+    def bloc(titre, sous_titre, canvas_id, mode, vues=None, apres=""):
+        return ('      <div class="section-head" style="margin-top:32px;">\n'
+                '        <h3 class="frame-title">%s</h3>\n        <span class="section-sub">%s</span>\n      </div>\n'
+                '      <div class="panel chart-panel-wrap">\n%s%s'
+                '        <div class="chart-panel">\n'
+                '          <canvas id="%s" data-chart="%s" data-province="%s"></canvas>\n'
+                '        </div>\n        <div class="map-note chart-note"></div>\n      </div>\n%s'
+                % (esc(strings_lang[titre]), esc(strings_lang[sous_titre]),
+                   BOUTON_PARTAGE % (canvas_id, esc(i18n_lang["chartShareBtn"])),
+                   nav(canvas_id, vues) if vues else "", canvas_id, mode, esc(name), apres))
+
+    out = []
+    if _releves(riposte["alertes"], name, "recues") >= RELEVES_MIN_GRAPHIQUE:
+        out.append(bloc("riposteAlertesTitle", "riposteAlertesSub", "provAlertesChart", "alertes",
+                        [("jour", "chartVueDaily"), ("volume", "chartVueWeekly"), ("taux", "chartVueTaux")]))
+    if _releves(riposte["laboratoire"], name, "echantillons") >= RELEVES_MIN_GRAPHIQUE:
+        out.append(bloc("riposteLaboTitle", "riposteLaboSub", "provLaboChart", "laboratoire",
+                        [("jour", "chartVueDaily"), ("semaine", "chartVueWeekly")]))
+    contacts = riposte["contacts"] if isinstance(riposte["contacts"], list) else []
+    if sum(1 for p in contacts if ((p.get("provinces") or {}).get(name) or {}).get("taux") is not None) >= RELEVES_MIN_GRAPHIQUE:
+        out.append(bloc("riposteContactsTitle", "riposteContactsSub", "provContactsChart", "contactsRiposte"))
+    if _releves(riposte["cte"], name, "hospitalises") >= RELEVES_MIN_GRAPHIQUE:
+        out.append(bloc("riposteCteTitle", "riposteCteSub", "provCteChart", "cte"))
+    pil = riposte["piliers"]
+    pts = pil.get("parDate", []) if isinstance(pil, dict) else []
+    n_vacc = sum(1 for p in pts if ((p.get("vaccination") or {}).get("cumulParProvince") or {}).get(name))
+    zones = vaccin_zones_province_html(pil, name, lang, strings_lang, i18n_lang)
+    if n_vacc >= 3:
+        out.append(bloc("riposteVaccinTitle", "riposteVaccinSub", "provVaccinChart", "vaccination", apres=zones))
+    elif zones:
+        out.append('      <div class="section-head" style="margin-top:32px;">\n'
+                   '        <h3 class="frame-title">%s</h3>\n        <span class="section-sub">%s</span>\n      </div>\n%s'
+                   % (esc(strings_lang["riposteVaccinTitle"]), esc(strings_lang["riposteVaccinSub"]), zones))
+    return "".join(out)
 
 
 def positivite_province(riposte, name, lang, strings_lang):
@@ -3090,10 +3266,18 @@ def main():
             _liens = [(urls.path("riposte", lang), strings_lang["ficheLienRiposte"])]
             if lien_lettre:
                 _liens.append(lien_lettre)
+            _graph, _extr = "", ""
+            if a_une_courbe(_p):
+                _graph = riposte_graphiques_province(riposte, _n, lang, strings_lang, i18n_lang)
+                _ex, _num = extraits_defis_province(riposte["defis"], _n, {
+                    z["name"]: z["province"] for z in latest.get("healthZones", [])
+                    if len(z.get("name", "")) >= 4 and z.get("province")})
+                _extr = extraits_defis_html(_ex, _num, strings_lang)
             common_seed["provinceFiche"][_n] = {
                 "province.point": fiche_point_html(_serie, lang, strings_lang),
                 "province.riposteIci": fiche_riposte_html(
-                    province_numeros(_p)["riposte"], _kpis, _diff, source_defis, _liens, strings_lang)
+                    province_numeros(_p)["riposte"], _kpis, _diff, source_defis, _liens, strings_lang,
+                    graphiques=_graph, extraits=_extr)
                 if a_une_riposte(_p) else "",
             }
         # Le pays : meme plan, memes cases que l'ancien « Que fait-on ».

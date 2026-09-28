@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=942875a45a">
+<link rel="stylesheet" href="/assets/css/site.css?v=09ba82f86f">
 </head>
 <body>
 
@@ -660,9 +660,93 @@
           <div class="delta">non publié</div>
         </div>
       </div>
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">Les alertes</h3>
+        <span class="section-sub">ce que la surveillance reçoit, et ce qu'elle en retient</span>
+      </div>
+      <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="provAlertesChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Partager</span>
+        </button>
+      </div>
+        <nav class="subtab-nav chart-vue-nav" data-chart-vue="provAlertesChart">
+          <button type="button" class="subtab-btn active" data-vue="jour" data-i18n="chartVueDaily">Par jour</button>
+          <button type="button" class="subtab-btn" data-vue="volume" data-i18n="chartVueWeekly">Par semaine</button>
+          <button type="button" class="subtab-btn" data-vue="taux" data-i18n="chartVueTaux">Taux</button>
+        </nav>
+        <div class="chart-panel">
+          <canvas id="provAlertesChart" data-chart="alertes" data-province="Nord-Kivu"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">Le laboratoire</h3>
+        <span class="section-sub">échantillons analysés et résultats positifs</span>
+      </div>
+      <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="provLaboChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Partager</span>
+        </button>
+      </div>
+        <nav class="subtab-nav chart-vue-nav" data-chart-vue="provLaboChart">
+          <button type="button" class="subtab-btn active" data-vue="jour" data-i18n="chartVueDaily">Par jour</button>
+          <button type="button" class="subtab-btn" data-vue="semaine" data-i18n="chartVueWeekly">Par semaine</button>
+        </nav>
+        <div class="chart-panel">
+          <canvas id="provLaboChart" data-chart="laboratoire" data-province="Nord-Kivu"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">Le suivi des contacts</h3>
+        <span class="section-sub">les personnes exposées, vues ou perdues de vue</span>
+      </div>
+      <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="provContactsChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Partager</span>
+        </button>
+      </div>
+        <div class="chart-panel">
+          <canvas id="provContactsChart" data-chart="contactsRiposte" data-province="Nord-Kivu"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">Les centres de traitement</h3>
+        <span class="section-sub">patients hospitalisés et lits disponibles</span>
+      </div>
+      <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="provCteChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Partager</span>
+        </button>
+      </div>
+        <div class="chart-panel">
+          <canvas id="provCteChart" data-chart="cte" data-province="Nord-Kivu"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
       <h3 class="frame-title fiche-sous-titre">Les difficultés signalées</h3>
       <p class="fiche-texte">Au Nord-Kivu, des hommes armés ont tué un agent qui contrôlait les voyageurs à un poste de Kalunguta ; un malade hospitalisé sur trois (105 sur 328) est soigné hors des centres de traitement, 39 % des patients y meurent, une maison sur trois seulement a été décontaminée (7 sur 22) et les soignants ne sont toujours pas vaccinés.</p>
       <p class="map-note">Résumé des « Défis » du bulletin n°135 (26 sept. 2026), rédigé par ebola-tracker.org en langage courant.</p>
+      <details class="maq-methode fiche-extraits">
+        <summary>Ce que dit le bulletin, pilier par pilier</summary>
+        <ul class="fiche-extraits-liste">
+        <li><b>Point sur les activités de points de contrôle et points d’entrées (PoE/PoC).</b> Au Nord-Kivu, attaque armée au PoC de Vulemba/Butuhe (ZS de Kalunguta) ayant coûté la vie à un prestataire, complétude en recul (95,2 % ; 20/21) et prise en charge tardive des alertes par les cellules d’alertes.</li>
+        <li><b>Prévention et Contrôle de l'Infection (PCI/EDS).</b> Au Nord-Kivu : faible décontamination des ménages (31,8 % ; 7/22), aucun kit PCI doté aux ménages des cas (0/7), faible promptitude et complétude des rapports (37,5 % ; 6/16), score PCI moyen de 30,4 % dans les ESS évaluées de Musienene et Mabalako, résistance communautaire à l’origine d’un échec d’EDS à Katwa, non-alignement de 86,6 % des membres du pilier sur la liste de motivation et nécessité d’activer les équipes de décontamination à Biena, Masereka, Kyondo, Mabalako et Vuhovi.</li>
+        <li><b>Prise en charge holistique.</b> Au Nord-Kivu, 32,0 % des patients hospitalisés (105/328) sont pris en charge en dehors des CTE, mortalité intra-CTE élevée (39 %) et données manquantes pour Mabalako et Mutwanga.</li>
+        <li><b>Vaccination.</b> Vaccination des PPL non encore démarrée au Nord-Kivu.</li>
+        <li><b>Santé mentale et soutien psychosocial (SMSPS).</b> Au Nord-Kivu, des hommes armés ont fait incursion au PoC de Vulemba (AS de Butuhe, ZS de Kalunguta) et ouvert le feu sur un prestataire commis au screening, ce dernier est décédé sur le lieu.</li>
+        </ul>
+        <p class="map-note">Extraits des blocs « Défis » du bulletin n°135 qui concernent la province, cités tels quels.</p>
+      </details>
       <p class="drill"><a href="/riposte/">Toute la riposte, province par province →</a> · <a href="/lettre/135/">La lettre n°135 →</a></p>
     </div>
   </section>
@@ -873,7 +957,7 @@ window.DATA_PAGE_URL = "/donnees/";
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
 <script defer src="/assets/js/i18n.js?v=1622ff1828"></script>
-<script defer src="/assets/js/app.js?v=35d3863d30"></script>
+<script defer src="/assets/js/app.js?v=dea4420a19"></script>
 
 </body>
 </html>
