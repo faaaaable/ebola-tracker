@@ -2,6 +2,45 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "7eab9764",
+   "date": "2026-09-28",
+   "titre": "Ebola in Ituri: sex workers urged to join Ebola response activities",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/ebola-in-ituri-sex-workers-urged-to-join-ebola-response-activities/",
+   "langue": "en",
+   "resume": "A call for the integration of male and female sex workers into Ebola virus disease (EVD) prevention and response activities…",
+   "statut": "publie",
+   "collecte": "2026-09-28",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "4d0ceca8",
+   "date": "2026-09-28",
+   "titre": "Ebola in Ituri: intensified awareness campaigns planned in several lakeside localities",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/ebola-in-ituri-intensified-awareness-campaigns-planned-in-several-lakeside-localities/",
+   "langue": "en",
+   "resume": "The Bahema North chiefdom, in Djugu Territory, Ituri Province, northeastern Democratic Republic of Congo, plans to step up Ebola awareness…",
+   "statut": "publie",
+   "collecte": "2026-09-28",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "05e4c250",
+   "date": "2026-09-28",
+   "titre": "Ebola en RDC: en Ituri, la dispersion de milliers de déplacés inquiète l’ONU",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20260928-ebola-en-rdc-en-ituri-la-dispersion-de-milliers-de-d%C3%A9plac%C3%A9s-inqui%C3%A8te-l-onu",
+   "langue": "fr",
+   "resume": "En République démocratique du Congo (RDC), l’ONU alerte sur la situation du site de déplacés de Kigonze, à Bunia, dans l’Ituri. Le 20 septembre 2026, des militaires ont investi le site à la recherche d’armes et de présumés membres d’un groupe armé.",
+   "statut": "attente",
+   "collecte": "2026-09-28",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "fe5ab3e6",
    "date": "2026-09-27",
    "titre": "Ebola à Beni : engagement collectif des jeunes d’une aire de santé contre la désinformation",
