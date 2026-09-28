@@ -1265,6 +1265,10 @@ parce qu'elles doivent etre lues sans avoir a ouvrir quoi que ce soit :
   Tshopo y est depuis le 28 septembre 2026, a la demande du proprietaire,
   avec l'axe des nouveaux cas quotidiens fixe a 10 (`data-y-max`, vue par
   jour seulement).
+- **Chaque province qui a une courbe a aussi celle des deces** (28 septembre
+  2026) : meme bloc `provinceEpidemic` d'`app.js`, parametre par
+  `data-champ="deaths"`, rouge du site, seule courbe de cumul des deces.
+  `province_numeros()` numerote tous les cadres, zones compris.
 - **Ne pas rallumer `community-deaths-daily.json`** sans corriger son defaut :
   il ne valide qu'une province quand son libelle annonce le pays.
 

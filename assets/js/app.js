@@ -3274,11 +3274,19 @@ function renderOneChartBrut(canvas, chartMode){
     const RATTRAPAGE = new Set(['2026-07-22', '2026-07-30']);
     const nom = nomProvinceCanonique(window.PROVINCE_NAME || '');
     const periode = vuePeriodeDe(canvas);
+    /* DEUX CADRES, UN SEUL DESSIN (28 septembre 2026) : `data-champ="deaths"`
+       fait du meme bloc le graphique des deces de la province. Barres et
+       cumul en rouge, comme « Nouveaux deces » sur /donnees/ ; une seule
+       courbe de cumul, celle des deces. Les rattrapages des 22 et 30 juillet
+       basculent en entier dans la teinte claire, comme cote cas : leur part
+       n'est publiee qu'au niveau national, et pour les deces pas du tout. */
+    const champ = canvas.dataset.champ || 'confirmed';
+    const deces = champ === 'deaths';
 
     const pts = [];
     for(const h of PROVINCE_HISTORY){
       const p = (h.provinces || []).find(pr => pr.name === nom);
-      if(p && p.confirmed !== null && p.confirmed !== undefined){
+      if(p && p[champ] !== null && p[champ] !== undefined){
         pts.push({ date: h.date, confirmed: p.confirmed,
                    deaths: (p.deaths === null || p.deaths === undefined) ? null : p.deaths });
       }
@@ -3311,7 +3319,7 @@ function renderOneChartBrut(canvas, chartMode){
         trous.push(tr('chartDeathPlaceWeekLabel')(frDate(iso), frDate(pts[i].date)));
         continue;          // la journee de retour reste sans barre
       }
-      const delta = Math.max(0, pts[i].confirmed - pts[i-1].confirmed);
+      const delta = Math.max(0, pts[i][champ] - pts[i-1][champ]);
       const estRattrapage = RATTRAPAGE.has(pts[i].date);
       /* Une seule des deux series porte la journee, l'autre est nulle et non
          zero : un zero vaut desormais un trait au ras de l'axe (minBarLength),
@@ -3348,14 +3356,14 @@ function renderOneChartBrut(canvas, chartMode){
          il couvre et ou passent leurs cas. La reserve « sauf indication
          contraire » renvoie a la phrase suivante, celle des trous longs, dont
          les cas ne sont justement reportes sur aucune journee. */
-      if(sansReleve) bouts.push(tr('provinceChartBlanks')(sansReleve));
-      if(trous.length) bouts.push(tr('provinceChartGap')(trous.join(' ; ')));
+      if(sansReleve) bouts.push(tr(deces ? 'provinceDeathsChartBlanks' : 'provinceChartBlanks')(sansReleve));
+      if(trous.length) bouts.push(tr(deces ? 'provinceDeathsChartGap' : 'provinceChartGap')(trous.join(' ; ')));
       if(pts.some(pt => RATTRAPAGE.has(pt.date))) bouts.push(tr('provinceChartCatchup'));
       noteEl.textContent = bouts.join(' ');
       noteEl.style.display = bouts.length ? 'block' : 'none';
     }
 
-    const teinte = PROVINCE_COLORS[nom] || PALETTE.info;
+    const teinte = deces ? PALETTE.critical : (PROVINCE_COLORS[nom] || PALETTE.info);
     const data = {
       labels: joursCal.map(iso => frDate(iso)),
       datasets: [
@@ -3364,7 +3372,7 @@ function renderOneChartBrut(canvas, chartMode){
            journee sans bulletin — six jours au Nord-Kivu, six au Haut-Uele.
            Deux pixels au ras de l'axe suffisent a dire « compte, et compte
            zero », la ou le blanc dit « on ne sait pas ». */
-        { label: tr('dailyChartLabel'), data: rapporte, backgroundColor: teinte,
+        { label: tr(deces ? 'dailyDeathsLabel' : 'dailyChartLabel'), data: rapporte, backgroundColor: teinte,
           borderRadius: 2, minBarLength: 2, stack: 'd',
           categoryPercentage: 1, barPercentage: .96 },
         { label: tr('catchupLabel'), data: rattrape, backgroundColor: tint(teinte, .35),
@@ -3390,6 +3398,8 @@ function renderOneChartBrut(canvas, chartMode){
           pointRadius: 0, fill: false, spanGaps: true, order: 0 }
       ]
     };
+    // Le cadre des deces ne garde que sa propre courbe de cumul.
+    if(deces) data.datasets = data.datasets.filter(d => d.label !== tr('chartCumulativeLabel'));
     const opts = {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
@@ -3446,7 +3456,7 @@ function renderOneChartBrut(canvas, chartMode){
        barre cette fois. Le second axe part avec elles. */
     if(periode !== 'quotidien'){
       const parMois = periode === 'mensuel';
-      const serie = agregeNouveauxCas(pts, parMois ? 'mois' : 'semaine', 'confirmed', false);
+      const serie = agregeNouveauxCas(pts, parMois ? 'mois' : 'semaine', champ, false);
       const derniereDate = pts[pts.length - 1].date;
       const ouverte = serie.length > 0 && serie[serie.length - 1].fin > derniereDate;
       /* Part de la periode deja courue, sur ses jours de CALENDRIER et non sur
@@ -3470,7 +3480,7 @@ function renderOneChartBrut(canvas, chartMode){
            la Tshopo n'a pris aucun cas le 22 juillet, et celui du 30 tombe
            dans sa semaine. Une legende qui nomme une couleur absente du
            trace est pire que pas de legende. */
-        datasets: [barreP(tr('chartWeeklyCases'), serie.map(p => p.cas), teinte)]
+        datasets: [barreP(tr(deces ? 'chartWeeklyDeaths' : 'chartWeeklyCases'), serie.map(p => p.cas), teinte)]
           .concat(serie.some(p => p.rattrapage > 0)
                   ? [barreP(tr('catchupLabel'), serie.map(p => p.rattrapage), tint(teinte, .35))]
                   : [])

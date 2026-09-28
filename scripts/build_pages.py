@@ -2101,7 +2101,8 @@ PROVINCES_RIPOSTE = ("Ituri", "Nord-Kivu")
 
 def province_numeros(province):
     """Les numeros des cadres d'une page province, dans l'ordre de la page :
-    carte, [courbe], zones, [lieu du deces], [riposte], chronologie.
+    carte, [courbe des cas, courbe des deces], zones, [lieu du deces],
+    [riposte], chronologie.
     Un seul calcul pour le gabarit et les fonctions qui ecrivent les cadres :
     chaque ajout decalait la chronologie a la main (16 septembre 2026)."""
     n, nums = 1, {"carte": "01"}
@@ -2111,6 +2112,7 @@ def province_numeros(province):
         nums[cle] = "%02d" % n
     if a_une_courbe(province):
         suivant("courbe")
+        suivant("deces")
     suivant("zones")
     if province.get("name") in PROVINCES_LIEU_DECES:
         suivant("lieu")
@@ -2192,11 +2194,12 @@ def province_deces_lieu_html(province, strings_lang, i18n_lang, numero="04"):
            esc(i18n_lang["chartShareBtn"]), esc(province["name"])))
 
 
-def province_chart_html(province, strings_lang, i18n_lang, numero="02"):
-    if not a_une_courbe(province):
-        return ""
+def _cadre_courbe_province(province, strings_lang, i18n_lang, numero, canvas_id, champ,
+                            cle_titre, cle_sous_titre):
     plafond = COURBE_PROVINCE_FORCEE.get(province.get("name"))
-    y_max = ' data-y-max="%d"' % plafond if plafond else ""
+    attrs = ' data-y-max="%d"' % plafond if plafond else ""
+    if champ != "confirmed":
+        attrs += ' data-champ="%s"' % champ
     # Cadre numerote, comme la page Riposte & defis (demande du proprietaire,
     # 8 septembre 2026) : carte 01, courbe 02, zones 03 depuis le 16 septembre
     # 2026, ou la courbe est remontee au-dessus du tableau des zones.
@@ -2208,7 +2211,7 @@ def province_chart_html(province, strings_lang, i18n_lang, numero="02"):
         '    <div class="panel chart-panel-wrap">\n'
         # Le graphique de province se partage comme les autres : figure et note
         # comprises. Le libelle vient d'i18n, comme partout ailleurs.
-        '      <div class="chart-actions" data-export-chart="provinceChart">\n'
+        '      <div class="chart-actions" data-export-chart="%s">\n'
         '        <button type="button" class="share-btn">\n'
         '          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>\n'
         '          <span data-i18n="chartShareBtn">%s</span>\n'
@@ -2223,7 +2226,7 @@ def province_chart_html(province, strings_lang, i18n_lang, numero="02"):
         '        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">%s</button>\n'
         '      </nav>\n'
         '      <div class="chart-panel">\n'
-        '        <canvas id="provinceChart" data-chart="provinceEpidemic"%s></canvas>\n'
+        '        <canvas id="%s" data-chart="provinceEpidemic"%s></canvas>\n'
         '      </div>\n'
         '      <div class="map-note chart-note"></div>\n'
         '    </div>\n'
@@ -2234,14 +2237,31 @@ def province_chart_html(province, strings_lang, i18n_lang, numero="02"):
         # sous-onglet de /donnees/, qui lui trace le pays entier : un lecteur
         # arrive par le menu lateral n'a rien pour distinguer les deux courbes.
         % (esc(numero),
-           esc(interp(strings_lang["provinceChartTitle"],
+           esc(interp(strings_lang[cle_titre],
                       {"name": province["name"]})),
-           esc(strings_lang["provinceChartSub"]),
+           esc(strings_lang[cle_sous_titre]),
+           canvas_id,
            esc(i18n_lang["chartShareBtn"]),
            esc(i18n_lang["chartVueDaily"]),
            esc(i18n_lang["chartVueWeekly"]),
            esc(i18n_lang["chartVueMonthly"]),
-           y_max))
+           canvas_id, attrs))
+
+
+def province_chart_html(province, strings_lang, i18n_lang):
+    """Les deux cadres de courbe d'une page province : les cas, puis les
+    deces (demande du proprietaire, 28 septembre 2026, pour les quatre
+    provinces qui ont une courbe). Meme dessin, memes trois pas de temps ;
+    le cadre des deces porte le rouge du site et sa seule courbe de cumul."""
+    if not a_une_courbe(province):
+        return ""
+    nums = province_numeros(province)
+    return (_cadre_courbe_province(province, strings_lang, i18n_lang, nums["courbe"],
+                                   "provinceChart", "confirmed",
+                                   "provinceChartTitle", "provinceChartSub")
+            + _cadre_courbe_province(province, strings_lang, i18n_lang, nums["deces"],
+                                     "provinceDeathsChart", "deaths",
+                                     "provinceDeathsChartTitle", "provinceDeathsChartSub"))
 
 
 
@@ -3107,7 +3127,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                 province, strings_lang, i18n_lang, numero=province_numeros(province).get("lieu", "")),
             "province.riposteCharts": province_riposte_charts_html(
                 province, strings_lang, i18n_lang, numero=province_numeros(province).get("riposte", "")),
-            "province.zonesNum": "03" if a_une_courbe(province) else "02",
+            "province.zonesNum": province_numeros(province)["zones"],
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
             **common_seed.get("provinceRiposte", {}).get(name, {
                 "province.ripKpis": "", "province.ripKpisClass": ""}),
