@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-09-25"
+  "fin": "2026-09-26"
  },
  "parDate": [
   {
@@ -2480,6 +2480,60 @@
        "Viadana": 42
       },
       "zonesSomme": 1000
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-26",
+   "sitrepNumber": "135",
+   "poe": {
+    "personnes": 245383,
+    "screenesPct": 97.4,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 21,
+    "attendus": 25
+   },
+   "eds": {
+    "alertes": 40,
+    "realisees": 35,
+    "swabes": 45,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 1,
+     "swabes": 2
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Tshopo": 4953,
+     "Ituri": 436
+    },
+    "rupture": false,
+    "provinces": {
+     "Tshopo": {
+      "cumul": 4953,
+      "cible": 11703,
+      "couverture": 42.3,
+      "zones": {
+       "Makiso-Kisangani": 2446,
+       "Kabondo": 643,
+       "Tshopo": 550,
+       "Mangobo": 540,
+       "Bafwasende": 500,
+       "Lubunga": 274
+      },
+      "zonesSomme": 4953,
+      "doses": {
+       "decongelees": 47
+      }
+     },
+     "Ituri": {
+      "cumul": 436
      }
     }
    },

@@ -50,9 +50,16 @@ EXCEPTIONS_SOURCE = {
     # en charge normees, soit un taux d'occupation de 81,5 % (354 lits) ».
     # 251/354 = 70,9 % ; 81,5 % est 251/308, la capacite des 130 a 132. Soit
     # la capacite a grandi et le taux est calcule sur l'ancienne, soit 354
-    # est une coquille. Le site garde ce qui est imprime (354, 103,1 %) ; a
-    # trancher au SitRep 134 selon le nombre de lits qu'il imprime.
+    # est une coquille. Tranche au SitRep 135 : « 223 dans les CTE pour 354
+    # lits, soit un taux d'occupation de 63,0 % » (223/354 = 63,0 %). La
+    # capacite a bien grandi : c'est le taux du 133 qui est faux.
     ("cte_normes", "133", "Nord-Kivu"): (251, 354, 81.5),
+    # 134 : « 351 patients sont hospitalises dont 271 dans les structures
+    # normees, soit un taux d'occupation de 70,9 % », sans lits. 70,9 % est
+    # 251/354, le calcul du 133 : taux recopie. Les 354 lits viennent des 133
+    # et 135 qui l'encadrent (encadrer_lits, decision du 28 septembre 2026) ;
+    # 271/354 ferait 76,6 %.
+    ("cte_normes", "134", "Nord-Kivu"): (271, 354, 70.9),
     # 128 : « 987 [...] dont 550 a Buta, 324 a Ganga, 71 a Poko et 42 a
     # Viadana » ; 129 : « 874 [...] 211 a Ganga ». Chaque total tombe sur sa
     # ventilation, seule Ganga bouge : la source s'est corrigee. Le

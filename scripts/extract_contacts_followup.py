@@ -192,9 +192,14 @@ CONTACTS_VUS_PARMI_RE = re.compile(
 # puis « … se situe à 87,4 % (28 065/32 094) ». Les contacts deviennent le
 # sujet, « suivis » remplace « suivi des ». Sans elles, les deux points avaient
 # leur taux et leurs provinces, pas leurs effectifs nationaux.
+# Quinzieme tournure (SitRep 135, 26 septembre 2026) : « La proportion de
+# suivi au décours du 26 septembre 2026 était de 74,7% (23 187/31 034) »,
+# puis « Cette proportion était de 88,8 % (87/98) au Sud Ubangi, … » — les
+# provinces relevent de PROV_D3_RE une fois la phrase nationale ancree.
 CONTACTS_SITUE_RE = re.compile(
     r"(?:(?:proportion\s+du|taux\s+de)\s+suivi\s+des\s+contacts\s*,?\s*(?:elle|il)?\s*se\s+situe\s+(?:à|a)"
-    r"|proportion\s+des\s+contacts\s+suivis\s+(?:se\s+situe\s+(?:à|a)|est\s+de))\s+"
+    r"|proportion\s+des\s+contacts\s+suivis\s+(?:se\s+situe\s+(?:à|a)|est\s+de)"
+    r"|proportion\s+de\s+suivi\s+au\s+décours\s+du\s+\d{1,2}\s+\w+\s+\d{4}\s+était\s+de)\s+"
     r"(\d+(?:\s*[,.]\s*\d+)?)\s*%\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)",
     re.IGNORECASE | re.DOTALL,
 )
@@ -435,6 +440,11 @@ def rate_from_text(full_text):
         value = taux_texte(m.group(3))
         if 0 <= value <= 100:
             return value, "texte (repli, « … ont été vus parmi les … en cours de suivi »)"
+    m = CONTACTS_SITUE_RE.search(full_text)
+    if m:
+        value = taux_texte(m.group(1))
+        if 0 <= value <= 100:
+            return value, "texte (repli, « proportion … N % (vus/à suivre) »)"
     return None, None
 
 

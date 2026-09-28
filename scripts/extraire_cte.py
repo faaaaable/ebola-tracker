@@ -72,6 +72,11 @@ FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Communication|CREC|Logistique|S[ée]curit[
 REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bEn |\bAu |\bÀ la |\bA la |\bau |\ben |\bà la |\bLe |\bL[’'])\s*(%s)\b" % PROVINCES_RE)
 
 HOSPITALISES_RES = [
+    # « 328 patients (97 confirmés et 231 suspects) sont hospitalisés, dont
+    # 223 dans les CTE pour 354 lits » (135, Nord-Kivu) : la ventilation
+    # s'intercale entre « patients » et le verbe. Sans ce motif, la ligne
+    # prenait les « 105 autres » pris en charge hors CTE.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,60}\)\s*sont\s+hospitalis", re.I),
     re.compile(r"occupation\s+atteint\s+(\d[\d ]{0,4}\d|\d)\s+patients", re.I),
     # « L'occupation des structures de prise en charge atteint 488 lits sur
     # 833 (59 %) » (084, 6 aout) : les patients comptes en lits occupes.
@@ -131,10 +136,11 @@ LITS_CAPACITE_RE = re.compile(
 # Le denominateur du taux quand la province distingue les deux : « dont 224
 # dans les structures normées », « dont 216 dans les structures dédiées »,
 # « dont 250 dans les structures de prise en charge normées » (132, sans
-# nombre de lits : la capacite se deduit alors du taux et se recoupe).
+# nombre de lits : la capacite se deduit alors du taux et se recoupe),
+# « dont 223 dans les CTE pour 354 lits » (135).
 HOSPITALISES_NORMES_RE = re.compile(
-    r"dont\s+(\d[\d ]{0,4}\d|\d)\s+dans\s+les\s+structures\s+(?:de\s+prise\s+en\s+charge\s+)?"
-    r"(?:norm[ée]es|d[ée]di[ée]es)", re.I)
+    r"dont\s+(\d[\d ]{0,4}\d|\d)\s+dans\s+(?:les\s+structures\s+(?:de\s+prise\s+en\s+charge\s+)?"
+    r"(?:norm[ée]es|d[ée]di[ée]es)|les\s+CTE\b)", re.I)
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
@@ -390,6 +396,37 @@ def confirmer_lits_deduits(points):
                 del ligne["litsDeduits"]
 
 
+def encadrer_lits(points):
+    """Une province sans lits imprimes, entre deux bulletins qui impriment la
+    MEME capacite dans les sept jours avant et apres, recoit cette capacite.
+
+    Le 134 (25 septembre 2026) ecrit « 351 patients sont hospitalisés dont 271
+    dans les structures normées, soit un taux d'occupation de 70,9 % », sans
+    nombre de lits ; et 70,9 % est exactement 251/354, le calcul du 133 : taux
+    recopie, dont aucune capacite ne se deduit (271/0,709 = 382). Le 133 et le
+    135 impriment tous deux 354 lits. Sans cette regle, la serie a definition
+    constante (tous les hospitalises sur les lits) tombait ce jour-la au taux
+    publie, 70,9 %, entre 103,1 et 92,7 : une chute qui n'a pas eu lieu. Le
+    point recoit 351/354 = 99,2 %, et le taux publie reste dans
+    occupationPubliee. Decision du proprietaire, 28 septembre 2026."""
+    for i, p in enumerate(points):
+        for nom, ligne in (p.get("provinces") or {}).items():
+            if ligne.get("lits") or not ligne.get("hospitalises"):
+                continue
+            def imprime(q):
+                v = (q.get("provinces") or {}).get(nom) or {}
+                return v.get("lits") if v.get("lits") and not v.get("litsDeduits") else None
+            avant = next((imprime(q) for q in reversed(points[max(0, i - 7):i]) if imprime(q)), None)
+            apres = next((imprime(q) for q in points[i + 1:i + 8] if imprime(q)), None)
+            if avant and avant == apres:
+                ligne["lits"] = avant
+                ligne["litsEncadres"] = True
+                if "occupation" in ligne and "occupationPubliee" not in ligne:
+                    ligne["occupationPubliee"] = ligne["occupation"]
+                ligne["occupation"] = round(ligne["hospitalises"] / avant * 100, 1)
+                ligne["occupationCalculee"] = True
+
+
 def recalculer_total(point):
     """Le cumul national suit les lignes de province, y compris celles dont la
     capacite vient d'etre confirmee."""
@@ -477,6 +514,7 @@ def main():
         par_date[p["date"]] = p
     final = sorted(par_date.values(), key=lambda p: p["date"])
     confirmer_lits_deduits(final)
+    encadrer_lits(final)
     for p in final:
         recalculer_total(p)
     sortie = {

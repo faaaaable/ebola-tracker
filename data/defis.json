@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-09-25"
+    "fin": "2026-09-26"
   },
   "parDate": [
     {
@@ -4777,6 +4777,90 @@
           "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
           "items": [
             "Couverture encore insuffisante des activités PSEA, seules 41 des 119 zones de santé suivies (34,5 %) connaissant le mécanisme de signalement ; absence de cartographie des intervenants et refus d’alignement de certains partenaires ; insuffisance de supports de sensibilisation de masse et manque de moyens de transport et de kits informatiques pour le pilier."
+          ],
+          "provinces": []
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-26",
+      "sitrepNumber": "135",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "En Ituri, faible transfert des suspects validés (50,0 % ; 1/2) à la suite d’un refus, corps sans vie non swabé au PoC de Dele (0/1), proportion de lavage des mains en deçà de la cible (94,9 %), PoC d’Avakubi non fonctionnel pour insécurité, faible encodage des alertes dans DHIS2 Tracker et insuffisance de mobilité dans les ZS de Rwampara et Bunia ; au Nord-Kivu, attaque armée au PoC de Vulemba/Butuhe (ZS de Kalunguta) ayant coûté la vie à un prestataire, complétude en recul (95,2 % ; 20/21) et prise en charge tardive des alertes par les cellules d’alertes."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu"
+          ]
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "Au Nord-Kivu : faible décontamination des ménages (31,8 % ; 7/22), aucun kit PCI doté aux ménages des cas (0/7), faible promptitude et complétude des rapports (37,5 % ; 6/16), score PCI moyen de 30,4 % dans les ESS évaluées de Musienene et Mabalako, résistance communautaire à l’origine d’un échec d’EDS à Katwa, non-alignement de 86,6 % des membres du pilier sur la liste de motivation et nécessité d’activer les équipes de décontamination à Biena, Masereka, Kyondo, Mabalako et Vuhovi. A la Tshopo : insuffisance d’intrants PCI communautaires (kits PCI/EHA remis à 40,0 % des ménages des cas ; 20/50), seules 2 ESS sur 99 (2,0 %) avec un score PCI supérieur à 80 %, insuffisance de PPL formés et incinérateur de l’HGR Makiso-Kisangani en panne."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "Prise en charge encore partiellement hors normes et capacités limitées : En Ituri, faible capacité d’accueil des CTE/CT de Komanda, Kilo, Mandima et Lolwa, 18 patients sans prise en charge alimentaire à Lolwa (7), Mambasa (6) et Mandima (5) et faible rapportage des mouvements d’ambulances. Au Nord-Kivu, 32,0 % des patients hospitalisés (105/328) sont pris en charge en dehors des CTE, mortalité intra-CTE élevée (39 %) et données manquantes pour Mabalako et Mutwanga. Au Bas-Uélé, absence de CTE normé et d’ambulance pour le transfert des malades."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "Rupture totale de vaccin ERVEBO à la Tshopo (0 dose congelée ; 47 doses décongelées restantes) face à une forte demande de la population et des PPL, avec rupture franche dans 3 ZS (Kabondo, Tshopo et Bafwasende) ; couverture encore partielle de la cible provinciale (42,3 %), faible à Lubunga (16,6 % ; 274/1 646) et à Mangobo (23,4 % ; 540/2 305) ; en Ituri, faible couverture journalière (19,3 %) ; vaccination des PPL non encore démarrée au Nord-Kivu ; absence de données du Bas-Uélé et du Haut-Uélé."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Continuité des Soins",
+          "items": [
+            "Insuffisance des zones de triage et d’isolement et baisse de l’utilisation des services, notamment de la maternité, dans les ESS visitées à la Tshopo ; au Bas-Uélé, faible fréquentation des CPN (58 % en août) et perdus de vue de la vaccination de routine à Rubi Lisanga."
+          ],
+          "provinces": [
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "Au Nord-Kivu, des hommes armés ont fait incursion au PoC de Vulemba (AS de Butuhe, ZS de Kalunguta) et ouvert le feu sur un prestataire commis au screening, ce dernier est décédé sur le lieu."
+          ],
+          "provinces": [
+            "Nord-Kivu"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            "Couverture encore insuffisante des activités PSEA, seules 41 des 119 zones de santé suivies (34,5 %) connaissant le mécanisme de signalement ; non-couverture de toutes les zones touchées par les points focaux et insuffisance de supports de sensibilisation de masse et du code de bonne conduite."
           ],
           "provinces": []
         }

@@ -114,16 +114,32 @@ qui rend aussi son Sud-Ubangi au 133) et **cumul vaccinal en sujet** (« Le cumu
 provincial atteint 4 628 PPL et TPL vaccinés, soit 39,5 % de la cible (11 703) »,
 `VAC_CUMUL_ATTEINT_RE`). Le Bas-Uélé publie sa première cible (13 202).
 
-**À TRANCHER AU SITREP 135 (reporté du 134) : LES LITS DU NORD-KIVU.** Le 134
-n'imprime aucun nombre de lits : « 351 patients sont hospitalisés dont 271 dans
-les structures normées, soit un taux d'occupation de 70,9 % » — et 70,9 % est
-exactement 251/354, le calcul du 133 : taux recopié, question non tranchée. Le 133 écrit « 251 dans
-les structures de prise en charge normées, soit un taux d'occupation de
-81,5 % (354 lits) » : 251/354 = 70,9 %, et 81,5 % est 251/308, la capacité des
-130 à 132. Le site garde l'imprimé (354 lits, 103,1 %), inscrit dans
-`EXCEPTIONS_SOURCE`. Si le 134 imprime 354, la capacité a grandi et
-`chartNoteCteCapacite` dit juste ; s'il revient à 308, le 354 était une
-coquille et le 133 doit passer à 308 (118,5 %).
+**SitRep 135 intégré et PUBLIÉ le 28 septembre 2026** (rapportage du 26, publié
+le 27) — 8 067 cas, 3 901 décès, létalité 48,4 %, **78 nouveaux cas** (Ituri 57,
+Nord-Kivu 17, Haut-Uélé 3, Bas-Uélé 1), 49 décès du jour (34 communautaires,
+15 intra-CTE), contacts **74,7 %**. Trois motifs : **quinzième tournure des
+contacts** (« La proportion de suivi au décours du 26 septembre 2026 était de
+74,7% (23 187/31 034) », ajoutée à `CONTACTS_SITUE_RE`, qui sert désormais aussi
+au taux) ; **hospitalisés avec ventilation** (« 328 patients (97 confirmés et
+231 suspects) sont hospitalisés » — la ligne prenait les « 105 autres » hors
+CTE) ; **« dont 223 dans les CTE »** comme dénominateur du taux publié.
+
+**LES LITS DU NORD-KIVU SONT TRANCHÉS AU 135 : 354.** « 223 dans les CTE pour
+354 lits, soit un taux d'occupation de 63,0 % » — 223/354 = 63,0 %. La capacité
+a grandi ; c'est le **taux du 133** (81,5 % = 251/308) qui était faux, et son
+exception dans `EXCEPTIONS_SOURCE` reste. Le **134** n'imprimait aucun lit et
+recopiait le taux du 133 (70,9 % = 251/354) : sa courbe tombait à 70,9 % entre
+103,1 et 92,7. **`encadrer_lits()`** (`extraire_cte.py`, décision du
+propriétaire le 28 septembre 2026) : une province sans lits imprimés, entre
+deux bulletins qui impriment la **même** capacité dans les sept jours avant et
+après, reçoit cette capacité (`litsEncadres`) ; le taux publié reste dans
+`occupationPubliee`. Le 25 septembre passe à 351/354 = **99,2 %**, et le 134
+entre dans `EXCEPTIONS_SOURCE` (271/354 = 76,6 % contre 70,9 % imprimé). La
+règle, générique, a aussi donné leurs lits à trois points anciens dont le taux
+publié tombait déjà juste — Haut-Uélé le 26 août (68/120), Sud-Kivu les 7 et
+8 septembre (20/25, 19/25) : occupation de province inchangée, KPI national de
+ces jours-là décalé de 0,3 à 0,7 point (le périmètre s'élargit). Accepté par le
+propriétaire.
 
 **UN CUMUL NE RECULE PAS : LE GRAPHIQUE DE VACCINATION PORTE LA VALEUR
 RÉVISÉE** (23 septembre 2026, décision du propriétaire). Tracée telle quelle,
