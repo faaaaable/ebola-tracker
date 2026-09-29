@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "029e5cba",
+   "date": "2026-09-29",
+   "titre": "Ebola à Kisangani : les structures sanitaires appelées à renforcer les mesures préventives",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-kisangani-les-structures-sanitaires-appelees-a-renforcer-les-mesures-preventives/",
+   "langue": "fr",
+   "resume": "Un appel à l’application stricte des mesures préventives pour prévenir la contamination et la propagation de la maladie à…",
+   "statut": "publie",
+   "collecte": "2026-09-29",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "fbb1d0c6",
    "date": "2026-09-28",
    "titre": "Ebola dans le Haut-Uélé : la maladie touche désormais huit zones de santé sur 13",
