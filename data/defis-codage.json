@@ -105,6 +105,14 @@
 ]
 }
 ],
+"au bas uélé l absence de cte normé et d ambulance pour le transfert des malades demeure un défi opérationnel majeur": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
 "au bas uélé la décontamination du ménage des proches du premier cas confirmé de buta n a toujours pas pu être réalisée en raison d une résistance communautaire continue le pré rupture de plusieurs intrants pci retardant le briefing des prestataires des zs": [
 {
 "province": "Bas-Uélé",
@@ -149,6 +157,14 @@
 ]
 }
 ],
+"au haut uélé couverture insuffisante des zones touchées manque de supports de sensibilisation et de codes de bonne conduite ainsi que de moyens de transport de matériel informatique et de fournitures de bureau": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
 "au haut uélé couverture smsps insuffisante au nord kivu seules # zs sont couvertes par des interventions autour des derniers cas et les crèches font défaut dans les cte en ituri aucune couverture à bambu nia nia mambasa et lolwa": [],
 "au haut uélé couverture smsps insuffisante au nord kivu seules # zs sont couvertes par des interventions autour des derniers cas et les crèches font défaut dans les cte en ituri aucune couverture à bambu nia nia mambasa et lolwa la couverture reste limitée à # des # zs ayant notifié #": [],
 "au haut uélé deux véhicules de la croix rouge accompagnant un corps sans vie ont été vandalisés à # km d isiro et les volontaires molestés une ambulance de la zs de pawa a été attaquée lors du transfert d un suspect une équipe mixte surveillance crec a été menacée avenue senze quartier bazanga ville d isiro lors de l investigation d une alerte": [
@@ -164,6 +180,14 @@
 "province": "Haut-Uélé",
 "obstacles": [
 "ruptures"
+]
+}
+],
+"au haut uélé l augmentation des admissions # par rapport aux sorties # continue d accroître la charge des structures de prise en charge": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"saturation"
 ]
 }
 ],
@@ -394,6 +418,14 @@
 "obstacles": [
 "completude",
 "ruptures"
+]
+}
+],
+"au nord kivu une proportion importante des patients reste constituée de cas suspects # # # # augmentant la pression sur les capacités d isolement": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"saturation"
 ]
 }
 ],
@@ -1611,6 +1643,42 @@
 ]
 }
 ],
+"en ituri la couverture d ouverture des rings # # et la décontamination des fosa # # demeurent faibles tandis que # corps n ont pas été swabés au nord kivu la décontamination des ménages reste limitée # # # # et la promptitude complétude des rapports pci est de # # # # zs au haut uélé la faible remontée des données pci et l absence d infrastructures adaptées dans certaines zones continuent d affecter la mise en œuvre des activités à la tshopo seuls # # des ess # # ont obtenu un score pci supérieur à # tandis que la couverture de dotation des ménages en kits pci eha reste limitée à # # # #": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Ituri",
+"obstacles": [
+"eds"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"en ituri la faible capacitée d accueil de certains cte ct et l insuffisance de la prise en charge alimentaire demeurent préoccupantes": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"saturation"
+]
+}
+],
 "en ituri les équipes de santé animale ne peuvent réaliser de prélèvements faute de formation alors que # animaux morts ont été investigués et # nouveaux cas d hématurie bovine notifiés à berunda au sud kivu et au haut uélé la démotivation des acteurs liée au non paiement persiste et a entraîné l arrêt de cinq poc au haut uélé": [
 {
 "province": "Haut-Uélé",
@@ -1692,6 +1760,7 @@
 ]
 }
 ],
+"en ituri renforcer rapidement les capacités des psychologues et des agents psychosociaux pour les interventions autour des cas à mandima": [],
 "en ituri une équipe de riposte a été chassée à la machette lors d une tentative d eds dans la zs de kilo où # incidents de réticence ont été enregistrés dont # résolus et un refus d eds signalé au nord kivu l accès au ménage d un cas confirmé de l as de butsili zs de beni a été bloqué empêchant l annonce du résultat et la route menant au cimetière de bundji reste impraticable": [
 {
 "province": "Ituri",
@@ -3507,6 +3576,29 @@
 "province": "Ituri",
 "obstacles": [
 "saturation"
+]
+}
+],
+"malgré la fonctionnalité de # des poe poc stratégiques la couverture du dépistage # # et du lavage des mains # # demeure en deçà de la cible opérationnelle de # par ailleurs la complétude des rapports reste insuffisante # # # # particulièrement en ituri # # # # et au nord kivu # # # # l unique alerte validée aux poe poc a été rapportée en ituri soulignant la nécessité de maintenir un haut niveau de vigilance dans les zones de transmission active": [
+{
+"province": "Ituri",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "aucune",
+"obstacles": [
+"completude",
+"poc"
 ]
 }
 ],
@@ -6477,6 +6569,14 @@
 ]
 }
 ],
+"à la tshopo former les agents psychosociaux de wanie rukula et de bafwasende renforcer les moyens de communication et de déplacement du pilier et apporter un soutien matériel à la famille du guéri de bafwandambo": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
 "à la tshopo insuffisance d epi dans les ess et panne de l incinérateur de l hgr makiso kisangani": [
 {
 "province": "Tshopo",
@@ -6580,6 +6680,16 @@
 }
 ],
 "à la tshopo insuffisance d intrants pci dans les ménages écoles marchés et églises faible proportion d ess ayant un score pci supérieur à # # # # et incinérateur de l hgr makiso kisangani toujours en panne au bas uélé absence de zones de gestion des déchets et d unités de triage conformes dans les # ess hotspots de # zones de santé prestataires non formés en pci dans les # zs prioritaires et absence de superviseurs pci": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"à la tshopo la présence continue de cas confirmés en isolement nécessite le maintien des mesures de prévention et contrôle de l infection": [],
+"à la tshopo renforcer la compréhension de l utilisation du thermoflash les mesures pci et la communication sur la continuité des soins essentiels la fermeture provisoire de l ess dhkis figure parmi les actions prioritaires proposées face à la multiplication des cas confirmés et suspects": [],
+"à la tshopo rupture du stock congelé d ervebo et absence de doses dans les zs de kabondo tshopo et bafwasende dans un contexte de forte demande la couverture reste faible à lubunga avec # # # personnes vaccinées # # et à mangobo avec # # # # # au bas uélé mise en service effective de la chaîne du froid à ultra basse température et extension de la couverture vaccinale en ituri la cible des ppl tpl reste à redéfinir aucun taux de couverture fiable n est calculé sur cette base dans la présentation": [
 {
 "province": "Tshopo",
 "obstacles": [

@@ -93,6 +93,15 @@ PROVINCE_RE = re.compile(
 
 # Repli pour les bulletins SANS ce tableau (017, et à partir du 059 où la
 # valeur ne figure plus que dans la bande de chiffres clés de la page 1).
+# SitRep 136 (27 septembre 2026) : « La proportion de suivi au décours du
+# 27 septembre 2026 était de 75,9 %. » Sans ce motif, CONTACTS_RE prenait la
+# phrase suivante — « À titre comparatif, le taux de suivi des contacts était
+# de 74,7 % au 26 septembre 2026, contre [valeur validée] au 27 » —, c'est-a-
+# dire le chiffre de LA VEILLE (le bulletin a laisse son gabarit non rempli).
+CONTACTS_DECOURS_RE = re.compile(
+    r"proportion de suivi au décours du[^%]{0,40}?était de\s+(\d+(?:[,.]\d+)?)\s*%",
+    re.IGNORECASE | re.DOTALL,
+)
 CONTACTS_RE = re.compile(
     r"(?:taux de suivi des contacts|suivi des contacts|proportion des contacts suivis)"
     r".{0,80}?(\d[\d,]*)\s*%",
@@ -408,7 +417,16 @@ def rate_from_lines(full_text):
 def rate_from_text(full_text):
     """Repli sur le texte linéaire, en refusant tout nombre annoncé comme
     une cible."""
+    m = CONTACTS_DECOURS_RE.search(full_text)
+    if m:
+        value = float(m.group(1).replace(",", "."))
+        if 0 <= value <= 100:
+            return value, "texte (repli, « proportion de suivi au décours du … était de »)"
     for m in CONTACTS_RE.finditer(full_text):
+        # « … était de 74,7 % au 26 septembre 2026, contre … » : un taux date
+        # d'un autre jour est une comparaison, pas la mesure du bulletin.
+        if re.match(r"\s*au\s+\d{1,2}\s+\w+\s+20\d\d,\s*contre", full_text[m.end():m.end() + 40]):
+            continue
         before = full_text[max(0, m.start(1) - 40): m.start(1)]
         if TARGET_RE.search(before):
             continue

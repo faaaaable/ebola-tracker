@@ -104,6 +104,26 @@ def cellules(ligne, n, valide=None):
 TITRE_D_RE = re.compile(r"Situation des alertes notifi[ée]es par (?:province|ZS)", re.I)
 LIGNE_D_RE = re.compile(r"\n\s*(%s)\s*\*?\s+([^\n]+)" % PROVINCES_RE)
 TOTAL_D_RE = re.compile(r"\n\s*Total\s*(?:\n\s*)?G[ée]n[ée]ral\s+([^\n]+)", re.I)
+# 136 : « Total⏎1 735 77 1 812 185 98 1 496 0 283 115⏎Général » — les
+# chiffres entre les deux mots.
+TOTAL_D_COUPE_RE = re.compile(r"\n\s*Total\s*\n\s*([\d][\d ]+)\n\s*G[ée]n[ée]ral", re.I)
+
+
+def cellules_D(ligne):
+    """Les neuf cellules d'une ligne du tableau D. Au 136 (27 septembre 2026)
+    la ligne du Nord-Kivu n'a que huit nombres — « 761 761 77 21 630 0 98 46 »
+    —, la case des alertes reçues DECEDEES etant vide : vivants 761 = total
+    761. Une ligne a huit nombres dont les deux premiers sont egaux se lit
+    ainsi, decedes vides ; la ligne etait sinon ecartee, et le total national
+    recalcule sans le Nord-Kivu (1 051 alertes au lieu de 1 812)."""
+    ok = lambda c: c[2] is not None and c[2] == (c[0] or 0) + (c[1] or 0)
+    c = cellules(ligne, 9, valide=ok)
+    if c is not None and ok(c):
+        return c
+    for d in decoupages(ligne, 8):
+        if d[0] is not None and d[0] == d[1]:
+            return [d[0], None] + d[1:]
+    return c
 
 
 def lire_D(texte):
@@ -114,8 +134,7 @@ def lire_D(texte):
     provinces = {}
     for lm in LIGNE_D_RE.finditer(section):
         nom = canon(lm.group(1))
-        c = cellules(lm.group(2), 9,
-                     valide=lambda c: c[2] is not None and c[2] == (c[0] or 0) + (c[1] or 0))
+        c = cellules_D(lm.group(2))
         if c is None or nom in provinces:
             continue
         recues_v, recues_d, recues, val_v, val_d, inv_v, inv_d, investigues, transferes = c
@@ -131,7 +150,7 @@ def lire_D(texte):
     if not provinces:
         return None
     total = None
-    tm = TOTAL_D_RE.search(section)
+    tm = TOTAL_D_RE.search(section) or TOTAL_D_COUPE_RE.search(section)
     if tm:
         c = cellules(tm.group(1), 9,
                      valide=lambda c: c[2] is not None and c[2] == (c[0] or 0) + (c[1] or 0))

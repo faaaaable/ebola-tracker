@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-09-26"
+    "fin": "2026-09-27"
   },
   "parDate": [
     {
@@ -1921,7 +1921,6 @@
         "verifiees": 1070,
         "suspectsInvestigues": 264,
         "transferes": 165,
-        "calcule": true,
         "partVerifiee": 93.8
       },
       "source": "SitRep INSP (automatique)",
@@ -1972,7 +1971,8 @@
         "recues": 1318,
         "verifiees": 1318,
         "validees": 443,
-        "calcule": true,
+        "suspectsInvestigues": 305,
+        "transferes": 198,
         "partVerifiee": 100.0,
         "partValidee": 33.6
       },
@@ -2025,7 +2025,6 @@
         "validees": 258,
         "suspectsInvestigues": 258,
         "transferes": 124,
-        "calcule": true,
         "partVerifiee": 99.2,
         "partValidee": 20.1
       },
@@ -2128,7 +2127,8 @@
         "recues": 1605,
         "verifiees": 1488,
         "validees": 389,
-        "calcule": true,
+        "suspectsInvestigues": 389,
+        "transferes": 221,
         "partVerifiee": 92.7,
         "partValidee": 24.2
       },
@@ -2181,7 +2181,6 @@
         "validees": 325,
         "suspectsInvestigues": 324,
         "transferes": 195,
-        "calcule": true,
         "partVerifiee": 92.3,
         "partValidee": 21.1
       },
@@ -2291,7 +2290,8 @@
         "recues": 1679,
         "verifiees": 1630,
         "validees": 330,
-        "calcule": true,
+        "suspectsInvestigues": 312,
+        "transferes": 253,
         "partVerifiee": 97.1,
         "partValidee": 19.7
       },
@@ -2349,7 +2349,8 @@
         "recues": 1699,
         "verifiees": 1549,
         "validees": 403,
-        "calcule": true,
+        "suspectsInvestigues": 334,
+        "transferes": 246,
         "partVerifiee": 91.2,
         "partValidee": 23.7
       },
@@ -2400,7 +2401,8 @@
         "recues": 1730,
         "verifiees": 1575,
         "validees": 380,
-        "calcule": true,
+        "suspectsInvestigues": 306,
+        "transferes": 263,
         "partVerifiee": 91.0,
         "partValidee": 22.0
       },
@@ -2578,7 +2580,6 @@
         "validees": 389,
         "suspectsInvestigues": 388,
         "transferes": 237,
-        "calcule": true,
         "partVerifiee": 88.9,
         "partValidee": 21.1
       },
@@ -2636,7 +2637,8 @@
         "recues": 1904,
         "verifiees": 1752,
         "validees": 366,
-        "calcule": true,
+        "suspectsInvestigues": 327,
+        "transferes": 185,
         "partVerifiee": 92.0,
         "partValidee": 19.2
       },
@@ -2696,7 +2698,6 @@
         "validees": 301,
         "suspectsInvestigues": 239,
         "transferes": 188,
-        "calcule": true,
         "partVerifiee": 84.4,
         "partValidee": 19.0
       },
@@ -2756,7 +2757,6 @@
         "validees": 345,
         "suspectsInvestigues": 345,
         "transferes": 191,
-        "calcule": true,
         "partVerifiee": 89.9,
         "partValidee": 20.8
       },
@@ -2816,7 +2816,6 @@
         "validees": 212,
         "suspectsInvestigues": 198,
         "transferes": 123,
-        "calcule": true,
         "partVerifiee": 95.3,
         "partValidee": 18.2
       },
@@ -2876,7 +2875,6 @@
         "validees": 277,
         "suspectsInvestigues": 275,
         "transferes": 101,
-        "calcule": true,
         "partVerifiee": 86.9,
         "partValidee": 18.0
       },
@@ -2936,7 +2934,6 @@
         "validees": 311,
         "suspectsInvestigues": 311,
         "transferes": 175,
-        "calcule": true,
         "partVerifiee": 92.4,
         "partValidee": 17.3
       },
@@ -2994,7 +2991,8 @@
         "recues": 2371,
         "verifiees": 2174,
         "validees": 390,
-        "calcule": true,
+        "suspectsInvestigues": 390,
+        "transferes": 204,
         "partVerifiee": 91.7,
         "partValidee": 16.4
       },
@@ -3052,7 +3050,8 @@
         "recues": 2026,
         "verifiees": 1678,
         "validees": 431,
-        "calcule": true,
+        "suspectsInvestigues": 431,
+        "transferes": 200,
         "partVerifiee": 82.8,
         "partValidee": 21.3
       },
@@ -3170,7 +3169,8 @@
         "recues": 2025,
         "verifiees": 1639,
         "validees": 395,
-        "calcule": true,
+        "suspectsInvestigues": 395,
+        "transferes": 248,
         "partVerifiee": 80.9,
         "partValidee": 19.5
       },
@@ -3230,7 +3230,6 @@
         "validees": 320,
         "suspectsInvestigues": 320,
         "transferes": 181,
-        "calcule": true,
         "partVerifiee": 77.4,
         "partValidee": 17.5
       },
@@ -3288,7 +3287,8 @@
         "recues": 1628,
         "verifiees": 1541,
         "validees": 258,
-        "calcule": true,
+        "suspectsInvestigues": 258,
+        "transferes": 133,
         "partVerifiee": 94.7,
         "partValidee": 15.8
       },
@@ -3348,7 +3348,6 @@
         "validees": 454,
         "suspectsInvestigues": 454,
         "transferes": 246,
-        "calcule": true,
         "partVerifiee": 84.1,
         "partValidee": 18.6
       },
@@ -3406,7 +3405,8 @@
         "recues": 1705,
         "verifiees": 1632,
         "validees": 348,
-        "calcule": true,
+        "suspectsInvestigues": 348,
+        "transferes": 186,
         "partVerifiee": 95.7,
         "partValidee": 20.4
       },
@@ -3466,7 +3466,6 @@
         "validees": 433,
         "suspectsInvestigues": 433,
         "transferes": 240,
-        "calcule": true,
         "partVerifiee": 99.0,
         "partValidee": 16.6
       },
@@ -3524,7 +3523,8 @@
         "recues": 1792,
         "verifiees": 1512,
         "validees": 345,
-        "calcule": true,
+        "suspectsInvestigues": 345,
+        "transferes": 190,
         "partVerifiee": 84.4,
         "partValidee": 19.3
       },
@@ -3584,7 +3584,6 @@
         "validees": 399,
         "suspectsInvestigues": 399,
         "transferes": 222,
-        "calcule": true,
         "partVerifiee": 91.2,
         "partValidee": 18.6
       },
@@ -3642,7 +3641,8 @@
         "recues": 1628,
         "verifiees": 1369,
         "validees": 286,
-        "calcule": true,
+        "suspectsInvestigues": 286,
+        "transferes": 136,
         "partVerifiee": 84.1,
         "partValidee": 17.6
       },
@@ -3700,7 +3700,8 @@
         "recues": 1406,
         "verifiees": 1159,
         "validees": 215,
-        "calcule": true,
+        "suspectsInvestigues": 215,
+        "transferes": 99,
         "partVerifiee": 82.4,
         "partValidee": 15.3
       },
@@ -3820,7 +3821,6 @@
         "validees": 408,
         "suspectsInvestigues": 408,
         "transferes": 229,
-        "calcule": true,
         "partVerifiee": 64.9,
         "partValidee": 19.1
       },
@@ -3880,7 +3880,6 @@
         "validees": 386,
         "suspectsInvestigues": 386,
         "transferes": 205,
-        "calcule": true,
         "partVerifiee": 85.8,
         "partValidee": 19.9
       },
@@ -3945,7 +3944,8 @@
         "recues": 2254,
         "verifiees": 1846,
         "validees": 429,
-        "calcule": true,
+        "suspectsInvestigues": 429,
+        "transferes": 192,
         "partVerifiee": 81.9,
         "partValidee": 19.0
       },
@@ -4010,7 +4010,8 @@
         "recues": 1923,
         "verifiees": 1658,
         "validees": 372,
-        "calcule": true,
+        "suspectsInvestigues": 372,
+        "transferes": 204,
         "partVerifiee": 86.2,
         "partValidee": 19.3
       },
@@ -4075,7 +4076,8 @@
         "recues": 1978,
         "verifiees": 1801,
         "validees": 445,
-        "calcule": true,
+        "suspectsInvestigues": 445,
+        "transferes": 197,
         "partVerifiee": 91.1,
         "partValidee": 22.5
       },
@@ -4142,7 +4144,6 @@
         "validees": 351,
         "suspectsInvestigues": 351,
         "transferes": 189,
-        "calcule": true,
         "partVerifiee": 89.9,
         "partValidee": 17.9
       },
@@ -4207,7 +4208,8 @@
         "recues": 2022,
         "verifiees": 1568,
         "validees": 413,
-        "calcule": true,
+        "suspectsInvestigues": 408,
+        "transferes": 207,
         "partVerifiee": 77.5,
         "partValidee": 20.4
       },
@@ -4274,7 +4276,6 @@
         "validees": 423,
         "suspectsInvestigues": 423,
         "transferes": 185,
-        "calcule": true,
         "partVerifiee": 75.8,
         "partValidee": 16.3
       },
@@ -4334,7 +4335,6 @@
         "validees": 417,
         "suspectsInvestigues": 417,
         "transferes": 202,
-        "calcule": true,
         "partVerifiee": 86.5,
         "partValidee": 18.8
       },
@@ -4394,7 +4394,6 @@
         "validees": 360,
         "suspectsInvestigues": 360,
         "transferes": 183,
-        "calcule": true,
         "partVerifiee": 78.1,
         "partValidee": 19.4
       },
@@ -4510,7 +4509,8 @@
         "recues": 1764,
         "verifiees": 1746,
         "validees": 318,
-        "calcule": true,
+        "suspectsInvestigues": 313,
+        "transferes": 127,
         "partVerifiee": 99.0,
         "partValidee": 18.0
       },
@@ -4568,7 +4568,8 @@
         "recues": 1898,
         "verifiees": 1872,
         "validees": 359,
-        "calcule": true,
+        "suspectsInvestigues": 355,
+        "transferes": 212,
         "partVerifiee": 98.6,
         "partValidee": 18.9
       },
@@ -4628,7 +4629,6 @@
         "validees": 449,
         "suspectsInvestigues": 427,
         "transferes": 195,
-        "calcule": true,
         "partVerifiee": 95.8,
         "partValidee": 16.0
       },
@@ -4688,7 +4688,6 @@
         "validees": 353,
         "suspectsInvestigues": 342,
         "transferes": 165,
-        "calcule": true,
         "partVerifiee": 98.2,
         "partValidee": 16.2
       },
@@ -4748,7 +4747,6 @@
         "validees": 300,
         "suspectsInvestigues": 290,
         "transferes": 175,
-        "calcule": true,
         "partVerifiee": 98.6,
         "partValidee": 16.0
       },
@@ -4808,7 +4806,6 @@
         "validees": 321,
         "suspectsInvestigues": 315,
         "transferes": 170,
-        "calcule": true,
         "partVerifiee": 98.3,
         "partValidee": 16.7
       },
@@ -4868,9 +4865,68 @@
         "validees": 355,
         "suspectsInvestigues": 338,
         "transferes": 172,
-        "calcule": true,
         "partVerifiee": 89.1,
         "partValidee": 15.2
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-27",
+      "sitrepNumber": "136",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 11,
+          "verifiees": 11,
+          "validees": 11,
+          "suspectsInvestigues": 11,
+          "transferes": 7
+        },
+        "Bas-Uélé": {
+          "recues": 115,
+          "verifiees": 115,
+          "validees": 9,
+          "suspectsInvestigues": 9,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 854,
+          "verifiees": 850,
+          "validees": 160,
+          "suspectsInvestigues": 160,
+          "transferes": 62
+        },
+        "Nord-Kivu": {
+          "recues": 761,
+          "verifiees": 728,
+          "validees": 98,
+          "suspectsInvestigues": 98,
+          "transferes": 46
+        },
+        "Sud-Ubangi": {
+          "recues": 14,
+          "verifiees": 14,
+          "validees": 4,
+          "suspectsInvestigues": 4,
+          "transferes": 0
+        },
+        "Tshopo": {
+          "recues": 57,
+          "verifiees": 57,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 0
+        }
+      },
+      "total": {
+        "recues": 1812,
+        "verifiees": 1775,
+        "validees": 283,
+        "suspectsInvestigues": 283,
+        "transferes": 115,
+        "calcule": true,
+        "partVerifiee": 98.0,
+        "partValidee": 15.6
       },
       "source": "SitRep INSP (automatique)"
     }

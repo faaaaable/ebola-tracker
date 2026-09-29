@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-09-26"
+  "fin": "2026-09-27"
  },
  "parDate": [
   {
@@ -2534,6 +2534,56 @@
      },
      "Ituri": {
       "cumul": 436
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-27",
+   "sitrepNumber": "136",
+   "poe": {
+    "personnes": null,
+    "screenesPct": 97.5,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 53,
+    "attendus": 73
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 99,
+    "swabes": 59,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 2,
+     "swabes": 1
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 536,
+     "Bas-Uélé": 1000,
+     "Tshopo": 4953
+    },
+    "rupture": false,
+    "provinces": {
+     "Ituri": {
+      "cumul": 536
+     },
+     "Bas-Uélé": {
+      "cumul": 1000,
+      "cible": 13202,
+      "couverture": 7.6
+     },
+     "Tshopo": {
+      "cumul": 4953,
+      "cible": 11703,
+      "couverture": 42.3,
+      "doses": {
+       "decongelees": 47
+      }
      }
     }
    },

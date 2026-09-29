@@ -78,6 +78,9 @@ HOSPITALISES_RES = [
     # prenait les « 105 autres » pris en charge hors CTE.
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,60}\)\s*sont\s+hospitalis", re.I),
     re.compile(r"occupation\s+atteint\s+(\d[\d ]{0,4}\d|\d)\s+patients", re.I),
+    # « Au total, 368 patients demeuraient en isolement à la fin de la
+    # journée » et « 345 patients demeuraient hospitalisés » (136).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+demeuraient\s+(?:en\s+isolement|hospitalis)", re.I),
     # « L'occupation des structures de prise en charge atteint 488 lits sur
     # 833 (59 %) » (084, 6 aout) : les patients comptes en lits occupes.
     re.compile(r"occupation[^.;]{0,60}?atteint\s+(\d[\d ]{0,4}\d|\d)\s+lits\s+sur\s+\d", re.I),
@@ -239,7 +242,12 @@ def section_prose(texte):
         return None
     reste = texte[m.end():]
     f = FIN_RE.search(reste)
-    return (reste[:f.start()] if f else reste[:3000])[:4000]
+    reste = (reste[:f.start()] if f else reste[:3000])[:4000]
+    # Le bilan national qui clot la section (« Au total, 146 nouvelles
+    # admissions … Ainsi, 803 patients demeuraient en isolement », 136) serait
+    # sinon lu comme la ligne de la derniere province citee.
+    g = re.search(r"\n\s*Au total,\s*\d[\d ]*\s+nouvelles\s+admissions", reste)
+    return reste[:g.start()] if g else reste
 
 
 def lire_par_prose(texte):
@@ -481,6 +489,46 @@ def encadrer_lits(points):
                 ligne["occupationCalculee"] = True
 
 
+def recouper_lits_precedents(points):
+    """Le DERNIER bulletin n'a pas de voisin suivant, et encadrer_lits ne peut
+    rien pour lui. Le 136 (27 septembre 2026) ne publie aucun nombre de lits :
+    « 368 patients … Le taux d'occupation des lits était de 36,3 % » (Ituri).
+    Une province sans lits recoit la capacite imprimee dans les sept jours
+    precedents :
+    - si le taux publie retombe dessus a 0,15 point pres (368/1 015 = 36,3 %,
+      68/138 = 49,3 %), la capacite est recoupee ;
+    - sinon le taux ne mesure pas la meme chose (Nord-Kivu : 63,0 % pour 345
+      patients, recopie du 135, quand 345/354 = 97,5 %) : il passe en
+      occupationPubliee, et la serie a definition constante prend la capacite
+      de la veille, comme encadrer_lits le fait pour un taux recopie
+      (decision du proprietaire du 28 septembre 2026).
+    Le bulletin suivant tranche : ce point n'est plus le dernier, et
+    encadrer_lits le reprend ou le laisse sans lits. Seul le dernier point
+    est concerne — l'historique garde ses taux publies."""
+    if not points:
+        return
+    i = len(points) - 1
+    p = points[i]
+    for nom, ligne in (p.get("provinces") or {}).items():
+        if ligne.get("lits") or not ligne.get("hospitalises") or ligne.get("occupation") is None:
+            continue
+        def imprime(q):
+            v = (q.get("provinces") or {}).get(nom) or {}
+            return v.get("lits") if v.get("lits") and not v.get("litsDeduits") else None
+        avant = next((imprime(q) for q in reversed(points[max(0, i - 7):i]) if imprime(q)), None)
+        if not avant:
+            continue
+        calcule = round(ligne["hospitalises"] / avant * 100, 1)
+        ligne["lits"] = avant
+        if abs(calcule - ligne["occupation"]) <= 0.15:
+            ligne["litsRecoupes"] = True
+        else:
+            ligne["litsReportes"] = True
+            ligne["occupationPubliee"] = ligne["occupation"]
+            ligne["occupation"] = calcule
+            ligne["occupationCalculee"] = True
+
+
 def recalculer_total(point):
     """Le cumul national suit les lignes de province, y compris celles dont la
     capacite vient d'etre confirmee."""
@@ -569,6 +617,7 @@ def main():
     final = sorted(par_date.values(), key=lambda p: p["date"])
     confirmer_lits_deduits(final)
     encadrer_lits(final)
+    recouper_lits_precedents(final)
     for p in final:
         recalculer_total(p)
     sortie = {

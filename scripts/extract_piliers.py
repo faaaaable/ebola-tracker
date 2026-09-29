@@ -223,6 +223,15 @@ VAC_CUMUL_TPL_RE = re.compile(
 VAC_CUMUL_ATTEINT_RE = re.compile(
     r"cumul(?:\s+provincial)?\s+atteint\s+" + NUM
     + r"\s+(?:TPL\s+et\s+PPL|PPL\s+et\s+TPL|PPL|TPL|personnes)\s+vaccinée?s", re.I)
+# SitRep 136 (27 septembre 2026) : « À la Tshopo, le dernier bilan présenté, daté
+# du 26 septembre, fait état de 4 953 PPL/TPL vaccinés sur une cible de 11 703,
+# soit 42,3 %. » Sans ce motif la Tshopo perdait son cumul, et la section Défis
+# — « 274/1 646 personnes vaccinées » a Lubunga — le lui donnait a 1 646.
+VAC_CUMUL_ETAT_RE = re.compile(
+    r"fait\s+état\s+de\s+" + NUM
+    + r"\s+(?:PPL\s*/\s*TPL|TPL\s*/\s*PPL|TPL\s+et\s+PPL|PPL\s+et\s+TPL|PPL|TPL|personnes)\s+vaccinée?s", re.I)
+VAC_CIBLE_UNE_RE = re.compile(
+    r"sur\s+une\s+cible\s+de\s+" + NUM + r"\s*,\s*soit\s+(\d+(?:[,.]\d+)?)\s*%", re.I)
 VAC_CIBLE_SOIT_RE = re.compile(
     r"soit\s+(\d+(?:[,.]\d+)?)\s*%\s+de\s+la\s+cible\s+"
     r"(?:de\s+|(?:du\s+microplan\s*)?\(\s*)" + NUM, re.I)
@@ -295,11 +304,15 @@ def lire_vaccination_detail(corps):
     for prov, seg in _segments_provinces(t):
         ligne = {}
         m = (VAC_CUMUL_RE.search(seg) or VAC_CUMUL_TPL_RE.search(seg)
-             or VAC_CUMUL_ATTEINT_RE.search(seg))
+             or VAC_CUMUL_ATTEINT_RE.search(seg) or VAC_CUMUL_ETAT_RE.search(seg))
         if m:
             ligne["cumul"] = entier(m.group(1))
         m = VAC_CIBLE_RE.search(seg)
         if m:
+            ligne["cible"] = entier(m.group(1))
+            ligne["couverture"] = float(m.group(2).replace(",", "."))
+        elif VAC_CIBLE_UNE_RE.search(seg):
+            m = VAC_CIBLE_UNE_RE.search(seg)
             ligne["cible"] = entier(m.group(1))
             ligne["couverture"] = float(m.group(2).replace(",", "."))
         else:
@@ -414,7 +427,9 @@ def lire_vaccination(corps, texte_entier):
         if m and ("vaccin" in phr.lower()):
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         m = re.search(NUM + r" (?:PPL|personnes)(?: de première ligne)? (?:ont été )?vaccinée?s", phr)
-        if m:
+        # « 274/1 646 personnes vaccinées » (Defis, zone de Lubunga) : un rapport
+        # vaccines/cible d'une zone, pas un cumul provincial.
+        if m and phr[max(0, m.start() - 1):m.start()] != "/":
             pose(_province_ici(m), entier(m.group(1)))
         prec = phr
     rupture = bool(re.search(r"[Rr]upture de stock d[’']Ervebo|stock résiduel à zéro", t))
