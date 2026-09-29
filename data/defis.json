@@ -802,6 +802,18 @@
             "Nord-Kivu",
             "Haut-Uélé"
           ]
+        },
+        {
+          "pilier": "logistique",
+          "titre": "Logistique",
+          "items": [
+            "Persistance de besoins logistiques pour soutenir l’expansion de la riposte : achèvement des extensions des CTE de Nizi, ISTM et Bambu en Ituri ; ruptures de stock signalées à la Tshopo (couvre-tête et masques chirurgicaux à zéro, 349 kg de chlore disponibles pour un besoin de 1 800 kg, gels hydro-alcooliques et lunettes de protection quasi épuisés) et alerte sur le stock de carburant au Haut-Uélé ; besoins de mobilité non couverts (178 motos et 7 véhicules manquants à la Tshopo, véhicule permanent pour les équipes de sécurité et les EDS au Nord- Kivu et au Haut-Uélé) ; entreposage en cascade des intrants au Haut-Uélé."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
+            "Tshopo"
+          ]
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -942,6 +954,19 @@
             "Nord-Kivu",
             "Bas-Uélé"
           ]
+        },
+        {
+          "pilier": "logistique",
+          "titre": "Logistique",
+          "items": [
+            "Persistance de besoins logistiques pour soutenir l’expansion de la riposte : achèvement des extensions des CTE de Nizi, ISTM et Bambu en Ituri, besoins en 4 boîtes à gants (ZS de Fataki, Bambu-mine, Lita et Rwampara), en cryotubes et en cryoboxes ; rupture d’intrants, d’EPI et d’approvisionnement en eau dans l’ensemble des PoE/PoC activés du Haut-Uélé et absence de moyen de transport pour les supervisions et les EDS ; déploiement des intrants PCI vers les 7 zones de l’ouest et du nord du Bas-Uélé et transport des échantillons vers le site Rad-One ; absence de corbillard dans toutes les ZS du Nord-Kivu et ruptures de stock en EPI dans les CTE et CT"
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé"
+          ]
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -1021,6 +1046,19 @@
             "Bas-Uélé",
             "Tshopo"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité",
+          "items": [
+            "le Nord-Kivu, l’Ituri, le Haut-Uélé et la Tshopo n’ont pas transmis de données de sécurité pour la période considérée."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Tshopo"
+          ]
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -1087,6 +1125,31 @@
           ],
           "provinces": [
             "Ituri"
+          ]
+        },
+        {
+          "pilier": "logistique",
+          "titre": "Logistique",
+          "items": [
+            "Persistance de besoins logistiques pour soutenir l’expansion de la riposte : achèvement des extensions des CTE de Nizi, ISTM et Bambu en Ituri et besoins en 4 boîtes à gants (ZS de Fataki, Bambu-mine, Lita et Rwampara), en cryotubes et en cryoboxes, trois ambulances étant par ailleurs en panne (1 à Bambu et 2 à Nizi) ; déploiement des intrants PCI vers les 7 zones de l’ouest et du nord du Bas-Uélé, où le gel hydroalcoolique et les gants d’examen sont en pré-rupture et où le manque de kits Starlink limite la communication des aires de santé non couvertes ; à la Tshopo, déficit de mobilité (22 motos disponibles sur 200 requises) et ruptures d’intrants."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité",
+          "items": [
+            "l’Ituri, le Haut-Uélé, la Tshopo et le Bas-Uélé n’ont pas transmis de données de sécurité consolidées."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
           ]
         }
       ],

@@ -13,6 +13,13 @@ est versionne, petit (~60 ko), et ne change que si le corpus est refait.
 import io
 import json
 import os
+import sys
+
+# NE PAS RELANCER (29 septembre 2026) : data/defis-anciens.json a ete retranscrit
+# a la main depuis les PDF, et ce script le remplacerait par l'ancienne
+# extraction, qui perdait des lignes et melangeait les cellules. Voir le champ
+# _comment du fichier.
+sys.exit("data/defis-anciens.json est retranscrit a la main : ce script est desactive.")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUALITATIF = os.path.join(ROOT, "data", "corpus", "qualitatif.jsonl")

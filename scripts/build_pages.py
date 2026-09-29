@@ -2092,6 +2092,12 @@ COURBE_PROVINCE_FORCEE = {"Tshopo": 10}
 # cote des autres provinces.
 PROVINCES_RIPOSTE_FICHE = ("Ituri", "Nord-Kivu")
 
+# Provinces dont la page porte, en dernier cadre, la grille des obstacles par
+# semaine (29 septembre 2026) : les cinq qui ont assez de difficultes citees
+# pour qu'une grille se lise. Le Sud-Kivu (29 mentions) et le Sud-Ubangi n'en
+# ont pas.
+PROVINCES_OBSTACLES = ("Ituri", "Nord-Kivu", "Tshopo", "Haut-Uélé", "Bas-Uélé")
+
 
 def a_une_riposte(province):
     return province.get("name") in PROVINCES_RIPOSTE_FICHE
@@ -2117,7 +2123,7 @@ PROVINCES_RIPOSTE = ("Ituri", "Nord-Kivu")
 def province_numeros(province):
     """Les numeros des cadres d'une page province, dans l'ordre de la page :
     carte, [courbe des cas, courbe des deces et lieu du deces], zones,
-    riposte, chronologie — le plan de la fiche du 28 septembre 2026.
+    riposte, [obstacles], chronologie — le plan de la fiche du 28 septembre 2026.
     Un seul calcul pour le gabarit et les fonctions qui ecrivent les cadres :
     chaque ajout decalait la chronologie a la main (16 septembre 2026)."""
     n, nums = 1, {"carte": "01"}
@@ -2131,6 +2137,8 @@ def province_numeros(province):
     suivant("zones")
     if a_une_riposte(province):
         suivant("riposte")
+    if province.get("name") in PROVINCES_OBSTACLES:
+        suivant("obstacles")
     suivant("chrono")
     return nums
 
@@ -2190,6 +2198,7 @@ def lieu_deces_bloc(province, strings_lang, i18n_lang):
         '        <h3 class="frame-title">%s</h3>\n'
         '        <span class="section-sub">%s</span>\n'
         '      </div>\n'
+        '      <p class="fiche-texte">%s</p>\n'
         '      <div class="panel chart-panel-wrap">\n%s'
         '        <div class="chart-panel">\n'
         '          <canvas id="decesLieuChart" data-chart="deathsPlace" data-province="%s"></canvas>\n'
@@ -2197,7 +2206,7 @@ def lieu_deces_bloc(province, strings_lang, i18n_lang):
         '        <div class="map-note chart-note"></div>\n'
         '      </div>\n'
         % (esc(strings_lang["riposteDecesTitle"]), esc(strings_lang["provinceDecesLieuSub"]),
-           BOUTON_PARTAGE % ("decesLieuChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"])))
+           esc(strings_lang["riposteDecesLede"]), BOUTON_PARTAGE % ("decesLieuChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"])))
 
 
 def province_deces_lieu_html(province, strings_lang, i18n_lang, numero="04"):
@@ -2807,7 +2816,7 @@ def difficultes_province(texte, name):
 
 
 def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
-                       graphiques="", extraits=""):
+                       graphiques="", extraits="", avec_defis=True):
     """Le cadre « La riposte » d'une fiche : des chiffres (liste de
     (classe, libelle, valeur, sous-titre), deja echappes), les difficultes du
     dernier bulletin, leur source, puis les liens vers la page qui detaille."""
@@ -2816,6 +2825,22 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
         '          <div class="value">%s</div>\n          <div class="delta">%s</div>\n        </div>\n'
         % k for k in kpis)
     bloc_kpis = '      <div class="kpis riposte-kpis">\n%s      </div>\n' % cases if kpis else ""
+    if not avec_defis:
+        # Ni resume des difficultes, ni source, ni extraits pilier par pilier
+        # (29 septembre 2026, demande du proprietaire) : les difficultes ont
+        # leur cadre sur les pages province, et la page Riposte les detaille.
+        # Ne jamais ecrire « resume ... redige par ebola-tracker.org ».
+        # Les liens ne servent qu'au pays (vers la page Riposte).
+        return (
+            '  <section class="section cadre-fiche" id="riposte">\n'
+            '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
+            '<div class="section-sub">%s</div></div></div>\n'
+            '    <div class="cadre-corps">\n%s%s%s'
+            '    </div>\n  </section>\n'
+            % (esc(numero), esc(strings_lang["ficheRiposteTitle"]), esc(strings_lang["ficheRiposteSub"]),
+               bloc_kpis, graphiques,
+               '      <p class="drill">%s</p>\n' % " · ".join(
+                   '<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens) if liens else ""))
     return (
         '  <section class="section cadre-fiche" id="riposte">\n'
         '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
@@ -2966,14 +2991,22 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang):
                     '          <button type="button" class="subtab-btn%s" data-vue="%s" data-i18n="%s">%s</button>\n'
                     % (" active" if i == 0 else "", v, k, esc(i18n_lang[k])) for i, (v, k) in enumerate(vues))))
 
+    def lede(cle):
+        # Le paragraphe explicatif de la page Riposte, repris tel quel sous
+        # chaque titre (29 septembre 2026, demande du proprietaire).
+        t = strings_lang.get(cle)
+        return '      <p class="fiche-texte">%s</p>\n' % esc(t) if t else ""
+
     def bloc(titre, sous_titre, canvas_id, mode, vues=None, apres=""):
         return ('      <div class="section-head" style="margin-top:32px;">\n'
                 '        <h3 class="frame-title">%s</h3>\n        <span class="section-sub">%s</span>\n      </div>\n'
+                '%s'
                 '      <div class="panel chart-panel-wrap">\n%s%s'
                 '        <div class="chart-panel">\n'
                 '          <canvas id="%s" data-chart="%s" data-province="%s"></canvas>\n'
                 '        </div>\n        <div class="map-note chart-note"></div>\n      </div>\n%s'
                 % (esc(strings_lang[titre]), esc(strings_lang[sous_titre]),
+                   lede(titre.replace("Title", "Lede")),
                    BOUTON_PARTAGE % (canvas_id, esc(i18n_lang["chartShareBtn"])),
                    nav(canvas_id, vues) if vues else "", canvas_id, mode, esc(name), apres))
 
@@ -2997,8 +3030,9 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang):
         out.append(bloc("riposteVaccinTitle", "riposteVaccinSub", "provVaccinChart", "vaccination", apres=zones))
     elif zones:
         out.append('      <div class="section-head" style="margin-top:32px;">\n'
-                   '        <h3 class="frame-title">%s</h3>\n        <span class="section-sub">%s</span>\n      </div>\n%s'
-                   % (esc(strings_lang["riposteVaccinTitle"]), esc(strings_lang["riposteVaccinSub"]), zones))
+                   '        <h3 class="frame-title">%s</h3>\n        <span class="section-sub">%s</span>\n      </div>\n%s%s'
+                   % (esc(strings_lang["riposteVaccinTitle"]), esc(strings_lang["riposteVaccinSub"]),
+                      lede("riposteVaccinLede"), zones))
     return "".join(out)
 
 
@@ -3235,13 +3269,6 @@ def main():
         num_notes = sorted((k for k, v in notes_bulletins.items()
                             if k.isdigit() and (v.get("defis") or {}).get(lang)), key=int)
         note = notes_bulletins[num_notes[-1]] if num_notes else {}
-        texte_defis = (note.get("defis") or {}).get(lang, "")
-        source_defis = interp(strings_lang["ficheDifficultesSource"], {
-            "num": num_notes[-1] if num_notes else "",
-            "date": long_date(note.get("defisDate", ""), i18n_lang)}) if num_notes else ""
-        lien_lettre = (urls.path("bulletin-%s" % num_notes[-1], lang),
-                       interp(strings_lang["ficheLienLettre"], {"num": num_notes[-1]})) \
-            if num_notes else None
         common_seed["provinceFiche"] = {}
         for _p in provinces:
             _n = _p["name"]
@@ -3262,10 +3289,6 @@ def main():
                      _rs["province.ripOccupation"], _rs["province.ripOccupationSub"]),
                     ("labo", esc(strings_lang["riposteKpiPositivite"]), _pos, _pos_sub),
                     ("vaccin", esc(strings_lang["ficheKpiVaccines"]), _vac, _vac_sub)]
-            _diff = difficultes_province(texte_defis, _n) or strings_lang["ficheDifficultesAucune"]
-            _liens = [(urls.path("riposte", lang), strings_lang["ficheLienRiposte"])]
-            if lien_lettre:
-                _liens.append(lien_lettre)
             _graph, _extr = "", ""
             if a_une_courbe(_p):
                 _graph = riposte_graphiques_province(riposte, _n, lang, strings_lang, i18n_lang)
@@ -3276,29 +3299,34 @@ def main():
             common_seed["provinceFiche"][_n] = {
                 "province.point": fiche_point_html(_serie, lang, strings_lang),
                 "province.riposteIci": fiche_riposte_html(
-                    province_numeros(_p)["riposte"], _kpis, _diff, source_defis, _liens, strings_lang,
-                    graphiques=_graph, extraits=_extr)
+                    province_numeros(_p)["riposte"], _kpis, "", "", [], strings_lang,
+                    graphiques=_graph, extraits=_extr, avec_defis=False)
                 if a_une_riposte(_p) else "",
             }
         # Le pays : meme plan, memes cases que l'ancien « Que fait-on ».
         common_seed["seed.point"] = fiche_point_html(
             [(r["date"], r.get("confirmed"), r.get("deaths")) for r in sitreps], lang, strings_lang)
         _liens = [(urls.path("riposte", lang), strings_lang["ficheLienRiposte"])]
-        if lien_lettre:
-            _liens.append(lien_lettre)
         common_seed["seed.riposteIci"] = fiche_riposte_html(
             "05",
             [("alerts", esc(strings_lang["riposteKpiAlertes"]), common_seed["seed.ripAlertes"], common_seed["seed.ripAlertesSub"]),
              ("labo", esc(strings_lang["riposteKpiPositivite"]), common_seed["seed.ripPositivite"], common_seed["seed.ripPositiviteSub"]),
              ("contacts", esc(strings_lang["riposteKpiContacts"]), common_seed["seed.ripContacts"], common_seed["seed.ripContactsSub"]),
              ("cte", esc(strings_lang["riposteKpiOccupation"]), common_seed["seed.ripOccupation"], common_seed["seed.ripOccupationSub"])],
-            texte_defis or strings_lang["ficheDifficultesAucune"], source_defis, _liens, strings_lang)
+            "", "", _liens, strings_lang, avec_defis=False)
         # La frise de chaque page province (8 septembre 2026).
         common_seed["provinceTimelines"] = {
             _p["name"]: province_timeline_html(_p["name"], province_forms(config, _p["name"], lang), strings, lang, i18n_lang,
                                                province_history, zones_history, geo, latest.get("healthZones", []),
                                                numero=province_numeros(_p)["chrono"])
             for _p in provinces}
+        # La grille des obstacles de chaque page province (29 septembre 2026).
+        common_seed["provinceObstacles"] = {
+            _p["name"]: defis_synthese.grille_province(
+                _p["name"], lang, i18n_lang, long_date, esc, province_numeros(_p)["obstacles"],
+                urls.path("riposte", lang),
+                (lambda f: f[:1].upper() + f[1:])(province_forms(config, _p["name"], lang).get("in", _p["name"])))
+            for _p in provinces if _p["name"] in PROVINCES_OBSTACLES}
         common_seed.update(defis_synthese.render(lang, strings_lang, i18n_lang, long_date, esc, PROVINCE_COLORS))
         common_seed.update(bulletin.render(lang, strings_lang, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp, province_forms, PROVINCE_COLORS, urls))
         # A propos et Contact : un paragraphe vers le compte X, ou rien.
@@ -3526,6 +3554,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             **common_seed.get("provinceFiche", {}).get(name, {}),
             "province.zonesNum": province_numeros(province)["zones"],
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
+            "province.obstacles": common_seed.get("provinceObstacles", {}).get(name, ""),
             "province.query": name.replace(" ", "%20"),
             # Rang dans le pays, puis quand ca a commence, puis quand ca a
             # bouge pour la derniere fois : un bloc temporel qui se lit d'un

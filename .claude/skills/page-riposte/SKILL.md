@@ -32,10 +32,34 @@ fr/en/sw et mots-clés — **le swahili a été traduit le 7 septembre par
 l'assistant depuis le français, à faire relire par un locuteur** ; jusque-là
 la page swahilie affichait le français avec une note, et c'est encore le
 repli pour toute autre langue ou un thème sans texte),
-`data/defis.json` (084 et suivants) et **`data/defis-anciens.json`** —
-les Défis des bulletins 017 à 083 gelés depuis le corpus par
-`scripts/geler_defis_anciens.py`, parce que le corpus n'est pas versionné et
-qu'un clone frais rendait une frise qui commençait le 6 août. Sur
+`data/defis.json` (084 et suivants, `extraire_defis.py`) et **`data/defis-anciens.json`**
+— les Défis des bulletins 001 à 083 **retranscrits à la main depuis les PDF le
+29 septembre 2026** (l'extraction automatique perdait les lignes après un saut
+de page, mélangeait les cellules, ramassait le tableau des perspectives et des
+légendes de photos ; `scripts/geler_defis_anciens.py` est désactivé, ne pas le
+relancer). Non retranscrits : le 004 (puces sans intertitre) et les encadrés
+« Défis en surveillance » des 017 et 018.
+
+**Ce qui dit quel obstacle est cité, quand et pour quelle province est
+`data/defis-codage.json`** (le 29 septembre 2026), et non des mots-clés : chaque
+texte des sections Défis y est lu et classé à la main — clé = texte normalisé
+(`defis_synthese.cle`, chiffres neutralisés), valeur = `[{province, obstacles}]`,
+province `aucune` = pays entier ou non précisé. Les mots-clés de
+`defis-synthese.json` ne servent plus. **Un texte nouveau sans codage fait
+échouer `build_pages.py` (`defis_synthese.entrees`) et `check_coherence.py`
+(bloquant) : à chaque nouveau bulletin, lister `defis_synthese.manquants()`, les
+coder (règles : les dix obstacles et leurs cas limites sont dans les notes du
+29 septembre — motivation → impayes, connexion → ruptures, refus de listage →
+resistance seule, « absence de CTE normé » → ruptures et non saturation, une
+proposition ne vaut que pour la province qui l'ouvre), et les ajouter.**
+`extraire_defis.py` signale les sections Défis sans texte lu. Le 29 septembre, le
+codage a été fait par deux lecteurs indépendants, les désaccords arbitrés, puis
+tout relu une troisième fois. Les paragraphes des fiches ont été vérifiés
+affirmation par affirmation contre les bulletins (plusieurs dates et chiffres
+étaient faux) : ne pas y écrire de fait sans le retrouver dans un bulletin, ni
+de compte de bulletins (la ligne « Cité dans N bulletins » le calcule). Les PDF
+003, 029, 043, 045, 063, 075 et 076 manquent au dépôt : leurs jours sont absents
+de la frise. Sur
 téléphone (audit à 360 et 320 px du 7 septembre) : la bande sur la
 variable de gouttière, l'étiquette de frise au-dessus de ses cases, une
 colonne de fiches. Piège rencontré avec les traits : une bulle CSS en

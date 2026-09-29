@@ -282,6 +282,20 @@ if defis:
           (not a_des_defis) or bool(resume), "SitRep %s sans resume dans bulletin-notes.json" % num_courant,
           blocking_if_false=False)
 
+# Le codage des Defis (data/defis-codage.json) : chaque texte des sections
+# « Defis » doit avoir ete lu et classe (obstacles, provinces) avant que la
+# page Riposte et les cadres des pages province ne le montrent. Un texte
+# nouveau sans codage est BLOQUANT : la generation echoue de meme
+# (defis_synthese.entrees), plutot que d'ignorer un bulletin en silence.
+try:
+    sys.path.insert(0, os.path.join(ROOT, "scripts"))
+    import defis_synthese
+    absents = defis_synthese.manquants()
+    check("defis-codage.json couvre tous les textes des Defis", not absents,
+          "%d texte(s) sans codage, ex. : %s" % (len(absents), (absents[0][:110] if absents else "")))
+except FileNotFoundError:
+    check("defis-codage.json present", False, "fichier absent")
+
 if laboratoire:
     impossibles = []
     ecarts = []
