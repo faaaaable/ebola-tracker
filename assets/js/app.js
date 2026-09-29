@@ -2227,7 +2227,13 @@ function renderOneChartBrut(canvas, chartMode){
         });
       }
       revisions.reverse();
-      const jours = calendrier(cumuls[0].date, cumuls[cumuls.length - 1].date);
+      /* Sur une page province, l'axe commence au premier chiffre publie de la
+         province (29 septembre 2026) : l'Ituri a rapporte ses premiers
+         vaccines le 23 septembre, et un axe depuis le 26 aout aurait montre
+         un mois de vide. */
+      const premierP = provRip ? cumuls.find(p => Object.keys(p.prov).some(n => nomProvinceCanonique(n) === provRip)) : null;
+      const debutSerie = premierP ? premierP.date : cumuls[0].date;
+      const jours = calendrier(debutSerie, cumuls[cumuls.length - 1].date);
       const parDate = {}; cumuls.forEach(p => { parDate[p.date] = p.prov; });
       const noms = [];
       cumuls.forEach(p => Object.keys(p.prov).forEach(n => { if(!noms.includes(n)) noms.push(n); }));
@@ -2258,6 +2264,10 @@ function renderOneChartBrut(canvas, chartMode){
            et la montee vers le releve suivant reste une interpolation : la
            note sous le graphique dit lesquels ne sont pas mesures. */
         borderWidth:2.2, pointRadius:0, pointHoverRadius:4, tension:.12, fill:false,
+        /* Monotone sur une page province (29 septembre 2026) : avec deux
+           releves seulement, la courbe lissee passait sous le premier chiffre
+           — un cumul qui recule. */
+        cubicInterpolationMode: provRip ? 'monotone' : 'default',
       })) };
 
       const opts = { responsive:true, maintainAspectRatio:false,
@@ -2303,8 +2313,14 @@ function renderOneChartBrut(canvas, chartMode){
       /* La phrase de revision est CALCULEE — dates, province et chiffres
          viennent des donnees, jamais du texte : ecrite en dur, elle se
          perimerait au premier releve suivant. */
-      const bouts = [tr('chartNoteVaccination')()];
-      revisions.forEach(r => {
+      /* Sur une page province : une note propre a la province — le texte du
+         pays parle de deux provinces et de la rupture de Buta. */
+      const bouts = provRip ? [tr('chartNoteVaccProv')()] : [tr('chartNoteVaccination')()];
+      if(provRip){
+        if(debutSerie < '2026-08-28') bouts.push(tr('chartNoteVaccGap')());
+        if(provRip === 'Bas-Uélé') bouts.push(tr('chartNoteVaccButa')());
+      }
+      revisions.filter(r => !provRip || nomProvinceCanonique(r.nom) === provRip).forEach(r => {
         bouts.push(tr('vaccChartRevision')(frDate(r.date), r.nom, fmt(r.publie), fmt(r.retenu)));
       });
       noter(bouts.join(' '));

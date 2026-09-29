@@ -2092,6 +2092,23 @@ COURBE_PROVINCE_FORCEE = {"Tshopo": 10}
 # cote des autres provinces.
 PROVINCES_RIPOSTE_FICHE = ("Ituri", "Nord-Kivu")
 
+# Provinces qui ont commence a vacciner (29 septembre 2026, demande du
+# proprietaire) : au moins un cumul publie dans les bulletins. Remplie par
+# main() depuis piliers.json, avant la numerotation des cadres. Celles qui
+# n'ont pas la fiche complete de la riposte (Tshopo, Bas-Uele) recoivent un
+# cadre « La riposte » reduit a la vaccination.
+VACCIN_PROVINCES = set()
+
+
+def provinces_qui_vaccinent(piliers):
+    pts = (piliers or {}).get("parDate") or []
+    out = set()
+    for p in pts:
+        for nom, n in (((p.get("vaccination") or {}).get("cumulParProvince")) or {}).items():
+            if n:
+                out.add(_canon_prov(nom))
+    return out
+
 # Provinces dont la page porte, en dernier cadre, la grille des obstacles par
 # semaine (29 septembre 2026) : les cinq qui ont assez de difficultes citees
 # pour qu'une grille se lise. Le Sud-Kivu (29 mentions) et le Sud-Ubangi n'en
@@ -2135,7 +2152,7 @@ def province_numeros(province):
         suivant("courbe")
         suivant("deces")
     suivant("zones")
-    if a_une_riposte(province):
+    if a_une_riposte(province) or province.get("name") in VACCIN_PROVINCES:
         suivant("riposte")
     if province.get("name") in PROVINCES_OBSTACLES:
         suivant("obstacles")
@@ -2816,7 +2833,7 @@ def difficultes_province(texte, name):
 
 
 def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
-                       graphiques="", extraits="", avec_defis=True):
+                       graphiques="", extraits="", avec_defis=True, sous_titre=None):
     """Le cadre « La riposte » d'une fiche : des chiffres (liste de
     (classe, libelle, valeur, sous-titre), deja echappes), les difficultes du
     dernier bulletin, leur source, puis les liens vers la page qui detaille."""
@@ -2837,7 +2854,8 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
             '<div class="section-sub">%s</div></div></div>\n'
             '    <div class="cadre-corps">\n%s%s%s'
             '    </div>\n  </section>\n'
-            % (esc(numero), esc(strings_lang["ficheRiposteTitle"]), esc(strings_lang["ficheRiposteSub"]),
+            % (esc(numero), esc(strings_lang["ficheRiposteTitle"]),
+               esc(sous_titre or strings_lang["ficheRiposteSub"]),
                bloc_kpis, graphiques,
                '      <p class="drill">%s</p>\n' % " · ".join(
                    '<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens) if liens else ""))
@@ -2855,6 +2873,21 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
            bloc_kpis, graphiques, esc(strings_lang["ficheDifficultesTitle"]), esc(difficultes), esc(source),
            extraits,
            " · ".join('<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens)))
+
+
+def _cadre_vaccination_seule(province, riposte, meta_data, lang, strings_lang, i18n_lang):
+    """Le cadre « La riposte » des provinces qui vaccinent sans avoir la fiche
+    complete (Tshopo, Bas-Uele ; 29 septembre 2026) : le chiffre des personnes
+    vaccinees, puis la courbe de la vaccination de la province."""
+    nom = province["name"]
+    if nom not in VACCIN_PROVINCES or a_une_riposte(province):
+        return ""
+    vac, vac_sub = vaccines_province(riposte, nom, meta_data, lang, strings_lang, i18n_lang)
+    graph = riposte_graphiques_province(riposte, nom, lang, strings_lang, i18n_lang, seulement={"vaccination"})
+    return fiche_riposte_html(
+        province_numeros(province)["riposte"],
+        [("vaccin", esc(strings_lang["ficheKpiVaccines"]), vac, vac_sub)], "", "", [], strings_lang,
+        graphiques=graph, avec_defis=False, sous_titre=strings_lang["ficheRiposteSubVaccin"])
 
 
 # La riposte developpee sur la fiche (28 septembre 2026, demande du
@@ -2983,7 +3016,7 @@ def vaccin_zones_province_html(piliers, name, lang, strings_lang, i18n_lang):
                esc(interp(strings_lang["riposteKpiAsOf"], {"date": long_date(date_z, i18n_lang)}))))
 
 
-def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang):
+def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, seulement=None):
     """Les graphiques de la page Riposte, restreints a la province."""
     def nav(canvas_id, vues):
         return ('        <nav class="subtab-nav chart-vue-nav" data-chart-vue="%s">\n%s        </nav>\n'
@@ -3011,22 +3044,28 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang):
                    nav(canvas_id, vues) if vues else "", canvas_id, mode, esc(name), apres))
 
     out = []
-    if _releves(riposte["alertes"], name, "recues") >= RELEVES_MIN_GRAPHIQUE:
+    def voulu(mode):
+        return seulement is None or mode in seulement
+
+    if voulu("alertes") and _releves(riposte["alertes"], name, "recues") >= RELEVES_MIN_GRAPHIQUE:
         out.append(bloc("riposteAlertesTitle", "riposteAlertesSub", "provAlertesChart", "alertes",
                         [("jour", "chartVueDaily"), ("volume", "chartVueWeekly"), ("taux", "chartVueTaux")]))
-    if _releves(riposte["laboratoire"], name, "echantillons") >= RELEVES_MIN_GRAPHIQUE:
+    if voulu("laboratoire") and _releves(riposte["laboratoire"], name, "echantillons") >= RELEVES_MIN_GRAPHIQUE:
         out.append(bloc("riposteLaboTitle", "riposteLaboSub", "provLaboChart", "laboratoire",
                         [("jour", "chartVueDaily"), ("semaine", "chartVueWeekly")]))
     contacts = riposte["contacts"] if isinstance(riposte["contacts"], list) else []
-    if sum(1 for p in contacts if ((p.get("provinces") or {}).get(name) or {}).get("taux") is not None) >= RELEVES_MIN_GRAPHIQUE:
+    if voulu("contacts") and sum(1 for p in contacts if ((p.get("provinces") or {}).get(name) or {}).get("taux") is not None) >= RELEVES_MIN_GRAPHIQUE:
         out.append(bloc("riposteContactsTitle", "riposteContactsSub", "provContactsChart", "contactsRiposte"))
-    if _releves(riposte["cte"], name, "hospitalises") >= RELEVES_MIN_GRAPHIQUE:
+    if voulu("cte") and _releves(riposte["cte"], name, "hospitalises") >= RELEVES_MIN_GRAPHIQUE:
         out.append(bloc("riposteCteTitle", "riposteCteSub", "provCteChart", "cte"))
     pil = riposte["piliers"]
     pts = pil.get("parDate", []) if isinstance(pil, dict) else []
     n_vacc = sum(1 for p in pts if ((p.get("vaccination") or {}).get("cumulParProvince") or {}).get(name))
     zones = vaccin_zones_province_html(pil, name, lang, strings_lang, i18n_lang)
-    if n_vacc >= 3:
+    # Deux releves suffisent depuis le 29 septembre 2026 : l'Ituri a publie ses
+    # premiers vaccines le 23 septembre, et le proprietaire veut la courbe
+    # de toute province qui a commence.
+    if n_vacc >= 2:
         out.append(bloc("riposteVaccinTitle", "riposteVaccinSub", "provVaccinChart", "vaccination", apres=zones))
     elif zones:
         out.append('      <div class="section-head" style="margin-top:32px;">\n'
@@ -3122,6 +3161,8 @@ def main():
         "defis": read_json(os.path.join(ROOT, "data", "defis.json")),
         "piliers": read_json(os.path.join(ROOT, "data", "piliers.json")),
     }
+    VACCIN_PROVINCES.clear()
+    VACCIN_PROVINCES.update(provinces_qui_vaccinent(riposte["piliers"]))
     # Traces des zones de sante : geometrie figee, produite a part par
     # scripts/build_geo.py. Elle ne change qu'en cas de nouvelle province
     # touchee ou de mise a jour de la source.
@@ -3301,7 +3342,8 @@ def main():
                 "province.riposteIci": fiche_riposte_html(
                     province_numeros(_p)["riposte"], _kpis, "", "", [], strings_lang,
                     graphiques=_graph, extraits=_extr, avec_defis=False)
-                if a_une_riposte(_p) else "",
+                if a_une_riposte(_p) else _cadre_vaccination_seule(
+                    _p, riposte, meta_data, lang, strings_lang, i18n_lang),
             }
         # Le pays : meme plan, memes cases que l'ancien « Que fait-on ».
         common_seed["seed.point"] = fiche_point_html(
@@ -3569,7 +3611,10 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     # qui n'a pas de graphique. « needs » est declare par type de page,
     # or ici le besoin varie d'une province a l'autre.
     besoins = list(page.get("needs", []))
-    if is_province and "chart" in besoins and not values.get("province.chart"):
+    # Le cadre « La riposte » (29 septembre 2026) peut porter un graphique
+    # (la vaccination du Bas-Uele) sans que la province ait de courbe des cas.
+    if (is_province and "chart" in besoins and not values.get("province.chart")
+            and "<canvas" not in (values.get("province.riposteIci") or "")):
         besoins.remove("chart")
 
     canonical = urls.absolute(path)

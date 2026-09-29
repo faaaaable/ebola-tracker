@@ -835,6 +835,23 @@
         </div>
         <div class="map-note chart-note"></div>
       </div>
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">Vaccination</h3>
+        <span class="section-sub">who is vaccinated and in which provinces</span>
+      </div>
+      <p class="fiche-texte">The Ervebo vaccine is reserved for those most exposed to the virus: health-care staff first, then other front-line workers — hygienists, safe burial teams — and, in Bas-Uélé, high-risk contacts under a so-called compassionate vaccination scheme. The campaign began on 26 August 2026 in Buta, then in Kisangani the next day; Ituri published its first vaccinations on 23 September.</p>
+      <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="provVaccinChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Share</span>
+        </button>
+      </div>
+        <div class="chart-panel">
+          <canvas id="provVaccinChart" data-chart="vaccination" data-province="Ituri"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
     </div>
   </section>
 
@@ -1066,8 +1083,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=55670a3cd4"></script>
-<script defer src="/assets/js/app.js?v=59d725b4a9"></script>
+<script defer src="/assets/js/i18n.js?v=85eebd39ce"></script>
+<script defer src="/assets/js/app.js?v=98d73583b6"></script>
 
 </body>
 </html>
