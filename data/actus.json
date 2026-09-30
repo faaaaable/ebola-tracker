@@ -2,6 +2,18 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "cf4f70b1",
+   "date": "2026-09-30",
+   "titre": "What will it take to end the Ebola disease outbreak in DRC",
+   "source": "MSF",
+   "url": "https://www.msf.org/what-will-it-take-end-ebola-disease-outbreak-drc",
+   "langue": "en",
+   "resume": "Stopping the spread of Ebola disease requires multiple coordinated actions to be carried out at the same time.",
+   "statut": "publie",
+   "collecte": "2026-09-30",
+   "image": true
+  },
+  {
    "id": "c0ef647d",
    "date": "2026-09-30",
    "titre": "Tshopo : Ebola perçu différemment à Kisangani (Constat)",
@@ -9,6 +21,19 @@
    "url": "https://acp.cd/province/tshopo-ebola-percu-differemment-a-kisangani-constat/",
    "langue": "fr",
    "resume": "La maladie à virus Ebola est perçu différemment par l’opinion à Kisangani, chef-lieu de la Tshopo, dans le nord-est…",
+   "statut": "publie",
+   "collecte": "2026-09-30",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "b34f8cf9",
+   "date": "2026-09-30",
+   "titre": "Nord-Kivu : renforcement des dispositifs de riposte contre Ebola dans une zone de santé",
+   "source": "ACP",
+   "url": "https://acp.cd/province/nord-kivu-renforcement-des-dispositifs-de-riposte-contre-ebola-dans-une-zone-de-sante/",
+   "langue": "fr",
+   "resume": "Des matériels de protection et kits de lavage des mains ont été remis à la zone de santé de Mutwanga,…",
    "statut": "publie",
    "collecte": "2026-09-30",
    "media": true,
@@ -41,6 +66,19 @@
    "image": true
   },
   {
+   "id": "6272f632",
+   "date": "2026-09-30",
+   "titre": "Ebola en Ituri : MSF alerte sur l’impact de la désinformation dans la réponse",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-en-ituri-msf-alerte-sur-limpact-de-la-desinformation-dans-la-reponse/",
+   "langue": "fr",
+   "resume": "L'organisation médicale humanitaire internationale Médecins sans frontières (MSF) a alerté, sur l’impact de la désinformation qui engendre la peur…",
+   "statut": "publie",
+   "collecte": "2026-09-30",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "4e4205db",
    "date": "2026-09-30",
    "titre": "Ebola: Donors assess response measures at N’djili Airport",
@@ -61,6 +99,19 @@
    "url": "https://acp.cd/province/ebola-a-nia-nia-313-cas-confirmes-dont-209-deces-88-gueris/",
    "langue": "fr",
    "resume": "La situation épidémiologique de la maladie à virus Ebola (MVE) dans la zone de santé de Nia-Nia située en…",
+   "statut": "publie",
+   "collecte": "2026-09-30",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "1d1bf0bf",
+   "date": "2026-09-30",
+   "titre": "Ebola en Ituri: l’état de la route Nia-Nia-PK51 freine l’évacuation des malades",
+   "source": "ACP",
+   "url": "https://acp.cd/science-sante-environnement/ebola-en-ituri-letat-de-la-route-nia-nia-pk51-freine-levacuation-des-malades/",
+   "langue": "fr",
+   "resume": "L’état de délabrement avancé de l’axe routier PK51-Niania dans la zone de santé portant le même nom en territoire…",
    "statut": "publie",
    "collecte": "2026-09-30",
    "media": true,
