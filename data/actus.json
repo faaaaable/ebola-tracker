@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "4e4205db",
+   "date": "2026-09-30",
+   "titre": "Ebola: Donors assess response measures at N’djili Airport",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/ebola-donors-assess-response-measures-at-ndjili-airport/",
+   "langue": "en",
+   "resume": "Donors and partners of the Democratic Republic of the Congo in the response to the Ebola virus disease assessed on…",
+   "statut": "publie",
+   "collecte": "2026-09-30",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "f40e57f3",
    "date": "2026-09-29",
    "titre": "Les prestataires salués pour libération de deux premiers guéris patients d’Ebola à Lubero",
