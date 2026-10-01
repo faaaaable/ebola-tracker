@@ -1,6 +1,6 @@
 ---
 name: page-virus
-description: La page Le virus d'ebola-tracker et son bloc des genomes (source Pathoplexus, licence, delai de depot), plus toute l'histoire de La lettre : mises en page essayees, adresse definitive, regle de langage courant, lexique, archives par numero, et la recette devenue sans objet pour publier sans le chantier Flux. A charger avant de toucher a la page Le virus, au bloc des genomes, a la lettre ou a extraire_genomes.
+description: "La page Le virus d'ebola-tracker et son bloc des genomes (source Pathoplexus, licence, delai de depot), plus toute l'histoire de La lettre : mises en page essayees, adresse definitive, regle de langage courant, lexique, archives par numero, et la recette devenue sans objet pour publier sans le chantier Flux. A charger avant de toucher a la page Le virus, au bloc des genomes, a la lettre ou a extraire_genomes."
 ---
 
 # La page « Le virus » et le bloc des génomes

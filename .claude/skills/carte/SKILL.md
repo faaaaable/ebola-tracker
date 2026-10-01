@@ -1,6 +1,6 @@
 ---
 name: carte
-description: La carte d'ebola-tracker : source geographique OCHA, projection, simplification Douglas-Peucker, les six paliers de couleur, les cercles proportionnels et leur legende, le curseur de temps et ses dates absentes, le croisement par cle normalisee, les alias de zones, le panneau date et les regles mobiles. A charger avant de toucher a une carte, a build_geo.py ou au cartogramme.
+description: "La carte d'ebola-tracker : source geographique OCHA, projection, simplification Douglas-Peucker, les six paliers de couleur, les cercles proportionnels et leur legende, le curseur de temps et ses dates absentes, le croisement par cle normalisee, les alias de zones, le panneau date et les regles mobiles. A charger avant de toucher a une carte, a build_geo.py ou au cartogramme."
 ---
 
 # La carte, et comment elle croise les données

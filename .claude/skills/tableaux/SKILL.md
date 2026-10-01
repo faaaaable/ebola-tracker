@@ -1,6 +1,6 @@
 ---
 name: tableaux
-description: Les tableaux d'ebola-tracker : la vue par province et la vue par zone de sante de /donnees/, les badges de letalite, la largeur des tableaux et les trois pieges de calage rencontres, les fausses pistes deja ecartees, les pages province et leurs cadres numerotes, la frise de province et la page /rapports/. A charger avant de toucher a un tableau, a province_zones_table_html ou a renderZonesTable.
+description: "Les tableaux d'ebola-tracker : la vue par province et la vue par zone de sante de /donnees/, les badges de letalite, la largeur des tableaux et les trois pieges de calage rencontres, les fausses pistes deja ecartees, les pages province et leurs cadres numerotes, la frise de province et la page /rapports/. A charger avant de toucher a un tableau, a province_zones_table_html ou a renderZonesTable."
 ---
 
 # Les tableaux détaillés

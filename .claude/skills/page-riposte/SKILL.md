@@ -1,6 +1,6 @@
 ---
 name: page-riposte
-description: La page Riposte & defis d'ebola-tracker : ses quatre cadres (alertes, laboratoire, contacts, CTE), les extracteurs qui l'alimentent et leurs trois principes de lecture, la frise des obstacles par semaine, les vues par jour et par semaine du laboratoire et des alertes, les comptes partiels et les journees ecartees. A charger avant de toucher a la page Riposte, a extraire_alertes, extraire_laboratoire, extraire_cte, extraire_defis ou defis_synthese.
+description: "La page Riposte & defis d'ebola-tracker : ses quatre cadres (alertes, laboratoire, contacts, CTE), les extracteurs qui l'alimentent et leurs trois principes de lecture, la frise des obstacles par semaine, les vues par jour et par semaine du laboratoire et des alertes, les comptes partiels et les journees ecartees. A charger avant de toucher a la page Riposte, a extraire_alertes, extraire_laboratoire, extraire_cte, extraire_defis ou defis_synthese."
 ---
 
 # La page « Riposte & défis » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
@@ -431,3 +431,107 @@ le mécanisme « Partager » et les captures de page, à 1 440 et 360 px, par un
 script de session ; `test_onglets.mjs` sur `/donnees/` sans erreur.
 
 ---
+
+---
+
+## La partie « La vaccination » de la page Riposte : conception du graphique
+
+*Déplacé depuis `CLAUDE.md` le 29 septembre 2026 (allègement du guide), texte inchangé.*
+
+**La page Riposte a une partie « La vaccination »** (21 septembre 2026),
+en **cadre 05**, entre les centres de traitement et le lieu du décès — qui
+passe en 06. Elle ferme la chaîne de la riposte : signaler, tester, suivre,
+soigner, prévenir. C'est le seul pilier qui devance l'épidémie au lieu d'y
+réagir.
+
+**Ce que le cadre porte**, après trois tours de maquettes montrées en local :
+un paragraphe unique qui dit qui est vacciné, le chiffre d'ensemble
+(4 077 personnes), un graphique du cumul par province, un tableau par zone de
+santé dans son propre cadre, et la note. Pas de couverture de la cible, pas de
+stock de doses, pas d'état des provinces qui ne vaccinent pas encore : écartés
+par le propriétaire, qui a recentré la partie sur **l'évolution** — qui est
+vacciné, combien, quand et où.
+
+**Le graphique : deux courbes non empilées, une par province.** L'aire empilée
+essayée d'abord écrasait le Bas-Uélé (708 contre 3 369) et déformait sa
+trajectoire, puisque dans un empilement seule la couche du bas a une base
+plate. Séparées, les deux provinces redeviennent lisibles et le **palier de
+onze jours du Bas-Uélé** — la rupture de stock d'Ervebo à Buta, du 5 au
+16 septembre — se lit franchement. Chaque courbe porte son nom et son dernier
+chiffre en bout, pour éviter l'aller-retour vers la légende — **sauf sur
+téléphone, depuis le 23 septembre 2026** : à 360 px le nom et le chiffre se
+posaient sur les graduations et sur la mention « aucun chiffre publié », et
+les 104 px réservés pour eux prenaient **un tiers de la largeur de tracé**,
+comprimant les deux courbes au point de les rendre illisibles. Sous le seuil
+de 760 px les étiquettes tombent et le padding est récupéré ; la légende, juste
+au-dessus du cadre, rend l'aller-retour indolore à cette taille. `surTelephone()`
+lit ce seuil une seule fois pour tout `app.js`, comme le CSS et les cercles de
+la carte. Le tracé est
+**progressif** : l'escalier, plus fidèle aux relevés, a été essayé puis écarté
+par le propriétaire.
+
+**UN CUMUL NE RECULE PAS : LA COURBE PORTE LA VALEUR RÉVISÉE** (23 septembre
+2026). Le 19 septembre le bulletin donne 987 vaccinés au Bas-Uélé, le lendemain
+874 — une seule zone bouge, Ganga, de 324 à 211, les trois autres sont
+identiques, et chaque total tombe juste sur sa propre ventilation. Personne
+n'est dévacciné : c'est la source qui se corrige, et le tableau par zone de la
+page affiche déjà 211. La correction est **appliquée rétroactivement à la
+série** — le 19 septembre porte 874 —, comme le fait toute donnée de santé
+publique révisée.
+
+**Une première version a été montrée puis écartée le jour même** : elle sortait
+le point du tracé et le laissait en cercle creux à 987, avec son entrée de
+légende « Valeur révisée ». Deux chiffres pour un même jour se contredisaient à
+l'œil, et la note suffit. La clé `vaccChartRevisee` a été supprimée avec elle —
+**ne pas la refaire sans que le propriétaire le redemande.**
+
+Le test est **générique**, jamais codé en dur sur une province : la série est
+relue à rebours, et tout cumul supérieur à un relevé POSTÉRIEUR est ramené à la
+valeur retenue ensuite. La note se recompose avec date, province, valeur
+publiée et valeur retenue, toutes calculées (`vaccChartRevision`, trois
+langues) — écrite en dur elle se périmerait au relevé suivant.
+
+Piège rencontré : `boutsDeCourbe` étiquette tous les jeux, et l'étiquette de la
+série retirée chevauchait celle du Bas-Uélé. Un jeu peut désormais refuser son
+étiquette de bout avec `sansBout: true`.
+
+**Deux plats qui ne disent pas la même chose, et le graphique doit les
+distinguer.** Entre le **28 août et le 2 septembre, aucun chiffre n'est
+publié** : la marche du 3 septembre est un rattrapage de publication, pas une
+flambée de vaccinations en un jour. Un plugin `plageSansDonnees` grise cette
+plage et l'étiquette « aucun chiffre publié ». Le palier du Bas-Uélé, lui, est
+un arrêt réel et n'est pas grisé. Sans cette distinction, les deux se
+lisent pareil et le graphique ment. La note sous le graphique le redit en
+toutes lettres.
+
+**Le tableau par zone de santé** est dans un cadre séparé, resserré à 376 px :
+huit lignes, de Makiso-Kisangani (1 830) à Ganga (158). Des effectifs, pas des
+taux — aucune cible par zone n'est publiée. La date n'y figure plus ligne par
+ligne (décision du propriétaire) : c'est la légende qui dit que chaque province
+est à son dernier relevé publié. **Le Bas-Uélé est donc au 17 septembre**, pas
+au 18, faute de publication le dernier jour.
+
+**Ce qui a été écarté en chemin, et pourquoi**, pour ne pas le réessayer :
+- **Des barres du flux quotidien par zone** : les cumuls par zone reculent une
+  fois (Mangobo passe de 368 à 352 le 16 septembre, la source se corrige) et
+  une barre négative n'a pas de sens.
+- **Un empilement par zone de santé** : huit couches demandent huit teintes
+  séparables sur une même rampe, et `validate_palette.js` les refuse — la paire
+  la plus claire reste sous le seuil de 15 même en écartant les paliers. Les
+  deux couleurs de province, elles, passent tous les contrôles en clair comme
+  en sombre (ΔE 18,9 ; #8D7FCC et #CE7A52 en sombre).
+- **Des vignettes par zone de santé** (petits multiples) : montrées, puis
+  retirées à la demande du propriétaire.
+- **Le rythme hebdomadaire** : la seule forme qui montrerait l'essoufflement,
+  et où le « Bas-Uélé : 0 » de la semaine du 7 au 13 septembre saute aux yeux.
+  Prématuré à trois semaines et demie de données, et la barre de la deuxième
+  semaine hérite du rattrapage de publication. **À reprendre vers la mi-octobre**,
+  quand il y aura six à huit semaines et trois ou quatre provinces : le mode est
+  déjà déclaré dans `RIPOSTE_MODES`, il ne manque qu'un bloc de dessin.
+
+**Deux pièges de câblage rencontrés**, qui resserviront : une clé de texte
+destinée au graphique doit aller dans **`assets/js/i18n.js`** et non dans
+`site/strings.json` — le premier sert au client, le second au rendu serveur, et
+un titre mis au mauvais endroit ne s'affiche jamais. Et le **`footer` de
+l'infobulle Chart.js ne se rendait pas** ici : le total des deux provinces est
+passé par `afterBody`.

@@ -1,6 +1,6 @@
 ---
 name: journal-bulletins
-description: Journal d'integration bulletin par bulletin d'ebola-tracker, du SitRep 109 au 126 : tournures de phrase apprises, motifs regex ajoutes aux extracteurs, ecarts de la source constates et laisses visibles, verifications faites. A charger AVANT de toucher a un extracteur (update_data, extraire_*, extract_*), avant de reprendre un ancien bulletin, ou quand une tournure du SitRep ne se lit pas.
+description: "Journal d'integration bulletin par bulletin d'ebola-tracker, du SitRep 109 au 126 : tournures de phrase apprises, motifs regex ajoutes aux extracteurs, ecarts de la source constates et laisses visibles, verifications faites. A charger AVANT de toucher a un extracteur (update_data, extraire_*, extract_*), avant de reprendre un ancien bulletin, ou quand une tournure du SitRep ne se lit pas."
 ---
 
 # Journal des bulletins — SitRep 109 a 126
@@ -964,3 +964,366 @@ Vérifier ce point sur tout script repris d'ailleurs.
 correspondra pas au HTML lu sur l'entrée standard.
 
 ---
+
+---
+
+## Intégrations et règles de septembre 2026 (SitRep 127 à 135)
+
+*Déplacé depuis `CLAUDE.md` le 29 septembre 2026 (allègement du guide), texte inchangé.*
+
+**SitRep 131 intégré et PUBLIÉ le 24 septembre 2026** (commit `3ad2b0ba` ; rapportage du 22, publié
+le 23) — 7 820 cas, 3 779 décès, létalité 48,3 %, 1 951 guéris, 885 en CTE,
+47 nouveaux cas (Ituri 35, Nord-Kivu 11, **Sud-Ubangi 1 : deuxième cas à
+Bulu**), 20 décès du jour (13 communautaires, 7 intra-CTE), suivi des contacts
+**78,3 %**. Tableaux relus contre les pages 2 et 3 du PDF, zéro écart ; les
+deux écarts bloquants anciens restent seuls. Deux motifs ajoutés :
+- **Treizième tournure des contacts** : « Parmi 32 745 contacts en cours de
+  suivi, 25 652 contacts ont été vus » — « Parmi » sans « les », « contacts »
+  répété avant « ont été vus ». `CONTACTS_PARMI_LES_RE` rend les deux
+  facultatifs ; seule la date du 22 change.
+- **La vaccination change de tournure au 130** (section renumérotée 2.6) :
+  « 3 874 TPL et PPL ont été vaccinés sur 3 549 pré-enregistrés (109 %), soit
+  33 % de la cible de 11 703 ». `VAC_CUMUL_TPL_RE` et `VAC_CIBLE_SOIT_RE`.
+  **Le 130 était parti en ligne sans le cumul de la Tshopo (3 774)** : rattrapé.
+Le laboratoire compte 46 positifs pour 47 cas : la section n'a pas de ligne
+Sud-Ubangi (non bloquant, source). Résumé des Défis rédigé (119 mots).
+
+Bulletin précédent : **SitRep 130**, rapportage
+du 21 septembre 2026 (publié le 22) — 7 773 cas confirmés, 3 759 décès,
+létalité 48,4 %, 1 935 guéris, 839 patients en isolement/CTE, 63 zones touchées
+sur 167 dans 7 provinces (aucune nouvelle), **40 nouveaux cas** (Ituri 19,
+Nord-Kivu 13, Haut-Uélé 5, Tshopo 3) et 27 décès du jour (14 communautaires,
+13 intra-CTE), suivi des contacts à 84,5 %. **Les 129 et 130 ont été intégrés
+ensemble le 23 septembre 2026**, résumés des Défis rédigés pour les deux
+(121 et 119 mots).
+
+**DEUX BULLETINS D'UN COUP : `update_data` NE RETRAITE QUE LE PLUS RÉCENT.**
+Le 129 était absent de `zones-history` et de `province-history`, qui sautaient
+du 19 au 21 — alors que son PDF porte bien ses deux tableaux, vérifié. Rattrapé
+par `backfill_zones_history` puis `backfill_province_history`, avec diffusion
+avant/après : une seule date ajoutée, aucune autre valeur touchée, aucune
+orthographe de zone changée. **Le réflexe à garder : après une intégration
+multiple, compter les dates des historiques avant de publier.**
+
+**La lettre du 129 n'existait pas non plus**, même cause — `_instantanes()` ne
+fige que le dernier. Reconstruite en faisant repasser le pipeline à sa date,
+`SITREP_MVE_130.pdf` écarté le temps d'une génération, puis remis. La lettre
+est donc exactement celle qu'un traitement à la date aurait produite (122
+rapports listés, Ituri à 5 947). Effet de bord **bienvenu** de l'aller-retour :
+`sitreps.json` récupère les **1 902 guéris du 20 septembre**, que le traitement
+en position non-dernière n'avait pas lus. Un seul fichier de `data/` modifié
+par l'opération, et c'est ce gain.
+
+**`check_coherence` sortait avec DEUX ÉCARTS BLOQUANTS, tous deux imputables à la
+source, publiés en l'état le 23 septembre 2026 — tranchés le 25 septembre :**
+- **`vaccination : le cumul ne recule jamais` — 129 Bas-Uélé (874 après 987).**
+  Le 128 publie « 987 dont 550 Buta, **324 Ganga**, 71 Poko, 42 Viadana », le
+  129 « 874 dont 550 Buta, **211 Ganga**, 71 Poko, 42 Viadana ». Une seule zone
+  bouge, chaque total tombe juste sur sa propre ventilation : la source s'est
+  corrigée sur Ganga. Voir « Un cumul ne recule pas » ci-dessous.
+- **`cte : taux publié = normés / lits` — 130 Nord-Kivu.** Le bulletin écrit
+  « 338 hospitalisés dont 274 dans les structures normées pour 308 lits, soit
+  66,2 % » — or 274/308 fait 89,0 %. Les 128 et 129 étaient cohérents (95,6 %
+  et 91,2 %). **Relu le 25 septembre : c'est une coquille sur le taux.** La
+  même phrase poursuit « 64 patients (18,9 %) restent pris en charge dans des
+  ESS hors CTE » : 338 − 64 = 274 et 64/338 = 18,9 %, le numérateur tient ;
+  et **204/308 = 66,2 % exactement**. L'hypothèse d'une capacité qui aurait
+  bougé à l'ouverture de Matanda est donc écartée. Le site garde les deux,
+  `occupationPubliee` et la série à définition constante.
+  **Les deux sont inscrits depuis le 25 septembre 2026 dans `EXCEPTIONS_SOURCE`
+de `check_coherence.py`**, avec la citation du bulletin. Une exception vise un
+contrôle, un bulletin, une province **et les valeurs lues** : si la relecture
+change, ou si un autre bulletin dérape de la même façon, le contrôle redevient
+bloquant (vérifié en décalant 274 d'une unité). Les deux cas passent en écart
+non bloquant ; le script sort « Aucun écart bloquant. ». Écartés : corriger
+`cte.json` ou `piliers.json` (réécrire la source), et rendre les deux
+contrôles non bloquants en entier (ils ne protégeraient plus de rien).
+  Mais **le saut de capacité qui va avec est désormais nommé dans la note du
+  graphique** : le Nord-Kivu passe de 228 à 308 lits le 21 septembre, sa courbe
+  tombe de 138,6 à 109,7 % pendant que les patients montent de 316 à 338, et
+  `chartNoteCteCapacite` le dit en toutes lettres, calculé. Détail dans la
+  skill `page-riposte`.
+
+**AUDIT DES VIDES DES GRAPHIQUES (27 septembre 2026).** Chaque date vide a été
+confrontée à son SitRep ; 13 défauts de lecture corrigés, chacun comparé date
+par date avant/après. Les règles qui en restent :
+- **Tableau des provinces** : `completer_provinces()` (`update_data.py`) ajoute
+  à l'historique les provinces que la lecture du tableau manque — appel de note
+  collé (« Nord-Kivu1 »), astérisques, dernière colonne vide ou « ND »,
+  sous-total de zone — **seulement si la somme retombe exactement sur le total
+  national**, cas ET décès. Appelé par `update_data` et
+  `backfill_province_history`.
+- **Fin mai** : `PROVINCES_FIN_MAI`, table nommée et citée (cas seuls, sauf le
+  29 mai) ; 20 et 22 mai laissés vides, la source s'y contredit. Décision du
+  propriétaire.
+- **Contacts** : le tableau est lu **toujours**, en complément ; une ligne dont
+  les effectifs se vérifient fait foi, taux compris. Deux effectifs nationaux
+  contradictoires : celui qui égale la somme des provinces l'emporte. Le 028
+  (11 juin) n'exclut plus que le national et l'Ituri. `LECTURES_NOMMEES` pour
+  015 et 016.
+- **Alertes** : titres « par ZS » (084-086) et « Indicateurs de surveillance »
+  (048) ; « investiguées » coupé sur deux lignes en juin ; « 9 63 » recollé
+  seulement si la colonne Total le prouve ; validées du 084 écartées
+  (`VALIDEES_ECARTEES`).
+- **Laboratoire** : un titre de section numéroté passe devant le repère large ;
+  tableau « Indicateurs laboratoire » lu par colonne.
+- **CTE** : « N lits sur N », « capacité provinciale à N lits », « des lits
+  occupés » ; 081 et 083 en lecture nommée (deux colonnes entrelacées).
+Compte rendu complet : page privée « Les vides des graphiques ».
+
+**SitRep 134 intégré et PUBLIÉ le 28 septembre 2026** (rapportage du 25, publié
+le 26) — 7 989 cas, 3 852 décès, 43 nouveaux cas, 19 décès du jour, contacts
+77,8 %. Trois motifs ajoutés : **quatorzième tournure des contacts** (« Des
+30 018 contacts en cours de suivi, 23 364 contacts ont été vus »), **province en
+tête** (« Au Sud Ubangi, cette proportion était de 92,9 % (91/98) », `PROV_D5_RE`,
+qui rend aussi son Sud-Ubangi au 133) et **cumul vaccinal en sujet** (« Le cumul
+provincial atteint 4 628 PPL et TPL vaccinés, soit 39,5 % de la cible (11 703) »,
+`VAC_CUMUL_ATTEINT_RE`). Le Bas-Uélé publie sa première cible (13 202).
+
+**SitRep 135 intégré et PUBLIÉ le 28 septembre 2026** (rapportage du 26, publié
+le 27) — 8 067 cas, 3 901 décès, létalité 48,4 %, **78 nouveaux cas** (Ituri 57,
+Nord-Kivu 17, Haut-Uélé 3, Bas-Uélé 1), 49 décès du jour (34 communautaires,
+15 intra-CTE), contacts **74,7 %**. Trois motifs : **quinzième tournure des
+contacts** (« La proportion de suivi au décours du 26 septembre 2026 était de
+74,7% (23 187/31 034) », ajoutée à `CONTACTS_SITUE_RE`, qui sert désormais aussi
+au taux) ; **hospitalisés avec ventilation** (« 328 patients (97 confirmés et
+231 suspects) sont hospitalisés » — la ligne prenait les « 105 autres » hors
+CTE) ; **« dont 223 dans les CTE »** comme dénominateur du taux publié.
+
+**LES LITS DU NORD-KIVU SONT TRANCHÉS AU 135 : 354.** « 223 dans les CTE pour
+354 lits, soit un taux d'occupation de 63,0 % » — 223/354 = 63,0 %. La capacité
+a grandi ; c'est le **taux du 133** (81,5 % = 251/308) qui était faux, et son
+exception dans `EXCEPTIONS_SOURCE` reste. Le **134** n'imprimait aucun lit et
+recopiait le taux du 133 (70,9 % = 251/354) : sa courbe tombait à 70,9 % entre
+103,1 et 92,7. **`encadrer_lits()`** (`extraire_cte.py`, décision du
+propriétaire le 28 septembre 2026) : une province sans lits imprimés, entre
+deux bulletins qui impriment la **même** capacité dans les sept jours avant et
+après, reçoit cette capacité (`litsEncadres`) ; le taux publié reste dans
+`occupationPubliee`. Le 25 septembre passe à 351/354 = **99,2 %**, et le 134
+entre dans `EXCEPTIONS_SOURCE` (271/354 = 76,6 % contre 70,9 % imprimé). La
+règle, générique, a aussi donné leurs lits à trois points anciens dont le taux
+publié tombait déjà juste — Haut-Uélé le 26 août (68/120), Sud-Kivu les 7 et
+8 septembre (20/25, 19/25) : occupation de province inchangée, KPI national de
+ces jours-là décalé de 0,3 à 0,7 point (le périmètre s'élargit). Accepté par le
+propriétaire.
+
+**LE TABLEAU DES CTE DE L'EPOQUE C SE LIT A « FIN J », PAS A « J-1 »** (28 septembre
+2026). Du 061 au 080, `extraire_cte.py` lisait « Patients au lit (J-1) », le chiffre
+de la veille, quand la une, la prose et les « Défis » du même bulletin citent
+« Patients en isolement (fin J) » : au 069, 557 au lieu de 551 en Ituri. Trouvé en
+croisant les taux des « Défis » avec `cte.json` (10 concordances sur 35 avant, 30
+après). 17 bulletins changent, aucune date perdue ; la ligne du jour n'est retenue
+que si sa somme tombe sur le total, ou, au 064 (une cellule vide non imprimée),
+si la case manquante est une province à « ND » la veille. Du 019 au 058 seule la
+ligne J-1 existe : elle reste, et le point porte `patientsVeille`. Les lettres
+(depuis le 090) ne bougent pas.
+
+**UN CUMUL NE RECULE PAS : LE GRAPHIQUE DE VACCINATION PORTE LA VALEUR
+RÉVISÉE** (23 septembre 2026, décision du propriétaire). Tracée telle quelle,
+la courbe du Bas-Uélé redescendait de 987 à 874 — et lissée, la chute se lisait
+comme une décrue progressive qui n'a jamais eu lieu. La correction de la source
+est donc appliquée rétroactivement à sa propre série : le 19 septembre porte
+874. Une première version sortait le point du tracé et le laissait en cercle
+creux à 987 ; écartée le jour même — deux chiffres pour un même jour se
+contredisaient à l'œil, et la note suffit. Le test est **générique**, la série
+relue à rebours : tout cumul supérieur à un relevé postérieur est ramené à la
+valeur retenue ensuite, et la note nomme date, province et les deux chiffres,
+tous calculés. Détail sous « Le graphique » ci-dessous.
+
+**Le 130 se contredit aussi dans ses Défis** : il écrit « 34,2 % des patients
+hospitalisés hors structures normées » quand sa propre phrase de prise en
+charge donne 64/338 = 18,9 %. Le 34,2 % est recopié du 129. Le résumé de la
+lettre reprend le chiffre publié — règle du miroir.
+
+**Le suivi des contacts tombe à 79,9 %**, sous le seuil de 85 % que l'INSP s'est
+fixé, après cinq jours passés au-dessus. Le précédent décrochage datait du
+13 septembre (78,6 %), lui aussi isolé entre deux séries hautes.
+
+**La vaccination s'étend au Bas-Uélé** : deux zones de santé entrent dans la
+campagne, **Poko** (71 vaccinés) et **Viadana** (42), où la vaccination
+compassionnelle vient de démarrer, et Ganga passe de 158 à 324. La province
+atteint 987 vaccinés, la Tshopo 3 576 (30,6 % de sa cible), soit **4 563 au
+total** et dix zones de santé au tableau du cadre 05. **L'Ituri a tenu son
+lancement officiel** au Grand Laboratoire de Bunia avec l'appui de MSF : elle
+n'a pas encore de chiffre, mais sera la troisième province à vacciner. Le stock
+de doses décongelées de la Tshopo descend de 631 à **424**, toujours à échéance
+du 24 septembre.
+
+**La lettre donne désormais le chiffre du jour de la vaccination**, à la
+demande du propriétaire (21 septembre 2026) : « Depuis le bulletin précédent,
+207 de plus dans la Tshopo et 279 de plus dans le Bas-Uélé, en deux jours. »
+Le bulletin ne publiant **que des cumuls**, l'écart est dérivé du cumul
+précédent de chaque province, et deux garde-fous étaient nécessaires. Une
+province qui saute un bulletin donne un écart portant sur plusieurs jours : la
+lettre l'écrit en toutes lettres (« en deux jours », « en onze jours » au 125,
+qui enjambe la rupture de stock du Bas-Uélé). Et surtout, **une province
+n'apparaît que si elle publie un cumul neuf ce jour-là** — sans cette
+condition, le cumul reporté faisait réapparaître le même écart d'une lettre à
+l'autre, et les 108 du Bas-Uélé du 17 septembre s'affichaient dans la lettre
+126 *et* dans la 127.
+
+**Ce que la nouvelle zone a demandé : rien.** Contrairement au Sud-Ubangi du
+119, Dungu est dans une province déjà touchée, et le fond de carte OCHA la
+porte sous le nom exact « Dungu » en Haut-Uélé : correspondance exacte sur la
+clé normalisée, aucun alias à ajouter, la zone se colorie. `update_data`
+l'a signalée comme « zone jamais vue dans aucun rapport antérieur, à vérifier
+manuellement » — c'est le garde-fou qui fonctionne, et la une du bulletin
+confirme : « Une nouvelle zone de santé a été touchée au cours des dernières
+24 heures, notamment celle de Dungu dans la province du Haut-Uélé ». Elle
+entre avec 1 cas, 1 décès, et sa ventilation du jour est déduite de la ligne
+de province (1 décès communautaire).
+
+**La vaccination est extraite en détail** (20 septembre 2026, avant toute
+décision sur la page Riposte). La campagne Ervebo démarre le 26 août 2026 au
+Bas-Uélé (20 PPL à Buta), la Tshopo suit le 27. Au 18 septembre, **deux
+provinces sur sept vaccinent** : la Tshopo (3 369) et le Bas-Uélé (708).
+L'Ituri lance le 19 septembre à Bunia avec MSF, le Nord-Kivu en est à la chaîne
+de froid, le Sud-Ubangi à 300 doses, le Haut-Uélé et le Sud-Kivu à rien. La
+cible n'est pas la population : ce sont les **PPL et TPL** (personnels et
+travailleurs de première ligne), plus les contacts à haut risque au Bas-Uélé.
+
+Une section **« 1.6. Vaccination »** existe depuis le SitRep 112 (3 septembre)
+et figure dans les **seize bulletins suivants sans exception**, sous le même
+numéro, avec « Principales actions » puis « Défis » — un ancrage bien plus sûr
+que ce qu'on a pour les contacts ou les CTE. `extract_piliers.py` y lit
+désormais, par province : `cumul`, `cible`, `couverture`, `zones` (la
+ventilation par zone de santé) avec `zonesSomme`, `doses` (congelées,
+décongelées, au niveau des zones, déployées, reçues/exprimées, date de
+péremption) et `mapi`. Le `cumulParProvince` d'origine est inchangé, donc la
+lettre ne bouge pas.
+
+**Trois pièges, et le contrôle qui va avec.** Le **124 recopie la ventilation
+du 123** (somme 2 460 pour un cumul 2 544) : d'où `zonesSomme` à côté du cumul,
+et un contrôle non bloquant dans `check_coherence` qui le signale — un
+graphique qui empile les zones doit savoir qu'il lui manque 84 personnes ce
+jour-là. La **cible oscille** — 11 703 au 117, 11 000 aux 118 et 119, 11 703
+ensuite — et le taux publié suit la cible citée : on garde les deux nombres
+bruts. Le bulletin ne publie **jamais de vaccinés du jour**, seulement des
+cumuls (+197, +227, +147, +153, +84, +266, +253, +306) ; le 13 septembre en
+couvre deux, le 121 ne disant rien de la Tshopo. Deux autres contrôles ont été
+ajoutés : le cumul ne recule jamais (bloquant) et la couverture se recalcule
+sur la cible à un demi-point près. **Ce dernier passe de justesse au 117** (14,0
+publié contre 13,5 recalculé, 0,48 d'écart) : si la source arrondit encore plus
+grossièrement, il faudra desserrer le seuil.
+
+Une tournure à laquelle l'extraction a failli se laisser prendre : la province
+**revient dans « Défis » après « Principales actions »**, et au 127 le second
+paragraphe (« risque de péremption des 631 doses ») écrasait le premier, qui
+portait le cumul. La fusion complète désormais sans jamais écraser.
+
+**Les barres du 17 et du 18 septembre manquaient au graphique des contacts**
+(vu par le propriétaire le 20 septembre 2026, corrigé le jour même). Les barres
+du graphique de la riposte tracent les contacts *à suivre*, pas le taux : sans
+`contacts.aSuivre`, la courbe passe et la barre manque. Les 126 et 127 avaient
+leur taux — lu par le repli générique sur « taux de suivi des contacts … % » —
+mais ni effectifs nationaux ni provinces, faute de motif. Deux tournures
+apprises :
+- **Onzième tournure des contacts (126)** : « **Sur les** 31 902 contacts en
+  cours de suivi, 27 842 ont été vus au cours des dernières 24 heures, soit une
+  proportion de suivi de 87,2% » — « Sur les » à la place de « Parmi les ».
+  `CONTACTS_PARMI_LES_RE` accepte désormais les deux.
+- **Douzième tournure des contacts (127)** : « Au cours des dernières 24
+  heures, 26 803 **ont été vus parmi les** 30 541 contacts en cours de suivi,
+  soit une proportion de suivi de 87,8% » — les vus ouvrent la phrase et
+  « parmi les » ne vient qu'**après** « ont été vus », ce qu'aucun des deux
+  motifs « parmi » ne lisait. Nouveau `CONTACTS_VUS_PARMI_RE`.
+
+Comme les motifs de province ne lisent que le voisinage de la phrase nationale,
+les deux dates ont retrouvé du même coup leurs six provinces. Effet de bord
+voulu : la case nationale « Contacts vus (7 derniers relevés) » repasse de la
+moyenne simple des taux (87,0 %, sans sous-titre) à la moyenne pondérée
+(**87,1 %**, 186 691 vus sur 214 289 à suivre), les sept relevés portant de
+nouveau leurs effectifs. Régénération complète, aucune autre date touchée.
+
+**La courbe Nord-Kivu du graphique des CTE perdait 16 dates sur 59** (vu par
+le propriétaire le 20 septembre 2026, corrigé le jour même). Trois causes, dont
+une seule de notre fait :
+- **Du 16 au 18 septembre, les lits étaient publiés et nous ne les lisions
+  pas.** « 392 patients sont hospitalisés dont 224 dans les structures normées
+  **avec une capacité d'accueil de 228 lits**, soit un taux d'occupation global
+  de 98,2 % » (127) — `LITS_RE` n'attend que « pour N lits ». Nouveau
+  `LITS_CAPACITE_RE`, ancré sur « lits » et non sur « de », parce que le 125
+  glisse son numéro de page au milieu : « capacité d'accueil **6** de 228
+  lits ».
+- **Le taux porte sur les seules structures normées**, pas sur tous les
+  hospitalisés : 224/228 font 98,2 %, quand 392/228 en feraient 172. D'où
+  `HOSPITALISES_NORMES_RE` et le champ `hospitalisesNormes`, et une fonction
+  `numerateur()` dans `extraire_cte.py` — le même numérateur sert au contrôle
+  par province, au cumul `hospitalisesAvecLits`, à `check_coherence`, au
+  sous-titre de la page province et à l'infobulle du graphique. Sans ça,
+  ajouter les 228 lits déclenchait un écart bloquant et faussait le KPI
+  national.
+- **Du 10 au 15 septembre, la source ne publie aucun dénominateur** — « 311
+  patients sont hospitalisés, soit un taux d'occupation global en sursaturation
+  (141,4 %) ». Le filtre de la vue nationale traitait `lits` absent comme 0 lit
+  et écartait le point, alors que la page province le traçait : **les deux vues
+  jugeaient le même point différemment**. Le seuil porte désormais sur
+  l'effectif connu — le dénominateur s'il est publié, les hospitalisés sinon —
+  et la même règle vaut dans les deux vues. « Pas de lits publiés » et « moins
+  de 20 lits » sont deux choses différentes ; les confondre coûtait au
+  Nord-Kivu neuf jours de courbe pour 311 à 403 patients.
+- **Les 7-12 et le 29 août (7 dates) sont irréparables** : le Nord-Kivu n'a pas
+  de section de prise en charge chiffrée ces jours-là (le 086 ne donne que des
+  admissions cumulées, le 107 ne le mentionne pas). Le trou du 7 au 12 août
+  fait 6 jours, donc au-delà de `MAX_TROU_CTE` : pas de pointillé, par choix —
+  la province passe de 141 à 206 lits pendant ce trou.
+
+Effet mesuré de la règle, vérifié province par province avant de l'écrire : la
+vue nationale gagne 6 dates au Nord-Kivu (plus 3 par l'extraction, soit les 9)
+et 1 au Sud-Kivu ; les pages province perdent 4 points qui ne voulaient rien
+dire — la Tshopo à 5 et 8 patients les 12 et 13 août, le Haut-Uélé à **4**
+patients pour 100 % le 19 août, le Sud-Kivu à 19 le 8 septembre. C'est
+exactement ce pour quoi le seuil existe. Le KPI national d'occupation passe de
+42,8 % à **51,8 %** (731 sur 1 412 lits) : le Nord-Kivu rejoint le cumul, dont
+il était absent faute de lits. Les lettres 125, 126 et 127 suivent.
+
+**Le taux du Nord-Kivu change de sens le 15 septembre**, et la note sous le
+graphique le dit désormais. **Attention : ce n'est pas le dénominateur qui
+change, contrairement à ce que le premier jet de cette note et du commit
+`5053475d` affirmaient.** Le nombre de lits ne bouge pas — 228 du 11 au
+18 septembre, ce que confirme le dénominateur implicite reconstitué depuis le
+taux publié (317/1,390 = 228, 342/1,50 = 228, 348/1,526 = 228). C'est le
+**numérateur** qui change : jusqu'au 14, l'INSP rapporte *tous* les patients
+hospitalisés à ces 228 lits ; depuis le 15, il ne retient que ceux des
+structures normées (216 sur 373). Les 157 malades couchés hors des lits
+prévus — ce que le dépassement de 100 % sert précisément à signaler —
+sortent du calcul, et le taux tombe de 152,6 % à 94,7 % pendant que le nombre
+de patients monte. Le SitRep 127 le dit lui-même dans ses Défis : « 42,9 % des
+patients hospitalisés sont pris en charge en dehors des structures normées »
+(168/392 = 42,9 %, nos chiffres tombent sur les siens).
+
+**Le site trace donc la série à définition constante** — tous les hospitalisés
+rapportés aux lits déclarés — décision du propriétaire le 20 septembre 2026,
+après avoir vu la courbe plonger. À définition constante, la saturation
+continue de monter : 152,6 % le 14, puis 163,6, 164,9, **176,8** le 17 et
+171,9 le 18. Le taux du bulletin est conservé dans `occupationPubliee`, et
+`numerateur()` rend désormais toujours le total hospitalisé.
+
+**La capacité du 15 septembre est déduite, et confirmée.** Le SitRep 124 donne
+« 216 dans les structures dédiées » et 94,7 % sans jamais écrire le nombre de
+lits : 216/0,947 fait 228,1. `confirmer_lits_deduits()` ne retient une
+déduction que si le bulletin a imprimé la même capacité à moins de trois lits
+près dans les sept jours voisins — le 125 et le 126 impriment 228. Le nouveau
+contrôle `check_coherence`, « taux publié = normés / lits là où la province
+distingue », vérifie le couple et passe.
+
+**Conséquence sur le KPI national, à surveiller.** L'occupation nationale
+passe de 48,3 % le 14 septembre à **64,0 %** le 15 : le Nord-Kivu entre dans le
+cumul (il n'avait pas de lits du 10 au 14) *et* y entre avec ses 373 patients.
+C'est le défaut de périmètre qui avait fait retirer la ligne « Toutes
+provinces » du graphique le 28 août — un cumul qui change de périmètre sans le
+dire. Les lettres 124 à 127 portent la nouvelle valeur (64,0 / 62,7 / 64,0 /
+63,7 %).
+
+La chaîne `provinceKpiOccupationSubNormes` ajoutée le 20 septembre n'est plus
+utilisée : le sous-titre redevient « 392 hospitalisés pour 228 lits », cohérent
+avec le taux affiché. Elle reste dans `strings.json` en fr/en/sw.
+
+Relu en local sur la page Riposte avant publication, puis **publié le
+20 septembre 2026**.
+
+**Le 6 août et le 7 septembre restent sans barre, et c'est correct.** Le 084 ne
+publie aucun effectif (« Le suivi des contacts est à 83,7% », rien d'autre). Le
+116 en publie, mais ils se contredisent : 21 359 vus sur 24 719 à suivre font
+86,4 %, quand la même phrase imprime 88,3 % — `effectifs_verifies` les rejette
+au-delà d'un point d'écart. Ne pas « réparer » ces deux-là.

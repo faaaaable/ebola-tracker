@@ -1,6 +1,6 @@
 ---
 name: chantiers-ouverts
-description: Chantiers ouverts et mis de cote d'ebola-tracker : maquettes sorties du depot (accueil, provinces, Flux & deplaces, Riposte & defis), synthese des defis a ecrire, vue Par province des alertes en stash, et les dettes connues. A charger quand il faut reprendre un chantier en attente, retrouver ou une maquette a ete rangee, ou savoir ce qui a deja ete essaye et ecarte.
+description: "Chantiers ouverts et mis de cote d'ebola-tracker : maquettes sorties du depot (accueil, provinces, Flux & deplaces, Riposte & defis), synthese des defis a ecrire, vue Par province des alertes en stash, et les dettes connues. A charger quand il faut reprendre un chantier en attente, retrouver ou une maquette a ete rangee, ou savoir ce qui a deja ete essaye et ecarte."
 ---
 
 # Chantiers ouverts

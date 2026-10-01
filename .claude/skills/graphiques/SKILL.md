@@ -1,6 +1,6 @@
 ---
 name: graphiques
-description: Les onze modes de graphique d'ebola-tracker (app.js, Chart.js) : ce que chacun montre et pourquoi, le plafond d'axe et la rupture des barres de rattrapage, les trois pas de temps, les plugins maison (largeurSemaine, plageSansDonnees, ruptureRattrapage), les deux gris, le partage de figure et de tableau, les conventions d'axes, d'infobulles et de legendes. A charger AVANT de toucher a un graphique, a assets/js/app.js ou a l'export d'une figure.
+description: "Les onze modes de graphique d'ebola-tracker (app.js, Chart.js) : ce que chacun montre et pourquoi, le plafond d'axe et la rupture des barres de rattrapage, les trois pas de temps, les plugins maison (largeurSemaine, plageSansDonnees, ruptureRattrapage), les deux gris, le partage de figure et de tableau, les conventions d'axes, d'infobulles et de legendes. A charger AVANT de toucher a un graphique, a assets/js/app.js ou a l'export d'une figure."
 ---
 
 # Les graphiques
