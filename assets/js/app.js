@@ -6481,11 +6481,48 @@ Promise.all([loadRemoteSitreps(), loadRemoteLatest(), besoinHistorique ? loadZon
       document.querySelectorAll('.actus-puce').forEach(function(q){
         q.classList.toggle('on', q === p); q.setAttribute('aria-pressed', q === p ? 'true' : 'false');
       });
-      var cat = p.dataset.cat;
-      cases.forEach(function(c){ c.hidden = !!cat && c.dataset.cat !== cat; });
-      onglets(); remplir();
+      cat = p.dataset.cat;
+      page = 1; afficher();
     });
   });
-  onglets(); remplir();
+  // Pagination : PAR_PAGE articles a la fois, parmi ceux que le filtre garde.
+  // La page courante vit dans l'adresse (?page=2) pour qu'un lien la retrouve.
+  var PAR_PAGE = 24, cat = '', page = 1;
+  var nav = document.createElement('nav');
+  nav.className = 'actus-pages'; nav.setAttribute('aria-label', mos.dataset.pageLib);
+  mos.parentNode.insertBefore(nav, mos.nextSibling);
+  try { page = Math.max(1, parseInt(new URLSearchParams(location.search).get('page'), 10) || 1); } catch (e) {}
+  function aller(n, defiler){ page = n; afficher(); if (defiler) mos.previousElementSibling.scrollIntoView({block: 'start'}); }
+  function bouton(txt, n, actif, desactive, libelle){
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = txt; b.className = 'actus-pg' + (actif ? ' on' : '');
+    if (libelle) b.setAttribute('aria-label', libelle);
+    if (actif) b.setAttribute('aria-current', 'page');
+    if (desactive) b.disabled = true; else b.addEventListener('click', function(){ aller(n, true); });
+    return b;
+  }
+  function afficher(){
+    var gardes = cases.filter(function(c){ return !cat || c.dataset.cat === cat; });
+    var total = Math.max(1, Math.ceil(gardes.length / PAR_PAGE));
+    page = Math.min(page, total);
+    cases.forEach(function(c){ c.hidden = true; });
+    gardes.slice((page - 1) * PAR_PAGE, page * PAR_PAGE).forEach(function(c){ c.hidden = false; });
+    nav.textContent = '';
+    if (total > 1) {
+      nav.appendChild(bouton('\u2039', page - 1, false, page === 1, mos.dataset.prec));
+      for (var i = 1; i <= total; i++) {
+        if (i === 1 || i === total || Math.abs(i - page) <= 1) nav.appendChild(bouton(String(i), i, i === page, false, mos.dataset.pageLib + ' ' + i));
+        else if (nav.lastChild.className !== 'actus-pg-sep') { var e = document.createElement('span'); e.className = 'actus-pg-sep'; e.textContent = '\u2026'; nav.appendChild(e); }
+      }
+      nav.appendChild(bouton('\u203a', page + 1, false, page === total, mos.dataset.suiv));
+    }
+    try {
+      var u = new URL(location.href);
+      if (page > 1) u.searchParams.set('page', page); else u.searchParams.delete('page');
+      history.replaceState(null, '', u);
+    } catch (e) {}
+    onglets(); remplir();
+  }
+  afficher();
   window.addEventListener('resize', remplir);
 })();

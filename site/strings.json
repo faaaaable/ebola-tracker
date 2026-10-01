@@ -541,7 +541,10 @@
     "actusAujourdhui": "Aujourd'hui",
     "actusHier": "Hier",
     "actusIlYa": "Il y a {n} jours",
-    "actusFiltres": "Filtrer par source"
+    "actusFiltres": "Filtrer par source",
+    "actusPage": "Page",
+    "actusPrec": "Précédent",
+    "actusSuiv": "Suivant"
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -1084,7 +1087,10 @@
     "actusAujourdhui": "Today",
     "actusHier": "Yesterday",
     "actusIlYa": "{n} days ago",
-    "actusFiltres": "Filter by source"
+    "actusFiltres": "Filter by source",
+    "actusPage": "Page",
+    "actusPrec": "Previous",
+    "actusSuiv": "Next"
   },
   "timelineEvents": [
     {
@@ -2127,6 +2133,9 @@
     "actusAujourdhui": "Leo",
     "actusHier": "Jana",
     "actusIlYa": "Siku {n} zilizopita",
-    "actusFiltres": "Chuja kwa chanzo"
+    "actusFiltres": "Chuja kwa chanzo",
+    "actusPage": "Ukurasa",
+    "actusPrec": "Uliotangulia",
+    "actusSuiv": "Unaofuata"
   }
 }

@@ -1929,9 +1929,10 @@ def actus_items_html(actus, lang, i18n_lang, strings_lang):
                 teinte, esc(source), x["date"], esc(short_date(x["date"], i18n_lang)), lg,
                 esc(strings_lang["actusNouveau"]), esc(x["titre"])))
     return ('        <div class="actus-puces" role="group" aria-label="%s">%s</div>\n'
-            '        <div class="actus-mos" data-auj="%s" data-hier="%s" data-jours="%s">\n%s\n        </div>' % (
+            '        <div class="actus-mos" data-auj="%s" data-hier="%s" data-jours="%s" data-page-lib="%s" data-prec="%s" data-suiv="%s">\n%s\n        </div>' % (
                 esc(strings_lang["actusFiltres"]), "".join(puces), esc(strings_lang["actusAujourdhui"]),
-                esc(strings_lang["actusHier"]), esc(strings_lang["actusIlYa"]), "\n".join(cases)))
+                esc(strings_lang["actusHier"]), esc(strings_lang["actusIlYa"]), esc(strings_lang["actusPage"]),
+                esc(strings_lang["actusPrec"]), esc(strings_lang["actusSuiv"]), "\n".join(cases)))
 
 
 def province_map_values(province_maps, name, zones, config, lang, strings_lang, aliases):
