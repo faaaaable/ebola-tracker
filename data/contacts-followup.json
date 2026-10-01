@@ -3278,5 +3278,80 @@
     "sitrepNumber": "136",
     "contactsFollowUpRate": 75.9,
     "source": "SitRep INSP (automatique)"
+  },
+  {
+    "date": "2026-09-28",
+    "sitrepNumber": "137",
+    "contactsFollowUpRate": 82.0,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 30159,
+      "vus": 24717
+    },
+    "provinces": {
+      "Bas-Uélé": {
+        "taux": 85.9,
+        "vus": 159,
+        "aSuivre": 185
+      },
+      "Ituri": {
+        "taux": 84.4,
+        "vus": 10534,
+        "aSuivre": 12476
+      },
+      "Tshopo": {
+        "taux": 83.2,
+        "vus": 634,
+        "aSuivre": 762
+      },
+      "Nord-Kivu": {
+        "taux": 80.1,
+        "vus": 11921,
+        "aSuivre": 14876
+      },
+      "Haut-Uélé": {
+        "taux": 78.1,
+        "vus": 1377,
+        "aSuivre": 1762
+      },
+      "Sud-Ubangi": {
+        "taux": 93.9,
+        "vus": 92,
+        "aSuivre": 98
+      }
+    }
+  },
+  {
+    "date": "2026-09-29",
+    "sitrepNumber": "138",
+    "contactsFollowUpRate": 73.5,
+    "source": "SitRep INSP (automatique)",
+    "provinces": {
+      "Haut-Uélé": {
+        "taux": 82.7,
+        "vus": 807,
+        "aSuivre": 976
+      },
+      "Sud-Ubangi": {
+        "taux": 93.9,
+        "vus": 92,
+        "aSuivre": 98
+      },
+      "Ituri": {
+        "taux": 85.3,
+        "vus": 12248,
+        "aSuivre": 14363
+      },
+      "Bas-Uélé": {
+        "taux": 87.0,
+        "vus": 161,
+        "aSuivre": 185
+      },
+      "Tshopo": {
+        "taux": 83.7,
+        "vus": 638,
+        "aSuivre": 762
+      }
+    }
   }
 ]

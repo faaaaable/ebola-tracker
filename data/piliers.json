@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-09-27"
+  "fin": "2026-09-29"
  },
  "parDate": [
   {
@@ -2390,6 +2390,9 @@
        "decongelees": 442,
        "peremption": "2026-10-05"
       }
+     },
+     "Ituri": {
+      "cumul": 96
      }
     }
    },
@@ -2584,6 +2587,87 @@
       "doses": {
        "decongelees": 47
       }
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-28",
+   "sitrepNumber": "137",
+   "poe": {
+    "personnes": 251267,
+    "screenesPct": null,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 36,
+    "attendus": 64
+   },
+   "eds": {
+    "alertes": 56,
+    "realisees": 98,
+    "swabes": 62,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 3,
+     "swabes": 3
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 602,
+     "Bas-Uélé": 1019,
+     "Tshopo": 6897
+    },
+    "rupture": false,
+    "provinces": {
+     "Ituri": {
+      "cumul": 602
+     },
+     "Bas-Uélé": {
+      "cumul": 1019
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-09-29",
+   "sitrepNumber": "138",
+   "poe": {
+    "personnes": 252041,
+    "screenesPct": 97.3,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 34,
+    "attendus": 56
+   },
+   "eds": {
+    "alertes": 47,
+    "realisees": 124,
+    "swabes": 104,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 3,
+     "swabes": 4
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 731,
+     "Bas-Uélé": 1022
+    },
+    "rupture": false,
+    "provinces": {
+     "Ituri": {
+      "cumul": 731
+     },
+     "Bas-Uélé": {
+      "cumul": 1022
      }
     }
    },

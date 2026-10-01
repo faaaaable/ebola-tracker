@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-05-20",
-    "fin": "2026-09-27"
+    "fin": "2026-09-29"
   },
   "parDate": [
     {
@@ -3547,6 +3547,93 @@
         "echantillons": 270,
         "positifs": 49,
         "positivite": 18.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-28",
+      "sitrepNumber": "137",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 200,
+          "positifs": 36,
+          "vivants": 27,
+          "deces": 9,
+          "positivite": 18.0
+        },
+        "Nord-Kivu": {
+          "echantillons": 140,
+          "positifs": 12,
+          "vivants": 5,
+          "deces": 7,
+          "positivite": 8.6
+        },
+        "Haut-Uélé": {
+          "echantillons": 20,
+          "positifs": 5,
+          "vivants": 4,
+          "deces": 1,
+          "positivite": 20.0
+        },
+        "Tshopo": {
+          "echantillons": 10,
+          "positifs": 2,
+          "positivite": 25.0
+        },
+        "Bas-Uélé": {
+          "echantillons": 10,
+          "positifs": 0,
+          "vivants": 1,
+          "deces": 1
+        }
+      },
+      "total": {
+        "provinces": 5,
+        "echantillons": 380,
+        "positifs": 55,
+        "positivite": 14.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-29",
+      "sitrepNumber": "138",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 175,
+          "positifs": 32,
+          "vivants": 19,
+          "deces": 13,
+          "positivite": 18.3
+        },
+        "Nord-Kivu": {
+          "echantillons": 124,
+          "positifs": 17,
+          "vivants": 9,
+          "deces": 8,
+          "positivite": 13.7
+        },
+        "Haut-Uélé": {
+          "echantillons": 21,
+          "positifs": 4,
+          "vivants": 3,
+          "deces": 1,
+          "positivite": 19.0
+        },
+        "Tshopo": {
+          "echantillons": 6,
+          "positifs": 0
+        },
+        "Bas-Uélé": {
+          "echantillons": 2,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 5,
+        "echantillons": 328,
+        "positifs": 53,
+        "positivite": 16.2
       },
       "source": "SitRep INSP (automatique)"
     }

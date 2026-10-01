@@ -766,5 +766,17 @@
     "confirmed": 8116,
     "deaths": 3924,
     "recovered": 2088
+  },
+  {
+    "date": "2026-09-28",
+    "confirmed": 8171,
+    "deaths": 3954,
+    "recovered": null
+  },
+  {
+    "date": "2026-09-29",
+    "confirmed": 8224,
+    "deaths": 3982,
+    "recovered": 2121
   }
 ]

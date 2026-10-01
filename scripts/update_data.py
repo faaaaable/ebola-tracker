@@ -285,7 +285,10 @@ def extract_meta(full_text, fallback_number=None):
     else:
         raise ValueError("Impossible de trouver la référence du SitRep dans le PDF.")
 
-    reporting_date = extract_one_date(full_text, "Date de rapportage")
+    # Depuis le SitRep 137 le libellé est « Date du rapport » (avant : « Date
+    # de rapportage »). On essaie les deux.
+    reporting_date = (extract_one_date(full_text, "Date de rapportage")
+                      or extract_one_date(full_text, "Date du rapport"))
     publication_date = extract_one_date(full_text, "Date de publication")
 
     return {

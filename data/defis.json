@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-09-27"
+    "fin": "2026-09-29"
   },
   "parDate": [
     {
@@ -5019,6 +5019,158 @@
           "provinces": [
             "Haut-Uélé"
           ]
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-28",
+      "sitrepNumber": "137",
+      "piliers": [
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "En Ituri, l'ouverture des rings demeure faible (42,4 % ; 14/33), 19 corps n'ont pas été swabés et les activités sont suspendues à Nizi pour cause d'insécurité. Au Nord-Kivu, la décontamination des ménages reste limitée (25,9 % ; 7/27), aucun ménage décontaminé n'a été doté en kit (0/7) et la promptitude/complétude des rapports PCI est de 68,8 % (11/16 ZS). Au Haut-Uélé, incomplétude de rapportage (57,1 % ; 4/7 ZS) ; deux rings n'ont pu être ouverts à Pawa (AS Fungula et Gbonzunzu) en raison de tensions communautaires. À la Tshopo, seuls 2,0 % des ESS (2/99) ont obtenu un score PCI supérieur à 80 % ; dotation en kits PCI/EHA dans les ménages reste limitée à 40,0 % (20/50) et l'incinérateur de l'HGR de Makiso-Kisangani demeure en panne. Au Bas-Uélé, 2 triages sur 3 ne sont pas fonctionnels à Buta et l'acceptation des EDS reste faible."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "En Ituri, faible capacité d'accueil de certains CTE/CT et l'insuffisance de la prise en charge alimentaire demeurent préoccupantes.",
+            "Au Bas-Uélé, l'absence de CTE normé et d'ambulance pour le transfert des malades demeure un défi opérationnel majeur.",
+            "À la Tshopo, la présence continue de cas confirmés en isolement nécessite le maintien des mesures de prévention et contrôle de l'infection."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "À la Tshopo, rupture de vaccin ERVEBO dans un contexte de forte demande communautaire ; les deux prestataires confirmés le 28 septembre n'étaient ni vaccinés ni sous PEP. Au Bas-Uélé, mise en marche des UCC et disponibilité du micro-plan validé et des fonds de la vaccination. En Ituri, la cible des PPL/TPL reste à redéfinir ; aucun taux de couverture fiable n’est calculé sur cette base dans la présentation."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Continuité des Soins",
+          "items": [
+            "À la Tshopo, baisse de l'utilisation des services, notamment de la maternité et des césariennes, dans l'ESS évalué ; la fermeture provisoire de l'ESS DHKis reste proposée face à la multiplication des cas confirmés et suspects."
+          ],
+          "provinces": [
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "En Ituri, renforcer en urgence les capacités des psychologues et des agents psychosociaux pour les interventions autour des cas à Mandima.",
+            "À la Tshopo, former les agents psychosociaux de Wanie-Rukula et de Bafwasende, renforcer les moyens de communication et de déplacement du pilier, et apporter un soutien matériel à la famille du guéri de Bafwandambo."
+          ],
+          "provinces": [
+            "Ituri",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            "Au Haut-Uélé, Au niveau national, seules 2 DPS sur 7 ont rapporté leurs activités PSEA (28,6 %) et les CBCM restent peu efficaces."
+          ],
+          "provinces": [
+            "Haut-Uélé"
+          ]
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-09-29",
+      "sitrepNumber": "138",
+      "piliers": [
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "En Ituri, l’ouverture des rings demeure insuffisante (55,9 % ; 19/34), 15 corps n’ont pas été swabés faute d’intrants et d’équipes à Mandima ou à la suite de refus des familles, et aucun ménage ni aucune ESS n’a été doté en kits. Au Nord-Kivu, la décontamination des ménages reste très faible (14,3 % ; 3/21), aucun ménage décontaminé n’a été doté en kit (0/3), le score PCI moyen des 7 ESS évaluées est de 36,6 % et la promptitude/complétude des rapports PCI est de 56,3 % (9/16 ZS)."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "En Ituri, faible capacité d'accueil de certains CTE/CT et l'insuffisance de la prise en charge alimentaire demeurent préoccupantes.",
+            "Au Bas-Uélé, l'absence de CTE normé et d'ambulance pour le transfert des malades demeure un défi opérationnel majeur.",
+            "À la Tshopo, la présence continue de cas confirmés en isolement nécessite le maintien des mesures de prévention et contrôle de l'infection."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "En Ituri, la cible des PPL/TPL reste à redéfinir, ce qui empêche le calcul d’un taux de couverture fiable. Au Bas-Uélé, mise en marche des UCC non effective, pas de disponibilité du micro-plan validé et des fonds de la vaccination."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Continuité des Soins",
+          "items": [
+            "À la Tshopo, baisse de l'utilisation des services, notamment de la maternité et des césariennes, dans l'ESS évalué ; la fermeture provisoire de l'ESS DHKis reste proposée face à la multiplication des cas confirmés et suspects."
+          ],
+          "provinces": [
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "En Ituri, seules 13 ZS affectées sur 28 sont couvertes ; renforcer en urgence les capacités des psychologues et des agents psychosociaux pour les interventions autour des cas à Mandima.",
+            "Au Haut-Uélé, difficultés de mobilité des APS à Wamba et Boma Mangbetu, insuffisance de kits nutritionnels pour les nourrissons sevrés et faible remontée des données à Pawa et Boma Mangbetu."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            "Au niveau national, seules 2 DPS sur 7 ont rapporté leurs activités PSEA (28,6 %) et les CBCM restent peu efficaces."
+          ],
+          "provinces": []
         }
       ],
       "source": "SitRep INSP (automatique)"

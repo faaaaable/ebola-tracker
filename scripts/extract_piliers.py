@@ -303,7 +303,11 @@ def lire_vaccination_detail(corps):
     t = " ".join((corps or "").split())
     for prov, seg in _segments_provinces(t):
         ligne = {}
-        m = (VAC_CUMUL_RE.search(seg) or VAC_CUMUL_TPL_RE.search(seg)
+        # SitRep 137 : « 19 PPL et TPL ont été vaccinés à Buta, portant le cumul
+        # provincial à 1 019 » — le premier nombre est celui du jour, le cumul
+        # est le second.
+        m = (re.search(r"portant\s+le\s+cumul(?:\s+provincial)?\s+à\s+" + NUM, seg)
+             or VAC_CUMUL_RE.search(seg) or VAC_CUMUL_TPL_RE.search(seg)
              or VAC_CUMUL_ATTEINT_RE.search(seg) or VAC_CUMUL_ETAT_RE.search(seg))
         if m:
             ligne["cumul"] = entier(m.group(1))
@@ -417,7 +421,7 @@ def lire_vaccination(corps, texte_entier):
             continue
         # « 66 PPL ont été vaccinés à Bunia du 21 au 23 septembre, portant le
         # cumul à 96 » (132) : le cumul est le second nombre, pas le premier.
-        m = re.search(r"portant le cumul à " + NUM, phr)
+        m = re.search(r"portant le cumul(?: provincial)? à " + NUM, phr)
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         m = re.search(r"cumul (?:des )?personnes vaccinées\s*:\s*" + NUM, phr)

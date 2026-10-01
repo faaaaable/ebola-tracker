@@ -32644,5 +32644,773 @@
         "deaths": 1
       }
     ]
+  },
+  {
+    "sitrep": "137",
+    "date": "2026-09-28",
+    "zones": [
+      {
+        "name": "Adja",
+        "province": "Ituri",
+        "cases": 11,
+        "deaths": 1
+      },
+      {
+        "name": "Aru",
+        "province": "Ituri",
+        "cases": 8,
+        "deaths": 6
+      },
+      {
+        "name": "Ariwara",
+        "province": "Ituri",
+        "cases": 8,
+        "deaths": 2
+      },
+      {
+        "name": "Aungba",
+        "province": "Ituri",
+        "cases": 12,
+        "deaths": 5
+      },
+      {
+        "name": "Bambu",
+        "province": "Ituri",
+        "cases": 202,
+        "deaths": 46
+      },
+      {
+        "name": "Boga",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": 2
+      },
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 1714,
+        "deaths": 557
+      },
+      {
+        "name": "Damas",
+        "province": "Ituri",
+        "cases": 40,
+        "deaths": 9
+      },
+      {
+        "name": "Drodro",
+        "province": "Ituri",
+        "cases": 15,
+        "deaths": 7
+      },
+      {
+        "name": "Fataki",
+        "province": "Ituri",
+        "cases": 82,
+        "deaths": 31
+      },
+      {
+        "name": "Gethy",
+        "province": "Ituri",
+        "cases": 7,
+        "deaths": 3
+      },
+      {
+        "name": "Kambala",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": 0
+      },
+      {
+        "name": "Kilo",
+        "province": "Ituri",
+        "cases": 35,
+        "deaths": 12
+      },
+      {
+        "name": "Komanda",
+        "province": "Ituri",
+        "cases": 168,
+        "deaths": 101
+      },
+      {
+        "name": "Lita",
+        "province": "Ituri",
+        "cases": 284,
+        "deaths": 143
+      },
+      {
+        "name": "Logo",
+        "province": "Ituri",
+        "cases": 13,
+        "deaths": 5
+      },
+      {
+        "name": "Lolwa",
+        "province": "Ituri",
+        "cases": 33,
+        "deaths": 8
+      },
+      {
+        "name": "Mahagi",
+        "province": "Ituri",
+        "cases": 4,
+        "deaths": 1
+      },
+      {
+        "name": "Mambasa",
+        "province": "Ituri",
+        "cases": 29,
+        "deaths": 11
+      },
+      {
+        "name": "Mandima",
+        "province": "Ituri",
+        "cases": 131,
+        "deaths": 71
+      },
+      {
+        "name": "Mangala",
+        "province": "Ituri",
+        "cases": 350,
+        "deaths": 153
+      },
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 700,
+        "deaths": 330
+      },
+      {
+        "name": "Nia-Nia",
+        "province": "Ituri",
+        "cases": 295,
+        "deaths": 161
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 775,
+        "deaths": 279
+      },
+      {
+        "name": "Nyankunde",
+        "province": "Ituri",
+        "cases": 128,
+        "deaths": 37
+      },
+      {
+        "name": "Rimba",
+        "province": "Ituri",
+        "cases": 12,
+        "deaths": 4
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 1082,
+        "deaths": 365
+      },
+      {
+        "name": "Tchomia",
+        "province": "Ituri",
+        "cases": 76,
+        "deaths": 25
+      },
+      {
+        "name": "Beni",
+        "province": "Nord-Kivu",
+        "cases": 343,
+        "deaths": 228
+      },
+      {
+        "name": "Biena",
+        "province": "Nord-Kivu",
+        "cases": 18,
+        "deaths": 7
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 258,
+        "deaths": 167
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Kalunguta",
+        "province": "Nord-Kivu",
+        "cases": 54,
+        "deaths": 18
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 559,
+        "deaths": 355
+      },
+      {
+        "name": "Kayna",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Kyondo",
+        "province": "Nord-Kivu",
+        "cases": 33,
+        "deaths": 20
+      },
+      {
+        "name": "Lubero",
+        "province": "Nord-Kivu",
+        "cases": 21,
+        "deaths": 11
+      },
+      {
+        "name": "Mabalako",
+        "province": "Nord-Kivu",
+        "cases": 32,
+        "deaths": 11
+      },
+      {
+        "name": "Manguredjipa",
+        "province": "Nord-Kivu",
+        "cases": 13,
+        "deaths": 5
+      },
+      {
+        "name": "Masereka",
+        "province": "Nord-Kivu",
+        "cases": 28,
+        "deaths": 9
+      },
+      {
+        "name": "Musienene",
+        "province": "Nord-Kivu",
+        "cases": 123,
+        "deaths": 66
+      },
+      {
+        "name": "Mutwanga",
+        "province": "Nord-Kivu",
+        "cases": 12,
+        "deaths": 2
+      },
+      {
+        "name": "Oicha",
+        "province": "Nord-Kivu",
+        "cases": 26,
+        "deaths": 14
+      },
+      {
+        "name": "Vuhovi",
+        "province": "Nord-Kivu",
+        "cases": 31,
+        "deaths": 9
+      },
+      {
+        "name": "Boma Mangbetu",
+        "province": "Haut-Uélé",
+        "cases": 39,
+        "deaths": 17
+      },
+      {
+        "name": "Dungu",
+        "province": "Haut-Uélé",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Gombari",
+        "province": "Haut-Uélé",
+        "cases": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Isiro",
+        "province": "Haut-Uélé",
+        "cases": 102,
+        "deaths": 44
+      },
+      {
+        "name": "Pawa",
+        "province": "Haut-Uélé",
+        "cases": 83,
+        "deaths": 38
+      },
+      {
+        "name": "Rungu",
+        "province": "Haut-Uélé",
+        "cases": 2,
+        "deaths": 1
+      },
+      {
+        "name": "Wamba",
+        "province": "Haut-Uélé",
+        "cases": 110,
+        "deaths": 40
+      },
+      {
+        "name": "Bafwasende",
+        "province": "Tshopo",
+        "cases": 7,
+        "deaths": 1
+      },
+      {
+        "name": "Kabondo",
+        "province": "Tshopo",
+        "cases": 5,
+        "deaths": 1
+      },
+      {
+        "name": "Lubunga",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Makiso-Kisangani",
+        "province": "Tshopo",
+        "cases": 24,
+        "deaths": 10
+      },
+      {
+        "name": "Mangobo",
+        "province": "Tshopo",
+        "cases": 6,
+        "deaths": 3
+      },
+      {
+        "name": "Tshopo",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Wanie-Rukula",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Miti-Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Buta",
+        "province": "Bas-Uélé",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Viadana",
+        "province": "Bas-Uélé",
+        "cases": 6,
+        "deaths": 1
+      },
+      {
+        "name": "Ganga",
+        "province": "Bas-Uélé",
+        "cases": 3,
+        "deaths": 2
+      },
+      {
+        "name": "Bulu",
+        "province": "Sud-Ubangi",
+        "cases": 2,
+        "deaths": 1
+      }
+    ]
+  },
+  {
+    "sitrep": "138",
+    "date": "2026-09-29",
+    "zones": [
+      {
+        "name": "Adja",
+        "province": "Ituri",
+        "cases": 11,
+        "deaths": 1
+      },
+      {
+        "name": "Aru",
+        "province": "Ituri",
+        "cases": 8,
+        "deaths": 6
+      },
+      {
+        "name": "Ariwara",
+        "province": "Ituri",
+        "cases": 8,
+        "deaths": 2
+      },
+      {
+        "name": "Aungba",
+        "province": "Ituri",
+        "cases": 12,
+        "deaths": 5
+      },
+      {
+        "name": "Bambu",
+        "province": "Ituri",
+        "cases": 202,
+        "deaths": 46
+      },
+      {
+        "name": "Boga",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": 2
+      },
+      {
+        "name": "Bunia",
+        "province": "Ituri",
+        "cases": 1728,
+        "deaths": 561
+      },
+      {
+        "name": "Damas",
+        "province": "Ituri",
+        "cases": 40,
+        "deaths": 9
+      },
+      {
+        "name": "Drodro",
+        "province": "Ituri",
+        "cases": 15,
+        "deaths": 7
+      },
+      {
+        "name": "Fataki",
+        "province": "Ituri",
+        "cases": 82,
+        "deaths": 31
+      },
+      {
+        "name": "Gethy",
+        "province": "Ituri",
+        "cases": 7,
+        "deaths": 3
+      },
+      {
+        "name": "Kambala",
+        "province": "Ituri",
+        "cases": 2,
+        "deaths": 0
+      },
+      {
+        "name": "Kilo",
+        "province": "Ituri",
+        "cases": 35,
+        "deaths": 12
+      },
+      {
+        "name": "Komanda",
+        "province": "Ituri",
+        "cases": 169,
+        "deaths": 102
+      },
+      {
+        "name": "Lita",
+        "province": "Ituri",
+        "cases": 284,
+        "deaths": 143
+      },
+      {
+        "name": "Logo",
+        "province": "Ituri",
+        "cases": 13,
+        "deaths": 5
+      },
+      {
+        "name": "Lolwa",
+        "province": "Ituri",
+        "cases": 34,
+        "deaths": 9
+      },
+      {
+        "name": "Mahagi",
+        "province": "Ituri",
+        "cases": 4,
+        "deaths": 1
+      },
+      {
+        "name": "Mambasa",
+        "province": "Ituri",
+        "cases": 29,
+        "deaths": 11
+      },
+      {
+        "name": "Mandima",
+        "province": "Ituri",
+        "cases": 137,
+        "deaths": 75
+      },
+      {
+        "name": "Mangala",
+        "province": "Ituri",
+        "cases": 351,
+        "deaths": 154
+      },
+      {
+        "name": "Mongbwalu",
+        "province": "Ituri",
+        "cases": 701,
+        "deaths": 331
+      },
+      {
+        "name": "Nia-Nia",
+        "province": "Ituri",
+        "cases": 298,
+        "deaths": 162
+      },
+      {
+        "name": "Nizi",
+        "province": "Ituri",
+        "cases": 778,
+        "deaths": 279
+      },
+      {
+        "name": "Nyankunde",
+        "province": "Ituri",
+        "cases": 129,
+        "deaths": 37
+      },
+      {
+        "name": "Rimba",
+        "province": "Ituri",
+        "cases": 12,
+        "deaths": 4
+      },
+      {
+        "name": "Rwampara",
+        "province": "Ituri",
+        "cases": 1083,
+        "deaths": 369
+      },
+      {
+        "name": "Tchomia",
+        "province": "Ituri",
+        "cases": 76,
+        "deaths": 25
+      },
+      {
+        "name": "Beni",
+        "province": "Nord-Kivu",
+        "cases": 348,
+        "deaths": 229
+      },
+      {
+        "name": "Biena",
+        "province": "Nord-Kivu",
+        "cases": 19,
+        "deaths": 7
+      },
+      {
+        "name": "Butembo",
+        "province": "Nord-Kivu",
+        "cases": 263,
+        "deaths": 170
+      },
+      {
+        "name": "Goma",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Kalunguta",
+        "province": "Nord-Kivu",
+        "cases": 54,
+        "deaths": 18
+      },
+      {
+        "name": "Katwa",
+        "province": "Nord-Kivu",
+        "cases": 562,
+        "deaths": 357
+      },
+      {
+        "name": "Kayna",
+        "province": "Nord-Kivu",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Kyondo",
+        "province": "Nord-Kivu",
+        "cases": 33,
+        "deaths": 20
+      },
+      {
+        "name": "Lubero",
+        "province": "Nord-Kivu",
+        "cases": 21,
+        "deaths": 11
+      },
+      {
+        "name": "Mabalako",
+        "province": "Nord-Kivu",
+        "cases": 33,
+        "deaths": 12
+      },
+      {
+        "name": "Manguredjipa",
+        "province": "Nord-Kivu",
+        "cases": 13,
+        "deaths": 5
+      },
+      {
+        "name": "Masereka",
+        "province": "Nord-Kivu",
+        "cases": 29,
+        "deaths": 9
+      },
+      {
+        "name": "Musienene",
+        "province": "Nord-Kivu",
+        "cases": 124,
+        "deaths": 67
+      },
+      {
+        "name": "Mutwanga",
+        "province": "Nord-Kivu",
+        "cases": 12,
+        "deaths": 2
+      },
+      {
+        "name": "Oicha",
+        "province": "Nord-Kivu",
+        "cases": 26,
+        "deaths": 14
+      },
+      {
+        "name": "Vuhovi",
+        "province": "Nord-Kivu",
+        "cases": 31,
+        "deaths": 10
+      },
+      {
+        "name": "Boma Mangbetu",
+        "province": "Haut-Uélé",
+        "cases": 39,
+        "deaths": 17
+      },
+      {
+        "name": "Dungu",
+        "province": "Haut-Uélé",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Gombari",
+        "province": "Haut-Uélé",
+        "cases": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Isiro",
+        "province": "Haut-Uélé",
+        "cases": 102,
+        "deaths": 44
+      },
+      {
+        "name": "Pawa",
+        "province": "Haut-Uélé",
+        "cases": 85,
+        "deaths": 39
+      },
+      {
+        "name": "Rungu",
+        "province": "Haut-Uélé",
+        "cases": 2,
+        "deaths": 1
+      },
+      {
+        "name": "Wamba",
+        "province": "Haut-Uélé",
+        "cases": 112,
+        "deaths": 41
+      },
+      {
+        "name": "Bafwasende",
+        "province": "Tshopo",
+        "cases": 7,
+        "deaths": 1
+      },
+      {
+        "name": "Kabondo",
+        "province": "Tshopo",
+        "cases": 5,
+        "deaths": 1
+      },
+      {
+        "name": "Lubunga",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Makiso-Kisangani",
+        "province": "Tshopo",
+        "cases": 24,
+        "deaths": 10
+      },
+      {
+        "name": "Mangobo",
+        "province": "Tshopo",
+        "cases": 6,
+        "deaths": 3
+      },
+      {
+        "name": "Tshopo",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 0
+      },
+      {
+        "name": "Wanie-Rukula",
+        "province": "Tshopo",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Miti-Murhesa",
+        "province": "Sud-Kivu",
+        "cases": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Buta",
+        "province": "Bas-Uélé",
+        "cases": 1,
+        "deaths": 1
+      },
+      {
+        "name": "Viadana",
+        "province": "Bas-Uélé",
+        "cases": 6,
+        "deaths": 1
+      },
+      {
+        "name": "Ganga",
+        "province": "Bas-Uélé",
+        "cases": 3,
+        "deaths": 2
+      },
+      {
+        "name": "Bulu",
+        "province": "Sud-Ubangi",
+        "cases": 2,
+        "deaths": 1
+      }
+    ]
   }
 ]

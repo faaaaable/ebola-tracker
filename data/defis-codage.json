@@ -6696,6 +6696,140 @@
 "ruptures"
 ]
 }
+],
+"au haut uélé au niveau national seules # dps sur # ont rapporté leurs activités psea # # et les cbcm restent peu efficaces": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude"
+]
+}
+],
+"au haut uélé difficultés de mobilité des aps à wamba et boma mangbetu insuffisance de kits nutritionnels pour les nourrissons sevrés et faible remontée des données à pawa et boma mangbetu": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"au niveau national seules # dps sur # ont rapporté leurs activités psea # # et les cbcm restent peu efficaces": [
+{
+"province": "aucune",
+"obstacles": [
+"completude"
+]
+}
+],
+"en ituri faible capacité d accueil de certains cte ct et l insuffisance de la prise en charge alimentaire demeurent préoccupantes": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"saturation"
+]
+}
+],
+"en ituri l ouverture des rings demeure faible # # # # # corps n ont pas été swabés et les activités sont suspendues à nizi pour cause d insécurité au nord kivu la décontamination des ménages reste limitée # # # # aucun ménage décontaminé n a été doté en kit # # et la promptitude complétude des rapports pci est de # # # # zs au haut uélé incomplétude de rapportage # # # # zs deux rings n ont pu être ouverts à pawa as fungula et gbonzunzu en raison de tensions communautaires à la tshopo seuls # # des ess # # ont obtenu un score pci supérieur à # dotation en kits pci eha dans les ménages reste limitée à # # # # et l incinérateur de l hgr de makiso kisangani demeure en panne au bas uélé # triages sur # ne sont pas fonctionnels à buta et l acceptation des eds reste faible": [
+{
+"province": "Ituri",
+"obstacles": [
+"eds",
+"insecurite"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"resistance"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"resistance"
+]
+}
+],
+"en ituri la cible des ppl tpl reste à redéfinir ce qui empêche le calcul d un taux de couverture fiable au bas uélé mise en marche des ucc non effective pas de disponibilité du micro plan validé et des fonds de la vaccination": [
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"en ituri l ouverture des rings demeure insuffisante # # # # # corps n ont pas été swabés faute d intrants et d équipes à mandima ou à la suite de refus des familles et aucun ménage ni aucune ess n a été doté en kits au nord kivu la décontamination des ménages reste très faible # # # # aucun ménage décontaminé n a été doté en kit # # le score pci moyen des # ess évaluées est de # # et la promptitude complétude des rapports pci est de # # # # zs": [
+{
+"province": "Ituri",
+"obstacles": [
+"eds",
+"resistance",
+"ruptures"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"en ituri renforcer en urgence les capacités des psychologues et des agents psychosociaux pour les interventions autour des cas à mandima": [
+{
+"province": "Ituri",
+"obstacles": []
+}
+],
+"en ituri seules # zs affectées sur # sont couvertes renforcer en urgence les capacités des psychologues et des agents psychosociaux pour les interventions autour des cas à mandima": [
+{
+"province": "Ituri",
+"obstacles": []
+}
+],
+"à la tshopo baisse de l utilisation des services notamment de la maternité et des césariennes dans l ess évalué la fermeture provisoire de l ess dhkis reste proposée face à la multiplication des cas confirmés et suspects": [
+{
+"province": "Tshopo",
+"obstacles": []
+}
+],
+"à la tshopo rupture de vaccin ervebo dans un contexte de forte demande communautaire les deux prestataires confirmés le # septembre n étaient ni vaccinés ni sous pep au bas uélé mise en marche des ucc et disponibilité du micro plan validé et des fonds de la vaccination en ituri la cible des ppl tpl reste à redéfinir aucun taux de couverture fiable n est calculé sur cette base dans la présentation": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Ituri",
+"obstacles": []
+}
 ]
 }
 }
