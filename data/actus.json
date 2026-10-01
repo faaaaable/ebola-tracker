@@ -2,6 +2,45 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "baf6c88d",
+   "date": "2026-10-01",
+   "titre": "Canada : la prolongation des restrictions liées à Ebola maintient des Congolais dans l’incertitude",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/01/actualite/sante/canada-la-prolongation-des-restrictions-liees-ebola-maintient-des",
+   "langue": "fr",
+   "resume": "Photo Ambassade d’Allemagne en RDC\" /> La décision du gouvernement canadien de prolonger jusqu’au 27 novembre 2026 les mesures exceptionnelles prévues par le décret visant à réduire le risque d’exposition à la maladie Ebola continue d’entraîner des répercussions sur de nombreux…",
+   "statut": "publie",
+   "collecte": "2026-10-01",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "6e930064",
+   "date": "2026-10-01",
+   "titre": "Ebola en RDC : l’OMS appelle à renforcer durablement l’accès à l’oxygène médical",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/01/actualite/sante/ebola-en-rdc-loms-appelle-renforcer-durablement-lacces-loxygene-medical",
+   "langue": "fr",
+   "resume": "Droit tiers\" /> Alors que la riposte contre la maladie à virus Ebola persiste en République démocratique du Congo, l’Organisation mondiale de la santé (OMS) tire la sonnette d’alarme sur les difficultés d’accès aux soins.",
+   "statut": "publie",
+   "collecte": "2026-10-01",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "0637cb12",
+   "date": "2026-10-01",
+   "titre": "DRC: Death of local official highlights tensions around Ebola response",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/10/01/drc-death-of-local-official-highlights-tensions-around-ebola-response/",
+   "langue": "en",
+   "resume": "Karondwa was buried in his native Lubero, as calls grow for an investigation into his death and for greater trust between communities and health workers fighting the Ebola outbreak.",
+   "statut": "publie",
+   "collecte": "2026-10-01",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "cf4f70b1",
    "date": "2026-09-30",
    "titre": "What will it take to end the Ebola disease outbreak in DRC",
@@ -23,6 +62,19 @@
    "resume": "La maladie à virus Ebola est perçu différemment par l’opinion à Kisangani, chef-lieu de la Tshopo, dans le nord-est…",
    "statut": "publie",
    "collecte": "2026-09-30",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "b4afced0",
+   "date": "2026-09-30",
+   "titre": "Ebola in Nia-Nia: 313 confirmed cases, including 209 deaths and 88 recoveries",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/ebola-in-nia-nia-313-confirmed-cases-including-209-deaths-and-88-recoveries/",
+   "langue": "en",
+   "resume": "The epidemiological situation regarding Ebola virus disease (EVD) in the Nia-Nia health zone, located in the Mambasa territory…",
+   "statut": "publie",
+   "collecte": "2026-10-01",
    "media": true,
    "image": true
   },
