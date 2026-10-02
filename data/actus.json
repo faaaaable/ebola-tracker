@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "636b4fdf",
+   "date": "2026-10-02",
+   "titre": "Le gouverneur de Tshopo ordonne à la police de faire respecter les mesures sanitaires contre Ebola",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/02/actualite/sante/le-gouverneur-de-tshopo-ordonne-la-police-de-faire-respecter-les-mesures",
+   "langue": "fr",
+   "resume": "Radio Okapi/Jacques Munkokole\" /> Le gouverneur de la province de la Tshopo, Paulin Lendongolia, a appelé les forces de l’ordre, mercredi 30 septembre, à veiller à l'application stricte des mesures préventives contre la maladie à virus Ebola sur toute l’étendue de la province.",
+   "statut": "publie",
+   "collecte": "2026-10-02",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "2a32fea3",
+   "date": "2026-10-02",
+   "titre": "RDC: face à Ebola, la riposte veut s'appuyer davantage sur les communautés religieuses",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261002-rdc-face-%C3%A0-ebola-la-riposte-veut-s-appuyer-davantage-sur-les-communaut%C3%A9s-religieuses",
+   "langue": "fr",
+   "resume": "En République démocratique du Congo, la riposte contre Ebola veut s'appuyer davantage sur les communautés religieuses, alors que l'épidémie approche le seuil critique des 4 000 décès pour quelque 8 000 cas confirmés.",
+   "statut": "attente",
+   "collecte": "2026-10-02",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ea4e98f1",
    "date": "2026-10-01",
    "titre": "Ebola à Bunia : désinfection bihebdomadaire des engins de transport en commun",
