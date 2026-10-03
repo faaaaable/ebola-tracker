@@ -471,19 +471,19 @@
     "date": "2026-08-09",
     "confirmed": 4381,
     "deaths": 2011,
-    "recovered": null
+    "recovered": 869
   },
   {
     "date": "2026-08-10",
     "confirmed": 4449,
     "deaths": 2061,
-    "recovered": null
+    "recovered": 886
   },
   {
     "date": "2026-08-11",
     "confirmed": 4566,
     "deaths": 2128,
-    "recovered": null
+    "recovered": 918
   },
   {
     "date": "2026-08-12",
@@ -771,7 +771,7 @@
     "date": "2026-09-28",
     "confirmed": 8171,
     "deaths": 3954,
-    "recovered": null
+    "recovered": 2105
   },
   {
     "date": "2026-09-29",
@@ -783,7 +783,7 @@
     "date": "2026-09-30",
     "confirmed": 8300,
     "deaths": 4018,
-    "recovered": null
+    "recovered": 2162
   },
   {
     "date": "2026-10-01",

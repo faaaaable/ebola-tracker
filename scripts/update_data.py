@@ -1578,6 +1578,51 @@ def rebuild_reports_list(current_reports):
     return reports
 
 
+def completer_gueris(sitreps, reports):
+    """Complete les guéris manquants de sitreps.json depuis les PDF.
+
+    update_data ne connait le cumul des guéris que du bulletin qu'il traite — le
+    plus récent. Quand deux bulletins arrivent d'un coup, l'autre est rattrapé
+    par backfill_zones_history et backfill_province_history, qui ne portent pas
+    les guéris : son « recovered » restait à null, et le site calculait alors le
+    « + » des guéris contre le dernier bulletin qui avait une valeur — +33 au
+    lieu de +16 au 138, +61 au lieu de +20 au 140 (3 octobre 2026).
+
+    On relit donc la bande des chiffres clés de chaque PDF qui manque, et on ne
+    garde la valeur que si elle est cohérente avec ses voisins : jamais
+    au-dessus du cumul de cas, jamais en dessous du cumul connu avant, jamais
+    au-dessus du cumul connu après. Un cumul de guéris ne recule pas."""
+    par_date = {r["reportingDate"]: r for r in reports if r.get("reportingDate") and r.get("file")}
+    ajoutes = []
+    for i, entry in enumerate(sitreps):
+        if entry.get("recovered") is not None:
+            continue
+        rapport = par_date.get(entry["date"])
+        if not rapport or not os.path.exists(rapport["file"]):
+            continue
+        try:
+            with pdfplumber.open(rapport["file"]) as pdf:
+                valeur = extract_kpi_band(pdf.pages[0]).get("recovered")
+        except Exception:
+            continue
+        if valeur is None:
+            continue
+        avant = next((x["recovered"] for x in reversed(sitreps[:i]) if x.get("recovered") is not None), None)
+        apres = next((x["recovered"] for x in sitreps[i + 1:] if x.get("recovered") is not None), None)
+        if entry.get("confirmed") is not None and valeur > entry["confirmed"]:
+            continue
+        if (avant is not None and valeur < avant) or (apres is not None and valeur > apres):
+            continue
+        entry["recovered"] = valeur
+        ajoutes.append((entry["date"], valeur))
+    if ajoutes:
+        with open(SITREPS_PATH, "w", encoding="utf-8") as f:
+            json.dump(sitreps, f, ensure_ascii=False, indent=2)
+            f.write("\n")
+        print("  guéris complétés depuis les PDF : " + ", ".join("%s → %s" % a for a in ajoutes))
+    return sitreps
+
+
 def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
     by_date = {}
     if os.path.exists(SITREPS_PATH):
@@ -2079,6 +2124,7 @@ def main():
 
     national_recovered_by_sitrep = {meta["sitrepNumber"]: national["recovered"]}
     sitreps = rebuild_sitreps_json(reports, national_recovered_by_sitrep)
+    sitreps = completer_gueris(sitreps, reports)
 
     rebuild_zones_history(meta, health_zones)
     # L'historique recoit les provinces que le tableau n'a pas livrees, si
