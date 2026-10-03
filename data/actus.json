@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "58ec3179",
+   "date": "2026-10-03",
+   "titre": "Ebola en RDC: l'épidémie franchit le seuil des 4000 morts malgré l'optimisme du ministre de la Santé",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261003-ebola-en-rdc-l-%C3%A9pid%C3%A9mie-franchit-le-seuil-des-4000-morts-malgr%C3%A9-l-optimisme-du-ministre-de-la-sant%C3%A9",
+   "langue": "fr",
+   "resume": "L’épidémie d’Ebola a franchi le seuil des 4 000 morts en République démocratique du Congo, pour plus de 8 300 cas confirmés. Le pays fait face à la plus grave flambée de son histoire.",
+   "statut": "attente",
+   "collecte": "2026-10-03",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ff071b6e",
    "date": "2026-10-02",
    "titre": "Ebola à Mambasa : les élèves et enseignants d’une école sensibilisés à la prévention",
