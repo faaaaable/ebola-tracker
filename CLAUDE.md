@@ -9,9 +9,16 @@ Pages sur `ebola-tracker.org` depuis la branche `main`.
 contacts, audit des vides des graphiques) : skill `journal-bulletins`. La conception
 de la partie vaccination de la page Riposte : skill `page-riposte`. Trois règles en
 sortent et restent ici :
-- **Plusieurs bulletins d'un coup : `update_data` ne retraite que le plus récent.**
-  Compter les dates de `zones-history` et `province-history` avant de publier ;
-  rattraper par `backfill_zones_history` puis `backfill_province_history`.
+- **Plusieurs bulletins d'un coup : on les intègre UN PAR UN, dans l'ordre, en
+  deux (ou trois) mises à jour séparées** (règle du propriétaire, 3 octobre 2026).
+  `update_data` ne retraite que le plus récent ; `python scripts/update_data.py
+  --sitrep N` intègre le bulletin N voulu. Pour chaque bulletin, dans l'ordre :
+  `update_data --sitrep N`, les extracteurs, le codage des Défis et le résumé de
+  la lettre, `build_pages` (qui fige l'instantané `data/lettres/N.json`),
+  `check_coherence`, puis le commit / push de CE bulletin avant de passer au
+  suivant. Chaque bulletin a ainsi sa lettre, son « + » du jour juste (cas, décès,
+  guéris) et son commit. Le rattrapage par `backfill_zones_history` puis
+  `backfill_province_history` ne sert plus qu'à réparer un lot déjà publié.
 - **Un écart bloquant imputable à la source passe par `EXCEPTIONS_SOURCE`** de
   `check_coherence.py` (contrôle, bulletin, province et valeurs lues, avec la
   citation du bulletin) — jamais en corrigeant les données, jamais en rendant le
