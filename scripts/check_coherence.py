@@ -60,6 +60,12 @@ EXCEPTIONS_SOURCE = {
     # et 135 qui l'encadrent (encadrer_lits, decision du 28 septembre 2026) ;
     # 271/354 ferait 76,6 %.
     ("cte_normes", "134", "Nord-Kivu"): (271, 354, 70.9),
+    # 140 : « 383 patients demeuraient hospitalises dont 271 dans les
+    # structures normees. Le taux d'occupation des lits etait de 63,0 % ».
+    # Les 354 lits sont ceux des 133 a 139 ; 271/354 ferait 76,6 %. 63,0 % est
+    # le taux du 135 (223/354) : le chiffre a ete recopie, comme au 134. Les
+    # donnees restent celles du bulletin, l'ecart est celui de la source.
+    ("cte_normes", "140", "Nord-Kivu"): (271, 354, 63.0),
     # 128 : « 987 [...] dont 550 a Buta, 324 a Ganga, 71 a Poko et 42 a
     # Viadana » ; 129 : « 874 [...] 211 a Ganga ». Chaque total tombe sur sa
     # ventilation, seule Ganga bouge : la source s'est corrigee. Le

@@ -1327,3 +1327,27 @@ publie aucun effectif (« Le suivi des contacts est à 83,7% », rien d'autre). 
 116 en publie, mais ils se contredisent : 21 359 vus sur 24 719 à suivre font
 86,4 %, quand la même phrase imprime 88,3 % — `effectifs_verifies` les rejette
 au-delà d'un point d'écart. Ne pas « réparer » ces deux-là.
+
+---
+
+## SitRep 137 à 140 (28 septembre au 1er octobre 2026)
+
+- **137 et 138** : le libellé de la date est devenu « Date du rapport » (avant :
+  « Date de rapportage ») — `extract_meta` essaie les deux. Au Bas-Uélé le 137
+  écrit « 19 PPL et TPL ont été vaccinés à Buta, portant le cumul provincial à
+  1 019 » : le cumul est le second nombre, pas le premier (`extract_piliers`).
+- **139 et 140** intégrés ensemble le 3 octobre : `update_data` ne retraite que le
+  plus récent, le 139 est rattrapé par `backfill_zones_history` puis
+  `backfill_province_history`. Les avertissements « +11 mais 5 nouveaux cas » au
+  premier lancement viennent du saut de deux jours, pas d'une erreur de lecture :
+  vérifié zone par zone contre les PDF (écart nul).
+- **140, Nord-Kivu, CTE** : « 383 hospitalisés dont 271 dans les structures
+  normées. Le taux d'occupation des lits était de 63,0 % ». 271/354 = 76,6 % ;
+  63,0 % est le taux du 135 (223/354), recopié — même coquille qu'au 134 →
+  `EXCEPTIONS_SOURCE`. Le 138 imprime la même paire que le 135 (223 et 63,0 %) :
+  à relire dans le PDF si la question revient.
+- **Le graphique des CTE porte deux courbes pour le Nord-Kivu** (3 octobre 2026) :
+  la courbe pleine garde la définition constante (tous les hospitalisés ÷ lits
+  déclarés) ; une courbe claire ne compte que les structures normées ÷ les mêmes
+  lits, depuis le 124, et la zone entre les deux est « hors structures normées ».
+  Pas de pointillé pour la seconde : les pointillés sont les ponts illustratifs.

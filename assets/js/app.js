@@ -2090,11 +2090,45 @@ function renderOneChartBrut(canvas, chartMode){
          CTE. Les trous longs restent ouverts. */
       const MAX_TROU_CTE = 5;
       const datasets = [];
+      const indexPrincipal = {};
       noms.forEach(nom => {
         const vals = serieProv(nom), couleur = PROVINCE_COLORS[nom] || PALETTE.inkDim;
+        indexPrincipal[nom] = datasets.length;
         datasets.push({ label:nom, data:vals, borderColor:couleur, borderWidth:1.6, pointRadius:1.6, pointBackgroundColor:couleur, tension:.15, spanGaps:false, order:1 });
         datasets.push(jeuPont(vals, couleur, nom, MAX_TROU_CTE, null));
       });
+      /* LES DEUX DEFINITIONS DANS LE MEME GRAPHIQUE (3 octobre 2026). Depuis le
+         SitRep 124 (15 septembre) le bulletin du Nord-Kivu distingue, parmi
+         les hospitalises, ceux des structures normees. La courbe pleine garde
+         la definition constante — tous les hospitalises rapportes aux lits
+         declares — et une seconde courbe, claire, ne compte que les patients
+         des structures normees rapportes aux memes lits : elle n'existe que
+         la ou le bulletin donne ce chiffre, jamais avant. La zone entre les
+         deux est ce que le bulletin appelle « hors structures normees ». Ce
+         n'est pas un pointille : les pointilles du graphique sont les ponts
+         illustratifs, et la phrase standard les nomme. */
+      const NORMEES = 'Nord-Kivu';
+      let avecNormees = false;
+      if(indexPrincipal[NORMEES] !== undefined){
+        const valsN = jours.map(d => {
+          const v = parDate[d] && parDate[d].provinces[NORMEES];
+          return (v && lisible(v) && v.hospitalisesNormes !== undefined && v.hospitalisesNormes !== null && v.lits)
+            ? v.hospitalisesNormes / v.lits * 100 : null;
+        });
+        if(valsN.some(x => x !== null)){
+          const base = PROVINCE_COLORS[NORMEES] || PALETTE.inkDim;
+          const rgba = (hex, a) => {
+            if(!/^#[0-9a-f]{6}$/i.test(hex)) return hex;
+            const n = parseInt(hex.slice(1), 16);
+            return 'rgba(' + (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')';
+          };
+          datasets.push({ label:tr('cteNormeesLabel'), data:valsN, normees:true,
+            borderColor:rgba(base, .5), borderWidth:1.4, pointRadius:1, pointBackgroundColor:rgba(base, .6),
+            tension:.15, spanGaps:false, order:2,
+            fill:{ target:indexPrincipal[NORMEES], above:rgba(base, .16), below:rgba(base, .16) } });
+          avecNormees = true;
+        }
+      }
       /* Pas de ligne « Toutes provinces » : du 7 au 12 aout elle ne valait
          que l'Ituri, et une moyenne qui change de perimetre sans le dire
          ment. Retiree a la demande du proprietaire, 28 aout. */
@@ -2110,6 +2144,11 @@ function renderOneChartBrut(canvas, chartMode){
                           font:{ family:PALETTE.font, size:16, weight:'700' } },
                   tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>{
           const p = parDate[jours[c.dataIndex]];
+          if(c.dataset.normees){
+            const nk = p.provinces[NORMEES];
+            return c.dataset.label + ' : ' + fmtCfr(c.parsed.y) + (nk ? ' (' + fmt(nk.hospitalisesNormes) + ' / ' + fmt(nk.lits) + ') · '
+              + fmt(nk.hospitalises - nk.hospitalisesNormes) + ' ' + tr('cteHorsNormees') : '');
+          }
           const src = p.provinces[c.dataset.label];
           /* Tous les hospitalises sur les lits declares — la definition que
              la courbe tient d'un bout a l'autre, y compris la ou le bulletin
@@ -2167,6 +2206,7 @@ function renderOneChartBrut(canvas, chartMode){
           frDate(saut.date), saut.nom, fmt(saut.avant), fmt(saut.apres),
           saut.patientsApres > saut.patientsAvant));
       }
+      if(avecNormees) bouts.push(tr('chartNoteCteNormees'));
       noter(bouts.join(' '));
       return;
     }
