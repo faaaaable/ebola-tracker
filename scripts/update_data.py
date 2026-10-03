@@ -1916,8 +1916,25 @@ def rebuild_zones_history(meta, health_zones):
           f"(SitRep {sitrep_number} ajouté/rafraîchi, {len(new_zones_by_key)} zones).")
 
 
+def rapport_demande():
+    """--sitrep N : integre CE bulletin (et non le plus recent). Regle du
+    3 octobre 2026 : quand deux SitRep sont telecharges ensemble, le site est
+    mis a jour en deux fois, un bulletin a la fois, dans l'ordre — chacun avec
+    son instantane de lettre, ses extracteurs, son build et son controle."""
+    if "--sitrep" not in sys.argv:
+        return None
+    try:
+        num = sys.argv[sys.argv.index("--sitrep") + 1].zfill(3)
+    except IndexError:
+        sys.exit("--sitrep demande un numero (ex. --sitrep 137).")
+    chemin = os.path.join(REPORTS_DIR, "SITREP_MVE_%s.pdf" % num)
+    if not os.path.exists(chemin):
+        sys.exit("Introuvable : %s" % chemin)
+    return chemin, num
+
+
 def main():
-    report_path, report_num = find_latest_report()
+    report_path, report_num = rapport_demande() or find_latest_report()
     if not report_path:
         print("Aucun SitRep trouvé dans reports/, rien à faire.")
         return 0
