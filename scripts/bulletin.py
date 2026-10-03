@@ -80,6 +80,19 @@ def _extrait(texte, maxi=210):
 LETTRES = os.path.join(ROOT, "data", "lettres")
 
 
+def _cle_zone(z):
+    """Identite d'une zone de sante : (province, nom normalise). Le bulletin
+    ecrit tantot « Boma Mangbetu », tantot « Boma-Mangbetu » (ou « Nia Nia »,
+    « Miti Murhesa », « BAMBU ») : comparer les noms bruts faisait d'une
+    simple graphie une « nouvelle zone » (la lettre 140, le 3 octobre 2026).
+    Meme normalisation que build_pages.normalise_zone : accents, casse, tirets,
+    espaces."""
+    import unicodedata
+    nom = unicodedata.normalize("NFD", str(z.get("name") or ""))
+    nom = "".join(c for c in nom if unicodedata.category(c) != "Mn")
+    return (z.get("province"), re.sub(r"[^a-z0-9]", "", nom.lower()))
+
+
 def _instantanes():
     """Une lettre par bulletin (8 septembre 2026) : data/lettres/<num>.json
     est la copie de data/latest.json au moment ou le bulletin a ete integre.
@@ -183,14 +196,14 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     nouvelles = []
     zi = next((i for i, z in enumerate(zh) if z["date"] == date), None)
     if zi:
-        avant = {(z["province"], z["name"].lower()) for z in zh[zi - 1]["zones"]}
-        nouvelles = [z for z in zh[zi]["zones"] if (z["province"], z["name"].lower()) not in avant]
+        avant = {_cle_zone(z) for z in zh[zi - 1]["zones"]}
+        nouvelles = [z for z in zh[zi]["zones"] if _cle_zone(z) not in avant]
     # Date de la derniere zone nouvelle, pour ecrire « aucune nouvelle zone
     # depuis le ... » (8 septembre 2026).
     derniere_nouvelle = None
     for i in range(1, (zi or 0) + 1):
-        avant_i = {(z["province"], z["name"].lower()) for z in zh[i - 1]["zones"]}
-        if any((z["province"], z["name"].lower()) not in avant_i for z in zh[i]["zones"]):
+        avant_i = {_cle_zone(z) for z in zh[i - 1]["zones"]}
+        if any(_cle_zone(z) not in avant_i for z in zh[i]["zones"]):
             derniere_nouvelle = zh[i]["date"]
     # Tendance : moyenne par jour des sept derniers jours et des sept
     # precedents, calculee sur les cumuls aux dates les plus proches (les
@@ -284,9 +297,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         cible = (_d(*(int(x) for x in date.split("-"))) - timedelta(days=21)).isoformat()
         z21 = next((z for z in reversed(zh[:zi]) if z["date"] <= cible), None)
         if z21:
-            avant21 = {(z["province"], z["name"].lower()): z.get("cases") or 0 for z in z21["zones"]}
+            avant21 = {_cle_zone(z): z.get("cases") or 0 for z in z21["zones"]}
             zones_now = zh[zi]["zones"]
-            k = sum(1 for z in zones_now if (z.get("cases") or 0) > avant21.get((z["province"], z["name"].lower()), 0))
+            k = sum(1 for z in zones_now if (z.get("cases") or 0) > avant21.get(_cle_zone(z), 0))
             n = len(zones_now)
             txt += " " + (P("lettreZonesActivesToutes", n=fmt(n, lang)) if k == n
                           else P("lettreZonesActives", k=fmt(k, lang), n=fmt(n, lang), s=fmt(n - k, lang)))
