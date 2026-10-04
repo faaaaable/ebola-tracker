@@ -201,10 +201,10 @@
    "cases": 1754,
    "deaths": 572,
    "cfr": 32.6,
-   "newCases24h": 0,
-   "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "newCases24h": 15,
+   "newDeaths24h": 6,
+   "deathsCommunity24h": 5,
+   "deathsIntraCTE24h": 1
   },
   {
    "name": "Damas",
@@ -267,10 +267,10 @@
    "cases": 170,
    "deaths": 104,
    "cfr": 61.2,
-   "newCases24h": 0,
-   "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "newCases24h": 1,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": null,
+   "deathsIntraCTE24h": null
   },
   {
    "name": "Lita",
@@ -278,7 +278,7 @@
    "cases": 288,
    "deaths": 145,
    "cfr": 50.3,
-   "newCases24h": 0,
+   "newCases24h": 1,
    "newDeaths24h": 0,
    "deathsCommunity24h": 0,
    "deathsIntraCTE24h": 0
@@ -323,9 +323,9 @@
    "deaths": 12,
    "cfr": 37.5,
    "newCases24h": 0,
-   "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "newDeaths24h": 1,
+   "deathsCommunity24h": null,
+   "deathsIntraCTE24h": null
   },
   {
    "name": "Mandima",
@@ -333,9 +333,9 @@
    "cases": 152,
    "deaths": 79,
    "cfr": 52.0,
-   "newCases24h": 0,
-   "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
+   "newCases24h": 14,
+   "newDeaths24h": 4,
+   "deathsCommunity24h": 4,
    "deathsIntraCTE24h": 0
   },
   {
@@ -344,9 +344,9 @@
    "cases": 362,
    "deaths": 156,
    "cfr": 43.1,
-   "newCases24h": 0,
-   "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
+   "newCases24h": 5,
+   "newDeaths24h": 2,
+   "deathsCommunity24h": 2,
    "deathsIntraCTE24h": 0
   },
   {
@@ -355,7 +355,7 @@
    "cases": 705,
    "deaths": 333,
    "cfr": 47.2,
-   "newCases24h": 0,
+   "newCases24h": 2,
    "newDeaths24h": 0,
    "deathsCommunity24h": 0,
    "deathsIntraCTE24h": 0
@@ -399,10 +399,10 @@
    "cases": 1097,
    "deaths": 372,
    "cfr": 33.9,
-   "newCases24h": 0,
-   "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "newCases24h": 9,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": null,
+   "deathsIntraCTE24h": null
   },
   {
    "name": "Tchomia",
@@ -443,10 +443,10 @@
    "cases": 270,
    "deaths": 173,
    "cfr": 64.1,
-   "newCases24h": 0,
-   "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "newCases24h": 3,
+   "newDeaths24h": 2,
+   "deathsCommunity24h": 1,
+   "deathsIntraCTE24h": 1
   },
   {
    "name": "Kalunguta",
@@ -454,10 +454,10 @@
    "cases": 57,
    "deaths": 19,
    "cfr": 33.3,
-   "newCases24h": 0,
+   "newCases24h": 1,
    "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "deathsCommunity24h": null,
+   "deathsIntraCTE24h": null
   },
   {
    "name": "Katwa",
@@ -465,10 +465,10 @@
    "cases": 571,
    "deaths": 359,
    "cfr": 62.9,
-   "newCases24h": 0,
+   "newCases24h": 5,
    "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "deathsCommunity24h": null,
+   "deathsIntraCTE24h": null
   },
   {
    "name": "Kyondo",
@@ -498,10 +498,10 @@
    "cases": 38,
    "deaths": 14,
    "cfr": 36.8,
-   "newCases24h": 0,
+   "newCases24h": 2,
    "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "deathsCommunity24h": null,
+   "deathsIntraCTE24h": null
   },
   {
    "name": "Manguredjipa",
@@ -520,10 +520,10 @@
    "cases": 31,
    "deaths": 10,
    "cfr": 32.3,
-   "newCases24h": 0,
+   "newCases24h": 2,
    "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "deathsCommunity24h": null,
+   "deathsIntraCTE24h": null
   },
   {
    "name": "Musienene",
@@ -542,9 +542,9 @@
    "cases": 15,
    "deaths": 3,
    "cfr": 20.0,
-   "newCases24h": 0,
-   "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
+   "newCases24h": 1,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": 1,
    "deathsIntraCTE24h": 0
   },
   {
@@ -553,9 +553,9 @@
    "cases": 29,
    "deaths": 16,
    "cfr": 55.2,
-   "newCases24h": 0,
-   "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
+   "newCases24h": 2,
+   "newDeaths24h": 1,
+   "deathsCommunity24h": 1,
    "deathsIntraCTE24h": 0
   },
   {
@@ -564,10 +564,10 @@
    "cases": 32,
    "deaths": 10,
    "cfr": 31.3,
-   "newCases24h": 0,
+   "newCases24h": 1,
    "newDeaths24h": 0,
-   "deathsCommunity24h": 0,
-   "deathsIntraCTE24h": 0
+   "deathsCommunity24h": null,
+   "deathsIntraCTE24h": null
   },
   {
    "name": "Boma-Mangbetu",
@@ -2411,6 +2411,17 @@
    "file": "reports/SITREP_MVE_140.pdf",
    "confirmed": 8376,
    "deaths": 4042,
+   "sourceNumberMismatch": null,
+   "confirmedExtractionFailed": false,
+   "deathsExtractionFailed": false
+  },
+  {
+   "sitrepNumber": "141",
+   "reportingDate": "2026-10-02",
+   "publicationDate": "2026-10-03",
+   "file": "reports/SITREP_MVE_141.pdf",
+   "confirmed": 8442,
+   "deaths": 4080,
    "sourceNumberMismatch": null,
    "confirmedExtractionFailed": false,
    "deathsExtractionFailed": false

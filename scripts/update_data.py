@@ -1064,6 +1064,14 @@ def is_placeholder_zone_name(name):
     return False
 
 
+def _queue_du_jour(row):
+    """Vrai si la ligne de zone porte au moins une cellule non vide apres la
+    letalite (nouveaux cas, deces du jour)."""
+    i_let = index_letalite_zone(row)
+    debut = (i_let + 1) if i_let is not None else 4
+    return any(c not in (None, "") for c in row[debut:])
+
+
 def gap_fill_missing_zones(full_text, zones_raw):
     section = get_zone_section_text(full_text)
     if not section:
@@ -1145,10 +1153,24 @@ def gap_fill_missing_zones(full_text, zones_raw):
             continue
         key = normalize_zone_key(name)
         existing = by_key.get(key)
+        tail_nums = re.findall(r"\d+", m.group("tail"))
         if existing is not None and existing[1] == current_province:
+            # SitRep 140 et 141 : pdfplumber rend vides les colonnes du jour
+            # (nouveaux cas, deces) de la plupart des lignes de zone — Bunia,
+            # Nia-Nia, Butembo… — alors que le texte les porte
+            # (« Nia-Nia 309 173 56,0% 4 3 3 6 »). Les zones gardaient
+            # 0 nouveau cas : 12 au lieu de 76 sur le 140, et un « (+0) » au
+            # survol de la carte pour Bunia. Quand la ligne du tableau n'a
+            # AUCUNE cellule apres la letalite et que le texte en a, on prend
+            # la queue du texte ; une ligne du tableau qui en a une (Beni :
+            # '9','5','4','9') reste la reference.
+            if tail_nums and not _queue_du_jour(existing[2]):
+                nom_tab, prov_tab, row_tab = existing
+                i_let = index_letalite_zone(row_tab)
+                debut = (i_let + 1) if i_let is not None else 4
+                by_key[key] = (nom_tab, prov_tab, list(row_tab[:debut]) + tail_nums)
             continue
         row = [name, m.group("cas"), m.group("deces"), cfr_texte]
-        tail_nums = re.findall(r"\d+", m.group("tail"))
         row += tail_nums
         by_key[key] = (name, current_province, row)
 

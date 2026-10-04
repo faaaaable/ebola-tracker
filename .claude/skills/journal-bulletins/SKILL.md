@@ -1351,3 +1351,7 @@ au-delà d'un point d'écart. Ne pas « réparer » ces deux-là.
   déclarés) ; une courbe claire ne compte que les structures normées ÷ les mêmes
   lits, depuis le 124, et la zone entre les deux est « hors structures normées ».
   Pas de pointillé pour la seconde : les pointillés sont les ponts illustratifs.
+
+## SitRep 140 et 141 — colonnes du jour perdues par pdfplumber (4 octobre 2026)
+
+Sur le 140 et le 141, `pdfplumber` rend vides les colonnes « nouveaux cas / décès du jour » de la plupart des lignes de zone (Bunia, Nia-Nia, Butembo… ; seules quelques lignes comme Beni les gardent), alors que le texte les porte (« Nia-Nia 309 173 56,0% 4 3 3 6 »). Les zones gardaient 0 : somme de 12 nouveaux cas pour 76 au national sur le 140, « (+0) » au survol de la carte. Corrigé dans `gap_fill_missing_zones` (la queue du texte remplace une queue vide du tableau, `_queue_du_jour`) ; le 140 a été retraité puis le 141 réintégré. **Signal à surveiller à chaque bulletin : la somme des `newCases24h` des zones doit égaler le national** (c'est vrai du 111 au 141 ; l'avertissement « mais 0 nouveau(x) cas annoncé(s) » en rafale en est le symptôme).

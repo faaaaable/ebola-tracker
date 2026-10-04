@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-10-01"
+    "fin": "2026-10-02"
   },
   "parDate": [
     {
@@ -5312,6 +5312,72 @@
           "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
           "items": [
             "Au niveau national, seules 2 DPS ont rapporté leurs activités PSEA (28,6 %) et les CBCM restent peu efficaces."
+          ],
+          "provinces": []
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-02",
+      "sitrepNumber": "141",
+      "piliers": [
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "En Ituri, En Ituri, l'ouverture des rings demeure insuffisante (53,8 % ; 21/39) en raison du manque d'équipes à Komanda, Mangala et Mandima et de la grève des équipes à Bunia ; 10 corps n'ont pas été swabés faute d'intrants et d'équipes à Mandima ou à la suite de refus des familles, des résistances persistent à Bambu, Rwampara, Mangala et Fataki, les équipes EDS manquent de moyens de transport à Kilo, Nia-Nia, Mandima, Damas et Fataki et aucun ménage, ESS ni école n'a été doté en kits. Au Nord-Kivu, la décontamination des ménages reste faible (23,3 % ; 7/30), aucun ménage n'est doté en kits et le score moyen PCI des ESS évaluées à Butembo n'atteint que 42 %. Au Haut-Uélé, seules 4 ZS sur 7 rapportent leurs activités, les ZS de Pawa et de Wamba n'ont pas de CTE normé, la population de l'AS Gbonzunzu (Pawa) reste hostile et seules 2 ESS sur 15 atteignent 80 % au score PCI)."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "En Ituri, capacité d'accueil insuffisante de certains CTE/CT et l'insuffisance de la prise en charge alimentaire demeurent préoccupantes.",
+            "Au Bas-Uélé, l'absence de CTE normé et d'ambulance pour le transfert des malades demeure un défi opérationnel majeur.",
+            "À la Tshopo, la présence continue de cas confirmés en isolement nécessite le maintien des mesures de prévention et contrôle de l'infection."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "En Ituri, la cible des PPL/TPL reste à redéfinir, ce qui empêche le calcul d’un taux de couverture fiable. Au Bas-Uélé, mise en marche des UCC non effective, pas de disponibilité du micro-plan validé et des fonds de la vaccination."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "En Ituri, seules 13 ZS affectées sur 28 sont couvertes (46,4 %) et les capacités des psychologues et des APS/TPS doivent être renforcées dans la ZS de Mandima pour assurer les interventions autour des cas.",
+            "Au Haut-Uélé, les APS de Wamba et de Boma Mangbetu manquent de motos, les kits nutritionnels pour nourrissons sevrés sont insuffisants à Wamba et à Isiro et la remontée des données reste faible à Boma Mangbetu et à Pawa",
+            "À la Tshopo, nécessité de former les APS des ZS de Wanie-Rukula et de Bafwasende et insuffisance des moyens de communication et de déplacement du pilier."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            "Au niveau national, seules 2 DPS ont rapporté leurs activités PSEA (57,1 %) et les CBCM restent peu efficaces."
           ],
           "provinces": []
         }
