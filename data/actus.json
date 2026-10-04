@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "c4a7ba58",
+   "date": "2026-10-04",
+   "titre": "La France réaffirme son soutien à la RDC pour mettre fin à l’épidémie d’Ebola",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/04/actualite/sante/la-france-reaffirme-son-soutien-la-rdc-pour-mettre-fin-lepidemie-debola",
+   "langue": "fr",
+   "resume": "Photo INRB\" />",
+   "statut": "publie",
+   "collecte": "2026-10-04",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "93df9999",
+   "date": "2026-10-04",
+   "titre": "Le Club RFI Goma (RDC) participe à la lutte contre Ebola et agit pour la paix",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/podcasts/le-club-rfi/20261004-le-club-rfi-goma-rdc-participe-%C3%A0-la-lutte-contre-ebola-et-agit-pour-la-paix",
+   "langue": "fr",
+   "resume": "Cette semaine, le Club RFI Goma en République démocratique du Congo parle de sa campagne de lutte contre le virus Ebola et de ses initiatives pour la paix, dans la province du Nord du Kivu.",
+   "statut": "attente",
+   "collecte": "2026-10-04",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "e825b8ea",
    "date": "2026-10-03",
    "titre": "Ebola à Beni: des affiches placardées pour une sensibilisation permanente dans des écoles",
