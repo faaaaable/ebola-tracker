@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "fd8e20f4",
+   "date": "2026-10-04",
+   "titre": "Haut-Uele : la mortalité due à Ebola baisse de 48 % à Isiro (ministre provincial de la Santé)",
+   "source": "ACP",
+   "url": "https://acp.cd/province/haut-uele-la-mortalite-due-a-ebola-baisse-de-48-a-isiro-ministre-provincial-de-la-sante/",
+   "langue": "fr",
+   "resume": "Isiro, 4 octobre 2026 (ACP).– La proportion de décès liés à la maladie à virus Ebola est tombée à environ 48 %, contre près…",
+   "statut": "publie",
+   "collecte": "2026-10-04",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "d6a04725",
+   "date": "2026-10-04",
+   "titre": "Ebola en Ituri : 1 567 agents de santé enrôlés sur l’axe Djugu-Mahagi",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-en-ituri-1-567-agents-de-sante-enroles-sur-laxe-djugu-mahagi/",
+   "langue": "fr",
+   "resume": "1.567 agents de santé ont été enrôlés par l’Agence nationale d’ingénierie clinique et du numérique de la santé (ANICNS),…",
+   "statut": "publie",
+   "collecte": "2026-10-04",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "c4a7ba58",
    "date": "2026-10-04",
    "titre": "La France réaffirme son soutien à la RDC pour mettre fin à l’épidémie d’Ebola",
@@ -28,6 +54,19 @@
    "image": true
   },
   {
+   "id": "5f67c3a6",
+   "date": "2026-10-04",
+   "titre": "Ebola à la Tshopo : décès d’un infirmier titulaire à Kisangani",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-la-tshopo-deces-dun-infirmier-titulaire-a-kisangani/",
+   "langue": "fr",
+   "resume": "Un infirmier titulaire a succombé à la maladie à virus Ebola à Kisangani, chef-lieu de la Tshopo, dans le…",
+   "statut": "publie",
+   "collecte": "2026-10-04",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "5c89df16",
    "date": "2026-10-04",
    "titre": "Nord-Kivu : l’engagement des jeunes sollicité pour lutter contre Ebola à Butembo",
@@ -35,6 +74,45 @@
    "url": "https://acp.cd/province/nord-kivu-lengagement-des-jeunes-sollicite-pour-lutter-contre-ebola-a-butembo/",
    "langue": "fr",
    "resume": "Butembo, 4 octobre 2026 (ACP).– L'engagement des jeunes membres des mouvements citoyens pro-démocratie a été sollicité pour lutter efficacement contre la maladie à virus…",
+   "statut": "publie",
+   "collecte": "2026-10-04",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "562dfa15",
+   "date": "2026-10-04",
+   "titre": "Ebola en Ituri : une équipe d’intervention rapide déployée à Mambasa et Mandima",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-en-ituri-une-equipe-dintervention-rapide-deployee-a-mambasa-et-mandima/",
+   "langue": "fr",
+   "resume": "Mambasa, 4 octobre 2026 (ACP).– Une équipe d’intervention rapide a été déployée dans les zones de santé de Mambasa et Mandima, en Ituri dans…",
+   "statut": "publie",
+   "collecte": "2026-10-04",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "2795e8f4",
+   "date": "2026-10-04",
+   "titre": "Ebola au Haut-Uele : un député sensibilise les exploitants miniers aux mesures barrières",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-au-haut-uele-un-depute-sensibilise-les-exploitants-miniers-aux-mesures-barrieres/",
+   "langue": "fr",
+   "resume": "Isiro, 4 octobre 2026 (ACP).– Un député national élu de Wamba, au Haut-Uele, dans le Nord-Est de la République démocratique du Congo, a appelé…",
+   "statut": "publie",
+   "collecte": "2026-10-04",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "0af53cda",
+   "date": "2026-10-04",
+   "titre": "Assemblée de l’UIP à Arusha : paix dans l’Est congolais et Ebola au menu",
+   "source": "ACP",
+   "url": "https://acp.cd/nation/assemblee-de-luip-a-arusha-paix-dans-lest-congolais-et-ebola-au-menu/",
+   "langue": "fr",
+   "resume": "Le président du Sénat de la République démocratique du Congo (RDC) a fait inscrire deux nouveaux points aux travaux de…",
    "statut": "publie",
    "collecte": "2026-10-04",
    "media": true,
