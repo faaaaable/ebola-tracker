@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "557b9293",
+   "date": "2026-10-05",
+   "titre": "Est de la RDC: comment l’armée et la Monusco se déploient pour appuyer la riposte contre Ebola",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261005-est-de-la-rdc-comment-l-arm%C3%A9e-et-la-monusco-se-d%C3%A9ploient-pour-appuyer-la-riposte-contre-ebola",
+   "langue": "fr",
+   "resume": "Dans l’est de la RDC, atteindre les populations touchées par Ebola suppose aussi de faire face à l’insécurité. Attaques de groupes armés, embuscades, restrictions de déplacement : ces obstacles compliquent les interventions sanitaires.",
+   "statut": "attente",
+   "collecte": "2026-10-05",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "fd8e20f4",
    "date": "2026-10-04",
    "titre": "Haut-Uele : la mortalité due à Ebola baisse de 48 % à Isiro (ministre provincial de la Santé)",
