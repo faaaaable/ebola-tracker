@@ -903,7 +903,7 @@ function partsQuotidiennes(s, champ, partConnue){
     }),
     // Un bulletin compte comme releve des qu'il porte le champ, meme quand
     // l'ecart n'est pas calculable — le tout premier n'a pas de precedent.
-    connu: s.map(r => r[nom] !== null && r[nom] !== undefined)
+    connu: s.map(r => r[nom] !== null && r[nom] !== undefined && !r.calcule)
   };
 }
 
@@ -1417,7 +1417,7 @@ function reglerInfobulles(){
    Pointilles : un jeu marque « pont ». La moyenne pointillee du lieu des
    deces n'en est pas un — elle vaut une mesure — et reste hors du compte,
    comme les zones pointillees de la carte. */
-function annoterTrous(canvas){
+function annoterTrous(canvas, mode){
   const chart = chartSlot(canvas).chart;
   const wrap = canvas.closest('.chart-panel-wrap');
   const noteEl = wrap ? wrap.querySelector('.chart-note') : null;
@@ -1431,16 +1431,31 @@ function annoterTrous(canvas){
     const premier = connu.indexOf(true), dernier = connu.lastIndexOf(true);
     for(let k = premier + 1; k < dernier; k++) if(!connu[k]){ trou = true; break; }
   });
-  const phrases = [trou && tr('noteBlancs'), pont && tr('notePointilles')].filter(Boolean);
+  const phrases = [trou && tr('noteBlancs'), pont && tr('notePointilles'), noteJoursCalcules(canvas, mode)].filter(Boolean);
   if(!phrases.length) return;
   const avant = noteEl.textContent.trim();
   noteEl.textContent = (avant ? avant + ' ' : '') + phrases.join(' ');
   noteEl.style.display = 'block';
 }
 
+/* Jour sans bulletin reconstitue par soustraction (6 octobre 2026) : le
+   SitRep 142 n'a jamais ete publie, ses chiffres sont ceux du 143 moins ses
+   « 24 h » (data/jours-calcules.json, marques `calcule` dans les historiques).
+   Une note le dit sous les graphiques qui les tracent — jamais sous celui de
+   l'accueil, ou la page n'en porte pas. */
+const MODES_JOUR_CALCULE = ['newCases', 'newDeaths', 'provinceEpidemic', 'newCasesByProvince'];
+function joursCalcules(){
+  return sortedSitreps().filter(r => r.calcule)
+    .map(r => ({ sitrep: r.sitrep, apres: r.apres, date: frDate(r.date) }));
+}
+function noteJoursCalcules(canvas, mode){
+  if(canvas.id === 'epiChart' || !MODES_JOUR_CALCULE.includes(mode)) return '';
+  return joursCalcules().map(j => tr('noteJourCalcule')(j)).join(' ');
+}
+
 function renderOneChart(canvas, chartMode){
   renderOneChartBrut(canvas, chartMode);
-  annoterTrous(canvas);
+  annoterTrous(canvas, chartMode);
 }
 
 function renderOneChartBrut(canvas, chartMode){
@@ -3364,7 +3379,7 @@ function renderOneChartBrut(canvas, chartMode){
     for(const h of PROVINCE_HISTORY){
       const p = (h.provinces || []).find(pr => pr.name === nom);
       if(p && p[champ] !== null && p[champ] !== undefined){
-        pts.push({ date: h.date, confirmed: p.confirmed,
+        pts.push({ date: h.date, confirmed: p.confirmed, calcule: !!h.calcule,
                    deaths: (p.deaths === null || p.deaths === undefined) ? null : p.deaths });
       }
     }
@@ -3677,7 +3692,7 @@ function renderOneChartBrut(canvas, chartMode){
         precedent[p.name] = p.confirmed;
         compte = true;
       });
-      if(compte) w.releves += 1;
+      if(compte && !h.calcule) w.releves += 1;
       semaines.set(cle, w);
     });
     const derniere = hist[hist.length - 1].date;
@@ -4834,7 +4849,8 @@ function updateTimelineLabel(){
     dateLabel.textContent = latestAvailableDateLabel();
   } else {
     const d = ZONES_HISTORY[v].date;
-    dateLabel.textContent = frDate(d) + ' ' + d.slice(0,4);
+    dateLabel.textContent = frDate(d) + ' ' + d.slice(0,4)
+      + ((ZONES_HISTORY[v].calcule && !document.getElementById('epiChart')) ? ' · ' + tr('jourCalculeCourt') : '');
   }
   /* La note sur les dates absentes du curseur n'a de sens que pendant qu'on
      le manipule : c'est la que la date saute. Le reste du temps elle repond

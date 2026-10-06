@@ -21,6 +21,8 @@ const I18N = {
        (27 septembre 2026, demande du proprietaire) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
     noteBlancs:"Un espace vide signifie une absence de données ou une donnée incomplète, jamais un zéro.",
+    noteJourCalcule:(j)=>`Le SitRep n°${j.sitrep} n'a pas été publié : les chiffres du ${j.date} sont calculés à partir du n°${j.apres}.`,
+    jourCalculeCourt:`calculé`,
     notePointilles:"Les pointillés sont purement illustratifs.",
     eyebrow:"Suivi en direct — épidémie d'Ebola",
     h1:"Suivi Ebola RDC",
@@ -342,6 +344,8 @@ const I18N = {
        (27 septembre 2026, demande du proprietaire) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
     noteBlancs:"A blank space means missing or incomplete data, never a zero.",
+    noteJourCalcule:(j)=>`SitRep No. ${j.sitrep} was not published: the figures for ${j.date} are calculated from No. ${j.apres}.`,
+    jourCalculeCourt:`calculated`,
     notePointilles:"Dashed lines are purely illustrative.",
     eyebrow:"Live tracking — Ebola outbreak",
     h1:"DRC Ebola Tracker",
@@ -659,6 +663,8 @@ const I18N = {
        (27 septembre 2026, demande du proprietaire) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
     noteBlancs:"Nafasi tupu inamaanisha kukosekana kwa takwimu au takwimu isiyokamilika, kamwe si sifuri.",
+    noteJourCalcule:(j)=>`SitRep Na. ${j.sitrep} haikuchapishwa: takwimu za ${j.date} zimekokotolewa kutoka Na. ${j.apres}.`,
+    jourCalculeCourt:`imekokotolewa`,
     notePointilles:"Mistari ya nukta ni ya kielelezo tu.",
     eyebrow:"Ufuatiliaji wa moja kwa moja — mlipuko wa Ebola",
     h1:"Ufuatiliaji wa Ebola DRC",

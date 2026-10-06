@@ -796,5 +796,20 @@
     "confirmed": 8442,
     "deaths": 4080,
     "recovered": 2213
+  },
+  {
+    "date": "2026-10-03",
+    "confirmed": 8544,
+    "deaths": 4114,
+    "recovered": 2230,
+    "calcule": true,
+    "sitrep": "142",
+    "apres": "143"
+  },
+  {
+    "date": "2026-10-04",
+    "confirmed": 8603,
+    "deaths": 4148,
+    "recovered": 2235
   }
 ]

@@ -185,7 +185,11 @@ def extract_kpi_band(page):
     band = [w for w in words if 245 < w["top"] < 275 and w["height"] > 9]
 
     def collect(xmin, xmax):
-        ws = sorted([w for w in band if xmin <= w["x0"] < xmax], key=lambda w: w["x0"])
+        # Seuls les mots numeriques comptent : au SitRep 143 des lettres
+        # superposees du texte voisin (« 4T ») se collaient au « 896 » des
+        # patients en CTE et donnaient 8964 (6 octobre 2026).
+        ws = sorted([w for w in band if xmin <= w["x0"] < xmax
+                     and re.fullmatch(r"[\d\s.,%]+", w["text"])], key=lambda w: w["x0"])
         return "".join(w["text"] for w in ws)
 
     return {
@@ -2170,6 +2174,11 @@ def main():
     # elles se verifient contre le total national (voir completer_provinces).
     rebuild_province_history(meta, provinces_fin_mai(meta.get("reportingDate")) or completer_provinces(
         full_text, provinces, (national.get("confirmed"), national.get("deaths"))))
+
+    # Jours sans bulletin reconstitués par soustraction (data/jours-calcules.json) :
+    # réinsérés ici pour qu'une régénération des historiques ne les perde pas.
+    from jours_calcules import appliquer as appliquer_jours_calcules
+    appliquer_jours_calcules()
 
     print(f"data/latest.json mis à jour : SitRep {meta['sitrepNumber']} "
           f"({national['confirmed']} cas, {national['deaths']} décès) — "

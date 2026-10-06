@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-10-02"
+  "fin": "2026-10-04"
  },
  "parDate": [
   {
@@ -2780,6 +2780,41 @@
     "provinces": {
      "Bas-Uélé": {
       "cumul": 1147
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-04",
+   "sitrepNumber": "143",
+   "poe": {
+    "personnes": 234857,
+    "screenesPct": 96.8,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 32,
+    "attendus": 57
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 128,
+    "swabes": 112,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 2,
+     "swabes": 2
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Bas-Uélé": 1280
+    },
+    "rupture": false,
+    "provinces": {
+     "Bas-Uélé": {
+      "cumul": 1280
      }
     }
    },

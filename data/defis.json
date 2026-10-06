@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-10-02"
+    "fin": "2026-10-04"
   },
   "parDate": [
     {
@@ -5380,6 +5380,86 @@
             "Au niveau national, seules 2 DPS ont rapporté leurs activités PSEA (57,1 %) et les CBCM restent peu efficaces."
           ],
           "provinces": []
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-04",
+      "sitrepNumber": "143",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "Au Nord-Kivu, le PoC de Butuhe ne fonctionne plus depuis l'incident sécuritaire du 26 septembre (complétude de 95,2 % ; 20/21), 2,4 % des voyageurs ont refusé le screening et les prestataires des PoC de l'axe Butembo restent exposés à une menace sécuritaire persistante ; les alertes remontées par les PoC ne sont pas prises en charge dans les délais par les cellules d'alerte. À la Tshopo, 0,5 % des voyageurs ont refusé le screening et 2,2 % le lavage des"
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "Au Nord-Kivu, seuls 12 rings sur 25 (48,0 %) ont été ouverts, avec un gap important à Katwa, Beni et Mabalako, la décontamination des ménages reste faible (35,0 % ; 14/40) à Katwa, Beni et Kalunguta et le score PCI moyen des ESS évaluées plafonne à 33 %. À la Tshopo, 5 corps n'ont pas pu être swabés, les intrants PCI et les prestataires formés restent insuffisants et l'incinérateur de l'HGR de Makiso-Kisangani est toujours en panne. Au Bas-Uélé, la remontée des alertes de décès communautaires reste faible et tardive et les ESS manquent de zones de gestion des déchets, de latrines hygiéniques, de poubelles et de dispositifs de lavage des mains."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "En Ituri, faible capacité d'accueil des CTE/CT de Mambasa, Kilo, Mangala, Mandima et Lolwa et l'absence de prise en charge alimentaire pour 40 patients à Lolwa (19), Mambasa (14) et Mandima (7) demeurent préoccupantes.",
+            "Au Bas-Uélé, l'absence de CTE normé et d'ambulance pour le transfert des malades demeure un défi opérationnel majeur.",
+            "À la Tshopo, l'absence d'échographe au CTE, l'insuffisance de lits au centre de traitement expérimental de Makiso-Kisangani et la démotivation de 12 ambulanciers sur 29 fragilisent la prise en charge."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "En Ituri, la cible des PPL/TPL reste à redéfinir, ce qui empêche le calcul d’un taux de couverture fiable. Au Bas-Uélé, mise en marche des UCC non effective, pas de disponibilité du micro-plan validé et des fonds de la vaccination."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "En Ituriseules 14 ZS affectées sur 28 sont couvertes (50,0 %) et la ZS de Mandima n'a aucune couverture SMSPS, ce qui impose de renforcer les capacités des psychologues et des APS/TPS pour assurer les interventions autour des cas.",
+            "Au Bas-Uélé, la couverture SMSPS reste embryonnaire, les activités venant à peine de démarrer dans la ZS de Viadana.",
+            "À la Tshopo, nécessité de former les APS des ZS de Wanie-Rukula et de Bafwasende et insuffisance des unités de communication et des motos pour les déplacements du pilier.",
+            "À la Tshopo, nécessité de former les APS des ZS de Wanie-Rukula et de Bafwasende et insuffisance des moyens de communication et de déplacement du pilier."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            "Au niveau national, seule 1 DPS sur 7 (14,3 %) a rapporté ses activités PSEA ; en Ituri, les activités ne couvrent pas encore toutes les ZS touchées, les supports de sensibilisation de masse manquent et la cartographie des intervenants reste incomplète."
+          ],
+          "provinces": [
+            "Ituri"
+          ]
         }
       ],
       "source": "SitRep INSP (automatique)"

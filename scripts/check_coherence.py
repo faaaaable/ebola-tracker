@@ -73,6 +73,12 @@ EXCEPTIONS_SOURCE = {
     # recopie une quatrieme fois. Les donnees restent celles du bulletin
     # (4 octobre 2026).
     ("cte_normes", "141", "Nord-Kivu"): (261, 354, 63.0),
+    # 143 : « 382 patients demeuraient hospitalises dont 263 dans les
+    # structures normees. Le taux d'occupation des lits etait de 63,0 % ».
+    # Toujours la meme phrase et le meme taux qu'aux 140 et 141 : 263/354
+    # ferait 74,3 %. 63,0 % reste le taux du 135 (223/354), recopie une
+    # cinquieme fois. Les donnees restent celles du bulletin (6 octobre 2026).
+    ("cte_normes", "143", "Nord-Kivu"): (263, 354, 63.0),
     # 128 : « 987 [...] dont 550 a Buta, 324 a Ganga, 71 a Poko et 42 a
     # Viadana » ; 129 : « 874 [...] 211 a Ganga ». Chaque total tombe sur sa
     # ventilation, seule Ganga bouge : la source s'est corrigee. Le

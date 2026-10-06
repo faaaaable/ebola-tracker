@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-02"
+    "fin": "2026-10-04"
   },
   "parDate": [
     {
@@ -3308,18 +3308,13 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 378,
-          "occupation": 37.2,
-          "lits": 1015,
-          "litsRecoupes": true
+          "occupation": 37.2
         },
         "Nord-Kivu": {
           "hospitalises": 364,
           "hospitalisesNormes": 261,
           "occupationPubliee": 63.0,
-          "occupation": 102.8,
-          "lits": 354,
-          "litsReportes": true,
-          "occupationCalculee": true
+          "occupation": 63.0
         },
         "Tshopo": {
           "hospitalises": 14,
@@ -3327,17 +3322,52 @@
         },
         "Haut-Uélé": {
           "hospitalises": 74,
-          "occupation": 53.6,
+          "occupation": 53.6
+        }
+      },
+      "total": {
+        "hospitalises": 830,
+        "provinces": 4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-04",
+      "sitrepNumber": "143",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 372,
+          "occupation": 36.7,
+          "lits": 1015,
+          "litsRecoupes": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 382,
+          "hospitalisesNormes": 263,
+          "occupationPubliee": 63.0,
+          "occupation": 107.9,
+          "lits": 354,
+          "litsReportes": true,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 20,
+          "occupation": 64.5
+        },
+        "Haut-Uélé": {
+          "hospitalises": 70,
+          "occupation": 50.7,
           "lits": 138,
           "litsRecoupes": true
         }
       },
       "total": {
-        "hospitalises": 830,
+        "hospitalises": 844,
         "provinces": 4,
         "lits": 1507,
-        "hospitalisesAvecLits": 816,
-        "occupation": 54.1
+        "hospitalisesAvecLits": 824,
+        "occupation": 54.7
       },
       "source": "SitRep INSP (automatique)"
     }
