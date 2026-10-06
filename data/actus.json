@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "6255d15a",
+   "date": "2026-10-06",
+   "titre": "Ebola en RDC: MSF s'inquiète de l'aggravation de la situation sanitaire au Nord-Kivu",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261006-ebola-en-rdc-msf-s-inqui%C3%A8te-de-l-aggravation-de-la-situation-sanitaire-au-nord-kivu",
+   "langue": "fr",
+   "resume": "Plus de 4 000 morts, plus de 8 500 cas confirmés, sept provinces touchées... En RDC, l’épidémie d'Ebola s’étend « comme un méga-feu » avec de « nouveaux foyers chaque semaine » et une capacité de prise en charge déjà largement dépassée, alerte Médecins sans frontières.",
+   "statut": "attente",
+   "collecte": "2026-10-06",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "4f31c18b",
+   "date": "2026-10-06",
+   "titre": "Ebola en RDC : la Banque mondiale réaffirme son soutien à la riposte et appelle à poursuivre les efforts",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/06/actualite/sante/ebola-en-rdc-la-banque-mondiale-reaffirme-son-soutien-la-riposte-et",
+   "langue": "fr",
+   "resume": "Ph. Radio Okapi/Marc Maro Fimbo\" />",
+   "statut": "publie",
+   "collecte": "2026-10-06",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ea211f5f",
    "date": "2026-10-05",
    "titre": "Ebola en Ituri : 18 nouveaux décès enregistrés en deux jours à Biakato",
