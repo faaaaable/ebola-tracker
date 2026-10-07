@@ -81,6 +81,13 @@ HOSPITALISES_RES = [
     # « Au total, 368 patients demeuraient en isolement à la fin de la
     # journée » et « 345 patients demeuraient hospitalisés » (136).
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+demeuraient\s+(?:en\s+isolement|hospitalis)", re.I),
+    # SitRep 144 (5 octobre 2026) : la ventilation s'intercale aussi avant
+    # « demeuraient » et « sont en isolement » — « 417 patients (139
+    # confirmés et 278 suspects) demeuraient hospitalisés » (Nord-Kivu),
+    # « 18 patients (8 confirmés et 10 suspects) demeuraient en isolement »
+    # (Tshopo), « 60 patients (31 confirmés et 29 suspects) sont en
+    # isolement dans les CTE » (Haut-Uele).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,60}\)\s*(?:demeuraient|sont)\s+(?:en\s+isolement|hospitalis)", re.I),
     # « L'occupation des structures de prise en charge atteint 488 lits sur
     # 833 (59 %) » (084, 6 aout) : les patients comptes en lits occupes.
     re.compile(r"occupation[^.;]{0,60}?atteint\s+(\d[\d ]{0,4}\d|\d)\s+lits\s+sur\s+\d", re.I),
@@ -110,7 +117,9 @@ HOSPITALISES_RES = [
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits|atteint\s+\d[\d ]{0,4}\s+lits\s+sur\s+(\d[\d ]{0,4}\d|\d)", re.I)
 # « taux d'occupation global de 51,7% (120 lits) » (110 Haut-Uele) : les lits
 # entre parentheses apres le taux, sans « pour ».
-LITS_PARENTHESE_RE = re.compile(r"\((\d[\d ]{0,4}\d|\d)\s+lits\)", re.I)
+LITS_PARENTHESE_RE = re.compile(r"\((?:\d[\d ]{0,4}\d?\s*/\s*)?(\d[\d ]{0,4}\d|\d)\s+lits\)", re.I)
+# « (18/36 lits) », « (60/153 lits) » (144) : la fraction hospitalises/lits
+# entre parentheses ; le motif ci-dessus la lit aussi, par son denominateur.
 # « en sursaturation (118,6 % ; 220 lits disponibles) » (111 Nord-Kivu) : les
 # lits suivent le taux, apres le point-virgule, sans fraction ni « pour ».
 # Le taux et le point-virgule sont exiges : sans eux, le motif mordait sur la
@@ -123,7 +132,9 @@ LITS_DISPONIBLES_RE = re.compile(r"%\s*;\s*(\d[\d ]{0,4}\d|\d)\s+lits\s+disponib
 # la fraction du 108 ET le « lits disponibles » du 111 dans la meme parenthese.
 # Sans ce motif, le 117 sortait avec l'occupation mais sans les lits, et la
 # lettre plantait sur la province saturee.
-LITS_FRACTION_RE = re.compile(r"%\s*;\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*(?:\)|lits\s+disponibles)")
+LITS_FRACTION_RE = re.compile(r"%\s*(?:;|\()\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*(?:\)|lits\s+disponibles)")
+# « 74,2 % (271/365) » (144 Nord-Kivu) : la fraction suit le taux entre
+# parentheses, sans point-virgule ; meme lecture, denominateur = lits.
 # « 392 patients sont hospitalisés dont 224 dans les structures normées avec
 # une capacité d'accueil de 228 lits, soit un taux d'occupation global de
 # 98,2 % » (125 a 127, Nord-Kivu) : la capacite remplace « pour N lits », et
@@ -515,7 +526,10 @@ def recouper_lits_precedents(points):
         def imprime(q):
             v = (q.get("provinces") or {}).get(nom) or {}
             return v.get("lits") if v.get("lits") and not v.get("litsDeduits") else None
-        avant = next((imprime(q) for q in reversed(points[max(0, i - 7):i]) if imprime(q)), None)
+        # Quinze bulletins depuis le 7 octobre 2026 (sept jusque-la) : l'Ituri
+        # n'imprime plus ses lits que de loin en loin, et le 144 restait sans
+        # capacite. Le recoupement a 0,15 point pres reste exige.
+        avant = next((imprime(q) for q in reversed(points[max(0, i - 15):i]) if imprime(q)), None)
         if not avant:
             continue
         calcule = round(ligne["hospitalises"] / avant * 100, 1)
