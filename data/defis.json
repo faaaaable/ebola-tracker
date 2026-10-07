@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-10-04"
+    "fin": "2026-10-05"
   },
   "parDate": [
     {
@@ -5447,6 +5447,88 @@
           ],
           "provinces": [
             "Ituri",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            "Au niveau national, seule 1 DPS sur 7 (14,3 %) a rapporté ses activités PSEA ; en Ituri, les activités ne couvrent pas encore toutes les ZS touchées, les supports de sensibilisation de masse manquent et la cartographie des intervenants reste incomplète."
+          ],
+          "provinces": [
+            "Ituri"
+          ]
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-05",
+      "sitrepNumber": "144",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "À la Tshopo, la complétude des rapports reste faible (44,4 % ; 8/18), dix ports privés de Makiso-Kisangani ne fonctionnant pas le dimanche en raison des taxes élevées, et 2,6 % des voyageurs ont refusé le screening et 2,3 % le lavage des mains. En Ituri, 4,0 % des voyageurs n'ont pas été screenés et la proportion de voyageurs ayant lavé les mains a reculé à 91,1 % contre 97,2 % la veille. Au Haut-Uélé, 159 voyageurs (1,0 %) ont refusé le screening et 175 (1,1 %) le lavage des mains, principalement aux PoC de PK10 Route Poko, Magambe et Boh, sur fond de rumeurs selon lesquelles l'eau et les thermoflashs contiendraient le virus. Au Bas-Uélé, seuls 19 PoC sur 41 sites de notification sont fonctionnels (46,3 %), aucun PoE n'est renforcé (0/11) et les services du PNHF ne sont pas opérationnels."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "À la Tshopo, 5 corps n'ont pas pu être swabés, les intrants PCI et les prestataires formés restent insuffisants et l'incinérateur de l'HGR de Makiso-Kisangani est toujours en panne. Au Bas-Uélé, la remontée des alertes de décès communautaires reste faible et tardive et les ESS manquent de zones de gestion des déchets, de latrines hygiéniques, de poubelles et de dispositifs de lavage des mains."
+          ],
+          "provinces": [
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "En Ituri, la faible capacité d'accueil des CTE/CT de Mambasa, Kilo, Mangala, Mandima, Sota et Lolwa, la présence de 37 malades critiques et l'absence de prise en charge alimentaire pour 33 patients à Lolwa (14), Mambasa (9) et Mandima (10) demeurent préoccupantes.",
+            "Au Bas-Uélé, l'absence de CTE normé et d'ambulance pour le transfert des malades demeure un défi opérationnel majeur.",
+            "À la Tshopo, l'absence de kit et de lit d'accouchement et d'échographe au CTE, l'insuffisance de lits au centre de traitement expérimental de Makiso-Kisangani et la démotivation de 12 ambulanciers sur 29 (41,4 %) fragilisent la prise en charge."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "À la Tshopo, les ZS de Tshopo et de Kabondo, pourtant servies en vaccins, n'ont pas encore démarré la vaccination. Au Bas-Uélé, la mise en marche des UCC n'est pas effective, le micro-plan validé et les fonds de la vaccination ne sont pas disponibles et le véhicule de l'équipe de vaccination déployé à Viadana doit être dépanné et approvisionné en carburant."
+          ],
+          "provinces": [
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "En Ituri, seules 14 ZS affectées sur 28 sont couvertes (50,0 %) et la ZS de Mandima n'a aucune couverture SMSPS, ce qui impose de renforcer les capacités des psychologues et des APS/TPS pour assurer les interventions autour des cas.",
+            "Au Bas-Uélé, la couverture SMSPS reste embryonnaire, les activités venant à peine de démarrer dans la ZS de Viadana.",
+            "Au Haut-Uélé, la mobilité des APS reste difficile à Wamba et à Boma Mangbetu, les kits nutritionnels manquent pour les nourrissons sevrés à Wamba et à Isiro, le pilier ne dispose pas de matériel informatique et la remontée des données reste faible à Boma Mangbetu et à Pawa",
+            "À la Tshopo, nécessité de former les APS des ZS de Wanie-Rukula et de Bafwasende et insuffisance des unités de communication et des motos pour les déplacements du pilier."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
             "Bas-Uélé",
             "Tshopo"
           ]
