@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "3a8bcdd3",
+   "date": "2026-10-07",
+   "titre": "More than 1,900 children have lost their parents due to Ebola in DRC",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/more-than-1900-children-have-lost-their-parents-due-to-ebola-in-drc/",
+   "langue": "en",
+   "resume": "More than 1,900 children have lost one or both parents, or have been separated from their carers, as…",
+   "statut": "publie",
+   "collecte": "2026-10-07",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "fe496204",
    "date": "2026-10-06",
    "titre": "Tshopo : les responsables des structures sanitaires privées appelés à signaler les cas suspects d’Ebola",
