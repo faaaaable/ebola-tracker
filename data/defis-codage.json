@@ -7126,6 +7126,67 @@
 "ruptures"
 ]
 }
+],
+"au haut uélé seules # zs sur # ont rapporté leurs activités pci les kits pci destinés aux ménages manquent et la décontamination autour d un cas confirmé décédé le # octobre s est heurtée à une résistance communautaire à la tshopo les intrants pci et les prestataires formés restent insuffisants l incinérateur de l hgr de makiso kisangani est toujours en panne et les morgues rekapi i et ii manquent de kits de prélèvement et d epi au bas uélé la remontée des alertes de décès communautaires reste faible et # triages sur # suivis à buta ne sont pas fonctionnels faute de personnel dédié": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"resistance",
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"eds",
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"au nord kivu le poc de butuhe ne fonctionne plus depuis l incident sécuritaire du # septembre # # voyageurs # # ont refusé le screening dont # # # au poc de makeke et les alertes remontées des poc ne sont pas prises en charge dans les délais par les cellules d alerte au sud kivu la complétude des rapports n est que de # # # # et les poe de kavimvira kalundu port et baraka ne disposent d aucun dispositif d isolement au bas uélé seuls # poc sur # sites de notification sont fonctionnels # # aucun poe n est renforcé # # et les services du pnhf ne sont pas opérationnels": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"insecurite",
+"poc",
+"resistance"
+]
+},
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"poc"
+]
+}
+],
+"en ituri la vaccination des ppl et l étude de l immunité croisée avec la souche bdbv restent suspendues dans l attente de l approvisionnement en vaccin ervebo par le pev national au bas uélé la mise en marche des ucc n est pas effective et le micro plan validé ainsi que les fonds de la vaccination ne sont toujours pas disponibles": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
 ]
 }
 }

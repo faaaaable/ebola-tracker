@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-10-05"
+    "fin": "2026-10-06"
   },
   "parDate": [
     {
@@ -5515,6 +5515,74 @@
           "provinces": [
             "Bas-Uélé",
             "Tshopo"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "En Ituri, seules 14 ZS affectées sur 28 sont couvertes (50,0 %) et la ZS de Mandima n'a aucune couverture SMSPS, ce qui impose de renforcer les capacités des psychologues et des APS/TPS pour assurer les interventions autour des cas.",
+            "Au Bas-Uélé, la couverture SMSPS reste embryonnaire, les activités venant à peine de démarrer dans la ZS de Viadana.",
+            "Au Haut-Uélé, la mobilité des APS reste difficile à Wamba et à Boma Mangbetu, les kits nutritionnels manquent pour les nourrissons sevrés à Wamba et à Isiro, le pilier ne dispose pas de matériel informatique et la remontée des données reste faible à Boma Mangbetu et à Pawa",
+            "À la Tshopo, nécessité de former les APS des ZS de Wanie-Rukula et de Bafwasende et insuffisance des unités de communication et des motos pour les déplacements du pilier."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            "Au niveau national, seule 1 DPS sur 7 (14,3 %) a rapporté ses activités PSEA ; en Ituri, les activités ne couvrent pas encore toutes les ZS touchées, les supports de sensibilisation de masse manquent et la cartographie des intervenants reste incomplète."
+          ],
+          "provinces": [
+            "Ituri"
+          ]
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-06",
+      "sitrepNumber": "145",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "Au Nord-Kivu, le PoC de Butuhe ne fonctionne plus depuis l'incident sécuritaire du 26 septembre, 1 837 voyageurs (2,0 %) ont refusé le screening, dont 511 (11,8 %) au PoC de Makeke, et les alertes remontées des PoC ne sont pas prises en charge dans les délais par les cellules d'alerte. Au Sud-Kivu, la complétude des rapports n'est que de 55,6 % (5/9) et les PoE de Kavimvira, Kalundu Port et Baraka ne disposent d'aucun dispositif d'isolement. Au Bas-Uélé, seuls 19 PoC sur 41 sites de notification sont fonctionnels (46,3 %), aucun PoE n'est renforcé (0/11) et les services du PNHF ne sont pas opérationnels."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Sud-Kivu",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "Au Haut-Uélé, seules 4 ZS sur 7 ont rapporté leurs activités PCI, les kits PCI destinés aux ménages manquent et la décontamination autour d'un cas confirmé décédé le 05 octobre s'est heurtée à une résistance communautaire. À la Tshopo, les intrants PCI et les prestataires formés restent insuffisants, l'incinérateur de l'HGR de Makiso-Kisangani est toujours en panne et les morgues Rekapi I et II manquent de kits de prélèvement et d'EPI. Au Bas-Uélé, la remontée des alertes de décès communautaires reste faible et 2 triages sur 3 suivis à Buta ne sont pas fonctionnels faute de personnel dédié."
+          ],
+          "provinces": [
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "En Ituri, la vaccination des PPL et l'étude de l'immunité croisée avec la souche BDBV restent suspendues dans l'attente de l'approvisionnement en vaccin Ervebo par le PEV national. Au Bas-Uélé, la mise en marche des UCC n'est pas effective et le micro-plan validé ainsi que les fonds de la vaccination ne sont toujours pas disponibles."
+          ],
+          "provinces": [
+            "Ituri",
+            "Bas-Uélé"
           ]
         },
         {
