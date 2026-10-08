@@ -49,6 +49,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -61,7 +66,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body>
 
@@ -118,44 +123,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Navigation principale">
-      <div class="side-nav-title">Actualité</div>
-      <a href="/lettre/">La lettre</a>
-      <a href="/actualites/">Nouvelles de l'épidémie <span class="nav-badge">Nouveau</span></a>
-      <div class="side-nav-title">Explorer</div>
-      <a href="/">Vue d'ensemble</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Données détaillées</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/donnees/"><span class="dot dot-all"></span>Ensemble du pays</a>
-          <a class="tab-dropdown-item" href="/donnees/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/donnees/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/donnees/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/donnees/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/donnees/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/donnees/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/donnees/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Actualités</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/lettre/"><span class="nav-t">La lettre</span><span class="nav-desc">Le résumé de chaque bulletin officiel</span></a>
+      <a href="/actualites/"><span class="nav-t">Nouvelles de l'épidémie</span><span class="nav-desc">Des articles publiés chaque jour</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Comprendre</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/chronologie/"><span class="nav-t">Chronologie</span><span class="nav-desc">De la première alerte à aujourd’hui</span></a>
+      <a href="/le-virus/"><span class="nav-t">Le virus</span><span class="nav-desc">Bundibugyo : transmission, symptômes</span></a>
+      <a href="/faq/"><span class="nav-t">FAQ</span><span class="nav-desc">Les questions souvent posées</span></a>
+      <a href="/glossaire/"><span class="nav-t">Glossaire</span><span class="nav-desc">Les mots des bulletins, expliqués</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Explorer</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">Évolution de l'épidémie</div>
+        <a href="/donnees/"><span class="nav-t">Ensemble du pays</span><span class="nav-desc">La dynamique au niveau national</span></a>
+        <a href="/donnees/ituri/" title="D’après le dernier bulletin officiel"><span class="nav-t">Ituri</span><span class="nav-desc">6 513 cas confirmés</span></a>
+        <a href="/donnees/nord-kivu/" title="D’après le dernier bulletin officiel"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">1 785 cas confirmés</span></a>
+        <a href="/donnees/haut-uele/" title="D’après le dernier bulletin officiel"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">364 cas confirmés</span></a>
+        <a href="/donnees/tshopo/" title="D’après le dernier bulletin officiel"><span class="nav-t">Tshopo</span><span class="nav-desc">51 cas confirmés</span></a>
+        <a href="/donnees/bas-uele/" title="D’après le dernier bulletin officiel"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">10 cas confirmés</span></a>
+        <a href="/donnees/sud-kivu/" title="D’après le dernier bulletin officiel"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">3 cas confirmés</span></a>
+        <a href="/donnees/sud-ubangi/" title="D’après le dernier bulletin officiel"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">2 cas confirmés</span></a>
+        <a href="/autres-pays/"><span class="nav-t">Autres pays</span><span class="nav-desc">Ouganda, France, Kenya</span></a>
       </div>
-      <a href="/riposte/">Riposte &amp; défis</a>
-      <div class="side-nav-title">Comprendre</div>
-      <a href="/chronologie/">Chronologie</a>
-      <a href="/le-virus/">Le virus</a>
-      <a href="/rapports/">Sources &amp; bulletins</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Données détaillées</div>
+        <a href="/rapports/"><span class="nav-t">Sources &amp; bulletins</span><span class="nav-desc">Tous les bulletins de l’INSP</span></a>
+        <a href="/base-de-donnees/"><span class="nav-t">Base de données <span class="nav-badge nav-badge-soon">Bientôt</span></span><span class="nav-desc">Les données du site, à télécharger</span></a>
+        <a href="/dashboard/"><span class="nav-t">Dashboard <span class="nav-badge nav-badge-soon">Bientôt</span></span><span class="nav-desc">Toutes les données en temps réel</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Face à l'épidémie</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/riposte/"><span class="nav-t">Riposte</span><span class="nav-desc">Actions menées pour arrêter l’épidémie</span></a>
+      <a href="/defis/"><span class="nav-t">Défis</span><span class="nav-desc">Les obstacles rencontrés</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Le site</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/a-propos/"><span class="nav-t">À propos</span><span class="nav-desc">Méthode, sources, avertissement</span></a>
+      <a href="/contact/" aria-current="page"><span class="nav-t">Contact</span><span class="nav-desc">Écrire à l’équipe</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -170,11 +194,7 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Fil d'Ariane">
-    <a href="/">Accueil</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">Contact</span>
-  </nav>
+
 
       <main id="contenu">
   <section class="section" style="max-width:560px;">
@@ -217,13 +237,10 @@
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Explorer</h2>
+        <h2>Actualités</h2>
         <ul>
-        <li><a href="/">Vue d'ensemble</a></li>
         <li><a href="/lettre/">La lettre</a></li>
         <li><a href="/actualites/">Nouvelles de l'épidémie</a></li>
-        <li><a href="/donnees/">Données détaillées</a></li>
-        <li><a href="/riposte/">Riposte &amp; défis</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -231,9 +248,20 @@
         <ul>
         <li><a href="/chronologie/">Chronologie</a></li>
         <li><a href="/le-virus/">Le virus</a></li>
-        <li><a href="/rapports/">Sources &amp; bulletins</a></li>
         <li><a href="/faq/">FAQ</a></li>
         <li><a href="/glossaire/">Glossaire</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Explorer</h2>
+        <ul>
+        <li><a href="/donnees/">Ensemble du pays</a></li>
+        <li><a href="/autres-pays/">Autres pays</a></li>
+        <li><a href="/riposte/">Riposte</a></li>
+        <li><a href="/defis/">Défis</a></li>
+        <li><a href="/rapports/">Sources &amp; bulletins</a></li>
+        <li><a href="/base-de-donnees/">Base de données</a></li>
+        <li><a href="/dashboard/">Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -257,7 +285,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Données issues des bulletins de l'<a href="https://insp.cd/" rel="noopener">INSP</a>, complétées ponctuellement par l'<a href="https://www.afro.who.int/" rel="noopener">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle. <a href="/a-propos/">Avertissement complet</a></p>
+    <p class="footer-notice">Données issues des bulletins de l'<a href="https://insp.cd/" rel="noopener">INSP</a>, complétées ponctuellement par l'<a href="https://www.afro.who.int/" rel="noopener">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle. <a href="/a-propos/#avertissement">Avertissement complet</a></p>
   </footer>
 
     </div>
@@ -268,6 +296,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/donnees/ituri/", "Nord-Kivu": "/donnees/nord-kivu/", "Haut-Uélé": "/donnees/haut-uele/", "Tshopo": "/donnees/tshopo/", "Bas-Uélé": "/donnees/bas-uele/", "Sud-Kivu": "/donnees/sud-kivu/", "Sud-Ubangi": "/donnees/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "cas confirmés"; window.HERO_TIP_DEATHS = "décès";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -287,8 +316,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>

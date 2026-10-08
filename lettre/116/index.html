@@ -49,6 +49,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -61,7 +66,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body class="lettre-agence">
 
@@ -118,44 +123,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Navigation principale">
-      <div class="side-nav-title">Actualité</div>
-      <a href="/lettre/">La lettre</a>
-      <a href="/actualites/">Nouvelles de l'épidémie <span class="nav-badge">Nouveau</span></a>
-      <div class="side-nav-title">Explorer</div>
-      <a href="/">Vue d'ensemble</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Données détaillées</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/donnees/"><span class="dot dot-all"></span>Ensemble du pays</a>
-          <a class="tab-dropdown-item" href="/donnees/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/donnees/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/donnees/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/donnees/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/donnees/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/donnees/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/donnees/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Actualités</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/lettre/"><span class="nav-t">La lettre</span><span class="nav-desc">Le résumé de chaque bulletin officiel</span></a>
+      <a href="/actualites/"><span class="nav-t">Nouvelles de l'épidémie</span><span class="nav-desc">Des articles publiés chaque jour</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Comprendre</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/chronologie/"><span class="nav-t">Chronologie</span><span class="nav-desc">De la première alerte à aujourd’hui</span></a>
+      <a href="/le-virus/"><span class="nav-t">Le virus</span><span class="nav-desc">Bundibugyo : transmission, symptômes</span></a>
+      <a href="/faq/"><span class="nav-t">FAQ</span><span class="nav-desc">Les questions souvent posées</span></a>
+      <a href="/glossaire/"><span class="nav-t">Glossaire</span><span class="nav-desc">Les mots des bulletins, expliqués</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Explorer</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">Évolution de l'épidémie</div>
+        <a href="/donnees/"><span class="nav-t">Ensemble du pays</span><span class="nav-desc">La dynamique au niveau national</span></a>
+        <a href="/donnees/ituri/" title="D’après le dernier bulletin officiel"><span class="nav-t">Ituri</span><span class="nav-desc">6 513 cas confirmés</span></a>
+        <a href="/donnees/nord-kivu/" title="D’après le dernier bulletin officiel"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">1 785 cas confirmés</span></a>
+        <a href="/donnees/haut-uele/" title="D’après le dernier bulletin officiel"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">364 cas confirmés</span></a>
+        <a href="/donnees/tshopo/" title="D’après le dernier bulletin officiel"><span class="nav-t">Tshopo</span><span class="nav-desc">51 cas confirmés</span></a>
+        <a href="/donnees/bas-uele/" title="D’après le dernier bulletin officiel"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">10 cas confirmés</span></a>
+        <a href="/donnees/sud-kivu/" title="D’après le dernier bulletin officiel"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">3 cas confirmés</span></a>
+        <a href="/donnees/sud-ubangi/" title="D’après le dernier bulletin officiel"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">2 cas confirmés</span></a>
+        <a href="/autres-pays/"><span class="nav-t">Autres pays</span><span class="nav-desc">Ouganda, France, Kenya</span></a>
       </div>
-      <a href="/riposte/">Riposte &amp; défis</a>
-      <div class="side-nav-title">Comprendre</div>
-      <a href="/chronologie/">Chronologie</a>
-      <a href="/le-virus/">Le virus</a>
-      <a href="/rapports/">Sources &amp; bulletins</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Données détaillées</div>
+        <a href="/rapports/"><span class="nav-t">Sources &amp; bulletins</span><span class="nav-desc">Tous les bulletins de l’INSP</span></a>
+        <a href="/base-de-donnees/"><span class="nav-t">Base de données <span class="nav-badge nav-badge-soon">Bientôt</span></span><span class="nav-desc">Les données du site, à télécharger</span></a>
+        <a href="/dashboard/"><span class="nav-t">Dashboard <span class="nav-badge nav-badge-soon">Bientôt</span></span><span class="nav-desc">Toutes les données en temps réel</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Face à l'épidémie</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/riposte/"><span class="nav-t">Riposte</span><span class="nav-desc">Actions menées pour arrêter l’épidémie</span></a>
+      <a href="/defis/"><span class="nav-t">Défis</span><span class="nav-desc">Les obstacles rencontrés</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Le site</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/a-propos/"><span class="nav-t">À propos</span><span class="nav-desc">Méthode, sources, avertissement</span></a>
+      <a href="/contact/"><span class="nav-t">Contact</span><span class="nav-desc">Écrire à l’équipe</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -170,26 +194,20 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Fil d'Ariane">
-    <a href="/">Accueil</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">La lettre</span>
-  </nav>
+
 
       <main id="contenu">
-<div class="ag">
+<div class="lq">
 <header class="ag-tete"><div class="ag-barre"></div><div class="ag-manchette"><p class="ag-marque">La lettre</p><p class="ag-edition"><span>Bulletin n° 116</span><i></i><span>Situation au 7 sept. 2026</span></p><p class="ag-sous">Résumé du bulletin de l'INSP, à chaque nouvelle parution</p></div><nav class="ag-nav"><a class="ag-nav-prev" href="/lettre/115/">← Lettre précédente, bulletin n°115</a><a class="ag-nav-next" href="/lettre/117/">Lettre suivante, bulletin n°117 →</a></nav></header>
-<div class="ag-grille"><div class="ag-prose"><p class="ag-jour">Le bulletin du 7 sept. 2026, publié le 8 sept. 2026, rapporte 71 nouveaux cas confirmés et 41 décès. 71 cas, c'est en dessous de la moyenne des sept derniers jours, 81,6 par jour. Aucune nouvelle zone de santé depuis le 4 sept. 2026 : l'épidémie reste sur 61 zones dans 6 provinces.</p><section class="ag-chap" id="bilan"><h2 class="ag-titre"><span>01</span>Le bilan</h2>    <p class="fiche-texte lettre-texte">Depuis le début de l'épidémie, 6 757 cas confirmés et 3 267 décès : 48,3 % des malades sont morts. 1 590 personnes sont guéries. 27 de plus que la veille. 813 malades sont hospitalisés dans les centres de traitement Ebola. Sur les sept derniers jours, 81,6 cas et 37,1 décès par jour en moyenne, contre 75,7 cas et 41,7 décès la semaine précédente.</p>
-<div class="ag-chiffres-inline">    <section class="kpis kpis-riposte" aria-label="Le bilan">
-      <div class="kpi confirmed"><div class="label">Cas confirmés</div><div class="value">6 757</div><div class="delta">+71 (24 h)</div></div>
-      <div class="kpi deaths"><div class="label">Décès</div><div class="value">3 267</div><div class="delta">+41 (24 h)</div></div>
-      <div class="kpi recovered"><div class="label">Guéris</div><div class="value">1 590</div><div class="delta">+27 (24 h)</div></div>
-      <div class="kpi cte"><div class="label">Patients en isolement</div><div class="value">813</div><div class="delta"></div></div>
-      <div class="kpi cfr"><div class="label">Taux de létalité</div><div class="value">48,3 %</div><div class="delta"></div></div>
-      <div class="kpi zones"><div class="label">Zones de santé touchées</div><div class="value">61</div><div class="delta">sur 151</div></div>
-    </section>
-</div></section><section class="ag-chap" id="ou"><h2 class="ag-titre"><span>02</span>Où</h2>    <p class="fiche-texte lettre-texte">L'Ituri porte 41 des 71 nouveaux cas. Viennent ensuite le Nord-Kivu avec 27 et le Haut-Uélé avec 3. Les 3 autres provinces n'en déclarent aucun. 5 zones portent 41 de ces 71 cas : Bunia 14, Katwa 11, Musienene 6, Mangala 5 et Rwampara 5. 51 des 61 zones de santé touchées ont déclaré au moins un nouveau cas ces trois dernières semaines ; 10 n'en ont déclaré aucun.</p>
-<div class="ag-chiffres-inline">    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">
+<div class="lq-grille"><div class="lq-principal" id="bilan"><div class="lq-eyebrow">Le bilan du jour</div><h1 class="lq-titre">71 nouveaux cas, 41 décès</h1><p class="lq-chapo">Le bulletin du 7 sept. 2026, publié le 8 sept. 2026, rapporte 71 nouveaux cas confirmés et 41 décès. 71 cas, c'est en dessous de la moyenne des sept derniers jours, 81,6 par jour. Aucune nouvelle zone de santé depuis le 4 sept. 2026 : l'épidémie reste sur 61 zones dans 6 provinces.</p>    <p class="fiche-texte lettre-texte">Depuis le début de l'épidémie, 6 757 cas confirmés et 3 267 décès : 48,3 % des malades sont morts. 1 590 personnes sont guéries. 27 de plus que la veille. 813 malades sont hospitalisés dans les centres de traitement Ebola. Sur les sept derniers jours, 81,6 cas et 37,1 décès par jour en moyenne, contre 75,7 cas et 41,7 décès la semaine précédente.</p>
+</div>
+<aside class="lq-encadre" aria-label="Les chiffres du bulletin"><div class="lq-chiffre is-cas"><b>6 757</b><span>cas confirmés · +71</span></div><div class="lq-chiffre is-deces"><b>3 267</b><span>décès · +41</span></div><div class="lq-chiffre"><b>48,3 %</b><span>létalité</span></div><div class="lq-mini"><svg class="lq-barres" viewBox="0 0 100 56" preserveAspectRatio="none" aria-hidden="true"><rect x="0.40" y="17.3" width="2.53" height="38.7"><title>9 août 2026 : 87</title></rect><rect x="3.73" y="25.8" width="2.53" height="30.2"><title>10 août 2026 : 68</title></rect><rect x="7.07" y="4.0" width="2.53" height="52.0"><title>11 août 2026 : 117</title></rect><rect x="10.40" y="12.0" width="2.53" height="44.0"><title>12 août 2026 : 99</title></rect><rect x="13.73" y="28.4" width="2.53" height="27.6"><title>13 août 2026 : 62</title></rect><rect x="17.07" y="4.4" width="2.53" height="51.6"><title>14 août 2026 : 116</title></rect><rect x="20.40" y="10.7" width="2.53" height="45.3"><title>15 août 2026 : 102</title></rect><rect x="23.73" y="22.2" width="2.53" height="33.8"><title>16 août 2026 : 76</title></rect><rect x="27.07" y="18.7" width="2.53" height="37.3"><title>17 août 2026 : 84</title></rect><rect x="30.40" y="10.2" width="2.53" height="45.8"><title>18 août 2026 : 103</title></rect><rect x="33.73" y="19.6" width="2.53" height="36.4"><title>19 août 2026 : 82</title></rect><rect x="37.07" y="18.2" width="2.53" height="37.8"><title>20 août 2026 : 85</title></rect><rect x="40.40" y="19.1" width="2.53" height="36.9"><title>21 août 2026 : 83</title></rect><rect x="43.73" y="31.1" width="2.53" height="24.9"><title>22 août 2026 : 56</title></rect><rect x="47.07" y="24.9" width="2.53" height="31.1"><title>23 août 2026 : 70</title></rect><rect x="50.40" y="24.0" width="2.53" height="32.0"><title>24 août 2026 : 72</title></rect><rect x="53.73" y="30.7" width="2.53" height="25.3"><title>25 août 2026 : 57</title></rect><rect x="57.07" y="20.0" width="2.53" height="36.0"><title>26 août 2026 : 81</title></rect><rect x="60.40" y="25.3" width="2.53" height="30.7"><title>27 août 2026 : 69</title></rect><rect x="63.73" y="19.6" width="2.53" height="36.4"><title>28 août 2026 : 82</title></rect><rect x="67.07" y="13.3" width="2.53" height="42.7"><title>29 août 2026 : 96</title></rect><rect x="70.40" y="29.8" width="2.53" height="26.2"><title>30 août 2026 : 59</title></rect><rect x="73.73" y="17.8" width="2.53" height="38.2"><title>31 août 2026 : 86</title></rect><rect x="77.07" y="27.6" width="2.53" height="28.4"><title>1 sept. 2026 : 64</title></rect><rect x="80.40" y="15.1" width="2.53" height="40.9"><title>2 sept. 2026 : 92</title></rect><rect x="83.73" y="14.2" width="2.53" height="41.8"><title>3 sept. 2026 : 94</title></rect><rect x="87.07" y="17.8" width="2.53" height="38.2"><title>4 sept. 2026 : 86</title></rect><rect x="90.40" y="19.6" width="2.53" height="36.4"><title>5 sept. 2026 : 82</title></rect><rect x="93.73" y="19.6" width="2.53" height="36.4"><title>6 sept. 2026 : 82</title></rect><rect x="97.07" y="24.4" width="2.53" height="31.6" class="is-der"><title>7 sept. 2026 : 71</title></rect></svg><span>Nouveaux cas par jour, 30 derniers jours</span></div></aside></div>
+<div class="lq-cols"><section class="lq-art" id="ou"><h2><span>02</span> Où</h2>    <p class="fiche-texte lettre-texte">L'Ituri porte 41 des 71 nouveaux cas. Viennent ensuite le Nord-Kivu avec 27 et le Haut-Uélé avec 3. Les 3 autres provinces n'en déclarent aucun. 5 zones portent 41 de ces 71 cas : Bunia 14, Katwa 11, Musienene 6, Mangala 5 et Rwampara 5. 51 des 61 zones de santé touchées ont déclaré au moins un nouveau cas ces trois dernières semaines ; 10 n'en ont déclaré aucun.</p>
+</section><section class="lq-art" id="deces"><h2><span>03</span> Les décès</h2>    <p class="fiche-texte lettre-texte">Sur les 41 décès du jour, 31 sont survenus en communauté, c'est-à-dire hors d'un centre de traitement, et 10 dans un centre de traitement. Les décès hors centre : 15 en Ituri, 15 au Nord-Kivu et 1 dans le Haut-Uélé. Ceux en centre de traitement : 9 en Ituri et 1 au Nord-Kivu. Les 9 d'Ituri ne sont pas encore attribués à une zone de santé précise, comme 378 décès avant eux.</p>
+</section><section class="lq-art" id="riposte"><h2><span>04</span> La riposte</h2>    <p class="fiche-texte lettre-texte">1 508 signalements de malades possibles (des « alertes ») ont été reçus ; 1 240 ont été vérifiés et 329 retenus comme cas suspects, à tester. Sur 481 prélèvements testés en laboratoire, 71 étaient positifs, soit 14,8 %. 88,3 % des personnes ayant côtoyé un malade (les « contacts ») ont été vues par les équipes de suivi, au-dessus du seuil de 85 % que l'INSP s'est fixé. Moins de trois contacts sur quatre ont été vus dans les provinces suivantes : Bas-Uélé, Haut-Uélé et Tshopo. Les centres de traitement Ebola sont remplis à 59,1 % : 813 malades pour 1 376 lits. Au-delà de leur capacité : le Nord-Kivu, 254 malades pour 220 lits. Enterrements sécurisés, faits par des équipes protégées pour éviter la contagion : 148 décès signalés, 133 enterrements réalisés, 123 corps testés. Autour des nouveaux cas, 62 ceintures de prévention ont été mises en place sur 110 attendues, c'est-à-dire la désinfection du domicile et le suivi des proches. Vaccination : 1 875 personnes ont reçu le vaccin Ervebo depuis le début de la campagne, le 26 août 2026 : 1 375 dans la Tshopo (chiffre du 3 sept. 2026) et 500 dans le Bas-Uélé (chiffre du 5 sept. 2026).</p>
+</section><section class="lq-art" id="defis"><h2><span>05</span> Les difficultés rencontrées</h2>    <p class="fiche-texte lettre-texte">Au Nord-Kivu, 101 des 254 malades hospitalisés, soit 40 %, sont soignés dans des structures qui ne sont pas des centres de traitement ; à Masereka, un malade confirmé s’est enfui après l’annonce de son résultat, et une famille de Munzambaye, dans la zone de Butembo, refuse la désinfection de sa maison. En Ituri, les centres de Nizi, Mambasa, Lolwa et Kilo sont saturés côté cas suspects, 25 ceintures de prévention (rings) ont été ouvertes sur 70 attendues, des corps n’ont pas pu être testés à Mandima et Fataki faute d’équipes, et des refus d’enterrement sécurisé sont signalés à Bunia, Nizi, Nia-Nia et Aru ; au Nord-Kivu, 8 corps n’ont pas été testés à Kalunguta et Vuhovi faute de transport. À la Tshopo, des équipes ont été attaquées à Bethsaïda, dans la zone de Mangobo, sur fond de rumeurs d’« Ebola business », 11 contacts refusent le suivi à Matete, le sang sécurisé manque, et la vaccination n’a reçu que 3 000 doses pour 11 000 demandées. Au Haut-Uélé, le centre de Pawa manque d’installations d’hygiène et celui d’Isiro d’espace, d’eau et d’électricité ; une rumeur dit que les malades sont enfermés sous les tentes de l’hôpital d’Isiro. Au Bas-Uélé, toujours pas de centre de traitement ni d’ambulance, trop peu d’équipes pour suivre les contacts, et le vaccin Ervebo reste en rupture à Buta. Aux points de contrôle, quatre postes de l’Ituri sont en grève faute de paiement, Avakubi reste fermé à cause de l’insécurité, et la Tshopo n’a activé que 18 postes sur 30.</p>
+</section></div>
+<div class="lq-chiffres"><div class="lq-bloc"><h3>Où</h3>    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">
       <thead><tr><th>Province</th><th class="is-num">Cas (24 h)</th><th class="is-num">Décès (24 h)</th><th class="is-num">Cas confirmés</th><th class="is-num">Décès</th><th class="is-num">Zones</th></tr></thead>
       <tbody>
         <tr><td><a href="/donnees/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a></td><td class="is-num">+41</td><td class="is-num">+24</td><td class="is-num">5 406</td><td class="is-num">2 450</td><td class="is-num">28/36</td></tr>
@@ -199,9 +217,7 @@
         <tr><td><a href="/donnees/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">3</td><td class="is-num">1</td><td class="is-num">1/34</td></tr>
         <tr><td><a href="/donnees/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">4</td><td class="is-num">3</td><td class="is-num">3/11</td></tr>
       </tbody></table></div>
-</div></section><section class="ag-chap" id="deces"><h2 class="ag-titre"><span>03</span>Les décès</h2>    <p class="fiche-texte lettre-texte">Sur les 41 décès du jour, 31 sont survenus en communauté, c'est-à-dire hors d'un centre de traitement, et 10 dans un centre de traitement. Les décès hors centre : 15 en Ituri, 15 au Nord-Kivu et 1 dans le Haut-Uélé. Ceux en centre de traitement : 9 en Ituri et 1 au Nord-Kivu. Les 9 d'Ituri ne sont pas encore attribués à une zone de santé précise, comme 378 décès avant eux.</p>
-</section><section class="ag-chap" id="riposte"><h2 class="ag-titre"><span>04</span>La riposte</h2>    <p class="fiche-texte lettre-texte">1 508 signalements de malades possibles (des « alertes ») ont été reçus ; 1 240 ont été vérifiés et 329 retenus comme cas suspects, à tester. Sur 481 prélèvements testés en laboratoire, 71 étaient positifs, soit 14,8 %. 88,3 % des personnes ayant côtoyé un malade (les « contacts ») ont été vues par les équipes de suivi, au-dessus du seuil de 85 % que l'INSP s'est fixé. Moins de trois contacts sur quatre ont été vus dans les provinces suivantes : Bas-Uélé, Haut-Uélé et Tshopo. Les centres de traitement Ebola sont remplis à 59,1 % : 813 malades pour 1 376 lits. Au-delà de leur capacité : le Nord-Kivu, 254 malades pour 220 lits. Enterrements sécurisés, faits par des équipes protégées pour éviter la contagion : 148 décès signalés, 133 enterrements réalisés, 123 corps testés. Autour des nouveaux cas, 62 ceintures de prévention ont été mises en place sur 110 attendues, c'est-à-dire la désinfection du domicile et le suivi des proches. Vaccination : 1 875 personnes ont reçu le vaccin Ervebo depuis le début de la campagne, le 26 août 2026 : 1 375 dans la Tshopo (chiffre du 3 sept. 2026) et 500 dans le Bas-Uélé (chiffre du 5 sept. 2026).</p>
-<div class="ag-chiffres-inline">    <section class="kpis kpis-riposte" aria-label="La riposte du jour">
+</div><div class="lq-bloc"><h3>La riposte</h3>    <section class="kpis kpis-riposte" aria-label="La riposte du jour">
       <div class="kpi alerts"><div class="label">Signalements reçus (24 h)</div><div class="value">1 508</div><div class="delta">1 240 vérifiés, 329 cas suspects</div></div>
       <div class="kpi labo"><div class="label">Tests positifs (24 h)</div><div class="value">14,8 %</div><div class="delta">71 positifs sur 481 testés</div></div>
       <div class="kpi contacts"><div class="label">Contacts suivis (24 h)</div><div class="value">88,3 %</div><div class="delta"></div></div>
@@ -209,50 +225,19 @@
       <div class="kpi eds"><div class="label">Enterrements sécurisés (24 h)</div><div class="value">133</div><div class="delta">133 réalisés sur 148 décès signalés</div></div>
       <div class="kpi vaccin"><div class="label">Vaccinés (total)</div><div class="value">1 875</div><div class="delta">depuis le 26 août 2026</div></div>
     </section>
-    <p class="drill"><a href="/riposte/">Toute la page « Riposte &amp; défis » →</a></p>
-</div></section><section class="ag-chap" id="defis"><h2 class="ag-titre"><span>05</span>Les difficultés rencontrées</h2>    <p class="fiche-texte lettre-texte">Au Nord-Kivu, 101 des 254 malades hospitalisés, soit 40 %, sont soignés dans des structures qui ne sont pas des centres de traitement ; à Masereka, un malade confirmé s’est enfui après l’annonce de son résultat, et une famille de Munzambaye, dans la zone de Butembo, refuse la désinfection de sa maison. En Ituri, les centres de Nizi, Mambasa, Lolwa et Kilo sont saturés côté cas suspects, 25 ceintures de prévention (rings) ont été ouvertes sur 70 attendues, des corps n’ont pas pu être testés à Mandima et Fataki faute d’équipes, et des refus d’enterrement sécurisé sont signalés à Bunia, Nizi, Nia-Nia et Aru ; au Nord-Kivu, 8 corps n’ont pas été testés à Kalunguta et Vuhovi faute de transport. À la Tshopo, des équipes ont été attaquées à Bethsaïda, dans la zone de Mangobo, sur fond de rumeurs d’« Ebola business », 11 contacts refusent le suivi à Matete, le sang sécurisé manque, et la vaccination n’a reçu que 3 000 doses pour 11 000 demandées. Au Haut-Uélé, le centre de Pawa manque d’installations d’hygiène et celui d’Isiro d’espace, d’eau et d’électricité ; une rumeur dit que les malades sont enfermés sous les tentes de l’hôpital d’Isiro. Au Bas-Uélé, toujours pas de centre de traitement ni d’ambulance, trop peu d’équipes pour suivre les contacts, et le vaccin Ervebo reste en rupture à Buta. Aux points de contrôle, quatre postes de l’Ituri sont en grève faute de paiement, Avakubi reste fermé à cause de l’insécurité, et la Tshopo n’a activé que 18 postes sur 30.</p>
-</section></div><aside class="ag-chiffres"><div class="ag-chiffres-titre">Les chiffres</div><div class="ag-bloc"><div class="ag-bloc-titre">Le bilan</div>    <section class="kpis kpis-riposte" aria-label="Le bilan">
-      <div class="kpi confirmed"><div class="label">Cas confirmés</div><div class="value">6 757</div><div class="delta">+71 (24 h)</div></div>
-      <div class="kpi deaths"><div class="label">Décès</div><div class="value">3 267</div><div class="delta">+41 (24 h)</div></div>
-      <div class="kpi recovered"><div class="label">Guéris</div><div class="value">1 590</div><div class="delta">+27 (24 h)</div></div>
-      <div class="kpi cte"><div class="label">Patients en isolement</div><div class="value">813</div><div class="delta"></div></div>
-      <div class="kpi cfr"><div class="label">Taux de létalité</div><div class="value">48,3 %</div><div class="delta"></div></div>
-      <div class="kpi zones"><div class="label">Zones de santé touchées</div><div class="value">61</div><div class="delta">sur 151</div></div>
-    </section>
-</div><div class="ag-bloc"><div class="ag-bloc-titre">Où</div>    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">
-      <thead><tr><th>Province</th><th class="is-num">Cas (24 h)</th><th class="is-num">Décès (24 h)</th><th class="is-num">Cas confirmés</th><th class="is-num">Décès</th><th class="is-num">Zones</th></tr></thead>
-      <tbody>
-        <tr><td><a href="/donnees/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a></td><td class="is-num">+41</td><td class="is-num">+24</td><td class="is-num">5 406</td><td class="is-num">2 450</td><td class="is-num">28/36</td></tr>
-        <tr><td><a href="/donnees/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a></td><td class="is-num">+27</td><td class="is-num">+16</td><td class="is-num">1 066</td><td class="is-num">697</td><td class="is-num">16/34</td></tr>
-        <tr><td><a href="/donnees/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a></td><td class="is-num">+3</td><td class="is-num">+1</td><td class="is-num">256</td><td class="is-num">107</td><td class="is-num">6/13</td></tr>
-        <tr><td><a href="/donnees/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">22</td><td class="is-num">9</td><td class="is-num">7/23</td></tr>
-        <tr><td><a href="/donnees/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">3</td><td class="is-num">1</td><td class="is-num">1/34</td></tr>
-        <tr><td><a href="/donnees/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">4</td><td class="is-num">3</td><td class="is-num">3/11</td></tr>
-      </tbody></table></div>
-</div><div class="ag-bloc"><div class="ag-bloc-titre">La riposte</div>    <section class="kpis kpis-riposte" aria-label="La riposte du jour">
-      <div class="kpi alerts"><div class="label">Signalements reçus (24 h)</div><div class="value">1 508</div><div class="delta">1 240 vérifiés, 329 cas suspects</div></div>
-      <div class="kpi labo"><div class="label">Tests positifs (24 h)</div><div class="value">14,8 %</div><div class="delta">71 positifs sur 481 testés</div></div>
-      <div class="kpi contacts"><div class="label">Contacts suivis (24 h)</div><div class="value">88,3 %</div><div class="delta"></div></div>
-      <div class="kpi cte"><div class="label">Lits occupés</div><div class="value">59,1 %</div><div class="delta">813 malades pour 1 376 lits</div></div>
-      <div class="kpi eds"><div class="label">Enterrements sécurisés (24 h)</div><div class="value">133</div><div class="delta">133 réalisés sur 148 décès signalés</div></div>
-      <div class="kpi vaccin"><div class="label">Vaccinés (total)</div><div class="value">1 875</div><div class="delta">depuis le 26 août 2026</div></div>
-    </section>
-    <p class="drill"><a href="/riposte/">Toute la page « Riposte &amp; défis » →</a></p>
-</div></aside></div>
-<footer class="ag-pied"><nav class="ag-nav"><a class="ag-nav-prev" href="/lettre/115/">← Lettre précédente, bulletin n°115</a><a class="ag-nav-next" href="/lettre/117/">Lettre suivante, bulletin n°117 →</a></nav>Source : <a href="/reports/SITREP_MVE_116.pdf" rel="noopener">SitRep N°116/MVEBDB/08/09/2026</a>, INSP. Une lettre paraît à chaque bulletin de l'INSP ; le précédent date du 6 sept. 2026.<p class="ag-archive">Toutes les lettres : <a href="/lettre/145/">n°145</a> · <a href="/lettre/144/">n°144</a> · <a href="/lettre/143/">n°143</a> · <a href="/lettre/141/">n°141</a> · <a href="/lettre/140/">n°140</a> · <a href="/lettre/139/">n°139</a> · <a href="/lettre/138/">n°138</a> · <a href="/lettre/137/">n°137</a> · <a href="/lettre/136/">n°136</a> · <a href="/lettre/135/">n°135</a> · <a href="/lettre/134/">n°134</a> · <a href="/lettre/133/">n°133</a> · <a href="/lettre/132/">n°132</a> · <a href="/lettre/131/">n°131</a> · <a href="/lettre/130/">n°130</a> · <a href="/lettre/129/">n°129</a> · <a href="/lettre/128/">n°128</a> · <a href="/lettre/127/">n°127</a> · <a href="/lettre/126/">n°126</a> · <a href="/lettre/125/">n°125</a> · <a href="/lettre/124/">n°124</a> · <a href="/lettre/123/">n°123</a> · <a href="/lettre/122/">n°122</a> · <a href="/lettre/121/">n°121</a> · <a href="/lettre/120/">n°120</a> · <a href="/lettre/119/">n°119</a> · <a href="/lettre/118/">n°118</a> · <a href="/lettre/117/">n°117</a> · <b>n°116</b> · <a href="/lettre/115/">n°115</a> · <a href="/lettre/114/">n°114</a> · <a href="/lettre/113/">n°113</a> · <a href="/lettre/112/">n°112</a> · <a href="/lettre/111/">n°111</a> · <a href="/lettre/110/">n°110</a> · <a href="/lettre/109/">n°109</a> · <a href="/lettre/108/">n°108</a> · <a href="/lettre/107/">n°107</a> · <a href="/lettre/106/">n°106</a> · <a href="/lettre/105/">n°105</a> · <a href="/lettre/104/">n°104</a> · <a href="/lettre/103/">n°103</a> · <a href="/lettre/102/">n°102</a> · <a href="/lettre/101/">n°101</a> · <a href="/lettre/100/">n°100</a> · <a href="/lettre/099/">n°099</a> · <a href="/lettre/098/">n°098</a> · <a href="/lettre/097/">n°097</a> · <a href="/lettre/096/">n°096</a> · <a href="/lettre/095/">n°095</a> · <a href="/lettre/094/">n°094</a> · <a href="/lettre/093/">n°093</a> · <a href="/lettre/092/">n°092</a> · <a href="/lettre/091/">n°091</a> · <a href="/lettre/090/">n°090</a></p><details class="ag-lexique"><summary>Glossaire · les mots du bulletin</summary><ul><li>Alerte : signalement d'un malade ou d'un décès possible, que les équipes vont vérifier.</li><li>Cas confirmé : personne dont l'infection par Ebola est prouvée par un test de laboratoire.</li><li>Cas suspect : personne dont les symptômes font penser à Ebola, en attente du test.</li><li>Ceinture de prévention (ring) : autour de chaque nouveau cas, désinfection du domicile et des lieux fréquentés, kits d'hygiène et suivi des proches.</li><li>Centre de traitement (CTE) : structure où les malades sont isolés et soignés.</li><li>Contact : personne qui a côtoyé un malade et que les équipes suivent pendant 21 jours.</li><li>Enterrement sécurisé : inhumation faite par une équipe protégée, le corps d'un malade restant contagieux.</li><li>Point de contrôle : poste sur une route ou à une frontière où les voyageurs ont un contrôle de température et se lavent les mains.</li><li>Volet de la riposte (« pilier » dans le bulletin) : chacune des équipes spécialisées de la riposte, surveillance, laboratoire, soins, vaccination, hygiène, communication, sécurité.</li><li>Zone de santé : le découpage sanitaire de base en RDC, en général autour d'un hôpital général.</li></ul></details></footer></div>
+    <p class="drill"><a href="/riposte/">Toute la page « Riposte » →</a></p>
+</div></div>
+<footer class="lq-pied"><nav class="ag-nav"><a class="ag-nav-prev" href="/lettre/115/">← Lettre précédente, bulletin n°115</a><a class="ag-nav-next" href="/lettre/117/">Lettre suivante, bulletin n°117 →</a></nav><p class="lq-ref">Source : <a href="/reports/SITREP_MVE_116.pdf" rel="noopener">SitRep N°116/MVEBDB/08/09/2026</a>, INSP. Une lettre paraît à chaque bulletin de l'INSP ; le précédent date du 6 sept. 2026.</p><p class="ag-archive">Toutes les lettres : <a href="/lettre/145/">n°145</a> · <a href="/lettre/144/">n°144</a> · <a href="/lettre/143/">n°143</a> · <a href="/lettre/141/">n°141</a> · <a href="/lettre/140/">n°140</a> · <a href="/lettre/139/">n°139</a> · <a href="/lettre/138/">n°138</a> · <a href="/lettre/137/">n°137</a> · <a href="/lettre/136/">n°136</a> · <a href="/lettre/135/">n°135</a> · <a href="/lettre/134/">n°134</a> · <a href="/lettre/133/">n°133</a> · <a href="/lettre/132/">n°132</a> · <a href="/lettre/131/">n°131</a> · <a href="/lettre/130/">n°130</a> · <a href="/lettre/129/">n°129</a> · <a href="/lettre/128/">n°128</a> · <a href="/lettre/127/">n°127</a> · <a href="/lettre/126/">n°126</a> · <a href="/lettre/125/">n°125</a> · <a href="/lettre/124/">n°124</a> · <a href="/lettre/123/">n°123</a> · <a href="/lettre/122/">n°122</a> · <a href="/lettre/121/">n°121</a> · <a href="/lettre/120/">n°120</a> · <a href="/lettre/119/">n°119</a> · <a href="/lettre/118/">n°118</a> · <a href="/lettre/117/">n°117</a> · <b>n°116</b> · <a href="/lettre/115/">n°115</a> · <a href="/lettre/114/">n°114</a> · <a href="/lettre/113/">n°113</a> · <a href="/lettre/112/">n°112</a> · <a href="/lettre/111/">n°111</a> · <a href="/lettre/110/">n°110</a> · <a href="/lettre/109/">n°109</a> · <a href="/lettre/108/">n°108</a> · <a href="/lettre/107/">n°107</a> · <a href="/lettre/106/">n°106</a> · <a href="/lettre/105/">n°105</a> · <a href="/lettre/104/">n°104</a> · <a href="/lettre/103/">n°103</a> · <a href="/lettre/102/">n°102</a> · <a href="/lettre/101/">n°101</a> · <a href="/lettre/100/">n°100</a> · <a href="/lettre/099/">n°099</a> · <a href="/lettre/098/">n°098</a> · <a href="/lettre/097/">n°097</a> · <a href="/lettre/096/">n°096</a> · <a href="/lettre/095/">n°095</a> · <a href="/lettre/094/">n°094</a> · <a href="/lettre/093/">n°093</a> · <a href="/lettre/092/">n°092</a> · <a href="/lettre/091/">n°091</a> · <a href="/lettre/090/">n°090</a></p><details class="ag-lexique"><summary>Glossaire · les mots du bulletin</summary><ul><li>Alerte : signalement d'un malade ou d'un décès possible, que les équipes vont vérifier.</li><li>Cas confirmé : personne dont l'infection par Ebola est prouvée par un test de laboratoire.</li><li>Cas suspect : personne dont les symptômes font penser à Ebola, en attente du test.</li><li>Ceinture de prévention (ring) : autour de chaque nouveau cas, désinfection du domicile et des lieux fréquentés, kits d'hygiène et suivi des proches.</li><li>Centre de traitement (CTE) : structure où les malades sont isolés et soignés.</li><li>Contact : personne qui a côtoyé un malade et que les équipes suivent pendant 21 jours.</li><li>Enterrement sécurisé : inhumation faite par une équipe protégée, le corps d'un malade restant contagieux.</li><li>Point de contrôle : poste sur une route ou à une frontière où les voyageurs ont un contrôle de température et se lavent les mains.</li><li>Volet de la riposte (« pilier » dans le bulletin) : chacune des équipes spécialisées de la riposte, surveillance, laboratoire, soins, vaccination, hygiène, communication, sécurité.</li><li>Zone de santé : le découpage sanitaire de base en RDC, en général autour d'un hôpital général.</li></ul></details></footer></div>
 
       </main>
 
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Explorer</h2>
+        <h2>Actualités</h2>
         <ul>
-        <li><a href="/">Vue d'ensemble</a></li>
         <li><a href="/lettre/">La lettre</a></li>
         <li><a href="/actualites/">Nouvelles de l'épidémie</a></li>
-        <li><a href="/donnees/">Données détaillées</a></li>
-        <li><a href="/riposte/">Riposte &amp; défis</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -260,9 +245,20 @@
         <ul>
         <li><a href="/chronologie/">Chronologie</a></li>
         <li><a href="/le-virus/">Le virus</a></li>
-        <li><a href="/rapports/">Sources &amp; bulletins</a></li>
         <li><a href="/faq/">FAQ</a></li>
         <li><a href="/glossaire/">Glossaire</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Explorer</h2>
+        <ul>
+        <li><a href="/donnees/">Ensemble du pays</a></li>
+        <li><a href="/autres-pays/">Autres pays</a></li>
+        <li><a href="/riposte/">Riposte</a></li>
+        <li><a href="/defis/">Défis</a></li>
+        <li><a href="/rapports/">Sources &amp; bulletins</a></li>
+        <li><a href="/base-de-donnees/">Base de données</a></li>
+        <li><a href="/dashboard/">Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -286,7 +282,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Données issues des bulletins de l'<a href="https://insp.cd/" rel="noopener">INSP</a>, complétées ponctuellement par l'<a href="https://www.afro.who.int/" rel="noopener">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle. <a href="/a-propos/">Avertissement complet</a></p>
+    <p class="footer-notice">Données issues des bulletins de l'<a href="https://insp.cd/" rel="noopener">INSP</a>, complétées ponctuellement par l'<a href="https://www.afro.who.int/" rel="noopener">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle. <a href="/a-propos/#avertissement">Avertissement complet</a></p>
   </footer>
 
     </div>
@@ -297,6 +293,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/donnees/ituri/", "Nord-Kivu": "/donnees/nord-kivu/", "Haut-Uélé": "/donnees/haut-uele/", "Tshopo": "/donnees/tshopo/", "Bas-Uélé": "/donnees/bas-uele/", "Sud-Kivu": "/donnees/sud-kivu/", "Sud-Ubangi": "/donnees/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "cas confirmés"; window.HERO_TIP_DEATHS = "décès";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -316,8 +313,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>

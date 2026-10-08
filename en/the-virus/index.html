@@ -65,6 +65,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -77,7 +82,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body>
 
@@ -134,44 +139,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Main navigation">
-      <div class="side-nav-title">Latest</div>
-      <a href="/en/letter/">The letter</a>
-      <a href="/en/news/">Outbreak news <span class="nav-badge">New</span></a>
-      <div class="side-nav-title">Explore</div>
-      <a href="/en/">Overview</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Detailed data</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/en/data/"><span class="dot dot-all"></span>Whole country</a>
-          <a class="tab-dropdown-item" href="/en/data/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/en/data/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/en/data/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/en/data/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/en/data/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/en/data/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/en/data/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>News</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/letter/"><span class="nav-t">The letter</span><span class="nav-desc">A summary of each official bulletin</span></a>
+      <a href="/en/news/"><span class="nav-t">Outbreak news</span><span class="nav-desc">Articles published every day</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Understand</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/timeline/"><span class="nav-t">Timeline</span><span class="nav-desc">From the first alert to today</span></a>
+      <a href="/en/the-virus/" aria-current="page"><span class="nav-t">The virus</span><span class="nav-desc">Bundibugyo: transmission, symptoms</span></a>
+      <a href="/en/faq/"><span class="nav-t">FAQ</span><span class="nav-desc">Frequently asked questions</span></a>
+      <a href="/en/glossary/"><span class="nav-t">Glossary</span><span class="nav-desc">The words of the bulletins, explained</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Explore</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">How the outbreak is evolving</div>
+        <a href="/en/data/"><span class="nav-t">Whole country</span><span class="nav-desc">The trends at national level</span></a>
+        <a href="/en/data/ituri/" title="Based on the latest official bulletin"><span class="nav-t">Ituri</span><span class="nav-desc">6,513 confirmed cases</span></a>
+        <a href="/en/data/nord-kivu/" title="Based on the latest official bulletin"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">1,785 confirmed cases</span></a>
+        <a href="/en/data/haut-uele/" title="Based on the latest official bulletin"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">364 confirmed cases</span></a>
+        <a href="/en/data/tshopo/" title="Based on the latest official bulletin"><span class="nav-t">Tshopo</span><span class="nav-desc">51 confirmed cases</span></a>
+        <a href="/en/data/bas-uele/" title="Based on the latest official bulletin"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">10 confirmed cases</span></a>
+        <a href="/en/data/sud-kivu/" title="Based on the latest official bulletin"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">3 confirmed cases</span></a>
+        <a href="/en/data/sud-ubangi/" title="Based on the latest official bulletin"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">2 confirmed cases</span></a>
+        <a href="/en/other-countries/"><span class="nav-t">Other countries</span><span class="nav-desc">Uganda, France, Kenya</span></a>
       </div>
-      <a href="/en/response/">Response &amp; challenges</a>
-      <div class="side-nav-title">Understand</div>
-      <a href="/en/timeline/">Timeline</a>
-      <a href="/en/the-virus/" aria-current="page">The virus</a>
-      <a href="/en/reports/">Sources &amp; bulletins</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Detailed data</div>
+        <a href="/en/reports/"><span class="nav-t">Sources &amp; bulletins</span><span class="nav-desc">Every INSP bulletin</span></a>
+        <a href="/en/database/"><span class="nav-t">Database <span class="nav-badge nav-badge-soon">Coming soon</span></span><span class="nav-desc">The site's data, to download</span></a>
+        <a href="/en/dashboard/"><span class="nav-t">Dashboard <span class="nav-badge nav-badge-soon">Coming soon</span></span><span class="nav-desc">All the data in real time</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Facing the outbreak</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/response/"><span class="nav-t">Response</span><span class="nav-desc">Actions taken to stop the outbreak</span></a>
+      <a href="/en/challenges/"><span class="nav-t">Challenges</span><span class="nav-desc">The obstacles encountered</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>This site</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/about/"><span class="nav-t">About</span><span class="nav-desc">Method, sources, disclaimer</span></a>
+      <a href="/en/contact/"><span class="nav-t">Contact</span><span class="nav-desc">Write to the team</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -186,231 +210,93 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="/en/">Home</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">The Bundibugyo Ebola virus</span>
-  </nav>
+
 
       <main id="contenu">
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow"><span class="dot"></span>Understand</div>
-        <h1 class="page-title">The Bundibugyo Ebola virus</h1>
-      </div>
-    </div>
-    <p class="lede">Not all Ebola outbreaks are alike. The one affecting the DRC since 2026 is caused by the <em>Bundibugyo</em> species, rarer than the Zaire species — a difference that changes everything when it comes to available vaccines and treatments.</p>
-
-    <!-- Meme bande de chiffres que Riposte et les provinces (.kpis) : un seul
-         composant pour les reperes de tete, decision du 5 septembre. -->
-    <div class="kpis riposte-kpis">
-      <div class="kpi figure">
-        <div class="label">known outbreak caused by this species</div>
-        <div class="value">3rd</div>
-      </div>
-      <div class="kpi figure">
-        <div class="label">historical fatality rate for this species</div>
-        <div class="value">25–50%</div>
-      </div>
-      <div class="kpi figure">
-        <div class="label">incubation period</div>
-        <div class="value">2–21 d</div>
-      </div>
-      <div class="kpi alert">
-        <div class="label">licensed vaccine against it</div>
-        <div class="value">0</div>
-      </div>
-    </div>
-
+  <!-- Le virus, refonte du 6 octobre 2026 (choix du proprietaire) : le
+       comparatif Bundibugyo / Zaire de la maquette n°2 ouvre la page, la
+       maladie « jour apres jour » de la maquette n°3 suit. Les sections
+       Transmission, Incubation et Evolution, et la bande de quatre chiffres,
+       y sont reprises ; le tableau a deux colonnes est devenu le face-a-face. -->
+  <section class="section ff-tete">
+    <div class="eyebrow"><span class="dot"></span>Understand</div>
+    <h1 class="page-title ff-titre"><span class="visually-hidden">The Bundibugyo Ebola virus — </span>Bundibugyo <em>versus</em> Zaire</h1>
+    <p class="lede">Two species of the same Ebola virus. This outbreak is caused by the Bundibugyo species.</p>
     <nav class="riposte-ancres" aria-label="Page sections">
-      <a href="#espece">Species</a>
-      <a href="#transmission">Transmission</a>
-      <a href="#incubation">Incubation</a>
-      <a href="#evolution">Course</a>
-      <a href="#traitements">Treatments & vaccines</a>
+      <a href="#espece">Versus Zaire</a>
+      <a href="#evolution">Day by day</a>
       <a href="#ages">Who it affects</a>
+      <a href="#traitements">Treatments & vaccines</a>
       <a href="#genomes">Genomes</a>
     </nav>
   </section>
 
-  <section class="section section-split" id="espece">
-    <h2 class="section-title">A rarely encountered species</h2>
-    <div class="prose">
-      <p>The <em>Orthoebolavirus</em> genus contains six species, four of which are pathogenic to humans. The vast majority of documented outbreaks — including the 2014-2016 West Africa epidemic and the 2018-2020 North Kivu outbreak — were caused by the Zaire species, by far the most studied.</p><p>The Bundibugyo species is named after the Ugandan district where it was first identified in 2007. Before this outbreak it had been involved in only two others: Uganda in 2007, then the DRC's Orientale province in 2012. That thin track record is why no licensed vaccine exists against it, and why the response relies on supportive care and on products still under clinical evaluation.</p>
+  <section class="section ff" id="espece">
+    <table class="ff-table">
+      <caption class="visually-hidden">What the species changes</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="ff-g"><strong>Bundibugyo</strong><span>the species behind this outbreak</span></th>
+          <th scope="col" class="ff-q0"><span class="visually-hidden">What the species changes</span></th>
+          <th scope="col" class="ff-d"><strong>Zaire</strong><span>the most studied species</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ff-g"><b>2007</b><span>Uganda</span></td>
+          <th scope="row" class="ff-q">Identified in</th>
+          <td class="ff-d"><b>1976</b><span>DRC (Yambuku)</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>3</b><span>including this one</span></td>
+          <th scope="row" class="ff-q">Known outbreaks</th>
+          <td class="ff-d"><b>most</b><span>of documented outbreaks</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>25–50%</b><span>depending on the outbreak</span></td>
+          <th scope="row" class="ff-q">Historical fatality rate</th>
+          <td class="ff-d"><b>up to 90%</b><span>depending on the outbreak</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>none</b><span>Ervebo used in research since August 2026</span></td>
+          <th scope="row" class="ff-q">Licensed vaccine</th>
+          <td class="ff-d"><b>Ervebo</b><span>rVSV-ZEBOV</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>none</b><span>candidates in clinical trials</span></td>
+          <th scope="row" class="ff-q">Licensed treatments</th>
+          <td class="ff-d"><b>2</b><span>Inmazeb, Ebanga</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>Uganda 2007, DRC 2012</b></td>
+          <th scope="row" class="ff-q">Major outbreaks</th>
+          <td class="ff-d"><b>West Africa 2014-2016, Nord-Kivu 2018-2020</b></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="prose ff-histoire"><p>The <em>Orthoebolavirus</em> genus contains six species, four of which are pathogenic to humans. The vast majority of documented outbreaks — including the 2014-2016 West Africa epidemic and the 2018-2020 North Kivu outbreak — were caused by the Zaire species, by far the most studied.</p><p>The Bundibugyo species is named after the Ugandan district where it was first identified in 2007. Before this outbreak it had been involved in only two others: Uganda in 2007, then the DRC's Orientale province in 2012. That thin track record is why no licensed vaccine exists against it, and why the response relies on supportive care and on products still under clinical evaluation.</p></div>
+  </section>
+
+  <!-- Suite de la page dans le theme du face-a-face (6 octobre 2026, option 3
+       « l'axe central ») : le filet du milieu du comparatif devient un axe ;
+       le malade a gauche, la riposte a droite ; les ages en papillon. -->
+  <section class="section vb-sec" id="evolution">
+    <div class="vb-tete"><div class="eyebrow">The disease</div><h2>Day by day</h2><p>What an infected person goes through, from infection to recovery or death, and what teams on the ground do to treat them and protect those around them.</p></div>
+    <div class="ax-tete"><span>The patient</span><span></span><span>The response</span></div>
+    <div class="ax">
+      <div class="ax-l"><div class="ax-g"><h3>Infection</h3><p>Direct contact with the blood, secretions or body of a sick or deceased person — never through the air.</p></div><div class="ax-c"><span>Day 0</span></div><div class="ax-d"><p>What the response does: safe and dignified burials, protection of health workers.</p></div></div>
+      <div class="ax-l"><div class="ax-g"><h3>Incubation</h3><p>No symptoms, and not contagious. 8 to 10 days on average.</p></div><div class="ax-c"><span>Day 2 to 21</span></div><div class="ax-d"><p>Contact tracing: each contact is seen every day for 21 days, to be isolated at the first sign.</p></div></div>
+      <div class="ax-l"><div class="ax-g"><h3>Early phase</h3><p>Fever, intense fatigue, muscle pain, headache, sore throat — easily mistaken for malaria or typhoid.</p></div><div class="ax-c"><span>First days</span></div><div class="ax-d"><p>Alert and test: diagnosis is confirmed by RT-PCR on a blood sample.</p></div></div>
+      <div class="ax-l"><div class="ax-g"><h3>Advanced phase</h3><p>Vomiting, diarrhoea, rash, kidney and liver damage, sometimes bleeding.</p></div><div class="ax-c"><span>Then</span></div><div class="ax-d"><p>Treatment centre: intensive supportive care — rehydration, oxygen, monitoring.</p></div></div>
+      <div class="ax-l"><div class="ax-g"><h3>Recovery or death</h3><p>The species' historical fatality rate is 25 to 50%. In this outbreak, 48.2% of confirmed cases have died so far.</p></div><div class="ax-c"><span>Outcome</span></div><div class="ax-d"><p>Recovery declared after two negative tests; 2,269 people recovered as of 6 Oct 2026.</p></div></div>
     </div>
   </section>
 
-  <section class="section section-split" id="transmission">
-    <h2 class="section-title">Transmission</h2>
-    <div>
-      <ul class="vlist">
-        <li>Direct contact with the blood, secretions or organs of an infected animal or person, alive or deceased</li>
-        <li>High-risk funeral rites and transmission in healthcare settings without adequate protection</li>
-        <li>No airborne transmission</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section section-split" id="incubation">
-    <h2 class="section-title">Incubation period</h2>
-    <div>
-      <div class="incub">
-        <div class="incub-scale" aria-hidden="true">
-          <div class="incub-window"></div>
-        </div>
-        <div class="incub-marks">
-          <span>2 days</span>
-          <span class="is-avg">8 to 10 days on average</span>
-          <span>21 days</span>
-        </div>
-      </div>
-      <p class="page-intro" style="margin-top:16px;">An infected person is not contagious until symptoms appear. That is what makes contact tracing effective: people are isolated before transmission becomes possible.</p>
-    </div>
-  </section>
-
-  <section class="section section-split" id="evolution">
-    <h2 class="section-title">Course of the disease</h2>
-    <div>
-      <div class="vphases">
-        <div class="vphase vphase-dry">
-          <div class="vphase-tag">Early phase</div>
-          <p>Fever, intense fatigue, muscle pain, headache, sore throat — non-specific signs easily mistaken for malaria or typhoid.</p>
-        </div>
-        <div class="vphase vphase-wet">
-          <div class="vphase-tag">Advanced phase</div>
-          <p>Vomiting, diarrhea, skin rash, kidney and liver damage, and sometimes bleeding. Diagnosis confirmed by RT-PCR blood test.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-split" id="traitements">
-    <h2 class="section-title">Treatments & vaccines: a key difference by species</h2>
-    <div>
-      <p class="page-intro">The only licensed Ebola treatments and vaccine target the Zaire species — not the Bundibugyo species behind this outbreak.</p>
-
-      <div class="panel compare">
-        <table>
-          <caption class="visually-hidden">What the species changes</caption>
-          <thead>
-            <tr>
-              <th scope="col"><span class="visually-hidden">What the species changes</span></th>
-              <th scope="col" class="is-this">
-                Bundibugyo
-                <span class="th-note">the species behind this outbreak</span>
-              </th>
-              <th scope="col">
-                Zaire
-                <span class="th-note">the most studied species</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Known outbreaks</th>
-              <td class="is-this" data-col="Bundibugyo">3</td>
-              <td data-col="Zaire">most documented outbreaks</td>
-            </tr>
-            <tr>
-              <th scope="row">Historical fatality rate</th>
-              <td class="is-this" data-col="Bundibugyo">25 to 50%</td>
-              <td data-col="Zaire">up to 90%</td>
-            </tr>
-            <tr>
-              <th scope="row">Licensed vaccine</th>
-              <td class="is-this is-none" data-col="Bundibugyo">none</td>
-              <td data-col="Zaire">Ervebo (rVSV-ZEBOV)</td>
-            </tr>
-            <tr>
-              <th scope="row">Licensed treatments</th>
-              <td class="is-this is-none" data-col="Bundibugyo">none</td>
-              <td data-col="Zaire">Inmazeb, Ebanga (monoclonal antibodies)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="page-intro" style="margin-top:16px;">On 31 August 2026, WHO clarified the use of Ervebo, the vaccine licensed against the Zaire species, against Bundibugyo virus: efficacy against this species unknown, use restricted to a research setting, with priority for health workers and front-line staff. INSP bulletins report vaccinations of that staff since early September.</p>
-      <p class="vcompare-note">During this outbreak, several candidates are being evaluated in clinical trials against the Bundibugyo species — including the broad-spectrum antibody MBP134, the antiviral remdesivir, and obeldesivir for post-exposure prophylaxis — under WHO coordination. In the absence of a licensed targeted treatment, intensive supportive care (rehydration, oxygenation, monitoring) remains the cornerstone of care and significantly improves the chances of survival.</p>
-    </div>
-  </section>
-
-  <section class="section section-split" id="ages">
-    <h2 class="section-title">Who gets ill, who dies</h2>
-    <div>
-      <p class="page-intro">Cases and deaths are not distributed the same way. Comparing the two shows which age groups die more often than they fall ill.</p>
-      <div class="ages">
-        <div class="ages-key" aria-hidden="true">
-          <span class="ak ak-cas">Share of cases</span>
-          <span class="ak ak-deces">Share of deaths</span>
-        </div>
-        <div class="age-row">
-          <div class="age-label">0–4 years</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:28.4%"></span></span>
-            <span class="age-val">10.0&nbsp;%</span>
-            <span class="visually-hidden">Share of cases : 345</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:54.0%"></span></span>
-            <span class="age-val">19.0&nbsp;%</span>
-            <span class="visually-hidden">Share of deaths : 213</span>
-          </div>
-        </div>
-        <div class="age-row">
-          <div class="age-label">5–17 years</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:37.5%"></span></span>
-            <span class="age-val">13.2&nbsp;%</span>
-            <span class="visually-hidden">Share of cases : 455</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:36.4%"></span></span>
-            <span class="age-val">12.8&nbsp;%</span>
-            <span class="visually-hidden">Share of deaths : 144</span>
-          </div>
-        </div>
-        <div class="age-row">
-          <div class="age-label">18–29 years</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:75.3%"></span></span>
-            <span class="age-val">26.5&nbsp;%</span>
-            <span class="visually-hidden">Share of cases : 917</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:70.5%"></span></span>
-            <span class="age-val">24.8&nbsp;%</span>
-            <span class="visually-hidden">Share of deaths : 279</span>
-          </div>
-        </div>
-        <div class="age-row">
-          <div class="age-label">30–49 years</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:100.0%"></span></span>
-            <span class="age-val">35.2&nbsp;%</span>
-            <span class="visually-hidden">Share of cases : 1,217</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:77.3%"></span></span>
-            <span class="age-val">27.2&nbsp;%</span>
-            <span class="visually-hidden">Share of deaths : 306</span>
-          </div>
-        </div>
-        <div class="age-row">
-          <div class="age-label">50 and over</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:42.9%"></span></span>
-            <span class="age-val">15.1&nbsp;%</span>
-            <span class="visually-hidden">Share of cases : 520</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:46.0%"></span></span>
-            <span class="age-val">16.2&nbsp;%</span>
-            <span class="visually-hidden">Share of deaths : 182</span>
-          </div>
-        </div>
-      </div>
+  <section class="section vb-sec" id="ages">
+    <div class="vb-tete"><div class="eyebrow">Who it affects</div><h2>Cases <em>and</em> deaths, by age</h2><p>Cases and deaths are not distributed the same way. Comparing the two shows which age groups die more often than they fall ill.</p></div>
+    <div class="ax-tete pa-tete"><span>Share of cases</span><span></span><span>Share of deaths</span></div>
+    <div class="pa"><div class="pa-l"><div class="pa-g"><span>10.0%</span><i style="width:28.4%"></i></div><div class="pa-c">0–4 years</div><div class="pa-d"><i style="width:54.0%"></i><span>19.0%</span></div></div><div class="pa-l"><div class="pa-g"><span>13.2%</span><i style="width:37.5%"></i></div><div class="pa-c">5–17 years</div><div class="pa-d"><i style="width:36.4%"></i><span>12.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>26.5%</span><i style="width:75.3%"></i></div><div class="pa-c">18–29 years</div><div class="pa-d"><i style="width:70.5%"></i><span>24.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>35.2%</span><i style="width:100.0%"></i></div><div class="pa-c">30–49 years</div><div class="pa-d"><i style="width:77.3%"></i><span>27.2%</span></div></div><div class="pa-l"><div class="pa-g"><span>15.1%</span><i style="width:42.9%"></i></div><div class="pa-c">50 and over</div><div class="pa-d"><i style="width:46.0%"></i><span>16.2%</span></div></div></div>
+    <div class="vb-sexes">
       <h3 class="frame-title">Women and men</h3>
       <div class="sexes">
         <div class="ages-key" aria-hidden="true">
@@ -432,17 +318,31 @@
           </div>
         </div>
       </div>
-      <div class="info-note">As of 5 Aug 2026. Based on the 3,454 cases and 1,124 deaths for which age and sex are recorded — 85.2% of cases and 60.8% of deaths at that date. Deaths occurring in the community, often unidentified, are under-represented. The INSP stopped publishing this breakdown after 5 Aug 2026.</div>
+    </div>
+    <p class="vb-src">As of 5 Aug 2026. Based on the 3,454 cases and 1,124 deaths for which age and sex are recorded — 85.2% of cases and 60.8% of deaths at that date. Deaths occurring in the community, often unidentified, are under-represented. The INSP stopped publishing this breakdown after 5 Aug 2026.</p>
+  </section>
+
+  <section class="section vb-sec" id="traitements">
+    <div class="vb-tete"><div class="eyebrow">Protection and care</div><h2>Vaccines <em>and</em> treatments</h2><p>The only licensed Ebola treatments and vaccine target the Zaire species — not the Bundibugyo species behind this outbreak.</p></div>
+    <table class="ff-table vb-ff">
+      <caption class="visually-hidden">Protection and care</caption>
+      <tbody>
+        <tr><td class="ff-g"><b>Ervebo</b><span>used in research since August 2026</span></td><th scope="row" class="ff-q">Vaccine</th><td class="ff-d"><b>efficacy unknown</b><span>against Bundibugyo, according to WHO</span></td></tr>
+        <tr><td class="ff-g"><b>several candidates</b><span>in clinical trials</span></td><th scope="row" class="ff-q">Treatments</th><td class="ff-d"><b>supportive care</b><span>the cornerstone of treatment</span></td></tr>
+      </tbody>
+    </table>
+    <div class="vb-texte">
+      <p>On 31 August 2026, WHO clarified the use of Ervebo, the vaccine licensed against the Zaire species, against Bundibugyo virus: efficacy against this species unknown, use restricted to a research setting, with priority for health workers and front-line staff. INSP bulletins report vaccinations of that staff since early September.</p>
+      <p>During this outbreak, several candidates are being evaluated in clinical trials against the Bundibugyo species — including the broad-spectrum antibody MBP134, the antiviral remdesivir, and obeldesivir for post-exposure prophylaxis — under WHO coordination. In the absence of a licensed targeted treatment, intensive supportive care (rehydration, oxygenation, monitoring) remains the cornerstone of care and significantly improves the chances of survival.</p>
     </div>
   </section>
 
   <!-- Genomes sequences : comptes agreges lus dans Pathoplexus par
        scripts/extraire_genomes.py (data/genomes.json). Un chiffre de
        contexte, pas de suivi : il ne bouge qu'a la main. -->
-  <section class="section section-split" id="genomes">
-    <h2 class="section-title">The virus read in its genome</h2>
-    <div>
-      <p class="page-intro">Sequencing the genome of the virus sampled from patients confirms the species, dates the real start of the outbreak and measures its speed. INRB laboratories in Bunia and Kinshasa deposit these sequences in the public Pathoplexus database: that repository is what is counted here.</p>
+  <section class="section vb-sec" id="genomes">
+    <div class="vb-tete"><div class="eyebrow">The virus read in its genome</div><h2>731 genomes <em>sequenced</em></h2><p>Sequencing the genome of the virus sampled from patients confirms the species, dates the real start of the outbreak and measures its speed. INRB laboratories in Bunia and Kinshasa deposit these sequences in the public Pathoplexus database: that repository is what is counted here.</p></div>
+    <div class="vb-genomes">
       <div class="figure-band vg-band">
         <div class="fb-item">
           <div class="fb-value">731</div>
@@ -493,7 +393,7 @@
     </div>
     <div>
       <ul class="plus-loin">
-        <li><a href="/en/response/">Response & challenges →</a><span>What is done without a vaccine: alerts, testing, contact tracing, treatment centres.</span></li>
+        <li><a href="/en/response/">Response →</a><span>What is done without a vaccine: alerts, testing, contact tracing, treatment centres.</span></li>
         <li><a href="/en/faq/">Frequently asked questions →</a><span>Transmission, treatments, and what the site's figures mean.</span></li>
       </ul>
     </div>
@@ -504,13 +404,10 @@
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Explore</h2>
+        <h2>News</h2>
         <ul>
-        <li><a href="/en/">Overview</a></li>
         <li><a href="/en/letter/">The letter</a></li>
         <li><a href="/en/news/">Outbreak news</a></li>
-        <li><a href="/en/data/">Detailed data</a></li>
-        <li><a href="/en/response/">Response &amp; challenges</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -518,9 +415,20 @@
         <ul>
         <li><a href="/en/timeline/">Timeline</a></li>
         <li><a href="/en/the-virus/">The virus</a></li>
-        <li><a href="/en/reports/">Sources &amp; bulletins</a></li>
         <li><a href="/en/faq/">FAQ</a></li>
         <li><a href="/en/glossary/">Glossary</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Explore</h2>
+        <ul>
+        <li><a href="/en/data/">Whole country</a></li>
+        <li><a href="/en/other-countries/">Other countries</a></li>
+        <li><a href="/en/response/">Response</a></li>
+        <li><a href="/en/challenges/">Challenges</a></li>
+        <li><a href="/en/reports/">Sources &amp; bulletins</a></li>
+        <li><a href="/en/database/">Database</a></li>
+        <li><a href="/en/dashboard/">Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -544,7 +452,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/about/">Full disclaimer</a></p>
+    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/about/#avertissement">Full disclaimer</a></p>
   </footer>
 
     </div>
@@ -555,6 +463,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/en/data/ituri/", "Nord-Kivu": "/en/data/nord-kivu/", "Haut-Uélé": "/en/data/haut-uele/", "Tshopo": "/en/data/tshopo/", "Bas-Uélé": "/en/data/bas-uele/", "Sud-Kivu": "/en/data/sud-kivu/", "Sud-Ubangi": "/en/data/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "confirmed cases"; window.HERO_TIP_DEATHS = "deaths";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -574,8 +483,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>

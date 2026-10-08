@@ -5,23 +5,20 @@
        28 aout, adopte le 29. Plus de vignettes de province — le tableau les
        porte —, plus de bascule devant le tableau par zone, la note de
        lecture sous le tableau qu'elle explique. -->
-  <section class="section">
+  <!-- En-tete sur le modele des pages province (6 octobre 2026) : le nom en
+       tres grand a gauche, la carte de la RDC a droite, les chiffres cles
+       poses dessous. -->
+  <section class="section prov-hero-b pays-hero" style="--prov:var(--ink);">
+    <div class="phb-fond" aria-hidden="true">{{seed.heroMapPays}}<div class="phb-bulle" hidden></div></div>
     <div class="section-head">
       <div>
-        <!-- Meme construction que les pages province : au-dessus, la rubrique
-             « Donnees detaillees » avec l'anneau vide de la barre laterale ;
-             en titre, « Ensemble du pays », ce qu'on a clique. Decide le
-             29 aout : la page s'appelait du nom de sa rubrique. -->
         <div class="eyebrow"><span class="dot dot-all"></span>{{i18n.tabZones}}</div>
-        <h1 class="page-title">{{meta.h1}}</h1>
+        <h1 class="page-title phb-titre"><span class="phb-pre">{{meta.h1}}</span><span class="phb-nom" aria-hidden="true">{{meta.h1}}</span></h1>
       </div>
       <div class="section-sub">{{seed.cartoAsOf}}</div>
     </div>
-    <p class="lede">{{t.ddLede}}</p>
-    <p class="page-intro">{{t.provincesIntro}}</p>
-    <!-- LA FICHE D'UN TERRITOIRE (28 septembre 2026) : meme plan que les
-         pages province — le point, cas, deces (et lieu du deces), ou, qui,
-         la riposte, la chronologie. La carte du pays reste a l'accueil. -->
+    <p class="lede">{{seed.paysIntro}}</p>
+    <p class="page-intro">{{seed.paysRank}}</p>
     <section class="kpis kpis-province" aria-label="{{meta.h1}}">
       <div class="kpi confirmed">
         <div class="label">{{t.provincesCardCases}}</div>
@@ -39,13 +36,16 @@
         <div class="delta" data-i18n="cfrDelta">{{i18n.cfrDelta}}</div>
       </div>
     </section>
-    {{seed.point}}
-    <nav class="riposte-ancres" aria-label="{{t.ddCombien}} · {{t.ddOu}} · {{t.ddQui}}">
+  </section>
+
+  <section class="section">
+    <!-- Le point des 7 derniers jours a ete retire le 7 octobre 2026 (proprietaire). -->
+    <nav class="riposte-ancres" aria-label="{{t.ddCombien}} · {{t.ddOu}}">
       <a href="#cas">{{i18n.chartModeNewCases}}</a>
       <a href="#deces">{{i18n.chartModeNewDeaths}}</a>
       <a href="#ou">{{t.ddOu}}</a>
-      <a href="#qui">{{t.ddQui}}</a>
       <a href="#riposte">{{t.ficheRiposteTitle}}</a>
+      <a href="#defis">{{t.navDefis}}</a>
       <a href="#chronologie">{{t.navTimeline}}</a>
     </nav>
   </section>
@@ -102,7 +102,7 @@
         <h3 class="frame-title">{{t.riposteDecesTitle}}</h3>
         <span class="section-sub">{{t.riposteDecesSub}}</span>
       </div>
-      <p class="fiche-texte">{{t.riposteDecesLede}}</p>
+      <p class="fiche-texte fiche-texte-centre">{{t.riposteDecesLede}}</p>
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="decesLieuChart">
           <button type="button" class="share-btn">
@@ -146,20 +146,9 @@
           </button>
         </div>
         <div class="table-scroll">
-          <table class="province-summary" id="provinceSummaryTable">
+          <table class="province-summary zq tri" id="provinceSummaryTable">
             <caption class="visually-hidden">{{i18n.zonesViewProvince}}</caption>
-            <thead>
-              <tr>
-                <th data-i18n="provinceTh1">{{i18n.provinceTh1}}</th>
-                <th class="is-num" data-i18n="zonesTh3">{{i18n.zonesTh3}}</th>
-                <th class="is-num" data-i18n-html="provinceTh3">{{i18n.provinceTh3}}</th>
-                <th class="is-num" data-i18n="zonesTh4">{{i18n.zonesTh4}}</th>
-                <th class="is-num" data-i18n="zonesTh5">{{i18n.zonesTh5}}</th>
-                <th class="is-num" data-i18n="provinceTh2">{{i18n.provinceTh2}}</th>
-                <th class="is-num" data-i18n="zonesTh6">{{i18n.zonesTh6}}</th>
-                <th class="is-num" data-i18n="zonesTh7">{{i18n.zonesTh7}}</th>
-              </tr>
-            </thead>
+            <thead><tr><th data-i18n="provinceTh1">{{i18n.provinceTh1}}</th><th>{{t.provinceThCases}}</th><th>{{t.paysThPart}}</th><th>{{t.zonesTh24h}}</th><th>{{t.zonesTh30}}</th><th>{{t.provinceThDeaths}}</th><th>{{t.zonesThDec24h}}</th><th>{{t.provinceThCfr}}</th><th>{{t.paysThZones}}</th></tr></thead>
             <tbody id="provinceSummaryBody">
 {{seed.provinceRows}}
             </tbody>
@@ -223,42 +212,26 @@
     </div>
   </section>
 
-  <!-- ============ QUI ============ -->
-  <section class="section cadre-fiche" id="qui">
-    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">{{t.ddQui}}</h2><div class="section-sub">{{t.ddQuiSub}}</div></div></div>
-    <div class="cadre-corps">
-      <div class="section-head">
-        <h3 class="frame-title">{{i18n.chartModePyramide}}</h3>
-        <span class="section-sub">{{seed.agesFrozen}}</span>
-      </div>
-      <div class="panel chart-panel-wrap">
-        <div class="chart-actions" data-export-chart="pyrChart">
-          <button type="button" class="share-btn">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
-            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
-          </button>
-        </div>
-                <nav class="subtab-nav chart-vue-nav" data-pyramide-vue style="display:none;">
-          <button type="button" class="subtab-btn active" data-vue="effectifs" data-i18n="chartPyramideVueEffectifs">{{i18n.chartPyramideVueEffectifs}}</button>
-          <button type="button" class="subtab-btn" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>
-        </nav>
-        <div class="chart-duo">
-          <div class="chart-panel">
-            <canvas id="pyrChart" data-chart="pyramide"></canvas>
-          </div>
-          <div class="chart-panel chart-panel-duo" style="display:none;">
-            <canvas id="pyrChartB"></canvas>
-          </div>
-        </div>
-        <div class="map-note chart-note"></div>
-      </div>
-    </div>
-  </section>
+  <!-- La partie « Qui » (age et sexe) a ete retiree le 7 octobre 2026
+       (proprietaire) : la repartition est figee au SitRep 083 (5 aout) et ne
+       couvrait plus que 40 % des cas et 27 % des deces. Les donnees restent
+       dans data/demographie.json ; l'age reste sur la page Le virus. -->
 
   <!-- ============ LA RIPOSTE ============ -->
   <!-- Chiffres des 7 derniers releves et difficultes du dernier bulletin,
        rendus par fiche_riposte_html() comme sur les pages province. -->
 {{seed.riposteIci}}
+
+  <!-- ============ LES DEFIS ============ -->
+  <!-- La grille de la page Defis, pour le pays (7 octobre 2026), comme sur
+       les pages province : le visuel seul, les fiches restent sur /defis/. -->
+  <section class="section cadre-fiche cadre-obstacles fiche-centree" id="defis">
+    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">{{seed.defisGrilleTitre}}</h2><div class="section-sub">{{seed.defisGrilleSub}}</div></div></div>
+    <div class="cadre-corps">
+{{seed.defisGrilleHome}}
+      <p class="drill"><a href="{{url.defis}}">{{t.navDefis}} →</a></p>
+    </div>
+  </section>
 
   <!-- ============ CHRONOLOGIE ============ -->
   <section class="section cadre-fiche" id="chronologie">

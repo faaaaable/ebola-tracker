@@ -1,4 +1,9 @@
-  <section class="section">
+  <!-- En-tete « carte en fond, nom pose dessus » (5 octobre 2026, option B de
+       la maquette tmp/proto-maquettes-1005/entete-province.html) : la carte de
+       la province occupe la droite, palie ; le nom en tres grand a gauche, la
+       phrase de situation dessous, les chiffres en bandeau au pied. -->
+  <section class="section prov-hero prov-hero-b" style="--prov:{{province.color}};">
+    <div class="phb-fond" aria-hidden="true">{{province.heroMap}}<div class="phb-bulle" hidden></div></div>
     <div class="section-head">
       <div>
         <!-- Meme construction sur les sept pages de la rubrique, decidee le
@@ -8,7 +13,7 @@
              (« Epicentre de l'epidemie », « Transmission active ») est parti
              le meme jour. -->
         <div class="eyebrow"><span class="dot" style="background:{{province.color}};"></span>{{i18n.tabZones}}</div>
-        <h1 class="page-title">{{meta.h1}}</h1>
+        <h1 class="page-title phb-titre"><span class="phb-pre">{{meta.h1}}</span><span class="phb-nom" aria-hidden="true">{{province.name}}</span></h1>
       </div>
       <div class="section-sub">{{seed.cartoAsOf}}</div>
     </div>
@@ -41,71 +46,8 @@
          de riposte sont dans le cadre « La riposte ». -->
   </section>
 
-  <section class="section cadre-fiche">
-    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">{{t.provinceMapTitle}}</h2><div class="section-sub">{{province.mapZones}}</div></div></div>
-    <div class="cadre-corps">
-
-    <div class="carto-layout">
-      <div class="zonemap-frame">
-        <div class="zonemap-stage">
-{{province.map}}
-          <!-- Infobulle de zone : n'apparait que sur telephone, ancree a la
-               zone touchee. Sur ordinateur le panneau lateral suffit. -->
-          <div class="zm-popup" id="zonePopup" role="dialog" aria-live="polite"
-               aria-label="{{t.cartoDefaultName}}" hidden>
-            <button class="zm-popup-close" id="zonePopupClose" type="button"
-                    aria-label="{{t.popupClose}}">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-                   stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-            </button>
-            <p class="zm-popup-name" id="zonePopupName"></p>
-            <dl class="zm-popup-rows">
-              <div class="is-cases"><dt>{{i18n.labelConfirmed}}</dt><dd id="zonePopupCases"></dd></div>
-              <div class="is-deaths"><dt>{{i18n.labelDeaths}}</dt><dd id="zonePopupDeaths"></dd></div>
-              <div><dt>{{i18n.popupProvinceLabel}}</dt><dd id="zonePopupProvince"></dd></div>
-            </dl>
-            <a class="zm-popup-more" id="zonePopupMore" href="#">{{t.cartoMore}}</a>
-            <span class="zm-popup-tail" aria-hidden="true"></span>
-          </div>
-        </div>
-
-        <div class="map-timeline" id="mapTimeline" style="display:none;">
-          <div class="map-timeline-head">
-            <span class="map-timeline-label" data-i18n="timelineLabel">{{i18n.timelineLabel}}</span>
-            <span class="map-timeline-date" id="timelineDate">—</span>
-          </div>
-          <input type="range" id="timelineSlider" min="0" max="0" value="0" step="1" aria-label="{{i18n.timelineLabel}}">
-          <div class="map-timeline-foot">
-            <button type="button" id="timelinePlay" class="map-btn" data-i18n="timelinePlay">{{i18n.timelinePlay}}</button>
-            <button type="button" id="timelineToday" class="map-btn">{{timelineLatest}}</button>
-            <span class="map-timeline-note" data-i18n="timelineNote">{{i18n.timelineNote}}</span>
-          </div>
-        </div>
-
-        <div class="map-note">{{province.mapNote}}</div>
-      </div>
-
-      <div class="carto-detail is-empty"
-           id="cartoDetail"
-           data-default-name="{{province.name}}"
-           data-default-sub="{{province.mapZones}}">
-        <div class="name" id="cartoName">{{province.name}}</div>
-        <div class="note" id="cartoNote">{{province.mapZones}}</div>
-        <dl class="cd-figures">
-          <div class="cd-fig is-cases">
-            <dt data-i18n="labelConfirmed">{{i18n.labelConfirmed}}</dt>
-            <dd><span class="v" id="cartoCases">—</span><span class="d" id="cartoCasesDelta"></span></dd>
-          </div>
-          <div class="cd-fig is-deaths">
-            <dt data-i18n="labelDeaths">{{i18n.labelDeaths}}</dt>
-            <dd><span class="v" id="cartoDeaths">—</span><span class="d" id="cartoDeathsDelta"></span></dd>
-          </div>
-        </dl>
-        <div class="sub" id="cartoSub">{{mapHint}}</div>
-      </div>
-    </div>
-    </div>
-  </section>
+  <!-- La carte des zones de sante (cadre 01) est partie le 6 octobre 2026,
+       a la demande du proprietaire : celle de l'en-tete la montre deja. -->
 
   <!-- Cas puis deces (et lieu du deces), au-dessus du tableau des zones.
        Numeros calcules par province_numeros(). -->

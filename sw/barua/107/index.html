@@ -49,6 +49,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -61,7 +66,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body class="lettre-agence">
 
@@ -118,44 +123,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Urambazaji mkuu">
-      <div class="side-nav-title">Habari mpya</div>
-      <a href="/sw/barua/">Barua</a>
-      <a href="/sw/habari/">Habari za mlipuko <span class="nav-badge">Mpya</span></a>
-      <div class="side-nav-title">Chunguza</div>
-      <a href="/sw/">Muhtasari</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Takwimu za kina</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/sw/takwimu/"><span class="dot dot-all"></span>Nchi nzima</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Habari</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/barua/"><span class="nav-t">Barua</span><span class="nav-desc">Muhtasari wa kila ripoti rasmi</span></a>
+      <a href="/sw/habari/"><span class="nav-t">Habari za mlipuko</span><span class="nav-desc">Makala yanayochapishwa kila siku</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Elewa</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/matukio/"><span class="nav-t">Matukio</span><span class="nav-desc">Kuanzia arifa ya kwanza hadi leo</span></a>
+      <a href="/sw/virusi/"><span class="nav-t">Virusi</span><span class="nav-desc">Bundibugyo: maambukizi, dalili</span></a>
+      <a href="/sw/maswali/"><span class="nav-t">Maswali</span><span class="nav-desc">Maswali yanayoulizwa mara nyingi</span></a>
+      <a href="/sw/kamusi/"><span class="nav-t">Kamusi</span><span class="nav-desc">Maneno ya ripoti, yakifafanuliwa</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Chunguza</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">Mwenendo wa mlipuko</div>
+        <a href="/sw/takwimu/"><span class="nav-t">Nchi nzima</span><span class="nav-desc">Mwenendo katika ngazi ya taifa</span></a>
+        <a href="/sw/takwimu/ituri/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Ituri</span><span class="nav-desc">Visa 6,513 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/nord-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">Visa 1,785 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/haut-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">Visa 364 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/tshopo/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Tshopo</span><span class="nav-desc">Visa 51 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/bas-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">Visa 10 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">Visa 3 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-ubangi/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">Visa 2 vilivyothibitishwa</span></a>
+        <a href="/sw/nchi-nyingine/"><span class="nav-t">Nchi nyingine</span><span class="nav-desc">Uganda, Ufaransa, Kenya</span></a>
       </div>
-      <a href="/sw/mapambano/">Mapambano na changamoto</a>
-      <div class="side-nav-title">Elewa</div>
-      <a href="/sw/matukio/">Matukio</a>
-      <a href="/sw/virusi/">Virusi</a>
-      <a href="/sw/ripoti/">Vyanzo na ripoti</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Takwimu za kina</div>
+        <a href="/sw/ripoti/"><span class="nav-t">Vyanzo na ripoti</span><span class="nav-desc">Ripoti zote za INSP</span></a>
+        <a href="/sw/hifadhidata/"><span class="nav-t">Hifadhidata <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu za tovuti, za kupakua</span></a>
+        <a href="/sw/dashibodi/"><span class="nav-t">Dashibodi <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu zote kwa wakati halisi</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Kukabili mlipuko</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/mapambano/"><span class="nav-t">Mapambano</span><span class="nav-desc">Hatua zinazochukuliwa kukomesha mlipuko</span></a>
+      <a href="/sw/changamoto/"><span class="nav-t">Changamoto</span><span class="nav-desc">Vikwazo vilivyokumbwa</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Tovuti</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/kuhusu/"><span class="nav-t">Kuhusu</span><span class="nav-desc">Mbinu, vyanzo, tahadhari</span></a>
+      <a href="/sw/mawasiliano/"><span class="nav-t">Mawasiliano</span><span class="nav-desc">Andikia timu</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -170,26 +194,20 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Njia ya kurasa">
-    <a href="/sw/">Mwanzo</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">Barua</span>
-  </nav>
+
 
       <main id="contenu">
-<div class="ag">
+<div class="lq">
 <header class="ag-tete"><div class="ag-barre"></div><div class="ag-manchette"><p class="ag-marque">Barua</p><p class="ag-edition"><span>Ripoti Na. 107</span><i></i><span>Hali tarehe 29 Ago. 2026</span></p><p class="ag-sous">Muhtasari wa ripoti ya INSP, kila toleo jipya linapotoka</p></div><nav class="ag-nav"><a class="ag-nav-prev" href="/sw/barua/106/">← Barua iliyotangulia, ripoti na. 106</a><a class="ag-nav-next" href="/sw/barua/108/">Barua inayofuata, ripoti na. 108 →</a></nav></header>
-<div class="ag-grille"><div class="ag-prose"><p class="ag-jour">Ripoti ya 29 Ago. 2026, iliyochapishwa 30 Ago. 2026, inaripoti visa 96 vipya vilivyothibitishwa na vifo 49. Visa 96 ni zaidi ya wastani wa siku saba zilizopita, 75.3 kwa siku. Hakuna kanda mpya ya afya tangu 26 Ago. 2026: mlipuko unabaki katika kanda 60 kwenye majimbo 6.</p><section class="ag-chap" id="bilan"><h2 class="ag-titre"><span>01</span>Hali kwa jumla</h2>    <p class="fiche-texte lettre-texte">Tangu mwanzo wa mlipuko, visa 6,041 vilivyothibitishwa na vifo 2,911: 48.2% ya wagonjwa wamekufa. Watu 1,366 wamepona. 39 zaidi ya siku iliyotangulia. Wagonjwa 619 wamelazwa kwenye vituo vya matibabu ya Ebola. Katika siku saba zilizopita, wastani wa visa 75.3 na vifo 38.4 kwa siku, ikilinganishwa na visa 81.3 na vifo 45.3 wiki iliyotangulia.</p>
-<div class="ag-chiffres-inline">    <section class="kpis kpis-riposte" aria-label="Hali kwa jumla">
-      <div class="kpi confirmed"><div class="label">Visa vilivyothibitishwa</div><div class="value">6,041</div><div class="delta">+96 (saa 24)</div></div>
-      <div class="kpi deaths"><div class="label">Vifo</div><div class="value">2,911</div><div class="delta">+49 (saa 24)</div></div>
-      <div class="kpi recovered"><div class="label">Waliopona</div><div class="value">1,366</div><div class="delta">+39 (saa 24)</div></div>
-      <div class="kpi cte"><div class="label">Wagonjwa waliotengwa</div><div class="value">619</div><div class="delta"></div></div>
-      <div class="kpi cfr"><div class="label">Kiwango cha vifo</div><div class="value">48.2%</div><div class="delta"></div></div>
-      <div class="kpi zones"><div class="label">Kanda za afya zilizoathirika</div><div class="value">60</div><div class="delta">kati ya 151</div></div>
-    </section>
-</div></section><section class="ag-chap" id="ou"><h2 class="ag-titre"><span>02</span>Wapi</h2>    <p class="fiche-texte lettre-texte">Ituri ina visa 61 kati ya 96 vipya. Kisha Nord-Kivu na 28 na Haut-Uélé na 7. Majimbo 3 mengine hayaripoti chochote. Kanda 5 zinabeba visa 55 kati ya 96: Bunia 17, Katwa 12, Mangala 9, Nia-Nia 9 na Lita 8. Kanda 51 kati ya 60 za afya zilizoathirika ziliripoti angalau kisa kimoja kipya katika wiki tatu zilizopita; 9 hazikuripoti chochote.</p>
-<div class="ag-chiffres-inline">    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">
+<div class="lq-grille"><div class="lq-principal" id="bilan"><div class="lq-eyebrow">Takwimu za siku</div><h1 class="lq-titre">Visa vipya 96, vifo 49</h1><p class="lq-chapo">Ripoti ya 29 Ago. 2026, iliyochapishwa 30 Ago. 2026, inaripoti visa 96 vipya vilivyothibitishwa na vifo 49. Visa 96 ni zaidi ya wastani wa siku saba zilizopita, 75.3 kwa siku. Hakuna kanda mpya ya afya tangu 26 Ago. 2026: mlipuko unabaki katika kanda 60 kwenye majimbo 6.</p>    <p class="fiche-texte lettre-texte">Tangu mwanzo wa mlipuko, visa 6,041 vilivyothibitishwa na vifo 2,911: 48.2% ya wagonjwa wamekufa. Watu 1,366 wamepona. 39 zaidi ya siku iliyotangulia. Wagonjwa 619 wamelazwa kwenye vituo vya matibabu ya Ebola. Katika siku saba zilizopita, wastani wa visa 75.3 na vifo 38.4 kwa siku, ikilinganishwa na visa 81.3 na vifo 45.3 wiki iliyotangulia.</p>
+</div>
+<aside class="lq-encadre" aria-label="Takwimu za ripoti"><div class="lq-chiffre is-cas"><b>6,041</b><span>visa vilivyothibitishwa · +96</span></div><div class="lq-chiffre is-deces"><b>2,911</b><span>vifo · +49</span></div><div class="lq-chiffre"><b>48.2%</b><span>kiwango cha vifo</span></div><div class="lq-mini"><svg class="lq-barres" viewBox="0 0 100 56" preserveAspectRatio="none" aria-hidden="true"><rect x="0.40" y="25.3" width="2.53" height="30.7"><title>31 Jul. 2026 : 69</title></rect><rect x="3.73" y="23.1" width="2.53" height="32.9"><title>1 Ago. 2026 : 74</title></rect><rect x="7.07" y="32.0" width="2.53" height="24.0"><title>2 Ago. 2026 : 54</title></rect><rect x="10.40" y="24.0" width="2.53" height="32.0"><title>3 Ago. 2026 : 72</title></rect><rect x="13.73" y="12.0" width="2.53" height="44.0"><title>4 Ago. 2026 : 99</title></rect><rect x="17.07" y="20.4" width="2.53" height="35.6"><title>5 Ago. 2026 : 80</title></rect><rect x="20.40" y="26.2" width="2.53" height="29.8"><title>6 Ago. 2026 : 67</title></rect><rect x="23.73" y="16.4" width="2.53" height="39.6"><title>7 Ago. 2026 : 89</title></rect><rect x="27.07" y="18.2" width="2.53" height="37.8"><title>8 Ago. 2026 : 85</title></rect><rect x="30.40" y="17.3" width="2.53" height="38.7"><title>9 Ago. 2026 : 87</title></rect><rect x="33.73" y="25.8" width="2.53" height="30.2"><title>10 Ago. 2026 : 68</title></rect><rect x="37.07" y="4.0" width="2.53" height="52.0"><title>11 Ago. 2026 : 117</title></rect><rect x="40.40" y="12.0" width="2.53" height="44.0"><title>12 Ago. 2026 : 99</title></rect><rect x="43.73" y="28.4" width="2.53" height="27.6"><title>13 Ago. 2026 : 62</title></rect><rect x="47.07" y="4.4" width="2.53" height="51.6"><title>14 Ago. 2026 : 116</title></rect><rect x="50.40" y="10.7" width="2.53" height="45.3"><title>15 Ago. 2026 : 102</title></rect><rect x="53.73" y="22.2" width="2.53" height="33.8"><title>16 Ago. 2026 : 76</title></rect><rect x="57.07" y="18.7" width="2.53" height="37.3"><title>17 Ago. 2026 : 84</title></rect><rect x="60.40" y="10.2" width="2.53" height="45.8"><title>18 Ago. 2026 : 103</title></rect><rect x="63.73" y="19.6" width="2.53" height="36.4"><title>19 Ago. 2026 : 82</title></rect><rect x="67.07" y="18.2" width="2.53" height="37.8"><title>20 Ago. 2026 : 85</title></rect><rect x="70.40" y="19.1" width="2.53" height="36.9"><title>21 Ago. 2026 : 83</title></rect><rect x="73.73" y="31.1" width="2.53" height="24.9"><title>22 Ago. 2026 : 56</title></rect><rect x="77.07" y="24.9" width="2.53" height="31.1"><title>23 Ago. 2026 : 70</title></rect><rect x="80.40" y="24.0" width="2.53" height="32.0"><title>24 Ago. 2026 : 72</title></rect><rect x="83.73" y="30.7" width="2.53" height="25.3"><title>25 Ago. 2026 : 57</title></rect><rect x="87.07" y="20.0" width="2.53" height="36.0"><title>26 Ago. 2026 : 81</title></rect><rect x="90.40" y="25.3" width="2.53" height="30.7"><title>27 Ago. 2026 : 69</title></rect><rect x="93.73" y="19.6" width="2.53" height="36.4"><title>28 Ago. 2026 : 82</title></rect><rect x="97.07" y="13.3" width="2.53" height="42.7" class="is-der"><title>29 Ago. 2026 : 96</title></rect></svg><span>Visa vipya kwa siku, siku 30 zilizopita</span></div></aside></div>
+<div class="lq-cols"><section class="lq-art" id="ou"><h2><span>02</span> Wapi</h2>    <p class="fiche-texte lettre-texte">Ituri ina visa 61 kati ya 96 vipya. Kisha Nord-Kivu na 28 na Haut-Uélé na 7. Majimbo 3 mengine hayaripoti chochote. Kanda 5 zinabeba visa 55 kati ya 96: Bunia 17, Katwa 12, Mangala 9, Nia-Nia 9 na Lita 8. Kanda 51 kati ya 60 za afya zilizoathirika ziliripoti angalau kisa kimoja kipya katika wiki tatu zilizopita; 9 hazikuripoti chochote.</p>
+</section><section class="lq-art" id="deces"><h2><span>03</span> Vifo</h2>    <p class="fiche-texte lettre-texte">Kati ya vifo 49 vya siku, 41 vilitokea katika jamii, yaani nje ya kituo cha matibabu, na 8 ndani ya kituo cha matibabu. Vifo nje ya kituo: 28 katika Ituri na 13 katika Nord-Kivu. Vile ndani ya kituo cha matibabu: 7 katika Ituri na 1 katika Haut-Uélé. Vile 7 ya Ituri bado havijapangiwa kanda maalum ya afya, kama vifo 307 kabla yake.</p>
+</section><section class="lq-art" id="riposte"><h2><span>04</span> Mapambano</h2>    <p class="fiche-texte lettre-texte">Taarifa 1,830 za wagonjwa wanaowezekana (« tahadhari ») zilipokelewa; 1,416 zilikaguliwa na 320 zilichukuliwa kama visa vinavyoshukiwa, vya kupimwa. Kati ya sampuli 537 zilizopimwa maabara, 96 zilikuwa chanya, yaani 17.9 %. 82.4 % ya watu waliokuwa karibu na mgonjwa (« waliowasiliana ») walionwa na timu za ufuatiliaji, chini ya kiwango cha 85 % ambacho INSP imejiwekea. Chini ya watatu kati ya wanne waliowasiliana walionwa katika majimbo yafuatayo: Bas-Uélé, Haut-Uélé na Tshopo. Vituo vya matibabu ya Ebola vimejaa kwa 53.8 %: wagonjwa 604 kwa vitanda 1,123. Kuzunguka visa vipya, mikanda 33 ya kinga imewekwa kati ya 45 iliyotarajiwa, yaani kusafisha nyumba na kufuatilia ndugu. Chanjo: watu 142 wamepata chanjo ya Ervebo tangu kampeni ianze tarehe 26 Ago. 2026: 122 katika Tshopo (takwimu ya 27 Ago. 2026) na 20 katika Bas-Uélé (takwimu ya 26 Ago. 2026). Kwenye vituo vya udhibiti barabarani na mipakani, wasafiri 264,693 walipita na 97.5 % walipimwa joto la mwili.</p>
+</section><section class="lq-art" id="defis"><h2><span>05</span> Changamoto zilizokumbana nazo</h2>    <p class="fiche-texte lettre-texte">Katika Ituri, mikanda ya kinga inawekwa kuzunguka asilimia 73.3 ya visa vipya na asilimia 81.3 ya nyumba za kusafishwa zimesafishwa, lakini vituo vya Bambu na Nizi vimejaa na timu bado zinakosekana Fataki, Mangala na Nizi; vituo vya udhibiti vya Avakubi, Mabakese na Apinaka havikutuma takwimu zake. Katika Nord-Kivu, mikanda 4 tu iliwekwa na nyumba 9 kati ya 17 zilisafishwa. Katika Haut-Uélé, vituo vya Isiro na Wamba vinakosa nafasi, wahudumu watatu walikataa kupimwa na wagonjwa 3 walitoroka Isiro. Katika Bas-Uélé, bado hakuna kituo cha matibabu chenye viwango wala shirika la kusaidia matibabu, na vituo vya udhibiti vilituma asilimia 45 tu ya ripoti zake. Katika Tshopo, vituo 7 kati ya 20 vya udhibiti vinafanya kazi.</p>
+</section></div>
+<div class="lq-chiffres"><div class="lq-bloc"><h3>Wapi</h3>    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">
       <thead><tr><th>Jimbo</th><th class="is-num">Visa (saa 24)</th><th class="is-num">Vifo (saa 24)</th><th class="is-num">Visa vilivyothibitishwa</th><th class="is-num">Vifo</th><th class="is-num">Kanda</th></tr></thead>
       <tbody>
         <tr><td><a href="/sw/takwimu/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a></td><td class="is-num">+61</td><td class="is-num">+35</td><td class="is-num">4,972</td><td class="is-num">2,247</td><td class="is-num">28/36</td></tr>
@@ -199,58 +217,26 @@
         <tr><td><a href="/sw/takwimu/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">3</td><td class="is-num">1</td><td class="is-num">1/34</td></tr>
         <tr><td><a href="/sw/takwimu/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">3</td><td class="is-num">2</td><td class="is-num">3/11</td></tr>
       </tbody></table></div>
-</div></section><section class="ag-chap" id="deces"><h2 class="ag-titre"><span>03</span>Vifo</h2>    <p class="fiche-texte lettre-texte">Kati ya vifo 49 vya siku, 41 vilitokea katika jamii, yaani nje ya kituo cha matibabu, na 8 ndani ya kituo cha matibabu. Vifo nje ya kituo: 28 katika Ituri na 13 katika Nord-Kivu. Vile ndani ya kituo cha matibabu: 7 katika Ituri na 1 katika Haut-Uélé. Vile 7 ya Ituri bado havijapangiwa kanda maalum ya afya, kama vifo 307 kabla yake.</p>
-</section><section class="ag-chap" id="riposte"><h2 class="ag-titre"><span>04</span>Mapambano</h2>    <p class="fiche-texte lettre-texte">Taarifa 1,830 za wagonjwa wanaowezekana (« tahadhari ») zilipokelewa; 1,416 zilikaguliwa na 320 zilichukuliwa kama visa vinavyoshukiwa, vya kupimwa. Kati ya sampuli 537 zilizopimwa maabara, 96 zilikuwa chanya, yaani 17.9 %. 82.4 % ya watu waliokuwa karibu na mgonjwa (« waliowasiliana ») walionwa na timu za ufuatiliaji, chini ya kiwango cha 85 % ambacho INSP imejiwekea. Chini ya watatu kati ya wanne waliowasiliana walionwa katika majimbo yafuatayo: Bas-Uélé, Haut-Uélé na Tshopo. Vituo vya matibabu ya Ebola vimejaa kwa 53.8 %: wagonjwa 604 kwa vitanda 1,123. Kuzunguka visa vipya, mikanda 33 ya kinga imewekwa kati ya 45 iliyotarajiwa, yaani kusafisha nyumba na kufuatilia ndugu. Chanjo: watu 142 wamepata chanjo ya Ervebo tangu kampeni ianze tarehe 26 Ago. 2026: 122 katika Tshopo (takwimu ya 27 Ago. 2026) na 20 katika Bas-Uélé (takwimu ya 26 Ago. 2026). Kwenye vituo vya udhibiti barabarani na mipakani, wasafiri 264,693 walipita na 97.5 % walipimwa joto la mwili.</p>
-<div class="ag-chiffres-inline">    <section class="kpis kpis-riposte" aria-label="Mapambano ya siku">
+</div><div class="lq-bloc"><h3>Mapambano</h3>    <section class="kpis kpis-riposte" aria-label="Mapambano ya siku">
       <div class="kpi alerts"><div class="label">Taarifa zilizopokelewa (saa 24)</div><div class="value">1,830</div><div class="delta">1,416 zimekaguliwa, visa 320 vinavyoshukiwa</div></div>
       <div class="kpi labo"><div class="label">Vipimo chanya (saa 24)</div><div class="value">17.9 %</div><div class="delta">96 chanya kati ya 537 zilizopimwa</div></div>
       <div class="kpi contacts"><div class="label">Walioguswa waliofuatiliwa (saa 24)</div><div class="value">82.4 %</div><div class="delta">18,520 walionwa kati ya 22,463 wa kufuatilia</div></div>
       <div class="kpi cte"><div class="label">Vitanda vilivyojaa</div><div class="value">53.8 %</div><div class="delta">wagonjwa 604 kwa vitanda 1,123</div></div>
       <div class="kpi vaccin"><div class="label">Waliochanjwa (jumla)</div><div class="value">142</div><div class="delta">tangu 26 Ago. 2026</div></div>
     </section>
-    <p class="drill"><a href="/sw/mapambano/">Ukurasa mzima wa « Mapambano na changamoto » →</a></p>
-</div></section><section class="ag-chap" id="defis"><h2 class="ag-titre"><span>05</span>Changamoto zilizokumbana nazo</h2>    <p class="fiche-texte lettre-texte">Katika Ituri, mikanda ya kinga inawekwa kuzunguka asilimia 73.3 ya visa vipya na asilimia 81.3 ya nyumba za kusafishwa zimesafishwa, lakini vituo vya Bambu na Nizi vimejaa na timu bado zinakosekana Fataki, Mangala na Nizi; vituo vya udhibiti vya Avakubi, Mabakese na Apinaka havikutuma takwimu zake. Katika Nord-Kivu, mikanda 4 tu iliwekwa na nyumba 9 kati ya 17 zilisafishwa. Katika Haut-Uélé, vituo vya Isiro na Wamba vinakosa nafasi, wahudumu watatu walikataa kupimwa na wagonjwa 3 walitoroka Isiro. Katika Bas-Uélé, bado hakuna kituo cha matibabu chenye viwango wala shirika la kusaidia matibabu, na vituo vya udhibiti vilituma asilimia 45 tu ya ripoti zake. Katika Tshopo, vituo 7 kati ya 20 vya udhibiti vinafanya kazi.</p>
-</section></div><aside class="ag-chiffres"><div class="ag-chiffres-titre">Takwimu</div><div class="ag-bloc"><div class="ag-bloc-titre">Hali kwa jumla</div>    <section class="kpis kpis-riposte" aria-label="Hali kwa jumla">
-      <div class="kpi confirmed"><div class="label">Visa vilivyothibitishwa</div><div class="value">6,041</div><div class="delta">+96 (saa 24)</div></div>
-      <div class="kpi deaths"><div class="label">Vifo</div><div class="value">2,911</div><div class="delta">+49 (saa 24)</div></div>
-      <div class="kpi recovered"><div class="label">Waliopona</div><div class="value">1,366</div><div class="delta">+39 (saa 24)</div></div>
-      <div class="kpi cte"><div class="label">Wagonjwa waliotengwa</div><div class="value">619</div><div class="delta"></div></div>
-      <div class="kpi cfr"><div class="label">Kiwango cha vifo</div><div class="value">48.2%</div><div class="delta"></div></div>
-      <div class="kpi zones"><div class="label">Kanda za afya zilizoathirika</div><div class="value">60</div><div class="delta">kati ya 151</div></div>
-    </section>
-</div><div class="ag-bloc"><div class="ag-bloc-titre">Wapi</div>    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">
-      <thead><tr><th>Jimbo</th><th class="is-num">Visa (saa 24)</th><th class="is-num">Vifo (saa 24)</th><th class="is-num">Visa vilivyothibitishwa</th><th class="is-num">Vifo</th><th class="is-num">Kanda</th></tr></thead>
-      <tbody>
-        <tr><td><a href="/sw/takwimu/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a></td><td class="is-num">+61</td><td class="is-num">+35</td><td class="is-num">4,972</td><td class="is-num">2,247</td><td class="is-num">28/36</td></tr>
-        <tr><td><a href="/sw/takwimu/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a></td><td class="is-num">+28</td><td class="is-num">+13</td><td class="is-num">828</td><td class="is-num">559</td><td class="is-num">15/34</td></tr>
-        <tr><td><a href="/sw/takwimu/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a></td><td class="is-num">+7</td><td class="is-num">+1</td><td class="is-num">216</td><td class="is-num">94</td><td class="is-num">6/13</td></tr>
-        <tr><td><a href="/sw/takwimu/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">19</td><td class="is-num">8</td><td class="is-num">7/23</td></tr>
-        <tr><td><a href="/sw/takwimu/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">3</td><td class="is-num">1</td><td class="is-num">1/34</td></tr>
-        <tr><td><a href="/sw/takwimu/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">3</td><td class="is-num">2</td><td class="is-num">3/11</td></tr>
-      </tbody></table></div>
-</div><div class="ag-bloc"><div class="ag-bloc-titre">Mapambano</div>    <section class="kpis kpis-riposte" aria-label="Mapambano ya siku">
-      <div class="kpi alerts"><div class="label">Taarifa zilizopokelewa (saa 24)</div><div class="value">1,830</div><div class="delta">1,416 zimekaguliwa, visa 320 vinavyoshukiwa</div></div>
-      <div class="kpi labo"><div class="label">Vipimo chanya (saa 24)</div><div class="value">17.9 %</div><div class="delta">96 chanya kati ya 537 zilizopimwa</div></div>
-      <div class="kpi contacts"><div class="label">Walioguswa waliofuatiliwa (saa 24)</div><div class="value">82.4 %</div><div class="delta">18,520 walionwa kati ya 22,463 wa kufuatilia</div></div>
-      <div class="kpi cte"><div class="label">Vitanda vilivyojaa</div><div class="value">53.8 %</div><div class="delta">wagonjwa 604 kwa vitanda 1,123</div></div>
-      <div class="kpi vaccin"><div class="label">Waliochanjwa (jumla)</div><div class="value">142</div><div class="delta">tangu 26 Ago. 2026</div></div>
-    </section>
-    <p class="drill"><a href="/sw/mapambano/">Ukurasa mzima wa « Mapambano na changamoto » →</a></p>
-</div></aside></div>
-<footer class="ag-pied"><nav class="ag-nav"><a class="ag-nav-prev" href="/sw/barua/106/">← Barua iliyotangulia, ripoti na. 106</a><a class="ag-nav-next" href="/sw/barua/108/">Barua inayofuata, ripoti na. 108 →</a></nav>Chanzo: <a href="/reports/SITREP_MVE_107.pdf" rel="noopener">SitRep N°107/MVEBDB/29/08/2026</a>, INSP. Barua hutolewa kila ripoti ya INSP inapotoka; iliyotangulia ni ya tarehe 28 Ago. 2026.<p class="ag-archive">Barua zote: <a href="/sw/barua/145/">n°145</a> · <a href="/sw/barua/144/">n°144</a> · <a href="/sw/barua/143/">n°143</a> · <a href="/sw/barua/141/">n°141</a> · <a href="/sw/barua/140/">n°140</a> · <a href="/sw/barua/139/">n°139</a> · <a href="/sw/barua/138/">n°138</a> · <a href="/sw/barua/137/">n°137</a> · <a href="/sw/barua/136/">n°136</a> · <a href="/sw/barua/135/">n°135</a> · <a href="/sw/barua/134/">n°134</a> · <a href="/sw/barua/133/">n°133</a> · <a href="/sw/barua/132/">n°132</a> · <a href="/sw/barua/131/">n°131</a> · <a href="/sw/barua/130/">n°130</a> · <a href="/sw/barua/129/">n°129</a> · <a href="/sw/barua/128/">n°128</a> · <a href="/sw/barua/127/">n°127</a> · <a href="/sw/barua/126/">n°126</a> · <a href="/sw/barua/125/">n°125</a> · <a href="/sw/barua/124/">n°124</a> · <a href="/sw/barua/123/">n°123</a> · <a href="/sw/barua/122/">n°122</a> · <a href="/sw/barua/121/">n°121</a> · <a href="/sw/barua/120/">n°120</a> · <a href="/sw/barua/119/">n°119</a> · <a href="/sw/barua/118/">n°118</a> · <a href="/sw/barua/117/">n°117</a> · <a href="/sw/barua/116/">n°116</a> · <a href="/sw/barua/115/">n°115</a> · <a href="/sw/barua/114/">n°114</a> · <a href="/sw/barua/113/">n°113</a> · <a href="/sw/barua/112/">n°112</a> · <a href="/sw/barua/111/">n°111</a> · <a href="/sw/barua/110/">n°110</a> · <a href="/sw/barua/109/">n°109</a> · <a href="/sw/barua/108/">n°108</a> · <b>n°107</b> · <a href="/sw/barua/106/">n°106</a> · <a href="/sw/barua/105/">n°105</a> · <a href="/sw/barua/104/">n°104</a> · <a href="/sw/barua/103/">n°103</a> · <a href="/sw/barua/102/">n°102</a> · <a href="/sw/barua/101/">n°101</a> · <a href="/sw/barua/100/">n°100</a> · <a href="/sw/barua/099/">n°099</a> · <a href="/sw/barua/098/">n°098</a> · <a href="/sw/barua/097/">n°097</a> · <a href="/sw/barua/096/">n°096</a> · <a href="/sw/barua/095/">n°095</a> · <a href="/sw/barua/094/">n°094</a> · <a href="/sw/barua/093/">n°093</a> · <a href="/sw/barua/092/">n°092</a> · <a href="/sw/barua/091/">n°091</a> · <a href="/sw/barua/090/">n°090</a></p><details class="ag-lexique"><summary>Kamusi ndogo · maneno ya ripoti</summary><ul><li>Aliyewasiliana: mtu aliyekuwa karibu na mgonjwa na anayefuatiliwa na timu kwa siku 21.</li><li>Eneo la afya: kitengo cha msingi cha huduma za afya nchini DRC, kwa kawaida kuzunguka hospitali kuu.</li><li>Kisa kilichothibitishwa: mtu ambaye maambukizi yake ya Ebola yamethibitishwa na kipimo cha maabara.</li><li>Kisa kinachoshukiwa: mtu ambaye dalili zake zinaashiria Ebola, akisubiri kipimo.</li><li>Kituo cha matibabu (CTE): mahali ambapo wagonjwa wanatengwa na kutibiwa.</li><li>Kituo cha udhibiti: kituo barabarani au mpakani ambapo wasafiri wanapimwa joto la mwili na kunawa mikono.</li><li>Mazishi salama: mazishi yanayofanywa na timu iliyojikinga, kwani mwili wa mgonjwa unabaki na maambukizi.</li><li>Mkanda wa kinga (ring): kuzunguka kila kisa kipya, kusafisha nyumba na mahali alipotembelea, vifaa vya usafi na kufuatilia ndugu.</li><li>Sehemu ya mapambano (« nguzo » katika ripoti): kila timu maalum ya mapambano, ufuatiliaji, maabara, matibabu, chanjo, usafi, mawasiliano, usalama.</li><li>Tahadhari: taarifa ya mgonjwa au kifo kinachowezekana, ambayo timu zitakagua.</li></ul></details></footer></div>
+    <p class="drill"><a href="/sw/mapambano/">Ukurasa mzima wa « Mapambano » →</a></p>
+</div></div>
+<footer class="lq-pied"><nav class="ag-nav"><a class="ag-nav-prev" href="/sw/barua/106/">← Barua iliyotangulia, ripoti na. 106</a><a class="ag-nav-next" href="/sw/barua/108/">Barua inayofuata, ripoti na. 108 →</a></nav><p class="lq-ref">Chanzo: <a href="/reports/SITREP_MVE_107.pdf" rel="noopener">SitRep N°107/MVEBDB/29/08/2026</a>, INSP. Barua hutolewa kila ripoti ya INSP inapotoka; iliyotangulia ni ya tarehe 28 Ago. 2026.</p><p class="ag-archive">Barua zote: <a href="/sw/barua/145/">n°145</a> · <a href="/sw/barua/144/">n°144</a> · <a href="/sw/barua/143/">n°143</a> · <a href="/sw/barua/141/">n°141</a> · <a href="/sw/barua/140/">n°140</a> · <a href="/sw/barua/139/">n°139</a> · <a href="/sw/barua/138/">n°138</a> · <a href="/sw/barua/137/">n°137</a> · <a href="/sw/barua/136/">n°136</a> · <a href="/sw/barua/135/">n°135</a> · <a href="/sw/barua/134/">n°134</a> · <a href="/sw/barua/133/">n°133</a> · <a href="/sw/barua/132/">n°132</a> · <a href="/sw/barua/131/">n°131</a> · <a href="/sw/barua/130/">n°130</a> · <a href="/sw/barua/129/">n°129</a> · <a href="/sw/barua/128/">n°128</a> · <a href="/sw/barua/127/">n°127</a> · <a href="/sw/barua/126/">n°126</a> · <a href="/sw/barua/125/">n°125</a> · <a href="/sw/barua/124/">n°124</a> · <a href="/sw/barua/123/">n°123</a> · <a href="/sw/barua/122/">n°122</a> · <a href="/sw/barua/121/">n°121</a> · <a href="/sw/barua/120/">n°120</a> · <a href="/sw/barua/119/">n°119</a> · <a href="/sw/barua/118/">n°118</a> · <a href="/sw/barua/117/">n°117</a> · <a href="/sw/barua/116/">n°116</a> · <a href="/sw/barua/115/">n°115</a> · <a href="/sw/barua/114/">n°114</a> · <a href="/sw/barua/113/">n°113</a> · <a href="/sw/barua/112/">n°112</a> · <a href="/sw/barua/111/">n°111</a> · <a href="/sw/barua/110/">n°110</a> · <a href="/sw/barua/109/">n°109</a> · <a href="/sw/barua/108/">n°108</a> · <b>n°107</b> · <a href="/sw/barua/106/">n°106</a> · <a href="/sw/barua/105/">n°105</a> · <a href="/sw/barua/104/">n°104</a> · <a href="/sw/barua/103/">n°103</a> · <a href="/sw/barua/102/">n°102</a> · <a href="/sw/barua/101/">n°101</a> · <a href="/sw/barua/100/">n°100</a> · <a href="/sw/barua/099/">n°099</a> · <a href="/sw/barua/098/">n°098</a> · <a href="/sw/barua/097/">n°097</a> · <a href="/sw/barua/096/">n°096</a> · <a href="/sw/barua/095/">n°095</a> · <a href="/sw/barua/094/">n°094</a> · <a href="/sw/barua/093/">n°093</a> · <a href="/sw/barua/092/">n°092</a> · <a href="/sw/barua/091/">n°091</a> · <a href="/sw/barua/090/">n°090</a></p><details class="ag-lexique"><summary>Kamusi ndogo · maneno ya ripoti</summary><ul><li>Aliyewasiliana: mtu aliyekuwa karibu na mgonjwa na anayefuatiliwa na timu kwa siku 21.</li><li>Eneo la afya: kitengo cha msingi cha huduma za afya nchini DRC, kwa kawaida kuzunguka hospitali kuu.</li><li>Kisa kilichothibitishwa: mtu ambaye maambukizi yake ya Ebola yamethibitishwa na kipimo cha maabara.</li><li>Kisa kinachoshukiwa: mtu ambaye dalili zake zinaashiria Ebola, akisubiri kipimo.</li><li>Kituo cha matibabu (CTE): mahali ambapo wagonjwa wanatengwa na kutibiwa.</li><li>Kituo cha udhibiti: kituo barabarani au mpakani ambapo wasafiri wanapimwa joto la mwili na kunawa mikono.</li><li>Mazishi salama: mazishi yanayofanywa na timu iliyojikinga, kwani mwili wa mgonjwa unabaki na maambukizi.</li><li>Mkanda wa kinga (ring): kuzunguka kila kisa kipya, kusafisha nyumba na mahali alipotembelea, vifaa vya usafi na kufuatilia ndugu.</li><li>Sehemu ya mapambano (« nguzo » katika ripoti): kila timu maalum ya mapambano, ufuatiliaji, maabara, matibabu, chanjo, usafi, mawasiliano, usalama.</li><li>Tahadhari: taarifa ya mgonjwa au kifo kinachowezekana, ambayo timu zitakagua.</li></ul></details></footer></div>
 
       </main>
 
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Chunguza</h2>
+        <h2>Habari</h2>
         <ul>
-        <li><a href="/sw/">Muhtasari</a></li>
         <li><a href="/sw/barua/">Barua</a></li>
         <li><a href="/sw/habari/">Habari za mlipuko</a></li>
-        <li><a href="/sw/takwimu/">Takwimu za kina</a></li>
-        <li><a href="/sw/mapambano/">Mapambano na changamoto</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -258,9 +244,20 @@
         <ul>
         <li><a href="/sw/matukio/">Matukio</a></li>
         <li><a href="/sw/virusi/">Virusi</a></li>
-        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
         <li><a href="/sw/maswali/">Maswali</a></li>
         <li><a href="/sw/kamusi/">Kamusi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Chunguza</h2>
+        <ul>
+        <li><a href="/sw/takwimu/">Nchi nzima</a></li>
+        <li><a href="/sw/nchi-nyingine/">Nchi nyingine</a></li>
+        <li><a href="/sw/mapambano/">Mapambano</a></li>
+        <li><a href="/sw/changamoto/">Changamoto</a></li>
+        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
+        <li><a href="/sw/hifadhidata/">Hifadhidata</a></li>
+        <li><a href="/sw/dashibodi/">Dashibodi</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -284,7 +281,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/">Tahadhari kamili</a></p>
+    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/#avertissement">Tahadhari kamili</a></p>
   </footer>
 
     </div>
@@ -295,6 +292,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/sw/takwimu/ituri/", "Nord-Kivu": "/sw/takwimu/nord-kivu/", "Haut-Uélé": "/sw/takwimu/haut-uele/", "Tshopo": "/sw/takwimu/tshopo/", "Bas-Uélé": "/sw/takwimu/bas-uele/", "Sud-Kivu": "/sw/takwimu/sud-kivu/", "Sud-Ubangi": "/sw/takwimu/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "visa vilivyothibitishwa"; window.HERO_TIP_DEATHS = "vifo";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -314,8 +312,8 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>

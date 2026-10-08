@@ -25,6 +25,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/autres-pays/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/autres-pays/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/other-countries/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/nchi-nyingine/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/autres-pays/"/>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/riposte/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/riposte/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/response/"/>
@@ -33,6 +44,17 @@
     <lastmod>2026-10-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/defis/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/defis/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/challenges/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/changamoto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/defis/"/>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>
@@ -839,6 +861,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/other-countries/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/autres-pays/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/other-countries/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/nchi-nyingine/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/autres-pays/"/>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/response/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/riposte/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/response/"/>
@@ -847,6 +880,17 @@
     <lastmod>2026-10-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/challenges/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/defis/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/challenges/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/changamoto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/defis/"/>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <url>
@@ -1653,6 +1697,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/sw/nchi-nyingine/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/autres-pays/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/other-countries/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/nchi-nyingine/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/autres-pays/"/>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/sw/mapambano/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/riposte/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/response/"/>
@@ -1661,6 +1716,17 @@
     <lastmod>2026-10-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/changamoto/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/defis/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/challenges/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/changamoto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/defis/"/>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <url>

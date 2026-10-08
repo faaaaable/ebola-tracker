@@ -65,6 +65,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -77,7 +82,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body>
 
@@ -134,44 +139,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Urambazaji mkuu">
-      <div class="side-nav-title">Habari mpya</div>
-      <a href="/sw/barua/">Barua</a>
-      <a href="/sw/habari/">Habari za mlipuko <span class="nav-badge">Mpya</span></a>
-      <div class="side-nav-title">Chunguza</div>
-      <a href="/sw/">Muhtasari</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Takwimu za kina</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/sw/takwimu/"><span class="dot dot-all"></span>Nchi nzima</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Habari</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/barua/"><span class="nav-t">Barua</span><span class="nav-desc">Muhtasari wa kila ripoti rasmi</span></a>
+      <a href="/sw/habari/"><span class="nav-t">Habari za mlipuko</span><span class="nav-desc">Makala yanayochapishwa kila siku</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Elewa</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/matukio/"><span class="nav-t">Matukio</span><span class="nav-desc">Kuanzia arifa ya kwanza hadi leo</span></a>
+      <a href="/sw/virusi/"><span class="nav-t">Virusi</span><span class="nav-desc">Bundibugyo: maambukizi, dalili</span></a>
+      <a href="/sw/maswali/"><span class="nav-t">Maswali</span><span class="nav-desc">Maswali yanayoulizwa mara nyingi</span></a>
+      <a href="/sw/kamusi/"><span class="nav-t">Kamusi</span><span class="nav-desc">Maneno ya ripoti, yakifafanuliwa</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Chunguza</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">Mwenendo wa mlipuko</div>
+        <a href="/sw/takwimu/"><span class="nav-t">Nchi nzima</span><span class="nav-desc">Mwenendo katika ngazi ya taifa</span></a>
+        <a href="/sw/takwimu/ituri/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Ituri</span><span class="nav-desc">Visa 6,513 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/nord-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">Visa 1,785 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/haut-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">Visa 364 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/tshopo/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Tshopo</span><span class="nav-desc">Visa 51 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/bas-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">Visa 10 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">Visa 3 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-ubangi/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">Visa 2 vilivyothibitishwa</span></a>
+        <a href="/sw/nchi-nyingine/"><span class="nav-t">Nchi nyingine</span><span class="nav-desc">Uganda, Ufaransa, Kenya</span></a>
       </div>
-      <a href="/sw/mapambano/">Mapambano na changamoto</a>
-      <div class="side-nav-title">Elewa</div>
-      <a href="/sw/matukio/">Matukio</a>
-      <a href="/sw/virusi/">Virusi</a>
-      <a href="/sw/ripoti/" aria-current="page">Vyanzo na ripoti</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Takwimu za kina</div>
+        <a href="/sw/ripoti/" aria-current="page"><span class="nav-t">Vyanzo na ripoti</span><span class="nav-desc">Ripoti zote za INSP</span></a>
+        <a href="/sw/hifadhidata/"><span class="nav-t">Hifadhidata <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu za tovuti, za kupakua</span></a>
+        <a href="/sw/dashibodi/"><span class="nav-t">Dashibodi <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu zote kwa wakati halisi</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Kukabili mlipuko</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/mapambano/"><span class="nav-t">Mapambano</span><span class="nav-desc">Hatua zinazochukuliwa kukomesha mlipuko</span></a>
+      <a href="/sw/changamoto/"><span class="nav-t">Changamoto</span><span class="nav-desc">Vikwazo vilivyokumbwa</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Tovuti</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/kuhusu/"><span class="nav-t">Kuhusu</span><span class="nav-desc">Mbinu, vyanzo, tahadhari</span></a>
+      <a href="/sw/mawasiliano/"><span class="nav-t">Mawasiliano</span><span class="nav-desc">Andikia timu</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -186,21 +210,17 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Njia ya kurasa">
-    <a href="/sw/">Mwanzo</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">Vyanzo na ripoti rasmi</span>
-  </nav>
+
 
       <main id="contenu">
   <section class="section">
     <div class="section-head">
       <div>
-        <div class="eyebrow"><span class="dot"></span>Elewa</div>
+        <div class="eyebrow"><span class="dot"></span>Chunguza</div>
         <h1 class="page-title">Vyanzo na ripoti rasmi</h1>
       </div>
     </div>
-    <p class="lede">Tovuti hii haitoi takwimu zake yenyewe: inakusanya zile zinazochapishwa na taasisi zinazofuatilia mlipuko.</p>
+    <p class="lede">Takwimu zote za tovuti hii zinatoka katika ripoti rasmi zinazochapishwa na mamlaka ya afya ya Kongo na WHO. Utazipata zote hapa, kusoma au kupakua.</p>
     <p class="page-intro">Ukurasa huu unakusanya nyaraka hizo, kama zilivyochapishwa, ili mtu yeyote aweze kurudi kwenye asili, kuhakiki nambari, au kusoma yale ambayo tovuti haionyeshi.</p>
     <nav class="riposte-ancres" aria-label="Sehemu tatu">
       <a href="#insp">SitRep ya kila siku (INSP)</a>
@@ -209,1129 +229,196 @@
     </nav>
   </section>
 
+  <!-- Le calendrier « Un bulletin, un jour » (2 octobre 2026) a ete retire
+       le 6 octobre 2026 a la demande du proprietaire ; reports_calendar_html
+       reste dans build_pages.py. -->
+
   <!-- Pleine largeur, pas de colonne de titres : les trois sections sont des
        listes de documents, et la colonne ne laissait que deux bulletins par
        ligne contre trois (demande du proprietaire, 6 septembre 2026). -->
   <!-- Cadres numerotes 01, 02, 03 comme sur les autres pages (demande du
        8 septembre 2026). -->
-  <section class="section cadre-fiche" id="insp">
-    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title" data-i18n="reportsTitle">SitRep ya kila siku (INSP)</h2></div></div>
+  <section class="section cadre-fiche src-centre" id="insp">
+    <div class="fiche-tete"><div><h2 class="frame-title" data-i18n="reportsTitle">SitRep ya kila siku (INSP)</h2></div></div>
     <div class="cadre-corps">
-    <p class="page-intro" data-i18n="reportsIntro">Kila ripoti rasmi iliyochapishwa na Taasisi ya Kitaifa ya Afya ya Umma ya Jamhuri ya Kidemokrasia ya Kongo (INSP) huhifadhiwa hapa mara inapochapishwa, katika muundo asili wa PDF — chanzo kikuu cha tovuti hii.</p>
     <div class="panel" style="padding:16px;">
       <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="SitRep ya kila siku (INSP)"></nav>
       <label class="visually-hidden" for="reportsSearch">Tafuta (Na., mwezi, mwaka)…</label>
       <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="Tafuta (Na., mwezi, mwaka)…" class="search-input">
-      <div id="reportsList" class="reports-grid">
+      <div id="reportsList" class="reports-grid is-registre">
         <div class="reports-month-header" data-month-key="2026-9">Okt. 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_145.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="145 okt. 2026 2026-10-06" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°145</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>6 Okt. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_144.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="144 okt. 2026 2026-10-05" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°144</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>5 Okt. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_143.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="143 okt. 2026 2026-10-04" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°143</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>4 Okt. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_141.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="141 okt. 2026 2026-10-02" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°141</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>2 Okt. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_140.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="140 okt. 2026 2026-10-01" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°140</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>1 Okt. 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_145.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="145 okt. 2026 2026-10-06" title="Pakua PDF" aria-label="SitRep N°145"><span class="rg-n">145</span><span class="rg-d">6 Okt. 2026</span><span class="rg-c">visa 8,728 · vifo 4,205</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_144.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="144 okt. 2026 2026-10-05" title="Pakua PDF" aria-label="SitRep N°144"><span class="rg-n">144</span><span class="rg-d">5 Okt. 2026</span><span class="rg-c">visa 8,665 · vifo 4,178</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_143.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="143 okt. 2026 2026-10-04" title="Pakua PDF" aria-label="SitRep N°143"><span class="rg-n">143</span><span class="rg-d">4 Okt. 2026</span><span class="rg-c">visa 8,603 · vifo 4,148</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_141.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="141 okt. 2026 2026-10-02" title="Pakua PDF" aria-label="SitRep N°141"><span class="rg-n">141</span><span class="rg-d">2 Okt. 2026</span><span class="rg-c">visa 8,442 · vifo 4,080</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_140.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="140 okt. 2026 2026-10-01" title="Pakua PDF" aria-label="SitRep N°140"><span class="rg-n">140</span><span class="rg-d">1 Okt. 2026</span><span class="rg-c">visa 8,376 · vifo 4,042</span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-8">Sep. 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_139.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="139 sep. 2026 2026-09-30" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°139</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>30 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_138.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="138 sep. 2026 2026-09-29" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°138</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>29 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_137.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="137 sep. 2026 2026-09-28" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°137</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>28 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_136.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="136 sep. 2026 2026-09-27" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°136</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>27 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_135.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="135 sep. 2026 2026-09-26" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°135</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>26 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_134.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="134 sep. 2026 2026-09-25" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°134</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>25 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_133.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="133 sep. 2026 2026-09-24" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°133</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>24 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_132.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="132 sep. 2026 2026-09-23" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°132</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>23 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_131.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="131 sep. 2026 2026-09-22" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°131</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>22 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_130.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="130 sep. 2026 2026-09-21" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°130</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>21 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_129.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="129 sep. 2026 2026-09-20" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°129</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>20 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_128.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="128 sep. 2026 2026-09-19" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°128</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>19 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_127.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="127 sep. 2026 2026-09-18" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°127</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>18 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_126.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="126 sep. 2026 2026-09-17" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°126</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>17 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_125.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="125 sep. 2026 2026-09-16" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°125</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>16 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_124.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="124 sep. 2026 2026-09-15" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°124</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>15 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_123.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="123 sep. 2026 2026-09-14" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°123</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>14 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_122.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="122 sep. 2026 2026-09-13" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°122</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>13 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_121.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="121 sep. 2026 2026-09-12" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°121</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>12 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_120.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="120 sep. 2026 2026-09-11" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°120</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>11 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_119.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="119 sep. 2026 2026-09-10" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°119</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>10 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_118.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="118 sep. 2026 2026-09-09" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°118</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>9 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_117.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="117 sep. 2026 2026-09-08" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°117</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>8 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_116.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="116 sep. 2026 2026-09-07" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°116</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>7 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_115.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="115 sep. 2026 2026-09-06" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°115</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>6 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_114.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="114 sep. 2026 2026-09-05" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°114</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>5 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_113.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="113 sep. 2026 2026-09-04" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°113</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>4 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_112.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="112 sep. 2026 2026-09-03" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°112</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>3 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_111.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="111 sep. 2026 2026-09-02" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°111</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>2 Sep. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_110.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="110 sep. 2026 2026-09-01" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°110</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>1 Sep. 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_139.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="139 sep. 2026 2026-09-30" title="Pakua PDF" aria-label="SitRep N°139"><span class="rg-n">139</span><span class="rg-d">30 Sep. 2026</span><span class="rg-c">visa 8,300 · vifo 4,018</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_138.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="138 sep. 2026 2026-09-29" title="Pakua PDF" aria-label="SitRep N°138"><span class="rg-n">138</span><span class="rg-d">29 Sep. 2026</span><span class="rg-c">visa 8,224 · vifo 3,982</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_137.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="137 sep. 2026 2026-09-28" title="Pakua PDF" aria-label="SitRep N°137"><span class="rg-n">137</span><span class="rg-d">28 Sep. 2026</span><span class="rg-c">visa 8,171 · vifo 3,954</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_136.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="136 sep. 2026 2026-09-27" title="Pakua PDF" aria-label="SitRep N°136"><span class="rg-n">136</span><span class="rg-d">27 Sep. 2026</span><span class="rg-c">visa 8,116 · vifo 3,924</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_135.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="135 sep. 2026 2026-09-26" title="Pakua PDF" aria-label="SitRep N°135"><span class="rg-n">135</span><span class="rg-d">26 Sep. 2026</span><span class="rg-c">visa 8,067 · vifo 3,901</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_134.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="134 sep. 2026 2026-09-25" title="Pakua PDF" aria-label="SitRep N°134"><span class="rg-n">134</span><span class="rg-d">25 Sep. 2026</span><span class="rg-c">visa 7,989 · vifo 3,852</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_133.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="133 sep. 2026 2026-09-24" title="Pakua PDF" aria-label="SitRep N°133"><span class="rg-n">133</span><span class="rg-d">24 Sep. 2026</span><span class="rg-c">visa 7,946 · vifo 3,833</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_132.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="132 sep. 2026 2026-09-23" title="Pakua PDF" aria-label="SitRep N°132"><span class="rg-n">132</span><span class="rg-d">23 Sep. 2026</span><span class="rg-c">visa 7,890 · vifo 3,799</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_131.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="131 sep. 2026 2026-09-22" title="Pakua PDF" aria-label="SitRep N°131"><span class="rg-n">131</span><span class="rg-d">22 Sep. 2026</span><span class="rg-c">visa 7,820 · vifo 3,779</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_130.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="130 sep. 2026 2026-09-21" title="Pakua PDF" aria-label="SitRep N°130"><span class="rg-n">130</span><span class="rg-d">21 Sep. 2026</span><span class="rg-c">visa 7,773 · vifo 3,759</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_129.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="129 sep. 2026 2026-09-20" title="Pakua PDF" aria-label="SitRep N°129"><span class="rg-n">129</span><span class="rg-d">20 Sep. 2026</span><span class="rg-c">visa 7,733 · vifo 3,732</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_128.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="128 sep. 2026 2026-09-19" title="Pakua PDF" aria-label="SitRep N°128"><span class="rg-n">128</span><span class="rg-d">19 Sep. 2026</span><span class="rg-c">visa 7,672 · vifo 3,699</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_127.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="127 sep. 2026 2026-09-18" title="Pakua PDF" aria-label="SitRep N°127"><span class="rg-n">127</span><span class="rg-d">18 Sep. 2026</span><span class="rg-c">visa 7,614 · vifo 3,676</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_126.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="126 sep. 2026 2026-09-17" title="Pakua PDF" aria-label="SitRep N°126"><span class="rg-n">126</span><span class="rg-d">17 Sep. 2026</span><span class="rg-c">visa 7,541 · vifo 3,639</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_125.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="125 sep. 2026 2026-09-16" title="Pakua PDF" aria-label="SitRep N°125"><span class="rg-n">125</span><span class="rg-d">16 Sep. 2026</span><span class="rg-c">visa 7,475 · vifo 3,605</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_124.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="124 sep. 2026 2026-09-15" title="Pakua PDF" aria-label="SitRep N°124"><span class="rg-n">124</span><span class="rg-d">15 Sep. 2026</span><span class="rg-c">visa 7,404 · vifo 3,577</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_123.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="123 sep. 2026 2026-09-14" title="Pakua PDF" aria-label="SitRep N°123"><span class="rg-n">123</span><span class="rg-d">14 Sep. 2026</span><span class="rg-c">visa 7,345 · vifo 3,545</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_122.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="122 sep. 2026 2026-09-13" title="Pakua PDF" aria-label="SitRep N°122"><span class="rg-n">122</span><span class="rg-d">13 Sep. 2026</span><span class="rg-c">visa 7,258 · vifo 3,510</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_121.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="121 sep. 2026 2026-09-12" title="Pakua PDF" aria-label="SitRep N°121"><span class="rg-n">121</span><span class="rg-d">12 Sep. 2026</span><span class="rg-c">visa 7,200 · vifo 3,475</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_120.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="120 sep. 2026 2026-09-11" title="Pakua PDF" aria-label="SitRep N°120"><span class="rg-n">120</span><span class="rg-d">11 Sep. 2026</span><span class="rg-c">visa 7,113 · vifo 3,437</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_119.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="119 sep. 2026 2026-09-10" title="Pakua PDF" aria-label="SitRep N°119"><span class="rg-n">119</span><span class="rg-d">10 Sep. 2026</span><span class="rg-c">visa 7,022 · vifo 3,398</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_118.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="118 sep. 2026 2026-09-09" title="Pakua PDF" aria-label="SitRep N°118"><span class="rg-n">118</span><span class="rg-d">9 Sep. 2026</span><span class="rg-c">visa 6,942 · vifo 3,349</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_117.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="117 sep. 2026 2026-09-08" title="Pakua PDF" aria-label="SitRep N°117"><span class="rg-n">117</span><span class="rg-d">8 Sep. 2026</span><span class="rg-c">visa 6,843 · vifo 3,310</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_116.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="116 sep. 2026 2026-09-07" title="Pakua PDF" aria-label="SitRep N°116"><span class="rg-n">116</span><span class="rg-d">7 Sep. 2026</span><span class="rg-c">visa 6,757 · vifo 3,267</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_115.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="115 sep. 2026 2026-09-06" title="Pakua PDF" aria-label="SitRep N°115"><span class="rg-n">115</span><span class="rg-d">6 Sep. 2026</span><span class="rg-c">visa 6,686 · vifo 3,226</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_114.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="114 sep. 2026 2026-09-05" title="Pakua PDF" aria-label="SitRep N°114"><span class="rg-n">114</span><span class="rg-d">5 Sep. 2026</span><span class="rg-c">visa 6,604 · vifo 3,175</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_113.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="113 sep. 2026 2026-09-04" title="Pakua PDF" aria-label="SitRep N°113"><span class="rg-n">113</span><span class="rg-d">4 Sep. 2026</span><span class="rg-c">visa 6,522 · vifo 3,134</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_112.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="112 sep. 2026 2026-09-03" title="Pakua PDF" aria-label="SitRep N°112"><span class="rg-n">112</span><span class="rg-d">3 Sep. 2026</span><span class="rg-c">visa 6,436 · vifo 3,095</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_111.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="111 sep. 2026 2026-09-02" title="Pakua PDF" aria-label="SitRep N°111"><span class="rg-n">111</span><span class="rg-d">2 Sep. 2026</span><span class="rg-c">visa 6,342 · vifo 3,072</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_110.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="110 sep. 2026 2026-09-01" title="Pakua PDF" aria-label="SitRep N°110"><span class="rg-n">110</span><span class="rg-d">1 Sep. 2026</span><span class="rg-c">visa 6,250 · vifo 3,039</span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-7">Ago. 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_109.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="109 ago. 2026 2026-08-31" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°109</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>31 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_108.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="108 ago. 2026 2026-08-30" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°108</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>30 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_107.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="107 ago. 2026 2026-08-29" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°107</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>29 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_106.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="106 ago. 2026 2026-08-28" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°106</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>28 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_105.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="105 ago. 2026 2026-08-27" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°105</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>27 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_104.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="104 ago. 2026 2026-08-26" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°104</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>26 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_103.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="103 ago. 2026 2026-08-25" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°103</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>25 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_102.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="102 ago. 2026 2026-08-24" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°102</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>24 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_101.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="101 ago. 2026 2026-08-23" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°101</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>23 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_100.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="100 ago. 2026 2026-08-22" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°100</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>22 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_099.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="099 ago. 2026 2026-08-21" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°099</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>21 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_098.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="098 ago. 2026 2026-08-20" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°098</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>20 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_097.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="097 ago. 2026 2026-08-19" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°097</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>19 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_096.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="096 ago. 2026 2026-08-18" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°096</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>18 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_095.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="095 ago. 2026 2026-08-17" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°095</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>17 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_094.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="094 ago. 2026 2026-08-16" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°094</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>16 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_093.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="093 ago. 2026 2026-08-15" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°093</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>15 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_092.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="092 ago. 2026 2026-08-14" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°092</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>14 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_091.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="091 ago. 2026 2026-08-13" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°091</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>13 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_090.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="090 ago. 2026 2026-08-12" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°090</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>12 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_089.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="089 ago. 2026 2026-08-11" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°089</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>11 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_088.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="088 ago. 2026 2026-08-10" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°088</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>10 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_087.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="087 ago. 2026 2026-08-09" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°087</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>9 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_086.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="086 ago. 2026 2026-08-08" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°086</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>8 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_085.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="085 ago. 2026 2026-08-07" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°085</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>7 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_084.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="084 ago. 2026 2026-08-06" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°084</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>6 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_083.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="083 ago. 2026 2026-08-05" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°083</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>5 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_082.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="082 ago. 2026 2026-08-04" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°082</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>4 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_081.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="081 ago. 2026 2026-08-03" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°081</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>3 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_080.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="080 ago. 2026 2026-08-02" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°080</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>2 Ago. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_079.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="079 ago. 2026 2026-08-01" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°079</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>1 Ago. 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_109.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="109 ago. 2026 2026-08-31" title="Pakua PDF" aria-label="SitRep N°109"><span class="rg-n">109</span><span class="rg-d">31 Ago. 2026</span><span class="rg-c">visa 6,186 · vifo 3,007</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_108.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="108 ago. 2026 2026-08-30" title="Pakua PDF" aria-label="SitRep N°108"><span class="rg-n">108</span><span class="rg-d">30 Ago. 2026</span><span class="rg-c">visa 6,100 · vifo 2,950</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_107.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="107 ago. 2026 2026-08-29" title="Pakua PDF" aria-label="SitRep N°107"><span class="rg-n">107</span><span class="rg-d">29 Ago. 2026</span><span class="rg-c">visa 6,041 · vifo 2,911</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_106.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="106 ago. 2026 2026-08-28" title="Pakua PDF" aria-label="SitRep N°106"><span class="rg-n">106</span><span class="rg-d">28 Ago. 2026</span><span class="rg-c">visa 5,945 · vifo 2,862</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_105.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="105 ago. 2026 2026-08-27" title="Pakua PDF" aria-label="SitRep N°105"><span class="rg-n">105</span><span class="rg-d">27 Ago. 2026</span><span class="rg-c">visa 5,863 · vifo 2,824</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_104.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="104 ago. 2026 2026-08-26" title="Pakua PDF" aria-label="SitRep N°104"><span class="rg-n">104</span><span class="rg-d">26 Ago. 2026</span><span class="rg-c">visa 5,794 · vifo 2,786</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_103.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="103 ago. 2026 2026-08-25" title="Pakua PDF" aria-label="SitRep N°103"><span class="rg-n">103</span><span class="rg-d">25 Ago. 2026</span><span class="rg-c">visa 5,713 · vifo 2,744</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_102.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="102 ago. 2026 2026-08-24" title="Pakua PDF" aria-label="SitRep N°102"><span class="rg-n">102</span><span class="rg-d">24 Ago. 2026</span><span class="rg-c">visa 5,656 · vifo 2,715</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_101.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="101 ago. 2026 2026-08-23" title="Pakua PDF" aria-label="SitRep N°101"><span class="rg-n">101</span><span class="rg-d">23 Ago. 2026</span><span class="rg-c">visa 5,584 · vifo 2,680</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_100.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="100 ago. 2026 2026-08-22" title="Pakua PDF" aria-label="SitRep N°100"><span class="rg-n">100</span><span class="rg-d">22 Ago. 2026</span><span class="rg-c">visa 5,514 · vifo 2,642</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_099.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="099 ago. 2026 2026-08-21" title="Pakua PDF" aria-label="SitRep N°099"><span class="rg-n">099</span><span class="rg-d">21 Ago. 2026</span><span class="rg-c">visa 5,458 · vifo 2,606</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_098.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="098 ago. 2026 2026-08-20" title="Pakua PDF" aria-label="SitRep N°098"><span class="rg-n">098</span><span class="rg-d">20 Ago. 2026</span><span class="rg-c">visa 5,375 · vifo 2,557</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_097.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="097 ago. 2026 2026-08-19" title="Pakua PDF" aria-label="SitRep N°097"><span class="rg-n">097</span><span class="rg-d">19 Ago. 2026</span><span class="rg-c">visa 5,290 · vifo 2,516</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_096.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="096 ago. 2026 2026-08-18" title="Pakua PDF" aria-label="SitRep N°096"><span class="rg-n">096</span><span class="rg-d">18 Ago. 2026</span><span class="rg-c">visa 5,208 · vifo 2,476</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_095.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="095 ago. 2026 2026-08-17" title="Pakua PDF" aria-label="SitRep N°095"><span class="rg-n">095</span><span class="rg-d">17 Ago. 2026</span><span class="rg-c">visa 5,105 · vifo 2,420</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_094.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="094 ago. 2026 2026-08-16" title="Pakua PDF" aria-label="SitRep N°094"><span class="rg-n">094</span><span class="rg-d">16 Ago. 2026</span><span class="rg-c">visa 5,021 · vifo 2,378</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_093.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="093 ago. 2026 2026-08-15" title="Pakua PDF" aria-label="SitRep N°093"><span class="rg-n">093</span><span class="rg-d">15 Ago. 2026</span><span class="rg-c">visa 4,945 · vifo 2,325</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_092.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="092 ago. 2026 2026-08-14" title="Pakua PDF" aria-label="SitRep N°092"><span class="rg-n">092</span><span class="rg-d">14 Ago. 2026</span><span class="rg-c">visa 4,843 · vifo 2,272</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_091.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="091 ago. 2026 2026-08-13" title="Pakua PDF" aria-label="SitRep N°091"><span class="rg-n">091</span><span class="rg-d">13 Ago. 2026</span><span class="rg-c">visa 4,727 · vifo 2,214</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_090.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="090 ago. 2026 2026-08-12" title="Pakua PDF" aria-label="SitRep N°090"><span class="rg-n">090</span><span class="rg-d">12 Ago. 2026</span><span class="rg-c">visa 4,665 · vifo 2,184</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_089.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="089 ago. 2026 2026-08-11" title="Pakua PDF" aria-label="SitRep N°089"><span class="rg-n">089</span><span class="rg-d">11 Ago. 2026</span><span class="rg-c">visa 4,566 · vifo 2,128</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_088.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="088 ago. 2026 2026-08-10" title="Pakua PDF" aria-label="SitRep N°088"><span class="rg-n">088</span><span class="rg-d">10 Ago. 2026</span><span class="rg-c">visa 4,449 · vifo 2,061</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_087.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="087 ago. 2026 2026-08-09" title="Pakua PDF" aria-label="SitRep N°087"><span class="rg-n">087</span><span class="rg-d">9 Ago. 2026</span><span class="rg-c">visa 4,381 · vifo 2,011</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_086.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="086 ago. 2026 2026-08-08" title="Pakua PDF" aria-label="SitRep N°086"><span class="rg-n">086</span><span class="rg-d">8 Ago. 2026</span><span class="rg-c">visa 4,294 · vifo 1,960</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_085.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="085 ago. 2026 2026-08-07" title="Pakua PDF" aria-label="SitRep N°085"><span class="rg-n">085</span><span class="rg-d">7 Ago. 2026</span><span class="rg-c">visa 4,209 · vifo 1,916</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_084.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="084 ago. 2026 2026-08-06" title="Pakua PDF" aria-label="SitRep N°084"><span class="rg-n">084</span><span class="rg-d">6 Ago. 2026</span><span class="rg-c">visa 4,120 · vifo 1,887</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_083.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="083 ago. 2026 2026-08-05" title="Pakua PDF" aria-label="SitRep N°083"><span class="rg-n">083</span><span class="rg-d">5 Ago. 2026</span><span class="rg-c">visa 4,053 · vifo 1,851</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_082.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="082 ago. 2026 2026-08-04" title="Pakua PDF" aria-label="SitRep N°082"><span class="rg-n">082</span><span class="rg-d">4 Ago. 2026</span><span class="rg-c">visa 3,973 · vifo 1,801</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_081.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="081 ago. 2026 2026-08-03" title="Pakua PDF" aria-label="SitRep N°081"><span class="rg-n">081</span><span class="rg-d">3 Ago. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_080.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="080 ago. 2026 2026-08-02" title="Pakua PDF" aria-label="SitRep N°080"><span class="rg-n">080</span><span class="rg-d">2 Ago. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_079.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="079 ago. 2026 2026-08-01" title="Pakua PDF" aria-label="SitRep N°079"><span class="rg-n">079</span><span class="rg-d">1 Ago. 2026</span><span class="rg-c">visa 3,748 · vifo 1,657</span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-6">Jul. 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_078.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="078 jul. 2026 2026-07-31" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°078</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>31 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_077.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="077 jul. 2026 2026-07-30" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°077</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>30 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_074.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="074 jul. 2026 2026-07-27" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°074</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>27 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_073.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="073 jul. 2026 2026-07-26" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°073</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>26 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_072.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="072 jul. 2026 2026-07-25" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°072</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>25 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_071.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="071 jul. 2026 2026-07-24" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°071</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>24 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_070.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="070 jul. 2026 2026-07-23" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°070</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>23 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_069.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="069 jul. 2026 2026-07-22" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°069</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>22 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_068.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="068 jul. 2026 2026-07-21" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°068</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>21 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_067.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="067 jul. 2026 2026-07-20" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°067</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>20 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_066.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="066 jul. 2026 2026-07-19" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°066</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>19 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_065.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="065 jul. 2026 2026-07-18" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°065</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>18 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_064.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="064 jul. 2026 2026-07-17" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°064</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>17 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_062.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="062 jul. 2026 2026-07-15" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°062</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>15 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_061.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="061 jul. 2026 2026-07-14" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°061</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>14 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_060.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="060 jul. 2026 2026-07-13" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°060</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>13 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_059.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="059 jul. 2026 2026-07-12" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°059</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>12 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_058.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="058 jul. 2026 2026-07-11" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°058</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>11 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_057.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="057 jul. 2026 2026-07-10" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°057</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>10 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_056.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="056 jul. 2026 2026-07-09" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°056</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>9 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_055.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="055 jul. 2026 2026-07-08" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°055</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>8 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_054.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="054 jul. 2026 2026-07-07" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°054</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>7 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_053.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="053 jul. 2026 2026-07-06" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°053</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>6 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_052.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="052 jul. 2026 2026-07-05" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°052</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>5 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_051.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="051 jul. 2026 2026-07-04" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°051</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>4 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_050.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="050 jul. 2026 2026-07-03" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°050</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>3 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_049.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="049 jul. 2026 2026-07-02" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°049</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>2 Jul. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_048.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="048 jul. 2026 2026-07-01" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°048</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>1 Jul. 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_078.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="078 jul. 2026 2026-07-31" title="Pakua PDF" aria-label="SitRep N°078"><span class="rg-n">078</span><span class="rg-d">31 Jul. 2026</span><span class="rg-c">visa 3,674 · vifo 1,621</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_077.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="077 jul. 2026 2026-07-30" title="Pakua PDF" aria-label="SitRep N°077"><span class="rg-n">077</span><span class="rg-d">30 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_074.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="074 jul. 2026 2026-07-27" title="Pakua PDF" aria-label="SitRep N°074"><span class="rg-n">074</span><span class="rg-d">27 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_073.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="073 jul. 2026 2026-07-26" title="Pakua PDF" aria-label="SitRep N°073"><span class="rg-n">073</span><span class="rg-d">26 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_072.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="072 jul. 2026 2026-07-25" title="Pakua PDF" aria-label="SitRep N°072"><span class="rg-n">072</span><span class="rg-d">25 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_071.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="071 jul. 2026 2026-07-24" title="Pakua PDF" aria-label="SitRep N°071"><span class="rg-n">071</span><span class="rg-d">24 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_070.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="070 jul. 2026 2026-07-23" title="Pakua PDF" aria-label="SitRep N°070"><span class="rg-n">070</span><span class="rg-d">23 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_069.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="069 jul. 2026 2026-07-22" title="Pakua PDF" aria-label="SitRep N°069"><span class="rg-n">069</span><span class="rg-d">22 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_068.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="068 jul. 2026 2026-07-21" title="Pakua PDF" aria-label="SitRep N°068"><span class="rg-n">068</span><span class="rg-d">21 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_067.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="067 jul. 2026 2026-07-20" title="Pakua PDF" aria-label="SitRep N°067"><span class="rg-n">067</span><span class="rg-d">20 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_066.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="066 jul. 2026 2026-07-19" title="Pakua PDF" aria-label="SitRep N°066"><span class="rg-n">066</span><span class="rg-d">19 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_065.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="065 jul. 2026 2026-07-18" title="Pakua PDF" aria-label="SitRep N°065"><span class="rg-n">065</span><span class="rg-d">18 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_064.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="064 jul. 2026 2026-07-17" title="Pakua PDF" aria-label="SitRep N°064"><span class="rg-n">064</span><span class="rg-d">17 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_062.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="062 jul. 2026 2026-07-15" title="Pakua PDF" aria-label="SitRep N°062"><span class="rg-n">062</span><span class="rg-d">15 Jul. 2026</span><span class="rg-c">visa 2,124 · vifo 828</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_061.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="061 jul. 2026 2026-07-14" title="Pakua PDF" aria-label="SitRep N°061"><span class="rg-n">061</span><span class="rg-d">14 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_060.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="060 jul. 2026 2026-07-13" title="Pakua PDF" aria-label="SitRep N°060"><span class="rg-n">060</span><span class="rg-d">13 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_059.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="059 jul. 2026 2026-07-12" title="Pakua PDF" aria-label="SitRep N°059"><span class="rg-n">059</span><span class="rg-d">12 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_058.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="058 jul. 2026 2026-07-11" title="Pakua PDF" aria-label="SitRep N°058"><span class="rg-n">058</span><span class="rg-d">11 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_057.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="057 jul. 2026 2026-07-10" title="Pakua PDF" aria-label="SitRep N°057"><span class="rg-n">057</span><span class="rg-d">10 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_056.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="056 jul. 2026 2026-07-09" title="Pakua PDF" aria-label="SitRep N°056"><span class="rg-n">056</span><span class="rg-d">9 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_055.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="055 jul. 2026 2026-07-08" title="Pakua PDF" aria-label="SitRep N°055"><span class="rg-n">055</span><span class="rg-d">8 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_054.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="054 jul. 2026 2026-07-07" title="Pakua PDF" aria-label="SitRep N°054"><span class="rg-n">054</span><span class="rg-d">7 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_053.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="053 jul. 2026 2026-07-06" title="Pakua PDF" aria-label="SitRep N°053"><span class="rg-n">053</span><span class="rg-d">6 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_052.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="052 jul. 2026 2026-07-05" title="Pakua PDF" aria-label="SitRep N°052"><span class="rg-n">052</span><span class="rg-d">5 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_051.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="051 jul. 2026 2026-07-04" title="Pakua PDF" aria-label="SitRep N°051"><span class="rg-n">051</span><span class="rg-d">4 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_050.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="050 jul. 2026 2026-07-03" title="Pakua PDF" aria-label="SitRep N°050"><span class="rg-n">050</span><span class="rg-d">3 Jul. 2026</span><span class="rg-c">visa 1,528 · vifo 492</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_049.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="049 jul. 2026 2026-07-02" title="Pakua PDF" aria-label="SitRep N°049"><span class="rg-n">049</span><span class="rg-d">2 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_048.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="048 jul. 2026 2026-07-01" title="Pakua PDF" aria-label="SitRep N°048"><span class="rg-n">048</span><span class="rg-d">1 Jul. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-5">Jun. 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_047.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="047 jun. 2026 2026-06-30" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°047</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>30 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_046.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="046 jun. 2026 2026-06-29" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°046</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>29 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_044.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="044 jun. 2026 2026-06-27" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°044</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>27 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_042.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="042 jun. 2026 2026-06-25" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°042</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>25 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_041.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="041 jun. 2026 2026-06-24" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°041</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>24 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_040.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="040 jun. 2026 2026-06-23" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°040</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>23 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_039.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="039 jun. 2026 2026-06-22" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°039</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>22 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_038.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="038 jun. 2026 2026-06-21" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°038</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>21 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_037.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="037 jun. 2026 2026-06-20" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°037</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>20 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_036.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="036 jun. 2026 2026-06-19" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°036</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>19 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_035.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="035 jun. 2026 2026-06-18" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°035</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>18 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_034.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="034 jun. 2026 2026-06-17" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°034</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>17 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_033.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="033 jun. 2026 2026-06-16" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°033</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>16 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_032.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="032 jun. 2026 2026-06-15" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°032</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>15 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_031.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="031 jun. 2026 2026-06-14" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°031</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>14 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_030.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="030 jun. 2026 2026-06-13" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°030</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>13 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_028.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="028 jun. 2026 2026-06-11" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°028</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>11 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_027.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="027 jun. 2026 2026-06-10" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°027</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>10 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_026.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="026 jun. 2026 2026-06-09" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°026</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>9 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_025.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="025 jun. 2026 2026-06-08" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°025</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>8 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_024.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="024 jun. 2026 2026-06-07" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°024</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>7 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_023.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="023 jun. 2026 2026-06-06" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°023</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>6 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_022.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="022 jun. 2026 2026-06-05" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°022</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>5 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_021.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="021 jun. 2026 2026-06-04" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°021</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>4 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_020.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="020 jun. 2026 2026-06-03" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°020</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>3 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_019.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="019 jun. 2026 2026-06-02" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°019</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>2 Jun. 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_018.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="018 jun. 2026 2026-06-01" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°018</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>1 Jun. 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_047.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="047 jun. 2026 2026-06-30" title="Pakua PDF" aria-label="SitRep N°047"><span class="rg-n">047</span><span class="rg-d">30 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_046.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="046 jun. 2026 2026-06-29" title="Pakua PDF" aria-label="SitRep N°046"><span class="rg-n">046</span><span class="rg-d">29 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_044.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="044 jun. 2026 2026-06-27" title="Pakua PDF" aria-label="SitRep N°044"><span class="rg-n">044</span><span class="rg-d">27 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_042.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="042 jun. 2026 2026-06-25" title="Pakua PDF" aria-label="SitRep N°042"><span class="rg-n">042</span><span class="rg-d">25 Jun. 2026</span><span class="rg-c">visa 1,203 · vifo 321</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_041.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="041 jun. 2026 2026-06-24" title="Pakua PDF" aria-label="SitRep N°041"><span class="rg-n">041</span><span class="rg-d">24 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_040.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="040 jun. 2026 2026-06-23" title="Pakua PDF" aria-label="SitRep N°040"><span class="rg-n">040</span><span class="rg-d">23 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_039.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="039 jun. 2026 2026-06-22" title="Pakua PDF" aria-label="SitRep N°039"><span class="rg-n">039</span><span class="rg-d">22 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_038.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="038 jun. 2026 2026-06-21" title="Pakua PDF" aria-label="SitRep N°038"><span class="rg-n">038</span><span class="rg-d">21 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_037.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="037 jun. 2026 2026-06-20" title="Pakua PDF" aria-label="SitRep N°037"><span class="rg-n">037</span><span class="rg-d">20 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_036.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="036 jun. 2026 2026-06-19" title="Pakua PDF" aria-label="SitRep N°036"><span class="rg-n">036</span><span class="rg-d">19 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_035.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="035 jun. 2026 2026-06-18" title="Pakua PDF" aria-label="SitRep N°035"><span class="rg-n">035</span><span class="rg-d">18 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_034.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="034 jun. 2026 2026-06-17" title="Pakua PDF" aria-label="SitRep N°034"><span class="rg-n">034</span><span class="rg-d">17 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_033.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="033 jun. 2026 2026-06-16" title="Pakua PDF" aria-label="SitRep N°033"><span class="rg-n">033</span><span class="rg-d">16 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_032.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="032 jun. 2026 2026-06-15" title="Pakua PDF" aria-label="SitRep N°032"><span class="rg-n">032</span><span class="rg-d">15 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_031.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="031 jun. 2026 2026-06-14" title="Pakua PDF" aria-label="SitRep N°031"><span class="rg-n">031</span><span class="rg-d">14 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_030.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="030 jun. 2026 2026-06-13" title="Pakua PDF" aria-label="SitRep N°030"><span class="rg-n">030</span><span class="rg-d">13 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_028.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="028 jun. 2026 2026-06-11" title="Pakua PDF" aria-label="SitRep N°028"><span class="rg-n">028</span><span class="rg-d">11 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_027.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="027 jun. 2026 2026-06-10" title="Pakua PDF" aria-label="SitRep N°027"><span class="rg-n">027</span><span class="rg-d">10 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_026.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="026 jun. 2026 2026-06-09" title="Pakua PDF" aria-label="SitRep N°026"><span class="rg-n">026</span><span class="rg-d">9 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_025.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="025 jun. 2026 2026-06-08" title="Pakua PDF" aria-label="SitRep N°025"><span class="rg-n">025</span><span class="rg-d">8 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_024.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="024 jun. 2026 2026-06-07" title="Pakua PDF" aria-label="SitRep N°024"><span class="rg-n">024</span><span class="rg-d">7 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_023.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="023 jun. 2026 2026-06-06" title="Pakua PDF" aria-label="SitRep N°023"><span class="rg-n">023</span><span class="rg-d">6 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_022.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="022 jun. 2026 2026-06-05" title="Pakua PDF" aria-label="SitRep N°022"><span class="rg-n">022</span><span class="rg-d">5 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_021.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="021 jun. 2026 2026-06-04" title="Pakua PDF" aria-label="SitRep N°021"><span class="rg-n">021</span><span class="rg-d">4 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_020.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="020 jun. 2026 2026-06-03" title="Pakua PDF" aria-label="SitRep N°020"><span class="rg-n">020</span><span class="rg-d">3 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_019.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="019 jun. 2026 2026-06-02" title="Pakua PDF" aria-label="SitRep N°019"><span class="rg-n">019</span><span class="rg-d">2 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_018.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="018 jun. 2026 2026-06-01" title="Pakua PDF" aria-label="SitRep N°018"><span class="rg-n">018</span><span class="rg-d">1 Jun. 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-4">Mei 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_017.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="017 mei 2026 2026-05-31" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°017</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>31 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_016.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="016 mei 2026 2026-05-30" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°016</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>30 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_015.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="015 mei 2026 2026-05-29" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°015</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>29 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_014.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="014 mei 2026 2026-05-28" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°014</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>28 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_013.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="013 mei 2026 2026-05-27" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°013</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>27 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_012.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="012 mei 2026 2026-05-26" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°012</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>26 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_011.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="011 mei 2026 2026-05-25" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°011</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>25 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_010.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="010 mei 2026 2026-05-24" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°010</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>24 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_009.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="009 mei 2026 2026-05-23" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°009</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>23 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_008.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="008 mei 2026 2026-05-22" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°008</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>22 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_007.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="007 mei 2026 2026-05-21" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°007</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>21 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_006.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="006 mei 2026 2026-05-20" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°006</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>20 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_005.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="005 mei 2026 2026-05-19" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°005</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>19 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_004.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="004 mei 2026 2026-05-19" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°004</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>19 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_002.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="002 mei 2026 2026-05-17" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°002</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>17 Mei 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_001.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="001 mei 2026 2026-05-14" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°001</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>14 Mei 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_017.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="017 mei 2026 2026-05-31" title="Pakua PDF" aria-label="SitRep N°017"><span class="rg-n">017</span><span class="rg-d">31 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_016.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="016 mei 2026 2026-05-30" title="Pakua PDF" aria-label="SitRep N°016"><span class="rg-n">016</span><span class="rg-d">30 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_015.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="015 mei 2026 2026-05-29" title="Pakua PDF" aria-label="SitRep N°015"><span class="rg-n">015</span><span class="rg-d">29 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_014.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="014 mei 2026 2026-05-28" title="Pakua PDF" aria-label="SitRep N°014"><span class="rg-n">014</span><span class="rg-d">28 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_013.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="013 mei 2026 2026-05-27" title="Pakua PDF" aria-label="SitRep N°013"><span class="rg-n">013</span><span class="rg-d">27 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_012.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="012 mei 2026 2026-05-26" title="Pakua PDF" aria-label="SitRep N°012"><span class="rg-n">012</span><span class="rg-d">26 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_011.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="011 mei 2026 2026-05-25" title="Pakua PDF" aria-label="SitRep N°011"><span class="rg-n">011</span><span class="rg-d">25 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_010.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="010 mei 2026 2026-05-24" title="Pakua PDF" aria-label="SitRep N°010"><span class="rg-n">010</span><span class="rg-d">24 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_009.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="009 mei 2026 2026-05-23" title="Pakua PDF" aria-label="SitRep N°009"><span class="rg-n">009</span><span class="rg-d">23 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_008.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="008 mei 2026 2026-05-22" title="Pakua PDF" aria-label="SitRep N°008"><span class="rg-n">008</span><span class="rg-d">22 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_007.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="007 mei 2026 2026-05-21" title="Pakua PDF" aria-label="SitRep N°007"><span class="rg-n">007</span><span class="rg-d">21 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_006.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="006 mei 2026 2026-05-20" title="Pakua PDF" aria-label="SitRep N°006"><span class="rg-n">006</span><span class="rg-d">20 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_005.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="005 mei 2026 2026-05-19" title="Pakua PDF" aria-label="SitRep N°005"><span class="rg-n">005</span><span class="rg-d">19 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_004.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="004 mei 2026 2026-05-19" title="Pakua PDF" aria-label="SitRep N°004"><span class="rg-n">004</span><span class="rg-d">19 Mei 2026</span><span class="rg-c">visa 33 · vifo 4</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_002.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="002 mei 2026 2026-05-17" title="Pakua PDF" aria-label="SitRep N°002"><span class="rg-n">002</span><span class="rg-d">17 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_001.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="001 mei 2026 2026-05-14" title="Pakua PDF" aria-label="SitRep N°001"><span class="rg-n">001</span><span class="rg-d">14 Mei 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
       </div>
     </div>
+    <p class="reports-manquants">Ripoti ambazo hazikuwahi kuchapishwa: INSP haikuweka mtandaoni SitRep Na. 003, 029, 043, 045, 063, 075, 076 na 142. Siku hizo hazina ripoti kwenye tovuti hii.</p>
     </div>
   </section>
 
-  <section class="section cadre-fiche" id="who-reports-section" style="">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title" data-i18n="whoReportsTitle">Weekly External Situation Report (WHO)</h2></div></div>
+  <section class="section cadre-fiche src-centre" id="who-reports-section" style="">
+    <div class="fiche-tete"><div><h2 class="frame-title" data-i18n="whoReportsTitle">Weekly External Situation Report (WHO)</h2></div></div>
     <div class="cadre-corps">
-    <p class="page-intro" data-i18n="whoReportsIntro">Ripoti za kila wiki zilizochapishwa na Ofisi ya Kanda ya Afrika ya Shirika la Afya Duniani kuhusu mlipuko huu — chanzo huru kutoka INSP, kwa mwendo wa kila wiki badala ya karibu kila siku.</p>
     <div class="panel" style="padding:16px;">
-      <div id="whoReportsList" class="reports-grid">
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_19_2026-09-20.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.19</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>20 Sep. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_18_2026-09-13.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.18</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>13 Sep. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_17_2026-09-06.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.17</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>6 Sep. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_16_2026-08-30.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.16</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>30 Ago. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_15_2026-08-23.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.15</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>23 Ago. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_14_2026-08-16.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.14</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>16 Ago. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_13_2026-08-09.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.13</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>9 Ago. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_12_2026-08-02.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.12</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>2 Ago. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_11_2026-07-26.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.11</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>26 Jul. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_10_2026-07-19.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.10</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>19 Jul. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_09_2026-07-12.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.09</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>12 Jul. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_08_2026-07-05.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.08</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>5 Jul. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_07_2026-06-28.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.07</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>28 Jun. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_06_2026-06-21.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.06</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>21 Jun. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_05_2026-06-14.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.05</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>14 Jun. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_04_2026-06-07.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.04</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>7 Jun. 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_03_2026-05-31.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.03</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>31 Mei 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_02_2026-05-24.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.02</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>24 Mei 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_01_2026-05-18.pdf" target="_blank" rel="noopener" title="Pakua PDF">
-          <span class="rc-head">
-            <span class="rc-label">Ripoti Na.01</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Hali hadi </span>18 Mei 2026</span>
-        </a>
+      <div id="whoReportsList" class="reports-grid is-registre">
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_19_2026-09-20.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.19"><span class="rg-n">n°19</span><span class="rg-d">20 Sep. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_18_2026-09-13.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.18"><span class="rg-n">n°18</span><span class="rg-d">13 Sep. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_17_2026-09-06.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.17"><span class="rg-n">n°17</span><span class="rg-d">6 Sep. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_16_2026-08-30.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.16"><span class="rg-n">n°16</span><span class="rg-d">30 Ago. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_15_2026-08-23.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.15"><span class="rg-n">n°15</span><span class="rg-d">23 Ago. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_14_2026-08-16.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.14"><span class="rg-n">n°14</span><span class="rg-d">16 Ago. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_13_2026-08-09.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.13"><span class="rg-n">n°13</span><span class="rg-d">9 Ago. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_12_2026-08-02.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.12"><span class="rg-n">n°12</span><span class="rg-d">2 Ago. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_11_2026-07-26.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.11"><span class="rg-n">n°11</span><span class="rg-d">26 Jul. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_10_2026-07-19.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.10"><span class="rg-n">n°10</span><span class="rg-d">19 Jul. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_09_2026-07-12.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.09"><span class="rg-n">n°09</span><span class="rg-d">12 Jul. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_08_2026-07-05.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.08"><span class="rg-n">n°08</span><span class="rg-d">5 Jul. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_07_2026-06-28.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.07"><span class="rg-n">n°07</span><span class="rg-d">28 Jun. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_06_2026-06-21.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.06"><span class="rg-n">n°06</span><span class="rg-d">21 Jun. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_05_2026-06-14.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.05"><span class="rg-n">n°05</span><span class="rg-d">14 Jun. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_04_2026-06-07.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.04"><span class="rg-n">n°04</span><span class="rg-d">7 Jun. 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_03_2026-05-31.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.03"><span class="rg-n">n°03</span><span class="rg-d">31 Mei 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_02_2026-05-24.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.02"><span class="rg-n">n°02</span><span class="rg-d">24 Mei 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_01_2026-05-18.pdf" target="_blank" rel="noopener" title="Pakua PDF" aria-label="Ripoti Na.01"><span class="rg-n">n°01</span><span class="rg-d">18 Mei 2026</span><span class="rg-c">ripoti ya kila wiki</span><span class="rg-p" aria-hidden="true">PDF</span></a>
       </div>
     </div>
     </div>
@@ -1339,8 +426,8 @@
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section cadre-fiche" id="autres">
-    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title" data-i18n="geoSourceTitle">Vyanzo vingine</h2></div></div>
+  <section class="section cadre-fiche src-centre" id="autres">
+    <div class="fiche-tete"><div><h2 class="frame-title" data-i18n="geoSourceTitle">Vyanzo vingine</h2></div></div>
     <div class="cadre-corps">
     <p class="page-intro" data-i18n="geoSourceText">Mipaka ya maeneo ya afya iliyochorwa kwenye ramani za tovuti hii inatoka kwenye seti ya data « DR Congo – Health Zones » iliyochapishwa na OCHA DRC kwenye jukwaa la HDX, kwa kuzingatia Rejea ya kijiografia ya pamoja ya Jamhuri ya Kidemokrasia ya Kongo. Kila umbo ni eneo la afya, kipimo cha rejea cha ripoti rasmi.</p>
     </div>
@@ -1352,13 +439,10 @@
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Chunguza</h2>
+        <h2>Habari</h2>
         <ul>
-        <li><a href="/sw/">Muhtasari</a></li>
         <li><a href="/sw/barua/">Barua</a></li>
         <li><a href="/sw/habari/">Habari za mlipuko</a></li>
-        <li><a href="/sw/takwimu/">Takwimu za kina</a></li>
-        <li><a href="/sw/mapambano/">Mapambano na changamoto</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1366,9 +450,20 @@
         <ul>
         <li><a href="/sw/matukio/">Matukio</a></li>
         <li><a href="/sw/virusi/">Virusi</a></li>
-        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
         <li><a href="/sw/maswali/">Maswali</a></li>
         <li><a href="/sw/kamusi/">Kamusi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Chunguza</h2>
+        <ul>
+        <li><a href="/sw/takwimu/">Nchi nzima</a></li>
+        <li><a href="/sw/nchi-nyingine/">Nchi nyingine</a></li>
+        <li><a href="/sw/mapambano/">Mapambano</a></li>
+        <li><a href="/sw/changamoto/">Changamoto</a></li>
+        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
+        <li><a href="/sw/hifadhidata/">Hifadhidata</a></li>
+        <li><a href="/sw/dashibodi/">Dashibodi</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1392,7 +487,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/">Tahadhari kamili</a></p>
+    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/#avertissement">Tahadhari kamili</a></p>
   </footer>
 
     </div>
@@ -1403,6 +498,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/sw/takwimu/ituri/", "Nord-Kivu": "/sw/takwimu/nord-kivu/", "Haut-Uélé": "/sw/takwimu/haut-uele/", "Tshopo": "/sw/takwimu/tshopo/", "Bas-Uélé": "/sw/takwimu/bas-uele/", "Sud-Kivu": "/sw/takwimu/sud-kivu/", "Sud-Ubangi": "/sw/takwimu/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "visa vilivyothibitishwa"; window.HERO_TIP_DEATHS = "vifo";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -1422,8 +518,8 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>

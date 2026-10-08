@@ -65,6 +65,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -77,7 +82,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body>
 
@@ -134,44 +139,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Main navigation">
-      <div class="side-nav-title">Latest</div>
-      <a href="/en/letter/">The letter</a>
-      <a href="/en/news/">Outbreak news <span class="nav-badge">New</span></a>
-      <div class="side-nav-title">Explore</div>
-      <a href="/en/">Overview</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Detailed data</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/en/data/"><span class="dot dot-all"></span>Whole country</a>
-          <a class="tab-dropdown-item" href="/en/data/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/en/data/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/en/data/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/en/data/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/en/data/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/en/data/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/en/data/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>News</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/letter/"><span class="nav-t">The letter</span><span class="nav-desc">A summary of each official bulletin</span></a>
+      <a href="/en/news/"><span class="nav-t">Outbreak news</span><span class="nav-desc">Articles published every day</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Understand</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/timeline/"><span class="nav-t">Timeline</span><span class="nav-desc">From the first alert to today</span></a>
+      <a href="/en/the-virus/"><span class="nav-t">The virus</span><span class="nav-desc">Bundibugyo: transmission, symptoms</span></a>
+      <a href="/en/faq/"><span class="nav-t">FAQ</span><span class="nav-desc">Frequently asked questions</span></a>
+      <a href="/en/glossary/"><span class="nav-t">Glossary</span><span class="nav-desc">The words of the bulletins, explained</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Explore</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">How the outbreak is evolving</div>
+        <a href="/en/data/"><span class="nav-t">Whole country</span><span class="nav-desc">The trends at national level</span></a>
+        <a href="/en/data/ituri/" title="Based on the latest official bulletin"><span class="nav-t">Ituri</span><span class="nav-desc">6,513 confirmed cases</span></a>
+        <a href="/en/data/nord-kivu/" title="Based on the latest official bulletin"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">1,785 confirmed cases</span></a>
+        <a href="/en/data/haut-uele/" title="Based on the latest official bulletin"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">364 confirmed cases</span></a>
+        <a href="/en/data/tshopo/" title="Based on the latest official bulletin"><span class="nav-t">Tshopo</span><span class="nav-desc">51 confirmed cases</span></a>
+        <a href="/en/data/bas-uele/" title="Based on the latest official bulletin"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">10 confirmed cases</span></a>
+        <a href="/en/data/sud-kivu/" title="Based on the latest official bulletin"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">3 confirmed cases</span></a>
+        <a href="/en/data/sud-ubangi/" title="Based on the latest official bulletin"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">2 confirmed cases</span></a>
+        <a href="/en/other-countries/"><span class="nav-t">Other countries</span><span class="nav-desc">Uganda, France, Kenya</span></a>
       </div>
-      <a href="/en/response/">Response &amp; challenges</a>
-      <div class="side-nav-title">Understand</div>
-      <a href="/en/timeline/">Timeline</a>
-      <a href="/en/the-virus/">The virus</a>
-      <a href="/en/reports/" aria-current="page">Sources &amp; bulletins</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Detailed data</div>
+        <a href="/en/reports/" aria-current="page"><span class="nav-t">Sources &amp; bulletins</span><span class="nav-desc">Every INSP bulletin</span></a>
+        <a href="/en/database/"><span class="nav-t">Database <span class="nav-badge nav-badge-soon">Coming soon</span></span><span class="nav-desc">The site's data, to download</span></a>
+        <a href="/en/dashboard/"><span class="nav-t">Dashboard <span class="nav-badge nav-badge-soon">Coming soon</span></span><span class="nav-desc">All the data in real time</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Facing the outbreak</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/response/"><span class="nav-t">Response</span><span class="nav-desc">Actions taken to stop the outbreak</span></a>
+      <a href="/en/challenges/"><span class="nav-t">Challenges</span><span class="nav-desc">The obstacles encountered</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>This site</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/about/"><span class="nav-t">About</span><span class="nav-desc">Method, sources, disclaimer</span></a>
+      <a href="/en/contact/"><span class="nav-t">Contact</span><span class="nav-desc">Write to the team</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -186,21 +210,17 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="/en/">Home</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">Official sources and bulletins</span>
-  </nav>
+
 
       <main id="contenu">
   <section class="section">
     <div class="section-head">
       <div>
-        <div class="eyebrow"><span class="dot"></span>Understand</div>
+        <div class="eyebrow"><span class="dot"></span>Explore</div>
         <h1 class="page-title">Official sources and bulletins</h1>
       </div>
     </div>
-    <p class="lede">This site produces no figure of its own: it compiles those published by the institutions that monitor the outbreak.</p>
+    <p class="lede">The figures on this site all come from the official reports published by the Congolese health authorities and the WHO. You will find every one of them here, to read or download.</p>
     <p class="page-intro">This page gathers those documents, as they were published, so that anyone can go back to the original, check a number, or read what the site does not show.</p>
     <nav class="riposte-ancres" aria-label="The three sections">
       <a href="#insp">Daily SitRep (INSP)</a>
@@ -209,1129 +229,196 @@
     </nav>
   </section>
 
+  <!-- Le calendrier « Un bulletin, un jour » (2 octobre 2026) a ete retire
+       le 6 octobre 2026 a la demande du proprietaire ; reports_calendar_html
+       reste dans build_pages.py. -->
+
   <!-- Pleine largeur, pas de colonne de titres : les trois sections sont des
        listes de documents, et la colonne ne laissait que deux bulletins par
        ligne contre trois (demande du proprietaire, 6 septembre 2026). -->
   <!-- Cadres numerotes 01, 02, 03 comme sur les autres pages (demande du
        8 septembre 2026). -->
-  <section class="section cadre-fiche" id="insp">
-    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title" data-i18n="reportsTitle">Daily SitRep (INSP)</h2></div></div>
+  <section class="section cadre-fiche src-centre" id="insp">
+    <div class="fiche-tete"><div><h2 class="frame-title" data-i18n="reportsTitle">Daily SitRep (INSP)</h2></div></div>
     <div class="cadre-corps">
-    <p class="page-intro" data-i18n="reportsIntro">Every official bulletin published by the National Institute of Public Health of the Democratic Republic of the Congo (INSP) is archived here as soon as it's published, in its original PDF form — the main source for this site.</p>
     <div class="panel" style="padding:16px;">
       <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="Daily SitRep (INSP)"></nav>
       <label class="visually-hidden" for="reportsSearch">Search (N°, month, year)…</label>
       <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="Search (N°, month, year)…" class="search-input">
-      <div id="reportsList" class="reports-grid">
+      <div id="reportsList" class="reports-grid is-registre">
         <div class="reports-month-header" data-month-key="2026-9">Oct 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_145.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="145 oct 2026 2026-10-06" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°145</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>6 Oct 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_144.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="144 oct 2026 2026-10-05" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°144</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>5 Oct 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_143.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="143 oct 2026 2026-10-04" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°143</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>4 Oct 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_141.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="141 oct 2026 2026-10-02" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°141</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>2 Oct 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_140.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="140 oct 2026 2026-10-01" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°140</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>1 Oct 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_145.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="145 oct 2026 2026-10-06" title="Download PDF" aria-label="SitRep N°145"><span class="rg-n">145</span><span class="rg-d">6 Oct 2026</span><span class="rg-c">8,728 cases · 4,205 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_144.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="144 oct 2026 2026-10-05" title="Download PDF" aria-label="SitRep N°144"><span class="rg-n">144</span><span class="rg-d">5 Oct 2026</span><span class="rg-c">8,665 cases · 4,178 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_143.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="143 oct 2026 2026-10-04" title="Download PDF" aria-label="SitRep N°143"><span class="rg-n">143</span><span class="rg-d">4 Oct 2026</span><span class="rg-c">8,603 cases · 4,148 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_141.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="141 oct 2026 2026-10-02" title="Download PDF" aria-label="SitRep N°141"><span class="rg-n">141</span><span class="rg-d">2 Oct 2026</span><span class="rg-c">8,442 cases · 4,080 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_140.pdf" target="_blank" rel="noopener" data-month="2026-9" data-search="140 oct 2026 2026-10-01" title="Download PDF" aria-label="SitRep N°140"><span class="rg-n">140</span><span class="rg-d">1 Oct 2026</span><span class="rg-c">8,376 cases · 4,042 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-8">Sep 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_139.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="139 sep 2026 2026-09-30" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°139</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>30 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_138.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="138 sep 2026 2026-09-29" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°138</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>29 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_137.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="137 sep 2026 2026-09-28" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°137</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>28 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_136.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="136 sep 2026 2026-09-27" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°136</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>27 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_135.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="135 sep 2026 2026-09-26" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°135</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>26 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_134.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="134 sep 2026 2026-09-25" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°134</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>25 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_133.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="133 sep 2026 2026-09-24" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°133</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>24 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_132.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="132 sep 2026 2026-09-23" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°132</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>23 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_131.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="131 sep 2026 2026-09-22" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°131</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>22 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_130.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="130 sep 2026 2026-09-21" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°130</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>21 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_129.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="129 sep 2026 2026-09-20" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°129</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>20 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_128.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="128 sep 2026 2026-09-19" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°128</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>19 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_127.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="127 sep 2026 2026-09-18" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°127</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>18 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_126.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="126 sep 2026 2026-09-17" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°126</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>17 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_125.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="125 sep 2026 2026-09-16" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°125</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>16 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_124.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="124 sep 2026 2026-09-15" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°124</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>15 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_123.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="123 sep 2026 2026-09-14" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°123</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>14 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_122.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="122 sep 2026 2026-09-13" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°122</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>13 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_121.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="121 sep 2026 2026-09-12" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°121</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>12 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_120.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="120 sep 2026 2026-09-11" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°120</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>11 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_119.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="119 sep 2026 2026-09-10" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°119</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>10 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_118.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="118 sep 2026 2026-09-09" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°118</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>9 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_117.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="117 sep 2026 2026-09-08" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°117</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>8 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_116.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="116 sep 2026 2026-09-07" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°116</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>7 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_115.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="115 sep 2026 2026-09-06" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°115</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>6 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_114.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="114 sep 2026 2026-09-05" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°114</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>5 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_113.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="113 sep 2026 2026-09-04" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°113</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>4 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_112.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="112 sep 2026 2026-09-03" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°112</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>3 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_111.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="111 sep 2026 2026-09-02" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°111</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>2 Sep 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_110.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="110 sep 2026 2026-09-01" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°110</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>1 Sep 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_139.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="139 sep 2026 2026-09-30" title="Download PDF" aria-label="SitRep N°139"><span class="rg-n">139</span><span class="rg-d">30 Sep 2026</span><span class="rg-c">8,300 cases · 4,018 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_138.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="138 sep 2026 2026-09-29" title="Download PDF" aria-label="SitRep N°138"><span class="rg-n">138</span><span class="rg-d">29 Sep 2026</span><span class="rg-c">8,224 cases · 3,982 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_137.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="137 sep 2026 2026-09-28" title="Download PDF" aria-label="SitRep N°137"><span class="rg-n">137</span><span class="rg-d">28 Sep 2026</span><span class="rg-c">8,171 cases · 3,954 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_136.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="136 sep 2026 2026-09-27" title="Download PDF" aria-label="SitRep N°136"><span class="rg-n">136</span><span class="rg-d">27 Sep 2026</span><span class="rg-c">8,116 cases · 3,924 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_135.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="135 sep 2026 2026-09-26" title="Download PDF" aria-label="SitRep N°135"><span class="rg-n">135</span><span class="rg-d">26 Sep 2026</span><span class="rg-c">8,067 cases · 3,901 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_134.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="134 sep 2026 2026-09-25" title="Download PDF" aria-label="SitRep N°134"><span class="rg-n">134</span><span class="rg-d">25 Sep 2026</span><span class="rg-c">7,989 cases · 3,852 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_133.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="133 sep 2026 2026-09-24" title="Download PDF" aria-label="SitRep N°133"><span class="rg-n">133</span><span class="rg-d">24 Sep 2026</span><span class="rg-c">7,946 cases · 3,833 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_132.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="132 sep 2026 2026-09-23" title="Download PDF" aria-label="SitRep N°132"><span class="rg-n">132</span><span class="rg-d">23 Sep 2026</span><span class="rg-c">7,890 cases · 3,799 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_131.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="131 sep 2026 2026-09-22" title="Download PDF" aria-label="SitRep N°131"><span class="rg-n">131</span><span class="rg-d">22 Sep 2026</span><span class="rg-c">7,820 cases · 3,779 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_130.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="130 sep 2026 2026-09-21" title="Download PDF" aria-label="SitRep N°130"><span class="rg-n">130</span><span class="rg-d">21 Sep 2026</span><span class="rg-c">7,773 cases · 3,759 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_129.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="129 sep 2026 2026-09-20" title="Download PDF" aria-label="SitRep N°129"><span class="rg-n">129</span><span class="rg-d">20 Sep 2026</span><span class="rg-c">7,733 cases · 3,732 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_128.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="128 sep 2026 2026-09-19" title="Download PDF" aria-label="SitRep N°128"><span class="rg-n">128</span><span class="rg-d">19 Sep 2026</span><span class="rg-c">7,672 cases · 3,699 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_127.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="127 sep 2026 2026-09-18" title="Download PDF" aria-label="SitRep N°127"><span class="rg-n">127</span><span class="rg-d">18 Sep 2026</span><span class="rg-c">7,614 cases · 3,676 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_126.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="126 sep 2026 2026-09-17" title="Download PDF" aria-label="SitRep N°126"><span class="rg-n">126</span><span class="rg-d">17 Sep 2026</span><span class="rg-c">7,541 cases · 3,639 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_125.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="125 sep 2026 2026-09-16" title="Download PDF" aria-label="SitRep N°125"><span class="rg-n">125</span><span class="rg-d">16 Sep 2026</span><span class="rg-c">7,475 cases · 3,605 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_124.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="124 sep 2026 2026-09-15" title="Download PDF" aria-label="SitRep N°124"><span class="rg-n">124</span><span class="rg-d">15 Sep 2026</span><span class="rg-c">7,404 cases · 3,577 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_123.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="123 sep 2026 2026-09-14" title="Download PDF" aria-label="SitRep N°123"><span class="rg-n">123</span><span class="rg-d">14 Sep 2026</span><span class="rg-c">7,345 cases · 3,545 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_122.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="122 sep 2026 2026-09-13" title="Download PDF" aria-label="SitRep N°122"><span class="rg-n">122</span><span class="rg-d">13 Sep 2026</span><span class="rg-c">7,258 cases · 3,510 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_121.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="121 sep 2026 2026-09-12" title="Download PDF" aria-label="SitRep N°121"><span class="rg-n">121</span><span class="rg-d">12 Sep 2026</span><span class="rg-c">7,200 cases · 3,475 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_120.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="120 sep 2026 2026-09-11" title="Download PDF" aria-label="SitRep N°120"><span class="rg-n">120</span><span class="rg-d">11 Sep 2026</span><span class="rg-c">7,113 cases · 3,437 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_119.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="119 sep 2026 2026-09-10" title="Download PDF" aria-label="SitRep N°119"><span class="rg-n">119</span><span class="rg-d">10 Sep 2026</span><span class="rg-c">7,022 cases · 3,398 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_118.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="118 sep 2026 2026-09-09" title="Download PDF" aria-label="SitRep N°118"><span class="rg-n">118</span><span class="rg-d">9 Sep 2026</span><span class="rg-c">6,942 cases · 3,349 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_117.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="117 sep 2026 2026-09-08" title="Download PDF" aria-label="SitRep N°117"><span class="rg-n">117</span><span class="rg-d">8 Sep 2026</span><span class="rg-c">6,843 cases · 3,310 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_116.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="116 sep 2026 2026-09-07" title="Download PDF" aria-label="SitRep N°116"><span class="rg-n">116</span><span class="rg-d">7 Sep 2026</span><span class="rg-c">6,757 cases · 3,267 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_115.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="115 sep 2026 2026-09-06" title="Download PDF" aria-label="SitRep N°115"><span class="rg-n">115</span><span class="rg-d">6 Sep 2026</span><span class="rg-c">6,686 cases · 3,226 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_114.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="114 sep 2026 2026-09-05" title="Download PDF" aria-label="SitRep N°114"><span class="rg-n">114</span><span class="rg-d">5 Sep 2026</span><span class="rg-c">6,604 cases · 3,175 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_113.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="113 sep 2026 2026-09-04" title="Download PDF" aria-label="SitRep N°113"><span class="rg-n">113</span><span class="rg-d">4 Sep 2026</span><span class="rg-c">6,522 cases · 3,134 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_112.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="112 sep 2026 2026-09-03" title="Download PDF" aria-label="SitRep N°112"><span class="rg-n">112</span><span class="rg-d">3 Sep 2026</span><span class="rg-c">6,436 cases · 3,095 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_111.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="111 sep 2026 2026-09-02" title="Download PDF" aria-label="SitRep N°111"><span class="rg-n">111</span><span class="rg-d">2 Sep 2026</span><span class="rg-c">6,342 cases · 3,072 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_110.pdf" target="_blank" rel="noopener" data-month="2026-8" data-search="110 sep 2026 2026-09-01" title="Download PDF" aria-label="SitRep N°110"><span class="rg-n">110</span><span class="rg-d">1 Sep 2026</span><span class="rg-c">6,250 cases · 3,039 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-7">Aug 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_109.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="109 aug 2026 2026-08-31" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°109</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>31 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_108.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="108 aug 2026 2026-08-30" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°108</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>30 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_107.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="107 aug 2026 2026-08-29" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°107</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>29 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_106.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="106 aug 2026 2026-08-28" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°106</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>28 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_105.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="105 aug 2026 2026-08-27" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°105</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>27 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_104.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="104 aug 2026 2026-08-26" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°104</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>26 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_103.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="103 aug 2026 2026-08-25" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°103</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>25 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_102.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="102 aug 2026 2026-08-24" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°102</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>24 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_101.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="101 aug 2026 2026-08-23" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°101</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>23 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_100.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="100 aug 2026 2026-08-22" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°100</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>22 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_099.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="099 aug 2026 2026-08-21" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°099</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>21 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_098.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="098 aug 2026 2026-08-20" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°098</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>20 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_097.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="097 aug 2026 2026-08-19" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°097</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>19 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_096.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="096 aug 2026 2026-08-18" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°096</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>18 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_095.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="095 aug 2026 2026-08-17" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°095</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>17 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_094.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="094 aug 2026 2026-08-16" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°094</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>16 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_093.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="093 aug 2026 2026-08-15" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°093</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>15 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_092.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="092 aug 2026 2026-08-14" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°092</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>14 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_091.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="091 aug 2026 2026-08-13" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°091</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>13 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_090.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="090 aug 2026 2026-08-12" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°090</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>12 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_089.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="089 aug 2026 2026-08-11" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°089</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>11 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_088.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="088 aug 2026 2026-08-10" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°088</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>10 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_087.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="087 aug 2026 2026-08-09" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°087</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>9 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_086.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="086 aug 2026 2026-08-08" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°086</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>8 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_085.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="085 aug 2026 2026-08-07" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°085</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>7 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_084.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="084 aug 2026 2026-08-06" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°084</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>6 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_083.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="083 aug 2026 2026-08-05" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°083</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>5 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_082.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="082 aug 2026 2026-08-04" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°082</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>4 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_081.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="081 aug 2026 2026-08-03" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°081</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>3 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_080.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="080 aug 2026 2026-08-02" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°080</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>2 Aug 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_079.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="079 aug 2026 2026-08-01" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°079</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>1 Aug 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_109.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="109 aug 2026 2026-08-31" title="Download PDF" aria-label="SitRep N°109"><span class="rg-n">109</span><span class="rg-d">31 Aug 2026</span><span class="rg-c">6,186 cases · 3,007 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_108.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="108 aug 2026 2026-08-30" title="Download PDF" aria-label="SitRep N°108"><span class="rg-n">108</span><span class="rg-d">30 Aug 2026</span><span class="rg-c">6,100 cases · 2,950 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_107.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="107 aug 2026 2026-08-29" title="Download PDF" aria-label="SitRep N°107"><span class="rg-n">107</span><span class="rg-d">29 Aug 2026</span><span class="rg-c">6,041 cases · 2,911 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_106.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="106 aug 2026 2026-08-28" title="Download PDF" aria-label="SitRep N°106"><span class="rg-n">106</span><span class="rg-d">28 Aug 2026</span><span class="rg-c">5,945 cases · 2,862 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_105.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="105 aug 2026 2026-08-27" title="Download PDF" aria-label="SitRep N°105"><span class="rg-n">105</span><span class="rg-d">27 Aug 2026</span><span class="rg-c">5,863 cases · 2,824 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_104.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="104 aug 2026 2026-08-26" title="Download PDF" aria-label="SitRep N°104"><span class="rg-n">104</span><span class="rg-d">26 Aug 2026</span><span class="rg-c">5,794 cases · 2,786 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_103.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="103 aug 2026 2026-08-25" title="Download PDF" aria-label="SitRep N°103"><span class="rg-n">103</span><span class="rg-d">25 Aug 2026</span><span class="rg-c">5,713 cases · 2,744 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_102.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="102 aug 2026 2026-08-24" title="Download PDF" aria-label="SitRep N°102"><span class="rg-n">102</span><span class="rg-d">24 Aug 2026</span><span class="rg-c">5,656 cases · 2,715 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_101.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="101 aug 2026 2026-08-23" title="Download PDF" aria-label="SitRep N°101"><span class="rg-n">101</span><span class="rg-d">23 Aug 2026</span><span class="rg-c">5,584 cases · 2,680 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_100.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="100 aug 2026 2026-08-22" title="Download PDF" aria-label="SitRep N°100"><span class="rg-n">100</span><span class="rg-d">22 Aug 2026</span><span class="rg-c">5,514 cases · 2,642 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_099.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="099 aug 2026 2026-08-21" title="Download PDF" aria-label="SitRep N°099"><span class="rg-n">099</span><span class="rg-d">21 Aug 2026</span><span class="rg-c">5,458 cases · 2,606 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_098.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="098 aug 2026 2026-08-20" title="Download PDF" aria-label="SitRep N°098"><span class="rg-n">098</span><span class="rg-d">20 Aug 2026</span><span class="rg-c">5,375 cases · 2,557 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_097.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="097 aug 2026 2026-08-19" title="Download PDF" aria-label="SitRep N°097"><span class="rg-n">097</span><span class="rg-d">19 Aug 2026</span><span class="rg-c">5,290 cases · 2,516 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_096.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="096 aug 2026 2026-08-18" title="Download PDF" aria-label="SitRep N°096"><span class="rg-n">096</span><span class="rg-d">18 Aug 2026</span><span class="rg-c">5,208 cases · 2,476 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_095.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="095 aug 2026 2026-08-17" title="Download PDF" aria-label="SitRep N°095"><span class="rg-n">095</span><span class="rg-d">17 Aug 2026</span><span class="rg-c">5,105 cases · 2,420 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_094.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="094 aug 2026 2026-08-16" title="Download PDF" aria-label="SitRep N°094"><span class="rg-n">094</span><span class="rg-d">16 Aug 2026</span><span class="rg-c">5,021 cases · 2,378 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_093.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="093 aug 2026 2026-08-15" title="Download PDF" aria-label="SitRep N°093"><span class="rg-n">093</span><span class="rg-d">15 Aug 2026</span><span class="rg-c">4,945 cases · 2,325 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_092.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="092 aug 2026 2026-08-14" title="Download PDF" aria-label="SitRep N°092"><span class="rg-n">092</span><span class="rg-d">14 Aug 2026</span><span class="rg-c">4,843 cases · 2,272 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_091.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="091 aug 2026 2026-08-13" title="Download PDF" aria-label="SitRep N°091"><span class="rg-n">091</span><span class="rg-d">13 Aug 2026</span><span class="rg-c">4,727 cases · 2,214 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_090.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="090 aug 2026 2026-08-12" title="Download PDF" aria-label="SitRep N°090"><span class="rg-n">090</span><span class="rg-d">12 Aug 2026</span><span class="rg-c">4,665 cases · 2,184 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_089.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="089 aug 2026 2026-08-11" title="Download PDF" aria-label="SitRep N°089"><span class="rg-n">089</span><span class="rg-d">11 Aug 2026</span><span class="rg-c">4,566 cases · 2,128 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_088.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="088 aug 2026 2026-08-10" title="Download PDF" aria-label="SitRep N°088"><span class="rg-n">088</span><span class="rg-d">10 Aug 2026</span><span class="rg-c">4,449 cases · 2,061 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_087.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="087 aug 2026 2026-08-09" title="Download PDF" aria-label="SitRep N°087"><span class="rg-n">087</span><span class="rg-d">9 Aug 2026</span><span class="rg-c">4,381 cases · 2,011 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_086.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="086 aug 2026 2026-08-08" title="Download PDF" aria-label="SitRep N°086"><span class="rg-n">086</span><span class="rg-d">8 Aug 2026</span><span class="rg-c">4,294 cases · 1,960 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_085.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="085 aug 2026 2026-08-07" title="Download PDF" aria-label="SitRep N°085"><span class="rg-n">085</span><span class="rg-d">7 Aug 2026</span><span class="rg-c">4,209 cases · 1,916 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_084.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="084 aug 2026 2026-08-06" title="Download PDF" aria-label="SitRep N°084"><span class="rg-n">084</span><span class="rg-d">6 Aug 2026</span><span class="rg-c">4,120 cases · 1,887 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_083.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="083 aug 2026 2026-08-05" title="Download PDF" aria-label="SitRep N°083"><span class="rg-n">083</span><span class="rg-d">5 Aug 2026</span><span class="rg-c">4,053 cases · 1,851 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_082.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="082 aug 2026 2026-08-04" title="Download PDF" aria-label="SitRep N°082"><span class="rg-n">082</span><span class="rg-d">4 Aug 2026</span><span class="rg-c">3,973 cases · 1,801 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_081.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="081 aug 2026 2026-08-03" title="Download PDF" aria-label="SitRep N°081"><span class="rg-n">081</span><span class="rg-d">3 Aug 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_080.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="080 aug 2026 2026-08-02" title="Download PDF" aria-label="SitRep N°080"><span class="rg-n">080</span><span class="rg-d">2 Aug 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_079.pdf" target="_blank" rel="noopener" data-month="2026-7" data-search="079 aug 2026 2026-08-01" title="Download PDF" aria-label="SitRep N°079"><span class="rg-n">079</span><span class="rg-d">1 Aug 2026</span><span class="rg-c">3,748 cases · 1,657 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-6">Jul 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_078.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="078 jul 2026 2026-07-31" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°078</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>31 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_077.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="077 jul 2026 2026-07-30" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°077</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>30 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_074.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="074 jul 2026 2026-07-27" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°074</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>27 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_073.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="073 jul 2026 2026-07-26" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°073</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>26 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_072.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="072 jul 2026 2026-07-25" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°072</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>25 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_071.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="071 jul 2026 2026-07-24" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°071</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>24 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_070.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="070 jul 2026 2026-07-23" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°070</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>23 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_069.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="069 jul 2026 2026-07-22" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°069</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>22 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_068.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="068 jul 2026 2026-07-21" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°068</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>21 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_067.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="067 jul 2026 2026-07-20" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°067</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>20 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_066.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="066 jul 2026 2026-07-19" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°066</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>19 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_065.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="065 jul 2026 2026-07-18" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°065</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>18 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_064.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="064 jul 2026 2026-07-17" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°064</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>17 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_062.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="062 jul 2026 2026-07-15" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°062</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>15 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_061.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="061 jul 2026 2026-07-14" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°061</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>14 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_060.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="060 jul 2026 2026-07-13" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°060</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>13 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_059.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="059 jul 2026 2026-07-12" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°059</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>12 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_058.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="058 jul 2026 2026-07-11" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°058</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>11 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_057.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="057 jul 2026 2026-07-10" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°057</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>10 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_056.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="056 jul 2026 2026-07-09" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°056</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>9 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_055.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="055 jul 2026 2026-07-08" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°055</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>8 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_054.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="054 jul 2026 2026-07-07" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°054</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>7 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_053.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="053 jul 2026 2026-07-06" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°053</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>6 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_052.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="052 jul 2026 2026-07-05" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°052</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>5 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_051.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="051 jul 2026 2026-07-04" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°051</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>4 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_050.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="050 jul 2026 2026-07-03" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°050</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>3 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_049.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="049 jul 2026 2026-07-02" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°049</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>2 Jul 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_048.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="048 jul 2026 2026-07-01" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°048</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>1 Jul 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_078.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="078 jul 2026 2026-07-31" title="Download PDF" aria-label="SitRep N°078"><span class="rg-n">078</span><span class="rg-d">31 Jul 2026</span><span class="rg-c">3,674 cases · 1,621 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_077.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="077 jul 2026 2026-07-30" title="Download PDF" aria-label="SitRep N°077"><span class="rg-n">077</span><span class="rg-d">30 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_074.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="074 jul 2026 2026-07-27" title="Download PDF" aria-label="SitRep N°074"><span class="rg-n">074</span><span class="rg-d">27 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_073.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="073 jul 2026 2026-07-26" title="Download PDF" aria-label="SitRep N°073"><span class="rg-n">073</span><span class="rg-d">26 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_072.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="072 jul 2026 2026-07-25" title="Download PDF" aria-label="SitRep N°072"><span class="rg-n">072</span><span class="rg-d">25 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_071.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="071 jul 2026 2026-07-24" title="Download PDF" aria-label="SitRep N°071"><span class="rg-n">071</span><span class="rg-d">24 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_070.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="070 jul 2026 2026-07-23" title="Download PDF" aria-label="SitRep N°070"><span class="rg-n">070</span><span class="rg-d">23 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_069.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="069 jul 2026 2026-07-22" title="Download PDF" aria-label="SitRep N°069"><span class="rg-n">069</span><span class="rg-d">22 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_068.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="068 jul 2026 2026-07-21" title="Download PDF" aria-label="SitRep N°068"><span class="rg-n">068</span><span class="rg-d">21 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_067.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="067 jul 2026 2026-07-20" title="Download PDF" aria-label="SitRep N°067"><span class="rg-n">067</span><span class="rg-d">20 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_066.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="066 jul 2026 2026-07-19" title="Download PDF" aria-label="SitRep N°066"><span class="rg-n">066</span><span class="rg-d">19 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_065.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="065 jul 2026 2026-07-18" title="Download PDF" aria-label="SitRep N°065"><span class="rg-n">065</span><span class="rg-d">18 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_064.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="064 jul 2026 2026-07-17" title="Download PDF" aria-label="SitRep N°064"><span class="rg-n">064</span><span class="rg-d">17 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_062.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="062 jul 2026 2026-07-15" title="Download PDF" aria-label="SitRep N°062"><span class="rg-n">062</span><span class="rg-d">15 Jul 2026</span><span class="rg-c">2,124 cases · 828 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_061.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="061 jul 2026 2026-07-14" title="Download PDF" aria-label="SitRep N°061"><span class="rg-n">061</span><span class="rg-d">14 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_060.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="060 jul 2026 2026-07-13" title="Download PDF" aria-label="SitRep N°060"><span class="rg-n">060</span><span class="rg-d">13 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_059.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="059 jul 2026 2026-07-12" title="Download PDF" aria-label="SitRep N°059"><span class="rg-n">059</span><span class="rg-d">12 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_058.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="058 jul 2026 2026-07-11" title="Download PDF" aria-label="SitRep N°058"><span class="rg-n">058</span><span class="rg-d">11 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_057.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="057 jul 2026 2026-07-10" title="Download PDF" aria-label="SitRep N°057"><span class="rg-n">057</span><span class="rg-d">10 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_056.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="056 jul 2026 2026-07-09" title="Download PDF" aria-label="SitRep N°056"><span class="rg-n">056</span><span class="rg-d">9 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_055.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="055 jul 2026 2026-07-08" title="Download PDF" aria-label="SitRep N°055"><span class="rg-n">055</span><span class="rg-d">8 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_054.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="054 jul 2026 2026-07-07" title="Download PDF" aria-label="SitRep N°054"><span class="rg-n">054</span><span class="rg-d">7 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_053.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="053 jul 2026 2026-07-06" title="Download PDF" aria-label="SitRep N°053"><span class="rg-n">053</span><span class="rg-d">6 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_052.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="052 jul 2026 2026-07-05" title="Download PDF" aria-label="SitRep N°052"><span class="rg-n">052</span><span class="rg-d">5 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_051.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="051 jul 2026 2026-07-04" title="Download PDF" aria-label="SitRep N°051"><span class="rg-n">051</span><span class="rg-d">4 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_050.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="050 jul 2026 2026-07-03" title="Download PDF" aria-label="SitRep N°050"><span class="rg-n">050</span><span class="rg-d">3 Jul 2026</span><span class="rg-c">1,528 cases · 492 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_049.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="049 jul 2026 2026-07-02" title="Download PDF" aria-label="SitRep N°049"><span class="rg-n">049</span><span class="rg-d">2 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_048.pdf" target="_blank" rel="noopener" data-month="2026-6" data-search="048 jul 2026 2026-07-01" title="Download PDF" aria-label="SitRep N°048"><span class="rg-n">048</span><span class="rg-d">1 Jul 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-5">Jun 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_047.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="047 jun 2026 2026-06-30" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°047</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>30 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_046.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="046 jun 2026 2026-06-29" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°046</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>29 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_044.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="044 jun 2026 2026-06-27" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°044</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>27 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_042.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="042 jun 2026 2026-06-25" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°042</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>25 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_041.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="041 jun 2026 2026-06-24" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°041</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>24 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_040.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="040 jun 2026 2026-06-23" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°040</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>23 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_039.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="039 jun 2026 2026-06-22" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°039</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>22 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_038.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="038 jun 2026 2026-06-21" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°038</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>21 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_037.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="037 jun 2026 2026-06-20" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°037</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>20 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_036.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="036 jun 2026 2026-06-19" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°036</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>19 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_035.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="035 jun 2026 2026-06-18" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°035</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>18 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_034.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="034 jun 2026 2026-06-17" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°034</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>17 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_033.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="033 jun 2026 2026-06-16" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°033</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>16 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_032.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="032 jun 2026 2026-06-15" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°032</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>15 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_031.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="031 jun 2026 2026-06-14" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°031</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>14 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_030.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="030 jun 2026 2026-06-13" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°030</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>13 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_028.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="028 jun 2026 2026-06-11" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°028</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>11 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_027.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="027 jun 2026 2026-06-10" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°027</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>10 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_026.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="026 jun 2026 2026-06-09" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°026</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>9 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_025.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="025 jun 2026 2026-06-08" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°025</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>8 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_024.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="024 jun 2026 2026-06-07" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°024</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>7 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_023.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="023 jun 2026 2026-06-06" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°023</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>6 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_022.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="022 jun 2026 2026-06-05" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°022</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>5 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_021.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="021 jun 2026 2026-06-04" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°021</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>4 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_020.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="020 jun 2026 2026-06-03" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°020</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>3 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_019.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="019 jun 2026 2026-06-02" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°019</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>2 Jun 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_018.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="018 jun 2026 2026-06-01" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°018</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>1 Jun 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_047.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="047 jun 2026 2026-06-30" title="Download PDF" aria-label="SitRep N°047"><span class="rg-n">047</span><span class="rg-d">30 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_046.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="046 jun 2026 2026-06-29" title="Download PDF" aria-label="SitRep N°046"><span class="rg-n">046</span><span class="rg-d">29 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_044.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="044 jun 2026 2026-06-27" title="Download PDF" aria-label="SitRep N°044"><span class="rg-n">044</span><span class="rg-d">27 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_042.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="042 jun 2026 2026-06-25" title="Download PDF" aria-label="SitRep N°042"><span class="rg-n">042</span><span class="rg-d">25 Jun 2026</span><span class="rg-c">1,203 cases · 321 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_041.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="041 jun 2026 2026-06-24" title="Download PDF" aria-label="SitRep N°041"><span class="rg-n">041</span><span class="rg-d">24 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_040.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="040 jun 2026 2026-06-23" title="Download PDF" aria-label="SitRep N°040"><span class="rg-n">040</span><span class="rg-d">23 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_039.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="039 jun 2026 2026-06-22" title="Download PDF" aria-label="SitRep N°039"><span class="rg-n">039</span><span class="rg-d">22 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_038.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="038 jun 2026 2026-06-21" title="Download PDF" aria-label="SitRep N°038"><span class="rg-n">038</span><span class="rg-d">21 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_037.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="037 jun 2026 2026-06-20" title="Download PDF" aria-label="SitRep N°037"><span class="rg-n">037</span><span class="rg-d">20 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_036.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="036 jun 2026 2026-06-19" title="Download PDF" aria-label="SitRep N°036"><span class="rg-n">036</span><span class="rg-d">19 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_035.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="035 jun 2026 2026-06-18" title="Download PDF" aria-label="SitRep N°035"><span class="rg-n">035</span><span class="rg-d">18 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_034.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="034 jun 2026 2026-06-17" title="Download PDF" aria-label="SitRep N°034"><span class="rg-n">034</span><span class="rg-d">17 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_033.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="033 jun 2026 2026-06-16" title="Download PDF" aria-label="SitRep N°033"><span class="rg-n">033</span><span class="rg-d">16 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_032.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="032 jun 2026 2026-06-15" title="Download PDF" aria-label="SitRep N°032"><span class="rg-n">032</span><span class="rg-d">15 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_031.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="031 jun 2026 2026-06-14" title="Download PDF" aria-label="SitRep N°031"><span class="rg-n">031</span><span class="rg-d">14 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_030.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="030 jun 2026 2026-06-13" title="Download PDF" aria-label="SitRep N°030"><span class="rg-n">030</span><span class="rg-d">13 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_028.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="028 jun 2026 2026-06-11" title="Download PDF" aria-label="SitRep N°028"><span class="rg-n">028</span><span class="rg-d">11 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_027.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="027 jun 2026 2026-06-10" title="Download PDF" aria-label="SitRep N°027"><span class="rg-n">027</span><span class="rg-d">10 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_026.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="026 jun 2026 2026-06-09" title="Download PDF" aria-label="SitRep N°026"><span class="rg-n">026</span><span class="rg-d">9 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_025.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="025 jun 2026 2026-06-08" title="Download PDF" aria-label="SitRep N°025"><span class="rg-n">025</span><span class="rg-d">8 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_024.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="024 jun 2026 2026-06-07" title="Download PDF" aria-label="SitRep N°024"><span class="rg-n">024</span><span class="rg-d">7 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_023.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="023 jun 2026 2026-06-06" title="Download PDF" aria-label="SitRep N°023"><span class="rg-n">023</span><span class="rg-d">6 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_022.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="022 jun 2026 2026-06-05" title="Download PDF" aria-label="SitRep N°022"><span class="rg-n">022</span><span class="rg-d">5 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_021.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="021 jun 2026 2026-06-04" title="Download PDF" aria-label="SitRep N°021"><span class="rg-n">021</span><span class="rg-d">4 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_020.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="020 jun 2026 2026-06-03" title="Download PDF" aria-label="SitRep N°020"><span class="rg-n">020</span><span class="rg-d">3 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_019.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="019 jun 2026 2026-06-02" title="Download PDF" aria-label="SitRep N°019"><span class="rg-n">019</span><span class="rg-d">2 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_018.pdf" target="_blank" rel="noopener" data-month="2026-5" data-search="018 jun 2026 2026-06-01" title="Download PDF" aria-label="SitRep N°018"><span class="rg-n">018</span><span class="rg-d">1 Jun 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
         <div class="reports-month-header" data-month-key="2026-4">May 2026</div>
-        <a class="report-chip" href="/reports/SITREP_MVE_017.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="017 may 2026 2026-05-31" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°017</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>31 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_016.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="016 may 2026 2026-05-30" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°016</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>30 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_015.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="015 may 2026 2026-05-29" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°015</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>29 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_014.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="014 may 2026 2026-05-28" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°014</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>28 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_013.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="013 may 2026 2026-05-27" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°013</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>27 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_012.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="012 may 2026 2026-05-26" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°012</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>26 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_011.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="011 may 2026 2026-05-25" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°011</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>25 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_010.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="010 may 2026 2026-05-24" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°010</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>24 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_009.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="009 may 2026 2026-05-23" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°009</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>23 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_008.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="008 may 2026 2026-05-22" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°008</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>22 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_007.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="007 may 2026 2026-05-21" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°007</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>21 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_006.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="006 may 2026 2026-05-20" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°006</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>20 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_005.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="005 may 2026 2026-05-19" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°005</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>19 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_004.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="004 may 2026 2026-05-19" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°004</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>19 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_002.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="002 may 2026 2026-05-17" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°002</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>17 May 2026</span>
-        </a>
-        <a class="report-chip" href="/reports/SITREP_MVE_001.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="001 may 2026 2026-05-14" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">SitRep N°001</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>14 May 2026</span>
-        </a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_017.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="017 may 2026 2026-05-31" title="Download PDF" aria-label="SitRep N°017"><span class="rg-n">017</span><span class="rg-d">31 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_016.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="016 may 2026 2026-05-30" title="Download PDF" aria-label="SitRep N°016"><span class="rg-n">016</span><span class="rg-d">30 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_015.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="015 may 2026 2026-05-29" title="Download PDF" aria-label="SitRep N°015"><span class="rg-n">015</span><span class="rg-d">29 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_014.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="014 may 2026 2026-05-28" title="Download PDF" aria-label="SitRep N°014"><span class="rg-n">014</span><span class="rg-d">28 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_013.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="013 may 2026 2026-05-27" title="Download PDF" aria-label="SitRep N°013"><span class="rg-n">013</span><span class="rg-d">27 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_012.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="012 may 2026 2026-05-26" title="Download PDF" aria-label="SitRep N°012"><span class="rg-n">012</span><span class="rg-d">26 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_011.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="011 may 2026 2026-05-25" title="Download PDF" aria-label="SitRep N°011"><span class="rg-n">011</span><span class="rg-d">25 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_010.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="010 may 2026 2026-05-24" title="Download PDF" aria-label="SitRep N°010"><span class="rg-n">010</span><span class="rg-d">24 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_009.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="009 may 2026 2026-05-23" title="Download PDF" aria-label="SitRep N°009"><span class="rg-n">009</span><span class="rg-d">23 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_008.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="008 may 2026 2026-05-22" title="Download PDF" aria-label="SitRep N°008"><span class="rg-n">008</span><span class="rg-d">22 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_007.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="007 may 2026 2026-05-21" title="Download PDF" aria-label="SitRep N°007"><span class="rg-n">007</span><span class="rg-d">21 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_006.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="006 may 2026 2026-05-20" title="Download PDF" aria-label="SitRep N°006"><span class="rg-n">006</span><span class="rg-d">20 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_005.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="005 may 2026 2026-05-19" title="Download PDF" aria-label="SitRep N°005"><span class="rg-n">005</span><span class="rg-d">19 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_004.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="004 may 2026 2026-05-19" title="Download PDF" aria-label="SitRep N°004"><span class="rg-n">004</span><span class="rg-d">19 May 2026</span><span class="rg-c">33 cases · 4 deaths</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_002.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="002 may 2026 2026-05-17" title="Download PDF" aria-label="SitRep N°002"><span class="rg-n">002</span><span class="rg-d">17 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l" href="/reports/SITREP_MVE_001.pdf" target="_blank" rel="noopener" data-month="2026-4" data-search="001 may 2026 2026-05-14" title="Download PDF" aria-label="SitRep N°001"><span class="rg-n">001</span><span class="rg-d">14 May 2026</span><span class="rg-c"></span><span class="rg-p" aria-hidden="true">PDF</span></a>
       </div>
     </div>
+    <p class="reports-manquants">Bulletins never published: INSP did not put SitReps No. 003, 029, 043, 045, 063, 075, 076 and 142 online. The days concerned have no bulletin on this site.</p>
     </div>
   </section>
 
-  <section class="section cadre-fiche" id="who-reports-section" style="">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title" data-i18n="whoReportsTitle">Weekly External Situation Report (WHO)</h2></div></div>
+  <section class="section cadre-fiche src-centre" id="who-reports-section" style="">
+    <div class="fiche-tete"><div><h2 class="frame-title" data-i18n="whoReportsTitle">Weekly External Situation Report (WHO)</h2></div></div>
     <div class="cadre-corps">
-    <p class="page-intro" data-i18n="whoReportsIntro">Weekly bulletins published by the WHO Regional Office for Africa on this outbreak — a source independent from INSP, published weekly rather than near-daily.</p>
     <div class="panel" style="padding:16px;">
-      <div id="whoReportsList" class="reports-grid">
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_19_2026-09-20.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°19</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>20 Sep 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_18_2026-09-13.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°18</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>13 Sep 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_17_2026-09-06.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°17</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>6 Sep 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_16_2026-08-30.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°16</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>30 Aug 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_15_2026-08-23.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°15</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>23 Aug 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_14_2026-08-16.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°14</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>16 Aug 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_13_2026-08-09.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°13</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>9 Aug 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_12_2026-08-02.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°12</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>2 Aug 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_11_2026-07-26.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°11</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>26 Jul 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_10_2026-07-19.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°10</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>19 Jul 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_09_2026-07-12.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°09</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>12 Jul 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_08_2026-07-05.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°08</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>5 Jul 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_07_2026-06-28.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°07</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>28 Jun 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_06_2026-06-21.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°06</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>21 Jun 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_05_2026-06-14.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°05</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>14 Jun 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_04_2026-06-07.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°04</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>7 Jun 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_03_2026-05-31.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°03</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>31 May 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_02_2026-05-24.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°02</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>24 May 2026</span>
-        </a>
-        <a class="report-chip is-who" href="/reports/who/WHO_WeeklyExtSitRep_01_2026-05-18.pdf" target="_blank" rel="noopener" title="Download PDF">
-          <span class="rc-head">
-            <span class="rc-label">Report N°01</span>
-            <span class="rc-dl" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </span>
-          <span class="rc-date"><span class="rc-date-prefix">Situation as of </span>18 May 2026</span>
-        </a>
+      <div id="whoReportsList" class="reports-grid is-registre">
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_19_2026-09-20.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°19"><span class="rg-n">n°19</span><span class="rg-d">20 Sep 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_18_2026-09-13.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°18"><span class="rg-n">n°18</span><span class="rg-d">13 Sep 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_17_2026-09-06.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°17"><span class="rg-n">n°17</span><span class="rg-d">6 Sep 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_16_2026-08-30.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°16"><span class="rg-n">n°16</span><span class="rg-d">30 Aug 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_15_2026-08-23.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°15"><span class="rg-n">n°15</span><span class="rg-d">23 Aug 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_14_2026-08-16.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°14"><span class="rg-n">n°14</span><span class="rg-d">16 Aug 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_13_2026-08-09.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°13"><span class="rg-n">n°13</span><span class="rg-d">9 Aug 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_12_2026-08-02.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°12"><span class="rg-n">n°12</span><span class="rg-d">2 Aug 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_11_2026-07-26.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°11"><span class="rg-n">n°11</span><span class="rg-d">26 Jul 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_10_2026-07-19.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°10"><span class="rg-n">n°10</span><span class="rg-d">19 Jul 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_09_2026-07-12.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°09"><span class="rg-n">n°09</span><span class="rg-d">12 Jul 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_08_2026-07-05.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°08"><span class="rg-n">n°08</span><span class="rg-d">5 Jul 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_07_2026-06-28.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°07"><span class="rg-n">n°07</span><span class="rg-d">28 Jun 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_06_2026-06-21.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°06"><span class="rg-n">n°06</span><span class="rg-d">21 Jun 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_05_2026-06-14.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°05"><span class="rg-n">n°05</span><span class="rg-d">14 Jun 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_04_2026-06-07.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°04"><span class="rg-n">n°04</span><span class="rg-d">7 Jun 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_03_2026-05-31.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°03"><span class="rg-n">n°03</span><span class="rg-d">31 May 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_02_2026-05-24.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°02"><span class="rg-n">n°02</span><span class="rg-d">24 May 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
+        <a class="report-chip rg-l is-who" href="/reports/who/WHO_WeeklyExtSitRep_01_2026-05-18.pdf" target="_blank" rel="noopener" title="Download PDF" aria-label="Report N°01"><span class="rg-n">n°01</span><span class="rg-d">18 May 2026</span><span class="rg-c">weekly report</span><span class="rg-p" aria-hidden="true">PDF</span></a>
       </div>
     </div>
     </div>
@@ -1339,8 +426,8 @@
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section cadre-fiche" id="autres">
-    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title" data-i18n="geoSourceTitle">Other sources</h2></div></div>
+  <section class="section cadre-fiche src-centre" id="autres">
+    <div class="fiche-tete"><div><h2 class="frame-title" data-i18n="geoSourceTitle">Other sources</h2></div></div>
     <div class="cadre-corps">
     <p class="page-intro" data-i18n="geoSourceText">The health zone boundaries drawn on this site's maps come from the “DR Congo – Health Zones” dataset published by OCHA DRC on the HDX platform, based on the Democratic Republic of the Congo's common geographic reference (Référentiel géographique commun). Each shape is a health zone, the reference unit of the official bulletins.</p>
     </div>
@@ -1352,13 +439,10 @@
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Explore</h2>
+        <h2>News</h2>
         <ul>
-        <li><a href="/en/">Overview</a></li>
         <li><a href="/en/letter/">The letter</a></li>
         <li><a href="/en/news/">Outbreak news</a></li>
-        <li><a href="/en/data/">Detailed data</a></li>
-        <li><a href="/en/response/">Response &amp; challenges</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1366,9 +450,20 @@
         <ul>
         <li><a href="/en/timeline/">Timeline</a></li>
         <li><a href="/en/the-virus/">The virus</a></li>
-        <li><a href="/en/reports/">Sources &amp; bulletins</a></li>
         <li><a href="/en/faq/">FAQ</a></li>
         <li><a href="/en/glossary/">Glossary</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Explore</h2>
+        <ul>
+        <li><a href="/en/data/">Whole country</a></li>
+        <li><a href="/en/other-countries/">Other countries</a></li>
+        <li><a href="/en/response/">Response</a></li>
+        <li><a href="/en/challenges/">Challenges</a></li>
+        <li><a href="/en/reports/">Sources &amp; bulletins</a></li>
+        <li><a href="/en/database/">Database</a></li>
+        <li><a href="/en/dashboard/">Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1392,7 +487,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/about/">Full disclaimer</a></p>
+    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/about/#avertissement">Full disclaimer</a></p>
   </footer>
 
     </div>
@@ -1403,6 +498,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/en/data/ituri/", "Nord-Kivu": "/en/data/nord-kivu/", "Haut-Uélé": "/en/data/haut-uele/", "Tshopo": "/en/data/tshopo/", "Bas-Uélé": "/en/data/bas-uele/", "Sud-Kivu": "/en/data/sud-kivu/", "Sud-Ubangi": "/en/data/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "confirmed cases"; window.HERO_TIP_DEATHS = "deaths";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -1422,8 +518,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>

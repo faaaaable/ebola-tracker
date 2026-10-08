@@ -206,18 +206,18 @@ def grille_province(province, lang, i18n_lang, long_date, esc, numero, lien_ripo
            "sw": "%s: kisanduku kimoja kwa wiki, rangi kulingana na sehemu ya ripoti zinazotaja kikwazo katika jimbo"}[L] % prep_lien
     g = grille(L, esc, long_date, i18n_lang, S["debut"], max(e[0] for e in ent), ent, themes, tl,
                lambda t: "%s#defi-%s" % (lien_riposte, t["id"]), province=province)
-    return ('  <section class="section cadre-fiche cadre-obstacles">\n'
+    return ('  <section class="section cadre-fiche cadre-obstacles fiche-centree">\n'
             '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
             '<div class="section-sub">%s</div></div></div>\n'
             '    <div class="cadre-corps">\n%s\n    </div>\n  </section>\n' % (esc(numero), esc(titre), esc(sub), g))
 
 
-def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
+def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs, lien_defis=""):
     with io.open(SYNTHESE, encoding="utf-8") as fh:
         S = json.load(fh)
     ent = entrees()
     if not ent:
-        return {"seed.defisSynthese": ""}
+        return {"seed.defisSynthese": "", "seed.defisGrilleHome": "", "seed.defisGrilleTitre": "", "seed.defisGrilleSub": ""}
     fin = max(e[0] for e in ent)
     debut = S["debut"]
     total = jours(debut, fin) or 1
@@ -242,32 +242,26 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
 
     # ---- bande d'ouverture ----
     tx = {
-        "fr": ("Seconde partie", "Les principales difficultés",
+        "fr": ("D'après les bulletins de l'INSP", "Les principales difficultés",
                "Les dix obstacles principaux à la riposte, tirés des sections « Défis » des bulletins de l'INSP.",
                "obstacles", "bulletins lus", "%s → %s", "période couverte"),
-        "en": ("Part two", "The main difficulties",
+        "en": ("From the INSP bulletins", "The main difficulties",
                "The ten main obstacles to the response, drawn from the “Challenges” sections of the INSP bulletins.",
                "obstacles", "bulletins read", "%s → %s", "period covered"),
-        "sw": ("Sehemu ya pili", "Changamoto kuu",
+        "sw": ("Kutoka ripoti za INSP", "Changamoto kuu",
                "Vikwazo kumi vikuu vya mapambano, vilivyotolewa katika sehemu za « Changamoto » za ripoti za INSP.",
                "vikwazo", "ripoti zilizosomwa", "%s → %s", "kipindi kilichofunikwa"),
     }[L]
-    html = ['<section class="section dossier" id="defis">',
-            '<div class="dossier-in">',
-            '<div class="eyebrow dossier-eyebrow"><span class="dot"></span>%s</div>' % esc(tx[0]),
-            '<h2 class="dossier-titre">%s</h2>' % esc(tx[1]),
-            '<p class="dossier-lede">%s</p>' % esc(tx[2]),
-            '<div class="dossier-chiffres">'
-            # « bulletins lus » retire le 7 septembre 2026 a la demande du proprietaire ;
-            # nb_bulletins et tx[4] restent calcules, inutilises.
-            # Seule la periode reste : « 10 obstacles » doublonnait le chapeau
-            # (7 septembre 2026). tx[3] reste, inutilise.
-            '<div><b class="is-texte">%s</b><span>%s</span></div>'
-            % (esc(tx[5] % (long_date(debut, i18n_lang), long_date(fin, i18n_lang))), esc(tx[6])),
-            '</div>']
+    # La bande sombre est partie le 7 octobre 2026 (option 4 des maquettes) :
+    # la periode couverte est posee entre deux filets, comme les chiffres du
+    # face-a-face de la page Le virus. « 10 obstacles » et « bulletins lus »
+    # restent retires (decision du 7 septembre 2026).
+    html = ['<section class="section d-per" id="defis" aria-label="%s">' % esc(tx[1]),
+            '<div><b class="d-per-n">%s</b><span>%s</span></div>'
+            % (esc(tx[5] % (long_date(debut, i18n_lang), long_date(fin, i18n_lang))), esc(tx[6]))]
     if note_langue:
         html.append('<p class="dossier-note">%s</p>' % esc(strings_lang.get("defiLangNote", "")))
-    html.append('</div></section>')
+    html.append('</section>')
 
     # ---- frise : la grille par semaine (7 septembre 2026) ----
     # Une case par semaine depuis le premier bulletin, teintee selon la part
@@ -296,7 +290,11 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
     trace = {"fr": "Cité dans %d bulletins, du SitRep %s (%s) au SitRep %s (%s).",
              "en": "Cited in %d bulletins, from SitRep %s (%s) to SitRep %s (%s).",
              "sw": "Imetajwa katika ripoti %d, kutoka SitRep %s (%s) hadi SitRep %s (%s)."}[L]
-    html.append('<section class="section fiches-section"><ol class="fiches">')
+    # Les fiches en face-a-face (7 octobre 2026, option 4) : a gauche le
+    # numero, le titre, le nombre de bulletins et les provinces ; a droite le
+    # texte. La trace au bulletin pres reste, en petit, sous le compte.
+    compte = {"fr": "bulletins le citent", "en": "bulletins cite it", "sw": "ripoti zinakitaja"}[L]
+    html.append('<section class="section fiches-section"><ol class="fiches d4">')
     for i, (t, mm) in enumerate(themes, 1):
         pts = "".join('<span class="fiche-prov"><i style="background:%s"></i>%s</span>'
                       % (couleurs.get(p, "var(--ink-faint)"), esc(p)) for p in (mm["provinces"] if mm else []))
@@ -304,9 +302,15 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs):
         if mm:
             tr = trace % (mm["bulletins"], mm["premier"][1], long_date(mm["premier"][0], i18n_lang),
                           mm["dernier"][1], long_date(mm["dernier"][0], i18n_lang))
-        html.append('<li class="fiche" id="defi-%s"><span class="fiche-num">%02d</span><div class="fiche-corps">'
-                    '<h3 class="frame-title">%s</h3><p class="fiche-texte">%s</p>'
-                    '<p class="fiche-trace">%s %s</p></div></li>'
-                    % (t["id"], i, esc(tl(t)["titre"]), esc(tl(t)["texte"]), esc(tr), pts))
+        n = ('<p class="d4-c"><b>%d</b> %s</p>' % (mm["bulletins"], esc(compte))) if mm else ""
+        html.append('<li class="fiche" id="defi-%s"><div class="d4-g"><span class="fiche-num">%02d</span>'
+                    '<h3 class="frame-title">%s</h3>%s<div class="d4-p">%s</div><p class="fiche-trace">%s</p></div>'
+                    '<div class="d4-d"><p class="fiche-texte">%s</p></div></li>'
+                    % (t["id"], i, esc(tl(t)["titre"]), n, pts, esc(tr), esc(tl(t)["texte"])))
     html.append('</ol></section>')
-    return {"seed.defisSynthese": "\n".join(html)}
+    # La meme grille, pour une carte de l'accueil (4 octobre 2026) : les liens
+    # des obstacles pointent vers leur fiche sur la page Defis.
+    grille_accueil = grille(L, esc, long_date, i18n_lang, debut, fin, ent, themes, tl,
+                            lambda t: "%s#defi-%s" % (lien_defis, t["id"]), saute_vides=True)
+    return {"seed.defisSynthese": "\n".join(html), "seed.defisGrilleHome": grille_accueil,
+            "seed.defisGrilleTitre": esc(titre_frise), "seed.defisGrilleSub": esc(sub_frise)}

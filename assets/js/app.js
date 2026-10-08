@@ -1401,6 +1401,62 @@ function reglerInfobulles(){
   Chart.defaults.plugins.tooltip.footerColor = PALETTE.ink;
   Chart.defaults.plugins.tooltip.footerFont = { family: PALETTE.font, weight: '500' };
   Chart.defaults.plugins.tooltip.footerMarginTop = 8;
+  /* Modele standard des graphiques (5 octobre 2026, option A de la maquette
+     graphiques) : la legende est TOUJOURS en haut, alignee a gauche, sous le
+     titre du cadre — jamais en dessous ni centree. Les graphiques qui
+     posaient position:'bottom' sont ramenes ici, avant leur premier rendu. */
+  Chart.defaults.plugins.legend.position = 'top';
+  Chart.defaults.plugins.legend.align = 'center';
+  /* Titres fixes par type de graphique (6 octobre 2026, demande du
+     proprietaire) : ils priment sur le titre du cadre, qui ne dit pas
+     toujours ce que montre le graphique (« Nouveaux deces » au-dessus du
+     lieu du deces, « Ou » au-dessus des cas par province, « La riposte »
+     sur les pages province). Les cas par province prennent « (%) » dans la
+     vue Parts (data-vue, pose par le rendu). */
+  const TITRES_PAR_MODE = { deathsPlace:'chartTitreLieuDeces', newCasesByProvince:'chartTitreProvinces',
+    alertes:'chartTitreAlertes', laboratoire:'chartTitreLabo', contactsRiposte:'chartTitreContacts' };
+  function poserTitre(chart){
+    const o = chart.config.options || (chart.config.options = {});
+    const l = o.plugins && o.plugins.legend;
+    o.plugins = o.plugins || {};
+    if(l && l.display !== false){ l.position = 'top'; l.align = 'center'; }
+    const cv = chart.canvas;
+    /* Pages province (6 octobre 2026) : la pastille au nom de la province
+       ne dit rien de plus que la page. Retiree de la legende des CTE et de
+       la vaccination ; les autres series (structures normees) restent. */
+    const prov = cv && cv.dataset.province;
+    if(prov && l && (cv.dataset.chart === 'cte' || cv.dataset.chart === 'vaccination')){
+      const autres = ((chart.config.data && chart.config.data.datasets) || []).filter(d => d.label !== prov && !d.pont);
+      if(!autres.length) l.display = false;
+      else if(!l.labels || !l.labels.sansProvince){
+        l.labels = Object.assign({}, l.labels);
+        const filtre = l.labels.filter;
+        l.labels.filter = (item, data) => item.text !== prov && (!filtre || filtre(item, data));
+        l.labels.sansProvince = true;
+      }
+    }
+    const dansCarrousel = cv && cv.closest && cv.closest('.cr-card');
+    const t = o.plugins.title || {};
+    const cle = cv && TITRES_PAR_MODE[cv.dataset.chart];
+    let texte = cle ? tr(cle) + (cv.dataset.vue === 'parts' ? ' (%)' : '') : t.text;
+    if(!texte && cv && !dansCarrousel){
+      const cadre = cv.closest('.cadre-fiche, .home-sec, section');
+      const h = cv.dataset.titre ? null : (cadre && cadre.querySelector('.frame-title, .section-title'));
+      texte = cv.dataset.titre || (h ? h.textContent.trim() : '');
+    }
+    o.plugins.title = Object.assign({}, t, dansCarrousel || !texte ? { display:false } : {
+      display:true, text:texte, align:'center', color:PALETTE.ink,
+      font:{ family:"'Source Serif 4', Georgia, serif", size:16, weight:'600' }, padding:{ top:2, bottom:10 } });
+  }
+  /* 5 octobre 2026 : chaque graphique porte un titre CENTRE en tete, et sa
+     legende centree juste dessous. Le titre est celui que le graphique se
+     donne, sinon celui de son cadre (data-titre, puis le titre de la
+     section). Dans le carrousel de l'accueil, la carte porte deja son titre,
+     centre : le canevas n'en remet pas. Repose a chaque mise a jour : les
+     rendus remplacent leurs options en changeant de vue. */
+  Chart.register({ id:'legendeStandard', beforeInit:poserTitre });
+  const majOrigine = Chart.prototype.update;
+  Chart.prototype.update = function(mode){ safeRun(() => poserTitre(this), 'poserTitre'); return majOrigine.call(this, mode); };
   reglerInfobulles.fait = true;
 }
 
@@ -1422,6 +1478,8 @@ function annoterTrous(canvas, mode){
   const wrap = canvas.closest('.chart-panel-wrap');
   const noteEl = wrap ? wrap.querySelector('.chart-note') : null;
   if(!chart || !noteEl) return;
+  // Accueil (2 octobre 2026, demande du proprietaire) : pas de phrase standard sous le graphique des cas.
+  if(canvas.id === 'epiChart') return;
   let trou = false, pont = false;
   chart.data.datasets.forEach((ds, i) => {
     if(!chart.isDatasetVisible(i) || !Array.isArray(ds.data)) return;
@@ -3748,6 +3806,7 @@ function renderOneChartBrut(canvas, chartMode){
       opts.plugins.largeurSemaine = { ratios:ratiosP, futurs:ratiosP.map(r => 1 - r) };
       legendeAVenir(opts.plugins.legend);
     }
+    canvas.dataset.vue = vue;
     if(slot.chart){ slot.chart.data = data; slot.chart.options = opts; slot.chart.update(); }
     else { slot.chart = new Chart(canvas.getContext('2d'), { type:'bar', data, options:opts, plugins:[largeurSemaine] }); }
     slot.lastMode = 'newCasesByProvince';
@@ -4186,19 +4245,9 @@ function renderOneChartBrut(canvas, chartMode){
       spanGaps: true,
       order: 0
     });
-    datasets.push({
-      type:'line',
-      label: tr('chartCumulativeDeathsLabel'),
-      data: s.map(r => r.deaths === null || r.deaths === undefined ? null : r.deaths),
-      yAxisID: 'y1',
-      borderColor: PALETTE.critical,
-      borderWidth: 2,
-      tension: .25,
-      pointRadius: 0,
-      fill: false,
-      spanGaps: true,
-      order: 0
-    });
+    /* 2 octobre 2026, demande du proprietaire : le graphique de l'accueil ne
+       garde que les cas — plus de courbe rouge des deces cumules. Les deces ont
+       leur graphique sur la page Donnees. */
   }
 
   const data = { labels, datasets };
@@ -4401,10 +4450,84 @@ function zoneLevel(cases){
   return steps.length + 1;
 }
 
+/* Format (largeur / hauteur) du cadre de la carte de l'accueil sur grand ecran. */
+const FORMAT_CADRE_CARTE = 1.55;
+
+/* La vignette du pays : le maillage en un seul trace gris, les zones touchees
+   a part (une par zone) qui reprennent la classe de couleur de la grande carte
+   — elles suivent donc le curseur du temps, via majCouleursVignette(), appelee
+   a chaque renderMap — et un cadre qui suit ce que la grande carte montre.
+   Rien d'interactif. (4 octobre 2026 : les zones etaient d'abord toutes
+   grises ; Fable veut y voir les couleurs.) */
+function setupMapVignette(svg){
+  const hote = document.getElementById('mapVignette');
+  if(!hote || !map || !map.emprise) return;
+  const trace = Array.prototype.map.call(
+    svg.querySelectorAll('.zm-quiet path'), p=>p.getAttribute('d')).join('');
+  const pays = [map.full.x + map.full.w / 2 - 560, -30, 1120, map.full.h + 40];
+  hote.innerHTML = `<svg viewBox="${pays.join(' ')}" aria-hidden="true"><path class="mv-pays" d="${trace}"/>`
+    + '<g class="mv-zones"></g><rect class="mv-cadre" rx="14"/></svg>';
+  const NS = 'http://www.w3.org/2000/svg';
+  const groupe = hote.querySelector('.mv-zones');
+  map.vignetteZones = Object.keys(map.zones).map(cle=>{
+    const source = map.zones[cle].querySelector('path');
+    const p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', source ? source.getAttribute('d') : '');
+    p.setAttribute('class', 'mv-z is-0');
+    groupe.appendChild(p);
+    return { el: map.zones[cle], p: p };
+  });
+  map.vignette = hote.querySelector('.mv-cadre');
+  majVignette();
+  majCouleursVignette();
+  majBoutonsZoom();
+}
+
+function majCouleursVignette(){
+  if(!map || !map.vignetteZones) return;
+  map.vignetteZones.forEach(z=>{
+    const m = /is-(\d)/.exec(z.el.getAttribute('class') || '');
+    z.p.setAttribute('class', 'mv-z is-' + (m ? m[1] : '0'));
+  });
+}
+
+function majVignette(){
+  if(!map || !map.vignette) return;
+  const v = map.view;
+  map.vignette.setAttribute('x', v.x); map.vignette.setAttribute('y', v.y);
+  map.vignette.setAttribute('width', v.w); map.vignette.setAttribute('height', v.h);
+}
+
 function initMap(){
   const svg = document.querySelector('.zonemap');
   if(!svg) return;
   const viewport = svg.querySelector('.zm-viewport');
+
+  /* Grand ecran (3 octobre 2026) : la carte de l'accueil est un cadre LARGE,
+     ouvert sur l'emprise de l'epidemie — le pays entier reste a un bouton.
+     Le viewBox s'elargit au format du cadre (FORMAT_CADRE_CARTE), centre sur
+     l'emprise ; les cadrages sont ensuite de simples rectangles de ce format,
+     comme avant. Sous 901 px rien ne change : cadre carre, pays entier (ou
+     l'epicentre sur telephone). Le format de page ne se recalcule pas en
+     route : franchir le seuil recharge la page. */
+  const grandEcran = window.matchMedia('(min-width:901px)');
+  const emprise = (svg.dataset.outbreakBox || '').trim().split(/\s+/).map(Number);
+  let cadreEmprise = null, decalageMonde = 0;
+  if(svg.dataset.scope !== 'province' && emprise.length === 4 && emprise.every(Number.isFinite) && grandEcran.matches){
+    const b0 = (svg.getAttribute('viewBox') || '0 0 1000 1000').trim().split(/\s+/).map(Number);
+    const largeMonde = b0[3] * FORMAT_CADRE_CARTE;
+    /* Le viewBox garde son origine a 0 : avec une origine negative, Chrome
+       decale le groupe transforme (transform-box:view-box) de x * (1 - zoom).
+       C'est le cadrage « pays entier » (map.full.x) qui est decale a gauche,
+       ce qui centre le pays dans le cadre large. */
+    decalageMonde = b0[0] + b0[2] / 2 - largeMonde / 2;
+    svg.setAttribute('viewBox', `0 ${b0[1]} ${largeMonde} ${b0[3]}`);
+    const w = Math.max(emprise[2], emprise[3] * FORMAT_CADRE_CARTE);
+    cadreEmprise = { x: emprise[0] + emprise[2] / 2 - w / 2,
+                     y: emprise[1] + emprise[3] / 2 - w / FORMAT_CADRE_CARTE / 2,
+                     w: w, h: w / FORMAT_CADRE_CARTE };
+    if(grandEcran.addEventListener) grandEcran.addEventListener('change', ()=>location.reload());
+  }
   const box = (svg.getAttribute('viewBox') || '0 0 1000 1000').trim().split(/\s+/).map(Number);
 
   const zones = {};
@@ -4415,9 +4538,27 @@ function initMap(){
   map = { svg, viewport, width: box[2], height: box[3], zones,
           marks: [...svg.querySelectorAll('.zm-mark[data-x]')],
           full: { x: box[0], y: box[1], w: box[2], h: box[3] } };
+  map.full.x += decalageMonde;
   map.view = Object.assign({}, map.full);
+  map.emprise = cadreEmprise;
   setupMapDragging();
   setupMapModes();
+  setupMapVignette(svg);
+
+  /* « Zones touchees » : le cadrage d'ouverture sur grand ecran, qu'on retrouve
+     en un clic apres un zoom. Le bouton n'existe qu'a ce format. */
+  const outbreak = document.getElementById('btnViewOutbreak');
+  if(outbreak && cadreEmprise){
+    outbreak.addEventListener('click', ()=>{
+      map.view = Object.assign({}, cadreEmprise);
+      applyView();
+      setActiveMapBtn(outbreak);
+      if(window.mapClearSelection) window.mapClearSelection();
+    });
+    map.view = Object.assign({}, cadreEmprise);
+    applyView(false);
+    setActiveMapBtn(outbreak);
+  }
 
   const country = document.getElementById('btnViewCountry');
   if(country) country.addEventListener('click', ()=>{
@@ -4425,19 +4566,33 @@ function initMap(){
     setActiveMapBtn(country);
     if(window.mapClearSelection) window.mapClearSelection();
   });
-  const epicentre = document.getElementById('btnViewIturi');
-  if(epicentre) epicentre.addEventListener('click', ()=>{
+  const monde = document.getElementById('btnViewMonde');
+  if(monde) setupMonde(svg, monde);
+  /* Le bouton « Zoomer sur l'epicentre » est retire (4 octobre 2026) : il est
+     remplace par un + et un - qui zooment de moitie autour du centre du
+     cadre. Sur telephone la carte s'ouvre toujours cadree sur l'Ituri, sans
+     bouton actif ; le pays entier reste a un tap. Meme seuil que le CSS
+     (760 px). Decision du 27 aout. */
+  if(window.matchMedia && window.matchMedia('(max-width:760px)').matches){
     zoomToProvince('Ituri');
-    setActiveMapBtn(epicentre);
-  });
-  /* Sur telephone, la carte s'ouvre cadree sur l'epicentre : a 360 px la
-     zone touchee occupait 70 px d'une RDC entiere de 320 — un pays gris avec
-     une tache bleue dans un coin. Le pays reste a un tap. Meme seuil que le
-     CSS (760 px). Decision du 27 aout. */
-  if(epicentre && window.matchMedia && window.matchMedia('(max-width:760px)').matches){
-    zoomToProvince('Ituri');
-    setActiveMapBtn(epicentre);
+    /* « Epicentre » existe aussi sur telephone (8 octobre 2026, demande du
+       proprietaire) : il ramene a ce cadrage d'ouverture sur l'Ituri. */
+    if(outbreak){
+      outbreak.addEventListener('click', ()=>{
+        zoomToProvince('Ituri');
+        setActiveMapBtn(outbreak);
+        if(window.mapClearSelection) window.mapClearSelection();
+      });
+    }
+    setActiveMapBtn(outbreak || null);
   }
+  const zoomPlus = document.getElementById('btnZoomIn');
+  const zoomMoins = document.getElementById('btnZoomOut');
+  if(zoomPlus) zoomPlus.addEventListener('click', ()=>zoomMapBy(MAP_ZOOM_STEP));
+  if(zoomMoins) zoomMoins.addEventListener('click', ()=>zoomMapBy(1 / MAP_ZOOM_STEP));
+  majBoutonsZoom();
+  // La carte est cadree : on peut la montrer (voir html.js dans site.css).
+  svg.classList.add('is-pret');
 
   /* Cliquer une zone cadre sur sa province. Le lien vers la page de la
      province reste dans le HTML — il fonctionne sans JavaScript, les moteurs
@@ -4472,6 +4627,13 @@ function mapAspect(){ return map ? map.height / map.width : 1; }
 
 function clampView(view){
   const full = map.full;
+  // La vue « Pays touches » sort volontairement du pays : elle a ses propres
+  // bornes, du cadre des trois pays (map.mondeW) au zoom le plus serre.
+  if(view.monde){
+    view.w = Math.min(map.mondeW || view.w, Math.max(full.w * MAP_MIN_SPAN_RATIO, view.w));
+    view.h = view.w * mapAspect();
+    return view;
+  }
   view.w = Math.min(full.w, Math.max(full.w * MAP_MIN_SPAN_RATIO, view.w));
   view.h = view.w * mapAspect();
   view.x = Math.min(Math.max(view.x, full.x), full.x + full.w - view.w);
@@ -4490,11 +4652,18 @@ function applyView(animate){
   map.viewport.classList.toggle('is-animating', animate !== false);
   map.viewport.style.transform = `matrix(${scale},0,0,${scale},${tx},${ty})`;
   map.svg.classList.toggle('is-zoomed', scale > 1.05);
+  majVignette();
+  majBoutonsZoom();
   // Les reperes suivent la carte mais ne grossissent pas avec elle : chacun
   // recoit l'echelle inverse autour de son propre point d'ancrage.
+  // Les points et noms des pays touches hors de RDC (vue « Pays touches »)
+  // annulent aussi la reduction du dessin, comme les bulles : sans cela,
+  // « OUGANDA » tombait a 5 px sur telephone (audit du 8 octobre 2026).
+  const ppu = pixelsParUnite();
   if(map.marks) map.marks.forEach(mark=>{
+    const hors = mark.classList.contains('hr-ville') || mark.classList.contains('hr-nom');
     mark.setAttribute('transform',
-      `translate(${mark.dataset.x} ${mark.dataset.y}) scale(${1 / scale})`);
+      `translate(${mark.dataset.x} ${mark.dataset.y}) scale(${hors ? 1 / (scale * ppu) : 1 / scale})`);
   });
   // Les bulles, elles, sont en pixels ecran : elles annulent aussi la
   // reduction du dessin (1000 unites -> largeur du cadre), pour que la legende
@@ -4661,6 +4830,140 @@ function zoomToBox(x, y, width, height){
   applyView();
 }
 
+/* Un cran de + ou de - : le cadre grandit ou retrecit d'un facteur MAP_ZOOM_STEP
+   autour de son centre. Les bornes sont celles de clampView (pays entier, 1/14). */
+const MAP_ZOOM_STEP = 1.6;
+
+function zoomMapBy(facteur){
+  if(!map) return;
+  const v = map.view;
+  const w = v.w / facteur;
+  // En vue « Pays touches », + et - zooment sans quitter la vue : l'Ouganda
+  // et le Kenya restent dessines (demande du 8 octobre 2026).
+  map.view = { x: v.x + v.w / 2 - w / 2, y: v.y + v.h / 2 - w * mapAspect() / 2,
+               w: w, h: w * mapAspect(), monde: v.monde };
+  if(v.monde && setupMonde.cacher) setupMonde.cacher();
+  applyView();
+  setActiveMapBtn(v.monde ? document.getElementById('btnViewMonde') : null);
+}
+
+/* Un bouton + ou - est grise quand le cadre est a sa limite. */
+function majBoutonsZoom(){
+  if(!map) return;
+  const plus = document.getElementById('btnZoomIn');
+  const moins = document.getElementById('btnZoomOut');
+  if(plus) plus.disabled = map.view.w <= map.full.w * MAP_MIN_SPAN_RATIO * 1.001;
+  if(moins) moins.disabled = map.view.w >= (map.view.monde ? map.mondeW : map.full.w) - 0.5;
+}
+
+/* La vue « Pays touches » (8 octobre 2026, en local) : la carte recule
+   jusqu'a l'Ouganda et au Kenya (la France est retiree). Le fond des pays voisins
+   et la couche des pays touches sont dans le SVG (scripts/hors_rdc.py) et ne
+   s'affichent qu'avec .is-monde sur le cadre. L'Ouganda et le Kenya y sont
+   dessines comme la RDC (districts, comtes) ; un point sur la ville du cas et
+   le nom du pays en couleur les signalent. Infobulle pour eux seuls. */
+function setupMonde(svg, btn){
+  const stage = svg.closest('.zonemap-stage');
+  // Telephone : cadre resserre sur l'est (data-monde-box-tel, hors_rdc.py).
+  const tel = window.matchMedia && window.matchMedia('(max-width:760px)').matches;
+  const boite = ((tel && svg.dataset.mondeBoxTel) || svg.dataset.mondeBox || '').trim().split(/\s+/).map(Number);
+  if(!stage || boite.length !== 4) return;
+  const bulles = JSON.parse((document.getElementById('horsRdcBulles') || {}).textContent || '{}');
+  const bulle = stage.querySelector('.hr-bulle');
+
+  /* Les pays voisins et les pays touches (~150 Ko) ne sont pas dans la page :
+     ecrits dedans, ils la faisaient s'afficher a moitie lue, carte grise puis
+     vraie carte (clignotement mesure le 8 octobre 2026). On les charge au
+     survol du bouton, ou au plus tard au clic, une seule fois. */
+  let chargement = null;
+  function charger(){
+    if(chargement) return chargement;
+    const src = svg.dataset.mondeSrc;
+    chargement = (src ? fetch(src).then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
+                      : Promise.reject(new Error('pas de source')))
+      .then(c=>{
+        const quiet = map.viewport.querySelector('.zm-quiet');
+        if(quiet) quiet.insertAdjacentHTML('beforebegin', c.monde);
+        map.viewport.insertAdjacentHTML('beforeend', c.hors);
+        // Les reperes ajoutes suivent la carte sans grossir, comme les autres.
+        map.marks = map.marks.concat([...map.viewport.querySelectorAll('.zm-hors .zm-mark[data-x]')]);
+        brancher();
+        applyView(false);
+      })
+      .catch(err=>{ chargement = null; throw err; });
+    return chargement;
+  }
+  btn.addEventListener('pointerenter', ()=>{ charger().catch(()=>{}); }, { once: true });
+  btn.addEventListener('focus', ()=>{ charger().catch(()=>{}); }, { once: true });
+
+  btn.addEventListener('click', ()=>{
+    charger().then(aller, ()=>{ /* fichier introuvable : la vue reste sur la RDC */ });
+  });
+  function aller(){
+    const aspect = mapAspect();
+    const w = Math.max(boite[2], boite[3] / aspect);
+    map.mondeW = w;
+    map.view = { x: boite[0] + boite[2] / 2 - w / 2, y: boite[1] + boite[3] / 2 - w * aspect / 2,
+                 w: w, h: w * aspect, monde: true };
+    if(window.mapClearSelection) window.mapClearSelection();
+    stage.classList.add('is-monde');
+    stage.classList.remove('is-monde-pret');
+    applyView();
+    setActiveMapBtn(btn);
+    // Les pays se colorent une fois la carte arrivee (transition de .55 s).
+    clearTimeout(setupMonde.t);
+    setupMonde.t = setTimeout(()=>stage.classList.add('is-monde-pret'), 520);
+  }
+
+  let actif = null;
+  function montrer(el, x, y){
+    if(!stage.classList.contains('is-monde')) return;
+    const a3 = el.dataset.a3;
+    if(!bulles[a3]) return;
+    stage.querySelectorAll('[data-a3].is-on').forEach(e=>e.classList.remove('is-on'));
+    stage.querySelectorAll('[data-a3="' + a3 + '"]').forEach(e=>e.classList.add('is-on'));
+    if(actif !== a3) bulle.innerHTML = bulles[a3];
+    actif = a3;
+    const r = stage.getBoundingClientRect(), w = bulle.offsetWidth, h = bulle.offsetHeight;
+    let l = x - r.left + 16, t = y - r.top + 16;
+    if(l + w > r.width - 8) l = x - r.left - w - 16;
+    if(l < 8) l = 8;
+    if(t + h > r.height - 8) t = Math.max(8, y - r.top - h - 16);
+    bulle.style.left = l + 'px';
+    bulle.style.top = t + 'px';
+    bulle.classList.add('is-visible');
+  }
+  function cacher(){
+    bulle.classList.remove('is-visible');
+    stage.querySelectorAll('[data-a3].is-on').forEach(e=>e.classList.remove('is-on'));
+    actif = null;
+  }
+  setupMonde.cacher = cacher;
+  function brancher(){ stage.querySelectorAll('[data-a3]').forEach(el=>{
+    el.addEventListener('pointermove', e=>{ if(e.pointerType === 'mouse') montrer(el, e.clientX, e.clientY); });
+    el.addEventListener('pointerleave', e=>{ if(e.pointerType === 'mouse') cacher(); });
+    el.addEventListener('click', e=>{ e.stopPropagation(); montrer(el, e.clientX, e.clientY); });
+    el.addEventListener('keydown', e=>{
+      if(e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      const r = el.getBoundingClientRect();
+      montrer(el, r.left + r.width / 2, r.top + r.height / 2);
+    });
+  }); }
+  document.addEventListener('click', e=>{ if(!e.target.closest('[data-a3]')) cacher(); });
+  // Le lien « Voir ces pays sur la carte » de la page Autres pays arrive ici
+  // avec #pays-touches : la carte s'ouvre directement sur cette vue.
+  if(location.hash === '#pays-touches') setTimeout(()=>btn.click(), 300);
+}
+
+function quitterMonde(){
+  const stage = map && map.svg && map.svg.closest('.zonemap-stage');
+  if(!stage || !stage.classList.contains('is-monde')) return;
+  stage.classList.remove('is-monde', 'is-monde-pret');
+  clearTimeout(setupMonde.t);
+  if(setupMonde.cacher) setupMonde.cacher();
+}
+
 function resetMapView(){
   if(!map) return;
   map.view = Object.assign({}, map.full);
@@ -4703,7 +5006,7 @@ function setupMapDragging(){
     }
     map.view = { x: drag.view.x - dx / drag.scale,
                  y: drag.view.y - dy / drag.scale,
-                 w: drag.view.w, h: drag.view.h };
+                 w: drag.view.w, h: drag.view.h, monde: drag.view.monde };
     applyView(false);
   });
 
@@ -4730,8 +5033,9 @@ function setActiveMapBtn(btn){
   // cadrages predefinis n'est alors actif. Seuls les deux boutons de cadrage
   // sont concernes : « Zones colorees / Cercles » portent aussi .map-btn et
   // perdaient leur etat actif a chaque changement de cadrage.
-  document.querySelectorAll('#btnViewCountry, #btnViewIturi').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#btnViewOutbreak, #btnViewCountry, #btnViewMonde').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
+  if(!btn || btn.id !== 'btnViewMonde') quitterMonde();
 }
 
 function renderMap(){
@@ -4807,6 +5111,7 @@ function renderMap(){
     }
   });
 
+  majCouleursVignette();
   renderCircles(points);
   if(window.majInfobulleZone) window.majInfobulleZone();
 }
@@ -4835,6 +5140,49 @@ function latestAvailableDateLabel(){
   }
   return latestDate ? (frDate(latestDate) + ' ' + latestDate.slice(0,4)) : '\u2014';
 }
+/* Telephone (8 octobre 2026, option 3 du proprietaire) : la date du curseur
+   n'occupe plus de ligne. Au repos elle est cachee — le panneau dessous dit
+   deja « Situation au … » ; des qu'on touche le curseur ou qu'on lance la
+   lecture, une bulle suit la poignee avec la date, puis s'efface 1,5 s apres
+   le dernier changement. Elle recopie #timelineDate, que updateTimelineLabel
+   tient a jour : une seule source pour la date. */
+function initBulleCurseur(){
+  const slider = document.getElementById('timelineSlider');
+  const dateLabel = document.getElementById('timelineDate');
+  if(!slider || !dateLabel || !window.matchMedia) return;
+  const tel = window.matchMedia('(max-width:760px)');
+  const bulle = document.createElement('span');
+  bulle.className = 'curseur-bulle';
+  bulle.setAttribute('aria-hidden', 'true');
+  slider.parentNode.insertBefore(bulle, slider);
+  let t = null;
+  function placer(){
+    const min = parseFloat(slider.min) || 0, max = parseFloat(slider.max) || 1;
+    const k = max > min ? (parseFloat(slider.value) - min) / (max - min) : 1;
+    const poignee = 22;  // largeur de la poignee, a peu pres celle du navigateur
+    const x = slider.offsetLeft + poignee / 2 + k * (slider.offsetWidth - poignee);
+    bulle.textContent = dateLabel.textContent;
+    const demi = bulle.offsetWidth / 2;
+    const parent = slider.parentNode.clientWidth;
+    bulle.style.left = Math.max(demi, Math.min(parent - demi, x)) + 'px';
+    // Juste au-dessus du trait (le curseur a une zone tactile de 40 px de haut).
+    bulle.style.top = (slider.offsetTop + slider.offsetHeight / 2 - bulle.offsetHeight - 14) + 'px';
+  }
+  function montrer(){
+    if(!tel.matches) return;
+    placer();
+    bulle.classList.add('is-visible');
+    clearTimeout(t);
+    t = setTimeout(()=>bulle.classList.remove('is-visible'), 1500);
+  }
+  slider.addEventListener('input', montrer);
+  slider.addEventListener('pointerdown', montrer);
+  slider.addEventListener('focus', montrer);
+  // Pendant la lecture, la date change toute seule : on la suit.
+  new MutationObserver(()=>{ if(bulle.classList.contains('is-visible') || timelinePlayTimer) montrer(); })
+    .observe(dateLabel, { childList: true, characterData: true, subtree: true });
+}
+
 function updateTimelineLabel(){
   const dateLabel = document.getElementById('timelineDate');
   const slider = document.getElementById('timelineSlider');
@@ -4956,6 +5304,16 @@ function reportCard(opts){
     </a>`;
 }
 
+/* Ligne du registre (6 octobre 2026) : meme balisage que registre_ligne()
+   dans build_pages.py. La classe report-chip reste, le filtre en depend. */
+function registreLigne(o){
+  const attrs = [o.month ? `data-month="${o.month}"` : '', o.search ? `data-search="${o.search}"` : ''].filter(Boolean).join(' ');
+  return `<a class="report-chip rg-l${o.variant ? ' ' + o.variant : ''}" href="${o.href}" target="_blank" rel="noopener" ${attrs} title="${o.title}" aria-label="${o.label}">`
+    + `<span class="rg-n">${o.numero}</span><span class="rg-d">${o.date}</span><span class="rg-c">${o.chiffres || ''}</span>`
+    + `<span class="rg-p" aria-hidden="true">PDF</span></a>`;
+}
+const dateCourte = iso => frDate(iso) + ' ' + iso.slice(0, 4);
+
 function renderReportsList(){
   const container = document.getElementById('reportsList');
   if(!container) return;
@@ -4986,9 +5344,11 @@ function renderReportsList(){
 
   container.innerHTML = groups.map(g => `
     <div class="reports-month-header" data-month-key="${g.key}">${g.label}</div>
-    ${g.reports.map(r=>reportCard({
+    ${g.reports.map(r=>registreLigne({
+      numero: r.sitrepNumber || '',
       label: tr('reportsSitrepLabel')(r.sitrepNumber),
-      date: r.reportingDate ? dateBulletin(r.reportingDate) : tr('reportsUnknownDate'),
+      date: r.reportingDate ? dateCourte(r.reportingDate) : tr('reportsUnknownDate'),
+      chiffres: (r.confirmed != null && r.deaths != null) ? tr('reportsCasDeces')(fmt(r.confirmed), fmt(r.deaths)) : '',
       href: assetUrl(r.file),
       title: tr('reportsDownload'),
       month: g.key,
@@ -5082,9 +5442,11 @@ function renderWhoReportsList(){
   }
   section.style.display = 'block';
   const sorted = [...whoReportsData].sort((a,b)=>(b.number||'').localeCompare(a.number||''));
-  container.innerHTML = sorted.map(r=>reportCard({
+  container.innerHTML = sorted.map(r=>registreLigne({
+    numero: 'n°' + (r.number || ''),
+    chiffres: tr('reportsWhoWeekly'),
     label: tr('whoReportsLabel')(r.number),
-    date: r.date ? dateBulletin(r.date) : tr('reportsUnknownDate'),
+    date: r.date ? dateCourte(r.date) : tr('reportsUnknownDate'),
     href: assetUrl(r.file),
     title: tr('reportsDownload'),
     variant: 'is-who'
@@ -5165,15 +5527,48 @@ function cfrBadgeClass(cfr){
   return 'zone-badge-high';
 }
 
+/* Ordre du 7 octobre 2026, le meme que les tableaux des pages province :
+   cumul, 24 h et 30 jours pour les cas ; cumul et 24 h pour les deces ;
+   puis la letalite. */
 const ZONES_COLUMNS = [
   { key:'name',        i18n:'zonesTh1' },
   { key:'province',    i18n:'zonesTh2' },
   { key:'cases',       i18n:'zonesTh3', numeric:true },
+  { key:'newCases24h', i18n:'zonesThCas24', numeric:true, right:true },
+  { key:'n30',         i18n:'zonesThCas30', numeric:true, right:true },
   { key:'deaths',      i18n:'zonesTh4', numeric:true, right:true },
-  { key:'cfr',         i18n:'zonesTh5', numeric:true, right:true },
-  { key:'newCases24h', i18n:'zonesTh6', numeric:true, right:true },
-  { key:'newDeaths24h', i18n:'zonesTh7', numeric:true, right:true }
+  { key:'nd24',        i18n:'zonesThDec24', numeric:true, right:true },
+  { key:'cfr',         i18n:'zonesTh5', numeric:true, right:true }
 ];
+
+/* Nouveaux cas des 30 derniers jours, par zone, lus dans ZONES_HISTORY
+   (ecarts de cumul entre deux instantanes, un recul ramene a zero). */
+function nouveaux30parZone(){
+  const out = {};
+  if(!ZONES_HISTORY.length) return out;
+  const fin = new Date(ZONES_HISTORY[ZONES_HISTORY.length - 1].date + 'T00:00:00');
+  const debut = new Date(fin); debut.setDate(debut.getDate() - 30);
+  const iso = debut.toISOString().slice(0, 10);
+  const prec = {};
+  ZONES_HISTORY.filter(h => h.date >= iso).forEach(h => {
+    h.zones.forEach(z => {
+      const k = zoneKey(z.name, z.province);
+      if(prec[k] !== undefined) (out[k] = out[k] || []).push(Math.max(0, (z.cases || 0) - prec[k]));
+      prec[k] = z.cases || 0;
+    });
+  });
+  return out;
+}
+/* Mini-courbe a ECHELLE COMMUNE au tableau, compressee en racine carree :
+   une barre de 1 cas reste petite a cote d'une barre de 20 ailleurs, sans
+   que les petites zones disparaissent. Meme regle que build_pages.py. */
+function miniCourbe(vals, mxCommun, titre, couleur){
+  if(!vals || !vals.length) return '';
+  const w = 140, h = 28, bw = w / vals.length, mx = Math.sqrt(mxCommun || 1);
+  return `<svg class="z-spark" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="${titre}" style="--t:${couleur}">` +
+    vals.map((v, i) => { const hh = v ? Math.max(1.5, Math.sqrt(v) / mx * (h - 2)) : 0;
+      return `<rect x="${(i * bw + .5).toFixed(1)}" y="${(h - hh).toFixed(1)}" width="${Math.max(bw - 1, .6).toFixed(1)}" height="${hh.toFixed(1)}"${i === vals.length - 1 ? ' class="is-der"' : ''}/>`; }).join('') + '</svg>';
+}
 
 function initZonesTableControls(){
   const search = document.getElementById('zonesSearch');
@@ -5288,6 +5683,8 @@ document.querySelectorAll('#zonesViewNav .subtab-btn').forEach(btn=>{
 function renderProvinceSummary(){
   const body = document.getElementById('provinceSummaryBody');
   if(!body) return;
+  // Le tableau en mini-courbes (7 octobre 2026) est ecrit par le generateur.
+  if(body.closest('table.zq')) return;
   const rows = [...PROVINCE_TABLE_DATA].sort((a,b)=>b.confirmed-a.confirmed);
   const nationalTotal = national && national.confirmed ? national.confirmed : null;
   body.innerHTML = rows.map(p=>{
@@ -5343,7 +5740,13 @@ function renderZonesTable(){
     th.textContent = label;
   });
 
-  let rows = HEALTH_ZONES.filter(z=>{
+  const n30 = nouveaux30parZone();
+  const mxCommun = Math.max(1, ...Object.values(n30).flat());
+  let rows = HEALTH_ZONES.map(z => {
+    const serie = n30[zoneKey(z.name, z.province)] || [];
+    const nd24 = z.newDeaths24h != null ? z.newDeaths24h : (z.deathsCommunity24h || 0) + (z.deathsIntraCTE24h || 0);
+    return Object.assign({}, z, { serie, n30: serie.reduce((a, b) => a + b, 0), nd24 });
+  }).filter(z=>{
     if(zonesFilterProvinceVal!=='all' && z.province!==zonesFilterProvinceVal) return false;
     if(zonesSearchVal && !z.name.toLowerCase().includes(zonesSearchVal)) return false;
     return true;
@@ -5366,29 +5769,19 @@ function renderZonesTable(){
     emptyState.style.display = 'block';
   } else {
     emptyState.style.display = 'none';
-    const maxCases = Math.max(...HEALTH_ZONES.map(z=>z.cases));
+    const plus = v => v > 0 ? `<span class="z-plus">+${fmt(v)}</span>` : '<span class="z-zero">0</span>';
     body.innerHTML = rows.map(z=>{
-      const barPct = maxCases>0 ? Math.max(2, Math.round(z.cases/maxCases*100)) : 0;
       const dotColor = PROVINCE_COLORS[z.province] || 'var(--ink-faint)';
-      const newBadge = z.newCases24h>0
-        ? `<span class="zone-new-badge has-new">+${fmt(z.newCases24h)}</span>`
-        : `<span class="zone-new-badge no-new">${fmt(z.newCases24h)}</span>`;
-      // Le total imprime par le bulletin, jamais la somme des deux categories.
-      const nd = z.newDeaths24h != null
-        ? z.newDeaths24h
-        : (z.deathsCommunity24h || 0) + (z.deathsIntraCTE24h || 0);
-      const deathsBadge = nd>0
-        ? `<span class="zone-new-badge has-new">+${fmt(nd)}</span>`
-        : `<span class="zone-new-badge no-new">${fmt(nd)}</span>`;
       return `
       <tr>
-        <td><div class="zone-name-cell"><span class="zdot" style="background:${dotColor};"></span>${z.name}</div></td>
+        <td><span class="zdot" style="background:${dotColor};"></span>${z.name}</td>
         <td>${z.province}</td>
-        <td><div class="zone-cases-cell"><span class="zone-cases-num">${fmt(z.cases)}</span><div class="zone-bar-track"><div class="zone-bar-fill" style="width:${barPct}%;background:${dotColor};"></div></div></div></td>
-        <td class="is-num">${fmt(z.deaths)}</td>
-        <td class="is-num"><span class="zone-badge ${cfrBadgeClass(z.cfr)}">${fmtCfr(z.cfr)}</span></td>
-        <td class="is-num">${newBadge}</td>
-        <td class="is-num">${deathsBadge}</td>
+        <td class="zt z-cas">${fmt(z.cases)}</td>
+        <td>${plus(z.newCases24h || 0)}</td>
+        <td class="zs">${miniCourbe(z.serie, mxCommun, tr('zonesSpark')(z.name, fmt(z.n30)), dotColor)}</td>
+        <td class="zt z-dec">${fmt(z.deaths)}</td>
+        <td>${plus(z.nd24)}</td>
+        <td>${fmtCfr(z.cfr)}</td>
       </tr>
     `;
     }).join('');
@@ -6094,6 +6487,8 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
     bouton.setAttribute('aria-expanded', String(ouvert));
     const etiquette = ouvert ? bouton.dataset.labelClose : bouton.dataset.labelOpen;
     if(etiquette) bouton.setAttribute('aria-label', etiquette);
+    // Chaque ouverture repart des onglets principaux.
+    if(setupMenuMobile.niveau1) setupMenuMobile.niveau1();
     if(!ouvert) return;
     mesurerEntete();
     /* Les provinces NE sont PAS depliees a l'ouverture (demande du
@@ -6102,6 +6497,68 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
        les huit pages, pas les six provinces. Le chevron les ouvre d'un tap.
        L'etat vient donc du generateur : deplie sur /donnees/ et sur les pages
        province, ou il montre ou l'on se trouve, replie partout ailleurs. */
+  }
+
+  /* Menu a deux niveaux (8 octobre 2026, demande du proprietaire) : le menu
+     ne montre d'abord que les onglets principaux ; toucher l'un d'eux
+     n'affiche que ses pages, sous « ‹ Retour » (en haut a gauche) et le nom
+     de l'onglet. La croix du bouton de menu, en haut a droite, ferme tout. */
+  const panneau = barre.querySelector('.side-panel');
+  const etroit = window.matchMedia('(max-width:900px)');
+  if(panneau){
+    const lang = (document.documentElement.lang || 'fr').slice(0, 2);
+    const mot = { fr: 'Retour', en: 'Back', sw: 'Rudi' }[lang] || 'Retour';
+    const tete = document.createElement('div');
+    tete.className = 'menu-niv2-tete';
+    tete.innerHTML = '<button type="button" class="menu-retour">\u2039 ' + mot + '</button><p class="menu-niv2-titre"></p>';
+    panneau.insertBefore(tete, panneau.firstChild);
+    const titre = tete.querySelector('.menu-niv2-titre');
+    const niveau1 = ()=>{
+      panneau.classList.remove('is-niv2');
+      panneau.querySelectorAll('.nav-grp.is-actif').forEach(g=>g.classList.remove('is-actif'));
+    };
+    /* Le passage d'un niveau a l'autre glisse (8 octobre 2026) : vers le
+       second niveau, le contenu part a gauche et le nouveau entre par la
+       droite ; « Retour » fait l'inverse. Sans animation si le lecteur a
+       demande moins de mouvement, ou si le navigateur ne sait pas animer. */
+    const calmes = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let enCours = false;
+    function glisser(avant, changer){
+      const els = [...panneau.children].filter(e=>e.offsetParent !== null || e === tete);
+      if(calmes.matches || !els.length || !els[0].animate){ changer(); return; }
+      if(enCours) return;
+      enCours = true;
+      const sortie = avant ? '-100%' : '100%', entree = avant ? '100%' : '-100%';
+      const parts = els.map(e=>e.animate(
+        [{ transform: 'translateX(0)', opacity: 1 }, { transform: 'translateX(' + sortie + ')', opacity: .4 }],
+        { duration: 200, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' }));
+      Promise.all(parts.map(a=>a.finished)).then(()=>{
+        parts.forEach(a=>a.cancel());
+        changer();
+        panneau.scrollTop = 0;
+        const vus = [...panneau.children].filter(e=>e.offsetParent !== null);
+        const arrivees = vus.map(e=>e.animate(
+          [{ transform: 'translateX(' + entree + ')', opacity: .4 }, { transform: 'translateX(0)', opacity: 1 }],
+          { duration: 280, easing: 'cubic-bezier(.2,.8,.2,1)' }));
+        Promise.all(arrivees.map(a=>a.finished)).then(()=>{ enCours = false; }, ()=>{ enCours = false; });
+      }, ()=>{ enCours = false; changer(); });
+    }
+    tete.querySelector('.menu-retour').addEventListener('click', ()=>{
+      glisser(false, niveau1);
+    });
+    panneau.querySelectorAll('.nav-grp').forEach(g=>{
+      const b = g.querySelector('.nav-grp-btn');
+      if(!b) return;
+      b.addEventListener('click', ()=>{
+        if(!etroit.matches) return;
+        glisser(true, ()=>{
+          g.classList.add('is-actif');
+          titre.textContent = b.textContent.trim();
+          panneau.classList.add('is-niv2');
+        });
+      });
+    });
+    setupMenuMobile.niveau1 = niveau1;
   }
 
   bouton.addEventListener('click', ()=>{
@@ -6158,6 +6615,65 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
     } else {
       bar.scrollLeft = cible;   // vieux WebView Android
     }
+  });
+})();
+
+/* ============ MENUS DEROULANTS DE L'EN-TETE (ORDINATEUR) ============ */
+/* Refonte du 2 octobre 2026 : la colonne laterale devient une barre en haut,
+   et chaque groupe (Actualite, Explorer, Comprendre) un panneau. Il s'ouvre au
+   survol d'un pointeur fin, ou au clic et au clavier ; Echap et un clic
+   ailleurs le referment. Sous 901 px le meme HTML reste le menu plein ecran :
+   ce bloc n'y fait rien. */
+(function setupMenusEntete(){
+  const groupes = Array.prototype.slice.call(document.querySelectorAll('.nav-grp'));
+  if(!groupes.length) return;
+  const grand = window.matchMedia('(min-width:901px)');
+  let delai = null;
+  function fermer(sauf){
+    groupes.forEach(g=>{
+      if(g === sauf) return;
+      g.classList.remove('open');
+      g.querySelector('.nav-grp-btn').setAttribute('aria-expanded', 'false');
+    });
+  }
+  function ouvrir(g){
+    fermer(g);
+    g.classList.add('open');
+    g.querySelector('.nav-grp-btn').setAttribute('aria-expanded', 'true');
+  }
+  /* Intention de survol (8 octobre 2026) : les quatre boutons se touchent, et
+     un panneau s'ouvrait des que le curseur frolait un bouton en traversant la
+     barre ; il se refermait aussitot, d'ou un clignotement. Il faut desormais
+     rester ~150 ms sur un bouton. Passer d'un panneau ouvert a son voisin
+     demande aussi un court arret (100 ms) : sans lui, un curseur pose a la
+     jonction de deux boutons, qui tremble d'un ou deux pixels, faisait alterner
+     les deux panneaux (49 fois en 1,5 s, mesure). */
+  let attente = null;
+  const unOuvert = () => groupes.some(x => x.classList.contains('open'));
+  groupes.forEach(g=>{
+    const bouton = g.querySelector('.nav-grp-btn');
+    g.addEventListener('mouseenter', ()=>{
+      clearTimeout(delai);
+      clearTimeout(attente);
+      if(!(grand.matches && window.matchMedia('(hover:hover)').matches)) return;
+      if(g.classList.contains('open')) return;
+      attente = setTimeout(()=>ouvrir(g), unOuvert() ? 100 : 150);
+    });
+    g.addEventListener('mouseleave', ()=>{
+      clearTimeout(attente);
+      if(!grand.matches) return;
+      delai = setTimeout(()=>fermer(), 260);
+    });
+    bouton.addEventListener('click', ()=>{
+      if(!grand.matches) return;
+      g.classList.contains('open') ? fermer() : ouvrir(g);
+    });
+  });
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape') fermer();
+  });
+  document.addEventListener('click', e=>{
+    if(!e.target.closest('.nav-grp')) fermer();
   });
 })();
 
@@ -6310,8 +6826,10 @@ function daterPanneauCarte(){
 
   function fill(name, sub, cases, deaths, newCases, newDeaths, href){
     detail.classList.remove('is-empty');
-    if(nameEl) nameEl.textContent = name;
-    if(noteEl) noteEl.textContent = sub;
+    /* Survol (4 octobre 2026) : « Bunia (Ituri) » sur une seule ligne — la
+       zone, puis sa province entre parentheses — au lieu de deux lignes. */
+    if(nameEl) nameEl.textContent = sub ? `${name} (${sub})` : name;
+    if(noteEl) noteEl.textContent = '';
     if(casesEl) casesEl.textContent = cases || '—';
     if(deathsEl) deathsEl.textContent = deaths || '—';
     if(casesDeltaEl) casesDeltaEl.textContent = delta(newCases);
@@ -6471,114 +6989,251 @@ function initTimelineScroller(){
   rafraichir();
 }
 
+/* Carrousel « La riposte et ses defis » de l'accueil (4 octobre 2026) : cinq
+   cartes sur une BOUCLE sans fin — il y en a toujours une a gauche et une a
+   droite. Pas de defilement natif : chaque carte est posee par son ecart `d` a
+   la position courante `pos` (nombre fractionnaire, modulo le nombre de
+   cartes) : translation de d pas, echelle de 1,12 au centre a 0,86 des qu'on
+   s'en eloigne d'une carte, opacite de 1 a .7. Fleches, glisser a la souris ou
+   au doigt, molette horizontale et clavier changent `pos` ; a la fin du geste
+   elle s'aligne sur la carte la plus proche. */
+function initRiposteCarousel(){
+  const piste = document.getElementById('crTrack');
+  if(!piste) return;
+  /* Sur telephone, la grille des Defis est retiree du carrousel (8 octobre
+     2026, demande du proprietaire) : illisible a cette largeur. Retiree du
+     DOM, et non masquee, pour que la boucle ne compte que les cartes vues. */
+  if(window.matchMedia && window.matchMedia('(max-width:760px)').matches){
+    piste.querySelectorAll('.cr-card-grille').forEach(c=>c.remove());
+  }
+  const cartes = [...piste.querySelectorAll('.cr-card')];
+  const N = cartes.length;
+  if(N < 2) return;
+  piste.classList.add('is-ready');
+  /* Carte centree au chargement (7 octobre 2026, demande du proprietaire) :
+     les alertes quotidiennes, marquees data-cr-depart ; la grille des Defis
+     reste a sa gauche. */
+  const depart = cartes.findIndex(c => c.hasAttribute('data-cr-depart'));
+  let pos = depart > 0 ? depart : 0, anim = null;
+
+  const pas = () => cartes[0].offsetWidth + (parseFloat(getComputedStyle(piste).columnGap) || 26);
+
+  function dessiner(){
+    const st = pas();
+    cartes.forEach((c, i)=>{
+      let d = (((i - pos) % N) + N) % N;
+      if(d > N / 2) d -= N;
+      const a = Math.abs(d), t = Math.min(1, a);
+      c.style.setProperty('--x', (d * st).toFixed(1) + 'px');
+      c.style.setProperty('--s', (1.12 - 0.26 * t).toFixed(3));
+      c.style.setProperty('--o', (1 - 0.3 * t).toFixed(3));
+      c.style.zIndex = String(100 - Math.round(a * 10));
+      c.style.visibility = a > 2.2 ? 'hidden' : 'visible';
+    });
+  }
+  function arreter(){ if(anim){ cancelAnimationFrame(anim); anim = null; } }
+  function allerA(cible, duree){
+    arreter();
+    const depart = pos, ecart = cible - depart, t0 = performance.now(), D = duree || 480;
+    if(Math.abs(ecart) < 1e-4){ pos = cible; dessiner(); return; }
+    const doux = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    (function image(now){
+      const x = Math.min(1, (now - t0) / D);
+      pos = depart + ecart * doux(x);
+      dessiner();
+      anim = x < 1 ? requestAnimationFrame(image) : null;
+    })(t0);
+  }
+  const alignerPlusProche = () => allerA(Math.round(pos));
+
+  document.querySelectorAll('.cr-arrow[data-cr-nav]').forEach(b=>
+    b.addEventListener('click', ()=>allerA(Math.round(pos) + Number(b.dataset.crNav))));
+
+  // Glisser (souris et doigt) : un pas d'ecran = une carte.
+  let glisse = null;
+  piste.addEventListener('pointerdown', e=>{
+    if(e.button) return;
+    arreter();
+    glisse = { x: e.clientX, pos0: pos, bouge: false, id: e.pointerId };
+  });
+  piste.addEventListener('pointermove', e=>{
+    if(!glisse || e.pointerId !== glisse.id) return;
+    const dx = e.clientX - glisse.x;
+    if(!glisse.bouge && Math.abs(dx) > 6){
+      glisse.bouge = true; piste.classList.add('is-drag');
+      try{ piste.setPointerCapture(e.pointerId); }catch(_){}
+    }
+    if(glisse.bouge){ pos = glisse.pos0 - dx / pas(); dessiner(); }
+  });
+  const fin = e=>{
+    if(!glisse) return;
+    const avait = glisse.bouge;
+    glisse = null; piste.classList.remove('is-drag');
+    if(avait) alignerPlusProche();
+  };
+  piste.addEventListener('pointerup', fin);
+  piste.addEventListener('pointercancel', fin);
+  // Un glisser ne doit pas suivre le lien sous le doigt.
+  piste.addEventListener('click', e=>{
+    if(piste.dataset.apresGlisse){ e.preventDefault(); e.stopPropagation(); }
+  }, true);
+  piste.addEventListener('pointerup', ()=>{
+    if(piste.classList.contains('is-drag')){ piste.dataset.apresGlisse = '1'; setTimeout(()=>{ delete piste.dataset.apresGlisse; }, 0); }
+  }, true);
+
+  // Molette horizontale (trackpad) et clavier.
+  let tempoMolette = null;
+  piste.addEventListener('wheel', e=>{
+    if(Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // le defilement vertical reste a la page
+    e.preventDefault();
+    arreter();
+    pos += e.deltaX / pas();
+    dessiner();
+    clearTimeout(tempoMolette);
+    tempoMolette = setTimeout(alignerPlusProche, 120);
+  }, { passive: false });
+  piste.addEventListener('keydown', e=>{
+    if(e.key === 'ArrowRight'){ e.preventDefault(); allerA(Math.round(pos) + 1); }
+    if(e.key === 'ArrowLeft'){ e.preventDefault(); allerA(Math.round(pos) - 1); }
+  });
+  window.addEventListener('resize', dessiner);
+  dessiner();
+}
+
+/* La courbe des chiffres cles se trace a l'arrivee dans l'ecran : is-armed
+   la cache (ligne non tracee), is-in lance l'animation. Sans JavaScript, ou
+   sans IntersectionObserver, elle reste simplement visible. */
+function initCourbeChiffresCles(){
+  const cadre = document.querySelector('.kc-fig');
+  if(!cadre || !('IntersectionObserver' in window)) return;
+  cadre.classList.add('is-armed');
+  const obs = new IntersectionObserver(entries=>{
+    if(entries.some(e=>e.isIntersecting)){ cadre.classList.add('is-in'); obs.disconnect(); }
+  }, { threshold: 0.25 });
+  obs.observe(cadre);
+}
+
+/* En-tete des pages province (5 octobre 2026) : survoler une zone de la
+   carte affiche son nom, ses cas et ses deces dans une bulle qui suit le
+   pointeur. Les chiffres sont ecrits par le generateur sur chaque trace. */
+function initBulleEntete(){
+  const fond = document.querySelector('.phb-fond');
+  if(!fond) return;
+  const bulle = fond.querySelector('.phb-bulle');
+  if(!bulle) return;
+  const libCas = window.HERO_TIP_CASES || 'cas confirmés', libDec = window.HERO_TIP_DEATHS || 'décès';
+  fond.querySelectorAll('path[data-zone]').forEach(p=>{
+    p.addEventListener('pointerenter', ()=>{
+      bulle.innerHTML = `<b>${p.dataset.zone}</b><span>${fmt(+p.dataset.cas)} ${libCas} · ${fmt(+p.dataset.deces)} ${libDec}</span>`;
+      bulle.hidden = false; p.classList.add('is-survol');
+    });
+    p.addEventListener('pointermove', e=>{
+      const r = fond.getBoundingClientRect();
+      bulle.style.left = (e.clientX - r.left) + 'px'; bulle.style.top = (e.clientY - r.top) + 'px';
+    });
+    p.addEventListener('pointerleave', ()=>{ bulle.hidden = true; p.classList.remove('is-survol'); });
+  });
+}
+
 if(document.querySelector('.zonemap')) safeRun(initMap, 'initMap');
 applyStaticI18n();
-renderAll(); // premier rendu immediat avec les donnees de reference integrees
+/* Plus de premier rendu avec les donnees de reference integrees (8 octobre
+   2026) : elles datent du 14 aout, et la page generee porte deja les bons
+   chiffres et les bonnes couleurs de carte. Les dessiner d'abord affichait un
+   etat perime une fraction de seconde (4 843 cas puis 8 728 : un clignotement
+   mesure). On attend les donnees ; si elles manquent (hors ligne, file://),
+   les load* gardent les donnees integrees et le rendu ci-dessous s'en sert. */
 safeRun(initTimelineScroller, 'timelineScroller');
+safeRun(initRiposteCarousel, 'riposteCarousel');
+safeRun(initBulleEntete, 'bulleEntete');
+safeRun(initCourbeChiffresCles, 'courbeChiffresCles');
 /* L'historique des zones ne sert qu'au curseur des cartes et aux tableaux
    de zones : les autres pages ne le chargent plus (5 septembre 2026). */
 const besoinHistorique = !!document.querySelector('#timelineSlider, #zonesDetailTable, #zonesProvinceTable');
-Promise.all([loadRemoteSitreps(), loadRemoteLatest(), besoinHistorique ? loadZonesHistory() : Promise.resolve(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie(), loadDecesLieu(), loadRiposte()]).then(()=>{
+// allSettled : un chargement qui echoue n'empeche pas le rendu des autres.
+Promise.allSettled([loadRemoteSitreps(), loadRemoteLatest(), besoinHistorique ? loadZonesHistory() : Promise.resolve(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie(), loadDecesLieu(), loadRiposte()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
   applyStaticI18n(); // la date "Dernière MAJ le ..." dans l'en-tête peut changer
-  renderAll();        // puis on ré-affiche avec les données à jour si trouvées
+  renderAll();        // un seul rendu, avec les donnees a jour si trouvees
   safeRun(setupTimeline, 'setupTimeline');
+  safeRun(initBulleCurseur, 'bulleCurseur');
 });
 
-/* Nouvelles de l'epidemie : la mosaique rendue par actus_items_html
-   (build_pages.py). La page est regeneree a chaque collecte, pas chaque
-   jour : « Aujourd'hui », « Hier » et l'etiquette « Nouveau » se calculent
-   donc ici, a l'heure du lecteur. */
+/* Nouvelles de l'epidemie en fil de presse (7 octobre 2026) : rendu par
+   actus_items_html. La page est regeneree a chaque collecte, pas chaque
+   jour : « Aujourd'hui », « Hier » et « Nouveau » se calculent ici, a
+   l'heure du lecteur. Les articles s'affichent par lots de LOT, parmi ceux
+   que le filtre de source garde ; un jour sans article visible se cache. */
 (function(){
-  var mos = document.querySelector('.actus-mos');
-  if (!mos) return;
+  var fil = document.querySelector('.actus-fil');
+  if (!fil) return;
   var auj = new Date(); auj.setHours(0, 0, 0, 0);
   function jours(iso){ return Math.round((auj - new Date(iso + 'T00:00:00')) / 864e5); }
-  var cases = Array.prototype.slice.call(mos.querySelectorAll('.actu-case'));
-
-  mos.querySelectorAll('.actu-lien').forEach(function(a){
-    var n = jours(a.dataset.date), t = a.querySelector('.actu-quand');
-    if (t && n <= 0) t.textContent = mos.dataset.auj;
-    else if (t && n === 1) t.textContent = mos.dataset.hier;
-    else if (t && n < 7) t.textContent = mos.dataset.jours.replace('{n}', n);
-    // « Nouveau » : moins de 48 h.
-    var neuf = a.querySelector('.actu-neuf'); if (neuf && n > 1) neuf.remove();
+  fil.querySelectorAll('.af-j').forEach(function(j){
+    var n = jours(j.dataset.jour), sp = j.querySelector('h2 span');
+    if (sp && n <= 0) sp.textContent = fil.dataset.auj + ' · ' + sp.textContent;
+    else if (sp && n === 1) sp.textContent = fil.dataset.hier + ' · ' + sp.textContent;
   });
-
-  // L'onglet de date va sur le premier article VISIBLE de chaque groupe :
-  // recalcule a chaque filtre.
-  function onglets(){
-    mos.querySelectorAll('.actu-onglet').forEach(function(o){ o.remove(); });
-    var vu = {};
-    cases.forEach(function(c){
-      c.classList.remove('actu-debut');
-      if (c.hidden || vu[c.dataset.groupe]) return;
-      vu[c.dataset.groupe] = 1;
-      var o = document.createElement('span'), txt = c.dataset.libelle;
-      o.className = 'actu-onglet';
-      var n = c.dataset.sorte === 'jour' ? jours(c.dataset.groupe) : 99;
-      if (n <= 0) { o.innerHTML = '<span class="p"></span>'; o.appendChild(document.createTextNode(mos.dataset.auj + ' ')); }
-      else if (n === 1) o.appendChild(document.createTextNode(mos.dataset.hier + ' '));
-      if (n <= 1) { var i = document.createElement('i'); i.textContent = txt; o.appendChild(i); }
-      else o.textContent = txt;
-      c.classList.add('actu-debut'); c.appendChild(o);
-    });
-  }
-  // Pas de trou en bout de grille : la derniere case visible s'elargit
-  // d'autant de colonnes qu'il en manque a la derniere rangee.
-  function remplir(){
-    var cols = getComputedStyle(mos).gridTemplateColumns.split(' ').length;
-    var vis = cases.filter(function(c){ c.style.gridColumn = ''; return !c.hidden; });
-    var r = vis.length % cols;
-    if (r) vis[vis.length - 1].style.gridColumn = 'span ' + (cols - r + 1);
+  var arts = Array.prototype.slice.call(fil.querySelectorAll('.af-a'));
+  // « Nouveau » : moins de 48 h.
+  arts.forEach(function(a){ var nf = a.querySelector('.actu-neuf'); if (nf && jours(a.dataset.date) > 1) nf.remove(); });
+  var LOT = 40, vus = LOT, cat = '';
+  var plus = document.querySelector('.af-plus');
+  function afficher(){
+    var n = 0;
+    arts.forEach(function(a){ var ok = !cat || a.dataset.cat === cat; if (ok) n++; a.hidden = !ok || n > vus; });
+    fil.querySelectorAll('.af-j').forEach(function(j){ j.hidden = !j.querySelector('.af-a:not([hidden])'); });
+    if (plus) plus.hidden = n <= vus;
   }
   document.querySelectorAll('.actus-puce').forEach(function(p){
     p.addEventListener('click', function(){
       document.querySelectorAll('.actus-puce').forEach(function(q){
         q.classList.toggle('on', q === p); q.setAttribute('aria-pressed', q === p ? 'true' : 'false');
       });
-      cat = p.dataset.cat;
-      page = 1; afficher();
+      cat = p.dataset.cat; vus = LOT; afficher();
     });
   });
-  // Pagination : PAR_PAGE articles a la fois, parmi ceux que le filtre garde.
-  // La page courante vit dans l'adresse (?page=2) pour qu'un lien la retrouve.
-  var PAR_PAGE = 24, cat = '', page = 1;
-  var nav = document.createElement('nav');
-  nav.className = 'actus-pages'; nav.setAttribute('aria-label', mos.dataset.pageLib);
-  mos.parentNode.insertBefore(nav, mos.nextSibling);
-  try { page = Math.max(1, parseInt(new URLSearchParams(location.search).get('page'), 10) || 1); } catch (e) {}
-  function aller(n, defiler){ page = n; afficher(); if (defiler) mos.previousElementSibling.scrollIntoView({block: 'start'}); }
-  function bouton(txt, n, actif, desactive, libelle){
-    var b = document.createElement('button');
-    b.type = 'button'; b.textContent = txt; b.className = 'actus-pg' + (actif ? ' on' : '');
-    if (libelle) b.setAttribute('aria-label', libelle);
-    if (actif) b.setAttribute('aria-current', 'page');
-    if (desactive) b.disabled = true; else b.addEventListener('click', function(){ aller(n, true); });
-    return b;
-  }
-  function afficher(){
-    var gardes = cases.filter(function(c){ return !cat || c.dataset.cat === cat; });
-    var total = Math.max(1, Math.ceil(gardes.length / PAR_PAGE));
-    page = Math.min(page, total);
-    cases.forEach(function(c){ c.hidden = true; });
-    gardes.slice((page - 1) * PAR_PAGE, page * PAR_PAGE).forEach(function(c){ c.hidden = false; });
-    nav.textContent = '';
-    if (total > 1) {
-      nav.appendChild(bouton('\u2039', page - 1, false, page === 1, mos.dataset.prec));
-      for (var i = 1; i <= total; i++) {
-        if (i === 1 || i === total || Math.abs(i - page) <= 1) nav.appendChild(bouton(String(i), i, i === page, false, mos.dataset.pageLib + ' ' + i));
-        else if (nav.lastChild.className !== 'actus-pg-sep') { var e = document.createElement('span'); e.className = 'actus-pg-sep'; e.textContent = '\u2026'; nav.appendChild(e); }
-      }
-      nav.appendChild(bouton('\u203a', page + 1, false, page === total, mos.dataset.suiv));
-    }
-    try {
-      var u = new URL(location.href);
-      if (page > 1) u.searchParams.set('page', page); else u.searchParams.delete('page');
-      history.replaceState(null, '', u);
-    } catch (e) {}
-    onglets(); remplir();
-  }
+  if (plus) plus.querySelector('button').addEventListener('click', function(){ vus += LOT; afficher(); });
   afficher();
-  window.addEventListener('resize', remplir);
 })();
+
+/* À propos (6 octobre 2026) : survoler un chiffre de la liste allume son
+   surlignage dans le bulletin, et l'inverse ; une adresse en #lecture,
+   #avertissement… ouvre la rubrique repliee qu'elle vise. */
+(function(){
+  const L = document.querySelectorAll('.dc-liste li'), H = document.querySelectorAll('.dc-hl');
+  if(L.length){
+    const on = n => { L.forEach(x => x.classList.toggle('is-on', x.dataset.n === n)); H.forEach(x => x.classList.toggle('is-on', x.dataset.n === n)); };
+    [...L, ...H].forEach(x => { x.addEventListener('mouseenter', () => on(x.dataset.n)); x.addEventListener('mouseleave', () => on('')); });
+  }
+  const ouvrir = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const d = id && document.getElementById(id);
+    if(d && d.tagName === 'DETAILS'){ d.open = true; d.scrollIntoView({ block: 'start' }); }
+  };
+  if(document.querySelector('.about-acc')){ ouvrir(); window.addEventListener('hashchange', ouvrir); }
+})();
+
+/* Tableaux triables (7 octobre 2026) : table.zq.tri, un clic sur un en-tete
+   trie la colonne (data-v pour les nombres, le texte sinon), un second clic
+   inverse l'ordre. */
+document.querySelectorAll('table.zq.tri').forEach(function(tb){
+  var hs = tb.querySelectorAll('thead th');
+  hs.forEach(function(h, i){
+    h.setAttribute('role', 'button'); h.tabIndex = 0;
+    function trier(){
+      var asc = h.dataset.s === 'd';
+      hs.forEach(function(x){ delete x.dataset.s; x.classList.remove('on'); x.removeAttribute('aria-sort'); });
+      h.dataset.s = asc ? 'a' : 'd'; h.classList.add('on'); h.setAttribute('aria-sort', asc ? 'ascending' : 'descending');
+      var rows = [].slice.call(tb.tBodies[0].rows);
+      rows.sort(function(a, b){
+        var x = a.cells[i].dataset.v, y = b.cells[i].dataset.v;
+        var r = (x !== undefined && !isNaN(+x)) ? (+x) - (+y) : a.cells[i].textContent.localeCompare(b.cells[i].textContent, document.documentElement.lang || 'fr');
+        return asc ? r : -r;
+      });
+      rows.forEach(function(r){ tb.tBodies[0].appendChild(r); });
+    }
+    h.addEventListener('click', trier);
+    h.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); trier(); } });
+  });
+});

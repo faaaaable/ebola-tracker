@@ -65,6 +65,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -77,7 +82,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body>
 
@@ -134,44 +139,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Urambazaji mkuu">
-      <div class="side-nav-title">Habari mpya</div>
-      <a href="/sw/barua/">Barua</a>
-      <a href="/sw/habari/">Habari za mlipuko <span class="nav-badge">Mpya</span></a>
-      <div class="side-nav-title">Chunguza</div>
-      <a href="/sw/">Muhtasari</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Takwimu za kina</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/sw/takwimu/"><span class="dot dot-all"></span>Nchi nzima</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Habari</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/barua/"><span class="nav-t">Barua</span><span class="nav-desc">Muhtasari wa kila ripoti rasmi</span></a>
+      <a href="/sw/habari/"><span class="nav-t">Habari za mlipuko</span><span class="nav-desc">Makala yanayochapishwa kila siku</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Elewa</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/matukio/" aria-current="page"><span class="nav-t">Matukio</span><span class="nav-desc">Kuanzia arifa ya kwanza hadi leo</span></a>
+      <a href="/sw/virusi/"><span class="nav-t">Virusi</span><span class="nav-desc">Bundibugyo: maambukizi, dalili</span></a>
+      <a href="/sw/maswali/"><span class="nav-t">Maswali</span><span class="nav-desc">Maswali yanayoulizwa mara nyingi</span></a>
+      <a href="/sw/kamusi/"><span class="nav-t">Kamusi</span><span class="nav-desc">Maneno ya ripoti, yakifafanuliwa</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Chunguza</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">Mwenendo wa mlipuko</div>
+        <a href="/sw/takwimu/"><span class="nav-t">Nchi nzima</span><span class="nav-desc">Mwenendo katika ngazi ya taifa</span></a>
+        <a href="/sw/takwimu/ituri/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Ituri</span><span class="nav-desc">Visa 6,513 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/nord-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">Visa 1,785 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/haut-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">Visa 364 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/tshopo/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Tshopo</span><span class="nav-desc">Visa 51 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/bas-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">Visa 10 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">Visa 3 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-ubangi/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">Visa 2 vilivyothibitishwa</span></a>
+        <a href="/sw/nchi-nyingine/"><span class="nav-t">Nchi nyingine</span><span class="nav-desc">Uganda, Ufaransa, Kenya</span></a>
       </div>
-      <a href="/sw/mapambano/">Mapambano na changamoto</a>
-      <div class="side-nav-title">Elewa</div>
-      <a href="/sw/matukio/" aria-current="page">Matukio</a>
-      <a href="/sw/virusi/">Virusi</a>
-      <a href="/sw/ripoti/">Vyanzo na ripoti</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Takwimu za kina</div>
+        <a href="/sw/ripoti/"><span class="nav-t">Vyanzo na ripoti</span><span class="nav-desc">Ripoti zote za INSP</span></a>
+        <a href="/sw/hifadhidata/"><span class="nav-t">Hifadhidata <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu za tovuti, za kupakua</span></a>
+        <a href="/sw/dashibodi/"><span class="nav-t">Dashibodi <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu zote kwa wakati halisi</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Kukabili mlipuko</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/mapambano/"><span class="nav-t">Mapambano</span><span class="nav-desc">Hatua zinazochukuliwa kukomesha mlipuko</span></a>
+      <a href="/sw/changamoto/"><span class="nav-t">Changamoto</span><span class="nav-desc">Vikwazo vilivyokumbwa</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Tovuti</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/kuhusu/"><span class="nav-t">Kuhusu</span><span class="nav-desc">Mbinu, vyanzo, tahadhari</span></a>
+      <a href="/sw/mawasiliano/"><span class="nav-t">Mawasiliano</span><span class="nav-desc">Andikia timu</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -186,11 +210,7 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Njia ya kurasa">
-    <a href="/sw/">Mwanzo</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">Matukio ya mlipuko</span>
-  </nav>
+
 
       <main id="contenu">
   <section class="section">
@@ -205,12 +225,14 @@
     <ul class="tl-legend">
       <li class="is-official">Hatua rasmi</li>
       <li class="is-spread">Kuenea kijiografia</li>
-      <li class="is-milestone">Kizingiti kilichovukwa</li>
+      <li class="is-milestone is-cas">Kizingiti cha visa</li>
+      <li class="is-milestone is-deces">Kizingiti cha vifo</li>
+      <li class="is-intl">Nje ya DRC</li>
     </ul>
 
-    <ol class="tl">
+    <ol class="tl tl-zig">
         <li class="tl-month"><span>Feb. 2026</span></li>
-        <li class="tl-item is-official">
+        <li class="tl-item tl-l is-official">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-02-22">22 Feb. 2026</time>
@@ -219,7 +241,7 @@
           </div>
         </li>
         <li class="tl-month"><span>Apr. 2026</span></li>
-        <li class="tl-item is-official">
+        <li class="tl-item tl-l is-official">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-04-24">24 Apr. 2026</time>
@@ -229,7 +251,7 @@
           </div>
         </li>
         <li class="tl-month"><span>Mei 2026</span></li>
-        <li class="tl-item is-official">
+        <li class="tl-item tl-l is-official">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-05-14">14 Mei 2026</time>
@@ -241,7 +263,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-official">
+        <li class="tl-item tl-r is-official">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-05-15">15 Mei 2026</time>
@@ -253,7 +275,31 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-official">
+        <li class="tl-item tl-l is-intl">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-body">
+            <time class="tl-date" datetime="2026-05-15">15 Mei 2026</time>
+            <h2 class="tl-title">Kisa cha kwanza nchini Uganda</h2>
+            <p class="tl-text">Uganda inathibitisha visa viwili vilivyotoka DRC, tarehe 15 na 16 Mei, mjini Kampala; mmoja wa wagonjwa hao anafariki. Wa kwanza, mwanamume wa miaka 59 kutoka DRC, alikuwa ametafuta matibabu kwanza katika wilaya ya Hoima. Chanzo: WHO, ripoti ya kila wiki na. 1.</p>
+            <div class="tl-toll" title="Jumla iliyokusanywa hadi tarehe hii">
+              <span class="tl-toll-bar" aria-hidden="true"><span style="width:0.1%;"></span></span>
+              <span class="tl-toll-line">Visa 8 vilivyothibitishwa · vifo 4</span>
+            </div>
+          </div>
+        </li>
+        <li class="tl-item tl-r is-intl">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-body">
+            <time class="tl-date" datetime="2026-05-16">16 Mei 2026</time>
+            <h2 class="tl-title">Dharura ya afya ya umma ya kimataifa</h2>
+            <p class="tl-text">Mkurugenzi Mkuu wa WHO anatangaza kwamba mlipuko, nchini DRC na Uganda, ni dharura ya afya ya umma ya kimataifa, kiwango cha juu zaidi cha tahadhari chini ya Kanuni za Afya za Kimataifa. Chanzo: WHO, ripoti ya kila wiki na. 1.</p>
+            <div class="tl-toll" title="Jumla iliyokusanywa hadi tarehe hii">
+              <span class="tl-toll-bar" aria-hidden="true"><span style="width:0.1%;"></span></span>
+              <span class="tl-toll-line">Visa 8 vilivyothibitishwa · vifo 4</span>
+            </div>
+          </div>
+        </li>
+        <li class="tl-item tl-l is-official">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-05-17">17 Mei 2026</time>
@@ -265,7 +311,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-official">
+        <li class="tl-item tl-r is-official">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-05-18">18 Mei 2026</time>
@@ -277,7 +323,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-l is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-05-19">19 Mei 2026</time>
@@ -290,7 +336,7 @@
             <a class="tl-link" href="/sw/takwimu/nord-kivu/">Ona ukurasa wa jimbo</a>
           </div>
         </li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-r is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-05-21">21 Mei 2026</time>
@@ -303,7 +349,7 @@
             <a class="tl-link" href="/sw/takwimu/sud-kivu/">Ona ukurasa wa jimbo</a>
           </div>
         </li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-l is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-05-21">21 Mei 2026</time>
@@ -315,7 +361,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-r is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-05-29">29 Mei 2026</time>
@@ -328,7 +374,7 @@
           </div>
         </li>
         <li class="tl-month"><span>Jun. 2026</span></li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-l is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-06-13">13 Jun. 2026</time>
@@ -340,7 +386,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-r is-milestone is-cas">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-06-20">20 Jun. 2026</time>
@@ -352,7 +398,19 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-l is-intl">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-body">
+            <time class="tl-date" datetime="2026-06-24">24 Jun. 2026</time>
+            <h2 class="tl-title">Kisa kimoja kutoka nje nchini Ufaransa</h2>
+            <p class="tl-text">Daktari aliyerudi kutoka wiki tano za kuwahudumia wagonjwa huko Ituri anathibitishwa aliporudi Ufaransa. Anapona, bila maambukizi yoyote kwa watu aliokutana nao. Chanzo: WHO, ripoti za kila wiki na. 7 na 8.</p>
+            <div class="tl-toll" title="Jumla iliyokusanywa hadi tarehe hii">
+              <span class="tl-toll-bar" aria-hidden="true"><span style="width:13.2%;"></span></span>
+              <span class="tl-toll-line">Visa 1,155 vilivyothibitishwa · vifo 304</span>
+            </div>
+          </div>
+        </li>
+        <li class="tl-item tl-r is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-06-25">25 Jun. 2026</time>
@@ -365,7 +423,7 @@
             <a class="tl-link" href="/sw/takwimu/haut-uele/">Ona ukurasa wa jimbo</a>
           </div>
         </li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-l is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-06-30">30 Jun. 2026</time>
@@ -379,7 +437,7 @@
           </div>
         </li>
         <li class="tl-month"><span>Jul. 2026</span></li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-l is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-07-10">10 Jul. 2026</time>
@@ -391,7 +449,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-r is-milestone is-cas">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-07-13">13 Jul. 2026</time>
@@ -403,7 +461,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-l is-milestone is-deces">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-07-21">21 Jul. 2026</time>
@@ -415,7 +473,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-r is-milestone is-cas">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-07-24">24 Jul. 2026</time>
@@ -428,7 +486,7 @@
           </div>
         </li>
         <li class="tl-month"><span>Ago. 2026</span></li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-l is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-08-01">1 Ago. 2026</time>
@@ -440,7 +498,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-r is-milestone is-cas">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-08-05">5 Ago. 2026</time>
@@ -452,7 +510,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-l is-milestone is-deces">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-08-09">9 Ago. 2026</time>
@@ -464,7 +522,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-r is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-08-12">12 Ago. 2026</time>
@@ -477,7 +535,7 @@
             <a class="tl-link" href="/sw/takwimu/bas-uele/">Ona ukurasa wa jimbo</a>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-l is-milestone is-cas">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-08-16">16 Ago. 2026</time>
@@ -489,7 +547,19 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-r is-intl">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-body">
+            <time class="tl-date" datetime="2026-08-27">27 Ago. 2026</time>
+            <h2 class="tl-title">Mwisho wa mlipuko nchini Uganda</h2>
+            <p class="tl-text">Siku arobaini na mbili baada ya mgonjwa wa mwisho kuruhusiwa, tarehe 16 Julai, Uganda haina tena visa: mlipuko unachukuliwa kuwa umeisha huko. Nchi hiyo ilihesabu visa 20, vikiwemo vifo 2. Chanzo: WHO, ripoti za kila wiki na. 10 na 16.</p>
+            <div class="tl-toll" title="Jumla iliyokusanywa hadi tarehe hii">
+              <span class="tl-toll-bar" aria-hidden="true"><span style="width:67.2%;"></span></span>
+              <span class="tl-toll-line">Visa 5,863 vilivyothibitishwa · vifo 2,824</span>
+            </div>
+          </div>
+        </li>
+        <li class="tl-item tl-l is-milestone is-cas">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-08-29">29 Ago. 2026</time>
@@ -501,7 +571,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-r is-milestone is-deces">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-08-31">31 Ago. 2026</time>
@@ -514,7 +584,7 @@
           </div>
         </li>
         <li class="tl-month"><span>Sep. 2026</span></li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-l is-milestone is-cas">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-09-10">10 Sep. 2026</time>
@@ -526,7 +596,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-spread">
+        <li class="tl-item tl-r is-spread">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-09-10">10 Sep. 2026</time>
@@ -539,7 +609,7 @@
             <a class="tl-link" href="/sw/takwimu/sud-ubangi/">Ona ukurasa wa jimbo</a>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-l is-milestone is-cas">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-09-26">26 Sep. 2026</time>
@@ -551,7 +621,7 @@
             </div>
           </div>
         </li>
-        <li class="tl-item is-milestone">
+        <li class="tl-item tl-r is-milestone is-deces">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-09-30">30 Sep. 2026</time>
@@ -564,7 +634,19 @@
           </div>
         </li>
         <li class="tl-month"><span>Okt. 2026</span></li>
-        <li class="tl-item is-current">
+        <li class="tl-item tl-l is-intl">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-body">
+            <time class="tl-date" datetime="2026-10-06">6 Okt. 2026</time>
+            <h2 class="tl-title">Kisa cha kwanza nchini Kenya</h2>
+            <p class="tl-text">Mkenya aliyeishi DRC kwa miaka saba anafariki Nairobi, ambako anathibitishwa kuwa na virusi vya Bundibugyo. Alipitia Kampala kabla ya kupanda ndege. Watu 28 waliokutana naye wanafuatiliwa. Kenya inakuwa nchi ya nne kuathirika. Chanzo: Wizara ya Afya ya Kenya, kwa mujibu wa vyombo vya habari; bado haimo katika ripoti ya WHO iliyohifadhiwa.</p>
+            <div class="tl-toll" title="Jumla iliyokusanywa hadi tarehe hii">
+              <span class="tl-toll-bar" aria-hidden="true"><span style="width:100.0%;"></span></span>
+              <span class="tl-toll-line">Visa 8,728 vilivyothibitishwa · vifo 4,205</span>
+            </div>
+          </div>
+        </li>
+        <li class="tl-item tl-r is-current">
           <span class="tl-dot" aria-hidden="true"></span>
           <div class="tl-body">
             <time class="tl-date" datetime="2026-10-06">6 Okt. 2026</time>
@@ -596,13 +678,10 @@
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Chunguza</h2>
+        <h2>Habari</h2>
         <ul>
-        <li><a href="/sw/">Muhtasari</a></li>
         <li><a href="/sw/barua/">Barua</a></li>
         <li><a href="/sw/habari/">Habari za mlipuko</a></li>
-        <li><a href="/sw/takwimu/">Takwimu za kina</a></li>
-        <li><a href="/sw/mapambano/">Mapambano na changamoto</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -610,9 +689,20 @@
         <ul>
         <li><a href="/sw/matukio/">Matukio</a></li>
         <li><a href="/sw/virusi/">Virusi</a></li>
-        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
         <li><a href="/sw/maswali/">Maswali</a></li>
         <li><a href="/sw/kamusi/">Kamusi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Chunguza</h2>
+        <ul>
+        <li><a href="/sw/takwimu/">Nchi nzima</a></li>
+        <li><a href="/sw/nchi-nyingine/">Nchi nyingine</a></li>
+        <li><a href="/sw/mapambano/">Mapambano</a></li>
+        <li><a href="/sw/changamoto/">Changamoto</a></li>
+        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
+        <li><a href="/sw/hifadhidata/">Hifadhidata</a></li>
+        <li><a href="/sw/dashibodi/">Dashibodi</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -636,7 +726,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/">Tahadhari kamili</a></p>
+    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/#avertissement">Tahadhari kamili</a></p>
   </footer>
 
     </div>
@@ -647,6 +737,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/sw/takwimu/ituri/", "Nord-Kivu": "/sw/takwimu/nord-kivu/", "Haut-Uélé": "/sw/takwimu/haut-uele/", "Tshopo": "/sw/takwimu/tshopo/", "Bas-Uélé": "/sw/takwimu/bas-uele/", "Sud-Kivu": "/sw/takwimu/sud-kivu/", "Sud-Ubangi": "/sw/takwimu/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "visa vilivyothibitishwa"; window.HERO_TIP_DEATHS = "vifo";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -666,8 +757,8 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>

@@ -49,6 +49,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -61,7 +66,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body class="lettre-agence">
 
@@ -118,44 +123,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Main navigation">
-      <div class="side-nav-title">Latest</div>
-      <a href="/en/letter/">The letter</a>
-      <a href="/en/news/">Outbreak news <span class="nav-badge">New</span></a>
-      <div class="side-nav-title">Explore</div>
-      <a href="/en/">Overview</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Detailed data</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/en/data/"><span class="dot dot-all"></span>Whole country</a>
-          <a class="tab-dropdown-item" href="/en/data/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/en/data/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/en/data/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/en/data/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/en/data/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/en/data/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/en/data/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>News</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/letter/"><span class="nav-t">The letter</span><span class="nav-desc">A summary of each official bulletin</span></a>
+      <a href="/en/news/"><span class="nav-t">Outbreak news</span><span class="nav-desc">Articles published every day</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Understand</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/timeline/"><span class="nav-t">Timeline</span><span class="nav-desc">From the first alert to today</span></a>
+      <a href="/en/the-virus/"><span class="nav-t">The virus</span><span class="nav-desc">Bundibugyo: transmission, symptoms</span></a>
+      <a href="/en/faq/"><span class="nav-t">FAQ</span><span class="nav-desc">Frequently asked questions</span></a>
+      <a href="/en/glossary/"><span class="nav-t">Glossary</span><span class="nav-desc">The words of the bulletins, explained</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Explore</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">How the outbreak is evolving</div>
+        <a href="/en/data/"><span class="nav-t">Whole country</span><span class="nav-desc">The trends at national level</span></a>
+        <a href="/en/data/ituri/" title="Based on the latest official bulletin"><span class="nav-t">Ituri</span><span class="nav-desc">6,513 confirmed cases</span></a>
+        <a href="/en/data/nord-kivu/" title="Based on the latest official bulletin"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">1,785 confirmed cases</span></a>
+        <a href="/en/data/haut-uele/" title="Based on the latest official bulletin"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">364 confirmed cases</span></a>
+        <a href="/en/data/tshopo/" title="Based on the latest official bulletin"><span class="nav-t">Tshopo</span><span class="nav-desc">51 confirmed cases</span></a>
+        <a href="/en/data/bas-uele/" title="Based on the latest official bulletin"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">10 confirmed cases</span></a>
+        <a href="/en/data/sud-kivu/" title="Based on the latest official bulletin"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">3 confirmed cases</span></a>
+        <a href="/en/data/sud-ubangi/" title="Based on the latest official bulletin"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">2 confirmed cases</span></a>
+        <a href="/en/other-countries/"><span class="nav-t">Other countries</span><span class="nav-desc">Uganda, France, Kenya</span></a>
       </div>
-      <a href="/en/response/">Response &amp; challenges</a>
-      <div class="side-nav-title">Understand</div>
-      <a href="/en/timeline/">Timeline</a>
-      <a href="/en/the-virus/">The virus</a>
-      <a href="/en/reports/">Sources &amp; bulletins</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Detailed data</div>
+        <a href="/en/reports/"><span class="nav-t">Sources &amp; bulletins</span><span class="nav-desc">Every INSP bulletin</span></a>
+        <a href="/en/database/"><span class="nav-t">Database <span class="nav-badge nav-badge-soon">Coming soon</span></span><span class="nav-desc">The site's data, to download</span></a>
+        <a href="/en/dashboard/"><span class="nav-t">Dashboard <span class="nav-badge nav-badge-soon">Coming soon</span></span><span class="nav-desc">All the data in real time</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Facing the outbreak</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/response/"><span class="nav-t">Response</span><span class="nav-desc">Actions taken to stop the outbreak</span></a>
+      <a href="/en/challenges/"><span class="nav-t">Challenges</span><span class="nav-desc">The obstacles encountered</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>This site</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/en/about/"><span class="nav-t">About</span><span class="nav-desc">Method, sources, disclaimer</span></a>
+      <a href="/en/contact/"><span class="nav-t">Contact</span><span class="nav-desc">Write to the team</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -170,26 +194,20 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="/en/">Home</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">The letter</span>
-  </nav>
+
 
       <main id="contenu">
-<div class="ag">
+<div class="lq">
 <header class="ag-tete"><div class="ag-barre"></div><div class="ag-manchette"><p class="ag-marque">The letter</p><p class="ag-edition"><span>Bulletin No. 093</span><i></i><span>Situation as of 15 Aug 2026</span></p><p class="ag-sous">Summary of the INSP bulletin, with each new release</p></div><nav class="ag-nav"><a class="ag-nav-prev" href="/en/letter/092/">← Previous letter, bulletin no. 092</a><a class="ag-nav-next" href="/en/letter/094/">Next letter, bulletin no. 094 →</a></nav></header>
-<div class="ag-grille"><div class="ag-prose"><p class="ag-jour">The bulletin of 15 Aug 2026, published 16 Aug 2026, reports 101 new confirmed cases and 53 deaths. 101 cases is in line with the seven-day average of 93.0 a day. There is 1 new zone affected: Gethy (Ituri); the outbreak now affects 55 zones in 6 provinces.</p><section class="ag-chap" id="bilan"><h2 class="ag-titre"><span>01</span>The toll</h2>    <p class="fiche-texte lettre-texte">Since the outbreak began, 4,945 confirmed cases and 2,325 deaths: 47.0% of patients have died. 1,040 people have recovered. 34 more than the day before. 730 patients are hospitalised in Ebola treatment centres. Over the past seven days, an average of 93.0 cases and 52.1 deaths a day, against 78.0 cases and 43.3 deaths the week before.</p>
-<div class="ag-chiffres-inline">    <section class="kpis kpis-riposte" aria-label="The toll">
-      <div class="kpi confirmed"><div class="label">Confirmed cases</div><div class="value">4,945</div><div class="delta">+101 (24h)</div></div>
-      <div class="kpi deaths"><div class="label">Deaths</div><div class="value">2,325</div><div class="delta">+53 (24h)</div></div>
-      <div class="kpi recovered"><div class="label">Recovered</div><div class="value">1,040</div><div class="delta">+34 (24h)</div></div>
-      <div class="kpi cte"><div class="label">Patients in isolation</div><div class="value">730</div><div class="delta"></div></div>
-      <div class="kpi cfr"><div class="label">Case fatality rate</div><div class="value">47.0%</div><div class="delta"></div></div>
-      <div class="kpi zones"><div class="label">Health zones affected</div><div class="value">55</div><div class="delta">of 151</div></div>
-    </section>
-</div></section><section class="ag-chap" id="ou"><h2 class="ag-titre"><span>02</span>Where</h2>    <p class="fiche-texte lettre-texte">Ituri accounts for 89 of the 101 new cases. Then Nord-Kivu with 8, Haut-Uélé with 3 and Tshopo with 1. The other 2 provinces report none. 5 zones carry 82 of these 101 cases: Bunia 41, Mangala 15, Rwampara 11, Nizi 10 and Katwa 5. 47 of the 55 affected health zones reported at least one new case in the past three weeks; 8 reported none.</p>
-<div class="ag-chiffres-inline">    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">
+<div class="lq-grille"><div class="lq-principal" id="bilan"><div class="lq-eyebrow">Today's figures</div><h1 class="lq-titre">101 new cases, 53 deaths</h1><p class="lq-chapo">The bulletin of 15 Aug 2026, published 16 Aug 2026, reports 101 new confirmed cases and 53 deaths. 101 cases is in line with the seven-day average of 93.0 a day. There is 1 new zone affected: Gethy (Ituri); the outbreak now affects 55 zones in 6 provinces.</p>    <p class="fiche-texte lettre-texte">Since the outbreak began, 4,945 confirmed cases and 2,325 deaths: 47.0% of patients have died. 1,040 people have recovered. 34 more than the day before. 730 patients are hospitalised in Ebola treatment centres. Over the past seven days, an average of 93.0 cases and 52.1 deaths a day, against 78.0 cases and 43.3 deaths the week before.</p>
+</div>
+<aside class="lq-encadre" aria-label="The bulletin's figures"><div class="lq-chiffre is-cas"><b>4,945</b><span>confirmed cases · +101</span></div><div class="lq-chiffre is-deces"><b>2,325</b><span>deaths · +53</span></div><div class="lq-chiffre"><b>47.0%</b><span>case fatality rate</span></div><div class="lq-mini"><svg class="lq-barres" viewBox="0 0 100 56" preserveAspectRatio="none" aria-hidden="true"><rect x="0.40" y="47.3" width="2.53" height="8.7"><title>14 Jul 2026 : 62</title></rect><rect x="3.73" y="48.8" width="2.53" height="7.2"><title>15 Jul 2026 : 51</title></rect><rect x="7.07" y="35.8" width="2.53" height="20.2"><title>17 Jul 2026 : 143</title></rect><rect x="10.40" y="45.1" width="2.53" height="10.9"><title>18 Jul 2026 : 77</title></rect><rect x="13.73" y="44.9" width="2.53" height="11.1"><title>19 Jul 2026 : 79</title></rect><rect x="17.07" y="49.0" width="2.53" height="7.0"><title>20 Jul 2026 : 50</title></rect><rect x="20.40" y="47.1" width="2.53" height="8.9"><title>21 Jul 2026 : 63</title></rect><rect x="23.73" y="4.0" width="2.53" height="52.0"><title>22 Jul 2026 : 369</title></rect><rect x="27.07" y="46.4" width="2.53" height="9.6"><title>23 Jul 2026 : 68</title></rect><rect x="30.40" y="41.6" width="2.53" height="14.4"><title>24 Jul 2026 : 102</title></rect><rect x="33.73" y="38.4" width="2.53" height="17.6"><title>25 Jul 2026 : 125</title></rect><rect x="37.07" y="47.3" width="2.53" height="8.7"><title>26 Jul 2026 : 62</title></rect><rect x="40.40" y="42.2" width="2.53" height="13.8"><title>27 Jul 2026 : 98</title></rect><rect x="43.73" y="21.5" width="2.53" height="34.5"><title>30 Jul 2026 : 245</title></rect><rect x="47.07" y="46.3" width="2.53" height="9.7"><title>31 Jul 2026 : 69</title></rect><rect x="50.40" y="45.6" width="2.53" height="10.4"><title>1 Aug 2026 : 74</title></rect><rect x="53.73" y="48.4" width="2.53" height="7.6"><title>2 Aug 2026 : 54</title></rect><rect x="57.07" y="45.9" width="2.53" height="10.1"><title>3 Aug 2026 : 72</title></rect><rect x="60.40" y="42.0" width="2.53" height="14.0"><title>4 Aug 2026 : 99</title></rect><rect x="63.73" y="44.7" width="2.53" height="11.3"><title>5 Aug 2026 : 80</title></rect><rect x="67.07" y="46.6" width="2.53" height="9.4"><title>6 Aug 2026 : 67</title></rect><rect x="70.40" y="43.5" width="2.53" height="12.5"><title>7 Aug 2026 : 89</title></rect><rect x="73.73" y="44.0" width="2.53" height="12.0"><title>8 Aug 2026 : 85</title></rect><rect x="77.07" y="43.7" width="2.53" height="12.3"><title>9 Aug 2026 : 87</title></rect><rect x="80.40" y="46.4" width="2.53" height="9.6"><title>10 Aug 2026 : 68</title></rect><rect x="83.73" y="39.5" width="2.53" height="16.5"><title>11 Aug 2026 : 117</title></rect><rect x="87.07" y="42.0" width="2.53" height="14.0"><title>12 Aug 2026 : 99</title></rect><rect x="90.40" y="47.3" width="2.53" height="8.7"><title>13 Aug 2026 : 62</title></rect><rect x="93.73" y="39.7" width="2.53" height="16.3"><title>14 Aug 2026 : 116</title></rect><rect x="97.07" y="41.6" width="2.53" height="14.4" class="is-der"><title>15 Aug 2026 : 102</title></rect></svg><span>New cases per day, last 30 days</span></div></aside></div>
+<div class="lq-cols"><section class="lq-art" id="ou"><h2><span>02</span> Where</h2>    <p class="fiche-texte lettre-texte">Ituri accounts for 89 of the 101 new cases. Then Nord-Kivu with 8, Haut-Uélé with 3 and Tshopo with 1. The other 2 provinces report none. 5 zones carry 82 of these 101 cases: Bunia 41, Mangala 15, Rwampara 11, Nizi 10 and Katwa 5. 47 of the 55 affected health zones reported at least one new case in the past three weeks; 8 reported none.</p>
+</section><section class="lq-art" id="deces"><h2><span>03</span> Deaths</h2>    <p class="fiche-texte lettre-texte">Of the 53 deaths reported today, 33 occurred in the community, that is outside a treatment centre, and 20 in a treatment centre. Deaths outside a centre: 30 in Ituri and 3 in Nord-Kivu. Those in a treatment centre: 17 in Ituri and 3 in Nord-Kivu. The 17 in Ituri have not yet been assigned to a specific health zone, like 113 deaths before them.</p>
+</section><section class="lq-art" id="riposte"><h2><span>04</span> The response</h2>    <p class="fiche-texte lettre-texte">1,730 reports of possible patients (&quot;alerts&quot;) were received; 1,575 were checked and 380 retained as suspected cases, to be tested. Tshopo did not send its figures. Of 427 samples tested in the laboratory, — were positive, that is —. This share reaches 30.9 % in Ituri. 85.3 % of the people who had been close to a patient (the &quot;contacts&quot;) were seen by follow-up teams, above the 85% threshold the INSP has set itself. Fewer than three contacts in four were seen in the following provinces: Haut-Uélé. Ebola treatment centres are 60.0 % full: 726 patients for 1,209 beds. Safe burials, carried out by protected teams to avoid contagion: 47 deaths reported, 43 burials carried out, 38 bodies tested.</p>
+</section><section class="lq-art" id="defis"><h2><span>05</span> The difficulties encountered</h2>    <p class="fiche-texte lettre-texte">In Nord-Kivu, beds for suspected cases are 100% full and suspected cases from Butembo, Masereka, Vuhovi and Kalunguta are isolated in facilities that are not transit centres; 2,187 travellers refused the temperature check, 14 community incidents remain unresolved in Musienene, and a rumour circulates in Katwa about tablets “infected” with Ebola. In Ituri, the Bambu, Fataki and Nizi centres are saturated, 2 ambulances are broken down, 21 prevention rings were opened out of 171 expected and 70 sites disinfected out of 171, because of the disinfection teams’ strike, insecurity, refusals and addresses that could not be found; refusals of safe burial recur in Mungamba and psychosocial support covers only 4 zones out of 14. In Haut-Uélé, a strike by unpaid staff left six control points without reports, a body was taken back by the community in Tuluba, refusals of safe burial are reported in N’sele and Tuluba, hygiene kits are lacking everywhere, there is still no treatment centre up to standard and 10 ambulances are missing. In Tshopo, 35% of control points are active, the Kisangani treatment centre has only 12 beds, and three health facilities have hygiene scores below 13%.</p>
+</section></div>
+<div class="lq-chiffres"><div class="lq-bloc"><h3>Where</h3>    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">
       <thead><tr><th>Province</th><th class="is-num">Cases (24h)</th><th class="is-num">Deaths (24h)</th><th class="is-num">Confirmed cases</th><th class="is-num">Deaths</th><th class="is-num">Zones</th></tr></thead>
       <tbody>
         <tr><td><a href="/en/data/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a></td><td class="is-num">+89</td><td class="is-num">+47</td><td class="is-num">4,194</td><td class="is-num">1,838</td><td class="is-num">28/36</td></tr>
@@ -199,58 +217,26 @@
         <tr><td><a href="/en/data/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">3</td><td class="is-num">1</td><td class="is-num">1/34</td></tr>
         <tr><td><a href="/en/data/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">1</td><td class="is-num">1</td><td class="is-num">1/11</td></tr>
       </tbody></table></div>
-</div></section><section class="ag-chap" id="deces"><h2 class="ag-titre"><span>03</span>Deaths</h2>    <p class="fiche-texte lettre-texte">Of the 53 deaths reported today, 33 occurred in the community, that is outside a treatment centre, and 20 in a treatment centre. Deaths outside a centre: 30 in Ituri and 3 in Nord-Kivu. Those in a treatment centre: 17 in Ituri and 3 in Nord-Kivu. The 17 in Ituri have not yet been assigned to a specific health zone, like 113 deaths before them.</p>
-</section><section class="ag-chap" id="riposte"><h2 class="ag-titre"><span>04</span>The response</h2>    <p class="fiche-texte lettre-texte">1,730 reports of possible patients (&quot;alerts&quot;) were received; 1,575 were checked and 380 retained as suspected cases, to be tested. Tshopo did not send its figures. Of 427 samples tested in the laboratory, — were positive, that is —. This share reaches 30.9 % in Ituri. 85.3 % of the people who had been close to a patient (the &quot;contacts&quot;) were seen by follow-up teams, above the 85% threshold the INSP has set itself. Fewer than three contacts in four were seen in the following provinces: Haut-Uélé. Ebola treatment centres are 60.0 % full: 726 patients for 1,209 beds. Safe burials, carried out by protected teams to avoid contagion: 47 deaths reported, 43 burials carried out, 38 bodies tested.</p>
-<div class="ag-chiffres-inline">    <section class="kpis kpis-riposte" aria-label="Today's response">
+</div><div class="lq-bloc"><h3>The response</h3>    <section class="kpis kpis-riposte" aria-label="Today's response">
       <div class="kpi alerts"><div class="label">Reports received (24h)</div><div class="value">1,730</div><div class="delta">1,575 checked, 380 suspected cases</div></div>
       <div class="kpi labo"><div class="label">Positive tests (24h)</div><div class="value">—</div><div class="delta">— positive of 427 tested</div></div>
       <div class="kpi contacts"><div class="label">Contacts followed up (24h)</div><div class="value">85.3 %</div><div class="delta">20,791 seen of 24,383 to follow</div></div>
       <div class="kpi cte"><div class="label">Beds occupied</div><div class="value">60.0 %</div><div class="delta">726 patients for 1,209 beds</div></div>
       <div class="kpi eds"><div class="label">Safe burials (24 h)</div><div class="value">43</div><div class="delta">43 carried out of 47 deaths reported</div></div>
     </section>
-    <p class="drill"><a href="/en/response/">The full “Response &amp; challenges” page →</a></p>
-</div></section><section class="ag-chap" id="defis"><h2 class="ag-titre"><span>05</span>The difficulties encountered</h2>    <p class="fiche-texte lettre-texte">In Nord-Kivu, beds for suspected cases are 100% full and suspected cases from Butembo, Masereka, Vuhovi and Kalunguta are isolated in facilities that are not transit centres; 2,187 travellers refused the temperature check, 14 community incidents remain unresolved in Musienene, and a rumour circulates in Katwa about tablets “infected” with Ebola. In Ituri, the Bambu, Fataki and Nizi centres are saturated, 2 ambulances are broken down, 21 prevention rings were opened out of 171 expected and 70 sites disinfected out of 171, because of the disinfection teams’ strike, insecurity, refusals and addresses that could not be found; refusals of safe burial recur in Mungamba and psychosocial support covers only 4 zones out of 14. In Haut-Uélé, a strike by unpaid staff left six control points without reports, a body was taken back by the community in Tuluba, refusals of safe burial are reported in N’sele and Tuluba, hygiene kits are lacking everywhere, there is still no treatment centre up to standard and 10 ambulances are missing. In Tshopo, 35% of control points are active, the Kisangani treatment centre has only 12 beds, and three health facilities have hygiene scores below 13%.</p>
-</section></div><aside class="ag-chiffres"><div class="ag-chiffres-titre">The figures</div><div class="ag-bloc"><div class="ag-bloc-titre">The toll</div>    <section class="kpis kpis-riposte" aria-label="The toll">
-      <div class="kpi confirmed"><div class="label">Confirmed cases</div><div class="value">4,945</div><div class="delta">+101 (24h)</div></div>
-      <div class="kpi deaths"><div class="label">Deaths</div><div class="value">2,325</div><div class="delta">+53 (24h)</div></div>
-      <div class="kpi recovered"><div class="label">Recovered</div><div class="value">1,040</div><div class="delta">+34 (24h)</div></div>
-      <div class="kpi cte"><div class="label">Patients in isolation</div><div class="value">730</div><div class="delta"></div></div>
-      <div class="kpi cfr"><div class="label">Case fatality rate</div><div class="value">47.0%</div><div class="delta"></div></div>
-      <div class="kpi zones"><div class="label">Health zones affected</div><div class="value">55</div><div class="delta">of 151</div></div>
-    </section>
-</div><div class="ag-bloc"><div class="ag-bloc-titre">Where</div>    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">
-      <thead><tr><th>Province</th><th class="is-num">Cases (24h)</th><th class="is-num">Deaths (24h)</th><th class="is-num">Confirmed cases</th><th class="is-num">Deaths</th><th class="is-num">Zones</th></tr></thead>
-      <tbody>
-        <tr><td><a href="/en/data/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a></td><td class="is-num">+89</td><td class="is-num">+47</td><td class="is-num">4,194</td><td class="is-num">1,838</td><td class="is-num">28/36</td></tr>
-        <tr><td><a href="/en/data/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a></td><td class="is-num">+8</td><td class="is-num">+6</td><td class="is-num">596</td><td class="is-num">417</td><td class="is-num">12/34</td></tr>
-        <tr><td><a href="/en/data/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a></td><td class="is-num">+3</td><td class="is-num">+0</td><td class="is-num">138</td><td class="is-num">62</td><td class="is-num">6/13</td></tr>
-        <tr><td><a href="/en/data/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a></td><td class="is-num">+1</td><td class="is-num">+0</td><td class="is-num">13</td><td class="is-num">6</td><td class="is-num">7/23</td></tr>
-        <tr><td><a href="/en/data/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">3</td><td class="is-num">1</td><td class="is-num">1/34</td></tr>
-        <tr><td><a href="/en/data/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a></td><td class="is-num">+0</td><td class="is-num">+0</td><td class="is-num">1</td><td class="is-num">1</td><td class="is-num">1/11</td></tr>
-      </tbody></table></div>
-</div><div class="ag-bloc"><div class="ag-bloc-titre">The response</div>    <section class="kpis kpis-riposte" aria-label="Today's response">
-      <div class="kpi alerts"><div class="label">Reports received (24h)</div><div class="value">1,730</div><div class="delta">1,575 checked, 380 suspected cases</div></div>
-      <div class="kpi labo"><div class="label">Positive tests (24h)</div><div class="value">—</div><div class="delta">— positive of 427 tested</div></div>
-      <div class="kpi contacts"><div class="label">Contacts followed up (24h)</div><div class="value">85.3 %</div><div class="delta">20,791 seen of 24,383 to follow</div></div>
-      <div class="kpi cte"><div class="label">Beds occupied</div><div class="value">60.0 %</div><div class="delta">726 patients for 1,209 beds</div></div>
-      <div class="kpi eds"><div class="label">Safe burials (24 h)</div><div class="value">43</div><div class="delta">43 carried out of 47 deaths reported</div></div>
-    </section>
-    <p class="drill"><a href="/en/response/">The full “Response &amp; challenges” page →</a></p>
-</div></aside></div>
-<footer class="ag-pied"><nav class="ag-nav"><a class="ag-nav-prev" href="/en/letter/092/">← Previous letter, bulletin no. 092</a><a class="ag-nav-next" href="/en/letter/094/">Next letter, bulletin no. 094 →</a></nav>Source: <a href="/reports/SITREP_MVE_093.pdf" rel="noopener">SitRep N°093/MVEBDB/15/08/2026</a>, INSP. A letter is published with each INSP bulletin; the previous one is dated 14 Aug 2026.<p class="ag-archive">All letters: <a href="/en/letter/145/">n°145</a> · <a href="/en/letter/144/">n°144</a> · <a href="/en/letter/143/">n°143</a> · <a href="/en/letter/141/">n°141</a> · <a href="/en/letter/140/">n°140</a> · <a href="/en/letter/139/">n°139</a> · <a href="/en/letter/138/">n°138</a> · <a href="/en/letter/137/">n°137</a> · <a href="/en/letter/136/">n°136</a> · <a href="/en/letter/135/">n°135</a> · <a href="/en/letter/134/">n°134</a> · <a href="/en/letter/133/">n°133</a> · <a href="/en/letter/132/">n°132</a> · <a href="/en/letter/131/">n°131</a> · <a href="/en/letter/130/">n°130</a> · <a href="/en/letter/129/">n°129</a> · <a href="/en/letter/128/">n°128</a> · <a href="/en/letter/127/">n°127</a> · <a href="/en/letter/126/">n°126</a> · <a href="/en/letter/125/">n°125</a> · <a href="/en/letter/124/">n°124</a> · <a href="/en/letter/123/">n°123</a> · <a href="/en/letter/122/">n°122</a> · <a href="/en/letter/121/">n°121</a> · <a href="/en/letter/120/">n°120</a> · <a href="/en/letter/119/">n°119</a> · <a href="/en/letter/118/">n°118</a> · <a href="/en/letter/117/">n°117</a> · <a href="/en/letter/116/">n°116</a> · <a href="/en/letter/115/">n°115</a> · <a href="/en/letter/114/">n°114</a> · <a href="/en/letter/113/">n°113</a> · <a href="/en/letter/112/">n°112</a> · <a href="/en/letter/111/">n°111</a> · <a href="/en/letter/110/">n°110</a> · <a href="/en/letter/109/">n°109</a> · <a href="/en/letter/108/">n°108</a> · <a href="/en/letter/107/">n°107</a> · <a href="/en/letter/106/">n°106</a> · <a href="/en/letter/105/">n°105</a> · <a href="/en/letter/104/">n°104</a> · <a href="/en/letter/103/">n°103</a> · <a href="/en/letter/102/">n°102</a> · <a href="/en/letter/101/">n°101</a> · <a href="/en/letter/100/">n°100</a> · <a href="/en/letter/099/">n°099</a> · <a href="/en/letter/098/">n°098</a> · <a href="/en/letter/097/">n°097</a> · <a href="/en/letter/096/">n°096</a> · <a href="/en/letter/095/">n°095</a> · <a href="/en/letter/094/">n°094</a> · <b>n°093</b> · <a href="/en/letter/092/">n°092</a> · <a href="/en/letter/091/">n°091</a> · <a href="/en/letter/090/">n°090</a></p><details class="ag-lexique"><summary>Glossary · the words of the bulletin</summary><ul><li>Alert: a report of a possible patient or death, which teams go and check.</li><li>Area of the response (&quot;pillar&quot; in the bulletin): each of the specialised teams of the response, surveillance, laboratory, care, vaccination, hygiene, communication, security.</li><li>Confirmed case: a person whose Ebola infection is proven by a laboratory test.</li><li>Contact: a person who was close to a patient and whom teams follow for 21 days.</li><li>Control point: a post on a road or at a border where travellers have a temperature check and wash their hands.</li><li>Health zone: the basic health district in the DRC, usually built around a general hospital.</li><li>Prevention ring: around each new case, disinfection of the home and places visited, hygiene kits and follow-up of relatives.</li><li>Safe burial: a burial carried out by a protected team, as the body of a patient remains contagious.</li><li>Suspected case: a person whose symptoms suggest Ebola, awaiting the test.</li><li>Treatment centre (ETC): the facility where patients are isolated and treated.</li></ul></details></footer></div>
+    <p class="drill"><a href="/en/response/">The full “Response” page →</a></p>
+</div></div>
+<footer class="lq-pied"><nav class="ag-nav"><a class="ag-nav-prev" href="/en/letter/092/">← Previous letter, bulletin no. 092</a><a class="ag-nav-next" href="/en/letter/094/">Next letter, bulletin no. 094 →</a></nav><p class="lq-ref">Source: <a href="/reports/SITREP_MVE_093.pdf" rel="noopener">SitRep N°093/MVEBDB/15/08/2026</a>, INSP. A letter is published with each INSP bulletin; the previous one is dated 14 Aug 2026.</p><p class="ag-archive">All letters: <a href="/en/letter/145/">n°145</a> · <a href="/en/letter/144/">n°144</a> · <a href="/en/letter/143/">n°143</a> · <a href="/en/letter/141/">n°141</a> · <a href="/en/letter/140/">n°140</a> · <a href="/en/letter/139/">n°139</a> · <a href="/en/letter/138/">n°138</a> · <a href="/en/letter/137/">n°137</a> · <a href="/en/letter/136/">n°136</a> · <a href="/en/letter/135/">n°135</a> · <a href="/en/letter/134/">n°134</a> · <a href="/en/letter/133/">n°133</a> · <a href="/en/letter/132/">n°132</a> · <a href="/en/letter/131/">n°131</a> · <a href="/en/letter/130/">n°130</a> · <a href="/en/letter/129/">n°129</a> · <a href="/en/letter/128/">n°128</a> · <a href="/en/letter/127/">n°127</a> · <a href="/en/letter/126/">n°126</a> · <a href="/en/letter/125/">n°125</a> · <a href="/en/letter/124/">n°124</a> · <a href="/en/letter/123/">n°123</a> · <a href="/en/letter/122/">n°122</a> · <a href="/en/letter/121/">n°121</a> · <a href="/en/letter/120/">n°120</a> · <a href="/en/letter/119/">n°119</a> · <a href="/en/letter/118/">n°118</a> · <a href="/en/letter/117/">n°117</a> · <a href="/en/letter/116/">n°116</a> · <a href="/en/letter/115/">n°115</a> · <a href="/en/letter/114/">n°114</a> · <a href="/en/letter/113/">n°113</a> · <a href="/en/letter/112/">n°112</a> · <a href="/en/letter/111/">n°111</a> · <a href="/en/letter/110/">n°110</a> · <a href="/en/letter/109/">n°109</a> · <a href="/en/letter/108/">n°108</a> · <a href="/en/letter/107/">n°107</a> · <a href="/en/letter/106/">n°106</a> · <a href="/en/letter/105/">n°105</a> · <a href="/en/letter/104/">n°104</a> · <a href="/en/letter/103/">n°103</a> · <a href="/en/letter/102/">n°102</a> · <a href="/en/letter/101/">n°101</a> · <a href="/en/letter/100/">n°100</a> · <a href="/en/letter/099/">n°099</a> · <a href="/en/letter/098/">n°098</a> · <a href="/en/letter/097/">n°097</a> · <a href="/en/letter/096/">n°096</a> · <a href="/en/letter/095/">n°095</a> · <a href="/en/letter/094/">n°094</a> · <b>n°093</b> · <a href="/en/letter/092/">n°092</a> · <a href="/en/letter/091/">n°091</a> · <a href="/en/letter/090/">n°090</a></p><details class="ag-lexique"><summary>Glossary · the words of the bulletin</summary><ul><li>Alert: a report of a possible patient or death, which teams go and check.</li><li>Area of the response (&quot;pillar&quot; in the bulletin): each of the specialised teams of the response, surveillance, laboratory, care, vaccination, hygiene, communication, security.</li><li>Confirmed case: a person whose Ebola infection is proven by a laboratory test.</li><li>Contact: a person who was close to a patient and whom teams follow for 21 days.</li><li>Control point: a post on a road or at a border where travellers have a temperature check and wash their hands.</li><li>Health zone: the basic health district in the DRC, usually built around a general hospital.</li><li>Prevention ring: around each new case, disinfection of the home and places visited, hygiene kits and follow-up of relatives.</li><li>Safe burial: a burial carried out by a protected team, as the body of a patient remains contagious.</li><li>Suspected case: a person whose symptoms suggest Ebola, awaiting the test.</li><li>Treatment centre (ETC): the facility where patients are isolated and treated.</li></ul></details></footer></div>
 
       </main>
 
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Explore</h2>
+        <h2>News</h2>
         <ul>
-        <li><a href="/en/">Overview</a></li>
         <li><a href="/en/letter/">The letter</a></li>
         <li><a href="/en/news/">Outbreak news</a></li>
-        <li><a href="/en/data/">Detailed data</a></li>
-        <li><a href="/en/response/">Response &amp; challenges</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -258,9 +244,20 @@
         <ul>
         <li><a href="/en/timeline/">Timeline</a></li>
         <li><a href="/en/the-virus/">The virus</a></li>
-        <li><a href="/en/reports/">Sources &amp; bulletins</a></li>
         <li><a href="/en/faq/">FAQ</a></li>
         <li><a href="/en/glossary/">Glossary</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Explore</h2>
+        <ul>
+        <li><a href="/en/data/">Whole country</a></li>
+        <li><a href="/en/other-countries/">Other countries</a></li>
+        <li><a href="/en/response/">Response</a></li>
+        <li><a href="/en/challenges/">Challenges</a></li>
+        <li><a href="/en/reports/">Sources &amp; bulletins</a></li>
+        <li><a href="/en/database/">Database</a></li>
+        <li><a href="/en/dashboard/">Dashboard</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -284,7 +281,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/about/">Full disclaimer</a></p>
+    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/about/#avertissement">Full disclaimer</a></p>
   </footer>
 
     </div>
@@ -295,6 +292,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/en/data/ituri/", "Nord-Kivu": "/en/data/nord-kivu/", "Haut-Uélé": "/en/data/haut-uele/", "Tshopo": "/en/data/tshopo/", "Bas-Uélé": "/en/data/bas-uele/", "Sud-Kivu": "/en/data/sud-kivu/", "Sud-Ubangi": "/en/data/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "confirmed cases"; window.HERO_TIP_DEATHS = "deaths";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -314,8 +312,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>

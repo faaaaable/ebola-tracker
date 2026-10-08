@@ -1,7 +1,7 @@
   <section class="section maq-tete">
     <div class="section-head">
       <div>
-        <div class="eyebrow"><span class="dot"></span>{{t.footerExploreTitle}}</div>
+        <div class="eyebrow"><span class="dot"></span>{{t.navGrpExplore}}</div>
         <h1 class="page-title">{{meta.h1}}</h1>
       </div>
       <div class="section-sub">{{seed.ripAsOf}}</div>
@@ -10,31 +10,31 @@
     <p class="lede">{{t.maqLede}}</p>
   </section>
 
-  <!-- Premiere partie : la bande claire, jumelle de la bande sombre qui ouvre
-       la seconde — memes couches (surtitre, titre, chapeau, chiffres), les
-       couleurs inversees pour le contraste (6 septembre 2026). Les quatre
-       chiffres de tete y prennent la graphie des reperes du dossier. -->
-  <section class="section dossier dossier-clair" id="riposte-partie">
-    <div class="dossier-in">
-      <div class="eyebrow dossier-eyebrow"><span class="dot"></span>{{t.maqPartieUn}}</div>
-      <h2 class="dossier-titre">{{t.maqPartieUnTitre}}</h2>
-      <p class="dossier-lede">{{t.maqPartieUnLede}}</p>
-      <div class="dossier-chiffres">
-        <div><b class="alerts">{{seed.ripAlertes}}</b><span>{{t.riposteKpiAlertes}}</span><small>{{seed.ripAlertesSub}}</small></div>
-        <div><b class="labo">{{seed.ripPositivite}}</b><span>{{t.riposteKpiPositivite}}</span><small>{{seed.ripPositiviteSub}}</small></div>
-        <div><b class="contacts">{{seed.ripContacts}}</b><span>{{t.riposteKpiContacts}}</span><small>{{seed.ripContactsSub}}</small></div>
-        <div><b class="cte">{{seed.ripOccupation}}</b><span>{{t.riposteKpiOccupation}}</span><small>{{seed.ripOccupationSub}}</small></div>
-      </div>
-    </div>
+  <!-- La chaine de riposte (7 octobre 2026, option 2 des maquettes en tete
+       de l'option 3) : les cinq etapes et leur chiffre cle, chacune renvoyant
+       a son volet. Remplace la bande claire « La chaine de riposte ». -->
+  <section class="section rc-chaine" id="riposte-partie" aria-label="{{t.maqPartieUnTitre}}">
+    <a class="rc-e" href="#alertes"><span class="rc-v">{{t.ripVerbe1}}</span><b class="rc-n is-alerts">{{seed.ripAlertes}}</b><em>{{t.riposteKpiAlertes}}</em><small>{{seed.ripAlertesSub}}</small></a>
+    <i aria-hidden="true">→</i>
+    <a class="rc-e" href="#laboratoire"><span class="rc-v">{{t.ripVerbe2}}</span><b class="rc-n is-labo">{{seed.ripPositivite}}</b><em>{{t.riposteKpiPositivite}}</em><small>{{seed.ripPositiviteSub}}</small></a>
+    <i aria-hidden="true">→</i>
+    <a class="rc-e" href="#contacts"><span class="rc-v">{{t.ripVerbe3}}</span><b class="rc-n is-contacts">{{seed.ripContacts}}</b><em>{{t.riposteKpiContacts}}</em><small>{{seed.ripContactsSub}}</small></a>
+    <i aria-hidden="true">→</i>
+    <a class="rc-e" href="#cte"><span class="rc-v">{{t.ripVerbe4}}</span><b class="rc-n is-cte">{{seed.ripOccupation}}</b><em>{{t.riposteKpiOccupation}}</em><small>{{seed.ripOccupationSub}}</small></a>
+    <i aria-hidden="true">→</i>
+    <a class="rc-e" href="#vaccination"><span class="rc-v">{{t.ripVerbe5}}</span><b class="rc-n is-vaccin">{{seed.ripVaccines}}</b><em>{{t.riposteKpiVaccines}}</em></a>
   </section>
 
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
        on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
        et non des onglets : ce qui n'est pas clique n'est pas lu. -->
-  <section class="section cadre-fiche" id="alertes">
-    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">{{t.riposteAlertesTitle}}</h2><div class="section-sub">{{t.riposteAlertesSub}}</div></div></div>
-    <div class="cadre-corps">
+  <section class="section cadre-fiche r3" id="alertes">
+    <div class="r3-g">
+      <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">{{t.riposteAlertesTitle}}</h2><div class="section-sub">{{t.riposteAlertesSub}}</div></div></div>
+      <div class="r3-ch"><b class="rc-n is-alerts">{{seed.ripAlertes}}</b><span>{{t.riposteKpiAlertes}}</span><small>{{seed.ripAlertesSub}}</small></div>
       <p class="fiche-texte">{{t.riposteAlertesLede}}</p>
+    </div>
+    <div class="r3-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="alertesChart">
         <button type="button" class="share-btn">
@@ -55,14 +55,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
-  
     </div>
   </section>
 
-  <section class="section cadre-fiche" id="laboratoire">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">{{t.riposteLaboTitle}}</h2><div class="section-sub">{{t.riposteLaboSub}}</div></div></div>
-    <div class="cadre-corps">
+  <section class="section cadre-fiche r3" id="laboratoire">
+    <div class="r3-g">
+      <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">{{t.riposteLaboTitle}}</h2><div class="section-sub">{{t.riposteLaboSub}}</div></div></div>
+      <div class="r3-ch"><b class="rc-n is-labo">{{seed.ripPositivite}}</b><span>{{t.riposteKpiPositivite}}</span><small>{{seed.ripPositiviteSub}}</small></div>
       <p class="fiche-texte">{{t.riposteLaboLede}}</p>
+    </div>
+    <div class="r3-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="laboChart">
         <button type="button" class="share-btn">
@@ -82,14 +84,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
-  
     </div>
   </section>
 
-  <section class="section cadre-fiche" id="contacts">
-    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">{{t.riposteContactsTitle}}</h2><div class="section-sub">{{t.riposteContactsSub}}</div></div></div>
-    <div class="cadre-corps">
+  <section class="section cadre-fiche r3" id="contacts">
+    <div class="r3-g">
+      <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">{{t.riposteContactsTitle}}</h2><div class="section-sub">{{t.riposteContactsSub}}</div></div></div>
+      <div class="r3-ch"><b class="rc-n is-contacts">{{seed.ripContacts}}</b><span>{{t.riposteKpiContacts}}</span><small>{{seed.ripContactsSub}}</small></div>
       <p class="fiche-texte">{{t.riposteContactsLede}}</p>
+    </div>
+    <div class="r3-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="contactsChart">
         <button type="button" class="share-btn">
@@ -106,14 +110,16 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
-  
     </div>
   </section>
 
-  <section class="section cadre-fiche" id="cte">
-    <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">{{t.riposteCteTitle}}</h2><div class="section-sub">{{t.riposteCteSub}}</div></div></div>
-    <div class="cadre-corps">
+  <section class="section cadre-fiche r3" id="cte">
+    <div class="r3-g">
+      <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">{{t.riposteCteTitle}}</h2><div class="section-sub">{{t.riposteCteSub}}</div></div></div>
+      <div class="r3-ch"><b class="rc-n is-cte">{{seed.ripOccupation}}</b><span>{{t.riposteKpiOccupation}}</span><small>{{seed.ripOccupationSub}}</small></div>
       <p class="fiche-texte">{{t.riposteCteLede}}</p>
+    </div>
+    <div class="r3-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="cteChart">
         <button type="button" class="share-btn">
@@ -126,7 +132,6 @@
       </div>
       <div class="map-note chart-note"></div>
     </div>
-  
     </div>
   </section>
 
@@ -138,13 +143,13 @@
        pas a l'epidemie mais la devance. Le cadre restera plus maigre que les
        autres tant que peu de provinces vaccinent ; l'Ituri est entree
        le 19 septembre. -->
-  <section class="section cadre-fiche" id="vaccination">
-    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">{{t.riposteVaccinTitle}}</h2><div class="section-sub">{{t.riposteVaccinSub}}</div></div></div>
-    <div class="cadre-corps">
+  <section class="section cadre-fiche r3" id="vaccination">
+    <div class="r3-g">
+      <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">{{t.riposteVaccinTitle}}</h2><div class="section-sub">{{t.riposteVaccinSub}}</div></div></div>
+      <div class="r3-ch"><b class="rc-n is-vaccin">{{seed.ripVaccines}}</b><span>{{t.riposteKpiVaccines}}</span></div>
       <p class="fiche-texte">{{t.riposteVaccinLede}}</p>
-      <div class="dossier-chiffres fiche-chiffres">
-        <div><b class="vaccin">{{seed.ripVaccines}}</b><span>{{t.riposteKpiVaccines}}</span></div>
-      </div>
+    </div>
+    <div class="r3-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="vaccinationChart">
         <button type="button" class="share-btn">
@@ -163,10 +168,7 @@
       <!-- Le detail par zone de sante dans son propre cadre, detache du
            graphique (21 septembre 2026) : la courbe dit les provinces, le
            tableau dit ou, dans chacune. -->
-      <div class="panel vaccin-zones">
-        {{seed.ripVaccinZones}}
-      </div>
-
+      {{seed.ripVaccinZones}}
     </div>
   </section>
 
@@ -174,9 +176,8 @@
        deces, sur « Ensemble du pays » et sur les pages province : c'est un
        resultat de l'epidemie, pas une action de la riposte. -->
 
-  <!-- La sortie de page (regle 5 du 5 septembre 2026) : deux liens, choisis
-       par sens, sans chiffre pour ne pas se perimer. -->
-  {{seed.defisSynthese}}
+  <!-- Les defis ont leur propre page depuis le 3 octobre 2026 (/defis/) : la
+       bande sombre et la grille des obstacles ne sont plus ici. -->
 
   <section class="section section-split" id="plus-loin">
     <div>
@@ -184,6 +185,7 @@
     </div>
     <div>
       <ul class="plus-loin">
+        <li><a href="{{url.defis}}">{{t.riposteLoin3Link}} →</a><span>{{t.riposteLoin3Text}}</span></li>
         <li><a href="{{url.donnees}}">{{t.riposteLoin1Link}} →</a><span>{{t.riposteLoin1Text}}</span></li>
         <li><a href="{{url.le-virus}}">{{t.riposteLoin2Link}} →</a><span>{{t.riposteLoin2Text}}</span></li>
       </ul>

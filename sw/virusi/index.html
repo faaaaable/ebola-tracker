@@ -65,6 +65,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -77,7 +82,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body>
 
@@ -134,44 +139,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Urambazaji mkuu">
-      <div class="side-nav-title">Habari mpya</div>
-      <a href="/sw/barua/">Barua</a>
-      <a href="/sw/habari/">Habari za mlipuko <span class="nav-badge">Mpya</span></a>
-      <div class="side-nav-title">Chunguza</div>
-      <a href="/sw/">Muhtasari</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Takwimu za kina</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/sw/takwimu/"><span class="dot dot-all"></span>Nchi nzima</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Habari</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/barua/"><span class="nav-t">Barua</span><span class="nav-desc">Muhtasari wa kila ripoti rasmi</span></a>
+      <a href="/sw/habari/"><span class="nav-t">Habari za mlipuko</span><span class="nav-desc">Makala yanayochapishwa kila siku</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Elewa</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/matukio/"><span class="nav-t">Matukio</span><span class="nav-desc">Kuanzia arifa ya kwanza hadi leo</span></a>
+      <a href="/sw/virusi/" aria-current="page"><span class="nav-t">Virusi</span><span class="nav-desc">Bundibugyo: maambukizi, dalili</span></a>
+      <a href="/sw/maswali/"><span class="nav-t">Maswali</span><span class="nav-desc">Maswali yanayoulizwa mara nyingi</span></a>
+      <a href="/sw/kamusi/"><span class="nav-t">Kamusi</span><span class="nav-desc">Maneno ya ripoti, yakifafanuliwa</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Chunguza</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">Mwenendo wa mlipuko</div>
+        <a href="/sw/takwimu/"><span class="nav-t">Nchi nzima</span><span class="nav-desc">Mwenendo katika ngazi ya taifa</span></a>
+        <a href="/sw/takwimu/ituri/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Ituri</span><span class="nav-desc">Visa 6,513 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/nord-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">Visa 1,785 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/haut-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">Visa 364 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/tshopo/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Tshopo</span><span class="nav-desc">Visa 51 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/bas-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">Visa 10 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">Visa 3 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-ubangi/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">Visa 2 vilivyothibitishwa</span></a>
+        <a href="/sw/nchi-nyingine/"><span class="nav-t">Nchi nyingine</span><span class="nav-desc">Uganda, Ufaransa, Kenya</span></a>
       </div>
-      <a href="/sw/mapambano/">Mapambano na changamoto</a>
-      <div class="side-nav-title">Elewa</div>
-      <a href="/sw/matukio/">Matukio</a>
-      <a href="/sw/virusi/" aria-current="page">Virusi</a>
-      <a href="/sw/ripoti/">Vyanzo na ripoti</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Takwimu za kina</div>
+        <a href="/sw/ripoti/"><span class="nav-t">Vyanzo na ripoti</span><span class="nav-desc">Ripoti zote za INSP</span></a>
+        <a href="/sw/hifadhidata/"><span class="nav-t">Hifadhidata <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu za tovuti, za kupakua</span></a>
+        <a href="/sw/dashibodi/"><span class="nav-t">Dashibodi <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu zote kwa wakati halisi</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Kukabili mlipuko</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/mapambano/"><span class="nav-t">Mapambano</span><span class="nav-desc">Hatua zinazochukuliwa kukomesha mlipuko</span></a>
+      <a href="/sw/changamoto/"><span class="nav-t">Changamoto</span><span class="nav-desc">Vikwazo vilivyokumbwa</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Tovuti</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/kuhusu/"><span class="nav-t">Kuhusu</span><span class="nav-desc">Mbinu, vyanzo, tahadhari</span></a>
+      <a href="/sw/mawasiliano/"><span class="nav-t">Mawasiliano</span><span class="nav-desc">Andikia timu</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -186,231 +210,93 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Njia ya kurasa">
-    <a href="/sw/">Mwanzo</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">Virusi vya Ebola Bundibugyo</span>
-  </nav>
+
 
       <main id="contenu">
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow"><span class="dot"></span>Elewa</div>
-        <h1 class="page-title">Virusi vya Ebola Bundibugyo</h1>
-      </div>
-    </div>
-    <p class="lede">Milipuko yote ya Ebola haifanani. Ule unaoikumba DRC tangu 2026 unasababishwa na aina ya <em>Bundibugyo</em>, adimu zaidi kuliko aina ya Zaire — tofauti inayobadilisha kila kitu kuhusu chanjo na matibabu yanayopatikana.</p>
-
-    <!-- Meme bande de chiffres que Riposte et les provinces (.kpis) : un seul
-         composant pour les reperes de tete, decision du 5 septembre. -->
-    <div class="kpis riposte-kpis">
-      <div class="kpi figure">
-        <div class="label">mlipuko unaojulikana wa aina hii</div>
-        <div class="value">3</div>
-      </div>
-      <div class="kpi figure">
-        <div class="label">kiwango cha vifo cha kihistoria cha aina hii</div>
-        <div class="value">25–50 %</div>
-      </div>
-      <div class="kpi figure">
-        <div class="label">muda wa kuatamia</div>
-        <div class="value">siku 2–21</div>
-      </div>
-      <div class="kpi alert">
-        <div class="label">chanjo iliyoidhinishwa dhidi yake</div>
-        <div class="value">0</div>
-      </div>
-    </div>
-
+  <!-- Le virus, refonte du 6 octobre 2026 (choix du proprietaire) : le
+       comparatif Bundibugyo / Zaire de la maquette n°2 ouvre la page, la
+       maladie « jour apres jour » de la maquette n°3 suit. Les sections
+       Transmission, Incubation et Evolution, et la bande de quatre chiffres,
+       y sont reprises ; le tableau a deux colonnes est devenu le face-a-face. -->
+  <section class="section ff-tete">
+    <div class="eyebrow"><span class="dot"></span>Elewa</div>
+    <h1 class="page-title ff-titre"><span class="visually-hidden">Virusi vya Ebola Bundibugyo — </span>Bundibugyo <em>dhidi ya</em> Zaire</h1>
+    <p class="lede">Aina mbili za virusi vile vile vya Ebola. Mlipuko huu unasababishwa na aina ya Bundibugyo.</p>
     <nav class="riposte-ancres" aria-label="Sehemu za ukurasa">
-      <a href="#espece">Aina</a>
-      <a href="#transmission">Maambukizi</a>
-      <a href="#incubation">Kuatamia</a>
-      <a href="#evolution">Mwenendo</a>
-      <a href="#traitements">Matibabu na chanjo</a>
+      <a href="#espece">Dhidi ya Zaire</a>
+      <a href="#evolution">Siku kwa siku</a>
       <a href="#ages">Unamgusa nani</a>
+      <a href="#traitements">Matibabu na chanjo</a>
       <a href="#genomes">Jenomu</a>
     </nav>
   </section>
 
-  <section class="section section-split" id="espece">
-    <h2 class="section-title">Aina inayokutwa mara chache</h2>
-    <div class="prose">
-      <p>Jenasi <em>Orthoebolavirus</em> ina aina sita, ambazo nne kati yake huwaathiri binadamu. Milipuko mingi iliyoandikwa — ikiwemo ule wa 2014-2016 Afrika Magharibi na ule wa 2018-2020 Kivu Kaskazini — inatokana na aina ya Zaire, iliyochunguzwa zaidi kuliko zote.</p><p>Aina ya Bundibugyo imepewa jina la wilaya ya Uganda ambako ilitambuliwa kwa mara ya kwanza mwaka 2007. Ilihusika katika milipuko miwili tu kabla ya huu: Uganda mwaka 2007, kisha jimbo la Orientale la DRC mwaka 2012. Historia hii fupi ndiyo inayoeleza kukosekana kwa chanjo iliyoidhinishwa dhidi yake, na kwa nini mapambano yanategemea huduma za msaada na dawa zinazojaribiwa kliniki.</p>
+  <section class="section ff" id="espece">
+    <table class="ff-table">
+      <caption class="visually-hidden">Kile aina inachobadilisha</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="ff-g"><strong>Bundibugyo</strong><span>aina ya mlipuko huu</span></th>
+          <th scope="col" class="ff-q0"><span class="visually-hidden">Kile aina inachobadilisha</span></th>
+          <th scope="col" class="ff-d"><strong>Zaire</strong><span>aina iliyochunguzwa zaidi</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ff-g"><b>2007</b><span>Uganda</span></td>
+          <th scope="row" class="ff-q">Iligunduliwa</th>
+          <td class="ff-d"><b>1976</b><span>DRC (Yambuku)</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>3</b><span>ukiwemo huu</span></td>
+          <th scope="row" class="ff-q">Milipuko inayojulikana</th>
+          <td class="ff-d"><b>mingi</b><span>ya milipuko iliyoandikwa</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>25–50 %</b><span>kulingana na mlipuko</span></td>
+          <th scope="row" class="ff-q">Kiwango cha vifo cha kihistoria</th>
+          <td class="ff-d"><b>hadi 90 %</b><span>kulingana na mlipuko</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>hakuna</b><span>Ervebo inatumika katika utafiti tangu Agosti 2026</span></td>
+          <th scope="row" class="ff-q">Chanjo iliyoidhinishwa</th>
+          <td class="ff-d"><b>Ervebo</b><span>rVSV-ZEBOV</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>hakuna</b><span>dawa zinazojaribiwa kliniki</span></td>
+          <th scope="row" class="ff-q">Matibabu yaliyoidhinishwa</th>
+          <td class="ff-d"><b>2</b><span>Inmazeb, Ebanga</span></td>
+        </tr>
+        <tr>
+          <td class="ff-g"><b>Uganda 2007, DRC 2012</b></td>
+          <th scope="row" class="ff-q">Milipuko mikubwa</th>
+          <td class="ff-d"><b>Afrika Magharibi 2014-2016, Nord-Kivu 2018-2020</b></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="prose ff-histoire"><p>Jenasi <em>Orthoebolavirus</em> ina aina sita, ambazo nne kati yake huwaathiri binadamu. Milipuko mingi iliyoandikwa — ikiwemo ule wa 2014-2016 Afrika Magharibi na ule wa 2018-2020 Kivu Kaskazini — inatokana na aina ya Zaire, iliyochunguzwa zaidi kuliko zote.</p><p>Aina ya Bundibugyo imepewa jina la wilaya ya Uganda ambako ilitambuliwa kwa mara ya kwanza mwaka 2007. Ilihusika katika milipuko miwili tu kabla ya huu: Uganda mwaka 2007, kisha jimbo la Orientale la DRC mwaka 2012. Historia hii fupi ndiyo inayoeleza kukosekana kwa chanjo iliyoidhinishwa dhidi yake, na kwa nini mapambano yanategemea huduma za msaada na dawa zinazojaribiwa kliniki.</p></div>
+  </section>
+
+  <!-- Suite de la page dans le theme du face-a-face (6 octobre 2026, option 3
+       « l'axe central ») : le filet du milieu du comparatif devient un axe ;
+       le malade a gauche, la riposte a droite ; les ages en papillon. -->
+  <section class="section vb-sec" id="evolution">
+    <div class="vb-tete"><div class="eyebrow">Ugonjwa</div><h2>Siku kwa siku</h2><p>Anachopitia mtu aliyeambukizwa, tangu kuambukizwa hadi kupona au kufariki, na kile ambacho timu za uwanjani hufanya kumtibu na kuwalinda walio karibu naye.</p></div>
+    <div class="ax-tete"><span>Mgonjwa</span><span></span><span>Mapambano</span></div>
+    <div class="ax">
+      <div class="ax-l"><div class="ax-g"><h3>Maambukizi</h3><p>Kugusana moja kwa moja na damu, majimaji au mwili wa mtu mgonjwa au aliyefariki — kamwe si kupitia hewa.</p></div><div class="ax-c"><span>Siku 0</span></div><div class="ax-d"><p>Kile mapambano hufanya: mazishi salama na ya heshima, ulinzi wa wahudumu wa afya.</p></div></div>
+      <div class="ax-l"><div class="ax-g"><h3>Kipindi cha kupevuka</h3><p>Hakuna dalili, na haambukizi. Wastani wa siku 8 hadi 10.</p></div><div class="ax-c"><span>Siku 2 hadi 21</span></div><div class="ax-d"><p>Ufuatiliaji wa walioguswa: kila aliyeguswa huonwa kila siku kwa siku 21, ili atengwe mara dalili ya kwanza inapoonekana.</p></div></div>
+      <div class="ax-l"><div class="ax-g"><h3>Hatua ya mwanzo</h3><p>Homa, uchovu mkubwa, maumivu ya misuli, maumivu ya kichwa, maumivu ya koo — hufananishwa kwa urahisi na malaria au homa ya matumbo.</p></div><div class="ax-c"><span>Siku za kwanza</span></div><div class="ax-d"><p>Tahadhari na kipimo: utambuzi huthibitishwa kwa RT-PCR kwenye sampuli ya damu.</p></div></div>
+      <div class="ax-l"><div class="ax-g"><h3>Hatua ya juu</h3><p>Kutapika, kuhara, vipele, kuathirika kwa figo na ini, wakati mwingine kutokwa na damu.</p></div><div class="ax-c"><span>Kisha</span></div><div class="ax-d"><p>Kituo cha matibabu: huduma za msaada wa hali ya juu — kurejesha maji mwilini, oksijeni, ufuatiliaji.</p></div></div>
+      <div class="ax-l"><div class="ax-g"><h3>Kupona au kifo</h3><p>Kiwango cha kihistoria cha vifo vya aina hii ni 25 hadi 50 %. Katika mlipuko huu, 48.2% ya visa vilivyothibitishwa wamefariki hadi sasa.</p></div><div class="ax-c"><span>Matokeo</span></div><div class="ax-d"><p>Kupona hutangazwa baada ya vipimo viwili hasi; watu 2,269 wamepona hadi 6 Okt. 2026.</p></div></div>
     </div>
   </section>
 
-  <section class="section section-split" id="transmission">
-    <h2 class="section-title">Maambukizi</h2>
-    <div>
-      <ul class="vlist">
-        <li>Kugusana moja kwa moja na damu, majimaji au viungo vya mnyama au mtu aliyeambukizwa, akiwa hai au amefariki</li>
-        <li>Mila za mazishi zenye hatari na maambukizi katika vituo vya afya bila kinga inayofaa</li>
-        <li>Hakuna maambukizi kupitia hewa</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section section-split" id="incubation">
-    <h2 class="section-title">Muda wa kuatamia</h2>
-    <div>
-      <div class="incub">
-        <div class="incub-scale" aria-hidden="true">
-          <div class="incub-window"></div>
-        </div>
-        <div class="incub-marks">
-          <span>siku 2</span>
-          <span class="is-avg">wastani wa siku 8 hadi 10</span>
-          <span>siku 21</span>
-        </div>
-      </div>
-      <p class="page-intro" style="margin-top:16px;">Mtu aliyeambukizwa hawezi kuambukiza wengine mradi hana dalili. Ndiyo maana ufuatiliaji wa walioguswa unafanya kazi: mtu hutengwa kabla maambukizi hayajawezekana.</p>
-    </div>
-  </section>
-
-  <section class="section section-split" id="evolution">
-    <h2 class="section-title">Mwenendo wa ugonjwa</h2>
-    <div>
-      <div class="vphases">
-        <div class="vphase vphase-dry">
-          <div class="vphase-tag">Hatua ya mapema</div>
-          <p>Homa, uchovu mkali, maumivu ya misuli, maumivu ya kichwa, koo kuuma — dalili zisizo mahususi, zinazochanganywa kwa urahisi na malaria au homa ya matumbo.</p>
-        </div>
-        <div class="vphase vphase-wet">
-          <div class="vphase-tag">Hatua ya juu</div>
-          <p>Kutapika, kuhara, upele wa ngozi, kuathirika kwa figo na ini, na wakati mwingine kuvuja damu. Uthibitisho hufanywa kwa kipimo cha RT-PCR kwenye sampuli ya damu.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-split" id="traitements">
-    <h2 class="section-title">Matibabu na chanjo: tofauti muhimu kulingana na aina</h2>
-    <div>
-      <p class="page-intro">Matibabu pekee na chanjo pekee zilizoidhinishwa dhidi ya Ebola zinalenga aina ya Zaire — si aina ya Bundibugyo, inayosababisha mlipuko huu.</p>
-
-      <div class="panel compare">
-        <table>
-          <caption class="visually-hidden">Kile aina inachobadilisha</caption>
-          <thead>
-            <tr>
-              <th scope="col"><span class="visually-hidden">Kile aina inachobadilisha</span></th>
-              <th scope="col" class="is-this">
-                Bundibugyo
-                <span class="th-note">aina ya mlipuko huu</span>
-              </th>
-              <th scope="col">
-                Zaire
-                <span class="th-note">aina iliyochunguzwa zaidi</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Milipuko inayojulikana</th>
-              <td class="is-this" data-col="Bundibugyo">3</td>
-              <td data-col="Zaire">milipuko mingi iliyoandikwa</td>
-            </tr>
-            <tr>
-              <th scope="row">Kiwango cha vifo cha kihistoria</th>
-              <td class="is-this" data-col="Bundibugyo">25 hadi 50 %</td>
-              <td data-col="Zaire">hadi 90 %</td>
-            </tr>
-            <tr>
-              <th scope="row">Chanjo iliyoidhinishwa</th>
-              <td class="is-this is-none" data-col="Bundibugyo">hakuna</td>
-              <td data-col="Zaire">Ervebo (rVSV-ZEBOV)</td>
-            </tr>
-            <tr>
-              <th scope="row">Matibabu yaliyoidhinishwa</th>
-              <td class="is-this is-none" data-col="Bundibugyo">hakuna</td>
-              <td data-col="Zaire">Inmazeb, Ebanga (kingamwili)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="page-intro" style="margin-top:16px;">Tarehe 31 Agosti 2026, WHO ilifafanua matumizi ya Ervebo, chanjo iliyoidhinishwa dhidi ya aina ya Zaire, dhidi ya virusi vya Bundibugyo: ufanisi dhidi ya aina hii haujulikani, matumizi yamewekewa mipaka ya utafiti, kipaumbele kwa wahudumu wa afya na wafanyakazi wa mstari wa mbele. Ripoti za INSP zinaripoti chanjo za wafanyakazi hao tangu mwanzoni mwa Septemba.</p>
-      <p class="vcompare-note">Wakati wa mlipuko huu, dawa kadhaa zinazopendekezwa zinajaribiwa kliniki dhidi ya aina ya Bundibugyo — ikiwemo kingamwili ya wigo mpana MBP134, dawa ya kuua virusi remdesivir na obeldesivir kama kinga baada ya kuambukizwa — chini ya uratibu wa WHO. Kwa kukosekana kwa matibabu yaliyoidhinishwa yanayolenga aina hii, huduma za msaada wa hali ya juu (kurejesha maji mwilini, oksijeni, ufuatiliaji) zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi.</p>
-    </div>
-  </section>
-
-  <section class="section section-split" id="ages">
-    <h2 class="section-title">Ugonjwa unamgusa nani, unaua nani</h2>
-    <div>
-      <p class="page-intro">Visa havienei kama vifo. Kulinganisha viwili kunaonyesha makundi gani ya umri hufa mara nyingi zaidi kuliko yanavyougua.</p>
-      <div class="ages">
-        <div class="ages-key" aria-hidden="true">
-          <span class="ak ak-cas">Sehemu ya visa</span>
-          <span class="ak ak-deces">Sehemu ya vifo</span>
-        </div>
-        <div class="age-row">
-          <div class="age-label">0–4 miaka</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:28.4%"></span></span>
-            <span class="age-val">10.0&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya visa : 345</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:54.0%"></span></span>
-            <span class="age-val">19.0&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya vifo : 213</span>
-          </div>
-        </div>
-        <div class="age-row">
-          <div class="age-label">5–17 miaka</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:37.5%"></span></span>
-            <span class="age-val">13.2&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya visa : 455</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:36.4%"></span></span>
-            <span class="age-val">12.8&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya vifo : 144</span>
-          </div>
-        </div>
-        <div class="age-row">
-          <div class="age-label">18–29 miaka</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:75.3%"></span></span>
-            <span class="age-val">26.5&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya visa : 917</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:70.5%"></span></span>
-            <span class="age-val">24.8&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya vifo : 279</span>
-          </div>
-        </div>
-        <div class="age-row">
-          <div class="age-label">30–49 miaka</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:100.0%"></span></span>
-            <span class="age-val">35.2&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya visa : 1,217</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:77.3%"></span></span>
-            <span class="age-val">27.2&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya vifo : 306</span>
-          </div>
-        </div>
-        <div class="age-row">
-          <div class="age-label">50 na zaidi</div>
-          <div class="age-bar is-cas">
-            <span class="age-track"><span class="age-fill" style="width:42.9%"></span></span>
-            <span class="age-val">15.1&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya visa : 520</span>
-          </div>
-          <div class="age-bar is-deces">
-            <span class="age-track"><span class="age-fill" style="width:46.0%"></span></span>
-            <span class="age-val">16.2&nbsp;%</span>
-            <span class="visually-hidden">Sehemu ya vifo : 182</span>
-          </div>
-        </div>
-      </div>
+  <section class="section vb-sec" id="ages">
+    <div class="vb-tete"><div class="eyebrow">Unamgusa nani</div><h2>Visa <em>na</em> vifo, kwa umri</h2><p>Visa havienei kama vifo. Kulinganisha viwili kunaonyesha makundi gani ya umri hufa mara nyingi zaidi kuliko yanavyougua.</p></div>
+    <div class="ax-tete pa-tete"><span>Sehemu ya visa</span><span></span><span>Sehemu ya vifo</span></div>
+    <div class="pa"><div class="pa-l"><div class="pa-g"><span>10.0%</span><i style="width:28.4%"></i></div><div class="pa-c">0–4 miaka</div><div class="pa-d"><i style="width:54.0%"></i><span>19.0%</span></div></div><div class="pa-l"><div class="pa-g"><span>13.2%</span><i style="width:37.5%"></i></div><div class="pa-c">5–17 miaka</div><div class="pa-d"><i style="width:36.4%"></i><span>12.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>26.5%</span><i style="width:75.3%"></i></div><div class="pa-c">18–29 miaka</div><div class="pa-d"><i style="width:70.5%"></i><span>24.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>35.2%</span><i style="width:100.0%"></i></div><div class="pa-c">30–49 miaka</div><div class="pa-d"><i style="width:77.3%"></i><span>27.2%</span></div></div><div class="pa-l"><div class="pa-g"><span>15.1%</span><i style="width:42.9%"></i></div><div class="pa-c">50 na zaidi</div><div class="pa-d"><i style="width:46.0%"></i><span>16.2%</span></div></div></div>
+    <div class="vb-sexes">
       <h3 class="frame-title">Wanawake na wanaume</h3>
       <div class="sexes">
         <div class="ages-key" aria-hidden="true">
@@ -432,17 +318,31 @@
           </div>
         </div>
       </div>
-      <div class="info-note">Hali hadi 5 Ago. 2026. Mgawanyo umeandaliwa kwa visa 3,454 na vifo 1,124 ambavyo umri na jinsia vimeandikwa, yaani 85.2 % ya visa na 60.8 % ya vifo hadi tarehe hiyo. Vifo vilivyotokea katika jamii, mara nyingi bila utambulisho, vimewakilishwa pungufu. INSP iliacha kuchapisha mgawanyo huu baada ya 5 Ago. 2026.</div>
+    </div>
+    <p class="vb-src">Hali hadi 5 Ago. 2026. Mgawanyo umeandaliwa kwa visa 3,454 na vifo 1,124 ambavyo umri na jinsia vimeandikwa, yaani 85.2 % ya visa na 60.8 % ya vifo hadi tarehe hiyo. Vifo vilivyotokea katika jamii, mara nyingi bila utambulisho, vimewakilishwa pungufu. INSP iliacha kuchapisha mgawanyo huu baada ya 5 Ago. 2026.</p>
+  </section>
+
+  <section class="section vb-sec" id="traitements">
+    <div class="vb-tete"><div class="eyebrow">Kujikinga na kutibiwa</div><h2>Chanjo <em>na</em> matibabu</h2><p>Matibabu pekee na chanjo pekee zilizoidhinishwa dhidi ya Ebola zinalenga aina ya Zaire — si aina ya Bundibugyo, inayosababisha mlipuko huu.</p></div>
+    <table class="ff-table vb-ff">
+      <caption class="visually-hidden">Kujikinga na kutibiwa</caption>
+      <tbody>
+        <tr><td class="ff-g"><b>Ervebo</b><span>inatumika katika utafiti tangu Agosti 2026</span></td><th scope="row" class="ff-q">Chanjo</th><td class="ff-d"><b>ufanisi haujulikani</b><span>dhidi ya Bundibugyo, kwa mujibu wa WHO</span></td></tr>
+        <tr><td class="ff-g"><b>dawa kadhaa</b><span>zinajaribiwa kliniki</span></td><th scope="row" class="ff-q">Matibabu</th><td class="ff-d"><b>huduma za msaada</b><span>msingi wa uangalizi</span></td></tr>
+      </tbody>
+    </table>
+    <div class="vb-texte">
+      <p>Tarehe 31 Agosti 2026, WHO ilifafanua matumizi ya Ervebo, chanjo iliyoidhinishwa dhidi ya aina ya Zaire, dhidi ya virusi vya Bundibugyo: ufanisi dhidi ya aina hii haujulikani, matumizi yamewekewa mipaka ya utafiti, kipaumbele kwa wahudumu wa afya na wafanyakazi wa mstari wa mbele. Ripoti za INSP zinaripoti chanjo za wafanyakazi hao tangu mwanzoni mwa Septemba.</p>
+      <p>Wakati wa mlipuko huu, dawa kadhaa zinazopendekezwa zinajaribiwa kliniki dhidi ya aina ya Bundibugyo — ikiwemo kingamwili ya wigo mpana MBP134, dawa ya kuua virusi remdesivir na obeldesivir kama kinga baada ya kuambukizwa — chini ya uratibu wa WHO. Kwa kukosekana kwa matibabu yaliyoidhinishwa yanayolenga aina hii, huduma za msaada wa hali ya juu (kurejesha maji mwilini, oksijeni, ufuatiliaji) zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi.</p>
     </div>
   </section>
 
   <!-- Genomes sequences : comptes agreges lus dans Pathoplexus par
        scripts/extraire_genomes.py (data/genomes.json). Un chiffre de
        contexte, pas de suivi : il ne bouge qu'a la main. -->
-  <section class="section section-split" id="genomes">
-    <h2 class="section-title">Virusi inavyosomwa katika jenomu yake</h2>
-    <div>
-      <p class="page-intro">Kupanga jenomu ya virusi kutoka kwa sampuli za wagonjwa huthibitisha aina, huweka tarehe ya kuanza kwa mlipuko na hupima kasi yake. Maabara za INRB huko Bunia na Kinshasa huweka mfuatano huu katika hifadhidata ya umma Pathoplexus: hifadhi hiyo ndiyo inayohesabiwa hapa.</p>
+  <section class="section vb-sec" id="genomes">
+    <div class="vb-tete"><div class="eyebrow">Virusi inavyosomwa katika jenomu yake</div><h2>Jenomu 731 <em>zilizosomwa</em></h2><p>Kupanga jenomu ya virusi kutoka kwa sampuli za wagonjwa huthibitisha aina, huweka tarehe ya kuanza kwa mlipuko na hupima kasi yake. Maabara za INRB huko Bunia na Kinshasa huweka mfuatano huu katika hifadhidata ya umma Pathoplexus: hifadhi hiyo ndiyo inayohesabiwa hapa.</p></div>
+    <div class="vb-genomes">
       <div class="figure-band vg-band">
         <div class="fb-item">
           <div class="fb-value">731</div>
@@ -493,7 +393,7 @@
     </div>
     <div>
       <ul class="plus-loin">
-        <li><a href="/sw/mapambano/">Mapambano na changamoto →</a><span>Kinachofanywa bila chanjo: tahadhari, vipimo, ufuatiliaji wa walioguswa, vituo vya matibabu.</span></li>
+        <li><a href="/sw/mapambano/">Mapambano →</a><span>Kinachofanywa bila chanjo: tahadhari, vipimo, ufuatiliaji wa walioguswa, vituo vya matibabu.</span></li>
         <li><a href="/sw/maswali/">Maswali ya mara kwa mara →</a><span>Maambukizi, tiba, na maana ya takwimu za tovuti.</span></li>
       </ul>
     </div>
@@ -504,13 +404,10 @@
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Chunguza</h2>
+        <h2>Habari</h2>
         <ul>
-        <li><a href="/sw/">Muhtasari</a></li>
         <li><a href="/sw/barua/">Barua</a></li>
         <li><a href="/sw/habari/">Habari za mlipuko</a></li>
-        <li><a href="/sw/takwimu/">Takwimu za kina</a></li>
-        <li><a href="/sw/mapambano/">Mapambano na changamoto</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -518,9 +415,20 @@
         <ul>
         <li><a href="/sw/matukio/">Matukio</a></li>
         <li><a href="/sw/virusi/">Virusi</a></li>
-        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
         <li><a href="/sw/maswali/">Maswali</a></li>
         <li><a href="/sw/kamusi/">Kamusi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Chunguza</h2>
+        <ul>
+        <li><a href="/sw/takwimu/">Nchi nzima</a></li>
+        <li><a href="/sw/nchi-nyingine/">Nchi nyingine</a></li>
+        <li><a href="/sw/mapambano/">Mapambano</a></li>
+        <li><a href="/sw/changamoto/">Changamoto</a></li>
+        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
+        <li><a href="/sw/hifadhidata/">Hifadhidata</a></li>
+        <li><a href="/sw/dashibodi/">Dashibodi</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -544,7 +452,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/">Tahadhari kamili</a></p>
+    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/#avertissement">Tahadhari kamili</a></p>
   </footer>
 
     </div>
@@ -555,6 +463,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/sw/takwimu/ituri/", "Nord-Kivu": "/sw/takwimu/nord-kivu/", "Haut-Uélé": "/sw/takwimu/haut-uele/", "Tshopo": "/sw/takwimu/tshopo/", "Bas-Uélé": "/sw/takwimu/bas-uele/", "Sud-Kivu": "/sw/takwimu/sud-kivu/", "Sud-Ubangi": "/sw/takwimu/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "visa vilivyothibitishwa"; window.HERO_TIP_DEATHS = "vifo";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -574,8 +483,8 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>

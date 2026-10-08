@@ -397,6 +397,11 @@ def lire_vaccination(corps, texte_entier):
     cumulParProvince, et la lettre additionne les derniers cumuls connus."""
     t = " ".join((corps or texte_entier).split())
     cumul = {}
+    # Le total national, quand le bulletin le donne (112 : « Au total, 1 834
+    # personnes ont ete vaccinees » ; 137 : « Au niveau national, 6 897 »).
+    # Le site le prefere a la somme des provinces (choix de Fable, 7 octobre
+    # 2026), voir vaccines_total() dans build_pages et bulletin.
+    national = None
     def pose(prov, v):
         if prov and v is not None:
             cumul[prov] = max(cumul.get(prov, 0), v)
@@ -411,11 +416,22 @@ def lire_vaccination(corps, texte_entier):
         # ont été vaccinées au cours des dernières 24 heures »).
         if re.search(r"derni[èe]res 24 ?h", phr):
             prec = phr; continue
+        # Un total national n'est le cumul d'aucune province (137 : « À la
+        # Tshopo, la rupture de vaccin persiste. Au niveau national, 6 897
+        # personnes ont été vaccinées » donnait 6 897 vaccines a la Tshopo,
+        # qui en comptait 4 953 ; la lettre affichait alors 9 047 au lieu de
+        # 7 103. Ecart repere le 7 octobre 2026).
+        if re.search(r"niveau national", phr, re.I):
+            m = re.search(NUM + r" personnes ont été vaccinées", phr)
+            if m:
+                national = entier(m.group(1))
+            prec = phr; continue
         # La province : citee avant le nombre dans la phrase, sinon dans la
         # phrase precedente (« Tshopo : lancement ... ; 122 personnes vaccinees »).
         _province_ici = lambda m: _province(phr[:m.start()]) or _province(prec) or _province(phr)
         m = re.search(r"Au total, " + NUM + r" personnes ont été vaccinées", phr)
         if m:
+            national = entier(m.group(1))
             for n, prov in re.findall(NUM + r" (?:à la|au|en) (Tshopo|Bas.Uélé|Haut.Uélé|Sud.Ubangi|Ituri|Nord.Kivu|Sud.Kivu)", phr):
                 pose(_province(prov), entier(n))
             continue
@@ -443,9 +459,11 @@ def lire_vaccination(corps, texte_entier):
     for prov, ligne in detail.items():
         if ligne.get("cumul") is not None:
             cumul[prov] = max(cumul.get(prov, 0), ligne["cumul"])
-    if not cumul and not rupture and not detail:
+    if not cumul and not rupture and not detail and national is None:
         return None
     out = {"cumulParProvince": cumul, "rupture": rupture}
+    if national is not None:
+        out["national"] = national
     if detail:
         out["provinces"] = detail
     return out

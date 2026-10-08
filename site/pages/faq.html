@@ -1,19 +1,17 @@
-  <section class="section" style="max-width:820px;">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow"><span class="dot"></span>{{t.footerUnderstandTitle}}</div>
-        <h1 class="page-title">{{meta.h1}}</h1>
-      </div>
-    </div>
-
+  <!-- FAQ (7 octobre 2026, option 1 des maquettes) : rubriques a filets,
+       comme la methode de la page A propos ; plus de boite. -->
+  <section class="section faq-tete">
+    <div class="eyebrow"><span class="dot"></span>{{t.footerUnderstandTitle}}</div>
+    <h1 class="page-title">{{meta.h1}}</h1>
     <p class="lede">{{t.faqIntro}}</p>
+  </section>
 
-    <div class="panel" style="padding:6px 24px;">
+  <section class="section">
+    <div class="faq-f1">
 {{faqItems}}
     </div>
-
-    <div class="faq-more">
+    <div class="faq-fin">
       <h2>{{t.faqMoreTitle}}</h2>
-      <p>{{t.faqMoreBody}} <a href="{{url.contact}}">{{i18n.tabContact}}</a></p>
+      <p>{{t.faqMoreBody}} <a href="{{url.contact}}">{{i18n.tabContact}} →</a></p>
     </div>
   </section>

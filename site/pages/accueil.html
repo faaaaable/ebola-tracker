@@ -1,8 +1,8 @@
   <section class="section">
+
     <!-- Sous 760 px le kicker disparait et son « 17e » passe dans le titre
          (spans .on-phone / .on-large de homeLede) : sur telephone, tout ce
          qui precede la carte lui coute un ecran. -->
-    <p class="kicker" data-i18n-html="topMeta">{{i18n.topMeta}}</p>
     <h1 class="accroche">{{t.homeLede}}</h1>
 
     <!-- Sur telephone le libelle sort de la mise en page mais reste dans
@@ -21,6 +21,14 @@
             <div class="title" data-i18n="legendTitle">{{i18n.legendTitle}}</div>
 {{legendSteps}}
           </div>
+          <!-- Vignette du pays (grand ecran, 3 octobre 2026) : la carte s'ouvre
+               cadree sur l'epidemie, la vignette garde la forme de la RDC et
+               montre ou l'on se trouve. Remplie par app.js (initMap). -->
+          <div class="map-vignette" id="mapVignette" aria-hidden="true"></div>
+          <!-- Vue « Pays touches » (8 octobre 2026) : encart de la France,
+               infobulle des pays touches hors de RDC. scripts/hors_rdc.py. -->
+{{horsRdc}}
+
           <!-- Infobulle de zone : n'apparait que sur telephone, ancree a la
                zone touchee. Sur ordinateur le panneau lateral suffit. -->
           <div class="zm-popup" id="zonePopup" role="dialog" aria-live="polite"
@@ -51,13 +59,14 @@
         <div class="map-timeline" id="mapTimeline" style="display:none;">
           <div class="map-controls">
             <div class="map-toolbar">
+              <button class="map-btn" id="btnViewOutbreak" data-i18n="btnOutbreak">{{i18n.btnOutbreak}}</button>
               <button class="map-btn active" id="btnViewCountry" data-i18n="btnCountry">{{i18n.btnCountry}}</button>
-              <button class="map-btn" id="btnViewIturi" data-i18n="btnIturi">{{i18n.btnIturi}}</button>
+              <button class="map-btn" id="btnViewMonde" data-i18n="btnMonde">{{i18n.btnMonde}}</button>
+              <span class="map-zoom" role="group" aria-label="{{i18n.mapZoomLabel}}">
+                <button type="button" class="map-btn map-zoom-btn" id="btnZoomIn" aria-label="{{i18n.mapZoomIn}}" title="{{i18n.mapZoomIn}}">+</button>
+                <button type="button" class="map-btn map-zoom-btn" id="btnZoomOut" aria-label="{{i18n.mapZoomOut}}" title="{{i18n.mapZoomOut}}">&minus;</button>
+              </span>
             </div>
-            <nav class="map-mode" id="mapModeNav" aria-label="{{i18n.mapModeZones}} / {{i18n.mapModeCircles}}">
-              <button type="button" class="map-btn active" data-mode="zones" data-i18n="mapModeZones">{{i18n.mapModeZones}}</button>
-              <button type="button" class="map-btn" data-mode="circles" data-i18n="mapModeCircles">{{i18n.mapModeCircles}}</button>
-            </nav>
             <span class="map-timeline-date" id="timelineDate">{{timelineLatest}}</span>
           </div>
           <input type="range" id="timelineSlider" min="0" max="0" value="0" step="1" aria-label="{{i18n.timelineLabel}}">
@@ -78,6 +87,7 @@
              dans la chronologie). Au survol, la ligne « note » recoit la
              province de la zone. -->
         <div class="name" id="cartoName">{{seed.cartoAsOf}}</div>
+        {{seed.cartoSitrep}}
         <div class="note" id="cartoNote"></div>
 {{panelStats}}
         <dl class="cd-figures">
@@ -95,10 +105,11 @@
     </div>
   </section>
 
-  <section class="section">
+  <div class="sep" aria-hidden="true"></div>
+
+  <section class="section home-sec">
     <div class="section-head">
       <h2 class="section-title" data-i18n="chartTitle">{{i18n.chartTitle}}</h2>
-      <span class="section-sub">{{t.chartEpidemicSub}}</span>
     </div>
 
     <div class="panel chart-panel-wrap">
@@ -118,7 +129,45 @@
     </div>
   </section>
 
-  <section class="section section-split">
+  <div class="sep" aria-hidden="true"></div>
+
+  <section class="section section-split home-sec">
+    <div>
+      <h2 class="section-title">{{t.teaserProvincesTitle}}</h2>
+      <div class="section-sub section-sub-provinces">{{t.teaserProvincesSub}}</div>
+    </div>
+    <div>
+      <div class="pm">
+{{seed.provinceMosaique}}
+      </div>
+      <!-- Telephone : la meme chose en liste compacte (province_liste_html). -->
+      <div class="pl">
+{{seed.provinceListe}}
+      </div>
+      <!-- Sous la grille, le lien vers la page Autres pays (8 octobre 2026) :
+           pas une case de plus, la grille ne porte que les provinces de RDC
+           et les chiffres de l'INSP. Cote a cote sur ordinateur, empiles sur
+           telephone. -->
+      <div class="pm-liens">
+        <a class="teaser-more" href="{{url.donnees}}">{{t.navDataTables}}</a>
+        <a class="teaser-more" href="{{url.autres-pays}}">{{t.autresPaysLienAccueil}}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LE TITRE ET SA LIGNE ITALIQUE TIENNENT DANS UNE SEULE CELLULE. La section
+       est une grille a deux colonnes : pose nu apres le titre, le sous-titre
+       occuperait la cellule du contenu et renverrait la rangee des provinces
+       sous lui. Meme structure que les autres chapitres en section-split.
+
+       La ligne dit une fois ce que les sept colonnes portent : le grand
+       chiffre y est nu, les deces seuls sont nommes. Un sujet se nomme en
+       tete, pas dans chaque cellule — et l'asymetrie est ce qui donne a la
+       case sa hierarchie de lecture. -->
+
+  <div class="sep" aria-hidden="true"></div>
+
+  <section class="section section-split home-sec home-band">
     <h2 class="section-title">{{t.navTimeline}}</h2>
     <div>
       <!-- Les deux commandes vivent hors de la piste, sinon elles defileraient
@@ -146,24 +195,63 @@
     </div>
   </section>
 
-  <!-- LE TITRE ET SA LIGNE ITALIQUE TIENNENT DANS UNE SEULE CELLULE. La section
-       est une grille a deux colonnes : pose nu apres le titre, le sous-titre
-       occuperait la cellule du contenu et renverrait la rangee des provinces
-       sous lui. Meme structure que les autres chapitres en section-split.
+  <div class="sep" aria-hidden="true"></div>
 
-       La ligne dit une fois ce que les sept colonnes portent : le grand
-       chiffre y est nu, les deces seuls sont nommes. Un sujet se nomme en
-       tete, pas dans chaque cellule — et l'asymetrie est ce qui donne a la
-       case sa hierarchie de lecture. -->
-  <section class="section section-split">
-    <div>
-      <h2 class="section-title">{{t.teaserProvincesTitle}}</h2>
-      <div class="section-sub section-sub-provinces">{{t.teaserProvincesSub}}</div>
+  <!-- Riposte et defis (4 octobre 2026) : cinq grandes cartes a faire defiler
+       (la grille des obstacles, puis les graphiques alertes, laboratoire,
+       contacts, vaccination), deux fleches dessous, et les liens vers les pages
+       Riposte et Defis. Remplace la bande sombre « La riposte, etape par etape » et
+       ses quatre chiffres (sauvegarde : _mis-de-cote-2026-10-04-cercles-carte).
+       Fond clair, titre a gauche, sans sous-titre ; la carte au centre est la
+       plus grande, les autres restent visibles de part et d'autre. -->
+  <section class="section home-sec cr-sec">
+    <div class="section-head">
+      <h2 class="section-title">{{t.crTitle}}</h2>
     </div>
-    <div>
-      <div class="province-grid">
-{{provinceCardsPlain}}
+    <div class="cr-track" id="crTrack" tabindex="0" role="region" aria-label="{{t.crRegion}}">
+      <article class="cr-card cr-card-grille">
+        <header class="cr-head"><span class="cr-tag">{{t.navDefis}}</span><h3>{{seed.defisGrilleTitre}}</h3><p>{{seed.defisGrilleSub}}</p></header>
+        <div class="cr-body">{{seed.defisGrilleHome}}</div>
+      </article>
+      <article class="cr-card" data-cr-depart>
+        <header class="cr-head"><span class="cr-tag">{{t.navRiposte}}</span><h3>{{t.crAlertes}}</h3><p>{{t.riposteAlertesSub}}</p></header>
+        <div class="chart-panel-wrap cr-body">
+          <div class="chart-panel"><canvas id="homeAlertesChart" data-chart="alertes"></canvas></div>
+          <div class="map-note chart-note"></div>
+        </div>
+      </article>
+      <article class="cr-card">
+        <header class="cr-head"><span class="cr-tag">{{t.navRiposte}}</span><h3>{{t.crLabo}}</h3><p>{{t.riposteLaboSub}}</p></header>
+        <div class="chart-panel-wrap cr-body">
+          <div class="chart-panel"><canvas id="homeLaboChart" data-chart="laboratoire"></canvas></div>
+          <div class="map-note chart-note"></div>
+        </div>
+      </article>
+      <article class="cr-card">
+        <header class="cr-head"><span class="cr-tag">{{t.navRiposte}}</span><h3>{{t.crContacts}}</h3><p>{{t.riposteContactsSub}}</p></header>
+        <div class="chart-panel-wrap cr-body">
+          <div class="chart-panel"><canvas id="homeContactsChart" data-chart="contactsRiposte"></canvas></div>
+          <div class="map-note chart-note"></div>
+        </div>
+      </article>
+      <article class="cr-card">
+        <header class="cr-head"><span class="cr-tag">{{t.navRiposte}}</span><h3>{{t.crVaccin}}</h3><p>{{t.riposteVaccinSub}}</p></header>
+        <div class="chart-panel-wrap cr-body">
+          <div class="chart-panel chart-panel-barres"><canvas id="homeVaccinChart" data-chart="vaccination"></canvas></div>
+          <div class="map-note chart-note"></div>
+        </div>
+      </article>
+    </div>
+    <div class="cr-foot">
+      <a class="cr-link" href="{{url.riposte}}">{{t.crLinkRiposte}} &rarr;</a>
+      <div class="cr-arrows">
+        <button class="cr-arrow" type="button" data-cr-nav="-1" aria-controls="crTrack" aria-label="{{t.crPrev}}">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="cr-arrow" type="button" data-cr-nav="1" aria-controls="crTrack" aria-label="{{t.crNext}}">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
-      <a class="teaser-more" href="{{url.donnees}}">{{t.navDataTables}}</a>
+      <a class="cr-link" href="{{url.defis}}">{{t.crLinkDefis}} &rarr;</a>
     </div>
   </section>

@@ -1,7 +1,7 @@
   <section class="section">
     <div class="section-head">
       <div>
-        <div class="eyebrow"><span class="dot"></span>{{t.footerUnderstandTitle}}</div>
+        <div class="eyebrow"><span class="dot"></span>{{t.navGrpExplore}}</div>
         <h1 class="page-title">{{meta.h1}}</h1>
       </div>
     </div>
@@ -14,32 +14,35 @@
     </nav>
   </section>
 
+  <!-- Le calendrier « Un bulletin, un jour » (2 octobre 2026) a ete retire
+       le 6 octobre 2026 a la demande du proprietaire ; reports_calendar_html
+       reste dans build_pages.py. -->
+
   <!-- Pleine largeur, pas de colonne de titres : les trois sections sont des
        listes de documents, et la colonne ne laissait que deux bulletins par
        ligne contre trois (demande du proprietaire, 6 septembre 2026). -->
   <!-- Cadres numerotes 01, 02, 03 comme sur les autres pages (demande du
        8 septembre 2026). -->
-  <section class="section cadre-fiche" id="insp">
-    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title" data-i18n="reportsTitle">{{i18n.reportsTitle}}</h2></div></div>
+  <section class="section cadre-fiche src-centre" id="insp">
+    <div class="fiche-tete"><div><h2 class="frame-title" data-i18n="reportsTitle">{{i18n.reportsTitle}}</h2></div></div>
     <div class="cadre-corps">
-    <p class="page-intro" data-i18n="reportsIntro">{{i18n.reportsIntro}}</p>
     <div class="panel" style="padding:16px;">
       <nav class="subtab-nav reports-months" id="reportsMonthNav" aria-label="{{i18n.reportsTitle}}"></nav>
       <label class="visually-hidden" for="reportsSearch">{{i18n.reportsSearchPlaceholder}}</label>
       <input id="reportsSearch" type="text" data-i18n-placeholder="reportsSearchPlaceholder" placeholder="{{i18n.reportsSearchPlaceholder}}" class="search-input">
-      <div id="reportsList" class="reports-grid">
+      <div id="reportsList" class="reports-grid is-registre">
 {{seed.reportsList}}
       </div>
     </div>
+    {{seed.reportsManquants}}
     </div>
   </section>
 
-  <section class="section cadre-fiche" id="who-reports-section" style="{{seed.whoSectionStyle}}">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title" data-i18n="whoReportsTitle">{{i18n.whoReportsTitle}}</h2></div></div>
+  <section class="section cadre-fiche src-centre" id="who-reports-section" style="{{seed.whoSectionStyle}}">
+    <div class="fiche-tete"><div><h2 class="frame-title" data-i18n="whoReportsTitle">{{i18n.whoReportsTitle}}</h2></div></div>
     <div class="cadre-corps">
-    <p class="page-intro" data-i18n="whoReportsIntro">{{i18n.whoReportsIntro}}</p>
     <div class="panel" style="padding:16px;">
-      <div id="whoReportsList" class="reports-grid">
+      <div id="whoReportsList" class="reports-grid is-registre">
 {{seed.whoReportsList}}
       </div>
     </div>
@@ -48,8 +51,8 @@
 
   <!-- La provenance des traces de la carte vivait sous la carte elle-meme ;
        elle est ici, avec les autres sources, la ou on vient la chercher. -->
-  <section class="section cadre-fiche" id="autres">
-    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title" data-i18n="geoSourceTitle">{{i18n.geoSourceTitle}}</h2></div></div>
+  <section class="section cadre-fiche src-centre" id="autres">
+    <div class="fiche-tete"><div><h2 class="frame-title" data-i18n="geoSourceTitle">{{i18n.geoSourceTitle}}</h2></div></div>
     <div class="cadre-corps">
     <p class="page-intro" data-i18n="geoSourceText">{{i18n.geoSourceText}}</p>
     </div>

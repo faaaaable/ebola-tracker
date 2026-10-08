@@ -27,38 +27,64 @@
   },
   "mainNav": [
     {
-      "titleKey": "navNewsTitle",
+      "titleKey": "navGrpNews",
       "pages": [
         "bulletin",
         "actualites"
       ]
     },
     {
-      "titleKey": "footerExploreTitle",
-      "pages": [
-        "accueil",
-        "donnees",
-        "riposte"
-      ]
-    },
-    {
       "titleKey": "footerUnderstandTitle",
       "pages": [
         "chronologie",
         "le-virus",
-        "rapports"
+        "faq",
+        "glossaire"
+      ]
+    },
+    {
+      "titleKey": "navGrpExplore",
+      "columns": [
+        {
+          "titleKey": "navColEvolution",
+          "compact": true,
+          "items": [
+            "donnees",
+            "@provinces",
+            "autres-pays"
+          ]
+        },
+        {
+          "titleKey": "navColDetails",
+          "items": [
+            "rapports",
+            "base-de-donnees",
+            "dashboard"
+          ]
+        }
+      ]
+    },
+    {
+      "titleKey": "navColFace",
+      "pages": [
+        "riposte",
+        "defis"
+      ]
+    },
+    {
+      "titleKey": "footerSiteTitle",
+      "pages": [
+        "a-propos",
+        "contact"
       ]
     }
   ],
   "footerNav": [
     {
-      "titleKey": "footerExploreTitle",
+      "titleKey": "navGrpNews",
       "pages": [
-        "accueil",
         "bulletin",
-        "actualites",
-        "donnees",
-        "riposte"
+        "actualites"
       ]
     },
     {
@@ -66,9 +92,20 @@
       "pages": [
         "chronologie",
         "le-virus",
-        "rapports",
         "faq",
         "glossaire"
+      ]
+    },
+    {
+      "titleKey": "navGrpExplore",
+      "pages": [
+        "donnees",
+        "autres-pays",
+        "riposte",
+        "defis",
+        "rapports",
+        "base-de-donnees",
+        "dashboard"
       ]
     },
     {
@@ -341,6 +378,7 @@
   "pages": [
     {
       "id": "accueil",
+      "bodyClass": "page-accueil",
       "fragment": "accueil.html",
       "slug": {
         "fr": "",
@@ -392,7 +430,7 @@
       "schema": [
         "dataset"
       ],
-      "navLabelKey": "i18n:tabZones",
+      "navLabelKey": "t:navDataTables",
       "meta": {
         "fr": {
           "title": "Données détaillées par province et zone de santé — Ebola RDC",
@@ -412,6 +450,39 @@
       }
     },
     {
+      "id": "autres-pays",
+      "fragment": "autres-pays.html",
+      "slug": {
+        "fr": "autres-pays/",
+        "en": "other-countries/",
+        "sw": "nchi-nyingine/"
+      },
+      "needs": [],
+      "changefreq": "weekly",
+      "priority": "0.6",
+      "schema": [
+        "article"
+      ],
+      "navLabelKey": "t:navAutresPays",
+      "meta": {
+        "fr": {
+          "title": "Ebola hors de RDC : Ouganda, Kenya, France (2026)",
+          "h1": "Autres pays touchés",
+          "description": "L'épidémie d'Ebola Bundibugyo née en RDC a touché trois autres pays : l'Ouganda (20 cas, épidémie terminée le 27 août 2026), le Kenya (1 cas, 6 octobre 2026) et la France (1 cas importé, guéri). Résumé et sources."
+        },
+        "en": {
+          "title": "Ebola outside the DRC: Uganda, Kenya, France (2026)",
+          "h1": "Other affected countries",
+          "description": "The Bundibugyo Ebola outbreak that began in the DRC reached three other countries: Uganda (20 cases, outbreak over on 27 August 2026), Kenya (1 case, 6 October 2026) and France (1 imported case, recovered). Summary and sources."
+        },
+        "sw": {
+          "title": "Ebola nje ya DRC: Uganda, Kenya, Ufaransa (2026)",
+          "h1": "Nchi nyingine zilizoathirika",
+          "description": "Mlipuko wa Ebola Bundibugyo ulioanzia DRC ulifikia nchi nyingine tatu: Uganda (wagonjwa 20, mlipuko ulimalizika tarehe 27 Agosti 2026), Kenya (mgonjwa 1, 6 Oktoba 2026) na Ufaransa (mgonjwa 1 kutoka nje, amepona). Muhtasari na vyanzo."
+        }
+      }
+    },
+    {
       "id": "riposte",
       "fragment": "riposte.html",
       "slug": {
@@ -420,8 +491,7 @@
         "sw": "mapambano/"
       },
       "needs": [
-        "chart",
-        "defis_synthese"
+        "chart"
       ],
       "changefreq": "daily",
       "priority": "0.8",
@@ -431,19 +501,52 @@
       "navLabelKey": "t:navRiposte",
       "meta": {
         "fr": {
-          "title": "Riposte & défis : alertes, tests, contacts, centres de traitement et obstacles — Ebola RDC",
-          "h1": "La riposte et ses défis",
-          "description": "Ce que fait la riposte contre l'épidémie d'Ebola en RDC, bulletin après bulletin : alertes reçues et validées, échantillons testés et positivité, suivi des contacts par province, occupation des centres de traitement, et ce que les bulletins disent des obstacles."
+          "title": "Riposte : alertes, tests, contacts, centres de traitement et vaccination — Ebola RDC",
+          "h1": "La riposte",
+          "description": "Ce que fait la riposte contre l'épidémie d'Ebola en RDC, bulletin après bulletin : alertes reçues et validées, échantillons testés et positivité, suivi des contacts par province, occupation des centres de traitement et vaccination."
         },
         "en": {
-          "title": "Response & challenges: alerts, testing, contacts, treatment centres and obstacles — DRC Ebola",
-          "h1": "The response and its challenges",
-          "description": "What the response to the DRC Ebola outbreak is doing, bulletin by bulletin: alerts received and validated, samples tested and positivity, contact follow-up by province, treatment centre occupancy, and what the bulletins say about the obstacles."
+          "title": "Response: alerts, testing, contacts, treatment centres and vaccination — DRC Ebola",
+          "h1": "The response",
+          "description": "What the response to the DRC Ebola outbreak is doing, bulletin by bulletin: alerts received and validated, samples tested and positivity, contact follow-up by province, treatment centre occupancy and vaccination."
         },
         "sw": {
-          "title": "Mapambano na changamoto: tahadhari, vipimo, walioguswa, vituo vya matibabu na vikwazo — Ebola DRC",
-          "h1": "Mapambano na changamoto zake",
-          "description": "Kile mapambano dhidi ya mlipuko wa Ebola nchini DRC yanafanya, ripoti baada ya ripoti: tahadhari zilizopokelewa na kuthibitishwa, sampuli zilizopimwa na kiwango cha uambukizo, ufuatiliaji wa walioguswa kwa jimbo, matumizi ya vitanda vya vituo vya matibabu, na kile ripoti zinasema kuhusu vikwazo."
+          "title": "Mapambano: tahadhari, vipimo, walioguswa, vituo vya matibabu na chanjo — Ebola DRC",
+          "h1": "Mapambano",
+          "description": "Kile mapambano dhidi ya mlipuko wa Ebola nchini DRC yanafanya, ripoti baada ya ripoti: tahadhari zilizopokelewa na kuthibitishwa, sampuli zilizopimwa na kiwango cha uambukizo, ufuatiliaji wa walioguswa kwa jimbo, matumizi ya vitanda vya vituo vya matibabu na chanjo."
+        }
+      }
+    },
+    {
+      "id": "defis",
+      "fragment": "defis.html",
+      "slug": {
+        "fr": "defis/",
+        "en": "challenges/",
+        "sw": "changamoto/"
+      },
+      "needs": [
+        "defis_synthese"
+      ],
+      "changefreq": "daily",
+      "priority": "0.7",
+      "schema": [],
+      "navLabelKey": "t:navDefis",
+      "meta": {
+        "fr": {
+          "title": "Les défis de la riposte : les dix obstacles cités dans les bulletins — Ebola RDC",
+          "h1": "Les défis de la riposte",
+          "description": "Les dix principaux obstacles à la riposte contre Ebola en RDC, tirés des sections « Défis » des bulletins de l'INSP : semaine après semaine, lesquels reviennent et dans quelles provinces."
+        },
+        "en": {
+          "title": "The challenges of the response: ten obstacles cited in the bulletins — DRC Ebola",
+          "h1": "The challenges of the response",
+          "description": "The ten main obstacles to the Ebola response in the DRC, drawn from the “Challenges” sections of the INSP bulletins: week by week, which ones keep coming back and in which provinces."
+        },
+        "sw": {
+          "title": "Changamoto za mapambano: vikwazo kumi vilivyotajwa katika ripoti — Ebola DRC",
+          "h1": "Changamoto za mapambano",
+          "description": "Vikwazo kumi vikuu vya mapambano dhidi ya Ebola nchini DRC, vilivyotolewa katika sehemu za « Changamoto » za ripoti za INSP: wiki baada ya wiki, vipi vinarudi na katika majimbo gani."
         }
       }
     },
@@ -477,6 +580,78 @@
           "title": "Vyanzo na ripoti rasmi — Ebola DRC 2026",
           "h1": "Vyanzo na ripoti rasmi",
           "description": "Ripoti zote za hali za INSP na ripoti za kila wiki za WHO ambazo tovuti hii inategemea, zinapatikana kupakuliwa."
+        }
+      }
+    },
+    {
+      "id": "base-de-donnees",
+      "fragment": "base-de-donnees.html",
+      "slug": {
+        "fr": "base-de-donnees/",
+        "en": "database/",
+        "sw": "hifadhidata/"
+      },
+      "needs": [],
+      "changefreq": "monthly",
+      "priority": "0.3",
+      "schema": [],
+      "noindex": true,
+      "navLabelKey": "t:navBase",
+      "navBadge": {
+        "key": "navBadgeBientot",
+        "style": "soon"
+      },
+      "meta": {
+        "fr": {
+          "title": "Base de données — Ebola RDC",
+          "h1": "Base de données",
+          "description": "La base de données ouverte du site, bientôt disponible."
+        },
+        "en": {
+          "title": "Database — DRC Ebola",
+          "h1": "Database",
+          "description": "The site's open database, coming soon."
+        },
+        "sw": {
+          "title": "Hifadhidata — Ebola DRC",
+          "h1": "Hifadhidata",
+          "description": "Hifadhidata huria ya tovuti, inakuja hivi karibuni."
+        }
+      }
+    },
+    {
+      "id": "dashboard",
+      "fragment": "dashboard.html",
+      "slug": {
+        "fr": "dashboard/",
+        "en": "dashboard/",
+        "sw": "dashibodi/"
+      },
+      "needs": [],
+      "changefreq": "monthly",
+      "priority": "0.3",
+      "schema": [],
+      "noindex": true,
+      "navLabelKey": "t:navDashboard",
+      "navBadge": {
+        "key": "navBadgeBientot",
+        "style": "soon"
+      },
+      "meta": {
+        "fr": {
+          "title": "Dashboard — Ebola RDC",
+          "h1": "Dashboard",
+          "description": "Toutes les données de l'épidémie en temps réel, bientôt disponible."
+        },
+        "en": {
+          "title": "Dashboard — DRC Ebola",
+          "h1": "Dashboard",
+          "description": "All the outbreak data in real time, coming soon."
+        },
+        "sw": {
+          "title": "Dashibodi — Ebola DRC",
+          "h1": "Dashibodi",
+          "description": "Takwimu zote za mlipuko kwa wakati halisi, inakuja hivi karibuni."
         }
       }
     },
@@ -740,9 +915,6 @@
           "h1": "Habari za mlipuko",
           "description": "Taarifa na makala kuhusu mlipuko wa Ebola nchini DRC — WHO, MSF, OCHA, mamlaka za Kongo, RFI, France 24… zinazochapishwa kila siku pamoja na kiungo cha chanzo chake."
         }
-      },
-      "navBadge": {
-        "key": "navBadgeNouveau"
       }
     }
   ],

@@ -2889,3 +2889,1832 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .fiche-extraits-liste{margin:10px 0 8px;padding-left:18px;font-size:14px;line-height:1.6;color:var(--ink-dim);max-width:78ch;}
 .fiche-extraits-liste li{margin-bottom:8px;}
 .fiche-extraits-liste b{color:var(--ink);font-weight:600;}
+
+/* ==========================================================================
+   REFONTE DU 2 OCTOBRE 2026 — en local, a la demande du proprietaire
+   Direction : celle des maquettes tmp/proto-design-lovable (V1 a V5), inspirees
+   de lovable.dev — barre en haut avec menus deroulants, halo doux, cartes
+   blanches tres arrondies, titres serif, grands espaces. Palette inchangee.
+   Ce bloc est le DERNIER du fichier et surcharge ce qui precede : pour revenir
+   en arriere, le supprimer, avec les changements de build_pages.py (build_nav,
+   province_cards_html), de site/pages/accueil.html et de app.js
+   (setupMenusEntete).
+   ========================================================================== */
+
+:root{
+  --radius:10px;
+  --radius-card:20px;
+  --gutter:24px;
+  --page-max:1190px;
+  --shadow-card:0 1px 2px rgba(31,26,19,.04),0 18px 40px -26px rgba(0,60,90,.30);
+  --shadow-pop:0 24px 60px -18px rgba(0,50,80,.35),0 2px 8px rgba(0,0,0,.06);
+}
+
+/* ---- boutons de groupe : reinitialisation (mobile et ordinateur) ---- */
+.nav-grp-btn{
+  appearance:none;background:none;border:0;margin:0;font:inherit;width:100%;
+  text-align:left;cursor:default;
+}
+.nav-grp-btn svg{display:none;}
+.nav-pop{display:contents;}
+
+/* ---- surfaces ---- */
+.panel,.carto-detail{
+  background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-card);
+}
+.wrap{max-width:calc(var(--page-max) + 2 * var(--gutter));margin-left:auto;margin-right:auto;}
+
+/* ---- halo du haut de page ---- */
+.main{position:relative;overflow-x:clip;}
+.main::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:760px;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(50% 55% at 0% 70%,rgba(191,220,235,.75) 0,transparent 70%),
+    radial-gradient(50% 55% at 100% 70%,rgba(191,220,235,.75) 0,transparent 70%),
+    radial-gradient(45% 40% at 50% 100%,rgba(143,193,214,.55) 0,transparent 72%),
+    radial-gradient(40% 40% at 8% 100%,rgba(233,201,165,.55) 0,transparent 70%),
+    radial-gradient(40% 40% at 92% 100%,rgba(233,201,165,.55) 0,transparent 70%);
+  filter:blur(26px);opacity:.3;
+  -webkit-mask-image:linear-gradient(#000 40%,transparent);mask-image:linear-gradient(#000 40%,transparent);
+}
+.main:has(.accroche)::before{opacity:.6;height:980px;}
+.main > .wrap{position:relative;z-index:1;}
+
+/* ---- sections ---- */
+.section{padding:56px 0;border-top:0;}
+.page-title{letter-spacing:-.03em;font-weight:600;}
+.lede{font-size:21px;}
+
+/* ---- accroche de l'accueil, centree ---- */
+.kicker{text-align:center;margin-top:34px;font-size:12.5px;letter-spacing:.02em;text-transform:none;font-weight:600;}
+.accroche{
+  max-width:900px;margin:8px auto 36px;text-align:center;font-weight:600;
+  font-size:clamp(32px,4.6vw,56px);line-height:1.07;letter-spacing:-.03em;
+}
+
+/* ---- la grande carte ---- */
+.carto-layout{
+  background:#fff;border-radius:28px;padding:20px;gap:20px;align-items:stretch;
+  box-shadow:0 1px 0 #fff inset,0 28px 70px -26px rgba(0,60,90,.38),0 2px 10px rgba(0,0,0,.06);
+}
+.zonemap-stage{background:var(--bg);border:1px solid var(--line-soft);border-radius:18px;overflow:hidden;}
+.carto-detail{box-shadow:none;border:1px solid var(--line-soft);background:var(--bg-panel);border-radius:18px;top:104px;}
+.section-head-carto{display:none;}
+.map-timeline{padding:6px 4px 0;}
+
+/* ---- separateur de l'accueil : un filet fin qui s'efface aux deux bouts ---- */
+.sep{height:1px;margin:8px 0;background:linear-gradient(90deg,transparent,var(--line) 25%,var(--line) 75%,transparent);}
+
+/* ---- sections de l'accueil ---- */
+.home-sec{padding:80px 0 56px;}
+.home-sec.section-split{display:block;}
+.home-sec .section-title{
+  font-family:var(--font-serif);font-size:clamp(28px,3.4vw,40px);font-weight:600;
+  text-transform:none;letter-spacing:-.03em;color:var(--ink);line-height:1.1;
+}
+.home-sec .section-sub{display:block;font-style:normal;font-size:14px;margin-top:8px;}
+.home-sec .section-head{margin-bottom:26px;}
+.home-sec.section-split .section-title{margin-bottom:6px;}
+.home-sec.section-split .section-sub-provinces{margin:0 0 26px;}
+.home-sec.section-split .th-scroller,.home-sec.section-split .province-grid{margin-top:26px;}
+.spark-note{margin:16px 0 0;font-size:12px;color:var(--ink-faint);}
+
+/* ---- bande de la chronologie ---- */
+.home-band{
+  position:relative;margin:34px calc(-1 * var(--gutter)) 0;padding:84px var(--gutter) 88px;
+  border-radius:44px;background:var(--bg-alt);overflow:hidden;
+}
+.home-band::before{
+  content:"";position:absolute;inset:0;z-index:0;filter:blur(40px);opacity:.7;pointer-events:none;
+  background:radial-gradient(40% 55% at 0% 100%,#E9C9A5 0,transparent 70%),
+             radial-gradient(40% 55% at 100% 0%,#BFDCEB 0,transparent 70%),
+             radial-gradient(35% 45% at 50% 120%,#8FC1D6 0,transparent 70%);
+}
+.home-band > *{position:relative;z-index:1;}
+.home-band + .sep{margin-top:34px;}
+
+/* ---- chronologie en cartes ---- */
+.th-item{
+  width:300px;padding:22px 22px 22px;margin-right:12px;background:#fff;
+  border:1px solid var(--line);border-radius:20px;
+}
+.th-item + .th-item{padding-left:22px;border-left:1px solid var(--line);}
+.th-dot{left:22px;}
+.th-item + .th-item .th-dot{left:22px;}
+.th-track{padding-top:30px;}
+.th-track::before{top:9px;}
+.th-dot{top:-30px;width:13px;height:13px;border-width:3px;}
+.th-title{font-size:17.5px;}
+.th-text{font-size:13px;color:var(--ink-dim);-webkit-line-clamp:6;}
+.th-date{font-size:11.5px;}
+@media (pointer:fine){.th-nav{background:#fff;}}
+
+/* ---- provinces en cartes ---- */
+.province-grid{grid-auto-flow:row;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;}
+.province-col{
+  display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
+  border-radius:20px;padding:20px 20px 16px;
+  transition:box-shadow .25s ease,transform .25s ease;
+}
+.province-col:hover{
+  border-top-width:1px;padding-top:20px;transform:translateY(-2px);
+  box-shadow:0 18px 40px -18px rgba(0,60,90,.30);
+}
+.province-col:hover .pcol-nom,.province-col:hover .pcol-cas,.province-col:hover .pcol-deces{transform:none;}
+.pcol-nom{
+  display:flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:15px;font-weight:700;
+  color:var(--ink);margin-bottom:10px;letter-spacing:-.01em;
+}
+.pcol-nom::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--teinte);flex:none;}
+.pcol-cas{font-family:var(--font-sans);font-size:36px;font-weight:800;letter-spacing:-.045em;line-height:1.05;}
+.pcol-spark{display:block;width:100%;height:54px;margin:14px 0 4px;}
+.pcol-deces{margin-top:8px;padding-top:10px;border-top:1px solid var(--line-soft);font-size:12.5px;color:var(--ink-dim);}
+
+/* ---- pied de page ---- */
+footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
+.footer-col h2{font-size:12.5px;letter-spacing:0;text-transform:none;font-weight:700;}
+.footer-col a{font-size:14px;}
+.footer-notice{border-top:1px solid var(--line-soft);padding-top:20px;}
+
+/* ==========================================================================
+   Ordinateur : la colonne laterale devient une barre en haut
+   ========================================================================== */
+@media (min-width:901px){
+  .app-shell{display:block;}
+  .sidebar{
+    position:sticky;top:0;z-index:60;height:auto;overflow:visible;
+    flex-direction:row;flex-wrap:wrap;align-items:center;gap:0 18px;
+    padding:0 max(var(--gutter),calc((100vw - var(--page-max)) / 2));
+    border-right:0;border-bottom:1px solid var(--line-soft);
+    background:rgba(253,250,246,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  }
+  .side-head,.side-panel{display:contents;}
+  .brand{order:1;height:56px;margin-right:12px;}
+  .side-nav{order:2;flex-direction:row;align-items:center;gap:2px;font-size:14px;}
+  .side-foot{order:3;flex:0 1 auto;margin:0 0 0 auto;padding:0;border:0;text-align:right;}
+  .lang-switch{order:4;margin-left:6px;}
+  .side-freshness{
+    display:block;font-size:10.5px;line-height:1.35;border:0;margin:0;padding:0;
+  }
+  .side-freshness div + div{margin-top:0;}
+  .side-freshness:empty{display:none;}
+  @media (max-width:1180px){.side-freshness div + div{display:none;}}
+  @media (max-width:1040px){.side-foot{display:none;}.lang-switch{margin-left:auto;}}
+
+  /* groupes deroulants */
+  .nav-grp{position:relative;display:block;}
+  .nav-grp-btn{
+    display:flex;align-items:center;gap:6px;width:auto;cursor:pointer;
+    font:500 14px var(--font-sans);text-transform:none;letter-spacing:0;color:var(--ink);
+    padding:8px 11px;margin:0;border-radius:9px;
+  }
+  .nav-grp-btn::after{display:none;}
+  .nav-grp-btn svg{display:block;width:10px;height:10px;transition:transform .2s ease;}
+  .nav-grp-btn:hover,.nav-grp.open .nav-grp-btn{background:rgba(31,26,19,.06);}
+  .nav-grp.open .nav-grp-btn svg{transform:rotate(180deg);}
+  .nav-pop{
+    display:flex;flex-direction:column;gap:2px;position:absolute;left:-8px;top:calc(100% + 8px);
+    min-width:280px;padding:8px;background:#fff;border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow-pop);z-index:70;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .18s ease,transform .18s ease,visibility .18s;
+  }
+  .nav-pop::before{content:"";position:absolute;left:0;right:0;top:-10px;height:10px;}
+  .nav-grp.open .nav-pop{opacity:1;visibility:visible;transform:none;}
+  .nav-pop a,.nav-pop .side-toggle{
+    display:block;width:100%;padding:10px 14px;border-radius:12px;font-size:14px;font-weight:600;
+    color:var(--ink);letter-spacing:-.01em;
+  }
+  .nav-pop a:hover{background:var(--bg-alt);color:var(--ink);}
+  /* La page courante n'est plus surlignee dans les panneaux (3 octobre 2026,
+     demande du proprietaire) : aria-current reste pose pour les lecteurs d'ecran. */
+  .nav-pop a:has(.nav-badge){padding-right:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .nav-pop .nav-badge{position:static;transform:none;}
+
+  /* « Donnees detaillees » : etiquette + provinces toujours ouvertes */
+  .nav-pop .side-group{display:block;}
+  .nav-pop .side-toggle{
+    appearance:none;background:none;border:0;cursor:default;display:flex;align-items:center;
+    font:600 14px var(--font-sans);text-align:left;pointer-events:none;
+  }
+  .nav-pop .side-toggle svg{display:none;}
+  .nav-pop .side-sub,.nav-pop .side-sub[hidden]{
+    display:grid;grid-template-columns:1fr 1fr;gap:0 6px;margin:0 6px 6px;padding:6px;
+    border-left:0;background:var(--bg);border-radius:12px;
+  }
+  .nav-pop .side-sub a{font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;display:flex;}
+  .nav-pop .side-sub a:hover{background:#fff;}
+  /* la premiere entree (Ensemble du pays) prend toute la largeur */
+  .nav-pop .side-sub a:first-child{grid-column:1 / -1;font-weight:600;}
+
+  .carto-layout{grid-template-columns:minmax(0,1fr) 300px;}
+}
+
+/* ==========================================================================
+   Telephone : les groupes restent des intertitres suivis de leurs liens
+   ========================================================================== */
+@media (max-width:900px){
+  .wrap{padding-left:var(--gutter);padding-right:var(--gutter);}
+  .carto-layout{padding:12px;border-radius:22px;}
+  .province-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .home-band{margin-left:-14px;margin-right:-14px;padding:56px 14px 60px;border-radius:28px;}
+  .home-sec{padding:56px 0 40px;}
+  .th-item{width:250px;}
+}
+@media (max-width:520px){
+  .province-grid{grid-template-columns:1fr;}
+}
+
+/* ==========================================================================
+   Pages interieures : en-tete centre, comme l'accueil
+   ========================================================================== */
+.section-head:has(.page-title){
+  flex-direction:column;align-items:center;text-align:center;gap:6px;margin-bottom:10px;
+}
+.section-head:has(.page-title) .section-sub{font-style:normal;font-size:12.5px;}
+.section-head .eyebrow{justify-content:center;}
+.page-title{text-align:center;font-size:clamp(30px,4vw,46px);line-height:1.1;margin-bottom:8px;}
+.lede,.page-intro{margin-left:auto;margin-right:auto;text-align:center;}
+.lede{max-width:700px;}
+.page-intro{max-width:640px;}
+.kpis-province,.riposte-kpis{margin-left:auto;margin-right:auto;}
+.kpis-province{margin-top:6px;}
+.riposte-ancres,.tl-legend{justify-content:center;}
+.riposte-ancres{gap:8px;margin-top:22px;}
+.riposte-ancres a{
+  border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:#fff;font-weight:600;
+  transition:border-color .15s,background .15s;
+}
+.riposte-ancres a:hover{border-color:var(--accent-strong);background:var(--accent-light);}
+.section[style*="max-width"]{margin-left:auto;margin-right:auto;}
+.gl-list{margin-left:auto;margin-right:auto;}
+.breadcrumb{justify-content:center;}
+
+/* ==========================================================================
+   VAGUE 2 DE LA REFONTE (2 octobre 2026) — inspirations n8n.io et lovable.dev
+   Chaque page prend sa propre forme : barre flottante, tuiles bento, bande
+   sombre « riposte » en blocs relies, mur de sources, calendrier des
+   bulletins, frise en alternance, en-tete de province teinte. Meme palette ;
+   les animations se coupent avec prefers-reduced-motion.
+   ========================================================================== */
+
+/* ---- barre flottante (n8n) ---- */
+@media (min-width:901px){
+  .sidebar{
+    top:10px;margin:10px auto 0;width:calc(100% - 2 * var(--gutter));max-width:var(--page-max);
+    padding:0 14px 0 18px;border:1px solid var(--line);border-radius:18px;
+    box-shadow:0 10px 34px -16px rgba(0,50,80,.30);background:rgba(255,253,251,.84);
+  }
+  .nav-pop{top:calc(100% + 14px);}
+  .nav-pop::before{top:-14px;height:14px;}
+}
+
+/* ---- indicateurs en tuiles separees ---- */
+.kpis{gap:12px;background:transparent;border:0;border-radius:0;overflow:visible;}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-card);padding:18px 20px;}
+
+/* ---- ancres : barre sombre arrondie (n8n) ---- */
+.riposte-ancres{
+  display:flex;width:fit-content;max-width:100%;margin:24px auto 0;gap:2px;padding:6px;
+  background:#14121C;border-radius:16px;box-shadow:0 14px 34px -16px rgba(20,18,28,.55);
+}
+.riposte-ancres a{
+  border:0;background:transparent;color:#E9E5F2;border-radius:11px;padding:8px 16px;font-weight:600;
+}
+.riposte-ancres a:hover{background:rgba(255,255,255,.14);color:#fff;border:0;}
+
+/* ---- accueil : bento ---- */
+.bento-sec{padding-top:16px;}
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;margin-top:6px;}
+.bt{
+  position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;
+  background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px 24px;box-shadow:var(--shadow-card);
+}
+.bt-l{font-size:12.5px;font-weight:600;color:var(--ink-faint);}
+.bt-n{
+  font-size:clamp(34px,4vw,54px);font-weight:800;letter-spacing:-.045em;line-height:1.05;
+  margin-top:8px;font-variant-numeric:tabular-nums;
+}
+.bt-d,.bt-s{font-size:13px;color:var(--ink-dim);margin-top:6px;}
+.bt-cases{grid-column:1 / 7;grid-row:1 / 3;min-height:320px;}
+.bt-cases .bt-n{font-size:clamp(56px,7.4vw,96px);color:var(--accent-info);}
+.bt-spark{position:absolute;left:0;right:0;bottom:0;width:100%;height:46%;}
+.bt-deaths{grid-column:7 / 10;grid-row:1;}
+.bt-rec{grid-column:10 / 13;grid-row:1;}
+.bt-cte{grid-column:7 / 10;grid-row:2;}
+.bt-zones{grid-column:10 / 13;grid-row:2;background:var(--ink);border-color:var(--ink);}
+.bt-deaths .bt-n{color:var(--accent-critical);}
+.bt-rec .bt-n{color:var(--accent-stable);}
+.bt-cte .bt-n{color:var(--accent-active);}
+.bt-zones .bt-l,.bt-zones .bt-s{color:rgba(253,250,246,.7);}
+.bt-zones .bt-n{color:#fff;}
+@media (max-width:900px){
+  .bt-cases{grid-column:1 / 13;grid-row:auto;min-height:260px;}
+  .bt-deaths,.bt-rec,.bt-cte,.bt-zones{grid-column:span 6;grid-row:auto;}
+}
+
+/* ---- accueil : la riposte en blocs relies (sombre) ---- */
+.flow-band{
+  position:relative;overflow:hidden;margin:56px calc(-1 * var(--gutter)) 0;padding:84px var(--gutter) 80px;
+  border-radius:44px;background:#0E0C17;color:#F3EEF8;text-align:center;
+}
+.flow-band::before{
+  content:"";position:absolute;inset:0;z-index:0;filter:blur(46px);opacity:.8;pointer-events:none;
+  background:radial-gradient(38% 50% at 0% 100%,rgba(233,201,165,.55) 0,transparent 70%),
+             radial-gradient(40% 50% at 100% 100%,rgba(38,114,148,.7) 0,transparent 70%),
+             radial-gradient(34% 40% at 50% 130%,rgba(142,195,220,.45) 0,transparent 70%);
+}
+.flow-band > *{position:relative;z-index:1;}
+.flow-head h2{font-family:var(--font-serif);font-weight:600;font-size:clamp(30px,4vw,46px);letter-spacing:-.03em;color:#fff;line-height:1.1;}
+.flow-head p{margin:12px auto 0;max-width:520px;color:rgba(255,255,255,.66);font-size:15.5px;}
+.flow{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:54px auto 0;max-width:1040px;padding:0;}
+.node{
+  position:relative;margin:0 24px;padding:22px 16px 20px;border-radius:20px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+}
+.node:not(:last-child)::after{
+  content:"";position:absolute;top:50%;left:100%;width:48px;height:2px;
+  background:linear-gradient(90deg,rgba(255,255,255,.32),#8EC3DC);
+}
+.node:not(:first-child)::before{
+  content:"";position:absolute;top:calc(50% - 4px);left:-5px;width:10px;height:10px;border-radius:50%;
+  background:#8EC3DC;box-shadow:0 0 0 4px rgba(142,195,220,.22);
+}
+.node-k{display:block;font:700 11px/1 var(--font-sans);letter-spacing:.09em;text-transform:uppercase;color:#8EC3DC;margin-bottom:12px;}
+.node b{display:block;font-size:clamp(28px,3vw,38px);font-weight:700;letter-spacing:-.03em;color:#fff;line-height:1.05;font-variant-numeric:tabular-nums;}
+.node-s{display:block;margin-top:8px;font-size:12px;line-height:1.4;color:rgba(255,255,255,.62);}
+.flow-more{
+  display:inline-block;margin-top:46px;padding:12px 22px;border-radius:12px;background:#fff;color:var(--ink);
+  font-weight:600;font-size:14px;box-shadow:0 12px 30px -12px rgba(0,0,0,.5);
+}
+.flow-more:hover{text-decoration:none;color:var(--ink);transform:translateY(-1px);}
+@media (max-width:900px){
+  .flow-band{margin-left:-14px;margin-right:-14px;padding:60px 18px;border-radius:28px;}
+  .flow{grid-template-columns:1fr;gap:34px;}
+  .node{margin:0;}
+  .node:not(:last-child)::after{top:100%;left:50%;width:2px;height:34px;background:linear-gradient(rgba(255,255,255,.32),#8EC3DC);}
+  .node:not(:first-child)::before{display:none;}
+}
+
+/* ---- accueil : mur de sources qui defile (n8n) ---- */
+.src-sec{padding-bottom:24px;}
+.marquee{
+  overflow:hidden;margin-top:8px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+}
+.mq-track{display:flex;width:max-content;animation:mq 42s linear infinite;}
+.mq-track span{
+  flex:none;margin-right:12px;padding:13px 24px;border:1px solid var(--line);border-radius:14px;background:#fff;
+  font-weight:700;letter-spacing:-.01em;color:var(--ink-dim);white-space:nowrap;box-shadow:var(--shadow-card);
+}
+.marquee:hover .mq-track{animation-play-state:paused;}
+@keyframes mq{to{transform:translateX(-50%);}}
+@media (prefers-reduced-motion:reduce){
+  .mq-track{animation:none;flex-wrap:wrap;width:auto;gap:10px 0;}
+  .mq-track span[aria-hidden]{display:none;}
+}
+
+/* ---- Riposte : la premiere partie devient la meme chaine sombre ---- */
+.dossier-clair{
+  position:relative;overflow:hidden;background:#0E0C17;color:#F3EEF8;border:0;
+  border-radius:36px;margin-top:20px;
+}
+.dossier-clair::before{
+  content:"";position:absolute;inset:0;filter:blur(46px);opacity:.75;pointer-events:none;
+  background:radial-gradient(38% 50% at 0% 100%,rgba(233,201,165,.5) 0,transparent 70%),
+             radial-gradient(40% 50% at 100% 100%,rgba(38,114,148,.65) 0,transparent 70%);
+}
+.dossier-clair .dossier-in{position:relative;}
+.dossier-clair .dossier-eyebrow{color:#8EC3DC;}
+.dossier-clair .dossier-eyebrow .dot{background:#8EC3DC;}
+.dossier-clair .dossier-titre,.dossier-clair .dossier-lede{color:#fff;}
+.dossier-clair .dossier-lede{opacity:.8;}
+.dossier-clair .dossier-chiffres{gap:16px 48px;}
+.dossier-clair .dossier-chiffres div{
+  position:relative;padding:20px 18px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+}
+.dossier-clair .dossier-chiffres div:not(:last-child)::after{
+  content:"";position:absolute;top:50%;left:100%;width:48px;height:2px;
+  background:linear-gradient(90deg,rgba(255,255,255,.32),#8EC3DC);
+}
+.dossier-clair .dossier-chiffres b,.dossier-clair .dossier-chiffres b.cte{color:#fff;}
+.dossier-clair .dossier-chiffres b.alerts,.dossier-clair .dossier-chiffres b.labo{color:#8EC3DC;}
+.dossier-clair .dossier-chiffres b.contacts{color:#F0C98A;}
+.dossier-clair .dossier-chiffres span{color:rgba(255,255,255,.72);}
+.dossier-clair .dossier-chiffres small{color:rgba(255,255,255,.55);}
+@media (max-width:900px){
+  .dossier-clair .dossier-chiffres div:not(:last-child)::after{display:none;}
+}
+
+/* ---- Sources : calendrier des bulletins ---- */
+.cal-sec{padding-top:8px;}
+.cal{
+  overflow-x:auto;padding:24px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-card);
+}
+.cal-mois,.cal-grille{display:grid;grid-template-columns:repeat(var(--w),16px);gap:4px;width:max-content;}
+.cal-mois{height:16px;margin-bottom:8px;font-size:11px;color:var(--ink-faint);}
+.cal-mois span{white-space:nowrap;}
+.cal-w{display:grid;grid-template-rows:repeat(7,16px);gap:4px;}
+.cal-d{display:block;width:16px;height:16px;border-radius:4px;background:#F0EDE7;}
+.cal-d.is-on{background:var(--map-4);}
+.cal-d.is-hors{background:transparent;}
+.cal-note{margin:18px 0 0;font-size:12.5px;color:var(--ink-dim);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.cal-note .cal-d{display:inline-block;width:12px;height:12px;vertical-align:-1px;}
+
+/* ---- Chronologie : frise en alternance (grand ecran) ---- */
+@media (min-width:900px){
+  .tl-zig{max-width:980px;margin:44px auto 0;}
+  .tl-zig::before{left:50%;top:0;bottom:0;width:2px;transform:translateX(-1px);background:linear-gradient(var(--line-soft),var(--map-2),var(--line-soft));}
+  .tl-zig .tl-month{padding:10px 0;text-align:center;background:linear-gradient(var(--bg) 78%,rgba(253,250,246,0));}
+  .tl-zig .tl-item{width:50%;box-sizing:border-box;padding:0 0 30px;}
+  .tl-zig .tl-l{padding-right:44px;}
+  .tl-zig .tl-r{margin-left:50%;padding-left:44px;}
+  .tl-zig .tl-dot{top:14px;width:14px;height:14px;}
+  .tl-zig .tl-l .tl-dot{left:auto;right:-7px;}
+  .tl-zig .tl-r .tl-dot{left:-7px;}
+  .tl-zig .tl-body{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 24px;box-shadow:var(--shadow-card);}
+  .tl-zig .tl-text{max-width:none;}
+}
+
+/* ---- Provinces : en-tete teinte dans la couleur de la province ---- */
+.prov-hero{position:relative;isolation:isolate;}
+/* halo retire le 6 octobre 2026 */
+.prov-hero .eyebrow{font-size:12px;}
+.prov-hero .kpi.confirmed .value{font-size:clamp(34px,4vw,48px);}
+
+/* titres des blocs d'accueil ajoutes en vague 2 : meme registre que les autres sections */
+.bento-sec .section-title,.src-sec .section-title,.cal-sec .section-title{
+  font-family:var(--font-serif);font-size:clamp(26px,3vw,36px);font-weight:600;text-transform:none;
+  letter-spacing:-.03em;color:var(--ink);line-height:1.1;
+}
+.bento-sec .section-head,.src-sec .section-head,.cal-sec .section-head{margin-bottom:22px;}
+.bento-sec .section-sub,.src-sec .section-sub,.cal-sec .section-sub{font-style:normal;font-size:13.5px;}
+
+/* correctifs de la vague 2 */
+.dossier-clair{margin:20px 0 0;padding:56px 44px;}
+.cal{display:flex;flex-direction:column;align-items:center;}
+.cal-mois,.cal-grille{grid-template-columns:repeat(var(--w),28px);gap:6px;}
+.cal-mois{height:18px;font-size:12px;}
+.cal-w{grid-template-rows:repeat(7,28px);gap:6px;}
+.cal-d{width:28px;height:28px;border-radius:7px;}
+.cal-note .cal-d{width:12px;height:12px;border-radius:3px;}
+.cal-note{align-self:flex-start;}
+@media (max-width:900px){
+  .dossier-clair{padding:44px 20px;}
+  .cal{align-items:flex-start;}
+}
+
+/* Accueil seulement (2 octobre 2026) : pas de mention « dernier bulletin / verifie le » dans la barre du haut. */
+.page-accueil .side-freshness{display:none;}
+.page-accueil .accroche{margin-top:0;}
+.page-accueil .main .section:first-child{padding-top:20px;}
+
+/* miniature de province : zones de sante colorees comme la carte principale */
+.pcol-map{display:block;width:100%;height:124px;margin:12px 0 6px;filter:drop-shadow(0 0 .7px rgba(31,26,19,.55));}
+.pcol-map path{fill:#E3DED7;stroke:#fff;stroke-width:.7;stroke-linejoin:round;vector-effect:non-scaling-stroke;}
+.pcol-map .is-1{fill:var(--map-1);}.pcol-map .is-2{fill:var(--map-2);}.pcol-map .is-3{fill:var(--map-3);}
+.pcol-map .is-4{fill:var(--map-4);}.pcol-map .is-5{fill:var(--map-5);}.pcol-map .is-6{fill:var(--map-6);}
+
+/* medias qui ont relaye le site : une rangee de noms */
+.press{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:8px 0 0;padding:0;}
+.press li{
+  padding:18px 32px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow-card);
+  font-family:var(--font-sans);font-size:clamp(17px,2vw,22px);font-weight:800;letter-spacing:-.02em;color:var(--ink);
+}
+
+/* barre du haut : se fond dans le fond de page (2 octobre 2026) */
+@media (min-width:901px){
+  .sidebar{
+    background:rgba(253,250,246,.42);border-color:rgba(222,218,213,.38);box-shadow:none;
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  }
+}
+
+/* ---- architecture des onglets (2 octobre 2026) : description sous chaque lien ---- */
+.nav-desc{display:none;}
+@media (min-width:901px){
+  .nav-pop{min-width:320px;}
+  .nav-pop a{padding:11px 14px;}
+  .nav-pop .nav-t{display:block;font-size:14px;font-weight:600;letter-spacing:-.01em;}
+  .nav-pop .nav-desc{display:block;margin-top:2px;font-size:12.5px;font-weight:400;line-height:1.4;color:var(--ink-faint);letter-spacing:0;}
+  .nav-pop a:has(.nav-badge) .nav-t{display:flex;align-items:center;gap:10px;}
+  .nav-pop a:has(.nav-badge){display:block;}
+  .nav-pop a:has(.nav-badge) .nav-badge{position:static;transform:none;}
+}
+
+/* ==========================================================================
+   MENU « EXPLORER » A DEUX COLONNES (3 octobre 2026)
+   Evolution de l'epidemie (Ensemble du pays puis provinces), Face a
+   l'epidemie (Riposte, Defis), Donnees detaillees (Sources & bulletins,
+   Base de donnees). Meme HTML sur telephone : les colonnes se defont et leurs titres
+   deviennent de petits intertitres dans le menu plein ecran.
+   ========================================================================== */
+.nav-cols,.nav-col{display:contents;}
+.nav-col-titre{
+  padding:14px 12px 4px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-faint);
+}
+/* « Bientot » : une pastille posee, sans le clignotement de « Nouveau » */
+.nav-badge-soon{animation:none;border-color:var(--line);color:var(--ink-faint);background:var(--bg);}
+
+@media (min-width:901px){
+  .nav-grp-cols .nav-pop{padding:10px;}
+  .nav-cols{display:grid;grid-template-columns:minmax(300px,1.2fr) minmax(235px,1fr) minmax(235px,1fr);gap:0 16px;width:min(940px,calc(100vw - 2 * var(--gutter)));}
+  .nav-col{display:flex;flex-direction:column;gap:2px;}
+  .nav-col + .nav-col{border-left:1px solid var(--line);padding-left:16px;}
+  .nav-col-titre{padding:6px 14px 8px;}
+  /* colonne compacte : « Ensemble du pays » sur toute la largeur, puis les
+     provinces sur deux rangs de deux colonnes — la colonne ne descend plus
+     plus bas que ses voisines (3 octobre 2026) */
+  .nav-col-compact{display:grid;grid-template-columns:1fr 1fr;gap:2px 4px;align-content:start;}
+  .nav-col-compact .nav-col-titre,.nav-col-compact a:first-of-type{grid-column:1 / -1;}
+  .nav-badge-soon{margin-left:2px;}
+}
+
+/* ---- ouverture des menus plus douce (3 octobre 2026) ----
+   Le panneau glisse et grossit a peine en fondu ; ses lignes apparaissent a la
+   suite, a quelques dizaines de millisecondes d'ecart. A la fermeture il
+   s'efface avant de disparaitre (la visibilite attend la fin du fondu). */
+@media (min-width:901px){
+  .nav-pop{
+    transform-origin:50% 0;transform:translateY(-10px) scale(.97);
+    transition:opacity .28s ease,transform .3s ease,visibility 0s linear .3s;
+  }
+  .nav-grp.open .nav-pop{
+    transform:none;
+    transition:opacity .34s cubic-bezier(.22,1,.36,1),transform .42s cubic-bezier(.22,1,.36,1),visibility 0s;
+  }
+  .nav-pop a,.nav-pop .nav-col-titre{transition:background-color .2s ease,color .2s ease;}
+  .nav-grp.open .nav-pop > a,
+  .nav-grp.open .nav-col > *{
+    animation:nav-ligne-in .45s cubic-bezier(.22,1,.36,1) both;
+  }
+  .nav-grp.open .nav-pop > a:nth-child(1),.nav-grp.open .nav-col > :nth-child(1){animation-delay:.03s;}
+  .nav-grp.open .nav-pop > a:nth-child(2),.nav-grp.open .nav-col > :nth-child(2){animation-delay:.06s;}
+  .nav-grp.open .nav-pop > a:nth-child(3),.nav-grp.open .nav-col > :nth-child(3){animation-delay:.09s;}
+  .nav-grp.open .nav-pop > a:nth-child(4),.nav-grp.open .nav-col > :nth-child(4){animation-delay:.12s;}
+  .nav-grp.open .nav-pop > a:nth-child(5),.nav-grp.open .nav-col > :nth-child(5){animation-delay:.15s;}
+  .nav-grp.open .nav-col > :nth-child(6){animation-delay:.18s;}
+  .nav-grp.open .nav-col > :nth-child(7){animation-delay:.21s;}
+  .nav-grp.open .nav-col > :nth-child(8){animation-delay:.24s;}
+  .nav-grp.open .nav-col > :nth-child(9){animation-delay:.27s;}
+  /* Au-dela de neuf lignes (la colonne Evolution en compte dix depuis
+     « Autres pays », 8 octobre 2026) : sans delai, la ligne apparaissait la
+     premiere, avant les autres. */
+  .nav-grp.open .nav-col > :nth-child(10){animation-delay:.30s;}
+  .nav-grp.open .nav-col > :nth-child(11){animation-delay:.33s;}
+  .nav-grp.open .nav-col > :nth-child(12){animation-delay:.36s;}
+  .nav-grp-btn svg{transition:transform .3s cubic-bezier(.22,1,.36,1);}
+}
+@keyframes nav-ligne-in{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){
+  .nav-pop,.nav-grp.open .nav-pop{transition:opacity .01s,visibility 0s;transform:none;}
+  .nav-grp.open .nav-pop > a,.nav-grp.open .nav-col > *{animation:none;}
+}
+
+/* ---- barre du haut : le logo et les onglets sur le meme axe (3 octobre 2026) ----
+   Le bouton de groupe heritait d'un padding bas de 8 px (2 px en haut), vestige
+   du soulignement de l'ancienne colonne : son texte se trouvait 2,6 px plus
+   haut que « ebola-tracker.org ». */
+@media (min-width:901px){
+  .side-nav .nav-grp-btn{padding:8px 11px;line-height:1.2;}
+  .side-nav .nav-grp-btn span{line-height:1.2;}
+  .brand .site-title{line-height:1.2;}
+}
+
+/* ---- menu Explorer : centre sous la barre (3 octobre 2026) ----
+   Devenu le troisieme onglet, il s'ouvrait sous son bouton et debordait de la
+   fenetre des qu'elle faisait moins de 1400 px. Le groupe cesse d'etre le point
+   d'ancrage : le panneau se cale sur la barre, centre, jamais plus large
+   qu'elle. */
+@media (min-width:901px){
+  .nav-grp-cols{position:static;}
+  .nav-grp-cols .nav-pop{
+    left:0;right:0;margin:0 auto;width:min(940px,calc(100% - 16px));top:calc(100% + 8px);
+  }
+  /* Le panneau d'Explorer se place sous la barre, pas sous le bouton : il y a
+     16 px entre le bas du bouton et lui. Un pont de 8 px laissait une bande
+     morte ou le curseur sortait du menu en descendant (8 octobre 2026). */
+  .nav-grp-cols .nav-pop::before{top:-18px;height:18px;}
+  .nav-cols{width:auto;}
+}
+
+/* ---- accroche de l'accueil alignee a gauche (3 octobre 2026, a voir) ----
+   « Comprendre et suivre l'epidemie... » : pour revenir au centrage, supprimer
+   ce bloc. */
+.accroche{margin-left:0;margin-right:0;text-align:left;}
+
+/* ==========================================================================
+   ACCUEIL : LA CARTE AU PREMIER PLAN (3 octobre 2026) — option E de la
+   maquette tmp/proto-accueil-carte. Grand ecran seulement (>= 901 px) : la
+   carte s'ouvre sur l'emprise de l'epidemie, en cadre large qui se fond dans
+   la page ; plus de colonne de droite — le panneau devient deux pastilles
+   (cas, deces) posees au bas a gauche de la carte, sous « Situation au… » ; la
+   vignette du pays, en haut a gauche, montre ou l'on est. Pour revenir a
+   l'ancienne mise en page, supprimer ce bloc (et, cote JS, initMap /
+   setupMapVignette / FORMAT_CADRE_CARTE).
+   ========================================================================== */
+.map-vignette,#btnViewOutbreak{display:none;}
+@media (min-width:901px){
+  #btnViewOutbreak{display:inline-flex;}
+  .page-accueil .carto-layout{
+    display:grid;grid-template-columns:minmax(0,1fr);gap:0;padding:0;
+    background:transparent;box-shadow:none;border-radius:0;align-items:start;
+  }
+  .page-accueil .zonemap-frame{display:contents;}
+  .page-accueil .zonemap-stage{grid-area:1 / 1;background:transparent;border:0;border-radius:0;overflow:visible;}
+  .page-accueil .map-timeline{grid-area:2 / 1;}
+  .page-accueil .zonemap{
+    max-height:78vh;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 3.5%,#000 96.5%,transparent),linear-gradient(to bottom,transparent,#000 5%,#000 95%,transparent);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(to right,transparent,#000 3.5%,#000 96.5%,transparent),linear-gradient(to bottom,transparent,#000 5%,#000 95%,transparent);
+    mask-composite:intersect;
+  }
+
+  /* la vignette du pays */
+  .map-vignette{
+    display:block;position:absolute;left:8px;top:8px;width:170px;z-index:3;padding:10px;
+    border-radius:18px;background:rgba(255,253,251,.92);border:1px solid var(--line-soft);box-shadow:var(--shadow-card);
+  }
+  .map-vignette:empty{display:none;}
+  .map-vignette svg{display:block;width:100%;height:auto;}
+  .map-vignette .mv-pays{fill:#E1DCD4;stroke:none;}
+  .map-vignette .mv-cadre{fill:none;stroke:#005073;stroke-width:7;}
+
+  /* le panneau : « Situation au… » et deux pastilles, sans cadre */
+  .page-accueil .carto-detail{
+    grid-area:1 / 1;align-self:start;justify-self:end;position:static;z-index:4;
+    width:150px;margin:8px 8px 0 0;padding:0;background:transparent;border:0;box-shadow:none;border-radius:0;text-align:right;
+  }
+  /* « Situation au 2 oct. 2026 » (et « Bunia (Ituri) » au survol) sur UNE ligne :
+     le bloc garde ses 150 px, le titre deborde vers la gauche, a droite du bord. */
+  .page-accueil .carto-detail{display:flex;flex-direction:column;align-items:flex-end;}
+  .page-accueil .carto-detail .name{font:700 14px/1.25 var(--font-sans);letter-spacing:0;margin:0 0 8px;white-space:nowrap;}
+  .page-accueil .carto-detail .cd-national,.page-accueil .carto-detail .cd-figures{align-self:stretch;}
+  .page-accueil .carto-detail .note{margin:-4px 0 8px;}
+  .page-accueil .cd-national,.page-accueil .cd-figures{display:flex;flex-direction:column;gap:0;margin:0;}
+  /* le chiffre au-dessus, son libelle juste dessous, le tout a droite : des
+     pastilles etroites qui n'empietent pas sur la carte */
+  /* 5 octobre 2026, option A de la maquette chiffres-cles : texte pose sur la
+     carte, sans case — grand chiffre, libelle en petites capitales dessous,
+     un filet entre les deux chiffres. */
+  .page-accueil .cd-nat,.page-accueil .cd-fig{
+    display:flex;flex-direction:column-reverse;align-items:flex-end;justify-content:flex-end;gap:3px;
+    padding:7px 0;margin:0;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent;
+  }
+  .page-accueil .cd-nat .k,.page-accueil .cd-fig dt{margin:0;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-label);}
+  .page-accueil .cd-nat .v,.page-accueil .cd-fig .v{font-size:32px;line-height:1;}
+  .page-accueil .cd-nat .n,.page-accueil .cd-fig dd{gap:6px;justify-content:flex-end;}
+  .page-accueil .cd-fig dd{display:flex;align-items:baseline;margin:0;}
+  .page-accueil .carto-detail.is-empty .sub{display:none;}
+  .page-accueil .carto-detail .sub{margin-top:8px;}
+}
+
+/* ==========================================================================
+   CARTE DE L'ACCUEIL (4 octobre 2026) : + / - a la place de « Zoomer sur
+   l'epicentre », bascule Cercles mise de cote (voir le dossier
+   _mis-de-cote-2026-10-04-cercles-carte), un seul repere nomme sur la carte
+   de l'accueil : Kinshasa et Bunia, un peu plus gros.
+   ========================================================================== */
+.map-zoom{display:inline-flex;gap:6px;margin-left:2px;}
+.map-zoom-btn{min-width:34px;padding:0;font-size:19px;font-weight:500;line-height:1;}
+.map-btn:disabled{opacity:.38;cursor:default;pointer-events:none;}
+.page-accueil .zonemap .zm-marks .zm-mark:not([data-name="kinshasa"]):not([data-name="bunia"]){display:none;}
+.page-accueil .zonemap .zm-mark[data-name="kinshasa"] text,
+.page-accueil .zonemap .zm-mark[data-name="bunia"] text{font-size:14.5px;font-weight:700;stroke-width:3.5;}
+.page-accueil .zonemap .zm-mark[data-name="kinshasa"] text{x:9px;}
+.page-accueil .zonemap .zm-mark[data-name="bunia"] text{x:9px;}
+.page-accueil .zonemap .zm-mark[data-name="kinshasa"] circle,
+.page-accueil .zonemap .zm-mark[data-name="bunia"] circle{r:4.4px;}
+
+/* vignette du pays : les zones touchees reprennent les paliers de la carte */
+.map-vignette .mv-z{fill:#E1DCD4;stroke:none;}
+.map-vignette .mv-z.is-1{fill:var(--map-1);}
+.map-vignette .mv-z.is-2{fill:var(--map-2);}
+.map-vignette .mv-z.is-3{fill:var(--map-3);}
+.map-vignette .mv-z.is-4{fill:var(--map-4);}
+.map-vignette .mv-z.is-5{fill:var(--map-5);}
+.map-vignette .mv-z.is-6{fill:var(--map-6);}
+
+/* ---- fond de l'accueil (5 octobre 2026) : plus de halo — ni le coloré ni
+   l'ancien, diffus ; fond uni. Le halo coloré est range dans
+   _mis-de-cote-2026-10-04-cercles-carte/halo-accueil.css. ---- */
+.main:has(.accroche)::before{display:none;}
+#contenu > .section:first-child{position:relative;}
+
+
+/* ==========================================================================
+   RIPOSTE ET DEFIS : CARROUSEL EN BOUCLE (4 octobre 2026) — cinq cartes
+   blanches arrondies sur une boucle sans fin : il y en a toujours une a gauche
+   et une a droite. La carte du milieu est la plus grande (112 %), les autres
+   retrecissent (86 %) et s'estompent sans disparaitre. Les positions sont
+   posees par app.js (initRiposteCarousel : --x, --s, --o) ; sans JavaScript la
+   piste reste une rangee defilable. Aucune infobulle sur ces graphiques.
+   ========================================================================== */
+.cr-sec{padding-bottom:40px;}
+.cr-track{
+  --cw:660px;--ch:480px;--gap:26px;
+  display:flex;gap:var(--gap);align-items:center;
+  width:100vw;margin:26px calc(50% - 50vw) 0;padding:50px 24px 54px;overflow-x:auto;outline-offset:-4px;scrollbar-width:none;
+}
+.cr-track::-webkit-scrollbar{display:none;}
+.cr-track.is-ready{
+  position:relative;display:block;height:calc(var(--ch) * 1.12 + 104px);padding:0;overflow:hidden;
+  touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;
+}
+.cr-track.is-ready.is-drag{cursor:grabbing;}
+.cr-card{
+  --x:0px;--s:.86;--o:.7;
+  flex:0 0 var(--cw);width:var(--cw);height:var(--ch);min-width:0;
+  background:#fff;color:var(--ink);border:1px solid var(--line-soft);border-radius:28px;padding:24px 26px 20px;
+  box-shadow:0 24px 54px -30px rgba(0,50,80,.35),0 2px 8px rgba(0,0,0,.04);
+  display:flex;flex-direction:column;
+}
+.cr-track.is-ready .cr-card{
+  position:absolute;left:50%;top:50%;margin:calc(var(--ch) / -2) 0 0 calc(var(--cw) / -2);
+  transform:translateX(var(--x)) scale(var(--s));opacity:var(--o);will-change:transform,opacity;
+}
+.cr-head{margin-bottom:10px;}
+.cr-tag{
+  display:inline-block;padding:2px 9px;border-radius:999px;background:var(--accent-light);color:var(--accent-strong);
+  font:700 10px/1.6 var(--font-sans);letter-spacing:.09em;text-transform:uppercase;
+}
+.cr-head h3{font-family:var(--font-serif);font-weight:600;font-size:clamp(19px,2vw,23px);letter-spacing:-.02em;line-height:1.15;margin:8px 0 3px;color:var(--ink);}
+.cr-head p{margin:0;font-size:12.5px;color:var(--ink-faint);font-style:normal;line-height:1.35;}
+.cr-body{flex:1;min-height:0;min-width:0;}
+/* les graphiques remplissent la carte, sans note ni infobulle */
+.cr-body .chart-panel,.cr-body .chart-panel-barres{padding:2px 0 0;height:100%;}
+.cr-body .chart-note{display:none!important;}
+.cr-track canvas{pointer-events:none;}
+.cr-card-grille .grille-cases i::after{display:none!important;}
+/* la grille des obstacles, a l'echelle de la carte */
+.cr-card-grille .grille-tete,.cr-card-grille .grille-row{grid-template-columns:250px minmax(0,1fr);gap:0 12px;}
+.cr-card-grille .grille-row{height:30px;}
+.cr-card-grille .frise-label{font-size:10.5px;line-height:1.18;}
+.cr-card-grille .frise-label a{padding:0;grid-template-columns:20px minmax(0,1fr);}
+.cr-card-grille .grille-cases i{height:16px;border-radius:3px;}
+.cr-card-grille .grille-mois span{font-size:9.5px;}
+.cr-card-grille .grille-legende{margin-top:6px;font-size:10px;}
+/* sous la piste : Riposte <  fleches  > Defis */
+.cr-foot{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:18px 34px;margin-top:6px;}
+.cr-arrows{display:flex;gap:10px;}
+.cr-arrow{
+  appearance:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff;
+  color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow-card);
+  transition:border-color .2s,background .2s;
+}
+.cr-arrow:hover{border-color:var(--accent-strong);background:var(--accent-light);}
+.cr-link{font-weight:600;font-size:14px;color:var(--accent-strong);}
+.cr-link:hover{text-decoration:underline;}
+@media (max-width:900px){
+  .cr-track{--cw:min(86vw,420px);--ch:470px;--gap:14px;}
+  .cr-card{padding:18px 16px 14px;border-radius:22px;}
+  .cr-card-grille .grille-tete,.cr-card-grille .grille-row{grid-template-columns:120px minmax(0,1fr);}
+  .cr-card-grille .frise-label{font-size:9.5px;}
+  .cr-card-grille .grille-row{height:30px;}
+  .cr-foot{gap:14px 22px;}
+  .cr-arrows{order:-1;flex-basis:100%;justify-content:center;}
+}
+
+
+/* ==========================================================================
+   LES CHIFFRES CLES DE L'EPIDEMIE (5 octobre 2026) : la courbe bleue des cas
+   cumules traverse tout l'ecran — elle part du bord gauche, fondue, et devient
+   nette vers la droite, ou un point rouge marque le dernier bulletin. Titre et
+   cinq chiffres sont a gauche, juste au-dessus de la courbe (basse a gauche).
+   Le trace se devoile de gauche a droite a l'arrivee dans l'ecran (app.js pose
+   is-armed puis is-in) ; sans JavaScript elle est simplement visible.
+   ========================================================================== */
+.kc-sec{position:relative;min-height:480px;padding-top:30px;padding-bottom:0;}
+.kc-fig{position:absolute;z-index:0;left:0;right:0;top:0;bottom:0;pointer-events:none;}
+.kc-text{position:relative;z-index:1;max-width:640px;}
+.kc-sub{margin:10px 0 0;color:var(--ink-faint);font-size:14.5px;}
+/* cinq chiffres alignes a gauche, l'un sous l'autre : chiffre, puis son libelle */
+.kc-stats{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:22px;}
+.kc-stat{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;min-width:0;}
+.kc-stat .k{order:2;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-label);}
+.kc-stat .n{order:1;display:flex;align-items:baseline;gap:8px;}
+.kc-stat .v{
+  font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;
+  font-weight:700;letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink);
+  font-size:clamp(26px,2.4vw,32px);
+}
+.kc-stat.is-grand .v{font-size:clamp(36px,3.6vw,46px);}
+.kc-stat .d{font-family:'Bricolage Grotesque',var(--font-sans);font-size:14px;font-weight:600;}
+.kc-stat .d:empty{display:none;}
+.kc-stat.is-confirmed .v,.kc-stat.is-confirmed .d{color:var(--accent-info);}
+.kc-stat.is-deaths .v,.kc-stat.is-deaths .d{color:var(--accent-critical);}
+.kc-stat.is-recovered .v,.kc-stat.is-recovered .d{color:var(--accent-stable);}
+.kc-stat.is-active .v{color:var(--accent-active);}
+/* la courbe : fondue a gauche, nette vers la droite */
+.kc-svg{
+  position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.30) 8%,rgba(0,0,0,.62) 26%,#000 58%);
+  mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.30) 8%,rgba(0,0,0,.62) 26%,#000 58%);
+}
+.kc-guide{stroke:var(--line);stroke-width:1;stroke-dasharray:2 6;vector-effect:non-scaling-stroke;opacity:.8;}
+.kc-base{stroke:var(--line);stroke-width:1.2;vector-effect:non-scaling-stroke;}
+.kc-line{fill:none;stroke:#1F7FB4;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;}
+/* le point rouge au dernier bulletin */
+.kc-fin{position:absolute;width:0;height:0;}
+.kc-dot{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:var(--accent-critical);box-shadow:0 0 0 3.5px #fff;}
+.kc-etiq{position:absolute;right:20px;top:-40px;text-align:right;white-space:nowrap;display:flex;flex-direction:column;gap:3px;}
+.kc-etiq b{font:700 24px/1 'Bricolage Grotesque',var(--font-sans);font-variant-numeric:tabular-nums;color:var(--ink);}
+.kc-etiq i{font:500 11.5px var(--font-sans);font-style:normal;color:var(--ink-faint);}
+/* a l'arrivee dans l'ecran : le trace se devoile de gauche a droite */
+.kc-fig.is-armed .kc-svg{clip-path:inset(0 100% 0 0);}
+.kc-fig.is-armed .kc-fin{opacity:0;}
+.kc-fig.is-armed.is-in .kc-svg{animation:kc-reveal 2.2s cubic-bezier(.45,.1,.25,1) forwards;}
+.kc-fig.is-armed.is-in .kc-fin{animation:kc-fondu .6s ease 1.9s forwards;}
+@keyframes kc-reveal{to{clip-path:inset(0 0 0 0);}}
+@keyframes kc-fondu{to{opacity:1;}}
+@media (prefers-reduced-motion:reduce){
+  .kc-fig.is-armed .kc-svg{clip-path:none;}
+  .kc-fig.is-armed .kc-fin{opacity:1;}
+  .kc-fig.is-armed.is-in .kc-svg,.kc-fig.is-armed.is-in .kc-fin{animation:none;}
+}
+@media (max-width:900px){
+  .kc-sec{min-height:480px;}
+  .kc-text{max-width:none;}
+  .kc-stats{gap:14px;margin-top:24px;}
+  .kc-etiq{top:-36px;}
+  .kc-etiq b{font-size:19px;}
+}
+
+/* ==========================================================================
+   PROVINCES DE L'ACCUEIL : MOSAIQUE (5 octobre 2026) — option B de la maquette
+   tmp/proto-provinces-accueil. Des cases dont la taille suit le poids : l'Ituri
+   en grand (deux rangees) avec ses chiffres detailles, le Nord-Kivu large, deux
+   provinces moyennes, puis un bandeau de petites cases. Grille de 12 colonnes,
+   rangees fixes (262 / 262 / 92 px) : tout tombe juste, sans trou. Sous 900 px :
+   deux colonnes, rangees libres.
+   ========================================================================== */
+.pm{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:262px 262px;grid-auto-rows:92px;gap:14px;margin-top:26px;}
+.pm-t{
+  position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden;
+  background:#fff;border:1px solid var(--line-soft);border-radius:24px;padding:20px 22px;box-shadow:var(--shadow-card);
+  transition:transform .2s ease,border-color .2s ease;
+}
+.pm-t:hover{transform:translateY(-2px);border-color:var(--teinte);text-decoration:none;}
+.pm-t::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teinte);}
+.pm-nom{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:var(--ink);}
+.pm-nom::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--teinte);flex:none;}
+.pm-cas{
+  font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 48,"wdth" 87.5;
+  font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.pm-dec{color:var(--ink-faint);font-size:12.5px;}
+.pm-t .pcol-map{flex:1 1 0;min-height:0;height:0;margin:8px 0;filter:drop-shadow(0 0 .7px rgba(31,26,19,.55));}
+.pm-t.is-grande{grid-column:span 6;grid-row:span 2;}
+.pm-t.is-grande .pm-cas{font-size:72px;margin-top:6px;}
+.pm-t.is-large{grid-column:span 6;}
+.pm-t.is-large .pm-cas{font-size:46px;margin:2px 0;}
+.pm-t.is-moy{grid-column:span 3;}
+.pm-t.is-moy .pm-cas{font-size:36px;margin:2px 0;}
+.pm-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;border-top:1px solid var(--line-soft);padding-top:14px;}
+.pm-stats span{font-size:11px;color:var(--ink-faint);line-height:1.3;}
+.pm-stats b{display:block;font:700 20px 'Bricolage Grotesque',var(--font-sans);color:var(--ink);font-variant-numeric:tabular-nums;}
+.pm-t.is-petite{flex-direction:row;align-items:center;gap:16px;padding:16px 20px;}
+.pm-t.is-petite .pm-nom{flex:1;}
+.pm-t.is-petite .pm-cas{font-size:30px;order:3;}
+.pm-t.is-petite .pcol-map{order:2;flex:none;width:64px;height:64px;margin:0;}
+.pm-t.is-petite .pm-dec{display:none;}
+@media (max-width:900px){
+  .pm{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:auto;gap:12px;}
+  .pm-t.is-grande,.pm-t.is-large{grid-column:1 / -1;grid-row:auto;}
+  .pm-t.is-moy,.pm-t.is-petite{grid-column:auto !important;}
+  .pm-t .pcol-map{flex:none;height:150px;}
+  .pm-t.is-grande .pm-cas{font-size:56px;}
+  .pm-t.is-petite .pcol-map{height:56px;}
+  .pm-t.is-petite:last-child:nth-child(odd){grid-column:1 / -1 !important;}
+}
+@media (max-width:520px){
+  .pm-stats{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+
+
+/* ==========================================================================
+   5 OCTOBRE 2026 — CHOIX DES MAQUETTES tmp/proto-maquettes-1005
+   2B : en-tete des pages province, carte en fond et nom en tres grand.
+   4A : graphiques standard — titre du cadre, legende en haut a gauche (app.js),
+        source / note dessous, plus de bouton Partager.
+   5A : chronologie editoriale — grands intertitres de mois, seuils en grands
+        chiffres.
+   ========================================================================== */
+/* ---- 2B ---- */
+.prov-hero-b{position:relative;isolation:isolate;min-height:500px;display:flex;flex-direction:column;justify-content:flex-end;}
+.prov-hero-b .phb-fond{position:absolute;z-index:0;top:0;bottom:120px;left:50%;right:0;}
+.prov-hero-b .phb-fond .pcol-map{width:100%;height:100%;margin:0;}
+.prov-hero-b .section-head:has(.page-title){align-items:flex-start;text-align:left;}
+.prov-hero-b .section-head .eyebrow{justify-content:flex-start;}
+.prov-hero-b .page-title{text-align:left;margin-bottom:6px;}
+.phb-titre .phb-pre{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+.phb-titre .phb-nom{display:block;font-size:clamp(64px,10vw,124px);letter-spacing:-.05em;line-height:.95;}
+.prov-hero-b .lede,.prov-hero-b .page-intro{margin-left:0;margin-right:0;text-align:left;max-width:560px;}
+.prov-hero-b .kpis-province{margin-left:0;margin-right:0;margin-top:22px;max-width:none;}
+@media (max-width:900px){
+  .prov-hero-b{min-height:0;}
+  .prov-hero-b .phb-fond{position:relative;left:auto;right:auto;top:auto;bottom:auto;height:200px;order:-1;}
+}
+/* ---- 4A ---- */
+.chart-actions{display:none !important;}
+.cr-src{margin:8px 0 0;font-size:11px;color:var(--ink-faint);}
+/* ---- 5A ---- */
+.tl-zig .tl-month{margin:34px 0 18px;}
+.tl-zig .tl-month span{font:600 32px/1.1 var(--font-serif);letter-spacing:-.02em;text-transform:none;color:var(--ink);background:var(--bg);border:0;padding:2px 18px;border-radius:0;}
+.tl-month span::first-letter{text-transform:uppercase;}
+.tl-big{display:block;font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:800;font-size:44px;line-height:1;letter-spacing:-.03em;color:var(--accent-critical);margin:4px 0 2px;font-variant-numeric:tabular-nums;}
+.tl-item.is-milestone .tl-body{border-color:color-mix(in srgb,var(--accent-critical) 28%,var(--line));}
+.tl-zig .tl-item.is-spread .tl-body{border-left:3px solid var(--accent-active);}
+.tl-zig .tl-item.is-official .tl-body{border-left:3px solid var(--accent);}
+.tl-zig .tl-item.is-milestone .tl-body{border-left:3px solid var(--accent-critical);}
+.tl-zig .tl-item.is-current .tl-body{border-left:3px solid var(--accent-stable);}
+
+/* ---- 5 octobre 2026 (suite) ---- */
+/* en-tete province : carte en pleine couleur, survolable */
+.prov-hero-b .section-head,.prov-hero-b .lede,.prov-hero-b .page-intro,.prov-hero-b .kpis-province{position:relative;z-index:1;}
+.prov-hero-b .section-head,.prov-hero-b .lede,.prov-hero-b .page-intro{max-width:50%;}
+.phb-fond path{stroke:var(--bg);stroke-width:.8;vector-effect:non-scaling-stroke;cursor:pointer;transition:opacity .15s;}
+.phb-fond path.is-survol{stroke:var(--ink);stroke-width:1.8;}
+.phb-bulle{position:absolute;z-index:3;transform:translate(14px,14px);pointer-events:none;background:var(--ink);color:#fff;border-radius:10px;padding:8px 11px;font-size:12px;line-height:1.35;white-space:nowrap;box-shadow:0 8px 24px -10px rgba(0,0,0,.5);}
+.phb-bulle b{display:block;font-size:13px;}
+.phb-bulle[hidden]{display:none;}
+@media (max-width:900px){ .prov-hero-b .section-head,.prov-hero-b .lede,.prov-hero-b .page-intro{max-width:none;} }
+/* chronologie : les cartes se font face, deux par rangee */
+@media (min-width:901px){
+  .tl-zig{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:88px;align-items:start;max-width:1060px;}
+  .tl-zig .tl-month{grid-column:1 / -1;}
+  .tl-zig .tl-item{width:auto;margin-left:0;padding:0 0 22px;}
+  .tl-zig .tl-l{grid-column:1;padding-right:0;}
+  .tl-zig .tl-r{grid-column:2;padding-left:0;}
+  .tl-zig .tl-l .tl-dot{right:-51px;left:auto;}
+  .tl-zig .tl-r .tl-dot{left:-51px;}
+}
+/* carrousel : titre et surtitre centres, legende centree dessous (canevas) */
+.cr-head{text-align:center;}
+.cr-src{text-align:center;}
+/* en-tete province : chiffres poses, separes d'un filet, sans case
+   (5 octobre 2026, option A de la maquette chiffres-province) */
+.prov-hero-b .kpis-province{display:flex;flex-wrap:wrap;gap:0;background:transparent;border:0;box-shadow:none;width:auto;}
+.prov-hero-b .kpis-province .kpi{background:transparent;border:0;border-left:1px solid var(--line);border-radius:0;box-shadow:none;padding:0 34px;min-width:0;}
+.prov-hero-b .kpis-province .kpi:first-child{padding-left:0;border-left:0;}
+.prov-hero-b .kpis-province .label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);}
+.prov-hero-b .kpis-province .value{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-size:52px;font-weight:700;line-height:1.05;letter-spacing:-.03em;margin:6px 0 4px;color:var(--ink);}
+.prov-hero-b .kpis-province .confirmed .value{color:var(--accent-info);}
+.prov-hero-b .kpis-province .deaths .value{color:var(--accent-critical);}
+.prov-hero-b .kpis-province .delta{font-size:12px;color:var(--ink-faint);}
+@media (max-width:520px){
+  .prov-hero-b .kpis-province .kpi{padding:0 16px;}
+  .prov-hero-b .kpis-province .value{font-size:34px;}
+}
+
+/* ---- 6 octobre 2026 ---- */
+/* chronologie, code couleur : seuils de cas en bleu, seuils de deces en
+   rouge, extensions geographiques en ocre, jalons officiels en vert fonce */
+:root{--tl-officiel:#24573D;}
+.tl-item.is-official .tl-dot,.tl-legend .is-official::before,.th-item.is-official .th-dot{border-color:var(--tl-officiel);}
+.tl-item.is-official .tl-date,.th-item.is-official .th-date{color:var(--tl-officiel);}
+.tl-item.is-official .tl-toll-bar > span{background:var(--tl-officiel);}
+.tl-zig .tl-item.is-official .tl-body{border-left-color:var(--tl-officiel);}
+.tl-item.is-cas .tl-dot,.tl-legend .is-cas::before,.th-item.is-cas .th-dot{border-color:var(--accent-info);background:var(--accent-info);}
+.tl-item.is-cas .tl-date,.th-item.is-cas .th-date,.tl-item.is-cas .tl-big{color:var(--accent-info);}
+.tl-item.is-cas .tl-toll-bar > span{background:var(--accent-info);}
+.tl-item.is-milestone.is-cas .tl-body{border-color:color-mix(in srgb,var(--accent-info) 28%,var(--line));}
+.tl-zig .tl-item.is-milestone.is-cas .tl-body{border-left-color:var(--accent-info);}
+/* Ensemble du pays : en-tete sur le modele des provinces, carte de la RDC a droite */
+.pays-hero .phb-fond{top:50px;bottom:110px;}
+.pays-hero .phb-titre .phb-nom{font-size:clamp(56px,8.4vw,104px);max-width:4.6em;}
+.pays-hero .page-title{margin-bottom:18px;}
+.pays-hero .phb-fond .pcol-map path:not([class]){fill:#E3DED7;}
+
+/* ==========================================================================
+   À PROPOS : « D'où viennent les chiffres ? » (6 octobre 2026)
+   Démonstration sur le SitRep 141, surlignages en jaune numérotés.
+   ========================================================================== */
+.about-tete .page-title.about-titre{font-size:clamp(44px,6.4vw,80px);line-height:1.02;letter-spacing:-.035em;text-align:left;margin:6px 0 18px;}
+.about-tete .lede{text-align:left;margin-left:0;max-width:760px;}
+.about-tete .eyebrow{justify-content:flex-start;}
+.dc{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:44px;align-items:start;}
+.dc-doc{margin:0;position:sticky;top:96px;}
+.dc-doc figcaption{font-size:13px;color:var(--ink-dim);margin-bottom:10px;}
+.dc-page{position:relative;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:0 24px 50px -30px rgba(0,0,0,.45);overflow:hidden;}
+.dc-page img{display:block;width:100%;height:auto;}
+.dc-hl{position:absolute;background:rgba(255,221,0,.42);border-radius:3px;mix-blend-mode:multiply;transition:background .2s,box-shadow .2s;}
+.dc-hl b{position:absolute;left:-19px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:#1F1A13;color:#fff;font:700 10px/16px var(--font-sans);text-align:center;box-shadow:0 0 0 2px #fff;}
+.dc-hl.is-on{background:rgba(255,200,0,.75);box-shadow:0 0 0 3px #E8B400;}
+.dc-liste{list-style:none;margin:0;padding:0;}
+.dc-liste li{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:18px 0;border-top:1px solid var(--line);}
+.dc-liste li:first-child{border-top:0;padding-top:0;}
+.dc-n{width:26px;height:26px;border-radius:50%;background:#1F1A13;color:#fff;font:700 13px/26px var(--font-sans);text-align:center;margin-top:6px;}
+.dc-liste li.is-on .dc-n{background:#E8B400;color:#1F1A13;}
+.dc-v{display:inline;font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:34px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;background:linear-gradient(transparent 58%,rgba(255,221,0,.55) 58%);}
+.dc-q{font-weight:600;margin:6px 0;}
+.dc-liste p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-dim);}
+.about-detail{display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:start;}
+.about-acc details{border-top:1px solid var(--line);padding:16px 0;scroll-margin-top:96px;}
+.about-acc details:last-child{border-bottom:1px solid var(--line);}
+.about-acc summary{cursor:pointer;font:600 18px var(--font-serif);list-style:none;display:flex;justify-content:space-between;gap:12px;color:var(--ink);}
+.about-acc summary::-webkit-details-marker{display:none;}
+.about-acc summary::after{content:"+";font:400 22px var(--font-sans);color:var(--ink-faint);}
+.about-acc details[open] summary::after{content:"–";}
+.about-acc .prose{margin-top:10px;}
+.about-fin p{font:400 19px/1.5 var(--font-serif);}
+@media (max-width:900px){ .dc,.about-detail{grid-template-columns:1fr;gap:20px;} .dc-doc{position:static;} }
+
+/* ==========================================================================
+   LE VIRUS : Bundibugyo face à Zaïre, puis jour après jour (6 octobre 2026)
+   ========================================================================== */
+.ff-tete{text-align:center;}
+.ff-tete .eyebrow{justify-content:center;}
+.ff-tete .page-title.ff-titre{font-size:clamp(44px,6vw,76px);line-height:1.02;letter-spacing:-.035em;margin:6px 0 16px;}
+.ff-titre em{font-style:italic;font-weight:400;color:var(--ink-faint);font-size:.6em;}
+.ff-tete .lede{margin:0 auto 24px;max-width:720px;}
+.ff-tete .riposte-ancres{justify-content:center;}
+.ff-table{width:100%;max-width:1000px;margin:0 auto;border-collapse:collapse;}
+.ff-table thead th{padding:10px 26px 14px;vertical-align:bottom;}
+.ff-table thead strong{display:block;font:600 34px var(--font-serif);}
+.ff-table thead span{font-size:13px;color:var(--ink-faint);font-weight:400;}
+.ff-table thead .ff-g strong{color:var(--accent-critical);}
+.ff-table thead .ff-d strong{color:var(--ink-dim);}
+.ff-table td,.ff-table tbody th{border-top:1px solid var(--line);padding:22px 26px;vertical-align:middle;}
+.ff-g{text-align:right;width:40%;} .ff-d{text-align:left;width:40%;}
+.ff-table b{display:block;font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-size:clamp(24px,3.2vw,40px);line-height:1.05;letter-spacing:-.03em;}
+.ff-table td.ff-g b{color:var(--accent-critical);} .ff-table td.ff-d b{color:var(--ink-dim);}
+.ff-table td span{font-size:13px;color:var(--ink-faint);}
+.ff-q{width:20%;text-align:center;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);border-left:1px solid var(--line);border-right:1px solid var(--line);}
+.ff-histoire{max-width:760px;margin:34px auto 0;}
+.jp-sec{border-top:1px solid var(--line);padding-top:40px;}
+.jp-titre{font-size:clamp(32px,4vw,48px);}
+.jp-reg{display:flex;gap:3px;margin:30px 0 0;font-size:11.5px;font-weight:600;color:#fff;}
+.jp-reg span{padding:7px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.jp-reg span:nth-child(1){background:var(--ink);border-radius:8px 0 0 8px;} .jp-reg span:nth-child(2){background:var(--accent-stable);} .jp-reg span:nth-child(3){background:var(--accent-critical);border-radius:0 8px 8px 0;}
+.jp{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);}
+.jp li{position:relative;padding:34px 18px 0 0;border-top:4px solid var(--c);margin-top:22px;}
+.jp li::before{content:"";position:absolute;top:-13px;left:0;width:18px;height:18px;border-radius:50%;background:var(--bg);border:4px solid var(--c);}
+.jp .jp-1{--c:var(--ink);} .jp .jp-2{--c:var(--accent-stable);} .jp .jp-3{--c:var(--accent-active);} .jp .jp-4{--c:var(--accent-critical);} .jp .jp-5{--c:var(--accent-info);}
+.jp-j{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c);}
+.jp h3{font:600 24px/1.1 var(--font-serif);margin:6px 0 12px;}
+.jp-m{font-size:14.5px;line-height:1.6;color:var(--ink);margin:0 0 12px;}
+.jp-r{font-size:13px;line-height:1.55;color:var(--ink-dim);margin:0;padding:10px 12px;background:#fff;border:1px solid var(--line);border-radius:12px;}
+@media (max-width:1000px){ .jp{grid-template-columns:1fr;} .jp li{border-top:0;border-left:4px solid var(--c);padding:0 0 26px 24px;margin:0;} .jp li::before{top:0;left:-11px;} .jp-reg{display:none;} }
+@media (max-width:700px){ .ff-table thead th,.ff-table td,.ff-table tbody th{padding:14px 8px;} .ff-q{font-size:10px;} .ff-table thead strong{font-size:22px;} }
+/* correctifs d'integration (6 octobre 2026) : neutraliser les styles
+   generaux des tableaux et des titres de section */
+.ff-table,.ff-table th,.ff-table td{border:0;background:none;text-transform:none;letter-spacing:normal;font-size:inherit;color:inherit;}
+.ff-table thead th{border-bottom:1px solid var(--line);}
+.ff-table thead strong{font:600 34px var(--font-serif);letter-spacing:-.01em;}
+.ff-table thead span{display:block;}
+.ff-table td,.ff-table tbody th{border-top:1px solid var(--line);}
+.ff-table tbody th.ff-q{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);border-left:1px solid var(--line);border-right:1px solid var(--line);}
+.ff-q0{width:20%;}
+.ff-table td span{display:block;}
+.jp-titre{font:600 clamp(32px,4vw,48px)/1.1 var(--font-serif);letter-spacing:-.03em;margin:6px 0 10px;color:var(--ink);text-transform:none;}
+.jp-sec .eyebrow{justify-content:flex-start;}
+.jp-sec .page-intro,.about-detail .page-intro{text-align:left;margin-left:0;}
+.about-h2{font:600 clamp(26px,3vw,36px)/1.1 var(--font-serif);letter-spacing:-.03em;margin:0 0 10px;color:var(--ink);text-transform:none;}
+
+/* ==========================================================================
+   SOURCES & BULLETINS : le registre (6 octobre 2026, option 1 du proprietaire)
+   Une ligne par bulletin, deux colonnes, un mois a la fois (onglets).
+   ========================================================================== */
+.reports-grid.is-registre{display:block;columns:2;column-gap:44px;}
+.reports-grid.is-registre .reports-month-header{column-span:all;font:600 20px var(--font-serif);text-transform:none;letter-spacing:-.01em;color:var(--ink);
+  border-top:2px solid var(--ink);padding:12px 0 6px;margin:18px 0 4px;}
+.reports-grid.is-registre .reports-month-header::after{display:none;}
+.reports-grid.is-registre > .reports-month-header:first-child{margin-top:0;}
+.reports-grid.is-registre .report-chip.rg-l{display:grid;grid-template-columns:62px minmax(0,1fr) auto 34px;gap:14px;align-items:baseline;
+  break-inside:avoid;padding:10px 6px;margin:0;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;color:var(--ink);transform:none;}
+.reports-grid.is-registre .report-chip.rg-l:hover{background:var(--bg-alt,#fff);text-decoration:none;}
+.rg-n{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:21px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+.rg-d{font-size:14px;white-space:nowrap;}
+.rg-c{font-size:12.5px;color:var(--ink-dim);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.rg-p{font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--ink-faint);text-align:right;}
+.report-chip.rg-l:hover .rg-p{color:var(--accent-strong);}
+.reports-grid.is-registre .report-chip.rg-l.is-who .rg-n{font-size:18px;}
+@media (max-width:900px){ .reports-grid.is-registre{columns:1;} }
+@media (max-width:520px){
+  .reports-grid.is-registre .report-chip.rg-l{grid-template-columns:52px minmax(0,1fr) 30px;gap:10px;}
+  .reports-grid.is-registre .rg-c{display:none;}
+}
+
+/* ==========================================================================
+   LA LETTRE en « quotidien » (6 octobre 2026, option 1 du proprietaire)
+   ========================================================================== */
+.lq{max-width:1180px;margin:0 auto;}
+.lq-une{border-top:6px double var(--ink);border-bottom:1px solid var(--ink);padding:14px 0 10px;margin-bottom:30px;}
+.lq-tete{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);}
+.lq-nom{font:600 clamp(48px,7vw,92px)/1 var(--font-serif);letter-spacing:-.03em;text-transform:none;}
+.lq-ss{text-align:center;font:italic 15px var(--font-serif);color:var(--ink-dim);border-top:1px solid var(--line);margin:10px 0 0;padding-top:8px;}
+.lq-une .ag-nav{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;}
+.lq-grille{display:grid;grid-template-columns:2fr 1fr;gap:40px;border-bottom:1px solid var(--ink);padding-bottom:28px;}
+.lq-eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-strong);}
+.lq-titre{font:600 clamp(36px,4.6vw,58px)/1.02 var(--font-serif);letter-spacing:-.035em;margin:4px 0 16px;color:var(--ink);text-align:left;}
+.lq-chapo{font:600 19px/1.55 var(--font-serif);margin:0 0 12px;color:var(--ink);}
+.lq-principal .lettre-texte{font:400 17px/1.7 var(--font-serif);margin:0;max-width:none;color:var(--ink);}
+.lq-encadre{border-left:1px solid var(--line);padding-left:28px;}
+.lq-chiffre{border-bottom:1px solid var(--line);padding:10px 0;}
+.lq-chiffre b{display:block;font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:46px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ink);}
+.lq-chiffre.is-cas b{color:var(--accent-info);} .lq-chiffre.is-deces b{color:var(--accent-critical);}
+.lq-chiffre span{font-size:12.5px;color:var(--ink-dim);}
+.lq-mini{padding-top:12px;} .lq-mini span{font-size:11.5px;color:var(--ink-faint);}
+.lq-barres{display:block;width:100%;height:56px;}
+.lq-barres rect{fill:color-mix(in srgb,var(--accent-info) 35%,transparent);} .lq-barres rect.is-der{fill:var(--accent-info);}
+.lq-cols{columns:3;column-gap:34px;column-rule:1px solid var(--line);padding:24px 0;border-bottom:1px solid var(--ink);}
+.lq-art{break-inside:avoid-column;margin-bottom:22px;}
+.lq-art h2{font:600 22px/1.15 var(--font-serif);margin:0 0 8px;color:var(--ink);text-transform:none;letter-spacing:-.01em;}
+.lq-art h2 span{font:700 12px var(--font-sans);color:var(--accent-strong);vertical-align:middle;margin-right:4px;}
+.lq-art .lettre-texte{font:400 15.5px/1.65 var(--font-serif);margin:0;text-align:justify;hyphens:auto;max-width:none;color:var(--ink);}
+.lq-chiffres{display:grid;grid-template-columns:1fr 1fr;gap:34px;padding:24px 0;border-bottom:1px solid var(--line);}
+.lq-bloc h3{font:600 18px var(--font-serif);margin:0 0 12px;color:var(--ink);}
+.lq-bloc .drill{margin-top:10px;}
+.lq-pied{padding:20px 0 40px;}
+.lq-pied .ag-nav{display:flex;justify-content:space-between;font-size:13px;margin-bottom:12px;}
+.lq-ref{font-size:12.5px;color:var(--ink-faint);}
+@media (max-width:900px){ .lq-grille,.lq-chiffres{grid-template-columns:1fr;} .lq-encadre{border:0;padding:0;} .lq-cols{columns:1;} .lq-tete{flex-wrap:wrap;} }
+
+/* ==========================================================================
+   LE VIRUS, suite de page dans le theme du face-a-face (6 octobre 2026,
+   option 3 « l'axe central »)
+   ========================================================================== */
+.vb-sec{max-width:1000px;margin-left:auto;margin-right:auto;}
+.vb-tete{text-align:center;margin-bottom:26px;}
+.vb-tete .eyebrow{justify-content:center;}
+.vb-tete h2{font:600 clamp(32px,4.4vw,54px)/1.05 var(--font-serif);letter-spacing:-.035em;margin:6px 0 10px;color:var(--ink);text-transform:none;}
+.vb-tete h2 em{font-style:italic;font-weight:400;color:var(--ink-faint);font-size:.62em;}
+.vb-tete p{font:400 17px/1.55 var(--font-serif);color:var(--ink-dim);max-width:700px;margin:0 auto;}
+.vb-src{text-align:center;font-size:12px;color:var(--ink-faint);margin:16px auto 0;max-width:760px;}
+.ax-tete{display:grid;grid-template-columns:1fr 150px 1fr;font:600 22px var(--font-serif);margin-bottom:6px;}
+.ax-tete span:first-child{text-align:right;padding-right:26px;color:var(--accent-critical);}
+.ax-tete span:last-child{padding-left:26px;color:var(--ink-dim);}
+.pa-tete span:first-child{color:var(--accent-info);} .pa-tete span:last-child{color:var(--accent-critical);}
+.ax{position:relative;}
+.ax::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--line);transform:translateX(-1px);}
+.ax-l{display:grid;grid-template-columns:1fr 150px 1fr;align-items:start;padding:16px 0;}
+.ax-g{text-align:right;padding-right:26px;} .ax-d{padding-left:26px;}
+.ax-g h3{font:600 22px var(--font-serif);margin:0 0 6px;color:var(--accent-critical);}
+.ax-g p,.ax-d p{font-size:14.5px;line-height:1.6;margin:0;color:var(--ink);} .ax-d p{color:var(--ink-dim);}
+.ax-c{text-align:center;position:relative;z-index:1;}
+.ax-c span{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);}
+.pa-l{display:grid;grid-template-columns:1fr 150px 1fr;align-items:center;padding:7px 0;}
+.pa-g{display:flex;justify-content:flex-end;align-items:center;gap:10px;} .pa-d{display:flex;align-items:center;gap:10px;}
+.pa i{display:block;height:20px;border-radius:4px 0 0 4px;background:var(--accent-info);} .pa-d i{border-radius:0 4px 4px 0;background:var(--accent-critical);}
+.pa span{font-family:'Bricolage Grotesque',var(--font-sans);font-weight:700;font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums;}
+.pa-c{text-align:center;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-label);}
+.vb-sexes{max-width:620px;margin:30px auto 0;}
+.vb-sexes .frame-title{text-align:center;}
+.vb-ff{max-width:1000px;}
+.vb-texte{max-width:720px;margin:26px auto 0;font:400 16px/1.65 var(--font-serif);color:var(--ink-dim);text-align:center;}
+.vb-texte p{margin:0 0 12px;}
+.vb-genomes{max-width:860px;margin:0 auto;}
+@media (max-width:760px){
+  .ax::before{display:none;}
+  .ax-l,.ax-tete{grid-template-columns:1fr;} .ax-g{text-align:left;padding:0;} .ax-d{padding:6px 0 0;} .ax-c{text-align:left;order:-1;margin-bottom:6px;}
+  .ax-tete span{text-align:left !important;padding:0 !important;}
+  .pa-l,.pa-tete{grid-template-columns:1fr 64px 1fr;} .pa-c{font-size:10px;}
+}
+/* genomes dans le theme : plus de cadres, chiffres poses comme le comparatif */
+.vb-genomes .panel{background:none;border:0;box-shadow:none;padding:0;}
+.vb-genomes .figure-band{background:none;border:0;box-shadow:none;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;}
+.vb-genomes .fb-item{text-align:center;}
+.vb-genomes .fb-value{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:44px;letter-spacing:-.03em;color:var(--ink);}
+.vb-genomes .section-head{justify-content:center;text-align:center;}
+.vb-genomes .frame-title{text-align:center;}
+.vb-genomes .info-note{background:none;border:0;text-align:center;}
+.vb-genomes .vg-mois{justify-content:center;}
+.vb-genomes .vg-lu{margin-left:auto;margin-right:auto;}
+.vb-genomes > .frame-title{text-align:center;}
+/* Sources & bulletins (6 octobre 2026) : titres centres, sans numero */
+.src-centre .fiche-tete{display:flex;justify-content:center;text-align:center;}
+.src-centre .fiche-tete .frame-title{text-align:center;}
+.src-centre .cadre-corps > .page-intro{text-align:center;margin-left:auto;margin-right:auto;}
+
+/* ==========================================================================
+   RIPOSTE (7 octobre 2026) : la chaine en tete, chaque volet en face-a-face
+   ========================================================================== */
+.rc-chaine{display:flex;align-items:stretch;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:0;}
+.rc-chaine > i{align-self:center;font-style:normal;color:var(--ink-faint);font-size:20px;padding:0 2px;}
+.rc-e{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 8px;color:var(--ink);}
+.rc-e:hover{background:#fff;text-decoration:none;}
+.rc-v{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-label);}
+.rc-n{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ink);}
+.rc-e .rc-n{font-size:clamp(28px,3.2vw,44px);line-height:1.05;margin:6px 0 4px;}
+.rc-e em{font-style:normal;font-size:12.5px;color:var(--ink-dim);max-width:190px;}
+.rc-e small{font-size:11.5px;color:var(--ink-faint);max-width:190px;margin-top:2px;}
+.rc-n.is-alerts{color:var(--accent-info);} .rc-n.is-labo{color:var(--accent-critical);} .rc-n.is-contacts{color:var(--accent-active);}
+.rc-n.is-cte{color:var(--accent-stable);} .rc-n.is-vaccin{color:#6B5CA5;}
+.cadre-fiche.r3{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:44px;align-items:start;border-top:1px solid var(--line);padding-top:36px;background:none;box-shadow:none;}
+/* Colonne de gauche immobile (7 octobre 2026) : collante, elle semblait
+   bouger au defilement. */
+.r3-g{position:static;}
+.r3 .fiche-tete{display:block;margin:0;}
+.r3 .fiche-num{display:block;font:700 12px var(--font-sans);letter-spacing:.1em;color:var(--accent-strong);margin-bottom:4px;}
+.r3 .frame-title{font:600 clamp(26px,2.8vw,36px)/1.08 var(--font-serif);letter-spacing:-.03em;margin:0 0 6px;}
+.r3-ch{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin:18px 0;}
+.r3-ch .rc-n{display:block;font-size:52px;line-height:1;}
+.r3-ch span{display:block;font-weight:600;font-size:13.5px;margin-top:6px;}
+.r3-ch small{display:block;font-size:12px;color:var(--ink-faint);}
+.r3-g .fiche-texte{font:400 15px/1.65 var(--font-serif);color:var(--ink);margin:0;}
+.r3 .panel.chart-panel-wrap{background:none;border:0;box-shadow:none;padding:0;}
+.r3 .chart-actions{display:none !important;}
+.rip-note summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink-dim);margin-top:8px;}
+.r3 .vaccin-zones{margin-top:24px;}
+@media (max-width:900px){
+  .cadre-fiche.r3{grid-template-columns:1fr;gap:16px;} .r3-g{position:static;}
+  .rc-chaine{flex-wrap:wrap;} .rc-chaine > i{display:none;} .rc-e{flex:1 1 45%;border-bottom:1px solid var(--line);}
+}
+
+/* ==========================================================================
+   DEFIS (7 octobre 2026, option 4) : periode posee, fiches en face-a-face
+   ========================================================================== */
+.d-per{display:flex;justify-content:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;}
+.d-per > div{text-align:center;}
+.d-per-n{display:block;font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:clamp(24px,2.8vw,36px);letter-spacing:-.03em;line-height:1.1;color:var(--ink);}
+.d-per span{font-size:12.5px;color:var(--ink-dim);}
+.frise-section .section-head{justify-content:center;text-align:center;}
+.fiches.d4{display:block;max-width:1060px;margin:0 auto;}
+.fiches.d4 .fiche{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:44px;padding:30px 0;border-top:1px solid var(--line);}
+.d4-g{text-align:right;}
+.d4-g .fiche-num{display:block;font:600 44px/1 var(--font-serif);color:var(--line);}
+.d4-g .frame-title{font:600 24px/1.15 var(--font-serif);letter-spacing:-.01em;margin:6px 0 10px;color:var(--accent-critical);}
+.d4-c{font-size:13px;color:var(--ink-dim);margin:0 0 8px;}
+.d4-c b{font-family:'Bricolage Grotesque',var(--font-sans);font-weight:700;font-size:24px;color:var(--ink);}
+.d4-p .fiche-prov{font-size:12px;margin-left:10px;white-space:nowrap;}
+.d4-g .fiche-trace{font-size:11.5px;color:var(--ink-faint);margin:8px 0 0;}
+.d4-d .fiche-texte{font:400 16px/1.7 var(--font-serif);color:var(--ink);margin:0;}
+@media (max-width:860px){ .fiches.d4 .fiche{grid-template-columns:1fr;gap:10px;} .d4-g{text-align:left;} .d4-p .fiche-prov{margin:0 10px 0 0;} }
+
+/* LA LETTRE, bas de page (7 octobre 2026) : le tableau et les chiffres de la
+   riposte dans le langage du quotidien — plus de cadre, des filets, des
+   chiffres poses. */
+.lq-chiffres{grid-template-columns:1.25fr 1fr;gap:48px;padding:30px 0;border-bottom:1px solid var(--ink);}
+.lq-bloc h3{font:700 12px var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-strong);margin:0 0 10px;padding-bottom:8px;border-bottom:2px solid var(--ink);}
+.lq-bloc .panel{background:none;border:0;box-shadow:none;padding:0 !important;border-radius:0;}
+.lq-bloc table{font-size:14px;}
+.lq-bloc th{background:none;position:static;font-size:10.5px;color:var(--ink-label);padding:8px 6px;border-bottom:1px solid var(--line);}
+.lq-bloc td{padding:9px 6px;border-bottom:1px solid var(--line);color:var(--ink);}
+.lq-bloc tbody tr:hover td{background:none;}
+.lq-bloc td a{color:var(--ink);font-weight:600;}
+.lq-bloc .is-num{font-variant-numeric:tabular-nums;}
+.lq-bloc .kpis{display:block;background:none;border:0;box-shadow:none;padding:0;margin:0;}
+.lq-bloc .kpi{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:2px 14px;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;padding:10px 0;min-height:0;}
+.lq-bloc .kpi .label{grid-column:1;grid-row:1;font-size:13.5px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink);}
+.lq-bloc .kpi .delta{grid-column:1;grid-row:2;font-size:12px;color:var(--ink-faint);margin:0;}
+.lq-bloc .kpi .value{grid-column:2;grid-row:1 / span 2;align-self:center;font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:30px;letter-spacing:-.03em;margin:0;color:var(--ink);}
+.lq-bloc .kpi.alerts .value{color:var(--accent-info);} .lq-bloc .kpi.labo .value{color:var(--accent-critical);}
+.lq-bloc .kpi.contacts .value{color:var(--accent-active);} .lq-bloc .kpi.cte .value{color:var(--accent-stable);} .lq-bloc .kpi.vaccin .value{color:#6B5CA5;}
+.lq-bloc .drill{margin:14px 0 0;background:none;border:0;padding:0;}
+.lq-bloc .drill a{font-weight:600;}
+@media (max-width:900px){ .lq-chiffres{grid-template-columns:1fr;} .lq-bloc .panel{overflow-x:auto;} .lq-art .lettre-texte{text-align:left;hyphens:manual;} }
+
+/* FAQ (7 octobre 2026, option 1) : rubriques a filets */
+.faq-tete,.gl-tete{text-align:center;}
+.faq-tete .eyebrow,.gl-tete .eyebrow{justify-content:center;}
+.faq-tete .lede,.gl-tete .lede{margin-left:auto;margin-right:auto;max-width:680px;}
+.faq-f1{max-width:820px;margin:0 auto;}
+.faq-f1 .faq-item{border:0;border-top:1px solid var(--line);padding:18px 0;background:none;}
+.faq-f1 .faq-item:last-child{border-bottom:1px solid var(--line);}
+.faq-f1 summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font:600 21px/1.3 var(--font-serif);color:var(--ink);padding:0;}
+.faq-f1 summary::-webkit-details-marker{display:none;}
+.faq-f1 summary::after{content:"+";font:300 26px/1 var(--font-sans);color:var(--ink-faint);flex:none;}
+.faq-f1 details[open] summary::after{content:"–";}
+.faq-f1 .faq-answer{font:400 16.5px/1.7 var(--font-serif);color:var(--ink-dim);margin-top:12px;max-width:720px;padding:0;}
+.faq-f1 .faq-answer p{margin:0 0 .8em;}
+.faq-fin{text-align:center;border-top:1px solid var(--line);padding:30px 0 10px;margin:40px auto 0;max-width:820px;font:400 19px/1.5 var(--font-serif);}
+.faq-fin h2{font:600 24px var(--font-serif);margin:0 0 6px;color:var(--ink);text-transform:none;letter-spacing:0;}
+.faq-fin p{margin:0;}
+
+/* GLOSSAIRE (7 octobre 2026, option 1) : le dictionnaire */
+.gl-dico{max-width:900px;margin-left:auto;margin-right:auto;}
+.gl-l{display:grid;grid-template-columns:110px 1fr;gap:28px;border-top:1px solid var(--line);padding:22px 0;}
+.gl-l:last-child{border-bottom:1px solid var(--line);}
+.gl-k{font:600 72px/0.9 var(--font-serif);color:var(--accent-strong);}
+.gl-l dl{margin:0;}
+.gl-l .gl-item{padding:6px 0 12px;border:0;}
+.gl-l dt{font:700 20px var(--font-serif);color:var(--ink);}
+.gl-l dd{margin:4px 0 0;font:400 16px/1.65 var(--font-serif);color:var(--ink-dim);}
+@media (max-width:700px){ .gl-l{grid-template-columns:56px 1fr;gap:14px;} .gl-k{font-size:44px;} }
+
+/* La barre des sections en sommaire entre filets (7 octobre 2026, option 2) :
+   remplace la barre noire sur Le virus, Ensemble du pays et Sources. */
+.riposte-ancres{display:flex;flex-wrap:wrap;justify-content:center;width:auto;max-width:1000px;margin:28px auto 0;gap:0;padding:0;
+  background:none;border-radius:0;box-shadow:none;border-top:1px solid var(--line);border-bottom:1px solid var(--line);counter-reset:anc;}
+.riposte-ancres a{counter-increment:anc;display:flex;align-items:baseline;gap:8px;padding:14px 22px;border:0;border-left:1px solid var(--line);border-radius:0;
+  background:none;font:600 17px var(--font-serif);color:var(--ink);text-decoration:none;}
+.riposte-ancres a:first-child{border-left:0;}
+.riposte-ancres a::before{content:counter(anc,decimal-leading-zero);font:700 11px var(--font-sans);letter-spacing:.08em;color:var(--accent-strong);}
+.riposte-ancres a:hover{color:var(--accent-strong);background:#fff;border-left-color:var(--line);}
+.riposte-ancres a:first-child:hover{border-left:0;}
+@media (max-width:760px){ .riposte-ancres a{border-left:0;padding:10px 12px;font-size:16px;} }
+
+/* ==========================================================================
+   NOUVELLES DE L'EPIDEMIE en fil de presse (7 octobre 2026, option 1)
+   ========================================================================== */
+.actus-tete{text-align:center;}
+.actus-tete .eyebrow{justify-content:center;}
+.actus-tete .lede{margin-left:auto;margin-right:auto;max-width:680px;}
+.actus-note{font-size:12.5px;color:var(--ink-faint);margin:8px auto 0;max-width:680px;}
+.actus .actus-puces{display:flex;flex-wrap:wrap;justify-content:center;gap:0;max-width:1000px;margin:0 auto 26px;padding:0;background:none;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.actus .actus-puce{all:unset;cursor:pointer;padding:12px 18px;font:600 15px var(--font-serif);color:var(--ink-dim);border-left:1px solid var(--line);}
+.actus .actus-puce:first-child{border-left:0;}
+.actus .actus-puce b{font:700 11px var(--font-sans);color:var(--ink-faint);margin-left:6px;}
+.actus .actus-puce.on{color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent-strong);}
+.actus .actus-puce:focus-visible{outline:2px solid var(--accent-strong);outline-offset:-2px;}
+.actus-fil{max-width:860px;margin:0 auto;}
+.af-j h2{display:flex;align-items:center;gap:18px;margin:34px 0 4px;font:700 12.5px var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-label);}
+.af-j h2::before,.af-j h2::after{content:"";flex:1;height:1px;background:var(--line);}
+.af-a{display:grid;grid-template-columns:1fr 150px;gap:24px;padding:20px 0;border-bottom:1px solid var(--line);color:var(--ink);}
+.af-a:hover{text-decoration:none;} .af-a:hover h3{color:var(--accent-strong);}
+.af-meta{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.af-src{color:var(--t);}
+.af-meta .actu-neuf{margin-left:8px;}
+.af-a h3{font:600 21px/1.25 var(--font-serif);margin:6px 0 6px;}
+.af-a p{margin:0;font:400 15px/1.55 var(--font-serif);color:var(--ink-dim);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.af-img{width:150px;height:100px;object-fit:cover;border-radius:4px;}
+.af-sigle{display:grid;place-items:center;background:color-mix(in srgb,var(--t) 12%,#fff);color:var(--t);font:700 14px var(--font-sans);letter-spacing:.06em;text-align:center;padding:6px;}
+.af-plus{text-align:center;margin:30px 0 20px;}
+.af-plus button{cursor:pointer;font:600 15px var(--font-sans);border:1px solid var(--ink);background:none;border-radius:999px;padding:11px 26px;color:var(--ink);}
+.af-plus button:hover{background:var(--ink);color:#fff;}
+.af-plus[hidden],.af-j[hidden],.af-a[hidden]{display:none !important;}
+@media (max-width:640px){ .af-a{grid-template-columns:1fr 96px;gap:14px;} .af-img{width:96px;height:72px;} .af-a h3{font-size:18px;} .actus .actus-puce{padding:9px 12px;font-size:14px;} }
+
+/* Espacements resserres (7 octobre 2026, demande du proprietaire) : moins de
+   vide entre l'en-tete d'une page et la suite, et entre les parties. */
+.section.actus-tete,.section.faq-tete,.section.gl-tete,.section.about-tete{padding-bottom:14px;}
+.actus-tete + .section,.faq-tete + .section,.gl-tete + .section,.about-tete + .section{padding-top:14px;}
+/* l'ecart entre la barre des sous-parties et le comparatif reste celui d'origine (7 octobre 2026) */
+.ff-histoire{margin-top:24px;}
+.section.vb-sec{padding:28px 0;}
+.vb-sec .vb-tete{margin-bottom:18px;}
+.vb-sec .vb-tete h2{margin:4px 0 8px;}
+.vb-genomes .figure-band{margin:14px 0;}
+.vb-genomes .section-head{margin-top:22px;margin-bottom:8px;}
+.vb-genomes .frame-title{margin-top:22px;}
+#plus-loin.section{padding-top:28px;}
+.faq-tete .lede,.gl-tete .lede,.about-tete .lede,.actus-tete .lede{margin-bottom:0;}
+.actus-tete .actus-note{margin-bottom:0;}
+.section.vb-sec{padding:20px 0;}
+.ff-tete + .section.ff{padding-bottom:12px;}
+.section.actus{margin-top:0;}
+.reports-manquants{font-size:13px;line-height:1.55;color:var(--ink-dim);margin:14px 0 0;max-width:860px;}
+
+/* ==========================================================================
+   PAGES PROVINCE (7 octobre 2026, option 1) : sans cadre, sans numero ; la
+   riposte comme la page Riposte, les defis avec la grille de la page Defis.
+   ========================================================================== */
+main:has(.prov-hero-b) .fiche-num{display:none;}
+main:has(.prov-hero-b) .cadre-fiche{background:none;box-shadow:none;border:0;border-top:1px solid var(--line);}
+main:has(.prov-hero-b) .cadre-fiche .panel{background:none;border:0;box-shadow:none;padding:0 !important;border-radius:0;}
+main:has(.prov-hero-b) .chart-actions{display:none !important;}
+main:has(.prov-hero-b) .cadre-fiche table th{background:none;position:static;}
+main:has(.prov-hero-b) .cadre-fiche tbody tr:hover td{background:none;}
+main:has(.prov-hero-b) .frame-title{font-family:var(--font-serif);}
+main:has(.prov-hero-b) .fiche-tete .frame-title{font-size:clamp(26px,2.8vw,34px);line-height:1.1;letter-spacing:-.025em;}
+main:has(.prov-hero-b) .th-item{background:none !important;border:0 !important;box-shadow:none !important;border-top:3px solid var(--line) !important;border-radius:0 !important;}
+main:has(.prov-hero-b) .th-item.is-official{border-top-color:#24573D !important;}
+main:has(.prov-hero-b) .th-item.is-spread{border-top-color:var(--accent-active) !important;}
+main:has(.prov-hero-b) .th-item.is-milestone{border-top-color:var(--accent-info) !important;}
+main:has(.prov-hero-b) .drill,main:has(.prov-hero-b) .dn-more{background:none;border:0;padding:0;}
+.fiche-centree .fiche-tete{display:flex;flex-direction:column;align-items:center;text-align:center;}
+.fiche-centree .fiche-tete .section-sub{text-align:center;}
+.fiche-centree .rc-chaine{margin:10px 0 24px;}
+.rp-v{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:44px;align-items:start;border-top:1px solid var(--line);padding:30px 0;}
+.rp-g h3{font:600 clamp(22px,2.4vw,30px)/1.1 var(--font-serif);letter-spacing:-.025em;margin:0 0 4px;color:var(--ink);}
+.rp-sub{font:italic 14px var(--font-serif);color:var(--ink-dim);margin:0;}
+.rp-ch{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:16px 0;}
+.rp-ch .rc-n{display:block;font-size:46px;line-height:1;}
+.rp-ch span{display:block;font-weight:600;font-size:13px;margin-top:6px;}
+.rp-ch small{display:block;font-size:12px;color:var(--ink-faint);}
+.rp-g .fiche-texte{font:400 15px/1.65 var(--font-serif);margin:0;color:var(--ink);}
+.rp-d .vaccin-zones{margin-top:20px;}
+@media (max-width:900px){ .rp-v{grid-template-columns:1fr;gap:12px;} }
+main:has(.prov-hero-b) .cadre-fiche:not(.fiche-centree) > .fiche-tete{display:block;}
+
+/* Tableau des zones d'une province en mini-courbes (7 octobre 2026, option 3) */
+.zq{border-collapse:collapse;width:100%;font-size:14.5px;}
+.zq th{background:none !important;position:static !important;text-align:right;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);padding:10px 8px;border-bottom:2px solid var(--ink);white-space:nowrap;cursor:pointer;}
+.zq th:first-child{text-align:left;}
+.zq th.on{color:var(--accent-strong);}
+.zq th.on::after{content:" ↓";} .zq th.on[data-s="a"]::after{content:" ↑";}
+.zq td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.zq td:first-child{text-align:left;font:600 16px var(--font-serif);white-space:normal;}
+.zq tbody tr:hover td{background:#fff !important;}
+.zq td.zt{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:17px;letter-spacing:-.02em;}
+.zq td.z-cas{color:var(--accent-info);} .zq td.z-dec{color:var(--accent-critical);}
+.zq td.zs{text-align:center;} .z-spark{vertical-align:middle;}
+.z-spark rect{fill:color-mix(in srgb,var(--accent-info) 45%,transparent);} .z-spark rect.is-der{fill:var(--accent-info);}
+.z-plus{font-weight:700;} .z-zero{color:var(--ink-faint);}
+
+/* Pages province : tous les titres de parties centres (7 octobre 2026) */
+main:has(.prov-hero-b) .cadre-fiche > .fiche-tete{display:flex;flex-direction:column;align-items:center;text-align:center;}
+main:has(.prov-hero-b) .cadre-fiche > .fiche-tete .section-sub{text-align:center;}
+main:has(.prov-hero-b) .cadre-corps > .section-head{justify-content:center;text-align:center;flex-direction:column;align-items:center;}
+/* Tableau des zones centre (7 octobre 2026) : il se cale sur son contenu */
+#zonesProvinceTable{width:auto;min-width:min(100%,860px);margin:0 auto;}
+.zones-block .table-scroll{display:flex;justify-content:center;}
+.zones-block .zones-note{text-align:center;}
+main:has(.prov-hero-b) .zones-block .panel-fit{margin-left:auto;margin-right:auto;}
+main:has(.prov-hero-b) .zones-block + .drill,main:has(.prov-hero-b) .cadre-corps > .drill{text-align:center;}
+main:has(.prov-hero-b) .zones-block{margin-left:auto;margin-right:auto;}
+/* Tableau des zones : espacement regulier (7 octobre 2026) — memes marges
+   pour toutes les colonnes, chiffres centres dans leur colonne, la courbe
+   a largeur fixe. */
+#zonesProvinceTable{table-layout:auto;}
+#zonesProvinceTable th,#zonesProvinceTable td{padding:10px 16px;text-align:center;}
+#zonesProvinceTable th:first-child,#zonesProvinceTable td:first-child{text-align:left;padding-left:4px;}
+#zonesProvinceTable td.zs{width:150px;}
+#zonesProvinceTable th{white-space:normal;max-width:120px;line-height:1.3;vertical-align:bottom;}
+
+/* Ensemble du pays (7 octobre 2026) : meme traitement que les provinces
+   (regles main:has(.prov-hero-b)) ; tableaux centres et a filets. */
+main:has(.pays-hero) .zones-block,main:has(.pays-hero) .cadre-corps > .panel-fit{margin-left:auto;margin-right:auto;}
+#provinceSummaryTable th,#provinceSummaryTable td{padding:10px 14px;text-align:center;}
+#provinceSummaryTable th:first-child,#provinceSummaryTable td:first-child{text-align:left;padding-left:4px;}
+#provinceSummaryTable th{white-space:normal;max-width:110px;line-height:1.3;vertical-align:bottom;}
+#provinceSummaryTable .zdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;}
+#provinceSummaryTable .z-spark rect{fill:color-mix(in srgb,var(--t) 45%,transparent);} #provinceSummaryTable .z-spark rect.is-der{fill:var(--t);}
+#zonesDetailTable th{background:none;position:static;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);border-bottom:2px solid var(--ink);padding:10px 14px;text-align:center;}
+#zonesDetailTable td{border-bottom:1px solid var(--line);padding:9px 14px;text-align:center;color:var(--ink);}
+#zonesDetailTable th:first-child,#zonesDetailTable td:first-child,#zonesDetailTable th:nth-child(2),#zonesDetailTable td:nth-child(2){text-align:left;}
+#zonesDetailTable td:first-child{font:600 15.5px var(--font-serif);}
+#zonesDetailTable tbody tr:hover td{background:#fff;}
+#zonesDetailTable .zone-badge{background:none;padding:0;color:var(--ink);font-weight:400;}
+#zonesDetailTable .zone-new-badge{background:none;padding:0;border:0;}
+#zonesDetailTable .zone-new-badge.has-new{color:var(--ink);font-weight:700;} #zonesDetailTable .zone-new-badge.no-new{color:var(--ink-faint);}
+/* Tableau des zones d'Ensemble du pays en mini-courbes (7 octobre 2026) */
+#zonesDetailTable .zdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;}
+#zonesDetailTable td.zt{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:16px;letter-spacing:-.02em;}
+#zonesDetailTable td.z-cas{color:var(--accent-info);} #zonesDetailTable td.z-dec{color:var(--accent-critical);}
+#zonesDetailTable td.zs{width:150px;}
+#zonesDetailTable th{white-space:normal !important;max-width:110px;line-height:1.3;vertical-align:bottom;}
+#zonesDetailTable .z-spark rect{fill:color-mix(in srgb,var(--t) 45%,transparent);} #zonesDetailTable .z-spark rect.is-der{fill:var(--t);}
+/* Ensemble du pays : la barre des sections remonte sous l'en-tete (7 octobre 2026) */
+.section.pays-hero{padding-bottom:16px;}
+.pays-hero + .section{padding-top:0;}
+.pays-hero + .section .riposte-ancres{margin-top:12px;}
+
+/* A PROPOS, BAS DE PAGE « RUBRIQUES A FILETS » (7 oct. 2026, maquette n°1 de
+   tmp/proto-pages-1007h, choix de Fable) : etapes en trois colonnes sous un
+   grand numero, methode repliee entre filets comme la FAQ, fin centree. */
+.ap-f1{max-width:1060px;margin:0 auto;padding-top:28px;text-align:center;}
+.ap-h2{font:600 clamp(30px,3.6vw,42px)/1.08 var(--font-serif);letter-spacing:-.025em;color:var(--ink);margin:0;}
+.ap-sous{font:400 17px/1.55 var(--font-serif);color:var(--ink-dim);margin:8px 0 0;}
+.ap-etapes{list-style:none;padding:0;margin:30px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 40px;text-align:left;}
+.ap-etapes li{border-top:2px solid var(--ink);padding-top:16px;}
+.ap-n{display:block;font:600 44px/1 var(--font-serif);color:var(--accent-info);margin-bottom:12px;}
+.ap-etapes h3{font:600 21px/1.2 var(--font-serif);margin:0 0 8px;}
+.ap-etapes p{font-size:15.5px;line-height:1.6;color:var(--ink-dim);margin:0;}
+.ap-acc{max-width:820px;margin:28px auto 0;border-top:2px solid var(--ink);text-align:left;}
+.ap-acc details{border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;box-shadow:none;margin:0;padding:0;}
+.ap-acc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;font:600 20px/1.3 var(--font-serif);color:var(--ink);background:none;}
+.ap-acc summary::-webkit-details-marker{display:none;}
+.ap-acc summary::before{display:none;}
+.ap-acc summary::after{content:"+";font:400 26px/1 var(--font-sans);color:var(--accent-info);transition:transform .2s;}
+.ap-acc details[open] summary::after{content:"+";transform:rotate(45deg);}
+.ap-acc .prose{padding:0 0 20px;font-size:16px;line-height:1.65;color:var(--ink-dim);max-width:720px;}
+.ap-acc .prose p{margin:0 0 .8em;} .ap-acc .prose p:last-child{margin-bottom:0;}
+.ap-fin p{margin:10px 0 0;}
+.ap-fin h2:not(.ap-h2){font:600 20px/1.3 var(--font-serif);margin:26px 0 0;}
+@media(max-width:760px){.ap-etapes{grid-template-columns:1fr;gap:26px;}}
+
+/* Contact : la ligne « Pour suivre les mises a jour sans ecrire : @EbolaTrackerRDC » centree (7 oct. 2026, demande de Fable). */
+.map-note.contact-x{text-align:center;margin-left:auto;margin-right:auto;}
+
+/* Lieu du deces (pages province et Ensemble du pays) : le paragraphe sous le titre centre (7 oct. 2026, demande de Fable). */
+.fiche-texte.fiche-texte-centre{text-align:center;margin-left:auto;margin-right:auto;}
+
+/* Accueil : le graphique « Evolution de l epidemie » sans fond blanc ni ombre, dans un filet fin comme les vues du carrousel (7 oct. 2026, demande de Fable). */
+.home-sec > .panel.chart-panel-wrap{background:none;border:1px solid var(--line);box-shadow:none;border-radius:20px;}
+
+/* Carrousel de l accueil sans cartes blanches (7 oct. 2026, demande de Fable) : plus de fond ni d ombre, seulement un filet fin pour delimiter chaque vue ; la vue du milieu reste la plus grande, les autres s estompent. */
+.cr-card{background:none;border:1px solid var(--line);box-shadow:none;border-radius:20px;}
+
+/* Accueil, cases des provinces : option 1 « filet fin » (7 oct. 2026, maquette tmp/proto-pages-1007j, choix de Fable). Ni fond blanc ni ombre, un trait fin comme le carrousel et le graphique principal ; la barre de couleur de la province reste a gauche. */
+.pm-t,.pm-t.is-grande{background:none;box-shadow:none;border:1px solid var(--line);border-radius:20px;}
+.pm-t:hover{border-color:var(--teinte);}
+
+/* Chronologie : jalons hors de RDC (Ouganda, France, Kenya), cinquieme
+   couleur « Hors de RDC » (7 oct. 2026, demande de Fable). Indigo, distinct
+   du bleu des cas, du rouge des deces, de l'ocre et du vert officiel. */
+:root{--tl-intl:#4B4A8C;}
+.tl-item.is-intl .tl-dot,.tl-legend .is-intl::before,.th-item.is-intl .th-dot{border-color:var(--tl-intl);background:var(--tl-intl);}
+.tl-item.is-intl .tl-date,.th-item.is-intl .th-date{color:var(--tl-intl);}
+.tl-item.is-intl .tl-toll-bar > span{background:var(--tl-intl);}
+.tl-zig .tl-item.is-intl .tl-body{border-left:3px solid var(--tl-intl);}
+main:has(.prov-hero-b) .th-item.is-intl{border-top-color:var(--tl-intl) !important;}
+/* le bilan sous un jalon est celui de la RDC : on ne le montre pas sous un jalon d un autre pays */
+.tl-item.is-intl .tl-toll{display:none;}
+
+/* Accueil : sous « Situation au… », le numero du SitRep en petit, lie a son
+   PDF (7 oct. 2026, demande de Fable). Masque au survol d'une zone. */
+.cd-sitrep{display:block;margin-top:2px;font-size:11.5px;color:var(--ink-faint);text-decoration:none;}
+.cd-sitrep:hover{color:var(--accent-strong);text-decoration:underline;}
+.carto-detail:not(.is-empty) .cd-sitrep{display:none;}
+
+/* Vue « Pays touches » de la carte de l'accueil (8 octobre 2026, en local).
+   scripts/hors_rdc.py dessine le fond des pays voisins et les pays touches
+   (.zm-monde, sous les zones), le point de la ville et le nom du pays
+   (.zm-hors, au-dessus) ; app.js (setupMonde) pose .is-monde sur le cadre au
+   clic, puis .is-monde-pret quand le recul est fini. L'Ouganda et le Kenya
+   sont dessines comme la RDC : districts et comtes en creme, ceux qui ont eu
+   des cas aux paliers de bleu de la legende. Le point et le nom portent
+   l'indigo des jalons « Hors de RDC » de la chronologie : fonce = en cours,
+   pale = termine. */
+.zonemap-stage{--hr-cours:#4B4A8C;--hr-fini:#A3A1CB;--hr-fini-trait:#7C79B0;}
+.zm-monde,.zm-hors{opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s .45s;}
+.is-monde .zm-monde{opacity:1;visibility:visible;transition:opacity .45s ease;}
+.is-monde-pret .zm-hors{opacity:1;visibility:visible;transition:opacity .45s ease;}
+.zm-monde path{fill:#F6F4F1;stroke:#E2DDD6;stroke-width:.8;}
+.zm-monde .hr-adm{fill:#EFECE8;stroke:#E4E0DB;stroke-width:.5;}
+.zm-monde .hr-adm.is-1{fill:var(--map-1);} .zm-monde .hr-adm.is-2{fill:var(--map-2);}
+.zm-monde .hr-adm.is-3{fill:var(--map-3);} .zm-monde .hr-adm.is-4{fill:var(--map-4);}
+.zm-monde .hr-adm.is-5{fill:var(--map-5);} .zm-monde .hr-adm.is-6{fill:var(--map-6);}
+.zm-monde .hr-adm:not(.is-0){stroke:var(--bg);stroke-width:.6;}
+.zm-monde .hr-bord{fill:none;stroke:#A9A196;stroke-width:.9;stroke-linejoin:round;pointer-events:none;}
+.is-monde-pret .hr-pays{cursor:pointer;}
+.is-monde .zm-marks{opacity:0;transition:opacity .3s;}
+.is-monde .map-vignette{display:none;}
+.zm-hors .zm-mark{pointer-events:auto;cursor:pointer;}
+.zm-hors .is-cours{--hr-c:var(--hr-cours);--hr-t:var(--bg);}
+.zm-hors .is-fini{--hr-c:var(--hr-fini);--hr-t:var(--hr-fini-trait);}
+/* Un point sur la ville du cas ; celui du Kenya (en cours) pulse doucement.
+   Le point pale de l'Ouganda prend un trait indigo, sans quoi il se perdait
+   sur le fond creme. */
+.hr-ville .hr-pt{fill:var(--hr-c);stroke:var(--hr-t);stroke-width:1.4;transition:transform .2s ease;transform-box:fill-box;transform-origin:center;}
+.hr-ville .hr-halo{fill:var(--hr-c);opacity:0;}
+.hr-ville.is-cours .hr-halo{animation:hrPouls 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes hrPouls{0%,100%{transform:scale(.7);opacity:.35;}50%{transform:scale(1.35);opacity:.08;}}
+@media (prefers-reduced-motion:reduce){.hr-ville.is-cours .hr-halo{animation:none;opacity:.2;}}
+/* Le nom du pays en capitales, et sa ligne de chiffres. */
+.hr-nom text{text-anchor:middle;paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round;}
+.hr-nom .hr-n1{font:italic 600 14px var(--font-serif);letter-spacing:.08em;fill:var(--hr-c);}
+.hr-nom.is-fini .hr-n1{fill:var(--hr-fini-trait);}
+.hr-nom .hr-n2{font:500 11.5px var(--font-sans);fill:var(--ink-dim);}
+/* Survol : pas de contour epais (il redonnait au pays la surface qu'on
+   voulait lui retirer) ; le point grossit et le nom fonce. */
+.hr-ville.is-on .hr-pt{transform:scale(1.45);}
+.hr-nom.is-on .hr-n2{fill:var(--ink);}
+
+/* « chiffres de la RDC », sous le numero du SitRep : seulement quand la carte
+   montre aussi l'Ouganda et le Kenya. */
+.cd-rdc{display:none;}
+.carto-layout:has(.zonemap-stage.is-monde) .cd-rdc{display:block;}
+
+/* L'infobulle des pays hors RDC. */
+.hr-bulle{position:absolute;z-index:6;width:272px;max-width:calc(100% - 16px);box-sizing:border-box;
+  background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(30,25,20,.14);
+  padding:14px 16px 12px;font:13px/1.45 var(--font-sans);color:var(--ink-dim);
+  opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s;pointer-events:none;}
+.hr-bulle.is-visible{opacity:1;transform:none;}
+.hb-t{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;margin-bottom:8px;}
+.hb-t b{font:600 17px var(--font-serif);color:var(--ink);}
+.hb-t em{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);}
+.hb-pt{width:9px;height:9px;border-radius:50%;align-self:center;box-sizing:border-box;}
+.hb-pt.is-cours{background:var(--hr-cours);} .hb-pt.is-fini{background:var(--hr-fini);border:1.4px solid var(--hr-fini-trait);}
+.hb-l{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-top:1px solid var(--line);}
+.hb-l b{color:var(--ink);font-weight:600;}
+.hb-n{display:flex;gap:22px;padding:8px 0 4px;border-top:1px solid var(--line);}
+.hb-n b{display:block;font:700 22px/1.1 "Bricolage Grotesque",var(--font-sans);font-stretch:87.5%;color:var(--ink);}
+.hb-n span{font-size:12px;}
+.hr-bulle p{margin:6px 0 0;}
+.hr-bulle .hb-s{font-size:11.5px;color:var(--ink-faint);}
+
+/* Page « Autres pays » (8 octobre 2026, en local ; option 1 des maquettes) :
+   trois fiches cote a cote, dans l'ordre du premier cas. En tete de chaque
+   fiche, la date du premier cas en grand, posee sur un filet commun a pointes
+   qui se lit comme une frise (de gauche a droite, le temps). Pastille indigo
+   des jalons « Hors de RDC » : foncee = en cours, pale = termine. Tout le
+   texte est affiche. Sur telephone, les fiches s'empilent et chacune garde
+   son bout de frise. */
+.ap-tete{text-align:center;}
+.ap-tete .eyebrow{justify-content:center;}
+.ap-tete .lede{margin-left:auto;margin-right:auto;max-width:680px;}
+.ap-liste{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);position:relative;}
+.ap-liste::after{content:"";position:absolute;right:-2px;top:-5px;border:5px solid transparent;border-left:8px solid var(--ink-faint);border-right:0;}
+.ap-pays{padding:0 24px 30px;border-left:1px solid var(--line);display:flex;flex-direction:column;scroll-margin-top:90px;}
+.ap-pays:first-child{border-left:0;padding-left:0;}
+.ap-pays:last-child{padding-right:0;}
+.ap-date{position:relative;margin:0 -24px 22px;padding:22px 24px 0;border-top:1.5px solid var(--ink-faint);}
+.ap-pays:first-child .ap-date{margin-left:0;padding-left:0;}
+.ap-pays:last-child .ap-date{margin-right:0;padding-right:0;}
+.ap-pt{position:absolute;top:-7px;left:24px;width:13px;height:13px;border-radius:50%;box-sizing:border-box;border:2px solid var(--bg);}
+.ap-pays:first-child .ap-pt{left:0;}
+.ap-pays.is-cours .ap-pt{background:#4B4A8C;}
+.ap-pays.is-fini .ap-pt{background:#A3A1CB;box-shadow:0 0 0 1.4px #7C79B0;}
+.ap-date small{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:4px;}
+.ap-date time{display:block;font:500 15px var(--font-sans);color:var(--ink-faint);}
+.ap-date time b{font:700 clamp(30px,3.4vw,40px)/1 "Bricolage Grotesque",var(--font-sans);font-stretch:87.5%;color:var(--ink);letter-spacing:-.01em;}
+.ap-pays header{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:16px;}
+.ap-sil{width:64px;height:auto;display:block;margin-bottom:2px;}
+.ap-sil path{stroke-width:1;vector-effect:non-scaling-stroke;}
+.ap-pays.is-cours .ap-sil path{fill:#E4E3EF;stroke:#4B4A8C;}
+.ap-pays.is-fini .ap-sil path{fill:#F0EFF6;stroke:#7C79B0;}
+.ap-pays h2{margin:0;font:600 28px/1.1 var(--font-serif);color:var(--ink);}
+.ap-statut{margin:0;display:flex;align-items:flex-start;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);line-height:1.5;}
+.ap-statut i{width:9px;height:9px;border-radius:50%;box-sizing:border-box;flex:none;margin-top:4px;}
+.ap-pays.is-cours .ap-statut i{background:#4B4A8C;}
+.ap-pays.is-fini .ap-statut i{background:#A3A1CB;border:1.4px solid #7C79B0;}
+.ap-chiffres{display:flex;gap:12px 32px;flex-wrap:wrap;padding:14px 0;margin-bottom:18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.ap-c b{display:block;font:700 24px/1.1 "Bricolage Grotesque",var(--font-sans);font-stretch:87.5%;color:var(--ink);white-space:nowrap;}
+.ap-c span{font-size:12.5px;color:var(--ink-dim);}
+.ap-texte p{margin:0 0 12px;font-size:14.5px;line-height:1.7;color:var(--ink);}
+.ap-sources{margin-top:auto;padding-top:10px;font-size:12px;color:var(--ink-faint);}
+.ap-sources span{display:block;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:11px;margin-bottom:4px;}
+.ap-sources ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;}
+.ap-sources a{color:var(--ink-dim);}
+.ap-sources a:hover{color:var(--accent-strong);}
+.ap-maj{max-width:1120px;margin:22px auto 0;font-size:13px;color:var(--ink-faint);}
+@media (max-width:900px){
+  .ap-liste{grid-template-columns:1fr;}
+  .ap-liste::after{display:none;}
+  .ap-pays,.ap-pays:first-child,.ap-pays:last-child{border-left:0;padding:0 0 34px;}
+  .ap-date,.ap-pays:first-child .ap-date,.ap-pays:last-child .ap-date{margin:0 0 20px;padding:20px 0 0;}
+  .ap-pt,.ap-pays:first-child .ap-pt{left:0;}
+}
+
+/* Contre le clignotement au chargement de l'accueil (8 octobre 2026, mesure
+   sur film du chargement, processeur ralenti) : la carte s'affichait cadree
+   sur le pays entier puis se recadrait et changeait de hauteur, et le
+   carrousel s'affichait en rangee puis se rangeait en pile. Avec JavaScript
+   (html.js, pose en tete de page), leur place est reservee a la taille finale
+   et leur contenu attend d'etre en place. Filet de securite : s'il ne vient
+   jamais, la carte apparait quand meme au bout de 3 s. */
+@media (min-width:901px){
+  html.js .page-accueil .zonemap:not([data-scope]){aspect-ratio:1.55;}
+}
+html.js .page-accueil .zonemap:not([data-scope]):not(.is-pret){opacity:0;animation:revele-secours 0s 3s forwards;}
+html.js .page-accueil .zonemap:not([data-scope]).is-pret{opacity:1;transition:opacity .18s ease;}
+@keyframes revele-secours{to{opacity:1;}}
+html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var(--ch) * 1.12 + 104px);padding:0;overflow:hidden;}
+
+/* ---- Telephone (8 octobre 2026, audit a 360 px de tous les gabarits) ---- */
+/* Le virus : le face-a-face en trois colonnes (Bundibugyo | question | Zaire)
+   faisait 566 px. Sous 640 px, la question passe en titre de ligne, les deux
+   valeurs cote a cote dessous ; l'en-tete garde les deux noms. */
+@media (max-width:640px){
+  .ff-table,.ff-table thead,.ff-table tbody{display:block;width:100%;}
+  .ff-table thead tr{display:grid;grid-template-columns:1fr 1fr;}
+  .ff-table thead .ff-q0{display:none;}
+  .ff-table thead th{padding:6px 10px 12px;}
+  .ff-table thead th.ff-g{border-right:1px solid var(--line);}
+  .ff-table tbody tr{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"q q" "g d";border-top:1px solid var(--line);}
+  .ff-table tbody th.ff-q{grid-area:q;width:auto;border:0;padding:14px 8px 2px;text-align:center;font-size:10.5px;}
+  .ff-table td.ff-g{grid-area:g;width:auto;border:0;border-right:1px solid var(--line);padding:8px 10px 16px;}
+  .ff-table td.ff-d{grid-area:d;width:auto;border:0;padding:8px 10px 16px;}
+  .ff-table b{font-size:24px;}
+  .ff-table td span{display:block;font-size:12.5px;line-height:1.4;}
+}
+/* La lettre : une case de grille ne descend pas sous la largeur de son
+   contenu ; le tableau des provinces poussait le bloc a 384 px sur 360. */
+.lq-chiffres > *,.lq-grille > *{min-width:0;}
+/* Suite de l'audit telephone du 8 octobre 2026. */
+/* Tableau des zones (Donnees, pages province) : le cadre defilant centrait le
+   tableau en flex ; plus large que l'ecran, il debordait a GAUCHE, hors de
+   portee du defilement, et la colonne des noms de zone etait invisible. Le
+   centrage par les marges ne deborde jamais a gauche. */
+.zones-block .table-scroll{display:block;}
+.zones-block .table-scroll > table{margin-left:auto;margin-right:auto;}
+/* Noms de province d'un seul tenant dans les tableaux (« Nord-Kivu », pas
+   « Nord- / Kivu ») ; le tableau defile, il a la place. */
+.province-summary td:first-child,.lq-bloc td:first-child,.zones-detail td:first-child{white-space:nowrap;}
+@media (max-width:640px){
+  /* Bandeau des chiffres (Ensemble du pays, provinces) : la letalite passe a
+     la ligne ; sans le retrait ni le filet gauche des cases voisines. */
+  .kpis-province .kpi.cfr{flex-basis:100%;padding-left:0;border-left:0;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);}
+  /* Boutons de la carte : une ligne chacun. */
+  .map-controls .map-btn{white-space:nowrap;padding:0 11px;}
+  /* Petites cases de provinces de l'accueil, deux par ligne : la vignette de
+     carte prenait la place du nom (« Bas- / Uele »). */
+  .pm-t.is-petite{gap:10px;padding:14px 16px;}
+  .pm-t.is-petite .pcol-map{display:none;}
+  .pm-t.is-petite .pm-nom{white-space:nowrap;font-size:14px;}
+  .pm-t.is-petite .pm-cas{font-size:24px;}
+  /* Chronologie : le texte collait au filet de couleur. */
+  .tl-zig .tl-body{padding-left:14px;}
+  /* Le virus : les deux noms de l'en-tete tiennent dans leur demi-largeur. */
+  .ff-table thead strong{font-size:22px;line-height:1.1;}
+  .ff-table thead span{display:block;font-size:11.5px;line-height:1.35;}
+}
+@media (max-width:760px){
+  /* Vue « Pays touches » sur telephone : le nom seul, les chiffres sont dans
+     l'infobulle (au toucher). */
+  .hr-nom .hr-n2{display:none;}
+  .hr-nom .hr-n1{font-size:12px;}
+}
+/* Carrousel de l'accueil : sans JavaScript, la grille des Defis est aussi
+   cachee sur telephone (app.js la retire quand il tourne). */
+@media (max-width:760px){ .cr-card-grille{display:none;} }
+/* « Epicentre » aussi sur telephone (8 octobre 2026) : les trois onglets de la
+   carte et le zoom sur une ligne, serres. */
+@media (max-width:760px){
+  #btnViewOutbreak{display:inline-flex;}
+  .map-controls .map-toolbar{gap:8px 6px;flex-wrap:wrap;}
+  .map-controls .map-btn{padding:0 9px;}
+  .map-controls .map-zoom{gap:4px;margin-left:0;flex-basis:100%;justify-content:center;}
+  /* Les trois onglets et, dessous, + et -, centres (8 octobre 2026). */
+  .map-controls .map-toolbar{width:100%;justify-content:center;}
+  .map-controls .map-zoom-btn{min-width:30px;}
+}
+/* Telephone : la date du curseur n'a plus sa ligne ; une bulle suit la
+   poignee quand on s'en sert (initBulleCurseur, 8 octobre 2026). */
+.curseur-bulle{display:none;}
+@media (max-width:760px){
+  .map-controls .map-timeline-date{display:none;}
+  .map-timeline{position:relative;}
+  /* Place pour la bulle entre les boutons de zoom et le curseur. */
+  #timelineSlider{margin-top:10px;}
+  .curseur-bulle{display:block;position:absolute;transform:translateX(-50%);z-index:5;pointer-events:none;
+    padding:4px 9px;border-radius:8px;background:var(--ink);color:var(--bg);
+    font:600 12.5px var(--font-sans);white-space:nowrap;
+    opacity:0;transition:opacity .2s ease;}
+  .curseur-bulle::after{content:"";position:absolute;left:50%;bottom:-4px;margin-left:-4px;border:4px solid transparent;border-top-color:var(--ink);border-bottom:0;}
+  .curseur-bulle.is-visible{opacity:1;}
+}
+/* Telephone (8 octobre 2026, demande du proprietaire) : sans la note « Certains
+   bulletins ne detaillent pas les zones… » sous le curseur. */
+@media (max-width:760px){ .map-timeline-note{display:none !important;} }
+/* Accueil, sous la grille des provinces : « Ensemble du pays » et, dessous,
+   « Hors de RDC », sur tous les ecrans (8 octobre 2026). */
+.pm-liens{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:14px;}
+.pm-liens .teaser-more{margin-top:0;}
+/* Telephone, accueil (8 octobre 2026) : plus de boite dans la boite autour de
+   la carte. Le grand cadre blanc, la bordure arrondie de la carte et le cadre
+   du panneau des chiffres disparaissent ; la carte prend toute la largeur
+   utile (312 px au lieu de 288 a 360 px) et le panneau passe aux filets. */
+@media (max-width:760px){
+  .page-accueil .carto-layout{background:none;box-shadow:none;padding:0;border-radius:0;}
+  .page-accueil .carto-layout::before,.page-accueil .carto-layout::after{display:none;}
+  .page-accueil .zonemap-stage{border:0;border-radius:0;background:none;}
+  .page-accueil .carto-detail{background:none;border:0;border-radius:0;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;}
+}
+/* Provinces de l'accueil en liste compacte sur telephone (8 octobre 2026) :
+   ~350 px au lieu de ~1 100 pour la mosaique. Barre = part des cas du pays. */
+.pl{display:none;}
+@media (max-width:760px){
+  .page-accueil .pm{display:none;}
+  .pl{display:block;border-top:1px solid var(--line);}
+  /* Colonne de droite a largeur fixe : toutes les barres ont la meme
+     longueur, sinon la comparaison est faussee. */
+  .pl-l{display:grid;grid-template-columns:1fr 96px;align-items:center;column-gap:14px;row-gap:3px;
+    padding:9px 0 10px;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;}
+  .pl-nom{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;}
+  .pl-nom::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--teinte);flex:none;}
+  .pl-cas{font:700 20px/1 "Bricolage Grotesque",var(--font-sans);font-stretch:87.5%;font-variant-numeric:tabular-nums;text-align:right;}
+  .pl-barre{height:5px;border-radius:3px;background:color-mix(in srgb,var(--teinte) 14%,var(--bg));overflow:hidden;}
+  .pl-barre i{display:block;height:100%;width:max(var(--part),3px);background:var(--teinte);border-radius:3px;}
+  .pl-dec{font-size:12px;color:var(--ink-dim);text-align:right;white-space:nowrap;}
+}
+/* Telephone, accueil (8 octobre 2026) : titres de section centres, avec leur
+   ligne de sous-titre ; le grand titre de la page reste a gauche. */
+@media (max-width:760px){
+  .page-accueil main .section-title,
+  .page-accueil main .section-sub{text-align:center;}
+  .page-accueil main .section-head,
+  .page-accueil main .section-split > div:first-child{text-align:center;justify-content:center;align-items:center;}
+}
+/* Menu du telephone a deux niveaux (8 octobre 2026). Niveau 1 : les onglets
+   principaux seuls, en grandes lignes a fleche. Niveau 2 (.is-niv2, pose par
+   app.js) : les pages de l'onglet choisi, sous « ‹ Retour » et son nom. */
+.menu-niv2-tete{display:none;}
+@media (max-width:900px){
+  .side-panel .side-nav .nav-grp > .nav-grp-btn.side-nav-title{
+    display:flex;align-items:center;justify-content:space-between;cursor:pointer;
+    font:600 22px/1.2 var(--font-serif);text-transform:none;letter-spacing:-.01em;color:var(--ink);
+    padding:16px 2px;margin:0;border-bottom:1px solid var(--line);}
+  .side-panel .side-nav .nav-grp > .nav-grp-btn.side-nav-title::after{display:none;}
+  .side-panel .side-nav .nav-grp > .nav-grp-btn svg{display:block;width:14px;height:14px;transform:rotate(-90deg);color:var(--ink-faint);flex:none;}
+  .side-panel .side-nav .nav-grp .nav-pop{display:none;}
+  /* Niveau 2 */
+  .side-panel.is-niv2 .menu-niv2-tete{display:block;}
+  .side-panel.is-niv2 .side-nav .nav-grp:not(.is-actif){display:none;}
+  .side-panel.is-niv2 .side-nav .nav-grp.is-actif > .nav-grp-btn{display:none;}
+  .side-panel.is-niv2 .side-nav .nav-grp.is-actif .nav-pop{display:block;}
+  /* Liens et intertitres sur la meme marge que « Retour » et le titre. */
+  .side-panel.is-niv2 .nav-pop a,.side-panel.is-niv2 .nav-pop .nav-col-titre{padding-left:0;padding-right:0;margin-left:0;}
+  .side-panel.is-niv2 .nav-pop .nav-cols,.side-panel.is-niv2 .nav-pop .nav-col{padding-left:0;margin-left:0;}
+  .side-panel.is-niv2 > :not(.menu-niv2-tete):not(.side-nav):not(nav){display:none;}
+  .menu-retour{appearance:none;border:0;background:none;padding:6px 0;margin:0 0 6px -2px;cursor:pointer;
+    font:600 15px var(--font-sans);color:var(--accent-strong);}
+  /* Au second niveau, le nom de l'onglet se fait discret (etiquette) et ce
+     sont les pages qui ressortent (8 octobre 2026). */
+  .menu-niv2-titre{margin:2px 0 4px;padding-bottom:10px;border-bottom:1px solid var(--line);
+    font:600 11.5px/1.3 var(--font-sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);}
+  .side-panel.is-niv2 .nav-pop a .nav-t,.side-panel.is-niv2 .nav-pop a{font:500 20px/1.25 var(--font-serif);color:var(--ink);}
+  .side-panel.is-niv2 .nav-pop a{padding-top:11px;padding-bottom:11px;}
+  .side-panel{overflow-x:hidden;}
+}
+/* Cinq onglets depuis « Face a l'epidemie » (8 octobre 2026) : entre 901 et
+   1060 px la barre debordait sur les langues (« Le site » a 780 px, langues a
+   749 a 905 px de large). On y resserre les onglets. */
+@media (min-width:901px) and (max-width:1060px){
+  .side-nav .nav-grp-btn{padding:8px 6px;font-size:13.5px;gap:4px;}
+}
+/* Explorer n'a plus que deux colonnes depuis l'onglet « Face a l'epidemie »
+   (8 octobre 2026) : la grille a trois colonnes laissait un vide a droite. Le
+   panneau prend la largeur de ses deux colonnes. */
+@media (min-width:901px){
+  .nav-cols{grid-template-columns:minmax(300px,1.2fr) minmax(235px,1fr);width:min(620px,calc(100vw - 2 * var(--gutter)));}
+  .nav-grp-cols .nav-pop{width:fit-content;max-width:calc(100% - 16px);}
+}

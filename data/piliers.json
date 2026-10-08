@@ -1457,7 +1457,8 @@
      "Tshopo": 1375,
      "Bas-Uélé": 459
     },
-    "rupture": false
+    "rupture": false,
+    "national": 1834
    },
    "source": "SitRep INSP (automatique)"
   },
@@ -2618,10 +2619,10 @@
    "vaccination": {
     "cumulParProvince": {
      "Ituri": 602,
-     "Bas-Uélé": 1019,
-     "Tshopo": 6897
+     "Bas-Uélé": 1019
     },
     "rupture": false,
+    "national": 6897,
     "provinces": {
      "Ituri": {
       "cumul": 602

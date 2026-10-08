@@ -1,0 +1,225 @@
+{
+  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche).",
+  "maj": "2026-10-08",
+  "pays": [
+    {
+      "id": "ouganda",
+      "etat": "fini",
+      "nom": {
+        "fr": "Ouganda",
+        "en": "Uganda",
+        "sw": "Uganda"
+      },
+      "statut": {
+        "fr": "Épidémie terminée le 27 août 2026",
+        "en": "Outbreak over on 27 August 2026",
+        "sw": "Mlipuko ulimalizika tarehe 27 Agosti 2026"
+      },
+      "chiffres": [
+        {
+          "n": "20",
+          "l": {
+            "fr": "cas confirmés, et 1 probable",
+            "en": "confirmed cases, plus 1 probable",
+            "sw": "wagonjwa waliothibitishwa, na 1 anayeshukiwa"
+          }
+        },
+        {
+          "n": "2",
+          "l": {
+            "fr": "décès confirmés, et 1 probable",
+            "en": "confirmed deaths, plus 1 probable",
+            "sw": "vifo vilivyothibitishwa, na 1 kinachoshukiwa"
+          }
+        },
+        {
+          "n": "21 juin",
+          "nEn": "21 June",
+          "nSw": "21 Juni",
+          "l": {
+            "fr": "dernier cas",
+            "en": "last case",
+            "sw": "mgonjwa wa mwisho"
+          }
+        }
+      ],
+      "texte": {
+        "fr": [
+          "L'Ouganda a été le premier pays touché hors de RDC. Les 15 et 16 mai 2026, deux malades venus de RDC sont confirmés à Kampala, sans lien entre eux ; l'un des deux meurt. Le premier, un homme de 59 ans, avait été hospitalisé dans la capitale le 11 mai.",
+          "Le virus s'est ensuite transmis sur place. Au 24 mai, on compte 7 cas, dont le chauffeur qui avait transporté le premier malade et un agent de santé congolais qui accompagnait ses compatriotes venus se faire soigner. Fin mai, les cas touchent aussi le district voisin de Wakiso, dans l'agglomération de Kampala, et cinq soignants figurent parmi les malades. Le dernier cas confirmé est identifié le 21 juin.",
+          "Au total, l'Ouganda a compté 20 cas confirmés (13 hommes et 7 femmes) et un cas probable, dont trois décès : deux confirmés, un probable. 831 contacts ont été identifiés et suivis. Le dernier malade est sorti de l'hôpital le 16 juillet ; après 42 jours sans nouveau cas, l'épidémie a pris fin le 27 août."
+        ],
+        "en": [
+          "Uganda was the first country affected outside the DRC. On 15 and 16 May 2026, two patients who had come from the DRC were confirmed in Kampala, with no link between them; one of them died. The first, a 59-year-old man, had been admitted to hospital in the capital on 11 May.",
+          "The virus then spread locally. By 24 May there were 7 cases, including the driver who had transported the first patient and a Congolese health worker who accompanied fellow nationals seeking care. By the end of May, cases had also reached the neighbouring district of Wakiso, within the Kampala metropolitan area, and five health workers were among the patients. The last confirmed case was identified on 21 June.",
+          "In all, Uganda recorded 20 confirmed cases (13 men and 7 women) and one probable case, with three deaths: two confirmed, one probable. 831 contacts were identified and followed. The last patient left hospital on 16 July; after 42 days without a new case, the outbreak ended on 27 August."
+        ],
+        "sw": [
+          "Uganda ilikuwa nchi ya kwanza kuathirika nje ya DRC. Tarehe 15 na 16 Mei 2026, wagonjwa wawili waliotoka DRC walithibitishwa Kampala, bila uhusiano kati yao; mmoja wao alifariki. Wa kwanza, mwanamume wa miaka 59, alikuwa amelazwa hospitalini katika mji mkuu tarehe 11 Mei.",
+          "Kisha virusi vilienea ndani ya nchi. Kufikia tarehe 24 Mei kulikuwa na wagonjwa 7, akiwemo dereva aliyembeba mgonjwa wa kwanza na mhudumu wa afya Mkongo aliyewasindikiza wenzake waliokuja kutibiwa. Mwishoni mwa Mei, wagonjwa walipatikana pia katika wilaya jirani ya Wakiso, ndani ya eneo la jiji la Kampala, na wahudumu watano wa afya walikuwa miongoni mwa wagonjwa. Mgonjwa wa mwisho aliyethibitishwa alipatikana tarehe 21 Juni.",
+          "Kwa jumla, Uganda ilirekodi wagonjwa 20 waliothibitishwa (wanaume 13 na wanawake 7) na mmoja anayeshukiwa, na vifo vitatu: viwili vilivyothibitishwa, kimoja kinachoshukiwa. Watu 831 wa karibu walitambuliwa na kufuatiliwa. Mgonjwa wa mwisho aliruhusiwa kutoka hospitalini tarehe 16 Julai; baada ya siku 42 bila mgonjwa mpya, mlipuko ulimalizika tarehe 27 Agosti."
+        ]
+      },
+      "sources": [
+        {
+          "l": {
+            "fr": "OMS, rapports de situation hebdomadaires n° 1 à 16 (18 mai – 30 août 2026)",
+            "en": "WHO, weekly situation reports no. 1 to 16 (18 May – 30 August 2026)",
+            "sw": "WHO, ripoti za kila wiki na. 1 hadi 16 (18 Mei – 30 Agosti 2026)"
+          },
+          "url": "/reports/who/WHO_WeeklyExtSitRep_16_2026-08-30.pdf"
+        },
+        {
+          "l": {
+            "fr": "OMS, Disease Outbreak News, 3 juillet 2026",
+            "en": "WHO, Disease Outbreak News, 3 July 2026",
+            "sw": "WHO, Disease Outbreak News, 3 Julai 2026"
+          },
+          "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON612"
+        }
+      ],
+      "premier": "2026-05-15"
+    },
+    {
+      "id": "france",
+      "etat": "fini",
+      "nom": {
+        "fr": "France",
+        "en": "France",
+        "sw": "Ufaransa"
+      },
+      "statut": {
+        "fr": "Cas importé, guéri ; aucune transmission",
+        "en": "Imported case, recovered; no transmission",
+        "sw": "Mgonjwa kutoka nje, amepona; hakuna maambukizi"
+      },
+      "chiffres": [
+        {
+          "n": "1",
+          "l": {
+            "fr": "cas confirmé",
+            "en": "confirmed case",
+            "sw": "mgonjwa aliyethibitishwa"
+          }
+        },
+        {
+          "n": "0",
+          "l": {
+            "fr": "décès",
+            "en": "deaths",
+            "sw": "vifo"
+          }
+        }
+      ],
+      "texte": {
+        "fr": [
+          "Le seul cas hors d'Afrique est celui d'un médecin déployé cinq semaines en Ituri, où il soignait des malades d'Ebola. À son arrivée à l'aéroport Charles-de-Gaulle, le 23 juin 2026, il signale lui-même ses symptômes aux services sanitaires. Il n'a pas de fièvre, mais il est isolé aussitôt dans un établissement de haut niveau de confinement, où un test PCR détecte le virus Bundibugyo. La France le notifie à l'OMS le 24 juin.",
+          "Les cinq passagers assis près de lui dans l'avion sont placés en quarantaine ; tous terminent leurs 21 jours de suivi sans tomber malades. En RDC, 107 de ses contacts sont suivis à Kinshasa. Le médecin guérit : il sort de l'hôpital le 4 juillet, après deux tests PCR négatifs. Aucune transmission n'a eu lieu en France."
+        ],
+        "en": [
+          "The only case outside Africa is a doctor who had been deployed for five weeks in Ituri, caring for Ebola patients. On arrival at Charles de Gaulle Airport on 23 June 2026, he reported his symptoms himself to the airport health services. He had no fever, but was isolated at once in a high-containment facility, where a PCR test detected Bundibugyo virus. France notified WHO on 24 June.",
+          "The five passengers seated near him on the plane were quarantined; all completed their 21 days of follow-up without falling ill. In the DRC, 107 of his contacts were followed in Kinshasa. The doctor recovered: he left hospital on 4 July after two negative PCR tests. There was no transmission in France."
+        ],
+        "sw": [
+          "Mgonjwa pekee nje ya Afrika ni daktari aliyekuwa amepelekwa Ituri kwa wiki tano, akiwahudumia wagonjwa wa Ebola. Alipofika uwanja wa ndege wa Charles-de-Gaulle tarehe 23 Juni 2026, aliripoti mwenyewe dalili zake kwa huduma za afya za uwanja. Hakuwa na homa, lakini alitengwa mara moja katika kituo chenye kiwango cha juu cha udhibiti, ambapo kipimo cha PCR kiligundua virusi vya Bundibugyo. Ufaransa iliiarifu WHO tarehe 24 Juni.",
+          "Abiria watano waliokaa karibu naye ndani ya ndege waliwekwa karantini; wote walimaliza siku 21 za ufuatiliaji bila kuugua. Nchini DRC, watu 107 wa karibu naye walifuatiliwa Kinshasa. Daktari alipona: aliruhusiwa kutoka hospitalini tarehe 4 Julai baada ya vipimo viwili vya PCR kuwa hasi. Hakukuwa na maambukizi nchini Ufaransa."
+        ]
+      },
+      "sources": [
+        {
+          "l": {
+            "fr": "OMS, Disease Outbreak News, 3 juillet 2026",
+            "en": "WHO, Disease Outbreak News, 3 July 2026",
+            "sw": "WHO, Disease Outbreak News, 3 Julai 2026"
+          },
+          "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON612"
+        },
+        {
+          "l": {
+            "fr": "OMS, rapports de situation hebdomadaires n° 7 à 16 (28 juin – 30 août 2026)",
+            "en": "WHO, weekly situation reports no. 7 to 16 (28 June – 30 August 2026)",
+            "sw": "WHO, ripoti za kila wiki na. 7 hadi 16 (28 Juni – 30 Agosti 2026)"
+          },
+          "url": "/reports/who/WHO_WeeklyExtSitRep_12_2026-08-02.pdf"
+        }
+      ],
+      "premier": "2026-06-24"
+    },
+    {
+      "id": "kenya",
+      "etat": "cours",
+      "nom": {
+        "fr": "Kenya",
+        "en": "Kenya",
+        "sw": "Kenya"
+      },
+      "statut": {
+        "fr": "Cas confirmé le 6 octobre 2026, contacts sous surveillance",
+        "en": "Case confirmed on 6 October 2026, contacts under monitoring",
+        "sw": "Mgonjwa alithibitishwa tarehe 6 Oktoba 2026, watu wa karibu wanafuatiliwa"
+      },
+      "chiffres": [
+        {
+          "n": "1",
+          "l": {
+            "fr": "cas confirmé",
+            "en": "confirmed case",
+            "sw": "mgonjwa aliyethibitishwa"
+          }
+        },
+        {
+          "n": "1",
+          "l": {
+            "fr": "décès",
+            "en": "death",
+            "sw": "kifo"
+          }
+        }
+      ],
+      "texte": {
+        "fr": [
+          "Le Kenya a confirmé son premier cas le 6 octobre 2026. Le malade, un Kényan qui vivait en RDC, y avait été soigné dans plusieurs structures de santé. Le 2 octobre, il a rejoint Kampala par la route en passant par Beni, puis a pris l'avion pour Nairobi, où il est arrivé le 3 octobre.",
+          "Isolé au Nairobi Hospital, il est mort dans la nuit du 5 octobre et a été enterré le 6 selon le protocole d'inhumation sécurisée. Le virus Bundibugyo a été détecté par le laboratoire national de référence en virologie et par l'Institut kényan de recherche médicale (KEMRI).",
+          "28 contacts, parmi lesquels des proches et des soignants, sont suivis, de même que les 23 passagers et 4 membres d'équipage du vol. Le pays se préparait depuis mai : plus de 652 000 voyageurs contrôlés à l'entrée, 267 échantillons suspects testés et environ 5 000 soignants formés."
+        ],
+        "en": [
+          "Kenya confirmed its first case on 6 October 2026. The patient, a Kenyan who lived in the DRC, had been treated there in several health facilities. On 2 October he travelled by road to Kampala via Beni, then flew to Nairobi, arriving on 3 October.",
+          "Isolated at Nairobi Hospital, he died on the night of 5 October and was buried on 6 October following the safe burial protocol. Bundibugyo virus was detected by the National Virology Reference Laboratory and by the Kenya Medical Research Institute (KEMRI).",
+          "28 contacts, including relatives and health workers, are being followed, as are the 23 passengers and 4 crew members of the flight. The country had been preparing since May: more than 652,000 travellers screened on entry, 267 suspected samples tested and about 5,000 health workers trained."
+        ],
+        "sw": [
+          "Kenya ilithibitisha mgonjwa wake wa kwanza tarehe 6 Oktoba 2026. Mgonjwa huyo, Mkenya aliyeishi DRC, alikuwa ametibiwa huko katika vituo kadhaa vya afya. Tarehe 2 Oktoba alisafiri kwa barabara hadi Kampala kupitia Beni, kisha akasafiri kwa ndege hadi Nairobi, alikofika tarehe 3 Oktoba.",
+          "Alitengwa katika Nairobi Hospital, akafariki usiku wa tarehe 5 Oktoba na akazikwa tarehe 6 kwa kufuata utaratibu wa mazishi salama. Virusi vya Bundibugyo viligunduliwa na maabara ya kitaifa ya marejeleo ya virusi na Taasisi ya Utafiti wa Kitabibu ya Kenya (KEMRI).",
+          "Watu 28 wa karibu, wakiwemo jamaa na wahudumu wa afya, wanafuatiliwa, pamoja na abiria 23 na wafanyakazi 4 wa ndege. Nchi ilikuwa ikijiandaa tangu Mei: wasafiri zaidi ya 652 000 walikaguliwa wanapoingia, sampuli 267 zinazoshukiwa zilipimwa na wahudumu wa afya karibu 5 000 walipewa mafunzo."
+        ]
+      },
+      "sources": [
+        {
+          "l": {
+            "fr": "OMS Afrique, 6 octobre 2026",
+            "en": "WHO Africa, 6 October 2026",
+            "sw": "WHO Afrika, 6 Oktoba 2026"
+          },
+          "url": "https://www.afro.who.int/countries/kenya/news/kenya-confirms-first-imported-bundibugyo-virus-disease-case-who-supports-control-efforts"
+        },
+        {
+          "l": {
+            "fr": "Ministère kényan de la Santé, 6 octobre 2026",
+            "en": "Kenya Ministry of Health, 6 October 2026",
+            "sw": "Wizara ya Afya ya Kenya, 6 Oktoba 2026"
+          },
+          "url": "https://www.health.go.ke/kenya-confirms-first-imported-case-bundibugyo-ebola-virus-disease"
+        },
+        {
+          "l": {
+            "fr": "Associated Press, 6 octobre 2026 (Nairobi Hospital)",
+            "en": "Associated Press, 6 October 2026 (Nairobi Hospital)",
+            "sw": "Associated Press, 6 Oktoba 2026 (Nairobi Hospital)"
+          },
+          "url": "https://www.bostonglobe.com/2026/10/06/business/man-living-congo-who-returned-kenya-is-countrys-first-confirmed-ebola-case-first-death/"
+        }
+      ],
+      "premier": "2026-10-06"
+    }
+  ]
+}

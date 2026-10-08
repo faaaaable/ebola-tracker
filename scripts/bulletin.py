@@ -424,9 +424,15 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # dernier cumul connu de chaque province a la date de la lettre, en
         # datant ceux qui viennent d'un bulletin anterieur.
         connus, avant, debut = {}, {}, None
+        # Dernier total national publie (choix de Fable, 7 octobre 2026) : il
+        # l'emporte sur la somme des provinces tant que celle-ci ne le depasse
+        # pas, pour qu'un total cumule ne baisse jamais.
+        nat_vacc = None
         for e in piliers_data.get("parDate", []):
             if e["date"] > date:
                 break
+            if (e.get("vaccination") or {}).get("national") is not None:
+                nat_vacc = (e["vaccination"]["national"], e["date"])
             for prov, v in ((e.get("vaccination") or {}).get("cumulParProvince") or {}).items():
                 # Le cumul precedent de CETTE province, pour en tirer le chiffre
                 # du jour : le bulletin ne publie jamais de vaccines du jour,
@@ -447,7 +453,12 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                     else:
                         items.append(P("lettreVaccinItemDate", n=fmt(v, lang), the=f["the"], date=long_date(d_, i18n_lang), **{"in": f["in"]}))
                 total = sum(v for v, _ in connus.values())
-                s6 = P("lettreVaccination", total=fmt(total, lang), debut=long_date(debut, i18n_lang), detail=_liste(items, et))
+                if nat_vacc and nat_vacc[0] > total:
+                    total = nat_vacc[0]
+                    s6 = P("lettreVaccinationNational", total=fmt(total, lang), debut=long_date(debut, i18n_lang),
+                           date=long_date(nat_vacc[1], i18n_lang), detail=_liste(items, et))
+                else:
+                    s6 = P("lettreVaccination", total=fmt(total, lang), debut=long_date(debut, i18n_lang), detail=_liste(items, et))
                 cases += kpi("vaccin", S["lettreKpiVaccin"], fmt(total, lang), P("lettreKpiVaccinSub", date=long_date(debut, i18n_lang)))
                 # Ce que la journee a ajoute, province par province.
                 neufs = []
@@ -544,7 +555,23 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     archive_html += '<details class="ag-lexique"><summary>%s</summary><ul>%s</ul></details>' % (
         esc(S["lettreLexiqueTitre"]), "".join('<li>%s</li>' % esc(x) for x in lex))
     html.append('  <section class="section">\n    <p class="map-note lettre-pied">%s</p>\n  </section>\n' % pied_html)
-    tete = {"num": num, "date": long_date(date, i18n_lang), "publie": long_date(meta.get("publicationDate") or date, i18n_lang),
+    # La une du quotidien (6 octobre 2026) : manchette, encadre des chiffres
+    # et nouveaux cas des 30 derniers jours jusqu'a ce bulletin.
+    jusque = [x for x in serie if x["date"] <= date and x.get("confirmed") is not None]
+    nouv30 = [(jusque[i]["date"], max(0, jusque[i]["confirmed"] - jusque[i - 1]["confirmed"])) for i in range(1, len(jusque))][-30:]
+    if nouv30:
+        mx = max(v for _, v in nouv30) or 1
+        w = 100.0 / len(nouv30)
+        rects = "".join('<rect x="%.2f" y="%.1f" width="%.2f" height="%.1f"%s><title>%s : %s</title></rect>'
+                        % (i * w + w * .12, 56 - v / mx * 52, w * .76, v / mx * 52, ' class="is-der"' if i == len(nouv30) - 1 else "",
+                           esc(long_date(d, i18n_lang)), fmt(v, lang)) for i, (d, v) in enumerate(nouv30))
+        barres = '<svg class="lq-barres" viewBox="0 0 100 56" preserveAspectRatio="none" aria-hidden="true">%s</svg>' % rects
+    else:
+        barres = ""
+    une = {"titre": P("lettreManchette", cas=fmt(nat.get("newCases24h"), lang), deces=fmt(nat.get("newDeaths24h"), lang)),
+           "cas": fmt(nat.get("confirmed"), lang), "deces": fmt(nat.get("deaths"), lang), "cfr": fmt_cfr(nat.get("cfr"), lang),
+           "plus_cas": plus(nat.get("newCases24h")), "plus_deces": plus(nat.get("newDeaths24h")), "barres": barres}
+    tete = {"une": une, "num": num, "date": long_date(date, i18n_lang), "publie": long_date(meta.get("publicationDate") or date, i18n_lang),
             "objet": objet, "jour": jour, "ref": meta.get("sitrepRef") or "", "pdf": pdf, "pied": pied, "pied_html": pied_html, "sous": sous_titre,
             "nav_html": nav_html, "archive_html": archive_html}
     return {"seed.bulletinAgence": assembler_agence(tete, chapitres, S, esc, interp)}
@@ -555,30 +582,38 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
 # variantes cadres, gazette et revue ont ete supprimees le meme jour).
 # ---------------------------------------------------------------------------
 def assembler_agence(t, chapitres, S, esc, interp):
-    """Une depeche : bande ambre, manchette centree (sans objet encadre
-    depuis le 8 septembre 2026), prose a gauche et colonne des chiffres a
-    droite, qui suit le defilement."""
-    prose_all = "".join('<section class="ag-chap" id="%s"><h2 class="ag-titre"><span>%s</span>%s</h2>%s</section>' % (ident, n, esc(titre), prose) for ident, n, titre, prose, _ in chapitres)
-    # Les Defis n'ont pas de chiffres : leurs textes complets restent dans la prose.
-    chiffres_all = "".join('<div class="ag-bloc"><div class="ag-bloc-titre">%s</div>%s</div>' % (esc(titre), chiffres) for ident, n, titre, _, chiffres in chapitres if chiffres and ident != "defis")
-    # Sur telephone, les colonnes n'existent plus : chaque chapitre porte
-    # ses chiffres juste sous sa prose (.ag-chiffres-inline, visible sous
-    # 900 px), et la colonne de droite se cache. Sur ordinateur c'est
-    # l'inverse. Le meme bloc est donc rendu deux fois (8 septembre 2026).
-    prose_all = "".join('<section class="ag-chap" id="%s"><h2 class="ag-titre"><span>%s</span>%s</h2>%s%s</section>'
-                        % (ident, n, esc(titre), prose,
-                           (chiffres if ident == "defis" else ('<div class="ag-chiffres-inline">%s</div>' % chiffres if chiffres else "")))
-                        for ident, n, titre, prose, chiffres in chapitres)
-    out = ['<div class="ag">',
-           # Manchette centree (8 septembre 2026) : le nom en tres grand au
-           # milieu, puis edition et date sur une ligne, puis le sous-titre.
+    """La lettre en « quotidien » (6 octobre 2026, option 1 du proprietaire :
+    l'ancienne mise en page faisait « trop scolaire ») : une de journal avec
+    numero, titre et date, manchette sur les chiffres du jour, chapeau et
+    premier chapitre a gauche, encadre des chiffres et courbe des 30 jours a
+    droite ; les autres chapitres en colonnes separees de filets ; les
+    chiffres des chapitres (tableau des provinces, riposte) en bas."""
+    u = t["une"]
+    premier = chapitres[0]
+    autres = chapitres[1:]
+    cols = "".join('<section class="lq-art" id="%s"><h2><span>%s</span> %s</h2>%s</section>' % (ident, n, esc(titre), prose)
+                   for ident, n, titre, prose, _ in autres)
+    chiffres = "".join('<div class="lq-bloc"><h3>%s</h3>%s</div>' % (esc(titre), ch)
+                       for ident, n, titre, prose, ch in autres if ch and ident != "defis")
+    out = ['<div class="lq">',
+           # En-tete de l'ancienne lettre gardee (6 octobre 2026, demande du
+           # proprietaire) : bande, nom en capitales, edition et date, sous-titre.
            '<header class="ag-tete"><div class="ag-barre"></div><div class="ag-manchette">'
            '<p class="ag-marque">%s</p>'
            '<p class="ag-edition"><span>%s</span><i></i><span>%s</span></p>'
            '<p class="ag-sous">%s</p></div>%s</header>'
            % (esc(S["lettreEyebrow"]), esc(S["agEdition"] % t["num"]), esc(interp(S["lettreSituationAu"], {"date": t["date"]})), esc(t["sous"]), t["nav_html"]),
-           '<div class="ag-grille"><div class="ag-prose"><p class="ag-jour">%s</p>%s</div><aside class="ag-chiffres"><div class="ag-chiffres-titre">%s</div>%s</aside></div>'
-           % (esc(t["jour"]), prose_all, esc(S["agChiffres"]), chiffres_all),
-           # Navigation precedente / suivante repetee en bas (8 septembre 2026).
-           '<footer class="ag-pied">%s%s%s</footer></div>' % (t["nav_html"], t["pied_html"], t["archive_html"])]
+           '<div class="lq-grille"><div class="lq-principal" id="%s"><div class="lq-eyebrow">%s</div><h1 class="lq-titre">%s</h1>'
+           '<p class="lq-chapo">%s</p>%s</div>'
+           % (premier[0], esc(S["lettreUneEyebrow"]), esc(u["titre"]), esc(t["jour"]), premier[3]),
+           '<aside class="lq-encadre" aria-label="%s">'
+           '<div class="lq-chiffre is-cas"><b>%s</b><span>%s · %s</span></div>'
+           '<div class="lq-chiffre is-deces"><b>%s</b><span>%s · %s</span></div>'
+           '<div class="lq-chiffre"><b>%s</b><span>%s</span></div>'
+           '<div class="lq-mini">%s<span>%s</span></div></aside></div>'
+           % (esc(S["lettreUneChiffres"]), u["cas"], esc(S["lettreUneCas"]), u["plus_cas"], u["deces"], esc(S["lettreUneDeces"]), u["plus_deces"],
+              u["cfr"], esc(S["lettreUneCfr"]), u["barres"], esc(S["lettreUneCourbe"])),
+           '<div class="lq-cols">%s</div>' % cols,
+           ('<div class="lq-chiffres">%s</div>' % chiffres) if chiffres else "",
+           '<footer class="lq-pied">%s<p class="lq-ref">%s</p>%s</footer></div>' % (t["nav_html"], t["pied_html"], t["archive_html"])]
     return "\n".join(out)

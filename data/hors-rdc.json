@@ -1,0 +1,91 @@
+{
+  "_comment": "Pays touches hors de RDC (vue « Pays touches » de la carte de l'accueil, 8 octobre 2026). Sources ouvertes, pas les bulletins de l'INSP. Ouganda : OMS, Disease Outbreak News du 3 juillet 2026 (DON612 : 20 cas confirmes dont 2 deces, plus un cas probable decede ; cas a Kampala et Wakiso ; dernier cas identifie le 21 juin) et du 14 aout 2026 (DON615 : dernier malade sorti le 16 juillet, fin des 42 jours de surveillance le 27 aout). Aucune source lue ne repartit les 20 cas entre Kampala et Wakiso : les deux districts portent le total ensemble. Kasese (2 cas, cite par un resume de recherche) et une fin au 28 juillet n'ont ete confirmes par aucun rapport de l'OMS : ecartes. Kenya : ministere kenyan de la Sante et OMS Afrique, 6 octobre 2026 ; patient isole et decede au Nairobi Hospital. etat : cours ou fini. dernier vaut null pour un cas unique. unites : les districts (Ouganda) ou comtes (Kenya) touches, avec leurs cas, noms de site/geo/hors-rdc-admin.json. lon/lat : la ville du cas ; label : la place du nom du pays. La France (1 cas importe, gueri) a ete retiree de la carte le 8 octobre 2026, a la demande du proprietaire ; elle reste dans la chronologie. point : false retire le point sur la ville (Ouganda, 8 octobre 2026 : Kampala et Wakiso colories suffisent ; le Kenya garde le sien, Nairobi etant trop petit pour se voir).",
+  "pays": [
+    {
+      "a3": "UGA",
+      "etat": "fini",
+      "cas": 20,
+      "deces": 2,
+      "premier": "2026-05-15",
+      "dernier": "2026-06-21",
+      "ville": {
+        "fr": "Kampala",
+        "en": "Kampala",
+        "sw": "Kampala"
+      },
+      "lon": 32.58,
+      "lat": 0.35,
+      "label": [
+        32.5,
+        1.65
+      ],
+      "nom": {
+        "fr": "Ouganda",
+        "en": "Uganda",
+        "sw": "Uganda"
+      },
+      "note": {
+        "fr": "Kampala et Wakiso : 20 cas confirmés, répartition entre les deux districts non publiée. Un cas probable décédé, hors décompte. Fin de l'épidémie le 27 août 2026, au terme de 42 jours de surveillance.",
+        "en": "Kampala and Wakiso: 20 confirmed cases, split between the two districts not published. One probable case who died, not counted. Outbreak over on 27 August 2026, after 42 days of monitoring.",
+        "sw": "Kampala na Wakiso: wagonjwa 20 waliothibitishwa, mgawanyo kati ya wilaya hizo mbili haujachapishwa. Mgonjwa mmoja anayeshukiwa alifariki, hayumo kwenye hesabu. Mlipuko ulimalizika tarehe 27 Agosti 2026, baada ya siku 42 za ufuatiliaji."
+      },
+      "source": {
+        "fr": "OMS (bulletins du 3 juillet et du 14 août 2026)",
+        "en": "WHO (bulletins of 3 July and 14 August 2026)",
+        "sw": "WHO (taarifa za 3 Julai na 14 Agosti 2026)"
+      },
+      "unites": [
+        {
+          "noms": [
+            "Kampala",
+            "Wakiso"
+          ],
+          "cas": 20
+        }
+      ],
+      "point": false
+    },
+    {
+      "a3": "KEN",
+      "etat": "cours",
+      "cas": 1,
+      "deces": 1,
+      "premier": "2026-10-06",
+      "dernier": null,
+      "ville": {
+        "fr": "Nairobi",
+        "en": "Nairobi",
+        "sw": "Nairobi"
+      },
+      "lon": 36.82,
+      "lat": -1.29,
+      "label": [
+        38.0,
+        0.9
+      ],
+      "nom": {
+        "fr": "Kenya",
+        "en": "Kenya",
+        "sw": "Kenya"
+      },
+      "note": {
+        "fr": "Un Kényan qui vivait en RDC, passé par Beni et Kampala, isolé à son arrivée au Nairobi Hospital, où il est mort. 28 contacts suivis.",
+        "en": "A Kenyan who lived in the DRC, travelled via Beni and Kampala, isolated on arrival at Nairobi Hospital, where he died. 28 contacts followed.",
+        "sw": "Mkenya aliyeishi DRC, alipitia Beni na Kampala, alitengwa alipofika Nairobi Hospital, ambapo alifariki. Watu 28 wa karibu wanafuatiliwa."
+      },
+      "source": {
+        "fr": "ministère kényan de la Santé, OMS Afrique",
+        "en": "Kenya Ministry of Health, WHO Africa",
+        "sw": "Wizara ya Afya ya Kenya, WHO Afrika"
+      },
+      "unites": [
+        {
+          "noms": [
+            "Nairobi"
+          ],
+          "cas": 1
+        }
+      ]
+    }
+  ]
+}

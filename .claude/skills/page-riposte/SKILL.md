@@ -5,6 +5,8 @@ description: "La page Riposte & defis d'ebola-tracker : ses quatre cadres (alert
 
 # La page « Riposte & défis » (`/riposte/`, `/en/response/`, `/sw/mapambano/`)
 
+**Depuis le 3 octobre 2026 (en local, refonte non commitée), la page est coupée en deux** à la demande du propriétaire : `/riposte/` (bande claire + cadres 01 à 05, fragment `riposte.html`) et `/defis/` (`/en/challenges/`, `/sw/changamoto/`, fragment `defis.html` : bande sombre, grille par semaine, dix fiches, rendues par `defis_synthese.render()`). Les liens `#defi-<id>` des pages province pointent vers `/defis/`. Les passages ci-dessous qui parlent d'une seule page « Riposte & défis » ou d'une « seconde partie » sont à lire avec cette coupure.
+
 **Depuis le 7 septembre 2026 (publié le jour même, commit `5ae7d35`), c'est
 l'ancienne maquette `riposte-defis` qui vit à cette adresse**, décision du propriétaire : l'adresse
 ne bouge pas (indexée, liée, partagée), le fragment `site/pages/riposte.html`

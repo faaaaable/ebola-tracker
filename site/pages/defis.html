@@ -1,0 +1,27 @@
+  <section class="section maq-tete">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>{{t.navGrpExplore}}</div>
+        <h1 class="page-title">{{meta.h1}}</h1>
+      </div>
+    </div>
+
+    <p class="lede">{{t.defisLede}}</p>
+  </section>
+
+  <!-- Depuis le 3 octobre 2026 les defis ont leur page : la bande sombre, la
+       grille par semaine et les dix fiches vivaient a la suite de la riposte
+       (« Riposte & defis »), et sont rendues par defis_synthese.render(). -->
+  {{seed.defisSynthese}}
+
+  <section class="section section-split" id="plus-loin">
+    <div>
+      <h2 class="section-title">{{t.plusLoinTitle}}</h2>
+    </div>
+    <div>
+      <ul class="plus-loin">
+        <li><a href="{{url.riposte}}">{{t.defisLoin1Link}} →</a><span>{{t.defisLoin1Text}}</span></li>
+        <li><a href="{{url.rapports}}">{{t.defisLoin2Link}} →</a><span>{{t.defisLoin2Text}}</span></li>
+      </ul>
+    </div>
+  </section>

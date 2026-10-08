@@ -1,19 +1,15 @@
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow"><span class="dot"></span>{{t.navNewsTitle}}</div>
-        <h1 class="page-title">{{meta.h1}}</h1>
-      </div>
-    </div>
+  <!-- Nouvelles de l'epidemie en fil de presse (7 octobre 2026, option 1).
+       Les articles viennent de data/actus.json, tenu par
+       scripts/collecter_actus.py (workflow collecter-actus.yml) et rendus par
+       actus_items_html dans build_pages.py. Seuls les articles au statut
+       « publie » paraissent : ceux de ReliefWeb attendent d'etre valides. -->
+  <section class="section actus-tete">
+    <div class="eyebrow"><span class="dot"></span>{{t.navGrpNews}}</div>
+    <h1 class="page-title">{{meta.h1}}</h1>
     <p class="lede">{{t.actusLede}}</p>
-    <p class="page-intro">{{t.actusIntro}}</p>
+    <p class="actus-note">{{t.actusIntro}}</p>
+  </section>
 
-    <!-- Les articles viennent de data/actus.json, tenu par
-         scripts/collecter_actus.py (workflow collecter-actus.yml) et rendus
-         par actus_items_html dans build_pages.py. Seuls les articles au
-         statut « publie » paraissent : ceux de ReliefWeb attendent d'etre
-         valides. -->
-    <div class="actus">
+  <section class="section actus">
 {{actusItems}}
-    </div>
   </section>

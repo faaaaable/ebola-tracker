@@ -1,83 +1,73 @@
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow"><span class="dot"></span>{{t.footerSiteTitle}}</div>
-        <h1 class="page-title">{{meta.h1}}</h1>
-      </div>
-    </div>
-    <p class="lede">{{t.aboutLede}}</p>
-
-    <!-- Reperes tires des donnees : ils suivent l'archive sans intervention.
-         Meme composant .kpis que les autres pages depuis le 5 septembre. -->
-    <div class="kpis riposte-kpis" aria-label="{{t.aboutFactsTitle}}">
-      <div class="kpi">
-        <div class="label">{{t.aboutFactSourceKey}}</div>
-        <div class="value">{{t.aboutFactSourceValue}}</div>
-        <div class="delta">{{t.aboutFactSourceSub}}</div>
-      </div>
-      <div class="kpi">
-        <div class="label">{{t.aboutFactSinceKey}}</div>
-        <div class="value">{{about.since}}</div>
-        <div class="delta">{{t.aboutFactSinceSub}}</div>
-      </div>
-      <div class="kpi">
-        <div class="label">{{t.aboutFactReportsKey}}</div>
-        <div class="value">{{about.reports}}</div>
-        <div class="delta">{{about.reportsSub}}</div>
-      </div>
-      <div class="kpi">
-        <div class="label">{{t.aboutFactScopeKey}}</div>
-        <div class="value">{{about.scope}}</div>
-        <div class="delta">{{about.scopeSub}}</div>
-      </div>
-    </div>
+  <!-- « D'ou viennent les chiffres ? » (6 octobre 2026, maquette n°1 du
+       proprietaire, refaite) : la demonstration porte sur UN bulletin fige,
+       le SitRep 141 (situation au 2 octobre 2026), pour qu'aucun chiffre ne
+       bouge aux mises a jour. L'image est la page 1 du PDF rendue a 170 dpi et
+       recadree entre y = 95 et 565 pt ; les surlignages sont places en
+       pourcentage de cette zone, calcules depuis les positions des mots que
+       donne pdfplumber. -->
+  <section class="section about-tete">
+    <div class="eyebrow"><span class="dot"></span>{{t.footerSiteTitle}}</div>
+    <h1 class="page-title about-titre"><span class="visually-hidden">{{meta.h1}} — </span>{{t.aboutDemoTitle}}</h1>
+    <p class="lede">{{t.aboutDemoLede}}</p>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">{{t.aboutStepsTitle}}</h2>
-    </div>
-    <ol class="about-steps">
-      <li>
-        <h3>{{t.aboutStep1Title}}</h3>
-        <p>{{t.aboutStep1Body}}</p>
-      </li>
-      <li>
-        <h3>{{t.aboutStep2Title}}</h3>
-        <p>{{t.aboutStep2Body}}</p>
-      </li>
-      <li>
-        <h3>{{t.aboutStep3Title}}</h3>
-        <p>{{t.aboutStep3Body}}</p>
-      </li>
+  <section class="section dc">
+    <figure class="dc-doc">
+      <figcaption>{{t.aboutDemoCaption}} · <a href="/reports/SITREP_MVE_141.pdf" target="_blank" rel="noopener">{{t.aboutDemoOpen}}</a></figcaption>
+      <div class="dc-page">
+        <img src="/assets/img/sitrep141-p1.png" width="1445" height="1110" alt="{{t.aboutDemoAlt}}" loading="lazy">
+          <span class="dc-hl" data-n="1" style="left:12.81%;top:35.40%;width:7.39%;height:4.49%"><b>1</b></span>
+          <span class="dc-hl" data-n="1" style="left:57.81%;top:88.04%;width:5.23%;height:3.21%"></span>
+          <span class="dc-hl" data-n="2" style="left:26.47%;top:36.19%;width:7.17%;height:4.38%"><b>2</b></span>
+          <span class="dc-hl" data-n="2" style="left:77.43%;top:88.04%;width:5.21%;height:3.21%"></span>
+          <span class="dc-hl" data-n="3" style="left:39.89%;top:35.04%;width:7.42%;height:4.02%"><b>3</b></span>
+          <span class="dc-hl" data-n="3" style="left:34.93%;top:90.85%;width:5.67%;height:3.21%"></span>
+          <span class="dc-hl" data-n="4" style="left:53.14%;top:57.60%;width:2.63%;height:3.21%"><b>4</b></span>
+          <span class="dc-hl" data-n="5" style="left:67.19%;top:34.49%;width:7.37%;height:4.47%"><b>5</b></span>
+          <span class="dc-hl" data-n="6" style="left:11.44%;top:70.00%;width:2.47%;height:3.43%"><b>6</b></span>
+          <span class="dc-hl" data-n="6" style="left:21.05%;top:73.06%;width:3.28%;height:3.43%"></span>
+      </div>
+    </figure>
+    <ol class="dc-liste">
+        <li data-n="1"><span class="dc-n">1</span><div><div class="dc-v">{{t.aboutDemo1Value}}</div><div class="dc-q">{{t.aboutDemo1What}}</div><p>{{t.aboutDemo1Text}}</p></div></li>
+        <li data-n="2"><span class="dc-n">2</span><div><div class="dc-v">{{t.aboutDemo2Value}}</div><div class="dc-q">{{t.aboutDemo2What}}</div><p>{{t.aboutDemo2Text}}</p></div></li>
+        <li data-n="3"><span class="dc-n">3</span><div><div class="dc-v">{{t.aboutDemo3Value}}</div><div class="dc-q">{{t.aboutDemo3What}}</div><p>{{t.aboutDemo3Text}}</p></div></li>
+        <li data-n="4"><span class="dc-n">4</span><div><div class="dc-v">{{t.aboutDemo4Value}}</div><div class="dc-q">{{t.aboutDemo4What}}</div><p>{{t.aboutDemo4Text}}</p></div></li>
+        <li data-n="5"><span class="dc-n">5</span><div><div class="dc-v">{{t.aboutDemo5Value}}</div><div class="dc-q">{{t.aboutDemo5What}}</div><p>{{t.aboutDemo5Text}}</p></div></li>
+        <li data-n="6"><span class="dc-n">6</span><div><div class="dc-v">{{t.aboutDemo6Value}}</div><div class="dc-q">{{t.aboutDemo6What}}</div><p>{{t.aboutDemo6Text}}</p></div></li>
     </ol>
   </section>
 
-  <section class="section">
-    <div class="prose">
-      <h2 id="lecture">{{t.aboutReadingTitle}}</h2>
-      {{t.dataNoteBody}}
+  <!-- Bas de page « rubriques a filets » (7 octobre 2026, maquette n°1 de
+       tmp/proto-pages-1007h, choix de Fable) : les trois etapes en colonnes
+       sous un grand numero, la methode repliee entre filets comme la FAQ.
+       Le conteneur garde la classe about-acc : app.js ouvre la rubrique
+       visee par l'adresse (#lecture, #avertissement...). -->
+  <section class="section ap-f1">
+    <h2 class="ap-h2">{{t.aboutStepsTitle}}</h2>
+    <ol class="ap-etapes">
+      <li><span class="ap-n">01</span><h3>{{t.aboutStep1Title}}</h3><p>{{t.aboutStep1Body}}</p></li>
+      <li><span class="ap-n">02</span><h3>{{t.aboutStep2Title}}</h3><p>{{t.aboutStep2Body}}</p></li>
+      <li><span class="ap-n">03</span><h3>{{t.aboutStep3Title}}</h3><p>{{t.aboutStep3Body}}</p></li>
+    </ol>
+  </section>
 
-      <h2 data-i18n="aboutSourcesTitle">{{i18n.aboutSourcesTitle}}</h2>
-      <p data-i18n="aboutSourcesBody">{{i18n.aboutSourcesBody}}</p>
-
-      <h2 data-i18n="aboutMethodTitle">{{i18n.aboutMethodTitle}}</h2>
-      <p data-i18n="aboutMethodBody">{{i18n.aboutMethodBody}}</p>
-
-      <h2 data-i18n="aboutLimitationsTitle">{{i18n.aboutLimitationsTitle}}</h2>
-      <p data-i18n="aboutLimitationsBody">{{i18n.aboutLimitationsBody}}</p>
-
-      <h2 data-i18n="aboutUpdateTitle">{{i18n.aboutUpdateTitle}}</h2>
-      <p data-i18n="aboutUpdateBody">{{i18n.aboutUpdateBody}}</p>
-
-      <h2>{{t.aboutOpenDataTitle}}</h2>
-      <p>{{t.aboutOpenDataBody}}</p>
-
-      <h2 data-i18n="aboutDisclaimerTitle">{{i18n.aboutDisclaimerTitle}}</h2>
-      <p data-i18n="aboutDisclaimerBody">{{i18n.aboutDisclaimerBody}}</p>
-
-      <h2>{{t.aboutContactTitle}}</h2>
-      <p>{{t.aboutContactBody}} <a href="{{url.contact}}">{{i18n.tabContact}}</a></p>
-      {{seed.suivreXApropos}}
+  <section class="section ap-f1">
+    <h2 class="ap-h2">{{t.aboutDetailTitle}}</h2>
+    <p class="ap-sous">{{t.aboutDetailSub}}</p>
+    <div class="about-acc ap-acc">
+      <details id="lecture"><summary>{{t.aboutReadingTitle}}</summary><div class="prose">{{t.dataNoteBody}}</div></details>
+      <details id="sources"><summary data-i18n="aboutSourcesTitle">{{i18n.aboutSourcesTitle}}</summary><div class="prose"><p data-i18n="aboutSourcesBody">{{i18n.aboutSourcesBody}}</p></div></details>
+      <details id="methode"><summary data-i18n="aboutMethodTitle">{{i18n.aboutMethodTitle}}</summary><div class="prose"><p data-i18n="aboutMethodBody">{{i18n.aboutMethodBody}}</p></div></details>
+      <details id="limites"><summary data-i18n="aboutLimitationsTitle">{{i18n.aboutLimitationsTitle}}</summary><div class="prose"><p data-i18n="aboutLimitationsBody">{{i18n.aboutLimitationsBody}}</p></div></details>
+      <details id="frequence"><summary data-i18n="aboutUpdateTitle">{{i18n.aboutUpdateTitle}}</summary><div class="prose"><p data-i18n="aboutUpdateBody">{{i18n.aboutUpdateBody}}</p></div></details>
+      <details id="donnees"><summary>{{t.aboutOpenDataTitle}}</summary><div class="prose"><p>{{t.aboutOpenDataBody}}</p></div></details>
+      <details id="avertissement"><summary data-i18n="aboutDisclaimerTitle">{{i18n.aboutDisclaimerTitle}}</summary><div class="prose"><p data-i18n="aboutDisclaimerBody">{{i18n.aboutDisclaimerBody}}</p></div></details>
     </div>
+  </section>
+
+  <section class="section ap-f1 ap-fin">
+    <h2 class="ap-h2">{{t.aboutContactTitle}}</h2>
+    <p>{{t.aboutContactBody}} <a href="{{url.contact}}">{{i18n.tabContact}} →</a></p>
+    {{seed.suivreXApropos}}
   </section>

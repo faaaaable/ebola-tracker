@@ -65,6 +65,11 @@
   ]
 }
 </script>
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY2M5LDVN3"></script>
 <script>
@@ -77,7 +82,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=be5df8598f">
+<link rel="stylesheet" href="/assets/css/site.css?v=bb6180e19b">
 </head>
 <body>
 
@@ -134,44 +139,63 @@
     <div class="side-panel" id="menuPrincipal">
 
     <nav class="side-nav" aria-label="Urambazaji mkuu">
-      <div class="side-nav-title">Habari mpya</div>
-      <a href="/sw/barua/">Barua</a>
-      <a href="/sw/habari/">Habari za mlipuko <span class="nav-badge">Mpya</span></a>
-      <div class="side-nav-title">Chunguza</div>
-      <a href="/sw/">Muhtasari</a>
-      <div class="side-group">
-        <button class="side-toggle" type="button" aria-expanded="false"
-                aria-controls="zonesDropdown">
-          <span>Takwimu za kina</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="side-sub" id="zonesDropdown" hidden>
-          <a class="tab-dropdown-item" href="/sw/takwimu/"><span class="dot dot-all"></span>Nchi nzima</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/ituri/"><span class="dot" style="background:#005E82;"></span>Ituri</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/nord-kivu/"><span class="dot" style="background:#A06F30;"></span>Nord-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/haut-uele/"><span class="dot" style="background:#327957;"></span>Haut-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/tshopo/"><span class="dot" style="background:#6B5CA5;"></span>Tshopo</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/bas-uele/"><span class="dot" style="background:#993A2E;"></span>Bas-Uélé</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-kivu/"><span class="dot" style="background:#5A544C;"></span>Sud-Kivu</a>
-          <a class="tab-dropdown-item" href="/sw/takwimu/sud-ubangi/"><span class="dot" style="background:#B0487D;"></span>Sud-Ubangi</a>
-        </div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Habari</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/barua/"><span class="nav-t">Barua</span><span class="nav-desc">Muhtasari wa kila ripoti rasmi</span></a>
+      <a href="/sw/habari/"><span class="nav-t">Habari za mlipuko</span><span class="nav-desc">Makala yanayochapishwa kila siku</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Elewa</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/matukio/"><span class="nav-t">Matukio</span><span class="nav-desc">Kuanzia arifa ya kwanza hadi leo</span></a>
+      <a href="/sw/virusi/"><span class="nav-t">Virusi</span><span class="nav-desc">Bundibugyo: maambukizi, dalili</span></a>
+      <a href="/sw/maswali/"><span class="nav-t">Maswali</span><span class="nav-desc">Maswali yanayoulizwa mara nyingi</span></a>
+      <a href="/sw/kamusi/"><span class="nav-t">Kamusi</span><span class="nav-desc">Maneno ya ripoti, yakifafanuliwa</span></a>
+      </div></div>
+      <div class="nav-grp nav-grp-cols">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Chunguza</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <div class="nav-cols">
+      <div class="nav-col nav-col-compact">
+        <div class="nav-col-titre">Mwenendo wa mlipuko</div>
+        <a href="/sw/takwimu/"><span class="nav-t">Nchi nzima</span><span class="nav-desc">Mwenendo katika ngazi ya taifa</span></a>
+        <a href="/sw/takwimu/ituri/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Ituri</span><span class="nav-desc">Visa 6,513 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/nord-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">Visa 1,785 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/haut-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">Visa 364 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/tshopo/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Tshopo</span><span class="nav-desc">Visa 51 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/bas-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">Visa 10 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">Visa 3 vilivyothibitishwa</span></a>
+        <a href="/sw/takwimu/sud-ubangi/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">Visa 2 vilivyothibitishwa</span></a>
+        <a href="/sw/nchi-nyingine/"><span class="nav-t">Nchi nyingine</span><span class="nav-desc">Uganda, Ufaransa, Kenya</span></a>
       </div>
-      <a href="/sw/mapambano/">Mapambano na changamoto</a>
-      <div class="side-nav-title">Elewa</div>
-      <a href="/sw/matukio/">Matukio</a>
-      <a href="/sw/virusi/">Virusi</a>
-      <a href="/sw/ripoti/">Vyanzo na ripoti</a>
+      <div class="nav-col">
+        <div class="nav-col-titre">Takwimu za kina</div>
+        <a href="/sw/ripoti/"><span class="nav-t">Vyanzo na ripoti</span><span class="nav-desc">Ripoti zote za INSP</span></a>
+        <a href="/sw/hifadhidata/"><span class="nav-t">Hifadhidata <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu za tovuti, za kupakua</span></a>
+        <a href="/sw/dashibodi/"><span class="nav-t">Dashibodi <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu zote kwa wakati halisi</span></a>
+      </div>
+      </div>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Kukabili mlipuko</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/mapambano/"><span class="nav-t">Mapambano</span><span class="nav-desc">Hatua zinazochukuliwa kukomesha mlipuko</span></a>
+      <a href="/sw/changamoto/"><span class="nav-t">Changamoto</span><span class="nav-desc">Vikwazo vilivyokumbwa</span></a>
+      </div></div>
+      <div class="nav-grp">
+      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Tovuti</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="nav-pop">
+      <a href="/sw/kuhusu/" aria-current="page"><span class="nav-t">Kuhusu</span><span class="nav-desc">Mbinu, vyanzo, tahadhari</span></a>
+      <a href="/sw/mawasiliano/"><span class="nav-t">Mawasiliano</span><span class="nav-desc">Andikia timu</span></a>
+      </div></div>
     </nav>
 
     <div class="side-foot">
-      <!-- Fraicheur des donnees : une seule information qui compte, la date du
-           dernier bulletin officiel. La date de verification vient en second,
-           pour expliquer un eventuel ecart plutot que de le laisser en
-           suspens. -->
-      <div class="side-freshness">
-        <div id="autoUpdateNote"></div>
-        <div id="todayUpdateNote"></div>
-      </div>
+      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
+           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
+           existent : ils n'existent plus, et rien ne s'affiche. -->
 
       <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
            demande du proprietaire (les graphiques gardent le leur). A sa place,
@@ -186,96 +210,82 @@
   <div class="main">
     <div class="wrap">
 
-  <nav class="breadcrumb" aria-label="Njia ya kurasa">
-    <a href="/sw/">Mwanzo</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span aria-current="page">Kuhusu tovuti hii</span>
-  </nav>
+
 
       <main id="contenu">
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow"><span class="dot"></span>Tovuti</div>
-        <h1 class="page-title">Kuhusu tovuti hii</h1>
-      </div>
-    </div>
-    <p class="lede">Tovuti hii inakusanya, siku baada ya siku, kile mamlaka za Kongo zinachochapisha kuhusu mlipuko wa 17 wa Ebola, pamoja na ripoti za hali za WHO zinazoziongezea — na si kitu kingine.</p>
-
-    <!-- Reperes tires des donnees : ils suivent l'archive sans intervention.
-         Meme composant .kpis que les autres pages depuis le 5 septembre. -->
-    <div class="kpis riposte-kpis" aria-label="Kwa ufupi">
-      <div class="kpi">
-        <div class="label">Chanzo</div>
-        <div class="value">INSP na WHO</div>
-        <div class="delta">ripoti rasmi</div>
-      </div>
-      <div class="kpi">
-        <div class="label">Tangu</div>
-        <div class="value">14 Mei 2026</div>
-        <div class="delta">ripoti ya kwanza iliyohifadhiwa</div>
-      </div>
-      <div class="kpi">
-        <div class="label">Ripoti zilizohifadhiwa</div>
-        <div class="value">156</div>
-        <div class="delta">137 INSP, 19 WHO</div>
-      </div>
-      <div class="kpi">
-        <div class="label">Ufikiaji</div>
-        <div class="value">majimbo 7</div>
-        <div class="delta">maeneo 64 ya afya</div>
-      </div>
-    </div>
+  <!-- « D'ou viennent les chiffres ? » (6 octobre 2026, maquette n°1 du
+       proprietaire, refaite) : la demonstration porte sur UN bulletin fige,
+       le SitRep 141 (situation au 2 octobre 2026), pour qu'aucun chiffre ne
+       bouge aux mises a jour. L'image est la page 1 du PDF rendue a 170 dpi et
+       recadree entre y = 95 et 565 pt ; les surlignages sont places en
+       pourcentage de cette zone, calcules depuis les positions des mots que
+       donne pdfplumber. -->
+  <section class="section about-tete">
+    <div class="eyebrow"><span class="dot"></span>Tovuti</div>
+    <h1 class="page-title about-titre"><span class="visually-hidden">Kuhusu tovuti hii — </span>Takwimu<br>zinatoka wapi?</h1>
+    <p class="lede">Tovuti hii haitoi takwimu zake yenyewe. Kila kinachoonyeshwa kimesomwa katika ripoti rasmi ya Taasisi ya Taifa ya Afya ya Umma (INSP), iliyohifadhiwa na inayopatikana. Kuonyesha hilo, hii hapa ripoti moja, na kile tovuti hufanya na kila takwimu yake.</p>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 class="section-title">Kutoka ripoti hadi grafu</h2>
-    </div>
-    <ol class="about-steps">
-      <li>
-        <h3>Ripoti inahifadhiwa</h3>
-        <p>Kila PDF iliyochapishwa na INSP hupakuliwa na kuhifadhiwa kama ilivyo, vivyo hivyo ripoti za kila wiki za WHO zinazoongezea baadhi ya mfululizo. Nakala asili inabaki kupatikana, ndicho kinachofanya tarakimu za tovuti hii ziweze kuthibitishwa.</p>
-      </li>
-      <li>
-        <h3>Ripoti zinasomwa</h3>
-        <p>Programu husoma majedwali ya PDF, kisha kila ripoti husomwa yote — pamoja na maandishi ya utangulizi, ambayo maneno yake hubadilika kutoka ripoti moja hadi nyingine na wakati mwingine hubeba tarakimu zisizopo kwenye majedwali. Uthibitisho kwa hiyo pia ni wa mkono, ripoti kwa ripoti. Thamani isiyolingana hupuuzwa badala ya kukadiriwa.</p>
-      </li>
-      <li>
-        <h3>Tovuti inasasishwa</h3>
-        <p>Kwa kila ripoti mpya, kurasa zote za tovuti hutengenezwa upya na takwimu mpya. Unachosoma hapa ni hasa kile kilichohakikiwa kwenye ripoti — hakuna kinachohesabiwa upya unapofungua ukurasa.</p>
-      </li>
+  <section class="section dc">
+    <figure class="dc-doc">
+      <figcaption><b>SitRep Na. 141</b> · hali hadi tarehe 2 Oktoba 2026, iliyochapishwa na INSP tarehe 3 Oktoba · <a href="/reports/SITREP_MVE_141.pdf" target="_blank" rel="noopener">fungua PDF</a></figcaption>
+      <div class="dc-page">
+        <img src="/assets/img/sitrep141-p1.png" width="1445" height="1110" alt="Ukurasa wa kwanza wa SitRep Na. 141 ya INSP, takwimu kuu zimeangaziwa" loading="lazy">
+          <span class="dc-hl" data-n="1" style="left:12.81%;top:35.40%;width:7.39%;height:4.49%"><b>1</b></span>
+          <span class="dc-hl" data-n="1" style="left:57.81%;top:88.04%;width:5.23%;height:3.21%"></span>
+          <span class="dc-hl" data-n="2" style="left:26.47%;top:36.19%;width:7.17%;height:4.38%"><b>2</b></span>
+          <span class="dc-hl" data-n="2" style="left:77.43%;top:88.04%;width:5.21%;height:3.21%"></span>
+          <span class="dc-hl" data-n="3" style="left:39.89%;top:35.04%;width:7.42%;height:4.02%"><b>3</b></span>
+          <span class="dc-hl" data-n="3" style="left:34.93%;top:90.85%;width:5.67%;height:3.21%"></span>
+          <span class="dc-hl" data-n="4" style="left:53.14%;top:57.60%;width:2.63%;height:3.21%"><b>4</b></span>
+          <span class="dc-hl" data-n="5" style="left:67.19%;top:34.49%;width:7.37%;height:4.47%"><b>5</b></span>
+          <span class="dc-hl" data-n="6" style="left:11.44%;top:70.00%;width:2.47%;height:3.43%"><b>6</b></span>
+          <span class="dc-hl" data-n="6" style="left:21.05%;top:73.06%;width:3.28%;height:3.43%"></span>
+      </div>
+    </figure>
+    <ol class="dc-liste">
+        <li data-n="1"><span class="dc-n">1</span><div><div class="dc-v">8,442</div><div class="dc-q">visa vilivyothibitishwa hadi 2 Oktoba 2026</div><p>Ripoti inaitoa mara mbili: kwenye bango na kwenye muhtasari. Tovuti inahakikisha kwamba pia inalingana na jumla ya majimbo saba ya jedwali: 6,370 + 1,657 + 352 + 48 + 10 + 3 + 2 = 8,442.</p></div></li>
+        <li data-n="2"><span class="dc-n">2</span><div><div class="dc-v">4,080</div><div class="dc-q">vifo vilivyothibitishwa</div><p>Ukaguzi ule ule: bango, muhtasari, kisha jumla ya majimbo — 2,933 + 979 + 146 + 16 + 4 + 1 + 1 = 4,080.</p></div></li>
+        <li data-n="3"><span class="dc-n">3</span><div><div class="dc-v">48.3 %</div><div class="dc-q">kiwango cha vifo</div><p>Tovuti hainakili kiwango hiki: inakikokotoa upya, 4,080 ÷ 8,442 = 48.3 %. Kisingelingana na takwimu iliyochapishwa, tofauti ingeonyeshwa.</p></div></li>
+        <li data-n="4"><span class="dc-n">4</span><div><div class="dc-v">66</div><div class="dc-q">visa vipya kwa siku hiyo</div><p>Tovuti inahakikisha vinalingana na tofauti kati ya jumla mbili: 8,442 katika Na. 141 toa 8,376 katika Na. 140, yaani 66. Ndiyo nguzo ya tarehe 2 Oktoba katika chati ya visa vipya.</p></div></li>
+        <li data-n="5"><span class="dc-n">5</span><div><div class="dc-v">2,213</div><div class="dc-q">waliopona kwa jumla</div><p>Muhtasari unatangaza wagonjwa 31 waliotangazwa kupona siku hiyo; jumla inapanda kutoka 2,182 (Na. 140) hadi 2,213. Takwimu hizi mbili zinalingana.</p></div></li>
+        <li data-n="6"><span class="dc-n">6</span><div><div class="dc-v">64 / 167</div><div class="dc-q">kanda za afya zilizoathirika</div><p>Tovuti inatafuta kila moja ya kanda hizi 64 katika jedwali la kanda za afya la ripoti, kisha inaiweka kwenye ramani. Jina lililoandikwa tofauti (« Gety » au « Gethy ») linaoanishwa, kamwe halikisiwi.</p></div></li>
     </ol>
   </section>
 
-  <section class="section">
-    <div class="prose">
-      <h2 id="lecture">Jinsi ya kusoma tarakimu hizi</h2>
-      <p><strong>Visa vilivyothibitishwa</strong> na <strong>vifo</strong> ni jumla tangu mlipuko uanze. Visa na vifo vipya pekee — safu za « saa 24 », au « (+…) » kwenye ramani — ndizo takwimu za siku, zilizotangazwa na ripoti ya mwisho. <strong>Kiwango cha vifo</strong> kinahusu visa vilivyothibitishwa pekee, na matokeo ya visa vya hivi karibuni bado hayajajulikana: kinaeleza ukali ulioonekana hadi leo, si hatari ya mtu binafsi kufa kwa ugonjwa huu, na kitaendelea kubadilika. <strong>Visa vipya (saa 24)</strong> vimechukuliwa kama vilivyo kutoka ripoti ya mwisho — kwa hiyo si mara zote vinalingana na tofauti kati ya jumla mbili mfululizo, kwa sababu marekebisho ya nyuma huathiri jumla lakini si tarakimu hii.</p><p>Mipaka miwili inayojulikana. Takwimu za kitaifa wakati mwingine huchapishwa kabla ya takwimu za kila jimbo na kila eneo la afya: tofauti ya muda kati ya viwango ni jambo la kawaida. Na mamlaka wakati mwingine hurekebisha tarakimu zao za nyuma — marekebisho hayo yanaonekana hapa kama yalivyo, bila kulainishwa.</p>
+  <!-- Bas de page « rubriques a filets » (7 octobre 2026, maquette n°1 de
+       tmp/proto-pages-1007h, choix de Fable) : les trois etapes en colonnes
+       sous un grand numero, la methode repliee entre filets comme la FAQ.
+       Le conteneur garde la classe about-acc : app.js ouvre la rubrique
+       visee par l'adresse (#lecture, #avertissement...). -->
+  <section class="section ap-f1">
+    <h2 class="ap-h2">Kutoka ripoti hadi grafu</h2>
+    <ol class="ap-etapes">
+      <li><span class="ap-n">01</span><h3>Ripoti inahifadhiwa</h3><p>Kila PDF iliyochapishwa na INSP hupakuliwa na kuhifadhiwa kama ilivyo, vivyo hivyo ripoti za kila wiki za WHO zinazoongezea baadhi ya mfululizo. Nakala asili inabaki kupatikana, ndicho kinachofanya tarakimu za tovuti hii ziweze kuthibitishwa.</p></li>
+      <li><span class="ap-n">02</span><h3>Ripoti zinasomwa</h3><p>Programu husoma majedwali ya PDF, kisha kila ripoti husomwa yote — pamoja na maandishi ya utangulizi, ambayo maneno yake hubadilika kutoka ripoti moja hadi nyingine na wakati mwingine hubeba tarakimu zisizopo kwenye majedwali. Uthibitisho kwa hiyo pia ni wa mkono, ripoti kwa ripoti. Thamani isiyolingana hupuuzwa badala ya kukadiriwa.</p></li>
+      <li><span class="ap-n">03</span><h3>Tovuti inasasishwa</h3><p>Kwa kila ripoti mpya, kurasa zote za tovuti hutengenezwa upya na takwimu mpya. Unachosoma hapa ni hasa kile kilichohakikiwa kwenye ripoti — hakuna kinachohesabiwa upya unapofungua ukurasa.</p></li>
+    </ol>
+  </section>
 
-      <h2 data-i18n="aboutSourcesTitle">Vyanzo vya takwimu</h2>
-      <p data-i18n="aboutSourcesBody">Tarakimu zinazoonyeshwa zinatoka hasa kwenye Ripoti za Hali (SitRep) zilizochapishwa na Taasisi ya Kitaifa ya Afya ya Umma (INSP) ya DRC. Ni vipimo vitatu tu vya ufuatiliaji wa watu waliokutana na wagonjwa (23 na 29 Mei, 28 Juni), ambavyo SitRep ya siku hiyo haikutoa, vinavyotoka kwenye Weekly External Situation Report za Shirika la Afya Duniani (WHO). Vyanzo vyote viwili vimehifadhiwa na vinaweza kusomwa kwenye kichupo cha Ripoti za hali.</p>
-
-      <h2 data-i18n="aboutMethodTitle">Mbinu</h2>
-      <p data-i18n="aboutMethodBody">Tovuti hii inategemea chombo kilichotengenezwa na kusimamiwa kila mara: hupakua kila SitRep mpya iliyochapishwa na kutoa tarakimu muhimu (visa vilivyothibitishwa, vifo, waliopona, takwimu za kila jimbo na kila eneo la afya), kwa kawaida mara moja kwa siku. Kila ripoti husomwa yote — majedwali pamoja na maandishi ya utangulizi — na uchambuzi huthibitishwa kwa mkono, ripoti kwa ripoti, kwa kusahihishwa pale inapohitajika (mabadiliko ya mpangilio wa ripoti, kurekebisha kosa la nambari, n.k.). Ripoti za kila wiki za WHO husomwa vivyo hivyo na hutumika kukamilisha mfululizo ambao SitRep ya INSP haitoi. Takwimu zinaweza kufanyiwa masahihisho ya nyuma na mamlaka za afya (kuoanisha kati ya majimbo, kuainisha upya vifo vya jamii): masahihisho hayo huonekana moja kwa moja kwenye tovuti mara yanapochapishwa.</p>
-
-      <h2 data-i18n="aboutLimitationsTitle">Mipaka inayojulikana</h2>
-      <p data-i18n="aboutLimitationsBody">Ripoti rasmi huchanganya takwimu za viwango tofauti (kitaifa, kijimbo, eneo la afya), wakati mwingine kwa miundo tofauti, jambo linaloweza mara chache kuzalisha tofauti ndogo au makadirio. Pia hutokea kwamba tarakimu za kitaifa zinachapishwa kabla ya takwimu za kila jimbo na kila eneo la afya, na kusababisha tofauti ya muda kati ya viwango hivi.</p>
-
-      <h2 data-i18n="aboutUpdateTitle">Mara ngapi inasasishwa</h2>
-      <p data-i18n="aboutUpdateBody">Tovuti huangalia kuchapishwa kwa SitRep mpya mara moja kwa siku. Tarehe ya SitRep rasmi ya mwisho iliyoingizwa inaonyeshwa daima juu ya kila ukurasa.</p>
-
-      <h2>Upatikanaji wa takwimu</h2>
-      <p>Takwimu zote zinazoonyeshwa kwenye tovuti hii zinatoka kwenye ripoti rasmi zilizohifadhiwa kwenye kichupo cha <a href="/sw/ripoti/">Vyanzo na ripoti</a>, ambapo kila moja inaweza kusomwa katika muundo wake asili wa PDF.</p>
-
-      <h2 data-i18n="aboutDisclaimerTitle">Tahadhari</h2>
-      <p data-i18n="aboutDisclaimerBody">Tovuti hii ina lengo la kutoa taarifa pekee. Inakusanya na kupanga takwimu za umma zilizokwisha chapishwa na vyanzo rasmi, bila uchambuzi wala tafsiri huru. Si ushauri wa kimatibabu, kielimu ya magonjwa wala kisiasa kwa namna yoyote, na haipaswi kutumika kama msingi wa uamuzi wa afya, safari au usalama. Kwa swali lolote la kiafya, wasiliana na mtaalamu wa afya au mamlaka husika za afya (WHO, Wizara ya Afya ya DRC). Licha ya uangalifu uliowekwa, makosa, makadirio au ucheleweshaji wa kusasisha vinawezekana.</p>
-
-      <h2>Kosa au swali?</h2>
-      <p>Marekebisho yanakaribishwa — ndivyo ubora wa uchambuzi unavyoboreka. <a href="/sw/mawasiliano/">Mawasiliano</a></p>
-      <h2>Fuata tovuti</h2>
-      <p>Kurasa mpya na taarifa za hali zinatangazwa kwenye X: <a href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" class="lien-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> @EbolaTrackerRDC</a></p>
+  <section class="section ap-f1">
+    <h2 class="ap-h2">Kwa undani</h2>
+    <p class="ap-sous">Unachohitaji kujua ili kusoma na kutumia tena takwimu za tovuti.</p>
+    <div class="about-acc ap-acc">
+      <details id="lecture"><summary>Jinsi ya kusoma tarakimu hizi</summary><div class="prose"><p><strong>Visa vilivyothibitishwa</strong> na <strong>vifo</strong> ni jumla tangu mlipuko uanze. Visa na vifo vipya pekee — safu za « saa 24 », au « (+…) » kwenye ramani — ndizo takwimu za siku, zilizotangazwa na ripoti ya mwisho. <strong>Kiwango cha vifo</strong> kinahusu visa vilivyothibitishwa pekee, na matokeo ya visa vya hivi karibuni bado hayajajulikana: kinaeleza ukali ulioonekana hadi leo, si hatari ya mtu binafsi kufa kwa ugonjwa huu, na kitaendelea kubadilika. <strong>Visa vipya (saa 24)</strong> vimechukuliwa kama vilivyo kutoka ripoti ya mwisho — kwa hiyo si mara zote vinalingana na tofauti kati ya jumla mbili mfululizo, kwa sababu marekebisho ya nyuma huathiri jumla lakini si tarakimu hii.</p><p>Mipaka miwili inayojulikana. Takwimu za kitaifa wakati mwingine huchapishwa kabla ya takwimu za kila jimbo na kila eneo la afya: tofauti ya muda kati ya viwango ni jambo la kawaida. Na mamlaka wakati mwingine hurekebisha tarakimu zao za nyuma — marekebisho hayo yanaonekana hapa kama yalivyo, bila kulainishwa.</p></div></details>
+      <details id="sources"><summary data-i18n="aboutSourcesTitle">Vyanzo vya takwimu</summary><div class="prose"><p data-i18n="aboutSourcesBody">Tarakimu zinazoonyeshwa zinatoka kwenye ripoti za Taasisi ya Kitaifa ya Afya ya Umma (INSP) ya DRC, zikikamilishwa mara kwa mara na ripoti za Shirika la Afya Duniani (WHO). Vyanzo vyote viwili vimehifadhiwa na vinaweza kusomwa kwenye ukurasa wa Vyanzo na ripoti.</p></div></details>
+      <details id="methode"><summary data-i18n="aboutMethodTitle">Mbinu</summary><div class="prose"><p data-i18n="aboutMethodBody">Tovuti hii inategemea chombo kilichotengenezwa na kusimamiwa kila mara: hupakua kila SitRep mpya iliyochapishwa na kutoa tarakimu muhimu (visa vilivyothibitishwa, vifo, waliopona, takwimu za kila jimbo na kila eneo la afya), kwa kawaida mara moja kwa siku. Kila ripoti husomwa yote — majedwali pamoja na maandishi ya utangulizi — na uchambuzi huthibitishwa kwa mkono, ripoti kwa ripoti, kwa kusahihishwa pale inapohitajika (mabadiliko ya mpangilio wa ripoti, kurekebisha kosa la nambari, n.k.). Ripoti za kila wiki za WHO husomwa vivyo hivyo na hutumika kukamilisha mfululizo ambao SitRep ya INSP haitoi. Takwimu zinaweza kufanyiwa masahihisho ya nyuma na mamlaka za afya (kuoanisha kati ya majimbo, kuainisha upya vifo vya jamii): masahihisho hayo huonekana moja kwa moja kwenye tovuti mara yanapochapishwa.</p></div></details>
+      <details id="limites"><summary data-i18n="aboutLimitationsTitle">Mipaka inayojulikana</summary><div class="prose"><p data-i18n="aboutLimitationsBody">Ripoti rasmi huchanganya takwimu za viwango tofauti (kitaifa, kijimbo, eneo la afya), wakati mwingine kwa miundo tofauti, jambo linaloweza mara chache kuzalisha tofauti ndogo au makadirio. Pia hutokea kwamba tarakimu za kitaifa zinachapishwa kabla ya takwimu za kila jimbo na kila eneo la afya, na kusababisha tofauti ya muda kati ya viwango hivi.</p></div></details>
+      <details id="frequence"><summary data-i18n="aboutUpdateTitle">Mara ngapi inasasishwa</summary><div class="prose"><p data-i18n="aboutUpdateBody">Mara ripoti mpya inapochapishwa, inakaguliwa na tovuti inasasishwa. Ukaguzi wa takwimu huchukua chini ya saa 24. Tarehe ya ripoti ya mwisho iliyoingizwa inaonyeshwa juu ya kila ukurasa.</p></div></details>
+      <details id="donnees"><summary>Upatikanaji wa takwimu</summary><div class="prose"><p>Takwimu zote zinazoonyeshwa kwenye tovuti hii zinatoka kwenye ripoti rasmi zilizohifadhiwa kwenye kichupo cha <a href="/sw/ripoti/">Vyanzo na ripoti</a>, ambapo kila moja inaweza kusomwa katika muundo wake asili wa PDF.</p></div></details>
+      <details id="avertissement"><summary data-i18n="aboutDisclaimerTitle">Tahadhari</summary><div class="prose"><p data-i18n="aboutDisclaimerBody">Tovuti hii ina lengo la kutoa taarifa pekee. Inakusanya na kupanga takwimu za umma zilizokwisha chapishwa na vyanzo rasmi, bila uchambuzi wala tafsiri huru. Si ushauri wa kimatibabu, kielimu ya magonjwa wala kisiasa kwa namna yoyote, na haipaswi kutumika kama msingi wa uamuzi wa afya, safari au usalama. Kwa swali lolote la kiafya, wasiliana na mtaalamu wa afya au mamlaka husika za afya (WHO, Wizara ya Afya ya DRC). Licha ya uangalifu uliowekwa, makosa, makadirio au ucheleweshaji wa kusasisha vinawezekana.</p></div></details>
     </div>
+  </section>
+
+  <section class="section ap-f1 ap-fin">
+    <h2 class="ap-h2">Kosa au swali?</h2>
+    <p>Marekebisho yanakaribishwa. <a href="/sw/mawasiliano/">Mawasiliano →</a></p>
+    <h2>Fuata tovuti</h2>
+      <p>Kurasa mpya na taarifa za hali zinatangazwa kwenye X: <a href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" class="lien-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> @EbolaTrackerRDC</a></p>
   </section>
 
       </main>
@@ -283,13 +293,10 @@
   <footer>
     <div class="footer-nav">
       <div class="footer-col">
-        <h2>Chunguza</h2>
+        <h2>Habari</h2>
         <ul>
-        <li><a href="/sw/">Muhtasari</a></li>
         <li><a href="/sw/barua/">Barua</a></li>
         <li><a href="/sw/habari/">Habari za mlipuko</a></li>
-        <li><a href="/sw/takwimu/">Takwimu za kina</a></li>
-        <li><a href="/sw/mapambano/">Mapambano na changamoto</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -297,9 +304,20 @@
         <ul>
         <li><a href="/sw/matukio/">Matukio</a></li>
         <li><a href="/sw/virusi/">Virusi</a></li>
-        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
         <li><a href="/sw/maswali/">Maswali</a></li>
         <li><a href="/sw/kamusi/">Kamusi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Chunguza</h2>
+        <ul>
+        <li><a href="/sw/takwimu/">Nchi nzima</a></li>
+        <li><a href="/sw/nchi-nyingine/">Nchi nyingine</a></li>
+        <li><a href="/sw/mapambano/">Mapambano</a></li>
+        <li><a href="/sw/changamoto/">Changamoto</a></li>
+        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
+        <li><a href="/sw/hifadhidata/">Hifadhidata</a></li>
+        <li><a href="/sw/dashibodi/">Dashibodi</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -323,7 +341,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/">Tahadhari kamili</a></p>
+    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/#avertissement">Tahadhari kamili</a></p>
   </footer>
 
     </div>
@@ -334,6 +352,7 @@
 <script>
 window.PROVINCE_LINKS = {"Ituri": "/sw/takwimu/ituri/", "Nord-Kivu": "/sw/takwimu/nord-kivu/", "Haut-Uélé": "/sw/takwimu/haut-uele/", "Tshopo": "/sw/takwimu/tshopo/", "Bas-Uélé": "/sw/takwimu/bas-uele/", "Sud-Kivu": "/sw/takwimu/sud-kivu/", "Sud-Ubangi": "/sw/takwimu/sud-ubangi/"};
 window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
+window.HERO_TIP_CASES = "visa vilivyothibitishwa"; window.HERO_TIP_DEATHS = "vifo";
 window.MAP_VIEWBOX = "0 0 1000 986.5";
 window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
 window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
@@ -353,8 +372,8 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0c0086cba7"></script>
-<script defer src="/assets/js/app.js?v=b8692b80fc"></script>
+<script defer src="/assets/js/i18n.js?v=19ddd94ca9"></script>
+<script defer src="/assets/js/app.js?v=00bb2be610"></script>
 
 </body>
 </html>
