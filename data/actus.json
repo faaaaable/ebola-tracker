@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "fd05fb58",
+   "date": "2026-10-07",
+   "titre": "Ebola in Beni: Eight new survivors testify to good medical care",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/ebola-in-beni-eight-new-survivors-testify-to-good-medical-care/",
+   "langue": "en",
+   "resume": "Eight new Ebola survivors, discharged Wednesday from the Ebola Treatment Centre at the Beni General Referral Hospital in North…",
+   "statut": "publie",
+   "collecte": "2026-10-08",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ee6bdcfb",
    "date": "2026-10-07",
    "titre": "Ebola en RDC : Judith Suminwa renforce la riposte et ouvre la voie à de nouvelles options",
@@ -157,6 +170,19 @@
    "image": true
   },
   {
+   "id": "95db019b",
+   "date": "2026-10-07",
+   "titre": "Kenya: Health Minister insists no ebola outbreak in country",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/10/07/kenya-health-minister-insists-no-ebola-outbreak-in-country/",
+   "langue": "en",
+   "resume": "Kenya is not in the grips of an ebola outbreak, the country's health secretary insisted on Wednesday, in the wake of Kenya's first death from the disease.",
+   "statut": "publie",
+   "collecte": "2026-10-08",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "901be645",
    "date": "2026-10-07",
    "titre": "'I got so scared': Nairobi residents worried after Kenya's first Ebola death",
@@ -269,6 +295,19 @@
    "resume": "Trois motos ont été réceptionnées par le comité local de la Croix-Rouge pour appuyer la riposte contre la maladie…",
    "statut": "publie",
    "collecte": "2026-10-07",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "61c894bd",
+   "date": "2026-10-07",
+   "titre": "Ebola: More than 8,600 confirmed cases recorded in DRC",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/ebola-more-than-8600-confirmed-cases-recorded-in-drc/",
+   "langue": "en",
+   "resume": "More than 8,600 confirmed cases of Ebola virus disease (EVD) have been recorded since the beginning of the outbreak…",
+   "statut": "publie",
+   "collecte": "2026-10-08",
    "media": true,
    "image": true
   },
