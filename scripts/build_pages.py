@@ -3726,6 +3726,36 @@ def head_assets(needs):
     return "\n".join(tags)
 
 
+def lettres_meta(config, strings):
+    """Titre et description propres a chaque page /lettre/<num>/ (9 octobre
+    2026, referencement) : les 56 lettres portaient la meme description, celle
+    du modele. Date, numero et chiffres viennent de l'instantane
+    data/lettres/<num>.json, comme la lettre elle-meme ; faute de chiffres du
+    jour, la description ne garde que les totaux. La page /lettre/ (la
+    derniere lettre) garde son titre, pour ne pas doubler celui de
+    /lettre/<num>/, et prend une description a elle quand le jour est connu."""
+    for page in config["pages"]:
+        if page["id"] == "bulletin":
+            snap = read_json(os.path.join(ROOT, "data", "latest.json"))
+        elif page.get("lettreNum"):
+            snap = read_json(os.path.join(ROOT, "data", "lettres", "%s.json" % page["lettreNum"]))
+        else:
+            continue
+        nat, date = snap["national"], snap["meta"]["reportingDate"]
+        for lang, meta in page["meta"].items():
+            S = strings[lang]
+            valeurs = {"num": str(int(snap["meta"]["sitrepNumber"])), "date": hors_rdc.date_longue(date, lang),
+                       "cas": fmt(nat.get("confirmed"), lang), "deces": fmt(nat.get("deaths"), lang),
+                       "jcas": fmt(nat.get("newCases24h"), lang), "jdeces": fmt(nat.get("newDeaths24h"), lang)}
+            jour = nat.get("newCases24h") is not None and nat.get("newDeaths24h") is not None
+            if page["id"] == "bulletin":
+                if jour:
+                    meta["description"] = interp(S["lettreHubDescription"], valeurs)
+                continue
+            meta["title"] = interp(S["lettreMetaTitle"], valeurs)
+            meta["description"] = interp(S["lettreMetaDescription" if jour else "lettreMetaDescriptionTotal"], valeurs)
+
+
 def main():
     config = read_json(os.path.join(SITE, "pages.json"))
     # Une page par lettre, /lettre/<num>/ (8 septembre 2026) : ajoutee
@@ -3735,6 +3765,7 @@ def main():
     SITE_LANGUAGES = list(config["site"]["languages"])
     strings = read_json(os.path.join(SITE, "strings.json"))
     i18n = load_i18n()
+    lettres_meta(config, strings)
     layout = read(os.path.join(SITE, "layout.html"))
 
     latest = read_json(os.path.join(ROOT, "data", "latest.json"))
