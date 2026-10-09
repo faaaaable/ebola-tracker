@@ -697,19 +697,19 @@
       "navLabelKey": "i18n:tabReports",
       "meta": {
         "fr": {
-          "title": "Archive des SitRep INSP et bulletins OMS — Ebola RDC 2026",
-          "h1": "Sources et bulletins officiels",
-          "description": "Archive complète des rapports de situation (SitRep) de l'INSP RDC et des bulletins hebdomadaires de l'OMS sur l'épidémie d'Ebola 2026, en PDF d'origine."
+          "title": "SitRep INSP Ebola RDC : archive des bulletins en PDF et rapports de l'OMS",
+          "h1": "SitRep de l'INSP et rapports de l'OMS",
+          "description": "Archive complète des SitRep (rapports de situation) de l'INSP RDC sur l'épidémie d'Ebola 2026, en PDF d'origine, et des bulletins hebdomadaires de l'OMS."
         },
         "en": {
-          "title": "INSP SitRep and WHO bulletin archive — DRC Ebola 2026",
-          "h1": "Official sources and bulletins",
-          "description": "Complete archive of the DRC INSP situation reports (SitRep) and the WHO weekly bulletins on the 2026 Ebola outbreak, as original PDFs."
+          "title": "INSP SitRep DRC Ebola: archive of bulletins (PDF) and WHO reports",
+          "h1": "INSP SitReps and WHO reports",
+          "description": "Complete archive of the DRC INSP situation reports (SitRep) on the 2026 Ebola outbreak, as original PDFs, plus the WHO weekly bulletins."
         },
         "sw": {
-          "title": "Vyanzo na ripoti rasmi — Ebola DRC 2026",
-          "h1": "Vyanzo na ripoti rasmi",
-          "description": "Ripoti zote za hali za INSP na ripoti za kila wiki za WHO ambazo tovuti hii inategemea, zinapatikana kupakuliwa."
+          "title": "SitRep za INSP Ebola DRC: kumbukumbu ya ripoti (PDF) na ripoti za WHO",
+          "h1": "SitRep za INSP na ripoti za WHO",
+          "description": "Kumbukumbu kamili ya ripoti za hali (SitRep) za INSP DRC kuhusu mlipuko wa Ebola 2026, katika PDF asili, pamoja na ripoti za kila wiki za WHO."
         }
       }
     },

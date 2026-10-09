@@ -5309,7 +5309,7 @@ function reportCard(opts){
 function registreLigne(o){
   const attrs = [o.month ? `data-month="${o.month}"` : '', o.search ? `data-search="${o.search}"` : ''].filter(Boolean).join(' ');
   return `<a class="report-chip rg-l${o.variant ? ' ' + o.variant : ''}" href="${o.href}" target="_blank" rel="noopener" ${attrs} title="${o.title}" aria-label="${o.label}">`
-    + `<span class="rg-n">${o.numero}</span><span class="rg-d">${o.date}</span><span class="rg-c">${o.chiffres || ''}</span>`
+    + `<span class="rg-n">${o.kicker ? `<small class="rg-k">${o.kicker}</small>` : ''}${o.numero}</span><span class="rg-d">${o.date}</span><span class="rg-c">${o.chiffres || ''}</span>`
     + `<span class="rg-p" aria-hidden="true">PDF</span></a>`;
 }
 const dateCourte = iso => frDate(iso) + ' ' + iso.slice(0, 4);
@@ -5350,7 +5350,8 @@ function renderReportsList(){
       date: r.reportingDate ? dateCourte(r.reportingDate) : tr('reportsUnknownDate'),
       chiffres: (r.confirmed != null && r.deaths != null) ? tr('reportsCasDeces')(fmt(r.confirmed), fmt(r.deaths)) : '',
       href: assetUrl(r.file),
-      title: tr('reportsDownload'),
+      title: tr('reportsSitrepLabel')(r.sitrepNumber) + ' — ' + tr('reportsDownload'),
+      kicker: 'SitRep',
       month: g.key,
       search: ((r.sitrepNumber||'')+' '+g.label+' '+(r.reportingDate||'')).toLowerCase()
     })).join('')}

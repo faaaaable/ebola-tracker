@@ -1553,20 +1553,23 @@ DOWNLOAD_ICON = (
 
 
 def registre_ligne(numero, date_text, chiffres, href, title, label, month=None,
-                   search=None, variant=""):
+                   search=None, variant="", kicker=""):
     """Une ligne du registre des bulletins (6 octobre 2026, option 1 du
     proprietaire : « les cases font trop IA »). Garde la classe report-chip,
     sur laquelle reposent le filtre par mois et la recherche d'app.js, qui
-    produit le meme balisage (registreLigne) : toute retouche des deux cotes."""
+    produit le meme balisage (registreLigne) : toute retouche des deux cotes.
+    kicker : le mot ecrit en petit devant le numero (« SitRep », 9 octobre
+    2026, pour que chaque ligne porte le nom du document)."""
     data = ""
     if month is not None:
         data += ' data-month="%s"' % esc(month)
     if search is not None:
         data += ' data-search="%s"' % esc(search.lower())
     return ('        <a class="report-chip rg-l%s" href="%s" target="_blank" rel="noopener"%s title="%s" aria-label="%s">'
-            '<span class="rg-n">%s</span><span class="rg-d">%s</span><span class="rg-c">%s</span>'
+            '<span class="rg-n">%s%s</span><span class="rg-d">%s</span><span class="rg-c">%s</span>'
             '<span class="rg-p" aria-hidden="true">PDF</span></a>'
             % ((" " + variant) if variant else "", esc(href), data, esc(title), esc(label),
+               ('<small class="rg-k">%s</small>' % esc(kicker)) if kicker else "",
                esc(numero), esc(date_text), esc(chiffres)))
 
 
@@ -1799,7 +1802,7 @@ def reports_list_html(reports, lang, i18n_lang, strings_lang):
             order.append(key)
         groups[key]["reports"].append(report)
 
-    prefix = "SitRep N°"
+    prefix = "SitRep INSP N°"
     situation = strings_lang["reportSituation"]
     parts = []
     for key in order:
@@ -1819,9 +1822,10 @@ def reports_list_html(reports, lang, i18n_lang, strings_lang):
                                         long_date(reporting, i18n_lang) if reporting
                                         else i18n_lang["reportsUnknownDate"], chiffres,
                                         "/" + report["file"].lstrip("/"),
-                                        i18n_lang["reportsDownload"],
+                                        "%s%s — %s" % (prefix, report.get("sitrepNumber", ""),
+                                                       i18n_lang["reportsDownload"]),
                                         prefix + str(report.get("sitrepNumber", "")),
-                                        month=key, search=searchable))
+                                        month=key, search=searchable, kicker="SitRep"))
     return "\n".join(parts)
 
 
