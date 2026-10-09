@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- Gabarit plein ecran du tableau de bord (9 octobre 2026) : le meme <head>
+     que site/layout.html (titre, description, canonique, langues, mesure
+     d'audience, donnees structurees), mais ni colonne de menu ni pied de
+     page : la page tient sur un ecran. Le menu du site est dans le tiroir du
+     burger. Feuille et script a part : dashboard.css, dashboard.js. -->
+<html lang="{{lang}}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+{{alternates}}
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#FDFAF6">
+<meta property="og:site_name" content="{{siteName}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:type" content="{{ogType}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:locale" content="{{ogLocale}}">
+<meta property="og:locale:alternate" content="{{ogLocaleAlt}}">
+<meta property="og:image" content="{{ogImage}}">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="{{title}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{ogImage}}">
+<meta name="twitter:title" content="{{title}}">
+<meta name="twitter:description" content="{{description}}">
+<meta name="robots" content="{{robots}}">
+<meta name="google-site-verification" content="{{verification}}" />
+{{jsonLd}}
+<!-- html.js : JavaScript est actif. Le CSS s'en sert pour masquer ce que
+     app.js reorganise au demarrage (carte de l'accueil, carrousel), sans quoi
+     on voyait un etat puis l'autre : un clignotement (8 octobre 2026). Sans
+     JavaScript rien n'est masque. -->
+<script>document.documentElement.classList.add('js');</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{analytics}}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{analytics}}');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
+{{headAssets}}
+<link rel="stylesheet" href="/assets/css/dashboard.css?v={{v.dashcss}}">
+</head>
+<body class="db-page">
+<a class="skip-link" href="#contenu">{{t.skipToContent}}</a>
+{{content}}
+<script defer src="/assets/js/dashboard.js?v={{v.dash}}"></script>
+</body>
+</html>

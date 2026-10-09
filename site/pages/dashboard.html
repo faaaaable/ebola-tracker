@@ -1,13 +1,71 @@
-  <!-- Page blanche en attendant le contenu (4 octobre 2026) : l onglet porte
-       la pastille « Bientot », la page reste hors index et hors sitemap
-       (noindex dans pages.json). -->
-  <section class="section maq-tete">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow"><span class="dot"></span>{{t.navColDetails}}</div>
-        <h1 class="page-title">{{meta.h1}}</h1>
+  <!-- Tableau de bord (9 octobre 2026, maquette A de tmp/proto-dashboard-1009
+       retenue) : un seul ecran sans defilement, filtre par province dans
+       l'adresse (#ituri). Gabarit site/layout-dashboard.html, script
+       assets/js/dashboard.js, feuille assets/css/dashboard.css. Le generateur
+       ecrit deja la phrase de situation et le tableau des provinces : c'est le
+       texte que lisent les moteurs de recherche, le script le remplace au
+       chargement. -->
+<div class="db" id="contenu">
+  <header class="tete">
+    <button class="burger" id="burger" type="button" aria-label="{{t.dbMenu}}" aria-expanded="false" aria-controls="tiroir"><span></span><span></span><span></span></button>
+    <div class="marque-bloc">
+      <a class="marque" href="{{url.accueil}}" title="{{t.dbRetourAccueil}}"><i></i>ebola-tracker.org</a>
+      <h1 class="titre-db">{{meta.h1}}</h1>
+    </div>
+    <nav class="filtres" id="filtres" aria-label="{{t.dbFiltrer}}"></nav>
+    <div class="situation" id="situation">{{db.resume}}</div>
+{{db.langues}}
+  </header>
+
+  <section class="kpis" id="kpis" aria-label="{{t.dbChiffres}}"></section>
+
+  <section class="milieu">
+    <div class="cadre">
+      <div class="entete">
+        <h2 id="carteTitre">{{t.dbCarte}}</h2>
+        <div class="bascule" id="modeCarte">
+          <button type="button" data-mode="cumul" aria-pressed="true">{{t.dbModeCumul}}</button>
+          <button type="button" data-mode="j30" aria-pressed="false">{{t.dbMode30}}</button>
+          <button type="button" data-mode="j1" aria-pressed="false">{{t.dbMode24}}</button>
+        </div>
       </div>
+      <div class="carte" id="carte"><div class="legende" id="legende"></div></div>
     </div>
 
-    <p class="lede">{{t.baseSoon}}</p>
+    <div class="cadre">
+      <div class="entete"><h2>{{t.dbProvinces}} <small id="provSous"></small></h2></div>
+      <table class="tab" id="tabProv">
+        <tbody>
+{{provinceTableRows}}
+        </tbody>
+      </table>
+      <div class="entete" style="margin-top:9px;margin-bottom:2px"><h2>{{t.dbRiposte}} <small>{{t.dbRiposteSous}}</small></h2></div>
+      <table class="tab" id="tabRip"></table>
+      <div class="note" id="tabNote"></div>
+    </div>
+
+    <div class="cadre">
+      <div class="entete"><h2 id="zonesTitre">{{t.dbZones}}</h2></div>
+      <ul class="zones" id="zones"></ul>
+      <a class="lien-prov" id="lienProv" href="{{url.donnees}}" hidden>{{t.dbPageProvince}} →</a>
+      <div class="hors-rdc" id="horsRdc"></div>
+    </div>
   </section>
+
+  <section class="bas">
+    <div class="g"><h3>{{t.dbGCas}}</h3><div class="s" id="s-cas"></div><div class="zone"><canvas id="c-cas"></canvas></div></div>
+    <div class="g"><h3>{{t.dbGDeces}}</h3><div class="s" id="s-deces"></div><div class="zone"><canvas id="c-deces"></canvas></div></div>
+    <div class="g"><h3>{{t.dbGLieu}}</h3><div class="s" id="s-lieu"></div><div class="zone"><canvas id="c-lieu"></canvas></div></div>
+    <div class="g"><h3>{{t.dbGAlertes}}</h3><div class="s" id="s-alertes"></div><div class="zone"><canvas id="c-alertes"></canvas></div></div>
+    <div class="g"><h3>{{t.dbGLabo}}</h3><div class="s" id="s-labo"></div><div class="zone"><canvas id="c-labo"></canvas></div></div>
+    <div class="g"><h3>{{t.dbGContacts}}</h3><div class="s" id="s-contacts"></div><div class="zone"><canvas id="c-contacts"></canvas></div></div>
+  </section>
+</div>
+<div class="pied">{{t.dbSources}} <a href="{{url.rapports}}">{{t.dbSourcesLien}}</a></div>
+<div class="bulle" id="bulle"></div>
+<div class="voile" id="voile" hidden></div>
+<aside class="tiroir" id="tiroir" aria-label="{{t.dbMenu}}" hidden>
+  <div class="tiroir-tete"><a href="{{url.accueil}}" class="marque"><i></i>ebola-tracker.org</a><button type="button" id="fermer" aria-label="{{t.menuClose}}">×</button></div>
+  <div id="tiroirListe"><p class="tiroir-att">…</p></div>
+</aside>
+<script type="application/json" id="dbConfig">{{db.config}}</script>

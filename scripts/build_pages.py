@@ -3730,6 +3730,36 @@ def head_assets(needs):
     return "\n".join(tags)
 
 
+def dashboard_values(config, urls, lang, strings_lang, i18n_lang, alt_paths,
+                     national, meta_data, provinces):
+    """Ce que le generateur ecrit dans le tableau de bord (9 octobre 2026) :
+    la phrase de situation (le texte que lisent les moteurs de recherche, que
+    dashboard.js remplace au chargement), le selecteur de langue et, en JSON,
+    les adresses dans la langue de la page."""
+    zones = national.get("healthZonesAffected") or {}
+    resume = interp(strings_lang["dbResume"], {
+        "date": long_date(meta_data.get("reportingDate"), i18n_lang),
+        "num": str(int(meta_data.get("sitrepNumber") or 0)),
+        "cases": fmt(national.get("confirmed"), lang), "deaths": fmt(national.get("deaths"), lang),
+        "zones": fmt(zones.get("n"), lang), "provinces": fmt(national.get("provincesAffected"), lang)})
+    cfg = {
+        "lang": lang,
+        "accueil": urls.path("accueil", lang),
+        "ici": urls.path("dashboard", lang),
+        "donnees": urls.path("donnees", lang),
+        "autresPays": urls.path("autres-pays", lang),
+        "provinces": {p["name"]: urls.province_path(p["name"], lang) for p in provinces},
+        "pays": {p["pays"]: urls.path(p["id"], lang) for p in config["pages"] if p.get("pays")},
+    }
+    return {
+        "db.resume": esc(resume),
+        "db.langues": lang_switch_html(config, alt_paths, lang, strings_lang),
+        # Dans un <script type="application/json"> : « </ » ne doit pas y
+        # apparaitre, sans quoi le navigateur fermerait la balise.
+        "db.config": json.dumps(cfg, ensure_ascii=False).replace("</", "<\\/"),
+    }
+
+
 def lettres_meta(config, strings):
     """Titre et description propres a chaque page /lettre/<num>/ (9 octobre
     2026, referencement) : les 56 lettres portaient la meme description, celle
@@ -3738,7 +3768,14 @@ def lettres_meta(config, strings):
     jour, la description ne garde que les totaux. La page /lettre/ (la
     derniere lettre) garde son titre, pour ne pas doubler celui de
     /lettre/<num>/, et prend une description a elle quand le jour est connu."""
+    # Le tableau de bord (9 octobre 2026) : sa description porte la date de
+    # situation du dernier bulletin, « Situation au {date} ».
+    derniere = read_json(os.path.join(ROOT, "data", "latest.json"))["meta"]["reportingDate"]
     for page in config["pages"]:
+        if page["id"] == "dashboard":
+            for lang, meta in page["meta"].items():
+                meta["description"] = interp(meta["description"], {"date": hors_rdc.date_longue(derniere, lang)})
+            continue
         if page["id"] == "bulletin":
             snap = read_json(os.path.join(ROOT, "data", "latest.json"))
         elif page.get("lettreNum"):
@@ -4228,6 +4265,10 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                              urls.path(page["parent"], lang)))
 
     fragment = read(os.path.join(SITE, "pages", fragment_name))
+    # Une page peut porter son propre gabarit (le tableau de bord, plein
+    # ecran, 9 octobre 2026) ; les autres prennent site/layout.html.
+    if page.get("layout"):
+        layout = read(os.path.join(SITE, page["layout"]))
 
     values = dict(common_seed)
     values.update(url_values)
@@ -4241,6 +4282,9 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     values.update({"t.%s" % key: interp(value, url_values) if isinstance(value, str) else value
                    for key, value in strings_lang.items()})
     values["meta.h1"] = esc(meta["h1"])
+    if page.get("id") == "dashboard":
+        values.update(dashboard_values(config, urls, lang, strings_lang, i18n_lang, alt_paths,
+                                       national, meta_data, provinces))
     # Page d'un pays touche hors de RDC (Kenya, Ouganda : 9 octobre 2026) :
     # sa fiche d'« Autres pays » et ses questions, tirees de data/autres-pays.json.
     if page.get("pays"):
@@ -4458,6 +4502,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "v.css": jeton_version("assets/css/site.css"),
         "v.app": jeton_version("assets/js/app.js"),
         "v.i18n": jeton_version("assets/js/i18n.js"),
+        "v.dash": jeton_version("assets/js/dashboard.js"),
+        "v.dashcss": jeton_version("assets/css/dashboard.css"),
         "title": esc(meta["title"]),
         "description": esc(meta["description"]),
         "canonical": canonical,

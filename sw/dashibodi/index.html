@@ -1,10 +1,15 @@
 <!DOCTYPE html>
+<!-- Gabarit plein ecran du tableau de bord (9 octobre 2026) : le meme <head>
+     que site/layout.html (titre, description, canonique, langues, mesure
+     d'audience, donnees structurees), mais ni colonne de menu ni pied de
+     page : la page tient sur un ecran. Le menu du site est dans le tiroir du
+     burger. Feuille et script a part : dashboard.css, dashboard.js. -->
 <html lang="sw">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashibodi — Ebola DRC</title>
-<meta name="description" content="Takwimu zote za mlipuko kwa wakati halisi, inakuja hivi karibuni.">
+<title>Ebola DRC moja kwa moja: ramani, visa na vifo kwa kila eneo la afya</title>
+<meta name="description" content="Ufuatiliaji wa moja kwa moja wa mlipuko wa Ebola DRC, unaosasishwa kwa kila ripoti ya INSP: ramani, visa na vifo vya leo, majimbo. Hali kufikia 6 Oktoba 2026.">
 <link rel="canonical" href="https://ebola-tracker.org/sw/dashibodi/">
 <link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/dashboard/">
 <link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/dashboard/">
@@ -13,8 +18,8 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#FDFAF6">
 <meta property="og:site_name" content="Ebola Tracker">
-<meta property="og:title" content="Dashibodi — Ebola DRC">
-<meta property="og:description" content="Takwimu zote za mlipuko kwa wakati halisi, inakuja hivi karibuni.">
+<meta property="og:title" content="Ebola DRC moja kwa moja: ramani, visa na vifo kwa kila eneo la afya">
+<meta property="og:description" content="Ufuatiliaji wa moja kwa moja wa mlipuko wa Ebola DRC, unaosasishwa kwa kila ripoti ya INSP: ramani, visa na vifo vya leo, majimbo. Hali kufikia 6 Oktoba 2026.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ebola-tracker.org/sw/dashibodi/">
 <meta property="og:locale" content="sw_CD">
@@ -22,13 +27,52 @@
 <meta property="og:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="Dashibodi — Ebola DRC">
+<meta property="og:image:alt" content="Ebola DRC moja kwa moja: ramani, visa na vifo kwa kila eneo la afya">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
-<meta name="twitter:title" content="Dashibodi — Ebola DRC">
-<meta name="twitter:description" content="Takwimu zote za mlipuko kwa wakati halisi, inakuja hivi karibuni.">
-<meta name="robots" content="noindex, follow">
+<meta name="twitter:title" content="Ebola DRC moja kwa moja: ramani, visa na vifo kwa kila eneo la afya">
+<meta name="twitter:description" content="Ufuatiliaji wa moja kwa moja wa mlipuko wa Ebola DRC, unaosasishwa kwa kila ripoti ya INSP: ramani, visa na vifo vya leo, majimbo. Hali kufikia 6 Oktoba 2026.">
+<meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="kpbL-xHwtgQ-H61ezgLZEOl2f41_3VXpb2ejZz0R1Og" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Ebola DRC moja kwa moja: ramani, visa na vifo kwa kila eneo la afya",
+  "description": "Ufuatiliaji wa moja kwa moja wa mlipuko wa Ebola DRC, unaosasishwa kwa kila ripoti ya INSP: ramani, visa na vifo vya leo, majimbo. Hali kufikia 6 Oktoba 2026.",
+  "url": "https://ebola-tracker.org/sw/dashibodi/",
+  "inLanguage": "sw",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "keywords": [
+    "Ebola",
+    "RDC",
+    "DRC",
+    "épidémie",
+    "santé publique",
+    "Bundibugyo",
+    "SitRep"
+  ],
+  "temporalCoverage": "2026-05-16/..",
+  "spatialCoverage": "Democratic Republic of the Congo",
+  "distribution": {
+    "@type": "DataDownload",
+    "encodingFormat": "application/json",
+    "contentUrl": "https://ebola-tracker.org/data/latest.json"
+  },
+  "isBasedOn": [
+    {
+      "@type": "WebSite",
+      "name": "Institut National de Santé Publique (INSP) RDC",
+      "url": "https://insp.cd/"
+    },
+    {
+      "@type": "WebSite",
+      "name": "Organisation mondiale de la Santé",
+      "url": "https://www.who.int/"
+    }
+  ]
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -43,7 +87,7 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Dashibodi",
+      "name": "Dashibodi ya Ebola DRC, moja kwa moja",
       "item": "https://ebola-tracker.org/sw/dashibodi/"
     }
   ]
@@ -65,33 +109,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="/assets/css/site.css?v=69602f05e6">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="/assets/css/dashboard.css?v=34e8d94098">
 </head>
-<body>
-
+<body class="db-page">
 <a class="skip-link" href="#contenu">Nenda kwenye maudhui makuu</a>
-
-<div class="app-shell">
-
-  <aside class="sidebar">
-
-    <div class="side-head">
-      <a class="brand" href="/sw/" aria-label="Rudi mwanzo">
-        <span class="dot is-live" aria-hidden="true"></span>
-        <p class="site-title">ebola-tracker<span class="tld">.org</span></p>
-      </a>
-
-      <!-- Deux codes, sans drapeau. Un drapeau designe un pays, pas une
-           langue : afficher le tricolore pour « francais » sur un site
-           consacre a la Republique democratique du Congo — pays francophone —
-           revient a proposer au lecteur congolais sa propre langue sous les
-           couleurs de la France. Meme travers cote anglais, dont la version
-           s'adresse d'abord a l'OMS et aux ONG, pas aux Britanniques.
-
-           Les deux SVG portaient deja aria-hidden : le site reconnaissait donc
-           qu'ils n'apportaient aucune information. Ils etaient au passage les
-           seules couleurs saturees de tout l'en-tete. -->
+  <!-- Tableau de bord (9 octobre 2026, maquette A de tmp/proto-dashboard-1009
+       retenue) : un seul ecran sans defilement, filtre par province dans
+       l'adresse (#ituri). Gabarit site/layout-dashboard.html, script
+       assets/js/dashboard.js, feuille assets/css/dashboard.css. Le generateur
+       ecrit deja la phrase de situation et le tableau des provinces : c'est le
+       texte que lisent les moteurs de recherche, le script le remplace au
+       chargement. -->
+<div class="db" id="contenu">
+  <header class="tete">
+    <button class="burger" id="burger" type="button" aria-label="Menyu ya tovuti" aria-expanded="false" aria-controls="tiroir"><span></span><span></span><span></span></button>
+    <div class="marque-bloc">
+      <a class="marque" href="/sw/" title="Rudi mwanzo wa tovuti"><i></i>ebola-tracker.org</a>
+      <h1 class="titre-db">Dashibodi ya Ebola DRC, moja kwa moja</h1>
+    </div>
+    <nav class="filtres" id="filtres" aria-label="Chuja kwa jimbo"></nav>
+    <div class="situation" id="situation">Hadi 6 Okt. 2026 (SitRep ya INSP na. 145): visa 8,728 vilivyothibitishwa na vifo 4,205 nchini DRC, maeneo 64 ya afya yaliyoathirika katika majimbo 7.</div>
       <div class="lang-switch" role="group" aria-label="Français / English / Kiswahili">
         <a class="lang-btn" href="/dashboard/" hreflang="fr" lang="fr" title="Français">
           <span class="code">FR</span>
@@ -104,207 +142,109 @@
         </a>
         <a class="lang-btn lang-x" href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" title="@EbolaTrackerRDC" aria-label="Fuata @EbolaTrackerRDC kwenye X"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg></a>
       </div>
+  </header>
+
+  <section class="kpis" id="kpis" aria-label="Takwimu muhimu"></section>
+
+  <section class="milieu">
+    <div class="cadre">
+      <div class="entete">
+        <h2 id="carteTitre">Maeneo ya afya yaliyoathirika</h2>
+        <div class="bascule" id="modeCarte">
+          <button type="button" data-mode="cumul" aria-pressed="true">Jumla</button>
+          <button type="button" data-mode="j30" aria-pressed="false">Siku 30</button>
+          <button type="button" data-mode="j1" aria-pressed="false">Saa 24</button>
+        </div>
+      </div>
+      <div class="carte" id="carte"><div class="legende" id="legende"></div></div>
     </div>
 
-    <!-- Trois traits : sur telephone ils remplacent la barre d'onglets, qui
-         defilait horizontalement et n'en montrait que deux a la fois. Le
-         bouton n'existe pas sur ordinateur, ou la colonne laterale affiche
-         tout. -->
-    <button class="nav-burger" type="button" id="btnMenu"
-            aria-expanded="false" aria-controls="menuPrincipal"
-            aria-label="Fungua menyu"
-            data-label-open="Fungua menyu" data-label-close="Funga menyu">
-      <span class="nav-burger-lines" aria-hidden="true"></span>
-    </button>
-
-    <!-- La navigation et le pied de colonne voyagent ensemble : sur telephone
-         ils forment le menu plein ecran, fraicheur des donnees et partage
-         compris. -->
-    <div class="side-panel" id="menuPrincipal">
-
-    <nav class="side-nav" aria-label="Urambazaji mkuu">
-      <div class="nav-grp">
-      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Habari</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-      <div class="nav-pop">
-      <a href="/sw/barua/"><span class="nav-t">Barua</span><span class="nav-desc">Muhtasari wa kila ripoti rasmi</span></a>
-      <a href="/sw/habari/"><span class="nav-t">Habari za mlipuko</span><span class="nav-desc">Makala yanayochapishwa kila siku</span></a>
-      </div></div>
-      <div class="nav-grp">
-      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Elewa</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-      <div class="nav-pop">
-      <a href="/sw/matukio/"><span class="nav-t">Matukio</span><span class="nav-desc">Kuanzia arifa ya kwanza hadi leo</span></a>
-      <a href="/sw/virusi/"><span class="nav-t">Virusi</span><span class="nav-desc">Bundibugyo: maambukizi, dalili</span></a>
-      <a href="/sw/maswali/"><span class="nav-t">Maswali</span><span class="nav-desc">Maswali yanayoulizwa mara nyingi</span></a>
-      <a href="/sw/kamusi/"><span class="nav-t">Kamusi</span><span class="nav-desc">Maneno ya ripoti, yakifafanuliwa</span></a>
-      </div></div>
-      <div class="nav-grp nav-grp-cols">
-      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Chunguza</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-      <div class="nav-pop">
-      <div class="nav-cols">
-      <div class="nav-col nav-col-compact">
-        <div class="nav-col-titre">Mwenendo wa mlipuko</div>
-        <a href="/sw/takwimu/"><span class="nav-t">Nchi nzima</span><span class="nav-desc">Mwenendo katika ngazi ya taifa</span></a>
-        <a href="/sw/takwimu/ituri/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Ituri</span><span class="nav-desc">Visa 6,513 vilivyothibitishwa</span></a>
-        <a href="/sw/takwimu/nord-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Nord-Kivu</span><span class="nav-desc">Visa 1,785 vilivyothibitishwa</span></a>
-        <a href="/sw/takwimu/haut-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Haut-Uélé</span><span class="nav-desc">Visa 364 vilivyothibitishwa</span></a>
-        <a href="/sw/takwimu/tshopo/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Tshopo</span><span class="nav-desc">Visa 51 vilivyothibitishwa</span></a>
-        <a href="/sw/takwimu/bas-uele/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Bas-Uélé</span><span class="nav-desc">Visa 10 vilivyothibitishwa</span></a>
-        <a href="/sw/takwimu/sud-kivu/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Kivu</span><span class="nav-desc">Visa 3 vilivyothibitishwa</span></a>
-        <a href="/sw/takwimu/sud-ubangi/" title="Kulingana na ripoti rasmi ya hivi karibuni"><span class="nav-t">Sud-Ubangi</span><span class="nav-desc">Visa 2 vilivyothibitishwa</span></a>
-        <a href="/sw/nchi-nyingine/"><span class="nav-t">Nchi nyingine</span><span class="nav-desc">Uganda, Ufaransa, Kenya</span></a>
-      </div>
-      <div class="nav-col">
-        <div class="nav-col-titre">Takwimu za kina</div>
-        <a href="/sw/ripoti/"><span class="nav-t">Vyanzo na ripoti</span><span class="nav-desc">Ripoti zote za INSP</span></a>
-        <a href="/sw/hifadhidata/"><span class="nav-t">Hifadhidata <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu za tovuti, za kupakua</span></a>
-        <a href="/sw/dashibodi/" aria-current="page"><span class="nav-t">Dashibodi <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu zote kwa wakati halisi</span></a>
-      </div>
-      </div>
-      </div></div>
-      <div class="nav-grp">
-      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Kukabili mlipuko</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-      <div class="nav-pop">
-      <a href="/sw/mapambano/"><span class="nav-t">Mapambano</span><span class="nav-desc">Hatua zinazochukuliwa kukomesha mlipuko</span></a>
-      <a href="/sw/changamoto/"><span class="nav-t">Changamoto</span><span class="nav-desc">Vikwazo vilivyokumbwa</span></a>
-      </div></div>
-      <div class="nav-grp">
-      <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Tovuti</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-      <div class="nav-pop">
-      <a href="/sw/kuhusu/"><span class="nav-t">Kuhusu</span><span class="nav-desc">Mbinu, vyanzo, tahadhari</span></a>
-      <a href="/sw/mawasiliano/"><span class="nav-t">Mawasiliano</span><span class="nav-desc">Andikia timu</span></a>
-      </div></div>
-    </nav>
-
-    <div class="side-foot">
-      <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
-           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
-           app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
-           existent : ils n'existent plus, et rien ne s'affiche. -->
-
-      <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
-           demande du proprietaire (les graphiques gardent le leur). A sa place,
-           sur telephone seulement, le lien vers le compte X ; sur ordinateur ce
-           lien est un glyphe au bout de la rangee des langues. -->
-      <a class="share-btn suivre-x" href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" aria-label="Fuata @EbolaTrackerRDC kwenye X"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> <span>Fuata</span></a>
-    </div>
+    <div class="cadre">
+      <div class="entete"><h2>Majimbo <small id="provSous"></small></h2></div>
+      <table class="tab" id="tabProv">
+        <tbody>
+            <tr>
+              <td><div class="zone-name-cell"><span class="zdot" style="background:#005E82;"></span><a href="/sw/takwimu/ituri/">Ituri</a></div></td>
+              <td>6,513</td>
+              <td>3,007</td>
+              <td><span class="zone-badge zone-badge-mid">46.2%</span></td>
+              <td>28 / 36</td>
+            </tr>
+            <tr>
+              <td><div class="zone-name-cell"><span class="zdot" style="background:#A06F30;"></span><a href="/sw/takwimu/nord-kivu/">Nord-Kivu</a></div></td>
+              <td>1,785</td>
+              <td>1,021</td>
+              <td><span class="zone-badge zone-badge-high">57.2%</span></td>
+              <td>17 / 34</td>
+            </tr>
+            <tr>
+              <td><div class="zone-name-cell"><span class="zdot" style="background:#327957;"></span><a href="/sw/takwimu/haut-uele/">Haut-Uélé</a></div></td>
+              <td>364</td>
+              <td>153</td>
+              <td><span class="zone-badge zone-badge-mid">42.0%</span></td>
+              <td>7 / 13</td>
+            </tr>
+            <tr>
+              <td><div class="zone-name-cell"><span class="zdot" style="background:#6B5CA5;"></span><a href="/sw/takwimu/tshopo/">Tshopo</a></div></td>
+              <td>51</td>
+              <td>18</td>
+              <td><span class="zone-badge zone-badge-mid">35.3%</span></td>
+              <td>7 / 23</td>
+            </tr>
+            <tr>
+              <td><div class="zone-name-cell"><span class="zdot" style="background:#993A2E;"></span><a href="/sw/takwimu/bas-uele/">Bas-Uélé</a></div></td>
+              <td>10</td>
+              <td>4</td>
+              <td><span class="zone-badge zone-badge-mid">40.0%</span></td>
+              <td>3 / 11</td>
+            </tr>
+            <tr>
+              <td><div class="zone-name-cell"><span class="zdot" style="background:#5A544C;"></span><a href="/sw/takwimu/sud-kivu/">Sud-Kivu</a></div></td>
+              <td>3</td>
+              <td>1</td>
+              <td><span class="zone-badge zone-badge-mid">33.3%</span></td>
+              <td>1 / 34</td>
+            </tr>
+            <tr>
+              <td><div class="zone-name-cell"><span class="zdot" style="background:#B0487D;"></span><a href="/sw/takwimu/sud-ubangi/">Sud-Ubangi</a></div></td>
+              <td>2</td>
+              <td>1</td>
+              <td><span class="zone-badge zone-badge-high">50.0%</span></td>
+              <td>1 / 16</td>
+            </tr>
+        </tbody>
+      </table>
+      <div class="entete" style="margin-top:9px;margin-bottom:2px"><h2>Mapambano <small>takwimu za mwisho za kila mfululizo</small></h2></div>
+      <table class="tab" id="tabRip"></table>
+      <div class="note" id="tabNote"></div>
     </div>
 
-  </aside>
-
-  <div class="main">
-    <div class="wrap">
-
-
-
-      <main id="contenu">
-  <!-- Page blanche en attendant le contenu (4 octobre 2026) : l onglet porte
-       la pastille « Bientot », la page reste hors index et hors sitemap
-       (noindex dans pages.json). -->
-  <section class="section maq-tete">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow"><span class="dot"></span>Takwimu za kina</div>
-        <h1 class="page-title">Dashibodi</h1>
-      </div>
+    <div class="cadre">
+      <div class="entete"><h2 id="zonesTitre">Maeneo yenye visa vingi zaidi</h2></div>
+      <ul class="zones" id="zones"></ul>
+      <a class="lien-prov" id="lienProv" href="/sw/takwimu/" hidden>Ukurasa kamili wa jimbo →</a>
+      <div class="hors-rdc" id="horsRdc"></div>
     </div>
-
-    <p class="lede">Ukurasa huu unakuja hivi karibuni.</p>
   </section>
 
-      </main>
-
-  <footer>
-    <div class="footer-nav">
-      <div class="footer-col">
-        <h2>Habari</h2>
-        <ul>
-        <li><a href="/sw/barua/">Barua</a></li>
-        <li><a href="/sw/habari/">Habari za mlipuko</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>Elewa</h2>
-        <ul>
-        <li><a href="/sw/matukio/">Matukio</a></li>
-        <li><a href="/sw/virusi/">Virusi</a></li>
-        <li><a href="/sw/maswali/">Maswali</a></li>
-        <li><a href="/sw/kamusi/">Kamusi</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>Chunguza</h2>
-        <ul>
-        <li><a href="/sw/takwimu/">Nchi nzima</a></li>
-        <li><a href="/sw/nchi-nyingine/">Nchi nyingine</a></li>
-        <li><a href="/sw/mapambano/">Mapambano</a></li>
-        <li><a href="/sw/changamoto/">Changamoto</a></li>
-        <li><a href="/sw/ripoti/">Vyanzo na ripoti</a></li>
-        <li><a href="/sw/hifadhidata/">Hifadhidata</a></li>
-        <li><a href="/sw/dashibodi/">Dashibodi</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>Majimbo yaliyoathirika</h2>
-        <ul>
-        <li><a href="/sw/takwimu/ituri/">Ituri</a></li>
-        <li><a href="/sw/takwimu/nord-kivu/">Nord-Kivu</a></li>
-        <li><a href="/sw/takwimu/haut-uele/">Haut-Uélé</a></li>
-        <li><a href="/sw/takwimu/tshopo/">Tshopo</a></li>
-        <li><a href="/sw/takwimu/bas-uele/">Bas-Uélé</a></li>
-        <li><a href="/sw/takwimu/sud-kivu/">Sud-Kivu</a></li>
-        <li><a href="/sw/takwimu/sud-ubangi/">Sud-Ubangi</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>Ebola nje ya DRC</h2>
-        <ul>
-        <li><a href="/sw/kenya/">Ebola nchini Kenya</a></li>
-        <li><a href="/sw/uganda/">Ebola nchini Uganda</a></li>
-        <li><a href="/sw/ufaransa/">Ebola nchini Ufaransa</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>Tovuti</h2>
-        <ul>
-        <li><a href="/sw/kuhusu/">Kuhusu</a></li>
-        <li><a href="/sw/mawasiliano/">Mawasiliano</a></li>
-        <li><a href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" class="lien-x footer-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> Fuata kwenye X</a></li>
-        </ul>
-      </div>
-    </div>
-    <p class="footer-notice">Takwimu zinatoka kwenye ripoti za <a href="https://insp.cd/" rel="noopener">INSP</a>, zikiongezwa mara chache na <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Tovuti ya kutoa taarifa: si ushauri wa kimatibabu wala chanzo rasmi. <a href="/sw/kuhusu/#avertissement">Tahadhari kamili</a></p>
-  </footer>
-
-    </div>
-  </div>
-
+  <section class="bas">
+    <div class="g"><h3>Visa vipya kwa siku</h3><div class="s" id="s-cas"></div><div class="zone"><canvas id="c-cas"></canvas></div></div>
+    <div class="g"><h3>Vifo vipya kwa siku</h3><div class="s" id="s-deces"></div><div class="zone"><canvas id="c-deces"></canvas></div></div>
+    <div class="g"><h3>Mahali pa vifo, kwa wiki</h3><div class="s" id="s-lieu"></div><div class="zone"><canvas id="c-lieu"></canvas></div></div>
+    <div class="g"><h3>Tahadhari kwa wiki</h3><div class="s" id="s-alertes"></div><div class="zone"><canvas id="c-alertes"></canvas></div></div>
+    <div class="g"><h3>Maabara</h3><div class="s" id="s-labo"></div><div class="zone"><canvas id="c-labo"></canvas></div></div>
+    <div class="g"><h3>Watu wa karibu wanaofuatiliwa</h3><div class="s" id="s-contacts"></div><div class="zone"><canvas id="c-contacts"></canvas></div></div>
+  </section>
 </div>
+<div class="pied">Vyanzo: ripoti za INSP (DRC); nje ya DRC: WHO na wizara. <a href="/sw/ripoti/">Ripoti zote</a></div>
+<div class="bulle" id="bulle"></div>
+<div class="voile" id="voile" hidden></div>
+<aside class="tiroir" id="tiroir" aria-label="Menyu ya tovuti" hidden>
+  <div class="tiroir-tete"><a href="/sw/" class="marque"><i></i>ebola-tracker.org</a><button type="button" id="fermer" aria-label="Funga menyu">×</button></div>
+  <div id="tiroirListe"><p class="tiroir-att">…</p></div>
+</aside>
+<script type="application/json" id="dbConfig">{"lang": "sw", "accueil": "/sw/", "ici": "/sw/dashibodi/", "donnees": "/sw/takwimu/", "autresPays": "/sw/nchi-nyingine/", "provinces": {"Ituri": "/sw/takwimu/ituri/", "Nord-Kivu": "/sw/takwimu/nord-kivu/", "Haut-Uélé": "/sw/takwimu/haut-uele/", "Tshopo": "/sw/takwimu/tshopo/", "Bas-Uélé": "/sw/takwimu/bas-uele/", "Sud-Kivu": "/sw/takwimu/sud-kivu/", "Sud-Ubangi": "/sw/takwimu/sud-ubangi/"}, "pays": {"kenya": "/sw/kenya/", "ouganda": "/sw/uganda/", "france": "/sw/ufaransa/"}}</script>
 
-<script>
-window.PROVINCE_LINKS = {"Ituri": "/sw/takwimu/ituri/", "Nord-Kivu": "/sw/takwimu/nord-kivu/", "Haut-Uélé": "/sw/takwimu/haut-uele/", "Tshopo": "/sw/takwimu/tshopo/", "Bas-Uélé": "/sw/takwimu/bas-uele/", "Sud-Kivu": "/sw/takwimu/sud-kivu/", "Sud-Ubangi": "/sw/takwimu/sud-ubangi/"};
-window.ZONE_ALIASES = {"mongbwalu": "mongbalu", "nyankunde": "nyakunde", "gety": "gethy"};
-window.HERO_TIP_CASES = "visa vilivyothibitishwa"; window.HERO_TIP_DEATHS = "vifo";
-window.MAP_VIEWBOX = "0 0 1000 986.5";
-window.MAP_THRESHOLDS = [10, 50, 200, 500, 1000];
-window.MAP_PROVINCE_BOXES = {"Sankuru": [504.0, 370.9, 171.7, 217.7], "Lomami": [565.7, 535.2, 170.7, 165.4], "Kasaï-Oriental": [562.5, 576.7, 64.1, 59.9], "Mongala": [366.7, 107.5, 228.8, 136.5], "Kasaï": [391.3, 402.9, 149.5, 261.3], "Tanganyika": [718.6, 543.8, 254.6, 178.6], "Sud-Ubangi": [306.8, 31.9, 149.3, 150.5], "Kongo-Central": [0.0, 507.0, 212.7, 92.2], "Maï-Ndombe": [193.5, 317.6, 268.1, 194.7], "Kwilu": [223.7, 449.1, 195.1, 167.5], "Kwango": [206.0, 503.6, 200.5, 204.0], "Bas-Uele": [536.1, 0.0, 275.5, 180.4], "Tshopo": [525.8, 156.5, 309.3, 236.0], "Kinshasa": [152.9, 487.6, 73.7, 57.5], "Nord-Ubangi": [356.5, 12.6, 236.6, 121.9], "Maniema": [648.8, 282.7, 220.2, 262.1], "Haut-Lomami": [598.7, 603.7, 220.6, 208.7], "Tshuapa": [378.4, 189.7, 262.4, 224.9], "Haut-Katanga": [695.2, 681.1, 226.5, 305.4], "Kasaï-Central": [481.4, 501.8, 123.4, 193.7], "Ituri": [798.0, 89.6, 202.0, 165.2], "Haut-Uele": [769.0, 9.4, 193.0, 197.0], "Nord-Kivu": [786.5, 232.0, 144.8, 158.1], "Sud-Kivu": [764.7, 366.3, 134.9, 178.0], "Lualaba": [499.4, 681.9, 285.0, 214.7], "Equateur": [225.0, 170.7, 220.5, 216.1]};
-window.ZONE_POINTS = {"bunia": [943.3, 198.2], "mongbwalu": [934.1, 180.6], "rwampara": [934.3, 199.8], "nizi": [948.1, 191.5], "lita": [950.0, 195.6], "nyankunde": [933.2, 207.0], "mangala": [944.8, 179.9], "niania": [806.8, 208.5], "bambu": [943.9, 187.8], "tchomia": [956.7, 206.6], "komanda": [920.0, 210.7], "kilo": [943.5, 187.9], "fataki": [961.3, 177.9], "damas": [937.2, 171.5], "mandima": [883.5, 211.5], "adja": [956.8, 124.1], "drodro": [960.1, 190.0], "aungba": [958.4, 148.5], "logo": [982.0, 166.5], "mambasa": [880.8, 210.8], "rimba": [966.1, 165.9], "ariwara": [968.6, 117.7], "lolwa": [905.3, 211.3], "aru": [975.6, 132.3], "mahagi": [982.6, 161.2], "kambala": [976.2, 172.1], "boga": [929.3, 228.2], "gethy": [940.4, 219.4], "beni": [902.9, 256.3], "butembo": [894.9, 275.3], "goma": [888.8, 368.6], "kalunguta": [897.9, 265.1], "katwa": [895.6, 277.1], "kyondo": [900.7, 282.0], "lubero": [891.9, 290.1], "mabalako": [890.5, 257.8], "masereka": [895.9, 289.3], "musienene": [892.6, 281.4], "oicha": [906.5, 245.5], "vuhovi": [900.6, 274.5], "isiro": [807.1, 136.8], "wamba": [826.1, 169.6], "bomamangbetu": [842.7, 132.8], "pawa": [806.6, 155.8], "rungu": [820.3, 115.0], "gombari": [881.4, 140.4], "bafwasende": [782.8, 229.7], "kabondo": [681.6, 254.3], "lubunga": [679.7, 256.6], "makisokisangani": [684.4, 256.6], "mangobo": [677.6, 254.6], "wanierukula": [697.6, 271.6], "mitimurhesa": [868.8, 405.5], "buta": [655.7, 135.8], "viadana": [785.7, 131.5], "ganga": [728.2, 119.4]};
-window.MAP_CIRCLE_SCALE = 1.0;
-window.MAP_CIRCLE_MIN = 2.5;
-window.MAP_CIRCLE_SCALE_PHONE = 0.5;
-window.MAP_CIRCLE_LEGEND = [1, 10, 50, 100, 500, 1000];
-window.PROVINCES_INDEX_URL = "/sw/takwimu/";
-window.DATA_PAGE_URL = "/sw/takwimu/";
-</script>
-<!-- defer, comme Chart.js dans le <head> : les scripts differes s'executent
-     dans l'ordre du document, donc la bibliotheque est chargee avant app.js.
-     Sans ce defer, app.js s'executerait pendant l'analyse de la page, donc
-     AVANT elle, et le graphique echouerait silencieusement. Le script en ligne
-     juste au-dessus reste classique : il ne fait que poser des variables
-     globales, et doit passer en premier.
-     La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
-     dans la page. -->
-<script defer src="/assets/js/i18n.js?v=f42c36d636"></script>
-<script defer src="/assets/js/app.js?v=f80617d708"></script>
-
+<script defer src="/assets/js/dashboard.js?v=bb197e779e"></script>
 </body>
 </html>

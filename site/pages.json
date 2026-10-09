@@ -757,33 +757,36 @@
         "en": "dashboard/",
         "sw": "dashibodi/"
       },
-      "needs": [],
-      "changefreq": "monthly",
-      "priority": "0.3",
-      "schema": [],
-      "noindex": true,
+      "needs": [
+        "chart"
+      ],
+      "changefreq": "daily",
+      "priority": "0.8",
+      "schema": [
+        "dataset"
+      ],
       "navLabelKey": "t:navDashboard",
       "navBadge": {
-        "key": "navBadgeBientot",
-        "style": "soon"
+        "key": "navBadgeNouveau"
       },
       "meta": {
         "fr": {
-          "title": "Dashboard — Ebola RDC",
-          "h1": "Dashboard",
-          "description": "Toutes les données de l'épidémie en temps réel, bientôt disponible."
+          "title": "Ebola RDC en direct : carte, cas et décès par zone de santé",
+          "h1": "Tableau de bord Ebola RDC, en direct",
+          "description": "Suivi en direct de l'épidémie d'Ebola en RDC, mis à jour à chaque bulletin de l'INSP : carte des zones de santé, cas et décès du jour, provinces, riposte. Situation au {date}."
         },
         "en": {
-          "title": "Dashboard — DRC Ebola",
-          "h1": "Dashboard",
-          "description": "All the outbreak data in real time, coming soon."
+          "title": "Live DRC Ebola map & dashboard: cases and deaths by health zone",
+          "h1": "DRC Ebola live dashboard",
+          "description": "Live tracker of the DRC Ebola outbreak, updated with every INSP bulletin: health-zone map, today's cases and deaths, provinces, response. Situation as of {date}."
         },
         "sw": {
-          "title": "Dashibodi — Ebola DRC",
-          "h1": "Dashibodi",
-          "description": "Takwimu zote za mlipuko kwa wakati halisi, inakuja hivi karibuni."
+          "title": "Ebola DRC moja kwa moja: ramani, visa na vifo kwa kila eneo la afya",
+          "h1": "Dashibodi ya Ebola DRC, moja kwa moja",
+          "description": "Ufuatiliaji wa moja kwa moja wa mlipuko wa Ebola DRC, unaosasishwa kwa kila ripoti ya INSP: ramani, visa na vifo vya leo, majimbo. Hali kufikia {date}."
         }
-      }
+      },
+      "layout": "layout-dashboard.html"
     },
     {
       "id": "le-virus",
