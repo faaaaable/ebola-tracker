@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "e9d7bbe1",
+   "date": "2026-10-09",
+   "titre": "Ebola à Biakato : 12 jeunes interpellés pour entrave aux activités de la riposte (Administrateur militaire adjoint de Mambasa)",
+   "source": "ACP",
+   "url": "https://acp.cd/science-sante-environnement/ebola-a-biakato-12-jeunes-interpelles-pour-entrave-aux-activites-de-la-riposte-administrateur-militaire-adjoint-de-mambasa/",
+   "langue": "fr",
+   "resume": "Douze jeunes présumés agresseurs des équipes de la riposte contre l’épidémie de la maladie à virus Ebola, ont été…",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "d9a069fa",
+   "date": "2026-10-09",
+   "titre": "Probable détournement des fonds alloués à la sensibilisation contre la Maladie à Virus Ebola par certains Députés Nationaux. La société civile alerte !",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/09/emissions/regard-sur-lactualite-de-la-semaine/probable-detournement-des-fonds-alloues-la",
+   "langue": "fr",
+   "resume": "Radio Okapi/Ph. Grace Amzati.\" /> Trois sujets principaux au menu de cette émission : Mais nous allons commencer par émettre un commentaire au sujet de nouvelles mesures du gouvernement pour renforcer la sécurité de la navigation en RDC.",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ac5e5097",
    "date": "2026-10-09",
    "titre": "Plusieurs acteurs demandent des explications sur les fonds destinés à la sensibilisation contre Ebola au Nord-Kivu",
@@ -9,6 +35,71 @@
    "url": "https://www.radiookapi.net/2026/10/09/actualite/sante/plusieurs-acteurs-demandent-des-explications-sur-les-fonds-destines-la",
    "langue": "fr",
    "resume": "Photo assemblée provinciale du Nord-Kivu\" /> Des acteurs politiques et de la société civile au Nord-Kivu demandent des explications sur l’utilisation des fonds alloués à des députés provinciaux pour sensibiliser la population à la maladie à virus Ebola.",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "9156090a",
+   "date": "2026-10-09",
+   "titre": "Ebola à Béni: les troubles aux cimetières ne viennent pas des familles des victimes",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-beni-les-troubles-aux-cimetieres-ne-viennent-pas-des-familles-des-victimes/",
+   "langue": "fr",
+   "resume": "Des troubles observés dans des cimetières à Beni au Nord-Kivu, dans l'Est de la République démocratique du Congo(RDC), lors des…",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "8ea43fd9",
+   "date": "2026-10-09",
+   "titre": "Kenya confirms preliminary tests on suspected Ebola case come back negative",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/10/09/kenya-confirms-preliminary-tests-on-suspected-ebola-case-come-back-negative/",
+   "langue": "en",
+   "resume": "There had been fears the patient could be Kenya’s second case after a citizen died of ⁠the virus in Nairobi on Tuesday.",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "71afa1ad",
+   "date": "2026-10-09",
+   "titre": "Ebola dans le Haut-Uélé: les équipes de riposte encouragées à éradiquer l’épidémie",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-dans-le-haut-uele-les-equipes-de-riposte-encouragees-a-eradiquer-lepidemie/",
+   "langue": "fr",
+   "resume": "Les équipes de la riposte contre Ebola, de la coordination provinciale du Haut-Uélé, dans le Nord-Est de la République démocratique…",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "1f69afc7",
+   "date": "2026-10-09",
+   "titre": "Ebola au Haut-Uélé : la vaccination contre l’épidémie lancée par le gouverneur à Isiro",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-au-haut-uele-la-vaccination-contre-lepidemie-lancee-par-le-gouverneur-a-isiro/",
+   "langue": "fr",
+   "resume": "La campagne de vaccination contre la maladie à virus Ebola, a été lancée jeudi, par le gouverneur de province du Haut-Uele,…",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "0b32f7f5",
+   "date": "2026-10-09",
+   "titre": "Ebola au Nord-Kivu : l’Église anglicane appelle les fidèles à respecter les mesures sanitaires",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/09/actualite/sante/ebola-au-nord-kivu-leglise-anglicane-appelle-les-fideles-respecter-les",
+   "langue": "fr",
+   "resume": "Radio Okapi/Ph. Marc Maro Fimbo\" /> L’Église anglicane réaffirme son engagement dans la lutte contre la maladie à virus Ebola. Réunis jeudi 8 octobre en assemblée annuelle dans la chefferie des Watalinga, en territoire de Beni, au Nord-Kivu, ses fidèles ont été appelés à…",
    "statut": "publie",
    "collecte": "2026-10-09",
    "media": true,
@@ -1318,6 +1409,18 @@
    "image": true
   },
   {
+   "id": "9dde2bd4",
+   "date": "2026-10-04",
+   "titre": "Ebola : Le Figaro au centre d’ALIMA à Rwampara",
+   "source": "ALIMA",
+   "url": "https://alima.ngo/actualites/le-figaro-ebola-rwampara-alima-bunia-reportage/",
+   "langue": "fr",
+   "resume": "Le 4 octobre 2026, *Le Figaro* a publié un reportage réalisé à Bunia, épicentre de l'épidémie d'Ebola en RDC, à l'occasion d'une visite du ministre français des Affaires étrangères. Son correspondant spécial s'est rendu au centre de traitement d'Ebola d'ALIMA à Rwampara.",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "image": true
+  },
+  {
    "id": "93df9999",
    "date": "2026-10-04",
    "titre": "Le Club RFI Goma (RDC) participe à la lutte contre Ebola et agit pour la paix",
@@ -1758,6 +1861,18 @@
    "collecte": "2026-10-02",
    "media": true,
    "image": true
+  },
+  {
+   "id": "b8c7a9b5",
+   "date": "2026-10-02",
+   "titre": "Ebola au Congo : la NOS donne la parole à ALIMA",
+   "source": "ALIMA",
+   "url": "https://alima.ngo/actualites/nos-ebola-congo-alima-bunia-medecins-traitements/",
+   "langue": "fr",
+   "resume": "Entre le 26 septembre et le 2 octobre 2026, la NOS, radiotélévision publique néerlandaise, a consacré trois sujets à l'épidémie d'Ebola dans l'est de la RDC. Le Dr Jacques Makuta, médecin d'ALIMA à Bunia, y décrit le quotidien des soignants.",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "image": false
   },
   {
    "id": "a5e7c274",
@@ -4128,6 +4243,18 @@
    "statut": "ecarte",
    "collecte": "2026-09-24",
    "media": true
+  },
+  {
+   "id": "885c44eb",
+   "date": "2026-09-19",
+   "titre": "Le CUBE d’ALIMA contre Ebola, vu par la BBC et Anadolu",
+   "source": "ALIMA",
+   "url": "https://alima.ngo/actualites/medias/cube-alima-ebola-bbc-anadolu-chambre-biosecurisee-rdc/",
+   "langue": "fr",
+   "resume": "Le 1er juin 2026, la BBC, puis le 19 septembre l'agence Anadolu, ont mis en avant le CUBE, la chambre d'urgence biosécurisée pour épidémies conçue par ALIMA. Le Dr Papys Lame, coordinateur de la riposte Ebola d'ALIMA, en explique l'intérêt à la BBC.",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "image": true
   },
   {
    "id": "784aa9ad",
