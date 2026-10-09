@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Base de données — Ebola RDC</title>
-<meta name="description" content="La base de données ouverte du site, bientôt disponible.">
+<title>Données Ebola RDC : cas et décès par zone de santé, jour par jour (CSV)</title>
+<meta name="description" content="Base de données ouverte de l'épidémie d'Ebola en RDC : cas, décès, riposte par pays, province et zone de santé, jour par jour depuis le 14 mai 2026, d'après les SitRep de l'INSP. Téléchargement CSV et JSON, licence CC BY 4.0.">
 <link rel="canonical" href="https://ebola-tracker.org/base-de-donnees/">
 <link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/base-de-donnees/">
 <link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/database/">
@@ -13,8 +13,8 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#FDFAF6">
 <meta property="og:site_name" content="Ebola Tracker">
-<meta property="og:title" content="Base de données — Ebola RDC">
-<meta property="og:description" content="La base de données ouverte du site, bientôt disponible.">
+<meta property="og:title" content="Données Ebola RDC : cas et décès par zone de santé, jour par jour (CSV)">
+<meta property="og:description" content="Base de données ouverte de l'épidémie d'Ebola en RDC : cas, décès, riposte par pays, province et zone de santé, jour par jour depuis le 14 mai 2026, d'après les SitRep de l'INSP. Téléchargement CSV et JSON, licence CC BY 4.0.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ebola-tracker.org/base-de-donnees/">
 <meta property="og:locale" content="fr_FR">
@@ -22,13 +22,92 @@
 <meta property="og:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="Base de données — Ebola RDC">
+<meta property="og:image:alt" content="Données Ebola RDC : cas et décès par zone de santé, jour par jour (CSV)">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
-<meta name="twitter:title" content="Base de données — Ebola RDC">
-<meta name="twitter:description" content="La base de données ouverte du site, bientôt disponible.">
-<meta name="robots" content="noindex, follow">
+<meta name="twitter:title" content="Données Ebola RDC : cas et décès par zone de santé, jour par jour (CSV)">
+<meta name="twitter:description" content="Base de données ouverte de l'épidémie d'Ebola en RDC : cas, décès, riposte par pays, province et zone de santé, jour par jour depuis le 14 mai 2026, d'après les SitRep de l'INSP. Téléchargement CSV et JSON, licence CC BY 4.0.">
+<meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="kpbL-xHwtgQ-H61ezgLZEOl2f41_3VXpb2ejZz0R1Og" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Données Ebola RDC : cas et décès par zone de santé, jour par jour (CSV)",
+  "description": "Base de données ouverte de l'épidémie d'Ebola en RDC : cas, décès, riposte par pays, province et zone de santé, jour par jour depuis le 14 mai 2026, d'après les SitRep de l'INSP. Téléchargement CSV et JSON, licence CC BY 4.0.",
+  "url": "https://ebola-tracker.org/base-de-donnees/",
+  "inLanguage": "fr",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree": true,
+  "creator": {
+    "@type": "Organization",
+    "name": "Ebola Tracker",
+    "url": "https://ebola-tracker.org/"
+  },
+  "keywords": [
+    "Ebola",
+    "Bundibugyo",
+    "RDC",
+    "DRC",
+    "INSP",
+    "SitRep",
+    "zone de santé",
+    "health zone",
+    "épidémie",
+    "outbreak",
+    "données",
+    "dataset",
+    "CSV"
+  ],
+  "temporalCoverage": "2026-05-14/2026-10-06",
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "République démocratique du Congo",
+    "geo": {
+      "@type": "GeoShape",
+      "box": "-13.46 12.2 5.39 31.31"
+    }
+  },
+  "variableMeasured": [
+    "cas confirmés",
+    "décès",
+    "nouveaux cas",
+    "nouveaux décès",
+    "létalité",
+    "guéris",
+    "décès en communauté",
+    "décès en CTE",
+    "alertes reçues",
+    "alertes validées",
+    "échantillons de laboratoire",
+    "positivité",
+    "hospitalisés en CTE",
+    "occupation des lits",
+    "contacts suivis",
+    "personnes vaccinées"
+  ],
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://ebola-tracker.org/data/base-ebola-rdc.csv"
+    },
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://ebola-tracker.org/data/base-ebola-rdc.json"
+    }
+  ],
+  "isBasedOn": [
+    {
+      "@type": "WebSite",
+      "name": "Institut National de Santé Publique (INSP) RDC",
+      "url": "https://insp.cd/"
+    }
+  ],
+  "dateModified": "2026-10-06"
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -65,7 +144,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="/assets/css/base.css?v=6769ee90cd">
+<script defer src="/assets/js/base.js?v=3dfc1abaaf"></script>
 <link rel="stylesheet" href="/assets/css/site.css?v=69602f05e6">
 </head>
 <body>
@@ -157,7 +237,7 @@
         <div class="nav-col-titre">Données détaillées</div>
         <a href="/rapports/"><span class="nav-t">Sources &amp; bulletins</span><span class="nav-desc">Tous les bulletins de l’INSP</span></a>
         <a href="/dashboard/"><span class="nav-t">Dashboard <span class="nav-badge">Nouveau</span></span><span class="nav-desc">Toutes les données sur un seul écran</span></a>
-        <a href="/base-de-donnees/" aria-current="page"><span class="nav-t">Base de données <span class="nav-badge nav-badge-soon">Bientôt</span></span><span class="nav-desc">Les données du site, à télécharger</span></a>
+        <a href="/base-de-donnees/" aria-current="page"><span class="nav-t">Base de données <span class="nav-badge">Nouveau</span></span><span class="nav-desc">Les données du site, à télécharger</span></a>
       </div>
       </div>
       </div></div>
@@ -197,19 +277,94 @@
 
 
       <main id="contenu">
-  <!-- Page blanche en attendant le contenu (3 octobre 2026) : l'onglet porte
-       la pastille « Bientot », la page reste hors index et hors sitemap
-       (noindex dans pages.json). -->
-  <section class="section maq-tete">
-    <div class="section-head">
-      <div>
+  <!-- Base de donnees (9 octobre 2026, maquette tmp/proto-base-1009 retenue) :
+       toutes les donnees du site, une ligne par date et par territoire,
+       epidemie et riposte, avec le bulletin source. Fichiers ecrits a chaque
+       generation par scripts/base_donnees.py (data/base-ebola-rdc.csv et
+       .json) ; la page lit le JSON (assets/js/base.js, assets/css/base.css).
+       Le generateur ecrit aussi, en dur, le resume, le tableau du dernier
+       bulletin, les notes et la liste des zones : c'est ce que lisent les
+       moteurs de recherche ; le script remplace le tableau par la base
+       complete au chargement. -->
+  <section class="section bdd">
+    <div class="bdd-tete">
         <div class="eyebrow"><span class="dot"></span>Données détaillées</div>
         <h1 class="page-title">Base de données</h1>
+        <p class="lede">Toutes les données du site, jour par jour, pour le pays, chaque province et chaque zone de santé. Chaque ligne renvoie au bulletin de l’INSP qui la publie. À explorer, filtrer, trier ou télécharger.</p>
+        <p class="bdd-resume">6 684 lignes, 137 bulletins de l’INSP, 64 zones de santé, du 14 mai 2026 au 6 oct. 2026.</p>
+      <div class="bdd-dl" aria-label="Télécharger la base">
+        <a class="bdd-btn" href="/data/base-ebola-rdc.csv" download>Tout en CSV</a>
+        <a class="bdd-btn bdd-sec" href="/data/base-ebola-rdc.json" download>Tout en JSON</a>
+        <a class="bdd-lic" href="#licence">Licence CC BY 4.0</a>
       </div>
     </div>
 
-    <p class="lede">Cette page arrive bientôt.</p>
+    <p class="bdd-avert">Données extraites des PDF de l’INSP, en partie automatiquement : des erreurs restent possibles. <b>En cas de doute, le PDF du bulletin fait foi.</b> <a href="/contact/">Signaler une erreur</a> · <a href="#erreurs">En savoir plus</a></p>
+
+    <div id="bddApp" class="bdd-app">
+      <h2 class="bdd-h2">Dernier bulletin : 6 oct. 2026</h2>
+      <p class="bdd-sous">Le pays et les provinces au dernier bulletin. Le tableau complet se charge ci-dessous.</p>
+      <table class="bdd-statique">
+        <thead><tr><th>Territoire</th><th>Cas</th><th>Nouveaux cas</th><th>Décès</th><th>Létalité</th></tr></thead>
+        <tbody>
+          <tr class="is-pays"><td><a href="/donnees/">RDC</a></td><td>8 728</td><td>+63</td><td>4 205</td><td>48,2 %</td></tr>
+          <tr class=""><td><a href="/donnees/ituri/">Ituri</a></td><td>6 513</td><td>+33</td><td>3 007</td><td>46,2 %</td></tr>
+          <tr class=""><td><a href="/donnees/nord-kivu/">Nord-Kivu</a></td><td>1 785</td><td>+30</td><td>1 021</td><td>57,2 %</td></tr>
+          <tr class=""><td><a href="/donnees/haut-uele/">Haut-Uélé</a></td><td>364</td><td>+0</td><td>153</td><td>42,0 %</td></tr>
+          <tr class=""><td><a href="/donnees/tshopo/">Tshopo</a></td><td>51</td><td>+0</td><td>18</td><td>35,3 %</td></tr>
+          <tr class=""><td><a href="/donnees/bas-uele/">Bas-Uélé</a></td><td>10</td><td>+0</td><td>4</td><td>40,0 %</td></tr>
+          <tr class=""><td><a href="/donnees/sud-kivu/">Sud-Kivu</a></td><td>3</td><td>+0</td><td>1</td><td>33,3 %</td></tr>
+          <tr class=""><td><a href="/donnees/sud-ubangi/">Sud-Ubangi</a></td><td>2</td><td>+0</td><td>1</td><td>50,0 %</td></tr>
+        </tbody>
+      </table>
+      <p class="bdd-charge">Chargement de la base…</p>
+    </div>
+
   </section>
+
+  <!-- Le texte sous le tableau (9 octobre 2026) : les composants de la page
+       A propos, l'essentiel en trois points numerotes, le detail en
+       rubriques depliables, licence et citation en bloc final. -->
+  <section class="section ap-f1">
+    <h2 class="ap-h2">Lire ces données</h2>
+    <ol class="ap-etapes">
+      <li><span class="ap-n">01</span><h3>Une seule source par chiffre</h3><p>Chaque ligne renvoie au PDF du bulletin de l’INSP dont elle est tirée. Le site ne corrige ni ne complète les chiffres : une case vide est une valeur que le bulletin ne donne pas.</p></li>
+      <li><span class="ap-n">02</span><h3>Nouveaux cas et décès : un calcul</h3><p>Les colonnes « nouveaux » sont l’écart entre deux relevés du même territoire, calculé par le site. Elles peuvent différer des chiffres du jour publiés par le bulletin.</p></li>
+      <li><span class="ap-n">03</span><h3>Des erreurs sont possibles</h3><p>Les chiffres sont lus dans les PDF, en partie par un programme : des erreurs restent possibles. Le PDF du bulletin, accessible depuis chaque ligne, fait toujours foi.</p></li>
+    </ol>
+  </section>
+
+  <section class="section ap-f1">
+    <h2 class="ap-h2">En détail</h2>
+    <p class="ap-sous">Ce qu’il faut savoir avant de réutiliser ces chiffres.</p>
+    <div class="ap-acc bdd-acc">
+      <details id="erreurs"><summary>Des erreurs sont possibles</summary><div class="prose"><p>Les chiffres sont lus dans les PDF des bulletins, en grande partie par un programme. Le format des bulletins a changé plusieurs fois depuis mai, et un tableau mal lu peut décaler une valeur d’une colonne ou d’une zone. Des contrôles automatiques vérifient chaque bulletin (somme des provinces contre le total national, nouveaux cas inférieurs au cumul, létalité recalculée) et les écarts repérés sont corrigés à la main, mais ils ne peuvent pas tout attraper. Les bulletins eux-mêmes contiennent parfois des erreurs ou des révisions, que le site reproduit sans les corriger. Le PDF du bulletin, accessible depuis chaque ligne, fait toujours foi. Si vous repérez une erreur, écrivez-nous en indiquant la date, le territoire et la colonne. <a href="/contact/">Signaler une erreur →</a></p></div></details>
+      <details id="nouveaux"><summary>Nouveaux cas et décès : un calcul</summary><div class="prose"><p>Les colonnes « nouveaux » sont l’écart entre deux relevés successifs du même territoire, calculé par le site ; elles peuvent différer des nouveaux cas que le bulletin publie pour la journée (un cas reclassé d’une zone à l’autre, par exemple). Un écart négatif est une révision à la baisse par la source. Quand le relevé précédent date de plus d’un jour, l’écart porte le nombre de journées qu’il couvre.</p></div></details>
+      <details id="absents"><summary>Bulletins absents</summary><div class="prose"><p>L’INSP n’a jamais mis en ligne les SitRep n° 003, 029, 043, 045, 063, 075, 076, 142. Les jours concernés n’ont pas de ligne ; l’écart suivant couvre alors plusieurs journées.</p></div></details>
+      <details id="rattrapages"><summary>Rattrapages</summary><div class="prose"><p>Les 22 et 30 juillet 2026, l’écart couvre plus d’une journée : une harmonisation de bases le 22 (le bulletin annonce +97 cas pour la journée), les 28 et 29 juillet sans bulletin le 30 (+73 annoncés). Ces lignes portent la mention « rattrapage ».</p></div></details>
+      <details id="reconstitue"><summary>Le 3 octobre 2026</summary><div class="prose"><p>Le SitRep n° 142 n’a pas été publié. La ligne du 3 octobre est reconstituée : cumul du n° 143 moins ses nouveaux cas et décès de 24 h. Elle porte la mention « reconstitué ».</p></div></details>
+      <details id="provinces-zones"><summary>Provinces et zones</summary><div class="prose"><p>Le total d’une province peut différer de la somme de ses zones : les bulletins comptent à part les cas et décès pas encore rattachés à une zone. Les premiers cas du Haut-Uélé et de la Tshopo sont restés comptés en Ituri jusqu’au 10 juillet.</p></div></details>
+      <details id="colonnes"><summary>Les colonnes</summary><div class="prose" id="bddDico"></div></details>
+      <details id="zones" class="bdd-zones"><summary>Les 64 zones de santé de la base</summary><div class="prose">
+        <p><a href="/donnees/ituri/"><b>Ituri</b></a> : Adja, Ariwara, Aru, Aungba, Bambu, Boga, Bunia, Damas, Drodro, Fataki, Gethy, Kambala, Kilo, Komanda, Lita, Logo, Lolwa, Mahagi, Mambasa, Mandima, Mangala, Mongbwalu, Nia-Nia, Nizi, Nyankunde, Rimba, Rwampara, Tchomia</p>
+        <p><a href="/donnees/nord-kivu/"><b>Nord-Kivu</b></a> : Alimbongo, Beni, Biena, Butembo, Goma, Kalunguta, Katwa, Kayna, Kyondo, Lubero, Mabalako, Manguredjipa, Masereka, Musienene, Mutwanga, Oicha, Vuhovi</p>
+        <p><a href="/donnees/haut-uele/"><b>Haut-Uélé</b></a> : Boma-Mangbetu, Dungu, Gombari, Isiro, Pawa, Rungu, Wamba</p>
+        <p><a href="/donnees/tshopo/"><b>Tshopo</b></a> : Bafwasende, Kabondo, Lubunga, Makiso-Kisangani, Mangobo, Tshopo, Wanie-Rukula</p>
+        <p><a href="/donnees/bas-uele/"><b>Bas-Uélé</b></a> : Buta, Ganga, Viadana</p>
+        <p><a href="/donnees/sud-kivu/"><b>Sud-Kivu</b></a> : Miti-Murhesa</p>
+        <p><a href="/donnees/sud-ubangi/"><b>Sud-Ubangi</b></a> : Bulu</p>
+
+      </div></details>
+    </div>
+  </section>
+
+  <section class="section ap-f1 ap-fin" id="licence">
+    <h2 class="ap-h2">Licence</h2>
+    <p>Les données de cette base sont publiées sous licence Creative Commons Attribution 4.0 (CC BY 4.0) : vous pouvez les copier, les transformer et les republier, y compris à des fins commerciales, à condition de citer ebola-tracker.org. La licence couvre le travail du site (extraction, mise en forme, calculs) ; les bulletins PDF restent soumis aux conditions de l’INSP, et le relevé du 28 juin, tiré d’un rapport de l’OMS, à celles de l’OMS. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank">CC BY 4.0 →</a></p>
+    <h2>Comment citer</h2>
+    <p id="bddCite">Ebola Tracker (ebola-tracker.org), base de données de l’épidémie d’Ebola Bundibugyo en RDC, d’après les rapports de situation de l’Institut national de santé publique (INSP), consultée le 9 oct. 2026.</p>
+  </section>
+  <script type="application/json" id="bddConfig">{"lang": "fr", "contact": "/contact/", "provinces": {"Ituri": "/donnees/ituri/", "Nord-Kivu": "/donnees/nord-kivu/", "Haut-Uélé": "/donnees/haut-uele/", "Tshopo": "/donnees/tshopo/", "Sud-Kivu": "/donnees/sud-kivu/", "Bas-Uélé": "/donnees/bas-uele/", "Sud-Ubangi": "/donnees/sud-ubangi/"}}</script>
 
       </main>
 

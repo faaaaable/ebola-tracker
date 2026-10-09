@@ -1,13 +1,74 @@
-  <!-- Page blanche en attendant le contenu (3 octobre 2026) : l'onglet porte
-       la pastille « Bientot », la page reste hors index et hors sitemap
-       (noindex dans pages.json). -->
-  <section class="section maq-tete">
-    <div class="section-head">
-      <div>
+  <!-- Base de donnees (9 octobre 2026, maquette tmp/proto-base-1009 retenue) :
+       toutes les donnees du site, une ligne par date et par territoire,
+       epidemie et riposte, avec le bulletin source. Fichiers ecrits a chaque
+       generation par scripts/base_donnees.py (data/base-ebola-rdc.csv et
+       .json) ; la page lit le JSON (assets/js/base.js, assets/css/base.css).
+       Le generateur ecrit aussi, en dur, le resume, le tableau du dernier
+       bulletin, les notes et la liste des zones : c'est ce que lisent les
+       moteurs de recherche ; le script remplace le tableau par la base
+       complete au chargement. -->
+  <section class="section bdd">
+    <div class="bdd-tete">
         <div class="eyebrow"><span class="dot"></span>{{t.navColDetails}}</div>
         <h1 class="page-title">{{meta.h1}}</h1>
+        <p class="lede">{{t.bddLede}}</p>
+        <p class="bdd-resume">{{bdd.resume}}</p>
+      <div class="bdd-dl" aria-label="{{t.bddTelecharger}}">
+        <a class="bdd-btn" href="/data/base-ebola-rdc.csv" download>{{t.bddCsv}}</a>
+        <a class="bdd-btn bdd-sec" href="/data/base-ebola-rdc.json" download>{{t.bddJson}}</a>
+        <a class="bdd-lic" href="#licence">{{t.bddLicenceCourt}}</a>
       </div>
     </div>
 
-    <p class="lede">{{t.baseSoon}}</p>
+    <p class="bdd-avert">{{t.bddAvert}} <b>{{t.bddAvertPdf}}</b> <a href="{{url.contact}}">{{t.bddSignaler}}</a> · <a href="#erreurs">{{t.bddEnSavoir}}</a></p>
+
+    <div id="bddApp" class="bdd-app">
+      <h2 class="bdd-h2">{{bdd.dernierTitre}}</h2>
+      <p class="bdd-sous">{{t.bddDernierSous}}</p>
+      <table class="bdd-statique">
+        <thead><tr><th>{{t.bddThTerritoire}}</th><th>{{t.bddThCas}}</th><th>{{t.bddThNouveaux}}</th><th>{{t.bddThDeces}}</th><th>{{t.bddThLetalite}}</th></tr></thead>
+        <tbody>
+{{bdd.dernierLignes}}
+        </tbody>
+      </table>
+      <p class="bdd-charge">{{t.bddChargement}}</p>
+    </div>
+
   </section>
+
+  <!-- Le texte sous le tableau (9 octobre 2026) : les composants de la page
+       A propos, l'essentiel en trois points numerotes, le detail en
+       rubriques depliables, licence et citation en bloc final. -->
+  <section class="section ap-f1">
+    <h2 class="ap-h2">{{t.bddLire}}</h2>
+    <ol class="ap-etapes">
+      <li><span class="ap-n">01</span><h3>{{t.bddN1T}}</h3><p>{{t.bddN1}}</p></li>
+      <li><span class="ap-n">02</span><h3>{{t.bddN2T}}</h3><p>{{t.bddN2Court}}</p></li>
+      <li><span class="ap-n">03</span><h3>{{t.bddErrT}}</h3><p>{{t.bddErrCourt}}</p></li>
+    </ol>
+  </section>
+
+  <section class="section ap-f1">
+    <h2 class="ap-h2">{{t.bddDetail}}</h2>
+    <p class="ap-sous">{{t.bddDetailSous}}</p>
+    <div class="ap-acc bdd-acc">
+      <details id="erreurs"><summary>{{t.bddErrT}}</summary><div class="prose"><p>{{t.bddErr}} <a href="{{url.contact}}">{{t.bddSignaler}} →</a></p></div></details>
+      <details id="nouveaux"><summary>{{t.bddN2T}}</summary><div class="prose"><p>{{t.bddN2}}</p></div></details>
+      <details id="absents"><summary>{{t.bddN3T}}</summary><div class="prose"><p>{{bdd.manquants}}</p></div></details>
+      <details id="rattrapages"><summary>{{t.bddN4T}}</summary><div class="prose"><p>{{t.bddN4}}</p></div></details>
+      <details id="reconstitue"><summary>{{t.bddN6T}}</summary><div class="prose"><p>{{t.bddN6}}</p></div></details>
+      <details id="provinces-zones"><summary>{{t.bddN5T}}</summary><div class="prose"><p>{{t.bddN5}}</p></div></details>
+      <details id="colonnes"><summary>{{t.bddDicoT}}</summary><div class="prose" id="bddDico"></div></details>
+      <details id="zones" class="bdd-zones"><summary>{{bdd.zonesTitre}}</summary><div class="prose">
+{{bdd.zones}}
+      </div></details>
+    </div>
+  </section>
+
+  <section class="section ap-f1 ap-fin" id="licence">
+    <h2 class="ap-h2">{{t.bddLicCiteT}}</h2>
+    <p>{{t.bddLic}} <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank">CC BY 4.0 →</a></p>
+    <h2>{{t.bddCiteT}}</h2>
+    <p id="bddCite">{{bdd.citation}}</p>
+  </section>
+  <script type="application/json" id="bddConfig">{{bdd.config}}</script>

@@ -102,6 +102,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/base-de-donnees/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/base-de-donnees/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/database/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/hifadhidata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/base-de-donnees/"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/dashboard/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/dashboard/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/dashboard/"/>
@@ -982,6 +993,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/database/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/base-de-donnees/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/database/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/hifadhidata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/base-de-donnees/"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/dashboard/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/dashboard/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/dashboard/"/>
@@ -1856,6 +1878,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/reports/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/ripoti/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/rapports/"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/hifadhidata/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/base-de-donnees/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/database/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/hifadhidata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/base-de-donnees/"/>
     <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>

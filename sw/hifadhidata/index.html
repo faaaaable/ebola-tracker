@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hifadhidata — Ebola DRC</title>
-<meta name="description" content="Hifadhidata huria ya tovuti, inakuja hivi karibuni.">
+<title>Takwimu za Ebola DRC: visa na vifo kwa kila eneo la afya, siku kwa siku (CSV)</title>
+<meta name="description" content="Hifadhidata huria ya mlipuko wa Ebola DRC: visa, vifo na mapambano kwa nchi, jimbo na eneo la afya, siku kwa siku tangu 14 Mei 2026, kutoka SitRep za INSP. Pakua CSV na JSON, leseni CC BY 4.0.">
 <link rel="canonical" href="https://ebola-tracker.org/sw/hifadhidata/">
 <link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/base-de-donnees/">
 <link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/database/">
@@ -13,8 +13,8 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#FDFAF6">
 <meta property="og:site_name" content="Ebola Tracker">
-<meta property="og:title" content="Hifadhidata — Ebola DRC">
-<meta property="og:description" content="Hifadhidata huria ya tovuti, inakuja hivi karibuni.">
+<meta property="og:title" content="Takwimu za Ebola DRC: visa na vifo kwa kila eneo la afya, siku kwa siku (CSV)">
+<meta property="og:description" content="Hifadhidata huria ya mlipuko wa Ebola DRC: visa, vifo na mapambano kwa nchi, jimbo na eneo la afya, siku kwa siku tangu 14 Mei 2026, kutoka SitRep za INSP. Pakua CSV na JSON, leseni CC BY 4.0.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ebola-tracker.org/sw/hifadhidata/">
 <meta property="og:locale" content="sw_CD">
@@ -22,13 +22,92 @@
 <meta property="og:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="Hifadhidata — Ebola DRC">
+<meta property="og:image:alt" content="Takwimu za Ebola DRC: visa na vifo kwa kila eneo la afya, siku kwa siku (CSV)">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
-<meta name="twitter:title" content="Hifadhidata — Ebola DRC">
-<meta name="twitter:description" content="Hifadhidata huria ya tovuti, inakuja hivi karibuni.">
-<meta name="robots" content="noindex, follow">
+<meta name="twitter:title" content="Takwimu za Ebola DRC: visa na vifo kwa kila eneo la afya, siku kwa siku (CSV)">
+<meta name="twitter:description" content="Hifadhidata huria ya mlipuko wa Ebola DRC: visa, vifo na mapambano kwa nchi, jimbo na eneo la afya, siku kwa siku tangu 14 Mei 2026, kutoka SitRep za INSP. Pakua CSV na JSON, leseni CC BY 4.0.">
+<meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="kpbL-xHwtgQ-H61ezgLZEOl2f41_3VXpb2ejZz0R1Og" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Takwimu za Ebola DRC: visa na vifo kwa kila eneo la afya, siku kwa siku (CSV)",
+  "description": "Hifadhidata huria ya mlipuko wa Ebola DRC: visa, vifo na mapambano kwa nchi, jimbo na eneo la afya, siku kwa siku tangu 14 Mei 2026, kutoka SitRep za INSP. Pakua CSV na JSON, leseni CC BY 4.0.",
+  "url": "https://ebola-tracker.org/sw/hifadhidata/",
+  "inLanguage": "sw",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree": true,
+  "creator": {
+    "@type": "Organization",
+    "name": "Ebola Tracker",
+    "url": "https://ebola-tracker.org/"
+  },
+  "keywords": [
+    "Ebola",
+    "Bundibugyo",
+    "RDC",
+    "DRC",
+    "INSP",
+    "SitRep",
+    "zone de santé",
+    "health zone",
+    "épidémie",
+    "outbreak",
+    "données",
+    "dataset",
+    "CSV"
+  ],
+  "temporalCoverage": "2026-05-14/2026-10-06",
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "République démocratique du Congo",
+    "geo": {
+      "@type": "GeoShape",
+      "box": "-13.46 12.2 5.39 31.31"
+    }
+  },
+  "variableMeasured": [
+    "cas confirmés",
+    "décès",
+    "nouveaux cas",
+    "nouveaux décès",
+    "létalité",
+    "guéris",
+    "décès en communauté",
+    "décès en CTE",
+    "alertes reçues",
+    "alertes validées",
+    "échantillons de laboratoire",
+    "positivité",
+    "hospitalisés en CTE",
+    "occupation des lits",
+    "contacts suivis",
+    "personnes vaccinées"
+  ],
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://ebola-tracker.org/data/base-ebola-rdc.csv"
+    },
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://ebola-tracker.org/data/base-ebola-rdc.json"
+    }
+  ],
+  "isBasedOn": [
+    {
+      "@type": "WebSite",
+      "name": "Institut National de Santé Publique (INSP) RDC",
+      "url": "https://insp.cd/"
+    }
+  ],
+  "dateModified": "2026-10-06"
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -65,7 +144,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="/assets/css/base.css?v=6769ee90cd">
+<script defer src="/assets/js/base.js?v=3dfc1abaaf"></script>
 <link rel="stylesheet" href="/assets/css/site.css?v=69602f05e6">
 </head>
 <body>
@@ -157,7 +237,7 @@
         <div class="nav-col-titre">Takwimu za kina</div>
         <a href="/sw/ripoti/"><span class="nav-t">Vyanzo na ripoti</span><span class="nav-desc">Ripoti zote za INSP</span></a>
         <a href="/sw/dashibodi/"><span class="nav-t">Dashibodi <span class="nav-badge">Mpya</span></span><span class="nav-desc">Takwimu zote kwenye skrini moja</span></a>
-        <a href="/sw/hifadhidata/" aria-current="page"><span class="nav-t">Hifadhidata <span class="nav-badge nav-badge-soon">Hivi karibuni</span></span><span class="nav-desc">Takwimu za tovuti, za kupakua</span></a>
+        <a href="/sw/hifadhidata/" aria-current="page"><span class="nav-t">Hifadhidata <span class="nav-badge">Mpya</span></span><span class="nav-desc">Takwimu za tovuti, za kupakua</span></a>
       </div>
       </div>
       </div></div>
@@ -197,19 +277,94 @@
 
 
       <main id="contenu">
-  <!-- Page blanche en attendant le contenu (3 octobre 2026) : l'onglet porte
-       la pastille « Bientot », la page reste hors index et hors sitemap
-       (noindex dans pages.json). -->
-  <section class="section maq-tete">
-    <div class="section-head">
-      <div>
+  <!-- Base de donnees (9 octobre 2026, maquette tmp/proto-base-1009 retenue) :
+       toutes les donnees du site, une ligne par date et par territoire,
+       epidemie et riposte, avec le bulletin source. Fichiers ecrits a chaque
+       generation par scripts/base_donnees.py (data/base-ebola-rdc.csv et
+       .json) ; la page lit le JSON (assets/js/base.js, assets/css/base.css).
+       Le generateur ecrit aussi, en dur, le resume, le tableau du dernier
+       bulletin, les notes et la liste des zones : c'est ce que lisent les
+       moteurs de recherche ; le script remplace le tableau par la base
+       complete au chargement. -->
+  <section class="section bdd">
+    <div class="bdd-tete">
         <div class="eyebrow"><span class="dot"></span>Takwimu za kina</div>
         <h1 class="page-title">Hifadhidata</h1>
+        <p class="lede">Takwimu zote za tovuti, siku kwa siku, kwa nchi, kila jimbo na kila eneo la afya. Kila mstari unaelekeza kwenye ripoti ya INSP iliyoichapisha. Chunguza, chuja, panga au pakua.</p>
+        <p class="bdd-resume">Mistari 6,684, ripoti 137 za INSP, maeneo 64 ya afya, kuanzia 14 Mei 2026 hadi 6 Okt. 2026.</p>
+      <div class="bdd-dl" aria-label="Pakua hifadhidata">
+        <a class="bdd-btn" href="/data/base-ebola-rdc.csv" download>Yote kwa CSV</a>
+        <a class="bdd-btn bdd-sec" href="/data/base-ebola-rdc.json" download>Yote kwa JSON</a>
+        <a class="bdd-lic" href="#licence">Leseni CC BY 4.0</a>
       </div>
     </div>
 
-    <p class="lede">Ukurasa huu unakuja hivi karibuni.</p>
+    <p class="bdd-avert">Takwimu zimetolewa kwenye PDF za INSP, sehemu kwa njia ya kiotomatiki: makosa bado yanawezekana. <b>Ukiwa na shaka, PDF ya ripoti ndiyo yenye mamlaka.</b> <a href="/sw/mawasiliano/">Ripoti kosa</a> · <a href="#erreurs">Soma zaidi</a></p>
+
+    <div id="bddApp" class="bdd-app">
+      <h2 class="bdd-h2">Ripoti ya mwisho: 6 Okt. 2026</h2>
+      <p class="bdd-sous">Nchi na majimbo katika ripoti ya mwisho. Jedwali kamili linapakia hapa chini.</p>
+      <table class="bdd-statique">
+        <thead><tr><th>Eneo</th><th>Visa</th><th>Visa vipya</th><th>Vifo</th><th>Kiwango cha vifo</th></tr></thead>
+        <tbody>
+          <tr class="is-pays"><td><a href="/sw/takwimu/">DRC</a></td><td>8,728</td><td>+63</td><td>4,205</td><td>48.2%</td></tr>
+          <tr class=""><td><a href="/sw/takwimu/ituri/">Ituri</a></td><td>6,513</td><td>+33</td><td>3,007</td><td>46.2%</td></tr>
+          <tr class=""><td><a href="/sw/takwimu/nord-kivu/">Nord-Kivu</a></td><td>1,785</td><td>+30</td><td>1,021</td><td>57.2%</td></tr>
+          <tr class=""><td><a href="/sw/takwimu/haut-uele/">Haut-Uélé</a></td><td>364</td><td>+0</td><td>153</td><td>42.0%</td></tr>
+          <tr class=""><td><a href="/sw/takwimu/tshopo/">Tshopo</a></td><td>51</td><td>+0</td><td>18</td><td>35.3%</td></tr>
+          <tr class=""><td><a href="/sw/takwimu/bas-uele/">Bas-Uélé</a></td><td>10</td><td>+0</td><td>4</td><td>40.0%</td></tr>
+          <tr class=""><td><a href="/sw/takwimu/sud-kivu/">Sud-Kivu</a></td><td>3</td><td>+0</td><td>1</td><td>33.3%</td></tr>
+          <tr class=""><td><a href="/sw/takwimu/sud-ubangi/">Sud-Ubangi</a></td><td>2</td><td>+0</td><td>1</td><td>50.0%</td></tr>
+        </tbody>
+      </table>
+      <p class="bdd-charge">Hifadhidata inapakia…</p>
+    </div>
+
   </section>
+
+  <!-- Le texte sous le tableau (9 octobre 2026) : les composants de la page
+       A propos, l'essentiel en trois points numerotes, le detail en
+       rubriques depliables, licence et citation en bloc final. -->
+  <section class="section ap-f1">
+    <h2 class="ap-h2">Kusoma takwimu hizi</h2>
+    <ol class="ap-etapes">
+      <li><span class="ap-n">01</span><h3>Chanzo kimoja kwa kila tarakimu</h3><p>Kila mstari unaelekeza kwenye PDF ya ripoti ya INSP unakotoka. Tovuti hairekebishi wala haijazi tarakimu: kisanduku kitupu ni thamani ambayo ripoti haitoi.</p></li>
+      <li><span class="ap-n">02</span><h3>Visa na vifo vipya: hesabu</h3><p>Safu za « vipya » ni tofauti kati ya takwimu mbili za eneo moja, iliyohesabiwa na tovuti. Zinaweza kutofautiana na tarakimu za siku zilizochapishwa na ripoti.</p></li>
+      <li><span class="ap-n">03</span><h3>Makosa yanawezekana</h3><p>Tarakimu zinasomwa kwenye PDF, sehemu na programu: makosa bado yanawezekana. PDF ya ripoti, inayopatikana kutoka kila mstari, ndiyo yenye mamlaka daima.</p></li>
+    </ol>
+  </section>
+
+  <section class="section ap-f1">
+    <h2 class="ap-h2">Kwa undani</h2>
+    <p class="ap-sous">Unachopaswa kujua kabla ya kutumia tena tarakimu hizi.</p>
+    <div class="ap-acc bdd-acc">
+      <details id="erreurs"><summary>Makosa yanawezekana</summary><div class="prose"><p>Takwimu zinasomwa kwenye PDF za ripoti, kwa kiasi kikubwa na programu. Muundo wa ripoti umebadilika mara kadhaa tangu Mei, na jedwali lililosomwa vibaya linaweza kuhamisha thamani kwa safu moja au eneo moja. Ukaguzi wa kiotomatiki huthibitisha kila ripoti na tofauti zinazopatikana hurekebishwa kwa mkono, lakini hauwezi kugundua kila kitu. Ripoti zenyewe wakati mwingine zina makosa au marekebisho, ambayo tovuti inayanakili bila kuyarekebisha. PDF ya ripoti, inayopatikana kutoka kila mstari, ndiyo yenye mamlaka daima. Ukiona kosa, tuandikie ukitaja tarehe, eneo na safu. <a href="/sw/mawasiliano/">Ripoti kosa →</a></p></div></details>
+      <details id="nouveaux"><summary>Visa na vifo vipya: hesabu</summary><div class="prose"><p>Safu za « vipya » ni tofauti kati ya takwimu mbili zinazofuatana za eneo moja, iliyohesabiwa na tovuti; zinaweza kutofautiana na visa vipya ambavyo ripoti inachapisha kwa siku hiyo. Tofauti hasi ni marekebisho ya kupunguza yaliyofanywa na chanzo. Takwimu iliyotangulia ikiwa ni ya zaidi ya siku moja, tofauti inaonyesha idadi ya siku inazojumuisha.</p></div></details>
+      <details id="absents"><summary>Ripoti zisizochapishwa</summary><div class="prose"><p>INSP haijawahi kuchapisha SitRep na. 003, 029, 043, 045, 063, 075, 076, 142. Siku hizo hazina mstari; tofauti inayofuata basi inajumuisha siku kadhaa.</p></div></details>
+      <details id="rattrapages"><summary>Ucheleweshaji</summary><div class="prose"><p>Tarehe 22 na 30 Julai 2026, tofauti inajumuisha zaidi ya siku moja: kuoanishwa kwa hifadhidata tarehe 22, na tarehe 28 na 29 Julai bila ripoti tarehe 30. Mistari hii ina alama « rattrapage ».</p></div></details>
+      <details id="reconstitue"><summary>Tarehe 3 Oktoba 2026</summary><div class="prose"><p>SitRep na. 142 haikuchapishwa. Mstari wa tarehe 3 Oktoba umejengwa upya: jumla ya na. 143 ukiondoa visa na vifo vyake vipya vya saa 24. Una alama « reconstitue ».</p></div></details>
+      <details id="provinces-zones"><summary>Majimbo na maeneo</summary><div class="prose"><p>Jumla ya jimbo inaweza kutofautiana na jumla ya maeneo yake: ripoti huhesabu kando visa na vifo ambavyo bado havijahusishwa na eneo. Visa vya kwanza vya Haut-Uélé na Tshopo vilihesabiwa Ituri hadi tarehe 10 Julai.</p></div></details>
+      <details id="colonnes"><summary>Safu</summary><div class="prose" id="bddDico"></div></details>
+      <details id="zones" class="bdd-zones"><summary>Maeneo 64 ya afya katika hifadhidata</summary><div class="prose">
+        <p><a href="/sw/takwimu/ituri/"><b>Ituri</b></a> : Adja, Ariwara, Aru, Aungba, Bambu, Boga, Bunia, Damas, Drodro, Fataki, Gethy, Kambala, Kilo, Komanda, Lita, Logo, Lolwa, Mahagi, Mambasa, Mandima, Mangala, Mongbwalu, Nia-Nia, Nizi, Nyankunde, Rimba, Rwampara, Tchomia</p>
+        <p><a href="/sw/takwimu/nord-kivu/"><b>Nord-Kivu</b></a> : Alimbongo, Beni, Biena, Butembo, Goma, Kalunguta, Katwa, Kayna, Kyondo, Lubero, Mabalako, Manguredjipa, Masereka, Musienene, Mutwanga, Oicha, Vuhovi</p>
+        <p><a href="/sw/takwimu/haut-uele/"><b>Haut-Uélé</b></a> : Boma-Mangbetu, Dungu, Gombari, Isiro, Pawa, Rungu, Wamba</p>
+        <p><a href="/sw/takwimu/tshopo/"><b>Tshopo</b></a> : Bafwasende, Kabondo, Lubunga, Makiso-Kisangani, Mangobo, Tshopo, Wanie-Rukula</p>
+        <p><a href="/sw/takwimu/bas-uele/"><b>Bas-Uélé</b></a> : Buta, Ganga, Viadana</p>
+        <p><a href="/sw/takwimu/sud-kivu/"><b>Sud-Kivu</b></a> : Miti-Murhesa</p>
+        <p><a href="/sw/takwimu/sud-ubangi/"><b>Sud-Ubangi</b></a> : Bulu</p>
+
+      </div></details>
+    </div>
+  </section>
+
+  <section class="section ap-f1 ap-fin" id="licence">
+    <h2 class="ap-h2">Leseni</h2>
+    <p>Takwimu za hifadhidata hii zinachapishwa chini ya leseni ya Creative Commons Attribution 4.0 (CC BY 4.0): unaweza kuzinakili, kuzibadilisha na kuzichapisha upya, hata kwa biashara, mradi utaje ebola-tracker.org. Ripoti za PDF zinabaki chini ya masharti ya INSP, na takwimu ya tarehe 28 Juni, kutoka ripoti ya WHO, chini ya masharti ya WHO. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank">CC BY 4.0 →</a></p>
+    <h2>Jinsi ya kunukuu</h2>
+    <p id="bddCite">Ebola Tracker (ebola-tracker.org), hifadhidata ya mlipuko wa Ebola Bundibugyo nchini DRC, kulingana na ripoti za hali za Taasisi ya Kitaifa ya Afya ya Umma (INSP), ilitazamwa tarehe 9 Okt. 2026.</p>
+  </section>
+  <script type="application/json" id="bddConfig">{"lang": "sw", "contact": "/sw/mawasiliano/", "provinces": {"Ituri": "/sw/takwimu/ituri/", "Nord-Kivu": "/sw/takwimu/nord-kivu/", "Haut-Uélé": "/sw/takwimu/haut-uele/", "Tshopo": "/sw/takwimu/tshopo/", "Sud-Kivu": "/sw/takwimu/sud-kivu/", "Bas-Uélé": "/sw/takwimu/bas-uele/", "Sud-Ubangi": "/sw/takwimu/sud-ubangi/"}}</script>
 
       </main>
 

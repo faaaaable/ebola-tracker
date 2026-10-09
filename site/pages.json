@@ -721,31 +721,33 @@
         "en": "database/",
         "sw": "hifadhidata/"
       },
-      "needs": [],
-      "changefreq": "monthly",
-      "priority": "0.3",
-      "schema": [],
-      "noindex": true,
+      "needs": [
+        "base"
+      ],
+      "changefreq": "daily",
+      "priority": "0.8",
+      "schema": [
+        "datasetBase"
+      ],
       "navLabelKey": "t:navBase",
       "navBadge": {
-        "key": "navBadgeBientot",
-        "style": "soon"
+        "key": "navBadgeNouveau"
       },
       "meta": {
         "fr": {
-          "title": "Base de données — Ebola RDC",
+          "title": "Données Ebola RDC : cas et décès par zone de santé, jour par jour (CSV)",
           "h1": "Base de données",
-          "description": "La base de données ouverte du site, bientôt disponible."
+          "description": "Base de données ouverte de l'épidémie d'Ebola en RDC : cas, décès, riposte par pays, province et zone de santé, jour par jour depuis le 14 mai 2026, d'après les SitRep de l'INSP. Téléchargement CSV et JSON, licence CC BY 4.0."
         },
         "en": {
-          "title": "Database — DRC Ebola",
+          "title": "DRC Ebola data: daily cases and deaths by health zone (CSV download)",
           "h1": "Database",
-          "description": "The site's open database, coming soon."
+          "description": "Open database of the DRC Ebola outbreak: cases, deaths and response by country, province and health zone, day by day since 14 May 2026, from INSP SitReps. CSV and JSON download, CC BY 4.0 licence."
         },
         "sw": {
-          "title": "Hifadhidata — Ebola DRC",
+          "title": "Takwimu za Ebola DRC: visa na vifo kwa kila eneo la afya, siku kwa siku (CSV)",
           "h1": "Hifadhidata",
-          "description": "Hifadhidata huria ya tovuti, inakuja hivi karibuni."
+          "description": "Hifadhidata huria ya mlipuko wa Ebola DRC: visa, vifo na mapambano kwa nchi, jimbo na eneo la afya, siku kwa siku tangu 14 Mei 2026, kutoka SitRep za INSP. Pakua CSV na JSON, leseni CC BY 4.0."
         }
       }
     },

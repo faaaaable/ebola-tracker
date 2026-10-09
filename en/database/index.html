@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Database — DRC Ebola</title>
-<meta name="description" content="The site's open database, coming soon.">
+<title>DRC Ebola data: daily cases and deaths by health zone (CSV download)</title>
+<meta name="description" content="Open database of the DRC Ebola outbreak: cases, deaths and response by country, province and health zone, day by day since 14 May 2026, from INSP SitReps. CSV and JSON download, CC BY 4.0 licence.">
 <link rel="canonical" href="https://ebola-tracker.org/en/database/">
 <link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/base-de-donnees/">
 <link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/database/">
@@ -13,8 +13,8 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#FDFAF6">
 <meta property="og:site_name" content="Ebola Tracker">
-<meta property="og:title" content="Database — DRC Ebola">
-<meta property="og:description" content="The site's open database, coming soon.">
+<meta property="og:title" content="DRC Ebola data: daily cases and deaths by health zone (CSV download)">
+<meta property="og:description" content="Open database of the DRC Ebola outbreak: cases, deaths and response by country, province and health zone, day by day since 14 May 2026, from INSP SitReps. CSV and JSON download, CC BY 4.0 licence.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ebola-tracker.org/en/database/">
 <meta property="og:locale" content="en_US">
@@ -22,13 +22,92 @@
 <meta property="og:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="Database — DRC Ebola">
+<meta property="og:image:alt" content="DRC Ebola data: daily cases and deaths by health zone (CSV download)">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
-<meta name="twitter:title" content="Database — DRC Ebola">
-<meta name="twitter:description" content="The site's open database, coming soon.">
-<meta name="robots" content="noindex, follow">
+<meta name="twitter:title" content="DRC Ebola data: daily cases and deaths by health zone (CSV download)">
+<meta name="twitter:description" content="Open database of the DRC Ebola outbreak: cases, deaths and response by country, province and health zone, day by day since 14 May 2026, from INSP SitReps. CSV and JSON download, CC BY 4.0 licence.">
+<meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="kpbL-xHwtgQ-H61ezgLZEOl2f41_3VXpb2ejZz0R1Og" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "DRC Ebola data: daily cases and deaths by health zone (CSV download)",
+  "description": "Open database of the DRC Ebola outbreak: cases, deaths and response by country, province and health zone, day by day since 14 May 2026, from INSP SitReps. CSV and JSON download, CC BY 4.0 licence.",
+  "url": "https://ebola-tracker.org/en/database/",
+  "inLanguage": "en",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree": true,
+  "creator": {
+    "@type": "Organization",
+    "name": "Ebola Tracker",
+    "url": "https://ebola-tracker.org/"
+  },
+  "keywords": [
+    "Ebola",
+    "Bundibugyo",
+    "RDC",
+    "DRC",
+    "INSP",
+    "SitRep",
+    "zone de santé",
+    "health zone",
+    "épidémie",
+    "outbreak",
+    "données",
+    "dataset",
+    "CSV"
+  ],
+  "temporalCoverage": "2026-05-14/2026-10-06",
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "République démocratique du Congo",
+    "geo": {
+      "@type": "GeoShape",
+      "box": "-13.46 12.2 5.39 31.31"
+    }
+  },
+  "variableMeasured": [
+    "cas confirmés",
+    "décès",
+    "nouveaux cas",
+    "nouveaux décès",
+    "létalité",
+    "guéris",
+    "décès en communauté",
+    "décès en CTE",
+    "alertes reçues",
+    "alertes validées",
+    "échantillons de laboratoire",
+    "positivité",
+    "hospitalisés en CTE",
+    "occupation des lits",
+    "contacts suivis",
+    "personnes vaccinées"
+  ],
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://ebola-tracker.org/data/base-ebola-rdc.csv"
+    },
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://ebola-tracker.org/data/base-ebola-rdc.json"
+    }
+  ],
+  "isBasedOn": [
+    {
+      "@type": "WebSite",
+      "name": "Institut National de Santé Publique (INSP) RDC",
+      "url": "https://insp.cd/"
+    }
+  ],
+  "dateModified": "2026-10-06"
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -65,7 +144,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="/assets/css/base.css?v=6769ee90cd">
+<script defer src="/assets/js/base.js?v=3dfc1abaaf"></script>
 <link rel="stylesheet" href="/assets/css/site.css?v=69602f05e6">
 </head>
 <body>
@@ -157,7 +237,7 @@
         <div class="nav-col-titre">Detailed data</div>
         <a href="/en/reports/"><span class="nav-t">Sources &amp; bulletins</span><span class="nav-desc">Every INSP bulletin</span></a>
         <a href="/en/dashboard/"><span class="nav-t">Dashboard <span class="nav-badge">New</span></span><span class="nav-desc">All the data on a single screen</span></a>
-        <a href="/en/database/" aria-current="page"><span class="nav-t">Database <span class="nav-badge nav-badge-soon">Coming soon</span></span><span class="nav-desc">The site's data, to download</span></a>
+        <a href="/en/database/" aria-current="page"><span class="nav-t">Database <span class="nav-badge">New</span></span><span class="nav-desc">The site's data, to download</span></a>
       </div>
       </div>
       </div></div>
@@ -197,19 +277,94 @@
 
 
       <main id="contenu">
-  <!-- Page blanche en attendant le contenu (3 octobre 2026) : l'onglet porte
-       la pastille « Bientot », la page reste hors index et hors sitemap
-       (noindex dans pages.json). -->
-  <section class="section maq-tete">
-    <div class="section-head">
-      <div>
+  <!-- Base de donnees (9 octobre 2026, maquette tmp/proto-base-1009 retenue) :
+       toutes les donnees du site, une ligne par date et par territoire,
+       epidemie et riposte, avec le bulletin source. Fichiers ecrits a chaque
+       generation par scripts/base_donnees.py (data/base-ebola-rdc.csv et
+       .json) ; la page lit le JSON (assets/js/base.js, assets/css/base.css).
+       Le generateur ecrit aussi, en dur, le resume, le tableau du dernier
+       bulletin, les notes et la liste des zones : c'est ce que lisent les
+       moteurs de recherche ; le script remplace le tableau par la base
+       complete au chargement. -->
+  <section class="section bdd">
+    <div class="bdd-tete">
         <div class="eyebrow"><span class="dot"></span>Detailed data</div>
         <h1 class="page-title">Database</h1>
+        <p class="lede">All the site's data, day by day, for the country, each province and each health zone. Each row links to the INSP bulletin that published it. Explore, filter, sort or download.</p>
+        <p class="bdd-resume">6,684 rows, 137 INSP bulletins, 64 health zones, from 14 May 2026 to 6 Oct 2026.</p>
+      <div class="bdd-dl" aria-label="Download the database">
+        <a class="bdd-btn" href="/data/base-ebola-rdc.csv" download>Everything as CSV</a>
+        <a class="bdd-btn bdd-sec" href="/data/base-ebola-rdc.json" download>Everything as JSON</a>
+        <a class="bdd-lic" href="#licence">CC BY 4.0 licence</a>
       </div>
     </div>
 
-    <p class="lede">This page is coming soon.</p>
+    <p class="bdd-avert">Data extracted from INSP PDFs, partly automatically: errors remain possible. <b>When in doubt, the bulletin PDF is authoritative.</b> <a href="/en/contact/">Report an error</a> · <a href="#erreurs">Learn more</a></p>
+
+    <div id="bddApp" class="bdd-app">
+      <h2 class="bdd-h2">Latest bulletin: 6 Oct 2026</h2>
+      <p class="bdd-sous">The country and provinces in the latest bulletin. The full table loads below.</p>
+      <table class="bdd-statique">
+        <thead><tr><th>Area</th><th>Cases</th><th>New cases</th><th>Deaths</th><th>Fatality</th></tr></thead>
+        <tbody>
+          <tr class="is-pays"><td><a href="/en/data/">DRC</a></td><td>8,728</td><td>+63</td><td>4,205</td><td>48.2%</td></tr>
+          <tr class=""><td><a href="/en/data/ituri/">Ituri</a></td><td>6,513</td><td>+33</td><td>3,007</td><td>46.2%</td></tr>
+          <tr class=""><td><a href="/en/data/nord-kivu/">Nord-Kivu</a></td><td>1,785</td><td>+30</td><td>1,021</td><td>57.2%</td></tr>
+          <tr class=""><td><a href="/en/data/haut-uele/">Haut-Uélé</a></td><td>364</td><td>+0</td><td>153</td><td>42.0%</td></tr>
+          <tr class=""><td><a href="/en/data/tshopo/">Tshopo</a></td><td>51</td><td>+0</td><td>18</td><td>35.3%</td></tr>
+          <tr class=""><td><a href="/en/data/bas-uele/">Bas-Uélé</a></td><td>10</td><td>+0</td><td>4</td><td>40.0%</td></tr>
+          <tr class=""><td><a href="/en/data/sud-kivu/">Sud-Kivu</a></td><td>3</td><td>+0</td><td>1</td><td>33.3%</td></tr>
+          <tr class=""><td><a href="/en/data/sud-ubangi/">Sud-Ubangi</a></td><td>2</td><td>+0</td><td>1</td><td>50.0%</td></tr>
+        </tbody>
+      </table>
+      <p class="bdd-charge">Loading the database…</p>
+    </div>
+
   </section>
+
+  <!-- Le texte sous le tableau (9 octobre 2026) : les composants de la page
+       A propos, l'essentiel en trois points numerotes, le detail en
+       rubriques depliables, licence et citation en bloc final. -->
+  <section class="section ap-f1">
+    <h2 class="ap-h2">Reading this data</h2>
+    <ol class="ap-etapes">
+      <li><span class="ap-n">01</span><h3>One source per figure</h3><p>Each row links to the PDF of the INSP bulletin it comes from. The site neither corrects nor fills in figures: an empty cell is a value the bulletin does not give.</p></li>
+      <li><span class="ap-n">02</span><h3>New cases and deaths: a calculation</h3><p>The “new” columns are the difference between two readings for the same area, computed by the site. They may differ from the daily figures published by the bulletin.</p></li>
+      <li><span class="ap-n">03</span><h3>Errors are possible</h3><p>The figures are read from the PDFs, partly by a program: errors remain possible. The bulletin PDF, linked from every row, is always authoritative.</p></li>
+    </ol>
+  </section>
+
+  <section class="section ap-f1">
+    <h2 class="ap-h2">In detail</h2>
+    <p class="ap-sous">What to know before reusing these figures.</p>
+    <div class="ap-acc bdd-acc">
+      <details id="erreurs"><summary>Errors are possible</summary><div class="prose"><p>The figures are read from the bulletin PDFs, largely by a program. The bulletin format has changed several times since May, and a misread table can shift a value by one column or one zone. Automatic checks verify each bulletin (sum of provinces against the national total, new cases below the total, recomputed fatality) and the discrepancies found are corrected by hand, but they cannot catch everything. The bulletins themselves sometimes contain errors or revisions, which the site reproduces without correcting. The bulletin PDF, linked from every row, is always authoritative. If you spot an error, write to us with the date, the area and the column. <a href="/en/contact/">Report an error →</a></p></div></details>
+      <details id="nouveaux"><summary>New cases and deaths: a calculation</summary><div class="prose"><p>The “new” columns are the difference between two successive readings for the same area, computed by the site; they may differ from the new cases the bulletin publishes for the day (a case reassigned from one zone to another, for example). A negative difference is a downward revision by the source. When the previous reading is more than a day old, the difference shows how many days it covers.</p></div></details>
+      <details id="absents"><summary>Missing bulletins</summary><div class="prose"><p>The INSP never published SitReps no. 003, 029, 043, 045, 063, 075, 076, 142. Those days have no row; the next difference then covers several days.</p></div></details>
+      <details id="rattrapages"><summary>Catch-ups</summary><div class="prose"><p>On 22 and 30 July 2026 the difference covers more than one day: a database harmonisation on the 22nd (the bulletin reports +97 cases for the day), and 28 and 29 July without a bulletin on the 30th (+73 reported). These rows carry the mention “rattrapage” (catch-up).</p></div></details>
+      <details id="reconstitue"><summary>3 October 2026</summary><div class="prose"><p>SitRep no. 142 was not published. The 3 October row is reconstructed: the total of no. 143 minus its 24-hour new cases and deaths. It carries the mention “reconstitue” (reconstructed).</p></div></details>
+      <details id="provinces-zones"><summary>Provinces and zones</summary><div class="prose"><p>A province's total may differ from the sum of its zones: bulletins count separately the cases and deaths not yet assigned to a zone. The first cases in Haut-Uélé and Tshopo were counted in Ituri until 10 July.</p></div></details>
+      <details id="colonnes"><summary>The columns</summary><div class="prose" id="bddDico"></div></details>
+      <details id="zones" class="bdd-zones"><summary>The 64 health zones in the database</summary><div class="prose">
+        <p><a href="/en/data/ituri/"><b>Ituri</b></a> : Adja, Ariwara, Aru, Aungba, Bambu, Boga, Bunia, Damas, Drodro, Fataki, Gethy, Kambala, Kilo, Komanda, Lita, Logo, Lolwa, Mahagi, Mambasa, Mandima, Mangala, Mongbwalu, Nia-Nia, Nizi, Nyankunde, Rimba, Rwampara, Tchomia</p>
+        <p><a href="/en/data/nord-kivu/"><b>Nord-Kivu</b></a> : Alimbongo, Beni, Biena, Butembo, Goma, Kalunguta, Katwa, Kayna, Kyondo, Lubero, Mabalako, Manguredjipa, Masereka, Musienene, Mutwanga, Oicha, Vuhovi</p>
+        <p><a href="/en/data/haut-uele/"><b>Haut-Uélé</b></a> : Boma-Mangbetu, Dungu, Gombari, Isiro, Pawa, Rungu, Wamba</p>
+        <p><a href="/en/data/tshopo/"><b>Tshopo</b></a> : Bafwasende, Kabondo, Lubunga, Makiso-Kisangani, Mangobo, Tshopo, Wanie-Rukula</p>
+        <p><a href="/en/data/bas-uele/"><b>Bas-Uélé</b></a> : Buta, Ganga, Viadana</p>
+        <p><a href="/en/data/sud-kivu/"><b>Sud-Kivu</b></a> : Miti-Murhesa</p>
+        <p><a href="/en/data/sud-ubangi/"><b>Sud-Ubangi</b></a> : Bulu</p>
+
+      </div></details>
+    </div>
+  </section>
+
+  <section class="section ap-f1 ap-fin" id="licence">
+    <h2 class="ap-h2">Licence</h2>
+    <p>The data in this database is published under the Creative Commons Attribution 4.0 licence (CC BY 4.0): you may copy, transform and republish it, including commercially, provided you credit ebola-tracker.org. The licence covers the site's work (extraction, formatting, calculations); the PDF bulletins remain under the INSP's terms, and the 28 June reading, taken from a WHO report, under WHO's. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank">CC BY 4.0 →</a></p>
+    <h2>How to cite</h2>
+    <p id="bddCite">Ebola Tracker (ebola-tracker.org), database of the Bundibugyo Ebola outbreak in the DRC, based on the situation reports of the National Institute of Public Health (INSP), accessed 9 Oct 2026.</p>
+  </section>
+  <script type="application/json" id="bddConfig">{"lang": "en", "contact": "/en/contact/", "provinces": {"Ituri": "/en/data/ituri/", "Nord-Kivu": "/en/data/nord-kivu/", "Haut-Uélé": "/en/data/haut-uele/", "Tshopo": "/en/data/tshopo/", "Sud-Kivu": "/en/data/sud-kivu/", "Bas-Uélé": "/en/data/bas-uele/", "Sud-Ubangi": "/en/data/sud-ubangi/"}}</script>
 
       </main>
 

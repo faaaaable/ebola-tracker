@@ -32,6 +32,7 @@ from datetime import date, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import defis_synthese  # maquette « Riposte & defis », seconde partie redigee
+import base_donnees  # la base de donnees unifiee (9 octobre 2026)
 import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 2026), en local
 import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
 
@@ -580,6 +581,41 @@ def build_json_ld(kinds, context):
                      "name": "Organisation mondiale de la Santé",
                      "url": "https://www.who.int/"},
                 ],
+            }))
+        elif kind == "datasetBase":
+            # La base de donnees (9 octobre 2026) : ce que lit Google Dataset
+            # Search. Periode et taille recalculees a chaque generation.
+            b = context["base"]
+            blocks.append(json_ld({
+                "@context": "https://schema.org",
+                "@type": "Dataset",
+                "name": meta["title"],
+                "description": meta["description"],
+                "url": canonical,
+                "inLanguage": lang,
+                "license": base_donnees.LICENCE,
+                "isAccessibleForFree": True,
+                "creator": {"@type": "Organization", "name": context["brandName"], "url": context["origin"] + "/"},
+                "keywords": ["Ebola", "Bundibugyo", "RDC", "DRC", "INSP", "SitRep", "zone de santé",
+                             "health zone", "épidémie", "outbreak", "données", "dataset", "CSV"],
+                "temporalCoverage": "%s/%s" % (b["dates"][0], b["dates"][-1]),
+                "spatialCoverage": {"@type": "Place", "name": "République démocratique du Congo",
+                                    "geo": {"@type": "GeoShape", "box": "-13.46 12.2 5.39 31.31"}},
+                "variableMeasured": ["cas confirmés", "décès", "nouveaux cas", "nouveaux décès", "létalité",
+                                     "guéris", "décès en communauté", "décès en CTE", "alertes reçues",
+                                     "alertes validées", "échantillons de laboratoire", "positivité",
+                                     "hospitalisés en CTE", "occupation des lits", "contacts suivis",
+                                     "personnes vaccinées"],
+                "distribution": [
+                    {"@type": "DataDownload", "encodingFormat": "text/csv",
+                     "contentUrl": context["origin"] + "/data/base-ebola-rdc.csv"},
+                    {"@type": "DataDownload", "encodingFormat": "application/json",
+                     "contentUrl": context["origin"] + "/data/base-ebola-rdc.json"},
+                ],
+                "isBasedOn": [{"@type": "WebSite",
+                               "name": "Institut National de Santé Publique (INSP) RDC",
+                               "url": "https://insp.cd/"}],
+                "dateModified": b["dates"][-1],
             }))
         elif kind in ("article", "collection"):
             blocks.append(json_ld({
@@ -3727,7 +3763,62 @@ def head_assets(needs):
     if "chart" in needs:
         tags.append('<script defer '
                     'src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>')
+    # La base de donnees (9 octobre 2026) : sa feuille et son script a part.
+    if "base" in needs:
+        tags.append('<link rel="stylesheet" href="/assets/css/base.css?v=%s">' % jeton_version("assets/css/base.css"))
+        tags.append('<script defer src="/assets/js/base.js?v=%s"></script>' % jeton_version("assets/js/base.js"))
     return "\n".join(tags)
+
+
+BASE = None
+
+
+def base_values(config, urls, lang, strings_lang, i18n_lang, latest_reports):
+    """Ce que le generateur ecrit en dur dans la page Base de donnees : le
+    resume, le tableau du dernier bulletin (pays et provinces), la liste des
+    bulletins absents, la liste des zones et la citation. C'est le texte que
+    lisent les moteurs de recherche ; base.js remplace le tableau par la base
+    complete au chargement."""
+    lignes, dates = BASE["lignes"], BASE["dates"]
+    derniere = dates[-1]
+    nums = sorted({int(r["sitrepNumber"]) for r in latest_reports if str(r.get("sitrepNumber", "")).isdigit()})
+    manquants = [str(i).zfill(3) for i in range(1, nums[-1] + 1) if i not in nums] if nums else []
+    jour = [o for o in lignes if o["date"] == derniere and o["niveau"] in ("pays", "province") and o.get("cas") is not None]
+    jour.sort(key=lambda o: (o["niveau"] != "pays", -(o.get("cas") or 0)))
+    def nouv(v):
+        return "" if v is None else ("+" if v >= 0 else "−") + fmt(abs(v), lang)
+    rangs = []
+    for o in jour:
+        nom = {"fr": "RDC"}.get(lang, "DRC") if o["niveau"] == "pays" else o["province"]
+        lien = (urls.province_path(o["province"], lang) if o["niveau"] == "province" and o["province"] in config["provinceSlugs"]
+                else urls.path("donnees", lang))
+        rangs.append('          <tr class="%s"><td><a href="%s">%s</a></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>'
+                     % ("is-pays" if o["niveau"] == "pays" else "", esc(lien), esc(nom), fmt(o.get("cas"), lang),
+                        nouv(o.get("nouveaux_cas")), fmt(o.get("deces"), lang), fmt_cfr(o.get("letalite"), lang)))
+    par_prov = {}
+    for prov, zone in BASE["zones"]:
+        par_prov.setdefault(prov, []).append(zone)
+    zones_html = "".join(
+        '        <p><a href="%s"><b>%s</b></a> : %s</p>\n'
+        % (esc(urls.province_path(p, lang) if p in config["provinceSlugs"] else urls.path("donnees", lang)), esc(p),
+           esc(", ".join(sorted(zs))))
+        for p, zs in sorted(par_prov.items(), key=lambda x: -len(x[1])))
+    rapports = {r["sitrepNumber"] for r in latest_reports}
+    cfg = {"lang": lang, "contact": urls.path("contact", lang),
+           "provinces": {p: urls.province_path(p, lang) for p in config["provinceSlugs"]}}
+    return {
+        "bdd.resume": esc(interp(strings_lang["bddResume"], {
+            "lignes": fmt(len(lignes), lang), "bulletins": fmt(len(rapports), lang),
+            "zones": fmt(len(BASE["zones"]), lang), "debut": long_date(dates[0], i18n_lang),
+            "fin": long_date(derniere, i18n_lang)})),
+        "bdd.dernierTitre": esc(interp(strings_lang["bddDernier"], {"date": long_date(derniere, i18n_lang)})),
+        "bdd.dernierLignes": "\n".join(rangs),
+        "bdd.manquants": esc(interp(strings_lang["bddN3"], {"liste": ", ".join(manquants)})),
+        "bdd.zonesTitre": esc(interp(strings_lang["bddZonesT"], {"n": fmt(len(BASE["zones"]), lang)})),
+        "bdd.zones": zones_html,
+        "bdd.citation": esc(interp(strings_lang["bddCite"], {"date": long_date(date.today().isoformat(), i18n_lang)})),
+        "bdd.config": json.dumps(cfg, ensure_ascii=False).replace("</", "<\\/"),
+    }
 
 
 def dashboard_values(config, urls, lang, strings_lang, i18n_lang, alt_paths,
@@ -3807,6 +3898,10 @@ def main():
     strings = read_json(os.path.join(SITE, "strings.json"))
     i18n = load_i18n()
     lettres_meta(config, strings)
+    # La base de donnees unifiee : data/base-ebola-rdc.csv et .json, reecrits
+    # a chaque generation depuis les fichiers du pipeline.
+    global BASE
+    BASE = base_donnees.ecrire(config["site"]["origin"])
     layout = read(os.path.join(SITE, "layout.html"))
 
     latest = read_json(os.path.join(ROOT, "data", "latest.json"))
@@ -4282,6 +4377,9 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     values.update({"t.%s" % key: interp(value, url_values) if isinstance(value, str) else value
                    for key, value in strings_lang.items()})
     values["meta.h1"] = esc(meta["h1"])
+    if page.get("id") == "base-de-donnees":
+        values.update(base_values(config, urls, lang, strings_lang, i18n_lang,
+                                  read_json(os.path.join(ROOT, "data", "latest.json")).get("reports", [])))
     if page.get("id") == "dashboard":
         values.update(dashboard_values(config, urls, lang, strings_lang, i18n_lang, alt_paths,
                                        national, meta_data, provinces))
@@ -4364,6 +4462,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.zonesTable": province_zones_table_html(
                 zones, forms, lang, strings_lang, i18n_lang, zones_history=common_seed.get("zonesHistory"), province=name),
             "province.fullTable": esc(interp(strings_lang["provinceOpenFullTable"], forms)),
+            "province.baseLien": esc(interp(strings_lang["provinceBaseLien"], forms)),
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
             "province.chart": province_chart_html(province, strings_lang, i18n_lang),
@@ -4430,6 +4529,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                      "Bundibugyo", "SitRep"],
         "faqPlain": faq_plain,
         "faqPays": hors_rdc.questions_plain(page["pays"], lang) if page.get("pays") else [],
+        "base": BASE,
         "breadcrumbTrail": trail,
         "breadcrumbHome": strings_lang["breadcrumbHome"],
         "homePath": urls.path("accueil", lang),

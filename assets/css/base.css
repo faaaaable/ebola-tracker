@@ -1,0 +1,105 @@
+/* La base de donnees (/base-de-donnees/, 9 octobre 2026) : en-tete,
+   telechargements, filtres et tableau a defilement virtuel. Tout est range
+   sous .bdd pour ne rien changer au reste du site (site.css reste charge). */
+/* En-tete centre, comme les autres pages du site. */
+.bdd-tete{text-align:center;}
+.bdd-tete .eyebrow{justify-content:center;}
+.bdd-tete .lede{max-width:760px;margin-left:auto;margin-right:auto;}
+.bdd-resume{margin:6px 0 0;font-size:13px;color:var(--ink-faint);}
+.bdd-dl{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:14px;}
+.bdd-btn{display:inline-block;font:600 12.5px var(--font-sans);padding:7px 12px;border-radius:6px;border:1px solid var(--accent-strong);background:var(--accent-strong);color:#fff;cursor:pointer;text-decoration:none;}
+.bdd-btn:hover{background:var(--accent-hover);color:#fff;text-decoration:none;}
+.bdd-btn.bdd-sec{background:var(--bg-panel);color:var(--accent-strong);}
+.bdd-btn.bdd-sec:hover{background:var(--bg-alt);}
+.bdd-lic{font:600 11px var(--font-sans);color:var(--ink-faint);text-decoration:none;border:1px solid var(--line);border-radius:4px;padding:2px 6px;}
+.bdd-avert{margin:18px 0 0;font-size:13px;color:var(--ink-dim);background:#F9EFE2;border-left:3px solid var(--accent-active);padding:6px 12px;border-radius:0 6px 6px 0;}
+.bdd-avert b{color:var(--ink);font-weight:600;}
+.bdd-h2{margin:26px 0 4px;font:600 22px/1.2 var(--font-serif);}
+.bdd-sous{margin:0 0 10px;font-size:13px;color:var(--ink-faint);}
+.bdd-statique{border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums;min-width:min(100%,640px);}
+.bdd-statique th,.bdd-statique td{padding:6px 12px;text-align:right;border-bottom:1px solid var(--line-soft);white-space:nowrap;}
+.bdd-statique th:first-child,.bdd-statique td:first-child{text-align:left;}
+.bdd-statique th{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);border-bottom:1.5px solid var(--ink);}
+.bdd-statique tr.is-pays td{font-weight:700;}
+.bdd-charge{font-size:12.5px;color:var(--ink-faint);}
+
+.bdd-filtres{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;padding:12px 0;margin-top:18px;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);}
+.bdd-filtres label,.bdd-filtres > div{display:flex;flex-direction:column;gap:3px;}
+.bdd-lab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);}
+.bdd-filtres select,.bdd-filtres input{font:400 13px var(--font-sans);padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg-panel);color:var(--ink);min-width:0;}
+.bdd-filtres select{width:118px;} .bdd-filtres input[type=search]{width:140px;} .bdd-filtres input[type=date]{width:128px;}
+.bdd-seg{display:flex;flex-direction:row;border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+.bdd-seg button{font:600 12.5px var(--font-sans);background:var(--bg-panel);border:0;padding:6px 11px;color:var(--ink-dim);cursor:pointer;}
+.bdd-seg button+button{border-left:1px solid var(--line);}
+.bdd-seg button[aria-pressed="true"]{background:var(--ink);color:#fff;}
+.bdd-filtres .bdd-actions{margin-left:auto;flex-direction:row;}
+.bdd-raz{font:600 12.5px var(--font-sans);background:none;border:0;padding:6px 0;color:var(--accent-strong);cursor:pointer;white-space:nowrap;}
+.bdd-raz:hover{text-decoration:underline;}
+.bdd-compte{font-size:12.5px;color:var(--ink-dim);padding:8px 0 6px;}
+.bdd-compte b{color:var(--ink);}
+
+.bdd-grille{position:relative;height:66vh;min-height:380px;overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--bg-panel);}
+.bdd-grille table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:12.5px;font-variant-numeric:tabular-nums;margin:0;}
+.bdd-grille thead th{position:sticky;top:0;z-index:2;background:var(--bg-alt);text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-dim);padding:7px 10px;border-bottom:1.5px solid var(--ink);white-space:nowrap;cursor:pointer;user-select:none;}
+.bdd-grille thead th.g{text-align:left;}
+.bdd-grille thead th small{display:block;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink-faint);}
+.bdd-grille thead th[aria-sort="ascending"]::after{content:" ▲";color:var(--accent-strong);}
+.bdd-grille thead th[aria-sort="descending"]::after{content:" ▼";color:var(--accent-strong);}
+.bdd-grille thead tr.groupes th{top:0;height:24px;cursor:default;font-size:10px;letter-spacing:.07em;border-bottom:1px solid var(--line);text-align:center;background:var(--bg);color:var(--ink-faint);padding:4px 10px;}
+.bdd-grille thead tr.groupes th.gr{border-left:1px solid var(--line);color:var(--ink);}
+.bdd-grille thead tr.cols th{top:24px;}
+.bdd-grille th.bdd-sep,.bdd-grille td.bdd-sep{border-left:1px solid var(--line);}
+.bdd-grille tbody td{padding:0 10px;height:28px;text-align:right;border-bottom:1px solid var(--line-soft);white-space:nowrap;}
+.bdd-grille tbody td.g{text-align:left;}
+.bdd-grille tbody tr:hover td{background:#F3EEE7;}
+/* Plus de fond bleu sur les lignes du pays (9 octobre 2026) : la vue Pays
+   n'a que des lignes du pays. Dans la vue Tout, ou les niveaux se melangent,
+   la ligne RDC reste en gras. */
+.bdd-grille.is-melange tbody tr.niv-pays td{font-weight:600;}
+.bdd-grille .cale td{height:auto;padding:0;border:0;}
+.bdd-grille .fixe{position:sticky;z-index:1;background:var(--bg-panel);}
+.bdd-grille thead .fixe{z-index:3;background:var(--bg-alt);}
+.bdd-grille thead tr.groupes .fixe{background:var(--bg);}
+.bdd-grille tbody tr:hover td.fixe{background:#F3EEE7;}
+.bdd-grille .f0{left:0;min-width:112px;} .bdd-grille .f1{left:112px;min-width:128px;} .bdd-grille .f2{left:240px;min-width:150px;box-shadow:inset -1px 0 0 var(--line);}
+.bdd-grille .vide{color:var(--ink-faint);}
+.bdd-grille .neg{color:var(--accent-critical);font-style:italic;}
+.bdd-grille .sur,.bdd-grille .rat,.bdd-grille .rec{display:inline-block;margin-left:4px;padding:0 4px;border-radius:3px;font-size:10px;font-weight:700;}
+.bdd-grille .sur{background:#EFECE7;color:var(--ink-dim);}
+.bdd-grille .rat{background:#E9EEF2;color:var(--accent-strong);}
+.bdd-grille .rec{background:#F6E9D9;color:var(--accent-active);}
+.bdd-grille i.pt{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;}
+.bdd-grille a.pdf{font-weight:600;text-decoration:none;}
+.bdd-grille a.pdf:hover{text-decoration:underline;}
+
+/* Texte sous le tableau : composants de la page A propos (ap-f1,
+   ap-etapes, ap-acc, ap-fin) ; ici seulement le dictionnaire et les zones. */
+.bdd-dico{width:100%;border-collapse:collapse;font-size:13.5px;}
+.bdd-dico td{padding:6px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top;}
+.bdd-dico td:first-child{font-weight:600;white-space:nowrap;}
+.bdd-zones .prose p{margin:0 0 6px;}
+@media (max-width:760px){
+  .bdd-filtres .bdd-actions{margin-left:0;}
+  .bdd-grille{height:70vh;}
+  .bdd-grille .f1{left:112px;min-width:100px;} .bdd-grille .f2{position:static;box-shadow:none;}
+}
+
+/* Barres de defilement toujours visibles (9 octobre 2026) : sur Mac elles ne
+   s'affichent qu'au mouvement, et le tableau, plus large que l'ecran, ne
+   montrait pas qu'il defile vers la droite. Style force pour Chrome, Safari,
+   Edge (::-webkit-scrollbar) et Firefox (scrollbar-color). La barre jumelle
+   au-dessus du tableau, essayee le meme jour, a ete retiree : celle du bas
+   suffit. */
+/* scrollbar-color seulement pour Firefox : dans Chrome (121+), le declarer
+   desactive ::-webkit-scrollbar et rend la main aux barres flottantes du Mac. */
+@supports (-moz-appearance:none){ .bdd-grille{scrollbar-width:auto;scrollbar-color:#A9A299 var(--bg-alt);} }
+.bdd-grille::-webkit-scrollbar{width:12px;height:12px;}
+.bdd-grille::-webkit-scrollbar-track{background:var(--bg-alt);}
+.bdd-grille::-webkit-scrollbar-thumb{background:#A9A299;border-radius:6px;border:3px solid var(--bg-alt);}
+.bdd-grille::-webkit-scrollbar-thumb:hover{background:#777068;}
+.bdd-grille::-webkit-scrollbar-corner{background:var(--bg-alt);}
+
+/* Licence et citation, en fin de page : une colonne de lecture centree, dans
+   la police des textes du site, comme la fin de la FAQ. */
+#licence p{max-width:720px;margin-left:auto;margin-right:auto;font:400 16.5px/1.65 var(--font-serif);color:var(--ink-dim);}
+#licence h2:not(.ap-h2){margin-top:30px;}
