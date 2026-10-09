@@ -42,6 +42,10 @@ const TXT = {
     zZone:'Zone', zCumul:'Cumul', zAucun:'Aucun nouveau cas sur 30 jours.', horsRdc:'Hors RDC', casN:n => `${n} cas`,
     parBulletin:'par bulletin', rattrapage:'rattrapage', coupe:' (coupé)', moy7:'moyenne 7 j',
     lNouveauxCas:'Nouveaux cas', lNouveauxDeces:'Nouveaux décès', lMoy:'Moyenne 7 j',
+    pas:{jour:['J','Par jour'], semaine:['S','Par semaine'], mois:['M','Par mois']},
+    gCas:{jour:'Cas par jour', semaine:'Cas par semaine', mois:'Cas par mois'},
+    gDeces:{jour:'Décès par jour', semaine:'Décès par semaine', mois:'Décès par mois'},
+    enCours:'en cours', partiel:'période incomplète',
     lieuPeu:'Trop peu de décès ventilés par lieu pour une proportion.', enCom:'en communauté', enCentre:'en centre',
     lieuPart:(p, d) => `${p} % en communauté depuis le ${d}`, sem:'sem.', lCom:'En communauté (%)', lCentre:'En centre de traitement (%)',
     alNon:'Pas d’alertes publiées pour cette province.', recues:'reçues', validees:'validées',
@@ -72,6 +76,10 @@ const TXT = {
     zZone:'Zone', zCumul:'Total', zAucun:'No new cases in 30 days.', horsRdc:'Outside the DRC', casN:n => `${n} case${n === '1' ? '' : 's'}`,
     parBulletin:'per bulletin', rattrapage:'catch-up', coupe:' (cut)', moy7:'7-day average',
     lNouveauxCas:'New cases', lNouveauxDeces:'New deaths', lMoy:'7-day average',
+    pas:{jour:['D','Per day'], semaine:['W','Per week'], mois:['M','Per month']},
+    gCas:{jour:'Cases per day', semaine:'Cases per week', mois:'Cases per month'},
+    gDeces:{jour:'Deaths per day', semaine:'Deaths per week', mois:'Deaths per month'},
+    enCours:'in progress', partiel:'incomplete period',
     lieuPeu:'Too few deaths broken down by place for a proportion.', enCom:'in the community', enCentre:'in a centre',
     lieuPart:(p, d) => `${p}% in the community since ${d}`, sem:'wk', lCom:'In the community (%)', lCentre:'In a treatment centre (%)',
     alNon:'No alerts published for this province.', recues:'received', validees:'validated',
@@ -102,6 +110,10 @@ const TXT = {
     zZone:'Eneo', zCumul:'Jumla', zAucun:'Hakuna kisa kipya katika siku 30.', horsRdc:'Nje ya DRC', casN:n => `visa ${n}`,
     parBulletin:'kwa kila ripoti', rattrapage:'ucheleweshaji', coupe:' (imekatwa)', moy7:'wastani wa siku 7',
     lNouveauxCas:'Visa vipya', lNouveauxDeces:'Vifo vipya', lMoy:'Wastani wa siku 7',
+    pas:{jour:['S','Kwa siku'], semaine:['W','Kwa wiki'], mois:['M','Kwa mwezi']},
+    gCas:{jour:'Visa kwa siku', semaine:'Visa kwa wiki', mois:'Visa kwa mwezi'},
+    gDeces:{jour:'Vifo kwa siku', semaine:'Vifo kwa wiki', mois:'Vifo kwa mwezi'},
+    enCours:'inaendelea', partiel:'kipindi kisichokamilika',
     lieuPeu:'Vifo vichache mno vilivyogawanywa kwa mahali.', enCom:'katika jamii', enCentre:'katika kituo',
     lieuPart:(p, d) => `${p} % katika jamii tangu ${d}`, sem:'wiki', lCom:'Katika jamii (%)', lCentre:'Katika kituo cha matibabu (%)',
     alNon:'Hakuna tahadhari zilizochapishwa kwa jimbo hili.', recues:'zilizopokelewa', validees:'zilizothibitishwa',
@@ -154,6 +166,7 @@ async function charger(chemin){
 let D = {};          // toutes les donnees
 let PROV = null;     // province filtree, null = RDC entiere
 let MODE = 'cumul';  // coloriage de la carte
+const PAS = {cas:'jour', deces:'jour'};   // pas de temps de chaque graphique (jour, semaine, mois)
 const charts = {};
 
 /* Nouveaux cas (ou deces) d'un releve au suivant, comme partsQuotidiennes()
@@ -178,6 +191,39 @@ function quotidien(serie, champ, national){
     prev = v;
   }
   return out;
+}
+
+/* Les memes nouveaux cas (ou deces) par semaine (lundi-dimanche) ou par mois,
+   comme agregeNouveauxCas() d'app.js. Le rattrapage du 30 juillet couvre les
+   28 et 29 (bulletins 075 et 076 absents) : une periode qui contient ces trois
+   jours le compte comme le sien, en couleur pleine. Celui du 22 juillet n'a pas
+   d'empan connu : il reste en teinte claire a toutes les granularites. Une
+   periode que la serie ne couvre pas en entier (mai commence le 14, la periode
+   en cours n'est pas finie) est marquee « partielle ». */
+const EMPAN_RATTRAPAGE = {'2026-07-30':['2026-07-28', '2026-07-30']};
+const debutMois = iso => iso.slice(0, 8) + '01';
+const finMois = iso => { const d = new Date(iso + 'T12:00:00'); d.setMonth(d.getMonth() + 1, 0);
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const finSemaine = iso => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + 6);
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+function agrege(q, pas, premiere){
+  if(pas === 'jour') return q;
+  const mois = pas === 'mois';
+  const derniere = q.length ? q[q.length - 1].date : null;
+  const map = new Map();
+  for(const x of q){
+    const debut = mois ? debutMois(x.date) : lundi(x.date);
+    const fin = mois ? finMois(debut) : finSemaine(debut);
+    const p = map.get(debut) || {date:debut, fin, rapporte:0, rattrapage:0, total:0};
+    p.rapporte += x.rapporte; p.total += x.total;
+    const e = EMPAN_RATTRAPAGE[x.date];
+    if(e && e[0] >= debut && e[1] <= fin) p.rapporte += x.rattrapage;
+    else p.rattrapage += x.rattrapage;
+    map.set(debut, p);
+  }
+  return [...map.values()].sort(parDate).map(p => Object.assign(p, {
+    partiel: (premiere && p.date < premiere) || (derniere && p.fin > derniere),
+    enCours: derniere && p.fin > derniere}));
 }
 
 function serieProvince(nom){
@@ -535,9 +581,14 @@ function vide(id, texte){
 const sous = (id, html) => { document.getElementById(id).innerHTML = html; };
 const etiquettes = pts => pts.map(p => dateC(p.date));
 
-function renderGraphes(){
+/* Cas et deces par jour, semaine ou mois : chaque graphique a son propre pas
+   (9 octobre 2026, demande de Fable) ; un clic ne redessine que le sien. La
+   coupe des rattrapages, l'axe minimum des petites provinces et la moyenne
+   sur 7 jours ne valent qu'en vue par jour : en semaines il n'y a plus de pic
+   isole et les totaux sont plus grands. */
+function renderCD(cle){
   const serie = PROV ? serieProvince(PROV) : D.sitreps;
-  const nomZone = PROV || T('rdc');
+  const pas = PAS[cle], jour = pas === 'jour';
 
   /* Provinces a petits nombres : l'axe des nouveaux cas et deces par jour
      monte au moins a 10, comme la courbe forcee de la Tshopo sur sa fiche ;
@@ -557,23 +608,41 @@ function renderGraphes(){
   };
   const mentionCoupe = pts => COUPE && pts.some(x => RATTRAPAGE[x.date] !== undefined && x.total > axeCoupe(pts).max) ? T('coupe') : '';
 
-  // 1. nouveaux cas
-  const qc = quotidien(serie, 'confirmed', !PROV);
-  const moy = qc.map((_, i) => { const t = qc.slice(Math.max(0, i - 6), i + 1); return t.reduce((s, x) => s + x.total, 0) / t.length; });
-  sous('s-cas', `<i style="background:var(--cas)"></i>${T('parBulletin')} <i style="background:var(--cas-clair)"></i>${T('rattrapage')}${mentionCoupe(qc)} <i style="background:var(--ink)"></i>${T('moy7')}`);
-  graphe('c-cas', {type:'bar', data:{labels:etiquettes(qc), datasets:[
-    {type:'line', label:T('lMoy'), data:moy, borderColor:'#1F1A13', borderWidth:1.3, pointRadius:0, tension:.3},
-    {label:T('lNouveauxCas'), data:qc.map(x => x.rapporte), backgroundColor:COULEURS[PROV] || '#005E82', stack:'s', barPercentage:1, categoryPercentage:.92},
-    {label:T('rattrapage'), data:qc.map(x => x.rattrapage), backgroundColor:'#B7D3E1', stack:'s', barPercentage:1, categoryPercentage:.92}]},
-    options:{scales:{x:Object.assign({stacked:true}, AXE), y:Object.assign({stacked:true}, AXE_Y, axePetit, axeCoupe(qc))}}});
+  const premiere = serie.length ? serie[0].date : null;
+  const lib = x => jour ? dateC(x.date) : pas === 'semaine' ? T('sem') + ' ' + dateC(x.date) : MOIS[parseInt(x.date.slice(5, 7), 10) - 1] + ' ' + x.date.slice(0, 4);
+  const couleurs = (pts, c) => jour ? c : pts.map(x => x.partiel ? c + '66' : c);
+  const bulleTitre = pts => ({callbacks:{title:items => { const x = pts[items[0].dataIndex]; return lib(x) + (x.enCours ? ' (' + T('enCours') + ')' : x.partiel ? ' (' + T('partiel') + ')' : ''); }}});
+  const marque = pts => pts.some(x => x.partiel) ? ` · <i style="background:#B9B2A8"></i>${T('partiel')}` : '';
+  const bulle = pts => Object.assign({titleFont:{size:11}, bodyFont:{size:11}, padding:7, boxWidth:8, boxHeight:8}, bulleTitre(pts));
+  document.getElementById('t-' + cle).textContent = T(cle === 'cas' ? 'gCas' : 'gDeces')[pas];
+  document.querySelectorAll(`.pas[data-g="${cle}"] button`).forEach(b => b.setAttribute('aria-pressed', b.dataset.pas === pas));
 
-  // 2. nouveaux deces
-  const qd = quotidien(serie, 'deaths', !PROV);
-  sous('s-deces', `<i style="background:var(--deces)"></i>${T('parBulletin')} <i style="background:var(--deces-clair)"></i>${T('rattrapage')}${mentionCoupe(qd)} · ${esc(nomZone)}`);
-  graphe('c-deces', {type:'bar', data:{labels:etiquettes(qd), datasets:[
-    {label:T('lNouveauxDeces'), data:qd.map(x => x.rapporte), backgroundColor:'#993A2E', stack:'s', barPercentage:1, categoryPercentage:.92},
-    {label:T('rattrapage'), data:qd.map(x => x.rattrapage), backgroundColor:'#E9B9B0', stack:'s', barPercentage:1, categoryPercentage:.92}]},
-    options:{scales:{x:Object.assign({stacked:true}, AXE), y:Object.assign({stacked:true}, AXE_Y, axePetit, axeCoupe(qd))}}});
+  if(cle === 'cas'){
+    const q0 = quotidien(serie, 'confirmed', !PROV);
+    const q = agrege(q0, pas, premiere);
+    const moy = q0.map((_, i) => { const t = q0.slice(Math.max(0, i - 6), i + 1); return t.reduce((s, x) => s + x.total, 0) / t.length; });
+    const c = COULEURS[PROV] || '#005E82';
+    sous('s-cas', `<i style="background:${c}"></i>${T('parBulletin')} <i style="background:var(--cas-clair)"></i>${T('rattrapage')}${jour ? mentionCoupe(q) + ` <i style="background:var(--ink)"></i>${T('moy7')}` : marque(q)}`);
+    graphe('c-cas', {type:'bar', data:{labels:q.map(lib), datasets:[
+      ...(jour ? [{type:'line', label:T('lMoy'), data:moy, borderColor:'#1F1A13', borderWidth:1.3, pointRadius:0, tension:.3}] : []),
+      {label:T('lNouveauxCas'), data:q.map(x => x.rapporte), backgroundColor:couleurs(q, c), stack:'s', barPercentage:jour ? 1 : .86, categoryPercentage:.92},
+      {label:T('rattrapage'), data:q.map(x => x.rattrapage), backgroundColor:'#B7D3E1', stack:'s', barPercentage:jour ? 1 : .86, categoryPercentage:.92}]},
+      options:{plugins:{legend:{display:false}, tooltip:bulle(q)},
+        scales:{x:Object.assign({stacked:true}, AXE), y:Object.assign({stacked:true}, AXE_Y, jour ? axePetit : {}, jour ? axeCoupe(q) : {})}}});
+  } else {
+    const q = agrege(quotidien(serie, 'deaths', !PROV), pas, premiere);
+    sous('s-deces', `<i style="background:var(--deces)"></i>${T('parBulletin')} <i style="background:var(--deces-clair)"></i>${T('rattrapage')}${jour ? mentionCoupe(q) : marque(q)} · ${esc(PROV || T('rdc'))}`);
+    graphe('c-deces', {type:'bar', data:{labels:q.map(lib), datasets:[
+      {label:T('lNouveauxDeces'), data:q.map(x => x.rapporte), backgroundColor:couleurs(q, '#993A2E'), stack:'s', barPercentage:jour ? 1 : .86, categoryPercentage:.92},
+      {label:T('rattrapage'), data:q.map(x => x.rattrapage), backgroundColor:'#E9B9B0', stack:'s', barPercentage:jour ? 1 : .86, categoryPercentage:.92}]},
+      options:{plugins:{legend:{display:false}, tooltip:bulle(q)},
+        scales:{x:Object.assign({stacked:true}, AXE), y:Object.assign({stacked:true}, AXE_Y, jour ? axePetit : {}, jour ? axeCoupe(q) : {})}}});
+  }
+}
+
+function renderGraphes(){
+  renderCD('cas'); renderCD('deces');
+  const nomZone = PROV || T('rdc');
 
   // 3. lieu des deces, par semaine
   const sem = {};
@@ -712,7 +781,12 @@ async function demarrer(){
   ZONES_CALC = zonesCalculees();
   const h = decodeURIComponent(location.hash.slice(1));
   PROV = Object.keys(SLUGS).find(n => SLUGS[n] === h) || null;
+  // ?pas=semaine ou ?pas=mois : ouvrir les graphiques sur ce pas (lien partageable).
+  const pasDemande = new URLSearchParams(location.search).get('pas');
+  if(['jour', 'semaine', 'mois'].includes(pasDemande)) PAS.cas = PAS.deces = pasDemande;
   renderSituation();
+  document.querySelectorAll('.pas').forEach(el => { el.innerHTML = ['jour', 'semaine', 'mois'].map(k =>
+    `<button type="button" data-pas="${k}" aria-pressed="${k === PAS[el.dataset.g]}" title="${T('pas')[k][1]}" aria-label="${T('pas')[k][1]}">${T('pas')[k][0]}</button>`).join(''); });
   construireCarte();
   renderTout();
 
@@ -721,6 +795,10 @@ async function demarrer(){
   });
   ['tabProv', 'tabRip'].forEach(id => document.getElementById(id).addEventListener('click', e => {
     const tr = e.target.closest('tbody tr'); if(tr) choisir(tr.dataset.prov === PROV ? null : tr.dataset.prov);
+  }));
+  document.querySelectorAll('.pas').forEach(el => el.addEventListener('click', e => {
+    const b = e.target.closest('button'), g = el.dataset.g; if(!b || b.dataset.pas === PAS[g]) return;
+    PAS[g] = b.dataset.pas; renderCD(g);
   }));
   document.getElementById('modeCarte').addEventListener('click', e => {
     const b = e.target.closest('button'); if(!b) return;

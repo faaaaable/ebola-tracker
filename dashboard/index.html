@@ -110,7 +110,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/dashboard.css?v=34e8d94098">
+<link rel="stylesheet" href="/assets/css/dashboard.css?v=43c23e1952">
 </head>
 <body class="db-page">
 <a class="skip-link" href="#contenu">Aller au contenu principal</a>
@@ -228,8 +228,8 @@
   </section>
 
   <section class="bas">
-    <div class="g"><h3>Nouveaux cas par jour</h3><div class="s" id="s-cas"></div><div class="zone"><canvas id="c-cas"></canvas></div></div>
-    <div class="g"><h3>Nouveaux décès par jour</h3><div class="s" id="s-deces"></div><div class="zone"><canvas id="c-deces"></canvas></div></div>
+    <div class="g"><div class="gt"><h3 id="t-cas">Cas par jour</h3><div class="pas" data-g="cas" role="group" aria-label="Pas de temps"></div></div><div class="s" id="s-cas"></div><div class="zone"><canvas id="c-cas"></canvas></div></div>
+    <div class="g"><div class="gt"><h3 id="t-deces">Décès par jour</h3><div class="pas" data-g="deces" role="group" aria-label="Pas de temps"></div></div><div class="s" id="s-deces"></div><div class="zone"><canvas id="c-deces"></canvas></div></div>
     <div class="g"><h3>Lieu des décès, par semaine</h3><div class="s" id="s-lieu"></div><div class="zone"><canvas id="c-lieu"></canvas></div></div>
     <div class="g"><h3>Alertes par semaine</h3><div class="s" id="s-alertes"></div><div class="zone"><canvas id="c-alertes"></canvas></div></div>
     <div class="g"><h3>Laboratoire</h3><div class="s" id="s-labo"></div><div class="zone"><canvas id="c-labo"></canvas></div></div>
@@ -245,6 +245,6 @@
 </aside>
 <script type="application/json" id="dbConfig">{"lang": "fr", "accueil": "/", "ici": "/dashboard/", "donnees": "/donnees/", "autresPays": "/autres-pays/", "provinces": {"Ituri": "/donnees/ituri/", "Nord-Kivu": "/donnees/nord-kivu/", "Haut-Uélé": "/donnees/haut-uele/", "Tshopo": "/donnees/tshopo/", "Bas-Uélé": "/donnees/bas-uele/", "Sud-Kivu": "/donnees/sud-kivu/", "Sud-Ubangi": "/donnees/sud-ubangi/"}, "pays": {"kenya": "/kenya/", "ouganda": "/ouganda/", "france": "/france/"}}</script>
 
-<script defer src="/assets/js/dashboard.js?v=bb197e779e"></script>
+<script defer src="/assets/js/dashboard.js?v=c9fe4e128b"></script>
 </body>
 </html>

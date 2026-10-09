@@ -184,3 +184,13 @@ a{color:var(--accent-strong);}
 .skip-link{position:absolute;left:-9999px;}
 .skip-link:focus{left:10px;top:10px;z-index:30;background:var(--ink);color:#fff;padding:6px 10px;border-radius:6px;}
 @media (max-width:1100px){ .titre-db{white-space:normal;} }
+
+/* Pas de temps des graphiques des cas et deces (9 octobre 2026) : J, S, M a
+   droite du titre, un seul reglage pour les deux graphiques. */
+.gt{display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0;}
+.gt h3{min-width:0;}
+.pas{display:flex;flex:none;border:1px solid var(--line);border-radius:5px;overflow:hidden;}
+.pas button{font:600 10px/1 var(--sans);border:0;background:none;color:var(--ink-faint);padding:3px 6px;cursor:pointer;}
+.pas button+button{border-left:1px solid var(--line);}
+.pas button[aria-pressed="true"]{background:var(--ink);color:#fff;}
+.pas button:hover:not([aria-pressed="true"]){color:var(--ink);}
