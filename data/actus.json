@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "ac5e5097",
+   "date": "2026-10-09",
+   "titre": "Plusieurs acteurs demandent des explications sur les fonds destinés à la sensibilisation contre Ebola au Nord-Kivu",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/09/actualite/sante/plusieurs-acteurs-demandent-des-explications-sur-les-fonds-destines-la",
+   "langue": "fr",
+   "resume": "Photo assemblée provinciale du Nord-Kivu\" /> Des acteurs politiques et de la société civile au Nord-Kivu demandent des explications sur l’utilisation des fonds alloués à des députés provinciaux pour sensibiliser la population à la maladie à virus Ebola.",
+   "statut": "publie",
+   "collecte": "2026-10-09",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "f21159c1",
    "date": "2026-10-08",
    "titre": "Riposte contre Ebola : Judith Suminwa échange avec la direction du CDC et insiste sur une meilleure coordination de l’aide internationale",
