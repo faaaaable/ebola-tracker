@@ -4190,6 +4190,23 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             window_line = interp(strings_lang["provinceCaseNoneSince"], {
                 "first": long_date(first_seen, i18n_lang)})
 
+        # Les zones de sante touchees, nommees (9 octobre 2026, referencement) :
+        # les trois plus touchees dans la phrase de situation, avec leurs cas,
+        # et dans la description ; les autres sont comptees, pas nommees.
+        zones_cas = sorted([z for z in zones_by_province.get(name, []) if (z.get("cases") or 0) > 0],
+                           key=lambda z: -z["cases"])
+        def liste(items):
+            return (items[0] if len(items) == 1 else
+                    ", ".join(items[:-1]) + strings_lang["timelineListAnd"] + items[-1]) if items else ""
+        def zones_nommees(avec_cas):
+            noms = ["%s (%s)" % (z["name"], fmt(z["cases"], lang)) if avec_cas else z["name"]
+                    for z in zones_cas[:3]]
+            if len(zones_cas) > 3 and not avec_cas:
+                return interp(strings_lang["provinceZonesOthers"], {
+                    "list": ", ".join(noms), "n": fmt(len(zones_cas) - 3, lang)})
+            return liste(noms)
+        sentence["zones"] = zones_nommees(False) or "—"
+
         meta = {
             "h1": interp(strings_lang["provinceH1"], forms),
             "title": interp(strings_lang["provinceMetaTitle"], forms),
@@ -4247,7 +4264,13 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         name = province["name"]
         zones = zones_by_province.get(name, [])
         zone_info = province.get("healthZonesAffected")
-        if zone_info:
+        if zone_info and zones_cas:
+            cle = ("provinceIntroZonesOne" if len(zones_cas) == 1 else
+                   "provinceIntroZonesTop" if len(zones_cas) > 3 else "provinceIntroZonesAll")
+            zones_sentence = interp(strings_lang[cle],
+                                    {"n": zone_info["n"], "total": zone_info["total"],
+                                     "top": zones_nommees(True)})
+        elif zone_info:
             zones_sentence = interp(strings_lang["provinceIntroZones"],
                                     {"n": zone_info["n"], "total": zone_info["total"]})
         else:
