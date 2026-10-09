@@ -1,3 +1,7 @@
+/* Tout le script dans sa propre portee (9 octobre 2026) : app.js, charge sur
+   la meme page, declare lui aussi fmt() ; deux « const fmt » globales et le
+   second script s'arretait en erreur, emportant le menu du site. */
+(() => {
 'use strict';
 /* La base de donnees (/base-de-donnees/, 9 octobre 2026) : toutes les donnees
    du site, une ligne par date et par territoire, epidemie et riposte, avec le
@@ -293,3 +297,5 @@ demarrer().catch(e => {
   const c = document.querySelector('#bddApp .bdd-charge');
   if(c) c.textContent = T('erreur');
 });
+
+})();
