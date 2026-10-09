@@ -37,16 +37,19 @@ TEXTES = {
     "fr": dict(premier="Premier cas", dernier="Dernier cas", seul="Seul cas", cas="cas confirmé",
                cas_pl="cas confirmés", deces="décès", deces_pl="décès", cours="Épidémie en cours",
                fini="Épidémie terminée", source="Source", court_cas="cas", court_cours="en cours",
-               court_fini="terminée", court_gueri="guéri"),
+               court_fini="terminée", court_gueri="guéri",
+               fini_le="terminée le {d}", cours_depuis="en cours depuis le {d}", cas1="cas"),
     "en": dict(premier="First case", dernier="Last case", seul="Single case", cas="confirmed case",
                cas_pl="confirmed cases", deces="death", deces_pl="deaths", cours="Ongoing outbreak",
                fini="Outbreak over", source="Source", court_cas="cases", court_cours="ongoing",
-               court_fini="over", court_gueri="recovered"),
+               court_fini="over", court_gueri="recovered",
+               fini_le="over since {d}", cours_depuis="ongoing since {d}", cas1="case"),
     "sw": dict(premier="Mgonjwa wa kwanza", dernier="Mgonjwa wa mwisho", seul="Mgonjwa pekee",
                cas="mgonjwa aliyethibitishwa", cas_pl="wagonjwa waliothibitishwa", deces="kifo",
                deces_pl="vifo", cours="Mlipuko unaendelea", fini="Mlipuko umemalizika",
                source="Chanzo", court_cas="wagonjwa", court_cours="unaendelea",
-               court_fini="umemalizika", court_gueri="amepona"),
+               court_fini="umemalizika", court_gueri="amepona",
+               fini_le="ulimalizika {d}", cours_depuis="unaendelea tangu {d}", cas1="mgonjwa"),
 }
 # Pas de fond Natural Earth pour la RDC (ses zones), la France (hors cadre),
 # les pays touches (leur decoupage administratif) ni les petites iles du fichier.
@@ -93,15 +96,25 @@ def _palier(cas, seuils):
     return 0 if not cas else 1 + sum(1 for s in seuils if cas >= s)
 
 
+def _jour_mois(iso, lang):
+    """« 27 août », « 6 octobre » : la date sans l'annee, sous le nom du pays."""
+    _, m, j = iso.split("-")
+    return "%d %s" % (int(j), MOIS[lang][int(m) - 1])
+
+
 def _court(p, lang):
-    """« 20 cas, 2 décès » et « terminée » : les deux lignes sous le nom du
-    pays. Sur une seule ligne, celle de l'Ouganda etait plus large que le pays."""
+    """« 20 cas, 2 décès » et « terminée le 27 août » : les deux lignes sous le
+    nom du pays (option 2 des maquettes du 9 octobre 2026). Les deces sont
+    toujours ecrits, meme a zero."""
     t = TEXTES[lang]
-    etat = t["court_cours"] if p["etat"] == "cours" else (
-        t["court_gueri"] if p["cas"] == 1 and p["deces"] == 0 else t["court_fini"])
-    n = "%d %s" % (p["cas"], t["court_cas"])
-    if p["deces"]:
-        n += ", %d %s" % (p["deces"], t["deces"] if p["deces"] == 1 else t["deces_pl"])
+    if p["etat"] == "cours":
+        etat = t["cours_depuis"].replace("{d}", _jour_mois(p["premier"], lang))
+    elif p.get("fin"):
+        etat = t["fini_le"].replace("{d}", _jour_mois(p["fin"], lang))
+    else:
+        etat = t["court_fini"]
+    n = "%d %s, %d %s" % (p["cas"], t["cas1"] if p["cas"] == 1 else t["court_cas"],
+                          p["deces"], t["deces"] if p["deces"] == 1 else t["deces_pl"])
     return n, etat
 
 
@@ -165,9 +178,9 @@ def greffer(svg_html, geo, lang, seuils):
         lx, ly = pr.xy(*p["label"])
         noms.append(
             '<g class="zm-mark hr-nom is-%s" data-a3="%s" data-x="%.1f" data-y="%.1f" transform="translate(%.1f %.1f)">'
-            '<text class="hr-n1" y="0">%s</text><text class="hr-n2" y="15">%s</text>'
-            '<text class="hr-n2" y="29">%s</text></g>'
-            % (p["etat"], a3, lx, ly, lx, ly, _esc(p["nom"][lang]).upper(), n, etat))
+            '<text class="hr-n1" y="0">%s</text><text class="hr-n2" y="19">%s</text>'
+            '<text class="hr-n3" y="35">%s</text></g>'
+            % (p["etat"], a3, lx, ly, lx, ly, _esc(p["nom"][lang]), n, _esc(etat)))
 
     couche = ('          <g class="zm-hors"><g class="hr-g-noms">%s</g><g class="hr-g-villes">%s</g></g>\n'
               % ("".join(noms), "".join(villes)))

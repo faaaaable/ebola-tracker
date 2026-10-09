@@ -1,5 +1,5 @@
 {
-  "_comment": "Pays touches hors de RDC (vue « Pays touches » de la carte de l'accueil, 8 octobre 2026). Sources ouvertes, pas les bulletins de l'INSP. Ouganda : OMS, Disease Outbreak News du 3 juillet 2026 (DON612 : 20 cas confirmes dont 2 deces, plus un cas probable decede ; cas a Kampala et Wakiso ; dernier cas identifie le 21 juin) et du 14 aout 2026 (DON615 : dernier malade sorti le 16 juillet, fin des 42 jours de surveillance le 27 aout). Aucune source lue ne repartit les 20 cas entre Kampala et Wakiso : les deux districts portent le total ensemble. Kasese (2 cas, cite par un resume de recherche) et une fin au 28 juillet n'ont ete confirmes par aucun rapport de l'OMS : ecartes. Kenya : ministere kenyan de la Sante et OMS Afrique, 6 octobre 2026 ; patient isole et decede au Nairobi Hospital. etat : cours ou fini. dernier vaut null pour un cas unique. unites : les districts (Ouganda) ou comtes (Kenya) touches, avec leurs cas, noms de site/geo/hors-rdc-admin.json. lon/lat : la ville du cas ; label : la place du nom du pays. La France (1 cas importe, gueri) a ete retiree de la carte le 8 octobre 2026, a la demande du proprietaire ; elle reste dans la chronologie. point : false retire le point sur la ville (Ouganda, 8 octobre 2026 : Kampala et Wakiso colories suffisent ; le Kenya garde le sien, Nairobi etant trop petit pour se voir).",
+  "_comment": "Pays touches hors de RDC (vue « Pays touches » de la carte de l'accueil, 8 octobre 2026). Sources ouvertes, pas les bulletins de l'INSP. Ouganda : OMS, Disease Outbreak News du 3 juillet 2026 (DON612 : 20 cas confirmes dont 2 deces, plus un cas probable decede ; cas a Kampala et Wakiso ; dernier cas identifie le 21 juin) et du 14 aout 2026 (DON615 : dernier malade sorti le 16 juillet, fin des 42 jours de surveillance le 27 aout). Aucune source lue ne repartit les 20 cas entre Kampala et Wakiso : les deux districts portent le total ensemble. Kasese (2 cas, cite par un resume de recherche) et une fin au 28 juillet n'ont ete confirmes par aucun rapport de l'OMS : ecartes. Kenya : ministere kenyan de la Sante et OMS Afrique, 6 octobre 2026 ; patient isole et decede au Nairobi Hospital. etat : cours ou fini. dernier vaut null pour un cas unique. unites : les districts (Ouganda) ou comtes (Kenya) touches, avec leurs cas, noms de site/geo/hors-rdc-admin.json. lon/lat : la ville du cas ; label : la place du nom du pays. La France (1 cas importe, gueri) a ete retiree de la carte le 8 octobre 2026, a la demande du proprietaire ; elle reste dans la chronologie. point : false retire le point sur la ville (Ouganda, 8 octobre 2026 : Kampala et Wakiso colories suffisent ; le Kenya garde le sien, Nairobi etant trop petit pour se voir). fin : date de fin de l'epidemie dans le pays (Ouganda : 27 aout 2026, OMS DON615), ecrite sous le nom sur la carte (9 octobre 2026).",
   "pays": [
     {
       "a3": "UGA",
@@ -43,7 +43,8 @@
           "cas": 20
         }
       ],
-      "point": false
+      "point": false,
+      "fin": "2026-08-27"
     },
     {
       "a3": "KEN",

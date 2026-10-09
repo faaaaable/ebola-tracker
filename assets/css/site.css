@@ -4446,11 +4446,15 @@ main:has(.prov-hero-b) .th-item.is-intl{border-top-color:var(--tl-intl) !importa
 .hr-ville.is-cours .hr-halo{animation:hrPouls 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
 @keyframes hrPouls{0%,100%{transform:scale(.7);opacity:.35;}50%{transform:scale(1.35);opacity:.08;}}
 @media (prefers-reduced-motion:reduce){.hr-ville.is-cours .hr-halo{animation:none;opacity:.2;}}
-/* Le nom du pays en capitales, et sa ligne de chiffres. */
+/* Le nom du pays, ses chiffres et son etat (9 octobre 2026, option 2
+   « editorial » des maquettes, un peu agrandie) : le nom en Source Serif
+   romain comme les titres du site, les chiffres en italique, l'etat en
+   petites capitales de la couleur du pays. */
 .hr-nom text{text-anchor:middle;paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round;}
-.hr-nom .hr-n1{font:italic 600 14px var(--font-serif);letter-spacing:.08em;fill:var(--hr-c);}
-.hr-nom.is-fini .hr-n1{fill:var(--hr-fini-trait);}
-.hr-nom .hr-n2{font:500 11.5px var(--font-sans);fill:var(--ink-dim);}
+.hr-nom .hr-n1{font:600 21px var(--font-serif);fill:var(--ink);}
+.hr-nom .hr-n2{font:italic 400 14px var(--font-serif);fill:var(--ink-dim);}
+.hr-nom .hr-n3{font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;fill:var(--hr-c);}
+.hr-nom.is-fini .hr-n3{fill:var(--hr-fini-trait);}
 /* Survol : pas de contour epais (il redonnait au pays la surface qu'on
    voulait lui retirer) ; le point grossit et le nom fonce. */
 .hr-ville.is-on .hr-pt{transform:scale(1.45);}
@@ -4599,8 +4603,8 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 @media (max-width:760px){
   /* Vue « Pays touches » sur telephone : le nom seul, les chiffres sont dans
      l'infobulle (au toucher). */
-  .hr-nom .hr-n2{display:none;}
-  .hr-nom .hr-n1{font-size:12px;}
+  .hr-nom .hr-n2,.hr-nom .hr-n3{display:none;}
+  .hr-nom .hr-n1{font-size:15px;}
 }
 /* Carrousel de l'accueil : sans JavaScript, la grille des Defis est aussi
    cachee sur telephone (app.js la retire quand il tourne). */
