@@ -1,5 +1,5 @@
 {
-  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche).",
+  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche). Pages Kenya, Ouganda et France (9 octobre 2026, pour le referencement) : la meme fiche seule, suivie de questions (questions, rendues en FAQPage) redigees a partir des seuls faits de la fiche et de ses sources ; pageLien est le renvoi de la fiche d'« Autres pays » vers la page du pays.",
   "maj": "2026-10-08",
   "pays": [
     {
@@ -78,7 +78,86 @@
           "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON612"
         }
       ],
-      "premier": "2026-05-15"
+      "premier": "2026-05-15",
+      "pageLien": {
+        "fr": "Toute la page Ebola en Ouganda",
+        "en": "Full page: Ebola in Uganda",
+        "sw": "Ukurasa kamili: Ebola nchini Uganda"
+      },
+      "questions": [
+        {
+          "q": {
+            "fr": "Y a-t-il encore Ebola en Ouganda ?",
+            "en": "Is there still Ebola in Uganda?",
+            "sw": "Je, bado kuna Ebola nchini Uganda?"
+          },
+          "a": {
+            "fr": "Non. L'épidémie d'Ebola en Ouganda a été déclarée terminée le 27 août 2026. Le dernier malade était sorti de l'hôpital le 16 juillet ; aucun nouveau cas n'est apparu pendant les 42 jours de surveillance qui ont suivi.",
+            "en": "No. The Ebola outbreak in Uganda was declared over on 27 August 2026. The last patient had left hospital on 16 July; no new case appeared during the 42 days of monitoring that followed.",
+            "sw": "Hapana. Mlipuko wa Ebola nchini Uganda ulitangazwa kumalizika tarehe 27 Agosti 2026. Mgonjwa wa mwisho aliruhusiwa kutoka hospitalini tarehe 16 Julai; hakuna mgonjwa mpya aliyepatikana katika siku 42 za ufuatiliaji zilizofuata."
+          }
+        },
+        {
+          "q": {
+            "fr": "Combien de cas et de décès d'Ebola l'Ouganda a-t-il comptés ?",
+            "en": "How many Ebola cases and deaths did Uganda record?",
+            "sw": "Uganda ilirekodi wagonjwa na vifo vingapi vya Ebola?"
+          },
+          "a": {
+            "fr": "20 cas confirmés (13 hommes et 7 femmes) et un cas probable. Trois malades sont morts : deux cas confirmés et le cas probable. Cinq soignants figuraient parmi les malades.",
+            "en": "20 confirmed cases (13 men and 7 women) and one probable case. Three patients died: two confirmed cases and the probable case. Five health workers were among the patients.",
+            "sw": "Wagonjwa 20 waliothibitishwa (wanaume 13 na wanawake 7) na mmoja anayeshukiwa. Wagonjwa watatu walifariki: wawili waliothibitishwa na yule anayeshukiwa. Wahudumu watano wa afya walikuwa miongoni mwa wagonjwa."
+          }
+        },
+        {
+          "q": {
+            "fr": "Où les cas se sont-ils produits en Ouganda ?",
+            "en": "Where in Uganda did the cases occur?",
+            "sw": "Wagonjwa walipatikana wapi nchini Uganda?"
+          },
+          "a": {
+            "fr": "À Kampala, la capitale, et dans le district voisin de Wakiso, qui fait partie de son agglomération. L'OMS n'a pas publié la répartition des 20 cas entre les deux districts.",
+            "en": "In Kampala, the capital, and in the neighbouring district of Wakiso, part of its metropolitan area. WHO has not published how the 20 cases were split between the two districts.",
+            "sw": "Kampala, mji mkuu, na katika wilaya jirani ya Wakiso, iliyo sehemu ya eneo la jiji hilo. WHO haijachapisha mgawanyo wa wagonjwa 20 kati ya wilaya hizo mbili."
+          }
+        },
+        {
+          "q": {
+            "fr": "Comment Ebola est-il arrivé en Ouganda ?",
+            "en": "How did Ebola reach Uganda?",
+            "sw": "Ebola iliingiaje Uganda?"
+          },
+          "a": {
+            "fr": "Par deux malades venus de République démocratique du Congo, confirmés à Kampala les 15 et 16 mai 2026, sans lien entre eux. Le virus s'est ensuite transmis sur place, notamment au chauffeur qui avait transporté le premier malade et à des soignants.",
+            "en": "Through two patients who had come from the Democratic Republic of the Congo, confirmed in Kampala on 15 and 16 May 2026, with no link between them. The virus then spread locally, including to the driver who had transported the first patient and to health workers.",
+            "sw": "Kupitia wagonjwa wawili waliotoka Jamhuri ya Kidemokrasia ya Kongo, waliothibitishwa Kampala tarehe 15 na 16 Mei 2026, bila uhusiano kati yao. Kisha virusi vilienea ndani ya nchi, ikiwemo kwa dereva aliyembeba mgonjwa wa kwanza na kwa wahudumu wa afya."
+          }
+        },
+        {
+          "q": {
+            "fr": "De quel virus Ebola s'agit-il ?",
+            "en": "Which Ebola virus was it?",
+            "sw": "Ni virusi gani vya Ebola?"
+          },
+          "a": {
+            "fr": "Du virus Bundibugyo, le même que celui de l'épidémie en cours en RDC : les cas d'Ouganda en sont issus.",
+            "en": "Bundibugyo virus, the same as in the ongoing DRC outbreak: the cases in Uganda stemmed from it.",
+            "sw": "Virusi vya Bundibugyo, sawa na vya mlipuko unaoendelea DRC: wagonjwa wa Uganda walitokana nao."
+          }
+        },
+        {
+          "q": {
+            "fr": "Combien de contacts ont été suivis ?",
+            "en": "How many contacts were followed?",
+            "sw": "Watu wangapi wa karibu walifuatiliwa?"
+          },
+          "a": {
+            "fr": "831 personnes ayant été en contact avec des malades ont été identifiées et suivies.",
+            "en": "831 people who had been in contact with patients were identified and followed.",
+            "sw": "Watu 831 waliokuwa wamekutana na wagonjwa walitambuliwa na kufuatiliwa."
+          }
+        }
+      ]
     },
     {
       "id": "france",
@@ -143,7 +222,86 @@
           "url": "/reports/who/WHO_WeeklyExtSitRep_12_2026-08-02.pdf"
         }
       ],
-      "premier": "2026-06-24"
+      "premier": "2026-06-24",
+      "pageLien": {
+        "fr": "Toute la page Ebola en France",
+        "en": "Full page: Ebola in France",
+        "sw": "Ukurasa kamili: Ebola nchini Ufaransa"
+      },
+      "questions": [
+        {
+          "q": {
+            "fr": "Y a-t-il eu Ebola en France ?",
+            "en": "Has there been Ebola in France?",
+            "sw": "Je, kumekuwa na Ebola nchini Ufaransa?"
+          },
+          "a": {
+            "fr": "Oui, un seul cas, importé : un médecin revenu de République démocratique du Congo, confirmé en juin 2026. Il a guéri, et le virus ne s'est pas transmis en France. C'est le seul cas de l'épidémie hors d'Afrique.",
+            "en": "Yes, a single imported case: a doctor returning from the Democratic Republic of the Congo, confirmed in June 2026. He recovered, and the virus did not spread in France. It is the only case of the outbreak outside Africa.",
+            "sw": "Ndiyo, mgonjwa mmoja tu aliyetoka nje: daktari aliyerudi kutoka Jamhuri ya Kidemokrasia ya Kongo, aliyethibitishwa Juni 2026. Alipona, na virusi havikuenea nchini Ufaransa. Ndiye mgonjwa pekee wa mlipuko huu nje ya Afrika."
+          }
+        },
+        {
+          "q": {
+            "fr": "Qui était le malade ?",
+            "en": "Who was the patient?",
+            "sw": "Mgonjwa alikuwa nani?"
+          },
+          "a": {
+            "fr": "Un médecin déployé pendant cinq semaines en Ituri, la province de RDC la plus touchée, où il soignait des malades d'Ebola.",
+            "en": "A doctor who had been deployed for five weeks in Ituri, the most affected province of the DRC, where he was caring for Ebola patients.",
+            "sw": "Daktari aliyekuwa amepelekwa kwa wiki tano Ituri, jimbo lililoathirika zaidi la DRC, ambako aliwahudumia wagonjwa wa Ebola."
+          }
+        },
+        {
+          "q": {
+            "fr": "Comment le cas a-t-il été détecté ?",
+            "en": "How was the case detected?",
+            "sw": "Mgonjwa aligunduliwaje?"
+          },
+          "a": {
+            "fr": "À son arrivée à l'aéroport Charles-de-Gaulle, le 23 juin 2026, il a lui-même signalé ses symptômes aux services sanitaires. Il n'avait pas de fièvre, mais il a été isolé aussitôt dans un établissement de haut niveau de confinement, où un test PCR a détecté le virus Bundibugyo. La France l'a notifié à l'OMS le 24 juin.",
+            "en": "On arrival at Charles de Gaulle Airport on 23 June 2026, he reported his symptoms himself to the health services. He had no fever, but was isolated at once in a high-containment facility, where a PCR test detected Bundibugyo virus. France notified WHO on 24 June.",
+            "sw": "Alipofika uwanja wa ndege wa Charles-de-Gaulle tarehe 23 Juni 2026, aliripoti mwenyewe dalili zake kwa huduma za afya. Hakuwa na homa, lakini alitengwa mara moja katika kituo chenye kiwango cha juu cha udhibiti, ambapo kipimo cha PCR kiligundua virusi vya Bundibugyo. Ufaransa iliiarifu WHO tarehe 24 Juni."
+          }
+        },
+        {
+          "q": {
+            "fr": "Les passagers de son avion ont-ils été contaminés ?",
+            "en": "Were the passengers on his flight infected?",
+            "sw": "Je, abiria wa ndege yake waliambukizwa?"
+          },
+          "a": {
+            "fr": "Non. Les cinq passagers assis près de lui ont été placés en quarantaine ; tous ont terminé leurs 21 jours de suivi sans tomber malades.",
+            "en": "No. The five passengers seated near him were quarantined; all completed their 21 days of follow-up without falling ill.",
+            "sw": "Hapana. Abiria watano waliokaa karibu naye waliwekwa karantini; wote walimaliza siku 21 za ufuatiliaji bila kuugua."
+          }
+        },
+        {
+          "q": {
+            "fr": "Combien de contacts ont été suivis ?",
+            "en": "How many contacts were followed?",
+            "sw": "Watu wangapi wa karibu walifuatiliwa?"
+          },
+          "a": {
+            "fr": "En France, les cinq passagers assis près de lui dans l'avion. En RDC, 107 de ses contacts ont été suivis à Kinshasa.",
+            "en": "In France, the five passengers seated near him on the plane. In the DRC, 107 of his contacts were followed in Kinshasa.",
+            "sw": "Nchini Ufaransa, abiria watano waliokaa karibu naye ndani ya ndege. Nchini DRC, watu 107 wa karibu naye walifuatiliwa Kinshasa."
+          }
+        },
+        {
+          "q": {
+            "fr": "Le médecin a-t-il guéri ?",
+            "en": "Did the doctor recover?",
+            "sw": "Je, daktari alipona?"
+          },
+          "a": {
+            "fr": "Oui. Il est sorti de l'hôpital le 4 juillet 2026, après deux tests PCR négatifs.",
+            "en": "Yes. He left hospital on 4 July 2026, after two negative PCR tests.",
+            "sw": "Ndiyo. Aliruhusiwa kutoka hospitalini tarehe 4 Julai 2026, baada ya vipimo viwili vya PCR kuwa hasi."
+          }
+        }
+      ]
     },
     {
       "id": "kenya",
@@ -219,7 +377,74 @@
           "url": "https://www.bostonglobe.com/2026/10/06/business/man-living-congo-who-returned-kenya-is-countrys-first-confirmed-ebola-case-first-death/"
         }
       ],
-      "premier": "2026-10-06"
+      "premier": "2026-10-06",
+      "pageLien": {
+        "fr": "Toute la page Ebola au Kenya",
+        "en": "Full page: Ebola in Kenya",
+        "sw": "Ukurasa kamili: Ebola nchini Kenya"
+      },
+      "questions": [
+        {
+          "q": {
+            "fr": "Y a-t-il Ebola au Kenya ?",
+            "en": "Is there Ebola in Kenya?",
+            "sw": "Je, kuna Ebola nchini Kenya?"
+          },
+          "a": {
+            "fr": "Le Kenya a confirmé son premier cas d'Ebola le 6 octobre 2026. C'est un cas importé de République démocratique du Congo ; le malade est mort à Nairobi. Au 8 octobre 2026, c'est le seul cas confirmé dans le pays, et ses contacts restent sous surveillance.",
+            "en": "Kenya confirmed its first Ebola case on 6 October 2026. It is a case imported from the Democratic Republic of the Congo; the patient died in Nairobi. As of 8 October 2026 it is the only confirmed case in the country, and the patient's contacts remain under monitoring.",
+            "sw": "Kenya ilithibitisha mgonjwa wake wa kwanza wa Ebola tarehe 6 Oktoba 2026. Ni mgonjwa aliyeingia kutoka Jamhuri ya Kidemokrasia ya Kongo; alifariki Nairobi. Kufikia tarehe 8 Oktoba 2026, ndiye mgonjwa pekee aliyethibitishwa nchini, na watu wa karibu naye bado wanafuatiliwa."
+          }
+        },
+        {
+          "q": {
+            "fr": "Qui est le malade et comment est-il arrivé au Kenya ?",
+            "en": "Who was the patient and how did he reach Kenya?",
+            "sw": "Mgonjwa ni nani na alifikaje Kenya?"
+          },
+          "a": {
+            "fr": "Un Kényan qui vivait en RDC, où il avait été soigné dans plusieurs structures de santé. Le 2 octobre, il a rejoint Kampala, en Ouganda, par la route en passant par Beni, puis a pris l'avion pour Nairobi, où il est arrivé le 3 octobre. Isolé au Nairobi Hospital, il y est mort dans la nuit du 5 octobre.",
+            "en": "A Kenyan who lived in the DRC, where he had been treated in several health facilities. On 2 October he travelled by road to Kampala, Uganda, via Beni, then flew to Nairobi, arriving on 3 October. Isolated at Nairobi Hospital, he died there on the night of 5 October.",
+            "sw": "Mkenya aliyeishi DRC, ambako alikuwa ametibiwa katika vituo kadhaa vya afya. Tarehe 2 Oktoba alisafiri kwa barabara hadi Kampala, Uganda, kupitia Beni, kisha akasafiri kwa ndege hadi Nairobi, alikofika tarehe 3 Oktoba. Alitengwa katika Nairobi Hospital, na akafariki huko usiku wa tarehe 5 Oktoba."
+          }
+        },
+        {
+          "q": {
+            "fr": "Combien de personnes sont suivies au Kenya ?",
+            "en": "How many people are being followed in Kenya?",
+            "sw": "Watu wangapi wanafuatiliwa nchini Kenya?"
+          },
+          "a": {
+            "fr": "28 contacts du malade, parmi lesquels des proches et des soignants, ainsi que les 23 passagers et les 4 membres d'équipage de son vol.",
+            "en": "28 of the patient's contacts, including relatives and health workers, as well as the 23 passengers and 4 crew members of his flight.",
+            "sw": "Watu 28 wa karibu na mgonjwa, wakiwemo jamaa na wahudumu wa afya, pamoja na abiria 23 na wafanyakazi 4 wa ndege yake."
+          }
+        },
+        {
+          "q": {
+            "fr": "De quel virus Ebola s'agit-il ?",
+            "en": "Which Ebola virus is it?",
+            "sw": "Ni virusi gani vya Ebola?"
+          },
+          "a": {
+            "fr": "Du virus Bundibugyo, celui de l'épidémie en cours en RDC. Il a été détecté par le laboratoire national de référence en virologie et par l'Institut kényan de recherche médicale (KEMRI).",
+            "en": "Bundibugyo virus, the one behind the ongoing DRC outbreak. It was detected by the National Virology Reference Laboratory and by the Kenya Medical Research Institute (KEMRI).",
+            "sw": "Virusi vya Bundibugyo, vya mlipuko unaoendelea DRC. Viligunduliwa na maabara ya kitaifa ya marejeleo ya virusi na Taasisi ya Utafiti wa Kitabibu ya Kenya (KEMRI)."
+          }
+        },
+        {
+          "q": {
+            "fr": "Le Kenya était-il préparé ?",
+            "en": "Was Kenya prepared?",
+            "sw": "Je, Kenya ilikuwa imejiandaa?"
+          },
+          "a": {
+            "fr": "Oui, depuis mai 2026 : plus de 652 000 voyageurs ont été contrôlés à l'entrée du pays, 267 échantillons suspects ont été testés et environ 5 000 soignants ont été formés.",
+            "en": "Yes, since May 2026: more than 652,000 travellers were screened on entering the country, 267 suspected samples were tested and about 5,000 health workers were trained.",
+            "sw": "Ndiyo, tangu Mei 2026: wasafiri zaidi ya 652 000 walikaguliwa wanapoingia nchini, sampuli 267 zinazoshukiwa zilipimwa na wahudumu wa afya karibu 5 000 walipewa mafunzo."
+          }
+        }
+      ]
     }
   ]
 }

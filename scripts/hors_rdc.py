@@ -236,37 +236,68 @@ def _silhouette(pid, w=64):
             % (w + 4, (y1 - y0) * k + 4, d))
 
 
-def page_html(lang, libelles):
+def _fiche_html(p, lang, libelles, lien=""):
+    """Une fiche pays : la date du premier cas en grand, la silhouette, le nom,
+    l'etat, les chiffres, tout le resume et les sources. lien : HTML ajoute
+    apres le resume (sur « Autres pays », le renvoi vers la page du pays)."""
+    a, m, j = p["premier"].split("-")
+    jour_mois = "%d %s" % (int(j), MOIS[lang][int(m) - 1])
+    chiffres = "".join(
+        '<div class="ap-c"><b>%s</b><span>%s</span></div>'
+        % (_esc(c.get({"en": "nEn", "sw": "nSw"}.get(lang, "n"), c["n"])), _esc(c["l"][lang]))
+        for c in p["chiffres"])
+    texte = "".join("<p>%s</p>" % _esc(t) for t in p["texte"][lang])
+    sources = "".join(
+        '<li><a href="%s"%s>%s</a></li>'
+        % (_esc(s["url"]), ' target="_blank" rel="noopener"' if s["url"].startswith("http") else "",
+           _esc(s["l"][lang]))
+        for s in p["sources"])
+    return (
+        '      <article class="ap-pays is-%s" id="%s">\n'
+        '        <div class="ap-date"><span class="ap-pt"></span><small>%s</small>'
+        '<time datetime="%s"><b>%s</b> %s</time></div>\n'
+        '        <header>%s<h2>%s</h2><p class="ap-statut"><i></i>%s</p></header>\n'
+        '        <div class="ap-chiffres">%s</div>\n'
+        '        <div class="ap-texte">%s%s</div>\n'
+        '        <div class="ap-sources"><span>%s</span><ul>%s</ul></div>\n'
+        '      </article>'
+        % (p["etat"], p["id"], _esc(libelles["premier"]), p["premier"], _esc(jour_mois), a,
+           _silhouette(p["id"]), _esc(p["nom"][lang]), _esc(p["statut"][lang]),
+           chiffres, texte, lien, _esc(libelles["sources"]), sources))
+
+
+def page_html(lang, libelles, liens=None):
     """La page « Autres pays » (8 octobre 2026, option 1 des maquettes) : une
     fiche par pays touche hors de RDC, cote a cote, DANS L'ORDRE DU PREMIER CAS.
-    En tete de chaque fiche, la date du premier cas en grand, posee sur un filet
-    commun qui se lit comme une frise ; puis la silhouette, le nom, l'etat, les
-    chiffres, tout le resume et les sources. Contenu : data/autres-pays.json."""
+    La date du premier cas, posee sur un filet commun, se lit comme une frise.
+    liens : {id du pays: url de sa page} (Kenya et Ouganda, 9 octobre 2026),
+    pour renvoyer chaque fiche vers sa page. Contenu : data/autres-pays.json."""
     doc = _lire("data", "autres-pays.json")
-    blocs = []
-    for p in doc["pays"]:
-        a, m, j = p["premier"].split("-")
-        jour_mois = "%d %s" % (int(j), MOIS[lang][int(m) - 1])
-        chiffres = "".join(
-            '<div class="ap-c"><b>%s</b><span>%s</span></div>'
-            % (_esc(c.get({"en": "nEn", "sw": "nSw"}.get(lang, "n"), c["n"])), _esc(c["l"][lang]))
-            for c in p["chiffres"])
-        texte = "".join("<p>%s</p>" % _esc(t) for t in p["texte"][lang])
-        sources = "".join(
-            '<li><a href="%s"%s>%s</a></li>'
-            % (_esc(s["url"]), ' target="_blank" rel="noopener"' if s["url"].startswith("http") else "",
-               _esc(s["l"][lang]))
-            for s in p["sources"])
-        blocs.append(
-            '      <article class="ap-pays is-%s" id="%s">\n'
-            '        <div class="ap-date"><span class="ap-pt"></span><small>%s</small>'
-            '<time datetime="%s"><b>%s</b> %s</time></div>\n'
-            '        <header>%s<h2>%s</h2><p class="ap-statut"><i></i>%s</p></header>\n'
-            '        <div class="ap-chiffres">%s</div>\n'
-            '        <div class="ap-texte">%s</div>\n'
-            '        <div class="ap-sources"><span>%s</span><ul>%s</ul></div>\n'
-            '      </article>'
-            % (p["etat"], p["id"], _esc(libelles["premier"]), p["premier"], _esc(jour_mois), a,
-               _silhouette(p["id"]), _esc(p["nom"][lang]), _esc(p["statut"][lang]),
-               chiffres, texte, _esc(libelles["sources"]), sources))
-    return "\n".join(blocs)
+    liens = liens or {}
+    return "\n".join(
+        _fiche_html(p, lang, libelles,
+                    '<p class="ap-lien"><a class="teaser-more" href="%s">%s</a></p>'
+                    % (_esc(liens[p["id"]]), _esc(p["pageLien"][lang])) if p["id"] in liens else "")
+        for p in doc["pays"])
+
+
+def _pays(pid):
+    return next(p for p in _lire("data", "autres-pays.json")["pays"] if p["id"] == pid)
+
+
+def pays_html(pid, lang, libelles):
+    """La fiche seule, pour la page du pays (Kenya, Ouganda : 9 octobre 2026)."""
+    return _fiche_html(_pays(pid), lang, libelles)
+
+
+def questions_plain(pid, lang):
+    """Les questions de la page du pays, en texte brut, pour le FAQPage."""
+    return [{"q": x["q"][lang], "a": x["a"][lang]} for x in _pays(pid).get("questions", [])]
+
+
+def questions_html(pid, lang):
+    """Les memes questions en rubriques depliables, comme la FAQ du site."""
+    return "\n".join(
+        '      <details class="faq-item">\n        <summary>%s</summary>\n'
+        '        <div class="faq-answer"><p>%s</p></div>\n      </details>'
+        % (_esc(x["q"]), _esc(x["a"])) for x in questions_plain(pid, lang))

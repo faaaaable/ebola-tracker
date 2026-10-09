@@ -109,6 +109,18 @@
       ]
     },
     {
+      "titleKey": "footerProvincesTitle",
+      "provinces": true
+    },
+    {
+      "titleKey": "footerHorsRdcTitle",
+      "pages": [
+        "kenya",
+        "ouganda",
+        "france"
+      ]
+    },
+    {
       "titleKey": "footerSiteTitle",
       "pages": [
         "a-propos",
@@ -481,6 +493,124 @@
           "description": "Mlipuko wa Ebola Bundibugyo ulioanzia DRC ulifikia nchi nyingine tatu: Uganda (wagonjwa 20, mlipuko ulimalizika tarehe 27 Agosti 2026), Kenya (mgonjwa 1, 6 Oktoba 2026) na Ufaransa (mgonjwa 1 kutoka nje, amepona). Muhtasari na vyanzo."
         }
       }
+    },
+    {
+      "id": "kenya",
+      "fragment": "pays.html",
+      "slug": {
+        "fr": "kenya/",
+        "en": "kenya/",
+        "sw": "kenya/"
+      },
+      "needs": [],
+      "changefreq": "weekly",
+      "priority": "0.6",
+      "schema": [
+        "article",
+        "faqPays"
+      ],
+      "parent": "autres-pays",
+      "pays": "kenya",
+      "meta": {
+        "fr": {
+          "title": "Ebola au Kenya : premier cas confirmé (octobre 2026)",
+          "h1": "Ebola au Kenya",
+          "description": "Ebola au Kenya : un premier cas confirmé le 6 octobre 2026, importé de RDC, mort à Nairobi. 28 contacts suivis. Parcours du malade, chiffres et sources du ministère kényan de la Santé et de l'OMS.",
+          "lede": "Le Kenya a confirmé le 6 octobre 2026 son premier cas d'Ebola Bundibugyo, un malade venu de RDC, mort à Nairobi. Ses contacts restent sous surveillance. Les chiffres de cette page viennent du ministère kényan de la Santé et de l'OMS, pas des bulletins de l'INSP."
+        },
+        "en": {
+          "title": "Ebola in Kenya: first confirmed case (October 2026)",
+          "h1": "Ebola in Kenya",
+          "description": "Ebola in Kenya: a first case confirmed on 6 October 2026, imported from the DRC, died in Nairobi. 28 contacts followed. The patient's journey, figures and sources from the Kenya Ministry of Health and WHO.",
+          "lede": "On 6 October 2026 Kenya confirmed its first case of Bundibugyo Ebola, a patient who had come from the DRC and died in Nairobi. His contacts remain under monitoring. The figures on this page come from the Kenya Ministry of Health and WHO, not from INSP bulletins."
+        },
+        "sw": {
+          "title": "Ebola nchini Kenya: mgonjwa wa kwanza athibitishwa (Oktoba 2026)",
+          "h1": "Ebola nchini Kenya",
+          "description": "Ebola nchini Kenya: mgonjwa wa kwanza alithibitishwa tarehe 6 Oktoba 2026, aliyetoka DRC, alifariki Nairobi. Watu 28 wa karibu wanafuatiliwa. Safari ya mgonjwa, takwimu na vyanzo vya Wizara ya Afya ya Kenya na WHO.",
+          "lede": "Tarehe 6 Oktoba 2026 Kenya ilithibitisha mgonjwa wake wa kwanza wa Ebola Bundibugyo, aliyetoka DRC na kufariki Nairobi. Watu wa karibu naye bado wanafuatiliwa. Takwimu za ukurasa huu zinatoka Wizara ya Afya ya Kenya na WHO, si kwenye taarifa za INSP."
+        }
+      },
+      "navLabelKey": "t:footerKenya"
+    },
+    {
+      "id": "ouganda",
+      "fragment": "pays.html",
+      "slug": {
+        "fr": "ouganda/",
+        "en": "uganda/",
+        "sw": "uganda/"
+      },
+      "needs": [],
+      "changefreq": "weekly",
+      "priority": "0.6",
+      "schema": [
+        "article",
+        "faqPays"
+      ],
+      "parent": "autres-pays",
+      "pays": "ouganda",
+      "meta": {
+        "fr": {
+          "title": "Ebola en Ouganda : 20 cas, épidémie terminée (2026)",
+          "h1": "Ebola en Ouganda",
+          "description": "Ebola en Ouganda en 2026 : 20 cas confirmés et 3 décès à Kampala et Wakiso, liés à l'épidémie de RDC. Épidémie terminée le 27 août 2026. Chronologie, chiffres et sources de l'OMS.",
+          "lede": "L'Ouganda a été le premier pays touché par l'épidémie d'Ebola Bundibugyo née en RDC : 20 cas confirmés entre le 15 mai et le 21 juin 2026, à Kampala et Wakiso. L'épidémie y est terminée depuis le 27 août. Les chiffres de cette page viennent de l'OMS, pas des bulletins de l'INSP."
+        },
+        "en": {
+          "title": "Ebola in Uganda: 20 cases, outbreak over (2026)",
+          "h1": "Ebola in Uganda",
+          "description": "Ebola in Uganda in 2026: 20 confirmed cases and 3 deaths in Kampala and Wakiso, linked to the DRC outbreak. Outbreak over on 27 August 2026. Timeline, figures and WHO sources.",
+          "lede": "Uganda was the first country reached by the Bundibugyo Ebola outbreak that began in the DRC: 20 confirmed cases between 15 May and 21 June 2026, in Kampala and Wakiso. The outbreak there has been over since 27 August. The figures on this page come from WHO, not from INSP bulletins."
+        },
+        "sw": {
+          "title": "Ebola nchini Uganda: wagonjwa 20, mlipuko umekwisha (2026)",
+          "h1": "Ebola nchini Uganda",
+          "description": "Ebola nchini Uganda mwaka 2026: wagonjwa 20 waliothibitishwa na vifo 3 Kampala na Wakiso, vinavyohusiana na mlipuko wa DRC. Mlipuko ulimalizika tarehe 27 Agosti 2026. Mfuatano wa matukio, takwimu na vyanzo vya WHO.",
+          "lede": "Uganda ilikuwa nchi ya kwanza kufikiwa na mlipuko wa Ebola Bundibugyo ulioanzia DRC: wagonjwa 20 waliothibitishwa kati ya tarehe 15 Mei na 21 Juni 2026, Kampala na Wakiso. Mlipuko huko ulimalizika tarehe 27 Agosti. Takwimu za ukurasa huu zinatoka WHO, si kwenye taarifa za INSP."
+        }
+      },
+      "navLabelKey": "t:footerOuganda"
+    },
+    {
+      "id": "france",
+      "fragment": "pays.html",
+      "slug": {
+        "fr": "france/",
+        "en": "france/",
+        "sw": "ufaransa/"
+      },
+      "needs": [],
+      "changefreq": "weekly",
+      "priority": "0.6",
+      "schema": [
+        "article",
+        "faqPays"
+      ],
+      "parent": "autres-pays",
+      "pays": "france",
+      "meta": {
+        "fr": {
+          "title": "Ebola en France : un cas importé, guéri (2026)",
+          "h1": "Ebola en France",
+          "description": "Ebola en France : un seul cas, un médecin revenu d'Ituri (RDC), confirmé le 24 juin 2026 à son arrivée à Roissy, guéri le 4 juillet. Aucune transmission. Chronologie, chiffres et sources de l'OMS.",
+          "lede": "La France a connu un seul cas d'Ebola Bundibugyo, le seul de l'épidémie hors d'Afrique : un médecin revenu d'Ituri, isolé dès son arrivée à Roissy en juin 2026, puis guéri. Le virus ne s'est pas transmis en France. Les chiffres de cette page viennent de l'OMS, pas des bulletins de l'INSP."
+        },
+        "en": {
+          "title": "Ebola in France: one imported case, recovered (2026)",
+          "h1": "Ebola in France",
+          "description": "Ebola in France: a single case, a doctor returning from Ituri (DRC), confirmed on 24 June 2026 on arrival at Roissy, recovered on 4 July. No transmission. Timeline, figures and WHO sources.",
+          "lede": "France had a single case of Bundibugyo Ebola, the only one of the outbreak outside Africa: a doctor returning from Ituri, isolated on arrival at Roissy in June 2026, who recovered. The virus did not spread in France. The figures on this page come from WHO, not from INSP bulletins."
+        },
+        "sw": {
+          "title": "Ebola nchini Ufaransa: mgonjwa mmoja kutoka nje, amepona (2026)",
+          "h1": "Ebola nchini Ufaransa",
+          "description": "Ebola nchini Ufaransa: mgonjwa mmoja tu, daktari aliyerudi kutoka Ituri (DRC), aliyethibitishwa tarehe 24 Juni 2026 alipofika Roissy, alipona tarehe 4 Julai. Hakuna maambukizi. Mfuatano wa matukio, takwimu na vyanzo vya WHO.",
+          "lede": "Ufaransa ilikuwa na mgonjwa mmoja tu wa Ebola Bundibugyo, pekee wa mlipuko huu nje ya Afrika: daktari aliyerudi kutoka Ituri, aliyetengwa alipofika Roissy Juni 2026, kisha akapona. Virusi havikuenea nchini Ufaransa. Takwimu za ukurasa huu zinatoka WHO, si kwenye taarifa za INSP."
+        }
+      },
+      "navLabelKey": "t:footerFrance",
+      "carte": false
     },
     {
       "id": "riposte",

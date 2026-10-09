@@ -464,7 +464,24 @@ def lien_telegram(config, libelle):
 def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces, avec_avertissement=True):
     by_id = {p["id"]: p for p in config["pages"]}
     columns = []
+    def provinces_col():
+        province_links = []
+        for province in provinces:
+            province_links.append(
+                '        <li><a href="%s">%s</a></li>'
+                % (urls.province_path(province["name"], lang), esc(province["name"])))
+        return ('      <div class="footer-col">\n'
+                '        <h2>%s</h2>\n'
+                '        <ul>\n%s\n        </ul>\n'
+                '      </div>' % (esc(strings_lang["footerProvincesTitle"]),
+                                  "\n".join(province_links)))
+
     for column in config["footerNav"]:
+        # La colonne des provinces se place ou footerNav la met (9 octobre
+        # 2026 : avant « Ebola hors de RDC » et « Le site »).
+        if column.get("provinces"):
+            columns.append(provinces_col())
+            continue
         links = []
         for page_id in column["pages"]:
             links.append('        <li><a href="%s">%s</a></li>'
@@ -489,17 +506,8 @@ def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces, avec_av
             '        <ul>\n%s\n        </ul>\n'
             '      </div>' % (esc(strings_lang[column["titleKey"]]), "\n".join(links)))
 
-    province_links = []
-    for province in provinces:
-        province_links.append(
-            '        <li><a href="%s">%s</a></li>'
-            % (urls.province_path(province["name"], lang), esc(province["name"])))
-    columns.append(
-        '      <div class="footer-col">\n'
-        '        <h2>%s</h2>\n'
-        '        <ul>\n%s\n        </ul>\n'
-        '      </div>' % (esc(strings_lang["footerProvincesTitle"]),
-                          "\n".join(province_links)))
+    if not any(c.get("provinces") for c in config["footerNav"]):
+        columns.append(provinces_col())
 
     # Une seule ligne discrete plutot que deux pavas : l'avertissement doit
     # rester sur chaque page — un visiteur arrive de Google atterrit sur
@@ -585,6 +593,18 @@ def build_json_ld(kinds, context):
                 "isPartOf": {"@type": "WebSite",
                              "name": context["brandName"],
                              "url": context["origin"] + "/"},
+            }))
+        elif kind == "faqPays" and context["faqPays"]:
+            blocks.append(json_ld({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "inLanguage": lang,
+                "mainEntity": [
+                    {"@type": "Question",
+                     "name": item["q"],
+                     "acceptedAnswer": {"@type": "Answer", "text": item["a"]}}
+                    for item in context["faqPays"]
+                ],
             }))
         elif kind == "faq":
             blocks.append(json_ld({
@@ -3855,7 +3875,8 @@ def main():
             "provinceTableRows": province_table_rows_html(provinces, urls, lang),
             "faqItems": faq_html,
             "glossaireItems": glossaire_items_html(strings, lang),
-            "autresPaysItems": hors_rdc.page_html(lang, {"sources": strings_lang["autresPaysSources"], "premier": strings_lang["autresPaysPremier"]}),
+            "autresPaysItems": hors_rdc.page_html(lang, {"sources": strings_lang["autresPaysSources"], "premier": strings_lang["autresPaysPremier"]},
+                                                  {x["pays"]: urls.path(x["id"], lang) for x in config["pages"] if x.get("pays")}),
             # La date vient de data/autres-pays.json (« maj »), a changer avec le texte.
             "autresPaysMaj": esc(interp(strings_lang["autresPaysMaj"], {
                 "date": hors_rdc.date_longue(read_json(os.path.join(ROOT, "data", "autres-pays.json"))["maj"], lang)})),
@@ -4149,6 +4170,10 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         meta = dict(page["meta"][lang])
         alt_paths = {code: urls.path(page["id"], code) for code in site["languages"]}
         trail = [] if page["id"] == "accueil" else [(meta["h1"], None)]
+        # Kenya et Ouganda (9 octobre 2026) : sous « Autres pays ».
+        if page.get("parent"):
+            trail.insert(0, (by_id_page(config, page["parent"])["meta"][lang]["h1"],
+                             urls.path(page["parent"], lang)))
 
     fragment = read(os.path.join(SITE, "pages", fragment_name))
 
@@ -4164,6 +4189,20 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     values.update({"t.%s" % key: interp(value, url_values) if isinstance(value, str) else value
                    for key, value in strings_lang.items()})
     values["meta.h1"] = esc(meta["h1"])
+    # Page d'un pays touche hors de RDC (Kenya, Ouganda : 9 octobre 2026) :
+    # sa fiche d'« Autres pays » et ses questions, tirees de data/autres-pays.json.
+    if page.get("pays"):
+        values["meta.lede"] = esc(meta["lede"])
+        values["pays.fiche"] = hors_rdc.pays_html(page["pays"], lang, {
+            "sources": strings_lang["autresPaysSources"], "premier": strings_lang["autresPaysPremier"]})
+        values["pays.questions"] = hors_rdc.questions_html(page["pays"], lang)
+        values["pays.autres"] = " ".join(
+            '<a href="%s">%s →</a>' % (urls.path(x["id"], lang), esc(x["meta"][lang]["h1"]))
+            for x in config["pages"] if x.get("pays") and x["id"] != page["id"])
+        # La France n'est pas sur la carte (retiree le 8 octobre 2026).
+        values["pays.carte"] = ("" if page.get("carte") is False else
+                                ' <a href="%s#pays-touches">%s →</a>'
+                                % (urls.path("accueil", lang), esc(strings_lang["autresPaysCarte"])))
     # Une page « noindex » (maquette) le dit aussi dans sa balise robots, en
     # plus d'etre absente du sitemap (6 septembre 2026).
     values["robots"] = "noindex, follow" if page.get("noindex") else "index, follow"
@@ -4288,6 +4327,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "keywords": ["Ebola", "RDC", "DRC", "épidémie", "santé publique",
                      "Bundibugyo", "SitRep"],
         "faqPlain": faq_plain,
+        "faqPays": hors_rdc.questions_plain(page["pays"], lang) if page.get("pays") else [],
         "breadcrumbTrail": trail,
         "breadcrumbHome": strings_lang["breadcrumbHome"],
         "homePath": urls.path("accueil", lang),
