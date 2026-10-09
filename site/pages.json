@@ -412,17 +412,17 @@
         "fr": {
           "title": "Ebola RDC 2026 — Suivi de l'épidémie en direct",
           "h1": "Suivi de l'épidémie d'Ebola en RDC",
-          "description": "Suivi quotidien de la 17e épidémie d'Ebola en RDC : cas confirmés, décès, guéris, carte des zones de santé touchées et courbe épidémique, d'après les bulletins officiels."
+          "description": "Ebola en RDC : cas et décès du jour, carte et tableau de bord par province et zone de santé, base de données à télécharger. Source : bulletins de l'INSP."
         },
         "en": {
-          "title": "DRC Ebola Tracker 2026 — Live outbreak monitoring",
+          "title": "DRC Ebola 2026 — Live outbreak tracking",
           "h1": "Tracking the Ebola outbreak in the DRC",
-          "description": "Daily tracking of the 17th Ebola outbreak in the DRC: confirmed cases, deaths, recoveries, a map of affected health zones and the epidemic curve, from official bulletins."
+          "description": "Ebola in the DRC: daily cases and deaths, map and dashboard by province and health zone, downloadable database. Source: INSP bulletins."
         },
         "sw": {
           "title": "Ebola DRC 2026 — Ufuatiliaji wa mlipuko moja kwa moja",
           "h1": "Ufuatiliaji wa mlipuko wa Ebola nchini DRC",
-          "description": "Ufuatiliaji wa kila siku wa mlipuko wa 17 wa Ebola nchini DRC: visa vilivyothibitishwa, vifo, waliopona, ramani ya maeneo ya afya yaliyoathirika na mkondo wa mlipuko, kwa mujibu wa ripoti rasmi."
+          "description": "Ebola nchini DRC: visa na vifo vya siku, ramani na dashibodi kwa jimbo na eneo la afya, hifadhidata ya kupakua. Chanzo: ripoti za INSP."
         }
       }
     },
