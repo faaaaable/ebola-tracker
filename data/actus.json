@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "cdd72629",
+   "date": "2026-10-10",
+   "titre": "Ebola : plus de 300 écoles du Nord-Kivu dotées de matériels de prévention",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/10/actualite/sante/ebola-plus-de-300-ecoles-du-nord-kivu-dotees-de-materiels-de-prevention",
+   "langue": "fr",
+   "resume": "Marc Maro Fimbo, Radio Okapi\" /> Plus de 300 écoles primaires et secondaires de Beni, Butembo et du territoire de Lubero, au Nord-Kivu, bénéficient d’un appui en matériels de prévention contre la maladie à virus Ebola.",
+   "statut": "publie",
+   "collecte": "2026-10-10",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "696d5f5f",
+   "date": "2026-10-10",
+   "titre": "A race against time to prevent an outbreak follows Kenya's first Ebola death",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/en/africa/20261010-a-race-against-time-to-prevent-an-outbreak-as-kenya-registers-first-ebola-case",
+   "langue": "en",
+   "resume": "Kenya's first imported case of Ebola – in which the patient travelled from Democratic Republic of Congo via Uganda – has exposed failings in border screening processes. Now Kenyan health officials are racing against the clock to prevent one infection from becoming an outbreak.",
+   "statut": "attente",
+   "collecte": "2026-10-10",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "e9d7bbe1",
    "date": "2026-10-09",
    "titre": "Ebola à Biakato : 12 jeunes interpellés pour entrave aux activités de la riposte (Administrateur militaire adjoint de Mambasa)",
