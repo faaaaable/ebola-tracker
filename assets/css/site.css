@@ -4601,10 +4601,11 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
   .ff-table thead span{display:block;font-size:11.5px;line-height:1.35;}
 }
 @media (max-width:760px){
-  /* Vue « Pays touches » sur telephone : le nom seul, les chiffres sont dans
-     l'infobulle (au toucher). */
-  .hr-nom .hr-n2,.hr-nom .hr-n3{display:none;}
+  /* Vue « Pays touches » sur telephone : le nom et, dessous, les chiffres et
+     l'etat, un cran plus petits (11 octobre 2026 ; ils etaient masques). */
   .hr-nom .hr-n1{font-size:15px;}
+  .hr-nom .hr-n2{font-size:12.5px;}
+  .hr-nom .hr-n3{font-size:10px;}
 }
 /* Carrousel de l'accueil : sans JavaScript, la grille des Defis est aussi
    cachee sur telephone (app.js la retire quand il tourne). */
