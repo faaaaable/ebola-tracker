@@ -209,6 +209,36 @@ def simplify_safely(ring, tolerance):
 
 # --------------------------------------------------------------------------
 
+class FormeSupplementaire:
+    """Le strict necessaire d'une forme pyshp : des points et le debut de
+    chaque anneau. Le reste du script ne lit rien d'autre."""
+
+    def __init__(self, polygones):
+        self.points, self.parts = [], []
+        for anneaux in polygones:
+            for anneau in anneaux:
+                self.parts.append(len(self.points))
+                self.points.extend((float(x), float(y)) for x, y in anneau)
+
+
+def zones_supplementaires():
+    """Les zones de sante que le fond OCHA de 2019 ne connait pas encore
+    (data/zones-supplementaires.geojson), ajoutees APRES les 519 zones : elles
+    sont dessinees par-dessus celle dont elles ont ete detachees. Premiere :
+    Dakwa, detachee d'Ango, touchee au SitRep 147 (8 octobre 2026) — contour
+    OpenStreetMap, licence ODbL, cite sur la page Sources."""
+    path = os.path.join(ROOT, "data", "zones-supplementaires.geojson")
+    if not os.path.exists(path):
+        return []
+    out = []
+    for feature in json.load(io.open(path, encoding="utf-8"))["features"]:
+        geom = feature["geometry"]
+        polygones = [geom["coordinates"]] if geom["type"] == "Polygon" else geom["coordinates"]
+        props = feature["properties"]
+        out.append(({"Nom": props["Nom"], "PROVINCE": props["PROVINCE"]}, FormeSupplementaire(polygones)))
+    return out
+
+
 def affected_provinces_names(config, latest):
     """Noms des provinces touchees, tels qu'ecrits dans nos donnees."""
     known = set(config.get("provinceSlugs", {}))
@@ -223,6 +253,11 @@ def main():
     fields = [f[0] for f in reader.fields[1:]]
     records = [(dict(zip(fields, sr.record)), sr.shape) for sr in reader.iterShapeRecords()]
     print("  %d zones de santé lues" % len(records))
+    supplement = zones_supplementaires()
+    if supplement:
+        records += supplement
+        print("  + %d zone(s) hors du fond OCHA : %s" % (
+            len(supplement), ", ".join(rec["Nom"] for rec, _ in supplement)))
 
     latest = json.load(io.open(os.path.join(ROOT, "data", "latest.json"), encoding="utf-8"))
     our_zones = latest.get("healthZones", [])
