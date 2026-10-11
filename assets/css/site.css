@@ -4800,3 +4800,22 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .hx-sec .hx-v-monde{display:none;}
 #hx-vue-monde:checked ~ .hx-v-monde,#hx-vue-monde:checked ~ .vb-tete .hx-v-monde{display:block;}
 #hx-vue-monde:checked ~ .hx-v-rdc,#hx-vue-monde:checked ~ .vb-tete .hx-v-rdc{display:none;}
+
+/* Menu du telephone, onglet Explorer (12 octobre 2026, option 6 des maquettes
+   tmp/proto-menu-mobile-1012, choisie par le proprietaire) : les provinces et
+   « Autres pays » a la suite, separes d'un point a mi-hauteur, en trois lignes
+   fixes (3, 3, puis 2), sans intertitre. Le menu tient sur un iPhone SE.
+   CSS seul : le HTML (et le menu de l'ordinateur) ne changent pas. Les liens
+   2 a 9 de la colonne passent en ligne ; le point est un ::before, absent en
+   tete de ligne (liens 2, 5, 8) ; le retour a la ligne, un ::after « \A »
+   apres les liens 4 et 7. */
+@media (max-width:900px){
+  .side-panel.is-niv2 .nav-col-compact{line-height:2.05;}
+  .side-panel.is-niv2 .nav-col-compact a:not(:first-of-type){display:inline;padding:0;line-height:2.05;}
+  .side-panel.is-niv2 .nav-col-compact a:not(:first-of-type) .nav-t{display:inline;font-size:19px;}
+  .side-panel.is-niv2 .nav-col-compact a:not(:first-of-type):not(:nth-of-type(2)):not(:nth-of-type(5)):not(:nth-of-type(8))::before{
+    content:"·";padding:0 10px;color:var(--ink-faint);font:700 19px var(--font-serif);}
+  .side-panel.is-niv2 .nav-col-compact a:nth-of-type(4)::after,
+  .side-panel.is-niv2 .nav-col-compact a:nth-of-type(7)::after{content:"\A";white-space:pre;}
+  .side-panel.is-niv2 .nav-col-compact a:not(:first-of-type) .nav-desc{display:none;}
+}
