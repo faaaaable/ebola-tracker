@@ -1,0 +1,27 @@
+{
+ "_comment": "Les 16 epidemies d'Ebola de la RDC avant celle-ci, pour la frise de la page Le virus. Source exterieure au corpus : aucun bulletin de l'INSP ne les enumere. Valeurs recopiees telles quelles du tableau du CDC (cas et deces rapportes, confirmes et probables), consulte le 11 octobre 2026. L'epidemie actuelle n'est pas ici : elle est lue dans latest.json.",
+ "source": "CDC, History of Ebola Disease Outbreaks",
+ "url": "https://www.cdc.gov/ebola/outbreaks/index.html",
+ "consulte": "2026-10-11",
+ "epidemies": [
+  {"n": 1, "annee": 1976, "lieu": "Yambuku", "espece": "Zaïre", "cas": 318, "deces": 280},
+  {"n": 2, "annee": 1977, "lieu": "Tandala", "espece": "Zaïre", "cas": 1, "deces": 1},
+  {"n": 3, "annee": 1995, "lieu": "Kikwit", "espece": "Zaïre", "cas": 315, "deces": 254},
+  {"n": 4, "annee": 2007, "lieu": "Luebo", "espece": "Zaïre", "cas": 264, "deces": 187},
+  {"n": 5, "annee": 2008, "lieu": "Mweka", "espece": "Zaïre", "cas": 32, "deces": 15},
+  {"n": 6, "annee": 2012, "lieu": "Isiro", "espece": "Bundibugyo", "cas": 62, "deces": 34},
+  {"n": 7, "annee": 2014, "lieu": "Boende", "espece": "Zaïre", "cas": 69, "deces": 49},
+  {"n": 8, "annee": 2017, "lieu": "Likati", "espece": "Zaïre", "cas": 8, "deces": 4},
+  {"n": 9, "annee": 2018, "lieu": "Bikoro", "espece": "Zaïre", "cas": 54, "deces": 33},
+  {"n": 10, "annee": 2018, "lieu": "Nord-Kivu", "espece": "Zaïre", "cas": 3470, "deces": 2287},
+  {"n": 11, "annee": 2020, "lieu": "Mbandaka", "espece": "Zaïre", "cas": 130, "deces": 55},
+  {"n": 12, "annee": 2021, "lieu": "Biena", "espece": "Zaïre", "cas": 12, "deces": 6},
+  {"n": 13, "annee": 2021, "lieu": "Beni", "espece": "Zaïre", "cas": 11, "deces": 9},
+  {"n": 14, "annee": 2022, "lieu": "Mbandaka", "espece": "Zaïre", "cas": 5, "deces": 5},
+  {"n": 15, "annee": 2022, "lieu": "Nord-Kivu", "espece": "Zaïre", "cas": 1, "deces": 1},
+  {"n": 16, "annee": 2025, "lieu": "Bulape", "espece": "Zaïre", "cas": 64, "deces": 45}
+ ],
+ "bundibugyoHorsRdc": [
+  {"annee": 2007, "lieu": "Ouganda (Bundibugyo)", "cas": 131, "deces": 42}
+ ]
+}

@@ -9,6 +9,7 @@
     <p class="lede">{{t.virusFFLede}}</p>
     <nav class="riposte-ancres" aria-label="{{t.virusAnchorsLabel}}">
       <a href="#espece">{{t.virusAncreFace}}</a>
+      <a href="#histoire">{{t.virusAncreHistoire}}</a>
       <a href="#evolution">{{t.virusAncreJours}}</a>
       <a href="#ages">{{t.virusAncreAges}}</a>
       <a href="#traitements">{{t.virusAncreTraitements}}</a>
@@ -60,6 +61,16 @@
       </tbody>
     </table>
     <div class="prose ff-histoire">{{t.virusHistoryBody}}</div>
+  </section>
+
+  <!-- Les dix-sept epidemies de la RDC sur une frise (11 octobre 2026, option A
+       des maquettes tmp/proto-histoire-1011) : surface des cercles = cas. -->
+  <section class="section vb-sec" id="histoire">
+    <div class="vb-tete"><div class="eyebrow">{{t.virusAncreHistoire}}</div><h2>{{t.hxTitre}}</h2><p>{{seed.hxLede}}</p></div>
+    <div class="hx-legende"><span><i class="hx-z"></i>{{t.hxLegZaire}}</span><span><i class="hx-b"></i>{{t.hxLegBdbv}}</span><span><i class="hx-c"></i>{{t.hxLegCur}}</span><span>{{t.hxLegAire}}</span></div>
+    <div class="hx-cadre">{{seed.hxFrise}}</div>
+    {{seed.hxChiffres}}
+    <p class="vb-src">{{seed.hxNote}}</p>
   </section>
 
   <!-- Suite de la page dans le theme du face-a-face (6 octobre 2026, option 3

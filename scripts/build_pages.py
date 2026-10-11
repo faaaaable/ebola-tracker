@@ -24,6 +24,7 @@ Usage :  python scripts/build_pages.py   (depuis la racine du dépôt)
 import hashlib
 import io
 import json
+import math
 import os
 import re
 import subprocess
@@ -1772,6 +1773,82 @@ def genomes_seeds(genomes, lang, strings_lang, i18n_lang):
             "ouganda": fmt(genomes.get("parPays2026", {}).get("Uganda", 0), lang),
             "ouvert": fmt(genomes.get("termes", {}).get("OPEN", 0), lang),
             "restreint": fmt(genomes.get("termes", {}).get("RESTRICTED", 0), lang)}),
+    }
+
+
+def histoire_seeds(epidemies, national, meta_data, lang, strings_lang, i18n_lang):
+    """La partie « Histoire » de la page Le virus (11 octobre 2026) : les dix-sept
+    epidemies d'Ebola de la RDC sur une frise de 1976 a aujourd'hui, un cercle
+    par epidemie dont la SURFACE suit le nombre de cas, puis trois chiffres.
+
+    Les seize precedentes viennent de data/epidemies-rdc.json, recopie du
+    tableau du CDC : la seule source exterieure au corpus de la page, nommee
+    dans la note. L'actuelle est lue dans latest.json et suit les bulletins.
+    Les deux comptages different — cas confirmes et probables pour le passe,
+    confirmes seuls pour l'actuelle — et la note le dit : l'ecart joue contre
+    l'epidemie actuelle, la comparaison ne la grossit pas."""
+    if not epidemies or not national.get("confirmed"):
+        return {"seed.hxLede": "", "seed.hxFrise": "", "seed.hxChiffres": "", "seed.hxNote": ""}
+    cas, deces = national["confirmed"], national.get("deaths") or 0
+    passe = epidemies["epidemies"]
+    nk = max(passe, key=lambda e: e["cas"])
+    bdbv = [e["cas"] for e in passe if e["espece"] == "Bundibugyo"] + \
+        [e["cas"] for e in epidemies.get("bundibugyoHorsRdc", [])]
+    actuelle = {"n": len(passe) + 1, "annee": 2026, "lieu": strings_lang["hxAujourdhui"],
+                "espece": "Bundibugyo", "cas": cas, "deces": deces}
+    toutes = passe + [actuelle]
+    cas_txt = lambda n: interp(strings_lang["hxCas"], {"n": fmt(n, lang)})
+
+    # Le repere : 1974-2030 pour que le cercle de 2026 tienne dans le cadre.
+    W, H, X0, X1, BASE = 1000, 300, 40, 960, 240
+    k = 60 / math.sqrt(cas)
+    rayon = lambda e: max(3.2, k * math.sqrt(e["cas"]))
+    x = lambda an: X0 + (an - 1974) / (2030 - 1974) * (X1 - X0)
+    decal = {12: -6, 13: 6, 14: -4, 15: 6}   # les petites de 2021-2022 se touchent
+    s = ['<svg class="hx-frise" viewBox="0 0 %d %d" role="img" aria-label="%s">' % (
+        W, H, esc(interp(strings_lang["hxAria"], {"n": fmt(len(toutes), lang)})))]
+    for an in range(1980, 2030, 10):
+        s.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%d" class="hx-tick"/>'
+                 '<text x="%.1f" y="%d" class="hx-an">%d</text>' % (x(an), x(an), BASE, BASE + 6, x(an), BASE + 24, an))
+    s.append('<line x1="%d" x2="%d" y1="%d" y2="%d" class="hx-axe"/>' % (X0 - 10, X1 + 30, BASE, BASE))
+    for e in sorted(toutes, key=lambda e: -e["cas"]):
+        r = rayon(e)
+        cls = "hx-cur" if e is actuelle else ("hx-bdbv" if e["espece"] == "Bundibugyo" else "hx-zaire")
+        s.append('<circle cx="%.1f" cy="%.1f" r="%.1f" class="%s"><title>%s · %s — %s, %s</title></circle>' % (
+            x(e["annee"]) + decal.get(e["n"], 0), BASE - r, r, cls, e["annee"], esc(e["lieu"]), cas_txt(e["cas"]),
+            interp(strings_lang["hxDeces"], {"n": fmt(e["deces"], lang)})))
+    # Etiquettes : les epidemies qui ont fait date, a hauteur fixe, reliees
+    # a leur cercle par un pointille quand l'ecart le demande.
+    hauts = {1: 80, 3: 80, 4: 120, 6: 80, 10: 118}
+    for e in passe:
+        if e["n"] not in hauts:
+            continue
+        cx, y, top = x(e["annee"]), hauts[e["n"]], BASE - 2 * rayon(e)
+        if top - y > 26:
+            s.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%.1f" class="hx-lead"/>' % (cx, cx, y + 20, top - 3))
+        sous = cas_txt(e["cas"]) + (" · Bundibugyo" if e["espece"] == "Bundibugyo" else "")
+        s.append('<text x="%.1f" y="%d" class="hx-lb">%s</text><text x="%.1f" y="%d" class="hx-lv">%s</text>' % (
+            cx, y, esc(e["lieu"]), cx, y + 15, sous))
+    cx, y = x(2026), int(BASE - 2 * rayon(actuelle) - 34)
+    s.append('<text x="%.1f" y="%d" class="hx-lb hx-lb-cur">%s</text><text x="%.1f" y="%d" class="hx-lv hx-lv-cur">%s</text>' % (
+        cx, y, esc(actuelle["lieu"]), cx, y + 22, cas_txt(cas)))
+    s.append("</svg>")
+
+    ratio = fmt_decimal(cas / nk["cas"], lang)
+    chiffres = [
+        (fmt(len(toutes), lang), strings_lang["hxChiffre1"]),
+        (ratio, strings_lang["hxChiffre2"]),
+        (fmt(int(cas / sum(bdbv)), lang), strings_lang["hxChiffre3"]),
+    ]
+    date = long_date(meta_data.get("reportingDate"), i18n_lang)
+    return {
+        "seed.hxLede": interp(strings_lang["hxLede"], {"cas": fmt(cas, lang), "date": date, "ratio": ratio}),
+        "seed.hxFrise": "".join(s),
+        "seed.hxChiffres": '<div class="hx-chiffres">%s</div>' % "".join(
+            '<div><b>%s</b><span>%s</span></div>' % c for c in chiffres),
+        "seed.hxNote": interp(strings_lang["hxNote"], {
+            "sitrep": meta_data.get("sitrepNumber", ""), "date": date,
+            "url": epidemies["url"], "consulte": long_date(epidemies["consulte"], i18n_lang)}),
     }
 
 
@@ -3917,6 +3994,8 @@ def main():
     demographie = read_json(os.path.join(ROOT, "data", "demographie.json"))
     # Genomes sequences (Pathoplexus, agregats) : data/genomes.json, a la main.
     genomes = read_json(os.path.join(ROOT, "data", "genomes.json"))
+    # Les seize epidemies precedentes de la RDC (CDC), pour la frise du virus.
+    epidemies_rdc = read_json(os.path.join(ROOT, "data", "epidemies-rdc.json"))
     # Les quatre series de la page « Riposte ». Chacune a sa profondeur et ses
     # trous ; la page ecrit le dernier point de chacune, avec sa date quand
     # elle n'est pas celle du bulletin.
@@ -4028,6 +4107,7 @@ def main():
                 "partCas": fmt_pct(demographie["couverture"]["partCas"], lang),
                 "partDeces": fmt_pct(demographie["couverture"]["partDeces"], lang)}),
             **genomes_seeds(genomes, lang, strings_lang, i18n_lang),
+            **histoire_seeds(epidemies_rdc, national, meta_data, lang, strings_lang, i18n_lang),
             "seed.reportsList": reports_list_html(latest.get("reports", []), lang, i18n_lang, strings_lang),
             "seed.reportsManquants": reports_manquants_html(latest.get("reports", []), lang, strings_lang),
             "seed.reportsCalendar": reports_calendar_html(latest.get("reports", []), lang, i18n_lang, strings_lang),

@@ -344,3 +344,24 @@ qu'ils accompagnent servent aux barres des génomes. La barre latérale groupée
 tient à huit onglets comme à neuf.
 
 ---
+
+## La partie « Histoire » (11 octobre 2026, en local)
+
+Section `#histoire`, entre le face-à-face Bundibugyo/Zaïre et « Jour après
+jour » ; ancre « Histoire » dans la ligne d'ancres. Option A des trois
+maquettes de `tmp/proto-histoire-1011/` (A frise, B classement en barres,
+C fiches comparables) : les 17 épidémies de la RDC sur une frise 1976-2030,
+**surface** des cercles proportionnelle aux cas, puis trois chiffres (17
+épidémies ; N fois le Nord-Kivu ; N fois les deux Bundibugyo précédentes).
+`histoire_seeds()` dans `build_pages.py`, chaînes `hx*` et
+`virusAncreHistoire`, style `.hx-*` en fin de `site.css`.
+
+**Source extérieure au corpus, assumée et nommée** : les 16 épidémies
+précédentes viennent de `data/epidemies-rdc.json`, recopié tel quel du tableau
+du CDC (*History of Ebola Disease Outbreaks*) consulté le 11 octobre 2026.
+L'actuelle est lue dans `latest.json`. Les maquettes reprenaient des chiffres
+de mémoire : trois étaient faux (Isiro 2012 = 62 cas / 34 décès, pas 57/29 ;
+Boende = 69 cas ; Afrique de l'Ouest = 28 610 / 11 308). Toujours recopier le
+tableau, jamais de mémoire. La note dit que le passé compte confirmés +
+probables et l'actuelle confirmés seuls ; le rang mondial vient du rapport
+OMS n°12. Le swahili des chaînes `hx*` est à faire relire.
