@@ -1444,7 +1444,11 @@ function reglerInfobulles(){
       const h = cv.dataset.titre ? null : (cadre && cadre.querySelector('.frame-title, .section-title'));
       texte = cv.dataset.titre || (h ? h.textContent.trim() : '');
     }
-    o.plugins.title = Object.assign({}, t, dansCarrousel || !texte ? { display:false } : {
+    /* data-sans-titre (12 octobre 2026) : le graphique d'evolution de l'accueil
+       est juste sous le titre de sa section, qui dit deja ce qu'il montre ; il
+       ne le repete pas. L'image partagee garde son titre (legendesDuGraphique). */
+    const sansTitre = cv && cv.dataset && cv.dataset.sansTitre !== undefined;
+    o.plugins.title = Object.assign({}, t, dansCarrousel || sansTitre || !texte ? { display:false } : {
       display:true, text:texte, align:'center', color:PALETTE.ink,
       font:{ family:"'Source Serif 4', Georgia, serif", size:16, weight:'600' }, padding:{ top:2, bottom:10 } });
   }
@@ -4214,7 +4218,13 @@ function renderOneChartBrut(canvas, chartMode){
   // Le cumul vient se poser sur le quotidien, sur son propre axe : les deux
   // ordres de grandeur ne se comparent pas (une centaine contre plusieurs
   // milliers), un axe unique ecraserait les barres.
-  if(chartMode === 'epidemic'){
+  /* data-sans-cumul (12 octobre 2026, demande du proprietaire) : sur l'accueil,
+     les barres du quotidien suffisent — le total est dans les chiffres du jour,
+     juste au-dessus, et deux axes sans rapport se lisaient mal. Plus de courbe
+     des cas cumules, plus d'axe de droite. La page « Ensemble du pays » et les
+     pages province gardent la courbe. */
+  const sansCumul = canvas.dataset.sansCumul !== undefined;
+  if(chartMode === 'epidemic' && !sansCumul){
     /* Deux courbes de cumul sur l'axe de droite, et un encodage a deux
        entrees seulement : la COULEUR dit de quoi on parle — bleu les cas,
        rouge les deces —, la FORME dit quelle lecture — barres le quotidien,
@@ -4273,7 +4283,7 @@ function renderOneChartBrut(canvas, chartMode){
     opts.scales.y.max = plafondBarres;
     opts.plugins.ruptureRattrapage = { coupees };
   }
-  if(chartMode === 'epidemic'){
+  if(chartMode === 'epidemic' && !sansCumul){
     /* LES CUMULS CEDENT LE BAS DU CADRE AUX BARRES. Tant que l'axe des barres
        montait a 400, les deux courbes couraient au-dessus d'elles sans jamais
        les rencontrer. Le plafond les a fait monter de 16 a 35 % de la hauteur,
