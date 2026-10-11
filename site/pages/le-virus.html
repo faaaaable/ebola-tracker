@@ -63,14 +63,31 @@
     <div class="prose ff-histoire">{{t.virusHistoryBody}}</div>
   </section>
 
-  <!-- Les dix-sept epidemies de la RDC sur une frise (11 octobre 2026, option A
-       des maquettes tmp/proto-histoire-1011) : surface des cercles = cas. -->
-  <section class="section vb-sec" id="histoire">
-    <div class="vb-tete"><div class="eyebrow">{{t.virusAncreHistoire}}</div><h2>{{t.hxTitre}}</h2><p>{{seed.hxLede}}</p></div>
-    <div class="hx-legende"><span><i class="hx-z"></i>{{t.hxLegZaire}}</span><span><i class="hx-b"></i>{{t.hxLegBdbv}}</span><span><i class="hx-c"></i>{{t.hxLegCur}}</span><span>{{t.hxLegAire}}</span></div>
-    <div class="hx-cadre">{{seed.hxFrise}}</div>
-    {{seed.hxChiffres}}
-    <p class="vb-src">{{seed.hxNote}}</p>
+  <!-- La frise des epidemies (11 octobre 2026) : la RDC d'abord (option A des
+       maquettes tmp/proto-histoire-1011), le monde au second bouton
+       (tmp/proto-histoire-monde-1011). Bascule sans JavaScript : deux radios,
+       freres des blocs qu'elles affichent, et des regles CSS. -->
+  <section class="section vb-sec hx-sec" id="histoire">
+    <input type="radio" name="hx-vue" id="hx-vue-rdc" class="hx-radio" checked>
+    <input type="radio" name="hx-vue" id="hx-vue-monde" class="hx-radio">
+    <div class="vb-tete"><div class="eyebrow">{{t.virusAncreHistoire}}</div>
+      <h2 class="hx-v-rdc">{{t.hxTitre}}</h2><h2 class="hx-v-monde">{{seed.hxTitreMonde}}</h2>
+      <p class="hx-v-rdc">{{seed.hxLede}}</p><p class="hx-v-monde">{{seed.hxLedeMonde}}</p></div>
+    <div class="hx-bascule" role="group" aria-label="{{t.hxVueLabel}}">
+      <label for="hx-vue-rdc" class="subtab-btn">{{t.hxVueRdc}}</label><label for="hx-vue-monde" class="subtab-btn">{{t.hxVueMonde}}</label>
+    </div>
+    <div class="hx-v-rdc">
+      <div class="hx-legende"><span><i class="hx-zaire"></i>{{t.hxLegZaire}}</span><span><i class="hx-bundibugyo"></i>{{t.hxLegBdbv}}</span><span><i class="hx-c"></i>{{t.hxLegCur}}</span><span>{{t.hxLegAire}}</span></div>
+      <div class="hx-cadre">{{seed.hxFrise}}</div>
+      {{seed.hxChiffres}}
+      <p class="vb-src">{{seed.hxNote}}</p>
+    </div>
+    <div class="hx-v-monde">
+      <div class="hx-legende"><span><i class="hx-zaire"></i>{{t.hxLegZaire}}</span><span><i class="hx-soudan"></i>{{t.hxLegSoudan}}</span><span><i class="hx-bundibugyo"></i>{{t.hxLegBdbv}}</span><span><i class="hx-tai"></i>{{t.hxLegTai}}</span><span><i class="hx-c"></i>{{t.hxLegCur}}</span><span>{{t.hxLegAire}}</span></div>
+      <div class="hx-cadre">{{seed.hxFriseMonde}}</div>
+      {{seed.hxChiffresMonde}}
+      <p class="vb-src">{{seed.hxNoteMonde}}</p>
+    </div>
   </section>
 
   <!-- Suite de la page dans le theme du face-a-face (6 octobre 2026, option 3

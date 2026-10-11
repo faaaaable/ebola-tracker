@@ -4751,16 +4751,15 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
    pour l'epidemie actuelle — ni le bleu des cas ni le rouge des deces. */
 .hx-legende{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;font-size:13px;color:var(--ink-dim);margin:0 0 6px;}
 .hx-legende i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px;}
-.hx-legende .hx-z{background:#BDB4A8;} .hx-legende .hx-b{background:var(--accent);opacity:.55;} .hx-legende .hx-c{background:var(--accent);}
+.hx-legende .hx-c{background:var(--accent);}
 .hx-cadre{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .hx-frise{display:block;width:100%;min-width:640px;height:auto;}
 .hx-frise .hx-axe{stroke:var(--ink);stroke-width:1.2;} .hx-frise .hx-tick{stroke:var(--ink-faint);}
 .hx-frise .hx-lead{stroke:var(--ink-faint);stroke-width:.8;stroke-dasharray:2 3;}
 .hx-frise .hx-an{font:500 13px var(--font-sans);fill:var(--ink-faint);text-anchor:middle;}
 .hx-frise circle{stroke:var(--bg);stroke-width:1.2;}
-.hx-frise .hx-zaire{fill:#BDB4A8;} .hx-frise .hx-bdbv{fill:var(--accent);fill-opacity:.55;} .hx-frise .hx-cur{fill:var(--accent);}
+.hx-frise .hx-cur{fill:var(--accent);}
 .hx-frise circle:hover{stroke:var(--ink);}
-.hx-frise text{text-anchor:middle;}
 .hx-frise .hx-lb{font:600 15px var(--font-serif);fill:var(--ink);} .hx-frise .hx-lv{font:500 12.5px var(--font-sans);fill:var(--ink-dim);}
 .hx-frise .hx-lb-cur{font-size:18px;fill:var(--accent-strong);}
 .hx-frise .hx-lv-cur{font:700 20px 'Bricolage Grotesque',var(--font-sans);font-stretch:87.5%;fill:var(--accent-strong);}
@@ -4776,3 +4775,24 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
   .ff-tete .riposte-ancres{flex-wrap:nowrap;}
   .ff-tete .riposte-ancres a{padding:14px 15px;white-space:nowrap;}
 }
+
+/* Le virus, « Histoire » : deux vues, RDC puis monde (11 octobre 2026). Les
+   radios sont cachees mais restent focalisables ; leurs etiquettes prennent
+   l'habit des sous-onglets du site. Couleur = espece, la meme dans les deux
+   vues : gris chaud Zaire, olive Soudan, sable Tai Forest, accent attenue
+   Bundibugyo, accent plein pour l'epidemie actuelle. */
+.hx-sec .hx-zaire{--hx:#BDB4A8;} .hx-sec .hx-soudan{--hx:#9DAA86;} .hx-sec .hx-tai{--hx:#D9C29A;}
+.hx-sec .hx-bundibugyo{--hx:rgba(27,108,140,.55);}
+.hx-legende i[class^="hx-"]{background:var(--hx);} .hx-legende i.hx-c{background:var(--accent);}
+.hx-frise circle[class^="hx-"]:not(.hx-cur){fill:var(--hx);}
+.hx-radio{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+.hx-bascule{display:flex;justify-content:center;gap:8px;margin:0 0 16px;}
+.hx-bascule label{min-width:84px;justify-content:center;}
+#hx-vue-rdc:checked ~ .hx-bascule label[for="hx-vue-rdc"],
+#hx-vue-monde:checked ~ .hx-bascule label[for="hx-vue-monde"]{
+  border-color:var(--accent-strong);box-shadow:inset 0 0 0 1px var(--accent-strong);color:var(--accent-hover);font-weight:700;}
+#hx-vue-rdc:focus-visible ~ .hx-bascule label[for="hx-vue-rdc"],
+#hx-vue-monde:focus-visible ~ .hx-bascule label[for="hx-vue-monde"]{outline:2px solid var(--accent-strong);outline-offset:2px;}
+.hx-sec .hx-v-monde{display:none;}
+#hx-vue-monde:checked ~ .hx-v-monde,#hx-vue-monde:checked ~ .vb-tete .hx-v-monde{display:block;}
+#hx-vue-monde:checked ~ .hx-v-rdc,#hx-vue-monde:checked ~ .vb-tete .hx-v-rdc{display:none;}

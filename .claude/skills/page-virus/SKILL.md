@@ -365,3 +365,19 @@ Boende = 69 cas ; Afrique de l'Ouest = 28 610 / 11 308). Toujours recopier le
 tableau, jamais de mémoire. La note dit que le passé compte confirmés +
 probables et l'actuelle confirmés seuls ; le rang mondial vient du rapport
 OMS n°12. Le swahili des chaînes `hx*` est à faire relire.
+
+**Vue Monde (11 octobre 2026, en local).** Deux boutons RDC / Monde au-dessus
+de la frise, RDC cochée par défaut. Bascule **sans JavaScript** : deux radios
+`#hx-vue-rdc` / `#hx-vue-monde`, sœurs des blocs `.hx-v-rdc` / `.hx-v-monde`
+(titre, intro, légende, frise, chiffres, note), étiquettes habillées en
+`subtab-btn`. Les données passent dans **un seul fichier**,
+`data/epidemies-ebola.json` (38 épidémies passées, codes pays + noms fr/en/sw),
+qui remplace `epidemies-rdc.json` : la vue RDC en est un filtre (`pays ==
+["COD"]`), contrôlé identique à l'ancien fichier. Écartés de la vue Monde, et
+dits dans la note : le virus Reston, trois infections de laboratoire, les cas
+exportés de l'Afrique de l'Ouest. Couleur = espèce (`--hx` par classe
+`hx-zaire`, `hx-soudan`, `hx-bundibugyo`, `hx-tai`). Le rang mondial est
+**calculé** (`hxRangPhrase1/2`, `hxRang1/2`, `hxChiffreM3_1/2`) : si
+l'épidémie dépasse l'Afrique de l'Ouest, les phrases basculent seules. Piège
+rencontré : une règle CSS `text-anchor` sur `.hx-frise text` écrasait
+l'attribut des étiquettes — l'ancre se donne en attribut, jamais en CSS.

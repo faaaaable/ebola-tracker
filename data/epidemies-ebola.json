@@ -1,0 +1,98 @@
+{
+ "_comment": "Toutes les epidemies d'Ebola connues avant celle-ci, pour la frise de la page Le virus (vues RDC et Monde). Source exterieure au corpus : aucun bulletin de l'INSP ne les enumere. Valeurs recopiees telles quelles de la page du CDC (cas et deces rapportes, confirmes et probables), consultee le 11 octobre 2026 ; texte brut garde dans tmp/proto-histoire-monde-1011/. Ecartes : le virus Reston (ne rend pas malade), les trois infections de laboratoire (Royaume-Uni 1976, Russie 1996 et 2004) et les cas exportes de l'epidemie d'Afrique de l'Ouest (Italie, Mali, Nigeria, Senegal, Espagne, Royaume-Uni, Etats-Unis). « SDN » = les foyers de Nzara, Maridi et Yambio, aujourd'hui au Soudan du Sud. L'epidemie actuelle est lue dans latest.json.",
+ "source": "CDC, History of Ebola Disease Outbreaks",
+ "url": "https://www.cdc.gov/ebola/outbreaks/index.html",
+ "consulte": "2026-10-11",
+ "pays": {
+  "COD": {
+   "fr": "RDC",
+   "en": "DRC",
+   "sw": "DRC"
+  },
+  "SDN": {
+   "fr": "Soudan",
+   "en": "Sudan",
+   "sw": "Sudan"
+  },
+  "GAB": {
+   "fr": "Gabon",
+   "en": "Gabon",
+   "sw": "Gabon"
+  },
+  "CIV": {
+   "fr": "Côte d’Ivoire",
+   "en": "Côte d’Ivoire",
+   "sw": "Côte d’Ivoire"
+  },
+  "ZAF": {
+   "fr": "Afrique du Sud",
+   "en": "South Africa",
+   "sw": "Afrika Kusini"
+  },
+  "UGA": {
+   "fr": "Ouganda",
+   "en": "Uganda",
+   "sw": "Uganda"
+  },
+  "COG": {
+   "fr": "Congo",
+   "en": "Congo",
+   "sw": "Kongo"
+  },
+  "GIN": {
+   "fr": "Guinée",
+   "en": "Guinea",
+   "sw": "Guinea"
+  },
+  "LBR": {
+   "fr": "Liberia",
+   "en": "Liberia",
+   "sw": "Liberia"
+  },
+  "SLE": {
+   "fr": "Sierra Leone",
+   "en": "Sierra Leone",
+   "sw": "Sierra Leone"
+  }
+ },
+ "epidemies": [
+  {"annee": 1976, "pays": ["COD"], "lieu": "Yambuku", "espece": "zaire", "cas": 318, "deces": 280},
+  {"annee": 1976, "pays": ["SDN"], "lieu": "Nzara, Maridi", "espece": "soudan", "cas": 284, "deces": 151},
+  {"annee": 1977, "pays": ["COD"], "lieu": "Tandala", "espece": "zaire", "cas": 1, "deces": 1},
+  {"annee": 1979, "pays": ["SDN"], "lieu": "Nzara, Yambio", "espece": "soudan", "cas": 34, "deces": 22},
+  {"annee": 1994, "pays": ["GAB"], "lieu": "Makokou", "espece": "zaire", "cas": 51, "deces": 31},
+  {"annee": 1994, "pays": ["CIV"], "lieu": { "fr": "Forêt de Taï", "en": "Taï Forest", "sw": "Msitu wa Taï" }, "espece": "tai", "cas": 1, "deces": 0},
+  {"annee": 1995, "pays": ["COD"], "lieu": "Kikwit", "espece": "zaire", "cas": 315, "deces": 254},
+  {"annee": 1996, "pays": ["GAB"], "lieu": "Mayibout", "espece": "zaire", "cas": 31, "deces": 21},
+  {"annee": 1996, "pays": ["GAB"], "lieu": "Booué", "espece": "zaire", "cas": 60, "deces": 45},
+  {"annee": 1996, "pays": ["ZAF"], "lieu": "Johannesburg", "espece": "zaire", "cas": 2, "deces": 1},
+  {"annee": 2000, "pays": ["UGA"], "lieu": "Gulu", "espece": "soudan", "cas": 425, "deces": 224},
+  {"annee": 2001, "pays": ["GAB"], "lieu": "Ogooué-Ivindo", "espece": "zaire", "cas": 65, "deces": 53},
+  {"annee": 2001, "pays": ["COG"], "lieu": "Cuvette-Ouest", "espece": "zaire", "cas": 59, "deces": 44},
+  {"annee": 2003, "pays": ["COG"], "lieu": "Mbomo, Kéllé", "espece": "zaire", "cas": 143, "deces": 128},
+  {"annee": 2003, "pays": ["COG"], "lieu": "Mbomo", "espece": "zaire", "cas": 35, "deces": 29},
+  {"annee": 2004, "pays": ["SDN"], "lieu": "Yambio", "espece": "soudan", "cas": 17, "deces": 7},
+  {"annee": 2005, "pays": ["COG"], "lieu": "Etoumbi", "espece": "zaire", "cas": 12, "deces": 10},
+  {"annee": 2007, "pays": ["UGA"], "lieu": "Bundibugyo", "espece": "bundibugyo", "cas": 131, "deces": 42},
+  {"annee": 2007, "pays": ["COD"], "lieu": "Luebo", "espece": "zaire", "cas": 264, "deces": 187},
+  {"annee": 2008, "pays": ["COD"], "lieu": "Mweka", "espece": "zaire", "cas": 32, "deces": 15},
+  {"annee": 2011, "pays": ["UGA"], "lieu": "Luwero", "espece": "soudan", "cas": 1, "deces": 1},
+  {"annee": 2012, "pays": ["UGA"], "lieu": "Kibaale", "espece": "soudan", "cas": 11, "deces": 4},
+  {"annee": 2012, "pays": ["COD"], "lieu": "Isiro", "espece": "bundibugyo", "cas": 62, "deces": 34},
+  {"annee": 2012, "pays": ["UGA"], "lieu": "Luwero", "espece": "soudan", "cas": 6, "deces": 3},
+  {"annee": 2014, "pays": ["GIN", "LBR", "SLE"], "lieu": { "fr": "Afrique de l’Ouest", "en": "West Africa", "sw": "Afrika Magharibi" }, "espece": "zaire", "cas": 28610, "deces": 11308},
+  {"annee": 2014, "pays": ["COD"], "lieu": "Boende", "espece": "zaire", "cas": 69, "deces": 49},
+  {"annee": 2017, "pays": ["COD"], "lieu": "Likati", "espece": "zaire", "cas": 8, "deces": 4},
+  {"annee": 2018, "pays": ["COD"], "lieu": "Bikoro", "espece": "zaire", "cas": 54, "deces": 33},
+  {"annee": 2018, "pays": ["COD"], "lieu": "Nord-Kivu", "espece": "zaire", "cas": 3470, "deces": 2287},
+  {"annee": 2020, "pays": ["COD"], "lieu": "Mbandaka", "espece": "zaire", "cas": 130, "deces": 55},
+  {"annee": 2021, "pays": ["GIN"], "lieu": "Nzérékoré", "espece": "zaire", "cas": 23, "deces": 12},
+  {"annee": 2021, "pays": ["COD"], "lieu": "Biena", "espece": "zaire", "cas": 12, "deces": 6},
+  {"annee": 2021, "pays": ["COD"], "lieu": "Beni", "espece": "zaire", "cas": 11, "deces": 9},
+  {"annee": 2022, "pays": ["COD"], "lieu": "Mbandaka", "espece": "zaire", "cas": 5, "deces": 5},
+  {"annee": 2022, "pays": ["COD"], "lieu": "Nord-Kivu", "espece": "zaire", "cas": 1, "deces": 1},
+  {"annee": 2022, "pays": ["UGA"], "lieu": "Mubende", "espece": "soudan", "cas": 164, "deces": 55},
+  {"annee": 2025, "pays": ["UGA"], "lieu": "Kampala", "espece": "soudan", "cas": 14, "deces": 4},
+  {"annee": 2025, "pays": ["COD"], "lieu": "Bulape", "espece": "zaire", "cas": 64, "deces": 45}
+ ]
+}
