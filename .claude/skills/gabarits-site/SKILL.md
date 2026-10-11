@@ -1,6 +1,6 @@
 ---
 name: gabarits-site
-description: "La structure des pages d'ebola-tracker : l'en-tete a quatre couches, les quatre regles du corps, les deux graphies de titre, la colonne de titres section-split, le glossaire, les trois langues et leur generateur unique, les trois niveaux de texte (strings.json, i18n.js, gabarits) et la passe de coherence swahilie. A charger avant de toucher a un gabarit de site/pages/, a site/strings.json, a assets/js/i18n.js ou a la mise en page d'une page."
+description: "La structure des pages d'ebola-tracker : l'en-tete a quatre couches, les quatre regles du corps, les deux graphies de titre, la colonne de titres section-split, le glossaire, les trois langues et leur generateur unique, les trois niveaux de texte (strings.json, i18n.js, gabarits) et la passe de coherence swahilie. A charger avant de toucher a un gabarit de site/pages/, a site/strings.json, a assets/js/i18n.js ou a la mise en page d'une page. Plan de la fiche d un territoire (pays et provinces)."
 ---
 
 # La structure du site
@@ -475,3 +475,36 @@ colorée = part des cas). Montrée, non retenue ce jour-là.
   sur le réseau pour 438 Ko sur disque, `app.js` 79 Ko pour 260 — le poids
   réel d'une page est dans le script, la feuille de style et Chart.js, pas
   dans les données. Le gain de cette retouche est donc modeste.
+
+## La fiche d'un territoire
+
+Sorti de CLAUDE.md le 11 octobre 2026.
+
+**La fiche d'un territoire (28 septembre 2026).** « Ensemble du pays » et les
+pages province suivent le MEME plan, a deux echelles : en-tete (chiffres cles
+et phrase des 7 derniers jours contre les 7 precedents, `point_sept_jours`),
+[01 carte, province seulement — celle du pays reste a l'accueil], cas, deces
+avec le lieu du deces dessous, ou (zones / provinces), [qui, pays seulement],
+la riposte, la chronologie. Numeros calcules par `province_numeros()`.
+**Regle : une information a UNE page qui la detaille.** Les graphiques de la
+riposte vivent sur la page Riposte, ou l'on compare les provinces ; la fiche
+n'en garde que quatre chiffres (contacts vus, occupation, positivite,
+vaccines) et « Les difficultes signalees » — la phrase de la province dans le
+resume des Defis de la lettre (`difficultes_province`, nom dans les 40
+premiers caracteres), d'ou l'importance d'ecrire ce resume UNE phrase par
+province, ouverte par son nom. Le lieu du deces a quitte la page Riposte. Les
+graphiques de riposte a onglets de l'Ituri et du Nord-Kivu ont ete retires des
+fiches. **Le cadre riposte n'est que sur `PROVINCES_RIPOSTE_FICHE` = Ituri et
+Nord-Kivu** (28 septembre 2026) : un seuil a 40 cas a d'abord ecarte le
+Sud-Kivu, le Bas-Uele et le Sud-Ubangi, puis le proprietaire a retire le
+Haut-Uele et la Tshopo, « donnees trop instables a cause du petit
+echantillon ». Sur ces deux fiches le cadre est DEVELOPPE : apres les
+quatre chiffres, les graphiques de la page Riposte restreints par
+`data-province` (alertes, laboratoire, contacts, CTE, vaccination avec son
+tableau par zone), chacun seulement si la province a au moins
+`RELEVES_MIN_GRAPHIQUE` (10) releves, 3 pour la vaccination ; puis les
+difficultes et, replie, « Ce que dit le bulletin, pilier par pilier » :
+les propositions des blocs « Defis » du dernier bulletin qui concernent la
+province (`extraits_defis_province` : coupe aux « ; », points et « : »
+suivis d'une province, jamais dans une parenthese ; une zone de sante nommee
+vaut sa province).

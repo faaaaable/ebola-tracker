@@ -1,6 +1,6 @@
 ---
 name: carte
-description: "La carte d'ebola-tracker : source geographique OCHA, projection, simplification Douglas-Peucker, les six paliers de couleur, les cercles proportionnels et leur legende, le curseur de temps et ses dates absentes, le croisement par cle normalisee, les alias de zones, le panneau date et les regles mobiles. A charger avant de toucher a une carte, a build_geo.py ou au cartogramme."
+description: "La carte d'ebola-tracker : source geographique OCHA, projection, simplification Douglas-Peucker, les six paliers de couleur, les cercles proportionnels et leur legende, le curseur de temps et ses dates absentes, le croisement par cle normalisee, les alias de zones, le panneau date et les regles mobiles. A charger avant de toucher a une carte, a build_geo.py ou au cartogramme. Police Bricolage des chiffres du panneau."
 ---
 
 # La carte, et comment elle croise les données
@@ -361,3 +361,45 @@ C'est pourquoi le rattrapage de la zone Tshopo a dû reprendre neuf instantanés
 un par un.
 
 ---
+
+## Police des chiffres du panneau de la carte
+
+Sorti de CLAUDE.md le 11 octobre 2026.
+
+**Police des chiffres du panneau de la carte.** Depuis le 10 septembre 2026,
+les cinq chiffres nationaux à droite de la carte d'accueil, et le bilan de la
+zone survolée, sont en **Bricolage Grotesque** (graisse 700, écarts en 600,
+largeur 87,5, chargée dans `site/layout.html`). Décision du propriétaire après
+une maquette de six polices sur le panneau réel : Public Sans en gras sur cinq
+lignes de couleurs différentes faisait « trop IA style ». Le choix s'est fait
+entre Fraunces (serif, la plus proche du titre), Playfair Display (didone, dont
+les déliés souffrent sur un petit écran Android) et Bricolage, retenue parce
+qu'elle reste dans la famille des sans du site. Tout le reste — bandeau
+`.kpis`, tableaux, graphiques — garde Public Sans ; l'étendre est possible
+mais n'a pas été demandé. Les couleurs du panneau n'ont pas bougé.
+
+---
+
+## Les zones absentes du fond OCHA (11 octobre 2026, en local)
+
+**Dakwa (Bas-Uélé), touchée au SitRep 147, n'existe pas dans le fond OCHA de
+2019** : zone récente, détachée d'Ango (le village et le centre de la zone
+tombent dans le contour OCHA d'Ango). Relancer `build_geo.py` n'y pouvait
+rien. Choix du propriétaire, parmi trois options montrées (contour, point seul,
+note) : **le contour OpenStreetMap**, relation 12827333 (source DPS Bas-Uélé
+2020, géométrie MSF, attribution RGC — le même référentiel que le fond OCHA).
+
+Mécanisme : `data/zones-supplementaires.geojson` (une entrée par zone, champs
+`Nom` et `PROVINCE` à l'orthographe OCHA, source et date dans les propriétés),
+lu par `zones_supplementaires()` dans `build_geo.py` et ajouté **après** les
+519 zones : la nouvelle zone est dessinée par-dessus celle dont elle vient,
+qui garde son contour entier. Licence ODbL : la mention « © contributeurs
+OpenStreetMap » est dans `geoSourceText` (`i18n.js`, trois langues, page
+Sources). Contrôle fait : avant/après de `build_geo`, seules Dakwa (ajoutée)
+et Dungu et Alimbongo (touchées depuis le passage précédent, donc tracé plus
+fin) bougent ; 65 zones coloriées pour 65 zones à cas en fr/en/sw.
+
+Pour une prochaine zone absente : chercher sa relation `boundary=health`
+sur OSM (Nominatim, `polygon_geojson=1`, **sans e-mail ni donnée personnelle
+dans l'User-Agent**), vérifier `source`/`is_in`, l'ajouter au fichier, relancer
+`build_geo.py`, comparer avant/après.
