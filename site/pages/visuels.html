@@ -1,0 +1,97 @@
+  <!-- Visuels (12 octobre 2026, maquette tmp/proto-page-visuels-2-1011,
+       option 1 « Trois etages », retenue par le proprietaire) : douze images
+       de l'epidemie, en SVG, redessinees a chaque generation par
+       scripts/visuels.py dans la langue de la page. Trois etages : a chaque
+       bulletin, chaque semaine (derniere semaine complete), chaque mois
+       (dernier mois clos). Le PNG se fabrique dans le navigateur, au clic :
+       le SVG est dessine sur un canevas de 2 400 px, polices du site
+       integrees, sans rien ajouter au poids de la page. -->
+  <section class="section vx-page">
+    <p class="vx-eyebrow">{{t.navGrpExplore}}</p>
+    {{vis.html}}
+  </section>
+
+<style>
+/* Styles de la maquette retenue (tmp/proto-page-visuels-2-1011/option-1.html),
+   repris tels quels le 12 octobre 2026 : les classes communes du site
+   (page-title centre, section-title en petites capitales) les ecrasaient. */
+.vx-page{max-width:1200px}
+.vx-eyebrow{font:600 12px var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.vx-h1{font:600 clamp(34px,5vw,56px)/1.05 var(--font-serif);letter-spacing:-.03em;margin:0 0 10px;text-align:left;color:var(--ink)}
+.vx-h1 em{font-style:italic;font-weight:400;color:var(--ink-faint);font-size:.6em}
+.vx-lede{font:400 18px/1.55 var(--font-serif);color:var(--ink-dim);max-width:720px;margin:0 0 8px}
+.vx-etage{margin:52px 0 0}
+.vx-tete{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:0 0 16px}
+.vx-h2{font:600 clamp(24px,3vw,32px)/1.15 var(--font-serif);margin:0 0 4px;color:var(--ink);text-transform:none;letter-spacing:normal}
+.vx-sous{margin:2px 0 0;color:var(--ink-dim)}
+.vx-rythme{font:600 12px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--line-soft);color:var(--ink-dim);white-space:nowrap}
+.vx-grille{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+.vx-fig{margin:0;min-width:0;border:1px solid var(--line);border-radius:12px;background:var(--bg-panel);padding:10px}
+.vx-img{border-radius:6px;overflow:hidden;cursor:zoom-in}.vx-img svg{display:block;width:100%;height:auto}
+.vx-img:focus-visible{outline:2px solid var(--accent-strong);outline-offset:2px}
+.vx-fig figcaption{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:10px 4px 2px}
+.vx-fig figcaption>div{min-width:0}
+.vx-fig h3{font:600 18px/1.3 var(--font-serif);margin:0;color:var(--ink)}.vx-fig p{margin:2px 0 0;color:var(--ink-dim);font-size:14px;line-height:1.5}
+.vx-png{font:600 12.5px var(--font-sans);white-space:nowrap;color:var(--accent-strong);background:none;border:0;border-bottom:1px solid var(--line);padding:0;cursor:pointer}
+.vx-png:hover{border-bottom-color:var(--accent-strong)}.vx-png[disabled]{opacity:.5;cursor:progress}
+.vx-lb{position:fixed;inset:0;z-index:1000;background:rgba(20,16,12,.88);display:flex;align-items:center;justify-content:center;padding:16px}
+.vx-lb[hidden]{display:none}.vx-lb-in{max-width:min(96vw,1100px);max-height:92vh;overflow:auto;border-radius:8px;background:#FDFAF6}
+.vx-lb-in svg{display:block;width:100%;height:auto}
+.vx-fermer{position:absolute;top:12px;right:16px;font:400 34px/1 var(--font-sans);color:#fff;background:none;border:0;cursor:pointer}
+@media (max-width:860px){.vx-grille{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script>
+(function(){
+  var lb=document.getElementById('vxLb'); if(!lb) return;
+  var dedans=lb.querySelector('.vx-lb-in');
+  function ouvrir(fig){ dedans.innerHTML=''; dedans.appendChild(fig.querySelector('svg').cloneNode(true)); lb.hidden=false; lb.querySelector('.vx-fermer').focus(); }
+  function fermer(){ lb.hidden=true; dedans.innerHTML=''; }
+  document.querySelectorAll('.vx-fig').forEach(function(fig){
+    fig.querySelector('.vx-img').addEventListener('click',function(){ouvrir(fig);});
+    fig.querySelector('.vx-img').addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();ouvrir(fig);} });
+    fig.querySelector('.vx-png').addEventListener('click',function(){png(fig,this);});
+  });
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target.classList.contains('vx-fermer')) fermer(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!lb.hidden) fermer(); });
+
+  // Polices du site, integrees une fois en data: URI pour que le PNG garde sa
+  // typographie (un SVG dessine sur un canevas ne voit pas les polices de la page).
+  var polices=null;
+  function enDataUrl(blob){ return new Promise(function(ok){ var r=new FileReader(); r.onload=function(){ok(r.result);}; r.readAsDataURL(blob); }); }
+  function chargerPolices(){
+    if(polices) return polices;
+    var lien=document.querySelector('link[href*="fonts.googleapis.com/css"]');
+    if(!lien) return (polices=Promise.resolve(''));
+    polices=fetch(lien.href).then(function(r){return r.text();}).then(function(css){
+      var blocs=css.split('@font-face').slice(1).filter(function(b,i,all){ return /\/\*\s*latin(-ext)?\s*\*\//.test(css.split('@font-face')[i]); });
+      return Promise.all(blocs.map(function(b){
+        var m=b.match(/url\(([^)]+)\)/); if(!m) return '';
+        return fetch(m[1]).then(function(r){return r.blob();}).then(enDataUrl).then(function(d){ return '@font-face'+b.replace(m[1],d); });
+      }));
+    }).then(function(l){ return Array.isArray(l)?l.join('\n'):''; }).catch(function(){ return ''; });
+    return polices;
+  }
+  function png(fig,bouton){
+    bouton.disabled=true;
+    var svg=fig.querySelector('svg'), vb=svg.viewBox.baseVal, k=2400/vb.width;
+    chargerPolices().then(function(css){
+      var copie=svg.cloneNode(true);
+      copie.setAttribute('width',vb.width*k); copie.setAttribute('height',vb.height*k);
+      copie.setAttribute('xmlns','http://www.w3.org/2000/svg');
+      if(css){ var st=document.createElementNS('http://www.w3.org/2000/svg','style'); st.textContent=css; copie.insertBefore(st,copie.firstChild); }
+      var url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(copie)],{type:'image/svg+xml'}));
+      var img=new Image();
+      img.onload=function(){
+        var cv=document.createElement('canvas'); cv.width=Math.round(vb.width*k); cv.height=Math.round(vb.height*k);
+        var cx=cv.getContext('2d'); cx.fillStyle='#FDFAF6'; cx.fillRect(0,0,cv.width,cv.height); cx.drawImage(img,0,0,cv.width,cv.height);
+        URL.revokeObjectURL(url);
+        cv.toBlob(function(b){ var a=document.createElement('a'); a.href=URL.createObjectURL(b);
+          a.download='ebola-tracker-'+fig.querySelector('.vx-img').dataset.vxNom+'-'+document.documentElement.lang+'.png';
+          document.body.appendChild(a); a.click(); a.remove(); bouton.disabled=false; },'image/png');
+      };
+      img.onerror=function(){ bouton.disabled=false; };
+      img.src=url;
+    });
+  }
+})();
+</script>

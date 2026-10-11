@@ -59,6 +59,7 @@
           "items": [
             "rapports",
             "dashboard",
+            "visuels",
             "base-de-donnees"
           ]
         }
@@ -105,7 +106,8 @@
         "defis",
         "rapports",
         "base-de-donnees",
-        "dashboard"
+        "dashboard",
+        "visuels"
       ]
     },
     {
@@ -789,6 +791,39 @@
         }
       },
       "layout": "layout-dashboard.html"
+    },
+    {
+      "id": "visuels",
+      "fragment": "visuels.html",
+      "slug": {
+        "fr": "visuels/",
+        "en": "visuals/",
+        "sw": "michoro/"
+      },
+      "needs": [],
+      "changefreq": "daily",
+      "priority": "0.7",
+      "navLabelKey": "t:navVisuels",
+      "navBadge": {
+        "key": "navBadgeNouveau"
+      },
+      "meta": {
+        "fr": {
+          "title": "Ebola RDC en images : calendrier, cartes et graphiques de l'épidémie",
+          "h1": "Visuels de l'épidémie",
+          "description": "Les visuels de l'épidémie d'Ebola en RDC, redessinés à chaque bulletin de l'INSP : calendrier des cas et des décès, carte des provinces, évolution semaine par semaine, bilans mensuels. À télécharger en PNG."
+        },
+        "en": {
+          "title": "DRC Ebola in pictures: calendar, maps and charts of the outbreak",
+          "h1": "Outbreak visuals",
+          "description": "Visuals of the DRC Ebola outbreak, redrawn with every INSP bulletin: calendar of cases and deaths, province map, week-by-week trends, monthly reviews. Download as PNG."
+        },
+        "sw": {
+          "title": "Ebola DRC kwa picha: kalenda, ramani na michoro ya mlipuko",
+          "h1": "Michoro ya mlipuko",
+          "description": "Michoro ya mlipuko wa Ebola DRC, inayochorwa upya kwa kila ripoti ya INSP: kalenda ya visa na vifo, ramani ya majimbo, mwenendo wa kila wiki, muhtasari wa kila mwezi. Pakua kama PNG."
+        }
+      }
     },
     {
       "id": "le-virus",

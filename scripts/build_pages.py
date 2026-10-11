@@ -34,6 +34,7 @@ from datetime import date, timedelta
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import defis_synthese  # maquette « Riposte & defis », seconde partie redigee
 import base_donnees  # la base de donnees unifiee (9 octobre 2026)
+import visuels  # la page Visuels : douze images SVG, trois rythmes (12 octobre 2026)
 import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 2026), en local
 import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
 
@@ -4509,6 +4510,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     if page.get("id") == "base-de-donnees":
         values.update(base_values(config, urls, lang, strings_lang, i18n_lang,
                                   read_json(os.path.join(ROOT, "data", "latest.json")).get("reports", [])))
+    if page.get("id") == "visuels":
+        # Les douze visuels, dessines en SVG dans la langue de la page a
+        # chaque generation (scripts/visuels.py). Pas d'echappement : c'est du
+        # balisage, construit et echappe par le module.
+        values["vis.html"] = visuels.page_html(lang, i18n_lang["months"])
     if page.get("id") == "dashboard":
         values.update(dashboard_values(config, urls, lang, strings_lang, i18n_lang, alt_paths,
                                        national, meta_data, provinces))
