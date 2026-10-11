@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-10-06"
+  "fin": "2026-10-09"
  },
  "parDate": [
   {
@@ -2890,6 +2890,102 @@
       "cumul": 1412
      }
     }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-07",
+   "sitrepNumber": "146",
+   "poe": {
+    "personnes": 251836,
+    "screenesPct": 96.4,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 56,
+    "attendus": 72
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 82,
+    "swabes": 79,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 3,
+     "swabes": 3
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Bas-Uélé": 1412
+    },
+    "rupture": false,
+    "provinces": {
+     "Bas-Uélé": {
+      "cumul": 1412
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-08",
+   "sitrepNumber": "147",
+   "poe": {
+    "personnes": 262474,
+    "screenesPct": 98.0,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 24,
+    "attendus": 48
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 117,
+    "swabes": 125,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 3,
+     "swabes": 4
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Bas-Uélé": 1500
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-09",
+   "sitrepNumber": "148",
+   "poe": {
+    "personnes": 247706,
+    "screenesPct": 97.9,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 48,
+    "attendus": 80
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 110,
+    "swabes": 104,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 3,
+     "swabes": 3
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Bas-Uélé": 1500,
+     "Haut-Uélé": 100
+    },
+    "rupture": false
    },
    "source": "SitRep INSP (automatique)"
   }

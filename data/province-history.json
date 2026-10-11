@@ -3911,5 +3911,125 @@
         "deaths": 1
       }
     ]
+  },
+  {
+    "date": "2026-10-07",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 6542,
+        "deaths": 3025
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 1811,
+        "deaths": 1036
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 368,
+        "deaths": 156
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 51,
+        "deaths": 19
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Bas-Uélé",
+        "confirmed": 10,
+        "deaths": 4
+      },
+      {
+        "name": "Sud-Ubangi",
+        "confirmed": 2,
+        "deaths": 1
+      }
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 6562,
+        "deaths": 3036
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 1841,
+        "deaths": 1054
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 371,
+        "deaths": 157
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 55,
+        "deaths": 22
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Bas-Uélé",
+        "confirmed": 11,
+        "deaths": 4
+      },
+      {
+        "name": "Sud-Ubangi",
+        "confirmed": 2,
+        "deaths": 1
+      }
+    ]
+  },
+  {
+    "date": "2026-10-09",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 6609,
+        "deaths": 3065
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 1858,
+        "deaths": 1065
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 372,
+        "deaths": 157
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 57,
+        "deaths": 22
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Bas-Uélé",
+        "confirmed": 13,
+        "deaths": 4
+      },
+      {
+        "name": "Sud-Ubangi",
+        "confirmed": 2,
+        "deaths": 1
+      }
+    ]
   }
 ]

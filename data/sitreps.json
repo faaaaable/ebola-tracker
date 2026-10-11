@@ -823,5 +823,23 @@
     "confirmed": 8728,
     "deaths": 4205,
     "recovered": 2269
+  },
+  {
+    "date": "2026-10-07",
+    "confirmed": 8787,
+    "deaths": 4242,
+    "recovered": 2292
+  },
+  {
+    "date": "2026-10-08",
+    "confirmed": 8845,
+    "deaths": 4275,
+    "recovered": 2320
+  },
+  {
+    "date": "2026-10-09",
+    "confirmed": 8914,
+    "deaths": 4315,
+    "recovered": 2338
   }
 ]

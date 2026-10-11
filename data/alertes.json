@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-06"
+    "fin": "2026-10-09"
   },
   "parDate": [
     {
@@ -5397,6 +5397,182 @@
         "calcule": true,
         "partVerifiee": 100.0,
         "partValidee": 16.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-07",
+      "sitrepNumber": "146",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 53,
+          "verifiees": 53,
+          "validees": 27,
+          "suspectsInvestigues": 27,
+          "transferes": 9
+        },
+        "Bas-Uélé": {
+          "recues": 172,
+          "verifiees": 172,
+          "validees": 18,
+          "suspectsInvestigues": 18,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1214,
+          "verifiees": 1214,
+          "validees": 167,
+          "suspectsInvestigues": 167,
+          "transferes": 110
+        },
+        "Nord-Kivu": {
+          "recues": 1592,
+          "verifiees": 1592,
+          "validees": 285,
+          "suspectsInvestigues": 285,
+          "transferes": 148
+        },
+        "Sud-Ubangi": {
+          "recues": 32,
+          "verifiees": 32,
+          "validees": 2,
+          "suspectsInvestigues": 2,
+          "transferes": 0
+        },
+        "Tshopo": {
+          "recues": 134,
+          "verifiees": 134,
+          "validees": 7,
+          "suspectsInvestigues": 7,
+          "transferes": 0
+        }
+      },
+      "total": {
+        "recues": 3197,
+        "verifiees": 3197,
+        "validees": 506,
+        "suspectsInvestigues": 506,
+        "transferes": 267,
+        "calcule": true,
+        "partVerifiee": 100.0,
+        "partValidee": 15.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-08",
+      "sitrepNumber": "147",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 145,
+          "verifiees": 145,
+          "validees": 51,
+          "suspectsInvestigues": 51,
+          "transferes": 15
+        },
+        "Bas-Uélé": {
+          "recues": 135,
+          "verifiees": 135,
+          "validees": 18,
+          "suspectsInvestigues": 18,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Nord-Kivu": {
+          "recues": 1297,
+          "verifiees": 1297,
+          "validees": 191,
+          "suspectsInvestigues": 191,
+          "transferes": 99
+        },
+        "Sud-Ubangi": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Tshopo": {
+          "recues": 145,
+          "verifiees": 145,
+          "validees": 10,
+          "suspectsInvestigues": 10,
+          "transferes": 0
+        }
+      },
+      "total": {
+        "recues": 1722,
+        "verifiees": 1722,
+        "validees": 270,
+        "calcule": true,
+        "partVerifiee": 100.0,
+        "partValidee": 15.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-09",
+      "sitrepNumber": "148",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 110,
+          "verifiees": 20,
+          "validees": 20,
+          "suspectsInvestigues": 20,
+          "transferes": 12
+        },
+        "Bas-Uélé": {
+          "recues": 141,
+          "verifiees": 141,
+          "validees": 18,
+          "suspectsInvestigues": 18,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1278,
+          "verifiees": 1278,
+          "validees": 195,
+          "suspectsInvestigues": 195,
+          "transferes": 79
+        },
+        "Nord-Kivu": {
+          "recues": 1467,
+          "verifiees": 1467,
+          "validees": 229,
+          "suspectsInvestigues": 229,
+          "transferes": 128
+        },
+        "Sud-Ubangi": {
+          "recues": 0,
+          "verifiees": 0,
+          "validees": 0,
+          "suspectsInvestigues": null,
+          "transferes": null
+        },
+        "Tshopo": {
+          "recues": 153,
+          "verifiees": 153,
+          "validees": 11,
+          "suspectsInvestigues": 11,
+          "transferes": 0
+        }
+      },
+      "total": {
+        "recues": 3149,
+        "verifiees": 3059,
+        "validees": 473,
+        "calcule": true,
+        "partVerifiee": 97.1,
+        "partValidee": 15.0
       },
       "source": "SitRep INSP (automatique)"
     }

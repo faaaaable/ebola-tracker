@@ -3590,5 +3590,121 @@
         "aSuivre": 44
       }
     }
+  },
+  {
+    "date": "2026-10-07",
+    "sitrepNumber": "146",
+    "contactsFollowUpRate": 80.0,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 30891,
+      "vus": 24717
+    },
+    "provinces": {
+      "Sud-Ubangi": {
+        "taux": 93.2,
+        "vus": 41,
+        "aSuivre": 44
+      },
+      "Bas-Uélé": {
+        "taux": 91.2,
+        "vus": 124,
+        "aSuivre": 136
+      },
+      "Tshopo": {
+        "taux": 89.2,
+        "vus": 222,
+        "aSuivre": 249
+      },
+      "Haut-Uélé": {
+        "taux": 89.0,
+        "vus": 1708,
+        "aSuivre": 1919
+      },
+      "Ituri": {
+        "taux": 83.0,
+        "vus": 11141,
+        "aSuivre": 13427
+      },
+      "Nord-Kivu": {
+        "taux": 76.0,
+        "vus": 11481,
+        "aSuivre": 15116
+      }
+    }
+  },
+  {
+    "date": "2026-10-08",
+    "sitrepNumber": "147",
+    "contactsFollowUpRate": 83.5,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 29140,
+      "vus": 24337
+    },
+    "provinces": {
+      "Tshopo": {
+        "taux": 95.5,
+        "vus": 612,
+        "aSuivre": 641
+      },
+      "Bas-Uélé": {
+        "taux": 92.5,
+        "vus": 172,
+        "aSuivre": 186
+      },
+      "Haut-Uélé": {
+        "taux": 85.5,
+        "vus": 1779,
+        "aSuivre": 2081
+      },
+      "Ituri": {
+        "taux": 83.9,
+        "vus": 9038,
+        "aSuivre": 10772
+      },
+      "Nord-Kivu": {
+        "taux": 82.4,
+        "vus": 12736,
+        "aSuivre": 15460
+      }
+    }
+  },
+  {
+    "date": "2026-10-09",
+    "sitrepNumber": "148",
+    "contactsFollowUpRate": 83.1,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 31476,
+      "vus": 26170
+    },
+    "provinces": {
+      "Tshopo": {
+        "taux": 91.0,
+        "vus": 600,
+        "aSuivre": 659
+      },
+      "Haut-Uélé": {
+        "taux": 90.5,
+        "vus": 1964,
+        "aSuivre": 2170
+      },
+      "Bas-Uélé": {
+        "taux": 84.8,
+        "vus": 189,
+        "aSuivre": 223
+      },
+      "Nord-Kivu": {
+        "taux": 84.1,
+        "vus": 13659,
+        "aSuivre": 16251
+      },
+      "Ituri": {
+        "taux": 80.2,
+        "vus": 9758,
+        "aSuivre": 12173
+      }
+    }
   }
 ]
