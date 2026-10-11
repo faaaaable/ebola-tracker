@@ -172,14 +172,6 @@ sans relire les PDF : aucune valeur ne change, seuls deux noms.
 
 ### Le générateur
 
-`scripts/build_pages.py` produit **30 fichiers** listés dans
-`site/.generated.json`. Il lit :
-
-- `site/pages.json` — les huit pages et leurs besoins
-- `site/strings.json` — tous les textes FR/EN du générateur
-- `assets/js/i18n.js` — les textes du JavaScript, via `dump_i18n.mjs`
-- `site/layout.html` et `site/pages/*.html` — les gabarits
-
 **Ne jamais éditer un `.html` à la racine ou dans `donnees/`, `en/`, etc.** :
 ils sont régénérés. Modifier le gabarit ou `strings.json`, puis relancer.
 
@@ -278,62 +270,13 @@ historiques cohérents, chaque rapport listé ayant son PDF. Il ne modifie rien.
 
 ## Le corpus gelé — la couche de recherche
 
-`data/corpus/` (78 Mo, hors dépôt) est un **intermédiaire complet des 106
-rapports**, construit pour ne plus jamais rouvrir un PDF pendant une analyse.
-Il ne sert pas le site : il sert à décider ce que le site devrait montrer.
-
-Reconstruction, dans cet ordre :
-
-```bash
-python scripts/geler_corpus.py         # manifeste.json + textes/ — gèle les 106 rapports
-python scripts/cartographier_corpus.py # carte.json — époques éditoriales, sections
-python scripts/recenser_corpus.py      # recensement-prose.json + recensement-tableaux.json
-python scripts/extraire_cellules.py    # cellules.jsonl — aplatit 602 types de tableaux
-python scripts/catalogue_corpus.py     # catalogue.json — fusion chiffrée avec couverture
-python scripts/extraire_qualitatif.py  # qualitatif.jsonl — les sections « Défis »
-python scripts/demographie_figures.py  # demographie.jsonl -> data/demographie.json
-```
-
-**Seul `geler_corpus.py` est long** — 102 s pour les 106 PDF, mesure du 24 août.
-Les six suivants travaillent sur l'intermédiaire gelé et rendent la main en
-quelques secondes : c'est tout l'intérêt du gel. Une reconstruction complète
-coûte donc environ deux minutes, pas une demi-heure. `manifeste.json` porte le
-SHA-256 de chaque PDF, son nombre de pages et de tableaux.
-
-**Quatre époques éditoriales**, identifiées par `cartographier_corpus.py` :
-
-| Époque | Rapports | Bulletins |
-|---|---|---|
-| A | 15 | 001 → 016 |
-| B | 39 | 017 → 058 |
-| C | 22 | 059 → 083 |
-| D | 17 | 084 → 100 |
-| OMS | 13 | rapports hebdomadaires |
-
-C'est cette carte qui permet de répondre « depuis quand cette colonne
-existe-t-elle ? » sans rouvrir cent PDF. Exemple : les quatre colonnes du lieu
-du décès n'apparaissent qu'à l'époque C — d'où la fenêtre bornée au 13 juillet,
-que rien ne pourra faire remonter.
-
-**`extraire_cellules.py` mérite d'être compris.** Plutôt qu'un parseur par type
-de tableau — il y en a 602 —, il applique le même traitement à tous et produit
-des cellules nommées. `catalogue_corpus.py` les fusionne ensuite avec les
-nombres de la prose et calcule la **couverture** de chaque indicateur : sur
-combien de rapports il existe. C'est ce qui a permis de dire que 50 cellules
-seulement, sur 17 313 cataloguées, portent la distinction communauté / CTE.
-
-**`extraire_qualitatif.py`** est le seul à s'intéresser au non-chiffré : les
-sections « Défis » des bulletins, unique source du corpus sur les **causes** de
-persistance de l'épidémie. Rien du site ne l'exploite encore.
-
-**`prototype_riposte.py`** écrit une page autonome dans `tmp/riposte/`, sans
-toucher aux sources du site. Modèle à suivre pour prototyper une page nouvelle.
+Cette partie vit dans la skill `corpus-gele` (`.claude/skills/corpus-gele/SKILL.md`), chargee a la demande.
 
 ---
 
 ## Les scripts
 
-`ls scripts/` donne la liste a jour (65 fichiers ; le guide en annoncait 52). Quatre
+`ls scripts/` donne la liste a jour. Quatre
 familles : le **pipeline** quotidien (ci-dessus), le **corpus** gele, les **rattrapages**
 (`backfill_*`), et les **enquetes** ponctuelles (`scan_*`, `inspect_*`, `diagnose_*`),
 gardees comme exemples — `inspect_report.py` et `scan_missing_dates.py` sont les plus
@@ -364,34 +307,9 @@ composition du message.
 
 ## Conventions établies
 
-**La fiche d'un territoire (28 septembre 2026).** « Ensemble du pays » et les
-pages province suivent le MEME plan, a deux echelles : en-tete (chiffres cles
-et phrase des 7 derniers jours contre les 7 precedents, `point_sept_jours`),
-[01 carte, province seulement — celle du pays reste a l'accueil], cas, deces
-avec le lieu du deces dessous, ou (zones / provinces), [qui, pays seulement],
-la riposte, la chronologie. Numeros calcules par `province_numeros()`.
-**Regle : une information a UNE page qui la detaille.** Les graphiques de la
-riposte vivent sur la page Riposte, ou l'on compare les provinces ; la fiche
-n'en garde que quatre chiffres (contacts vus, occupation, positivite,
-vaccines) et « Les difficultes signalees » — la phrase de la province dans le
-resume des Defis de la lettre (`difficultes_province`, nom dans les 40
-premiers caracteres), d'ou l'importance d'ecrire ce resume UNE phrase par
-province, ouverte par son nom. Le lieu du deces a quitte la page Riposte. Les
-graphiques de riposte a onglets de l'Ituri et du Nord-Kivu ont ete retires des
-fiches. **Le cadre riposte n'est que sur `PROVINCES_RIPOSTE_FICHE` = Ituri et
-Nord-Kivu** (28 septembre 2026) : un seuil a 40 cas a d'abord ecarte le
-Sud-Kivu, le Bas-Uele et le Sud-Ubangi, puis le proprietaire a retire le
-Haut-Uele et la Tshopo, « donnees trop instables a cause du petit
-echantillon ». Sur ces deux fiches le cadre est DEVELOPPE : apres les
-quatre chiffres, les graphiques de la page Riposte restreints par
-`data-province` (alertes, laboratoire, contacts, CTE, vaccination avec son
-tableau par zone), chacun seulement si la province a au moins
-`RELEVES_MIN_GRAPHIQUE` (10) releves, 3 pour la vaccination ; puis les
-difficultes et, replie, « Ce que dit le bulletin, pilier par pilier » :
-les propositions des blocs « Defis » du dernier bulletin qui concernent la
-province (`extraits_defis_province` : coupe aux « ; », points et « : »
-suivis d'une province, jamais dans une parenthese ; une zone de sante nommee
-vaut sa province).
+**La fiche d'un territoire** (plan commun « Ensemble du pays » / provinces, regle
+« une information a UNE page », cadre riposte des fiches limite a l'Ituri et au
+Nord-Kivu) : skill `gabarits-site`.
 
 **Couleurs.** Bleu `#005E82` = cas, rouge `#993A2E` = décès, partout. Chaque
 province a sa teinte d'identité (`PROVINCE_COLORS`), utilisée sur les pastilles
@@ -424,17 +342,8 @@ et `fmtCfr()` (`app.js`) doivent produire **exactement** la meme chaine : le
 JavaScript reecrit les elements que le generateur a remplis, et un taux qui
 change d'ecriture au chargement se voit. Les deux se corrigent ensemble.
 
-**Police des chiffres du panneau de la carte.** Depuis le 10 septembre 2026,
-les cinq chiffres nationaux à droite de la carte d'accueil, et le bilan de la
-zone survolée, sont en **Bricolage Grotesque** (graisse 700, écarts en 600,
-largeur 87,5, chargée dans `site/layout.html`). Décision du propriétaire après
-une maquette de six polices sur le panneau réel : Public Sans en gras sur cinq
-lignes de couleurs différentes faisait « trop IA style ». Le choix s'est fait
-entre Fraunces (serif, la plus proche du titre), Playfair Display (didone, dont
-les déliés souffrent sur un petit écran Android) et Bricolage, retenue parce
-qu'elle reste dans la famille des sans du site. Tout le reste — bandeau
-`.kpis`, tableaux, graphiques — garde Public Sans ; l'étendre est possible
-mais n'a pas été demandé. Les couleurs du panneau n'ont pas bougé.
+**Police des chiffres du panneau de la carte** (Bricolage Grotesque, decision du
+10 septembre 2026) : skill `carte`.
 
 **Notes de graphique.** Elles portent d'abord le fait, ensuite les réserves.
 Un lecteur ne lit pas trois lignes de mise en garde avant d'atteindre
@@ -605,14 +514,3 @@ parce qu'elles doivent etre lues sans avoir a ouvrir quoi que ce soit :
   `province_numeros()` numerote tous les cadres, zones compris.
 - **Ne pas rallumer `community-deaths-daily.json`** sans corriger son defaut :
   il ne valide qu'une province quand son libelle annonce le pays.
-
-## Où chercher le reste
-
-**Les messages de commit portent le raisonnement**, pas seulement le quoi. Ils
-citent les passages de bulletin qui fondent chaque décision, gardent les
-mesures qui ont tranché un choix de couleur ou de seuil, et consignent ce qui
-a été écarté et pourquoi. `git log` est la mémoire longue de ce projet.
-
-Les commentaires du code font le reste : ils expliquent systématiquement le
-*pourquoi*, souvent avec la date et le numéro de bulletin qui ont révélé le
-problème.
