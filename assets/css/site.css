@@ -4704,8 +4704,12 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
     font:600 15px var(--font-sans);color:var(--accent-strong);}
   /* Au second niveau, le nom de l'onglet se fait discret (etiquette) et ce
      sont les pages qui ressortent (8 octobre 2026). */
-  .menu-niv2-titre{margin:2px 0 4px;padding-bottom:10px;border-bottom:1px solid var(--line);
-    font:600 11.5px/1.3 var(--font-sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);}
+  /* Le nom de l'onglet sous « Retour » est retire (12 octobre 2026, demande du
+     proprietaire) : une ligne de gagnee, l'onglet ouvert se devine a ses pages.
+     Le filet passe sous « Retour ». */
+  .menu-niv2-titre{display:none;}
+  .side-panel.is-niv2 .menu-niv2-tete{padding-bottom:8px;margin-bottom:0;border-bottom:1px solid var(--line);}
+  .side-panel.is-niv2{gap:6px;}
   .side-panel.is-niv2 .nav-pop a .nav-t,.side-panel.is-niv2 .nav-pop a{font:500 20px/1.25 var(--font-serif);color:var(--ink);}
   .side-panel.is-niv2 .nav-pop a{padding-top:11px;padding-bottom:11px;}
   .side-panel{overflow-x:hidden;}
