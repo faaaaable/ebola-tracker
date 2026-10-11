@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-10-09"
+  "fin": "2026-10-10"
  },
  "parDate": [
   {
@@ -2986,6 +2986,41 @@
      "Haut-Uélé": 100
     },
     "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-10",
+   "sitrepNumber": "149",
+   "poe": {
+    "personnes": 252382,
+    "screenesPct": 98.0,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 51,
+    "attendus": 78
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 126,
+    "swabes": 149,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 3,
+     "swabes": 3
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Haut-Uélé": 399
+    },
+    "rupture": false,
+    "provinces": {
+     "Haut-Uélé": {
+      "cumul": 399
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   }

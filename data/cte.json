@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-09"
+    "fin": "2026-10-10"
   },
   "parDate": [
     {
@@ -3294,7 +3294,11 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 394,
-          "occupation": 38.8
+          "occupation": 38.8,
+          "lits": 1015,
+          "litsEncadres": true,
+          "occupationPubliee": 38.8,
+          "occupationCalculee": true
         },
         "Nord-Kivu": {
           "hospitalises": 383,
@@ -3309,7 +3313,10 @@
       },
       "total": {
         "hospitalises": 851,
-        "provinces": 3
+        "provinces": 3,
+        "lits": 1015,
+        "hospitalisesAvecLits": 394,
+        "occupation": 38.8
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3320,7 +3327,11 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 378,
-          "occupation": 37.2
+          "occupation": 37.2,
+          "lits": 1015,
+          "litsEncadres": true,
+          "occupationPubliee": 37.2,
+          "occupationCalculee": true
         },
         "Nord-Kivu": {
           "hospitalises": 364,
@@ -3339,7 +3350,10 @@
       },
       "total": {
         "hospitalises": 830,
-        "provinces": 4
+        "provinces": 4,
+        "lits": 1015,
+        "hospitalisesAvecLits": 378,
+        "occupation": 37.2
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3350,7 +3364,11 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 372,
-          "occupation": 36.7
+          "occupation": 36.7,
+          "lits": 1015,
+          "litsEncadres": true,
+          "occupationPubliee": 36.7,
+          "occupationCalculee": true
         },
         "Nord-Kivu": {
           "hospitalises": 382,
@@ -3369,7 +3387,10 @@
       },
       "total": {
         "hospitalises": 844,
-        "provinces": 4
+        "provinces": 4,
+        "lits": 1015,
+        "hospitalisesAvecLits": 372,
+        "occupation": 36.7
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3380,7 +3401,11 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 366,
-          "occupation": 36.1
+          "occupation": 36.1,
+          "lits": 1015,
+          "litsEncadres": true,
+          "occupationPubliee": 36.1,
+          "occupationCalculee": true
         },
         "Nord-Kivu": {
           "hospitalises": 417,
@@ -3404,9 +3429,9 @@
       "total": {
         "hospitalises": 861,
         "provinces": 4,
-        "lits": 554,
-        "hospitalisesAvecLits": 495,
-        "occupation": 89.4
+        "lits": 1569,
+        "hospitalisesAvecLits": 861,
+        "occupation": 54.9
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3417,7 +3442,11 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 360,
-          "occupation": 35.5
+          "occupation": 35.5,
+          "lits": 1015,
+          "litsEncadres": true,
+          "occupationPubliee": 35.5,
+          "occupationCalculee": true
         },
         "Nord-Kivu": {
           "hospitalises": 519,
@@ -3438,9 +3467,9 @@
       "total": {
         "hospitalises": 970,
         "provinces": 4,
-        "lits": 563,
-        "hospitalisesAvecLits": 610,
-        "occupation": 108.3
+        "lits": 1578,
+        "hospitalisesAvecLits": 970,
+        "occupation": 61.5
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3451,7 +3480,11 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 316,
-          "occupation": 31.1
+          "occupation": 31.1,
+          "lits": 1015,
+          "litsEncadres": true,
+          "occupationPubliee": 31.1,
+          "occupationCalculee": true
         },
         "Nord-Kivu": {
           "hospitalises": 523,
@@ -3474,9 +3507,9 @@
       "total": {
         "hospitalises": 926,
         "provinces": 5,
-        "lits": 169,
-        "hospitalisesAvecLits": 85,
-        "occupation": 50.3
+        "lits": 1184,
+        "hospitalisesAvecLits": 401,
+        "occupation": 33.9
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3489,25 +3522,17 @@
           "hospitalises": 316,
           "occupation": 31.1,
           "lits": 1015,
-          "litsReportes": true,
+          "litsEncadres": true,
           "occupationPubliee": 30.6,
           "occupationCalculee": true
         },
         "Nord-Kivu": {
           "hospitalises": 523,
-          "occupation": 139.8,
-          "lits": 374,
-          "litsReportes": true,
-          "occupationPubliee": 87.2,
-          "occupationCalculee": true
+          "occupation": 87.2
         },
         "Haut-Uélé": {
           "hospitalises": 71,
-          "occupation": 51.4,
-          "lits": 138,
-          "litsReportes": true,
-          "occupationPubliee": 53.6,
-          "occupationCalculee": true
+          "occupation": 53.6
         },
         "Tshopo": {
           "hospitalises": 15,
@@ -3518,9 +3543,45 @@
       "total": {
         "hospitalises": 925,
         "provinces": 4,
-        "lits": 1563,
-        "hospitalisesAvecLits": 925,
-        "occupation": 59.2
+        "lits": 1051,
+        "hospitalisesAvecLits": 331,
+        "occupation": 31.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-10",
+      "sitrepNumber": "149",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 336,
+          "lits": 1015,
+          "occupation": 35.5
+        },
+        "Nord-Kivu": {
+          "hospitalises": 501,
+          "occupation": 134.0,
+          "lits": 374,
+          "litsReportes": true,
+          "occupationPubliee": 94.9,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 14,
+          "lits": 36,
+          "occupation": 30.6
+        },
+        "Bas-Uélé": {
+          "hospitalises": 26
+        }
+      },
+      "total": {
+        "hospitalises": 877,
+        "provinces": 4,
+        "lits": 1425,
+        "hospitalisesAvecLits": 851,
+        "occupation": 59.7
       },
       "source": "SitRep INSP (automatique)"
     }
