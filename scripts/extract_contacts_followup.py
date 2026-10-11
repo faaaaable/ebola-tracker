@@ -170,8 +170,15 @@ CONTACTS_PARMI_RE = re.compile(
 # dernières 24 heures, soit une proportion de suivi de 77,8% » : « Des »
 # remplace « Parmi » ; le reste est deja couvert. Le « des » est ancre en
 # debut de mot pour ne pas mordre sur « … des contacts ».
+# SitRep 149 (10 octobre 2026) : seizieme tournure — « Parmis 19 346 contacts
+# en cours de suivi dans les provinces ayant transmis leurs données, 15 672
+# ont été vus … soit une proportion de suivi de 81,0 % » : la coquille
+# « Parmis », et une incise entre « suivi » et la virgule (l'Ituri et le
+# Sud-Ubangi n'avaient pas transmis). Les deux sont acceptees ; l'incise est
+# ancree sur « dans les provinces » pour ne rien avaler d'autre.
 CONTACTS_PARMI_LES_RE = re.compile(
-    r"(?:parmi|sur|\bdes)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi\s*,?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
+    r"(?:parmis?|sur|\bdes)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi"
+    r"(?:\s+dans\s+les\s+provinces\s[^,.%]{0,60}?)?\s*,?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
     r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+une\s+proportion(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,
