@@ -305,7 +305,7 @@ class Contexte:
     """Les donnees et les conventions d'une langue, lues une fois par page."""
 
     def __init__(self, lang, mois_courts):
-        self.lang = lang; self.t = TXT[lang]; self.p = PAGE[lang]; self.mc = mois_courts
+        self.lang = lang; self.t = TXT[lang]; self.p = PAGE[lang]; self.r = RIP[lang]; self.mc = mois_courts
         self.latest = _j("data/latest.json"); self.sitreps = _j("data/sitreps.json")
         self.ph = _j("data/province-history.json"); self.zh = _j("data/zones-history.json")
         self.geo = _j("site/geo/zones-overview.json"); self.dl = _j("data/deces-lieu.json")["parDate"]
@@ -781,9 +781,407 @@ def m_part(c):
     return c.carte(titre, c.t["moisPartSous"], "".join(out), pied=c.pied_mois())
 
 
+# ================================================================ la riposte, jour par jour
+# Les cinq graphiques quotidiens de la page Riposte (12 octobre 2026, demande
+# du proprietaire), redessines en SVG avec les regles de app.js : axe
+# calendaire, journee sans releve laissee en blanc, pont en pointilles au-dessus
+# d'un trou (un repere, jamais une valeur), journee partielle du laboratoire
+# hachuree, lits empruntes des CTE en point creux, cumul de vaccination revise
+# porte a sa valeur corrigee. Seule la vue « par jour » de chaque cadre.
+RIP = {
+ "fr": dict(
+  eyebrow="La riposte", titre="La riposte, jour par jour", sous="Les cinq graphiques quotidiens de la page Riposte, au SitRep n°{n}.",
+  rythme="mis à jour à chaque nouveau bulletin",
+  alTitre="Les alertes, jour par jour", alSous="Alertes reçues chaque jour par les équipes de surveillance, et celles validées comme cas suspects, du {a} au {b}.",
+  alVal="Validées comme cas suspects", alAut="Autres alertes reçues",
+  alPhrase="Le {d} : {n} alertes reçues, dont {v} validées comme cas suspects.",
+  alNote="L'axe suit le calendrier : {lus} journées relevées sur {tot} ; une journée sans relevé reste en blanc.",
+  laTitre="Le laboratoire, jour par jour", laSous="Échantillons analysés chaque jour, résultats positifs en couleur pleine, et positivité de la journée sur l'axe de droite, du {a} au {b}.",
+  laPos="Résultats positifs", laNeg="Échantillons négatifs", laTaux="Positivité",
+  laPhrase="Le {d} : {n} échantillons analysés, {p} positifs, soit {t}.",
+  laNote="{lus} journées relevées sur {tot}. Hachures ({k} jours) : une province ne donne pas ses échantillons, seules les provinces complètes sont comptées.",
+  laNote2="Pointillés : un repère au-dessus des jours sans relevé, jamais une valeur.",
+  coTitre="Le suivi des contacts, jour par jour", coSous="Part des contacts vus dans les dernières 24 heures et, en barres claires sur l'axe de droite, nombre de contacts à suivre, du {a} au {b}.",
+  coTaux="Part des contacts vus", coSuivre="Contacts à suivre",
+  coPhrase="Le {d} : {p} des {n} contacts à suivre ont été vus.",
+  coNote="L'INSP retient un seuil de 85 % depuis août ; l'OMS fixait une cible de 95 %. Pointillés : un repère au-dessus des jours sans relevé.",
+  ctTitre="Patients pour 100 lits des CTE", ctSous="Patients hospitalisés, confirmés et suspects, rapportés aux lits que le bulletin déclare, province par province, du {a} au {b}.",
+  ctNormees="Nord-Kivu, patients dans les lits des CTE",
+  ctPhrase="Le {d} : {l}.", ctItem="{p} {v}",
+  ctNote="Au-dessus de 100, il y a plus de malades que de lits. Provinces de moins de 20 lits écartées. Point creux : lits empruntés à un bulletin voisin.",
+  ctNote2="Courbe claire et zone teintée : au Nord-Kivu, les patients des seuls lits des CTE ; l'écart, ceux soignés ailleurs.",
+  vaTitre="{n} personnes vaccinées", vaSous="Cumul des personnes vaccinées avec l'ERVEBO, province par province, depuis le début de la campagne, le {a}.",
+  vaPhrase="Au {d} : {l}.", vaItem="{p} {v}",
+  vaNote="Le dernier cumul connu est reporté tant que le bulletin n'en publie pas de nouveau. Du 28 août au 2 septembre, aucun chiffre publié : la marche du 3 est un rattrapage.",
+  vaRevision="Le {d}, le bulletin donnait {a} au {p}, corrigé ensuite à {b} : la courbe porte la valeur corrigée.",
+  lire=dict(alertes="Le volume de signalements et ce que la surveillance en retient : les à-coups du jour, que la vue par semaine lisse.",
+            labo="L'irrégularité des analyses d'un jour à l'autre, et la part de positifs : un positif n'est pas toujours un malade de plus.",
+            contacts="Combien de personnes exposées sont vues chaque jour : quand la part baisse, des chaînes de transmission échappent au suivi.",
+            cte="La pression sur les centres de traitement : au-dessus de 100, plus de malades que de lits.",
+            vaccin="La campagne de vaccination, province par province : combien, et quand."),
+ ),
+ "en": dict(
+  eyebrow="The response", titre="The response, day by day", sous="The five daily charts from the Response page, as of SitRep No. {n}.",
+  rythme="updated with every new bulletin",
+  alTitre="Alerts, day by day", alSous="Alerts received each day by surveillance teams, and those validated as suspected cases, {a} to {b}.",
+  alVal="Validated as suspected cases", alAut="Other alerts received",
+  alPhrase="On {d}: {n} alerts received, {v} of them validated as suspected cases.",
+  alNote="The axis follows the calendar: {lus} days recorded out of {tot}; a day without a record stays blank.",
+  laTitre="The laboratory, day by day", laSous="Samples tested each day, positive results in full colour, and the day's positivity on the right axis, {a} to {b}.",
+  laPos="Positive results", laNeg="Negative samples", laTaux="Positivity",
+  laPhrase="On {d}: {n} samples tested, {p} positive, or {t}.",
+  laNote="{lus} days recorded out of {tot}. Hatching ({k} days): one province does not report its samples, only complete provinces are counted.",
+  laNote2="Dotted lines: a guide over days without a record, never a value.",
+  coTitre="Contact follow-up, day by day", coSous="Share of contacts seen in the previous 24 hours and, as light bars on the right axis, the number of contacts to follow, {a} to {b}.",
+  coTaux="Share of contacts seen", coSuivre="Contacts to follow",
+  coPhrase="On {d}: {p} of the {n} contacts to follow were seen.",
+  coNote="The INSP has used an 85% threshold since August; WHO set a 95% target. Dotted lines: a guide over days without a record.",
+  ctTitre="Patients per 100 treatment-centre beds", ctSous="Hospitalised patients, confirmed and suspected, relative to the beds the bulletin declares, province by province, {a} to {b}.",
+  ctNormees="North Kivu, patients in treatment-centre beds",
+  ctPhrase="On {d}: {l}.", ctItem="{p} {v}",
+  ctNote="Above 100, there are more patients than beds. Provinces with fewer than 20 beds are left out. Hollow dot: beds taken from a neighbouring bulletin.",
+  ctNote2="Pale line and shaded area: in North Kivu, patients in treatment-centre beds only; the gap, those cared for elsewhere.",
+  vaTitre="{n} people vaccinated", vaSous="Cumulative number of people vaccinated with ERVEBO, province by province, since the campaign began on {a}.",
+  vaPhrase="As of {d}: {l}.", vaItem="{p} {v}",
+  vaNote="The last known total is carried forward until the bulletin publishes a new one. From 28 August to 2 September no figure was published: the step on the 3rd is a catch-up.",
+  vaRevision="On {d}, the bulletin gave {a} in {p}, later corrected to {b}: the line carries the corrected value.",
+  lire=dict(alertes="The volume of reports and what surveillance keeps from them: the day-to-day jolts that the weekly view smooths out.",
+            labo="How uneven testing is from one day to the next, and the share of positives: a positive is not always one more patient.",
+            contacts="How many exposed people are seen each day: when the share drops, chains of transmission escape follow-up.",
+            cte="The pressure on treatment centres: above 100, more patients than beds.",
+            vaccin="The vaccination campaign, province by province: how many, and when."),
+ ),
+ "sw": dict(
+  eyebrow="Mapambano", titre="Mapambano, siku kwa siku", sous="Michoro mitano ya kila siku ya ukurasa wa Mapambano, kufikia SitRep Na. {n}.",
+  rythme="husasishwa kwa kila ripoti mpya",
+  alTitre="Tahadhari, siku kwa siku", alSous="Tahadhari zilizopokelewa kila siku na timu za ufuatiliaji, na zile zilizothibitishwa kama visa vinavyoshukiwa, {a} hadi {b}.",
+  alVal="Zimethibitishwa kama visa vinavyoshukiwa", alAut="Tahadhari nyingine zilizopokelewa",
+  alPhrase="Tarehe {d}: tahadhari {n} zilizopokelewa, {v} kati yake zimethibitishwa kama visa vinavyoshukiwa.",
+  alNote="Mhimili unafuata kalenda: siku {lus} zimerekodiwa kati ya {tot}; siku bila rekodi inabaki tupu.",
+  laTitre="Maabara, siku kwa siku", laSous="Sampuli zilizopimwa kila siku, matokeo chanya kwa rangi kamili, na kiwango cha chanya cha siku kwenye mhimili wa kulia, {a} hadi {b}.",
+  laPos="Matokeo chanya", laNeg="Sampuli hasi", laTaux="Kiwango cha chanya",
+  laPhrase="Tarehe {d}: sampuli {n} zilizopimwa, {p} chanya, yaani {t}.",
+  laNote="Siku {lus} zimerekodiwa kati ya {tot}. Mistari ya mlalo (siku {k}): jimbo moja halitoi sampuli zake, majimbo kamili pekee yanahesabiwa.",
+  laNote2="Vitone: kielelezo juu ya siku bila rekodi, kamwe si thamani.",
+  coTitre="Ufuatiliaji wa walioguswa, siku kwa siku", coSous="Sehemu ya walioguswa walioonwa katika saa 24 zilizopita na, kama pau nyepesi kwenye mhimili wa kulia, idadi ya walioguswa wa kufuatiliwa, {a} hadi {b}.",
+  coTaux="Sehemu ya walioguswa walioonwa", coSuivre="Walioguswa wa kufuatiliwa",
+  coPhrase="Tarehe {d}: {p} ya walioguswa {n} wa kufuatiliwa walionwa.",
+  coNote="INSP inatumia kiwango cha 85% tangu Agosti; WHO iliweka lengo la 95%. Vitone: kielelezo juu ya siku bila rekodi.",
+  ctTitre="Wagonjwa kwa kila vitanda 100 vya vituo vya matibabu", ctSous="Wagonjwa waliolazwa, waliothibitishwa na wanaoshukiwa, ikilinganishwa na vitanda vinavyotangazwa na ripoti, jimbo kwa jimbo, {a} hadi {b}.",
+  ctNormees="Kivu Kaskazini, wagonjwa katika vitanda vya vituo vya matibabu",
+  ctPhrase="Tarehe {d}: {l}.", ctItem="{p} {v}",
+  ctNote="Zaidi ya 100, kuna wagonjwa wengi kuliko vitanda. Majimbo yenye vitanda chini ya 20 yameachwa. Nukta tupu: vitanda vimechukuliwa kutoka ripoti jirani.",
+  ctNote2="Mstari hafifu na eneo lenye rangi: Kivu Kaskazini, wagonjwa wa vitanda vya vituo pekee; tofauti, wale wanaotibiwa mahali pengine.",
+  vaTitre="Watu {n} waliochanjwa", vaSous="Jumla ya watu waliochanjwa kwa ERVEBO, jimbo kwa jimbo, tangu kampeni ilipoanza tarehe {a}.",
+  vaPhrase="Kufikia {d}: {l}.", vaItem="{p} {v}",
+  vaNote="Jumla ya mwisho inayojulikana hubaki hadi ripoti itoe mpya. Kati ya 28 Agosti na 2 Septemba hakuna takwimu iliyochapishwa: hatua ya tarehe 3 ni kuchelewa kuchapisha.",
+  vaRevision="Tarehe {d}, ripoti ilitoa {a} {p}, baadaye ikasahihishwa kuwa {b}: mstari unabeba thamani iliyosahihishwa.",
+  lire=dict(alertes="Wingi wa taarifa na kile ufuatiliaji unachohifadhi: mabadiliko ya kila siku ambayo mwonekano wa wiki unalainisha.",
+            labo="Jinsi vipimo vinavyobadilika siku hadi siku, na sehemu ya chanya: chanya si mara zote mgonjwa mwingine.",
+            contacts="Watu wangapi walioathirika wanaonwa kila siku: sehemu inaposhuka, minyororo ya maambukizi inakwepa ufuatiliaji.",
+            cte="Shinikizo kwa vituo vya matibabu: zaidi ya 100, wagonjwa wengi kuliko vitanda.",
+            vaccin="Kampeni ya chanjo, jimbo kwa jimbo: wangapi, na lini."),
+ ),
+}
+
+# Noms des provinces dans la langue de la page (memes que le site).
+PROV_NOM = {"en": {"Nord-Kivu": "North Kivu", "Sud-Kivu": "South Kivu", "Haut-Uélé": "Haut-Uélé", "Bas-Uélé": "Bas-Uélé"},
+            "sw": {"Nord-Kivu": "Kivu Kaskazini", "Sud-Kivu": "Kivu Kusini"}}
+
+
+def _prov_canon(nom):
+    plat = lambda s: re.sub(r"[^a-z]", "", unicodedata.normalize("NFD", s or "").encode("ascii", "ignore").decode().lower())
+    for officiel in PROV:
+        if plat(officiel) == plat(nom):
+            return officiel
+    return nom
+
+
+def _calendrier(a, b):
+    a, b = D(a) if isinstance(a, str) else a, D(b) if isinstance(b, str) else b
+    return [a + dt.timedelta(i) for i in range((b - a).days + 1)]
+
+
+def _graine(i):
+    x = math.sin(i * 12.9898) * 43758.5453
+    return x - math.floor(x)
+
+
+def _pont(vals, max_trou=None, plafond=100):
+    """Le pont de app.js (pontPointilles) : une droite entre les deux bords
+    d'un trou, legerement tremblee pour ne pas se lire comme une mesure."""
+    out = [None] * len(vals); i = 0
+    while i < len(vals):
+        if vals[i] is None:
+            a, b = i - 1, i
+            while b < len(vals) and vals[b] is None: b += 1
+            if a >= 0 and b < len(vals) and (not max_trou or b - a - 1 <= max_trou):
+                for j in range(a, b + 1):
+                    droit = vals[a] + (vals[b] - vals[a]) * (j - a) / (b - a)
+                    tremble = droit + (_graine(j) - 0.5) * 5
+                    out[j] = droit if j in (a, b) else max(0, tremble if plafond is None else min(plafond, tremble))
+            i = b
+        else:
+            i += 1
+    return out
+
+
+def _pas(mx, cible=5):
+    brut = mx / cible; e = 10 ** math.floor(math.log10(brut or 1))
+    for k in (1, 2, 2.5, 5, 10):
+        if brut <= k * e: return k * e
+    return 10 * e
+
+
+class Repere:
+    """Un cadre de graphique calendaire : x par jour, y gauche (et droite)."""
+    X0, X1, Y0, Y1 = 110, 1110, 300, 830
+
+    def __init__(self, c, jours, ymax, ydroite=None):
+        self.c, self.jours = c, jours; self.n = len(jours); self.ymax = ymax or 1; self.yd = ydroite
+        self.bw = (self.X1 - self.X0) / self.n
+
+    def x(self, i): return self.X0 + (i + 0.5) * self.bw
+    def y(self, v, droite=False):
+        m = self.yd if droite else self.ymax
+        return self.Y1 - (self.Y1 - self.Y0) * v / m
+
+    def grille(self, fmt, droite_fmt=None, pas=None, pas_d=None, sans_trait=False):
+        c = self.c; out = []; pas = pas or _pas(self.ymax); v = 0
+        while v <= self.ymax + 1e-9:
+            y = self.y(v)
+            out.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="%s"/>' % (self.X0, self.X1, y, y, LINE_SOFT) + c.T(self.X0 - 12, y + 5, fmt(v), 13, INK_FAINT, "end"))
+            v += pas
+        if self.yd and droite_fmt:
+            pas_d = pas_d or _pas(self.yd); v = 0
+            while v <= self.yd + 1e-9:
+                out.append(c.T(self.X1 + 12, self.y(v, True) + 5, droite_fmt(v), 13, INK_FAINT)); v += pas_d
+        # dates : le 1er et le 15 de chaque mois
+        for i, d in enumerate(self.jours):
+            if d.day in (1, 15):
+                x = self.x(i)
+                out.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%d" stroke="%s"/>' % (x, x, self.Y1, self.Y1 + 6, INK_FAINT))
+                out.append(c.T(x, self.Y1 + 26, c.dc(d), 13, INK_DIM if d.day == 1 else INK_FAINT, "middle", 600 if d.day == 1 else 400))
+        out.append('<line x1="%d" x2="%d" y1="%d" y2="%d" stroke="%s" stroke-width="1.5"/>' % (self.X0, self.X1, self.Y1, self.Y1, LINE))
+        return "".join(out)
+
+    def barres(self, piles, droite=False):
+        """piles : [(valeurs, couleur), ...] empilees du bas vers le haut ;
+        une journee relevee a zero garde un trait (minBarLength de app.js)."""
+        out = []; w = max(self.bw * 0.86, 0.8)
+        for i in range(self.n):
+            base = 0
+            for vals, col in piles:
+                v = vals[i]
+                if v is None: continue
+                y0, y1 = self.y(base, droite), self.y(base + v, droite)
+                h = max(y0 - y1, 1.5)
+                fill = col[i] if isinstance(col, list) else col
+                out.append('<rect x="%.2f" y="%.2f" width="%.2f" height="%.2f" fill="%s"/>' % (self.x(i) - w / 2, y0 - h, w, h, fill))
+                base += v
+        return "".join(out)
+
+    def courbe(self, vals, col, larg=2.4, droite=False, pointille=False, points=None):
+        segs, cur = [], []
+        for i, v in enumerate(vals):
+            if v is None:
+                if cur: segs.append(cur); cur = []
+            else:
+                cur.append("%.1f,%.1f" % (self.x(i), self.y(v, droite)))
+        if cur: segs.append(cur)
+        dash = ' stroke-dasharray="5 5"' if pointille else ""
+        out = "".join('<polyline points="%s" fill="none" stroke="%s" stroke-width="%s" stroke-linejoin="round"%s/>' % (" ".join(s), col, larg, dash)
+                      for s in segs if len(s) > 1)
+        # un point isole (sans voisin) reste visible
+        for i, v in enumerate(vals):
+            if v is None: continue
+            seul = (i == 0 or vals[i - 1] is None) and (i == len(vals) - 1 or vals[i + 1] is None)
+            creux = points and points[i]
+            if creux:
+                out += '<circle cx="%.1f" cy="%.1f" r="4.2" fill="%s" stroke="%s" stroke-width="2"/>' % (self.x(i), self.y(v, droite), BG, col)
+            elif seul and not pointille:
+                out += '<circle cx="%.1f" cy="%.1f" r="2.8" fill="%s"/>' % (self.x(i), self.y(v, droite), col)
+        return out
+
+
+def _tint(col, t):
+    return hexmix(col, "#FFFFFF", 1 - t)
+
+
+def _phrase(c, txt, y=965):
+    return c.T(60, y, txt, 24, INK, fam=SERIF)
+
+
+def _notes(c, notes, y=1002):
+    import textwrap
+    lignes = [l for n in notes for l in textwrap.wrap(n, 140)]
+    return "".join(c.T(60, y + i * 22, l, 15, INK_DIM) for i, l in enumerate(lignes[:4]))
+
+
+def _jour(c, d):
+    return c.dc(d)
+
+
+def r_alertes(c):
+    r = c.r; pts = _j("data/alertes.json")["parDate"]
+    pts = [p for p in pts]
+    jours = _calendrier(pts[0]["date"], pts[-1]["date"]); par = {D(p["date"]): (p.get("total") or {}) for p in pts}
+    rec = [par.get(d, {}).get("recues") for d in jours]; val = [par.get(d, {}).get("validees") for d in jours]
+    aut = [None if a is None or b is None else a - b for a, b in zip(rec, val)]
+    val = [None if a is None else b for a, b in zip(aut, val)]
+    lus = sum(1 for v in aut if v is not None)
+    mx = max(a + b for a, b in zip(aut, val) if a is not None)
+    R = Repere(c, jours, mx * 1.06)
+    out = [c.legende(R.X0, 262, [(r["alVal"], BLUE), (r["alAut"], _tint(BLUE, .3))]), R.grille(c.nb),
+           R.barres([(val, BLUE), (aut, _tint(BLUE, .3))])]
+    k = max(i for i, v in enumerate(aut) if v is not None)
+    out.append(_phrase(c, r["alPhrase"].format(d=_jour(c, jours[k]), n=c.nb(rec[k]), v=c.nb(val[k]))))
+    out.append(_notes(c, [r["alNote"].format(lus=lus, tot=len(jours))]))
+    return c.carte(r["alTitre"], r["alSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
+
+
+def r_labo(c):
+    r = c.r; pts = []
+    for p in _j("data/laboratoire.json")["parDate"]:
+        n, t = p.get("national") or {}, p.get("total") or {}
+        src = n if (n.get("echantillons") and n.get("positifs") is not None) else t
+        separe = src.get("nouveauxCas") is not None
+        pos = src["nouveauxCas"] if separe else src.get("positifs")
+        if src.get("echantillons") is None or pos is None:
+            provs = p.get("provinces") or {}
+            pleines = [x for x in provs if provs[x].get("echantillons") is not None and provs[x].get("positifs") is not None]
+            manq = [x for x in provs if x not in pleines]
+            if pleines and manq:
+                pts.append(dict(date=p["date"], ech=sum(provs[x]["echantillons"] for x in pleines),
+                                pos=sum(provs[x]["nouveauxCas"] if provs[x].get("nouveauxCas") is not None else provs[x]["positifs"] for x in pleines),
+                                partiel=manq)); continue
+        pts.append(dict(date=p["date"], ech=src.get("echantillons"), pos=pos, partiel=None))
+    lis = [p for p in pts if p["date"] >= "2026-06-02" and p["ech"] is not None and p["pos"] is not None]
+    jours = _calendrier(lis[0]["date"], lis[-1]["date"]); par = {D(p["date"]): p for p in lis}
+    pos = [par[d]["pos"] if d in par else None for d in jours]
+    neg = [par[d]["ech"] - par[d]["pos"] if d in par else None for d in jours]
+    taux = [round(par[d]["pos"] / par[d]["ech"] * 1000) / 10 if d in par and par[d]["ech"] else None for d in jours]
+    partiel = [bool(d in par and par[d]["partiel"]) for d in jours]
+    mx = max(a + b for a, b in zip(pos, neg) if a is not None)
+    R = Repere(c, jours, mx * 1.06, 100)
+    defs = ('<defs><pattern id="vx-hp" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="%s"/><line x1="0" y1="0" x2="0" y2="6" stroke="%s" stroke-width="1.4"/></pattern>'
+            '<pattern id="vx-hn" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="%s"/><line x1="0" y1="0" x2="0" y2="6" stroke="%s" stroke-width="1.4"/></pattern></defs>'
+            % (_tint(BLUE, .62), BLUE, _tint(_tint(BLUE, .3), .62), _tint(BLUE, .3)))
+    cpos = ["url(#vx-hp)" if p else BLUE for p in partiel]; cneg = ["url(#vx-hn)" if p else _tint(BLUE, .3) for p in partiel]
+    out = [defs, c.legende(R.X0, 262, [(r["laPos"], BLUE), (r["laNeg"], _tint(BLUE, .3)), (r["laTaux"], RED)]),
+           R.grille(c.nb, lambda v: c.pc(v), pas_d=20), R.barres([(pos, cpos), (neg, cneg)]),
+           R.courbe(_pont(taux), _tint(RED, .45), 1.6, True, True), R.courbe(taux, RED, 2.4, True, points=partiel)]
+    # la phrase porte le dernier jour COMPLET : une journee hachuree ne compte
+    # que les provinces completes, pas le pays
+    k = max(i for i in range(len(jours)) if pos[i] is not None and not partiel[i])
+    out.append(_phrase(c, r["laPhrase"].format(d=_jour(c, jours[k]), n=c.nb(pos[k] + neg[k]), p=c.nb(pos[k]), t=c.pc(taux[k], 1))))
+    out.append(_notes(c, [r["laNote"].format(lus=len(par), tot=len(jours), k=sum(partiel)), r["laNote2"]]))
+    return c.carte(r["laTitre"], r["laSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
+
+
+def r_contacts(c):
+    r = c.r; cf = sorted(_j("data/contacts-followup.json"), key=lambda x: x["date"])
+    jours = _calendrier(cf[0]["date"], cf[-1]["date"]); par = {D(x["date"]): x for x in cf}
+    taux = [par[d].get("contactsFollowUpRate") if d in par else None for d in jours]
+    suiv = [((par[d].get("contacts") or {}).get("aSuivre")) if d in par else None for d in jours]
+    mxd = max(v for v in suiv if v is not None) * 1.06
+    R = Repere(c, jours, 100, mxd)
+    out = [c.legende(R.X0, 262, [(r["coTaux"], AMBER), (r["coSuivre"], _tint(AMBER, .22))]),
+           R.grille(lambda v: c.pc(v), c.nb, pas=20), R.barres([(suiv, _tint(AMBER, .22))], droite=True),
+           R.courbe(_pont(taux), _tint(AMBER, .45), 1.6, pointille=True), R.courbe(taux, AMBER, 2.4)]
+    k = max(i for i in range(len(jours)) if taux[i] is not None and suiv[i] is not None)
+    out.append(_phrase(c, r["coPhrase"].format(d=_jour(c, jours[k]), p=c.pc(taux[k]), n=c.nb(suiv[k]))))
+    out.append(_notes(c, [r["coNote"]]))
+    return c.carte(r["coTitre"], r["coSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
+
+
+def r_cte(c):
+    r = c.r; pts = [p for p in _j("data/cte.json")["parDate"] if "occupation" in (p.get("total") or {})]
+    jours = _calendrier(pts[0]["date"], pts[-1]["date"])
+    par = {D(p["date"]): {_prov_canon(k): v for k, v in (p.get("provinces") or {}).items()} for p in pts}
+    lisible = lambda v: bool(v) and v.get("occupation") is not None and (v.get("lits") or v.get("hospitalises") or 0) >= 20
+    emprunte = lambda v: bool(v and (v.get("litsReportes") or v.get("litsEncadres")))
+    noms = [n for n in PROV if any(lisible(par[d].get(n)) for d in par)]
+    series = {n: [par[d][n]["occupation"] if d in par and lisible(par[d].get(n)) else None for d in jours] for n in noms}
+    creux = {n: [emprunte(par.get(d, {}).get(n)) and series[n][i] is not None for i, d in enumerate(jours)] for n in noms}
+    NK = "Nord-Kivu"; normees = None
+    if NK in noms:
+        def vn(d):
+            v = par.get(d, {}).get(NK)
+            return v["hospitalisesNormes"] / v["lits"] * 100 if v and lisible(v) and v.get("hospitalisesNormes") is not None and v.get("lits") else None
+        normees = [vn(d) for d in jours]
+        if all(v is None for v in normees): normees = None
+    mx = max(v for s in series.values() for v in s if v is not None)
+    R = Repere(c, jours, math.ceil(max(100, mx) / 20) * 20)
+    nom = lambda n: PROV_NOM.get(c.lang, {}).get(n, n)
+    leg = [(nom(n), PROV[n]) for n in noms] + ([(r["ctNormees"], _tint(PROV[NK], .5))] if normees else [])
+    out = [c.legende(R.X0, 262, leg, 18), R.grille(lambda v: c.nb(v), pas=20)]
+    if normees:
+        base = series[NK]; poly = []
+        seg = []
+        for i in range(len(jours)):
+            if normees[i] is not None and base[i] is not None: seg.append(i)
+            elif seg: poly.append(seg); seg = []
+        if seg: poly.append(seg)
+        for s in poly:
+            haut = " ".join("%.1f,%.1f" % (R.x(i), R.y(base[i])) for i in s)
+            bas = " ".join("%.1f,%.1f" % (R.x(i), R.y(normees[i])) for i in reversed(s))
+            out.append('<polygon points="%s %s" fill="%s" opacity=".16"/>' % (haut, bas, PROV[NK]))
+        out.append(R.courbe(normees, _tint(PROV[NK], .5), 1.8))
+    for n in noms:
+        out.append(R.courbe(_pont(series[n], 5, None), _tint(PROV[n], .45), 1.4, pointille=True))
+        out.append(R.courbe(series[n], PROV[n], 2.2, points=creux[n]))
+    der = jours[-1]
+    items = [r["ctItem"].format(p=nom(n), v=c.nb(series[n][-1])) for n in noms if series[n][-1] is not None]
+    out.append(_phrase(c, r["ctPhrase"].format(d=_jour(c, der), l=", ".join(items))))
+    out.append(_notes(c, [r["ctNote"]] + ([r["ctNote2"]] if normees else [])))
+    return c.carte(r["ctTitre"], r["ctSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
+
+
+def r_vaccin(c):
+    r = c.r
+    cum = [dict(date=p["date"], prov={_prov_canon(k): v for k, v in ((p.get("vaccination") or {}).get("cumulParProvince") or {}).items()})
+           for p in _j("data/piliers.json")["parDate"]]
+    cum = [x for x in cum if x["prov"]]
+    # un cumul ne recule pas : le point revise porte la valeur corrigee
+    revisions, retenu = [], {}
+    for x in reversed(cum):
+        for n, v in list(x["prov"].items()):
+            if n in retenu and v > retenu[n]:
+                revisions.append((x["date"], n, v, retenu[n])); x["prov"][n] = retenu[n]
+            else:
+                retenu[n] = v
+    jours = _calendrier(cum[0]["date"], cum[-1]["date"]); par = {D(x["date"]): x["prov"] for x in cum}
+    noms = [n for n in PROV if any(n in x["prov"] for x in cum)]
+    report, series = {}, {n: [] for n in noms}
+    for d in jours:
+        report.update(par.get(d, {}))
+        for n in noms: series[n].append(report.get(n))
+    mx = max(v for s in series.values() for v in s if v is not None)
+    R = Repere(c, jours, mx * 1.08)
+    nom = lambda n: PROV_NOM.get(c.lang, {}).get(n, n)
+    out = [c.legende(R.X0, 262, [(nom(n), PROV[n]) for n in noms]), R.grille(c.nb)]
+    for n in noms:
+        out.append(R.courbe(series[n], PROV[n], 2.8))
+        v = series[n][-1]
+        if v is not None:
+            out.append('<circle cx="%.1f" cy="%.1f" r="4" fill="%s"/>' % (R.x(len(jours) - 1), R.y(v), PROV[n]))
+    tot = sum(series[n][-1] or 0 for n in noms)
+    items = [r["vaItem"].format(v=c.nb(series[n][-1]), p=nom(n)) for n in sorted(noms, key=lambda n: -(series[n][-1] or 0)) if series[n][-1]]
+    out.append(_phrase(c, r["vaPhrase"].format(d=_jour(c, jours[-1]), l=", ".join(items))))
+    notes = [r["vaNote"]]
+    if revisions:
+        d, n, a, b = revisions[0]
+        notes.append(r["vaRevision"].format(d=c.dc(D(d)), a=c.nb(a), p=nom(n), b=c.nb(b)))
+    out.append(_notes(c, notes))
+    return c.carte(r["vaTitre"].format(n=c.nb(tot)), r["vaSous"].format(a=c.dl_(jours[0])), "".join(out), h=1160)
+
+
 # ================================================================ la page
 LISTE = [
     ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"), ("provinces", None, carte_provinces, "provinces")]),
+    ("r", [("alertes-jour", None, r_alertes, "alertes"), ("laboratoire-jour", None, r_labo, "labo"), ("contacts-jour", None, r_contacts, "contacts"),
+           ("cte-jour", None, r_cte, "cte"), ("vaccination-jour", None, r_vaccin, "vaccin")]),
     ("s", [("part-provinces", "partTitre", h_part, "part"), ("cas-semaine", "casTitre", h_cas, "cas"), ("lieu-deces", "lieuTitre", h_lieu, "lieu"),
            ("zones-actives", "zonTitre", h_zones, "zones"), ("zone-apres-zone", "tapTitre", h_tapis, "tapis")]),
     ("m", [("zones-par-mois", None, m_zones, "mzones"), ("cas-par-mois", None, m_cas, "mcas"), ("deces-par-mois", None, m_deces, "mdeces"), ("part-par-mois", None, m_part, "mpart")]),
@@ -797,6 +1195,7 @@ def page_html(lang, mois_courts):
     a, b = c.semaines[-1]; ym = c.mois[-1][0]
     tetes = {
         "b": (p["b_eyebrow"], p["b_titre"], p["b_sous"].format(n=c.SITREP, d=c.dl_(c.FIN)), p["b_rythme"]),
+        "r": (c.r["eyebrow"], c.r["titre"], c.r["sous"].format(n=c.SITREP), c.r["rythme"]),
         "s": (p["s_eyebrow"], p["s_titre"].format(a=c.dc(a), b=c.dl_(b)), p["s_sous"], p["s_rythme"]),
         "m": (p["m_eyebrow"], p["m_titre"].format(M="%s %d" % (c.M(ym), ym[0])), p["m_sous"], p["m_rythme"]),
     }
@@ -810,7 +1209,7 @@ def page_html(lang, mois_courts):
             titre = html.unescape(" ".join(m)) if m else ident
             figs.append('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
                         '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
-                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"][lire]), esc(p["png"])))
+                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"][lire]), esc(p["png"])))
         out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
                    '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
     out.append('<div class="vx-lb" id="vxLb" hidden><button type="button" class="vx-fermer" aria-label="%s">×</button><div class="vx-lb-in"></div></div>' % esc(p["fermer"]))
