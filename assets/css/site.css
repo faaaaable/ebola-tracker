@@ -558,10 +558,10 @@ ul,ol{margin:0;padding:0;}
 .zonemap path{vector-effect:non-scaling-stroke;}
 
 /* Le maillage : les zones sans cas rapporte a la date affichee. */
-.zm-quiet path{fill:#EFECE8;stroke:#E4E0DB;stroke-width:0.5;}
+.zm-quiet path{fill:#EFECE8;stroke:#DDD8D2;stroke-width:0.6;}
 
-.zm-zone path{stroke:var(--bg);stroke-width:0.6;stroke-linejoin:round;transition:fill .35s ease;}
-.zm-zone.is-0 path{fill:#EFECE8;stroke:#E4E0DB;stroke-width:0.5;}
+.zm-zone path{stroke:var(--bg);stroke-width:0.75;stroke-linejoin:round;transition:fill .35s ease;}
+.zm-zone.is-0 path{fill:#EFECE8;stroke:#DDD8D2;stroke-width:0.6;}
 .zm-zone.is-1 path{fill:var(--map-1);}
 .zm-zone.is-2 path{fill:var(--map-2);}
 .zm-zone.is-3 path{fill:var(--map-3);}
@@ -590,8 +590,8 @@ ul,ol{margin:0;padding:0;}
    sont la que pour situer la province dans son voisinage — elles s'effacent
    d'un cran derriere les zones de la province qui n'ont pas de cas, sans quoi
    on ne verrait plus ou s'arrete le territoire dont parle la page. */
-.zonemap[data-scope="province"] .zm-quiet path{fill:#F5F3F0;stroke:#EBE7E2;}
-.zonemap[data-scope="province"] .zm-zone.is-0 path{fill:#E3DED7;stroke:#D5CFC7;}
+.zonemap[data-scope="province"] .zm-quiet path{fill:#F5F3F0;stroke:#E5E0DA;}
+.zonemap[data-scope="province"] .zm-zone.is-0 path{fill:#E3DED7;stroke:#CDC6BD;}
 
 /* Reperes geographiques. */
 .zm-mark circle{fill:var(--ink);stroke:var(--bg);stroke-width:1.4;}
