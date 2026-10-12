@@ -2168,10 +2168,20 @@ function renderOneChartBrut(canvas, chartMode){
       const MAX_TROU_CTE = 5;
       const datasets = [];
       const indexPrincipal = {};
+      /* LITS EMPRUNTES (12 octobre 2026). Quand le bulletin ne donne pas sa
+         capacite, la courbe prend celle d'un bulletin voisin (litsReportes,
+         litsEncadres) : le point est alors dessine CREUX, et l'infobulle le
+         dit. Le lecteur sait que ce point-la depend d'un nombre de lits que
+         le bulletin du jour n'a pas imprime. */
+      const emprunte = v => !!(v && (v.litsReportes || v.litsEncadres));
       noms.forEach(nom => {
         const vals = serieProv(nom), couleur = PROVINCE_COLORS[nom] || PALETTE.inkDim;
+        const creux = jours.map(d => emprunte(parDate[d] && parDate[d].provinces[nom]));
         indexPrincipal[nom] = datasets.length;
-        datasets.push({ label:nom, data:vals, borderColor:couleur, borderWidth:1.6, pointRadius:1.6, pointBackgroundColor:couleur, tension:.15, spanGaps:false, order:1 });
+        datasets.push({ label:nom, data:vals, borderColor:couleur, borderWidth:1.6,
+          pointRadius:creux.map(c => c ? 3 : 1.6), pointBorderWidth:creux.map(c => c ? 1.4 : 1),
+          pointBackgroundColor:creux.map(c => c ? PALETTE.bg : couleur), pointBorderColor:couleur,
+          tension:.15, spanGaps:false, order:1 });
         datasets.push(jeuPont(vals, couleur, nom, MAX_TROU_CTE, null));
       });
       /* LES DEUX DEFINITIONS DANS LE MEME GRAPHIQUE (3 octobre 2026). Depuis le
@@ -2223,16 +2233,20 @@ function renderOneChartBrut(canvas, chartMode){
           const p = parDate[jours[c.dataIndex]];
           if(c.dataset.normees){
             const nk = p.provinces[NORMEES];
-            return c.dataset.label + ' : ' + fmtCfr(c.parsed.y) + (nk ? ' (' + fmt(nk.hospitalisesNormes) + ' / ' + fmt(nk.lits) + ') · '
+            return c.dataset.label + ' : ' + tr('ctePour100')(fmt(Math.round(c.parsed.y))) + (nk ? ' (' + fmt(nk.hospitalisesNormes) + ' / ' + fmt(nk.lits) + ') · '
               + fmt(nk.hospitalises - nk.hospitalisesNormes) + ' ' + tr('cteHorsNormees') : '');
           }
           const src = p.provinces[c.dataset.label];
           /* Tous les hospitalises sur les lits declares — la definition que
              la courbe tient d'un bout a l'autre, y compris la ou le bulletin
              ne compte plus que ses structures normees. */
-          return c.dataset.label + ' : ' + fmtCfr(c.parsed.y) + (src && src.lits ? ' (' + fmt(src.hospitalises) + ' / ' + fmt(src.lits) + ')' : '');
+          return c.dataset.label + ' : ' + tr('ctePour100')(fmt(Math.round(c.parsed.y))) + (src && src.lits ? ' (' + fmt(src.hospitalises) + ' / ' + fmt(src.lits) + ')' : '')
+            + (emprunte(src) ? ' · ' + tr('cteLitsEmpruntes') : '');
         } } }) },
-        scales:{ x:axeX(true), y:axePct(Math.ceil(maxi/20)*20) } };
+        /* Patients pour 100 lits, pas un pourcentage : au-dela de 100 ce ne
+           sont pas des lits occupes, ce sont des malades de plus que de lits
+           (12 octobre 2026). */
+        scales:{ x:axeX(true), y:Object.assign(axePct(Math.ceil(maxi/20)*20), { ticks:Object.assign({}, axeTexte, { callback:v=>v }) }) } };
       dessiner('line', data, opts);
       noterPeriode(slot, jours[0], jours[jours.length-1]);
       /* UNE CAPACITE QUI SAUTE FAIT BAISSER UN TAUX SANS QUE RIEN NE SE
@@ -2284,6 +2298,7 @@ function renderOneChartBrut(canvas, chartMode){
           saut.patientsApres > saut.patientsAvant));
       }
       if(avecNormees) bouts.push(tr('chartNoteCteNormees'));
+      if(noms.some(nom => jours.some(d => emprunte(parDate[d] && parDate[d].provinces[nom])))) bouts.push(tr('chartNoteCteEmpruntes'));
       noter(bouts.join(' '));
       return;
     }

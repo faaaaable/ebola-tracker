@@ -34,7 +34,7 @@ const TXT = {
     carteAria:'Carte des zones de santé', bCas:'cas', bDeces:'décès',
     carteTitre:'Zones de santé touchées', carteProv:p => `Zones de santé — ${p}`,
     thProv:'Province', thCas:'Cas', th24:'24 h', th7:'7 j', thDeces:'Décès', thLet:'Létalité', th30:'30 j', cliquer:'cliquer pour filtrer',
-    thCt:'Contacts vus', thHosp:'En CTE', thOcc:'Occupation', thPos:'Positivité',
+    thCt:'Contacts vus', thHosp:'En CTE', thOcc:'Pour 100 lits', thPos:'Positivité',
     note:'7 j : 7 derniers bulletins · 30 j : nouveaux cas par bulletin · Riposte : provinces de 10 cas et plus · — : non publié',
     depuis:d => `30 j depuis le ${d}`, trenteJ:'30 jours',
     zonesProv:(n, d) => `Zones de santé <small>${n} touchées · par cas cumulés · ${d}</small>`,
@@ -68,7 +68,7 @@ const TXT = {
     carteAria:'Map of health zones', bCas:'cases', bDeces:'deaths',
     carteTitre:'Affected health zones', carteProv:p => `Health zones — ${p}`,
     thProv:'Province', thCas:'Cases', th24:'24 h', th7:'7 d', thDeces:'Deaths', thLet:'Fatality', th30:'30 d', cliquer:'click to filter',
-    thCt:'Contacts seen', thHosp:'In ETC', thOcc:'Occupancy', thPos:'Positivity',
+    thCt:'Contacts seen', thHosp:'In ETC', thOcc:'Per 100 beds', thPos:'Positivity',
     note:'7 d: last 7 bulletins · 30 d: new cases per bulletin · Response: provinces with 10+ cases · —: not published',
     depuis:d => `30 d since ${d}`, trenteJ:'30 days',
     zonesProv:(n, d) => `Health zones <small>${n} affected · by total cases · ${d}</small>`,
@@ -102,7 +102,7 @@ const TXT = {
     carteAria:'Ramani ya maeneo ya afya', bCas:'visa', bDeces:'vifo',
     carteTitre:'Maeneo ya afya yaliyoathirika', carteProv:p => `Maeneo ya afya — ${p}`,
     thProv:'Jimbo', thCas:'Visa', th24:'Saa 24', th7:'Siku 7', thDeces:'Vifo', thLet:'Kiwango', th30:'Siku 30', cliquer:'bofya kuchuja',
-    thCt:'Walioonekana', thHosp:'Katika CTE', thOcc:'Vitanda', thPos:'Chanya',
+    thCt:'Walioonekana', thHosp:'Katika CTE', thOcc:'Kwa vitanda 100', thPos:'Chanya',
     note:'Siku 7: ripoti 7 za mwisho · Siku 30: visa vipya kwa kila ripoti · Mapambano: majimbo yenye visa 10 au zaidi · —: haijachapishwa',
     depuis:d => `siku 30 tangu ${d}`, trenteJ:'siku 30',
     zonesProv:(n, d) => `Maeneo ya afya <small>${n} yaliyoathirika · kwa visa vya jumla · ${d}</small>`,
@@ -476,7 +476,7 @@ function renderTableau(){
   const SER = {
     ct:  [D.contacts, nom => x => nom ? ((x.provinces || {})[nom] || {}).taux : x.contactsFollowUpRate, pct],
     hosp:[D.cte.parDate, nom => x => nom ? ((x.provinces || {})[nom] || {}).hospitalises : (x.total || {}).hospitalises, fmt],
-    occ: [D.cte.parDate, nom => x => nom ? ((x.provinces || {})[nom] || {}).occupation : (x.total || {}).occupation, pct],
+    occ: [D.cte.parDate, nom => x => nom ? ((x.provinces || {})[nom] || {}).occupation : (x.total || {}).occupation, v => v == null ? v : fmt(Math.round(v))],  // patients pour 100 lits (12 oct. 2026)
     pos: [D.labo.parDate, nom => x => { const v = nom ? (x.provinces || {})[nom] : x.total; return v && v.positifs != null && v.echantillons ? Math.round(v.positifs / v.echantillons * 1000) / 10 : null; }, pct],
   };
   const dateSerie = {};

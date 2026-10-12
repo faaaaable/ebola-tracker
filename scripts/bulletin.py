@@ -379,7 +379,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         cases += kpi("contacts", S["lettreKpiContacts"], "—", S["riposteKpiNone"]); non_publie.append(S["lettreKpiContacts"])
     if pk and (pk.get("total") or {}).get("occupation") is not None:
         t = pk["total"]
-        s4 = P("lettreCte", taux=pct(t["occupation"]), hospitalises=fmt(t.get("hospitalisesAvecLits") or t.get("hospitalises"), lang), lits=fmt(t.get("lits"), lang))
+        s4 = P("lettreCte", taux=fmt(round(t["occupation"]), lang), hospitalises=fmt(t.get("hospitalisesAvecLits") or t.get("hospitalises"), lang), lits=fmt(t.get("lits"), lang))
         satures = [(nom, v) for nom, v in (pk.get("provinces") or {}).items() if (v.get("occupation") or 0) > 100]
         if satures:
             # Une province saturee dont le bulletin ne donne pas les lits (le 117
@@ -388,10 +388,10 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             s4 += " " + P("lettreCteSature", liste=_liste([
                 (P("lettreCteItem", the=forms(nom)["the"], hospitalises=fmt(v["hospitalises"], lang), lits=fmt(v["lits"], lang))
                  if v.get("lits") is not None else
-                 P("lettreCteItemTaux", the=forms(nom)["the"], hospitalises=fmt(v["hospitalises"], lang), taux=pct(v["occupation"])))
+                 P("lettreCteItemTaux", the=forms(nom)["the"], hospitalises=fmt(v["hospitalises"], lang), taux=fmt(round(v["occupation"]), lang)))
                 for nom, v in satures], et))
         phrases.append(s4)
-        cases += kpi("cte", S["lettreKpiCte"], pct(t["occupation"]), P("lettreKpiCteSub", hospitalises=fmt(t.get("hospitalisesAvecLits") or t.get("hospitalises"), lang), lits=fmt(t.get("lits"), lang)))
+        cases += kpi("cte", S["lettreKpiCte"], fmt(round(t["occupation"]), lang), P("lettreKpiCteSub", hospitalises=fmt(t.get("hospitalisesAvecLits") or t.get("hospitalises"), lang), lits=fmt(t.get("lits"), lang)))
     else:
         cases += kpi("cte", S["lettreKpiCte"], "—", S["riposteKpiNone"]); non_publie.append(S["lettreKpiCte"])
     # Trois piliers lus depuis le 8 septembre 2026 (data/piliers.json) :

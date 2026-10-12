@@ -3182,7 +3182,11 @@
         },
         "Nord-Kivu": {
           "hospitalises": 345,
-          "occupation": 63.0
+          "occupation": 97.5,
+          "occupationPubliee": 63.0,
+          "lits": 354,
+          "litsReportes": true,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 68,
@@ -3191,7 +3195,10 @@
       },
       "total": {
         "hospitalises": 781,
-        "provinces": 3
+        "provinces": 3,
+        "lits": 354,
+        "hospitalisesAvecLits": 345,
+        "occupation": 97.5
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3304,7 +3311,10 @@
           "hospitalises": 383,
           "hospitalisesNormes": 271,
           "occupationPubliee": 63.0,
-          "occupation": 63.0
+          "occupation": 108.2,
+          "lits": 354,
+          "litsReportes": true,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 74,
@@ -3314,9 +3324,9 @@
       "total": {
         "hospitalises": 851,
         "provinces": 3,
-        "lits": 1015,
-        "hospitalisesAvecLits": 394,
-        "occupation": 38.8
+        "lits": 1369,
+        "hospitalisesAvecLits": 777,
+        "occupation": 56.8
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3337,7 +3347,10 @@
           "hospitalises": 364,
           "hospitalisesNormes": 261,
           "occupationPubliee": 63.0,
-          "occupation": 63.0
+          "occupation": 102.8,
+          "lits": 354,
+          "litsReportes": true,
+          "occupationCalculee": true
         },
         "Tshopo": {
           "hospitalises": 14,
@@ -3351,9 +3364,9 @@
       "total": {
         "hospitalises": 830,
         "provinces": 4,
-        "lits": 1015,
-        "hospitalisesAvecLits": 378,
-        "occupation": 37.2
+        "lits": 1369,
+        "hospitalisesAvecLits": 742,
+        "occupation": 54.2
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3374,7 +3387,10 @@
           "hospitalises": 382,
           "hospitalisesNormes": 263,
           "occupationPubliee": 63.0,
-          "occupation": 63.0
+          "occupation": 107.9,
+          "lits": 354,
+          "litsReportes": true,
+          "occupationCalculee": true
         },
         "Tshopo": {
           "hospitalises": 20,
@@ -3388,9 +3404,9 @@
       "total": {
         "hospitalises": 844,
         "provinces": 4,
-        "lits": 1015,
-        "hospitalisesAvecLits": 372,
-        "occupation": 36.7
+        "lits": 1369,
+        "hospitalisesAvecLits": 754,
+        "occupation": 55.1
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3451,7 +3467,10 @@
         "Nord-Kivu": {
           "hospitalises": 519,
           "lits": 374,
-          "occupation": 84.2
+          "hospitalisesNormes": 315,
+          "occupationPubliee": 84.2,
+          "occupation": 138.8,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 76,
@@ -3461,7 +3480,10 @@
         "Tshopo": {
           "hospitalises": 15,
           "lits": 36,
-          "occupation": 27.8
+          "hospitalisesNormes": 10,
+          "occupationPubliee": 27.8,
+          "occupation": 41.7,
+          "occupationCalculee": true
         }
       },
       "total": {
@@ -3488,7 +3510,11 @@
         },
         "Nord-Kivu": {
           "hospitalises": 523,
-          "occupation": 91.8
+          "hospitalisesNormes": 325,
+          "lits": 354,
+          "occupationPubliee": 91.8,
+          "occupation": 147.7,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 71,
@@ -3507,9 +3533,9 @@
       "total": {
         "hospitalises": 926,
         "provinces": 5,
-        "lits": 1184,
-        "hospitalisesAvecLits": 401,
-        "occupation": 33.9
+        "lits": 1538,
+        "hospitalisesAvecLits": 924,
+        "occupation": 60.1
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3528,7 +3554,11 @@
         },
         "Nord-Kivu": {
           "hospitalises": 523,
-          "occupation": 87.2
+          "hospitalisesNormes": 326,
+          "lits": 374,
+          "occupationPubliee": 87.2,
+          "occupation": 139.8,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 71,
@@ -3543,9 +3573,9 @@
       "total": {
         "hospitalises": 925,
         "provinces": 4,
-        "lits": 1051,
-        "hospitalisesAvecLits": 331,
-        "occupation": 31.5
+        "lits": 1425,
+        "hospitalisesAvecLits": 854,
+        "occupation": 59.9
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3570,7 +3600,10 @@
         "Tshopo": {
           "hospitalises": 14,
           "lits": 36,
-          "occupation": 30.6
+          "hospitalisesNormes": 11,
+          "occupationPubliee": 30.6,
+          "occupation": 38.9,
+          "occupationCalculee": true
         },
         "Bas-Uélé": {
           "hospitalises": 26

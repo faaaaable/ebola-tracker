@@ -155,6 +155,21 @@ LITS_CAPACITE_RE = re.compile(
 HOSPITALISES_NORMES_RE = re.compile(
     r"dont\s+(\d[\d ]{0,4}\d|\d)\s+dans\s+(?:les\s+structures\s+(?:de\s+prise\s+en\s+charge\s+)?"
     r"(?:norm[ée]es|d[ée]di[ée]es)|les\s+CTE\b)", re.I)
+# SitReps 146 a 148 (7 au 9 octobre 2026, Nord-Kivu) : « 519 patients
+# demeuraient en isolement …, soit un taux d'occupation global des lits de
+# 84,2 % (315/374) », « … de 91,8 % (325 patients aux lits des CTE/CT sur 354
+# lits) », « … de 87,2 % : (326/374) ». La fraction qui suit le taux ne porte
+# que sur les patients couches dans les lits des CTE/CT — les autres (156,
+# 149, 148) sont soignes dans des ESS qui ne sont pas des CTE : c'est le
+# « dont N dans les structures normees » des bulletins precedents, ecrit
+# autrement. Groupes : patients aux lits, lits. Retenu comme
+# hospitalisesNormes seulement s'il est inferieur au total hospitalise ET
+# si la fraction retombe sur le taux publie a 1,5 point pres : le motif est
+# ancre sur « occupation » (le 121 ecrit « complétude … de 38 % (5/13) » au
+# Bas-Uele), et le Haut-Uele du 146 imprime « 49,7 % (54/153) » quand 54/153
+# fait 35,3 % — fraction fausse, ignoree.
+HOSPITALISES_AUX_LITS_RE = re.compile(
+    r"occupation[^%;]{0,60}?(\d+(?:[,.]\d+)?)\s*%\s*:?\s*\(\s*(\d[\d ]{0,4}\d|\d)\s*(?:/|patients\s+aux\s+lits[^)]{0,40}?sur)\s*(\d[\d ]{0,4}\d|\d)\s*(?:lits)?\s*\)", re.I)
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
@@ -213,6 +228,14 @@ def lire_prose(morceau):
         normes = entier(mn.group(1))
         if normes is not None and normes <= hosp:
             ligne["hospitalisesNormes"] = normes
+    ma = HOSPITALISES_AUX_LITS_RE.search(morceau)
+    if ma and "hospitalisesNormes" not in ligne:
+        taux_frac, aux_lits, lits_frac = pourcent(ma.group(1)), entier(ma.group(2)), entier(ma.group(3))
+        if (aux_lits is not None and lits_frac and aux_lits < hosp and taux_frac is not None
+                and abs(aux_lits / lits_frac * 100 - taux_frac) <= 1.5):
+            ligne["hospitalisesNormes"] = aux_lits
+            if not ligne.get("lits"):
+                ligne["lits"] = lits_frac
     occ = None
     for rx in OCCUPATION_RES:
         mo = rx.search(morceau)
@@ -500,6 +523,60 @@ def encadrer_lits(points):
                 ligne["occupationCalculee"] = True
 
 
+def reporter_lits_taux_recopie(points):
+    """Une province qui distingue ses patients (« 383 hospitalises dont 271
+    dans les structures normees ») et publie un taux sans nombre de lits :
+    la serie a definition constante (tous les hospitalises sur les lits) a
+    besoin d'une capacite. Les SitReps 140, 141 et 143 (1er au 4 octobre
+    2026, Nord-Kivu) impriment 63,0 % trois fois de suite, recopie du 138 :
+    271/354 ferait 76,6 %. confirmer_lits_deduits n'y trouve aucune capacite
+    (271/0,63 = 430 lits), et encadrer_lits non plus, le 135 imprimant 354
+    et le 144 365. Le point tombait alors au taux publie, 63 %, entre
+    101,7 % et 114,2 % : trois chutes qui n'ont pas eu lieu.
+
+    Regle : la capacite imprimee la plus recente dans les sept bulletins
+    precedents (a defaut, dans les sept suivants) ; le taux du bulletin reste
+    dans occupationPubliee, et le point est marque litsReportes. Seules les
+    lignes a deux definitions sont concernees — un taux qui porte deja sur
+    tous les patients reste tel quel. Decision du proprietaire, 12 octobre
+    2026.
+
+    Meme traitement pour un taux RECOPIE a l'identique du bulletin precedent
+    alors que le nombre de patients a change : le 136 (27 septembre) ecrit
+    « 345 patients demeuraient hospitalisés … 63,0 % », le taux des seules
+    structures normees du 135 (223/354), sans dire combien y sont. Une regle
+    plus large (tout taux qui s'ecarte du calcul) abimerait les 120 a 123,
+    ou l'ecart vient d'une capacite passee de 220 a 228 lits."""
+    def publie(q, nom):
+        v = (q.get("provinces") or {}).get(nom) or {}
+        return v.get("occupationPubliee", None if v.get("occupationCalculee") else v.get("occupation")), v.get("hospitalises")
+    for i, p in enumerate(points):
+        for nom, ligne in (p.get("provinces") or {}).items():
+            hosp, normes = ligne.get("hospitalises"), ligne.get("hospitalisesNormes")
+            if ligne.get("lits") or not hosp or ligne.get("occupationCalculee"):
+                continue
+            deux_definitions = normes and normes != hosp
+            taux_veille, hosp_veille = publie(points[i - 1], nom) if i else (None, None)
+            recopie = (ligne.get("occupation") is not None and taux_veille == ligne["occupation"]
+                       and hosp_veille is not None and hosp_veille != hosp)
+            if not deux_definitions and not recopie:
+                continue
+            def imprime(q):
+                v = (q.get("provinces") or {}).get(nom) or {}
+                return v.get("lits") if v.get("lits") and not v.get("litsDeduits") else None
+            lits = (next((imprime(q) for q in reversed(points[max(0, i - 7):i]) if imprime(q)), None)
+                    or next((imprime(q) for q in points[i + 1:i + 8] if imprime(q)), None))
+            if not lits:
+                continue
+            ligne.pop("litsDeduits", None)
+            if "occupation" in ligne and "occupationPubliee" not in ligne:
+                ligne["occupationPubliee"] = ligne["occupation"]
+            ligne["lits"] = lits
+            ligne["litsReportes"] = True
+            ligne["occupation"] = round(hosp / lits * 100, 1)
+            ligne["occupationCalculee"] = True
+
+
 def recouper_lits_precedents(points):
     """Le DERNIER bulletin n'a pas de voisin suivant, et encadrer_lits ne peut
     rien pour lui. Le 136 (27 septembre 2026) ne publie aucun nombre de lits :
@@ -631,6 +708,7 @@ def main():
     final = sorted(par_date.values(), key=lambda p: p["date"])
     confirmer_lits_deduits(final)
     encadrer_lits(final)
+    reporter_lits_taux_recopie(final)
     recouper_lits_precedents(final)
     for p in final:
         recalculer_total(p)

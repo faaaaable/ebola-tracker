@@ -3311,7 +3311,7 @@ def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
     k = dernier(riposte["cte"], garde=lambda p: (p.get("total") or {}).get("occupation") is not None)
     if k:
         t = k["total"]
-        out["ripOccupation"] = fmt_cfr(t["occupation"], lang)
+        out["ripOccupation"] = fmt(round(t["occupation"]), lang)  # patients pour 100 lits (12 oct. 2026)
         sub = interp(strings_lang["riposteKpiOccupationSub"], {
             "hospitalises": fmt(t.get("hospitalisesAvecLits"), lang), "lits": fmt(t.get("lits"), lang)})
         out["ripOccupationSub"] = esc(sub + au(k["date"]))
@@ -3458,7 +3458,7 @@ def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lan
                          {"hospitalises": fmt(v["hospitalises"], lang)})
         else:
             sub = ""
-        out["province.ripOccupation"] = fmt_cfr(v["occupation"], lang)
+        out["province.ripOccupation"] = fmt(round(v["occupation"]), lang)
         out["province.ripOccupationSub"] = esc((sub + au(date)).lstrip(" ·"))
     else:
         out["province.ripOccupation"] = "—"
