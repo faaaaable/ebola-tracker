@@ -31,12 +31,12 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from build_geo import simplify_safely  # noqa: E402
+from build_geo import simplify_shared  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SORTIE = os.path.join(ROOT, "site", "geo", "hors-rdc-admin.json")
 # ~2 km : a l'echelle de la vue « Pays touches » un degre fait une trentaine
-# de pixels ; simplify_safely garde Kampala (190 km2) et Nairobi.
+# de pixels ; simplify_shared garde Kampala (190 km2) et Nairobi.
 TOL = 0.02
 
 
@@ -45,19 +45,20 @@ def contour(chemin):
 
 
 def unites(chemin, champ):
+    """Les unites d'un pays, simplifiees ensemble (simplify_shared) : une
+    frontiere commune a deux districts est simplifiee une fois, sans vide
+    entre eux au zoom (12 octobre 2026)."""
     with io.open(chemin, encoding="utf-8") as fh:
         g = json.load(fh)
-    out = []
+    noms, formes = [], []
     for f in g["features"]:
         geom = f["geometry"]
         polys = geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
-        anneaux = []
-        for poly in polys:
-            for ring in poly:
-                s = simplify_safely([tuple(p[:2]) for p in ring], TOL)
-                if s:
-                    anneaux.append([[round(x, 4), round(y, 4)] for x, y in s])
-        out.append({"nom": f["properties"][champ] if champ else "", "anneaux": anneaux})
+        noms.append(f["properties"][champ] if champ else "")
+        formes.append([ring for poly in polys for ring in poly])
+    out = []
+    for nom, anneaux in zip(noms, simplify_shared(formes, [TOL] * len(formes))):
+        out.append({"nom": nom, "anneaux": [[[round(x, 4), round(y, 4)] for x, y in a] for a in anneaux]})
     return sorted(out, key=lambda u: u["nom"])
 
 

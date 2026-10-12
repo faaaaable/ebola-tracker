@@ -207,6 +207,90 @@ def simplify_safely(ring, tolerance):
     return None
 
 
+def simplify_shared(features, tolerances):
+    """Simplifie des zones voisines sans ouvrir de vide entre elles
+    (12 octobre 2026).
+
+    Simplifiee zone par zone, une frontiere commune l'etait deux fois, pas de
+    la meme facon de chaque cote : au zoom, de minces vides apparaissaient
+    entre les pieces du puzzle. Ici chaque contour est d'abord coupe aux
+    jonctions (sommets ou se rejoignent trois zones ou plus, ou la frontiere
+    commune s'arrete) en troncons ; chaque troncon est simplifie UNE fois,
+    avec la tolerance la plus fine des zones qui le bordent, et les deux
+    voisines reprennent le meme trace. La source OCHA est propre : deux zones
+    voisines y partagent exactement les memes sommets.
+
+    `features` : pour chaque zone, la liste de ses anneaux (points (x, y)).
+    `tolerances` : la tolerance de chaque zone. Rend, pour chaque zone, ses
+    anneaux simplifies et fermes ; un anneau qui ne tient plus est simplifie
+    plus finement, comme dans simplify_safely, et son voisin suit.
+    """
+    anneaux = []   # (zone, points sans le point de fermeture)
+    for i, rings_ in enumerate(features):
+        for ring in rings_:
+            pts = [tuple(p[:2]) for p in ring]
+            if len(pts) > 1 and pts[0] == pts[-1]:
+                pts = pts[:-1]
+            if len(pts) >= 3:
+                anneaux.append((i, pts))
+
+    voisins = {}
+    for _i, pts in anneaux:
+        n = len(pts)
+        for j, p in enumerate(pts):
+            s = voisins.setdefault(p, set())
+            s.add(pts[j - 1])
+            s.add(pts[(j + 1) % n])
+    jonction = {p for p, s in voisins.items() if len(s) != 2}
+
+    tol_arc, usages = {}, []   # usages : (zone, [(cle, sens), ...]) par anneau
+    for i, pts in anneaux:
+        coupes = [j for j, p in enumerate(pts) if p in jonction]
+        if not coupes:
+            # Anneau sans jonction (enclave, ile) : on le coupe a son plus
+            # petit sommet, le meme vu de l'interieur et de l'exterieur.
+            coupes = [pts.index(min(pts))]
+        debut = coupes[0]
+        tour = pts[debut:] + pts[:debut] + [pts[debut]]
+        bornes = [j - debut for j in coupes] + [len(pts)]
+        refs = []
+        for a, b in zip(bornes, bornes[1:]):
+            arc = tuple(tour[a:b + 1])
+            inverse = arc[::-1]
+            cle, sens = (arc, 1) if arc <= inverse else (inverse, -1)
+            tol_arc[cle] = min(tol_arc.get(cle, tolerances[i]), tolerances[i])
+            refs.append((cle, sens))
+        usages.append((i, refs))
+
+    plancher = min([t for t in tolerances if t] or [0]) / 16.0
+    cache = {}
+
+    def trace(cle):
+        t = tol_arc[cle]
+        if (cle, t) not in cache:
+            cache[(cle, t)] = simplify(list(cle), t) if t else list(cle)
+        return cache[(cle, t)]
+
+    while True:
+        sortie, trop_courts = [[] for _ in features], []
+        for i, refs in usages:
+            ring = []
+            for cle, sens in refs:
+                morceau = trace(cle) if sens == 1 else trace(cle)[::-1]
+                ring.extend(morceau if not ring else morceau[1:])
+            if len(ring) >= 4:
+                sortie[i].append(ring)
+            elif any(tol_arc[cle] for cle, _ in refs):
+                trop_courts.append(refs)
+        if not trop_courts:
+            return sortie
+        # Trois paliers, comme simplify_safely, puis plus de simplification.
+        for refs in trop_courts:
+            for cle, _ in refs:
+                t = tol_arc[cle]
+                tol_arc[cle] = t / 4.0 if t > plancher else 0
+
+
 # --------------------------------------------------------------------------
 
 class FormeSupplementaire:
@@ -294,15 +378,15 @@ def main():
         """Coordonnées géographiques -> repère du viewBox SVG."""
         return round((lon - minx) * scale, 1), round((maxy - lat) * scale, 1)
 
+    simplifiees = simplify_shared(
+        [rings(shape) for _rec, shape in records],
+        [TOL_OVERVIEW_AFFECTED if normalise(rec["Nom"], True) in mapping else TOL_OVERVIEW
+         for rec, _shape in records])
     zones = []
-    for rec, shape in records:
+    for (rec, shape), anneaux in zip(records, simplifiees):
         key = normalise(rec["Nom"], True)
-        tolerance = TOL_OVERVIEW_AFFECTED if key in mapping else TOL_OVERVIEW
         subpaths = []
-        for ring in rings(shape):
-            simple = simplify_safely(ring, tolerance)
-            if simple is None:
-                continue
+        for simple in anneaux:
             pts = ["%.*f %.*f" % (DECIMALS_OVERVIEW, (x - minx) * scale,
                                   DECIMALS_OVERVIEW, (maxy - y) * scale)
                    for x, y in simple]
@@ -397,18 +481,20 @@ def main():
         scale = OVERVIEW_WIDTH / (east - west)
         height = round((north - south) * scale, 1)
 
-        drawn = []
+        cadre = []
         for rec, shape in records:
             left, bottom, right, top = bounds_of(shape)
             if right < west or left > east or top < south or bottom > north:
                 continue   # entierement hors du cadre
-            inside = normalise(rec["PROVINCE"]) == normalise(province_name)
-            tolerance = TOL_PROVINCE if inside else TOL_PROVINCE_AROUND
+            cadre.append((rec, shape, normalise(rec["PROVINCE"]) == normalise(province_name)))
+        simplifiees = simplify_shared(
+            [rings(shape) for _rec, shape, _in in cadre],
+            [TOL_PROVINCE if inside else TOL_PROVINCE_AROUND for _rec, _shape, inside in cadre])
+
+        drawn = []
+        for (rec, shape, inside), anneaux in zip(cadre, simplifiees):
             subpaths = []
-            for ring in rings(shape):
-                simple = simplify_safely(ring, tolerance)
-                if simple is None:
-                    continue
+            for simple in anneaux:
                 subpaths.append("M" + "L".join(
                     "%.*f %.*f" % (DECIMALS_OVERVIEW, (x - west) * scale,
                                    DECIMALS_OVERVIEW, (north - y) * scale)
@@ -448,15 +534,14 @@ def main():
           % (os.path.getsize(out_maps) / 1024))
 
     print("\n5. Polygones détaillés des provinces touchées")
+    touchees = [(rec, shape) for rec, shape in records
+                if normalise(rec["PROVINCE"]) in affected_provinces]
+    simplifiees = simplify_shared([rings(shape) for _rec, shape in touchees],
+                                  [TOL_DETAIL] * len(touchees))
     features = []
-    for rec, shape in records:
-        if normalise(rec["PROVINCE"]) not in affected_provinces:
-            continue
+    for (rec, shape), anneaux in zip(touchees, simplifiees):
         coordinates = []
-        for ring in rings(shape):
-            simple = simplify_safely(ring, TOL_DETAIL)
-            if simple is None:
-                continue
+        for simple in anneaux:
             coordinates.append([[round(x, DECIMALS_DETAIL), round(y, DECIMALS_DETAIL)]
                                 for x, y in simple])
         if not coordinates:
