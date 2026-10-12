@@ -1177,9 +1177,103 @@ def r_vaccin(c):
     return c.carte(r["vaTitre"].format(n=c.nb(tot)), r["vaSous"].format(a=c.dl_(jours[0])), "".join(out), h=1160)
 
 
+# ================================================================ nouveaux cas par jour, trois premieres provinces
+# Le graphique quotidien des pages province (mode provinceEpidemic de app.js),
+# pour les trois provinces qui comptent le plus de cas au dernier bulletin
+# (12 octobre 2026, demande du proprietaire). Memes garde-fous : calendrier
+# jour par jour, jour sans bulletin en blanc, pas de barre au retour d'un
+# trou de plus de 3 jours (ventilation non publiee du 20 au 30 mai), les
+# 22 et 30 juillet en entier dans la teinte claire du rattrapage, et l'axe
+# plafonne au pic ordinaire quand un rattrapage l'ecraserait (barre coupee,
+# total ecrit au-dessus). Sans la courbe des cas cumules (choix du
+# proprietaire, 12 octobre 2026) : les barres seules.
+PJ = {
+ "fr": dict(titre="{p} : les nouveaux cas, jour par jour",
+            sous="Nouveaux cas confirmés déclarés chaque jour dans la province, du {a} au {b}.",
+            jour="Nouveaux cas quotidiens", ratt="Rattrapage",
+            phrase="Le {d} : {n} nouveaux cas ; {s} en sept jours, {c} depuis le début.",
+            blancs="{n} jours sans bulletin pour la province restent en blanc ; leurs cas sont comptés dans le relevé suivant.",
+            trou="Aucune barre du {p} : les bulletins ne répartissent pas les cas entre les provinces.",
+            rattNote="Les 22 et 30 juillet, rattrapages de données, en teinte claire : leur part n'est publiée qu'au niveau national.",
+            coupe="Barre coupée : l'axe s'arrête au plus fort jour ordinaire, le total est écrit au-dessus.",
+            lire="La courbe quotidienne de la province, comme sur sa page : les à-coups du jour que la vue par semaine lisse."),
+ "en": dict(titre="{p}: new cases, day by day",
+            sous="New confirmed cases reported each day in the province, {a} to {b}.",
+            jour="New daily cases", ratt="Catch-up",
+            phrase="On {d}: {n} new cases; {s} in seven days, {c} since the start.",
+            blancs="{n} days without a bulletin for the province are left blank; their cases are counted in the next report.",
+            trou="No bars from {p}: the bulletins do not break cases down by province.",
+            rattNote="22 and 30 July, data catch-ups, in the lighter tone: their share is published only at national level.",
+            coupe="Cut bar: the axis stops at the highest ordinary day, the total is written above.",
+            lire="The province's daily chart, as on its page: the day-to-day jolts that the weekly view smooths out."),
+ "sw": dict(titre="{p}: visa vipya, siku kwa siku",
+            sous="Visa vipya vilivyothibitishwa vinavyoripotiwa kila siku katika jimbo, {a} hadi {b}.",
+            jour="Visa vipya vya kila siku", ratt="Marekebisho",
+            phrase="Tarehe {d}: visa vipya {n}; {s} katika siku saba, {c} tangu mwanzo.",
+            blancs="Siku {n} bila ripoti kwa jimbo zimeachwa wazi; visa vyake vimehesabiwa katika ripoti inayofuata.",
+            trou="Hakuna safu kutoka {p}: ripoti hazigawanyi visa kati ya majimbo.",
+            rattNote="Tarehe 22 na 30 Julai, marekebisho ya takwimu, kwa rangi hafifu: sehemu yake imechapishwa kwa kiwango cha kitaifa pekee.",
+            coupe="Safu iliyokatwa: mhimili unaishia kwenye siku ya kawaida ya juu zaidi, jumla imeandikwa juu.",
+            lire="Mchoro wa kila siku wa jimbo, kama kwenye ukurasa wake: mabadiliko ya kila siku ambayo mwonekano wa wiki unalainisha."),
+}
+ECART_MAX_JOURS, MARGE_PLAFOND, DECLENCHE_RUPTURE = 3, 1.12, 1.4
+
+
+def r_province(c, rang):
+    r = PJ[c.lang]; nom = c.ordre_provinces()[rang]
+    pnom = PROV_NOM.get(c.lang, {}).get(nom, nom); teinte = PROV.get(nom, BLUE)
+    pts = []
+    for h in sorted(c.ph, key=lambda h: h["date"]):
+        for p in h.get("provinces") or []:
+            if _prov_canon(p["name"]) == nom and p.get("confirmed") is not None:
+                pts.append((D(h["date"]), p["confirmed"])); break
+    par, trous = {}, []
+    for (d0, c0), (d1, c1) in zip(pts, pts[1:]):
+        if (d1 - d0).days > ECART_MAX_JOURS:
+            trous.append("%s au %s" % (c.dc(d0 + dt.timedelta(1)), c.dc(d1)) if c.lang == "fr" else
+                         "%s to %s" % (c.dc(d0 + dt.timedelta(1)), c.dc(d1)) if c.lang == "en" else
+                         "%s hadi %s" % (c.dc(d0 + dt.timedelta(1)), c.dc(d1)))
+            continue
+        delta = max(0, c1 - c0); ratt = d1.isoformat() in RATTRAPAGES
+        par[d1] = (None if ratt else delta, delta if ratt else None)
+    jours = _calendrier(pts[0][0], pts[-1][0]); releves = dict(pts)
+    rap = [par[d][0] if d in par else None for d in jours]
+    rat = [par[d][1] if d in par else None for d in jours]
+    ordinaire = max((v for v, k in zip(rap, rat) if v is not None and not k), default=0)
+    plus_haute = max((v or 0) + (k or 0) for v, k in zip(rap, rat))
+    plafond = None
+    if ordinaire and plus_haute >= ordinaire * DECLENCHE_RUPTURE:
+        brut = ordinaire * MARGE_PLAFOND; pas = 10 ** (math.floor(math.log10(brut)) - 1) * 2
+        plafond = math.ceil(brut / pas) * pas
+    ymax = plafond or plus_haute * 1.06
+    R = Repere(c, jours, ymax)
+    cap = lambda vals: [None if v is None else min(v, ymax) for v in vals]
+    out = [c.legende(R.X0, 262, [(r["jour"], teinte), (r["ratt"], _tint(teinte, .35))]),
+           R.grille(c.nb), R.barres([(cap(rap), teinte), (cap(rat), _tint(teinte, .35))])]
+    coupees = [(i, (a or 0) + (b or 0)) for i, (a, b) in enumerate(zip(rap, rat)) if (a or 0) + (b or 0) > ymax]
+    for i, tot in coupees:
+        x, y = R.x(i), R.Y0
+        out.append('<path d="M%.1f %.1f l%.1f -5 M%.1f %.1f l%.1f -5" stroke="%s" stroke-width="2"/>' % (x - 6, y + 12, 12, x - 6, y + 18, 12, BG))
+        out.append(c.T(x, y - 8, c.nb(tot), 13, INK, "middle", 700))
+    k = max(i for i, v in enumerate(rap) if v is not None)
+    d = jours[k]; avant = [v for dd, v in pts if dd <= d - dt.timedelta(7)]
+    sept = releves[d] - avant[-1] if avant else releves[d]
+    out.append(_phrase(c, r["phrase"].format(d=c.dc(d), n=c.nb(rap[k]), s=c.nb(sept), c=c.nb(releves[d]))))
+    notes = []
+    blancs = sum(1 for d in jours if d not in releves)
+    if blancs: notes.append(r["blancs"].format(n=blancs))
+    if trous: notes.append(r["trou"].format(p=" ; ".join(trous)))
+    if any(v for v in rat if v): notes.append(r["rattNote"])
+    if coupees: notes.append(r["coupe"])
+    out.append(_notes(c, notes))
+    return c.carte(r["titre"].format(p=pnom), r["sous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
+
+
 # ================================================================ la page
 LISTE = [
-    ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"), ("provinces", None, carte_provinces, "provinces")]),
+    ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"), ("provinces", None, carte_provinces, "provinces"),
+           ("nouveaux-cas-province-1", None, lambda c: r_province(c, 0), "provjour"), ("nouveaux-cas-province-2", None, lambda c: r_province(c, 1), "provjour"),
+           ("nouveaux-cas-province-3", None, lambda c: r_province(c, 2), "provjour")]),
     ("r", [("alertes-jour", None, r_alertes, "alertes"), ("laboratoire-jour", None, r_labo, "labo"), ("contacts-jour", None, r_contacts, "contacts"),
            ("cte-jour", None, r_cte, "cte"), ("vaccination-jour", None, r_vaccin, "vaccin")]),
     ("s", [("part-provinces", "partTitre", h_part, "part"), ("cas-semaine", "casTitre", h_cas, "cas"), ("lieu-deces", "lieuTitre", h_lieu, "lieu"),
@@ -1209,7 +1303,7 @@ def page_html(lang, mois_courts):
             titre = html.unescape(" ".join(m)) if m else ident
             figs.append('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
                         '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
-                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"][lire]), esc(p["png"])))
+                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or PJ[lang]["lire"]), esc(p["png"])))
         out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
                    '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
     out.append('<div class="vx-lb" id="vxLb" hidden><button type="button" class="vx-fermer" aria-label="%s">×</button><div class="vx-lb-in"></div></div>' % esc(p["fermer"]))
