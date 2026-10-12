@@ -2,6 +2,45 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "8a4297d3",
+   "date": "2026-10-12",
+   "titre": "Ebola in Tshopo: Confirmed cases rise from 51 to 55",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/ebola-in-tshopo-confirmed-cases-rise-from-51-to-55/",
+   "langue": "en",
+   "resume": "The cumulative number of confirmed cases of Ebola virus disease has risen from 51 to 55 in Tshopo Province, in…",
+   "statut": "publie",
+   "collecte": "2026-10-12",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "749771a8",
+   "date": "2026-10-12",
+   "titre": "Butembo: Ebola virus disease contributes to mental health disorders (Psychologist)",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/butembo-ebola-virus-disease-contributes-to-mental-health-disorders-psychologist/",
+   "langue": "en",
+   "resume": "Ebola virus disease is one of the factors that can contribute to mental health disorders, a psychologist practicing in…",
+   "statut": "publie",
+   "collecte": "2026-10-12",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "3d7a2abd",
+   "date": "2026-10-12",
+   "titre": "Ebola à Butembo : le Parlement d’enfants alerte sur le manque d’eau dans plusieurs écoles",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/12/actualite/societe/ebola-butembo-le-parlement-denfants-alerte-sur-le-manque-deau-dans",
+   "langue": "fr",
+   "resume": "Marc Maro Fimbo, Radio Okapi\" /> Le Parlement d’enfants de Butembo-Lubero appelle ce dimanche 11 octobre, les autorités administratives et sanitaires à renforcer les mesures de prévention contre la maladie à virus Ebola dans les établissements scolaires.",
+   "statut": "publie",
+   "collecte": "2026-10-12",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "f3ee1314",
    "date": "2026-10-11",
    "titre": "Yambuku -Ebola : un scientifique rend hommage au Professeur Muyembe pour ses découvertes scientifiques",
