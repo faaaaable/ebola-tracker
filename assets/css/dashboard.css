@@ -1,8 +1,10 @@
 /* Tableau de bord (/dashboard/, 9 octobre 2026) : un seul ecran sans
    defilement sur ordinateur, filtre par province. Feuille a part : la page
    n'utilise pas site.css (pas de colonne de menu, pas de pied de page) ; les
-   couleurs reprennent celles du site. Sous 1100 px de large ou 640 px de haut,
-   les cadres s'empilent et la page defile. */
+   couleurs reprennent celles du site. Sous 1100 px de large, les cadres
+   s'empilent et la page defile. Un ecran large mais bas (portable 13 pouces a
+   100 %) garde la disposition en colonnes : sous 680 px de haut, la page
+   defile un peu au lieu de tout empiler (12 oct. 2026). */
 :root{
   --bg:#FDFAF6; --panel:#FFFDFB; --alt:#F7F3EE;
   --ink:#1F1A13; --ink-dim:#5A544C; --ink-faint:#777068;
@@ -17,7 +19,7 @@
 *{box-sizing:border-box;}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.35 var(--sans);}
 a{color:var(--accent-strong);}
-.db{height:100vh;display:grid;grid-template-rows:auto auto minmax(0,1fr) minmax(0,29vh);gap:var(--gap);padding:10px 14px 12px;overflow:hidden;}
+.db{height:100vh;min-height:680px;display:grid;grid-template-rows:auto auto minmax(0,1fr) minmax(0,max(29vh,190px));gap:var(--gap);padding:10px 14px 12px;overflow:hidden;}
 
 /* ---- tete ---- */
 .tete{display:flex;align-items:center;gap:18px;min-width:0;}
@@ -139,7 +141,7 @@ a{color:var(--accent-strong);}
 
 /* ---- ecrans d'ordinateur bas (1280 x 800, 1366 x 768) : tout se resserre ---- */
 @media (max-height:860px) and (min-width:1101px){
-  .db{gap:8px;padding:8px 12px 10px;grid-template-rows:auto auto minmax(0,1fr) minmax(0,27vh);}
+  .db{gap:8px;padding:8px 12px 10px;grid-template-rows:auto auto minmax(0,1fr) minmax(0,max(27vh,190px));}
   .kpi{padding:6px 10px 5px;} .kpi .v{font-size:21px;} .kpi svg.sp{bottom:18px;height:18px;}
   .tab{font-size:11.5px;} .tab td{padding:1.5px 4px;} .tab th{padding:2px 4px;font-size:9.5px;}
   .tab th small{display:inline;margin-left:3px;}
@@ -149,9 +151,15 @@ a{color:var(--accent-strong);}
   .zones{gap:2px;} .zones li{font-size:11.5px;}
 }
 
+/* ---- ecrans larges mais tres bas : la page defile, la ligne des sources
+   suit la page au lieu de recouvrir les graphiques ---- */
+@media (max-height:679px) and (min-width:1101px){
+  .pied{position:static;text-align:right;padding:0 14px 8px;}
+}
+
 /* ---- petits ecrans : on empile et on defile ---- */
-@media (max-width:1100px), (max-height:640px){
-  .db{height:auto;overflow:visible;grid-template-rows:none;}
+@media (max-width:1100px){
+  .db{height:auto;min-height:0;overflow:visible;grid-template-rows:none;}
   .tete{flex-wrap:wrap;}
   .situation{text-align:left;}
   .kpis{grid-template-columns:repeat(4,minmax(0,1fr));}

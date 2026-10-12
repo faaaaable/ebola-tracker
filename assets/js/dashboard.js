@@ -27,9 +27,10 @@ const TXT = {
     rdc:'RDC', rdcEntiere:'RDC entière',
     situation:(n, d, p, j) => `SitRep INSP <b>n° ${n}</b> · situation au <b>${d}</b><br>publié le ${p} · ${j}<sup>e</sup> jour depuis la déclaration`,
     k24:'en 24 h', kCas:'Cas confirmés', kDeces:'Décès', kLet:'Létalité', kLetD:'décès / cas confirmés',
-    kMoy:'Cas par jour, 7 j', kMoyD:'semaine précédente :', kGueris:'Guéris', kGuerisD:'cumul publié', kGuerisNon:'Non publié par province',
+    kGueris:'Guéris', kGuerisD:'cumul publié', kGuerisNon:'Non publié par province',
     kZones:'Zones touchées', kZonesProv:'dans la province', kZonesNat:n => `dans ${n} provinces`, kNonPub:'Non publié',
     kContacts:'Contacts suivis', kContactsD:'vus sur contacts à suivre', kContactsNon:'Non publié pour cette province',
+    kIso:'En isolement', kIsoD:'patients en CTE', kIsoNon:'Non publié pour cette province',
     kVac:'Personnes vaccinées', kVacD:'cumul', kVacNon:'Aucune vaccination publiée ici', au:d => ` · au ${d}`,
     carteAria:'Carte des zones de santé', bCas:'cas', bDeces:'décès',
     carteTitre:'Zones de santé touchées', carteProv:p => `Zones de santé — ${p}`,
@@ -61,9 +62,10 @@ const TXT = {
     rdc:'DRC', rdcEntiere:'Whole DRC',
     situation:(n, d, p, j) => `INSP SitRep <b>no. ${n}</b> · situation as of <b>${d}</b><br>published ${p} · day ${j} since the declaration`,
     k24:'in 24 h', kCas:'Confirmed cases', kDeces:'Deaths', kLet:'Fatality rate', kLetD:'deaths / confirmed cases',
-    kMoy:'Cases per day, 7 d', kMoyD:'previous week:', kGueris:'Recovered', kGuerisD:'published total', kGuerisNon:'Not published by province',
+    kGueris:'Recovered', kGuerisD:'published total', kGuerisNon:'Not published by province',
     kZones:'Affected zones', kZonesProv:'in the province', kZonesNat:n => `in ${n} provinces`, kNonPub:'Not published',
     kContacts:'Contacts followed', kContactsD:'seen out of contacts to follow', kContactsNon:'Not published for this province',
+    kIso:'In isolation', kIsoD:'patients in treatment centres', kIsoNon:'Not published for this province',
     kVac:'People vaccinated', kVacD:'total', kVacNon:'No vaccination published here', au:d => ` · as of ${d}`,
     carteAria:'Map of health zones', bCas:'cases', bDeces:'deaths',
     carteTitre:'Affected health zones', carteProv:p => `Health zones — ${p}`,
@@ -95,9 +97,10 @@ const TXT = {
     rdc:'DRC', rdcEntiere:'DRC nzima',
     situation:(n, d, p, j) => `SitRep ya INSP <b>na. ${n}</b> · hali kufikia <b>${d}</b><br>ilichapishwa ${p} · siku ya ${j} tangu kutangazwa`,
     k24:'ndani ya saa 24', kCas:'Visa', kDeces:'Vifo', kLet:'Kiwango cha vifo', kLetD:'vifo / visa vilivyothibitishwa',
-    kMoy:'Visa kwa siku, siku 7', kMoyD:'wiki iliyopita:', kGueris:'Waliopona', kGuerisD:'jumla iliyochapishwa', kGuerisNon:'Haichapishwi kwa jimbo',
+    kGueris:'Waliopona', kGuerisD:'jumla iliyochapishwa', kGuerisNon:'Haichapishwi kwa jimbo',
     kZones:'Maeneo ya afya', kZonesProv:'katika jimbo', kZonesNat:n => `katika majimbo ${n}`, kNonPub:'Haijachapishwa',
     kContacts:'Ufuatiliaji', kContactsD:'watu wa karibu walioonekana', kContactsNon:'Haijachapishwa kwa jimbo hili',
+    kIso:'Waliotengwa', kIsoD:'wagonjwa kituoni', kIsoNon:'Haijachapishwa kwa jimbo hili',
     kVac:'Waliochanjwa', kVacD:'jumla', kVacNon:'Hakuna chanjo iliyochapishwa hapa', au:d => ` · hadi ${d}`,
     carteAria:'Ramani ya maeneo ya afya', bCas:'visa', bDeces:'vifo',
     carteTitre:'Maeneo ya afya yaliyoathirika', carteProv:p => `Maeneo ya afya — ${p}`,
@@ -322,7 +325,6 @@ function renderKpis(){
   const nat = D.latest.national, date = D.latest.meta.reportingDate;
   const p = PROV ? D.provinces.find(x => x.name === PROV) : null;
   const serie = PROV ? serieProvince(PROV) : D.sitreps;
-  const q = quotidien(serie, 'confirmed', !PROV).slice(-30).map(x => x.total);
   const cumul = serie.slice(-60);
   const h = [];
 
@@ -335,11 +337,12 @@ function renderKpis(){
   h.push(kpi('is-cas', T('kCas'), fmt(cas), `<b>+${fmt(casJ)}</b> ${T('k24')}`, sparkline(cumul.map(x => x.confirmed), 'var(--cas)')));
   h.push(kpi('is-deces', T('kDeces'), fmt(deces), `<b>+${fmt(decesJ)}</b> ${T('k24')}`, sparkline(cumul.map(x => x.deaths), 'var(--deces)')));
   h.push(kpi('', T('kLet'), pct(p ? p.cfr : nat.cfr), T('kLetD')));
-  const moy7 = q.slice(-7).reduce((s, x) => s + x, 0) / Math.max(1, q.slice(-7).length);
-  const moyAv = q.slice(-14, -7).reduce((s, x) => s + x, 0) / Math.max(1, q.slice(-14, -7).length);
-  // Sous 10, une decimale : 0,9 cas par jour ne doit pas devenir 1.
-  const moyF = v => v >= 10 ? fmt(v) : dec1(v);
-  h.push(kpi('is-cas', T('kMoy'), moyF(moy7), `${moy7 >= moyAv ? '▲' : '▼'} ${T('kMoyD')} ${moyF(moyAv)}`, sparkline(q, 'var(--cas)')));
+  // Patients en isolement : le dernier releve des CTE (data/cte.json), comme
+  // la colonne « En CTE » du tableau de la riposte.
+  const lireIso = x => PROV ? ((x.provinces || {})[PROV] || {}).hospitalises : (x.total || {}).hospitalises;
+  const iso = dernierReleve(D.cte.parDate, lireIso);
+  h.push(iso ? kpi('', T('kIso'), fmt(iso.v), T('kIsoD') + auDate(iso.date), sparkline(D.cte.parDate.slice(-30).map(lireIso), 'var(--ink-dim)'))
+             : kpiVide(T('kIso'), T('kIsoNon')));
   if(!p) h.push(kpi('is-gueris', T('kGueris'), fmt(nat.recovered), T('kGuerisD')));
   else h.push(kpiVide(T('kGueris'), T('kGuerisNon')));
   const zi = p ? p.healthZonesAffected : nat.healthZonesAffected;
