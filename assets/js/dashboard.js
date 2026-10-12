@@ -25,7 +25,7 @@ const TXT = {
     mois:['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'],
     modeCumul:'cas confirmés cumulés', mode30:'nouveaux cas, 30 derniers jours', mode24:'nouveaux cas, 24 h',
     rdc:'RDC', rdcEntiere:'RDC entière',
-    situation:(n, d, p, j) => `SitRep INSP <b>n° ${n}</b> · situation au <b>${d}</b><br>publié le ${p} · ${j}<sup>e</sup> jour depuis la déclaration`,
+    situation:(n, d) => `SitRep INSP <b>n° ${n}</b> · situation au <b>${d}</b>`,
     k24:'en 24 h', kCas:'Cas confirmés', kDeces:'Décès', kLet:'Létalité', kLetD:'décès / cas confirmés',
     kGueris:'Guéris', kGuerisD:'cumul publié', kGuerisNon:'Non publié par province',
     kZones:'Zones touchées', kZonesProv:'dans la province', kZonesNat:n => `dans ${n} provinces`, kNonPub:'Non publié',
@@ -60,7 +60,7 @@ const TXT = {
     mois:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
     modeCumul:'cumulative confirmed cases', mode30:'new cases, last 30 days', mode24:'new cases, 24 h',
     rdc:'DRC', rdcEntiere:'Whole DRC',
-    situation:(n, d, p, j) => `INSP SitRep <b>no. ${n}</b> · situation as of <b>${d}</b><br>published ${p} · day ${j} since the declaration`,
+    situation:(n, d) => `INSP SitRep <b>no. ${n}</b> · situation as of <b>${d}</b>`,
     k24:'in 24 h', kCas:'Confirmed cases', kDeces:'Deaths', kLet:'Fatality rate', kLetD:'deaths / confirmed cases',
     kGueris:'Recovered', kGuerisD:'published total', kGuerisNon:'Not published by province',
     kZones:'Affected zones', kZonesProv:'in the province', kZonesNat:n => `in ${n} provinces`, kNonPub:'Not published',
@@ -95,7 +95,7 @@ const TXT = {
     mois:['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ago','Sep','Okt','Nov','Des'],
     modeCumul:'visa vilivyothibitishwa kwa jumla', mode30:'visa vipya, siku 30 zilizopita', mode24:'visa vipya, saa 24',
     rdc:'DRC', rdcEntiere:'DRC nzima',
-    situation:(n, d, p, j) => `SitRep ya INSP <b>na. ${n}</b> · hali kufikia <b>${d}</b><br>ilichapishwa ${p} · siku ya ${j} tangu kutangazwa`,
+    situation:(n, d) => `SitRep ya INSP <b>na. ${n}</b> · hali kufikia <b>${d}</b>`,
     k24:'ndani ya saa 24', kCas:'Visa', kDeces:'Vifo', kLet:'Kiwango cha vifo', kLetD:'vifo / visa vilivyothibitishwa',
     kGueris:'Waliopona', kGuerisD:'jumla iliyochapishwa', kGuerisNon:'Haichapishwi kwa jimbo',
     kZones:'Maeneo ya afya', kZonesProv:'katika jimbo', kZonesNat:n => `katika majimbo ${n}`, kNonPub:'Haijachapishwa',
@@ -136,7 +136,6 @@ const COULEURS = {"Ituri":"#005E82","Nord-Kivu":"#A06F30","Haut-Uélé":"#327957
                   "Sud-Kivu":"#5A544C","Bas-Uélé":"#993A2E","Sud-Ubangi":"#B0487D"};
 const SLUGS = {"Ituri":"ituri","Nord-Kivu":"nord-kivu","Haut-Uélé":"haut-uele","Tshopo":"tshopo",
                "Sud-Kivu":"sud-kivu","Bas-Uélé":"bas-uele","Sud-Ubangi":"sud-ubangi"};
-const DECLARATION = '2026-05-15';
 /* Les deux rattrapages administratifs documentes dans app.js (22 et 30
    juillet) : la part du jour n'est connue qu'au niveau national et pour les
    cas ; le reste passe en teinte claire. */
@@ -153,7 +152,6 @@ const pct = n => (n === null || n === undefined) ? '—' : dec1(n) + (LANG === '
 const MOIS = T('mois');
 const dateC = iso => { const [, m, j] = iso.split('-'); return parseInt(j, 10) + ' ' + MOIS[parseInt(m, 10) - 1]; };
 const dateL = iso => dateC(iso) + ' ' + iso.slice(0, 4);
-const jours = (a, b) => Math.round((new Date(b + 'T12:00:00') - new Date(a + 'T12:00:00')) / 864e5);
 const lundi = iso => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
   return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 const norm = t => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[-_'’.]/g, ' ').toLowerCase().replace(/\s+/g, '');
@@ -310,7 +308,7 @@ function renderFiltres(){
 function renderSituation(){
   const m = D.latest.meta;
   document.getElementById('situation').innerHTML =
-    T('situation')(parseInt(m.sitrepNumber, 10), dateL(m.reportingDate), dateC(m.publicationDate || m.reportingDate), jours(DECLARATION, m.reportingDate));
+    T('situation')(parseInt(m.sitrepNumber, 10), dateL(m.reportingDate));
 }
 
 function kpi(classe, libelle, valeur, detail, spark){
