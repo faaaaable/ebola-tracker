@@ -3745,7 +3745,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
   font:600 clamp(110px,14vw,200px)/.8 var(--font-serif);letter-spacing:-.06em;
 }
 .fa-r h3{color:var(--rip);}
-.fa-d h3{color:var(--def);font-style:italic;left:auto;right:10px;top:auto;bottom:-6px;}   /* l'italique deborde : le S etait coupe a -8px */
+.fa-d h3{color:var(--def);font-style:italic;left:auto;right:22px;top:auto;bottom:-6px;}   /* l'italique deborde : le S etait coupe a -8px, encore un peu a 10px */
 /* les grands mots sont les liens vers les pages Riposte et Defis : au survol
    ils sortent du filigrane, en bleu fonce et en rouge fonce, et les chiffres
    s'effacent le temps du survol (le mot opaque les recouvrirait). Toute la

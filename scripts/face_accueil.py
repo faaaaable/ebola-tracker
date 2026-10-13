@@ -21,10 +21,14 @@ deforme). Sa forme est juste, son echelle ne l'est pas — c'est assume, ni axe
 ni chiffre ne l'accompagnent. Le point rouge du dernier bulletin est un
 element HTML : un cercle dans un SVG etire deviendrait une ellipse.
 
-Les centres de traitement se comptent en « patients pour 100 lits »
-(calcul du site, regle du 12 octobre 2026), jamais en taux d'occupation :
-c'est la province la plus chargee, les bulletins ne donnent pas les lits
-centre par centre."""
+Les centres de traitement : le calcul du site (tous les patients / lits
+declares, regle du 20 septembre), pour la province la plus chargee — les
+bulletins ne donnent pas les lits centre par centre. Affiche en « patients pour
+100 lits », sans « % » (regle du 12 octobre 2026) : le pourcentage reste
+reserve au taux d'occupation imprime par le bulletin, sinon deux chiffres
+differents se presenteraient pareil (Nord-Kivu au SitRep 149 : 134 patients
+pour 100 lits ici, 94,9 % dans le bulletin). « 134 % saturation » essaye et
+ecarte le 13 octobre 2026."""
 import datetime as dt
 import html
 import json
@@ -87,7 +91,8 @@ def section_html(lang, t, vaccines, url_riposte, url_defis):
     d = [(nb(c["nonVus"]), t["faKNonVus"]),
          (nb(c["p100"]) if c["p100"] is not None else "—", t["faKP100"].replace("{p}", prov or "")),
          (nb(c["attaques"]), t["faKAtt"].replace("{t}", nb(c["bulletins"])))]
-    li = lambda xs: "".join("<li><b>%s</b><span>%s</span></li>" % (esc(n), esc(m)) for n, m in xs)
+    # un retour a la ligne dans la chaine (« \n ») est un saut de ligne voulu
+    li = lambda xs: "".join("<li><b>%s</b><span>%s</span></li>" % (esc(n), esc(m).replace("\n", "<br>")) for n, m in xs)
 
     serie = c["serie"]; d0, d1 = serie[0][0], serie[-1][0]; vmax = serie[-1][1]
     pts = [(X0 + (X1 - X0) * (dd - d0).days / (d1 - d0).days, Y_DEB - (Y_DEB - Y_FIN) * v / vmax) for dd, v in serie]
