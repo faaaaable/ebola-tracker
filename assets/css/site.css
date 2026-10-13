@@ -3776,8 +3776,15 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 /* l'animation : la courbe decoupee a la proportion --p, les camps et le point
    qui apparaissent a leur tour (classes voit-r, voit-d, voit-pt) */
 .fa.fa-anime .fa-courbe,.fa.fa-anime .fa-mob svg{clip-path:inset(0 calc((1 - var(--p,0)) * 100%) 0 0);}
-.fa.fa-anime .fa-r,.fa.fa-anime .fa-d{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease;}
-.fa.fa-anime.voit-r .fa-r,.fa.fa-anime.voit-d .fa-d{opacity:1;transform:none;}
+/* chaque camp apparait en deux temps : le mot d'abord, ses chiffres 0,35 s
+   apres (13 octobre 2026). Une animation plutot qu'une transition : remplie
+   « backwards » seulement, elle n'ecrase pas l'effacement des chiffres au
+   survol du mot. */
+@keyframes faApparait{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+.fa.fa-anime:not(.voit-r) .fa-r h3 a,.fa.fa-anime:not(.voit-r) .fa-r ul,
+.fa.fa-anime:not(.voit-d) .fa-d h3 a,.fa.fa-anime:not(.voit-d) .fa-d ul{opacity:0;}
+.fa.fa-anime.voit-r .fa-r h3 a,.fa.fa-anime.voit-d .fa-d h3 a{animation:faApparait .5s ease backwards;}
+.fa.fa-anime.voit-r .fa-r ul,.fa.fa-anime.voit-d .fa-d ul{animation:faApparait .5s ease .35s backwards;}
 .fa.fa-anime .fa-pt,.fa.fa-anime .fa-mpt{opacity:0;transition:opacity .35s ease;}
 .fa.fa-anime.voit-pt .fa-pt,.fa.fa-anime.voit-pt .fa-mpt{opacity:1;}
 @media (max-width:760px){

@@ -10,10 +10,10 @@ geant, trois chiffres cles devant, quelques mots sous chacun. Un seul degrade
 du bleu (haut) au sable (bas) : c'est la courbe qui partage.
 
 La courbe se devoile de gauche a droite AU FIL DU DEFILEMENT (app.js,
-initFaceCourbe) : les chiffres de la riposte apparaissent au debut du trace,
-ceux des defis a la fin, le point rouge quand la courbe touche le dernier
-bulletin. Sans script, ou si le systeme demande moins d'animations, tout est
-affiche d'emblee.
+initFaceCourbe) : la riposte apparait au debut du trace, les defis vers la
+fin, chaque fois le mot d'abord et ses chiffres 0,35 s apres (site.css) ;
+le point rouge quand la courbe touche le dernier bulletin. Sans script, ou
+si le systeme demande moins d'animations, tout est affiche d'emblee.
 
 La courbe est un SEPARATEUR, pas un graphique : dessinee dans un repere
 0-1000 et etiree a la taille du bloc (preserveAspectRatio="none", trait non
