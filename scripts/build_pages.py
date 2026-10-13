@@ -688,6 +688,16 @@ PROVINCE_COLORS = {
 }
 
 
+def gueris_24h_line(lang, strings_lang):
+    serie = [x for x in read_json(os.path.join(ROOT, "data", "sitreps.json")) if x.get("recovered") is not None]
+    if len(serie) < 2:
+        return ""
+    a, b = serie[-2], serie[-1]
+    if (date.fromisoformat(b["date"]) - date.fromisoformat(a["date"])).days != 1:
+        return ""
+    return esc(interp(strings_lang["provinceNewDeaths"], {"n": fmt(max(0, b["recovered"] - a["recovered"]), lang)}))
+
+
 def zones_sub(national, meta, lang, i18n_lang, strings_lang):
     """Reproduit tr('zonesTableSub')(n, total, num, date) de app.js."""
     zones = (national or {}).get("healthZonesAffected") or {}
@@ -4177,6 +4187,10 @@ def main():
                                             {"n": fmt(national.get("newCases24h") or 0, lang)})),
             "seed.newDeathsLine": esc(interp(strings_lang["provinceNewDeaths"],
                                              {"n": fmt(national.get("newDeaths24h") or 0, lang)})),
+            # Gueris des dernieres 24 h (page Ensemble du pays, 13 octobre 2026) :
+            # ecart avec le releve de la veille, seulement si la veille existe ;
+            # sinon la ligne reste vide plutot que d'additionner plusieurs jours.
+            "seed.newRecoveredLine": gueris_24h_line(lang, strings_lang),
             "seed.zonesSub": zones_sub(national, meta_data, lang, i18n_lang, strings_lang),
             "seed.sitrepRef": sitrep_ref(meta_data, lang, i18n_lang, strings_lang),
             "seed.zonesN": fmt((national.get("healthZonesAffected") or {}).get("n"), lang),

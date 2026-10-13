@@ -489,6 +489,11 @@ ul,ol{margin:0;padding:0;}
   .kpis-province{width:auto;grid-template-columns:repeat(3,1fr);}
   .kpis-province .kpi{padding-right:12px;}
 }
+/* Ensemble du pays : cinq cases (13 octobre 2026) — cas, deces, gueris,
+   letalite, patients en isolement. Sur telephone, deux par ligne. */
+.kpis-province.kpis-pays{grid-template-columns:repeat(5,minmax(130px,max-content));}
+@media (max-width:1100px){.kpis-province.kpis-pays{width:auto;grid-template-columns:repeat(5,1fr);}}
+@media (max-width:760px){.kpis-province.kpis-pays{grid-template-columns:repeat(2,1fr);row-gap:14px;}}
 /* Cinq cases depuis le 16 septembre 2026 (sauf Bas-Uele, Sud-Kivu et
    Sud-Ubangi, restees a trois) : sur un ecran moyen, le bilan (trois cases)
    sur une ligne et la riposte (deux cases) sur la suivante, sans case vide —
@@ -4722,6 +4727,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
   /* Bandeau des chiffres (Ensemble du pays, provinces) : la letalite passe a
      la ligne ; sans le retrait ni le filet gauche des cases voisines. */
   .kpis-province .kpi.cfr{flex-basis:100%;padding-left:0;border-left:0;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);}
+  .kpis-province.kpis-pays .kpi.cfr{flex-basis:auto;padding-left:revert-layer;border-left:revert-layer;margin-top:0;padding-top:0;border-top:0;}
   /* Boutons de la carte : une ligne chacun. */
   .map-controls .map-btn{white-space:nowrap;padding:0 11px;}
   /* Petites cases de provinces de l'accueil, deux par ligne : la vignette de
