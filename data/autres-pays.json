@@ -1,6 +1,6 @@
 {
-  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche). Pages Kenya, Ouganda et France (9 octobre 2026, pour le referencement) : la meme fiche seule, suivie de questions (questions, rendues en FAQPage) redigees a partir des seuls faits de la fiche et de ses sources ; pageLien est le renvoi de la fiche d'« Autres pays » vers la page du pays.",
-  "maj": "2026-10-08",
+  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital ; point du ministere au 11 octobre 2026 (publie sur X le 12 : 1 cas importe, 1 deces, aucun nouveau cas depuis le 6 octobre, 122 contacts listes et verifies dont 108 en quarantaine, aucun avec symptomes). Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche). Pages Kenya, Ouganda et France (9 octobre 2026, pour le referencement) : la meme fiche seule, suivie de questions (questions, rendues en FAQPage) redigees a partir des seuls faits de la fiche et de ses sources ; pageLien est le renvoi de la fiche d'« Autres pays » vers la page du pays.",
+  "maj": "2026-10-11",
   "pays": [
     {
       "id": "ouganda",
@@ -312,9 +312,9 @@
         "sw": "Kenya"
       },
       "statut": {
-        "fr": "Cas confirmé le 6 octobre 2026, contacts sous surveillance",
-        "en": "Case confirmed on 6 October 2026, contacts under monitoring",
-        "sw": "Mgonjwa alithibitishwa tarehe 6 Oktoba 2026, watu wa karibu wanafuatiliwa"
+        "fr": "Aucun nouveau cas depuis le 6 octobre 2026, 122 contacts suivis",
+        "en": "No new case since 6 October 2026, 122 contacts monitored",
+        "sw": "Hakuna mgonjwa mpya tangu 6 Oktoba 2026, watu 122 wa karibu wanafuatiliwa"
       },
       "chiffres": [
         {
@@ -332,23 +332,34 @@
             "en": "death",
             "sw": "kifo"
           }
+        },
+        {
+          "n": "122",
+          "l": {
+            "fr": "contacts suivis",
+            "en": "contacts monitored",
+            "sw": "watu wa karibu wanaofuatiliwa"
+          }
         }
       ],
       "texte": {
         "fr": [
           "Le Kenya a confirmé son premier cas le 6 octobre 2026. Le malade, un Kényan qui vivait en RDC, y avait été soigné dans plusieurs structures de santé. Le 2 octobre, il a rejoint Kampala par la route en passant par Beni, puis a pris l'avion pour Nairobi, où il est arrivé le 3 octobre.",
           "Isolé au Nairobi Hospital, il est mort dans la nuit du 5 octobre et a été enterré le 6 selon le protocole d'inhumation sécurisée. Le virus Bundibugyo a été détecté par le laboratoire national de référence en virologie et par l'Institut kényan de recherche médicale (KEMRI).",
-          "28 contacts, parmi lesquels des proches et des soignants, sont suivis, de même que les 23 passagers et 4 membres d'équipage du vol. Le pays se préparait depuis mai : plus de 652 000 voyageurs contrôlés à l'entrée, 267 échantillons suspects testés et environ 5 000 soignants formés."
+          "Les premiers jours, 28 contacts, parmi lesquels des proches et des soignants, étaient suivis, de même que les 23 passagers et 4 membres d'équipage du vol. Au 11 octobre 2026, le ministère kényan de la Santé recense 122 contacts listés et vérifiés, dont 108 en quarantaine ; aucun n'a présenté de symptômes, et aucun nouveau cas n'a été confirmé depuis le 6 octobre.",
+          "Le pays se préparait depuis mai : plus de 652 000 voyageurs contrôlés à l'entrée, 267 échantillons suspects testés et environ 5 000 soignants formés."
         ],
         "en": [
           "Kenya confirmed its first case on 6 October 2026. The patient, a Kenyan who lived in the DRC, had been treated there in several health facilities. On 2 October he travelled by road to Kampala via Beni, then flew to Nairobi, arriving on 3 October.",
           "Isolated at Nairobi Hospital, he died on the night of 5 October and was buried on 6 October following the safe burial protocol. Bundibugyo virus was detected by the National Virology Reference Laboratory and by the Kenya Medical Research Institute (KEMRI).",
-          "28 contacts, including relatives and health workers, are being followed, as are the 23 passengers and 4 crew members of the flight. The country had been preparing since May: more than 652,000 travellers screened on entry, 267 suspected samples tested and about 5,000 health workers trained."
+          "In the first days, 28 contacts, including relatives and health workers, were being followed, as were the 23 passengers and 4 crew members of the flight. As of 11 October 2026, the Kenyan Ministry of Health lists 122 contacts traced and verified, 108 of them in quarantine; none has shown symptoms, and no new case has been confirmed since 6 October.",
+          "The country had been preparing since May: more than 652,000 travellers screened on entry, 267 suspected samples tested and about 5,000 health workers trained."
         ],
         "sw": [
           "Kenya ilithibitisha mgonjwa wake wa kwanza tarehe 6 Oktoba 2026. Mgonjwa huyo, Mkenya aliyeishi DRC, alikuwa ametibiwa huko katika vituo kadhaa vya afya. Tarehe 2 Oktoba alisafiri kwa barabara hadi Kampala kupitia Beni, kisha akasafiri kwa ndege hadi Nairobi, alikofika tarehe 3 Oktoba.",
           "Alitengwa katika Nairobi Hospital, akafariki usiku wa tarehe 5 Oktoba na akazikwa tarehe 6 kwa kufuata utaratibu wa mazishi salama. Virusi vya Bundibugyo viligunduliwa na maabara ya kitaifa ya marejeleo ya virusi na Taasisi ya Utafiti wa Kitabibu ya Kenya (KEMRI).",
-          "Watu 28 wa karibu, wakiwemo jamaa na wahudumu wa afya, wanafuatiliwa, pamoja na abiria 23 na wafanyakazi 4 wa ndege. Nchi ilikuwa ikijiandaa tangu Mei: wasafiri zaidi ya 652 000 walikaguliwa wanapoingia, sampuli 267 zinazoshukiwa zilipimwa na wahudumu wa afya karibu 5 000 walipewa mafunzo."
+          "Siku za kwanza, watu 28 wa karibu, wakiwemo jamaa na wahudumu wa afya, walikuwa wakifuatiliwa, pamoja na abiria 23 na wafanyakazi 4 wa ndege. Kufikia tarehe 11 Oktoba 2026, Wizara ya Afya ya Kenya inaorodhesha watu 122 wa karibu walioorodheshwa na kuthibitishwa, 108 kati yao wakiwa karantini; hakuna aliyeonyesha dalili, na hakuna mgonjwa mpya aliyethibitishwa tangu 6 Oktoba.",
+          "Nchi ilikuwa ikijiandaa tangu Mei: wasafiri zaidi ya 652 000 walikaguliwa wanapoingia, sampuli 267 zinazoshukiwa zilipimwa na wahudumu wa afya karibu 5 000 walipewa mafunzo."
         ]
       },
       "sources": [
@@ -367,6 +378,14 @@
             "sw": "Wizara ya Afya ya Kenya, 6 Oktoba 2026"
           },
           "url": "https://www.health.go.ke/kenya-confirms-first-imported-case-bundibugyo-ebola-virus-disease"
+        },
+        {
+          "l": {
+            "fr": "Ministère kényan de la Santé, point du 11 octobre 2026 (publié sur X le 12)",
+            "en": "Kenya Ministry of Health, update of 11 October 2026 (posted on X on the 12th)",
+            "sw": "Wizara ya Afya ya Kenya, taarifa ya 11 Oktoba 2026 (iliyochapishwa X tarehe 12)"
+          },
+          "url": "https://x.com/MOH_Kenya/status/2109528124144631821"
         },
         {
           "l": {
@@ -391,9 +410,9 @@
             "sw": "Je, kuna Ebola nchini Kenya?"
           },
           "a": {
-            "fr": "Le Kenya a confirmé son premier cas d'Ebola le 6 octobre 2026. C'est un cas importé de République démocratique du Congo ; le malade est mort à Nairobi. Au 8 octobre 2026, c'est le seul cas confirmé dans le pays, et ses contacts restent sous surveillance.",
-            "en": "Kenya confirmed its first Ebola case on 6 October 2026. It is a case imported from the Democratic Republic of the Congo; the patient died in Nairobi. As of 8 October 2026 it is the only confirmed case in the country, and the patient's contacts remain under monitoring.",
-            "sw": "Kenya ilithibitisha mgonjwa wake wa kwanza wa Ebola tarehe 6 Oktoba 2026. Ni mgonjwa aliyeingia kutoka Jamhuri ya Kidemokrasia ya Kongo; alifariki Nairobi. Kufikia tarehe 8 Oktoba 2026, ndiye mgonjwa pekee aliyethibitishwa nchini, na watu wa karibu naye bado wanafuatiliwa."
+            "fr": "Le Kenya a confirmé son premier cas d'Ebola le 6 octobre 2026. C'est un cas importé de République démocratique du Congo ; le malade est mort à Nairobi. Au 11 octobre 2026, c'est toujours le seul cas confirmé dans le pays : aucun nouveau cas depuis le 6 octobre, et ses contacts restent sous surveillance.",
+            "en": "Kenya confirmed its first Ebola case on 6 October 2026. It is a case imported from the Democratic Republic of the Congo; the patient died in Nairobi. As of 11 October 2026 it is still the only confirmed case in the country: no new case since 6 October, and the patient's contacts remain under monitoring.",
+            "sw": "Kenya ilithibitisha mgonjwa wake wa kwanza wa Ebola tarehe 6 Oktoba 2026. Ni mgonjwa aliyeingia kutoka Jamhuri ya Kidemokrasia ya Kongo; alifariki Nairobi. Kufikia tarehe 11 Oktoba 2026, bado ndiye mgonjwa pekee aliyethibitishwa nchini: hakuna mgonjwa mpya tangu 6 Oktoba, na watu wa karibu naye bado wanafuatiliwa."
           }
         },
         {
@@ -415,9 +434,9 @@
             "sw": "Watu wangapi wanafuatiliwa nchini Kenya?"
           },
           "a": {
-            "fr": "28 contacts du malade, parmi lesquels des proches et des soignants, ainsi que les 23 passagers et les 4 membres d'équipage de son vol.",
-            "en": "28 of the patient's contacts, including relatives and health workers, as well as the 23 passengers and 4 crew members of his flight.",
-            "sw": "Watu 28 wa karibu na mgonjwa, wakiwemo jamaa na wahudumu wa afya, pamoja na abiria 23 na wafanyakazi 4 wa ndege yake."
+            "fr": "Au 11 octobre 2026, 122 contacts listés et vérifiés, dont 108 en quarantaine ; aucun n'a présenté de symptômes. Les premiers jours, le suivi portait sur 28 contacts (proches et soignants) et sur les 23 passagers et 4 membres d'équipage de son vol.",
+            "en": "As of 11 October 2026, 122 contacts traced and verified, 108 of them in quarantine; none has shown symptoms. In the first days, follow-up covered 28 contacts (relatives and health workers) and the 23 passengers and 4 crew members of his flight.",
+            "sw": "Kufikia tarehe 11 Oktoba 2026, watu 122 wa karibu walioorodheshwa na kuthibitishwa, 108 kati yao wakiwa karantini; hakuna aliyeonyesha dalili. Siku za kwanza, ufuatiliaji ulihusu watu 28 wa karibu (jamaa na wahudumu wa afya) na abiria 23 na wafanyakazi 4 wa ndege yake."
           }
         },
         {
