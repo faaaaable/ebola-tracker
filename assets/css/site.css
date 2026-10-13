@@ -3783,10 +3783,15 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 @media (max-width:760px){
   .fa{display:block;min-height:0;}
   .fa-courbe,.fa-pt{display:none;}
-  .fa-r,.fa-d{padding:26px 0;}
+  /* telephone (13 octobre 2026, maquette tmp/proto-face-mobile-1013, b1) :
+     le mot passe AU-DESSUS de ses chiffres, dans le flux, au lieu de passer
+     dessous ; les deux camps se resserrent autour de la petite courbe */
+  .fa-r{padding:44px 0 0;}
+  .fa-d{padding:0 0 26px;}
   .fa ul{flex-wrap:wrap;}
-  .fa h3{font-size:96px;}
-  .fa .fa-mob{display:block;}
+  .fa h3{position:static;font-size:76px;line-height:.85;margin:0 0 12px;opacity:.18;}
+  .fa-d h3{text-align:right;padding-right:14px;}   /* l'italique deborde a droite */
+  .fa .fa-mob{display:block;margin:-14px 0 -6px;}
   .fa-mob svg{display:block;width:100%;height:auto;}
 }
 @media (max-width:900px){
