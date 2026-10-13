@@ -11,7 +11,7 @@ du bleu (haut) au sable (bas) : c'est la courbe qui partage.
 
 La courbe se devoile de gauche a droite AU FIL DU DEFILEMENT (app.js,
 initFaceCourbe) : la riposte apparait au debut du trace, les defis vers la
-fin, chaque fois le mot d'abord et ses chiffres 0,35 s apres (site.css) ;
+fin, chaque fois le mot d'abord puis ses chiffres un a un (site.css) ;
 le point rouge quand la courbe touche le dernier bulletin. Sans script, ou
 si le systeme demande moins d'animations, tout est affiche d'emblee.
 
