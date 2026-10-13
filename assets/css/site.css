@@ -3691,7 +3691,9 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .vtr-t svg{display:block;width:100%;height:100%;pointer-events:none;}
 .vtr-pied{display:flex;justify-content:center;gap:10px;margin-top:16px;}
 .vtr-pied .cr-arrow[hidden]{display:none;}
-@media (max-width:700px){.vtr-t{--h:200px;--p:16px;}.vtr-pied{display:none;}}
+@media (max-width:700px){.vtr-t{--h:200px;--p:16px;}.vtr-pied{display:none;}
+  .vtr-tete{text-align:center;}   /* titre et « Voir la page Visuels » centres sur telephone */
+}
 
 /* ---- les provinces de l'accueil en lignes (13 octobre 2026, habillage k3,
    effet h3) : une grille de liens, un par province ; barres aux paliers bleus
