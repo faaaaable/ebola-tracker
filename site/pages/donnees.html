@@ -19,8 +19,8 @@
     </div>
     <p class="lede">{{seed.paysIntro}}</p>
     <p class="page-intro">{{seed.paysRank}}</p>
-    <!-- Cinq cases depuis le 13 octobre 2026 (proprietaire) : gueris entre les
-         deces et la letalite, patients en isolement a droite de la letalite. -->
+    <!-- Cinq cases depuis le 13 octobre 2026 (proprietaire) : cas, deces,
+         letalite, gueris (en vert), patients en isolement (en dore). -->
     <section class="kpis kpis-province kpis-pays" aria-label="{{meta.h1}}">
       <div class="kpi confirmed">
         <div class="label">{{t.provincesCardCases}}</div>
@@ -32,15 +32,15 @@
         <div class="value">{{seed.deaths}}</div>
         <div class="delta">{{seed.newDeathsLine}}</div>
       </div>
-      <div class="kpi recovered">
-        <div class="label">{{i18n.labelRecovered}}</div>
-        <div class="value">{{seed.recovered}}</div>
-        <div class="delta">{{seed.newRecoveredLine}}</div>
-      </div>
       <div class="kpi cfr">
         <div class="label">{{t.provincesCardCfr}}</div>
         <div class="value">{{seed.cfr}}</div>
         <div class="delta" data-i18n="cfrDelta">{{i18n.cfrDelta}}</div>
+      </div>
+      <div class="kpi recovered">
+        <div class="label">{{i18n.labelRecovered}}</div>
+        <div class="value">{{seed.recovered}}</div>
+        <div class="delta">{{seed.newRecoveredLine}}</div>
       </div>
       <div class="kpi active">
         <div class="label">{{i18n.labelIsolation}}</div>

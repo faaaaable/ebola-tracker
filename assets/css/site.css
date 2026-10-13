@@ -4003,6 +4003,9 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .prov-hero-b .kpis-province .kpi:first-child{padding-left:0;border-left:0;}
 .prov-hero-b .kpis-province .label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);}
 .prov-hero-b .kpis-province .value{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-size:52px;font-weight:700;line-height:1.05;letter-spacing:-.03em;margin:6px 0 4px;color:var(--ink);}
+/* Ensemble du pays (13 octobre 2026) : gueris en vert, isolement en dore. */
+.prov-hero-b .kpis-pays .kpi.recovered .value{color:var(--accent-stable);}
+.prov-hero-b .kpis-pays .kpi.active .value{color:var(--accent-active);}
 .prov-hero-b .kpis-province .confirmed .value{color:var(--accent-info);}
 .prov-hero-b .kpis-province .deaths .value{color:var(--accent-critical);}
 .prov-hero-b .kpis-province .delta{font-size:12px;color:var(--ink-faint);}
