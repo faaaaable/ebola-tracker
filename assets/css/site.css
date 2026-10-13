@@ -1018,7 +1018,6 @@ td.is-soft{color:var(--ink-faint);}
    sept colonnes a « ce chiffre, c'est quoi ». Le `.section-sub` du site est
    cale sur un titre en serif ; ici il suit un `.section-title` en capitales
    de 14 px, d'ou l'ecart repris a la main. */
-.section-sub-provinces{margin-top:6px;}
 
 .province-grid{
   display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:20px;
@@ -2975,7 +2974,6 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .home-sec .section-sub{display:block;font-style:normal;font-size:14px;margin-top:8px;}
 .home-sec .section-head{margin-bottom:26px;}
 .home-sec.section-split .section-title{margin-bottom:6px;}
-.home-sec.section-split .section-sub-provinces{margin:0 0 26px;}
 .home-sec.section-split .th-scroller,.home-sec.section-split .province-grid{margin-top:26px;}
 .spark-note{margin:16px 0 0;font-size:12px;color:var(--ink-faint);}
 
@@ -3668,6 +3666,127 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .cr-arrow:hover{border-color:var(--accent-strong);background:var(--accent-light);}
 .cr-link{font-weight:600;font-size:14px;color:var(--accent-strong);}
 .cr-link:hover{text-decoration:underline;}
+
+/* ---- bande « Visuels » de l'accueil (13 octobre 2026, a la place de la
+   Chronologie) : un ruban a la largeur de la colonne, entre deux filets,
+   les visuels sans texte separes par un trait fin. La rangee se deplace par
+   transform (initVitrineVisuels) ; sans script, la piste defile au geste. ---- */
+.vtr-tete .teaser-more{margin-top:8px;font-size:14px;}
+.vtr{
+  /* a la largeur de la colonne, sans fond (13 octobre 2026) : d'abord d'un
+     bord a l'autre de l'ecran, sur le blanc des panneaux */
+  margin:30px 0 0;overflow-x:auto;scrollbar-width:none;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);outline-offset:-3px;
+}
+.vtr::-webkit-scrollbar{display:none;}
+.vtr.is-ready{overflow:hidden;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;}
+.vtr.is-drag{cursor:grabbing;}
+.vtr-rang{display:flex;width:max-content;will-change:transform;}
+.vtr-t{
+  --h:330px;--p:34px;flex:0 0 auto;display:block;height:var(--h);
+  width:calc((var(--h) - 2 * var(--p)) * var(--r) + 2 * var(--p));padding:var(--p);
+  border-right:1px solid var(--line);
+}
+.vtr-t:focus-visible{outline:2px solid var(--accent-strong);outline-offset:-4px;}
+.vtr-t svg{display:block;width:100%;height:100%;pointer-events:none;}
+.vtr-pied{display:flex;justify-content:center;gap:10px;margin-top:16px;}
+.vtr-pied .cr-arrow[hidden]{display:none;}
+@media (max-width:700px){.vtr-t{--h:200px;--p:16px;}.vtr-pied{display:none;}}
+
+/* ---- les provinces de l'accueil en lignes (13 octobre 2026, habillage k3,
+   effet h3) : une grille de liens, un par province ; barres aux paliers bleus
+   de la carte. Au survol (ou au focus clavier), la ligne reste nette et ses
+   barres passent au bleu nuit, les autres s'estompent. ---- */
+.pv{--pv-cols:minmax(0,1fr) 120px 120px 44%;margin-top:26px;}
+.pv-tete,.pv-l{display:grid;grid-template-columns:var(--pv-cols);column-gap:28px;align-items:center;}
+.pv-tete{padding:0 0 12px;border-bottom:2px solid #015174;font:700 11px var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:#015174;}
+.pv-tete span:nth-child(2),.pv-tete span:nth-child(3){text-align:right;}
+.pv-tete span:nth-child(4){text-align:center;}
+.pv-l{padding:15px 0;border-bottom:1px solid #DCE7EE;color:inherit;text-decoration:none;outline:none;transition:opacity .25s;}
+.pv-nom{display:flex;align-items:center;gap:12px;font:600 17px var(--font-sans);color:#00324B;}
+.pv-nom i{flex:none;width:4px;height:22px;border-radius:2px;background:var(--palier);}
+.pv-n{text-align:right;font:700 28px/1 'Bricolage Grotesque',var(--font-sans);font-stretch:87.5%;color:#00324B;}
+.pv-dc{color:#993A2E;}
+.pv-b svg{display:block;width:100%;height:32px;}
+.pv-b rect{transition:fill .25s;}
+.pv:hover .pv-l,.pv:focus-within .pv-l{opacity:.38;}
+.pv .pv-l:hover,.pv .pv-l:focus-visible{opacity:1;}
+.pv .pv-l,.pv .pv-l:hover,.pv .pv-l:hover *{text-decoration:none;}   /* pas le soulignement general des liens */
+.pv .pv-l:hover rect,.pv .pv-l:focus-visible rect{fill:#00324B;}
+.pv-l:focus-visible{box-shadow:inset 0 0 0 2px #015174;}
+@media (max-width:760px){
+  .pv-tete{display:none;}
+  .pv-l{grid-template-columns:1fr auto auto;gap:8px 18px;padding:14px 0;}
+  .pv-b{grid-column:1/-1;}
+  .pv-n{font-size:24px;}
+}
+
+/* ---- « La riposte et ses defis » de l'accueil (13 octobre 2026, option g3,
+   sans fond teinte) : la courbe des cas cumules separe les deux camps, posee
+   sur le fond de la page. Le nom de chaque camp en
+   filigrane geant, trois chiffres cles devant. La courbe se devoile de gauche
+   a droite au fil du defilement (initFaceCourbe pose --p de 0 a 1 et la classe
+   fa-anime) ; sans elle, tout est affiche. ---- */
+.fa{
+  --rip:#005E82;--def:#993A2E;position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  grid-template-rows:1fr 1fr;min-height:420px;overflow:hidden;
+  /* fond non teinte (13 octobre 2026) : celui de la page. Le degrade essaye
+     juste avant : linear-gradient(170deg,#DCEAF2 0%,#E9EEF0 40%,#F3EBDD 70%,#EFE0C8 100%) */
+  background:transparent;
+}
+.fa-courbe{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
+.fa-pt{position:absolute;z-index:2;width:14px;height:14px;border-radius:50%;background:#993A2E;transform:translate(-50%,-50%);box-shadow:0 0 0 5px rgba(153,58,46,.22);}
+.fa-r,.fa-d{position:relative;z-index:3;padding:34px 0 26px;}   /* sans fond, alignes sur la colonne */
+.fa-r{grid-column:1;grid-row:1;}
+.fa-d{grid-column:2;grid-row:2;align-self:end;}
+/* le mot en filigrane, derriere les chiffres (z-index -1 dans le bloc) */
+.fa h3{
+  position:absolute;z-index:-1;top:6px;left:-8px;margin:0;pointer-events:none;opacity:.13;
+  font:600 clamp(110px,14vw,200px)/.8 var(--font-serif);letter-spacing:-.06em;
+}
+.fa-r h3{color:var(--rip);}
+.fa-d h3{color:var(--def);font-style:italic;left:auto;right:10px;top:auto;bottom:-6px;}   /* l'italique deborde : le S etait coupe a -8px */
+/* les grands mots sont les liens vers les pages Riposte et Defis : au survol
+   ils sortent du filigrane, en bleu fonce et en rouge fonce, et les chiffres
+   s'effacent le temps du survol (le mot opaque les recouvrirait). Toute la
+   surface du mot reagit, y compris sous les chiffres (13 octobre 2026,
+   demande du proprietaire) : le lien est un bloc, et les chiffres, qui ne
+   sont pas des liens, laissent passer le pointeur. */
+.fa h3 a{display:inline-block;color:inherit;text-decoration:none;pointer-events:auto;transition:color .25s ease;}
+.fa ul{pointer-events:none;}
+.fa h3:has(a:hover),.fa h3:has(a:focus-visible){opacity:1;}
+.fa h3{transition:opacity .25s ease;}
+.fa-r h3 a:hover,.fa-r h3 a:focus-visible{color:#00324B;}
+.fa-d h3 a:hover,.fa-d h3 a:focus-visible{color:#6E271E;}
+.fa h3 a:focus-visible{outline:2px solid currentColor;outline-offset:4px;}
+.fa ul{transition:opacity .25s ease;}
+.fa-r:has(h3 a:hover) ul,.fa-r:has(h3 a:focus-visible) ul,.fa-d:has(h3 a:hover) ul,.fa-d:has(h3 a:focus-visible) ul{opacity:.12;}
+.fa ul{list-style:none;margin:0;padding:0;display:flex;gap:12px 40px;}
+.fa-d ul{justify-content:flex-end;}
+.fa li{display:flex;flex-direction:column;font:500 13px/1.3 var(--font-sans);color:var(--ink-dim);}
+.fa li span{max-width:170px;}
+.fa-d li span{margin-left:auto;}
+.fa li b{margin-bottom:6px;font:700 clamp(40px,4.6vw,62px)/1 'Bricolage Grotesque',var(--font-sans);font-stretch:87.5%;letter-spacing:-.035em;}
+.fa-r li b{color:var(--rip);}
+.fa-d li{align-items:flex-end;text-align:right;}
+.fa-d li b{color:var(--def);}
+.fa .fa-mob{display:none;}
+/* l'animation : la courbe decoupee a la proportion --p, les camps et le point
+   qui apparaissent a leur tour (classes voit-r, voit-d, voit-pt) */
+.fa.fa-anime .fa-courbe,.fa.fa-anime .fa-mob svg{clip-path:inset(0 calc((1 - var(--p,0)) * 100%) 0 0);}
+.fa.fa-anime .fa-r,.fa.fa-anime .fa-d{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease;}
+.fa.fa-anime.voit-r .fa-r,.fa.fa-anime.voit-d .fa-d{opacity:1;transform:none;}
+.fa.fa-anime .fa-pt,.fa.fa-anime .fa-mpt{opacity:0;transition:opacity .35s ease;}
+.fa.fa-anime.voit-pt .fa-pt,.fa.fa-anime.voit-pt .fa-mpt{opacity:1;}
+@media (max-width:760px){
+  .fa{display:block;min-height:0;}
+  .fa-courbe,.fa-pt{display:none;}
+  .fa-r,.fa-d{padding:26px 0;}
+  .fa ul{flex-wrap:wrap;}
+  .fa h3{font-size:96px;}
+  .fa .fa-mob{display:block;}
+  .fa-mob svg{display:block;width:100%;height:auto;}
+}
 @media (max-width:900px){
   .cr-track{--cw:min(86vw,420px);--ch:470px;--gap:14px;}
   .cr-card{padding:18px 16px 14px;border-radius:22px;}

@@ -34,6 +34,7 @@ from datetime import date, timedelta
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import defis_synthese  # maquette « Riposte & defis », seconde partie redigee
 import base_donnees  # la base de donnees unifiee (9 octobre 2026)
+import face_accueil  # la riposte et ses defis, sur l'accueil (13 octobre 2026)
 import visuels  # la page Visuels : douze images SVG, trois rythmes (12 octobre 2026)
 import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 2026), en local
 import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
@@ -1556,6 +1557,65 @@ def province_liste_html(provinces, urls, lang, strings_lang):
                    % (urls.province_path(nom, lang), PROVINCE_COLORS.get(nom, "var(--ink-faint)"),
                       cas / total * 100, esc(nom), fmt(cas, lang),
                       esc(interp(strings_lang["provincesCardDeathsInline"], {"n": fmt(deces, lang)}))))
+    return "\n".join(out)
+
+
+# Les provinces de l'accueil en LIGNES (13 octobre 2026, maquettes
+# tmp/proto-provinces-accueil-1013, habillage k3, effet h3) : remplace la
+# mosaique et la liste telephone. Une ligne par province, toute la ligne mene a
+# sa page : nom, cas, deces, nouveaux cas par jour sur 30 jours. Les barres
+# prennent les paliers bleus de la carte de l'accueil, du plus fonce (la plus
+# touchee) au plus clair. Echelle « adoucie » : chaque province garde sa forme,
+# sa hauteur maximale suit (pic de la province / plus haut pic) ** 0,4, jamais
+# sous 0,3 — l'ordre de grandeur se devine sans rendre les petites invisibles
+# (demande du proprietaire : proportionner « legerement »). Nouveaux cas du
+# jour = ecart avec le releve precedent (3 jours d'ecart au plus), pose au jour
+# du releve ; jour sans releve, pas de barre.
+LIGNES_PALIERS = ["#00324B", "#015174", "#267294", "#5693AF", "#88B3C8", "#B7D3E1", "#B7D3E1"]
+LIGNES_JOURS, LIGNES_EXPO, LIGNES_PLANCHER = 30, 0.4, 0.3
+
+
+def province_lignes_html(provinces, province_history, urls, lang, strings_lang, date_fin):
+    fin = date.fromisoformat(date_fin)
+    jours = [fin - timedelta(days=LIGNES_JOURS - 1 - i) for i in range(LIGNES_JOURS)]
+    hist = sorted(province_history or [], key=lambda h: h["date"])
+    rangees = sorted(provinces, key=lambda p: -(p.get("confirmed") or 0))
+    series = {}
+    for pr in rangees:
+        pts = []
+        for h in hist:
+            for q in h.get("provinces") or []:
+                if q.get("name") == pr["name"] and q.get("confirmed") is not None:
+                    pts.append((date.fromisoformat(h["date"]), q["confirmed"]))
+                    break
+        par = {}
+        for (d0, c0), (d1, c1) in zip(pts, pts[1:]):
+            if (d1 - d0).days <= 3:
+                par[d1] = max(0, c1 - c0)
+        series[pr["name"]] = [par.get(j) for j in jours]
+    pic_max = max([max([v or 0 for v in vals] + [0]) for vals in series.values()] + [1])
+    W, H = 400, 32
+    out = ['      <div class="pv-tete" aria-hidden="true"><span>%s</span><span>%s</span><span>%s</span><span>%s</span></div>'
+           % tuple(esc(strings_lang[k]) for k in ("pvProvince", "pvCas", "pvDeces", "pv30"))]
+    for i, pr in enumerate(rangees):
+        nom = pr["name"]; vals = series[nom]
+        palier = LIGNES_PALIERS[min(i, len(LIGNES_PALIERS) - 1)]
+        pic = max([v or 0 for v in vals] + [1])
+        mx = pic / max(LIGNES_PLANCHER, (pic / float(pic_max)) ** LIGNES_EXPO)
+        bw = W / float(LIGNES_JOURS); rects = []
+        for j, v in enumerate(vals):
+            if v is None:
+                continue
+            hh = max(1.2 if v else 0, H * v / mx)
+            rects.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="%s"/>' % (j * bw + .6, H - hh, bw - 1.2, hh, palier))
+        cas, deces = pr.get("confirmed") or 0, pr.get("deaths") or 0
+        aria = interp(strings_lang["pvAria"], {"p": nom, "c": fmt(cas, lang), "d": fmt(deces, lang)})
+        out.append('      <a class="pv-l" href="%s" style="--palier:%s" aria-label="%s">'
+                   '<span class="pv-nom"><i></i><span>%s</span></span><span class="pv-n">%s</span><span class="pv-n pv-dc">%s</span>'
+                   '<span class="pv-b"><svg viewBox="0 0 %d %d" preserveAspectRatio="none" aria-hidden="true" focusable="false">'
+                   '<line x1="0" x2="%d" y1="%.1f" y2="%.1f" stroke="#DEDAD5"/>%s</svg></span></a>'
+                   % (urls.province_path(nom, lang), palier, esc(aria), esc(nom), fmt(cas, lang), fmt(deces, lang),
+                      W, H, W, H - .5, H - .5, "".join(rects)))
     return "\n".join(out)
 
 
@@ -4167,6 +4227,8 @@ def main():
             "provinceCards": cards,
             "provinceCardsPlain": cards,
             "seed.provinceListe": province_liste_html(provinces, urls, lang, strings_lang),
+            "seed.provinceLignes": province_lignes_html(provinces, province_history, urls, lang, strings_lang,
+                                                        meta_data.get("reportingDate")),
             "seed.provinceMosaique": province_mosaique_html(provinces, urls, lang, strings_lang, province_maps,
                                                             latest.get("healthZones", []), config, geo.get("aliases", {})),
             "provinceTableRows": province_table_rows_html(provinces, urls, lang),
@@ -4515,6 +4577,12 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         # chaque generation (scripts/visuels.py). Pas d'echappement : c'est du
         # balisage, construit et echappe par le module.
         values["vis.html"] = visuels.page_html(lang, i18n_lang["months"])
+    if page.get("id") == "accueil":
+        # La bande « Visuels » (13 octobre 2026), a la place de la Chronologie :
+        # six vignettes sans texte, dessinees dans la langue de la page.
+        values["vis.vitrine"] = visuels.vitrine_html(lang, i18n_lang["months"], urls.path("visuels", lang))
+        values["face.html"] = face_accueil.section_html(lang, strings_lang, values.get("seed.ripVaccines"),
+                                                        urls.path("riposte", lang), urls.path("defis", lang))
     if page.get("id") == "dashboard":
         values.update(dashboard_values(config, urls, lang, strings_lang, i18n_lang, alt_paths,
                                        national, meta_data, provinces))

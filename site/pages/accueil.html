@@ -134,15 +134,15 @@
   <section class="section section-split home-sec">
     <div>
       <h2 class="section-title">{{t.teaserProvincesTitle}}</h2>
-      <div class="section-sub section-sub-provinces">{{t.teaserProvincesSub}}</div>
     </div>
     <div>
-      <div class="pm">
-{{seed.provinceMosaique}}
-      </div>
-      <!-- Telephone : la meme chose en liste compacte (province_liste_html). -->
-      <div class="pl">
-{{seed.provinceListe}}
+      <!-- Une ligne par province (13 octobre 2026, maquette
+           tmp/proto-provinces-accueil-1013, habillage k3 et effet h3) : remplace la
+           mosaique et la liste telephone. Toute la ligne mene a la page de la
+           province ; au survol, les autres lignes s'estompent
+           (province_lignes_html). -->
+      <div class="pv">
+{{seed.provinceLignes}}
       </div>
       <!-- Sous la grille, le lien vers la page Autres pays (8 octobre 2026) :
            pas une case de plus, la grille ne porte que les provinces de RDC
@@ -167,91 +167,45 @@
 
   <div class="sep" aria-hidden="true"></div>
 
-  <section class="section section-split home-sec home-band">
-    <h2 class="section-title">{{t.navTimeline}}</h2>
-    <div>
-      <!-- Les deux commandes vivent hors de la piste, sinon elles defileraient
-           avec elle. Elles restent masquees tant que le script ne les a pas
-           activees : sans JavaScript la piste se parcourt au geste, et un
-           bouton mort serait pire que pas de bouton. -->
-      <div class="th-scroller">
-        <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="{{t.timelineRegionLabel}}">
-          <ol class="th-track">
-{{timelineTeaser}}
-          </ol>
-        </div>
-        <button class="th-nav is-prev" type="button" data-th-nav="-1"
-                aria-controls="timelineTeaser" aria-label="{{t.timelineScrollPrev}}" hidden>
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
-               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-        </button>
-        <button class="th-nav is-next" type="button" data-th-nav="1"
-                aria-controls="timelineTeaser" aria-label="{{t.timelineScrollNext}}" hidden>
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
-               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-      <a class="teaser-more" href="{{url.chronologie}}">{{t.teaserTimelineMore}}</a>
-    </div>
+  <!-- Riposte et defis (13 octobre 2026, maquette tmp/proto-accueil-face-1013,
+       option g3) : remplace le carrousel de cinq cartes du 4 octobre. Ni
+       graphique ni carrousel : la courbe des cas cumules separe les deux
+       camps, la riposte au-dessus, les defis en dessous, trois chiffres cles
+       chacun (scripts/face_accueil.py). Juste apres les provinces : apres
+       l'etat de l'epidemie, ce qu'on lui oppose. -->
+  <section class="section home-sec fa-sec">
+    <!-- Ni titre visible ni liens dessous (13 octobre 2026) : les grands mots
+         Riposte et Defis sont eux-memes les liens vers leurs pages, et se
+         foncent au survol. Le titre reste pour les lecteurs d'ecran. -->
+    <h2 class="visually-hidden">{{t.crTitle}}</h2>
+    {{face.html}}
   </section>
 
   <div class="sep" aria-hidden="true"></div>
 
-  <!-- Riposte et defis (4 octobre 2026) : cinq grandes cartes a faire defiler
-       (la grille des obstacles, puis les graphiques alertes, laboratoire,
-       contacts, vaccination), deux fleches dessous, et les liens vers les pages
-       Riposte et Defis. Remplace la bande sombre « La riposte, etape par etape » et
-       ses quatre chiffres (sauvegarde : _mis-de-cote-2026-10-04-cercles-carte).
-       Fond clair, titre a gauche, sans sous-titre ; la carte au centre est la
-       plus grande, les autres restent visibles de part et d'autre. -->
-  <section class="section home-sec cr-sec">
-    <div class="section-head">
-      <h2 class="section-title">{{t.crTitle}}</h2>
+  <!-- Visuels (13 octobre 2026, maquette tmp/proto-accueil-vitrine-1013,
+       option 3 « le ruban ») : a la place de la Chronologie, qui garde sa
+       page et son entree de menu ; derniere section de l'accueil depuis le
+       13 octobre 2026 (apres la riposte et ses defis). Six visuels de la page
+       Visuels, sans aucun texte, a la largeur de la colonne entre deux filets,
+       sans fond ; ils defilent seuls, en boucle sans fin dans les deux sens
+       (apres le sixieme revient le premier), s'arretent au survol, se
+       glissent a la main. Chaque image mene a son visuel. Sans JavaScript, la
+       piste se parcourt au geste et les fleches restent masquees. -->
+  <section class="section home-sec vtr-sec">
+    <div class="vtr-tete">
+      <h2 class="section-title">{{t.vitrineTitre}}</h2>
+      <a class="teaser-more" href="{{url.visuels}}">{{t.vitrineLien}}</a>
     </div>
-    <div class="cr-track" id="crTrack" tabindex="0" role="region" aria-label="{{t.crRegion}}">
-      <article class="cr-card cr-card-grille">
-        <header class="cr-head"><span class="cr-tag">{{t.navDefis}}</span><h3>{{seed.defisGrilleTitre}}</h3><p>{{seed.defisGrilleSub}}</p></header>
-        <div class="cr-body">{{seed.defisGrilleHome}}</div>
-      </article>
-      <article class="cr-card" data-cr-depart>
-        <header class="cr-head"><span class="cr-tag">{{t.navRiposte}}</span><h3>{{t.crAlertes}}</h3><p>{{t.riposteAlertesSub}}</p></header>
-        <div class="chart-panel-wrap cr-body">
-          <div class="chart-panel"><canvas id="homeAlertesChart" data-chart="alertes"></canvas></div>
-          <div class="map-note chart-note"></div>
-        </div>
-      </article>
-      <article class="cr-card">
-        <header class="cr-head"><span class="cr-tag">{{t.navRiposte}}</span><h3>{{t.crLabo}}</h3><p>{{t.riposteLaboSub}}</p></header>
-        <div class="chart-panel-wrap cr-body">
-          <div class="chart-panel"><canvas id="homeLaboChart" data-chart="laboratoire"></canvas></div>
-          <div class="map-note chart-note"></div>
-        </div>
-      </article>
-      <article class="cr-card">
-        <header class="cr-head"><span class="cr-tag">{{t.navRiposte}}</span><h3>{{t.crContacts}}</h3><p>{{t.riposteContactsSub}}</p></header>
-        <div class="chart-panel-wrap cr-body">
-          <div class="chart-panel"><canvas id="homeContactsChart" data-chart="contactsRiposte"></canvas></div>
-          <div class="map-note chart-note"></div>
-        </div>
-      </article>
-      <article class="cr-card">
-        <header class="cr-head"><span class="cr-tag">{{t.navRiposte}}</span><h3>{{t.crVaccin}}</h3><p>{{t.riposteVaccinSub}}</p></header>
-        <div class="chart-panel-wrap cr-body">
-          <div class="chart-panel chart-panel-barres"><canvas id="homeVaccinChart" data-chart="vaccination"></canvas></div>
-          <div class="map-note chart-note"></div>
-        </div>
-      </article>
+    <div class="vtr" id="vitrineVisuels" tabindex="0" role="region" aria-label="{{t.vitrineRegion}}">
+      <div class="vtr-rang">{{vis.vitrine}}</div>
     </div>
-    <div class="cr-foot">
-      <a class="cr-link" href="{{url.riposte}}">{{t.crLinkRiposte}} &rarr;</a>
-      <div class="cr-arrows">
-        <button class="cr-arrow" type="button" data-cr-nav="-1" aria-controls="crTrack" aria-label="{{t.crPrev}}">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-        </button>
-        <button class="cr-arrow" type="button" data-cr-nav="1" aria-controls="crTrack" aria-label="{{t.crNext}}">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-      <a class="cr-link" href="{{url.defis}}">{{t.crLinkDefis}} &rarr;</a>
+    <div class="vtr-pied">
+      <button class="cr-arrow" type="button" data-vtr-pas="-1" aria-controls="vitrineVisuels" aria-label="{{t.vitrinePrev}}" hidden>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="cr-arrow" type="button" data-vtr-pas="1" aria-controls="vitrineVisuels" aria-label="{{t.vitrineNext}}" hidden>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
     </div>
   </section>

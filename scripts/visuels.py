@@ -1308,3 +1308,58 @@ def page_html(lang, mois_courts):
                    '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
     out.append('<div class="vx-lb" id="vxLb" hidden><button type="button" class="vx-fermer" aria-label="%s">×</button><div class="vx-lb-in"></div></div>' % esc(p["fermer"]))
     return "".join(out)
+
+
+# ================================================================ la vitrine de l'accueil
+# Bande « Visuels » de l'accueil, a la place de la Chronologie (13 octobre
+# 2026, maquette tmp/proto-accueil-vitrine-1013, option 3 « le ruban pleine
+# largeur ») : six visuels SANS AUCUN TEXTE — titres, axes, legendes, notes
+# retires, cadres sur le dessin seul — pour attirer l'oeil, pas pour informer.
+# Chaque image mene a son visuel sur la page Visuels ; app.js les fait
+# defiler en boucle sans fin (initVitrineVisuels).
+# (ancre sur la page Visuels, fonction, cadre x y l h dans le repere 1200)
+def _nk(c):
+    """Rang du Nord-Kivu parmi les provinces les plus touchees : son visuel
+    quotidien est nouveaux-cas-province-<rang+1> sur la page Visuels."""
+    return c.ordre_provinces().index("Nord-Kivu")
+
+
+# Ordre du proprietaire (13 octobre 2026, deuxieme version) : code-barre,
+# calendrier, laboratoire, lieu des deces, suivi des contacts, nouveaux cas du
+# Nord-Kivu, nouveaux cas semaine apres semaine, zones actives et calmes, et
+# zone apres zone en dernier. La part de chaque province a ete retiree.
+# Ancre : une chaine, ou une fonction du contexte (le rang du Nord-Kivu peut changer).
+VITRINE = [("code-barre", rayures, (60, 250, 1080, 770)), ("calendrier", calendrier, (50, 300, 1100, 510)),
+           ("laboratoire-jour", r_labo, (100, 315, 1030, 525)), ("lieu-deces", h_lieu, (100, 290, 1050, 540)),
+           ("contacts-jour", r_contacts, (100, 290, 1025, 545)),
+           (lambda c: "nouveaux-cas-province-%d" % (_nk(c) + 1), lambda c: r_province(c, _nk(c)), (100, 315, 1025, 520)),
+           ("cas-semaine", h_cas, (100, 285, 1045, 565)), ("zones-actives", h_zones, (100, 290, 1045, 560)),
+           ("zone-apres-zone", h_tapis, (180, 245, 970, 725))]
+
+
+def nombre_visuels():
+    return sum(len(items) for _, items in LISTE)
+
+
+def vitrine_html(lang, mois_courts, href):
+    """Les six vignettes de la bande d'accueil, liens vers href#ancre. Le nom
+    du visuel (son titre, dans la langue de la page) ne vit que dans
+    l'aria-label : a l'ecran, rien que le dessin."""
+    c = Contexte(lang, mois_courts); out = []
+    for n, (ident, fn, (x, y, w, h)) in enumerate(VITRINE):
+        if callable(ident):
+            ident = ident(c)
+        svg = fn(c)
+        m = re.findall(r'<text x="60\.0" y="(?:110|156)\.0"[^>]*font-size="(?:42|38)"[^>]*>([^<]*)</text>', svg)
+        titre = html.unescape(" ".join(m)) if m else ident
+        svg = re.sub(r"<text\b.*?</text>", "", svg, flags=re.S)
+        svg = re.sub(r'<path d="M60,\d+ h11 v11 z"[^>]*/>', "", svg)         # reperes des notes du calendrier
+        svg = re.sub(r'<circle cx="66" cy="52" r="6"[^>]*/>', "", svg)        # point rouge du titre
+        svg = re.sub(r'(<svg[^>]*>)<rect width="\d+" height="\d+" fill="[^"]*"/>', r"\1", svg, count=1)  # fond : celui de la bande
+        svg = re.sub(r'role="img" aria-label="[^"]*"', 'aria-hidden="true" focusable="false"', svg, count=1)
+        svg = re.sub(r'viewBox="[^"]*"', 'viewBox="%d %d %d %d" preserveAspectRatio="xMidYMid meet"' % (x, y, w, h), svg, count=1)
+        # id internes (motifs de hachures) uniques : la page porte d'autres SVG
+        for i in set(re.findall(r'id="([^"]+)"', svg)):
+            svg = svg.replace('id="%s"' % i, 'id="%s-vt%d"' % (i, n)).replace("url(#%s)" % i, "url(#%s-vt%d)" % (i, n))
+        out.append('<a class="vtr-t" href="%s#%s" style="--r:%.4f" aria-label="%s">%s</a>' % (esc(href), ident, w / h, esc(titre), svg))
+    return "".join(out)

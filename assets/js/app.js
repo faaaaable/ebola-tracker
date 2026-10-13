@@ -7015,6 +7015,136 @@ function initTimelineScroller(){
   rafraichir();
 }
 
+/* Bande « Visuels » de l'accueil (13 octobre 2026) : six vignettes sans
+   texte, en BOUCLE SANS FIN dans les deux sens — apres la sixieme revient la
+   premiere, au defilement automatique comme au glisser et aux fleches
+   (demande du proprietaire). La serie est recopiee autant de fois qu'il faut
+   pour couvrir l'ecran plus une serie, et la rangee est deplacee de
+   (decalage modulo largeur d'une serie) : la suite etant periodique, aucun
+   raccord ne se voit. Defile seule a 32 px/s ; s'arrete au survol, au focus,
+   pendant un geste et 3,5 s apres ; immobile si le systeme demande moins
+   d'animations. Une fleche cale la piste sur le debut du visuel suivant :
+   les vignettes n'ont pas toutes la meme largeur. */
+function initVitrineVisuels(){
+  const vue = document.getElementById('vitrineVisuels');
+  if(!vue) return;
+  const rang = vue.querySelector('.vtr-rang');
+  const serie = [...rang.children];
+  if(!serie.length) return;
+  const calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const VITESSE = 32;
+  let W = 0, o = 0, pause = 0, dedans = false, tween = null, tient = null, bouge = false;
+
+  function mesure(){
+    [...rang.children].slice(serie.length).forEach(n => n.remove());
+    const copie = () => serie.forEach(t => {
+      const a = t.cloneNode(true); a.tabIndex = -1; a.setAttribute('aria-hidden', 'true'); rang.appendChild(a);
+    });
+    copie();
+    W = rang.children[serie.length].offsetLeft - serie[0].offsetLeft;
+    while(W * (rang.children.length / serie.length - 1) < vue.clientWidth + W) copie();
+  }
+  function rend(){
+    const p = ((o % W) + W) % W;
+    rang.style.transform = 'translate3d(' + (-p).toFixed(2) + 'px,0,0)';
+  }
+  const arret = ms => { pause = performance.now() + (ms || 3500); };
+  let t0 = performance.now();
+  function tic(t){
+    const dt = Math.min(64, t - t0); t0 = t;
+    if(tween){
+      const k = Math.min(1, (t - tween.t) / 450), e = 1 - Math.pow(1 - k, 3);
+      o = tween.a + (tween.b - tween.a) * e;
+      if(k >= 1) tween = null;
+    } else if(!calme && !dedans && !tient && t > pause && !document.hidden){
+      o += VITESSE * dt / 1000;
+    }
+    rend();
+    requestAnimationFrame(tic);
+  }
+  function pas(n){
+    arret(5000);
+    const dep = tween ? tween.b : o, p = ((dep % W) + W) % W, base = dep - p;
+    const bords = serie.map(t => t.offsetLeft - serie[0].offsetLeft).concat(W);
+    let b = n > 0 ? bords.find(x => x > p + 2) : bords.filter(x => x < p - 2).pop();
+    if(b === undefined) b = n > 0 ? W : bords[bords.length - 2] - W;
+    tween = { a: o, b: base + b, t: performance.now() };
+  }
+
+  vue.addEventListener('pointerdown', e => { tween = null; tient = { x: e.clientX, o, id: e.pointerId }; bouge = false; });
+  vue.addEventListener('pointermove', e => {
+    if(!tient) return;
+    const d = e.clientX - tient.x;
+    if(!bouge && Math.abs(d) > 5){
+      bouge = true; vue.classList.add('is-drag');
+      try { vue.setPointerCapture(tient.id); } catch(_){}
+    }
+    if(bouge) o = tient.o - d;
+  });
+  const lache = () => { if(tient){ tient = null; vue.classList.remove('is-drag'); arret(); } };
+  vue.addEventListener('pointerup', lache);
+  vue.addEventListener('pointercancel', lache);
+  // un glisser n'est pas un clic : on ne suit pas le lien
+  vue.addEventListener('click', e => { if(bouge){ e.preventDefault(); e.stopPropagation(); bouge = false; } }, true);
+  vue.addEventListener('dragstart', e => e.preventDefault());
+  vue.addEventListener('mouseenter', () => { dedans = true; });
+  vue.addEventListener('mouseleave', () => { dedans = false; arret(600); });
+  vue.addEventListener('focusin', () => { dedans = true; });
+  vue.addEventListener('focusout', () => { dedans = false; });
+  vue.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){ e.preventDefault(); pas(e.key === 'ArrowRight' ? 1 : -1); }
+  });
+  document.querySelectorAll('[data-vtr-pas]').forEach(b => {
+    b.hidden = false;
+    b.addEventListener('click', () => pas(Number(b.dataset.vtrPas)));
+  });
+
+  vue.classList.add('is-ready');
+  mesure(); rend();
+  requestAnimationFrame(tic);
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { mesure(); rend(); }, 150); });
+}
+
+/* « La riposte et ses defis » de l'accueil (13 octobre 2026) : la courbe des
+   cas se devoile de gauche a droite AU FIL DU DEFILEMENT, et recule si l'on
+   remonte (choix du proprietaire). La progression --p va de 0, quand le bloc
+   est entierement a l'ecran, a 1, quand il est remonte vers le haut ; sur telephone, on suit la petite courbe. Les chiffres de la
+   riposte apparaissent au debut du trace, ceux des defis a la fin, le point
+   rouge quand la courbe touche le dernier bulletin. Si le systeme demande
+   moins d'animations, rien n'est cache. */
+function initFaceCourbe(){
+  const bloc = document.getElementById('faceRiposte');
+  if(!bloc) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const mob = bloc.querySelector('.fa-mob');
+  bloc.classList.add('fa-anime');
+  let attente = false;
+  function maj(){
+    attente = false;
+    const telephone = mob && mob.offsetParent !== null;
+    const cible = telephone ? mob : bloc;
+    const r = cible.getBoundingClientRect(), vh = window.innerHeight;
+    // Le trace commence quand un peu plus de la moitie de la cible est a
+    // l'ecran (13 octobre 2026 : plus tot qu'au bloc entier) et s'acheve quand son haut est remonte au
+    // cinquieme de la fenetre (au tiers sur telephone) : on voit la courbe
+    // naitre. Un bloc plus haut que la fenetre part de son entree.
+    const fin = vh * (telephone ? 0.35 : 0.2);
+    const debut = Math.max(vh - r.height * 0.55, fin + 160);   // des que plus de la moitie est a l'ecran
+    let p = Math.max(0, Math.min(1, (debut - r.top) / (debut - fin)));
+    // en bas de page on ne peut plus remonter le bloc : la courbe s'acheve
+    if(p > 0 && window.scrollY + vh >= document.documentElement.scrollHeight - 2) p = 1;
+    bloc.style.setProperty('--p', p.toFixed(4));
+    bloc.classList.toggle('voit-r', bloc.getBoundingClientRect().top < vh * 0.8);
+    bloc.classList.toggle('voit-d', p > 0.6);
+    bloc.classList.toggle('voit-pt', p > 0.99);
+  }
+  const demande = () => { if(!attente){ attente = true; requestAnimationFrame(maj); } };
+  window.addEventListener('scroll', demande, { passive: true });
+  window.addEventListener('resize', demande);
+  maj();
+}
+
 /* Carrousel « La riposte et ses defis » de l'accueil (4 octobre 2026) : cinq
    cartes sur une BOUCLE sans fin — il y en a toujours une a gauche et une a
    droite. Pas de defilement natif : chaque carte est posee par son ecart `d` a
@@ -7171,6 +7301,8 @@ applyStaticI18n();
    les load* gardent les donnees integrees et le rendu ci-dessous s'en sert. */
 safeRun(initTimelineScroller, 'timelineScroller');
 safeRun(initRiposteCarousel, 'riposteCarousel');
+safeRun(initVitrineVisuels, 'vitrineVisuels');
+safeRun(initFaceCourbe, 'faceCourbe');
 safeRun(initBulleEntete, 'bulleEntete');
 safeRun(initCourbeChiffresCles, 'courbeChiffresCles');
 /* L'historique des zones ne sert qu'au curseur des cartes et aux tableaux
