@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-09"
+    "fin": "2026-10-11"
   },
   "parDate": [
     {
@@ -2088,11 +2088,12 @@
       "methode": "tableau par province (D)",
       "provinces": {
         "Haut-Uélé": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Ituri": {
           "recues": 604,
@@ -2244,11 +2245,12 @@
       "methode": "tableau par province (D)",
       "provinces": {
         "Bas-Uélé": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Haut-Uélé": {
           "recues": 5,
@@ -2303,11 +2305,12 @@
       "methode": "tableau par province (D)",
       "provinces": {
         "Bas-Uélé": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Haut-Uélé": {
           "recues": 31,
@@ -2338,11 +2341,12 @@
           "transferes": 1
         },
         "Tshopo": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         }
       },
       "total": {
@@ -2390,11 +2394,12 @@
           "transferes": 0
         },
         "Tshopo": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         }
       },
       "total": {
@@ -2945,11 +2950,12 @@
       "methode": "tableau par province (D)",
       "provinces": {
         "Haut-Uélé": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Bas-Uélé": {
           "recues": 19,
@@ -3032,11 +3038,12 @@
           "transferes": 63
         },
         "Sud-Kivu": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 202,
@@ -3151,11 +3158,12 @@
           "transferes": 95
         },
         "Sud-Kivu": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 139,
@@ -3269,11 +3277,12 @@
           "transferes": 23
         },
         "Sud-Kivu": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 108,
@@ -3505,11 +3514,12 @@
           "transferes": 56
         },
         "Sud-Kivu": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 139,
@@ -3623,11 +3633,12 @@
           "transferes": 38
         },
         "Sud-Kivu": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 87,
@@ -3682,11 +3693,12 @@
           "transferes": 30
         },
         "Sud-Kivu": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 99,
@@ -3919,18 +3931,20 @@
           "transferes": 98
         },
         "Sud-Kivu": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Sud-Ubangi": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 66,
@@ -3992,11 +4006,12 @@
           "transferes": 4
         },
         "Sud-Ubangi": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 114,
@@ -4058,11 +4073,12 @@
           "transferes": 1
         },
         "Sud-Ubangi": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 62,
@@ -4190,11 +4206,12 @@
           "transferes": 1
         },
         "Sud-Ubangi": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 82,
@@ -4463,11 +4480,12 @@
       "methode": "tableau par province (D)",
       "provinces": {
         "Haut-Uélé": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Bas-Uélé": {
           "recues": 68,
@@ -4491,11 +4509,12 @@
           "transferes": 45
         },
         "Sud-Ubangi": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 47,
@@ -4550,11 +4569,12 @@
           "transferes": 80
         },
         "Sud-Ubangi": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 103,
@@ -5480,11 +5500,12 @@
           "transferes": 0
         },
         "Ituri": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Nord-Kivu": {
           "recues": 1297,
@@ -5494,11 +5515,12 @@
           "transferes": 99
         },
         "Sud-Ubangi": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 145,
@@ -5512,6 +5534,8 @@
         "recues": 1722,
         "verifiees": 1722,
         "validees": 270,
+        "suspectsInvestigues": 270,
+        "transferes": 114,
         "calcule": true,
         "partVerifiee": 100.0,
         "partValidee": 15.7
@@ -5552,11 +5576,12 @@
           "transferes": 128
         },
         "Sud-Ubangi": {
-          "recues": 0,
-          "verifiees": 0,
-          "validees": 0,
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
           "suspectsInvestigues": null,
-          "transferes": null
+          "transferes": null,
+          "nonTransmis": true
         },
         "Tshopo": {
           "recues": 153,
@@ -5570,9 +5595,133 @@
         "recues": 3149,
         "verifiees": 3059,
         "validees": 473,
+        "suspectsInvestigues": 473,
+        "transferes": 219,
         "calcule": true,
         "partVerifiee": 97.1,
         "partValidee": 15.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-10",
+      "sitrepNumber": "149",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 92,
+          "verifiees": 92,
+          "validees": 20,
+          "suspectsInvestigues": 20,
+          "transferes": 3
+        },
+        "Bas-Uélé": {
+          "recues": 112,
+          "verifiees": 112,
+          "validees": 30,
+          "suspectsInvestigues": 30,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Nord-Kivu": {
+          "recues": 1401,
+          "verifiees": 1401,
+          "validees": 256,
+          "suspectsInvestigues": 256,
+          "transferes": 138
+        },
+        "Sud-Ubangi": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Tshopo": {
+          "recues": 108,
+          "verifiees": 108,
+          "validees": 4,
+          "suspectsInvestigues": 4,
+          "transferes": 2
+        }
+      },
+      "total": {
+        "recues": 1713,
+        "verifiees": 1713,
+        "validees": 310,
+        "suspectsInvestigues": 310,
+        "transferes": 143,
+        "calcule": true,
+        "partVerifiee": 100.0,
+        "partValidee": 18.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-11",
+      "sitrepNumber": "150",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 94,
+          "verifiees": 94,
+          "validees": 11,
+          "suspectsInvestigues": 11,
+          "transferes": 5
+        },
+        "Bas-Uélé": {
+          "recues": 85,
+          "verifiees": 85,
+          "validees": 14,
+          "suspectsInvestigues": 14,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1092,
+          "verifiees": 1092,
+          "validees": 159,
+          "suspectsInvestigues": 159,
+          "transferes": 81
+        },
+        "Nord-Kivu": {
+          "recues": 1041,
+          "verifiees": 1041,
+          "validees": 148,
+          "suspectsInvestigues": 148,
+          "transferes": 57
+        },
+        "Sud-Ubangi": {
+          "recues": 82,
+          "verifiees": 82,
+          "validees": 0,
+          "suspectsInvestigues": 0,
+          "transferes": 0
+        },
+        "Tshopo": {
+          "recues": 109,
+          "verifiees": 109,
+          "validees": 2,
+          "suspectsInvestigues": 2,
+          "transferes": 0
+        }
+      },
+      "total": {
+        "recues": 2503,
+        "verifiees": 2503,
+        "validees": 334,
+        "suspectsInvestigues": 334,
+        "transferes": 143,
+        "calcule": true,
+        "partVerifiee": 100.0,
+        "partValidee": 13.3
       },
       "source": "SitRep INSP (automatique)"
     }

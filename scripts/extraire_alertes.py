@@ -101,7 +101,9 @@ def cellules(ligne, n, valide=None):
 # ------------------------------------------------------------------ D
 # « par ZS » aux 084-086 (6-8 aout) : meme tableau, memes neuf colonnes,
 # une ligne par province malgre le titre (audit du 27 septembre 2026).
-TITRE_D_RE = re.compile(r"Situation des alertes notifi[ée]es par (?:province|ZS)", re.I)
+# 149 : « Situation des alertes notifiées 10 octobre 2026 », sans « par
+# province » — meme tableau.
+TITRE_D_RE = re.compile(r"Situation des alertes notifi[ée]es (?:par (?:province|ZS)|\d{1,2} \w+ \d{4})", re.I)
 LIGNE_D_RE = re.compile(r"\n\s*(%s)\s*\*?\s+([^\n]+)" % PROVINCES_RE)
 TOTAL_D_RE = re.compile(r"\n\s*Total\s*(?:\n\s*)?G[ée]n[ée]ral\s+([^\n]+)", re.I)
 # 136 : « Total⏎1 735 77 1 812 185 98 1 496 0 283 115⏎Général » — les
@@ -136,6 +138,13 @@ def lire_D(texte):
         nom = canon(lm.group(1))
         c = cellules_D(lm.group(2))
         if c is None or nom in provinces:
+            continue
+        # Une ligne toute en « ND » (Ituri au 149 : « n'ont pas transmis de
+        # donnees actualisees ») n'est pas une journee sans alerte.
+        if all(x is None for x in c):
+            provinces[nom] = {"recues": None, "verifiees": None, "validees": None,
+                              "suspectsInvestigues": None, "transferes": None,
+                              "nonTransmis": True}
             continue
         recues_v, recues_d, recues, val_v, val_d, inv_v, inv_d, investigues, transferes = c
         validees = (val_v or 0) + (val_d or 0)
@@ -288,7 +297,9 @@ def lire_BC(texte):
 
 # ---------------------------------------------------------------- commun
 def somme(provinces, cle):
-    valeurs = [p.get(cle) for p in provinces.values()]
+    # une province qui n'a rien transmis est hors du Total imprime (149 :
+    # 1 713 alertes sans l'Ituri) ; elle ne bloque pas la somme
+    valeurs = [p.get(cle) for p in provinces.values() if not p.get("nonTransmis")]
     if not valeurs or any(v is None for v in valeurs):
         return None
     return sum(valeurs)

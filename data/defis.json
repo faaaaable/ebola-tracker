@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-10-10"
+    "fin": "2026-10-11"
   },
   "parDate": [
     {
@@ -5964,6 +5964,96 @@
             "Ituri",
             "Nord-Kivu",
             "Haut-Uélé"
+          ]
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-11",
+      "sitrepNumber": "150",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "3. En Ituri, le retard de paiement des salaires de septembre, le faible encodage des alertes dans le DHIS2 Tracker et le refus de transfert de 4 alertes validées sur 5 persistent ; au Nord-Kivu, le PoC de Butuhe reste non fonctionnel depuis le 26/09/2026. Au Haut-Uélé, 3 PoC sur 10 n’ont pas rapporté faute de connexion, et au Bas-Uélé seuls 19 sites de notification sur 41 sont fonctionnels (46,3 %)."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "Au Haut-Uélé, la faible complétude du rapportage des ZS (4/7), le manque de kits PCI pour les ESS et les ménages et l’absence de kit informatique pour l’encodage des données du pilier persistent. En Ituri, l’ouverture des rings reste insuffisante (36,4 %), les équipes sont en nombre insuffisant à Komanda, Mangala et Mandima, la mobilité manque à Komanda, la couverture ECUMER, les intrants EDS et les moyens de transport (Kilo, Nia-Nia, Mandima, Damas, Mambasa et Fataki) sont insuffisants et 8 résistances aux EDS ont été enregistrées à Mandima. À la Tshopo, l’insuffisance d’intrants PCI et la panne de l’incinérateur de l’HGR Makiso-Kisangani persistent ; seules 2 ESS sur 104 (1,9 %) dépassent 80 % au score PCI. Au Nord-Kivu, le gap d’ouverture des rings à Katwa et Mabalako, la faible décontamination des ménages (14/30 ; 46,7 %) à Katwa, Butembo et Musienene, l’absence de dotation en kits des ménages décontaminés, un score card moyen de 30,8 % (aucune ESS sur 4 au-delà de 80 %) et l’exposition à haut risque de 4 personnels sur 5 évalués persistent."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "En Ituri, faible capacité d’accueil de certains CTE/CT (Mambasa, Kilo, Lolwa, Mangala, Mandima et Biakato), la prise en charge de 41 malades critiques, l’absence d’alimentation pour 10 patients de la ZS de Mandima et le faible rapportage des mouvements d’ambulances demeurent préoccupants. Au Nord-Kivu, la saturation des lits suspects (157/165 ; 95,2 %), la prise en charge de 107 patients (24,5 %) en dehors des CTE/CT et une capacité de réponse des ambulances limitée à 50 % (14/28) demeurent préoccupantes. Au Haut-Uélé, la faible couverture réseau dans certaines ZS, la démotivation de certains staffs, l’insuffisance des intrants nutritionnels et le faible approvisionnement en eau et en électricité de certains CTE demeurent des défis à résoudre À la Tshopo, l’insuffisance d’équipements de réanimation au CTE et de personnel pour la prophylaxie post- exposition fragilise la prise en charge. Au Bas-Uélé, l’absence de prise en charge nutritionnelle adaptée pour les patients isolés, d’ambulance pour le transfert des malades et de CTE normé, encore en construction à l’HGR de Buta, demeure un défi opérationnel majeur."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "En Ituri, la vaccination des PPL et l'étude de l'immunité croisée avec la souche BDBV restent suspendues dans l'attente de l'approvisionnement en vaccin Ervebo par le PEV national. Au Bas-Uélé, la mise en marche des UCC n'est pas effective et le micro-plan validé ainsi que les fonds de la vaccination ne sont toujours pas disponibles.",
+            "Au Nord-Kivu, les indicateurs de continuité des services essentiels ont été analysés dans les ZS de Butembo, Beni, Katwa et Musienene en vue d’une supervision.",
+            "Au Bas-Uélé, l’HGR de Dakwa fonctionne partiellement, avec 13 agents présents sur 36 prévus (36,1 %), une baisse de la fréquentation et l’absence de point d’eau et de zone de déchets."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "En Ituri, seules 14 ZS affectées sur 28 sont couvertes (50,0 %) ; il faut renforcer la collaboration inter-piliers pour les interventions conjointes autour des cas à Komanda et à Nia-Nia et poursuivre l’identification des acteurs locaux à Mandima.",
+            "Au Bas-Uélé, la couverture SMSPS reste embryonnaire, les activités venant à peine de démarrer dans la ZS de Viadana.",
+            "Au Haut-Uélé, la mobilité des APS reste difficile à Wamba et à Boma Mangbetu, les kits nutritionnels manquent pour les nourrissons sevrés à Wamba et à Isiro, le pilier ne dispose pas de matériel informatique et la remontée des données reste faible à Boma Mangbetu et à Pawa",
+            "À la Tshopo, nécessité de former les APS des ZS de Wanie-Rukula et de Bafwasende et insuffisance des unités de communication et des motos pour les déplacements du pilier."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            "Au niveau national, seules 2 DPS sur 7 (28,6 %) ont rapporté leurs activités PSEA (Nord-Kivu et Tshopo) ; à la Tshopo, la couverture reste faible, avec 7 ZS sur 23 couvertes et 85 personnels formés sur 270 (31,5 %), tandis que la proportion de ZS connaissant le mécanisme de signalement demeure faible en Ituri (36,1 % ; 13/36), au Nord-Kivu (17,6 % ; 6/34) et au Haut-Uélé (46,2 % ; 6/13)."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Tshopo"
           ]
         }
       ],

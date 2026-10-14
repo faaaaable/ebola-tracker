@@ -84,6 +84,12 @@ EXCEPTIONS_SOURCE = {
     # ventilation, seule Ganga bouge : la source s'est corrigee. Le
     # graphique porte la valeur revisee (decision du 23 septembre 2026).
     ("vaccination_recul", "129", "Bas-Uélé"): (874, 987),
+    # 150 : le tableau recapitulatif (p. 2) imprime « Haut-Uélé 4 382 162
+    # 42,6% » ; le tableau detaille (p. 3) « Haut-Uélé 383 162 42,3% » et le
+    # 149 comptait 379 cas : 379 + 4 = 383. 162/382 = 42,4 %, 162/383 =
+    # 42,3 % : le 42,6 % ne vient d'aucun des deux. Le site garde la ligne du
+    # tableau recapitulatif, celle qui tombe sur la bande (9 065 cas).
+    ("letalite", "150", "Haut-Uélé"): (162, 382, 42.6),
 }
 
 
@@ -137,8 +143,14 @@ if national.get("confirmed"):
 for p in provinces:
     if p.get("confirmed"):
         cfr = round(p["deaths"] / p["confirmed"] * 100, 1)
-        check("létalité %s" % p["name"], abs(cfr - (p.get("cfr") or 0)) <= 0.15,
+        ok = abs(cfr - (p.get("cfr") or 0)) <= 0.15
+        connu = EXCEPTIONS_SOURCE.get(("letalite", meta.get("sitrepNumber"), p["name"])) \
+            == (p["deaths"], p["confirmed"], p.get("cfr"))
+        check("létalité %s" % p["name"], ok or connu,
               "calcul %.1f vs publié %s" % (cfr, p.get("cfr")))
+        if not ok and connu:
+            notes.append("létalité %s : calcul %.1f vs publié %s, coquille de la source"
+                         % (p["name"], cfr, p.get("cfr")))
 
 print("\n3. Zones de santé")
 by_province = {}

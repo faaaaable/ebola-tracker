@@ -7584,6 +7584,144 @@
 "province": "Ituri",
 "obstacles": []
 }
+],
+"# en ituri le retard de paiement des salaires de septembre le faible encodage des alertes dans le dhis# tracker et le refus de transfert de # alertes validées sur # persistent au nord kivu le poc de butuhe reste non fonctionnel depuis le # # # au haut uélé # poc sur # n ont pas rapporté faute de connexion et au bas uélé seuls # sites de notification sur # sont fonctionnels # #": [
+{
+"obstacles": [
+"impayes",
+"completude",
+"resistance"
+],
+"province": "Ituri"
+},
+{
+"obstacles": [
+"poc"
+],
+"province": "Nord-Kivu"
+},
+{
+"obstacles": [
+"poc",
+"ruptures"
+],
+"province": "Haut-Uélé"
+},
+{
+"obstacles": [
+"poc"
+],
+"province": "Bas-Uélé"
+}
+],
+"au bas uélé l hgr de dakwa fonctionne partiellement avec # agents présents sur # prévus # # une baisse de la fréquentation et l absence de point d eau et de zone de déchets": [
+{
+"obstacles": [
+"ruptures"
+],
+"province": "Bas-Uélé"
+}
+],
+"au haut uélé la faible complétude du rapportage des zs # # le manque de kits pci pour les ess et les ménages et l absence de kit informatique pour l encodage des données du pilier persistent en ituri l ouverture des rings reste insuffisante # # les équipes sont en nombre insuffisant à komanda mangala et mandima la mobilité manque à komanda la couverture ecumer les intrants eds et les moyens de transport kilo nia nia mandima damas mambasa et fataki sont insuffisants et # résistances aux eds ont été enregistrées à mandima à la tshopo l insuffisance d intrants pci et la panne de l incinérateur de l hgr makiso kisangani persistent seules # ess sur # # # dépassent # au score pci au nord kivu le gap d ouverture des rings à katwa et mabalako la faible décontamination des ménages # # # # à katwa butembo et musienene l absence de dotation en kits des ménages décontaminés un score card moyen de # # aucune ess sur # au delà de # et l exposition à haut risque de # personnels sur # évalués persistent": [
+{
+"obstacles": [
+"completude",
+"ruptures"
+],
+"province": "Haut-Uélé"
+},
+{
+"obstacles": [
+"eds",
+"resistance",
+"ruptures"
+],
+"province": "Ituri"
+},
+{
+"obstacles": [
+"ruptures"
+],
+"province": "Tshopo"
+},
+{
+"obstacles": [
+"ruptures"
+],
+"province": "Nord-Kivu"
+}
+],
+"au niveau national seules # dps sur # # # ont rapporté leurs activités psea nord kivu et tshopo à la tshopo la couverture reste faible avec # zs sur # couvertes et # personnels formés sur # # # tandis que la proportion de zs connaissant le mécanisme de signalement demeure faible en ituri # # # # au nord kivu # # # # et au haut uélé # # # #": [
+{
+"obstacles": [
+"completude"
+],
+"province": "aucune"
+},
+{
+"obstacles": [],
+"province": "Tshopo"
+},
+{
+"obstacles": [],
+"province": "Ituri"
+},
+{
+"obstacles": [],
+"province": "Nord-Kivu"
+},
+{
+"obstacles": [],
+"province": "Haut-Uélé"
+}
+],
+"au nord kivu les indicateurs de continuité des services essentiels ont été analysés dans les zs de butembo beni katwa et musienene en vue d une supervision": [
+{
+"obstacles": [],
+"province": "Nord-Kivu"
+}
+],
+"en ituri faible capacité d accueil de certains cte ct mambasa kilo lolwa mangala mandima et biakato la prise en charge de # malades critiques l absence d alimentation pour # patients de la zs de mandima et le faible rapportage des mouvements d ambulances demeurent préoccupants au nord kivu la saturation des lits suspects # # # # la prise en charge de # patients # # en dehors des cte ct et une capacité de réponse des ambulances limitée à # # # demeurent préoccupantes au haut uélé la faible couverture réseau dans certaines zs la démotivation de certains staffs l insuffisance des intrants nutritionnels et le faible approvisionnement en eau et en électricité de certains cte demeurent des défis à résoudre à la tshopo l insuffisance d équipements de réanimation au cte et de personnel pour la prophylaxie post exposition fragilise la prise en charge au bas uélé l absence de prise en charge nutritionnelle adaptée pour les patients isolés d ambulance pour le transfert des malades et de cte normé encore en construction à l hgr de buta demeure un défi opérationnel majeur": [
+{
+"obstacles": [
+"saturation",
+"ruptures",
+"completude"
+],
+"province": "Ituri"
+},
+{
+"obstacles": [
+"saturation",
+"ruptures"
+],
+"province": "Nord-Kivu"
+},
+{
+"obstacles": [
+"ruptures",
+"impayes"
+],
+"province": "Haut-Uélé"
+},
+{
+"obstacles": [
+"ruptures"
+],
+"province": "Tshopo"
+},
+{
+"obstacles": [
+"ruptures"
+],
+"province": "Bas-Uélé"
+}
+],
+"en ituri seules # zs affectées sur # sont couvertes # # il faut renforcer la collaboration inter piliers pour les interventions conjointes autour des cas à komanda et à nia nia et poursuivre l identification des acteurs locaux à mandima": [
+{
+"obstacles": [],
+"province": "Ituri"
+}
 ]
 }
 }

@@ -178,11 +178,15 @@ CONTACTS_PARMI_RE = re.compile(
 # ancree sur « dans les provinces » pour ne rien avaler d'autre.
 CONTACTS_PARMI_LES_RE = re.compile(
     r"(?:parmis?|sur|\bdes)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi"
-    r"(?:\s+dans\s+les\s+provinces\s[^,.%]{0,60}?)?\s*,?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
-    r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+une\s+proportion(?:\s+journali[èe]re)?"
+    r"(?:\s+dans\s+les\s+(?:\w+\s+)?provinces\s[^,.%]{0,60}?)?\s*,?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
+    r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+(?:une\s+proportion|un\s+taux)(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,
 )
+# SitRep 151 (12 octobre 2026) : « … 25 469 contacts ont été vus au cours des
+# dernières 24 heures, soit un taux de suivi de 77,6 % » — « un taux » a la
+# place d'« une proportion », accepte ci-dessus, et « dans les cinq
+# provinces ayant transmis » : un mot entre « les » et « provinces ».
 
 # SitRep 127 (18 septembre 2026) : douzieme tournure — « Au cours des
 # dernières 24 heures, 26 803 ont été vus parmi les 30 541 contacts en cours
@@ -438,6 +442,11 @@ def rate_from_text(full_text):
         if TARGET_RE.search(before):
             continue
         value = float(m.group(1).replace(",", "."))
+        # « … a diminué, passant de 79,5 % la veille à 77,6 % » (151) : le
+        # premier taux est celui de la veille, la mesure suit.
+        mv = re.match(r"\s*la\s+veille\s+à\s+(\d+(?:[,.]\d+)?)\s*%", full_text[m.end():m.end() + 40])
+        if mv:
+            value = float(mv.group(1).replace(",", "."))
         if 0 <= value <= 100:
             return value, "texte (repli)"
     m = CONTACTS_VUS_SUR_RE.search(full_text)

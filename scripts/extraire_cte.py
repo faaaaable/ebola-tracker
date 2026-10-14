@@ -72,11 +72,17 @@ FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Communication|CREC|Logistique|S[ée]curit[
 REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bEn |\bAu |\bÀ la |\bA la |\bau |\ben |\bà la |\bLe |\bL[’'])\s*(%s)\b" % PROVINCES_RE)
 
 HOSPITALISES_RES = [
+    # SitRep 150 (11 octobre 2026, Nord-Kivu) : « 471 patients dont 67
+    # enfants de moins de 5 ans) sont hospitalisés : 330 dans les CTE/CT pour
+    # 374 lits » — une incise en « dont », parenthese ouvrante oubliee.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(?\s*dont\s[^)]{0,60}\)\s*sont\s+hospitalis", re.I),
     # « 328 patients (97 confirmés et 231 suspects) sont hospitalisés, dont
     # 223 dans les CTE pour 354 lits » (135, Nord-Kivu) : la ventilation
     # s'intercale entre « patients » et le verbe. Sans ce motif, la ligne
     # prenait les « 105 autres » pris en charge hors CTE.
-    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,60}\)\s*sont\s+hospitalis", re.I),
+    # 151 : « 445 patients (176 confirmés et 269 suspects, dont 52 enfants de
+    # moins de 5 ans) sont hospitalisés » — 66 caracteres dans la parenthese.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,90}\)\s*sont\s+hospitalis", re.I),
     re.compile(r"occupation\s+atteint\s+(\d[\d ]{0,4}\d|\d)\s+patients", re.I),
     # « Au total, 368 patients demeuraient en isolement à la fin de la
     # journée » et « 345 patients demeuraient hospitalisés » (136).
@@ -151,9 +157,10 @@ LITS_CAPACITE_RE = re.compile(
 # dans les structures normées », « dont 216 dans les structures dédiées »,
 # « dont 250 dans les structures de prise en charge normées » (132, sans
 # nombre de lits : la capacite se deduit alors du taux et se recoupe),
-# « dont 223 dans les CTE pour 354 lits » (135).
+# « dont 223 dans les CTE pour 354 lits » (135), « sont hospitalisés : 330
+# dans les CTE/CT pour 374 lits » (150).
 HOSPITALISES_NORMES_RE = re.compile(
-    r"dont\s+(\d[\d ]{0,4}\d|\d)\s+dans\s+(?:les\s+structures\s+(?:de\s+prise\s+en\s+charge\s+)?"
+    r"(?:dont|hospitalis[ée]s\s*:)\s+(\d[\d ]{0,4}\d|\d)\s+dans\s+(?:les\s+structures\s+(?:de\s+prise\s+en\s+charge\s+)?"
     r"(?:norm[ée]es|d[ée]di[ée]es)|les\s+CTE\b)", re.I)
 # SitReps 146 a 148 (7 au 9 octobre 2026, Nord-Kivu) : « 519 patients
 # demeuraient en isolement …, soit un taux d'occupation global des lits de

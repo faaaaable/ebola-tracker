@@ -257,6 +257,15 @@ def extract_one_date(full_text, label):
     return f"{y}-{mon}-{int(d):02d}"
 
 
+# Bulletins dont la « Date du rapport » imprimee est une coquille. Le SitRep
+# 150 imprime « Date du rapport : 12 octobre 2026 », comme le 151, alors que
+# sa reference est « SitRep N°150 /MVE-BDBV/11/10/2026 » et que le 149 couvre
+# le 10 octobre : lu tel quel, il prenait la date du 151 (14 octobre 2026).
+DATES_RAPPORT_CORRIGEES = {
+    "150": "2026-10-11",
+}
+
+
 def extract_meta(full_text, fallback_number=None):
     compact = re.sub(r"\s+", "", full_text)
     m = re.search(r"SitRep(?:MVE)?N.0*(\d{1,3})", compact)
@@ -294,6 +303,12 @@ def extract_meta(full_text, fallback_number=None):
     reporting_date = (extract_one_date(full_text, "Date de rapportage")
                       or extract_one_date(full_text, "Date du rapport"))
     publication_date = extract_one_date(full_text, "Date de publication")
+    if sitrep_number in DATES_RAPPORT_CORRIGEES:
+        corrigee = DATES_RAPPORT_CORRIGEES[sitrep_number]
+        if reporting_date != corrigee:
+            print(f"  ! date du rapport imprimee {reporting_date}, corrigee en {corrigee} "
+                  f"(DATES_RAPPORT_CORRIGEES).")
+            reporting_date = corrigee
 
     return {
         "sitrepNumber": sitrep_number,
@@ -466,6 +481,11 @@ def _best_cas_deces_split(numbers_str, cfr_target):
 TOTAL_FRACTION_SEULE_RE = re.compile(
     r"^Total\**\s+(?P<fraction>\d+\s*(?:/|sur)\s*\d+\s*(?:\([\d,]+\s*%\))?)\s*$"
 )
+# SitRep 151 : « 9 144 4 410 48,2% » puis « Total 79 65/167 (38,9%) » — le
+# libelle garde les nouveaux cas ET la fraction, les cumuls montent au-dessus.
+TOTAL_NOUVEAUX_FRACTION_RE = re.compile(
+    r"^Total\**\s+(?P<nouveaux>\d+)\s+(?P<fraction>\d+\s*(?:/|sur)\s*\d+\s*(?:\([\d,]+\s*%\))?)\s*$"
+)
 
 
 def recoller_total_orphelin(section):
@@ -527,6 +547,15 @@ def recoller_total_orphelin(section):
                 sortie[-1] = candidat
                 print("  ! libelle « Total » et fraction de zones sous leurs "
                       "chiffres, ligne recollee (texte brut).")
+                i += 1
+                continue
+        mn = TOTAL_NOUVEAUX_FRACTION_RE.match(line)
+        if mn and sortie and sortie[-1][:1].isdigit():
+            candidat = "Total %s %s %s" % (mn.group("nouveaux"), sortie[-1], mn.group("fraction"))
+            if resume(candidat):
+                sortie[-1] = candidat
+                print("  ! libelle « Total », nouveaux cas et fraction de zones sous "
+                      "les cumuls, ligne recollee (texte brut).")
                 i += 1
                 continue
         sortie.append(line)
@@ -1257,6 +1286,12 @@ def zone_row_looks_unreliable(row):
     letalite privee de sa virgule. Faute de reperer la letalite, on ne sait pas
     non plus ou commence la queue : la ligne entiere est alors douteuse.
     """
+    # SitRep 150 : quatre zones du Bas-Uele fusionnees dans une seule ligne
+    # (« Buta\nViadana\nDakwa\nGanga », cas « 1\n6\n1\n5 ») devenaient une
+    # zone « Buta-Viadana-Dakwa-Ganga » de 1 615 cas. Plusieurs nombres dans
+    # une cellule = plusieurs lignes ecrasees en une.
+    if any(re.search(r"\d\s*\n\s*\d", c or "") for c in row[1:]):
+        return True
     try:
         i_let = index_letalite_zone(row)
         if i_let is None:
@@ -1268,6 +1303,12 @@ def zone_row_looks_unreliable(row):
     except Exception:
         return True
     if cases and cases > 0 and not deaths and cfr in (None, 0.0):
+        return True
+    # SitRep 150 : « Bafwasende 7 7 1 14,3% » — les cas recopies dans la
+    # colonne voisine, lus 7 cas et 7 deces. Les deces doivent redonner la
+    # letalite imprimee (a l'arrondi pres).
+    if cases and deaths is not None and cfr is not None \
+            and abs(100.0 * deaths / cases - cfr) > 1.0:
         return True
     return False
 
@@ -1569,6 +1610,9 @@ def rebuild_reports_list(current_reports):
         if existing is not None and not needs_parse:
             entry = dict(existing)
             entry["file"] = pdf_path.replace("\\", "/")
+            # une date deja lue avant sa correction ne reste pas en cache
+            if num in DATES_RAPPORT_CORRIGEES:
+                entry["reportingDate"] = DATES_RAPPORT_CORRIGEES[num]
             reports.append(entry)
         else:
             try:

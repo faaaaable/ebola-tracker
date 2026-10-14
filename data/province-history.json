@@ -4071,5 +4071,45 @@
         "deaths": 1
       }
     ]
+  },
+  {
+    "date": "2026-10-11",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 6695,
+        "deaths": 3099
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 1911,
+        "deaths": 1092
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 382,
+        "deaths": 162
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 59,
+        "deaths": 22
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Bas-Uélé",
+        "confirmed": 13,
+        "deaths": 4
+      },
+      {
+        "name": "Sud-Ubangi",
+        "confirmed": 2,
+        "deaths": 1
+      }
+    ]
   }
 ]
