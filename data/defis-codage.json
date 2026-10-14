@@ -7722,6 +7722,158 @@
 "obstacles": [],
 "province": "Ituri"
 }
+],
+"au bas uélé # ess prioritaires sur # # # ne disposent pas de triage fonctionnel les zones de gestion des déchets les latrines hygiéniques les poubelles et les dlm sont insuffisants et la faible remontée des alertes de décès communautaires et le faible engagement communautaire limitent les eds": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures",
+"completude",
+"eds"
+]
+}
+],
+"au nord kivu le gap d ouverture des rings # # # # la faible décontamination des ménages # # # # l absence de dotation en kits des ménages décontaminés la résistance communautaire l insuffisance d équipes de décontamination formées et de mobilité katwa biena masereka kyondo mabalako et vuhovi et l exposition à haut risque de # ppl sur # évalués persistent": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"resistance",
+"ruptures"
+]
+}
+],
+"au niveau national seule # dps sur # # # a rapporté ses activités psea à la coordination nationale nord kivu à la tshopo la couverture reste faible avec # zs sur # couvertes et # personnels formés sur # # # tandis que la proportion de zs connaissant le mécanisme de signalement demeure faible en ituri # # # # au nord kivu # # # # et au haut uélé # # # #": [
+{
+"province": "aucune",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": []
+},
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Nord-Kivu",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": []
+}
+],
+"en ituri la cible des ppl et des tpl reste à redéfinir pour le calcul de la couverture vaccinale # # # # # au bas uélé le stock provincial de vaccin ervebo est en rupture # dose la mise en marche des ucc n est pas effective et les fonds de la vaccination ne sont toujours pas disponibles la couverture vaccinale reste de # # # # # #": [
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"en ituri la faible capacité d accueil de certains cte ct mambasa kilo lolwa mangala mandima et biakato la prise en charge de # malades critiques l absence d alimentation pour # patients de la zs de mandima et le faible rapportage des mouvements d ambulances # # demeurent préoccupants au nord kivu la saturation des lits suspects # # # # la prise en charge de # patients # # en dehors des cte ct et une capacité de réponse des ambulances limitée à # # # demeurent préoccupantes au haut uélé la faible couverture réseau dans certaines zs la démotivation de certains staffs l insuffisance des intrants nutritionnels et le faible approvisionnement en eau et en électricité de certains cte demeurent des défis à résoudre à la tshopo l insuffisance d équipements de réanimation au cte et de personnel pour la prophylaxie post exposition fragilise la prise en charge au bas uélé l absence de prise en charge nutritionnelle adaptée pour les patients isolés d ambulance pour le transfert des malades et de cte normé encore en construction à l hgr de buta demeure un défi opérationnel majeur": [
+{
+"province": "Ituri",
+"obstacles": [
+"saturation",
+"ruptures",
+"completude"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"saturation",
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures",
+"impayes"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"en ituri le retard de paiement des salaires de septembre le faible encodage des alertes dans le dhis# tracker et l insuffisance de mobilité pour la supervision dans les zs de rwampara et de bunia persistent au nord kivu la complétude a baissé à # # # # et le poc de butuhe reste non fonctionnel depuis le # # # au haut uélé le poc de mutowamba n a pas rapporté faute de connexion réseau au bas uélé seuls # sites de notification sur # sont fonctionnels # # aucun des # poe n est renforcé et les prestataires du poc pk# isiro zs de viadana ont démissionné pour deux mois d impayés à la tshopo la complétude n est que de # # # # dix ports privés n ayant pas fonctionné le dimanche et # # des voyageurs ont refusé le screening": [
+{
+"province": "Ituri",
+"obstacles": [
+"impayes",
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"poc",
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"poc",
+"impayes"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"completude",
+"poc",
+"resistance"
+]
+}
+],
+"en ituri seules # zs affectées sur # sont couvertes # # la zs de mandima qui concentre # des cas notifiés du jour n est pas couverte et il faut renforcer la collaboration inter piliers pour les interventions autour des cas à bunia et à mambasa": [
+{
+"province": "Ituri",
+"obstacles": []
+}
+],
+"à la tshopo l insuffisance d intrants et de prestataires formés en pci et la panne de l incinérateur de l hgr makiso kisangani persistent seules # ess sur # # # dépassent # au score pci et # agents de santé figurent parmi les # cas confirmés de la province": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"à la tshopo nécessité de former les aps de la zs de wanie rukula et insuffisance des unités de communication et des motos pour les déplacements du pilier": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
 ]
 }
 }

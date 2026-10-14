@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-11"
+    "fin": "2026-10-12"
   },
   "parDate": [
     {
@@ -3625,9 +3625,7 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 337,
-          "occupation": 33.2,
-          "lits": 1015,
-          "litsRecoupes": true
+          "occupation": 33.2
         },
         "Nord-Kivu": {
           "hospitalises": 471,
@@ -3639,9 +3637,7 @@
         },
         "Haut-Uélé": {
           "hospitalises": 45,
-          "occupation": 32.6,
-          "lits": 138,
-          "litsRecoupes": true
+          "occupation": 32.6
         },
         "Tshopo": {
           "hospitalises": 15,
@@ -3652,8 +3648,49 @@
       "total": {
         "hospitalises": 868,
         "provinces": 4,
-        "lits": 1563,
-        "hospitalisesAvecLits": 868,
+        "lits": 410,
+        "hospitalisesAvecLits": 486,
+        "occupation": 118.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-12",
+      "sitrepNumber": "151",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 382,
+          "occupation": 37.6,
+          "lits": 1015,
+          "litsReportes": true,
+          "occupationPubliee": 36.0,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 445,
+          "lits": 374,
+          "hospitalisesNormes": 333,
+          "occupationPubliee": 89.0,
+          "occupation": 119.0,
+          "occupationCalculee": true
+        },
+        "Haut-Uélé": {
+          "hospitalises": 45,
+          "lits": 169,
+          "occupation": 26.6
+        },
+        "Tshopo": {
+          "hospitalises": 13,
+          "lits": 36,
+          "occupation": 36.1
+        }
+      },
+      "total": {
+        "hospitalises": 885,
+        "provinces": 4,
+        "lits": 1594,
+        "hospitalisesAvecLits": 885,
         "occupation": 55.5
       },
       "source": "SitRep INSP (automatique)"
