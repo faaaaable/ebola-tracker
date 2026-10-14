@@ -482,17 +482,17 @@
         "fr": {
           "title": "Ebola hors de RDC : Ouganda, Kenya, France (2026)",
           "h1": "Autres pays touchés",
-          "description": "L'épidémie d'Ebola Bundibugyo née en RDC a touché trois autres pays : l'Ouganda (20 cas, épidémie terminée le 27 août 2026), le Kenya (1 cas, 6 octobre 2026) et la France (1 cas importé, guéri). Résumé et sources."
+          "description": "L'épidémie d'Ebola Bundibugyo née en RDC a touché trois autres pays : l'Ouganda (20 cas, épidémie terminée le 27 août 2026), le Kenya (2 cas depuis le 6 octobre 2026) et la France (1 cas importé, guéri). Résumé et sources."
         },
         "en": {
           "title": "Ebola outside the DRC: Uganda, Kenya, France (2026)",
           "h1": "Other affected countries",
-          "description": "The Bundibugyo Ebola outbreak that began in the DRC reached three other countries: Uganda (20 cases, outbreak over on 27 August 2026), Kenya (1 case, 6 October 2026) and France (1 imported case, recovered). Summary and sources."
+          "description": "The Bundibugyo Ebola outbreak that began in the DRC reached three other countries: Uganda (20 cases, outbreak over on 27 August 2026), Kenya (2 cases since 6 October 2026) and France (1 imported case, recovered). Summary and sources."
         },
         "sw": {
           "title": "Ebola nje ya DRC: Uganda, Kenya, Ufaransa (2026)",
           "h1": "Nchi nyingine zilizoathirika",
-          "description": "Mlipuko wa Ebola Bundibugyo ulioanzia DRC ulifikia nchi nyingine tatu: Uganda (wagonjwa 20, mlipuko ulimalizika tarehe 27 Agosti 2026), Kenya (mgonjwa 1, 6 Oktoba 2026) na Ufaransa (mgonjwa 1 kutoka nje, amepona). Muhtasari na vyanzo."
+          "description": "Mlipuko wa Ebola Bundibugyo ulioanzia DRC ulifikia nchi nyingine tatu: Uganda (wagonjwa 20, mlipuko ulimalizika tarehe 27 Agosti 2026), Kenya (wagonjwa 2 tangu 6 Oktoba 2026) na Ufaransa (mgonjwa 1 kutoka nje, amepona). Muhtasari na vyanzo."
         }
       }
     },
@@ -515,22 +515,22 @@
       "pays": "kenya",
       "meta": {
         "fr": {
-          "title": "Ebola au Kenya : premier cas confirmé (octobre 2026)",
+          "title": "Ebola au Kenya : deux cas confirmés (octobre 2026)",
           "h1": "Ebola au Kenya",
-          "description": "Ebola au Kenya : un premier cas confirmé le 6 octobre 2026, importé de RDC, mort à Nairobi. Aucun nouveau cas depuis le 6 octobre, 122 contacts suivis. Parcours du malade, chiffres et sources du ministère kényan de la Santé et de l'OMS.",
-          "lede": "Le Kenya a confirmé le 6 octobre 2026 son premier cas d'Ebola Bundibugyo, un malade venu de RDC, mort à Nairobi. Ses contacts restent sous surveillance. Les chiffres de cette page viennent du ministère kényan de la Santé et de l'OMS, pas des bulletins de l'INSP."
+          "description": "Ebola au Kenya : un premier cas confirmé le 6 octobre 2026, importé de RDC, mort à Nairobi ; un deuxième le 14 octobre, un proche parent déjà en quarantaine. 128 contacts listés. Parcours du malade, chiffres et sources du ministère kényan de la Santé et de l'OMS.",
+          "lede": "Le Kenya a confirmé le 6 octobre 2026 son premier cas d'Ebola Bundibugyo, un malade venu de RDC, mort à Nairobi. Le 14 octobre, un deuxième cas a été confirmé chez un proche parent, déjà en quarantaine. Les chiffres de cette page viennent du ministère kényan de la Santé et de l'OMS, pas des bulletins de l'INSP."
         },
         "en": {
-          "title": "Ebola in Kenya: first confirmed case (October 2026)",
+          "title": "Ebola in Kenya: two confirmed cases (October 2026)",
           "h1": "Ebola in Kenya",
-          "description": "Ebola in Kenya: a first case confirmed on 6 October 2026, imported from the DRC, died in Nairobi. No new case since 6 October, 122 contacts monitored. The patient's journey, figures and sources from the Kenya Ministry of Health and WHO.",
-          "lede": "On 6 October 2026 Kenya confirmed its first case of Bundibugyo Ebola, a patient who had come from the DRC and died in Nairobi. His contacts remain under monitoring. The figures on this page come from the Kenya Ministry of Health and WHO, not from INSP bulletins."
+          "description": "Ebola in Kenya: a first case confirmed on 6 October 2026, imported from the DRC, died in Nairobi; a second on 14 October, a close relative already in quarantine. 128 contacts listed. The patient's journey, figures and sources from the Kenya Ministry of Health and WHO.",
+          "lede": "On 6 October 2026 Kenya confirmed its first case of Bundibugyo Ebola, a patient who had come from the DRC and died in Nairobi. On 14 October a second case was confirmed in a close relative, already in quarantine. The figures on this page come from the Kenya Ministry of Health and WHO, not from INSP bulletins."
         },
         "sw": {
-          "title": "Ebola nchini Kenya: mgonjwa wa kwanza athibitishwa (Oktoba 2026)",
+          "title": "Ebola nchini Kenya: wagonjwa wawili wathibitishwa (Oktoba 2026)",
           "h1": "Ebola nchini Kenya",
-          "description": "Ebola nchini Kenya: mgonjwa wa kwanza alithibitishwa tarehe 6 Oktoba 2026, aliyetoka DRC, alifariki Nairobi. Hakuna mgonjwa mpya tangu 6 Oktoba, watu 122 wa karibu wanafuatiliwa. Safari ya mgonjwa, takwimu na vyanzo vya Wizara ya Afya ya Kenya na WHO.",
-          "lede": "Tarehe 6 Oktoba 2026 Kenya ilithibitisha mgonjwa wake wa kwanza wa Ebola Bundibugyo, aliyetoka DRC na kufariki Nairobi. Watu wa karibu naye bado wanafuatiliwa. Takwimu za ukurasa huu zinatoka Wizara ya Afya ya Kenya na WHO, si kwenye taarifa za INSP."
+          "description": "Ebola nchini Kenya: mgonjwa wa kwanza alithibitishwa tarehe 6 Oktoba 2026, aliyetoka DRC, alifariki Nairobi; wa pili tarehe 14 Oktoba, jamaa wa karibu aliyekuwa tayari karantini. Watu 128 wa karibu wameorodheshwa. Safari ya mgonjwa, takwimu na vyanzo vya Wizara ya Afya ya Kenya na WHO.",
+          "lede": "Tarehe 6 Oktoba 2026 Kenya ilithibitisha mgonjwa wake wa kwanza wa Ebola Bundibugyo, aliyetoka DRC na kufariki Nairobi. Tarehe 14 Oktoba mgonjwa wa pili alithibitishwa, jamaa wa karibu aliyekuwa tayari karantini. Takwimu za ukurasa huu zinatoka Wizara ya Afya ya Kenya na WHO, si kwenye taarifa za INSP."
         }
       },
       "navLabelKey": "t:footerKenya"
