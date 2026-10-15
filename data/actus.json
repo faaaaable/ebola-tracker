@@ -2,6 +2,58 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "b7113511",
+   "date": "2026-10-15",
+   "titre": "Ebola business en RDC : 700 millions USD introuvables",
+   "source": "ACP",
+   "url": "https://acp.cd/nation/ebola-business-en-rdc-700-millions-usd-introuvables/",
+   "langue": "fr",
+   "resume": "Sept cents millions de dollars américains sur les 962 millions déboursés par les donateurs internationaux via les partenaires engagés pour…",
+   "statut": "publie",
+   "collecte": "2026-10-15",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "702739c3",
+   "date": "2026-10-15",
+   "titre": "RDC: À Bunia, la riposte contre Ebola au plus près des communautés, des femmes et des enfants",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261015-rdc-%C3%A0-bunia-la-riposte-contre-ebola-au-plus-pr%C3%A8s-des-communaut%C3%A9s-des-femmes-et-des-enfants",
+   "langue": "fr",
+   "resume": "Avec plus de 4 000 morts en cinq mois, l’épidémie d’Ebola en République démocratique du Congo est devenue la plus meurtrière de l’histoire du pays.",
+   "statut": "attente",
+   "collecte": "2026-10-15",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "6c32fdc9",
+   "date": "2026-10-15",
+   "titre": "RDC: comment expliquer la propagation rapide de l'épidémie d'Ebola dans l'est du pays?",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261015-rdc-comment-expliquer-la-propagation-rapide-de-l-%C3%A9pid%C3%A9mie-d-ebola-dans-l-est-du-pays",
+   "langue": "fr",
+   "resume": "Cinq mois après la déclaration officielle de l’épidémie, Ebola continue de se propager dans l’Est de la RDC. Avec plus de 9 000 cas confirmés et plus de 4 300 décès, cette flambée est devenue la plus meurtrière enregistrée dans le pays.",
+   "statut": "attente",
+   "collecte": "2026-10-15",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "07da8ad7",
+   "date": "2026-10-15",
+   "titre": "RDC: «Le pic de l'épidémie Ebola est derrière nous», selon le ministre congolais de la Santé",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/podcasts/le-grand-invit%C3%A9-afrique/20261015-rdc-le-pic-de-l-%C3%A9pid%C3%A9mie-ebola-est-derri%C3%A8re-nous-selon-le-ministre-congolais-de-la-sant%C3%A9",
+   "langue": "fr",
+   "resume": "« Oui, le virus Ebola se déplace vers la province du Nord-Kivu, mais le pic de l'épidémie est derrière nous et nous espérons le lancement d'un vaccin d'ici deux mois », déclare ce jeudi 15 octobre sur RFI le ministre congolais de la Santé publique, de l'Hygiène et de la…",
+   "statut": "attente",
+   "collecte": "2026-10-15",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "e0941681",
    "date": "2026-10-14",
    "titre": "Épidémie d'Ebola en RDC: comment s'organise la riposte?",
@@ -170,6 +222,19 @@
    "image": true
   },
   {
+   "id": "623308c4",
+   "date": "2026-10-14",
+   "titre": "RDC: à Bunia, le gynécologue Leki Taji au chevet de ses patientes atteintes d'Ebola",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/podcasts/reportage-afrique/20261014-rdc-%C3%A0-bunia-le-gyn%C3%A9cologue-leki-taji-au-chevet-de-ses-patientes-atteintes-d-ebola",
+   "langue": "fr",
+   "resume": "Avec plus de 4 000 morts en cinq mois, l’épidémie d’Ebola en République démocratique du Congo est devenue la plus meurtrière de l’histoire du pays.",
+   "statut": "attente",
+   "collecte": "2026-10-15",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "60f1ee4f",
    "date": "2026-10-14",
    "titre": "Nord-Kivu: le lavage des mains, un frein à la propagation d’Ebola en milieu scolaire",
@@ -244,6 +309,19 @@
    "resume": "Le Groupe de la Banque mondiale a annoncé un financement supplémentaire de 93 millions de dollars américains pour renforcer…",
    "statut": "publie",
    "collecte": "2026-10-14",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "1b77169f",
+   "date": "2026-10-14",
+   "titre": "Face à l'épidemie d'Ebola, l'économie congolaise marque le pas",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/podcasts/afrique-%C3%A9conomie/20261014-face-%C3%A0-l-%C3%A9pidemie-d-ebola-l-%C3%A9conomie-congolaise-marque-le-pas",
+   "langue": "fr",
+   "resume": "Cinq mois que la RDC est frappée par la 17ᵉ épidémie d’Ebola de son histoire. Si les conséquences sont bien évidemment d’abord humaines, la barre des 4 000 décès a été franchie et les structures et personnels de santé mis à rude épreuve, cette épidémie entrave aussi l'économie.",
+   "statut": "attente",
+   "collecte": "2026-10-15",
    "media": true,
    "image": true
   },
