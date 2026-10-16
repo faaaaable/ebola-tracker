@@ -2,6 +2,45 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "4b3d11f6",
+   "date": "2026-10-16",
+   "titre": "Ebola en RDC : plus de 9 000 cas et 4 410 décès, un deuxième cas confirmé au Kenya",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/16/actualite/sante/ebola-en-rdc-plus-de-9-000-cas-et-4-410-deces-un-deuxieme-cas-confirme-au",
+   "langue": "fr",
+   "resume": "Radio Okapi/ Ph. Marc Maro Fimbo\" /> Cinq mois après sa déclaration officielle, l’épidémie de maladie à virus Ebola de souche Bundibugyo reste active et meurtrière en République démocratique du Congo (RDC).",
+   "statut": "publie",
+   "collecte": "2026-10-16",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "43a96c68",
+   "date": "2026-10-16",
+   "titre": "Ebola: le Kenya durcit ses mesures de prévention après un deuxième cas sur son sol",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261016-ebola-le-kenya-durcit-ses-mesures-de-pr%C3%A9vention-apr%C3%A8s-un-deuxi%C3%A8me-cas-sur-son-sol",
+   "langue": "fr",
+   "resume": "Le ministère de la Santé a annoncé mercredi soir, une seconde personne déclarée sur le territoire kényan. Il s’agit d’un proche du premier malade décédé la semaine passée. Le patient était déjà en quarantaine lorsque ses symptômes se sont déclarés.",
+   "statut": "attente",
+   "collecte": "2026-10-16",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "1070c447",
+   "date": "2026-10-16",
+   "titre": "Ebola : retrait de la riposte de 72 bénéficiaires de 700 millions USD introuvables",
+   "source": "ACP",
+   "url": "https://acp.cd/nation/ebola-retrait-de-la-riposte-de-72-beneficiaires-de-700-millions-usd-introuvables/",
+   "langue": "fr",
+   "resume": "Les organisations et structures bénéficiaires directes de 700 millions de dollars américains introuvables actuellement pour financer la riposte contre…",
+   "statut": "publie",
+   "collecte": "2026-10-16",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ff0c56fa",
    "date": "2026-10-15",
    "titre": "RDC : le CDC Afrique exige des comptes sur plus de 700 millions USD destinés à la riposte contre Ebola",
