@@ -5063,6 +5063,31 @@ function setActiveMapBtn(btn){
   if(!btn || btn.id !== 'btnViewMonde') quitterMonde();
 }
 
+/* Curseur temporel : une zone touchee reste allumee. Les premiers bulletins
+   reattribuent parfois des cas d'une zone a l'autre (Bambu passe a Aru le
+   22 mai, Kyondo 0 -> 1 -> 0 -> 1 entre les SitRep 010 et 015) ; sans report,
+   la zone s'eteignait puis se rallumait. Chaque entree garde donc, par zone,
+   le maximum de cas et de deces atteint jusqu'a cette date. */
+let ZONES_HISTORY_CUMUL = null;
+function zonesHistoryCumul(i){
+  if(!ZONES_HISTORY_CUMUL || ZONES_HISTORY_CUMUL.length !== ZONES_HISTORY.length){
+    const vus = new Map();
+    ZONES_HISTORY_CUMUL = ZONES_HISTORY.map(h=>{
+      h.zones.forEach(z=>{
+        const key = zoneKey(z.name, z.province);
+        const avant = vus.get(key);
+        vus.set(key, {
+          ...z,
+          cases: Math.max(z.cases || 0, avant ? avant.cases : 0),
+          deaths: Math.max(z.deaths || 0, avant ? avant.deaths : 0),
+        });
+      });
+      return [...vus.values()];
+    });
+  }
+  return ZONES_HISTORY_CUMUL[i];
+}
+
 function renderMap(){
   if(!map) return;
 
@@ -5072,7 +5097,7 @@ function renderMap(){
   // sans le dedoublonnage ni le report de derniere valeur appliques a
   // l'historique.
   const latestEntry = ZONES_HISTORY.length ? ZONES_HISTORY[ZONES_HISTORY.length - 1] : null;
-  const zonesToRender = isHistorical ? ZONES_HISTORY[timelineIndex].zones
+  const zonesToRender = isHistorical ? zonesHistoryCumul(timelineIndex)
     : (latestEntry ? latestEntry.zones : HEALTH_ZONES);
 
   // Evolution depuis le bulletin precedent : en vue historique on compare a
@@ -5080,7 +5105,7 @@ function renderMap(){
   // nouveaux cas et deces des dernieres 24 h.
   const previous = {};
   if(isHistorical && timelineIndex > 0){
-    ZONES_HISTORY[timelineIndex - 1].zones.forEach(z=>{
+    zonesHistoryCumul(timelineIndex - 1).forEach(z=>{
       previous[zoneKey(z.name, z.province)] = z;
     });
   }
