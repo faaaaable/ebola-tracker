@@ -7874,6 +7874,117 @@
 "ruptures"
 ]
 }
+],
+"au bas uélé # ess prioritaires sur # # # ne disposent pas de triage fonctionnel les zones de gestion des déchets les latrines hygiéniques les poubelles et les dlm sont insuffisants et la faible remontée des alertes de décès communautaires et le faible engagement communautaire limitent les eds # gaps": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures",
+"completude",
+"eds"
+]
+}
+],
+"au bas uélé le stock provincial de vaccin ervebo est en rupture # dose la mise en marche des ucc n est pas effective et les fonds de la vaccination ne sont toujours pas disponibles la couverture vaccinale reste de # # # # # #": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"au nord kivu le gap d ouverture des rings à beni # # # # la faible décontamination des ménages # # # # l absence de dotation en kits des ménages décontaminés # # le faible score pci moyen # # l exposition à haut risque de # ppl sur # évalués dont # sur # à beni et l infection de # ppl persistent": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"resistance",
+"ruptures"
+]
+}
+],
+"au niveau national seules # dps sur # # # l ituri et le nord kivu ont rapporté leurs activités psea à la coordination nationale avec un seul partenaire d appui rapportant oms la couverture des zones touchées reste faible les supports de visibilité sont insuffisants certains partenaires ne sont pas alignés et l efficacité des cbcm est faible la proportion de zs connaissant le mécanisme de signalement demeure faible en ituri # # # # et au nord kivu # # # # à la tshopo # zs sur # sont couvertes et # personnels formés sur # # #": [
+{
+"province": "aucune",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Nord-Kivu",
+"obstacles": []
+},
+{
+"province": "Tshopo",
+"obstacles": []
+}
+],
+"en ituri la cible des ppl et des tpl reste à redéfinir pour le calcul de la couverture vaccinale # # vaccinés pour une cible provisoire de # #": [
+{
+"province": "Ituri",
+"obstacles": []
+}
+],
+"en ituri la faible capacitée d accueil de certains cte ct mambasa kilo lolwa mangala et biakato la prise en charge de # malades critiques l absence d alimentation pour # patients de la zs de mandima ct mandima et ct makeke et le faible rapportage des mouvements d ambulances # # demeurent préoccupants au nord kivu la saturation des lits suspects # # # # la prise en charge de # patients # # en dehors des cte ct une capacité de réponse des ambulances limitée à # # # # et l incomplétude des données ambulances kalunguta demeurent préoccupantes au haut uélé la faible couverture réseau dans certaines zs la démotivation de certains staffs l insuffisance des intrants nutritionnels et le faible approvisionnement en eau et en électricité de certains cte demeurent des défis à résoudre à la tshopo l insuffisance d équipements de réanimation au cte et de personnel pour la prophylaxie post exposition fragilise la prise en charge au bas uélé l absence de prise en charge nutritionnelle adaptée pour les patients isolés d ambulance pour le transfert des malades et de cte normé encore en construction à l hgr de buta demeure un défi opérationnel majeur": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"saturation",
+"completude"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"saturation",
+"ruptures",
+"completude"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures",
+"impayes"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"en ituri le faible encodage des alertes des poe poc dans le dhis# tracker l insuffisance de mobilité pour la supervision dans les zs de rwampara nizi et bunia le retard d approvisionnement en intrants de certains poc et le retard de paiement des salaires de septembre persistent et le poc d avakubi reste non fonctionnel en raison de l insécurité au nord kivu la complétude reste de # # # # le poc de butuhe demeure non fonctionnel depuis l incident sécuritaire du # # # la menace sécuritaire persiste contre les prestataires de l axe butembo les alertes remontées par les poc ne sont pas prises en charge dans les délais par les cellules d alerte et les poc manquent de consommables intrants pci epi outils de surveillance de moyens de communication et d ambulance dédiée": [
+{
+"province": "Ituri",
+"obstacles": [
+"completude",
+"ruptures",
+"poc",
+"impayes",
+"insecurite"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"poc",
+"insecurite",
+"ruptures"
+]
+}
 ]
 }
 }

@@ -102,8 +102,9 @@ def cellules(ligne, n, valide=None):
 # « par ZS » aux 084-086 (6-8 aout) : meme tableau, memes neuf colonnes,
 # une ligne par province malgre le titre (audit du 27 septembre 2026).
 # 149 : « Situation des alertes notifiées 10 octobre 2026 », sans « par
-# province » — meme tableau.
-TITRE_D_RE = re.compile(r"Situation des alertes notifi[ée]es (?:par (?:province|ZS)|\d{1,2} \w+ \d{4})", re.I)
+# province » — meme tableau. 152 : « notifiées 13octobre 2026 », jour et
+# mois colles.
+TITRE_D_RE = re.compile(r"Situation des alertes notifi[ée]es (?:par (?:province|ZS)|\d{1,2}\s*\w+ \d{4})", re.I)
 LIGNE_D_RE = re.compile(r"\n\s*(%s)\s*\*?\s+([^\n]+)" % PROVINCES_RE)
 TOTAL_D_RE = re.compile(r"\n\s*Total\s*(?:\n\s*)?G[ée]n[ée]ral\s+([^\n]+)", re.I)
 # 136 : « Total⏎1 735 77 1 812 185 98 1 496 0 283 115⏎Général » — les
