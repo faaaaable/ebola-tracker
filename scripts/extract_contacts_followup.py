@@ -177,7 +177,7 @@ CONTACTS_PARMI_RE = re.compile(
 # Sud-Ubangi n'avaient pas transmis). Les deux sont acceptees ; l'incise est
 # ancree sur « dans les provinces » pour ne rien avaler d'autre.
 CONTACTS_PARMI_LES_RE = re.compile(
-    r"(?:parmis?|sur|\bdes)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?en\s+cours\s+de\s+suivi"
+    r"(?:parmis?|sur|\bdes)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?(?:en\s+cours\s+de\s+suivi|(?:à|a)\s+suivre)"
     r"(?:\s+dans\s+les\s+(?:\w+\s+)?provinces\s[^,.%]{0,60}?)?\s*,?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
     r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+(?:une\s+proportion|un\s+taux)(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
@@ -187,6 +187,11 @@ CONTACTS_PARMI_LES_RE = re.compile(
 # dernières 24 heures, soit un taux de suivi de 77,6 % » — « un taux » a la
 # place d'« une proportion », accepte ci-dessus, et « dans les cinq
 # provinces ayant transmis » : un mot entre « les » et « provinces ».
+# SitRep 153 (14 octobre 2026) : « Parmi les 33 264 contacts à suivre dans les
+# six provinces ayant transmis leurs données, 25 956 ont été vus … soit un
+# taux de suivi de 78,0 %, en baisse par rapport à la veille (81,8 %) » —
+# « à suivre » remplace « en cours de suivi ». Sans l'alternative, le repli
+# lisait le taux de la veille et le 14 octobre perdait ses effectifs.
 
 # SitRep 127 (18 septembre 2026) : douzieme tournure — « Au cours des
 # dernières 24 heures, 26 803 ont été vus parmi les 30 541 contacts en cours
@@ -447,6 +452,12 @@ def rate_from_text(full_text):
         mv = re.match(r"\s*la\s+veille\s+à\s+(\d+(?:[,.]\d+)?)\s*%", full_text[m.end():m.end() + 40])
         if mv:
             value = float(mv.group(1).replace(",", "."))
+        # 153 : « passant de 81,8 % la veille à » puis la colonne voisine du
+        # resume (« Ebola Bundibugyo, conduisant… ») avant « 78,0 % » : la
+        # mesure n'est pas lisible ici, et le taux de la veille n'en est
+        # jamais une — on laisse la main aux motifs suivants.
+        elif re.match(r"\s*la\s+veille\b", full_text[m.end():m.end() + 20]):
+            continue
         if 0 <= value <= 100:
             return value, "texte (repli)"
     m = CONTACTS_VUS_SUR_RE.search(full_text)

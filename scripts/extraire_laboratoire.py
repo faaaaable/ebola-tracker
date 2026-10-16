@@ -112,12 +112,17 @@ ECHANTILLONS_RES = [
     # « 2 nouveaux échantillons ont été reçus, tous sont revenus négatifs » (D, 108 Tshopo) —
     # en dernier : ailleurs, « reçus » sans « analysés » compte des échantillons pas encore testés
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+ont\s+[ée]t[ée]\s+re[çc]us\b(?=[^.]*(?:positi|n[ée]gati))", re.I),
+    # « 15 nouveaux échantillons reçus au laboratoire de Buta analysés tous
+    # négatifs » (153, Bas-Uélé) : le lieu s'intercale entre reçus et analysés
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+re[çc]us\s+au\s+laboratoire\s+d[e']\s*[\w-]+\s+analys[ée]s", re.I),
 ]
 POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux?\s+)?r[ée]sultats?\s+positifs?", re.I),
     re.compile(r"dont\s+(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux\s+cas\s+)?positifs?", re.I),
     re.compile(r"a\s+confirm[ée]\s+(\d[\d ]{0,4}\d|\d)\s+(?:nouveaux\s+)?cas", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+sur", re.I),
+    # « 1 nouveau cas confirmé (vivant) sur 8 échantillons » (153, Tshopo)
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+nouveaux?\s+cas\s+confirm[ée]s?\s*(?:\([^)]{0,30}\)\s*)?sur\s+\d", re.I),
     re.compile(r"(\d+)\s+(?:est|sont)\s+revenus?\s+positifs?", re.I),
     re.compile(r"soit\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),
     re.compile(r"parmi\s+lesquels\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),

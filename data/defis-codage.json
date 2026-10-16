@@ -7985,6 +7985,101 @@
 "ruptures"
 ]
 }
+],
+"au bas uélé la mise en marche des ucc n est pas effective les vaccins ne sont pas disponibles en quantité suffisante et les fonds de la vaccination restent attendus": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"au haut uélé seules # zs sur # ont transmis leurs données pci et les kits pci manquent pour les ess et les ménages au bas uélé # ess prioritaires sur # n ont pas de triage fonctionnel # sur # ne disposent pas d un stockage d eau couvrant # heures et # sur # n ont pas de matelas garnis la faible remontée des alertes de décès communautaires et le faible engagement communautaire limitent les eds au nord kivu # eds restent en attente faute d accord des familles et # décès sur # # # sont survenus dans des ess non dédiés ce qui accroît le risque d exposition des prestataires": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures",
+"completude",
+"eds"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"eds",
+"resistance"
+]
+}
+],
+"au niveau national # dps sur # # # l ituri le haut uélé et le nord kivu ont rapporté leurs activités psea à la coordination nationale avec un seul partenaire d appui rapportant oms la couverture des zones touchées reste faible les supports de visibilité sont insuffisants certains partenaires ne sont pas alignés et l efficacité des cbcm est faible la proportion de zs connaissant le mécanisme de signalement demeure faible en ituri # # # # au haut uélé # # # # et au nord kivu # # # #": [
+{
+"province": "aucune",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": []
+},
+{
+"province": "Nord-Kivu",
+"obstacles": []
+}
+],
+"en ituri le faible encodage des alertes des poe poc dans le dhis# tracker l insuffisance de mobilité pour la supervision dans les zs de rwampara nizi et bunia et le retard d approvisionnement en intrants de certains poc persistent le poc d avakubi reste non fonctionnel en raison de l insécurité au nord kivu la complétude est de # # # # le poc de butuhe demeure non fonctionnel depuis l incident sécuritaire du # # # la menace sécuritaire persiste contre les prestataires de l axe butembo les alertes remontées par les poc ne sont pas prises en charge dans les délais et les poc manquent de consommables de moyens de communication et d ambulance dédiée au haut uélé les poc de bombombi et de barrière cadenas n ont pas rapporté au bas uélé seuls # sites sur # sont fonctionnels # # aucun poe n est renforcé les services du pnhf ne sont pas fonctionnels et les poc manquent d eau de moyens de mobilité et de connectivité": [
+{
+"province": "Ituri",
+"obstacles": [
+"completude",
+"ruptures",
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"poc",
+"insecurite",
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"poc",
+"ruptures"
+]
+}
+],
+"en ituri l ouverture des rings reste insuffisante # # # # la couverture ecumer est faible le nombre d équipes est insuffisant à mangala et à mandima les moyens de transport manquent dans les zs de kilo nia nia mandima damas mambasa et fataki et une grève des prestataires pour non paiement touche la zs de bunia": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"impayes"
+]
+}
 ]
 }
 }
