@@ -3420,6 +3420,10 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 }
 /* « Bientot » : une pastille posee, sans le clignotement de « Nouveau » */
 .nav-badge-soon{animation:none;border-color:var(--line);color:var(--ink-faint);background:var(--bg);}
+/* Onglet annonce sans page (Cartographie, 17 octobre 2026) : un <a> sans href,
+   ni survol ni main ; le libelle reste lisible, un ton en dessous. */
+.nav-pop a.nav-soon,.nav-pop a.nav-soon:hover{cursor:default;background:none;}
+.nav-pop a.nav-soon .nav-t{color:var(--ink-dim);}
 
 @media (min-width:901px){
   .nav-grp-cols .nav-pop{padding:10px;}

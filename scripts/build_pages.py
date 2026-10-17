@@ -364,6 +364,18 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
         return ('        <a href="%s"%s><span class="nav-t">%s</span>%s</a>'
                 % (urls.path(page_id, lang), current, label, desc_html))
 
+    def bientot(item):
+        # Onglet annonce avant que sa page existe (17 octobre 2026, Cartographie) :
+        # { "soon": "cartographie", "labelKey": ..., "descKey": ... } dans une
+        # colonne de mainNav. Un <a> sans href : ni cliquable ni atteignable au
+        # clavier, mais habille comme les autres lignes, avec la pastille
+        # « Bientot ».
+        desc = strings_lang.get(item.get("descKey", ""))
+        desc_html = '<span class="nav-desc">%s</span>' % esc(desc) if desc else ""
+        return ('        <a class="nav-soon" aria-disabled="true"><span class="nav-t">%s'
+                ' <span class="nav-badge nav-badge-soon">%s</span></span>%s</a>'
+                % (esc(strings_lang[item["labelKey"]]), esc(strings_lang["navBadgeBientot"]), desc_html))
+
     def lignes_provinces():
         # Une ligne par province, au meme niveau que « Ensemble du pays », sans
         # pastille de couleur : le nom, et dessous le nombre de cas confirmes
@@ -387,7 +399,10 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
         parts = ['      <div class="nav-col%s">' % (" nav-col-compact" if compact else ""),
                  '        <div class="nav-col-titre">%s</div>' % esc(strings_lang[col["titleKey"]])]
         for item in col["items"]:
-            parts.append(lignes_provinces() if item == "@provinces" else lien(item))
+            if isinstance(item, dict):
+                parts.append(bientot(item))
+            else:
+                parts.append(lignes_provinces() if item == "@provinces" else lien(item))
         parts.append('      </div>')
         return "\n".join(parts)
 

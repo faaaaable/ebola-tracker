@@ -60,7 +60,12 @@
             "rapports",
             "dashboard",
             "visuels",
-            "base-de-donnees"
+            "base-de-donnees",
+            {
+              "soon": "cartographie",
+              "labelKey": "navCarto",
+              "descKey": "navDesc_cartographie"
+            }
           ]
         }
       ]
