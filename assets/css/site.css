@@ -5080,8 +5080,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .apr .eyebrow{display:flex;justify-content:center;}
 .apr-titre{font:600 clamp(44px,6.4vw,80px)/1.02 var(--font-serif);letter-spacing:-.035em;color:var(--ink);margin:6px 0 30px;text-align:center;}
 .apr-lettre{font:400 19px/1.75 var(--font-serif);color:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:34px 0 22px;}
-.apr-lettre p{margin:0 0 1.1em;text-indent:1.6em;}
-.apr-lettre p:first-child{text-indent:0;}
+.apr-lettre p{margin:0 0 1.1em;text-align:justify;hyphens:auto;-webkit-hyphens:auto;}
 .apr-lettre .apr-signe{text-align:right;font-style:italic;font-size:21px;text-indent:0;margin-top:1.4em;}
 .apr-liens{display:flex;justify-content:center;gap:12px;font-size:15px;margin:22px 0 0;}
 .apr-liens span{color:var(--ink-faint);}
