@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-10-14"
+  "fin": "2026-10-15"
  },
  "parDate": [
   {
@@ -3167,6 +3167,49 @@
     "provinces": {
      "Ituri": {
       "cumul": 1033
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-15",
+   "sitrepNumber": "154",
+   "poe": {
+    "personnes": 265075,
+    "screenesPct": 97.8,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 33,
+    "attendus": 48
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 126,
+    "swabes": 126,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 2,
+     "swabes": 2
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 1120,
+     "Haut-Uélé": 503
+    },
+    "rupture": false,
+    "provinces": {
+     "Ituri": {
+      "cumul": 1120
+     },
+     "Haut-Uélé": {
+      "zones": {
+       "Isiro": 470,
+       "Pawa": 33
+      },
+      "zonesSomme": 503
      }
     }
    },

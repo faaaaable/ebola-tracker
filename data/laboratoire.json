@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-05-20",
-    "fin": "2026-10-14"
+    "fin": "2026-10-15"
   },
   "parDate": [
     {
@@ -1089,7 +1089,8 @@
           "echantillons": 105,
           "positifs": 9,
           "vivants": 8,
-          "deces": 1
+          "deces": 1,
+          "positivite": 8.6
         }
       },
       "total": {
@@ -1115,7 +1116,8 @@
           "echantillons": 126,
           "positifs": 8,
           "vivants": 5,
-          "deces": 3
+          "deces": 3,
+          "positivite": 6.3
         }
       },
       "total": {
@@ -1173,7 +1175,8 @@
           "echantillons": 178,
           "positifs": 18,
           "vivants": 12,
-          "deces": 6
+          "deces": 6,
+          "positivite": 10.1
         },
         "Haut-Uélé": {
           "echantillons": 12,
@@ -1896,7 +1899,8 @@
         },
         "Bas-Uélé": {
           "echantillons": 2,
-          "positifs": 1
+          "positifs": 1,
+          "positivite": 50.0
         }
       },
       "total": {
@@ -2481,7 +2485,8 @@
         },
         "Tshopo": {
           "echantillons": 6,
-          "positifs": 2
+          "positifs": 2,
+          "positivite": 33.3
         }
       },
       "total": {
@@ -2810,7 +2815,8 @@
         },
         "Sud-Ubangi": {
           "echantillons": 1,
-          "positifs": 1
+          "positifs": 1,
+          "positivite": 100.0
         },
         "Bas-Uélé": {
           "echantillons": 3,
@@ -3987,7 +3993,8 @@
         },
         "Haut-Uélé": {
           "echantillons": 13,
-          "positifs": 1
+          "positifs": 1,
+          "positivite": 7.7
         },
         "Tshopo": {
           "echantillons": 11,
@@ -4199,7 +4206,8 @@
         },
         "Tshopo": {
           "echantillons": 8,
-          "positifs": 1
+          "positifs": 1,
+          "positivite": 12.5
         },
         "Bas-Uélé": {
           "echantillons": 15,
@@ -4211,6 +4219,49 @@
         "echantillons": 506,
         "positifs": 65,
         "positivite": 12.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-15",
+      "sitrepNumber": "154",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 270,
+          "positifs": 41,
+          "vivants": 31,
+          "deces": 10,
+          "positivite": 15.2
+        },
+        "Nord-Kivu": {
+          "echantillons": 128,
+          "positifs": 22,
+          "vivants": 15,
+          "deces": 7,
+          "positivite": 17.8
+        },
+        "Haut-Uélé": {
+          "echantillons": 21,
+          "positifs": 1,
+          "positivite": 4.8
+        },
+        "Tshopo": {
+          "echantillons": 16,
+          "positifs": 7,
+          "vivants": 6,
+          "deces": 1,
+          "positivite": 43.8
+        },
+        "Bas-Uélé": {
+          "echantillons": 27,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 5,
+        "echantillons": 462,
+        "positifs": 71,
+        "positivite": 15.4
       },
       "source": "SitRep INSP (automatique)"
     }

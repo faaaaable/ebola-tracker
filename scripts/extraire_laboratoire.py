@@ -113,8 +113,9 @@ ECHANTILLONS_RES = [
     # en dernier : ailleurs, « reçus » sans « analysés » compte des échantillons pas encore testés
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+ont\s+[ée]t[ée]\s+re[çc]us\b(?=[^.]*(?:positi|n[ée]gati))", re.I),
     # « 15 nouveaux échantillons reçus au laboratoire de Buta analysés tous
-    # négatifs » (153, Bas-Uélé) : le lieu s'intercale entre reçus et analysés
-    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+re[çc]us\s+au\s+laboratoire\s+d[e']\s*[\w-]+\s+analys[ée]s", re.I),
+    # négatifs » (153, Bas-Uélé) : le lieu s'intercale entre reçus et analysés ;
+    # « au laboratoire de Buta et Isiro » (154) : deux lieux
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+re[çc]us\s+au\s+laboratoire\s+d[e']\s*[\w-]+(?:\s+et\s+(?:d[e']\s*)?[\w-]+)?\s+analys[ée]s", re.I),
 ]
 POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux?\s+)?r[ée]sultats?\s+positifs?", re.I),
@@ -132,7 +133,8 @@ POSITIFS_RES = [
 ]
 NOUVEAUX_CAS_RE = re.compile(r"dont\s+(\d+)\s+nouveaux\s+cas", re.I)
 VIVANTS_DECES_RE = re.compile(r"\((\d+)\s*vivants?\s+et\s+(\d+)\s*d[ée]c[èe]s\)", re.I)
-POSITIVITE_RE = re.compile(r"positivit[ée][^%\d\n]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I)
+# « (positivité : \n43,8%) » (154, Tshopo) : le taux passe a la ligne apres les deux-points
+POSITIVITE_RE = re.compile(r"positivit[ée][^%\d\n]{0,30}?\s*(\d+(?:[,.]\d+)?)\s*%", re.I)
 NEGATIFS_RE = re.compile(r"n[ée]gatifs?\b|aucun[^.;\n]{0,30}?positif", re.I)
 RECUS_TESTES_SUR_RE = re.compile(
     r"(\d[\d ]{0,4}\d|\d)\s*[ée]chantillons\s+re[çc]us\s+et\s+test[ée]s\s*"

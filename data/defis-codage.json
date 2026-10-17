@@ -8080,6 +8080,176 @@
 "impayes"
 ]
 }
+],
+"au bas uélé l absence d ambulance pour le transfert des malades et de cte normé encore en construction à l hgr de buta ainsi que le manque de kits informatiques demeurent des défis opérationnels majeurs": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"au haut uélé la communication avec les cte reste difficile faute de connexion starlink fonctionnelle dans tous les sites": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"au haut uélé les données de pawa et de wamba ne sont pas remontées la mobilité des aps reste difficile à wamba et à boma mangbetu les kits nutritionnels manquent pour les nourrissons sevrés à pawa et à wamba et le pilier ne dispose pas de matériel informatique": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"au nord kivu des gaps d ouverture des rings persistent à katwa butembo et masereka seuls # ménages sur # ont été décontaminés aucun ménage décontaminé n a été doté en kits # eds restent reportés au lendemain et # des # décès alertés # # sont survenus dans des ess non dédiés à la tshopo les intrants et matériels pci manque dans les ess et les communautés les prestataires de première ligne formés en pci mve restent insuffisants et l incinérateur de l hgr de makiso kisangani qui dessert aussi le laboratoire est en panne seuls # ess sur # # # dépassent un score pci de # au haut uélé seules # zs touchées sur # ont transmis leurs données pci et les kits pci manquent dans les ess au bas uélé # ess prioritaires sur # n ont pas de triage fonctionnel # sur # ne disposent pas d un stockage d eau couvrant # heures et # sur # n ont pas de matelas garnis la faible remontée des alertes de décès communautaires et le faible engagement communautaire limitent les eds": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"eds",
+"resistance",
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures",
+"completude",
+"eds"
+]
+}
+],
+"au nord kivu la saturation des lits suspects # # # # la prise en charge de # patients # # en dehors des cte ct une capacité de réponse des ambulances limitée à # # # # et l incomplétude des données ambulances butembo et mutwanga demeurent préoccupantes": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"saturation",
+"ruptures",
+"completude"
+]
+}
+],
+"au niveau national # dps sur # # # l ituri le nord kivu et le haut uélé ont rapporté leurs activités psea à la coordination nationale avec # partenaires d appui rapportant sur # # # la couverture des zones touchées reste faible # zs sur # avec des activités psea soit # # les supports de visibilité sont insuffisants et l efficacité des cbcm est faible la proportion de zs connaissant le mécanisme de signalement demeure faible en ituri # # # # et au nord kivu # # # # au haut uélé le pilier manque de moyens de transport de kits informatiques et de supports de sensibilisation": [
+{
+"province": "aucune",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Nord-Kivu",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"en ituri la faible capacitée d accueil de certains cte ct nyankunde kilo mangala et biakato la prise en charge de # malades critiques le stock de sang réduit à # poches l absence d alimentation pour # patients de la zs de mandima ct mandima et ct makeke et le faible rapportage des mouvements d ambulances # # demeurent préoccupants": [
+{
+"province": "Ituri",
+"obstacles": [
+"saturation",
+"ruptures",
+"completude"
+]
+}
+],
+"en ituri l insuffisance de mobilité pour la supervision dans les zs de rwampara nizi et bunia et le retard de paiement des prestataires pour le mois de septembre persistent le poc d avakubi reste non fonctionnel en raison de l insécurité au nord kivu la complétude est de # # # # le poc de butuhe demeure fermé depuis l incident sécuritaire du # # # la menace sécuritaire persiste contre les prestataires de l axe butembo les alertes remontées par les poc ne sont pas prises en charge dans les délais et les poc manquent de consommables de moyens de communication et d ambulance dédiée au sud kivu la complétude reste de # # # # les antennes du poste de baraka fizi ne rapportent pas et les poe de kavimvira kalundu port sncc et baraka ne disposent pas de dispositif d isolement au haut uélé le poc de mutowamba n a pas transmis ses données faute de réseau au bas uélé seuls # poe poc sur # # # sont fonctionnels les services du pnhf ne sont pas opérationnels et les prestataires peu formés et démotivés manquent d eau de moyens de mobilité et d insignes de visibilité": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"impayes",
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"poc",
+"insecurite",
+"ruptures"
+]
+},
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"poc",
+"ruptures"
+]
+}
+],
+"en ituri l ouverture des rings reste insuffisante # # # # # eds ont échoué et # ont été reportés au lendemain et # corps sur # # # n ont pas pu être swabés": [
+{
+"province": "Ituri",
+"obstacles": [
+"eds"
+]
+}
+],
+"en ituri seules # zs affectées sur # sont couvertes # # et la zs de mandima qui concentre # # des cas confirmés du jour de la province n est toujours pas couverte": [
+{
+"province": "Ituri",
+"obstacles": []
+}
+],
+"à la tshopo les # nouveaux cas confirmés de bafwasende ne sont pas encore couverts les aps de la zs de wanie rukula restent à former et le pilier manque d unités de communication et de motos pour ses déplacements": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"à la tshopo l insuffisance d équipements de réanimation l absence de spécialistes au cte et le manque de personnel pour la prophylaxie post exposition fragilisent la prise en charge": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
 ]
 }
 }
