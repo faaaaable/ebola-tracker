@@ -190,6 +190,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/methodologie/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/methodologie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/methodology/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/mbinu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/methodologie/"/>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/contact/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/contact/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/contact/"/>
@@ -1191,6 +1202,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/methodology/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/methodologie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/methodology/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/mbinu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/methodologie/"/>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/contact/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/contact/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/contact/"/>
@@ -2186,6 +2208,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/about/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/kuhusu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/a-propos/"/>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/mbinu/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/methodologie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/methodology/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/mbinu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/methodologie/"/>
     <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>

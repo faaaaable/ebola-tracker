@@ -7395,6 +7395,11 @@ Promise.allSettled([loadRemoteSitreps(), loadRemoteLatest(), besoinHistorique ? 
     if(d && d.tagName === 'DETAILS'){ d.open = true; d.scrollIntoView({ block: 'start' }); }
   };
   if(document.querySelector('.about-acc')){ ouvrir(); window.addEventListener('hashchange', ouvrir); }
+  /* Depuis le 17 octobre 2026, ces rubriques vivent sur la page Methodologie :
+     une ancienne adresse A propos#lecture, #avertissement... y est renvoyee. */
+  const apr = document.querySelector('.apr[data-methodo]');
+  const RUBRIQUES = ['lecture', 'sources', 'methode', 'limites', 'frequence', 'donnees', 'avertissement'];
+  if(apr && RUBRIQUES.includes(location.hash.slice(1))) location.replace(apr.dataset.methodo + location.hash);
 })();
 
 /* Tableaux triables (7 octobre 2026) : table.zq.tri, un clic sur un en-tete

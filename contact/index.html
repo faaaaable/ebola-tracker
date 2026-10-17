@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact — signaler une erreur ou poser une question</title>
-<meta name="description" content="Une erreur dans les chiffres, une question sur la méthodologie ou une suggestion sur le suivi de l'épidémie d'Ebola en RDC : écrivez-nous.">
+<meta name="description" content="Une erreur dans les chiffres, une question sur la méthodologie ou une suggestion sur le suivi de l'épidémie d'Ebola en RDC : écrivez-moi.">
 <link rel="canonical" href="https://ebola-tracker.org/contact/">
 <link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/contact/">
 <link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/contact/">
@@ -14,7 +14,7 @@
 <meta name="theme-color" content="#FDFAF6">
 <meta property="og:site_name" content="Ebola Tracker">
 <meta property="og:title" content="Contact — signaler une erreur ou poser une question">
-<meta property="og:description" content="Une erreur dans les chiffres, une question sur la méthodologie ou une suggestion sur le suivi de l'épidémie d'Ebola en RDC : écrivez-nous.">
+<meta property="og:description" content="Une erreur dans les chiffres, une question sur la méthodologie ou une suggestion sur le suivi de l'épidémie d'Ebola en RDC : écrivez-moi.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ebola-tracker.org/contact/">
 <meta property="og:locale" content="fr_FR">
@@ -26,7 +26,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
 <meta name="twitter:title" content="Contact — signaler une erreur ou poser une question">
-<meta name="twitter:description" content="Une erreur dans les chiffres, une question sur la méthodologie ou une suggestion sur le suivi de l'épidémie d'Ebola en RDC : écrivez-nous.">
+<meta name="twitter:description" content="Une erreur dans les chiffres, une question sur la méthodologie ou une suggestion sur le suivi de l'épidémie d'Ebola en RDC : écrivez-moi.">
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="kpbL-xHwtgQ-H61ezgLZEOl2f41_3VXpb2ejZz0R1Og" />
 <script type="application/ld+json">
@@ -66,7 +66,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=cfb6ffc500">
+<link rel="stylesheet" href="/assets/css/site.css?v=c13a4335fc">
 </head>
 <body>
 
@@ -171,8 +171,9 @@
       <div class="nav-grp">
       <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Le site</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
       <div class="nav-pop">
-      <a href="/a-propos/"><span class="nav-t">À propos</span><span class="nav-desc">Méthode, sources, avertissement</span></a>
-      <a href="/contact/" aria-current="page"><span class="nav-t">Contact</span><span class="nav-desc">Écrire à l’équipe</span></a>
+      <a href="/a-propos/"><span class="nav-t">À propos</span><span class="nav-desc">Qui tient ce site</span></a>
+      <a href="/methodologie/"><span class="nav-t">Méthodologie</span><span class="nav-desc">Méthode, sources, avertissement</span></a>
+      <a href="/contact/" aria-current="page"><span class="nav-t">Contact</span><span class="nav-desc">M’écrire</span></a>
       </div></div>
     </nav>
 
@@ -205,7 +206,7 @@
         <h1 class="page-title">Contact</h1>
       </div>
     </div>
-    <p class="lede" data-i18n="contactIntro">Une erreur à signaler, une question sur les données ou sur notre méthodologie ? Écrivez-nous via ce formulaire.</p>
+    <p class="lede" data-i18n="contactIntro">Une erreur à signaler, une question sur les données ou sur la méthodologie ? Écrivez-moi via ce formulaire.</p>
     <div class="panel" style="padding:24px;">
       <form id="contactForm" novalidate>
         <div style="display:flex;flex-direction:column;gap:16px;">
@@ -225,7 +226,7 @@
           <button type="submit" id="contactSubmitBtn" class="share-btn" style="align-self:flex-start;padding:10px 22px;">
             <span data-i18n="contactSubmitBtn">Envoyer</span>
           </button>
-          <div id="contactSuccess" style="display:none;font-family:var(--font-mono);font-size:12.5px;color:var(--accent-stable);" data-i18n="contactSuccess">Merci, ton message a bien été envoyé.</div>
+          <div id="contactSuccess" style="display:none;font-family:var(--font-mono);font-size:12.5px;color:var(--accent-stable);" data-i18n="contactSuccess">Merci, votre message a bien été envoyé.</div>
           <div id="contactError" style="display:none;font-family:var(--font-mono);font-size:12.5px;color:var(--accent-critical);" data-i18n="contactError">Une erreur est survenue. Réessaie, ou ouvre une issue sur le dépôt GitHub du projet.</div>
         </div>
       </form>
@@ -290,12 +291,13 @@
         <h2>Le site</h2>
         <ul>
         <li><a href="/a-propos/">À propos</a></li>
+        <li><a href="/methodologie/">Méthodologie</a></li>
         <li><a href="/contact/">Contact</a></li>
         <li><a href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" class="lien-x footer-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> Suivre sur X</a></li>
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Données issues des bulletins de l'<a href="https://insp.cd/" rel="noopener">INSP</a>, complétées ponctuellement par l'<a href="https://www.afro.who.int/" rel="noopener">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle. <a href="/a-propos/#avertissement">Avertissement complet</a></p>
+    <p class="footer-notice">Données issues des bulletins de l'<a href="https://insp.cd/" rel="noopener">INSP</a>, complétées ponctuellement par l'<a href="https://www.afro.who.int/" rel="noopener">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle. <a href="/methodologie/#avertissement">Avertissement complet</a></p>
   </footer>
 
     </div>
@@ -326,8 +328,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0187088001"></script>
-<script defer src="/assets/js/app.js?v=a93ace424e"></script>
+<script defer src="/assets/js/i18n.js?v=cee13df9a5"></script>
+<script defer src="/assets/js/app.js?v=cc72d898c8"></script>
 
 </body>
 </html>

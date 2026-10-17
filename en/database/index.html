@@ -146,7 +146,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/base.css?v=6769ee90cd">
 <script defer src="/assets/js/base.js?v=f144bef4b3"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=cfb6ffc500">
+<link rel="stylesheet" href="/assets/css/site.css?v=c13a4335fc">
 </head>
 <body>
 
@@ -251,8 +251,9 @@
       <div class="nav-grp">
       <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>This site</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
       <div class="nav-pop">
-      <a href="/en/about/"><span class="nav-t">About</span><span class="nav-desc">Method, sources, disclaimer</span></a>
-      <a href="/en/contact/"><span class="nav-t">Contact</span><span class="nav-desc">Write to the team</span></a>
+      <a href="/en/about/"><span class="nav-t">About</span><span class="nav-desc">Who runs this site</span></a>
+      <a href="/en/methodology/"><span class="nav-t">Methodology</span><span class="nav-desc">Method, sources, disclaimer</span></a>
+      <a href="/en/contact/"><span class="nav-t">Contact</span><span class="nav-desc">Write to me</span></a>
       </div></div>
     </nav>
 
@@ -339,7 +340,7 @@
     <h2 class="ap-h2">In detail</h2>
     <p class="ap-sous">What to know before reusing these figures.</p>
     <div class="ap-acc bdd-acc">
-      <details id="erreurs"><summary>Errors are possible</summary><div class="prose"><p>The figures are read from the bulletin PDFs, largely by a program. The bulletin format has changed several times since May, and a misread table can shift a value by one column or one zone. Automatic checks verify each bulletin (sum of provinces against the national total, new cases below the total, recomputed fatality) and the discrepancies found are corrected by hand, but they cannot catch everything. The bulletins themselves sometimes contain errors or revisions, which the site reproduces without correcting. The bulletin PDF, linked from every row, is always authoritative. If you spot an error, write to us with the date, the area and the column. <a href="/en/contact/">Report an error →</a></p></div></details>
+      <details id="erreurs"><summary>Errors are possible</summary><div class="prose"><p>The figures are read from the bulletin PDFs, largely by a program. The bulletin format has changed several times since May, and a misread table can shift a value by one column or one zone. Automatic checks verify each bulletin (sum of provinces against the national total, new cases below the total, recomputed fatality) and the discrepancies found are corrected by hand, but they cannot catch everything. The bulletins themselves sometimes contain errors or revisions, which the site reproduces without correcting. The bulletin PDF, linked from every row, is always authoritative. If you spot an error, write to me with the date, the area and the column. <a href="/en/contact/">Report an error →</a></p></div></details>
       <details id="nouveaux"><summary>New cases and deaths: a calculation</summary><div class="prose"><p>The “new” columns are the difference between two successive readings for the same area, computed by the site; they may differ from the new cases the bulletin publishes for the day (a case reassigned from one zone to another, for example). A negative difference is a downward revision by the source. When the previous reading is more than a day old, the difference shows how many days it covers.</p></div></details>
       <details id="absents"><summary>Missing bulletins</summary><div class="prose"><p>The INSP never published SitReps no. 003, 029, 043, 045, 063, 075, 076, 142. Those days have no row; the next difference then covers several days.</p></div></details>
       <details id="rattrapages"><summary>Catch-ups</summary><div class="prose"><p>On 22 and 30 July 2026 the difference covers more than one day: a database harmonisation on the 22nd (the bulletin reports +97 cases for the day), and 28 and 29 July without a bulletin on the 30th (+73 reported). These rows carry the mention “rattrapage” (catch-up).</p></div></details>
@@ -424,12 +425,13 @@
         <h2>This site</h2>
         <ul>
         <li><a href="/en/about/">About</a></li>
+        <li><a href="/en/methodology/">Methodology</a></li>
         <li><a href="/en/contact/">Contact</a></li>
         <li><a href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" class="lien-x footer-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> Follow on X</a></li>
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/about/#avertissement">Full disclaimer</a></p>
+    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/methodology/#avertissement">Full disclaimer</a></p>
   </footer>
 
     </div>
@@ -460,8 +462,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0187088001"></script>
-<script defer src="/assets/js/app.js?v=a93ace424e"></script>
+<script defer src="/assets/js/i18n.js?v=cee13df9a5"></script>
+<script defer src="/assets/js/app.js?v=cc72d898c8"></script>
 
 </body>
 </html>

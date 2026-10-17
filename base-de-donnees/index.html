@@ -146,7 +146,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/base.css?v=6769ee90cd">
 <script defer src="/assets/js/base.js?v=f144bef4b3"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=cfb6ffc500">
+<link rel="stylesheet" href="/assets/css/site.css?v=c13a4335fc">
 </head>
 <body>
 
@@ -251,8 +251,9 @@
       <div class="nav-grp">
       <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>Le site</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
       <div class="nav-pop">
-      <a href="/a-propos/"><span class="nav-t">À propos</span><span class="nav-desc">Méthode, sources, avertissement</span></a>
-      <a href="/contact/"><span class="nav-t">Contact</span><span class="nav-desc">Écrire à l’équipe</span></a>
+      <a href="/a-propos/"><span class="nav-t">À propos</span><span class="nav-desc">Qui tient ce site</span></a>
+      <a href="/methodologie/"><span class="nav-t">Méthodologie</span><span class="nav-desc">Méthode, sources, avertissement</span></a>
+      <a href="/contact/"><span class="nav-t">Contact</span><span class="nav-desc">M’écrire</span></a>
       </div></div>
     </nav>
 
@@ -339,7 +340,7 @@
     <h2 class="ap-h2">En détail</h2>
     <p class="ap-sous">Ce qu’il faut savoir avant de réutiliser ces chiffres.</p>
     <div class="ap-acc bdd-acc">
-      <details id="erreurs"><summary>Des erreurs sont possibles</summary><div class="prose"><p>Les chiffres sont lus dans les PDF des bulletins, en grande partie par un programme. Le format des bulletins a changé plusieurs fois depuis mai, et un tableau mal lu peut décaler une valeur d’une colonne ou d’une zone. Des contrôles automatiques vérifient chaque bulletin (somme des provinces contre le total national, nouveaux cas inférieurs au cumul, létalité recalculée) et les écarts repérés sont corrigés à la main, mais ils ne peuvent pas tout attraper. Les bulletins eux-mêmes contiennent parfois des erreurs ou des révisions, que le site reproduit sans les corriger. Le PDF du bulletin, accessible depuis chaque ligne, fait toujours foi. Si vous repérez une erreur, écrivez-nous en indiquant la date, le territoire et la colonne. <a href="/contact/">Signaler une erreur →</a></p></div></details>
+      <details id="erreurs"><summary>Des erreurs sont possibles</summary><div class="prose"><p>Les chiffres sont lus dans les PDF des bulletins, en grande partie par un programme. Le format des bulletins a changé plusieurs fois depuis mai, et un tableau mal lu peut décaler une valeur d’une colonne ou d’une zone. Des contrôles automatiques vérifient chaque bulletin (somme des provinces contre le total national, nouveaux cas inférieurs au cumul, létalité recalculée) et les écarts repérés sont corrigés à la main, mais ils ne peuvent pas tout attraper. Les bulletins eux-mêmes contiennent parfois des erreurs ou des révisions, que le site reproduit sans les corriger. Le PDF du bulletin, accessible depuis chaque ligne, fait toujours foi. Si vous repérez une erreur, écrivez-moi en indiquant la date, le territoire et la colonne. <a href="/contact/">Signaler une erreur →</a></p></div></details>
       <details id="nouveaux"><summary>Nouveaux cas et décès : un calcul</summary><div class="prose"><p>Les colonnes « nouveaux » sont l’écart entre deux relevés successifs du même territoire, calculé par le site ; elles peuvent différer des nouveaux cas que le bulletin publie pour la journée (un cas reclassé d’une zone à l’autre, par exemple). Un écart négatif est une révision à la baisse par la source. Quand le relevé précédent date de plus d’un jour, l’écart porte le nombre de journées qu’il couvre.</p></div></details>
       <details id="absents"><summary>Bulletins absents</summary><div class="prose"><p>L’INSP n’a jamais mis en ligne les SitRep n° 003, 029, 043, 045, 063, 075, 076, 142. Les jours concernés n’ont pas de ligne ; l’écart suivant couvre alors plusieurs journées.</p></div></details>
       <details id="rattrapages"><summary>Rattrapages</summary><div class="prose"><p>Les 22 et 30 juillet 2026, l’écart couvre plus d’une journée : une harmonisation de bases le 22 (le bulletin annonce +97 cas pour la journée), les 28 et 29 juillet sans bulletin le 30 (+73 annoncés). Ces lignes portent la mention « rattrapage ».</p></div></details>
@@ -424,12 +425,13 @@
         <h2>Le site</h2>
         <ul>
         <li><a href="/a-propos/">À propos</a></li>
+        <li><a href="/methodologie/">Méthodologie</a></li>
         <li><a href="/contact/">Contact</a></li>
         <li><a href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" class="lien-x footer-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> Suivre sur X</a></li>
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Données issues des bulletins de l'<a href="https://insp.cd/" rel="noopener">INSP</a>, complétées ponctuellement par l'<a href="https://www.afro.who.int/" rel="noopener">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle. <a href="/a-propos/#avertissement">Avertissement complet</a></p>
+    <p class="footer-notice">Données issues des bulletins de l'<a href="https://insp.cd/" rel="noopener">INSP</a>, complétées ponctuellement par l'<a href="https://www.afro.who.int/" rel="noopener">OMS</a>. Site à vocation informative : ne constitue ni un avis médical, ni une source officielle. <a href="/methodologie/#avertissement">Avertissement complet</a></p>
   </footer>
 
     </div>
@@ -460,8 +462,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0187088001"></script>
-<script defer src="/assets/js/app.js?v=a93ace424e"></script>
+<script defer src="/assets/js/i18n.js?v=cee13df9a5"></script>
+<script defer src="/assets/js/app.js?v=cc72d898c8"></script>
 
 </body>
 </html>

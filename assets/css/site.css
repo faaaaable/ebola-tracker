@@ -5070,3 +5070,19 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .ap2-texte .ap2-resumes a b{font:600 18px var(--font-serif);border-bottom:1.5px solid var(--accent-light);}
 .ap2-texte .ap2-resumes a:hover b{border-bottom-color:var(--accent);}
 .ap2-texte .pp-t{margin-bottom:12px;}
+
+/* ===== A PROPOS (17 octobre 2026) =====
+   Presentation de Pierre en « lettre » (maquette n°2 de proto-apropos-1017b,
+   avec un grand titre) : colonne etroite en serif entre deux filets fins,
+   signature a droite. L'ancien contenu est la page Methodologie (classes
+   about-* et ap-*). */
+.section.apr{max-width:600px;margin:0 auto;padding-top:32px;text-align:left;}
+.apr .eyebrow{display:flex;justify-content:center;}
+.apr-titre{font:600 clamp(44px,6.4vw,80px)/1.02 var(--font-serif);letter-spacing:-.035em;color:var(--ink);margin:6px 0 30px;text-align:center;}
+.apr-lettre{font:400 19px/1.75 var(--font-serif);color:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:34px 0 22px;}
+.apr-lettre p{margin:0 0 1.1em;text-indent:1.6em;}
+.apr-lettre p:first-child{text-indent:0;}
+.apr-lettre .apr-signe{text-align:right;font-style:italic;font-size:21px;text-indent:0;margin-top:1.4em;}
+.apr-liens{display:flex;justify-content:center;gap:12px;font-size:15px;margin:22px 0 0;}
+.apr-liens span{color:var(--ink-faint);}
+@media (max-width:560px){.apr-lettre{font-size:18px;padding-top:26px;}}

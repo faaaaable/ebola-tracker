@@ -177,7 +177,7 @@
     "timelineLatestText": "Le bulletin le plus récent intégré à ce site fait état de {cases} cas confirmés et {deaths} décès.",
     "faqIntro": "Les questions qui reviennent le plus souvent sur cette épidémie et sur la façon dont ce site est construit.",
     "faqMoreTitle": "Votre question n'est pas là ?",
-    "faqMoreBody": "Écrivez-nous : les questions récurrentes finissent par rejoindre cette page.",
+    "faqMoreBody": "Écrivez-moi : les questions récurrentes finissent par rejoindre cette page.",
     "navGlossaire": "Glossaire",
     "glossaireLede": "Les mots des bulletins et de ce site, tels qu’ils y sont employés. Seize entrées, du cas confirmé au rapport de situation.",
     "aboutOpenDataTitle": "Accès aux données",
@@ -618,8 +618,8 @@
     "footerKenya": "Ebola au Kenya",
     "footerOuganda": "Ebola en Ouganda",
     "footerFrance": "Ebola en France",
-    "navDesc_a_propos": "Méthode, sources, avertissement",
-    "navDesc_contact": "Écrire à l’équipe",
+    "navDesc_a_propos": "Qui tient ce site",
+    "navDesc_contact": "M’écrire",
     "sparkNote": "Chaque miniature montre les zones de santé de la province, colorées comme sur la carte principale.",
     "bentoZones": "Zones de santé touchées",
     "homeBentoTitle": "Le point sur l’épidémie",
@@ -686,7 +686,7 @@
     "bddChargement": "Chargement de la base…",
     "bddLire": "Lire ces données",
     "bddErrT": "Des erreurs sont possibles",
-    "bddErr": "Les chiffres sont lus dans les PDF des bulletins, en grande partie par un programme. Le format des bulletins a changé plusieurs fois depuis mai, et un tableau mal lu peut décaler une valeur d’une colonne ou d’une zone. Des contrôles automatiques vérifient chaque bulletin (somme des provinces contre le total national, nouveaux cas inférieurs au cumul, létalité recalculée) et les écarts repérés sont corrigés à la main, mais ils ne peuvent pas tout attraper. Les bulletins eux-mêmes contiennent parfois des erreurs ou des révisions, que le site reproduit sans les corriger. Le PDF du bulletin, accessible depuis chaque ligne, fait toujours foi. Si vous repérez une erreur, écrivez-nous en indiquant la date, le territoire et la colonne.",
+    "bddErr": "Les chiffres sont lus dans les PDF des bulletins, en grande partie par un programme. Le format des bulletins a changé plusieurs fois depuis mai, et un tableau mal lu peut décaler une valeur d’une colonne ou d’une zone. Des contrôles automatiques vérifient chaque bulletin (somme des provinces contre le total national, nouveaux cas inférieurs au cumul, létalité recalculée) et les écarts repérés sont corrigés à la main, mais ils ne peuvent pas tout attraper. Les bulletins eux-mêmes contiennent parfois des erreurs ou des révisions, que le site reproduit sans les corriger. Le PDF du bulletin, accessible depuis chaque ligne, fait toujours foi. Si vous repérez une erreur, écrivez-moi en indiquant la date, le territoire et la colonne.",
     "bddN1T": "Une seule source par chiffre",
     "bddN1": "Chaque ligne renvoie au PDF du bulletin de l’INSP dont elle est tirée. Le site ne corrige ni ne complète les chiffres : une case vide est une valeur que le bulletin ne donne pas.",
     "bddN2T": "Nouveaux cas et décès : un calcul",
@@ -892,7 +892,14 @@
     "paysOrigin": "L'épidémie y a démarré : officiellement notifiée le 8 mai 2026, déclarée le 15 mai.",
     "timelineKindMilestoneCases": "Seuil de cas",
     "timelineKindMilestoneDeaths": "Seuil de décès",
-    "timelineKindIntl": "Hors de RDC"
+    "timelineKindIntl": "Hors de RDC",
+    "navDesc_methodologie": "Méthode, sources, avertissement",
+    "navMethodo": "Méthodologie",
+    "aboutWrite": "Écrire",
+    "aboutSignature": "Pierre",
+    "aboutBio1": "Travailleur humanitaire depuis près de quinze ans, j’ai été amené à intervenir sur de nombreuses crises, dans plusieurs régions du monde (et notamment la RDC).",
+    "aboutBio2": "Face à cette épidémie d’Ebola, j’ai constaté qu’il manquait une source rassemblant, en un seul endroit, les données officielles permettant d’en suivre l’évolution. Ce tracker est né de ce constat.",
+    "aboutBio3": "Mon souhait est qu’il aide le plus grand nombre à mieux comprendre les dynamiques de l’épidémie."
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -1071,7 +1078,7 @@
     "timelineLatestText": "The most recent bulletin included on this site reports {cases} confirmed cases and {deaths} deaths.",
     "faqIntro": "The questions that come up most often about this outbreak and about how this site is built.",
     "faqMoreTitle": "Your question isn't here?",
-    "faqMoreBody": "Write to us: recurring questions eventually make it onto this page.",
+    "faqMoreBody": "Write to me: recurring questions eventually make it onto this page.",
     "navGlossaire": "Glossary",
     "glossaireLede": "The words used in the bulletins and on this site, as they are used here. Sixteen entries, from confirmed case to situation report.",
     "aboutOpenDataTitle": "Access to the data",
@@ -1512,8 +1519,8 @@
     "footerKenya": "Ebola in Kenya",
     "footerOuganda": "Ebola in Uganda",
     "footerFrance": "Ebola in France",
-    "navDesc_a_propos": "Method, sources, disclaimer",
-    "navDesc_contact": "Write to the team",
+    "navDesc_a_propos": "Who runs this site",
+    "navDesc_contact": "Write to me",
     "sparkNote": "Each thumbnail shows the province’s health zones, coloured as on the main map.",
     "bentoZones": "Health zones affected",
     "homeBentoTitle": "Where the outbreak stands",
@@ -1580,7 +1587,7 @@
     "bddChargement": "Loading the database…",
     "bddLire": "Reading this data",
     "bddErrT": "Errors are possible",
-    "bddErr": "The figures are read from the bulletin PDFs, largely by a program. The bulletin format has changed several times since May, and a misread table can shift a value by one column or one zone. Automatic checks verify each bulletin (sum of provinces against the national total, new cases below the total, recomputed fatality) and the discrepancies found are corrected by hand, but they cannot catch everything. The bulletins themselves sometimes contain errors or revisions, which the site reproduces without correcting. The bulletin PDF, linked from every row, is always authoritative. If you spot an error, write to us with the date, the area and the column.",
+    "bddErr": "The figures are read from the bulletin PDFs, largely by a program. The bulletin format has changed several times since May, and a misread table can shift a value by one column or one zone. Automatic checks verify each bulletin (sum of provinces against the national total, new cases below the total, recomputed fatality) and the discrepancies found are corrected by hand, but they cannot catch everything. The bulletins themselves sometimes contain errors or revisions, which the site reproduces without correcting. The bulletin PDF, linked from every row, is always authoritative. If you spot an error, write to me with the date, the area and the column.",
     "bddN1T": "One source per figure",
     "bddN1": "Each row links to the PDF of the INSP bulletin it comes from. The site neither corrects nor fills in figures: an empty cell is a value the bulletin does not give.",
     "bddN2T": "New cases and deaths: a calculation",
@@ -1786,7 +1793,14 @@
     "paysOrigin": "The outbreak started there: officially notified on 8 May 2026, declared on 15 May.",
     "timelineKindMilestoneCases": "Case threshold",
     "timelineKindMilestoneDeaths": "Death threshold",
-    "timelineKindIntl": "Outside the DRC"
+    "timelineKindIntl": "Outside the DRC",
+    "navDesc_methodologie": "Method, sources, disclaimer",
+    "navMethodo": "Methodology",
+    "aboutWrite": "Get in touch",
+    "aboutSignature": "Pierre",
+    "aboutBio1": "A humanitarian worker for nearly fifteen years, I have worked on many crises in several regions of the world (including the DRC).",
+    "aboutBio2": "Faced with this Ebola outbreak, I saw that there was no single source bringing together, in one place, the official data needed to follow its course. This tracker grew out of that observation.",
+    "aboutBio3": "My hope is that it helps as many people as possible to better understand the dynamics of the outbreak."
   },
   "timelineEvents": [
     {
@@ -2081,15 +2095,15 @@
     {
       "fr": {
         "q": "D'où viennent les chiffres publiés sur ce site ?",
-        "a": "<p>Exclusivement des rapports de situation (SitRep) publiés par l'Institut National de Santé Publique de la RDC, complétés par les bulletins hebdomadaires de l'OMS. Chaque PDF d'origine est archivé et consultable sur la page <a href=\"{url.rapports}\">Sources et bulletins</a>.</p>"
+        "a": "<p>Exclusivement des rapports de situation (SitRep) publiés par l'Institut National de Santé Publique de la RDC, complétés par les bulletins hebdomadaires de l'OMS. Chaque PDF d'origine est archivé et consultable sur la page <a href=\"{url.rapports}\">Sources et bulletins</a>. La façon dont ils sont lus et vérifiés est décrite sur la page <a href=\"{url.methodologie}\">Méthodologie</a>.</p>"
       },
       "en": {
         "q": "Where do the figures on this site come from?",
-        "a": "<p>Exclusively from the situation reports (SitRep) published by the DRC National Institute of Public Health, supplemented by the WHO weekly bulletins. Every original PDF is archived and available on the <a href=\"{url.rapports}\">Sources and bulletins</a> page.</p>"
+        "a": "<p>Exclusively from the situation reports (SitRep) published by the DRC National Institute of Public Health, supplemented by the WHO weekly bulletins. Every original PDF is archived and available on the <a href=\"{url.rapports}\">Sources and bulletins</a> page. How they are read and checked is described on the <a href=\"{url.methodologie}\">Methodology</a> page.</p>"
       },
       "sw": {
         "q": "Tarakimu zinazochapishwa kwenye tovuti hii zinatoka wapi?",
-        "a": "<p>Kwa ukamilifu kutoka ripoti za hali (SitRep) zilizochapishwa na Taasisi ya Kitaifa ya Afya ya Umma ya DRC, zikiongezwa na ripoti za kila wiki za WHO. Kila PDF asili imehifadhiwa na inaweza kusomwa kwenye ukurasa wa <a href=\"{url.rapports}\">Vyanzo na ripoti</a>.</p>"
+        "a": "<p>Kwa ukamilifu kutoka ripoti za hali (SitRep) zilizochapishwa na Taasisi ya Kitaifa ya Afya ya Umma ya DRC, zikiongezwa na ripoti za kila wiki za WHO. Kila PDF asili imehifadhiwa na inaweza kusomwa kwenye ukurasa wa <a href=\"{url.rapports}\">Vyanzo na ripoti</a>. Jinsi zinavyosomwa na kukaguliwa imeelezwa kwenye ukurasa wa <a href=\"{url.methodologie}\">Mbinu</a>.</p>"
       }
     },
     {
@@ -2132,6 +2146,20 @@
       "sw": {
         "q": "Je, tovuti hii ni chanzo rasmi?",
         "a": "<p>Hapana. Ni tovuti huru inayokusanya na kupanga takwimu za umma zilizokwisha chapishwa na vyanzo rasmi, bila uchambuzi wala tafsiri yake mwenyewe. Kwa uamuzi wowote wa afya au safari, rejea WHO na Wizara ya Afya ya DRC.</p>"
+      }
+    },
+    {
+      "fr": {
+        "q": "Qui tient ce site ?",
+        "a": "<p>Voir la page <a href=\"{url.a-propos}\">À propos</a>.</p>"
+      },
+      "en": {
+        "q": "Who runs this site?",
+        "a": "<p>See the <a href=\"{url.a-propos}\">About</a> page.</p>"
+      },
+      "sw": {
+        "q": "Nani anaendesha tovuti hii?",
+        "a": "<p>Tazama ukurasa wa <a href=\"{url.a-propos}\">Kuhusu</a>.</p>"
       }
     }
   ],
@@ -2615,7 +2643,7 @@
     "timelineLatestText": "Ripoti ya hivi karibuni iliyoingizwa kwenye tovuti hii inaonyesha visa {cases} vilivyothibitishwa na vifo {deaths}.",
     "faqIntro": "Maswali yanayoulizwa mara nyingi kuhusu mlipuko huu na jinsi tovuti hii ilivyojengwa.",
     "faqMoreTitle": "Swali lako halipo hapa?",
-    "faqMoreBody": "Tuandikie: maswali yanayojirudia hatimaye huingia kwenye ukurasa huu.",
+    "faqMoreBody": "Niandikie: maswali yanayojirudia hatimaye huingia kwenye ukurasa huu.",
     "navGlossaire": "Kamusi",
     "glossaireLede": "Maneno ya ripoti na ya tovuti hii, jinsi yanavyotumika hapa. Maingizo kumi na sita, kutoka kisa kilichothibitishwa hadi ripoti ya hali.",
     "aboutOpenDataTitle": "Upatikanaji wa takwimu",
@@ -3056,8 +3084,8 @@
     "footerKenya": "Ebola nchini Kenya",
     "footerOuganda": "Ebola nchini Uganda",
     "footerFrance": "Ebola nchini Ufaransa",
-    "navDesc_a_propos": "Mbinu, vyanzo, tahadhari",
-    "navDesc_contact": "Andikia timu",
+    "navDesc_a_propos": "Anayeendesha tovuti hii",
+    "navDesc_contact": "Niandikie",
     "sparkNote": "Kila picha ndogo inaonyesha maeneo ya afya ya mkoa, yenye rangi kama kwenye ramani kuu.",
     "bentoZones": "Maeneo ya afya yaliyoathirika",
     "homeBentoTitle": "Hali ya mlipuko",
@@ -3124,7 +3152,7 @@
     "bddChargement": "Hifadhidata inapakia…",
     "bddLire": "Kusoma takwimu hizi",
     "bddErrT": "Makosa yanawezekana",
-    "bddErr": "Takwimu zinasomwa kwenye PDF za ripoti, kwa kiasi kikubwa na programu. Muundo wa ripoti umebadilika mara kadhaa tangu Mei, na jedwali lililosomwa vibaya linaweza kuhamisha thamani kwa safu moja au eneo moja. Ukaguzi wa kiotomatiki huthibitisha kila ripoti na tofauti zinazopatikana hurekebishwa kwa mkono, lakini hauwezi kugundua kila kitu. Ripoti zenyewe wakati mwingine zina makosa au marekebisho, ambayo tovuti inayanakili bila kuyarekebisha. PDF ya ripoti, inayopatikana kutoka kila mstari, ndiyo yenye mamlaka daima. Ukiona kosa, tuandikie ukitaja tarehe, eneo na safu.",
+    "bddErr": "Takwimu zinasomwa kwenye PDF za ripoti, kwa kiasi kikubwa na programu. Muundo wa ripoti umebadilika mara kadhaa tangu Mei, na jedwali lililosomwa vibaya linaweza kuhamisha thamani kwa safu moja au eneo moja. Ukaguzi wa kiotomatiki huthibitisha kila ripoti na tofauti zinazopatikana hurekebishwa kwa mkono, lakini hauwezi kugundua kila kitu. Ripoti zenyewe wakati mwingine zina makosa au marekebisho, ambayo tovuti inayanakili bila kuyarekebisha. PDF ya ripoti, inayopatikana kutoka kila mstari, ndiyo yenye mamlaka daima. Ukiona kosa, niandikie ukitaja tarehe, eneo na safu.",
     "bddN1T": "Chanzo kimoja kwa kila tarakimu",
     "bddN1": "Kila mstari unaelekeza kwenye PDF ya ripoti ya INSP unakotoka. Tovuti hairekebishi wala haijazi tarakimu: kisanduku kitupu ni thamani ambayo ripoti haitoi.",
     "bddN2T": "Visa na vifo vipya: hesabu",
@@ -3330,6 +3358,13 @@
     "paysOrigin": "Mlipuko ulianzia hapo: uliripotiwa rasmi tarehe 8 Mei 2026, ukatangazwa tarehe 15 Mei.",
     "timelineKindMilestoneCases": "Kizingiti cha visa",
     "timelineKindMilestoneDeaths": "Kizingiti cha vifo",
-    "timelineKindIntl": "Nje ya DRC"
+    "timelineKindIntl": "Nje ya DRC",
+    "navDesc_methodologie": "Mbinu, vyanzo, tahadhari",
+    "navMethodo": "Mbinu",
+    "aboutWrite": "Andika",
+    "aboutSignature": "Pierre",
+    "aboutBio1": "Nikiwa mfanyakazi wa misaada ya kibinadamu kwa karibu miaka kumi na tano, nimeshughulikia majanga mengi katika maeneo kadhaa ya dunia (ikiwemo DRC).",
+    "aboutBio2": "Katika mlipuko huu wa Ebola, niligundua kwamba hakukuwa na chanzo kinachokusanya, mahali pamoja, takwimu rasmi zinazowezesha kufuatilia mwenendo wake. Tovuti hii ilizaliwa kutokana na hilo.",
+    "aboutBio3": "Matumaini yangu ni kwamba itawasaidia watu wengi iwezekanavyo kuelewa vyema mwenendo wa mlipuko huu."
   }
 }

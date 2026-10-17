@@ -76,6 +76,7 @@
       "titleKey": "footerSiteTitle",
       "pages": [
         "a-propos",
+        "methodologie",
         "contact"
       ]
     }
@@ -126,6 +127,7 @@
       "titleKey": "footerSiteTitle",
       "pages": [
         "a-propos",
+        "methodologie",
         "contact"
       ]
     }
@@ -968,24 +970,55 @@
       "needs": [],
       "changefreq": "monthly",
       "priority": "0.5",
-      "schema": [
-        "article"
-      ],
+      "schema": [],
       "navLabelKey": "i18n:tabAbout",
       "meta": {
         "fr": {
-          "title": "À propos — sources, méthodologie et limites",
-          "h1": "À propos de ce site",
+          "title": "À propos — qui tient ebola-tracker.org",
+          "h1": "À propos",
+          "description": "Travailleur humanitaire depuis près de quinze ans, Pierre a créé ce tracker pour rassembler en un seul endroit les données officielles de l'épidémie d'Ebola en RDC."
+        },
+        "en": {
+          "title": "About — who runs ebola-tracker.org",
+          "h1": "About",
+          "description": "A humanitarian worker for nearly fifteen years, Pierre created this tracker to bring together in one place the official data on the Ebola outbreak in the DRC."
+        },
+        "sw": {
+          "title": "Kuhusu — anayeendesha ebola-tracker.org",
+          "h1": "Kuhusu",
+          "description": "Akiwa mfanyakazi wa misaada ya kibinadamu kwa karibu miaka kumi na tano, Pierre aliunda tovuti hii ili kukusanya mahali pamoja takwimu rasmi za mlipuko wa Ebola nchini DRC."
+        }
+      }
+    },
+    {
+      "id": "methodologie",
+      "fragment": "methodologie.html",
+      "slug": {
+        "fr": "methodologie/",
+        "en": "methodology/",
+        "sw": "mbinu/"
+      },
+      "needs": [],
+      "changefreq": "monthly",
+      "priority": "0.5",
+      "schema": [
+        "article"
+      ],
+      "navLabelKey": "t:navMethodo",
+      "meta": {
+        "fr": {
+          "title": "Méthodologie — sources, méthode et limites",
+          "h1": "Méthodologie",
           "description": "D'où viennent les données, comment elles sont extraites des bulletins officiels, à quelle fréquence elles sont mises à jour et quelles sont les limites connues de ce suivi."
         },
         "en": {
-          "title": "About — sources, methodology and limitations",
-          "h1": "About this site",
+          "title": "Methodology — sources, method and limitations",
+          "h1": "Methodology",
           "description": "Where the data comes from, how it is extracted from official bulletins, how often it is updated, and the known limitations of this tracker."
         },
         "sw": {
-          "title": "Kuhusu tovuti hii — Ebola DRC 2026",
-          "h1": "Kuhusu tovuti hii",
+          "title": "Mbinu — Ebola DRC 2026",
+          "h1": "Mbinu",
           "description": "Tovuti hii inakusanya ripoti rasmi za INSP na WHO. Kila tarakimu inaweza kufuatiliwa hadi kwenye hati yake."
         }
       }
@@ -1008,7 +1041,7 @@
         "fr": {
           "title": "Contact — signaler une erreur ou poser une question",
           "h1": "Contact",
-          "description": "Une erreur dans les chiffres, une question sur la méthodologie ou une suggestion sur le suivi de l'épidémie d'Ebola en RDC : écrivez-nous."
+          "description": "Une erreur dans les chiffres, une question sur la méthodologie ou une suggestion sur le suivi de l'épidémie d'Ebola en RDC : écrivez-moi."
         },
         "en": {
           "title": "Contact — report an error or ask a question",

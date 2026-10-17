@@ -516,12 +516,13 @@ def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces, avec_av
     # Une seule ligne discrete plutot que deux pavas : l'avertissement doit
     # rester sur chaque page — un visiteur arrive de Google atterrit sur
     # n'importe laquelle, pas sur l'accueil — mais le texte complet, lui, n'a
-    # besoin d'exister qu'une fois, sur la page A propos.
+    # besoin d'exister qu'une fois, sur la page Methodologie (A propos jusqu'au
+    # 17 octobre 2026).
     # Sur l'accueil, la ligne d'avertissement est retiree (4 octobre 2026, a la
     # demande du proprietaire) : elle reste sur toutes les autres pages, et le
-    # texte complet est sur A propos.
+    # texte complet est sur Methodologie.
     notice = ('    <p class="footer-notice">%s <a href="%s">%s</a></p>\n'
-              % (strings_lang["footerNotice"], urls.path("a-propos", lang) + "#avertissement",
+              % (strings_lang["footerNotice"], urls.path("methodologie", lang) + "#avertissement",
                  esc(strings_lang["footerNoticeMore"]))) if avec_avertissement else ""
     return (
         '  <footer>\n'

@@ -80,7 +80,7 @@
       "name": "Where do the figures on this site come from?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Exclusively from the situation reports (SitRep) published by the DRC National Institute of Public Health, supplemented by the WHO weekly bulletins. Every original PDF is archived and available on the Sources and bulletins page."
+        "text": "Exclusively from the situation reports (SitRep) published by the DRC National Institute of Public Health, supplemented by the WHO weekly bulletins. Every original PDF is archived and available on the Sources and bulletins page. How they are read and checked is described on the Methodology page."
       }
     },
     {
@@ -105,6 +105,14 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "No. It is an independent site that compiles and formats public data already published by official sources, without its own analysis or interpretation. For any health or travel decision, refer to the WHO and the DRC Ministry of Health."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who runs this site?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "See the About page."
       }
     }
   ]
@@ -147,7 +155,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=cfb6ffc500">
+<link rel="stylesheet" href="/assets/css/site.css?v=c13a4335fc">
 </head>
 <body>
 
@@ -252,8 +260,9 @@
       <div class="nav-grp">
       <button class="nav-grp-btn side-nav-title" type="button" aria-expanded="false"><span>This site</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
       <div class="nav-pop">
-      <a href="/en/about/"><span class="nav-t">About</span><span class="nav-desc">Method, sources, disclaimer</span></a>
-      <a href="/en/contact/"><span class="nav-t">Contact</span><span class="nav-desc">Write to the team</span></a>
+      <a href="/en/about/"><span class="nav-t">About</span><span class="nav-desc">Who runs this site</span></a>
+      <a href="/en/methodology/"><span class="nav-t">Methodology</span><span class="nav-desc">Method, sources, disclaimer</span></a>
+      <a href="/en/contact/"><span class="nav-t">Contact</span><span class="nav-desc">Write to me</span></a>
       </div></div>
     </nav>
 
@@ -311,7 +320,7 @@
       </details>
       <details class="faq-item">
         <summary>Where do the figures on this site come from?</summary>
-        <div class="faq-answer"><p>Exclusively from the situation reports (SitRep) published by the DRC National Institute of Public Health, supplemented by the WHO weekly bulletins. Every original PDF is archived and available on the <a href="/en/reports/">Sources and bulletins</a> page.</p></div>
+        <div class="faq-answer"><p>Exclusively from the situation reports (SitRep) published by the DRC National Institute of Public Health, supplemented by the WHO weekly bulletins. Every original PDF is archived and available on the <a href="/en/reports/">Sources and bulletins</a> page. How they are read and checked is described on the <a href="/en/methodology/">Methodology</a> page.</p></div>
       </details>
       <details class="faq-item">
         <summary>How often is the site updated?</summary>
@@ -325,10 +334,14 @@
         <summary>Is this site an official source?</summary>
         <div class="faq-answer"><p>No. It is an independent site that compiles and formats public data already published by official sources, without its own analysis or interpretation. For any health or travel decision, refer to the WHO and the DRC Ministry of Health.</p></div>
       </details>
+      <details class="faq-item">
+        <summary>Who runs this site?</summary>
+        <div class="faq-answer"><p>See the <a href="/en/about/">About</a> page.</p></div>
+      </details>
     </div>
     <div class="faq-fin">
       <h2>Your question isn't here?</h2>
-      <p>Write to us: recurring questions eventually make it onto this page. <a href="/en/contact/">Contact →</a></p>
+      <p>Write to me: recurring questions eventually make it onto this page. <a href="/en/contact/">Contact →</a></p>
     </div>
   </section>
 
@@ -389,12 +402,13 @@
         <h2>This site</h2>
         <ul>
         <li><a href="/en/about/">About</a></li>
+        <li><a href="/en/methodology/">Methodology</a></li>
         <li><a href="/en/contact/">Contact</a></li>
         <li><a href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" class="lien-x footer-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> Follow on X</a></li>
         </ul>
       </div>
     </div>
-    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/about/#avertissement">Full disclaimer</a></p>
+    <p class="footer-notice">Data from the bulletins of the <a href="https://insp.cd/" rel="noopener">INSP</a>, occasionally supplemented by <a href="https://www.afro.who.int/" rel="noopener">WHO</a>. Informational site: neither medical advice nor an official source. <a href="/en/methodology/#avertissement">Full disclaimer</a></p>
   </footer>
 
     </div>
@@ -425,8 +439,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=0187088001"></script>
-<script defer src="/assets/js/app.js?v=a93ace424e"></script>
+<script defer src="/assets/js/i18n.js?v=cee13df9a5"></script>
+<script defer src="/assets/js/app.js?v=cc72d898c8"></script>
 
 </body>
 </html>
