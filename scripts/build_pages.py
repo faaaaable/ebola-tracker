@@ -4248,8 +4248,10 @@ def main():
             "provinceTableRows": province_table_rows_html(provinces, urls, lang),
             "faqItems": faq_html,
             "glossaireItems": glossaire_items_html(strings, lang),
-            "autresPaysItems": hors_rdc.page_html(lang, {"sources": strings_lang["autresPaysSources"], "premier": strings_lang["autresPaysPremier"]},
-                                                  {x["pays"]: urls.path(x["id"], lang) for x in config["pages"] if x.get("pays")}),
+            "autresPaysItems": hors_rdc.tableau_html(lang, {"premier": strings_lang["autresPaysPremier"]},
+                                                     {x["pays"]: urls.path(x["id"], lang) for x in config["pages"] if x.get("pays")}),
+            "autresPaysFrise": hors_rdc.frise_html(lang),
+            "autresPaysResumes": hors_rdc.resumes_html(lang, {x["pays"]: urls.path(x["id"], lang) for x in config["pages"] if x.get("pays")}),
             # La date vient de data/autres-pays.json (« maj »), a changer avec le texte.
             "autresPaysMaj": esc(interp(strings_lang["autresPaysMaj"], {
                 "date": hors_rdc.date_longue(read_json(os.path.join(ROOT, "data", "autres-pays.json"))["maj"], lang)})),
@@ -4604,8 +4606,15 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     # sa fiche d'« Autres pays » et ses questions, tirees de data/autres-pays.json.
     if page.get("pays"):
         values["meta.lede"] = esc(meta["lede"])
-        values["pays.fiche"] = hors_rdc.pays_html(page["pays"], lang, {
-            "sources": strings_lang["autresPaysSources"], "premier": strings_lang["autresPaysPremier"]})
+        # Refonte du 17 octobre 2026 : en-tete des pages province, chronologie,
+        # escalier des cas, recit replie, sources (scripts/hors_rdc.py).
+        values["pays.entete"] = hors_rdc.entete_pays_html(page["pays"], lang, meta["h1"], esc(meta["lede"]),
+                                                          urls.path("autres-pays", lang), strings_lang["navAutresPays"])
+        values["pays.chronologie"] = hors_rdc.chronologie_html(page["pays"], lang)
+        courbe = hors_rdc.courbe_html(page["pays"], lang)
+        values["pays.courbe"] = '  <section class="section pp-centre">%s</section>' % courbe if courbe else ""
+        values["pays.recit"] = hors_rdc.recit_html(page["pays"], lang)
+        values["pays.sources"] = hors_rdc.sources_html(page["pays"], lang, strings_lang["autresPaysSources"])
         values["pays.questions"] = hors_rdc.questions_html(page["pays"], lang)
         values["pays.autres"] = " ".join(
             '<a href="%s">%s →</a>' % (urls.path(x["id"], lang), esc(x["meta"][lang]["h1"]))

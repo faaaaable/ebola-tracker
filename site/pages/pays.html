@@ -1,18 +1,17 @@
-  <!-- Page d'un pays touche hors de RDC (Kenya, Ouganda : 9 octobre 2026,
-       pour le referencement) : la fiche de la page « Autres pays », seule,
-       puis des questions redigees a partir des memes faits et des memes
-       sources (balisees en FAQPage). Contenu : data/autres-pays.json. -->
-  <section class="section ap-tete">
-    <div class="eyebrow"><span class="dot"></span><a href="{{url.autres-pays}}">{{t.navAutresPays}}</a></div>
-    <h1 class="page-title">{{meta.h1}}</h1>
-    <p class="lede">{{meta.lede}}</p>
-  </section>
+  <!-- Page d'un pays touche hors de RDC (Kenya, Ouganda, France : 9 octobre
+       2026, pour le referencement). Refonte du 17 octobre 2026 (options 1 et 2
+       des maquettes tmp/proto-pays-1017) : en-tete des pages province (titre,
+       « Situation au », chiffres, carte), chronologie « Jour apres jour »,
+       escalier des cas, recit complet (deplie), questions (FAQPage), sources.
+       Contenu : data/autres-pays.json, rendu par scripts/hors_rdc.py. -->
+{{pays.entete}}
 
-  <section class="section">
-    <div class="ap-liste ap-seul">
-{{pays.fiche}}
-    </div>
-    <p class="ap-maj ap-seul-maj">{{autresPaysMaj}}{{pays.carte}}</p>
+  <section class="section pp-lire">
+{{pays.chronologie}}
+  </section>
+{{pays.courbe}}
+  <section class="section pp-lire">
+{{pays.recit}}
   </section>
 
   <section class="section">
@@ -20,8 +19,12 @@
     <div class="faq-f1">
 {{pays.questions}}
     </div>
+  </section>
+
+  <section class="section pp-lire">
+{{pays.sources}}
     <div class="faq-fin ap-voir">
       <h2>{{t.paysVoirAussi}}</h2>
-      <p>{{pays.autres}} <a href="{{url.autres-pays}}">{{t.autresPaysLienAccueil}} →</a> <a href="{{url.chronologie}}">{{t.navTimeline}} →</a></p>
+      <p>{{pays.autres}} <a href="{{url.autres-pays}}">{{t.autresPaysLienAccueil}} →</a> <a href="{{url.chronologie}}">{{t.navTimeline}} →</a>{{pays.carte}}</p>
     </div>
   </section>

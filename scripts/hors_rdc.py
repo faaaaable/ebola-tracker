@@ -314,3 +314,256 @@ def questions_html(pid, lang):
         '      <details class="faq-item">\n        <summary>%s</summary>\n'
         '        <div class="faq-answer"><p>%s</p></div>\n      </details>'
         % (_esc(x["q"]), _esc(x["a"])) for x in questions_plain(pid, lang))
+
+
+# ---------------------------------------------------------------------------
+# Refonte du 17 octobre 2026 (melange des options 1 et 2 des maquettes
+# tmp/proto-pays-1017) : la page d'un pays prend l'en-tete des pages province
+# (grand titre, « Situation au », chiffres bleu / rouge, carte a droite), puis
+# sa chronologie « Jour apres jour » (data/autres-pays.json, « evenements »),
+# l'escalier des cas quand chaque cas a sa date d'annonce (« courbe »), le
+# recit complet replie, les questions et les sources. La page « Autres pays »
+# devient un tableau a filets (une ligne par pays, vers sa page) et une frise
+# de mai a octobre.
+
+LIB = {
+    "fr": dict(situation="Situation au {d}", chrono="Jour après jour",
+               chrono_note="Chaque ligne reprend un fait daté des sources citées en bas de page.",
+               leg=("cas confirmés", "décès", "déplacement", "annonce officielle"),
+               cumul=lambda n: "%d cas" % n, courbe="Les cas, un par un",
+               courbe_note="cas confirmés cumulés, à la date de chaque annonce", deces="décès",
+               recit="Le récit complet", pays="Pays", cas="Cas", morts="Décès", etat="État",
+               frise="Hors de RDC, mois après mois",
+               frise_note="du premier cas à la fin dans chaque pays ; en rouge, en cours",
+               mois_c=["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."]),
+    "en": dict(situation="Situation as of {d}", chrono="Day by day",
+               chrono_note="Each line restates a dated fact from the sources listed at the bottom of the page.",
+               leg=("confirmed cases", "death", "travel", "official announcement"),
+               cumul=lambda n: "%d case%s" % (n, "" if n == 1 else "s"), courbe="Cases, one by one",
+               courbe_note="cumulative confirmed cases, on the date of each announcement", deces="death",
+               recit="The full account", pays="Country", cas="Cases", morts="Deaths", etat="Status",
+               frise="Outside the DRC, month by month",
+               frise_note="from the first case to the end in each country; in red, ongoing",
+               mois_c=["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]),
+    "sw": dict(situation="Hali kufikia tarehe {d}", chrono="Siku kwa siku",
+               chrono_note="Kila mstari unarudia jambo lenye tarehe kutoka kwenye vyanzo vilivyotajwa chini ya ukurasa.",
+               leg=("wagonjwa waliothibitishwa", "kifo", "safari", "tangazo rasmi"),
+               cumul=lambda n: "wagonjwa %d" % n if n != 1 else "mgonjwa 1", courbe="Wagonjwa, mmoja baada ya mwingine",
+               courbe_note="jumla ya wagonjwa waliothibitishwa, kwa tarehe ya kila tangazo", deces="kifo",
+               recit="Simulizi kamili", pays="Nchi", cas="Wagonjwa", morts="Vifo", etat="Hali",
+               frise="Nje ya DRC, mwezi baada ya mwezi",
+               frise_note="kutoka mgonjwa wa kwanza hadi mwisho katika kila nchi; kwa rangi nyekundu, unaendelea",
+               mois_c=["Jan", "Feb", "Mac", "Apr", "Mei", "Jun", "Jul", "Ago", "Sep", "Okt", "Nov", "Des"]),
+}
+TYPES_EV = ("cas", "deces", "geo", "officiel")
+
+
+def _jour_court(iso, lang):
+    a, m, j = iso.split("-")
+    return "%d %s" % (int(j), LIB[lang]["mois_c"][int(m) - 1])
+
+
+def _jours(a, b):
+    import datetime as _dt
+    return (_dt.date.fromisoformat(b) - _dt.date.fromisoformat(a)).days
+
+
+def _anneaux_pays(a3):
+    """Districts (Ouganda) ou comtes (Kenya) avec leur nom ; la France en un
+    seul contour Natural Earth (metropole et Corse, sans les petites iles)."""
+    admin = _lire("site", "geo", "hors-rdc-admin.json")
+    if a3 in admin:
+        return [(u["nom"], u["anneaux"]) for u in admin[a3]]
+    g = next(c["geometry"] for c in _lire("site", "geo", "region-monde.json")["pays"] if c["a3"] == a3)
+    polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
+    return [("", [r for poly in polys for r in poly if len(r) > 30])]
+
+
+def carte_pays_html(pid, lang, w=520):
+    """La carte de l'en-tete : le pays seul, decoupe en districts ou comtes,
+    ceux qui ont eu des cas au bleu fonce de la carte (data/hors-rdc.json,
+    « unites »), la ville du premier cas marquee. Projection equirectangulaire
+    corrigee du cosinus de la latitude moyenne, comme la carte de l'accueil."""
+    import math
+    a3 = A3_PAGE[pid]
+    hr = next((p for p in _lire("data", "hors-rdc.json")["pays"] if p["a3"] == a3), None)
+    touchees = {n for u in (hr or {}).get("unites", []) for n in u["noms"]}
+    unites = _anneaux_pays(a3)
+    xs = [x for _, rs in unites for r in rs for x, _ in r]
+    ys = [y for _, rs in unites for r in rs for _, y in r]
+    c = math.cos(math.radians((min(ys) + max(ys)) / 2))
+    x0, x1, y0, y1 = min(xs) * c, max(xs) * c, min(ys), max(ys)
+    k = w / (x1 - x0)
+    h = (y1 - y0) * k
+    f = lambda x, y: "%.1f %.1f" % ((x * c - x0) * k, (y1 - y) * k)
+    chemins = "".join(
+        '<path class="pp-u%s" d="%s"><title>%s</title></path>'
+        % (" is-on" if nom in touchees else "", "".join("M" + "L".join(f(x, y) for x, y in r) + "Z" for r in rs), _esc(nom))
+        for nom, rs in unites)
+    ville = ""
+    if hr and hr.get("lon") is not None:
+        vx, vy = (hr["lon"] * c - x0) * k, (y1 - hr["lat"]) * k
+        ville = ('<g class="pp-ville"><circle cx="%.1f" cy="%.1f" r="5"/><text x="%.1f" y="%.1f">%s</text></g>'
+                 % (vx, vy, vx + 10, vy + 5, _esc(hr["ville"][lang])))
+    return ('<svg class="pp-carte" viewBox="-4 -4 %.0f %.0f" role="img" aria-label="%s">%s%s</svg>'
+            % (w + 8, h + 8, _esc(_pays(pid)["nom"][lang]), chemins, ville))
+
+
+def chiffres_html(p, lang, cls="pp-kpi"):
+    classes = ["is-cas", "is-dc", ""]
+    return '<div class="%s">%s</div>' % (cls, "".join(
+        '<div class="k %s"><span class="lbl">%s</span><b>%s</b></div>'
+        % (classes[i] if i < 3 else "", _esc(c["l"][lang]), _esc(c.get({"en": "nEn", "sw": "nSw"}.get(lang, "n"), c["n"])))
+        for i, c in enumerate(p["chiffres"])))
+
+
+def entete_pays_html(pid, lang, h1, lede, lien_autres, libelle_autres):
+    """L'en-tete de la page d'un pays, sur le modele des pages province."""
+    p = _pays(pid)
+    doc = _lire("data", "autres-pays.json")
+    return (
+        '  <section class="section pp-hero">\n'
+        '    <div class="pp-txt">\n'
+        '      <div class="eyebrow"><span class="dot"></span><a href="%s">%s</a></div>\n'
+        '      <h1 class="pp-titre">%s</h1>\n'
+        '      <p class="pp-sit">%s</p>\n'
+        '      <p class="pp-intro">%s</p>\n'
+        '      %s\n'
+        '      <p class="pp-statut is-%s"><i></i>%s</p>\n'
+        '    </div>\n'
+        '    <div class="pp-carte-wrap">%s</div>\n'
+        '  </section>'
+        % (_esc(lien_autres), _esc(libelle_autres), _esc(h1),
+           _esc(LIB[lang]["situation"].format(d=_date(doc["maj"], lang))), lede,
+           chiffres_html(p, lang), p["etat"], _esc(p["statut"][lang]), carte_pays_html(pid, lang)))
+
+
+def chronologie_html(pid, lang):
+    p = _pays(pid)
+    L = LIB[lang]
+    leg = "".join('<span class="is-%s">%s</span>' % (t, _esc(l)) for t, l in zip(TYPES_EV, L["leg"]))
+    lignes = "".join(
+        '<li class="pp-e is-%s"><time datetime="%s">%s</time><div><h3>%s%s</h3><p>%s</p></div></li>'
+        % (e["type"], e["date"], _jour_court(e["date"], lang), _esc(e["titre"][lang]),
+           ' <span class="pp-cum">%s</span>' % _esc(L["cumul"](e["cumul"])) if e.get("cumul") else "",
+           _esc(e["texte"][lang]))
+        for e in p.get("evenements", []))
+    return ('<h2 class="pp-t">%s</h2><p class="pp-st">%s</p><div class="pp-leg">%s</div><ol class="pp-tl">%s</ol>'
+            % (_esc(L["chrono"]), _esc(L["chrono_note"]), leg, lignes))
+
+
+def courbe_html(pid, lang, w=680, h=220):
+    """L'escalier des cas confirmes cumules, un palier par annonce. Seulement
+    pour un pays dont chaque cas a sa date d'annonce (« courbe » : true)."""
+    import datetime as _dt
+    p = _pays(pid)
+    if not p.get("courbe"):
+        return ""
+    L = LIB[lang]
+    pts = [(e["date"], e["cumul"]) for e in p["evenements"] if e.get("cumul")]
+    morts = [e["date"] for e in p["evenements"] if e["type"] == "deces"]
+    debut = min([e["date"] for e in p["evenements"]])
+    fin = (_dt.date.fromisoformat(_lire("data", "autres-pays.json")["maj"]) + _dt.timedelta(1)).isoformat()
+    n = max(1, _jours(debut, fin))
+    ymax = max(v for _, v in pts) + 1
+    pas = 1 if ymax <= 5 else 2 if ymax <= 12 else 5
+    ymax = ((ymax + pas - 1) // pas) * pas
+    pl, pr, pt, pb = 34, 16, 16, 30
+    X = lambda d: pl + _jours(debut, d) * (w - pl - pr) / float(n)
+    Y = lambda v: pt + (h - pt - pb) * (1 - v / float(ymax))
+    trace = "M%.1f %.1f" % (X(debut), Y(0)) + "".join("H%.1fV%.1f" % (X(d), Y(v)) for d, v in pts) + "H%.1f" % X(fin)
+    grille = "".join('<line class="g" x1="%d" x2="%d" y1="%.1f" y2="%.1f"/><text class="ax" x="%d" y="%.1f" text-anchor="end">%d</text>'
+                     % (pl, w - pr, Y(v), Y(v), pl - 8, Y(v) + 4, v) for v in range(0, ymax + 1, pas))
+    dates = "".join('<text class="ax" x="%.1f" y="%d" text-anchor="middle">%s</text>' % (X(d), h - 8, _jour_court(d, lang))
+                    for d, _ in pts)
+    marques = "".join('<circle class="pt" cx="%.1f" cy="%.1f" r="4"/><text class="lab" x="%.1f" y="%.1f">%d</text>'
+                      % (X(d), Y(v), X(d) - 6, Y(v) - 9, v) for d, v in pts)
+    dc = "".join('<g class="dc"><line x1="%.1f" x2="%.1f" y1="%d" y2="%.1f"/><text x="%.1f" y="%d">%s</text></g>'
+                 % (X(d), X(d), pt, Y(0), X(d) + 5, pt + 10, _esc(L["deces"])) for d in morts)
+    aria = ", ".join("%s : %d" % (_jour_court(d, lang), v) for d, v in pts)
+    return ('<h2 class="pp-t">%s</h2><p class="pp-st">%s</p>'
+            '<svg class="pp-esc" viewBox="0 0 %d %d" role="img" aria-label="%s">%s%s%s<path class="l" d="%s"/>%s</svg>'
+            % (_esc(L["courbe"]), _esc(L["courbe_note"]), w, h, _esc(aria), grille, dates, dc, trace, marques))
+
+
+def recit_html(pid, lang):
+    p = _pays(pid)
+    # Deplie en entier (17 octobre 2026, demande du proprietaire). Mise en
+    # page legere : le premier paragraphe en chapeau, et la date qui ouvre un
+    # paragraphe (« Le 16 octobre 2026, ») en gras, pour reperer les etapes.
+    import re
+    date_tete = re.compile(r"^((?:Le|Les|Au|On|As of|By|Tarehe|Kufikia tarehe) \d{1,2}(?: (?:et|and|na) \d{1,2})? \w+ 20\d\d)(,?)")
+    def para(i, t):
+        t = _esc(t) if i == 0 else date_tete.sub(lambda m: "<strong>%s</strong>%s" % (m.group(1), m.group(2)), _esc(t), count=1)
+        return '<p%s>%s</p>' % (' class="pp-chapeau"' if i == 0 else "", t)
+    return ('<div class="pp-recit"><h2 class="pp-t">%s</h2>%s</div>'
+            % (_esc(LIB[lang]["recit"]), "".join(para(i, t) for i, t in enumerate(p["texte"][lang]))))
+
+
+def sources_html(pid, lang, titre):
+    p = _pays(pid)
+    return ('<div class="pp-sources"><h2>%s</h2><ul>%s</ul></div>'
+            % (_esc(titre), "".join('<li><a href="%s"%s>%s</a></li>'
+                                    % (_esc(s["url"]), ' target="_blank" rel="noopener"' if s["url"].startswith("http") else "",
+                                       _esc(s["l"][lang])) for s in p["sources"])))
+
+
+def tableau_html(lang, libelles, liens):
+    """Autres pays : une ligne par pays, dans l'ordre du premier cas, qui mene
+    a la page du pays (toute la ligne est un lien)."""
+    L = LIB[lang]
+    doc = _lire("data", "autres-pays.json")
+    tete = ('<div class="ap2-tete"><span>%s</span><span>%s</span><span>%s</span><span>%s</span><span>%s</span></div>'
+            % tuple(_esc(x) for x in (L["pays"], L["cas"], L["morts"], libelles["premier"], L["etat"])))
+    lignes = []
+    for p in doc["pays"]:
+        cas, morts = p["chiffres"][0]["n"], p["chiffres"][1]["n"]
+        lignes.append(
+            '<a class="ap2-l" href="%s"><span class="nm">%s<b>%s</b></span><span class="n">%s</span><span class="n dc">%s</span>'
+            '<span class="d">%s</span><span class="st is-%s"><i></i>%s</span></a>'
+            % (_esc(liens.get(p["id"], "#")), _silhouette(p["id"], 30), _esc(p["nom"][lang]), _esc(cas), _esc(morts),
+               _esc(_date(p["premier"], lang)), p["etat"], _esc(p["etatCourt"][lang])))
+    return '<div class="ap2-g">%s%s</div>' % (tete, "".join(lignes))
+
+
+def frise_html(lang, w=900):
+    """Mai -> fin du mois courant : une bande par pays, du premier cas a la fin
+    (« fin ») ou a la date de mise a jour pour une epidemie en cours."""
+    import datetime as _dt
+    L = LIB[lang]
+    doc = _lire("data", "autres-pays.json")
+    d0 = "2026-05-01"
+    m = _dt.date.fromisoformat(doc["maj"])
+    d1 = (_dt.date(m.year + (m.month == 12), m.month % 12 + 1, 1)).isoformat()
+    pays = doc["pays"]
+    h = 30 + 40 * len(pays)
+    gauche = 110
+    X = lambda d: gauche + _jours(d0, d) * (w - gauche - 20) / float(_jours(d0, d1))
+    out = []
+    mois = _dt.date.fromisoformat(d0)
+    while mois.isoformat() < d1:
+        x = X(mois.isoformat())
+        out.append('<line class="g" x1="%.1f" x2="%.1f" y1="4" y2="%d"/><text class="ax" x="%.1f" y="%d">%s</text>'
+                   % (x, x, h - 22, x + 4, h - 6, _esc(MOIS[lang][mois.month - 1])))
+        mois = _dt.date(mois.year + (mois.month == 12), mois.month % 12 + 1, 1)
+    for i, p in enumerate(pays):
+        y = 12 + i * 40
+        a, b = X(p["premier"]), X(p.get("fin") or doc["maj"])
+        out.append('<text class="fn" x="0" y="%d">%s</text>' % (y + 13, _esc(p["nom"][lang])))
+        out.append('<rect class="bande is-%s" x="%.1f" y="%d" width="%.1f" height="18" rx="9"><title>%s</title></rect>'
+                   % (p["etat"], a, y, max(18, b - a), _esc(p["etatCourt"][lang])))
+        out.append('<text class="bl" x="%.1f" y="%d">%s</text>' % (max(a + 18, b) + 10, y + 13, _esc(LIB[lang]["cumul"](int(p["chiffres"][0]["n"])))))
+    return ('<h2 class="pp-t">%s</h2><p class="pp-st">%s</p><svg class="ap2-frise" viewBox="0 0 %d %d" role="img" aria-label="%s">%s</svg>'
+            % (_esc(L["frise"]), _esc(L["frise_note"]), w, h, _esc(L["frise"]), "".join(out)))
+
+
+def resumes_html(lang, liens):
+    """Autres pays (17 octobre 2026) : un court paragraphe par pays, sous le
+    tableau, nom en gras vers sa page, puis « Ce qui relie ces cas »."""
+    doc = _lire("data", "autres-pays.json")
+    pays = "".join(
+        '<p><a href="%s"><b>%s.</b></a> %s</p>' % (_esc(liens.get(p["id"], "#")), _esc(p["nom"][lang]), _esc(p["resume"][lang]))
+        for p in doc["pays"] if p.get("resume"))
+    relie = doc.get("relie")
+    lien = ('<h2 class="pp-t">%s</h2><p>%s</p>' % (_esc(relie["titre"][lang]), _esc(relie["texte"][lang]))) if relie else ""
+    return '<div class="ap2-resumes">%s</div>%s' % (pays, lien)

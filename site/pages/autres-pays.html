@@ -1,8 +1,10 @@
-  <!-- Autres pays (8 octobre 2026) : l'Ouganda, le Kenya et la France, seuls
-       pays a avoir confirme des cas lies a l'epidemie de RDC. Texte seulement,
-       en rubriques a filets comme la FAQ. Sources ouvertes (OMS, ministeres),
-       pas les bulletins de l'INSP : chaque pays cite les siennes. Contenu dans
-       data/autres-pays.json, rendu par hors_rdc.page_html. -->
+  <!-- Autres pays (8 octobre 2026) : l'Ouganda, la France et le Kenya, seuls
+       pays a avoir confirme des cas lies a l'epidemie de RDC. Sources ouvertes
+       (OMS, ministeres), pas les bulletins de l'INSP. Refonte du 17 octobre
+       2026 : un tableau a filets (une ligne par pays, vers sa page), une frise
+       de mai a aujourd'hui, puis un court texte par pays. Le detail de chaque pays est sur sa page.
+       Contenu dans data/autres-pays.json, rendu par hors_rdc.tableau_html et
+       hors_rdc.frise_html. -->
   <section class="section ap-tete">
     <div class="eyebrow"><span class="dot"></span>{{t.navColEvolution}}</div>
     <h1 class="page-title">{{meta.h1}}</h1>
@@ -10,8 +12,14 @@
   </section>
 
   <section class="section">
-    <div class="ap-liste">
 {{autresPaysItems}}
-    </div>
     <p class="ap-maj">{{autresPaysMaj}} <a href="{{url.accueil}}#pays-touches">{{t.autresPaysCarte}} →</a></p>
+  </section>
+
+  <section class="section pp-centre">
+{{autresPaysFrise}}
+  </section>
+
+  <section class="section pp-lire ap2-texte">
+{{autresPaysResumes}}
   </section>

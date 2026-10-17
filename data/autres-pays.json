@@ -1,5 +1,5 @@
 {
-  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital ; point du ministere au 11 octobre 2026 (publie sur X le 12 : 1 cas importe, 1 deces, aucun nouveau cas depuis le 6 octobre, 122 contacts listes et verifies dont 108 en quarantaine, aucun avec symptomes) ; communique du directeur general de la Sante du 14 octobre 2026 (publie sur X le 14) : deuxieme cas confirme, un homme de 39 ans, proche parent du premier, deja en quarantaine, tombe malade le 13 octobre, positif au laboratoire national de reference et au laboratoire KEMRI-CDC ; 2 cas, 1 deces ; au 13 octobre, 128 contacts du premier cas listes, 113 retrouves, dont 108 en quarantaine au Kenya et 5 hors du pays, 15 encore recherches. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche). Pages Kenya, Ouganda et France (9 octobre 2026, pour le referencement) : la meme fiche seule, suivie de questions (questions, rendues en FAQPage) redigees a partir des seuls faits de la fiche et de ses sources ; pageLien est le renvoi de la fiche d'« Autres pays » vers la page du pays.",
+  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital ; point du ministere au 11 octobre 2026 (publie sur X le 12 : 1 cas importe, 1 deces, aucun nouveau cas depuis le 6 octobre, 122 contacts listes et verifies dont 108 en quarantaine, aucun avec symptomes) ; communique du directeur general de la Sante du 14 octobre 2026 (publie sur X le 14) : deuxieme cas confirme, un homme de 39 ans, proche parent du premier, deja en quarantaine, tombe malade le 13 octobre, positif au laboratoire national de reference et au laboratoire KEMRI-CDC ; 2 cas, 1 deces ; au 13 octobre, 128 contacts du premier cas listes, 113 retrouves, dont 108 en quarantaine au Kenya et 5 hors du pays, 15 encore recherches. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche). Pages Kenya, Ouganda et France (9 octobre 2026, pour le referencement) : la meme fiche seule, suivie de questions (questions, rendues en FAQPage) redigees a partir des seuls faits de la fiche et de ses sources ; pageLien est le renvoi de la fiche d'« Autres pays » vers la page du pays. Refonte du 17 octobre 2026 (en-tete des pages province + chronologie) : evenements = la chronologie du pays, une ligne par fait date tire du texte ci-dessus (type cas/deces/geo/officiel ; cumul = cas confirmes annonces a cette date) ; a completer a chaque communique. courbe : trace l'escalier des cas (seulement si chaque cas a sa date d'annonce, donc pas l'Ouganda). etatCourt et fin : tableau et frise de la page Autres pays (fin = fin de l'epidemie, ou sortie du malade pour la France ; null = en cours). resume (par pays) et relie : textes courts de la page Autres pays (17 octobre 2026), tires du texte de chaque fiche, sans chiffre nouveau ; a mettre a jour avec les fiches.",
   "maj": "2026-10-17",
   "pays": [
     {
@@ -157,7 +157,108 @@
             "sw": "Watu 831 waliokuwa wamekutana na wagonjwa walitambuliwa na kufuatiliwa."
           }
         }
-      ]
+      ],
+      "etatCourt": {
+        "fr": "Terminée le 27 août 2026",
+        "en": "Over on 27 August 2026",
+        "sw": "Ulimalizika tarehe 27 Agosti 2026"
+      },
+      "fin": "2026-08-27",
+      "courbe": false,
+      "evenements": [
+        {
+          "date": "2026-05-11",
+          "type": "geo",
+          "titre": {
+            "fr": "Hospitalisé à Kampala",
+            "en": "Admitted in Kampala",
+            "sw": "Alazwa Kampala"
+          },
+          "texte": {
+            "fr": "Un homme de 59 ans venu de RDC est hospitalisé dans la capitale.",
+            "en": "A 59-year-old man who had come from the DRC is admitted to hospital in the capital.",
+            "sw": "Mwanamume wa miaka 59 aliyetoka DRC analazwa hospitalini katika mji mkuu."
+          }
+        },
+        {
+          "date": "2026-05-15",
+          "type": "cas",
+          "cumul": 2,
+          "titre": {
+            "fr": "Deux cas importés",
+            "en": "Two imported cases",
+            "sw": "Wagonjwa wawili kutoka nje"
+          },
+          "texte": {
+            "fr": "Les 15 et 16 mai, deux malades venus de RDC sont confirmés à Kampala, sans lien entre eux ; l'un des deux meurt.",
+            "en": "On 15 and 16 May, two patients who had come from the DRC are confirmed in Kampala, unrelated to each other; one of them dies.",
+            "sw": "Tarehe 15 na 16 Mei, wagonjwa wawili waliotoka DRC wanathibitishwa Kampala, bila uhusiano kati yao; mmoja wao anafariki."
+          }
+        },
+        {
+          "date": "2026-05-24",
+          "type": "cas",
+          "cumul": 7,
+          "titre": {
+            "fr": "Transmission sur place",
+            "en": "Local transmission",
+            "sw": "Maambukizi ya ndani"
+          },
+          "texte": {
+            "fr": "7 cas, dont le chauffeur qui avait transporté le premier malade et un agent de santé congolais qui accompagnait ses compatriotes.",
+            "en": "7 cases, including the driver who had transported the first patient and a Congolese health worker accompanying his compatriots.",
+            "sw": "Wagonjwa 7, akiwemo dereva aliyemsafirisha mgonjwa wa kwanza na mhudumu wa afya Mkongo aliyewasindikiza wenzake."
+          }
+        },
+        {
+          "date": "2026-06-21",
+          "type": "cas",
+          "cumul": 20,
+          "titre": {
+            "fr": "Dernier cas confirmé",
+            "en": "Last confirmed case",
+            "sw": "Mgonjwa wa mwisho athibitishwa"
+          },
+          "texte": {
+            "fr": "Fin mai, les cas avaient gagné le district voisin de Wakiso ; cinq soignants figurent parmi les malades. Total : 20 cas confirmés.",
+            "en": "By late May, cases had reached the neighbouring district of Wakiso; five health workers are among the patients. Total: 20 confirmed cases.",
+            "sw": "Mwishoni mwa Mei, wagonjwa walikuwa wamefika wilaya jirani ya Wakiso; wahudumu watano wa afya ni miongoni mwa wagonjwa. Jumla: wagonjwa 20 waliothibitishwa."
+          }
+        },
+        {
+          "date": "2026-07-16",
+          "type": "officiel",
+          "titre": {
+            "fr": "Dernière sortie de l'hôpital",
+            "en": "Last patient discharged",
+            "sw": "Mgonjwa wa mwisho aruhusiwa"
+          },
+          "texte": {
+            "fr": "Le dernier malade quitte l'hôpital.",
+            "en": "The last patient leaves hospital.",
+            "sw": "Mgonjwa wa mwisho anaondoka hospitalini."
+          }
+        },
+        {
+          "date": "2026-08-27",
+          "type": "officiel",
+          "titre": {
+            "fr": "Fin de l'épidémie",
+            "en": "End of the outbreak",
+            "sw": "Mwisho wa mlipuko"
+          },
+          "texte": {
+            "fr": "Après 42 jours sans nouveau cas, l'épidémie prend fin. Bilan : 20 cas confirmés et 1 probable, 3 décès, 831 contacts suivis.",
+            "en": "After 42 days without a new case, the outbreak ends. Toll: 20 confirmed cases and 1 probable, 3 deaths, 831 contacts followed.",
+            "sw": "Baada ya siku 42 bila mgonjwa mpya, mlipuko unamalizika. Jumla: wagonjwa 20 waliothibitishwa na 1 anayeshukiwa, vifo 3, watu 831 wa karibu walifuatiliwa."
+          }
+        }
+      ],
+      "resume": {
+        "fr": "Premier pays touché hors de RDC : deux malades venus de RDC sont confirmés à Kampala les 15 et 16 mai 2026, puis le virus se transmet sur place, jusqu'au district voisin de Wakiso. 20 cas confirmés, dont cinq soignants ; l'épidémie a pris fin le 27 août, après 42 jours sans nouveau cas.",
+        "en": "The first country affected outside the DRC: two patients who had come from the DRC were confirmed in Kampala on 15 and 16 May 2026, then the virus spread locally, as far as the neighbouring district of Wakiso. 20 confirmed cases, including five health workers; the outbreak ended on 27 August, after 42 days without a new case.",
+        "sw": "Nchi ya kwanza kuathirika nje ya DRC: wagonjwa wawili waliotoka DRC walithibitishwa Kampala tarehe 15 na 16 Mei 2026, kisha virusi vikaenea huko, hadi wilaya jirani ya Wakiso. Wagonjwa 20 waliothibitishwa, wakiwemo wahudumu watano wa afya; mlipuko ulimalizika tarehe 27 Agosti, baada ya siku 42 bila mgonjwa mpya."
+      }
     },
     {
       "id": "france",
@@ -301,7 +402,64 @@
             "sw": "Ndiyo. Aliruhusiwa kutoka hospitalini tarehe 4 Julai 2026, baada ya vipimo viwili vya PCR kuwa hasi."
           }
         }
-      ]
+      ],
+      "etatCourt": {
+        "fr": "Guéri, aucune transmission",
+        "en": "Recovered, no transmission",
+        "sw": "Amepona, hakuna maambukizi"
+      },
+      "fin": "2026-07-04",
+      "courbe": false,
+      "evenements": [
+        {
+          "date": "2026-06-23",
+          "type": "geo",
+          "titre": {
+            "fr": "Arrivée à Paris",
+            "en": "Arrival in Paris",
+            "sw": "Kufika Paris"
+          },
+          "texte": {
+            "fr": "Un médecin de retour d'Ituri, où il soignait des malades d'Ebola, signale ses symptômes à l'aéroport Charles-de-Gaulle. Il est isolé aussitôt.",
+            "en": "A doctor returning from Ituri, where he had been treating Ebola patients, reports his symptoms at Charles de Gaulle airport. He is isolated at once.",
+            "sw": "Daktari anayerudi kutoka Ituri, alikokuwa akiwatibu wagonjwa wa Ebola, anaripoti dalili zake katika uwanja wa ndege wa Charles-de-Gaulle. Anatengwa mara moja."
+          }
+        },
+        {
+          "date": "2026-06-24",
+          "type": "cas",
+          "cumul": 1,
+          "titre": {
+            "fr": "Cas confirmé",
+            "en": "Case confirmed",
+            "sw": "Mgonjwa athibitishwa"
+          },
+          "texte": {
+            "fr": "Un test PCR détecte le virus Bundibugyo ; la France notifie le cas à l'OMS. Les cinq passagers assis près de lui sont placés en quarantaine.",
+            "en": "A PCR test detects Bundibugyo virus; France notifies WHO. The five passengers seated near him are placed in quarantine.",
+            "sw": "Kipimo cha PCR kinagundua virusi vya Bundibugyo; Ufaransa inaiarifu WHO. Abiria watano waliokaa karibu naye wanawekwa karantini."
+          }
+        },
+        {
+          "date": "2026-07-04",
+          "type": "officiel",
+          "titre": {
+            "fr": "Guéri",
+            "en": "Recovered",
+            "sw": "Amepona"
+          },
+          "texte": {
+            "fr": "Après deux tests PCR négatifs, il sort de l'hôpital. Aucune transmission n'a eu lieu en France.",
+            "en": "After two negative PCR tests, he leaves hospital. No transmission occurred in France.",
+            "sw": "Baada ya vipimo viwili vya PCR kuonyesha hana virusi, anaondoka hospitalini. Hakuna maambukizi yaliyotokea Ufaransa."
+          }
+        }
+      ],
+      "resume": {
+        "fr": "Un médecin de retour d'Ituri, où il soignait des malades d'Ebola, isolé dès son arrivée à l'aéroport de Roissy le 23 juin 2026. Il a guéri et le virus ne s'est pas transmis en France.",
+        "en": "A doctor returning from Ituri, where he had been treating Ebola patients, isolated as soon as he arrived at Roissy airport on 23 June 2026. He recovered and the virus did not spread in France.",
+        "sw": "Daktari anayerudi kutoka Ituri, alikokuwa akiwatibu wagonjwa wa Ebola, alitengwa mara alipofika uwanja wa ndege wa Roissy tarehe 23 Juni 2026. Alipona na virusi havikuenea Ufaransa."
+      }
     },
     {
       "id": "kenya",
@@ -532,7 +690,149 @@
             "sw": "Ndiyo, tangu Mei 2026: wasafiri zaidi ya 652 000 walikaguliwa wanapoingia nchini, sampuli 267 zinazoshukiwa zilipimwa na wahudumu wa afya karibu 5 000 walipewa mafunzo."
           }
         }
-      ]
+      ],
+      "etatCourt": {
+        "fr": "En cours",
+        "en": "Ongoing",
+        "sw": "Unaendelea"
+      },
+      "fin": null,
+      "courbe": true,
+      "evenements": [
+        {
+          "date": "2026-10-02",
+          "type": "geo",
+          "titre": {
+            "fr": "Départ de RDC",
+            "en": "Leaving the DRC",
+            "sw": "Kuondoka DRC"
+          },
+          "texte": {
+            "fr": "Le malade, un Kényan qui vivait en RDC, rejoint Kampala par la route en passant par Beni.",
+            "en": "The patient, a Kenyan who lived in the DRC, travels by road to Kampala via Beni.",
+            "sw": "Mgonjwa, Mkenya aliyeishi DRC, anasafiri kwa barabara hadi Kampala kupitia Beni."
+          }
+        },
+        {
+          "date": "2026-10-03",
+          "type": "geo",
+          "titre": {
+            "fr": "Arrivée à Nairobi",
+            "en": "Arrival in Nairobi",
+            "sw": "Kufika Nairobi"
+          },
+          "texte": {
+            "fr": "Il prend l'avion pour Nairobi et il est isolé au Nairobi Hospital.",
+            "en": "He flies to Nairobi and is isolated at Nairobi Hospital.",
+            "sw": "Anasafiri kwa ndege hadi Nairobi na anatengwa katika Nairobi Hospital."
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "type": "deces",
+          "titre": {
+            "fr": "Premier décès",
+            "en": "First death",
+            "sw": "Kifo cha kwanza"
+          },
+          "texte": {
+            "fr": "Il meurt dans la nuit ; il est enterré le lendemain selon le protocole d'inhumation sécurisée.",
+            "en": "He dies during the night; he is buried the next day following the safe burial protocol.",
+            "sw": "Anafariki usiku; anazikwa siku inayofuata kwa kufuata utaratibu wa mazishi salama."
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "type": "cas",
+          "cumul": 1,
+          "titre": {
+            "fr": "Premier cas confirmé",
+            "en": "First confirmed case",
+            "sw": "Mgonjwa wa kwanza athibitishwa"
+          },
+          "texte": {
+            "fr": "Le virus Bundibugyo est détecté par le laboratoire national de référence et par le KEMRI. 28 contacts sont suivis, ainsi que les 23 passagers et 4 membres d'équipage du vol.",
+            "en": "Bundibugyo virus is detected by the National Virology Reference Laboratory and by KEMRI. 28 contacts are being followed, as are the 23 passengers and 4 crew members of the flight.",
+            "sw": "Virusi vya Bundibugyo vinagunduliwa na maabara ya kitaifa ya marejeleo na KEMRI. Watu 28 wa karibu wanafuatiliwa, pamoja na abiria 23 na wafanyakazi 4 wa ndege."
+          }
+        },
+        {
+          "date": "2026-10-13",
+          "type": "officiel",
+          "titre": {
+            "fr": "128 contacts listés",
+            "en": "128 contacts listed",
+            "sw": "Watu 128 wa karibu waorodheshwa"
+          },
+          "texte": {
+            "fr": "113 sont retrouvés : 108 en quarantaine au Kenya, 5 hors du pays. 15 sont encore recherchés.",
+            "en": "113 have been traced: 108 in quarantine in Kenya, 5 outside the country. 15 are still being traced.",
+            "sw": "113 wamepatikana: 108 wako karantini nchini Kenya, 5 wako nje ya nchi. 15 bado wanatafutwa."
+          }
+        },
+        {
+          "date": "2026-10-14",
+          "type": "cas",
+          "cumul": 2,
+          "titre": {
+            "fr": "Deuxième cas",
+            "en": "Second case",
+            "sw": "Mgonjwa wa pili"
+          },
+          "texte": {
+            "fr": "Un homme de 39 ans, proche parent du premier malade, déjà en quarantaine ; il est tombé malade le 13 octobre.",
+            "en": "A 39-year-old man, a close relative of the first patient, already in quarantine; he fell ill on 13 October.",
+            "sw": "Mwanamume wa miaka 39, jamaa wa karibu wa mgonjwa wa kwanza, aliyekuwa tayari karantini; aliugua tarehe 13 Oktoba."
+          }
+        },
+        {
+          "date": "2026-10-16",
+          "type": "cas",
+          "cumul": 3,
+          "titre": {
+            "fr": "Troisième cas",
+            "en": "Third case",
+            "sw": "Mgonjwa wa tatu"
+          },
+          "texte": {
+            "fr": "Une femme de 65 ans, proche parente des deux premiers malades, en quarantaine depuis le 6 octobre.",
+            "en": "A 65-year-old woman, a close relative of the first two patients, in quarantine since 6 October.",
+            "sw": "Mwanamke wa miaka 65, jamaa wa karibu wa wagonjwa wawili wa kwanza, aliyekuwa karantini tangu tarehe 6 Oktoba."
+          }
+        },
+        {
+          "date": "2026-10-17",
+          "type": "cas",
+          "cumul": 7,
+          "titre": {
+            "fr": "Quatre nouveaux cas",
+            "en": "Four new cases",
+            "sw": "Wagonjwa wanne wapya"
+          },
+          "texte": {
+            "fr": "Un proche parent et trois soignants qui s'étaient occupés du premier malade, tous déjà en quarantaine. 128 contacts sur 130 sont en quarantaine.",
+            "en": "A close relative and three health workers who had cared for the first patient, all already in quarantine. 128 of 130 contacts are in quarantine.",
+            "sw": "Jamaa wa karibu na wahudumu watatu wa afya waliomhudumia mgonjwa wa kwanza, wote wakiwa tayari karantini. Watu 128 kati ya 130 wa karibu wako karantini."
+          }
+        }
+      ],
+      "resume": {
+        "fr": "Un Kényan qui vivait en RDC, arrivé à Nairobi par Beni et Kampala, mort le 5 octobre 2026. Les six cas suivants, des proches et trois soignants qui s'étaient occupés de lui, étaient déjà en quarantaine quand ils sont tombés malades.",
+        "en": "A Kenyan who lived in the DRC, who reached Nairobi via Beni and Kampala, died on 5 October 2026. The next six cases, relatives and three health workers who had cared for him, were already in quarantine when they fell ill.",
+        "sw": "Mkenya aliyeishi DRC, aliyefika Nairobi kupitia Beni na Kampala, alifariki tarehe 5 Oktoba 2026. Wagonjwa sita waliofuata, jamaa na wahudumu watatu wa afya waliomhudumia, walikuwa tayari karantini walipougua."
+      }
     }
-  ]
+  ],
+  "relie": {
+    "titre": {
+      "fr": "Ce qui relie ces cas",
+      "en": "What links these cases",
+      "sw": "Kinachounganisha wagonjwa hawa"
+    },
+    "texte": {
+      "fr": "Chaque épidémie hors de RDC a commencé par un voyageur venu de RDC : deux malades arrivés à Kampala, un médecin rentré d'Ituri, un Kényan passé par Beni. La suite a varié d'un pays à l'autre. En Ouganda, le virus s'est transmis sur place, soignants compris ; au Kenya, les cas suivants sont des proches et des soignants du premier malade, tous déjà en quarantaine ; en France, il n'y a eu aucune transmission. Les chiffres de cette page viennent de l'OMS et des ministères de la Santé de ces pays, pas des bulletins de l'INSP.",
+      "en": "Each outbreak outside the DRC began with a traveller who had come from the DRC: two patients who reached Kampala, a doctor returning from Ituri, a Kenyan who travelled via Beni. What followed differed from country to country. In Uganda, the virus spread locally, including to health workers; in Kenya, the later cases are relatives and health workers of the first patient, all already in quarantine; in France, there was no transmission. The figures on this page come from WHO and the health ministries of these countries, not from INSP bulletins.",
+      "sw": "Kila mlipuko nje ya DRC ulianza na msafiri aliyetoka DRC: wagonjwa wawili waliofika Kampala, daktari aliyerudi kutoka Ituri, Mkenya aliyepitia Beni. Kilichofuata kilitofautiana kati ya nchi na nchi. Nchini Uganda, virusi viliambukizana huko, wakiwemo wahudumu wa afya; nchini Kenya, wagonjwa waliofuata ni jamaa na wahudumu wa afya wa mgonjwa wa kwanza, wote wakiwa tayari karantini; nchini Ufaransa, hakukuwa na maambukizi. Takwimu za ukurasa huu zinatoka WHO na wizara za afya za nchi hizo, si kwenye taarifa za INSP."
+    }
+  }
 }
