@@ -2,6 +2,45 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "c38be021",
+   "date": "2026-10-17",
+   "titre": "Ebola à Nizi: les nouveaux cas passent de 15 à cinq par jour(médecin chef de zone)",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-nizi-les-nouveaux-cas-passent-de-15-a-cinq-par-jourmedecin-chef-de-zone/",
+   "langue": "fr",
+   "resume": "De nouveaux cas confirmés de la Maladie à virus Ebola (MVE) sont passés d'une moyenne de 10 à 15…",
+   "statut": "publie",
+   "collecte": "2026-10-17",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "bbabf7dc",
+   "date": "2026-10-17",
+   "titre": "Nord-Kivu : le 19 octobre décrété « Journée Stop Ebola »",
+   "source": "ACP",
+   "url": "https://acp.cd/province/nord-kivu-le-19-octobre-decrete-journee-stop-ebola/",
+   "langue": "fr",
+   "resume": "Le gouvernement provincial du Nord-Kivu, a décrété le 19 octobre 2026 : « Journée Stop Ebola », sans activités…",
+   "statut": "publie",
+   "collecte": "2026-10-17",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "ba82519b",
+   "date": "2026-10-17",
+   "titre": "Un cumul de 399 cas confirmés d’Ebola et 182 décès enregistrés au Haut-Uele.",
+   "source": "ACP",
+   "url": "https://acp.cd/province/un-cumul-de-399-cas-confirmes-debola-et-182-deces-enregistres-au-haut-uele/",
+   "langue": "fr",
+   "resume": "Un cumul de trois cent quatre-vingt-dix-neuf (399) cas confirmés d'Ebola et 182 décès ont été notifiés dans l'ensemble de …",
+   "statut": "publie",
+   "collecte": "2026-10-17",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ae15849d",
    "date": "2026-10-17",
    "titre": "Est de la RDC: de nouvelles attaques attribuées au groupe islamiste ADF compliquent la riposte contre Ebola",
