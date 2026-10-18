@@ -133,9 +133,10 @@ const T = k => (TXT[LANG] && TXT[LANG][k] !== undefined) ? TXT[LANG][k] : TXT.fr
    Donnees
    ====================================================================== */
 const COULEURS = {"Ituri":"#005E82","Nord-Kivu":"#A06F30","Haut-Uélé":"#327957","Tshopo":"#6B5CA5",
-                  "Sud-Kivu":"#5A544C","Bas-Uélé":"#993A2E","Sud-Ubangi":"#B0487D"};
+                  "Sud-Kivu":"#5A544C","Bas-Uélé":"#993A2E","Sud-Ubangi":"#B0487D",
+                  "Nord-Ubangi":"#7E4800"};
 const SLUGS = {"Ituri":"ituri","Nord-Kivu":"nord-kivu","Haut-Uélé":"haut-uele","Tshopo":"tshopo",
-               "Sud-Kivu":"sud-kivu","Bas-Uélé":"bas-uele","Sud-Ubangi":"sud-ubangi"};
+               "Sud-Kivu":"sud-kivu","Bas-Uélé":"bas-uele","Sud-Ubangi":"sud-ubangi","Nord-Ubangi":"nord-ubangi"};
 /* Les deux rattrapages administratifs documentes dans app.js (22 et 30
    juillet) : la part du jour n'est connue qu'au niveau national et pour les
    cas ; le reste passe en teinte claire. */
@@ -227,11 +228,21 @@ function agrege(q, pas, premiere){
     enCours: derniere && p.fin > derniere}));
 }
 
+/* Le Haut-Uele et la Tshopo entrent le 10 juillet 2026 avec des cas deja
+   comptes en Ituri : leur premiere ligne n'est pas un nouveau cas. */
+const ENTREE_REPRISE = new Set(['Haut-Uélé', 'Tshopo']);
+
 function serieProvince(nom){
-  return D.provHist.map(h => {
+  const s = D.provHist.map(h => {
     const p = h.provinces.find(x => x.name === nom);
     return {date:h.date, confirmed:p ? p.confirmed : null, deaths:p ? p.deaths : null};
-  }).filter(x => x.confirmed !== null);
+  });
+  /* Avant sa premiere ligne, la province est a zero (releve juste avant) :
+     sinon le jour de son entree n'a pas d'ecart, donc pas de barre
+     (Nord-Ubangi, SitRep 155). Apres, une ligne absente reste un trou. */
+  const i = s.findIndex(x => x.confirmed !== null);
+  if(i > 0 && !ENTREE_REPRISE.has(nom)) Object.assign(s[i - 1], {confirmed:0, deaths:0});
+  return s.filter(x => x.confirmed !== null);
 }
 
 /* Zones : cumul actuel, 24 h (bulletin), et 30 jours (cumul actuel moins le
@@ -595,7 +606,7 @@ function renderCD(cle){
      monte au moins a 10, comme la courbe forcee de la Tshopo sur sa fiche ;
      sinon une journee a 1 ou 2 cas remplit toute la hauteur. Graduations
      entieres : un demi-cas n'existe pas. */
-  const PETITES = ['Tshopo', 'Bas-Uélé', 'Sud-Kivu', 'Sud-Ubangi'];
+  const PETITES = ['Tshopo', 'Bas-Uélé', 'Sud-Kivu', 'Sud-Ubangi', 'Nord-Ubangi'];
   const axePetit = PETITES.includes(PROV) ? {suggestedMax:10, ticks:Object.assign({}, AXE_Y.ticks, {precision:0})} : {};
   /* RDC entiere et Ituri : l'axe s'arrete juste au-dessus des journees
      ordinaires, et les deux barres de rattrapage (22 et 30 juillet) sont

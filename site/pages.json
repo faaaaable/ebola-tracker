@@ -23,7 +23,8 @@
     "Tshopo": "tshopo",
     "Sud-Kivu": "sud-kivu",
     "Bas-Uélé": "bas-uele",
-    "Sud-Ubangi": "sud-ubangi"
+    "Sud-Ubangi": "sud-ubangi",
+    "Nord-Ubangi": "nord-ubangi"
   },
   "mainNav": [
     {
@@ -173,6 +174,11 @@
       "in": "dans le Sud-Ubangi",
       "of": "du Sud-Ubangi",
       "the": "le Sud-Ubangi"
+    },
+    "Nord-Ubangi": {
+      "in": "dans le Nord-Ubangi",
+      "of": "du Nord-Ubangi",
+      "the": "le Nord-Ubangi"
     }
   },
   "cartogram": {
@@ -392,6 +398,13 @@
         "province": "Sud-Ubangi",
         "lat": 3.2531,
         "lon": 19.7739,
+        "kind": "province-capital"
+      },
+      {
+        "name": "Gbadolite",
+        "province": "Nord-Ubangi",
+        "lat": 4.279,
+        "lon": 21.005,
         "kind": "province-capital"
       }
     ]

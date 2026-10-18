@@ -104,7 +104,7 @@ const TXT = {
 };
 const T = k => (TXT[LANG] && TXT[LANG][k] !== undefined) ? TXT[LANG][k] : TXT.fr[k];
 
-const COULEURS = {"Ituri":"#005E82","Nord-Kivu":"#A06F30","Haut-Uélé":"#327957","Tshopo":"#6B5CA5","Sud-Kivu":"#5A544C","Bas-Uélé":"#993A2E","Sud-Ubangi":"#B0487D"};
+const COULEURS = {"Ituri":"#005E82","Nord-Kivu":"#A06F30","Haut-Uélé":"#327957","Tshopo":"#6B5CA5","Sud-Kivu":"#5A544C","Bas-Uélé":"#993A2E","Sud-Ubangi":"#B0487D","Nord-Ubangi":"#7E4800"};
 const SEP = LANG === 'fr' ? ' ' : ',', DEC = LANG === 'fr' ? ',' : '.';
 const fmt = n => (n === null || n === undefined) ? '' : String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g, SEP);
 const pct = n => (n === null || n === undefined) ? '' : (Math.round(n * 10) / 10).toFixed(1).replace('.', DEC) + (LANG === 'en' ? '%' : ' %');

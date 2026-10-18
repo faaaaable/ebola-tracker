@@ -938,6 +938,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/lettre/155/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/155/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/155/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/155/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/155/"/>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/donnees/ituri/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
@@ -1009,6 +1020,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/sud-ubangi/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/takwimu/sud-ubangi/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/sud-ubangi/"/>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/donnees/nord-ubangi/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/nord-ubangi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/nord-ubangi/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/takwimu/nord-ubangi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/nord-ubangi/"/>
     <lastmod>2026-10-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -1950,6 +1972,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/letter/155/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/155/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/155/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/155/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/155/"/>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/data/ituri/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
@@ -2021,6 +2054,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/sud-ubangi/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/takwimu/sud-ubangi/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/sud-ubangi/"/>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/en/data/nord-ubangi/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/nord-ubangi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/nord-ubangi/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/takwimu/nord-ubangi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/nord-ubangi/"/>
     <lastmod>2026-10-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -2962,6 +3006,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/sw/barua/155/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/155/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/155/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/155/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/155/"/>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/sw/takwimu/ituri/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
@@ -3033,6 +3088,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/sud-ubangi/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/takwimu/sud-ubangi/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/sud-ubangi/"/>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/takwimu/nord-ubangi/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/nord-ubangi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/nord-ubangi/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/takwimu/nord-ubangi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/donnees/nord-ubangi/"/>
     <lastmod>2026-10-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

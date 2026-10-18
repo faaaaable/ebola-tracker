@@ -63,6 +63,8 @@ NOMS = {
     "Bas Uélé": "Bas-Uélé",
     "Sud-Ubangi": "Sud-Ubangi",
     "Sud Ubangi": "Sud-Ubangi",
+    "Nord-Ubangi": "Nord-Ubangi",
+    "Nord Ubangi": "Nord-Ubangi",
 }
 
 # Un cumul, avec ou sans espace des milliers. Depuis le SitRep 133 les cas

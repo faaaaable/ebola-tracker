@@ -2043,15 +2043,15 @@
     {
       "fr": {
         "q": "Quelles provinces sont touchées ?",
-        "a": "<p>Sept provinces sont concernées : l'Ituri, épicentre de l'épidémie, le Nord-Kivu, le Haut-Uélé, la Tshopo, le Sud-Kivu, le Bas-Uélé et, depuis le 10 septembre 2026, le Sud-Ubangi. Le détail province par province, avec les zones de santé atteintes, est disponible sur la page <a href=\"{url.donnees}\">Provinces</a>.</p>"
+        "a": "<p>Huit provinces sont concernées : l'Ituri, épicentre de l'épidémie, le Nord-Kivu, le Haut-Uélé, la Tshopo, le Sud-Kivu, le Bas-Uélé, le Sud-Ubangi depuis le 10 septembre 2026 et, depuis le 16 octobre 2026, le Nord-Ubangi. Le détail province par province, avec les zones de santé atteintes, est disponible sur la page <a href=\"{url.donnees}\">Provinces</a>.</p>"
       },
       "en": {
         "q": "Which provinces are affected?",
-        "a": "<p>Seven provinces are affected: Ituri, the epicentre of the outbreak, North Kivu, Haut-Uélé, Tshopo, South Kivu, Bas-Uélé and, since 10 September 2026, Sud-Ubangi. The province-by-province breakdown, with affected health zones, is available on the <a href=\"{url.donnees}\">Provinces</a> page.</p>"
+        "a": "<p>Eight provinces are affected: Ituri, the epicentre of the outbreak, North Kivu, Haut-Uélé, Tshopo, South Kivu, Bas-Uélé, Sud-Ubangi since 10 September 2026 and, since 16 October 2026, Nord-Ubangi. The province-by-province breakdown, with affected health zones, is available on the <a href=\"{url.donnees}\">Provinces</a> page.</p>"
       },
       "sw": {
         "q": "Ni majimbo gani yameathirika?",
-        "a": "<p>Majimbo saba yanahusika: Ituri, kitovu cha mlipuko, Kivu Kaskazini, Haut-Uélé, Tshopo, Kivu Kusini, Bas-Uélé na, tangu tarehe 10 Septemba 2026, Sud-Ubangi. Takwimu za kila jimbo, pamoja na maeneo ya afya yaliyoathirika, zinapatikana kwenye ukurasa wa <a href=\"{url.donnees}\">Majimbo</a>.</p>"
+        "a": "<p>Majimbo manane yanahusika: Ituri, kitovu cha mlipuko, Kivu Kaskazini, Haut-Uélé, Tshopo, Kivu Kusini, Bas-Uélé, Sud-Ubangi tangu tarehe 10 Septemba 2026 na, tangu tarehe 16 Oktoba 2026, Nord-Ubangi. Takwimu za kila jimbo, pamoja na maeneo ya afya yaliyoathirika, zinapatikana kwenye ukurasa wa <a href=\"{url.donnees}\">Majimbo</a>.</p>"
       }
     },
     {
@@ -2468,6 +2468,17 @@
       "pageFr": "Premier cas confirmé le 10 septembre 2026.",
       "pageEn": "First confirmed case on 10 September 2026.",
       "pageSw": "Kisa cha kwanza kilichothibitishwa tarehe 10 Septemba 2026."
+    },
+    {
+      "province": "Nord-Ubangi",
+      "date": "2026-10-16",
+      "sitrep": "155",
+      "fr": "« Une nouvelle province touchée, il s'agit du Nord Ubangi, à travers la zone de santé de Wapinda » : deux cas confirmés, dont un décès, deux hommes d'une vingtaine d'années résidant à Wapinda, zone limitrophe du Bas-Uélé. La huitième province touchée.",
+      "en": "“A newly affected province, Nord Ubangi, through the Wapinda health zone”: two confirmed cases, one of them deceased, two men in their twenties living in Wapinda, a zone bordering Bas-Uélé. The eighth province affected.",
+      "sw": "« Jimbo jipya limeathirika, Nord Ubangi, kupitia eneo la afya la Wapinda »: visa viwili vilivyothibitishwa, kimoja kikiwa kifo, wanaume wawili wenye umri wa miaka ishirini hivi wanaoishi Wapinda, eneo linalopakana na Bas-Uélé. Jimbo la nane lililoathirika.",
+      "pageFr": "Premiers cas confirmés le 16 octobre 2026.",
+      "pageEn": "First confirmed cases on 16 October 2026.",
+      "pageSw": "Visa vya kwanza vilivyothibitishwa tarehe 16 Oktoba 2026."
     }
   ],
   "sw": {

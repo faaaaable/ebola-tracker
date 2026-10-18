@@ -88,7 +88,7 @@ LECTURES_NOMMEES = {
 TABLE_TITLE_RE = re.compile(r"Tableau\s*\d*\s*[.:—–-]\s*Suivi des contacts", re.IGNORECASE)
 TABLE_HEADER_RE = re.compile(r"Taux\s+de\s+suivi", re.IGNORECASE)
 PROVINCE_RE = re.compile(
-    r"^(Ituri|Nord-Kivu|Sud-Kivu|Haut-Uélé|Tshopo|Bas Uélé|Sud[ -]Ubangi)\s*\*?$", re.IGNORECASE
+    r"^(Ituri|Nord-Kivu|Sud-Kivu|Haut-Uélé|Tshopo|Bas Uélé|Sud[ -]Ubangi|Nord[ -]Ubangi)\s*\*?$", re.IGNORECASE
 )
 
 # Repli pour les bulletins SANS ce tableau (017, et à partir du 059 où la
@@ -511,7 +511,7 @@ def rate_from_text(full_text):
 #
 # Un effectif n'est gardé que s'il se vérifie : vus ≤ à suivre, et vus / à
 # suivre à moins d'un point du taux imprimé. Sinon seul le taux reste.
-PROVINCES_DETAIL_RE = r"Ituri|Nord[\s-]+Kivu|N-Kivu|Haut[\s-]+U[ée]l[ée]|H-U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|S-Kivu|Bas[\s-]+U[ée]l[ée]|B-U[ée]l[ée]|Sud[\s-]+Ubangi"
+PROVINCES_DETAIL_RE = r"Ituri|Nord[\s-]+Kivu|N-Kivu|Haut[\s-]+U[ée]l[ée]|H-U[ée]l[ée]|Tshopo|Sud[\s-]+Kivu|S-Kivu|Bas[\s-]+U[ée]l[ée]|B-U[ée]l[ée]|Sud[\s-]+Ubangi|Nord[\s-]+Ubangi"
 # Le nombre peut se couper sur deux lignes : « Le Haut-Uélé 83,8% (1 031/1\n231) »
 # (16 aout) — \s et non l'espace seule, comme dans les motifs voisins.
 PROV_D_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%\s*\((\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)" % PROVINCES_DETAIL_RE)
@@ -579,7 +579,7 @@ def canon_detail(nom):
     n = re.sub(r"[\s-]+", " ", nom).replace("Uele", "Uélé")
     n = {"N Kivu": "Nord-Kivu", "Nord Kivu": "Nord-Kivu", "S Kivu": "Sud-Kivu",
          "Sud Kivu": "Sud-Kivu", "H Uélé": "Haut-Uélé", "Haut Uélé": "Haut-Uélé",
-         "B Uélé": "Bas-Uélé", "Bas Uélé": "Bas-Uélé", "Sud Ubangi": "Sud-Ubangi"}.get(n, n)
+         "B Uélé": "Bas-Uélé", "Bas Uélé": "Bas-Uélé", "Sud Ubangi": "Sud-Ubangi", "Nord Ubangi": "Nord-Ubangi"}.get(n, n)
     return n
 
 

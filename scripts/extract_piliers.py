@@ -180,7 +180,8 @@ def lire_pci(corps):
 PROVINCES = {"Ituri": "Ituri", "Nord-Kivu": "Nord-Kivu", "Nord Kivu": "Nord-Kivu", "Sud-Kivu": "Sud-Kivu", "Sud Kivu": "Sud-Kivu",
              "Haut-Uélé": "Haut-Uélé", "Haut Uélé": "Haut-Uélé", "Bas-Uélé": "Bas-Uélé", "Bas Uélé": "Bas-Uélé", "Tshopo": "Tshopo",
              "Buta": "Bas-Uélé", "Makiso": "Tshopo", "Kisangani": "Tshopo",
-             "Sud-Ubangi": "Sud-Ubangi", "Sud Ubangi": "Sud-Ubangi", "Bulu": "Sud-Ubangi"}
+             "Sud-Ubangi": "Sud-Ubangi", "Sud Ubangi": "Sud-Ubangi", "Bulu": "Sud-Ubangi",
+             "Nord-Ubangi": "Nord-Ubangi", "Nord Ubangi": "Nord-Ubangi", "Wapinda": "Nord-Ubangi"}
 
 
 def _province(phrase):
@@ -432,7 +433,7 @@ def lire_vaccination(corps, texte_entier):
         m = re.search(r"Au total, " + NUM + r" personnes ont été vaccinées", phr)
         if m:
             national = entier(m.group(1))
-            for n, prov in re.findall(NUM + r" (?:à la|au|en) (Tshopo|Bas.Uélé|Haut.Uélé|Sud.Ubangi|Ituri|Nord.Kivu|Sud.Kivu)", phr):
+            for n, prov in re.findall(NUM + r" (?:à la|au|en) (Tshopo|Bas.Uélé|Haut.Uélé|Sud.Ubangi|Nord.Ubangi|Ituri|Nord.Kivu|Sud.Kivu)", phr):
                 pose(_province(prov), entier(n))
             continue
         # « 66 PPL ont été vaccinés à Bunia du 21 au 23 septembre, portant le

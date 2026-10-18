@@ -8250,6 +8250,197 @@
 "ruptures"
 ]
 }
+],
+"au bas uélé la mise en marche des ucc n est pas effective les vaccins ne sont pas disponibles en quantité suffisante et les fonds de la vaccination restent attendus à la tshopo un écart de # vaccinés persiste entre les bases excel et dhis# et la zs de bafwasende n a pas rapporté depuis quatre jours au nord kivu l équipe de vaccination manque de moyens de mobilité # véhicules et de # tentes de petit format et les dispositifs de transport du vaccin arktek restent à confirmer avec l oms": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"au haut uélé la communication avec les cte reste difficile faute de connexion starlink dans tous les sites certains staffs sont démotivés faute de paiement les intrants nutritionnels muac toises f# f# plumpy nut manquent et l approvisionnement en eau et en énergie demeure insuffisant dans certains cte": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures",
+"impayes"
+]
+}
+],
+"au haut uélé les données de boma mangbetu et de wamba ne sont pas remontées la mobilité des aps reste difficile dans ces deux zs # motos et du carburant sont demandés les kits nutritionnels manquent pour les nourrissons sevrés à pawa et à wamba et le pilier ne dispose pas de matériel informatique": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"au niveau national # dps sur # # # l ituri le nord kivu et le haut uélé ont rapporté leurs activités psea à la coordination nationale avec un seul partenaire d appui rapportant sur # # # imc la couverture des zones touchées reste faible # zs sur # avec des activités psea soit # # les supports de visibilité sont insuffisants et l efficacité des cbcm est faible la proportion de zs connaissant le mécanisme de signalement demeure faible en ituri # # # # au haut uélé # # # # et au nord kivu # # # # en ituri la cartographie des intervenants n est pas maîtrisée et certains partenaires refusent de s aligner au haut uélé aucun partenaire ne rapporte ses activités et le pilier manque de moyens de transport de kits informatiques et de supports de sensibilisation et à la tshopo les points focaux manquent d outils de collecte et de moyens de mobilité": [
+{
+"province": "aucune",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": []
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"au nord kivu l absence de données sur les mouvements des patients l occupation des lits et les ambulances pour le # octobre empêche d apprécier la pression sur les cte ct dont les lits des suspects étaient saturés à # # la veille": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"saturation"
+]
+}
+],
+"au nord kivu la résistance communautaire persiste à katwa beni butembo et kalunguta les équipes de décontamination restent insuffisantes à katwa biena masereka kyondo mabalako et vuhovi aucun des # ménages décontaminés n a été doté en kits # # # eds restent reportés au lendemain la couverture ecumr est insuffisante et la route du cimetière de bundji beni est impraticable à la tshopo les intrants et matériels pci manque dans les ess et les communautés les prestataires de première ligne formés en pci mve restent insuffisants et l absence des familles freine la réalisation des swabs au haut uélé seules # zs touchées sur # ont transmis leurs données pci aucun des # ménages décontaminés n a été doté en kits et les kits pci manquent dans les ess au bas uélé # ess prioritaires sur # n ont pas de triage fonctionnel # sur # ne disposent pas d un stockage d eau couvrant # heures et # sur # n ont pas de matelas garnis un ménage et un ess de dakwa restent à décontaminer faute de matériel et la faible remontée des alertes de décès communautaires limite les eds": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"resistance",
+"ruptures",
+"eds"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures",
+"eds"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures",
+"eds"
+]
+}
+],
+"en ituri l insuffisance de mobilité pour la supervision dans les zs de rwampara nizi et bunia et le retard de paiement des prestataires pour le mois de septembre persistent le poc d avakubi reste non fonctionnel en raison de l insécurité au nord kivu la complétude a baissé à # # # # les poc de kyanghala et cugeki n ayant pas transmis leurs données le poc de butuhe demeure fermé depuis l incident sécuritaire du # # # la menace sécuritaire persiste contre les prestataires de l axe butembo les alertes remontées par les poc ne sont pas prises en charge dans les délais et les poc manquent de consommables de moyens de communication et d ambulance dédiée au sud kivu la complétude reste de # # # # les antennes du poste de baraka fizi ne rapportent pas et les poe de kavimvira kalundu port sncc et baraka ne disposent pas de dispositif d isolement au haut uélé l activation des poc pk# et bangwene dans la zs de wamba reste en cours au bas uélé seuls # poe poc sur # # # sont fonctionnels les services du pnhf ne sont pas opérationnels et les prestataires peu formés et démotivés manquent d eau de moyens de mobilité de connectivité et d insignes de visibilité": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"impayes",
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"poc",
+"insecurite",
+"ruptures"
+]
+},
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"poc"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"poc",
+"ruptures"
+]
+}
+],
+"en ituri l ouverture des rings reste très insuffisante # # # # # eds ont échoué et # ont été reportés au lendemain et # corps sur # # # n ont pas pu être swabés": [
+{
+"province": "Ituri",
+"obstacles": [
+"eds"
+]
+}
+],
+"en ituri la faible capacitée d accueil de certains cte ct nyankunde kilo lolwa mangala jina et biakato la prise en charge de # malades critiques le risque de rupture de stock de sang dans les prochains jours l absence d alimentation pour # patients de la zs de mandima ct mandima et ct makeke et le faible rapportage des mouvements d ambulances # # demeurent préoccupants la construction d un cte de # lits à biakato est jugée urgente": [
+{
+"province": "Ituri",
+"obstacles": [
+"saturation",
+"ruptures",
+"completude"
+]
+}
+],
+"en ituri seules # zs affectées sur # sont couvertes # # les données de la zs de mandima qui concentre # des cas ne remontent toujours pas et seuls # des # derniers cas confirmés # # ont été pris en charge la formation des psychologues et des aps tps est prévue les # et # octobre #": [
+{
+"province": "Ituri",
+"obstacles": [
+"completude"
+]
+}
+],
+"à la tshopo l absence de soutien alimentaire et nutritionnel au ct de bafwasende les # cas confirmés perdus de vue l insuffisance d équipements de réanimation et l absence de spécialistes au cte fragilisent la prise en charge": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"à la tshopo les aps de la zs de wanie rukula restent à former # zs ayant notifié des cas sur # ne sont pas couvertes et le pilier manque d unités de communication et de motos pour ses déplacements": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
 ]
 }
 }

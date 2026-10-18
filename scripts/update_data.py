@@ -36,12 +36,14 @@ PROVINCE_HISTORY_PATH = "data/province-history.json"
 # suffisent maintenant à le traiter proprement ; l'exclusion est retirée.
 ZONES_HISTORY_EXCLUDED_SITREPS = set()
 
-PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé", "Sud Ubangi"]
+PROVINCE_NAMES_MAIN = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas Uélé", "Sud Ubangi", "Nord Ubangi"]
 PROVINCE_CANON = {
     "Ituri": "Ituri", "Nord-Kivu": "Nord-Kivu", "Haut-Uélé": "Haut-Uélé",
     "Tshopo": "Tshopo", "Sud-Kivu": "Sud-Kivu", "Bas Uélé": "Bas-Uélé",
     # SitRep 119 (10 septembre 2026) : septieme province, par la zone de Bulu.
     "Sud Ubangi": "Sud-Ubangi", "Sud-Ubangi": "Sud-Ubangi",
+    # SitRep 155 (16 octobre 2026) : huitieme province, par la zone de Wapinda.
+    "Nord Ubangi": "Nord-Ubangi", "Nord-Ubangi": "Nord-Ubangi",
 }
 
 
@@ -389,7 +391,7 @@ def compacte_ligne(row):
 # « 48 zones touchees » au lieu de 54. Vu le 9 septembre 2026 en refaisant
 # les lettres 090-099 ; le nom est ensuite ramene a sa forme canonique.
 PROVINCE_SUMMARY_ROW_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Sud[- ]Ubangi|Total)\s*\**\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Sud[- ]Ubangi|Nord[- ]Ubangi|Total)\s*\**\s+"
     r"(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
     r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\([\d,]+\s*%\))?\s+"
     r"(?P<newcases>\d+)\s*$",
@@ -441,7 +443,7 @@ PROVINCE_TOTAL_ROW_RE = re.compile(
 # l'exclut. Et l'ancien motif ne peut pas mordre sur une ligne du nouveau,
 # puisqu'il exige ce nombre isole apres la fraction.
 PROVINCE_SUMMARY_ROW_NEWFIRST_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Sud[- ]Ubangi|Total)\s*\**\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Sud[- ]Ubangi|Nord[- ]Ubangi|Total)\s*\**\s+"
     r"(?P<newcases>\d+)\s+"
     r"(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
     r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\([\d,]+\s*%\))?\s*$",
@@ -641,7 +643,8 @@ def parse_province_summary_from_text(full_text):
 
 
 PROVINCE_NAMES = ("Ituri", "Nord-Kivu", "Haut-Uélé", "Haut Uélé", "Tshopo",
-                  "Sud-Kivu", "Bas Uélé", "Bas-Uélé", "Sud Ubangi", "Sud-Ubangi", "Total")
+                  "Sud-Kivu", "Bas Uélé", "Bas-Uélé", "Sud Ubangi", "Sud-Ubangi",
+                  "Nord Ubangi", "Nord-Ubangi", "Total")
 
 
 def roles_entete_resume(table):
@@ -916,7 +919,7 @@ def zone_line_ratio_match(line):
     return m, ("100,0%" if ratio == 1 else "0,0%")
 
 PROV_SUBTOTAL_RE = re.compile(
-    r"^(?P<name>Ituri|Nord-Kivu|Haut[ -]Uélé|Tshopo|Sud-Kivu|Bas[ -]Uélé|Sud[ -]Ubangi)\s+"
+    r"^(?P<name>Ituri|Nord-Kivu|Haut[ -]Uélé|Tshopo|Sud-Kivu|Bas[ -]Uélé|Sud[ -]Ubangi|Nord[ -]Ubangi)\s+"
     r"(?P<cas>\d[\d ]*)\s+(?P<deces>\d[\d ]*)\s+(?P<cfr>[\d,]+\s*%)\s+"
     r"(?P<newcases>\d[\d ]*)\s+(?P<deathscomm>\d[\d ]*)\s+"
     r"(?P<deathsintracte>\d[\d ]*)\s+(?P<total>\d[\d ]*)\s*$"
@@ -1757,7 +1760,7 @@ def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
 # ---------------------------------------------------------------------------
 _NB = r"(\d{1,3}(?:[ \u00a0\u202f]\d{3})+|\d{1,5})"
 COMPLEMENT_PROVINCE_RE = re.compile(
-    r"(?:Sous-total\s+)?\b(Ituri|Nord[ -]Kivu|Sud[ -]Kivu|Haut[ -]U[ée]l[ée]|Tshopo|Bas[ -]U[ée]l[ée]|Sud[ -]Ubangi)"
+    r"(?:Sous-total\s+)?\b(Ituri|Nord[ -]Kivu|Sud[ -]Kivu|Haut[ -]U[ée]l[ée]|Tshopo|Bas[ -]U[ée]l[ée]|Sud[ -]Ubangi|Nord[ -]Ubangi)"
     r"[*¹²³\d]{0,2}\s+" + _NB + r"\*?\s+" + _NB + r"\*?\s+(\d{1,3},\d)\s*%", re.I)
 
 
@@ -2131,7 +2134,8 @@ def main():
 
     zones_total_n = sum(p["healthZonesAffected"]["n"] or 0 for p in provinces)
     # Somme des totaux de zones des provinces (36+34+13+23+34+11 = 151 jusqu'au
-    # 118 ; 167 depuis le 119 et les 16 zones du Sud-Ubangi), 151 a defaut.
+    # 118 ; 167 depuis le 119 et les 16 zones du Sud-Ubangi ; 178 depuis le 155
+    # et les 11 du Nord-Ubangi), 151 a defaut.
     _tots = [p["healthZonesAffected"]["total"] for p in provinces]
     zones_total_tot = sum(_tots) if _tots and all(_tots) else 151
 

@@ -701,6 +701,9 @@ PROVINCE_COLORS = {
     # Septieme province, SitRep 119 (10 septembre 2026) : un magenta, seule
     # teinte encore libre qui se separe du rouge et du violet en deuteranopie.
     "Sud-Ubangi": "#B0487D",
+    # Huitieme province, SitRep 155 (16 octobre 2026) : un brun, la teinte
+    # sobre la plus separee des sept autres (ΔE 14,1 au pire, toutes visions).
+    "Nord-Ubangi": "#7E4800",
 }
 
 
@@ -789,10 +792,21 @@ def province_rows_html(provinces, national, lang, province_history=None, strings
     hist = sorted(province_history or [], key=lambda h: h["date"])
     fin = hist[-1]["date"] if hist else None
     debut = (_d.fromisoformat(fin) - _td(days=30)).isoformat() if fin else None
+    # Avant sa premiere ligne, une province est a zero : sans ces points, le
+    # jour de son entree n'a pas d'ecart, donc pas de barre (Nord-Ubangi,
+    # SitRep 155). Apres, une ligne absente reste un trou, pas un zero.
+    premier = {}
+    for h in hist:
+        for q in h.get("provinces", []):
+            if q.get("confirmed") is not None:
+                premier.setdefault(q["name"], h["date"])
     series = {}
     for h in hist:
         if h["date"] < debut:
             continue
+        for nom, d0 in premier.items():
+            if d0 > h["date"] and d0 >= debut:
+                series.setdefault(nom, []).append((h["date"], 0))
         for q in h.get("provinces", []):
             if q.get("confirmed") is not None:
                 series.setdefault(q["name"], []).append((h["date"], q["confirmed"]))
@@ -1608,12 +1622,22 @@ def province_lignes_html(provinces, province_history, urls, lang, strings_lang, 
     rangees = sorted(provinces, key=lambda p: -(p.get("confirmed") or 0))
     series = {}
     for pr in rangees:
-        pts = []
+        pts, prec = [], None
         for h in hist:
             for q in h.get("provinces") or []:
                 if q.get("name") == pr["name"] and q.get("confirmed") is not None:
                     pts.append((date.fromisoformat(h["date"]), q["confirmed"]))
                     break
+            else:
+                # Avant sa premiere ligne, la province est a zero : sans ce
+                # point, le jour de son entree n'a pas d'ecart, donc pas de
+                # barre (Nord-Ubangi, SitRep 155, 2 cas invisibles). Apres,
+                # une ligne absente reste un trou, pas un zero.
+                if not pts:
+                    prec = (date.fromisoformat(h["date"]), 0)
+                continue
+            if len(pts) == 1 and prec is not None:
+                pts.insert(0, prec)
         par = {}
         for (d0, c0), (d1, c1) in zip(pts, pts[1:]):
             if (d1 - d0).days <= 3:
@@ -2741,10 +2765,20 @@ def province_zones_table_html(zones, forms, lang, strings_lang, i18n_lang, zones
     hist = sorted(zones_history or [], key=lambda h: h["date"])
     fin = hist[-1]["date"] if hist else None
     debut = (_d.fromisoformat(fin) - _td(days=30)).isoformat() if fin else None
+    # Avant sa premiere ligne, une zone est a zero (meme raison que pour les
+    # provinces : Wapinda, SitRep 155, n'aurait sinon aucune barre).
+    premier = {}
+    for h in hist:
+        for z in h["zones"]:
+            if z.get("province") == province:
+                premier.setdefault(cle(z), h["date"])
     series = {}
     for h in hist:
         if h["date"] < debut:
             continue
+        for k, d0 in premier.items():
+            if d0 > h["date"] and d0 >= debut:
+                series.setdefault(k, []).append((h["date"], 0))
         for z in h["zones"]:
             if z.get("province") == province:
                 series.setdefault(cle(z), []).append((h["date"], z.get("cases") or 0))
@@ -3480,8 +3514,8 @@ def vaccination_seed(piliers, date_bulletin, lang, strings_lang, i18n_lang, vide
 # proprietaire, 16 septembre 2026) : trop peu de cas pour que le taux de
 # contacts ou l'occupation des CTE disent quelque chose, et des series
 # interrompues (Sud-Kivu depuis le 5 aout, rien pour les CTE du Bas-Uele et du
-# Sud-Ubangi).
-PROVINCES_SANS_CASES_RIPOSTE = {"Bas-Uélé", "Sud-Kivu", "Sud-Ubangi"}
+# Sud-Ubangi ; de meme le Nord-Ubangi, entre au SitRep 155).
+PROVINCES_SANS_CASES_RIPOSTE = {"Bas-Uélé", "Sud-Kivu", "Sud-Ubangi", "Nord-Ubangi"}
 
 
 def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lang):

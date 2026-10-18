@@ -37,7 +37,7 @@ BLUE, BLUE_STRONG, RED, GREEN, AMBER = "#005E82", "#005073", "#993A2E", "#327957
 MAP = ["#EAE7E3", "#B7D3E1", "#88B3C8", "#5693AF", "#267294", "#015174", "#00324B"]
 REDS = ["#F3E4E0", "#E5B7AE", "#D08A7D", "#B95F50", "#993A2E", "#6E271E"]
 PROV = {"Ituri": BLUE, "Nord-Kivu": AMBER, "Haut-Uélé": GREEN, "Tshopo": "#6B5CA5",
-        "Sud-Kivu": INK_DIM, "Bas-Uélé": RED, "Sud-Ubangi": "#B0487D"}
+        "Sud-Kivu": INK_DIM, "Bas-Uélé": RED, "Sud-Ubangi": "#B0487D", "Nord-Ubangi": "#7E4800"}
 SERIF = "'Source Serif 4',Georgia,serif"
 SANS = "'Public Sans',Helvetica,Arial,sans-serif"
 CHIFFRES = "'Bricolage Grotesque','Public Sans',Helvetica,Arial,sans-serif"

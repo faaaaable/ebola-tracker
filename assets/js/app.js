@@ -82,7 +82,8 @@ const PROVINCES = [
   { name:"Tshopo",     share:0.002, epicenter:false },
   { name:"Sud-Kivu",   share:0.001, epicenter:false },
   { name:"Bas-Uélé",   share:0.0002, epicenter:false },
-  { name:"Sud-Ubangi", share:0.0001, epicenter:false }
+  { name:"Sud-Ubangi", share:0.0001, epicenter:false },
+  { name:"Nord-Ubangi", share:0.0001, epicenter:false }
 ];
 /* Répartition par province — INSP RDC, SitRep N°092/MVEBDB du 14/08/2026 (cas et
    décès cumulés, rapport le plus récent disponible) ; statut de transmission :
@@ -97,7 +98,8 @@ const PROVINCE_TABLE_DATA_SEED = [
   { name:"Tshopo",    confirmed:11,   deaths:6,    cfr:54.5,  status:"active",           healthZonesAffected:{n:7, total:23}, newCases24h:0  },
   { name:"Sud-Kivu",  confirmed:3,    deaths:1,    cfr:33.3,  status:"inactive", healthZonesAffected:{n:1,total:34}, newCases24h:0 },
   { name:"Bas-Uélé",  confirmed:1,    deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:11}, newCases24h:0  },
-  { name:"Sud-Ubangi", confirmed:1,   deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:16}, newCases24h:1  }
+  { name:"Sud-Ubangi", confirmed:1,   deaths:1,    cfr:100.0, status:"active",           healthZonesAffected:{n:1, total:16}, newCases24h:1  },
+  { name:"Nord-Ubangi", confirmed:2,  deaths:1,    cfr:50.0,  status:"active",           healthZonesAffected:{n:1, total:11}, newCases24h:2  }
 ];
 
 /* Indicateurs nationaux complémentaires — SitRep N°092/MVEBDB du 14/08/2026.
@@ -234,7 +236,8 @@ const PROVINCE_AGG_COORDS = {
   "Haut-Uélé":[2.7833,27.6167],
   "Tshopo":[0.5167,25.2],
   "Bas-Uélé":[2.795,24.734],
-  "Sud-Ubangi":[3.2531,19.7739]
+  "Sud-Ubangi":[3.2531,19.7739],
+  "Nord-Ubangi":[4.2790,21.0050]
 };
 // Repère fixe pour la capitale — pas lié aux données épidémiques, affiché
 // en permanence (aujourd'hui comme sur le curseur temporel), contrairement
@@ -3758,13 +3761,19 @@ function renderOneChartBrut(canvas, chartMode){
     const hist = [...PROVINCE_HISTORY].sort((a, b) => a.date.localeCompare(b.date));
     const semaines = new Map();
     const precedent = {};
-    hist.forEach(h => {
+    /* Avant sa premiere ligne, une province est a zero : sinon ses premiers
+       cas n'entrent dans aucune semaine (Nord-Ubangi, SitRep 155). Sauf le
+       Haut-Uele et la Tshopo, entres le 10 juillet 2026 avec des cas deja
+       comptes en Ituri. */
+    const ENTREE_REPRISE = new Set(['Haut-Uélé', 'Tshopo']);
+    hist.forEach((h, idx) => {
       const cle = lundiDe(h.date);
       const w = semaines.get(cle) || { debut:cle, fin:dimancheDe(cle), releves:0, valeurs:{} };
       let compte = false;
       h.provinces.forEach(p => {
         if(p.confirmed === null || p.confirmed === undefined) return;
-        const avant = precedent[p.name];
+        const avant = precedent[p.name] !== undefined ? precedent[p.name]
+          : (idx > 0 && !ENTREE_REPRISE.has(p.name) ? 0 : undefined);
         if(avant !== undefined) w.valeurs[p.name] = (w.valeurs[p.name] || 0) + Math.max(0, p.confirmed - avant);
         precedent[p.name] = p.confirmed;
         compte = true;
@@ -5570,7 +5579,7 @@ let zonesSearchVal = '';
 const PROVINCE_COLORS = {
   "Ituri":PALETTE.info, "Nord-Kivu":PALETTE.active, "Haut-Uélé":PALETTE.stable,
   "Tshopo":"#6B5CA5", "Sud-Kivu":PALETTE.inkDim, "Bas-Uélé":PALETTE.critical,
-  "Sud-Ubangi":"#B0487D"
+  "Sud-Ubangi":"#B0487D", "Nord-Ubangi":"#7E4800"
 };
 function cfrBadgeClass(cfr){
   if(cfr < 30) return 'zone-badge-low';

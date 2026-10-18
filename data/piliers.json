@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-10-15"
+  "fin": "2026-10-16"
  },
  "parDate": [
   {
@@ -3210,6 +3210,42 @@
        "Pawa": 33
       },
       "zonesSomme": 503
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-16",
+   "sitrepNumber": "155",
+   "poe": {
+    "personnes": 275498,
+    "screenesPct": 98.3,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 28,
+    "attendus": 60
+   },
+   "eds": {
+    "alertes": null,
+    "realisees": 121,
+    "swabes": 141,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 3,
+     "swabes": 4
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Nord-Kivu": 62,
+     "Haut-Uélé": 588
+    },
+    "rupture": false,
+    "provinces": {
+     "Haut-Uélé": {
+      "cumul": 588
      }
     }
    },

@@ -24,7 +24,7 @@ CODAGE = os.path.join(ROOT, "data", "defis-codage.json")
 # Les bulletins d'avant le 084, geles depuis le corpus (non versionne) par
 # scripts/geler_defis_anciens.py — voir ce script pour la raison.
 DEFIS_ANCIENS = os.path.join(ROOT, "data", "defis-anciens.json")
-PROVINCES = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas-Uélé", "Sud-Ubangi"]
+PROVINCES = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas-Uélé", "Sud-Ubangi", "Nord-Ubangi"]
 
 
 def cle(t):
