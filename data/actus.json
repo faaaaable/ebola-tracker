@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "b4beefc7",
+   "date": "2026-10-18",
+   "titre": "Ebola business : le gouvernement traque les ONGs qui dissimulent 700 millions USD",
+   "source": "ACP",
+   "url": "https://acp.cd/nation/ebola-business-le-gouvernement-traque-les-ongs-qui-dissimulent-700-millions-usd-2/",
+   "langue": "fr",
+   "resume": "Au départ, elles sont 97 organisations et structures de mise en œuvre de la riposte contre Ebola en République…",
+   "statut": "publie",
+   "collecte": "2026-10-18",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "358f88c6",
+   "date": "2026-10-18",
+   "titre": "Kenya: quatre nouveaux cas d'Ebola",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261018-kenya-quatre-nouveaux-cas-d-ebola",
+   "langue": "fr",
+   "resume": "Au Kenya, quatre nouveaux cas d'Ebola ont été confirmés, samedi 17 octobre 2026. Cela porte à sept le nombre total de cas enregistrés dans le pays, depuis début octobre, date de l’apparition du virus au Kenya. Pour l’instant, seule une personne est décédée.",
+   "statut": "attente",
+   "collecte": "2026-10-18",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ff579c73",
    "date": "2026-10-17",
    "titre": "Frontline workers in DRC receive Ervebo vaccine amid growing Ebola outbreak",
