@@ -455,8 +455,14 @@ function renderTableau(){
   /* Echelle commune aux sept provinces (9 octobre 2026) : la plus haute
      journee de toutes fixe la hauteur. Une journee a 1 ou 2 cas garde un
      trait d'un pixel, sans quoi les petites provinces disparaitraient. */
-  const fen = p => quotidien(serieProvince(p.name), 'confirmed', false)
-    .filter(x => !ZONES_CALC.depuis || x.date > ZONES_CALC.depuis).map(x => x.total);
+  const fenDates = p => quotidien(serieProvince(p.name), 'confirmed', false)
+    .filter(x => !ZONES_CALC.depuis || x.date > ZONES_CALC.depuis);
+  /* Les memes jours pour toutes les provinces, chaque barre a sa date : une
+     province entree dans la fenetre (Nord-Ubangi, SitRep 155, un seul jour)
+     prenait sinon toute la largeur avec sa barre unique. */
+  const jours = [...new Set(D.provinces.flatMap(p => fenDates(p).map(x => x.date)))].sort();
+  const fen = p => { const m = new Map(fenDates(p).map(x => [x.date, x.total]));
+                     return jours.map(d => m.get(d) || 0); };
   const maxCommun = Math.max(1, ...D.provinces.flatMap(fen));
   const lignes = D.provinces.map(p => {
     const q = quotidien(serieProvince(p.name), 'confirmed', false);
