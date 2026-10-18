@@ -1,6 +1,6 @@
 {
-  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital ; point du ministere au 11 octobre 2026 (publie sur X le 12 : 1 cas importe, 1 deces, aucun nouveau cas depuis le 6 octobre, 122 contacts listes et verifies dont 108 en quarantaine, aucun avec symptomes) ; communique du directeur general de la Sante du 14 octobre 2026 (publie sur X le 14) : deuxieme cas confirme, un homme de 39 ans, proche parent du premier, deja en quarantaine, tombe malade le 13 octobre, positif au laboratoire national de reference et au laboratoire KEMRI-CDC ; 2 cas, 1 deces ; au 13 octobre, 128 contacts du premier cas listes, 113 retrouves, dont 108 en quarantaine au Kenya et 5 hors du pays, 15 encore recherches. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche). Pages Kenya, Ouganda et France (9 octobre 2026, pour le referencement) : la meme fiche seule, suivie de questions (questions, rendues en FAQPage) redigees a partir des seuls faits de la fiche et de ses sources ; pageLien est le renvoi de la fiche d'« Autres pays » vers la page du pays. Refonte du 17 octobre 2026 (en-tete des pages province + chronologie) : evenements = la chronologie du pays, une ligne par fait date tire du texte ci-dessus (type cas/deces/geo/officiel ; cumul = cas confirmes annonces a cette date) ; a completer a chaque communique. courbe : trace l'escalier des cas (seulement si chaque cas a sa date d'annonce, donc pas l'Ouganda). etatCourt et fin : tableau et frise de la page Autres pays (fin = fin de l'epidemie, ou sortie du malade pour la France ; null = en cours). resume (par pays) et relie : textes courts de la page Autres pays (17 octobre 2026), tires du texte de chaque fiche, sans chiffre nouveau ; a mettre a jour avec les fiches.",
-  "maj": "2026-10-17",
+  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital ; point du ministere au 11 octobre 2026 (publie sur X le 12 : 1 cas importe, 1 deces, aucun nouveau cas depuis le 6 octobre, 122 contacts listes et verifies dont 108 en quarantaine, aucun avec symptomes) ; communique du directeur general de la Sante du 14 octobre 2026 (publie sur X le 14) : deuxieme cas confirme, un homme de 39 ans, proche parent du premier, deja en quarantaine, tombe malade le 13 octobre, positif au laboratoire national de reference et au laboratoire KEMRI-CDC ; 2 cas, 1 deces ; au 13 octobre, 128 contacts du premier cas listes, 113 retrouves, dont 108 en quarantaine au Kenya et 5 hors du pays, 15 encore recherches. Point du 18 octobre 2026 (publie sur X le 18) : huitieme cas confirme, un homme de 49 ans, pas soignant (fievre, maux de tete, douleurs musculaires), seul positif sur 38 personnes testees ce jour ; 8 cas ; quarantaine et lien avec les cas precedents non precises. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche). Pages Kenya, Ouganda et France (9 octobre 2026, pour le referencement) : la meme fiche seule, suivie de questions (questions, rendues en FAQPage) redigees a partir des seuls faits de la fiche et de ses sources ; pageLien est le renvoi de la fiche d'« Autres pays » vers la page du pays. Refonte du 17 octobre 2026 (en-tete des pages province + chronologie) : evenements = la chronologie du pays, une ligne par fait date tire du texte ci-dessus (type cas/deces/geo/officiel ; cumul = cas confirmes annonces a cette date) ; a completer a chaque communique. courbe : trace l'escalier des cas (seulement si chaque cas a sa date d'annonce, donc pas l'Ouganda). etatCourt et fin : tableau et frise de la page Autres pays (fin = fin de l'epidemie, ou sortie du malade pour la France ; null = en cours). resume (par pays) et relie : textes courts de la page Autres pays (17 octobre 2026), tires du texte de chaque fiche, sans chiffre nouveau ; a mettre a jour avec les fiches.",
+  "maj": "2026-10-18",
   "pays": [
     {
       "id": "ouganda",
@@ -470,13 +470,13 @@
         "sw": "Kenya"
       },
       "statut": {
-        "fr": "Quatre nouveaux cas confirmés le 17 octobre 2026, tous déjà en quarantaine",
-        "en": "Four new cases confirmed on 17 October 2026, all already in quarantine",
-        "sw": "Wagonjwa wanne wapya wathibitishwa tarehe 17 Oktoba 2026, wote wakiwa tayari karantini"
+        "fr": "Un huitième cas confirmé le 18 octobre 2026",
+        "en": "An eighth case confirmed on 18 October 2026",
+        "sw": "Mgonjwa wa nane athibitishwa tarehe 18 Oktoba 2026"
       },
       "chiffres": [
         {
-          "n": "7",
+          "n": "8",
           "l": {
             "fr": "cas confirmés",
             "en": "confirmed cases",
@@ -508,6 +508,7 @@
           "Le 14 octobre 2026, le ministère a confirmé un deuxième cas : un homme de 39 ans, proche parent du premier malade, déjà en quarantaine et suivi chaque jour. Tombé malade le 13 octobre (fièvre, fatigue, douleurs articulaires), il a été isolé aussitôt ; il a été testé positif par le laboratoire national de référence et par le laboratoire KEMRI-CDC, et il est soigné dans un centre de traitement désigné. Selon le ministère, les deux cas sont liés et rien n'indique une transmission dans la population.",
           "Le 16 octobre 2026, le ministère a confirmé un troisième cas : une femme de 65 ans, proche parente des deux premiers malades et contact direct, en quarantaine depuis le 6 octobre. Dès qu'elle a eu de la fièvre, un mal de gorge et un malaise, elle a été isolée et prélevée ; elle a été testée positive par le laboratoire national de référence et par le laboratoire du KEMRI, puis transférée à l'unité des maladies infectieuses, où elle reçoit des soins de soutien. Le deuxième malade est dans un état stable. Le ministère juge le risque faible pour la population, faute de transmission communautaire, et prévient que d'autres cas restent possibles parmi les contacts en quarantaine.",
           "Le 17 octobre 2026, le ministère a confirmé quatre nouveaux cas, ce qui porte le total à sept, dont le premier malade, décédé. Ils viennent de deux sites de quarantaine : un proche parent du premier malade, en quarantaine depuis le 6 octobre, et trois soignants, deux hommes et une femme de 29, 35 et 32 ans, qui s'étaient occupés de lui à l'hôpital les 3 et 4 octobre et étaient en quarantaine depuis le 9. Tous ont d'abord eu de la fièvre, ont été isolés aussitôt et testés positifs par le laboratoire national de référence et par le laboratoire du KEMRI ; ils reçoivent des soins de soutien dans le centre de traitement désigné. Les deuxième et troisième malades sont stables. Le ministère suit de près quatre membres de la famille du premier malade et tous les soignants qui l'ont pris en charge.",
+          "Le 18 octobre 2026, le ministère a confirmé un huitième cas : un homme de 49 ans, qui n'est pas soignant. Il avait de la fièvre, des maux de tête et des douleurs musculaires. C'est le seul positif parmi les 38 personnes testées ce jour-là. Le communiqué ne précise pas s'il était en quarantaine, ni quel lien il a avec les cas précédents.",
           "Le pays se préparait depuis mai : plus de 652 000 voyageurs contrôlés à l'entrée, 267 échantillons suspects testés et environ 5 000 soignants formés. Au 15 octobre, 685 027 voyageurs avaient été contrôlés ; ceux qui arrivent des 10 pays à haut risque remplissent un formulaire numérique avant d'embarquer. Le Kenya n'impose aucune restriction aux voyages, au commerce ni aux rassemblements."
         ],
         "en": [
@@ -517,6 +518,7 @@
           "On 14 October 2026, the ministry confirmed a second case: a 39-year-old man, a close relative of the first patient, already in quarantine and checked every day. He fell ill on 13 October (fever, fatigue, joint pain) and was isolated at once; he tested positive at the National Virology Reference Laboratory and at the KEMRI-CDC laboratory, and is being cared for in a designated treatment centre. According to the ministry, the two cases are linked and there is no evidence of spread in the wider community.",
           "On 16 October 2026, the ministry confirmed a third case: a 65-year-old woman, a close relative and primary contact of the first two patients, in quarantine since 6 October. As soon as she developed fever, sore throat and malaise she was isolated and tested; she tested positive at the National Virology Reference Laboratory and the KEMRI laboratory, and was transferred to the Infectious Disease Unit, where she is receiving supportive care. The second patient is in stable condition. The ministry considers the risk to the public low, as there is no community transmission, and warns that further cases among quarantined contacts remain possible.",
           "On 17 October 2026, the ministry confirmed four new cases, bringing the total to seven, including the first patient, who died. They come from two quarantine sites: a close male relative of the first patient, in quarantine since 6 October, and three health workers, two men and a woman aged 29, 35 and 32, who had cared for him in hospital on 3 and 4 October and had been in quarantine since the 9th. All first developed fever, were isolated at once and tested positive at the National Virology Reference Laboratory and the KEMRI laboratory; they are receiving supportive care at the designated treatment facility. The second and third patients are stable. The ministry is closely monitoring four family members of the first patient and all the health workers who cared for him.",
+          "On 18 October 2026, the ministry confirmed an eighth case: a 49-year-old man who is not a health worker. He had fever, headache and muscle pain. He was the only positive among the 38 people tested that day. The update does not say whether he was in quarantine, nor how he is linked to the earlier cases.",
           "The country had been preparing since May: more than 652,000 travellers screened on entry, 267 suspected samples tested and about 5,000 health workers trained. By 15 October, 685,027 travellers had been screened; those arriving from the 10 high-risk countries fill in a digital form before boarding. Kenya imposes no restrictions on travel, trade or public gatherings."
         ],
         "sw": [
@@ -526,6 +528,7 @@
           "Tarehe 14 Oktoba 2026, wizara ilithibitisha mgonjwa wa pili: mwanamume wa miaka 39, jamaa wa karibu wa mgonjwa wa kwanza, aliyekuwa tayari karantini na kukaguliwa kila siku. Aliugua tarehe 13 Oktoba (homa, uchovu, maumivu ya viungo) na akatengwa mara moja; alipimwa na kukutwa na virusi katika maabara ya kitaifa ya marejeleo na maabara ya KEMRI-CDC, na anatibiwa katika kituo maalum cha matibabu. Kwa mujibu wa wizara, wagonjwa hao wawili wanahusiana na hakuna dalili ya maambukizi katika jamii.",
           "Tarehe 16 Oktoba 2026, wizara ilithibitisha mgonjwa wa tatu: mwanamke wa miaka 65, jamaa wa karibu na mtu wa karibu wa moja kwa moja wa wagonjwa wawili wa kwanza, aliyekuwa karantini tangu tarehe 6 Oktoba. Mara alipopata homa, maumivu ya koo na udhaifu, alitengwa na sampuli yake ikachukuliwa; alipimwa na kukutwa na virusi katika maabara ya kitaifa ya marejeleo na maabara ya KEMRI, kisha akahamishiwa kitengo cha magonjwa ya kuambukiza, anakopata matibabu. Mgonjwa wa pili yuko katika hali tulivu. Wizara inasema hatari kwa umma ni ndogo kwa kuwa hakuna maambukizi katika jamii, na inaonya kwamba wagonjwa wengine wanaweza kujitokeza miongoni mwa watu walio karantini.",
           "Tarehe 17 Oktoba 2026, wizara ilithibitisha wagonjwa wanne wapya, na kufikisha jumla ya wagonjwa saba, akiwemo mgonjwa wa kwanza aliyefariki. Wanatoka katika maeneo mawili ya karantini: jamaa wa kiume wa karibu wa mgonjwa wa kwanza, aliyekuwa karantini tangu tarehe 6 Oktoba, na wahudumu watatu wa afya, wanaume wawili na mwanamke mmoja wa miaka 29, 35 na 32, waliomhudumia hospitalini tarehe 3 na 4 Oktoba na waliokuwa karantini tangu tarehe 9. Wote walianza na homa, wakatengwa mara moja na kupimwa na kukutwa na virusi katika maabara ya kitaifa ya marejeleo na maabara ya KEMRI; wanapata matibabu katika kituo maalum cha matibabu. Wagonjwa wa pili na wa tatu wako katika hali tulivu. Wizara inawafuatilia kwa karibu wanafamilia wanne wa mgonjwa wa kwanza na wahudumu wote wa afya waliomhudumia.",
+          "Tarehe 18 Oktoba 2026, wizara ilithibitisha mgonjwa wa nane: mwanamume wa miaka 49, ambaye si mhudumu wa afya. Alikuwa na homa, maumivu ya kichwa na maumivu ya misuli. Ndiye pekee aliyepatikana na virusi kati ya watu 38 waliopimwa siku hiyo. Taarifa haielezi kama alikuwa karantini, wala uhusiano wake na wagonjwa waliotangulia.",
           "Nchi ilikuwa ikijiandaa tangu Mei: wasafiri zaidi ya 652 000 walikaguliwa wanapoingia, sampuli 267 zinazoshukiwa zilipimwa na wahudumu wa afya karibu 5 000 walipewa mafunzo. Kufikia tarehe 15 Oktoba, wasafiri 685 027 walikuwa wamekaguliwa; wanaotoka nchi 10 zenye hatari kubwa hujaza fomu ya kidijitali kabla ya kupanda ndege. Kenya haijaweka vikwazo vyovyote kwa safari, biashara wala mikusanyiko."
         ]
       },
@@ -580,6 +583,14 @@
         },
         {
           "l": {
+            "fr": "Ministère kényan de la Santé, point du 18 octobre 2026 (huitième cas)",
+            "en": "Kenya Ministry of Health, update of 18 October 2026 (eighth case)",
+            "sw": "Wizara ya Afya ya Kenya, taarifa ya 18 Oktoba 2026 (mgonjwa wa nane)"
+          },
+          "url": "https://x.com/MOH_Kenya/status/2111907760119914773"
+        },
+        {
+          "l": {
             "fr": "Associated Press, 6 octobre 2026 (Nairobi Hospital)",
             "en": "Associated Press, 6 October 2026 (Nairobi Hospital)",
             "sw": "Associated Press, 6 Oktoba 2026 (Nairobi Hospital)"
@@ -601,9 +612,9 @@
             "sw": "Je, kuna Ebola nchini Kenya?"
           },
           "a": {
-            "fr": "Oui. Le Kenya a confirmé son premier cas d'Ebola le 6 octobre 2026, un malade venu de République démocratique du Congo, mort à Nairobi. Le 14 octobre 2026, un deuxième cas a été confirmé : un proche parent du premier malade, qui était déjà en quarantaine. Le 16 octobre, un troisième : une proche parente des deux premiers, elle aussi en quarantaine. Le 17 octobre, quatre autres : un proche parent et trois soignants qui s'étaient occupés du premier malade, tous déjà en quarantaine. Le pays compte 7 cas confirmés et 1 décès ; selon le ministère, les cas sont liés et rien n'indique une transmission dans la population.",
-            "en": "Yes. Kenya confirmed its first Ebola case on 6 October 2026, a patient who had come from the Democratic Republic of the Congo and died in Nairobi. On 14 October 2026 a second case was confirmed: a close relative of the first patient, who was already in quarantine. On 16 October, a third: a close relative of the first two, also in quarantine. On 17 October, four more: a close relative and three health workers who had cared for the first patient, all already in quarantine. The country has 7 confirmed cases and 1 death; according to the ministry, the cases are linked and there is no evidence of community transmission.",
-            "sw": "Ndiyo. Kenya ilithibitisha mgonjwa wake wa kwanza wa Ebola tarehe 6 Oktoba 2026, aliyetoka Jamhuri ya Kidemokrasia ya Kongo na kufariki Nairobi. Tarehe 14 Oktoba 2026 mgonjwa wa pili alithibitishwa: jamaa wa karibu wa mgonjwa wa kwanza, aliyekuwa tayari karantini. Tarehe 16 Oktoba, wa tatu: jamaa wa karibu wa wagonjwa wawili wa kwanza, naye akiwa karantini. Tarehe 17 Oktoba, wengine wanne: jamaa wa karibu na wahudumu watatu wa afya waliomhudumia mgonjwa wa kwanza, wote wakiwa tayari karantini. Nchi ina wagonjwa 7 waliothibitishwa na kifo 1; kwa mujibu wa wizara, wagonjwa hao wanahusiana na hakuna dalili ya maambukizi katika jamii."
+            "fr": "Oui. Le Kenya a confirmé son premier cas d'Ebola le 6 octobre 2026, un malade venu de République démocratique du Congo, mort à Nairobi. Le 14 octobre 2026, un deuxième cas a été confirmé : un proche parent du premier malade, qui était déjà en quarantaine. Le 16 octobre, un troisième : une proche parente des deux premiers, elle aussi en quarantaine. Le 17 octobre, quatre autres : un proche parent et trois soignants qui s'étaient occupés du premier malade, tous déjà en quarantaine. Le 18 octobre, un huitième : un homme de 49 ans, qui n'est pas soignant. Le pays compte 8 cas confirmés et 1 décès. Jusqu'au 17 octobre, selon le ministère, les cas étaient liés et rien n'indiquait une transmission dans la population ; le point du 18 octobre ne dit pas d'où vient le huitième.",
+            "en": "Yes. Kenya confirmed its first Ebola case on 6 October 2026, a patient who had come from the Democratic Republic of the Congo and died in Nairobi. On 14 October 2026 a second case was confirmed: a close relative of the first patient, who was already in quarantine. On 16 October, a third: a close relative of the first two, also in quarantine. On 17 October, four more: a close relative and three health workers who had cared for the first patient, all already in quarantine. On 18 October, an eighth: a 49-year-old man who is not a health worker. The country has 8 confirmed cases and 1 death. Up to 17 October, according to the ministry, the cases were linked and there was no evidence of community transmission; the 18 October update does not say where the eighth comes from.",
+            "sw": "Ndiyo. Kenya ilithibitisha mgonjwa wake wa kwanza wa Ebola tarehe 6 Oktoba 2026, aliyetoka Jamhuri ya Kidemokrasia ya Kongo na kufariki Nairobi. Tarehe 14 Oktoba 2026 mgonjwa wa pili alithibitishwa: jamaa wa karibu wa mgonjwa wa kwanza, aliyekuwa tayari karantini. Tarehe 16 Oktoba, wa tatu: jamaa wa karibu wa wagonjwa wawili wa kwanza, naye akiwa karantini. Tarehe 17 Oktoba, wengine wanne: jamaa wa karibu na wahudumu watatu wa afya waliomhudumia mgonjwa wa kwanza, wote wakiwa tayari karantini. Tarehe 18 Oktoba, mgonjwa wa nane: mwanamume wa miaka 49, ambaye si mhudumu wa afya. Nchi ina wagonjwa 8 waliothibitishwa na kifo 1. Hadi tarehe 17 Oktoba, kwa mujibu wa wizara, wagonjwa hao walihusiana na hapakuwa na dalili ya maambukizi katika jamii; taarifa ya 18 Oktoba haielezi mgonjwa wa nane alitoka wapi."
           }
         },
         {
@@ -652,6 +663,18 @@
             "fr": "Un proche parent du premier malade, en quarantaine depuis le 6 octobre 2026, et trois soignants (deux hommes et une femme de 29, 35 et 32 ans) qui s'étaient occupés du premier malade à l'hôpital les 3 et 4 octobre, en quarantaine depuis le 9. Tous ont d'abord eu de la fièvre et ont été isolés aussitôt ; ils reçoivent des soins de soutien dans le centre de traitement désigné.",
             "en": "A close male relative of the first patient, in quarantine since 6 October 2026, and three health workers (two men and a woman aged 29, 35 and 32) who had cared for the first patient in hospital on 3 and 4 October, in quarantine since the 9th. All first developed fever and were isolated at once; they are receiving supportive care at the designated treatment facility.",
             "sw": "Jamaa wa kiume wa karibu wa mgonjwa wa kwanza, aliyekuwa karantini tangu tarehe 6 Oktoba 2026, na wahudumu watatu wa afya (wanaume wawili na mwanamke mmoja wa miaka 29, 35 na 32) waliomhudumia mgonjwa wa kwanza hospitalini tarehe 3 na 4 Oktoba, waliokuwa karantini tangu tarehe 9. Wote walianza na homa na wakatengwa mara moja; wanapata matibabu katika kituo maalum cha matibabu."
+          }
+        },
+        {
+          "q": {
+            "fr": "Qui est le huitième malade ?",
+            "en": "Who is the eighth patient?",
+            "sw": "Mgonjwa wa nane ni nani?"
+          },
+          "a": {
+            "fr": "Un homme de 49 ans, qui n'est pas soignant, confirmé le 18 octobre 2026. Il avait de la fièvre, des maux de tête et des douleurs musculaires. C'est le seul positif parmi les 38 personnes testées ce jour-là. Le ministère n'a pas précisé s'il était en quarantaine, ni quel lien il a avec les cas précédents.",
+            "en": "A 49-year-old man who is not a health worker, confirmed on 18 October 2026. He had fever, headache and muscle pain. He was the only positive among the 38 people tested that day. The ministry has not said whether he was in quarantine, nor how he is linked to the earlier cases.",
+            "sw": "Mwanamume wa miaka 49, ambaye si mhudumu wa afya, aliyethibitishwa tarehe 18 Oktoba 2026. Alikuwa na homa, maumivu ya kichwa na maumivu ya misuli. Ndiye pekee aliyepatikana na virusi kati ya watu 38 waliopimwa siku hiyo. Wizara haijaeleza kama alikuwa karantini, wala uhusiano wake na wagonjwa waliotangulia."
           }
         },
         {
@@ -814,12 +837,27 @@
             "en": "A close relative and three health workers who had cared for the first patient, all already in quarantine. 128 of 130 contacts are in quarantine.",
             "sw": "Jamaa wa karibu na wahudumu watatu wa afya waliomhudumia mgonjwa wa kwanza, wote wakiwa tayari karantini. Watu 128 kati ya 130 wa karibu wako karantini."
           }
+        },
+        {
+          "date": "2026-10-18",
+          "type": "cas",
+          "cumul": 8,
+          "titre": {
+            "fr": "Huitième cas",
+            "en": "Eighth case",
+            "sw": "Mgonjwa wa nane"
+          },
+          "texte": {
+            "fr": "Un homme de 49 ans, qui n'est pas soignant ; seul positif parmi les 38 personnes testées ce jour-là.",
+            "en": "A 49-year-old man who is not a health worker; the only positive among the 38 people tested that day.",
+            "sw": "Mwanamume wa miaka 49, ambaye si mhudumu wa afya; ndiye pekee aliyepatikana na virusi kati ya watu 38 waliopimwa siku hiyo."
+          }
         }
       ],
       "resume": {
-        "fr": "Un Kényan qui vivait en RDC, arrivé à Nairobi par Beni et Kampala, mort le 5 octobre 2026. Les six cas suivants, des proches et trois soignants qui s'étaient occupés de lui, étaient déjà en quarantaine quand ils sont tombés malades.",
-        "en": "A Kenyan who lived in the DRC, who reached Nairobi via Beni and Kampala, died on 5 October 2026. The next six cases, relatives and three health workers who had cared for him, were already in quarantine when they fell ill.",
-        "sw": "Mkenya aliyeishi DRC, aliyefika Nairobi kupitia Beni na Kampala, alifariki tarehe 5 Oktoba 2026. Wagonjwa sita waliofuata, jamaa na wahudumu watatu wa afya waliomhudumia, walikuwa tayari karantini walipougua."
+        "fr": "Un Kényan qui vivait en RDC, arrivé à Nairobi par Beni et Kampala, mort le 5 octobre 2026. Les six cas suivants, des proches et trois soignants qui s'étaient occupés de lui, étaient déjà en quarantaine quand ils sont tombés malades. Un huitième, un homme de 49 ans, a été confirmé le 18 octobre.",
+        "en": "A Kenyan who lived in the DRC, who reached Nairobi via Beni and Kampala, died on 5 October 2026. The next six cases, relatives and three health workers who had cared for him, were already in quarantine when they fell ill. An eighth, a 49-year-old man, was confirmed on 18 October.",
+        "sw": "Mkenya aliyeishi DRC, aliyefika Nairobi kupitia Beni na Kampala, alifariki tarehe 5 Oktoba 2026. Wagonjwa sita waliofuata, jamaa na wahudumu watatu wa afya waliomhudumia, walikuwa tayari karantini walipougua. Mgonjwa wa nane, mwanamume wa miaka 49, alithibitishwa tarehe 18 Oktoba."
       }
     }
   ],
@@ -830,9 +868,9 @@
       "sw": "Kinachounganisha wagonjwa hawa"
     },
     "texte": {
-      "fr": "Chaque épidémie hors de RDC a commencé par un voyageur venu de RDC : deux malades arrivés à Kampala, un médecin rentré d'Ituri, un Kényan passé par Beni. La suite a varié d'un pays à l'autre. En Ouganda, le virus s'est transmis sur place, soignants compris ; au Kenya, les cas suivants sont des proches et des soignants du premier malade, tous déjà en quarantaine ; en France, il n'y a eu aucune transmission. Les chiffres de cette page viennent de l'OMS et des ministères de la Santé de ces pays, pas des bulletins de l'INSP.",
-      "en": "Each outbreak outside the DRC began with a traveller who had come from the DRC: two patients who reached Kampala, a doctor returning from Ituri, a Kenyan who travelled via Beni. What followed differed from country to country. In Uganda, the virus spread locally, including to health workers; in Kenya, the later cases are relatives and health workers of the first patient, all already in quarantine; in France, there was no transmission. The figures on this page come from WHO and the health ministries of these countries, not from INSP bulletins.",
-      "sw": "Kila mlipuko nje ya DRC ulianza na msafiri aliyetoka DRC: wagonjwa wawili waliofika Kampala, daktari aliyerudi kutoka Ituri, Mkenya aliyepitia Beni. Kilichofuata kilitofautiana kati ya nchi na nchi. Nchini Uganda, virusi viliambukizana huko, wakiwemo wahudumu wa afya; nchini Kenya, wagonjwa waliofuata ni jamaa na wahudumu wa afya wa mgonjwa wa kwanza, wote wakiwa tayari karantini; nchini Ufaransa, hakukuwa na maambukizi. Takwimu za ukurasa huu zinatoka WHO na wizara za afya za nchi hizo, si kwenye taarifa za INSP."
+      "fr": "Chaque épidémie hors de RDC a commencé par un voyageur venu de RDC : deux malades arrivés à Kampala, un médecin rentré d'Ituri, un Kényan passé par Beni. La suite a varié d'un pays à l'autre. En Ouganda, le virus s'est transmis sur place, soignants compris ; au Kenya, les six cas suivants étaient des proches et des soignants du premier malade, tous déjà en quarantaine, et le ministère n'a pas dit d'où venait le huitième ; en France, il n'y a eu aucune transmission. Les chiffres de cette page viennent de l'OMS et des ministères de la Santé de ces pays, pas des bulletins de l'INSP.",
+      "en": "Each outbreak outside the DRC began with a traveller who had come from the DRC: two patients who reached Kampala, a doctor returning from Ituri, a Kenyan who travelled via Beni. What followed differed from country to country. In Uganda, the virus spread locally, including to health workers; in Kenya, the next six cases were relatives and health workers of the first patient, all already in quarantine, and the ministry has not said where the eighth came from; in France, there was no transmission. The figures on this page come from WHO and the health ministries of these countries, not from INSP bulletins.",
+      "sw": "Kila mlipuko nje ya DRC ulianza na msafiri aliyetoka DRC: wagonjwa wawili waliofika Kampala, daktari aliyerudi kutoka Ituri, Mkenya aliyepitia Beni. Kilichofuata kilitofautiana kati ya nchi na nchi. Nchini Uganda, virusi viliambukizana huko, wakiwemo wahudumu wa afya; nchini Kenya, wagonjwa sita waliofuata walikuwa jamaa na wahudumu wa afya wa mgonjwa wa kwanza, wote wakiwa tayari karantini, na wizara haijaeleza mgonjwa wa nane alitoka wapi; nchini Ufaransa, hakukuwa na maambukizi. Takwimu za ukurasa huu zinatoka WHO na wizara za afya za nchi hizo, si kwenye taarifa za INSP."
     }
   }
 }

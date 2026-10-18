@@ -49,10 +49,10 @@
     {
       "a3": "KEN",
       "etat": "cours",
-      "cas": 7,
+      "cas": 8,
       "deces": 1,
       "premier": "2026-10-06",
-      "dernier": "2026-10-17",
+      "dernier": "2026-10-18",
       "ville": {
         "fr": "Nairobi",
         "en": "Nairobi",
@@ -70,14 +70,14 @@
         "sw": "Kenya"
       },
       "note": {
-        "fr": "Un Kényan qui vivait en RDC, passé par Beni et Kampala, isolé à son arrivée au Nairobi Hospital, où il est mort. Du 14 au 17 octobre, six autres cas, tous déjà en quarantaine : trois proches parents et trois soignants qui s'étaient occupés de lui. 130 contacts listés, 128 en quarantaine.",
-        "en": "A Kenyan who lived in the DRC, travelled via Beni and Kampala, isolated on arrival at Nairobi Hospital, where he died. From 14 to 17 October, six more cases, all already in quarantine: three close relatives and three health workers who had cared for him. 130 contacts listed, 128 in quarantine.",
-        "sw": "Mkenya aliyeishi DRC, alipitia Beni na Kampala, alitengwa alipofika Nairobi Hospital, ambapo alifariki. Kati ya tarehe 14 na 17 Oktoba, wagonjwa wengine sita, wote wakiwa tayari karantini: jamaa watatu wa karibu na wahudumu watatu wa afya waliomhudumia. Watu 130 wa karibu wameorodheshwa, 128 wako karantini."
+        "fr": "Un Kényan qui vivait en RDC, passé par Beni et Kampala, isolé à son arrivée au Nairobi Hospital, où il est mort. Du 14 au 17 octobre, six autres cas, tous déjà en quarantaine : trois proches parents et trois soignants qui s'étaient occupés de lui. Le 18 octobre, un huitième : un homme de 49 ans, qui n'est pas soignant. Au 17 octobre, 130 contacts listés, 128 en quarantaine.",
+        "en": "A Kenyan who lived in the DRC, travelled via Beni and Kampala, isolated on arrival at Nairobi Hospital, where he died. From 14 to 17 October, six more cases, all already in quarantine: three close relatives and three health workers who had cared for him. On 18 October, an eighth: a 49-year-old man who is not a health worker. As of 17 October, 130 contacts listed, 128 in quarantine.",
+        "sw": "Mkenya aliyeishi DRC, alipitia Beni na Kampala, alitengwa alipofika Nairobi Hospital, ambapo alifariki. Kati ya tarehe 14 na 17 Oktoba, wagonjwa wengine sita, wote wakiwa tayari karantini: jamaa watatu wa karibu na wahudumu watatu wa afya waliomhudumia. Tarehe 18 Oktoba, mgonjwa wa nane: mwanamume wa miaka 49, ambaye si mhudumu wa afya. Hadi tarehe 17 Oktoba, watu 130 wa karibu wameorodheshwa, 128 wako karantini."
       },
       "source": {
-        "fr": "ministère kényan de la Santé (communiqué du 17 octobre 2026), OMS Afrique",
-        "en": "Kenya Ministry of Health (press release of 17 October 2026), WHO Africa",
-        "sw": "Wizara ya Afya ya Kenya (taarifa ya 17 Oktoba 2026), WHO Afrika"
+        "fr": "ministère kényan de la Santé (communiqués des 17 et 18 octobre 2026), OMS Afrique",
+        "en": "Kenya Ministry of Health (updates of 17 and 18 October 2026), WHO Africa",
+        "sw": "Wizara ya Afya ya Kenya (taarifa za 17 na 18 Oktoba 2026), WHO Afrika"
       },
       "unites": [
         {
