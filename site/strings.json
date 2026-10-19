@@ -917,7 +917,9 @@
     "alertesOu": "ou",
     "alertesWhatsapp": "Suivre la chaîne WhatsApp",
     "alertesConfidentialite": "Votre adresse sert uniquement à envoyer ces alertes, par l’intermédiaire de Brevo. Elle n’est ni partagée ni revendue.",
-    "alertesConsentement": "J’accepte de recevoir les alertes SitRep d’ebola-tracker.org."
+    "alertesConsentement": "J’accepte de recevoir les alertes SitRep d’ebola-tracker.org.",
+    "lettreUneGueris": "guéris",
+    "lettreUneCte": "en CTE"
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -1836,7 +1838,9 @@
     "alertesOu": "or",
     "alertesWhatsapp": "Follow the WhatsApp channel",
     "alertesConfidentialite": "Your address is used only to send these alerts, through Brevo. It is never shared or sold.",
-    "alertesConsentement": "I agree to receive ebola-tracker.org SitRep alerts."
+    "alertesConsentement": "I agree to receive ebola-tracker.org SitRep alerts.",
+    "lettreUneGueris": "recovered",
+    "lettreUneCte": "in treatment centres"
   },
   "timelineEvents": [
     {
@@ -3430,6 +3434,8 @@
     "alertesOu": "au",
     "alertesWhatsapp": "Fuata chaneli ya WhatsApp",
     "alertesConfidentialite": "Anwani yako inatumika tu kutuma arifa hizi, kupitia Brevo. Haishirikiwi wala kuuzwa.",
-    "alertesConsentement": "Ninakubali kupokea arifa za SitRep za ebola-tracker.org."
+    "alertesConsentement": "Ninakubali kupokea arifa za SitRep za ebola-tracker.org.",
+    "lettreUneGueris": "waliopona",
+    "lettreUneCte": "katika vituo vya matibabu"
   }
 }

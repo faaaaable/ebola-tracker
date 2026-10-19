@@ -152,6 +152,11 @@ def render(lang, S, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp
     return seeds
 
 
+# Premiere lettre avec les cases gueris et en CTE (19 octobre 2026) :
+# celle-ci et toutes les suivantes, pas les anciennes.
+UNE_GUERIS_CTE_DEPUIS = 156
+
+
 def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp,
             province_forms, couleurs, urls, prec_date=None):
     meta, nat = latest["meta"], latest["national"]
@@ -576,6 +581,17 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     une = {"titre": P("lettreManchette", cas=fmt(nat.get("newCases24h"), lang), deces=fmt(nat.get("newDeaths24h"), lang)),
            "cas": fmt(nat.get("confirmed"), lang), "deces": fmt(nat.get("deaths"), lang), "cfr": fmt_cfr(nat.get("cfr"), lang),
            "plus_cas": plus(nat.get("newCases24h")), "plus_deces": plus(nat.get("newDeaths24h")), "barres": barres}
+    # Cases guéris et en CTE dans l'encadre (19 octobre 2026), a partir de
+    # la lettre UNE_GUERIS_CTE_DEPUIS. Le nombre en CTE n'a pas
+    # d'ecart a la veille : aucune serie nationale ne le conserve.
+    if num.isdigit() and int(num) >= UNE_GUERIS_CTE_DEPUIS:
+        une["extra"] = ('<div class="lq-chiffre is-gueris"><b>%s</b><span>%s%s</span></div>'
+                        % (fmt(nat.get("recovered"), lang), esc(S["lettreUneGueris"]),
+                           (" · " + plus(gueris_delta)) if gueris_delta is not None else "")
+                        if nat.get("recovered") is not None else "")
+        une["extra"] += ('<div class="lq-chiffre is-cte"><b>%s</b><span>%s</span></div>'
+                         % (fmt(nat.get("inCTE"), lang), esc(S["lettreUneCte"]))
+                         if nat.get("inCTE") is not None else "")
     tete = {"une": une, "num": num, "date": long_date(date, i18n_lang), "publie": long_date(meta.get("publicationDate") or date, i18n_lang),
             "objet": objet, "jour": jour, "ref": meta.get("sitrepRef") or "", "pdf": pdf, "pied": pied, "pied_html": pied_html, "sous": sous_titre,
             "nav_html": nav_html, "archive_html": archive_html}
@@ -611,13 +627,23 @@ def assembler_agence(t, chapitres, S, esc, interp):
            '<div class="lq-grille"><div class="lq-principal" id="%s"><div class="lq-eyebrow">%s</div><h1 class="lq-titre">%s</h1>'
            '<p class="lq-chapo">%s</p>%s</div>'
            % (premier[0], esc(S["lettreUneEyebrow"]), esc(u["titre"]), esc(t["jour"]), premier[3]),
-           '<aside class="lq-encadre" aria-label="%s">'
-           '<div class="lq-chiffre is-cas"><b>%s</b><span>%s · %s</span></div>'
-           '<div class="lq-chiffre is-deces"><b>%s</b><span>%s · %s</span></div>'
-           '<div class="lq-chiffre"><b>%s</b><span>%s</span></div>'
-           '<div class="lq-mini">%s<span>%s</span></div></aside></div>'
-           % (esc(S["lettreUneChiffres"]), u["cas"], esc(S["lettreUneCas"]), u["plus_cas"], u["deces"], esc(S["lettreUneDeces"]), u["plus_deces"],
-              u["cfr"], esc(S["lettreUneCfr"]), u["barres"], esc(S["lettreUneCourbe"])),
+           # Avec les cases gueris et CTE, les chiffres passent sur deux
+           # colonnes : cas | deces, gueris | CTE, puis la letalite seule.
+           ('<aside class="lq-encadre" aria-label="%s"><div class="lq-deux">'
+            '<div class="lq-chiffre is-cas"><b>%s</b><span>%s · %s</span></div>'
+            '<div class="lq-chiffre is-deces"><b>%s</b><span>%s · %s</span></div>%s'
+            '<div class="lq-chiffre is-large"><b>%s</b><span>%s</span></div></div>'
+            '<div class="lq-mini">%s<span>%s</span></div></aside></div>'
+            % (esc(S["lettreUneChiffres"]), u["cas"], esc(S["lettreUneCas"]), u["plus_cas"], u["deces"], esc(S["lettreUneDeces"]), u["plus_deces"],
+               u["extra"], u["cfr"], esc(S["lettreUneCfr"]), u["barres"], esc(S["lettreUneCourbe"])))
+           if u.get("extra") else
+           ('<aside class="lq-encadre" aria-label="%s">'
+            '<div class="lq-chiffre is-cas"><b>%s</b><span>%s · %s</span></div>'
+            '<div class="lq-chiffre is-deces"><b>%s</b><span>%s · %s</span></div>'
+            '<div class="lq-chiffre"><b>%s</b><span>%s</span></div>'
+            '<div class="lq-mini">%s<span>%s</span></div></aside></div>'
+            % (esc(S["lettreUneChiffres"]), u["cas"], esc(S["lettreUneCas"]), u["plus_cas"], u["deces"], esc(S["lettreUneDeces"]), u["plus_deces"],
+               u["cfr"], esc(S["lettreUneCfr"]), u["barres"], esc(S["lettreUneCourbe"]))),
            '<div class="lq-cols">%s</div>' % cols,
            ('<div class="lq-chiffres">%s</div>' % chiffres) if chiffres else "",
            '<footer class="lq-pied">%s<p class="lq-ref">%s</p>%s</footer></div>' % (t["nav_html"], t["pied_html"], t["archive_html"])]
