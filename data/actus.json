@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "e073d6c4",
+   "date": "2026-10-19",
+   "titre": "Fonds Ebola : une polémique autour des enveloppes allouées aux caucus des députés de l’Ituri, du Nord-Kivu et du Haut-Uélé",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/19/actualite/sante/fonds-ebola-une-polemique-autour-des-enveloppes-allouees-aux-caucus-des",
+   "langue": "fr",
+   "resume": "Radio Okapi/Marc Maro Fimbo\" /> Des fonds destinés à soutenir la sensibilisation des populations contre la maladie à virus Ebola se retrouvent au cœur d’une vive controverse, depuis plusieurs jours, impliquant des députés nationaux de l’Ituri, du Nord-Kivu et du Haut-Uélé.",
+   "statut": "publie",
+   "collecte": "2026-10-19",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "b4beefc7",
    "date": "2026-10-18",
    "titre": "Ebola business : le gouvernement traque les ONGs qui dissimulent 700 millions USD",
