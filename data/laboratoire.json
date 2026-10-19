@@ -2283,14 +2283,15 @@
           "positivite": 17.4
         },
         "Bas-Uélé": {
-          "echantillons": null,
+          "echantillons": 2,
           "positifs": 0
         }
       },
       "total": {
         "provinces": 5,
-        "echantillons": null,
-        "positifs": 82
+        "echantillons": 569,
+        "positifs": 82,
+        "positivite": 14.4
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3599,7 +3600,12 @@
         "positifs": 55,
         "positivite": 14.5
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 380,
+        "positifs": 55,
+        "positivite": 14.5
+      }
     },
     {
       "date": "2026-09-29",
@@ -3641,7 +3647,12 @@
         "positifs": 53,
         "positivite": 16.2
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 328,
+        "positifs": 53,
+        "positivite": 16.2
+      }
     },
     {
       "date": "2026-09-30",
@@ -3685,7 +3696,12 @@
         "positifs": 76,
         "positivite": 16.0
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 474,
+        "positifs": 76,
+        "positivite": 16.0
+      }
     },
     {
       "date": "2026-10-01",
@@ -3724,7 +3740,12 @@
         "positifs": 76,
         "positivite": 16.8
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 452,
+        "positifs": 76,
+        "positivite": 16.8
+      }
     },
     {
       "date": "2026-10-02",
@@ -3757,14 +3778,15 @@
           "positivite": 22.2
         },
         "Bas-Uélé": {
-          "echantillons": null,
+          "echantillons": 7,
           "positifs": 0
         }
       },
       "total": {
         "provinces": 5,
-        "echantillons": null,
-        "positifs": 66
+        "echantillons": 323,
+        "positifs": 66,
+        "positivite": 20.4
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3799,16 +3821,22 @@
           "positivite": 25.0
         },
         "Bas-Uélé": {
-          "echantillons": null,
+          "echantillons": 5,
           "positifs": 0
         }
       },
       "total": {
         "provinces": 5,
-        "echantillons": null,
-        "positifs": 59
+        "echantillons": 331,
+        "positifs": 59,
+        "positivite": 17.8
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 331,
+        "positifs": 59,
+        "positivite": 17.8
+      }
     },
     {
       "date": "2026-10-05",
@@ -3839,16 +3867,22 @@
           "positivite": 7.1
         },
         "Bas-Uélé": {
-          "echantillons": null,
+          "echantillons": 10,
           "positifs": 0
         }
       },
       "total": {
         "provinces": 5,
-        "echantillons": null,
-        "positifs": 62
+        "echantillons": 311,
+        "positifs": 62,
+        "positivite": 19.9
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 311,
+        "positifs": 62,
+        "positivite": 19.9
+      }
     },
     {
       "date": "2026-10-06",
@@ -3875,11 +3909,11 @@
           "deces": 1
         },
         "Tshopo": {
-          "echantillons": null,
+          "echantillons": 14,
           "positifs": 0
         },
         "Bas-Uélé": {
-          "echantillons": null,
+          "echantillons": 17,
           "positifs": 0
         }
       },
@@ -3888,7 +3922,12 @@
         "echantillons": null,
         "positifs": 63
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 523,
+        "positifs": 63,
+        "positivite": 12.0
+      }
     },
     {
       "date": "2026-10-07",
@@ -3915,11 +3954,11 @@
           "deces": 1
         },
         "Tshopo": {
-          "echantillons": null,
+          "echantillons": 10,
           "positifs": 0
         },
         "Bas-Uélé": {
-          "echantillons": null,
+          "echantillons": 4,
           "positifs": 0
         }
       },
@@ -3928,7 +3967,12 @@
         "echantillons": null,
         "positifs": 59
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 393,
+        "positifs": 59,
+        "positivite": 15.0
+      }
     },
     {
       "date": "2026-10-08",
@@ -3971,7 +4015,12 @@
         "echantillons": null,
         "positifs": 58
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 390,
+        "positifs": 58,
+        "positivite": 14.9
+      }
     },
     {
       "date": "2026-10-09",
@@ -4054,7 +4103,12 @@
         "echantillons": null,
         "positifs": 64
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 445,
+        "positifs": 64,
+        "positivite": 14.3
+      }
     },
     {
       "date": "2026-10-11",
@@ -4093,7 +4147,12 @@
         "echantillons": null,
         "positifs": 88
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 423,
+        "positifs": 88,
+        "positivite": 20.8
+      }
     },
     {
       "date": "2026-10-12",
@@ -4135,7 +4194,12 @@
         "positifs": 79,
         "positivite": 17.6
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 419,
+        "positifs": 79,
+        "positivite": 18.9
+      }
     },
     {
       "date": "2026-10-13",
@@ -4177,7 +4241,12 @@
         "positifs": 68,
         "positivite": 17.3
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 394,
+        "positifs": 68,
+        "positivite": 17.3
+      }
     },
     {
       "date": "2026-10-14",
@@ -4220,7 +4289,12 @@
         "positifs": 65,
         "positivite": 12.8
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 506,
+        "positifs": 65,
+        "positivite": 12.8
+      }
     },
     {
       "date": "2026-10-15",
@@ -4263,7 +4337,12 @@
         "positifs": 71,
         "positivite": 15.4
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 462,
+        "positifs": 71,
+        "positivite": 15.4
+      }
     },
     {
       "date": "2026-10-16",

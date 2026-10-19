@@ -1355,3 +1355,12 @@ au-delà d'un point d'écart. Ne pas « réparer » ces deux-là.
 ## SitRep 140 et 141 — colonnes du jour perdues par pdfplumber (4 octobre 2026)
 
 Sur le 140 et le 141, `pdfplumber` rend vides les colonnes « nouveaux cas / décès du jour » de la plupart des lignes de zone (Bunia, Nia-Nia, Butembo… ; seules quelques lignes comme Beni les gardent), alors que le texte les porte (« Nia-Nia 309 173 56,0% 4 3 3 6 »). Les zones gardaient 0 : somme de 12 nouveaux cas pour 76 au national sur le 140, « (+0) » au survol de la carte. Corrigé dans `gap_fill_missing_zones` (la queue du texte remplace une queue vide du tableau, `_queue_du_jour`) ; le 140 a été retraité puis le 141 réintégré. **Signal à surveiller à chaque bulletin : la somme des `newCases24h` des zones doit égaler le national** (c'est vrai du 111 au 141 ; l'avertissement « mais 0 nouveau(x) cas annoncé(s) » en rafale en est le symptôme).
+
+## Laboratoire : deux tournures manquées du 137 au 155 (19 octobre 2026)
+
+La vue par semaine du laboratoire ne comptait qu'une journée du 5 au 11 octobre (le 9). Deux causes cumulées :
+- **La phrase nationale a changé de forme au 137** : « Un total de 311 nouveaux échantillons a été analysé ; 62 de ces échantillons se sont révélés positifs au virus Bundibugyo, soit 19,9% de positivité ». Elle est dans les **faits saillants, en tête du bulletin**, pas dans la section Laboratoire : `NATIONAL_TOTAL_RE` la cherche dans tout le texte, seulement si l'ancienne forme (`NATIONAL_RE`) n'a rien rendu. Le taux manque parfois au bout de la ligne : il est alors recalculé.
+- **« 10 échantillons (10 sangs) reçus et analysés au laboratoire de Buta »** (Bas-Uélé 141 à 147, Tshopo 145 et 146) : la parenthèse sur le type de prélèvement s'intercale, le motif l'accepte désormais. Le 106 (« 2 échantillons (swabs) reçus et testés ») en profite aussi.
+- **Le 151 se contredit** : 419 échantillons dans la phrase nationale, 449 par la somme des provinces. La phrase nationale prime (règle d'`app.js` et du KPI), décision du propriétaire.
+- La lettre (`bulletin.py`) ne lisait que `total` : elle prend maintenant `national` d'abord, sinon les lettres 145 à 150 disaient « non publié ».
+- Le 149 et le 150 écrivent encore « 7 nouveaux échantiollos réçus » au Bas-Uélé : coquille non lue, la phrase nationale couvre la journée.

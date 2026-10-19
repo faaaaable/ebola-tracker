@@ -98,7 +98,9 @@ ECHANTILLONS_RES = [
     re.compile(r"[ée]chantillons?\s+(?:ont\s+[ée]t[ée]\s+)?(?:collect[ée]s?|re[çc]us?|pr[ée]lev[ée]s?)\s*,?\s*dont\s+(\d[\d ]{0,6}\d|\d)\s+(?:swabs?\s+)?(?:ont\s+[ée]t[ée]\s+)?analys[ée]s?", re.I),
     # « 7 échantillons ont été collectés et analysés » (B), « 1 échantillon reçu et analysé » (D)
     # « 57 échantillons prélevés et analysés » (021, Nord-Kivu)
-    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux?\s+)?[ée]chantillons?\s+(?:ont\s+[ée]t[ée]\s+)?(?:re[çc]us?|collect[ée]s?|pr[ée]lev[ée]s?)\s+et\s+(?:analys[ée]s?|test[ée]s?)", re.I),
+    # « 10 échantillons (10 sangs) reçus et analysés » (141-147, Bas-Uélé et Tshopo) : le détail par
+    # type de prélèvement s'intercale
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux?\s+)?[ée]chantillons?\s+(?:\([^)]{0,40}\)\s*)?(?:ont\s+[ée]t[ée]\s+)?(?:re[çc]us?|collect[ée]s?|pr[ée]lev[ée]s?)\s+et\s+(?:analys[ée]s?|test[ée]s?)", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+(?:re[çc]us\s+et\s+|collect[ée]s\s+et\s+|re[çc]us,?\s+|nouveaux\s+)?(?:analys[ée]s|document[ée]s|test[ée]s)", re.I),
     re.compile(r"sur\s+(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons", re.I),
     re.compile(r"\((\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+analys[ée]s\)", re.I),
@@ -269,6 +271,17 @@ def avertissements(nom, ligne):
 NATIONAL_RE = re.compile(
     r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+ont\s+[ée]t[ée]\s+analys[ée]s\s*,?\s*confirmant\s+"
     r"(\d[\d ]{0,4}\d|\d)\s+nouveaux\s+cas[^%]{0,60}?(\d+(?:[,.]\d+)?)\s*%", re.I | re.S)
+# « Un total de 311 nouveaux échantillons a été analysé ; 62 de ces
+# échantillons se sont révélés positifs au virus Bundibugyo, soit 19,9% de
+# positivité » (137 et suivants) : sans cette forme, une province qui ne
+# donne que ses positifs effaçait la journée de la vue par semaine (une seule
+# journée lue du 5 au 11 octobre). Le taux manque parfois au bout de la ligne.
+# La phrase est dans les faits saillants, en tete du bulletin, pas dans la
+# section Laboratoire : elle se cherche dans tout le texte.
+NATIONAL_TOTAL_RE = re.compile(
+    r"Un\s+total\s+de\s+(\d[\d ]{0,6}\d|\d)\s+nouveaux\s+[ée]chantillons\s+a\s+[ée]t[ée]\s+analys[ée]\s*;\s*"
+    r"(\d[\d ]{0,4}\d|\d)\s+de\s+ces\s+[ée]chantillons\s+se\s+sont\s+r[ée]v[ée]l[ée]s\s+positifs"
+    r"(?:[^%;]{0,60}?soit\s+(\d+(?:[,.]\d+)?)\s*%)?", re.I | re.S)
 
 
 # ---------------------------------------------------------------------------
@@ -433,6 +446,13 @@ def lire_rapport(chemin):
     if mn:
         national = {"echantillons": entier(mn.group(1)), "positifs": entier(mn.group(2)),
                     "positivite": pourcent(mn.group(3))}
+    else:
+        mt = NATIONAL_TOTAL_RE.search(texte)
+        if mt:
+            e, p = entier(mt.group(1)), entier(mt.group(2))
+            national = {"echantillons": e, "positifs": p,
+                        "positivite": pourcent(mt.group(3)) if mt.group(3) else
+                                      (round(p / e * 100, 1) if e else None)}
     reperes = list(REPERE_RE.finditer(section))
     provinces = lire_tableau(section)
     alertes = []

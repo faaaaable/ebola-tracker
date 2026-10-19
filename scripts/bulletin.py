@@ -355,6 +355,11 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         cases += kpi("alerts", S["lettreKpiAlertes"], fmt(t["recues"], lang), P("lettreKpiAlertesSub", verifiees=fmt(t.get("verifiees"), lang), validees=fmt(t.get("validees"), lang)))
     else:
         cases += kpi("alerts", S["lettreKpiAlertes"], "—", S["riposteKpiNone"]); non_publie.append(S["lettreKpiAlertes"])
+    # La phrase nationale prime sur la somme des provinces, comme sur la page
+    # Riposte : du 6 au 11 octobre, elle est le seul total du bulletin.
+    nl = (pl or {}).get("national") or {}
+    if nl.get("echantillons") and nl.get("positifs") is not None:
+        pl = dict(pl, total=dict(pl.get("total") or {}, **nl))
     if pl and (pl.get("total") or {}).get("echantillons"):
         t = pl["total"]
         s2 = P("lettreLabo", positifs=fmt(t.get("positifs"), lang), echantillons=fmt(t.get("echantillons"), lang), taux=pct(t.get("positivite")))
