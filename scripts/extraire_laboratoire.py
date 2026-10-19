@@ -90,7 +90,9 @@ def section_laboratoire(texte):
 
 # Repère de province : le nom, en tête de puce ou précédé de « L' » / « le » /
 # « la » / « au ». On découpe la section aux repères.
-REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bL[’']|\ble |\bla |\bau |\bà la |\ben )\s*(%s)\b" % PROVINCES_RE)
+# « Le Nord-Kivu a confirmé… » (094) : la majuscule ouvre une phrase du bloc
+# rédigé des 090 a 094.
+REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bL[’']|\b[lL]e |\b[lL]a |\bau |\bà la |\ben )\s*(%s)\b" % PROVINCES_RE)
 
 ECHANTILLONS_RES = [
     # « 76 nouveaux échantillons collectés dont 39 ont été analysés » (B)
@@ -102,7 +104,10 @@ ECHANTILLONS_RES = [
     # type de prélèvement s'intercale
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux?\s+)?[ée]chantillons?\s+(?:\([^)]{0,40}\)\s*)?(?:ont\s+[ée]t[ée]\s+)?(?:re[çc]us?|collect[ée]s?|pr[ée]lev[ée]s?)\s+et\s+(?:analys[ée]s?|test[ée]s?)", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+(?:re[çc]us\s+et\s+|collect[ée]s\s+et\s+|re[çc]us,?\s+|nouveaux\s+)?(?:analys[ée]s|document[ée]s|test[ée]s)", re.I),
-    re.compile(r"sur\s+(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons", re.I),
+    # « sur les 4 échantillons reçus » (091, Sud-Kivu)
+    re.compile(r"sur\s+(?:les\s+)?(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons", re.I),
+    # « parmi les 288 nouveaux échantillons reçus et analysés » (093, 094)
+    re.compile(r"parmi\s+(?:les\s+)?(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons", re.I),
     re.compile(r"\((\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+analys[ée]s\)", re.I),
     re.compile(r"[ée]chantillons\s+(?:re[çc]us|pr[ée]lev[ée]s)\s*,?\s*dont\s+(\d[\d ]{0,6}\d|\d)\s+(?:ont\s+[ée]t[ée]\s+)?analys[ée]s", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+ont\s+[ée]t[ée]\s+analys[ée]s", re.I),
@@ -117,6 +122,10 @@ ECHANTILLONS_RES = [
     # « 15 nouveaux échantillons reçus au laboratoire de Buta analysés tous
     # négatifs » (153, Bas-Uélé) : le lieu s'intercale entre reçus et analysés ;
     # « au laboratoire de Buta et Isiro » (154) : deux lieux
+    # « 1 échantillon reçu (Bagira), négatif », « 5 échantillons reçus (Nyangezi 4,
+    # Bagira 1), tous négatifs » (080 a 083, Sud-Kivu) : un résultat négatif dit
+    # que l'échantillon reçu a été testé
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons?\s+re[çc]us?\s*(?:\([^)]{0,60}\)\s*)?,?\s*(?:tous\s+)?n[ée]gatifs?\b", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+re[çc]us\s+au\s+laboratoire\s+d[e']\s*[\w-]+(?:\s+et\s+(?:d[e']\s*)?[\w-]+)?\s+analys[ée]s", re.I),
 ]
 POSITIFS_RES = [
@@ -126,6 +135,8 @@ POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+sur", re.I),
     # « 1 nouveau cas confirmé (vivant) sur 8 échantillons » (153, Tshopo)
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+nouveaux?\s+cas\s+confirm[ée]s?\s*(?:\([^)]{0,30}\)\s*)?sur\s+\d", re.I),
+    # « 3 cas confirmés (vivants) parmi les 9 échantillons » (093, Haut-Uélé)
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:nouveaux?\s+)?cas\s+confirm[ée]s?\s*(?:\([^)]{0,30}\)\s*)?parmi\s", re.I),
     re.compile(r"(\d+)\s+(?:est|sont)\s+revenus?\s+positifs?", re.I),
     re.compile(r"soit\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),
     re.compile(r"parmi\s+lesquels\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),
@@ -133,11 +144,14 @@ POSITIFS_RES = [
     re.compile(r"\bn\s*=\s*(\d+)", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+positifs?\b", re.I),
 ]
+DE_PLUS_RE = re.compile(r"De\s+plus\s*,\s*(\d[\d ]{0,4}\d|\d)\s+(?:r[ée])?pr[ée]l[èe]vements\s+sont\s+revenus\s+positifs\s+"
+                        r"parmi\s+(\d[\d ]{0,6}\d|\d)\s+[ée]chantillons\s+analys[ée]s\.?", re.I)
 NOUVEAUX_CAS_RE = re.compile(r"dont\s+(\d+)\s+nouveaux\s+cas", re.I)
 VIVANTS_DECES_RE = re.compile(r"\((\d+)\s*vivants?\s+et\s+(\d+)\s*d[ée]c[èe]s\)", re.I)
 # « (positivité : \n43,8%) » (154, Tshopo) : le taux passe a la ligne apres les deux-points
 POSITIVITE_RE = re.compile(r"positivit[ée][^%\d\n]{0,30}?\s*(\d+(?:[,.]\d+)?)\s*%", re.I)
-NEGATIFS_RE = re.compile(r"n[ée]gatifs?\b|aucun[^.;\n]{0,30}?positif", re.I)
+# « aucun résultat\npositif » (090, Sud-Kivu) : la ligne peut couper la tournure
+NEGATIFS_RE = re.compile(r"n[ée]gatifs?\b|aucun[^.;]{0,30}?positif", re.I)
 RECUS_TESTES_SUR_RE = re.compile(
     r"(\d[\d ]{0,4}\d|\d)\s*[ée]chantillons\s+re[çc]us\s+et\s+test[ée]s\s*"
     r"\((\d+)\s*vivants?\s+et\s+(\d+)\s*d[ée]c[èe]s\)\s*sur\s+(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+analys[ée]s", re.I)
@@ -194,6 +208,14 @@ def lire_province(morceau):
         morceau = morceau[:c.start()]
     # « sur l'échantillon analysé » (119, Sud-Ubangi) : un seul, sans chiffre
     morceau = re.sub(r"\bl[’']\s*([ée]chantillon\s+(?:re[çc]u\s+et\s+)?analys[ée]\b)", r"1 \1", morceau, flags=re.I)
+    # « De plus, 8 prélèvements sont revenus positifs parmi 79 échantillons
+    # analysés » (093, 094, Ituri ; « 38 réprélèvements » au 095) : hors des nouveaux cas — le cumul de l'Ituri
+    # monte de 89 le 15 août, les 89 premiers positifs —, donc des
+    # reprélèvements. Retirés avant la lecture, ajoutés ensuite comme ceux de
+    # l'époque D (positifs = nouveaux cas + reprélèvements).
+    md = DE_PLUS_RE.search(morceau)
+    if md:
+        morceau = morceau[:md.start()] + morceau[md.end():]
     mp = POSITIVITE_RE.search(morceau)
     positivite = pourcent(mp.group(1)) if mp else None
     echantillons, positifs = choisir(candidats(ECHANTILLONS_RES, morceau),
@@ -224,6 +246,10 @@ def lire_province(morceau):
     # « le résultat est revenu positif » : un seul échantillon, pas de chiffre
     if positifs is None and re.search(r"le\s+r[ée]sultat\s+est\s+revenu\s+positif", morceau, re.I):
         positifs = 1
+    # « le Haut-Uélé une confirmation à Pawa parmi les 8 échantillons » (094),
+    # « La Tshopo a enregistré un résultat positif » (093)
+    if positifs is None and re.search(r"\bune\s+confirmation\b|\bun\s+r[ée]sultat\s+positif\b", morceau, re.I):
+        positifs = 1
     if positifs is None and positivite == 0:
         positifs = 0
     # « 1 nouveau résultat positif sur 4 échantillons (positivité 25 %) » se lit
@@ -244,6 +270,10 @@ def lire_province(morceau):
     ligne = {"echantillons": echantillons, "positifs": positifs}
     if deduit:
         ligne["positifsDeduits"] = True
+    if md and echantillons is not None and positifs is not None:
+        ligne["nouveauxCas"] = positifs
+        ligne["echantillons"] = echantillons + entier(md.group(2))
+        ligne["positifs"] = positifs + entier(md.group(1))
     if nouveaux:
         # Positifs = nouveaux cas + réprélèvements : les seconds ne sont pas des
         # cas. On garde les deux, le graphique ne trace que les nouveaux.

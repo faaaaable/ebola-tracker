@@ -1474,14 +1474,15 @@
           "positifs": 1
         },
         "Sud-Kivu": {
-          "echantillons": null,
+          "echantillons": 1,
           "positifs": 0
         }
       },
       "total": {
         "provinces": 4,
-        "echantillons": null,
-        "positifs": 72
+        "echantillons": 347,
+        "positifs": 72,
+        "positivite": 20.7
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -1500,14 +1501,15 @@
           "positivite": 13.2
         },
         "Sud-Kivu": {
-          "echantillons": null,
+          "echantillons": 5,
           "positifs": 0
         }
       },
       "total": {
         "provinces": 3,
-        "echantillons": null,
-        "positifs": 78
+        "echantillons": 386,
+        "positifs": 78,
+        "positivite": 20.2
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -1531,13 +1533,13 @@
           "deces": 1
         },
         "Sud-Kivu": {
-          "echantillons": null,
+          "echantillons": 16,
           "positifs": 0
         }
       },
       "total": {
         "provinces": 4,
-        "echantillons": null,
+        "echantillons": 369,
         "positifs": null
       },
       "source": "SitRep INSP (automatique)"
@@ -1559,14 +1561,15 @@
           "positifs": 0
         },
         "Sud-Kivu": {
-          "echantillons": null,
+          "echantillons": 5,
           "positifs": 0
         }
       },
       "total": {
         "provinces": 4,
-        "echantillons": null,
-        "positifs": 81
+        "echantillons": 443,
+        "positifs": 81,
+        "positivite": 18.3
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -1731,10 +1734,14 @@
         "Nord-Kivu": {
           "echantillons": null,
           "positifs": 25
+        },
+        "Sud-Kivu": {
+          "echantillons": 4,
+          "positifs": 0
         }
       },
       "total": {
-        "provinces": 2,
+        "provinces": 3,
         "echantillons": null,
         "positifs": 105,
         "nouveauxCas": 92
@@ -1757,7 +1764,7 @@
           "positifs": 16
         },
         "Sud-Kivu": {
-          "echantillons": null,
+          "echantillons": 4,
           "positifs": 0
         }
       },
@@ -1786,13 +1793,13 @@
         },
         "Sud-Kivu": {
           "echantillons": 1,
-          "positifs": null
+          "positifs": 0
         }
       },
       "total": {
         "provinces": 3,
         "echantillons": null,
-        "positifs": null,
+        "positifs": 112,
         "nouveauxCas": 104
       },
       "source": "SitRep INSP (automatique)"
@@ -1802,25 +1809,32 @@
       "sitrepNumber": "093",
       "provinces": {
         "Ituri": {
-          "echantillons": 288,
-          "positifs": 89,
+          "echantillons": 367,
+          "positifs": 97,
+          "nouveauxCas": 89,
           "vivants": 59,
           "deces": 30,
           "positivite": 30.9
+        },
+        "Tshopo": {
+          "echantillons": null,
+          "positifs": 1
         },
         "Nord-Kivu": {
           "echantillons": 133,
           "positifs": 8
         },
-        "Tshopo": {
-          "echantillons": 6,
-          "positifs": null
+        "Haut-Uélé": {
+          "echantillons": 9,
+          "positifs": 3,
+          "positivite": 33.3
         }
       },
       "total": {
-        "provinces": 3,
-        "echantillons": 427,
-        "positifs": null
+        "provinces": 4,
+        "echantillons": null,
+        "positifs": 109,
+        "nouveauxCas": 101
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -1829,21 +1843,34 @@
       "sitrepNumber": "094",
       "provinces": {
         "Ituri": {
-          "echantillons": 248,
-          "positifs": 63,
+          "echantillons": 326,
+          "positifs": 76,
+          "nouveauxCas": 63,
           "vivants": 41,
           "deces": 22,
           "positivite": 25.4
         },
+        "Nord-Kivu": {
+          "echantillons": 144,
+          "positifs": 11,
+          "positivite": 7.6
+        },
+        "Haut-Uélé": {
+          "echantillons": 8,
+          "positifs": 1,
+          "positivite": 12.5
+        },
         "Tshopo": {
           "echantillons": 4,
-          "positifs": null
+          "positifs": 1
         }
       },
       "total": {
-        "provinces": 2,
-        "echantillons": 252,
-        "positifs": null
+        "provinces": 4,
+        "echantillons": 482,
+        "positifs": 89,
+        "positivite": 18.5,
+        "nouveauxCas": 76
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -1852,11 +1879,17 @@
       "sitrepNumber": "095",
       "provinces": {
         "Ituri": {
-          "echantillons": 287,
-          "positifs": 52,
+          "echantillons": 377,
+          "positifs": 90,
+          "nouveauxCas": 52,
           "vivants": 27,
           "deces": 25,
           "positivite": 18.1
+        },
+        "Nord-Kivu": {
+          "echantillons": 192,
+          "positifs": 26,
+          "positivite": 13.5
         },
         "Haut-Uélé": {
           "echantillons": null,
@@ -1866,9 +1899,10 @@
         }
       },
       "total": {
-        "provinces": 2,
+        "provinces": 3,
         "echantillons": null,
-        "positifs": 58
+        "positifs": 122,
+        "nouveauxCas": 84
       },
       "source": "SitRep INSP (automatique)"
     },

@@ -1364,3 +1364,10 @@ La vue par semaine du laboratoire ne comptait qu'une journée du 5 au 11 octobre
 - **Le 151 se contredit** : 419 échantillons dans la phrase nationale, 449 par la somme des provinces. La phrase nationale prime (règle d'`app.js` et du KPI), décision du propriétaire.
 - La lettre (`bulletin.py`) ne lisait que `total` : elle prend maintenant `national` d'abord, sinon les lettres 145 à 150 disaient « non publié ».
 - Le 149 et le 150 écrivent encore « 7 nouveaux échantiollos réçus » au Bas-Uélé : coquille non lue, la phrase nationale couvre la journée.
+
+## Laboratoire de fin juillet a mi-aout : tournures lues (19 octobre 2026)
+
+- **Sud-Kivu 080 a 083** : « 1 échantillon reçu (Bagira), négatif », « 5 échantillons reçus (Nyangezi 4, Bagira 1), tous négatifs ». « Reçus » sans « analysés » reste ignoré ailleurs ; suivi d'un négatif, il vaut analysé.
+- **Bloc rédigé 090 a 095** : « parmi les 288 nouveaux échantillons », « 3 cas confirmés (vivants) parmi », « une confirmation à Pawa » (= 1), « Le Nord-Kivu » en majuscule (repère de province). « sur les 4 échantillons » et « aucun résultat\npositif » (coupé par la ligne) aussi.
+- **« De plus, 8 prélèvements sont revenus positifs parmi 79 échantillons analysés »** (Ituri 093 à 095, « réprélèvements » au 095) : hors des nouveaux cas — le cumul de l'Ituri monte de 89 le 15 août, les 89 premiers positifs. Comptés comme reprélèvements (`nouveauxCas` = premiers positifs, échantillons et positifs additionnés). La positivité publiée ne porte que sur la première partie : avertissement attendu.
+- **Restent vides, la source ne dit pas** : 077 et 082 (Haut-Uélé sans échantillons), 090 à 092 (Nord-Kivu « a confirmé 25 cas » seul), 093 (Tshopo citée deux fois, un positif sans dénominateur), 095 (Haut-Uélé). PDF absents : 063, 075, 076.
