@@ -14,7 +14,14 @@
     "defaultLanguage": "fr",
     "xProfile": "EbolaTrackerRDC",
     "telegram": "",
-    "brandName": "Ebola Tracker"
+    "brandName": "Ebola Tracker",
+    "brevoForms": {
+      "_comment": "Formulaires d'inscription Brevo de la page Etre prevenu (19 octobre 2026) : #3 en francais, #4 en anglais, repris par la page swahilie.",
+      "fr": "https://c2cb539e.sibforms.com/serve/MUIFAE7SSo35524_9EuBINJN-yX5Q9QAh9Rvd4iH3kWu3H2fePgCa5FwnkkeYrPG0AOwrMN9Z6ERoBqtmuFW_cJ8LUZJjKkvDbC1VCNiv4YGPKY7ixirXpi5M5fGqEY4R6jyhTR23PalWBOiu6xy_mMUuYA6wfIs-95vDi9L4-cEd6emBXIJNgZzj9p-zngL8VKykmmrdM9sfK0Zjg==",
+      "en": "https://c2cb539e.sibforms.com/serve/MUIFAMYZIgd-9xDHneWlbT3k9pDmMptte2q8qJ88H3BWt94TaZr4GiPVUs5CbFNqc5pzDCYK6PF6nXSVrMX7Qs4YnIppqRvjz_60aMPVxqJReLmBO-_Zs8bkFEi0aojkQ3YZrjsSj1mpyz0K318RHBVQm7raprTV6temp9N-aw_qKAkV9QseQpjJsNeWmRYdjfMvK25RGnApwCtqWQ==",
+      "sw": "https://c2cb539e.sibforms.com/serve/MUIFAMYZIgd-9xDHneWlbT3k9pDmMptte2q8qJ88H3BWt94TaZr4GiPVUs5CbFNqc5pzDCYK6PF6nXSVrMX7Qs4YnIppqRvjz_60aMPVxqJReLmBO-_Zs8bkFEi0aojkQ3YZrjsSj1mpyz0K318RHBVQm7raprTV6temp9N-aw_qKAkV9QseQpjJsNeWmRYdjfMvK25RGnApwCtqWQ=="
+    },
+    "whatsappChannel": "https://whatsapp.com/channel/0029Vb8nWGJHbFV9KjBkBw2O"
   },
   "provinceSlugs": {
     "Ituri": "ituri",
@@ -85,6 +92,9 @@
         "methodologie",
         "contact"
       ]
+    },
+    {
+      "link": "alertes"
     }
   ],
   "footerNav": [
@@ -134,6 +144,7 @@
       "pages": [
         "a-propos",
         "methodologie",
+        "alertes",
         "contact"
       ]
     }
@@ -1038,6 +1049,37 @@
           "title": "Mbinu — Ebola DRC 2026",
           "h1": "Mbinu",
           "description": "Tovuti hii inakusanya ripoti rasmi za INSP na WHO. Kila tarakimu inaweza kufuatiliwa hadi kwenye hati yake."
+        }
+      }
+    },
+    {
+      "id": "alertes",
+      "fragment": "alertes.html",
+      "slug": {
+        "fr": "alertes/",
+        "en": "alerts/",
+        "sw": "arifa/"
+      },
+      "needs": [],
+      "changefreq": "monthly",
+      "priority": "0.5",
+      "schema": [],
+      "navLabelKey": "strings:navAlertes",
+      "meta": {
+        "fr": {
+          "title": "Recevoir une alerte à chaque nouveau SitRep — Ebola RDC",
+          "h1": "Recevoir une alerte à chaque nouveau SitRep",
+          "description": "Un mail court à chaque nouveau rapport de situation sur l'épidémie d'Ebola en RDC : les derniers cas et décès confirmés, et un lien vers le site."
+        },
+        "en": {
+          "title": "Get notified of every new SitRep — Ebola DRC",
+          "h1": "Get notified of every new SitRep",
+          "description": "A short email with every new situation report on the Ebola outbreak in the DRC: the latest confirmed cases and deaths, and a link to the site."
+        },
+        "sw": {
+          "title": "Pata arifa kwa kila SitRep mpya — Ebola DRC",
+          "h1": "Pata arifa kwa kila SitRep mpya",
+          "description": "Barua pepe fupi kwa kila ripoti mpya ya hali ya mlipuko wa Ebola nchini DRC: visa na vifo vya hivi karibuni vilivyothibitishwa, na kiungo cha tovuti."
         }
       }
     },

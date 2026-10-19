@@ -5089,3 +5089,56 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .apr-liens{display:flex;justify-content:center;gap:12px;font-size:15px;margin:22px 0 0;}
 .apr-liens span{color:var(--ink-faint);}
 @media (max-width:560px){.apr-lettre{font-size:18px;padding-top:26px;}}
+
+/* ---- Onglet « Etre prevenu » et sa page (19 octobre 2026) ----
+   Un onglet simple au bout de la barre, sans menu : une cloche bleue devant
+   le libelle, qui devient « Alertes » quand la barre manque de place. Entre
+   901 et 1000 px le glyphe X (repris en pied de page) cede sa place, sinon
+   les langues passaient a la ligne. Sur telephone, la cloche est aussi dans
+   la barre, avant les trois traits, et l'onglet ferme la liste du menu. */
+.na-court{display:none;}
+.na-tel{display:none;}
+@media (min-width:901px){
+  .side-nav .nav-alerte{display:flex;align-items:center;gap:6px;font:500 14px/1.2 var(--font-sans);color:var(--ink);padding:8px 11px;border-radius:9px;text-decoration:none;white-space:nowrap;}
+  .side-nav .nav-alerte:hover{background:rgba(31,26,19,.06);}
+  .side-nav .nav-alerte svg{color:var(--accent);flex:none;}
+}
+@media (min-width:901px) and (max-width:1120px){.na-long{display:none;}.na-court{display:inline;}}
+@media (min-width:901px) and (max-width:1060px){.side-nav .nav-alerte{padding:8px 6px;font-size:13.5px;}}
+@media (min-width:901px) and (max-width:1000px){
+  .lang-btn.lang-x{display:none;}
+  .side-nav .nav-grp-btn{padding:8px 4px;}
+  .brand{margin-right:6px;}
+}
+@media (max-width:900px){
+  .side-panel .side-nav .nav-alerte{display:flex;align-items:center;gap:10px;font:600 22px/1.2 var(--font-serif);letter-spacing:-.01em;color:var(--ink);padding:16px 2px;border-bottom:1px solid var(--line);text-decoration:none;}
+  .side-panel .side-nav .nav-alerte svg{width:18px;height:18px;color:var(--accent);}
+  .side-panel.is-niv2 .side-nav .nav-alerte{display:none;}
+  .na-tel{display:flex;align-items:center;justify-content:center;width:36px;height:36px;color:var(--accent);margin-left:auto;margin-right:4px;}
+}
+.al{max-width:620px;margin:0 auto !important;padding-top:28px;text-align:left;}
+.al .eyebrow{justify-content:flex-start;}
+.al-titre{font:600 clamp(32px,4.4vw,52px)/1.06 var(--font-serif);letter-spacing:-.03em;margin:8px 0 18px;color:var(--ink);}
+.al-chapeau{font:400 19px/1.55 var(--font-serif);color:var(--ink-strong);margin:0 0 28px;}
+.al-form label{display:block;font:600 14px var(--font-sans);color:var(--ink);margin:0 0 8px;}
+.al-ligne{display:flex;gap:8px;}
+.al-ligne input{flex:1;min-width:0;font:16px var(--font-sans);padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);}
+.al-ligne input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent;}
+.al-ligne button{font:600 15px var(--font-sans);padding:12px 18px;border:0;border-radius:12px;background:var(--accent-strong);color:#fff;cursor:pointer;white-space:nowrap;}
+.al-ligne button:hover{background:var(--accent-hover);}
+.al-ligne button:disabled{opacity:.7;cursor:wait;}
+.al-leurre{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;}
+.al-note{font-size:13.5px;color:var(--ink-faint);margin:8px 0 0;}
+.al-msg{font-size:15px;line-height:1.5;border-radius:12px;padding:12px 14px;margin:14px 0 0;}
+.al-msg[hidden]{display:none;}
+.al-ok{background:#e9f4ee;color:var(--accent-stable);}
+.al-err{background:#f8eae7;color:var(--accent-critical);}
+.al-ou{display:flex;align-items:center;gap:12px;margin:26px 0;color:var(--ink-faint);font-size:13px;text-transform:uppercase;letter-spacing:.1em;}
+.al-ou::before,.al-ou::after{content:"";flex:1;height:1px;background:var(--line);}
+.al-wa{display:inline-flex;align-items:center;gap:10px;font:600 15px var(--font-sans);color:var(--ink);padding:11px 18px;border:1px solid var(--line);border-radius:12px;text-decoration:none;background:#fff;}
+.al-wa svg{color:#1f8f4e;}
+.al-wa:hover{border-color:var(--ink-faint);}
+.al-confid{font-size:13.5px;line-height:1.55;color:var(--ink-faint);margin:32px 0 0;border-top:1px solid var(--line);padding-top:14px;}
+@media (max-width:520px){.al-ligne{flex-direction:column;}}
+.al-form label.al-consent{display:flex;align-items:flex-start;gap:9px;font:400 14.5px/1.45 var(--font-sans);color:var(--ink-strong);margin:14px 0 0;cursor:pointer;}
+.al-consent input{width:17px;height:17px;margin:1px 0 0;flex:none;accent-color:var(--accent-strong);}

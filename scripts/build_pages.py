@@ -408,6 +408,19 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
 
     groupes = []
     for groupe in config["mainNav"]:
+        if "link" in groupe:
+            # Onglet simple, sans menu deroulant (19 octobre 2026, « Etre
+            # prevenu ») : une cloche devant le libelle, qui se raccourcit
+            # quand la barre manque de place (.na-long / .na-court).
+            page = by_id[groupe["link"]]
+            current = ' aria-current="page"' if groupe["link"] == current_id else ""
+            groupes.append(
+                '      <a class="nav-alerte" href="%s"%s>%s<span class="na-long">%s</span>'
+                '<span class="na-court">%s</span></a>'
+                % (urls.path(groupe["link"], lang), current, CLOCHE_ICONE,
+                   esc(label_for(page, strings_lang, i18n_lang)),
+                   esc(strings_lang["navAlertesCourt"])))
+            continue
         if "columns" in groupe:
             corps = ('      <div class="nav-cols">\n%s\n      </div>'
                      % "\n".join(colonne(c) for c in groupe["columns"]))
@@ -448,6 +461,12 @@ def build_breadcrumb(urls, lang, strings_lang, trail):
     return ('  <nav class="breadcrumb" aria-label="%s">\n%s\n  </nav>'
             % (esc(strings_lang["breadcrumbLabel"]), "\n".join(parts)))
 
+
+CLOCHE_ICONE = ('<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" '
+                'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+                '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>')
+
+WA_ICONE = ('<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>')
 
 X_ICONE = ('<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
            '<path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg>')
@@ -4450,6 +4469,15 @@ def main():
         compte_x = (config["site"].get("xProfile") or "").strip().lstrip("@")
         lx = lien_x(config, "@" + compte_x) if compte_x else ""
         common_seed["seed.suivreXApropos"] = ('<h2>%s</h2>\n      <p>%s %s</p>' % (esc(strings_lang["aboutFollowTitle"]), esc(strings_lang["aboutFollowBody"]), lx)) if lx else ""
+        # Etre prevenu : le formulaire Brevo de la langue (#3 francais, #4
+        # anglais, repris en swahili) et la chaine WhatsApp, ou rien tant
+        # que son lien n'est pas renseigne.
+        common_seed["seed.alertesAction"] = esc(config["site"]["brevoForms"][lang])
+        common_seed["seed.alertesLocale"] = "fr" if lang == "fr" else "en"
+        wa = (config["site"].get("whatsappChannel") or "").strip()
+        common_seed["seed.alertesWhatsapp"] = (
+            '<div class="al-ou"><span>%s</span></div>\n    <a class="al-wa" href="%s" rel="noopener" target="_blank">%s %s</a>'
+            % (esc(strings_lang["alertesOu"]), esc(wa), WA_ICONE, esc(strings_lang["alertesWhatsapp"]))) if wa else ""
         common_seed["seed.suivreXContact"] = ('<p class="map-note contact-x">%s %s</p>' % (esc(strings_lang["contactFollowBody"]), lx)) if lx else ""
 
         pages = [(page, None) for page in config["pages"]]
@@ -4908,6 +4936,10 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                         % (esc((config["site"].get("xProfile") or "").strip().lstrip("@")),
                            esc(interp(strings_lang["followXLabel"], {"compte": (config["site"].get("xProfile") or "").strip().lstrip("@")})),
                            X_ICONE, esc(strings_lang["menuFollowX"]))) if (config["site"].get("xProfile") or "").strip() else "",
+        # Telephone : la cloche d'« Etre prevenu » dans la barre, avant les
+        # trois traits (19 octobre 2026).
+        "alerteTel": ('    <a class="na-tel" href="%s" aria-label="%s">%s</a>'
+                      % (urls.path("alertes", lang), esc(strings_lang["navAlertes"]), CLOCHE_ICONE)),
         "nav": build_nav(config, urls, lang, strings_lang, i18n_lang,
                          None if is_province else page.get("id"), provinces,
                          current_province=province["name"] if is_province else None),

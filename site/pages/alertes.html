@@ -1,0 +1,26 @@
+  <section class="section al">
+    <div class="eyebrow"><span class="dot"></span>{{t.alertesEyebrow}}</div>
+    <h1 class="al-titre">{{meta.h1}}</h1>
+    <p class="al-chapeau">{{t.alertesLede}}</p>
+    <!-- Formulaire Brevo redessine : seuls l'adresse d'envoi, le champ EMAIL,
+         le leurre email_address_check et la langue viennent du code fourni par
+         Brevo. app.js l'envoie en arriere-plan (?isAjax=1) et affiche le
+         message ; sans JavaScript, le navigateur poste vers Brevo. -->
+    <form class="al-form" id="alertesForm" method="POST" action="{{seed.alertesAction}}">
+      <label for="al-mail">{{t.alertesLabel}}</label>
+      <div class="al-ligne">
+        <input id="al-mail" name="EMAIL" type="email" required placeholder="{{t.alertesPlaceholder}}" autocomplete="email">
+        <button type="submit" id="alertesBtn" data-sending="{{t.alertesSending}}">{{t.alertesSubmit}}</button>
+      </div>
+      <!-- Case de consentement exigee par Brevo depuis le double opt-in
+           (champ OPT_IN, valeur 1). -->
+      <label class="al-consent"><input type="checkbox" name="OPT_IN" value="1" required> <span>{{t.alertesConsentement}}</span></label>
+      <input type="text" name="email_address_check" value="" class="al-leurre" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="locale" value="{{seed.alertesLocale}}">
+      <p class="al-note">{{t.alertesNote}}</p>
+      <p class="al-msg al-ok" id="alertesOk" role="status" hidden>{{t.alertesSuccess}}</p>
+      <p class="al-msg al-err" id="alertesErr" role="alert" hidden>{{t.alertesError}}</p>
+    </form>
+    {{seed.alertesWhatsapp}}
+    <p class="al-confid">{{t.alertesConfidentialite}}</p>
+  </section>
