@@ -100,7 +100,8 @@ HOSPITALISES_RES = [
     # « 53 patients sont pris en charge (36 confirmés et 17 suspects) » (097,
     # Haut-Uele) : la ventilation entre parentheses ancre la tournure.
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+sont\s+pris\s+en\s+charge\s*\(\d", re.I),
-    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades|cas suspects|cas)\s+(?:sont|restent|demeurent)?\s*(?:en\s+)?hospitalis", re.I),
+    # « 39 cas confirmés restent hospitalisés » (156, Haut-Uele)
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades|cas suspects|cas\s+confirm[ée]s|cas)\s+(?:sont|restent|demeurent)?\s*(?:en\s+)?hospitalis", re.I),
     # « Huit (8) patients sont en isolement pour 25 lits » (109 Sud-Kivu) : le
     # nombre est entre parentheses, d'ou la parenthese fermante optionnelle.
     re.compile(r"(\d[\d ]{0,4}\d|\d)\)?\s+(?:patients|malades)\s+sont\s+(?:en\s+)?isol", re.I),

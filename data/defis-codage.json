@@ -8441,6 +8441,112 @@
 "ruptures"
 ]
 }
+],
+"au nord kivu les lits des suspects sont saturés à # # # # # des patients hospitalisés # # sont pris en charge hors cte ct et la complétude des données sur les ambulances n est que de # musienene beni butembo et kalunguta manquants": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"saturation",
+"completude"
+]
+}
+],
+"au nord kivu un gap important d ouverture des rings persiste à katwa la décontamination des ménages reste faible à katwa et à kyondo aucun des # ménages décontaminés n a été doté en kits # # et # eds restent reportés au lendemain les familles n étant pas prêtes pour l enterrement à la tshopo l insuffisance d intrants et de matériels pci dans les ess et les communautés et de ppl formés en pci persiste au haut uélé le cte de pawa n a pas de clôture ne dispose que d une seule latrine et manque d équipements de nettoyage au bas uélé # ess prioritaires sur # n ont pas de triage fonctionnel aucun ne dispose de matelas garnis # sur # n ont pas de stockage d eau couvrant # heures et la remontée des alertes de décès communautaires reste faible": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"resistance",
+"ruptures",
+"eds"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures",
+"completude"
+]
+}
+],
+"au niveau national seules l ituri et le nord kivu ont transmis leurs activités psea du # octobre la couverture des zones touchées reste faible # zs sur # avec des activités psea soit # # la cartographie des intervenants n est pas maîtrisée et certains partenaires refusent de s aligner les supports de sensibilisation et de visibilité sont insuffisants l efficacité des cbcm est faible et le pilier manque de kits informatiques et de fournitures de bureau": [
+{
+"province": "aucune",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"en ituri # rings sur # restent à ouvrir # ménages sur # n ont pas été décontaminés # eds ont échoué et # corps sur # # # n ont pas pu être swabés": [
+{
+"province": "Ituri",
+"obstacles": [
+"eds",
+"resistance"
+]
+}
+],
+"en ituri faible capacité d accueil de certains cte ct kilo lolwa et biakato la prise en charge de # malades critiques le risque imminent de rupture de stock de sang # poches restantes l absence d alimentation pour # patients de la zs de mandima ct mandima et ct makeke et le faible rapportage des mouvements d ambulances # # demeurent préoccupants": [
+{
+"province": "Ituri",
+"obstacles": [
+"saturation",
+"ruptures",
+"completude"
+]
+}
+],
+"en ituri l insuffisance de mobilité pour la supervision dans les zs de rwampara nizi et bunia le retard de paiement des prestataires pour le mois de septembre et le besoin d une ambulance pour desservir les poc de la zs de mandima persistent le poc d avakubi reste non fonctionnel en raison de l insécurité au nord kivu la complétude remonte à # # # # mais le poc de butuhe demeure fermé depuis l incident sécuritaire du # septembre # la prise en charge tardive des alertes remontées par les poc la menace sécuritaire contre les prestataires de l axe butembo le manque de moyens de communication la rupture de consommables intrants pci epi outils de surveillance et l absence d ambulance dédiée aux poc sont signalés au sud kivu la complétude reste faible # # et les poe de kavimvira kalundu port sncc et baraka ne disposent pas de dispositif d isolement au haut uélé le poc de matari n a pas rapporté faute de programmation de vol au bas uélé les services du pnhf ne sont pas fonctionnels les prestataires sont démotivés et non formés et l approvisionnement en eau la mobilité la connectivité les insignes de visibilité et la digitalisation des poe poc font défaut": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"impayes",
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"poc",
+"insecurite",
+"ruptures"
+]
+},
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"poc",
+"ruptures"
+]
+}
 ]
 }
 }
