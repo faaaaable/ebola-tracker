@@ -1,0 +1,258 @@
+{
+ "_comment": "Parcours du premier malade du Kenya (carte de la page Kenya, 20 octobre 2026). Etapes, dates et modes : infographie BBC « Tracing the journey of Kenya's first Ebola patient » (sources Africa CDC, ministere de la Sante de la RDC, au 6 octobre 2026), relayee sur X par @BulosoW le 13 octobre 2026 ; entree en Ouganda par Kasindi le 1er octobre confirmee par Africa CDC (point presse du 9 octobre). « Ateki » de l'infographie = Aketi. Coordonnees approximatives des localites ; Malalise non retrouvee, placee d'apres l'infographie.",
+ "lieux": {
+  "Buta": [
+   24.73,
+   2.79
+  ],
+  "Aketi": [
+   23.78,
+   2.74
+  ],
+  "Likati": [
+   23.88,
+   3.33
+  ],
+  "Malalise": [
+   24.25,
+   3.3
+  ],
+  "Bondo": [
+   23.67,
+   3.81
+  ],
+  "Kisangani": [
+   25.19,
+   0.52
+  ],
+  "Beni": [
+   29.47,
+   0.49
+  ],
+  "Kasindi": [
+   29.71,
+   0.04
+  ],
+  "Kampala": [
+   32.58,
+   0.35
+  ],
+  "Entebbe": [
+   32.46,
+   0.05
+  ],
+  "Nairobi": [
+   36.82,
+   -1.29
+  ]
+ },
+ "etapes": [
+  [
+   1,
+   "Buta",
+   "rdc"
+  ],
+  [
+   2,
+   "Aketi",
+   "rdc"
+  ],
+  [
+   3,
+   "Likati",
+   "rdc"
+  ],
+  [
+   4,
+   "Malalise",
+   "rdc"
+  ],
+  [
+   5,
+   "Bondo",
+   "rdc"
+  ],
+  [
+   6,
+   "Kisangani",
+   "rdc"
+  ],
+  [
+   7,
+   "Beni",
+   "rdc"
+  ],
+  [
+   8,
+   "Kasindi",
+   "rdc"
+  ],
+  [
+   9,
+   "Kampala",
+   "uga"
+  ],
+  [
+   10,
+   "Entebbe",
+   "uga"
+  ],
+  [
+   11,
+   "Nairobi",
+   "ken"
+  ]
+ ],
+ "trajets": [
+  [
+   "Buta",
+   "Aketi",
+   "inconnu"
+  ],
+  [
+   "Aketi",
+   "Likati",
+   "inconnu"
+  ],
+  [
+   "Likati",
+   "Malalise",
+   "inconnu"
+  ],
+  [
+   "Malalise",
+   "Bondo",
+   "inconnu"
+  ],
+  [
+   "Bondo",
+   "Kisangani",
+   "avion"
+  ],
+  [
+   "Kisangani",
+   "Beni",
+   "avion"
+  ],
+  [
+   "Beni",
+   "Kasindi",
+   "inconnu"
+  ],
+  [
+   "Kasindi",
+   "Kampala",
+   "route"
+  ],
+  [
+   "Kampala",
+   "Entebbe",
+   "route"
+  ],
+  [
+   "Entebbe",
+   "Nairobi",
+   "avion"
+  ]
+ ],
+ "textes": {
+  "fr": {
+   "nav": "Le parcours",
+   "titre": "De Buta à Nairobi, le trajet du premier malade",
+   "chapo": "Du 26 août au 3 octobre 2026 : onze étapes, dont trois vols, de la province du Bas-Uélé jusqu’à Nairobi.",
+   "modes": {
+    "avion": "avion",
+    "route": "route",
+    "inconnu": "trajet sans précision"
+   },
+   "pays": {
+    "rdc": "RDC",
+    "uga": "Ouganda",
+    "ken": "Kenya"
+   },
+   "noms": {
+    "rdc": "RDC",
+    "uga": "OUGANDA",
+    "ken": "KENYA"
+   },
+   "cas": "Cas confirmés par zone de santé au 5 octobre 2026, jour de sa mort à Nairobi",
+   "paliers": [
+    "1–9",
+    "10–49",
+    "50–199",
+    "200–499",
+    "500–999",
+    "1 000 et plus"
+   ],
+   "source": "Itinéraire transmis par le ministère de la Santé de la RDC au gouvernement kényan, d’après l’infographie de la BBC (sources : Africa CDC, ministère de la Santé de la RDC, au 6 octobre 2026). Zones de santé coloriées selon les cas confirmés du SitRep 144 (5 octobre 2026) ; aucun cas n’était encore confirmé au Kenya. Position de Malalise approximative."
+  },
+  "en": {
+   "nav": "The journey",
+   "titre": "From Buta to Nairobi: the first patient’s journey",
+   "chapo": "From 26 August to 3 October 2026: eleven stops, including three flights, from Bas-Uélé province to Nairobi.",
+   "modes": {
+    "avion": "flight",
+    "route": "road",
+    "inconnu": "route not specified"
+   },
+   "pays": {
+    "rdc": "DRC",
+    "uga": "Uganda",
+    "ken": "Kenya"
+   },
+   "noms": {
+    "rdc": "DRC",
+    "uga": "UGANDA",
+    "ken": "KENYA"
+   },
+   "cas": "Confirmed cases per health zone on 5 October 2026, the day he died in Nairobi",
+   "paliers": [
+    "1–9",
+    "10–49",
+    "50–199",
+    "200–499",
+    "500–999",
+    "1,000 or more"
+   ],
+   "source": "Itinerary sent by the DRC Ministry of Health to the Kenyan government, according to the BBC’s graphic (sources: Africa CDC, DRC Ministry of Health, as of 6 October 2026). Health zones shaded by confirmed cases in SitRep 144 (5 October 2026); no case had yet been confirmed in Kenya. Position of Malalise approximate."
+  },
+  "sw": {
+   "nav": "Safari",
+   "titre": "Kutoka Buta hadi Nairobi: safari ya mgonjwa wa kwanza",
+   "chapo": "Kuanzia tarehe 26 Agosti hadi 3 Oktoba 2026: vituo kumi na moja, ikiwemo safari tatu za ndege, kutoka jimbo la Bas-Uélé hadi Nairobi.",
+   "modes": {
+    "avion": "ndege",
+    "route": "barabara",
+    "inconnu": "njia isiyoelezwa"
+   },
+   "pays": {
+    "rdc": "DRC",
+    "uga": "Uganda",
+    "ken": "Kenya"
+   },
+   "noms": {
+    "rdc": "DRC",
+    "uga": "UGANDA",
+    "ken": "KENYA"
+   },
+   "cas": "Wagonjwa waliothibitishwa kwa kila eneo la afya tarehe 5 Oktoba 2026, siku alipofariki Nairobi",
+   "paliers": [
+    "1–9",
+    "10–49",
+    "50–199",
+    "200–499",
+    "500–999",
+    "1 000 na zaidi"
+   ],
+   "source": "Njia iliyotumwa na Wizara ya Afya ya DRC kwa serikali ya Kenya, kwa mujibu wa mchoro wa BBC (vyanzo: Africa CDC, Wizara ya Afya ya DRC, kufikia tarehe 6 Oktoba 2026). Maeneo ya afya yamepakwa rangi kulingana na wagonjwa waliothibitishwa katika SitRep 144 (5 Oktoba 2026); hakuna mgonjwa aliyekuwa amethibitishwa Kenya bado. Mahali pa Malalise ni pa kukadiria."
+  }
+ },
+ "fond": {
+  "_comment": "La carte est figee au jour de la mort du malade a Nairobi (20 octobre 2026, demande du proprietaire) : zones de RDC coloriees selon les cas confirmes du SitRep 144 (5 octobre 2026) ; aucun cas au Kenya, dont le premier n'est confirme que le 6. Le trace est conserve dans site/geo/parcours-kenya-<langue>.svg et n'est plus recalcule ; supprimer ces fichiers pour le refaire.",
+  "date": "2026-10-05",
+  "sitrep": "144",
+  "paysSansCas": [
+   "KEN"
+  ]
+ }
+}

@@ -5161,3 +5161,36 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .ag-abo{margin:14px 0 0;text-align:center;}
 .ag-abo a{display:inline-flex;align-items:center;gap:7px;font:600 14.5px var(--font-sans);color:var(--accent-strong);text-decoration:none;border:1px solid var(--accent);border-radius:999px;padding:7px 16px;background:#fff;}
 .ag-abo a:hover{background:var(--accent-strong);border-color:var(--accent-strong);color:#fff;}
+
+/* ---- Pages pays : barre des parties et carte du parcours (20 octobre 2026) ----
+   La barre suit la lecture (collee sous la barre du site sur ordinateur, qui
+   fait 69 px) ; sur telephone elle defile a l'horizontale. */
+.pp-sousnav{position:sticky;top:69px;z-index:40;margin:0 0 8px;background:rgba(253,250,246,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.pp-sousnav div{display:flex;gap:4px 22px;overflow-x:auto;scrollbar-width:none;padding:11px 2px;}
+.pp-sousnav div::-webkit-scrollbar{display:none;}
+.pp-sousnav a{font:600 14px var(--font-sans);color:var(--ink-dim);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;padding-bottom:2px;}
+.pp-sousnav a:hover{color:var(--accent-strong);border-bottom-color:var(--accent-strong);}
+#parcours,#chronologie,#cas,#recit,#questions,#sources{scroll-margin-top:130px;}
+@media (max-width:900px){.pp-sousnav{position:static;}#parcours,#chronologie,#cas,#recit,#questions,#sources{scroll-margin-top:16px;}}
+.pk-cadre{margin:6px 0 0;}
+.pk-carte{width:100%;height:auto;display:block;}
+.pk-carte .pk-avion{stroke:#1B6C8C;stroke-width:2.2;stroke-dasharray:7 5;fill:none;stroke-linecap:round;}
+.pk-carte .pk-route{stroke:#1F1A13;stroke-width:2.2;fill:none;stroke-linecap:round;}
+.pk-carte .pk-inconnu{stroke:#777068;stroke-width:2.2;stroke-dasharray:2 4;fill:none;stroke-linecap:round;}
+.pk-glyphe circle{fill:#fff;stroke:#1B6C8C;stroke-width:1.4;} .pk-glyphe path{fill:#1B6C8C;}
+.pk-glyphe.is-route > circle{stroke:#1F1A13;} .pk-glyphe.is-route path{fill:#1F1A13;}
+.pk-pt circle{stroke:#fff;stroke-width:1.6;} .pk-pt text{font:700 9.5px var(--font-sans);fill:#fff;text-anchor:middle;}
+.pk-lieu{font:600 13px var(--font-sans);fill:var(--ink);paint-order:stroke;stroke:#FDFAF6;stroke-width:3.5px;stroke-linejoin:round;}
+.pk-pays{font:700 15.6px var(--font-sans);letter-spacing:.14em;fill:#9a948b;}
+.pk-leg{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;font-size:13.5px;color:var(--ink-dim);margin:10px 0 0;}
+.pk-leg span{display:inline-flex;align-items:center;gap:7px;}
+.pk-leg i{display:inline-block;width:26px;height:0;border-top:2.5px solid;}
+.pk-leg .l-avion{border-color:#1B6C8C;border-top-style:dashed;} .pk-leg .l-route{border-color:#1F1A13;} .pk-leg .l-inconnu{border-color:#777068;border-top-style:dotted;}
+.pk-leg b{width:12px;height:12px;border-radius:50%;display:inline-block;}
+.pk-leg-cas strong{font-weight:600;color:var(--ink-strong);margin-right:4px;}
+.pk-sw{display:inline-block;width:16px;height:12px;border-radius:2px;}
+.pk-source{font-size:13px;line-height:1.5;color:var(--ink-faint);border-top:1px solid var(--line);padding-top:12px;margin:14px 0 0;}
+/* Sur telephone, la carte du parcours garde une taille lisible et defile a
+   l'horizontale dans son cadre, plutot que de reduire ses noms a 5 px. */
+@media (max-width:760px){.pk-cadre{overflow-x:auto;-webkit-overflow-scrolling:touch;}.pk-carte{min-width:720px;}}
+.pk-carte{pointer-events:none;user-select:none;-webkit-user-select:none;} .pk-carte path{vector-effect:non-scaling-stroke;}

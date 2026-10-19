@@ -37,6 +37,7 @@ import base_donnees  # la base de donnees unifiee (9 octobre 2026)
 import face_accueil  # la riposte et ses defis, sur l'accueil (13 octobre 2026)
 import visuels  # la page Visuels : douze images SVG, trois rythmes (12 octobre 2026)
 import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 2026), en local
+import parcours  # carte du parcours du premier malade du Kenya (20 octobre 2026)
 import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -4722,10 +4723,22 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                                                           urls.path("autres-pays", lang), strings_lang["navAutresPays"])
         values["pays.chronologie"] = hors_rdc.chronologie_html(page["pays"], lang)
         courbe = hors_rdc.courbe_html(page["pays"], lang)
-        values["pays.courbe"] = '  <section class="section pp-centre">%s</section>' % courbe if courbe else ""
+        values["pays.courbe"] = '  <section class="section pp-centre" id="cas">%s</section>' % courbe if courbe else ""
         values["pays.recit"] = hors_rdc.recit_html(page["pays"], lang)
         values["pays.sources"] = hors_rdc.sources_html(page["pays"], lang, strings_lang["autresPaysSources"])
         values["pays.questions"] = hors_rdc.questions_html(page["pays"], lang)
+        # Kenya : carte du parcours du premier malade (20 octobre 2026), sous
+        # l'en-tete ; et, pour tous les pays, une barre des parties de la page.
+        values["pays.parcours"] = (parcours.carte_html(lang, lambda zones: zone_map_html(
+                                       config, geo, zones, provinces, urls, lang, strings_lang))
+                                   if page["pays"] == "kenya" else "")
+        parties = ([("parcours", parcours.nav_libelle(lang))] if values["pays.parcours"] else [])
+        parties += [("chronologie", hors_rdc.LIB[lang]["chrono"])]
+        parties += [("cas", hors_rdc.LIB[lang]["courbe"])] if courbe else []
+        parties += [("recit", hors_rdc.LIB[lang]["recit"]), ("questions", strings_lang["paysQuestions"]),
+                    ("sources", strings_lang["autresPaysSources"])]
+        values["pays.sousnav"] = ('  <nav class="pp-sousnav" aria-label="%s"><div>%s</div></nav>'
+                                  % (esc(meta["h1"]), "".join('<a href="#%s">%s</a>' % (i, esc(l)) for i, l in parties)))
         values["pays.autres"] = " ".join(
             '<a href="%s">%s →</a>' % (urls.path(x["id"], lang), esc(x["meta"][lang]["h1"]))
             for x in config["pages"] if x.get("pays") and x["id"] != page["id"])

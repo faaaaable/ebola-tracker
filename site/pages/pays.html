@@ -2,26 +2,29 @@
        2026, pour le referencement). Refonte du 17 octobre 2026 (options 1 et 2
        des maquettes tmp/proto-pays-1017) : en-tete des pages province (titre,
        « Situation au », chiffres, carte), chronologie « Jour apres jour »,
-       escalier des cas, recit complet (deplie), questions (FAQPage), sources.
+       escalier des cas, recit complet (deplie), questions (FAQPage), sources. Barre des parties sous l'en-tete et, pour le
+       Kenya, carte du parcours du premier malade (20 octobre 2026).
        Contenu : data/autres-pays.json, rendu par scripts/hors_rdc.py. -->
 {{pays.entete}}
+{{pays.sousnav}}
+{{pays.parcours}}
 
-  <section class="section pp-lire">
+  <section class="section pp-lire" id="chronologie">
 {{pays.chronologie}}
   </section>
 {{pays.courbe}}
-  <section class="section pp-lire">
+  <section class="section pp-lire" id="recit">
 {{pays.recit}}
   </section>
 
-  <section class="section">
+  <section class="section" id="questions">
     <h2 class="ap-q-titre">{{t.paysQuestions}}</h2>
     <div class="faq-f1">
 {{pays.questions}}
     </div>
   </section>
 
-  <section class="section pp-lire">
+  <section class="section pp-lire" id="sources">
 {{pays.sources}}
     <div class="faq-fin ap-voir">
       <h2>{{t.paysVoirAussi}}</h2>
