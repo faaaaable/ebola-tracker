@@ -919,7 +919,10 @@
     "alertesConfidentialite": "Votre adresse sert uniquement à envoyer ces alertes, par l’intermédiaire de Brevo. Elle n’est ni partagée ni revendue.",
     "alertesConsentement": "J’accepte de recevoir les alertes SitRep d’ebola-tracker.org.",
     "lettreUneGueris": "guéris",
-    "lettreUneCte": "en CTE"
+    "lettreUneCte": "en CTE",
+    "lettreAboTitre": "Recevoir la Lettre par mail",
+    "lettreAboConsentement": "J’accepte de recevoir les mails d’ebola-tracker.org. Désinscription à tout moment.",
+    "lettreAboSucces": "Presque terminé ! Consultez votre boîte mail et cliquez sur le lien pour confirmer votre inscription."
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -1840,7 +1843,10 @@
     "alertesConfidentialite": "Your address is used only to send these alerts, through Brevo. It is never shared or sold.",
     "alertesConsentement": "I agree to receive ebola-tracker.org SitRep alerts.",
     "lettreUneGueris": "recovered",
-    "lettreUneCte": "in treatment centres"
+    "lettreUneCte": "in treatment centres",
+    "lettreAboTitre": "Get the Letter by email",
+    "lettreAboConsentement": "I agree to receive emails from ebola-tracker.org. Unsubscribe at any time.",
+    "lettreAboSucces": "Almost done! Check your inbox and click the link to confirm your subscription."
   },
   "timelineEvents": [
     {
@@ -3436,6 +3442,9 @@
     "alertesConfidentialite": "Anwani yako inatumika tu kutuma arifa hizi, kupitia Brevo. Haishirikiwi wala kuuzwa.",
     "alertesConsentement": "Ninakubali kupokea arifa za SitRep za ebola-tracker.org.",
     "lettreUneGueris": "waliopona",
-    "lettreUneCte": "katika vituo vya matibabu"
+    "lettreUneCte": "katika vituo vya matibabu",
+    "lettreAboTitre": "Pokea Barua kwa barua pepe",
+    "lettreAboConsentement": "Ninakubali kupokea barua pepe kutoka ebola-tracker.org. Unaweza kujiondoa wakati wowote.",
+    "lettreAboSucces": "Karibu kumaliza! Angalia sanduku lako la barua pepe na ubofye kiungo ili kuthibitisha usajili wako."
   }
 }

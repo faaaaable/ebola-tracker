@@ -5570,22 +5570,21 @@ if(contactForm){
 }
 
 /* ============ ÊTRE PRÉVENU (Brevo, 19 octobre 2026) ============ */
-/* Le formulaire poste vers Brevo en arrière-plan, comme leur propre script
+/* Les formulaires Brevo (page Alertes, Lettre) postent en arrière-plan, comme leur propre script
    (?isAjax=1, réponse {success:true}) ; le message reste sur la page. */
-const alertesForm = document.getElementById('alertesForm');
-if(alertesForm){
-  alertesForm.addEventListener('submit', async (e)=>{
+document.querySelectorAll('form[data-brevo]').forEach(form => {
+  form.addEventListener('submit', async (e)=>{
     e.preventDefault();
-    const btn = document.getElementById('alertesBtn');
-    const ok = document.getElementById('alertesOk');
-    const err = document.getElementById('alertesErr');
+    const btn = form.querySelector('button[type=submit]');
+    const ok = form.querySelector('.al-ok');
+    const err = form.querySelector('.al-err');
     ok.hidden = true; err.hidden = true;
     const label = btn.textContent;
     btn.disabled = true; btn.textContent = btn.dataset.sending;
     try{
-      const res = await fetch(alertesForm.action + '?isAjax=1', {method:'POST', body:new FormData(alertesForm)});
+      const res = await fetch(form.action + '?isAjax=1', {method:'POST', body:new FormData(form)});
       const json = await res.json().catch(()=>({}));
-      if(res.ok && json.success){ ok.hidden = false; alertesForm.reset(); }
+      if(res.ok && json.success){ ok.hidden = false; form.reset(); }
       else err.hidden = false;
     } catch(_){
       err.hidden = false;
@@ -5593,7 +5592,7 @@ if(alertesForm){
       btn.disabled = false; btn.textContent = label;
     }
   });
-}
+});
 
 /* ============ TABLEAU DES ZONES DE SANTÉ ============ */
 let zonesSortKey = 'cases';

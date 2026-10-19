@@ -157,6 +157,26 @@ def render(lang, S, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp
 UNE_GUERIS_CTE_DEPUIS = 156
 
 
+def _abonnement(lang, S, esc):
+    """Encadre « Recevoir la Lettre par mail » sous l'en-tete (19 octobre
+    2026) : formulaire Brevo redessine, poste par app.js (form[data-brevo]).
+    Rien dans une langue sans formulaire (site.brevoLettre)."""
+    action = (_lire("site/pages.json")["site"].get("brevoLettre") or {}).get(lang)
+    if not action:
+        return ""
+    return ('<form class="lq-abo" id="abonnement" data-brevo method="POST" action="%s">'
+            '<div class="lq-abo-t"><b>%s</b></div>'
+            '<div class="lq-abo-f"><div class="al-ligne"><input name="EMAIL" type="email" required placeholder="%s" autocomplete="email" aria-label="%s">'
+            '<button type="submit" data-sending="%s">%s</button></div>'
+            '<label class="al-consent"><input type="checkbox" name="OPT_IN" value="1" required> <span>%s</span></label>'
+            '<input type="text" name="email_address_check" value="" class="al-leurre" tabindex="-1" autocomplete="off" aria-hidden="true">'
+            '<input type="hidden" name="locale" value="%s">'
+            '<p class="al-msg al-ok" role="status" hidden>%s</p><p class="al-msg al-err" role="alert" hidden>%s</p></div></form>'
+            % (esc(action), esc(S["lettreAboTitre"]), esc(S["alertesPlaceholder"]), esc(S["alertesLabel"]),
+               esc(S["alertesSending"]), esc(S["alertesSubmit"]), esc(S["lettreAboConsentement"]), "fr" if lang == "fr" else "en",
+               esc(S["lettreAboSucces"]), esc(S["alertesError"])))
+
+
 def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp,
             province_forms, couleurs, urls, prec_date=None):
     meta, nat = latest["meta"], latest["national"]
@@ -594,7 +614,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                          if nat.get("inCTE") is not None else "")
     tete = {"une": une, "num": num, "date": long_date(date, i18n_lang), "publie": long_date(meta.get("publicationDate") or date, i18n_lang),
             "objet": objet, "jour": jour, "ref": meta.get("sitrepRef") or "", "pdf": pdf, "pied": pied, "pied_html": pied_html, "sous": sous_titre,
-            "nav_html": nav_html, "archive_html": archive_html}
+            "nav_html": nav_html, "archive_html": archive_html, "abo_html": _abonnement(lang, S, esc)}
     return {"seed.bulletinAgence": assembler_agence(tete, chapitres, S, esc, interp)}
 
 
@@ -616,14 +636,18 @@ def assembler_agence(t, chapitres, S, esc, interp):
                    for ident, n, titre, prose, _ in autres)
     chiffres = "".join('<div class="lq-bloc"><h3>%s</h3>%s</div>' % (esc(titre), ch)
                        for ident, n, titre, prose, ch in autres if ch and ident != "defis")
+    # Abonnement (19-20 octobre 2026) : en haut, un lien sous le sous-titre de
+    # l'en-tete ; le formulaire en bas, une fois la lettre lue.
+    abo = t.get("abo_html", "")
+    lien = ('<p class="ag-abo"><a href="#abonnement">%s</a></p>' % esc(S["lettreAboTitre"])) if abo else ""
     out = ['<div class="lq">',
            # En-tete de l'ancienne lettre gardee (6 octobre 2026, demande du
            # proprietaire) : bande, nom en capitales, edition et date, sous-titre.
            '<header class="ag-tete"><div class="ag-barre"></div><div class="ag-manchette">'
            '<p class="ag-marque">%s</p>'
            '<p class="ag-edition"><span>%s</span><i></i><span>%s</span></p>'
-           '<p class="ag-sous">%s</p></div>%s</header>'
-           % (esc(S["lettreEyebrow"]), esc(S["agEdition"] % t["num"]), esc(interp(S["lettreSituationAu"], {"date": t["date"]})), esc(t["sous"]), t["nav_html"]),
+           '<p class="ag-sous">%s</p>%s</div>%s</header>'
+           % (esc(S["lettreEyebrow"]), esc(S["agEdition"] % t["num"]), esc(interp(S["lettreSituationAu"], {"date": t["date"]})), esc(t["sous"]), lien, t["nav_html"]),
            '<div class="lq-grille"><div class="lq-principal" id="%s"><div class="lq-eyebrow">%s</div><h1 class="lq-titre">%s</h1>'
            '<p class="lq-chapo">%s</p>%s</div>'
            % (premier[0], esc(S["lettreUneEyebrow"]), esc(u["titre"]), esc(t["jour"]), premier[3]),
@@ -646,5 +670,6 @@ def assembler_agence(t, chapitres, S, esc, interp):
                u["cfr"], esc(S["lettreUneCfr"]), u["barres"], esc(S["lettreUneCourbe"]))),
            '<div class="lq-cols">%s</div>' % cols,
            ('<div class="lq-chiffres">%s</div>' % chiffres) if chiffres else "",
+           abo,
            '<footer class="lq-pied">%s<p class="lq-ref">%s</p>%s</footer></div>' % (t["nav_html"], t["pied_html"], t["archive_html"])]
     return "\n".join(out)

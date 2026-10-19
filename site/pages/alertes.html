@@ -6,7 +6,7 @@
          le leurre email_address_check et la langue viennent du code fourni par
          Brevo. app.js l'envoie en arriere-plan (?isAjax=1) et affiche le
          message ; sans JavaScript, le navigateur poste vers Brevo. -->
-    <form class="al-form" id="alertesForm" method="POST" action="{{seed.alertesAction}}">
+    <form class="al-form" id="alertesForm" data-brevo method="POST" action="{{seed.alertesAction}}">
       <label for="al-mail">{{t.alertesLabel}}</label>
       <div class="al-ligne">
         <input id="al-mail" name="EMAIL" type="email" required placeholder="{{t.alertesPlaceholder}}" autocomplete="email">
