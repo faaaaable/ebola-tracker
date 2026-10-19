@@ -42,6 +42,31 @@ import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
 MANIFEST = os.path.join(SITE, ".generated.json")
+# Date de dernier vrai changement de chaque page (19 octobre 2026) : une
+# empreinte de son <main> et la date ou elle a change. Le sitemap et les
+# donnees structurees (dateModified) la lisent, au lieu de la date de
+# generation que toutes les pages recevaient chaque jour.
+LASTMOD = os.path.join(SITE, ".lastmod.json")
+LASTMOD_PREV = {}
+LASTMOD_NEW = {}
+VERSION_RE = re.compile(r"\?v=[0-9a-f]{10}")
+
+
+def empreinte_contenu(contenu):
+    """Empreinte du contenu d'une page, sans les jetons de version des
+    fichiers statiques (?v=...), qui changent sans que la page change."""
+    return hashlib.sha256(VERSION_RE.sub("", contenu).strip().encode("utf-8")).hexdigest()[:16]
+
+
+def dates_page(rel, contenu):
+    """(publiee, modifiee) d'une page, en AAAA-MM-JJ. La date de modification
+    ne bouge que si l'empreinte du contenu change."""
+    jour = date.today().isoformat()
+    h = empreinte_contenu(contenu)
+    avant = LASTMOD_PREV.get(rel) or {}
+    modif = avant["modified"] if avant.get("hash") == h else jour
+    LASTMOD_NEW[rel] = {"hash": h, "published": avant.get("published", jour), "modified": modif}
+    return LASTMOD_NEW[rel]["published"], modif
 
 # Espace fine insécable : c'est le séparateur de milliers que produit
 # Number.toLocaleString('fr-FR') côté navigateur. L'utiliser ici évite que les
@@ -619,6 +644,7 @@ def build_json_ld(kinds, context):
                      "name": "Organisation mondiale de la Santé",
                      "url": "https://www.who.int/"},
                 ],
+                "dateModified": context["dateModified"],
             }))
         elif kind == "datasetBase":
             # La base de donnees (9 octobre 2026) : ce que lit Google Dataset
@@ -667,6 +693,8 @@ def build_json_ld(kinds, context):
                 "isPartOf": {"@type": "WebSite",
                              "name": context["brandName"],
                              "url": context["origin"] + "/"},
+                "datePublished": context["datePublished"],
+                "dateModified": context["dateModified"],
             }))
         elif kind == "faqPays" and context["faqPays"]:
             blocks.append(json_ld({
@@ -4234,6 +4262,8 @@ def main():
     urls = Urls(config)
     by_id = {p["id"]: p for p in config["pages"]}
     generated = []
+    if os.path.exists(LASTMOD):
+        LASTMOD_PREV.update(read_json(LASTMOD))
 
     for lang in config["site"]["languages"]:
         strings_lang = strings[lang]
@@ -4494,6 +4524,8 @@ def main():
 
     write_sitemap(config, urls, provinces)
     generated.append("sitemap.xml")
+    write(LASTMOD, json.dumps(LASTMOD_NEW, ensure_ascii=False, indent=0, sort_keys=True) + "\n")
+    generated.append("site/.lastmod.json")
     write_404(config, urls, strings, i18n, layout)
     generated.append("404.html")
     remove_stale(generated)
@@ -4824,6 +4856,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         besoins.remove("chart")
 
     canonical = urls.absolute(path)
+    rel_sortie = os.path.relpath(urls.output_file(path), ROOT).replace("\\", "/")
+    publiee, modifiee = dates_page(rel_sortie, content)
     schema_context = {
         "meta": meta, "lang": lang, "canonical": canonical, "origin": origin,
         "siteName": strings_lang["siteTitleMain"],
@@ -4838,6 +4872,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "breadcrumbHome": strings_lang["breadcrumbHome"],
         "homePath": urls.path("accueil", lang),
         "path": path,
+        "datePublished": publiee,
+        "dateModified": modifiee,
     }
     if is_province:
         schema_context["spatialCoverage"] = province["name"] + ", Democratic Republic of the Congo"
@@ -5003,7 +5039,8 @@ def write_sitemap(config, urls, provinces):
                              % (code, urls.absolute(alt)))
             lines.append('    <xhtml:link rel="alternate" hreflang="x-default" href="%s"/>'
                          % urls.absolute(alternates["fr"]))
-            lines.append("    <lastmod>%s</lastmod>" % today)
+            rel = os.path.relpath(urls.output_file(path), ROOT).replace("\\", "/")
+            lines.append("    <lastmod>%s</lastmod>" % (LASTMOD_NEW.get(rel) or {}).get("modified", today))
             lines.append("    <changefreq>%s</changefreq>" % changefreq)
             lines.append("    <priority>%s</priority>" % adjusted)
             lines.append("  </url>")
