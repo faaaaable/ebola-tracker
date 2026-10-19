@@ -1,0 +1,49 @@
+name: Envoi de la Lettre aux abonnes
+
+# Quand un nouveau SitRep est integre (data/latest.json change), envoie le mail
+# de la nouvelle lettre aux abonnes Brevo, une fois la lettre en ligne
+# (scripts/envoi_lettre.py attend que GitHub Pages la serve). Une lettre ne
+# part qu'une fois : data/envois-lettre.json garde le dernier numero envoye.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/latest.json'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: envoi-lettre
+  cancel-in-progress: false
+
+jobs:
+  envoi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v5
+
+      - name: Installer Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Envoyer la nouvelle lettre
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: python scripts/envoi_lettre.py --envoi
+
+      - name: Noter l'envoi
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/envois-lettre.json
+          if git diff --cached --quiet; then
+            echo "Aucun envoi a noter."
+          else
+            git commit -m "Lettre envoyee aux abonnes"
+            for i in 1 2 3; do git pull --rebase origin main && git push && break; sleep 5; done
+          fi

@@ -1,0 +1,5 @@
+{
+ "_comment": "Derniere lettre envoyee aux abonnes par scripts/envoi_lettre.py. Initialise a 156 le 20 octobre 2026 : les lettres deja en ligne ne partent pas.",
+ "dernier": "156",
+ "campagnes": {}
+}

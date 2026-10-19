@@ -27,6 +27,17 @@
       "fr": "https://c2cb539e.sibforms.com/serve/MUIFAMcIXlJA60afmv4ArrxmhSFNIRiz6mdAxSM3h2nt4zE5U9p56uUJcluTMRYSffuWMZE0mzAWNXNkFBK7o9EHlQEymyNR4GrhBXTc8xvWJhvEItlORlDmBx2JRRt9SBPtgm5aP83XBUjMrj-gxsJbPzjcyit_-63hioxAtTu9CDiik6Hyi_M9Qjf-IohofYetWQ3gZ1J0kWS47w==",
       "en": "https://c2cb539e.sibforms.com/serve/MUIFAFSJWkKKDEmgwp4VbcZ3aOqadacymc-7k330V17j0Mf0lWrFH0h2MqeA7PZXht7g8yL921JberOdAHODRAAp-Zqf-k7yQsctVqofqj5_noXdc62xvasbSMRynQXcm7W-Z0QJCaEPa_tZhE5epqyrfVzUXVa_0zppmol-zWOEavXgTs7udft_58iUkBybctrkZM8biM7OutWebQ==",
       "sw": "https://c2cb539e.sibforms.com/serve/MUIFAFSJWkKKDEmgwp4VbcZ3aOqadacymc-7k330V17j0Mf0lWrFH0h2MqeA7PZXht7g8yL921JberOdAHODRAAp-Zqf-k7yQsctVqofqj5_noXdc62xvasbSMRynQXcm7W-Z0QJCaEPa_tZhE5epqyrfVzUXVa_0zppmol-zWOEavXgTs7udft_58iUkBybctrkZM8biM7OutWebQ=="
+    },
+    "brevoEnvoiLettre": {
+      "_comment": "Envoi automatique du mail de la Lettre (scripts/envoi_lettre.py) : une liste Brevo par langue (ID numerique), expediteur valide dans Brevo. Tant qu'une liste manque, rien n'est envoye dans cette langue.",
+      "listes": {
+        "fr": 5,
+        "en": 6
+      },
+      "expediteur": {
+        "name": "Ebola Tracker",
+        "email": "contact@ebola-tracker.org"
+      }
     }
   },
   "provinceSlugs": {
