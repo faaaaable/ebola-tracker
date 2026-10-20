@@ -66,6 +66,10 @@
                 <button type="button" class="map-btn map-zoom-btn" id="btnZoomIn" aria-label="{{i18n.mapZoomIn}}" title="{{i18n.mapZoomIn}}">+</button>
                 <button type="button" class="map-btn map-zoom-btn" id="btnZoomOut" aria-label="{{i18n.mapZoomOut}}" title="{{i18n.mapZoomOut}}">&minus;</button>
               </span>
+              <!-- Les pays touches hors de RDC et leurs cas confirmes, juste
+                   apres le bouton « Hors RDC » qui les dessine (21 octobre 2026,
+                   option 4 de tmp/proto-hors-rdc-1021). -->
+{{seed.cartoHors}}
             </div>
             <span class="map-timeline-date" id="timelineDate">{{timelineLatest}}</span>
           </div>
@@ -89,6 +93,10 @@
         <div class="name" id="cartoName">{{seed.cartoAsOf}}</div>
         {{seed.cartoSitrep}}
         <div class="note" id="cartoNote"></div>
+        <!-- « RDC » au-dessus des deux chiffres (21 octobre 2026, demande de
+             Fable : l'epidemie est nee en RDC, elle n'y est plus seule). Les
+             autres pays sont dans la barre sous la carte. -->
+        <div class="cd-pays">{{t.cartoPaysRdc}}</div>
 {{panelStats}}
         <dl class="cd-figures">
           <div class="cd-fig is-cases">

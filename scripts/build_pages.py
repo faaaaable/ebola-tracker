@@ -4376,7 +4376,8 @@ def main():
         common_seed["cartogram"] = hors_rdc.greffer(zone_map_html(
             config, geo, latest.get("healthZones", []), provinces, urls, lang,
             strings_lang), geo, lang, config["cartogram"]["zoneThresholds"])
-        common_seed["horsRdc"] = hors_rdc.encart_html(lang)
+        common_seed["horsRdc"] = hors_rdc.encart_html(
+            lang, {x["pays"]: urls.path(x["id"], lang) for x in config["pages"] if x.get("pays")})
         common_seed["seed.heroMapPays"] = pays_hero_map(
             geo, latest.get("healthZones", []), config)
         common_seed["legendSteps"] = legend_steps_html(
@@ -4417,6 +4418,10 @@ def main():
             strings_lang["cartoZonesTouched"],
             {"n": touched, "total": len(geo["zones"])}))
         common_seed["panelStats"] = panel_stats_html(national, lang, i18n_lang)
+        # Les pays touches hors de RDC, sous les chiffres du panneau (21 octobre 2026).
+        common_seed["seed.cartoHors"] = hors_rdc.panneau_html(
+            lang, strings_lang["cartoHorsRdc"],
+            {x["pays"]: urls.path(x["id"], lang) for x in config["pages"] if x.get("pays")})
         common_seed.update(riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang))
         # Contacts vus et occupation des CTE de chaque province (16 sept. 2026).
         common_seed["provinceRiposte"] = {

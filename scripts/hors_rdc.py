@@ -38,18 +38,24 @@ TEXTES = {
                cas_pl="cas confirmés", deces="décès", deces_pl="décès", cours="Épidémie en cours",
                fini="Épidémie terminée", source="Source", court_cas="cas", court_cours="en cours",
                court_fini="terminée", court_gueri="guéri",
-               fini_le="terminée le {d}", cours_depuis="en cours depuis le {d}", cas1="cas"),
+               fini_le="terminée le {d}", cours_depuis="en cours depuis le {d}", cas1="cas",
+               voir_souris="Cliquez pour ouvrir la page du pays",
+               voir_doigt="Touchez à nouveau pour ouvrir la page du pays"),
     "en": dict(premier="First case", dernier="Last case", seul="Single case", cas="confirmed case",
                cas_pl="confirmed cases", deces="death", deces_pl="deaths", cours="Ongoing outbreak",
                fini="Outbreak over", source="Source", court_cas="cases", court_cours="ongoing",
                court_fini="over", court_gueri="recovered",
-               fini_le="over since {d}", cours_depuis="ongoing since {d}", cas1="case"),
+               fini_le="over since {d}", cours_depuis="ongoing since {d}", cas1="case",
+               voir_souris="Click to open the country page",
+               voir_doigt="Tap again to open the country page"),
     "sw": dict(premier="Mgonjwa wa kwanza", dernier="Mgonjwa wa mwisho", seul="Mgonjwa pekee",
                cas="mgonjwa aliyethibitishwa", cas_pl="wagonjwa waliothibitishwa", deces="kifo",
                deces_pl="vifo", cours="Mlipuko unaendelea", fini="Mlipuko umemalizika",
                source="Chanzo", court_cas="wagonjwa", court_cours="unaendelea",
                court_fini="umemalizika", court_gueri="amepona",
-               fini_le="ulimalizika {d}", cours_depuis="unaendelea tangu {d}", cas1="mgonjwa"),
+               fini_le="ulimalizika {d}", cours_depuis="unaendelea tangu {d}", cas1="mgonjwa",
+               voir_souris="Bofya kufungua ukurasa wa nchi",
+               voir_doigt="Gusa tena kufungua ukurasa wa nchi"),
 }
 # Pas de fond Natural Earth pour la RDC (ses zones), la France (hors cadre),
 # les pays touches (leur decoupage administratif) ni les petites iles du fichier.
@@ -128,11 +134,16 @@ def _bulle(p, lang):
         dates = '<div class="hb-l"><span>%s</span><b>%s</b></div>' % (t["seul"], _date(p["premier"], lang))
     return ('<div class="hb-t"><i class="hb-pt is-%s"></i><b>%s</b><em>%s</em></div>%s'
             '<div class="hb-n"><div><b>%d</b><span>%s</span></div><div><b>%d</b><span>%s</span></div></div>'
-            '<p>%s</p><p class="hb-s">%s : %s</p>') % (
+            '<p>%s</p><p class="hb-s"><span class="on-hover">%s</span><span class="on-touch">%s</span></p>') % (
         p["etat"], _esc(p["nom"][lang]), t["cours"] if p["etat"] == "cours" else t["fini"], dates,
         p["cas"], t["cas"] if p["cas"] == 1 else t["cas_pl"],
         p["deces"], t["deces"] if p["deces"] == 1 else t["deces_pl"],
-        _esc(p["note"][lang]), t["source"], _esc(p["source"][lang]))
+        _esc(p["note"][lang]), _esc(t["voir_souris"]), _esc(t["voir_doigt"]))
+    # La derniere ligne dit que le pays mene a sa page (21 octobre 2026) :
+    # un clic a la souris, un second toucher au doigt (app.js, setupMonde).
+    # Plus de ligne « Source : … » (21 octobre 2026, demande de Fable) : les
+    # sources sont sur la page de chaque pays, avec leurs liens ; le champ
+    # source de data/hors-rdc.json reste comme trace.
 
 
 def greffer(svg_html, geo, lang, seuils):
@@ -168,7 +179,7 @@ def greffer(svg_html, geo, lang, seuils):
         # (demande du 8 octobre 2026) : le pays se detache du fond voisin.
         bord = '<path class="hr-bord" d="%s"/>' % pr.anneaux(admin["contours"][a3])
         pays.append('<g class="hr-pays is-%s" data-a3="%s">%s%s</g>' % (p["etat"], a3, chemins, bord))
-        n, etat = _court(p, lang)
+        n, _etat = _court(p, lang)
         x, y = pr.xy(p["lon"], p["lat"])
         if p.get("point", True):
             villes.append(
@@ -182,9 +193,11 @@ def greffer(svg_html, geo, lang, seuils):
         tx, ty = pr.xy(*p.get("labelTel", p["label"]))
         noms.append(
             '<g class="zm-mark hr-nom is-%s" data-a3="%s" data-x="%.1f" data-y="%.1f" data-x-tel="%.1f" data-y-tel="%.1f" transform="translate(%.1f %.1f)">'
-            '<text class="hr-n1" y="0">%s</text><text class="hr-n2" y="19">%s</text>'
-            '<text class="hr-n3" y="35">%s</text></g>'
-            % (p["etat"], a3, lx, ly, tx, ty, lx, ly, _esc(p["nom"][lang]), n, _esc(etat)))
+            '<text class="hr-n1" y="0">%s</text><text class="hr-n2" y="19">%s</text></g>'
+            % (p["etat"], a3, lx, ly, tx, ty, lx, ly, _esc(p["nom"][lang]), n))
+        # Plus de troisieme ligne « en cours depuis le… » / « terminee le… »
+        # (21 octobre 2026, demande de Fable : elle encombrait la carte et
+        # doublait l'infobulle) ; l'etat passe par la couleur (site.css).
 
     couche = ('          <g class="zm-hors"><g class="hr-g-noms">%s</g><g class="hr-g-villes">%s</g></g>\n'
               % ("".join(noms), "".join(villes)))
@@ -224,14 +237,19 @@ def greffer(svg_html, geo, lang, seuils):
                             % (x0, y0, x1 - x0, y1 - y0, m0, n0, m1 - m0, n1 - n0, nom, empreinte), 1)
 
 
-def encart_html(lang):
+def encart_html(lang, liens=None):
     """L'infobulle des pays touches et ses textes, poses dans le cadre de la
-    carte. (L'encart de la France a ete retire le 8 octobre 2026.)"""
+    carte. (L'encart de la France a ete retire le 8 octobre 2026.) liens : la
+    page de chaque pays (id de page -> adresse), vers laquelle mene un clic
+    sur le pays (21 octobre 2026)."""
     hors = _lire("data", "hors-rdc.json")["pays"]
     bulles = {p["a3"]: _bulle(p, lang) for p in hors}
+    pages = {A3_PAGE[pid]: url for pid, url in (liens or {}).items() if pid in A3_PAGE}
     return ('<div class="hr-bulle" role="tooltip" aria-live="polite"></div>\n'
             '<script type="application/json" id="horsRdcBulles">%s</script>\n'
-            % json.dumps(bulles, ensure_ascii=False).replace("</", "<\\/"))
+            '<script type="application/json" id="horsRdcLiens">%s</script>\n'
+            % (json.dumps(bulles, ensure_ascii=False).replace("</", "<\\/"),
+               json.dumps(pages, ensure_ascii=False).replace("</", "<\\/")))
 
 
 A3_PAGE = {"ouganda": "UGA", "kenya": "KEN", "france": "FRA", "nigeria": "NGA"}
@@ -532,6 +550,24 @@ def tableau_html(lang, libelles, liens):
             % (_esc(liens.get(p["id"], "#")), _silhouette(p["id"], 30), _esc(p["nom"][lang]), _esc(cas), _esc(morts),
                _esc(_date(p["premier"], lang)), p["etat"], _esc(p["etatCourt"][lang])))
     return '<div class="ap2-g">%s%s</div>' % (tete, "".join(lignes))
+
+
+def panneau_html(lang, titre, liens):
+    """Accueil, barre sous la carte (21 octobre 2026, option 4 de
+    tmp/proto-hors-rdc-1021) : apres le bouton « Hors RDC », les autres pays
+    touches dans l'ordre du premier cas, chacun avec ses cas confirmes et un
+    lien vers sa page, precedes de « Cas confirmes hors RDC » qui dit ce que
+    sont les nombres. Les cas sont ceux de la fiche (data/autres-pays.json),
+    jamais additionnes a ceux de la RDC : sources et dates differentes."""
+    doc = _lire("data", "autres-pays.json")
+    pays = " ".join(
+        '<a class="is-%s" href="%s">%s <b>%s</b></a>'
+        % (p["etat"], _esc(liens.get(p["id"], "#")), _esc(p["nom"][lang]), _esc(p["chiffres"][0]["n"]))
+        # Du plus grand nombre de cas au plus petit (21 octobre 2026) ; a
+        # egalite, l'epidemie en cours passe devant la terminee.
+        for p in sorted(doc["pays"], key=lambda p: (-int(p["chiffres"][0]["n"]), p["etat"] != "cours")))
+    return ('              <span class="cd-hors" role="group" aria-label="%s"><span class="k">%s</span>%s</span>'
+            % (_esc(titre), _esc(titre), pays))
 
 
 def frise_html(lang, w=900):

@@ -4903,6 +4903,9 @@ function setupMonde(svg, btn){
   const boite = ((tel && svg.dataset.mondeBoxTel) || svg.dataset.mondeBox || '').trim().split(/\s+/).map(Number);
   if(!stage || boite.length !== 4) return;
   const bulles = JSON.parse((document.getElementById('horsRdcBulles') || {}).textContent || '{}');
+  // La page de chaque pays (21 octobre 2026) : un clic a la souris y mene ;
+  // au doigt, le premier toucher ouvre l'infobulle, le second la page.
+  const pages = JSON.parse((document.getElementById('horsRdcLiens') || {}).textContent || '{}');
   const bulle = stage.querySelector('.hr-bulle');
 
   /* Les pays voisins et les pays touches (~150 Ko) ne sont pas dans la page :
@@ -4945,6 +4948,7 @@ function setupMonde(svg, btn){
     map.view = { x: boite[0] + boite[2] / 2 - w / 2, y: boite[1] + boite[3] / 2 - w * aspect / 2,
                  w: w, h: w * aspect, monde: true };
     if(window.mapClearSelection) window.mapClearSelection();
+    curseurPourMonde(true);
     stage.classList.add('is-monde');
     stage.classList.remove('is-monde-pret');
     applyView();
@@ -4978,13 +4982,24 @@ function setupMonde(svg, btn){
     actif = null;
   }
   setupMonde.cacher = cacher;
+  let typePointeur = 'mouse';
   function brancher(){ stage.querySelectorAll('[data-a3]').forEach(el=>{
+    el.addEventListener('pointerdown', e=>{ typePointeur = e.pointerType || 'mouse'; });
     el.addEventListener('pointermove', e=>{ if(e.pointerType === 'mouse') montrer(el, e.clientX, e.clientY); });
     el.addEventListener('pointerleave', e=>{ if(e.pointerType === 'mouse') cacher(); });
-    el.addEventListener('click', e=>{ e.stopPropagation(); montrer(el, e.clientX, e.clientY); });
+    el.addEventListener('click', e=>{
+      e.stopPropagation();
+      if(!stage.classList.contains('is-monde')) return;
+      const a3 = el.dataset.a3, page = pages[a3];
+      const dejaOuverte = actif === a3 && bulle.classList.contains('is-visible');
+      if(page && (typePointeur === 'mouse' || dejaOuverte)){ location.href = page; return; }
+      montrer(el, e.clientX, e.clientY);
+    });
     el.addEventListener('keydown', e=>{
       if(e.key !== 'Enter' && e.key !== ' ') return;
       e.preventDefault();
+      const a3 = el.dataset.a3;
+      if(pages[a3] && actif === a3 && bulle.classList.contains('is-visible')){ location.href = pages[a3]; return; }
       const r = el.getBoundingClientRect();
       montrer(el, r.left + r.width / 2, r.top + r.height / 2);
     });
@@ -4995,9 +5010,31 @@ function setupMonde(svg, btn){
   if(location.hash === '#pays-touches') setTimeout(()=>btn.click(), 300);
 }
 
+/* Vue « Hors RDC » sans curseur du temps (21 octobre 2026, demande de
+   Fable) : les pays hors RDC sont dessines avec leur situation du jour, sans
+   historique date (les deces de l'Ouganda n'ont pas de date). En entrant
+   dans la vue, la lecture s'arrete et la carte revient a la derniere date ;
+   le curseur, Lecture et la note se cachent (.is-vue-monde, site.css). En
+   sortant, ils reviennent, toujours a la derniere date. */
+function curseurPourMonde(entrer){
+  const wrap = document.getElementById('mapTimeline');
+  const slider = document.getElementById('timelineSlider');
+  if(!wrap || !slider) return;
+  wrap.classList.toggle('is-vue-monde', entrer);
+  if(!entrer) return;
+  stopTimelinePlay();
+  if(slider.value !== slider.max){
+    slider.value = slider.max;
+    timelineIndex = (parseInt(slider.max, 10) >= ZONES_HISTORY.length) ? null : parseInt(slider.max, 10);
+    updateTimelineLabel();
+    renderMap();
+  }
+}
+
 function quitterMonde(){
   const stage = map && map.svg && map.svg.closest('.zonemap-stage');
   if(!stage || !stage.classList.contains('is-monde')) return;
+  curseurPourMonde(false);
   stage.classList.remove('is-monde', 'is-monde-pret');
   clearTimeout(setupMonde.t);
   if(setupMonde.cacher) setupMonde.cacher();
