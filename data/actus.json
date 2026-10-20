@@ -2,6 +2,31 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "cbd75481",
+   "date": "2026-10-20",
+   "titre": "Ebola posters for Kenya in English and Kiswahili",
+   "source": "OMS Afrique",
+   "url": "https://www.afro.who.int/countries/kenya/publication/ebola-posters-kenya-english-and-kiswahili",
+   "langue": "en",
+   "resume": "",
+   "statut": "publie",
+   "collecte": "2026-10-20",
+   "image": true
+  },
+  {
+   "id": "8138403d",
+   "date": "2026-10-20",
+   "titre": "Les prestataires de la riposte contre Ebola à Rwampara menacent d’arrêter le travail sous 48 heures faute de paiement",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/20/actualite/sante/les-prestataires-de-la-riposte-contre-ebola-rwampara-menacent-darreter-le",
+   "langue": "fr",
+   "resume": "Les prestataires engagés dans la lutte contre Ebola dans la zone de santé de Rwampara, à Bunia, en Ituri, menacent d’observer un arrêt de travail collectif si leurs arriérés de primes ne sont pas payés dans un délai de 48 heures.",
+   "statut": "publie",
+   "collecte": "2026-10-20",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ecb13cc8",
    "date": "2026-10-19",
    "titre": "Une journée « Stop Ebola » paralyse plusieurs agglomérations du Nord-Kivu",
