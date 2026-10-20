@@ -1375,3 +1375,10 @@ La vue par semaine du laboratoire ne comptait qu'une journée du 5 au 11 octobre
 ## SitRep 156 (17 octobre 2026)
 
 9 455 cas (+40 : Ituri 27, Nord-Kivu 9, Haut-Uélé 2, Tshopo 2), 4 561 décès (+25 : 9 communautaires, 16 intra-CTE), 2 530 guéris (+8). Tableau des provinces relu en texte brut (repli habituel), recoupé ligne par ligne contre la page 1. Laboratoire 40 positifs = 40 nouveaux cas. **CTE : « 39 cas confirmés restent hospitalisés » (Haut-Uélé)** n'était pas lu — « confirmés » ajouté au motif d'`extraire_cte.py` ; somme des provinces 925 = national. Boma Mangbetu alterne avec et sans tiret presque un jour sur deux depuis le 8 octobre : sans effet, clé normalisée. Six textes Défis codés, alignés sur les codages des jours précédents (Nord-Kivu, PoC : plus de « complétude », elle remonte à 95,2 %).
+
+## SitRep 157 (18 octobre 2026, publié le 19) — intégré le 20 octobre 2026
+
+- 9 552 cas (+97), 4 602 décès (+41 : 30 communautaires, 11 en CTE), 2 550 guéris (+20), 937 en CTE, contacts 76,9 %. Provinces, zones et létalités : contrôles ok. Décès « à ventiler » : zones 4 109 contre 4 602 nationaux (493, inchangé depuis le 155).
+- Laboratoire : le Bas-Uélé écrit « 12 nouveaux échantillons reçus au laboratoire de Buta dont 4 nouveaux échantillons ont été envoyés au laboratoire Isiro tous sont revenus négatifs » ; tournure ajoutée à ECHANTILLONS_RES (lieu puis « dont », négatifs dans la phrase). La somme des provinces passe de 488 à 500 = phrase nationale ; seul le 157 change.
+- CTE : la prose ne donne que l'Ituri (429), le Nord-Kivu (450) et la Tshopo (16) = 895, pour 937 au national ; le Haut-Uélé n'est pas cité ce jour-là. Écart de la source, rien à corriger.
+- Défis : 9 textes codés (attaques contre des équipes de décontamination à Beni, PoC d'Avakubi fermé pour insécurité, grève pour non-paiement au PoC PK12 d'Isiro, que le bulletin range au Bas-Uélé). Résumé fr/en/sw écrit (177 mots en français).

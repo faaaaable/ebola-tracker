@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-10-17"
+  "fin": "2026-10-18"
  },
  "parDate": [
   {
@@ -3285,6 +3285,28 @@
      }
     }
    },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-18",
+   "sitrepNumber": "157",
+   "poe": null,
+   "rings": {
+    "ouverts": 26,
+    "attendus": 42
+   },
+   "eds": {
+    "alertes": 58,
+    "realisees": 106,
+    "swabes": 106,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 2
+    }
+   },
+   "vaccination": null,
    "source": "SitRep INSP (automatique)"
   }
  ]

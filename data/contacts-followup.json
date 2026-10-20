@@ -4017,5 +4017,23 @@
         "aSuivre": 13685
       }
     }
+  },
+  {
+    "date": "2026-10-18",
+    "sitrepNumber": "157",
+    "contactsFollowUpRate": 76.9,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 32744,
+      "vus": 25164
+    },
+    "provinces": {
+      "Ituri": {
+        "taux": 69.9
+      },
+      "Nord-Kivu": {
+        "taux": 78.6
+      }
+    }
   }
 ]

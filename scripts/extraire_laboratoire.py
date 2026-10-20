@@ -127,6 +127,10 @@ ECHANTILLONS_RES = [
     # que l'échantillon reçu a été testé
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons?\s+re[çc]us?\s*(?:\([^)]{0,60}\)\s*)?,?\s*(?:tous\s+)?n[ée]gatifs?\b", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+re[çc]us\s+au\s+laboratoire\s+d[e']\s*[\w-]+(?:\s+et\s+(?:d[e']\s*)?[\w-]+)?\s+analys[ée]s", re.I),
+    # « 12 nouveaux échantillons reçus au laboratoire de Buta dont 4 nouveaux
+    # échantillons ont été envoyés au laboratoire Isiro tous sont revenus
+    # négatifs » (157, Bas-Uélé) : les 12 entrent dans les 500 analysés du pays
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+re[çc]us\s+au\s+laboratoire\s+d[e']\s*[\w-]+\s+dont\b(?=[^.]*n[ée]gati)", re.I),
 ]
 POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux?\s+)?r[ée]sultats?\s+positifs?", re.I),
