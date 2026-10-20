@@ -451,6 +451,46 @@ if piliers:
     check("piliers.json ne depasse pas la date du rapport",
           bool(dp) and max(dp) <= date_rapport, "%s vs %s" % (max(dp) if dp else "-", date_rapport))
 
+# ---- Pays touches hors de RDC (21 octobre 2026) ----
+# Les nombres d'un pays n'ont qu'une source : sa fiche dans autres-pays.json
+# (chiffres[0] = cas, chiffres[1] = deces). La carte (hors-rdc.json) les y lit
+# (hors_rdc._hors) ; un champ deplace qui y reapparaitrait avec une autre
+# valeur ferait dire deux choses au site. La chronologie de la fiche porte
+# aussi un cumul : son dernier palier doit tomber sur les cas. Un pays en
+# cours sans communique depuis plus de 7 jours est signale, sans bloquer.
+print("\nPays hors RDC")
+import datetime as _dt
+_ap = _lire_optionnel("autres-pays.json")
+_hr = _lire_optionnel("hors-rdc.json")
+if _ap and _hr:
+    _a3 = {"ouganda": "UGA", "kenya": "KEN", "france": "FRA", "nigeria": "NGA"}
+    _fiches = {_a3.get(p["id"]): p for p in _ap["pays"]}
+    for h in _hr["pays"]:
+        fi = _fiches.get(h["a3"])
+        check("hors-rdc %s : une fiche dans autres-pays.json" % h["a3"], fi is not None)
+        if fi is None:
+            continue
+        attendu = {"etat": fi["etat"], "cas": int(fi["chiffres"][0]["n"]), "deces": int(fi["chiffres"][1]["n"]),
+                   "premier": fi["premier"], "fin": fi.get("fin")}
+        divergent = ["%s %s/%s" % (k, h[k], v) for k, v in attendu.items() if k in h and h[k] != v]
+        check("hors-rdc %s : memes nombres que la fiche" % h["a3"], not divergent, ", ".join(divergent))
+        somme = sum(u.get("cas") or 0 for u in h.get("unites", []))
+        check("hors-rdc %s : unites <= cas du pays" % h["a3"], somme <= attendu["cas"],
+              "%d vs %d" % (somme, attendu["cas"]))
+    aujourdhui = _dt.date.today()
+    for p in _ap["pays"]:
+        cas = int(p["chiffres"][0]["n"])
+        cumuls = [e["cumul"] for e in sorted(p.get("evenements", []), key=lambda e: e["date"]) if e.get("cumul") is not None]
+        check("%s : dernier cumul de la chronologie = cas" % p["id"], not cumuls or cumuls[-1] == cas,
+              "%s vs %d" % (cumuls[-1] if cumuls else "-", cas))
+        sit = p.get("situation")
+        check("%s : date de situation" % p["id"], bool(sit) and sit <= _ap["maj"],
+              "%s (maj %s)" % (sit, _ap["maj"]))
+        if sit and p["etat"] == "cours":
+            age = (aujourdhui - _dt.date.fromisoformat(sit)).days
+            check("%s : en cours, situation de moins de 7 jours" % p["id"], age <= 7,
+                  "au %s, il y a %d jours" % (sit, age), blocking_if_false=False)
+
 print()
 if notes:
     print("%d écart(s) non bloquant(s), connus de la source :" % len(notes))

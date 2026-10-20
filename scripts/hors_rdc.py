@@ -108,6 +108,28 @@ def _jour_mois(iso, lang):
     return "%d %s" % (int(j), MOIS[lang][int(m) - 1])
 
 
+# Une seule source pour les chiffres d'un pays (21 octobre 2026) : etat, cas,
+# deces, premier cas et fin sont lus dans data/autres-pays.json (la fiche) et
+# poses sur l'entree de data/hors-rdc.json (la carte), qui ne garde que ce qui
+# est propre a la carte : ville, places des noms, unites coloriees, note,
+# date du dernier cas. Avant, les deux fichiers portaient les memes nombres et
+# un nouveau cas devait etre ecrit deux fois. check_coherence bloque si un
+# champ deplace reapparait dans hors-rdc.json avec une autre valeur.
+CHAMPS_FICHE = ("etat", "cas", "deces", "premier", "fin")
+
+
+def _hors():
+    fiches = {A3_PAGE[p["id"]]: p for p in _lire("data", "autres-pays.json")["pays"] if p["id"] in A3_PAGE}
+    out = []
+    for p in _lire("data", "hors-rdc.json")["pays"]:
+        f = fiches[p["a3"]]
+        p = dict(p)
+        p.update(etat=f["etat"], cas=int(f["chiffres"][0]["n"]), deces=int(f["chiffres"][1]["n"]),
+                 premier=f["premier"], fin=f.get("fin"))
+        out.append(p)
+    return out
+
+
 def _court(p, lang):
     """« 20 cas, 2 décès » et « terminée le 27 août » : les deux lignes sous le
     nom du pays (option 2 des maquettes du 9 octobre 2026). Les deces sont
@@ -154,7 +176,7 @@ def greffer(svg_html, geo, lang, seuils):
     pr = _Proj(pj["minLon"], pj["maxLat"], pj["scale"])
     region = _lire("site", "geo", "region-monde.json")["pays"]
     admin = _lire("site", "geo", "hors-rdc-admin.json")
-    hors = _lire("data", "hors-rdc.json")["pays"]
+    hors = _hors()
     touches = {p["a3"] for p in hors}
 
     fond = "".join('<path d="%s"/>' % pr.path(c["geometry"])
@@ -242,7 +264,7 @@ def encart_html(lang, liens=None):
     carte. (L'encart de la France a ete retire le 8 octobre 2026.) liens : la
     page de chaque pays (id de page -> adresse), vers laquelle mene un clic
     sur le pays (21 octobre 2026)."""
-    hors = _lire("data", "hors-rdc.json")["pays"]
+    hors = _hors()
     bulles = {p["a3"]: _bulle(p, lang) for p in hors}
     pages = {A3_PAGE[pid]: url for pid, url in (liens or {}).items() if pid in A3_PAGE}
     return ('<div class="hr-bulle" role="tooltip" aria-live="polite"></div>\n'
@@ -412,7 +434,7 @@ def carte_pays_html(pid, lang, w=520):
     corrigee du cosinus de la latitude moyenne, comme la carte de l'accueil."""
     import math
     a3 = A3_PAGE[pid]
-    hr = next((p for p in _lire("data", "hors-rdc.json")["pays"] if p["a3"] == a3), None)
+    hr = next((p for p in _hors() if p["a3"] == a3), None)
     touchees = {n for u in (hr or {}).get("unites", []) for n in u["noms"]}
     unites = _anneaux_pays(a3)
     xs = [x for _, rs in unites for r in rs for x, _ in r]
@@ -460,7 +482,7 @@ def entete_pays_html(pid, lang, h1, lede, lien_autres, libelle_autres):
         '    <div class="pp-carte-wrap">%s</div>\n'
         '  </section>'
         % (_esc(lien_autres), _esc(libelle_autres), _esc(h1),
-           _esc(LIB[lang]["situation"].format(d=_date(doc["maj"], lang))), lede,
+           _esc(LIB[lang]["situation"].format(d=_date(p.get("situation") or doc["maj"], lang))), lede,
            chiffres_html(p, lang), p["etat"], _esc(p["statut"][lang]), carte_pays_html(pid, lang)))
 
 
