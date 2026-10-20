@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Decoupage administratif de l'Ouganda et du Kenya pour la vue « Pays
-touches » de la carte de l'accueil (8 octobre 2026).
+"""Decoupage administratif de l'Ouganda, du Kenya et du Nigeria pour la vue
+« Pays touches » de la carte de l'accueil (8 octobre 2026 ; Nigeria ajoute le
+20 octobre 2026, premier cas a Abuja).
 
 Les pays touches hors de RDC sont dessines comme la RDC : leurs unites
 administratives en creme, celles qui ont eu des cas dans le bleu de la
@@ -12,16 +13,19 @@ de sante de la RDC :
   Le district est l'echelon de la sante en Ouganda.
 - Kenya : cod-ab-ken, 47 comtes (IEBC, 2019). Le comte est l'echelon de la
   sante au Kenya.
+- Nigeria : cod-ab-nga, 36 Etats et le Territoire de la capitale federale
+  (Abuja), 2019. L'Etat est l'echelon ou se pilote la riposte (NCDC et
+  services de sante de chaque Etat).
 
 geoBoundaries a ete ecarte pour l'Ouganda : son ADM2 est fait de 151 comtes
 (subdivisions des districts), et Wakiso n'y existe pas.
 
-Les frontieres exterieures des deux pays (admin0 des memes archives) sont
+Les frontieres exterieures des trois pays (admin0 des memes archives) sont
 gardees a part, pour le fin trait qui les entoure sur la carte.
 
 Usage (les fichiers viennent des archives geojson d'OCHA, decompressees) :
     python scripts/build_geo_hors_rdc.py uga_admin2.geojson ken_admin1.geojson \
-        uga_admin0.geojson ken_admin0.geojson
+        nga_admin1.geojson uga_admin0.geojson ken_admin0.geojson nga_admin0.geojson
 """
 from __future__ import annotations
 
@@ -63,21 +67,22 @@ def unites(chemin, champ):
 
 
 def main():
-    if len(sys.argv) != 5:
+    if len(sys.argv) != 7:
         sys.exit(__doc__)
     sys.setrecursionlimit(100000)
     doc = {
-        "_comment": "Districts de l'Ouganda et comtes du Kenya, simplifies (Douglas-Peucker %.2f deg). "
-                    "OCHA/HDX, CC BY-IGO : cod-ab-uga (UBOS 2020), cod-ab-ken (IEBC 2019). "
+        "_comment": "Districts de l'Ouganda, comtes du Kenya et Etats du Nigeria, simplifies (Douglas-Peucker %.2f deg). "
+                    "OCHA/HDX, CC BY-IGO : cod-ab-uga (UBOS 2020), cod-ab-ken (IEBC 2019), cod-ab-nga (2019). "
                     "Produit par scripts/build_geo_hors_rdc.py." % TOL,
         "UGA": unites(sys.argv[1], "adm2_name"),
         "KEN": unites(sys.argv[2], "adm1_name"),
-        "contours": {"UGA": contour(sys.argv[3]), "KEN": contour(sys.argv[4])},
+        "NGA": unites(sys.argv[3], "adm1_name"),
+        "contours": {"UGA": contour(sys.argv[4]), "KEN": contour(sys.argv[5]), "NGA": contour(sys.argv[6])},
     }
     with io.open(SORTIE, "w", encoding="utf-8") as fh:
         json.dump(doc, fh, ensure_ascii=False, separators=(",", ":"))
-    print("%s : %d districts, %d comtes, %d Ko" % (
-        SORTIE, len(doc["UGA"]), len(doc["KEN"]), os.path.getsize(SORTIE) // 1024))
+    print("%s : %d districts, %d comtes, %d Etats, %d Ko" % (
+        SORTIE, len(doc["UGA"]), len(doc["KEN"]), len(doc["NGA"]), os.path.getsize(SORTIE) // 1024))
 
 
 if __name__ == "__main__":

@@ -15,7 +15,7 @@
 "published": "2026-10-19"
 },
 "autres-pays/index.html": {
-"hash": "47b43def00f20401",
+"hash": "de6f527206ae76e1",
 "modified": "2026-10-20",
 "published": "2026-10-08"
 },
@@ -25,7 +25,7 @@
 "published": "2026-10-08"
 },
 "chronologie/index.html": {
-"hash": "2c6f041de0fa5816",
+"hash": "7a7fd726d3fd4708",
 "modified": "2026-10-20",
 "published": "2026-08-22"
 },
@@ -35,7 +35,7 @@
 "published": "2026-08-22"
 },
 "dashboard/index.html": {
-"hash": "8084ce3da94de36d",
+"hash": "5d81d7b0670a5144",
 "modified": "2026-10-20",
 "published": "2026-10-19"
 },
@@ -110,7 +110,7 @@
 "published": "2026-08-22"
 },
 "en/dashboard/index.html": {
-"hash": "6345cef5a821323a",
+"hash": "231dae21597af922",
 "modified": "2026-10-20",
 "published": "2026-10-19"
 },
@@ -170,7 +170,7 @@
 "published": "2026-08-22"
 },
 "en/france/index.html": {
-"hash": "a749056bf1ca32c1",
+"hash": "d0e6304bd3b6a9a2",
 "modified": "2026-10-20",
 "published": "2026-10-09"
 },
@@ -180,12 +180,12 @@
 "published": "2026-09-10"
 },
 "en/index.html": {
-"hash": "15a3fb7f0ecef4f9",
+"hash": "63070d6967752a6a",
 "modified": "2026-10-20",
 "published": "2026-08-14"
 },
 "en/kenya/index.html": {
-"hash": "a5f242e049303cf7",
+"hash": "5d7ca4a19ffcc318",
 "modified": "2026-10-20",
 "published": "2026-10-09"
 },
@@ -539,8 +539,13 @@
 "modified": "2026-10-20",
 "published": "2026-09-24"
 },
+"en/nigeria/index.html": {
+"hash": "0ad53fd9309347a9",
+"modified": "2026-10-20",
+"published": "2026-10-20"
+},
 "en/other-countries/index.html": {
-"hash": "5db3941bcddba055",
+"hash": "e1ddb52a6c041a77",
 "modified": "2026-10-20",
 "published": "2026-10-08"
 },
@@ -560,12 +565,12 @@
 "published": "2026-08-22"
 },
 "en/timeline/index.html": {
-"hash": "07b3864e28d17ec5",
+"hash": "b29b955366eaf8b2",
 "modified": "2026-10-20",
 "published": "2026-08-22"
 },
 "en/uganda/index.html": {
-"hash": "528527e59b3a9dd4",
+"hash": "3328a2bd985974fc",
 "modified": "2026-10-20",
 "published": "2026-10-09"
 },
@@ -580,7 +585,7 @@
 "published": "2026-08-22"
 },
 "france/index.html": {
-"hash": "b5439f075f3e1189",
+"hash": "01c414fb9b6d1bb3",
 "modified": "2026-10-20",
 "published": "2026-10-09"
 },
@@ -590,12 +595,12 @@
 "published": "2026-09-10"
 },
 "index.html": {
-"hash": "df957fd39934fb71",
+"hash": "cf633fb628c1a736",
 "modified": "2026-10-20",
 "published": "2026-08-11"
 },
 "kenya/index.html": {
-"hash": "51c3cfd2a59ec482",
+"hash": "9eeefbf20f742499",
 "modified": "2026-10-20",
 "published": "2026-10-09"
 },
@@ -949,8 +954,13 @@
 "modified": "2026-10-17",
 "published": "2026-10-17"
 },
+"nigeria/index.html": {
+"hash": "c80eb749ba2a5d87",
+"modified": "2026-10-20",
+"published": "2026-10-20"
+},
 "ouganda/index.html": {
-"hash": "b5f2613320741dd4",
+"hash": "7d4ca66a1851492b",
 "modified": "2026-10-20",
 "published": "2026-10-09"
 },
@@ -1315,7 +1325,7 @@
 "published": "2026-10-08"
 },
 "sw/dashibodi/index.html": {
-"hash": "13bf7835805b4350",
+"hash": "e5e954e7b7024f67",
 "modified": "2026-10-20",
 "published": "2026-10-19"
 },
@@ -1330,7 +1340,7 @@
 "published": "2026-10-08"
 },
 "sw/index.html": {
-"hash": "2748d9e7a078e5fa",
+"hash": "8b8b8cef6cd00147",
 "modified": "2026-10-20",
 "published": "2026-08-25"
 },
@@ -1340,7 +1350,7 @@
 "published": "2026-09-10"
 },
 "sw/kenya/index.html": {
-"hash": "8adddfd9296df45f",
+"hash": "01331b1d2e49edd6",
 "modified": "2026-10-20",
 "published": "2026-10-09"
 },
@@ -1360,7 +1370,7 @@
 "published": "2026-08-25"
 },
 "sw/matukio/index.html": {
-"hash": "ee179fd11def5438",
+"hash": "73d88db0dbe24d1c",
 "modified": "2026-10-20",
 "published": "2026-08-25"
 },
@@ -1380,9 +1390,14 @@
 "published": "2026-10-12"
 },
 "sw/nchi-nyingine/index.html": {
-"hash": "48319f0003ba3045",
+"hash": "8de130d554951de1",
 "modified": "2026-10-20",
 "published": "2026-10-08"
+},
+"sw/nigeria/index.html": {
+"hash": "e835c4769483f1ed",
+"modified": "2026-10-20",
+"published": "2026-10-20"
 },
 "sw/ripoti/index.html": {
 "hash": "82ebe02a3483901a",
@@ -1435,12 +1450,12 @@
 "published": "2026-08-25"
 },
 "sw/ufaransa/index.html": {
-"hash": "4fe916bbe08b0550",
+"hash": "063ec5cdf312604e",
 "modified": "2026-10-20",
 "published": "2026-10-09"
 },
 "sw/uganda/index.html": {
-"hash": "e63a17e6301eccde",
+"hash": "117acb07d1ef4c31",
 "modified": "2026-10-20",
 "published": "2026-10-09"
 },

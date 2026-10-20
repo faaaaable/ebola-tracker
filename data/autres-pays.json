@@ -1,5 +1,5 @@
 {
-  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital ; point du ministere au 11 octobre 2026 (publie sur X le 12 : 1 cas importe, 1 deces, aucun nouveau cas depuis le 6 octobre, 122 contacts listes et verifies dont 108 en quarantaine, aucun avec symptomes) ; communique du directeur general de la Sante du 14 octobre 2026 (publie sur X le 14) : deuxieme cas confirme, un homme de 39 ans, proche parent du premier, deja en quarantaine, tombe malade le 13 octobre, positif au laboratoire national de reference et au laboratoire KEMRI-CDC ; 2 cas, 1 deces ; au 13 octobre, 128 contacts du premier cas listes, 113 retrouves, dont 108 en quarantaine au Kenya et 5 hors du pays, 15 encore recherches. Point du 18 octobre 2026 (publie sur X le 18) : huitieme cas confirme, un homme de 49 ans, pas soignant (fievre, maux de tete, douleurs musculaires), seul positif sur 38 personnes testees ce jour ; 8 cas ; quarantaine et lien avec les cas precedents non precises. Communique du directeur general du 20 octobre 2026 (publie sur X le 20) : neuvieme cas, confirme le 19, un homme de 24 ans, proche parent et contact connu du premier malade, deja en quarantaine ; les neuf cas forment un seul groupe, sans transmission connue en dehors ; huit malades en amelioration et stables ; 134 contacts sur 135 (99,3 %) en quarantaine ; sortie de quarantaine des contacts du 6 octobre a partir du 25 octobre ; 500 doses de medicaments ; materiel pour 12 comtes a tres haut risque et 16 a haut risque ; laboratoire dedie a l'unite des maladies infectieuses de l'hopital national Kenyatta. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche). Pages Kenya, Ouganda et France (9 octobre 2026, pour le referencement) : la meme fiche seule, suivie de questions (questions, rendues en FAQPage) redigees a partir des seuls faits de la fiche et de ses sources ; pageLien est le renvoi de la fiche d'« Autres pays » vers la page du pays. Refonte du 17 octobre 2026 (en-tete des pages province + chronologie) : evenements = la chronologie du pays, une ligne par fait date tire du texte ci-dessus (type cas/deces/geo/officiel ; cumul = cas confirmes annonces a cette date) ; a completer a chaque communique. courbe : trace l'escalier des cas (seulement si chaque cas a sa date d'annonce, donc pas l'Ouganda). etatCourt et fin : tableau et frise de la page Autres pays (fin = fin de l'epidemie, ou sortie du malade pour la France ; null = en cours). resume (par pays) et relie : textes courts de la page Autres pays (17 octobre 2026), tires du texte de chaque fiche, sans chiffre nouveau ; a mettre a jour avec les fiches.",
+  "_comment": "Page « Autres pays » (8 octobre 2026, en local) : resume redige de la situation dans les trois pays qui ont confirme des cas lies a l'epidemie de RDC. Sources ouvertes, PAS les bulletins de l'INSP. Ouganda et France : rapports hebdomadaires de l'OMS archives dans reports/who (n° 1 a 16) et Disease Outbreak News DON612 (3 juillet 2026). Kenya : OMS Afrique et ministere kenyan de la Sante (6 octobre 2026), Associated Press pour le Nairobi Hospital ; point du ministere au 11 octobre 2026 (publie sur X le 12 : 1 cas importe, 1 deces, aucun nouveau cas depuis le 6 octobre, 122 contacts listes et verifies dont 108 en quarantaine, aucun avec symptomes) ; communique du directeur general de la Sante du 14 octobre 2026 (publie sur X le 14) : deuxieme cas confirme, un homme de 39 ans, proche parent du premier, deja en quarantaine, tombe malade le 13 octobre, positif au laboratoire national de reference et au laboratoire KEMRI-CDC ; 2 cas, 1 deces ; au 13 octobre, 128 contacts du premier cas listes, 113 retrouves, dont 108 en quarantaine au Kenya et 5 hors du pays, 15 encore recherches. Point du 18 octobre 2026 (publie sur X le 18) : huitieme cas confirme, un homme de 49 ans, pas soignant (fievre, maux de tete, douleurs musculaires), seul positif sur 38 personnes testees ce jour ; 8 cas ; quarantaine et lien avec les cas precedents non precises. Communique du directeur general du 20 octobre 2026 (publie sur X le 20) : neuvieme cas, confirme le 19, un homme de 24 ans, proche parent et contact connu du premier malade, deja en quarantaine ; les neuf cas forment un seul groupe, sans transmission connue en dehors ; huit malades en amelioration et stables ; 134 contacts sur 135 (99,3 %) en quarantaine ; sortie de quarantaine des contacts du 6 octobre a partir du 25 octobre ; 500 doses de medicaments ; materiel pour 12 comtes a tres haut risque et 16 a haut risque ; laboratoire dedie a l'unite des maladies infectieuses de l'hopital national Kenyatta. Rendu par hors_rdc.page_html. Le swahili est traduit par l'assistant, a faire relire. Ordre des pays : celui du premier cas (premier, date ISO, mis en avant en tete de fiche), decision du 8 octobre 2026 (option 1 des maquettes, tout le texte affiche). Pages Kenya, Ouganda et France (9 octobre 2026, pour le referencement) : la meme fiche seule, suivie de questions (questions, rendues en FAQPage) redigees a partir des seuls faits de la fiche et de ses sources ; pageLien est le renvoi de la fiche d'« Autres pays » vers la page du pays. Refonte du 17 octobre 2026 (en-tete des pages province + chronologie) : evenements = la chronologie du pays, une ligne par fait date tire du texte ci-dessus (type cas/deces/geo/officiel ; cumul = cas confirmes annonces a cette date) ; a completer a chaque communique. courbe : trace l'escalier des cas (seulement si chaque cas a sa date d'annonce, donc pas l'Ouganda). etatCourt et fin : tableau et frise de la page Autres pays (fin = fin de l'epidemie, ou sortie du malade pour la France ; null = en cours). resume (par pays) et relie : textes courts de la page Autres pays (17 octobre 2026), tires du texte de chaque fiche, sans chiffre nouveau ; a mettre a jour avec les fiches. Nigeria (20 octobre 2026) : declaration du ministre federal de la Sante et des Affaires sociales, Muhammad Ali Pate, le 20 octobre 2026, lue dans AP (Lagos, 20 octobre : malade depuis le 7 octobre, admise le 11 dans un hopital prive d'Abuja, 44 contacts, citation du ministre), AFP (Medical Xpress : femme arrivee d'Ouganda a Abuja par avion, soignee plusieurs jours dans un hopital prive, isolee et soignee, 44 contacts) et THEWILL (contacts parmi soignants, patients, accompagnants et passagers ; aucun contact positif annonce ; riposte du ministere, du NCDC et des services de sante du Territoire de la capitale federale ; numero vert 6232 ; avis du NCDC du 6 octobre apres le cas du Kenya). Le communique lui-meme n'a pas ete lu (pas encore sur le site du NCDC) ; apnews.com refuse la lecture automatique. NON PUBLIE, donc non ecrit : nationalite, age, date du vol, ce qu'elle faisait en Ouganda, comment elle a ete contaminee, nom de l'hopital, laboratoire. L'Ouganda n'a annonce aucun nouveau cas : sa fiche ne change pas. Communique du ministere federal de la Sante et de la Protection sociale du 20 octobre 2026, signe du ministre coordinateur Muhammad Ali Pate (publie sur X le 20, tweet @Fmohnigeria 2112610721456353571, deux pages en image) : confirmation au laboratoire le 20 octobre ; femme arrivee d'Ouganda par un vol international, admise dans un hopital prive du FCT, soignee plusieurs jours avant le diagnostic, isolee ; 44 contacts proches (soignants, patients, accompagnants, contacts de voyage) ; aide a l'hopital pour la prevention des infections ; hopitaux du pays en alerte ; enquete en cours ; mises a jour par la Presidential Taskforce on EVD et le NCDC ; numero 6232. Le communique ne donne PAS les dates du 7 (symptomes) et du 11 octobre (admission) : elles viennent d'AP, et le texte les attribue a AP.",
   "maj": "2026-10-20",
   "pays": [
     {
@@ -897,6 +897,271 @@
         "en": "A Kenyan who lived in the DRC, who reached Nairobi via Beni and Kampala, died on 5 October 2026. The next six cases, relatives and three health workers who had cared for him, were already in quarantine when they fell ill. An eighth, a 49-year-old man, was confirmed on 18 October, and a ninth, a relative already in quarantine, on the 19th; according to the ministry, all nine cases form one cluster.",
         "sw": "Mkenya aliyeishi DRC, aliyefika Nairobi kupitia Beni na Kampala, alifariki tarehe 5 Oktoba 2026. Wagonjwa sita waliofuata, jamaa na wahudumu watatu wa afya waliomhudumia, walikuwa tayari karantini walipougua. Mgonjwa wa nane, mwanamume wa miaka 49, alithibitishwa tarehe 18 Oktoba, na wa tisa, jamaa aliyekuwa tayari karantini, tarehe 19; kwa mujibu wa wizara, wagonjwa wote tisa ni wa kundi moja."
       }
+    },
+    {
+      "id": "nigeria",
+      "etat": "cours",
+      "nom": {
+        "fr": "Nigeria",
+        "en": "Nigeria",
+        "sw": "Nigeria"
+      },
+      "statut": {
+        "fr": "Un premier cas confirmé le 20 octobre 2026, à Abuja",
+        "en": "A first case confirmed on 20 October 2026, in Abuja",
+        "sw": "Mgonjwa wa kwanza athibitishwa tarehe 20 Oktoba 2026, Abuja"
+      },
+      "chiffres": [
+        {
+          "n": "1",
+          "l": {
+            "fr": "cas confirmé",
+            "en": "confirmed case",
+            "sw": "mgonjwa aliyethibitishwa"
+          }
+        },
+        {
+          "n": "0",
+          "l": {
+            "fr": "décès",
+            "en": "deaths",
+            "sw": "vifo"
+          }
+        },
+        {
+          "n": "44",
+          "l": {
+            "fr": "contacts identifiés",
+            "en": "contacts identified",
+            "sw": "watu wa karibu waliotambuliwa"
+          }
+        }
+      ],
+      "texte": {
+        "fr": [
+          "Le Nigeria a confirmé le 20 octobre 2026 son premier cas d'Ebola de l'épidémie née en RDC. La malade est une femme arrivée récemment d'Ouganda par un vol international. Le cas a été confirmé au laboratoire le jour même et annoncé par le ministère fédéral de la Santé et de la Protection sociale, dans un communiqué signé du ministre Muhammad Ali Pate.",
+          "Selon le communiqué, elle a été admise dans un hôpital privé du Territoire de la capitale fédérale (Abuja), où elle a été soignée plusieurs jours avant que le diagnostic soit posé. Elle est isolée et reçoit des soins. L'hôpital reçoit une aide immédiate pour renforcer ses mesures contre l'infection. D'après l'agence AP, elle était tombée malade le 7 octobre et avait été admise le 11.",
+          "Au 20 octobre, 44 contacts proches ont été identifiés ; les équipes recherchent et suivent les personnes qui ont pu être exposées : soignants, autres patients, accompagnants et contacts de voyage, dont les passagers des vols concernés. Aucun contact positif n'a été annoncé. La riposte est menée par le ministère fédéral, le Centre nigérian de contrôle des maladies (NCDC) et les services de santé du Territoire de la capitale fédérale ; les mises à jour viendront du groupe de travail présidentiel sur Ebola et du NCDC. Le gouvernement a mis en alerte tous les établissements de santé, publics et privés.",
+          "Le communiqué ne dit ni sa nationalité, ni la date de son arrivée, ni comment elle a été contaminée : l'enquête est en cours. L'Ouganda, d'où elle venait, a déclaré la fin de son épidémie le 27 août 2026 et n'a pas annoncé de nouveau cas depuis. Le NCDC avait relevé le risque d'importation dès le 6 octobre, après le premier cas du Kenya. En 2014, le Nigeria avait déjà contenu Ebola : 20 cas à Lagos et Port Harcourt, après l'arrivée d'un voyageur malade venu du Liberia."
+        ],
+        "en": [
+          "On 20 October 2026 Nigeria confirmed its first Ebola case of the outbreak that began in the DRC. The patient is a woman who had recently arrived from Uganda on an international flight. The case was confirmed by laboratory tests that day and announced by the Federal Ministry of Health and Social Welfare, in a statement signed by the minister, Muhammad Ali Pate.",
+          "According to the statement, she was admitted to a private hospital in the Federal Capital Territory (Abuja), where she was treated for several days before the diagnosis was confirmed. She is in isolation and receiving care. The hospital is receiving immediate support to strengthen infection prevention and control. According to AP, she had fallen ill on 7 October and was admitted on the 11th.",
+          "As of 20 October, 44 close contacts had been identified; teams are tracing and monitoring people who may have been exposed: health workers, other patients, caregivers and travel contacts, including passengers on the flights concerned. No contact has been reported positive. The response is led by the federal ministry, the Nigeria Centre for Disease Control and Prevention (NCDC) and the health services of the Federal Capital Territory; updates will come from the Presidential Taskforce on Ebola and the NCDC. The government has put all public and private health facilities on alert.",
+          "The statement gives neither her nationality, the date of her arrival nor how she was infected: investigations are ongoing. Uganda, where she came from, declared its outbreak over on 27 August 2026 and has not announced a new case since. The NCDC had flagged the risk of importation on 6 October, after Kenya's first case. Nigeria contained Ebola once before, in 2014: 20 cases in Lagos and Port Harcourt, after a sick traveller arrived from Liberia."
+        ],
+        "sw": [
+          "Tarehe 20 Oktoba 2026 Nigeria ilithibitisha mgonjwa wake wa kwanza wa Ebola wa mlipuko ulioanzia DRC. Mgonjwa ni mwanamke aliyefika hivi karibuni kutoka Uganda kwa ndege ya kimataifa. Maabara ilithibitisha kisa siku hiyo hiyo, na kilitangazwa na Wizara ya Afya na Ustawi wa Jamii ya shirikisho, katika taarifa iliyosainiwa na waziri Muhammad Ali Pate.",
+          "Kwa mujibu wa taarifa, alilazwa katika hospitali binafsi ya Eneo la Mji Mkuu wa Shirikisho (Abuja), ambako alitibiwa siku kadhaa kabla ya kugunduliwa. Ametengwa na anapata matibabu. Hospitali hiyo inapata msaada wa haraka wa kuimarisha hatua za kuzuia maambukizi. Kwa mujibu wa AP, aliugua tarehe 7 Oktoba na alilazwa tarehe 11.",
+          "Kufikia tarehe 20 Oktoba, watu 44 wa karibu walikuwa wametambuliwa; timu zinatafuta na kufuatilia watu ambao huenda waliambukizwa: wahudumu wa afya, wagonjwa wengine, walezi na watu waliosafiri naye, wakiwemo abiria wa ndege husika. Hakuna mtu wa karibu aliyetangazwa kuwa na virusi. Mapambano yanaongozwa na wizara ya shirikisho, Kituo cha Kudhibiti Magonjwa cha Nigeria (NCDC) na huduma za afya za Eneo la Mji Mkuu wa Shirikisho; taarifa mpya zitatoka kwa kikosi kazi cha rais kuhusu Ebola na NCDC. Serikali imeweka vituo vyote vya afya, vya umma na binafsi, katika tahadhari.",
+          "Taarifa haitaji uraia wake, tarehe aliyofika wala jinsi alivyoambukizwa: uchunguzi unaendelea. Uganda, alikotoka, ilitangaza mwisho wa mlipuko wake tarehe 27 Agosti 2026 na haijatangaza mgonjwa mpya tangu hapo. NCDC ilikuwa imeonya kuhusu hatari ya kuingizwa kwa ugonjwa tangu tarehe 6 Oktoba, baada ya mgonjwa wa kwanza wa Kenya. Nigeria iliwahi kudhibiti Ebola mwaka 2014: wagonjwa 20 Lagos na Port Harcourt, baada ya msafiri mgonjwa kufika kutoka Liberia."
+        ]
+      },
+      "sources": [
+        {
+          "l": {
+            "fr": "Ministère fédéral de la Santé et de la Protection sociale, communiqué du 20 octobre 2026 (sur X)",
+            "en": "Federal Ministry of Health and Social Welfare, press statement of 20 October 2026 (on X)",
+            "sw": "Wizara ya Afya na Ustawi wa Jamii ya shirikisho, taarifa ya 20 Oktoba 2026 (kwenye X)"
+          },
+          "url": "https://x.com/Fmohnigeria/status/2112610721456353571"
+        },
+        {
+          "l": {
+            "fr": "Associated Press, 20 octobre 2026",
+            "en": "Associated Press, 20 October 2026",
+            "sw": "Associated Press, 20 Oktoba 2026"
+          },
+          "url": "https://apnews.com/article/nigeria-ebola-first-case-africa-d39e454fbe1be1243e4e39fb46939f62"
+        },
+        {
+          "l": {
+            "fr": "AFP, via Medical Xpress, 20 octobre 2026",
+            "en": "AFP, via Medical Xpress, 20 October 2026",
+            "sw": "AFP, kupitia Medical Xpress, 20 Oktoba 2026"
+          },
+          "url": "https://medicalxpress.com/news/2026-10-nigeria-ebola-case.html"
+        },
+        {
+          "l": {
+            "fr": "THEWILL, 20 octobre 2026",
+            "en": "THEWILL, 20 October 2026",
+            "sw": "THEWILL, 20 Oktoba 2026"
+          },
+          "url": "https://thewillnews.com/ebola-reaches-nigeria-abuja-case-triggers-emergency-hunt-for-44-contacts-hospitals-put-on-alert/"
+        },
+        {
+          "l": {
+            "fr": "OMS, 20 octobre 2014 : fin de l'épidémie de 2014 au Nigeria",
+            "en": "WHO, 20 October 2014: end of the 2014 outbreak in Nigeria",
+            "sw": "WHO, 20 Oktoba 2014: mwisho wa mlipuko wa 2014 nchini Nigeria"
+          },
+          "url": "https://www.paho.org/en/news/20-10-2014-who-declares-end-ebola-outbreak-nigeria"
+        }
+      ],
+      "premier": "2026-10-20",
+      "pageLien": {
+        "fr": "Toute la page Ebola au Nigeria",
+        "en": "Full page: Ebola in Nigeria",
+        "sw": "Ukurasa kamili: Ebola nchini Nigeria"
+      },
+      "questions": [
+        {
+          "q": {
+            "fr": "Y a-t-il Ebola au Nigeria ?",
+            "en": "Is there Ebola in Nigeria?",
+            "sw": "Je, kuna Ebola nchini Nigeria?"
+          },
+          "a": {
+            "fr": "Oui. Le Nigeria a confirmé le 20 octobre 2026 un premier cas, à Abuja : une femme arrivée d'Ouganda par avion. Elle est isolée et soignée. C'est le seul cas confirmé dans le pays à cette date.",
+            "en": "Yes. On 20 October 2026 Nigeria confirmed a first case, in Abuja: a woman who had arrived from Uganda by air. She is isolated and receiving care. It is the only confirmed case in the country as of that date.",
+            "sw": "Ndiyo. Tarehe 20 Oktoba 2026 Nigeria ilithibitisha mgonjwa wa kwanza, Abuja: mwanamke aliyefika kutoka Uganda kwa ndege. Ametengwa na anapata matibabu. Ndiye mgonjwa pekee aliyethibitishwa nchini hadi tarehe hiyo."
+          }
+        },
+        {
+          "q": {
+            "fr": "Qui est la malade ?",
+            "en": "Who is the patient?",
+            "sw": "Mgonjwa ni nani?"
+          },
+          "a": {
+            "fr": "Une femme arrivée récemment d'Ouganda par un vol international. Le ministère n'a donné ni son âge, ni sa nationalité, ni la raison de son voyage ; l'enquête est en cours.",
+            "en": "A woman who had recently arrived from Uganda on an international flight. The ministry has not given her age, nationality or the reason for her trip; investigations are ongoing.",
+            "sw": "Mwanamke aliyefika hivi karibuni kutoka Uganda kwa ndege ya kimataifa. Wizara haijataja umri wake, uraia wake wala sababu ya safari yake; uchunguzi unaendelea."
+          }
+        },
+        {
+          "q": {
+            "fr": "Comment le cas a-t-il été détecté ?",
+            "en": "How was the case detected?",
+            "sw": "Mgonjwa aligunduliwaje?"
+          },
+          "a": {
+            "fr": "Elle a été admise dans un hôpital privé d'Abuja et y a été soignée plusieurs jours avant que le diagnostic soit posé ; le laboratoire a confirmé Ebola le 20 octobre, et le ministère l'a annoncé le jour même. D'après l'agence AP, elle était tombée malade le 7 octobre et avait été admise le 11.",
+            "en": "She was admitted to a private hospital in Abuja and treated there for several days before the diagnosis was made; the laboratory confirmed Ebola on 20 October, and the ministry announced it the same day. According to AP, she had fallen ill on 7 October and was admitted on the 11th.",
+            "sw": "Alilazwa katika hospitali binafsi ya Abuja na kutibiwa huko siku kadhaa kabla ya kugunduliwa; maabara ilithibitisha Ebola tarehe 20 Oktoba, na wizara ilitangaza siku hiyo hiyo. Kwa mujibu wa AP, aliugua tarehe 7 Oktoba na alilazwa tarehe 11."
+          }
+        },
+        {
+          "q": {
+            "fr": "Combien de contacts sont suivis ?",
+            "en": "How many contacts are being followed?",
+            "sw": "Watu wangapi wa karibu wanafuatiliwa?"
+          },
+          "a": {
+            "fr": "44 contacts proches avaient été identifiés au 20 octobre 2026, parmi les soignants, les autres patients, les accompagnants et les contacts de voyage. Le ministère demande aux passagers des vols concernés qui seraient contactés de coopérer avec les équipes. Aucun contact positif n'a été annoncé.",
+            "en": "44 close contacts had been identified as of 20 October 2026, among health workers, other patients, caregivers and travel contacts. The ministry asks passengers on the flights concerned who are contacted to cooperate with the teams. No contact has been reported positive.",
+            "sw": "Watu 44 wa karibu walikuwa wametambuliwa kufikia tarehe 20 Oktoba 2026, miongoni mwa wahudumu wa afya, wagonjwa wengine, walezi na watu waliosafiri naye. Wizara inaomba abiria wa ndege husika watakaowasiliana nao washirikiane na timu. Hakuna mtu wa karibu aliyetangazwa kuwa na virusi."
+          }
+        },
+        {
+          "q": {
+            "fr": "Y a-t-il de nouveau Ebola en Ouganda ?",
+            "en": "Is there Ebola in Uganda again?",
+            "sw": "Je, kuna Ebola tena nchini Uganda?"
+          },
+          "a": {
+            "fr": "L'Ouganda n'a annoncé aucun nouveau cas : son épidémie a été déclarée terminée le 27 août 2026. Le ministère nigérian n'a pas dit où ni comment la malade, arrivée d'Ouganda, a été contaminée.",
+            "en": "Uganda has not announced any new case: its outbreak was declared over on 27 August 2026. The Nigerian ministry has not said where or how the patient, who arrived from Uganda, was infected.",
+            "sw": "Uganda haijatangaza mgonjwa mpya: mlipuko wake ulitangazwa kumalizika tarehe 27 Agosti 2026. Wizara ya Nigeria haijasema mgonjwa, aliyefika kutoka Uganda, aliambukizwa wapi wala vipi."
+          }
+        },
+        {
+          "q": {
+            "fr": "Le Nigeria a-t-il déjà connu Ebola ?",
+            "en": "Has Nigeria had Ebola before?",
+            "sw": "Je, Nigeria imewahi kukumbwa na Ebola?"
+          },
+          "a": {
+            "fr": "Oui, en 2014, pendant l'épidémie d'Afrique de l'Ouest : un voyageur malade venu du Liberia avait été admis dans un hôpital privé de Lagos. Le virus avait touché 20 personnes, dont 8 sont mortes, à Lagos et Port Harcourt, avant que l'OMS déclare le pays libéré d'Ebola en octobre 2014.",
+            "en": "Yes, in 2014, during the West African epidemic: a sick traveller from Liberia was admitted to a private hospital in Lagos. The virus infected 20 people, 8 of whom died, in Lagos and Port Harcourt, before WHO declared the country Ebola-free in October 2014.",
+            "sw": "Ndiyo, mwaka 2014, wakati wa mlipuko wa Afrika Magharibi: msafiri mgonjwa kutoka Liberia alilazwa katika hospitali binafsi ya Lagos. Virusi viliambukiza watu 20, kati yao 8 walifariki, Lagos na Port Harcourt, kabla WHO kutangaza nchi hiyo kuwa huru dhidi ya Ebola Oktoba 2014."
+          }
+        },
+        {
+          "q": {
+            "fr": "Que faire en cas de symptômes au Nigeria ?",
+            "en": "What should you do if you have symptoms in Nigeria?",
+            "sw": "Nifanye nini nikiwa na dalili nchini Nigeria?"
+          },
+          "a": {
+            "fr": "Le ministère cite la fièvre, une grande faiblesse, les maux de tête, les vomissements et la diarrhée, surtout après une exposition possible. Il demande de signaler toute exposition, même sans symptômes, d'éviter les contacts rapprochés et d'appeler les autorités sanitaires avant de se rendre dans un établissement de santé. Une personne n'est pas contagieuse avant l'apparition des symptômes. Le numéro vert du NCDC, le 6232, répond jour et nuit.",
+            "en": "The ministry lists fever, severe weakness, headache, vomiting and diarrhoea, especially after possible exposure. It asks people to report any exposure, even without symptoms, to avoid close contact with others and to call the health authorities before going to a health facility. A person cannot spread Ebola before symptoms begin. The NCDC toll-free line, 6232, is open day and night.",
+            "sw": "Wizara inataja homa, udhaifu mkubwa, maumivu ya kichwa, kutapika na kuhara, hasa baada ya uwezekano wa kuambukizwa. Inaomba watu waripoti uwezekano wowote wa kuambukizwa, hata bila dalili, waepuke kukaribiana na wengine na wapigie mamlaka za afya kabla ya kwenda kituo cha afya. Mtu hawezi kuambukiza Ebola kabla ya dalili kuanza. Namba ya bure ya NCDC, 6232, inapatikana mchana na usiku."
+          }
+        }
+      ],
+      "etatCourt": {
+        "fr": "En cours",
+        "en": "Ongoing",
+        "sw": "Unaendelea"
+      },
+      "fin": null,
+      "courbe": false,
+      "evenements": [
+        {
+          "date": "2026-10-06",
+          "type": "officiel",
+          "titre": {
+            "fr": "Avis du NCDC",
+            "en": "NCDC advisory",
+            "sw": "Tahadhari ya NCDC"
+          },
+          "texte": {
+            "fr": "Après le premier cas du Kenya, le Centre nigérian de contrôle des maladies signale le risque d'importation et renforce la surveillance.",
+            "en": "After Kenya's first case, the Nigeria Centre for Disease Control flags the risk of importation and steps up surveillance.",
+            "sw": "Baada ya mgonjwa wa kwanza wa Kenya, Kituo cha Kudhibiti Magonjwa cha Nigeria kinaonya kuhusu hatari ya kuingizwa kwa ugonjwa na kuimarisha ufuatiliaji."
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "type": "geo",
+          "titre": {
+            "fr": "Premiers symptômes",
+            "en": "First symptoms",
+            "sw": "Dalili za kwanza"
+          },
+          "texte": {
+            "fr": "Une femme arrivée d'Ouganda par avion tombe malade (date donnée par AP).",
+            "en": "A woman who arrived from Uganda by air falls ill (date reported by AP).",
+            "sw": "Mwanamke aliyefika kutoka Uganda kwa ndege anaugua (tarehe kwa mujibu wa AP)."
+          }
+        },
+        {
+          "date": "2026-10-11",
+          "type": "geo",
+          "titre": {
+            "fr": "Admise à l'hôpital",
+            "en": "Admitted to hospital",
+            "sw": "Alazwa hospitalini"
+          },
+          "texte": {
+            "fr": "Elle est admise dans un hôpital privé d'Abuja, où elle est soignée plusieurs jours avant d'être diagnostiquée (date donnée par AP).",
+            "en": "She is admitted to a private hospital in Abuja, where she is treated for several days before being diagnosed (date reported by AP).",
+            "sw": "Analazwa katika hospitali binafsi ya Abuja, ambako anatibiwa siku kadhaa kabla ya kugunduliwa (tarehe kwa mujibu wa AP)."
+          }
+        },
+        {
+          "date": "2026-10-20",
+          "type": "cas",
+          "cumul": 1,
+          "titre": {
+            "fr": "Cas confirmé",
+            "en": "Case confirmed",
+            "sw": "Mgonjwa athibitishwa"
+          },
+          "texte": {
+            "fr": "Le laboratoire confirme Ebola ; le ministère fédéral de la Santé l'annonce le jour même. La malade est isolée ; 44 contacts proches sont identifiés et suivis ; tous les établissements de santé du pays sont mis en alerte.",
+            "en": "The laboratory confirms Ebola; the Federal Ministry of Health announces it the same day. The patient is isolated; 44 close contacts are identified and monitored; all health facilities in the country are put on alert.",
+            "sw": "Maabara inathibitisha Ebola; Wizara ya Afya ya shirikisho inatangaza siku hiyo hiyo. Mgonjwa ametengwa; watu 44 wa karibu wametambuliwa na wanafuatiliwa; vituo vyote vya afya nchini viko katika tahadhari."
+          }
+        }
+      ],
+      "resume": {
+        "fr": "Une femme arrivée d'Ouganda par avion, soignée plusieurs jours dans un hôpital privé d'Abuja avant d'être confirmée au laboratoire le 20 octobre 2026. Elle est isolée ; 44 contacts proches sont suivis. Comment elle a été contaminée n'a pas été publié ; l'enquête est en cours.",
+        "en": "A woman who arrived from Uganda by air, treated for several days in a private hospital in Abuja before laboratory confirmation on 20 October 2026. She is isolated; 44 close contacts are being followed. How she was infected has not been published; investigations are ongoing.",
+        "sw": "Mwanamke aliyefika kutoka Uganda kwa ndege, alitibiwa siku kadhaa katika hospitali binafsi ya Abuja kabla ya maabara kuthibitisha tarehe 20 Oktoba 2026. Ametengwa; watu 44 wa karibu wanafuatiliwa. Jinsi alivyoambukizwa haijachapishwa; uchunguzi unaendelea."
+      }
     }
   ],
   "relie": {
@@ -906,9 +1171,9 @@
       "sw": "Kinachounganisha wagonjwa hawa"
     },
     "texte": {
-      "fr": "Chaque épidémie hors de RDC a commencé par un voyageur venu de RDC : deux malades arrivés à Kampala, un médecin rentré d'Ituri, un Kényan passé par Beni. La suite a varié d'un pays à l'autre. En Ouganda, le virus s'est transmis sur place, soignants compris ; au Kenya, les huit cas suivants appartiennent, selon le ministère, au même groupe que le premier malade : pour la plupart des proches et des soignants déjà en quarantaine quand ils sont tombés malades ; en France, il n'y a eu aucune transmission. Les chiffres de cette page viennent de l'OMS et des ministères de la Santé de ces pays, pas des bulletins de l'INSP.",
-      "en": "Each outbreak outside the DRC began with a traveller who had come from the DRC: two patients who reached Kampala, a doctor returning from Ituri, a Kenyan who travelled via Beni. What followed differed from country to country. In Uganda, the virus spread locally, including to health workers; in Kenya, the next eight cases belong, according to the ministry, to the same cluster as the first patient: mostly relatives and health workers who were already in quarantine when they fell ill; in France, there was no transmission. The figures on this page come from WHO and the health ministries of these countries, not from INSP bulletins.",
-      "sw": "Kila mlipuko nje ya DRC ulianza na msafiri aliyetoka DRC: wagonjwa wawili waliofika Kampala, daktari aliyerudi kutoka Ituri, Mkenya aliyepitia Beni. Kilichofuata kilitofautiana kati ya nchi na nchi. Nchini Uganda, virusi viliambukizana huko, wakiwemo wahudumu wa afya; nchini Kenya, wagonjwa wanane waliofuata ni, kwa mujibu wa wizara, wa kundi moja na mgonjwa wa kwanza: wengi wao jamaa na wahudumu wa afya waliokuwa tayari karantini walipougua; nchini Ufaransa, hakukuwa na maambukizi. Takwimu za ukurasa huu zinatoka WHO na wizara za afya za nchi hizo, si kwenye taarifa za INSP."
+      "fr": "Les trois premiers foyers hors de RDC ont commencé par un voyageur venu de RDC : deux malades arrivés à Kampala, un médecin rentré d'Ituri, un Kényan passé par Beni. La suite a varié d'un pays à l'autre. En Ouganda, le virus s'est transmis sur place, soignants compris ; au Kenya, les huit cas suivants appartiennent, selon le ministère, au même groupe que le premier malade : pour la plupart des proches et des soignants déjà en quarantaine quand ils sont tombés malades ; en France, il n'y a eu aucune transmission. Au Nigeria, la malade est arrivée d'Ouganda, où aucun cas n'a été annoncé depuis la fin de l'épidémie, le 27 août ; comment elle a été contaminée n'a pas été publié. Les chiffres de cette page viennent de l'OMS et des ministères de la Santé de ces pays, pas des bulletins de l'INSP.",
+      "en": "The first three outbreaks outside the DRC began with a traveller who had come from the DRC: two patients who reached Kampala, a doctor returning from Ituri, a Kenyan who travelled via Beni. What followed differed from country to country. In Uganda, the virus spread locally, including to health workers; in Kenya, the next eight cases belong, according to the ministry, to the same cluster as the first patient: mostly relatives and health workers who were already in quarantine when they fell ill; in France, there was no transmission. In Nigeria, the patient arrived from Uganda, where no case has been announced since the outbreak ended on 27 August; how she was infected has not been published. The figures on this page come from WHO and the health ministries of these countries, not from INSP bulletins.",
+      "sw": "Milipuko mitatu ya kwanza nje ya DRC ilianza na msafiri aliyetoka DRC: wagonjwa wawili waliofika Kampala, daktari aliyerudi kutoka Ituri, Mkenya aliyepitia Beni. Kilichofuata kilitofautiana kati ya nchi na nchi. Nchini Uganda, virusi viliambukizana huko, wakiwemo wahudumu wa afya; nchini Kenya, wagonjwa wanane waliofuata ni, kwa mujibu wa wizara, wa kundi moja na mgonjwa wa kwanza: wengi wao jamaa na wahudumu wa afya waliokuwa tayari karantini walipougua; nchini Ufaransa, hakukuwa na maambukizi. Nchini Nigeria, mgonjwa alifika kutoka Uganda, ambako hakuna mgonjwa aliyetangazwa tangu mlipuko ulipomalizika tarehe 27 Agosti; jinsi alivyoambukizwa haijachapishwa. Takwimu za ukurasa huu zinatoka WHO na wizara za afya za nchi hizo, si kwenye taarifa za INSP."
     }
   }
 }

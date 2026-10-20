@@ -4919,6 +4919,11 @@ function setupMonde(svg, btn){
         const quiet = map.viewport.querySelector('.zm-quiet');
         if(quiet) quiet.insertAdjacentHTML('beforebegin', c.monde);
         map.viewport.insertAdjacentHTML('beforeend', c.hors);
+        // Telephone : chaque nom de pays prend sa place a lui (data-x-tel,
+        // 20 octobre 2026), sinon Ouganda et Kenya se chevauchent.
+        if(tel) map.viewport.querySelectorAll('.zm-hors .hr-nom[data-x-tel]').forEach(g=>{
+          g.dataset.x = g.dataset.xTel; g.dataset.y = g.dataset.yTel;
+        });
         // Les reperes ajoutes suivent la carte sans grossir, comme les autres.
         map.marks = map.marks.concat([...map.viewport.querySelectorAll('.zm-hors .zm-mark[data-x]')]);
         brancher();

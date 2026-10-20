@@ -151,6 +151,7 @@
     {
       "titleKey": "footerHorsRdcTitle",
       "pages": [
+        "nigeria",
         "kenya",
         "ouganda",
         "france"
@@ -528,21 +529,60 @@
       "navLabelKey": "t:navAutresPays",
       "meta": {
         "fr": {
-          "title": "Ebola hors de RDC : Ouganda, Kenya, France (2026)",
+          "title": "Ebola hors de RDC : Ouganda, Kenya, Nigeria, France (2026)",
           "h1": "Autres pays touchés",
-          "description": "L'épidémie d'Ebola Bundibugyo née en RDC a touché trois autres pays : l'Ouganda (20 cas, épidémie terminée le 27 août 2026), le Kenya (7 cas depuis le 6 octobre 2026) et la France (1 cas importé, guéri). Résumé et sources."
+          "description": "L'épidémie d'Ebola Bundibugyo née en RDC a touché quatre autres pays : l'Ouganda (20 cas, épidémie terminée le 27 août 2026), le Kenya (9 cas depuis le 6 octobre 2026), le Nigeria (1 cas confirmé le 20 octobre 2026) et la France (1 cas importé, guéri). Résumé et sources."
         },
         "en": {
-          "title": "Ebola outside the DRC: Uganda, Kenya, France (2026)",
+          "title": "Ebola outside the DRC: Uganda, Kenya, Nigeria, France (2026)",
           "h1": "Other affected countries",
-          "description": "The Bundibugyo Ebola outbreak that began in the DRC reached three other countries: Uganda (20 cases, outbreak over on 27 August 2026), Kenya (7 cases since 6 October 2026) and France (1 imported case, recovered). Summary and sources."
+          "description": "The Bundibugyo Ebola outbreak that began in the DRC reached four other countries: Uganda (20 cases, outbreak over on 27 August 2026), Kenya (9 cases since 6 October 2026), Nigeria (1 case confirmed on 20 October 2026) and France (1 imported case, recovered). Summary and sources."
         },
         "sw": {
-          "title": "Ebola nje ya DRC: Uganda, Kenya, Ufaransa (2026)",
+          "title": "Ebola nje ya DRC: Uganda, Kenya, Nigeria, Ufaransa (2026)",
           "h1": "Nchi nyingine zilizoathirika",
-          "description": "Mlipuko wa Ebola Bundibugyo ulioanzia DRC ulifikia nchi nyingine tatu: Uganda (wagonjwa 20, mlipuko ulimalizika tarehe 27 Agosti 2026), Kenya (wagonjwa 7 tangu 6 Oktoba 2026) na Ufaransa (mgonjwa 1 kutoka nje, amepona). Muhtasari na vyanzo."
+          "description": "Mlipuko wa Ebola Bundibugyo ulioanzia DRC ulifikia nchi nyingine nne: Uganda (wagonjwa 20, mlipuko ulimalizika tarehe 27 Agosti 2026), Kenya (wagonjwa 9 tangu 6 Oktoba 2026), Nigeria (mgonjwa 1 aliyethibitishwa tarehe 20 Oktoba 2026) na Ufaransa (mgonjwa 1 kutoka nje, amepona). Muhtasari na vyanzo."
         }
       }
+    },
+    {
+      "id": "nigeria",
+      "fragment": "pays.html",
+      "slug": {
+        "fr": "nigeria/",
+        "en": "nigeria/",
+        "sw": "nigeria/"
+      },
+      "needs": [],
+      "changefreq": "weekly",
+      "priority": "0.6",
+      "schema": [
+        "article",
+        "faqPays"
+      ],
+      "parent": "autres-pays",
+      "pays": "nigeria",
+      "meta": {
+        "fr": {
+          "title": "Ebola au Nigeria : premier cas confirmé à Abuja (octobre 2026)",
+          "h1": "Ebola au Nigeria",
+          "description": "Ebola au Nigeria : un premier cas confirmé le 20 octobre 2026 à Abuja, une femme arrivée d'Ouganda, isolée et soignée. 44 contacts proches suivis. Chronologie, questions et sources.",
+          "lede": "Le Nigeria a confirmé le 20 octobre 2026 son premier cas d'Ebola : une femme arrivée d'Ouganda par avion, soignée plusieurs jours dans un hôpital privé d'Abuja avant le diagnostic. Elle est isolée ; 44 contacts proches sont suivis. Comment elle a été contaminée n'a pas été publié ; l'enquête est en cours. Les chiffres de cette page viennent du communiqué du ministère fédéral nigérian de la Santé, pas des bulletins de l'INSP."
+        },
+        "en": {
+          "title": "Ebola in Nigeria: first case confirmed in Abuja (October 2026)",
+          "h1": "Ebola in Nigeria",
+          "description": "Ebola in Nigeria: a first case confirmed on 20 October 2026 in Abuja, a woman who arrived from Uganda, isolated and receiving care. 44 close contacts followed. Timeline, questions and sources.",
+          "lede": "On 20 October 2026 Nigeria confirmed its first Ebola case: a woman who arrived from Uganda by air, treated for several days in a private hospital in Abuja before diagnosis. She is isolated; 44 close contacts are being followed. How she was infected has not been published; investigations are ongoing. The figures on this page come from the press statement of the Nigerian Federal Ministry of Health, not from INSP bulletins."
+        },
+        "sw": {
+          "title": "Ebola nchini Nigeria: mgonjwa wa kwanza athibitishwa Abuja (Oktoba 2026)",
+          "h1": "Ebola nchini Nigeria",
+          "description": "Ebola nchini Nigeria: mgonjwa wa kwanza alithibitishwa tarehe 20 Oktoba 2026 Abuja, mwanamke aliyefika kutoka Uganda, ametengwa na anapata matibabu. Watu 44 wa karibu wanafuatiliwa. Mfuatano wa matukio, maswali na vyanzo.",
+          "lede": "Tarehe 20 Oktoba 2026 Nigeria ilithibitisha mgonjwa wake wa kwanza wa Ebola: mwanamke aliyefika kutoka Uganda kwa ndege, aliyetibiwa siku kadhaa katika hospitali binafsi ya Abuja kabla ya kugunduliwa. Ametengwa; watu 44 wa karibu wanafuatiliwa. Jinsi alivyoambukizwa haijachapishwa; uchunguzi unaendelea. Takwimu za ukurasa huu zinatoka kwenye taarifa ya Wizara ya Afya ya shirikisho ya Nigeria, si kwenye taarifa za INSP."
+        }
+      },
+      "navLabelKey": "t:footerNigeria"
     },
     {
       "id": "kenya",

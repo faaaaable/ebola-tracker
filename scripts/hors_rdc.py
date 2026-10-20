@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """La vue « Pays touches » de la carte de l'accueil (8 octobre 2026, en local).
 
-Un bouton de la carte recule jusqu'aux pays touches hors de RDC : l'Ouganda et
-le Kenya. (La France, 1 cas importe, a ete retiree le 8 octobre 2026.) Ces chiffres ne viennent pas des
+Un bouton de la carte recule jusqu'aux pays touches hors de RDC : l'Ouganda,
+le Kenya et, depuis le 20 octobre 2026, le Nigeria. (La France, 1 cas importe, a ete retiree le 8 octobre 2026.) Ces chiffres ne viennent pas des
 bulletins de l'INSP mais de sources ouvertes (OMS, ministeres), citees dans
 l'infobulle : data/hors-rdc.json.
 
@@ -176,11 +176,15 @@ def greffer(svg_html, geo, lang, seuils):
                 '<circle class="hr-halo" r="9"/><circle class="hr-pt" r="4.4"/></g>'
                 % (p["etat"], a3, x, y, x, y))
         lx, ly = pr.xy(*p["label"])
+        # Sur telephone le nom a sa propre place (labelTel, 20 octobre 2026) :
+        # le cadre y va du Nigeria au Kenya et les noms, de taille fixe, se
+        # chevauchaient. app.js la prend a la place de data-x / data-y.
+        tx, ty = pr.xy(*p.get("labelTel", p["label"]))
         noms.append(
-            '<g class="zm-mark hr-nom is-%s" data-a3="%s" data-x="%.1f" data-y="%.1f" transform="translate(%.1f %.1f)">'
+            '<g class="zm-mark hr-nom is-%s" data-a3="%s" data-x="%.1f" data-y="%.1f" data-x-tel="%.1f" data-y-tel="%.1f" transform="translate(%.1f %.1f)">'
             '<text class="hr-n1" y="0">%s</text><text class="hr-n2" y="19">%s</text>'
             '<text class="hr-n3" y="35">%s</text></g>'
-            % (p["etat"], a3, lx, ly, lx, ly, _esc(p["nom"][lang]), n, _esc(etat)))
+            % (p["etat"], a3, lx, ly, tx, ty, lx, ly, _esc(p["nom"][lang]), n, _esc(etat)))
 
     couche = ('          <g class="zm-hors"><g class="hr-g-noms">%s</g><g class="hr-g-villes">%s</g></g>\n'
               % ("".join(noms), "".join(villes)))
@@ -203,14 +207,18 @@ def greffer(svg_html, geo, lang, seuils):
     # « stopper le focus de la RDC ») : de l'Ituri a la cote kenyane, avec de
     # l'ocean a droite pour que le Kenya ne passe pas sous le panneau des
     # chiffres, pose en haut a droite de la carte.
-    x0, y0 = pr.xy(26.0, 6.0)
+    # Elargi a l'ouest le 20 octobre 2026 pour le premier cas du Nigeria
+    # (Abuja) : du Nigeria a la cote kenyane, la RDC au milieu.
+    x0, y0 = pr.xy(2.5, 14.2)
     x1, y1 = pr.xy(46.5, -5.5)
     # Sur telephone (carte de ~310 px), le cadre complet rendait l'Ouganda et
     # le Kenya minuscules : on cadre sur l'est, de l'Ituri a la cote kenyane.
     # Resserre encore le 8 octobre 2026 (demande du proprietaire, comme sur
     # ordinateur) : l'Ouganda et le Kenya seuls, avec la frange est de l'Ituri.
-    m0, n0 = pr.xy(28.8, 5.0)
-    m1, n1 = pr.xy(42.3, -5.0)
+    # Depuis le 20 octobre 2026 il doit aussi montrer le Nigeria : il part de
+    # sa frontiere ouest et coupe l'ocean a droite du Kenya.
+    m0, n0 = pr.xy(2.6, 14.0)
+    m1, n1 = pr.xy(42.0, -5.0)
     return svg_html.replace('<svg class="zonemap"',
                             '<svg class="zonemap" data-monde-box="%.1f %.1f %.1f %.1f" data-monde-box-tel="%.1f %.1f %.1f %.1f" data-monde-src="/assets/geo/%s?v=%s"'
                             % (x0, y0, x1 - x0, y1 - y0, m0, n0, m1 - m0, n1 - n0, nom, empreinte), 1)
@@ -226,7 +234,7 @@ def encart_html(lang):
             % json.dumps(bulles, ensure_ascii=False).replace("</", "<\\/"))
 
 
-A3_PAGE = {"ouganda": "UGA", "kenya": "KEN", "france": "FRA"}
+A3_PAGE = {"ouganda": "UGA", "kenya": "KEN", "france": "FRA", "nigeria": "NGA"}
 
 
 def _silhouette(pid, w=64):
