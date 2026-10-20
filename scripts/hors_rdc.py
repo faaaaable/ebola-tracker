@@ -570,6 +570,22 @@ def panneau_html(lang, titre, liens):
             % (_esc(titre), _esc(titre), pays))
 
 
+def nav_pays(lang):
+    """Menu « Hors RDC » (21 octobre 2026) : une ligne par pays, les epidemies
+    en cours d'abord puis du plus grand nombre de cas au plus petit ; sous le
+    nom, « 9 cas · en cours ». Rend (id du pays, nom, description)."""
+    t = TEXTES[lang]
+    doc = _lire("data", "autres-pays.json")
+    out = []
+    for p in sorted(doc["pays"], key=lambda p: (p["etat"] != "cours", -int(p["chiffres"][0]["n"]))):
+        n = int(p["chiffres"][0]["n"])
+        mot = t["cas1"] if n == 1 else t["court_cas"]
+        cas = ("%s %d" % (mot, n)) if lang == "sw" else ("%d %s" % (n, mot))
+        etat = t["court_cours"] if p["etat"] == "cours" else t["court_fini"]
+        out.append((p["id"], p["nom"][lang], "%s · %s" % (cas, etat)))
+    return out
+
+
 def frise_html(lang, w=900):
     """Mai -> fin du mois courant : une bande par pays, du premier cas a la fin
     (« fin ») ou a la date de mise a jour pour une epidemie en cours."""

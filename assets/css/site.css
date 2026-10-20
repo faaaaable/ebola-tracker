@@ -5117,6 +5117,23 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
   .side-nav .nav-grp-btn{padding:8px 4px;}
   .brand{margin-right:6px;}
 }
+/* Les deux derniers onglets (« Hors RDC », puis « Le site » depuis le
+   21 octobre 2026) : leur menu, meme ferme, depassait le bord droit entre
+   901 et 1080 px et faisait defiler la page de cote. Il s'aligne a droite
+   de son onglet. */
+@media (min-width:901px){
+  .side-nav > .nav-grp:nth-last-child(-n+2) .nav-pop{left:auto;right:-8px;}
+}
+/* Le meme jour : l'onglet est plus long que « Alertes », qu'il remplace, et
+   les langues passaient a la ligne vers 1 060-1 100 px (et des 1 000 px en
+   anglais). Jusqu'a 1 120 px, le glyphe X cede sa place et les onglets
+   gardent le pas serre de la tranche 901-1 060 px. */
+@media (min-width:901px) and (max-width:1120px){.lang-btn.lang-x{display:none;}}
+/* Forme courte d'un titre d'onglet (titre_groupe, build_pages.py). */
+@media (min-width:901px) and (max-width:960px){.nav-grp-btn .na-long{display:none;}.nav-grp-btn .na-court{display:inline;}}
+@media (min-width:1001px) and (max-width:1120px){
+  .side-nav .nav-grp-btn{padding:8px 6px;font-size:13.5px;gap:4px;}
+}
 @media (max-width:900px){
   .side-panel .side-nav .nav-alerte{display:flex;align-items:center;gap:10px;font:600 22px/1.2 var(--font-serif);letter-spacing:-.01em;color:var(--ink);padding:16px 2px;border-bottom:1px solid var(--line);text-decoration:none;}
   .side-panel .side-nav .nav-alerte svg{width:18px;height:18px;color:var(--accent);}

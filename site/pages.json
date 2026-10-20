@@ -75,8 +75,7 @@
           "compact": true,
           "items": [
             "donnees",
-            "@provinces",
-            "autres-pays"
+            "@provinces"
           ]
         },
         {
@@ -103,15 +102,19 @@
       ]
     },
     {
+      "titleKey": "navGrpHorsRdc",
+      "pages": [
+        "autres-pays",
+        "@pays"
+      ]
+    },
+    {
       "titleKey": "footerSiteTitle",
       "pages": [
         "a-propos",
         "methodologie",
         "contact"
       ]
-    },
-    {
-      "link": "alertes"
     }
   ],
   "footerNav": [

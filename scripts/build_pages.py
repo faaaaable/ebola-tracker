@@ -418,6 +418,28 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
                             esc(strings_lang["navProvTitle"]), esc(name), esc(cas)))
         return "\n".join(liens)
 
+    def ensemble(page_id):
+        # Onglet « Hors RDC » (21 octobre 2026) : la page Autres pays y
+        # devient « Vue d'ensemble », suivie d'une ligne par pays.
+        current = ' aria-current="page"' if page_id == current_id else ""
+        return ('        <a href="%s"%s><span class="nav-t">%s</span><span class="nav-desc">%s</span></a>'
+                % (urls.path(page_id, lang), current, esc(strings_lang["navHorsRdcEnsemble"]),
+                   esc(strings_lang["navHorsRdcEnsembleDesc"])))
+
+    def lignes_pays():
+        # Une ligne par pays touche hors RDC : son nom, et dessous ses cas et
+        # son etat, lus dans data/autres-pays.json (hors_rdc.nav_pays).
+        page_du_pays = {p["pays"]: p["id"] for p in config["pages"] if p.get("pays")}
+        liens = []
+        for pid, nom, desc in hors_rdc.nav_pays(lang):
+            page_id = page_du_pays.get(pid)
+            if not page_id:
+                continue
+            current = ' aria-current="page"' if page_id == current_id else ""
+            liens.append('        <a href="%s"%s><span class="nav-t">%s</span><span class="nav-desc">%s</span></a>'
+                         % (urls.path(page_id, lang), current, esc(nom), esc(desc)))
+        return liens
+
     def colonne(col):
         # compact : « Ensemble du pays » sur toute la largeur puis les provinces
         # sur deux colonnes (colonne « Evolution de l'epidemie »).
@@ -431,6 +453,16 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
                 parts.append(lignes_provinces() if item == "@provinces" else lien(item))
         parts.append('      </div>')
         return "\n".join(parts)
+
+    def titre_groupe(groupe):
+        # Un titre peut avoir une forme courte (titleKey + "Court"), montree
+        # entre 901 et 960 px ou la barre manque de place : « Outside DRC »
+        # pour « Outside the DRC » (21 octobre 2026).
+        long = esc(strings_lang[groupe["titleKey"]])
+        court = strings_lang.get(groupe["titleKey"] + "Court")
+        if not court or court == strings_lang[groupe["titleKey"]]:
+            return long
+        return '<span class="na-long">%s</span><span class="na-court">%s</span>' % (long, esc(court))
 
     groupes = []
     for groupe in config["mainNav"]:
@@ -451,6 +483,11 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
             corps = ('      <div class="nav-cols">\n%s\n      </div>'
                      % "\n".join(colonne(c) for c in groupe["columns"]))
             classe = "nav-grp nav-grp-cols"
+        elif groupe["titleKey"] == "navGrpHorsRdc":
+            corps = "\n".join(l.replace("        <a", "      <a", 1)
+                              for pid in groupe["pages"]
+                              for l in (lignes_pays() if pid == "@pays" else [ensemble(pid)]))
+            classe = "nav-grp"
         else:
             corps = "\n".join(lien(pid).replace("        <a", "      <a", 1)
                               for pid in groupe["pages"])
@@ -462,7 +499,7 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
             'stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
             '<polyline points="6 9 12 15 18 9"/></svg></button>\n'
             '      <div class="nav-pop">\n%s\n      </div></div>'
-            % (classe, esc(strings_lang[groupe["titleKey"]]), corps))
+            % (classe, titre_groupe(groupe), corps))
     return ('    <nav class="side-nav" aria-label="%s">\n%s\n    </nav>'
             % (esc(strings_lang["navLabel"]), "\n".join(groupes)))
 
@@ -4991,9 +5028,14 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                            esc(interp(strings_lang["followXLabel"], {"compte": (config["site"].get("xProfile") or "").strip().lstrip("@")})),
                            X_ICONE, esc(strings_lang["menuFollowX"]))) if (config["site"].get("xProfile") or "").strip() else "",
         # Telephone : la cloche d'« Etre prevenu » dans la barre, avant les
-        # trois traits (19 octobre 2026).
-        "alerteTel": ('    <a class="na-tel" href="%s" aria-label="%s">%s</a>'
-                      % (urls.path("alertes", lang), esc(strings_lang["navAlertes"]), CLOCHE_ICONE)),
+        # trois traits (19 octobre 2026). Retiree pour l'instant le 21 octobre
+        # 2026 (demande de Fable), avec l'onglet « Alertes » de mainNav
+        # (site/pages.json) ; la page /alertes/ reste, liee du pied de page.
+        # Pour la remettre : "alerteTel" valait
+        # '    <a class="na-tel" href="%s" aria-label="%s">%s</a>'
+        # % (urls.path("alertes", lang), esc(strings_lang["navAlertes"]), CLOCHE_ICONE),
+        # et mainNav finissait par le groupe {"link": "alertes"}.
+        "alerteTel": "",
         "nav": build_nav(config, urls, lang, strings_lang, i18n_lang,
                          None if is_province else page.get("id"), provinces,
                          current_province=province["name"] if is_province else None),
