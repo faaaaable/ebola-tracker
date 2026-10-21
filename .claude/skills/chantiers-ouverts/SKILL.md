@@ -262,8 +262,13 @@ portait — ne pas refaire sans qu'il le redemande — sont restees dans le guid
   régénérées. Elle remplaçait un tableau essayé puis écarté le même jour —
   en volumes bruts rien n'était comparable, en parts tout l'est.
 
-- **`.github/workflows/update_data.py`** : copie morte du script, 530 lignes
-  contre 1 262, référencée nulle part. À examiner.
+- **`.github/workflows/update_data.py`** (copie morte du script) et les
+  28 workflows de diagnostic manuels (`inspect-*`, `scan-*`, `extract-*`,
+  `backfill-*`, `diagnose-*`, `geocode-*`) ont été supprimés le 21 octobre
+  2026 : chantiers finis, surface d'attaque inutile. Les scripts qu'ils
+  lançaient restent dans `scripts/`. Restent six workflows : `build-pages`,
+  `sync-sitreps`, `collecter-actus`, `envoi-lettre`, `flux-et-alertes`,
+  `download-who-sitreps` (manuel), tous avec leurs droits déclarés.
 - **Bas-Uélé** porte le rouge `#993A2E` comme couleur d'identité. S'il franchit
   les 50 cas, ses barres seraient rouges sur un site où le rouge signifie la
   mort. Lui trouver une autre teinte le moment venu.

@@ -3,6 +3,10 @@ name: Téléchargement SitRep OMS
 on:
   workflow_dispatch:
 
+# Droits declares : le depot passe en lecture seule par defaut (21 octobre 2026).
+permissions:
+  contents: write  # les rapports telecharges sont commites
+
 jobs:
   download:
     runs-on: ubuntu-latest
