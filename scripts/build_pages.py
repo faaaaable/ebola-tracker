@@ -4611,7 +4611,7 @@ def glyphe_x(config, strings_lang, classe):
             'title="@%s" aria-label="%s">%s</a>' % (classe, esc(compte), esc(compte), esc(libelle), X_ICONE))
 
 
-def lang_switch_html(config, alt_paths, lang, strings_lang=None):
+def lang_switch_html(config, alt_paths, lang, strings_lang=None, cloche=None):
     """Le selecteur de langue, une entree par langue declaree.
 
     Il etait cable en dur sur deux boutons FR et EN, avec quatre jetons de
@@ -4622,6 +4622,13 @@ def lang_switch_html(config, alt_paths, lang, strings_lang=None):
     codes = config["site"]["languages"]
     labels = " / ".join(loc(code, "label") for code in codes)
     boutons = []
+    # En tete de rangee, juste a gauche de FR : la cloche d'« Etre prevenu »,
+    # sur l'accueil seulement (21 octobre 2026, demande de Fable) ; cloche =
+    # le chemin de la page des alertes. Le telephone a .na-tel.
+    if cloche and strings_lang is not None:
+        boutons.append('        <a class="lang-cloche" href="%s" title="%s" aria-label="%s">%s</a>'
+                       % (esc(cloche), esc(strings_lang["alerteClocheTitre"]),
+                          esc(strings_lang["alerteClocheTitre"]), CLOCHE_ICONE))
     for code in codes:
         courante = code == lang
         boutons.append(
@@ -4648,6 +4655,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     site = config["site"]
     origin = urls.origin
     is_province = province is not None
+    accueil_cloche = not is_province and page.get("id") == "accueil"
 
     if is_province:
         name = province["name"]
@@ -5020,7 +5028,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "headAssets": head_assets(besoins),
         "homeUrl": urls.path("accueil", lang),
         "t.siteTitleLinkLabel": esc(strings_lang["siteTitleLinkLabel"]),
-        "langSwitch": lang_switch_html(config, alt_paths, lang, strings_lang),
+        "langSwitch": lang_switch_html(config, alt_paths, lang, strings_lang,
+                                       cloche=urls.path("alertes", lang) if accueil_cloche else None),
         # Telephone : « Suivre » avec le glyphe, dans le pied du menu (a la
         # place de l'ancien bouton Partager). Rien sans compte.
         "suivreXMenu": ('      <a class="share-btn suivre-x" href="https://x.com/%s" rel="me noopener" target="_blank" aria-label="%s">%s <span>%s</span></a>'
@@ -5035,7 +5044,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         # '    <a class="na-tel" href="%s" aria-label="%s">%s</a>'
         # % (urls.path("alertes", lang), esc(strings_lang["navAlertes"]), CLOCHE_ICONE),
         # et mainNav finissait par le groupe {"link": "alertes"}.
-        "alerteTel": "",
+        # Remise le 21 octobre 2026 sur l'accueil seulement ; sur ordinateur
+        # la cloche est a gauche de FR (lang_switch_html).
+        "alerteTel": ('    <a class="na-tel" href="%s" aria-label="%s">%s</a>'
+                      % (urls.path("alertes", lang), esc(strings_lang["alerteClocheTitre"]), CLOCHE_ICONE)
+                      if accueil_cloche else ""),
         "nav": build_nav(config, urls, lang, strings_lang, i18n_lang,
                          None if is_province else page.get("id"), provinces,
                          current_province=province["name"] if is_province else None),

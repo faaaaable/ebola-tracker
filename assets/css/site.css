@@ -5129,6 +5129,13 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
    anglais). Jusqu'a 1 120 px, le glyphe X cede sa place et les onglets
    gardent le pas serre de la tranche 901-1 060 px. */
 @media (min-width:901px) and (max-width:1120px){.lang-btn.lang-x{display:none;}}
+/* La cloche d'« Etre prevenu » juste a gauche de FR, sur l'accueil
+   (21 octobre 2026) : bleue, sans libelle, un espace la detache des langues.
+   Sur telephone, c'est celle de la barre (.na-tel). */
+.lang-cloche{display:flex;align-items:center;padding:4px 3px;margin-right:10px;color:var(--accent);}
+.lang-cloche svg{width:16px;height:16px;display:block;}
+.lang-cloche:hover{color:var(--accent-strong);}
+@media (max-width:900px){.lang-cloche{display:none;}}
 /* Forme courte d'un titre d'onglet (titre_groupe, build_pages.py). */
 @media (min-width:901px) and (max-width:960px){.nav-grp-btn .na-long{display:none;}.nav-grp-btn .na-court{display:inline;}}
 @media (min-width:1001px) and (max-width:1120px){
