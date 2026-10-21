@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "95e186bd",
+   "date": "2026-10-21",
+   "titre": "Nigeria confirms first Ebola case as outbreak spreads across Africa",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/10/21/nigeria-confirms-first-ebola-case-as-outbreak-spreads-across-africa/",
+   "langue": "en",
+   "resume": "Nigeria's latest case marks the country's first recorded Ebola infection since 2014, raising concerns about further transmission as public health teams work to identify and monitor potential contacts",
+   "statut": "publie",
+   "collecte": "2026-10-21",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "817faf2e",
    "date": "2026-10-21",
    "titre": "Un premier cas d'Ebola Bundibugyo détecté au Nigeria",
@@ -10,6 +23,19 @@
    "langue": "fr",
    "resume": "Annoncé mardi 20 octobre, le diagnostic a été fait sur une patiente récemment arrivée d’Ouganda. Quarante-quatre cas contacts ont également été identifiés. Il s'agit du premier cas de la maladie recensé dans le pays depuis l’épidémie qui y avait sévi en 2014.",
    "statut": "attente",
+   "collecte": "2026-10-21",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "5b8825d1",
+   "date": "2026-10-21",
+   "titre": "Ebola : Africa CDC appelle à un financement immédiat après la confirmation d’un cas au Nigeria",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/21/actualite/sante/ebola-africa-cdc-appelle-un-financement-immediat-apres-la-confirmation",
+   "langue": "fr",
+   "resume": "Photo OMS/Joël Lumbala \" /> Le directeur général du Centre africain de contrôle et de prévention des maladies (Africa CDC), Dr Jean Kaseya, appelle la communauté internationale à mobiliser des financements immédiats pour renforcer la lutte contre l’épidémie d’Ebola Bundibugyo .",
+   "statut": "publie",
    "collecte": "2026-10-21",
    "media": true,
    "image": true
