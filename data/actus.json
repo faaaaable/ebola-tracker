@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "817faf2e",
+   "date": "2026-10-21",
+   "titre": "Un premier cas d'Ebola Bundibugyo détecté au Nigeria",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261021-un-premier-cas-d-ebola-bundibugyo-d%C3%A9tect%C3%A9-au-nigeria",
+   "langue": "fr",
+   "resume": "Annoncé mardi 20 octobre, le diagnostic a été fait sur une patiente récemment arrivée d’Ouganda. Quarante-quatre cas contacts ont également été identifiés. Il s'agit du premier cas de la maladie recensé dans le pays depuis l’épidémie qui y avait sévi en 2014.",
+   "statut": "attente",
+   "collecte": "2026-10-21",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "4031aa19",
+   "date": "2026-10-21",
+   "titre": "Nigeria confirms Ebola case as outbreak spreads into western Africa",
+   "source": "The Guardian",
+   "url": "https://www.theguardian.com/world/2026/oct/21/nigeria-first-ebola-case-africa-outbreak-latest",
+   "langue": "en",
+   "resume": "Case in Africa’s most populous country was detected in a woman who had travelled from Uganda Nigeria has confirmed an Ebola case in its capital, Abuja, after a woman who arrived from Uganda tested positive for the virus, the health ministry said.",
+   "statut": "attente",
+   "collecte": "2026-10-21",
+   "media": true,
+   "image": false
+  },
+  {
    "id": "ffb9da73",
    "date": "2026-10-20",
    "titre": "Ebola à Mandro : les leaders communautaires mobilisés pour restaurer la confiance",
