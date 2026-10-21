@@ -4,12 +4,18 @@ name: Envoi de la Lettre aux abonnes
 # de la nouvelle lettre aux abonnes Brevo, une fois la lettre en ligne
 # (scripts/envoi_lettre.py attend que GitHub Pages la serve). Une lettre ne
 # part qu'une fois : data/envois-lettre.json garde le dernier numero envoye.
+# Au meme moment, l'alerte SitRep (scripts/envoi_alerte.py) part aux inscrits
+# de la page Etre prevenu ; data/envois-alerte.json joue le meme role.
 
 on:
   push:
     branches: [main]
     paths:
       - 'data/latest.json'
+      # Modifier le compteur de l'alerte relance l'envoi (158 envoye ainsi a la
+      # main le 21 octobre 2026). Les commits du bot, pousses avec GITHUB_TOKEN,
+      # ne redeclenchent pas le workflow.
+      - 'data/envois-alerte.json'
   workflow_dispatch: {}
 
 permissions:
@@ -36,14 +42,22 @@ jobs:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: python scripts/envoi_lettre.py --envoi
 
+      # Non bloquant : un echec ici ne doit pas empecher de noter la Lettre
+      # deja partie, qui repartirait sinon au push suivant.
+      - name: Envoyer l'alerte SitRep
+        continue-on-error: true
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: python scripts/envoi_alerte.py --envoi
+
       - name: Noter l'envoi
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/envois-lettre.json
+          git add data/envois-lettre.json data/envois-alerte.json
           if git diff --cached --quiet; then
             echo "Aucun envoi a noter."
           else
-            git commit -m "Lettre envoyee aux abonnes"
+            git commit -m "Lettre et alerte SitRep envoyees aux abonnes"
             for i in 1 2 3; do git pull --rebase origin main && git push && break; sleep 5; done
           fi

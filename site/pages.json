@@ -28,6 +28,11 @@
       "en": "https://c2cb539e.sibforms.com/serve/MUIFAFSJWkKKDEmgwp4VbcZ3aOqadacymc-7k330V17j0Mf0lWrFH0h2MqeA7PZXht7g8yL921JberOdAHODRAAp-Zqf-k7yQsctVqofqj5_noXdc62xvasbSMRynQXcm7W-Z0QJCaEPa_tZhE5epqyrfVzUXVa_0zppmol-zWOEavXgTs7udft_58iUkBybctrkZM8biM7OutWebQ==",
       "sw": "https://c2cb539e.sibforms.com/serve/MUIFAFSJWkKKDEmgwp4VbcZ3aOqadacymc-7k330V17j0Mf0lWrFH0h2MqeA7PZXht7g8yL921JberOdAHODRAAp-Zqf-k7yQsctVqofqj5_noXdc62xvasbSMRynQXcm7W-Z0QJCaEPa_tZhE5epqyrfVzUXVa_0zppmol-zWOEavXgTs7udft_58iUkBybctrkZM8biM7OutWebQ=="
     },
+    "brevoEnvoiAlerte": {
+      "_comment": "Envoi automatique du mail d'alerte SitRep (scripts/envoi_alerte.py), au meme moment que celui de la Lettre (21 octobre 2026) : une liste Brevo par langue (ID numerique), celles des formulaires #3 (fr) et #4 (en) de la page Etre prevenu. Tant qu'une liste manque, rien n'est envoye dans cette langue.",
+      "listes": {"fr": 3, "en": 4},
+      "expediteur": {"name": "Ebola Tracker", "email": "contact@ebola-tracker.org"}
+    },
     "brevoEnvoiLettre": {
       "_comment": "Envoi automatique du mail de la Lettre (scripts/envoi_lettre.py) : une liste Brevo par langue (ID numerique), expediteur valide dans Brevo. Tant qu'une liste manque, rien n'est envoye dans cette langue.",
       "listes": {
