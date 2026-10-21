@@ -1,5 +1,10 @@
 {
  "_comment": "Dernier SitRep annonce aux inscrits des alertes par scripts/envoi_alerte.py. Mis a 157 le 21 octobre 2026 pour que le 158 parte une fois, a la main (demande du proprietaire) ; l'automatique commence au 159. Modifier ce fichier relance le workflow d'envoi.",
- "dernier": "157",
- "campagnes": {}
+ "dernier": "158",
+ "campagnes": {
+  "158": {
+   "fr": 10,
+   "en": 11
+  }
+ }
 }
