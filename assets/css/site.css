@@ -4312,8 +4312,8 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .lq-bloc .kpi .value{grid-column:2;grid-row:1 / span 2;align-self:center;font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:30px;letter-spacing:-.03em;margin:0;color:var(--ink);}
 .lq-bloc .kpi.alerts .value{color:var(--accent-info);} .lq-bloc .kpi.labo .value{color:var(--accent-critical);}
 .lq-bloc .kpi.contacts .value{color:var(--accent-active);} .lq-bloc .kpi.cte .value{color:var(--accent-stable);} .lq-bloc .kpi.vaccin .value{color:#6B5CA5;}
-.lq-bloc .drill{margin:14px 0 0;background:none;border:0;padding:0;}
-.lq-bloc .drill a{font-weight:600;}
+.lq-bloc .drill,.lq-art .drill{margin:14px 0 0;background:none;border:0;padding:0;}
+.lq-bloc .drill a,.lq-art .drill a{font-weight:600;}
 @media (max-width:900px){ .lq-chiffres{grid-template-columns:1fr;} .lq-bloc .panel{overflow-x:auto;} .lq-art .lettre-texte{text-align:left;hyphens:manual;} }
 
 /* FAQ (7 octobre 2026, option 1) : rubriques a filets */

@@ -249,7 +249,10 @@ def extract_one_date(full_text, label):
     if idx == -1:
         return None
     window = full_text[idx + len(label): idx + len(label) + 60]
-    m = re.search(r"(\d{1,2})\s+(\w+)\s+(\d{4})", window)
+    # \s* et non \s+ entre le jour et le mois : le 158 imprime
+    # « Date de publication : 20octobre 2026 », colle. \w+ s'arrete au mois
+    # car le jour est capture d'abord par \d.
+    m = re.search(r"(\d{1,2})\s*([^\W\d_]+)\s+(\d{4})", window)
     if not m:
         return None
     d, mo, y = m.groups()
@@ -1051,7 +1054,13 @@ def extract_province_subtotals_from_text(full_text):
         if m:
             # Cle canonique : le 119 ecrit « Bas-Uélé » la ou le 118 ecrivait
             # « Bas Uélé », et la province perdait ses deces du jour.
-            out[canon_province(m.group("name")) or m.group("name")] = {
+            # Premiere occurrence seulement : la zone « Tshopo » suit la
+            # ligne de sa province et l'ecrasait (SitRep 158, 1 deces
+            # communautaire de Kabondo remplace par le 0 de la zone).
+            key = canon_province(m.group("name")) or m.group("name")
+            if key in out:
+                continue
+            out[key] = {
                 "cas": m.group("cas"), "deces": m.group("deces"), "cfr": m.group("cfr"),
                 "newcases": m.group("newcases"), "deathscomm": m.group("deathscomm"),
                 "deathsintracte": m.group("deathsintracte"), "total": m.group("total"),

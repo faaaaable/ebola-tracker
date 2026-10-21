@@ -342,6 +342,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
               '      <thead><tr><th>%s</th><th class="is-num">%s</th><th class="is-num">%s</th><th class="is-num">%s</th><th class="is-num">%s</th><th class="is-num">%s</th></tr></thead>\n'
               '      <tbody>\n%s      </tbody></table></div>\n'
               % (esc(S["bulThProvince"]), esc(S["bulThNewCases"]), esc(S["bulThNewDeaths"]), esc(i18n_lang["labelConfirmed"]), esc(i18n_lang["labelDeaths"]), esc(S["bulThZones"]), lignes))
+    corps += '    <p class="drill"><a href="%s">%s</a></p>\n' % (urls.path("donnees", lang), esc(S["lettreDonneesLien"]))
     html.append(cadre("02", S["lettreOuTitle"], "", corps, "ou", prose(esc(txt)), corps[len(prose(esc(txt))):]))
 
     # ---------------------------------------------------------------- 03 les deces
@@ -547,6 +548,10 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     else:
         corps = prose(esc(S["bulDefisNone"]))
     p_de = corps[:corps.index('    <details')] if '    <details' in corps else corps
+    # Le lien suit le texte, hors du panneau que cadre() reserve au reste.
+    lien = '    <p class="drill"><a href="%s">%s</a></p>\n' % (urls.path("defis", lang), esc(S["lettreDefisLien"]))
+    corps = p_de + lien + corps[len(p_de):]
+    p_de += lien
     html.append(cadre("05", S["lettreDefisTitle"], "", corps, "defis", p_de, corps[len(p_de):]))
 
     # ---------------------------------------------------------------- pied

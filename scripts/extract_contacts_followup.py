@@ -177,7 +177,7 @@ CONTACTS_PARMI_RE = re.compile(
 # Sud-Ubangi n'avaient pas transmis). Les deux sont acceptees ; l'incise est
 # ancree sur « dans les provinces » pour ne rien avaler d'autre.
 CONTACTS_PARMI_LES_RE = re.compile(
-    r"(?:parmis?|sur|\bdes)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?(?:en\s+cours\s+de\s+suivi|(?:à|a)\s+suivre)"
+    r"(?:parmis?|sur|\bdes)\s+(?:les\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?(?:en\s+cours\s+de\s+suivi|sous\s+suivi|(?:à|a)\s+suivre)"
     r"(?:\s+dans\s+les\s+(?:\w+\s+)?provinces\s[^,.%]{0,60}?)?\s*,?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
     r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+(?:une\s+proportion|un\s+taux)(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
@@ -192,6 +192,10 @@ CONTACTS_PARMI_LES_RE = re.compile(
 # taux de suivi de 78,0 %, en baisse par rapport à la veille (81,8 %) » —
 # « à suivre » remplace « en cours de suivi ». Sans l'alternative, le repli
 # lisait le taux de la veille et le 14 octobre perdait ses effectifs.
+# SitRep 158 (19 octobre 2026) : « Parmi les 31 725 contacts sous suivi dans
+# les sept provinces ayant transmis leurs données, 24 679 ont été vus … soit
+# un taux de suivi de 77,8 % » — « sous suivi » remplace « à suivre ». Sans
+# l'alternative, le 19 octobre perdait ses effectifs nationaux.
 
 # SitRep 127 (18 septembre 2026) : douzieme tournure — « Au cours des
 # dernières 24 heures, 26 803 ont été vus parmi les 30 541 contacts en cours
@@ -563,6 +567,22 @@ PROV_D5_RE = re.compile(
     r"(\d+(?:[,.]\d+)?)\s*%%\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)" % PROVINCES_DETAIL_RE,
     re.IGNORECASE,
 )
+# SitRep 158 (19 octobre 2026) : « Ce taux atteint 100,0 % au Sud Ubangi
+# (44/44) et au Nord Ubangi (61/61), … Il reste insuffisant au Nord-Kivu
+# (79,7 % ; 15 394/19 316) ». Deux tournures : la seconde province d'un taux
+# partage (PROV_D6_RE, le taux est celui du groupe 1, verifie par les
+# effectifs), et taux puis effectifs dans la meme parenthese (PROV_D7_RE).
+PREP = r"(?:en|au|à\s+la|a\s+la|dans\s+l[ae]|du|de\s+la)"
+PROV_D6_RE = re.compile(
+    r"(\d+(?:[,.]\d+)?)\s*%%\s+%s\s*(?:%s)\s*\(\s*\d[\d\s]*?/\s*\d[\d\s]*?\)\s+et\s+%s\s*(%s)"
+    r"\s*\(\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)" % (PREP, PROVINCES_DETAIL_RE, PREP, PROVINCES_DETAIL_RE),
+    re.IGNORECASE,
+)
+PROV_D7_RE = re.compile(
+    r"%s\s*(%s)\s*\(\s*(\d+(?:[,.]\d+)?)\s*%%\s*;\s*(\d[\d\s]*?)\s*/\s*(\d[\d\s]*?)\s*\)"
+    % (PREP, PROVINCES_DETAIL_RE),
+    re.IGNORECASE,
+)
 PROV_D1_RE = re.compile(r"(%s)\s*\((\d+(?:[,.]\d+)?)\s*%%\)" % PROVINCES_DETAIL_RE)
 PROV_D1_ATTEINT_RE = re.compile(r"l[’']?\s*(%s)\s+(?:atteint|est à|se situe à)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
 PROV_C_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
@@ -712,6 +732,22 @@ def details_contacts(full_text, rows, taux_national=None):
         if ok:
             ligne["vus"], ligne["aSuivre"] = ok
         provinces[nom] = ligne
+    # D, seconde province d'un taux partage, puis taux et effectifs dans la
+    # meme parenthese (158), meme voisinage.
+    for rx, ordre in ((PROV_D6_RE, (2, 1, 3, 4)), (PROV_D7_RE, (1, 2, 3, 4))):
+        for pm in rx.finditer(zone_contacts):
+            i_nom, i_taux, i_vus, i_suivre = ordre
+            nom = canon_detail(pm.group(i_nom))
+            taux = norm_pct(pm.group(i_taux) + "%")
+            if taux is None or nom in provinces:
+                continue
+            ligne = {"taux": taux}
+            ok = effectifs_verifies(norm_int(pm.group(i_vus)), norm_int(pm.group(i_suivre)), taux)
+            if ok:
+                ligne["vus"], ligne["aSuivre"] = ok
+            elif rx is PROV_D6_RE:
+                continue  # un taux partage n'est repris que si les effectifs le confirment
+            provinces[nom] = ligne
     # D, forme libre (086-092) : des taux entre parentheses, sans effectifs.
     if not provinces and m:
         zone = full_text[max(0, m.start() - 400):m.end() + 400]

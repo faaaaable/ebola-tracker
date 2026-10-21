@@ -4035,5 +4035,47 @@
         "taux": 78.6
       }
     }
+  },
+  {
+    "date": "2026-10-19",
+    "sitrepNumber": "158",
+    "contactsFollowUpRate": 77.8,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 31725,
+      "vus": 24679
+    },
+    "provinces": {
+      "Sud-Ubangi": {
+        "taux": 100.0,
+        "vus": 44,
+        "aSuivre": 44
+      },
+      "Bas-Uélé": {
+        "taux": 99.7,
+        "vus": 741,
+        "aSuivre": 743
+      },
+      "Haut-Uélé": {
+        "taux": 93.0,
+        "vus": 1576,
+        "aSuivre": 1694
+      },
+      "Tshopo": {
+        "taux": 86.5,
+        "vus": 1041,
+        "aSuivre": 1204
+      },
+      "Nord-Ubangi": {
+        "taux": 100.0,
+        "vus": 61,
+        "aSuivre": 61
+      },
+      "Nord-Kivu": {
+        "taux": 79.7,
+        "vus": 15394,
+        "aSuivre": 19316
+      }
+    }
   }
 ]
