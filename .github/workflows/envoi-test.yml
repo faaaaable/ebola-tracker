@@ -1,0 +1,40 @@
+name: Envoi test des mails Brevo
+
+# Envoie la Lettre et l'alerte SitRep du dernier bulletin a une seule adresse,
+# celle de data/envoi-test.json, sans toucher aux listes d'abonnes ni aux
+# compteurs d'envoi. Modifier ce fichier relance le test (cree le 22 octobre
+# 2026 pour verifier les formulaires de desinscription FR/EN : la cle Brevo
+# locale est refusee, tout envoi passe par GitHub).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/envoi-test.json'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v5
+
+      - name: Installer Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Lettre en test
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: python scripts/envoi_lettre.py --test "$(python -c 'import json;print(json.load(open("data/envoi-test.json"))["adresse"])')"
+
+      - name: Alerte SitRep en test
+        if: always()
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: python scripts/envoi_alerte.py --test "$(python -c 'import json;print(json.load(open("data/envoi-test.json"))["adresse"])')"
