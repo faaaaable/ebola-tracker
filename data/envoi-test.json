@@ -1,5 +1,5 @@
 {
  "_comment": "Adresse de l'envoi test (.github/workflows/envoi-test.yml) : la modifier, ou changer « demande », relance l'envoi de la Lettre et de l'alerte du dernier bulletin a cette seule adresse.",
  "adresse": "contact@ebola-tracker.org",
- "demande": "2026-10-22 verification des formulaires de desinscription FR/EN"
+ "demande": "2026-10-22 (2) verification des formulaires de desinscription FR/EN"
 }

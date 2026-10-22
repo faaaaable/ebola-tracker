@@ -20,7 +20,7 @@ import html, json, os, sys
 from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from envoi_lettre import ROOT, ORIGINE, CHEMIN, lire_json, cle_api, brevo, en_ligne, abonnes  # noqa: E402
+from envoi_lettre import ROOT, ORIGINE, CHEMIN, lire_json, cle_api, brevo, creer_campagne, en_ligne, abonnes  # noqa: E402
 
 ETAT = os.path.join(ROOT, "data", "envois-alerte.json")
 SANS, SERIF = "Arial,Helvetica,sans-serif", "Georgia,'Times New Roman',serif"
@@ -91,7 +91,7 @@ def campagne(cle, conf, lang, liste=None):
         donnees["unsubscriptionPageId"] = page
     if liste:
         donnees["recipients"] = {"listIds": [liste]}
-    return brevo(cle, "POST", "/emailCampaigns", donnees)["id"]
+    return creer_campagne(cle, donnees)
 
 
 def main():

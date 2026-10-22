@@ -141,6 +141,22 @@ def brevo(cle, methode, chemin, corps=None):
         sys.exit("Brevo %s %s : %s %s" % (methode, chemin, e.code, e.read().decode(errors="replace")))
 
 
+def creer_campagne(cle, donnees):
+    """Cree la campagne et rend son identifiant. Si Brevo refuse le formulaire
+    de desinscription, la campagne est recreee sans lui (page Brevo par
+    defaut) : un identifiant faux ne doit jamais bloquer l'envoi. Le
+    22 octobre 2026, les deux premiers identifiants essayes etaient refuses
+    (« Unsubscription page id does not exist »)."""
+    try:
+        return brevo(cle, "POST", "/emailCampaigns", donnees)["id"]
+    except SystemExit as e:
+        if "unsubscriptionPageId" not in donnees or "nsubscription page" not in str(e):
+            raise
+        print("! formulaire de desinscription %s refuse par Brevo, page par defaut : %s"
+              % (donnees.pop("unsubscriptionPageId"), e))
+        return brevo(cle, "POST", "/emailCampaigns", donnees)["id"]
+
+
 def en_ligne(url, num, attente=1800):
     """Attend que la lettre soit servie par GitHub Pages (le deploiement peut
     prendre plusieurs minutes) : le mail ne doit pas pointer vers une 404."""
@@ -169,7 +185,7 @@ def campagne(cle, conf, num, lang, liste=None):
         donnees["unsubscriptionPageId"] = page
     if liste:
         donnees["recipients"] = {"listIds": [liste]}
-    return brevo(cle, "POST", "/emailCampaigns", donnees)["id"]
+    return creer_campagne(cle, donnees)
 
 
 def abonnes(cle, liste):
