@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Mail d'alerte « nouveau SitRep » aux inscrits de la page Etre prevenu,
+"""PLUS ENVOYE depuis le 23 octobre 2026 : le mail de la Lettre
+(envoi_lettre.py) part aussi aux inscrits de la page Etre prevenu, un seul
+mail par bulletin (demande du proprietaire). Garde pour --apercu et pour
+revenir en arriere : remettre son etape dans envoi-lettre.yml.
+
+Mail d'alerte « nouveau SitRep » aux inscrits de la page Etre prevenu,
 envoye par Brevo au meme moment que le mail de la Lettre (21 octobre 2026,
 demande du proprietaire). Mise en page de la maquette tmp/proto-mail-1019 :
 numero du bulletin, date des donnees, cas et deces avec le « + » du jour, un
