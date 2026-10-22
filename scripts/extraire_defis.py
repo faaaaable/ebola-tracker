@@ -60,7 +60,9 @@ PILIERS = [
 
 TITRE_NUMEROTE = re.compile(r'(?m)^\s*(\d+(?:\.\d+)+)\.?\s+([^\n]{3,140})$')
 TITRE_DEFIS = re.compile(r'(?im)^[\s\d.]*d[ée]fis?\s*:?\s*$')
-TITRE_CAPITALES = re.compile(r'(?m)^\s*[A-ZÉÈÀÇ][A-ZÉÈÀÇ\s]{7,}$')
+# La puce est toleree : au 159 la quatrieme de couverture commence par
+# « ▪ MESSAGES CLES CHRONOLOGIE DES FAITS CLÉS » et le bloc PSEA l'avalait.
+TITRE_CAPITALES = re.compile(r'(?m)^\s*(?:[•▪]\s*)?[A-ZÉÈÀÇ][A-ZÉÈÀÇ\s]{7,}$')
 
 
 def sans_accent(t):

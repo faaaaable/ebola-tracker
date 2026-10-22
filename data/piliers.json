@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-10-19"
+  "fin": "2026-10-20"
  },
  "parDate": [
   {
@@ -3337,6 +3337,39 @@
     "provinces": {
      "Nord-Kivu": {
       "cumul": 472
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-20",
+   "sitrepNumber": "159",
+   "poe": null,
+   "rings": {
+    "ouverts": 34,
+    "attendus": 52
+   },
+   "eds": {
+    "alertes": 67,
+    "realisees": 108,
+    "swabes": 124,
+    "nonSwabes": 9,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 1,
+     "swabes": 1,
+     "nonSwabes": 1
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Nord-Kivu": 600
+    },
+    "rupture": false,
+    "provinces": {
+     "Nord-Kivu": {
+      "cumul": 600
      }
     }
    },

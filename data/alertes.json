@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-19"
+    "fin": "2026-10-20"
   },
   "parDate": [
     {
@@ -6219,6 +6219,73 @@
         "transferes": 272,
         "calcule": true,
         "partVerifiee": 100.0,
+        "partValidee": 17.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-20",
+      "sitrepNumber": "159",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 121,
+          "verifiees": 121,
+          "validees": 119,
+          "suspectsInvestigues": 119,
+          "transferes": 7
+        },
+        "Bas-Uélé": {
+          "recues": 163,
+          "verifiees": 163,
+          "validees": 18,
+          "suspectsInvestigues": 18,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1374,
+          "verifiees": 1374,
+          "validees": 250,
+          "suspectsInvestigues": 243,
+          "transferes": 138
+        },
+        "Nord-Kivu": {
+          "recues": 1728,
+          "verifiees": 1728,
+          "validees": 252,
+          "suspectsInvestigues": 252,
+          "transferes": 145
+        },
+        "Sud-Ubangi": {
+          "recues": 47,
+          "verifiees": 44,
+          "validees": 0,
+          "suspectsInvestigues": 0,
+          "transferes": 0
+        },
+        "Nord-Ubangi": {
+          "recues": 227,
+          "verifiees": 17,
+          "validees": 17,
+          "suspectsInvestigues": 17,
+          "transferes": 3
+        },
+        "Tshopo": {
+          "recues": 135,
+          "verifiees": 135,
+          "validees": 7,
+          "suspectsInvestigues": 7,
+          "transferes": 0
+        }
+      },
+      "total": {
+        "recues": 3795,
+        "verifiees": 3582,
+        "validees": 663,
+        "suspectsInvestigues": 656,
+        "transferes": 293,
+        "calcule": true,
+        "partVerifiee": 94.4,
         "partValidee": 17.5
       },
       "source": "SitRep INSP (automatique)"

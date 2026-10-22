@@ -8853,6 +8853,160 @@
 "completude"
 ]
 }
+],
+"au bas uélé # poc sur # n ont pas rapporté et les services du pnhf la formation et la motivation des prestataires l approvisionnement en eau la mobilité et la digitalisation des poe poc font défaut": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"poc",
+"completude",
+"impayes",
+"ruptures"
+]
+}
+],
+"au bas uélé aucun eds n a été réalisé # ess prioritaires sur # n ont pas de triage fonctionnel # sur # n ont pas de stockage d eau couvrant # heures et seuls # prestataires sur # # # sont formés en pci wash": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"eds",
+"ruptures"
+]
+}
+],
+"au bas uélé la mise en marche des ucc n est pas effective": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"au bas uélé le retard dans la mise en place du cte normé de l hgr de buta l isolement de # suspects dans les ess sans soutien nutritionnel l absence d ambulance et le retard d accompagnement psychosocial des # confirmés demeurent des défis majeurs": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"au haut uélé # poc sur # pk# route niangara mutowamba et bombombi n ont pas rapporté faute de réseau # # et des rumeurs poison dans l eau peur du cte alimentent les refus": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"poc",
+"completude",
+"ruptures",
+"resistance"
+]
+}
+],
+"au nord kivu # rings sur # restent à ouvrir notamment à katwa # ménages sur # n ont pas été décontaminés aucun ménage n a été doté en kits # # # ppl ont été infectés à mabalako et # eds sont reportés au lendemain un corps n ayant pu être swabé à musienene en raison de la résistance familiale": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"eds",
+"resistance",
+"ruptures"
+]
+}
+],
+"au nord kivu la complétude s établit à # # # # le poc de butuhe demeure fermé depuis l incident sécuritaire du # septembre # les alertes des poc ne sont pas prises en charge à temps par les cellules d alerte et la rupture d intrants pci et d epi ainsi que l absence d ambulance dédiée persistent": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"poc",
+"insecurite",
+"ruptures"
+]
+}
+],
+"au nord kivu la couverture smsps reste faible autour des derniers cas confirmés à biena manguredjipa kayna lubero masereka kalunguta mabalako mutwanga et vuhovi et # zs affectées n ont pas de crèche au bas uélé l accompagnement psychosocial des # confirmés accuse toujours du retard": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": []
+}
+],
+"au nord kivu le stock de vaccin est épuisé # dose restante alors que la couverture des ppl reste faible # # à beni sur une cible provinciale de # # ppl dans # zs et les dispositifs de transport du vaccin arktek restent à confirmer avec l oms": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"au nord kivu les lits des suspects sont occupés à # # # # # patients sur # # # sont pris en charge hors cte ct et la complétude des données n est que de # musienene manquant": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"completude",
+"saturation"
+]
+}
+],
+"au sud kivu la complétude reste faible # # # # aucun des # corps sans vie n a été swabé et les poe de kavimvira kalundu port sncc et baraka ne disposent pas de dispositif d isolement": [
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"completude",
+"poc",
+"eds",
+"ruptures"
+]
+}
+],
+"en ituri # rings sur # restent à ouvrir # ménages sur # et # fosa sur # n ont pas été décontaminés # échecs d eds ont été enregistrés # corps sur # # # n ont pas pu être swabés et # eds sont reportés au lendemain": [
+{
+"province": "Ituri",
+"obstacles": [
+"eds"
+]
+}
+],
+"en ituri la quantité de sang reste insuffisante au regard des besoins des cte et des hôpitaux # patients de la zs de mandima # au ct mandima et # au ct makeke n ont pas bénéficié d alimentation et le rapportage des mouvements d ambulances reste faible # #": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"completude"
+]
+}
+],
+"en ituri la vaccination des ppl reste suspendue dans l attente de la validation du comité national de recherche": [
+{
+"province": "Ituri",
+"obstacles": []
+}
+],
+"en ituri seules # zs affectées sur # sont couvertes # # et # des # derniers cas confirmés # # n ont pas encore été pris en charge la couverture des interventions autour des décès communautaires reste à renforcer à nia nia": [
+{
+"province": "Ituri",
+"obstacles": []
+}
+],
+"à la tshopo # confirmés évadés du ct de bafwasende ne sont toujours pas retrouvés et l appui alimentaire et nutritionnel reste à consolider avec l arrivée de caritas à bafwasende": [
+{
+"province": "Tshopo",
+"obstacles": [
+"resistance",
+"ruptures"
+]
+}
+],
+"à la tshopo # corps n ont pu être swabés en l absence des familles et l insuffisance d intrants pci et de prestataires formés persiste": [
+{
+"province": "Tshopo",
+"obstacles": [
+"eds",
+"ruptures"
+]
+}
 ]
 }
 }
