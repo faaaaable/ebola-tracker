@@ -32,7 +32,7 @@
       "_comment": "Listes des inscrits de la page Etre prevenu. Depuis le 23 octobre 2026, elles recoivent le mail de la Lettre (scripts/envoi_lettre.py, un seul mail par bulletin) ; l'alerte SitRep (scripts/envoi_alerte.py) n'est plus envoyee. Avant : une liste Brevo par langue (ID numerique), celles des formulaires #3 (fr) et #4 (en) de la page Etre prevenu ; desinscription = formulaire Brevo de la langue (unsubscriptionPageId, 22 octobre 2026). Tant qu'une liste manque, rien n'est envoye dans cette langue.",
       "listes": {"fr": 3, "en": 4},
       "expediteur": {"name": "Ebola Tracker", "email": "contact@ebola-tracker.org"},
-      "desinscription": {"fr": "6ad9baf9d751da6d6d9a2c17", "en": "6ad9bba5bf586b00bb2a1788"}
+      "desinscription": {"fr": "6ad5cee873668ab11239de1c", "en": "6ada8ff4ce4c07b7ee512156"}
     },
     "brevoEnvoiLettre": {
       "_comment": "Envoi automatique du mail de la Lettre (scripts/envoi_lettre.py) : une liste Brevo par langue (ID numerique), expediteur valide dans Brevo, formulaire de desinscription par langue (unsubscriptionPageId, depuis le 22 octobre 2026 : sans lui, le lien menait a la page Brevo par defaut). Tant qu'une liste manque, rien n'est envoye dans cette langue.",
@@ -45,8 +45,8 @@
         "email": "contact@ebola-tracker.org"
       },
       "desinscription": {
-        "fr": "6ad9baf9d751da6d6d9a2c17",
-        "en": "6ad9bba5bf586b00bb2a1788"
+        "fr": "6ad5cee873668ab11239de1c",
+        "en": "6ada8ff4ce4c07b7ee512156"
       }
     }
   },
