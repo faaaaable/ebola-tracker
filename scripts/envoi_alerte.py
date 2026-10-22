@@ -84,6 +84,11 @@ def campagne(cle, conf, lang, liste=None):
     num, objet, apercu, corps = mail(lang)
     donnees = {"name": "Alerte SitRep %s (%s)%s" % (num, lang, "" if liste else " - test"), "subject": objet,
                "previewText": apercu, "sender": conf["expediteur"], "htmlContent": corps}
+    # Le lien {{ unsubscribe }} mene au formulaire de la langue, pas a la
+    # page Brevo par defaut (22 octobre 2026).
+    page = (conf.get("desinscription") or {}).get(lang)
+    if page:
+        donnees["unsubscriptionPageId"] = page
     if liste:
         donnees["recipients"] = {"listIds": [liste]}
     return brevo(cle, "POST", "/emailCampaigns", donnees)["id"]

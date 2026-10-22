@@ -29,12 +29,13 @@
       "sw": "https://c2cb539e.sibforms.com/serve/MUIFAFSJWkKKDEmgwp4VbcZ3aOqadacymc-7k330V17j0Mf0lWrFH0h2MqeA7PZXht7g8yL921JberOdAHODRAAp-Zqf-k7yQsctVqofqj5_noXdc62xvasbSMRynQXcm7W-Z0QJCaEPa_tZhE5epqyrfVzUXVa_0zppmol-zWOEavXgTs7udft_58iUkBybctrkZM8biM7OutWebQ=="
     },
     "brevoEnvoiAlerte": {
-      "_comment": "Envoi automatique du mail d'alerte SitRep (scripts/envoi_alerte.py), au meme moment que celui de la Lettre (21 octobre 2026) : une liste Brevo par langue (ID numerique), celles des formulaires #3 (fr) et #4 (en) de la page Etre prevenu. Tant qu'une liste manque, rien n'est envoye dans cette langue.",
+      "_comment": "Envoi automatique du mail d'alerte SitRep (scripts/envoi_alerte.py), au meme moment que celui de la Lettre (21 octobre 2026) : une liste Brevo par langue (ID numerique), celles des formulaires #3 (fr) et #4 (en) de la page Etre prevenu ; desinscription = formulaire Brevo de la langue (unsubscriptionPageId, 22 octobre 2026). Tant qu'une liste manque, rien n'est envoye dans cette langue.",
       "listes": {"fr": 3, "en": 4},
-      "expediteur": {"name": "Ebola Tracker", "email": "contact@ebola-tracker.org"}
+      "expediteur": {"name": "Ebola Tracker", "email": "contact@ebola-tracker.org"},
+      "desinscription": {"fr": "6ad9baf9d751da6d6d9a2c17", "en": "6ad9bba5bf586b00bb2a1788"}
     },
     "brevoEnvoiLettre": {
-      "_comment": "Envoi automatique du mail de la Lettre (scripts/envoi_lettre.py) : une liste Brevo par langue (ID numerique), expediteur valide dans Brevo. Tant qu'une liste manque, rien n'est envoye dans cette langue.",
+      "_comment": "Envoi automatique du mail de la Lettre (scripts/envoi_lettre.py) : une liste Brevo par langue (ID numerique), expediteur valide dans Brevo, formulaire de desinscription par langue (unsubscriptionPageId, depuis le 22 octobre 2026 : sans lui, le lien menait a la page Brevo par defaut). Tant qu'une liste manque, rien n'est envoye dans cette langue.",
       "listes": {
         "fr": 5,
         "en": 6
@@ -42,6 +43,10 @@
       "expediteur": {
         "name": "Ebola Tracker",
         "email": "contact@ebola-tracker.org"
+      },
+      "desinscription": {
+        "fr": "6ad9baf9d751da6d6d9a2c17",
+        "en": "6ad9bba5bf586b00bb2a1788"
       }
     }
   },
