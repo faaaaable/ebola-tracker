@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "8ebb1680",
+   "date": "2026-10-22",
+   "titre": "Ebola au Nigeria: des zones d'ombre sur le parcours de la patiente passée par l'Ouganda",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261022-ebola-au-nigeria-des-zones-d-ombre-sur-le-parcours-de-la-patiente-pass%C3%A9e-par-l-ouganda",
+   "langue": "fr",
+   "resume": "Où la patiente diagnostiquée au Nigeria comme atteinte d'Ebola de souche Bundibugyo a-t-elle contracté le virus ? Deux jours après l'annonce du cas par Abuja, son parcours reste à éclaircir.",
+   "statut": "attente",
+   "collecte": "2026-10-22",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ef7d6e91",
    "date": "2026-10-21",
    "titre": "Ebola à Kisangani : 43 malades guéris au Centre de traitement d’Ebola",
@@ -75,6 +88,19 @@
    "resume": "Les cas de décès communautaires ont diminué en zone de santé de Katwa à Butembo, au Nord-Kivu, dans l'Est de…",
    "statut": "publie",
    "collecte": "2026-10-21",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "a6b86e41",
+   "date": "2026-10-21",
+   "titre": "Sudan’s war escalates as UN warns of wider regional crisis",
+   "source": "France 24",
+   "url": "https://www.france24.com/en/tv-shows/eye-on-africa/20261021-sudan-s-war-escalates-as-un-warns-of-wider-regional-crisis",
+   "langue": "en",
+   "resume": "In tonight’s edition: Sudan’s brutal war continues to take a devastating regional toll, as a drone strike in Abyei reportedly kills 153 people. We speak to the UN envoy for Sudan following an emergency international meeting on the escalating crisis.",
+   "statut": "attente",
+   "collecte": "2026-10-22",
    "media": true,
    "image": true
   },
@@ -181,6 +207,19 @@
    "collecte": "2026-10-21",
    "media": true,
    "image": false
+  },
+  {
+   "id": "3d352e96",
+   "date": "2026-10-21",
+   "titre": "Ebola in Tshopo: 8,962 frontline healthcare workers vaccinated out of 14,969 targeted (Provincial EPI Coordinator)",
+   "source": "ACP",
+   "url": "https://acp.cd/anglais/ebola-in-tshopo-8962-frontline-healthcare-workers-vaccinated-out-of-14969-targeted-provincial-epi-coordinator/",
+   "langue": "en",
+   "resume": "8,961 frontline healthcare workers out of a target of 14,960 have been vaccinated in Tshopo Province, in the north-east…",
+   "statut": "publie",
+   "collecte": "2026-10-22",
+   "media": true,
+   "image": true
   },
   {
    "id": "37a717fc",
