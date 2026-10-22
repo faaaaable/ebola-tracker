@@ -1,5 +1,5 @@
 {
- "_comment": "Adresse de l'envoi test (.github/workflows/envoi-test.yml) : la modifier, ou changer « demande », relance l'envoi de la Lettre et de l'alerte du dernier bulletin a cette seule adresse.",
- "adresse": "faaaaable@gmail.com",
- "demande": "2026-10-23 test du mail unique (dessin 1a)"
+ "_comment": "Adresse de l'envoi test (.github/workflows/envoi-test.yml) : la modifier, ou changer « demande », relance l'envoi du mail du dernier bulletin a cette seule adresse. Brevo n'envoie un test qu'a un contact inscrit dans une liste : ajouter l'adresse a la liste Brevo 7 « Tests », qui ne sert a aucune campagne. Ne pas laisser ici une adresse personnelle : le fichier est servi par le site.",
+ "adresse": "contact@ebola-tracker.org",
+ "demande": "2026-10-23 retour a l'adresse du site apres le test"
 }
