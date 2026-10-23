@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "9819b95c",
+   "date": "2026-10-23",
+   "titre": "Ebola à Lubero : deux structures sanitaires restent fermées à Alimbongo après la contamination de soignants",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/23/actualite/sante/ebola-lubero-deux-structures-sanitaires-restent-fermees-alimbongo-apres",
+   "langue": "fr",
+   "resume": "Radio Okapi/ Ph. Marc Maro Fimbo\" /> Deux structures sanitaires de la zone de santé d’Alimbongo, dans le territoire de Lubero, au Nord-Kivu, restent fermées à la suite de la confirmation de cas de maladie à virus Ebola parmi leur personnel.",
+   "statut": "publie",
+   "collecte": "2026-10-23",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "fa665554",
    "date": "2026-10-22",
    "titre": "Lutte contre Ebola : contrôle du nombre des passagers sur les taxis-motos pour limiter la propagation de la maladie à Beni",
