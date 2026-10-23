@@ -562,7 +562,7 @@ def lien_telegram(config, libelle):
             % (esc(url), TELEGRAM_ICONE, esc(libelle)))
 
 
-def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces, avec_avertissement=True):
+def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces, avec_avertissement=True, avec_abonnement=True):
     by_id = {p["id"]: p for p in config["pages"]}
     columns = []
     def provinces_col():
@@ -621,11 +621,35 @@ def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces, avec_av
     notice = ('    <p class="footer-notice">%s <a href="%s">%s</a></p>\n'
               % (strings_lang["footerNotice"], urls.path("methodologie", lang) + "#avertissement",
                  esc(strings_lang["footerNoticeMore"]))) if avec_avertissement else ""
+    # En tete du pied, sur toutes les pages : s'inscrire a La Lettre (24 octobre
+    # 2026, demande du proprietaire). Meme formulaire Brevo que la page Etre
+    # prevenu (site.brevoForms, #3 fr, #4 en repris en swahili), memes champs ;
+    # app.js l'envoie comme tous les form[data-brevo]. Le lien « Alertes » de
+    # la colonne « Le site » est parti avec : il faisait doublon. Pas sur
+    # l'accueil, la page Etre prevenu ni les Lettres (encadre d'abonnement deja
+    # la) : demande du proprietaire, meme jour.
+    abo = (
+        '    <div class="footer-abo">\n'
+        '      <p class="footer-abo-t">%s<span>%s</span></p>\n'
+        '      <form class="al-form" data-brevo method="POST" action="%s">\n'
+        '        <div class="al-ligne"><input name="EMAIL" type="email" required placeholder="%s" autocomplete="email" aria-label="%s">'
+        '<button type="submit" data-sending="%s">%s</button></div>\n'
+        '        <label class="al-consent"><input type="checkbox" name="OPT_IN" value="1" required> <span>%s</span></label>\n'
+        '        <input type="text" name="email_address_check" value="" class="al-leurre" tabindex="-1" autocomplete="off" aria-hidden="true">'
+        '<input type="hidden" name="locale" value="%s">\n'
+        '        <p class="al-msg al-ok" role="status" hidden>%s</p><p class="al-msg al-err" role="alert" hidden>%s</p>\n'
+        '      </form>\n'
+        '    </div>\n'
+        % (esc(strings_lang["footerAboTitre"]), esc(strings_lang["footerAboTexte"]), esc(config["site"]["brevoForms"][lang]),
+           esc(strings_lang["alertesPlaceholder"]), esc(strings_lang["alertesLabel"]), esc(strings_lang["alertesSending"]),
+           esc(strings_lang["alertesSubmit"]), esc(strings_lang["alertesConsentement"]), "fr" if lang == "fr" else "en",
+           esc(strings_lang["alertesSuccess"]), esc(strings_lang["alertesError"]))) if avec_abonnement else ""
     return (
         '  <footer>\n'
+        '%s'
         '    <div class="footer-nav">\n%s\n    </div>\n'
         '%s'
-        '  </footer>' % ("\n".join(columns), notice))
+        '  </footer>' % (abo, "\n".join(columns), notice))
 
 
 def json_ld(payload):
@@ -5056,7 +5080,9 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "content": content,
         "footer": build_footer(config, urls, lang, strings_lang, i18n_lang,
                                provinces,
-                               avec_avertissement=(page.get("id") != "accueil")),
+                               avec_avertissement=(page.get("id") != "accueil"),
+                               avec_abonnement=(page.get("id") not in ("accueil", "alertes", "bulletin")
+                                                and not page.get("lettreNum"))),
         "pageGlobals": "\n".join(page_globals),
         "bodyAssets": "",
         "t.skipToContent": esc(strings_lang["skipToContent"]),
