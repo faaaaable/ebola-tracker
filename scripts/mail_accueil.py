@@ -1,12 +1,21 @@
-"""Mail d'accueil de La Lettre (23 octobre 2026) : envoye par Brevo une fois
+"""Mails d'inscription a La Lettre, modeles Brevo.
+
+Mail d'accueil (23 octobre 2026) : envoye par Brevo une fois
 l'inscription confirmee (double opt-in), en francais par le formulaire #3
 (liste 3), en anglais par le formulaire #4 (liste 4, swahili compris).
 Dessin : maquette 2 de tmp/proto-mail-accueil-1023 (en-tete LA LETTRE, mot
 signe Pierre, sans bouton), meme enveloppe que le mail de la Lettre
 (scripts/envoi_lettre.py).
 
-    python scripts/mail_accueil.py --apercu          ecrit tmp/mail-accueil-<lang>.html
-    python scripts/mail_accueil.py --brevo           cree ou met a jour les deux modeles Brevo
+Mail de confirmation du double opt-in (24 octobre 2026), a la place du
+modele standard de Brevo : meme dessin, « Encore une etape », un bouton
+dont le lien est la balise {{ doubleoptin }} (Brevo ne la remplit que lors
+d'une vraie inscription : dans un envoi test, le bouton ne mene nulle
+part). Modele etiquete « optin », sans lien de desinscription (la personne
+n'est pas encore inscrite). Maquette : tmp/proto-mail-optin-1024.
+
+    python scripts/mail_accueil.py --apercu          ecrit tmp/mail-<accueil|optin>-<lang>.html
+    python scripts/mail_accueil.py --brevo           cree ou met a jour les quatre modeles Brevo
     python scripts/mail_accueil.py --test ADRESSE    envoie un test de chaque modele
 
 Les identifiants des modeles sont gardes dans data/mail-accueil.json. Le
@@ -41,17 +50,29 @@ T = {"fr": dict(objet="Bienvenue dans La Lettre", marque="La lettre",
                        "If you have a question, about a figure, a source or the site itself, just reply to this email. "
                        "I read every message."],
                 salut="Best regards,", desinscr="Unsubscribe", accueil="en/")}
+OPTIN = {"fr": dict(objet="Confirmez votre inscription à La Lettre", apercu="Encore une étape : un clic pour confirmer.",
+                    titre="Encore une étape",
+                    texte="Pour recevoir La Lettre à chaque nouveau bulletin de l’INSP, confirmez votre adresse en "
+                          "cliquant sur le bouton ci-dessous.",
+                    bouton="Confirmer mon inscription",
+                    note="Si vous n’avez pas demandé cette inscription, ignorez simplement ce mail : vous ne recevrez rien."),
+         "en": dict(objet="Confirm your subscription to The Letter", apercu="One more step: one click to confirm.",
+                    titre="One more step",
+                    texte="To receive The Letter with each new INSP bulletin, confirm your address by clicking the "
+                          "button below.",
+                    bouton="Confirm my subscription",
+                    note="If you did not ask to subscribe, simply ignore this email: you will not receive anything.")}
 
 
-def mail(lang):
-    """(objet, html) du mail d'accueil."""
+def enveloppe(lang, objet, apercu, contenu, desinscription=True):
+    """Le mail entier autour du contenu de la carte (lignes <tr>) : marque,
+    carte au bandeau bleu et en-tete LA LETTRE, pied de page."""
     t, esc = T[lang], html.escape
     accueil = ORIGINE + t["accueil"]
-    para = "".join(f'\n <tr><td style="padding:{26 if i == 0 else 14}px 36px 0;font:17px/1.7 {SERIF};color:#2E2820;">{esc(p)}</td></tr>'
-                   for i, p in enumerate(t["corps"]))
-    corps = f"""<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(t["objet"])}</title></head>
+    desinscr = (' · <a href="{{ unsubscribe }}" style="color:#1B6C8C;">%s</a>' % t["desinscr"]) if desinscription else ""
+    return f"""<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(objet)}</title></head>
 <body style="margin:0;padding:0;background:#F7F3EE;">
-<div style="display:none;max-height:0;overflow:hidden;">{esc(t["apercu"])}</div>
+<div style="display:none;max-height:0;overflow:hidden;">{esc(apercu)}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F7F3EE;"><tr><td align="center" style="padding:24px 10px;">
 <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 14px;"><tr>
  <td style="padding-right:9px;"><a href="{accueil}"><img src="{FAVICON}" width="24" height="24" alt="" style="display:block;border-radius:5px;"></a></td>
@@ -61,13 +82,37 @@ def mail(lang):
  <tr><td align="center" style="padding:28px 24px 0;">
   <div style="font:700 40px/1 {SERIF};letter-spacing:5px;text-transform:uppercase;color:{INK};">{t["marque"]}</div>
   <div style="font:italic 15px/1.4 {SERIF};color:{DIM};margin-top:12px;">{esc(t["sous"])}</div>
-  <div style="border-bottom:3px double {LINE};margin-top:22px;"></div></td></tr>{para}
- <tr><td style="padding:22px 36px 32px;font:17px/1.6 {SERIF};color:#2E2820;">{esc(t["salut"])}<br><span style="font-style:italic;font-size:21px;color:{INK};">Pierre</span></td></tr>
+  <div style="border-bottom:3px double {LINE};margin-top:22px;"></div></td></tr>{contenu}
 </table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;"><tr><td style="padding:16px 26px;font:12px/1.6 {SANS};color:{FAINT};text-align:center;">
- Ebola Tracker · <a href="mailto:{MAIL}" style="color:#1B6C8C;">{MAIL}</a> · <a href="{accueil}" style="color:#1B6C8C;white-space:nowrap;">ebola-tracker.org</a> · <a href="{{{{ unsubscribe }}}}" style="color:#1B6C8C;">{t["desinscr"]}</a></td></tr></table>
+ Ebola Tracker · <a href="mailto:{MAIL}" style="color:#1B6C8C;">{MAIL}</a> · <a href="{accueil}" style="color:#1B6C8C;white-space:nowrap;">ebola-tracker.org</a>{desinscr}</td></tr></table>
 </td></tr></table></body></html>"""
-    return t["objet"], corps
+
+
+def mail(lang):
+    """(objet, html) du mail d'accueil."""
+    t, esc = T[lang], html.escape
+    contenu = "".join(f'\n <tr><td style="padding:{26 if i == 0 else 14}px 36px 0;font:17px/1.7 {SERIF};color:#2E2820;">{esc(p)}</td></tr>'
+                      for i, p in enumerate(t["corps"]))
+    contenu += (f'\n <tr><td style="padding:22px 36px 32px;font:17px/1.6 {SERIF};color:#2E2820;">{esc(t["salut"])}<br>'
+                f'<span style="font-style:italic;font-size:21px;color:{INK};">Pierre</span></td></tr>')
+    return t["objet"], enveloppe(lang, t["objet"], t["apercu"], contenu)
+
+
+def mail_optin(lang):
+    """(objet, html) du mail de confirmation du double opt-in."""
+    o, esc = OPTIN[lang], html.escape
+    contenu = (f'\n <tr><td style="padding:26px 36px 0;"><div style="font:600 30px/1.15 {SERIF};letter-spacing:-.4px;color:{INK};">{esc(o["titre"])}</div></td></tr>'
+               f'\n <tr><td style="padding:12px 36px 0;font:17px/1.7 {SERIF};color:#2E2820;">{esc(o["texte"])}</td></tr>'
+               f'\n <tr><td align="center" style="padding:24px 36px 0;"><a href="{{{{ doubleoptin }}}}" style="display:inline-block;background:#005073;'
+               f'color:#ffffff;font:700 16px {SANS};text-decoration:none;padding:15px 28px;border-radius:10px;">{esc(o["bouton"])} →</a></td></tr>'
+               f'\n <tr><td style="padding:24px 36px 30px;font:14px/1.6 {SANS};color:{FAINT};">{esc(o["note"])}</td></tr>')
+    return o["objet"], enveloppe(lang, o["objet"], o["apercu"], contenu, desinscription=False)
+
+
+# (cle dans data/mail-accueil.json, nom du modele Brevo, fonction, langue, etiquette)
+MODELES = [(lang, "Accueil La Lettre (%s)" % lang, mail, lang, None) for lang in T] + \
+          [("optin-" + lang, "Confirmation double opt-in La Lettre (%s)" % lang, mail_optin, lang, "optin") for lang in T]
 
 
 def lire_etat():
@@ -80,10 +125,10 @@ def lire_etat():
 def main():
     arg = sys.argv[1:]
     if arg[:1] == ["--apercu"]:
-        for lang in T:
-            chemin = os.path.join(ROOT, "tmp", "mail-accueil-%s.html" % lang)
+        for cle_etat, _, f_mail, lang, _ in MODELES:
+            chemin = os.path.join(ROOT, "tmp", "mail-%s.html" % (cle_etat if "-" in cle_etat else "accueil-" + lang))
             with open(chemin, "w", encoding="utf-8") as f:
-                f.write(mail(lang)[1])
+                f.write(f_mail(lang)[1])
             print(chemin)
         return
     cle = cle_api()
@@ -93,25 +138,27 @@ def main():
         expediteur = json.load(f)["site"]["brevoEnvoiLettre"]["expediteur"]
     etat = lire_etat()
     if arg[:1] == ["--brevo"]:
-        for lang in T:
-            objet, corps = mail(lang)
-            donnees = {"templateName": "Accueil La Lettre (%s)" % lang, "subject": objet, "htmlContent": corps,
+        for cle_etat, nom, f_mail, lang, tag in MODELES:
+            objet, corps = f_mail(lang)
+            donnees = {"templateName": nom, "subject": objet, "htmlContent": corps,
                        "sender": expediteur, "replyTo": MAIL, "isActive": True}
-            if lang in etat:
-                brevo(cle, "PUT", "/smtp/templates/%s" % etat[lang], donnees)
-                print("modele %s mis a jour : %s" % (lang, etat[lang]))
+            if tag:
+                donnees["tag"] = tag
+            if cle_etat in etat:
+                brevo(cle, "PUT", "/smtp/templates/%s" % etat[cle_etat], donnees)
+                print("modele %s mis a jour : %s" % (cle_etat, etat[cle_etat]))
             else:
-                etat[lang] = brevo(cle, "POST", "/smtp/templates", donnees)["id"]
-                print("modele %s cree : %s" % (lang, etat[lang]))
+                etat[cle_etat] = brevo(cle, "POST", "/smtp/templates", donnees)["id"]
+                print("modele %s cree : %s" % (cle_etat, etat[cle_etat]))
         with open(ETAT, "w", encoding="utf-8") as f:
             json.dump(etat, f, indent=2)
             f.write("\n")
     elif arg[:1] == ["--test"] and len(arg) == 2:
-        for lang in T:
-            if lang not in etat:
-                sys.exit("Modele %s absent : lancer d'abord --brevo." % lang)
-            brevo(cle, "POST", "/smtp/templates/%s/sendTest" % etat[lang], {"emailTo": [arg[1]]})
-            print("test %s envoye (modele %s)" % (lang, etat[lang]))
+        for cle_etat, *_ in MODELES:
+            if cle_etat not in etat:
+                sys.exit("Modele %s absent : lancer d'abord --brevo." % cle_etat)
+            brevo(cle, "POST", "/smtp/templates/%s/sendTest" % etat[cle_etat], {"emailTo": [arg[1]]})
+            print("test %s envoye (modele %s)" % (cle_etat, etat[cle_etat]))
     else:
         sys.exit(__doc__)
 
