@@ -4276,6 +4276,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .r3-ch span{display:block;font-weight:600;font-size:13.5px;margin-top:6px;}
 .r3-ch small{display:block;font-size:12px;color:var(--ink-faint);}
 .r3-g .fiche-texte{font:400 15px/1.65 var(--font-serif);color:var(--ink);margin:0;}
+.r3-g .fiche-texte + .fiche-texte{margin-top:12px;}
 .r3 .panel.chart-panel-wrap{background:none;border:0;box-shadow:none;padding:0;}
 .r3 .chart-actions{display:none !important;}
 .rip-note summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink-dim);margin-top:8px;}

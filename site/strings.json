@@ -76,7 +76,7 @@
     "virusCompareTitle": "Traitements & vaccins : une différence clé selon l'espèce",
     "virusCompareIntro": "Les seuls traitements et le seul vaccin homologués contre Ebola ciblent l'espèce Zaïre — pas l'espèce Bundibugyo, en cause dans cette épidémie.",
     "virusCompareNote": "Pendant cette épidémie, plusieurs candidats sont évalués en essai clinique contre l'espèce Bundibugyo — dont l'anticorps à large spectre MBP134, l'antiviral remdesivir et l'obeldesivir en prophylaxie post-exposition — sous la coordination de l'OMS. En l'absence de traitement ciblé homologué, les soins de support intensifs (réhydratation, oxygénation, surveillance) restent le socle de la prise en charge et améliorent significativement les chances de survie.",
-    "virusVaccinUpdate": "Le 31 août 2026, l'OMS a précisé l'usage d'Ervebo, le vaccin homologué contre l'espèce Zaïre, face au virus Bundibugyo : efficacité inconnue contre cette espèce, emploi réservé à un cadre de recherche, en priorité pour les soignants et le personnel de première ligne. Les bulletins de l'INSP rapportent depuis début septembre des vaccinations de ce personnel.",
+    "virusVaccinUpdate": "Le 31 août 2026, l'OMS a précisé l'usage d'Ervebo, le vaccin homologué contre l'espèce Zaïre, face au virus Bundibugyo : efficacité inconnue contre cette espèce, emploi réservé à un cadre de recherche, en priorité pour les soignants et le personnel de première ligne. Les bulletins de l'INSP rapportent depuis début septembre des vaccinations de ce personnel. Le 23 octobre 2026, l'essai clinique TUMAINI-TRIAL, consacré à un vaccin contre la souche Bundibugyo, a été lancé à Bunia, au laboratoire provincial de l'Ituri. Selon l'INSP, il accorde une attention particulière au personnel de première ligne, et la participation repose sur le consentement éclairé.",
     "virusGenomesTitle": "Le virus lu dans son génome",
     "virusGenomesIntro": "Séquencer le génome du virus prélevé chez les malades permet de confirmer l'espèce, de dater le début réel de l'épidémie et de mesurer sa vitesse. Les laboratoires de l'INRB, à Bunia et à Kinshasa, déposent ces séquences dans la base publique Pathoplexus : c'est ce dépôt qui est compté ici.",
     "virusGenomesStatSeq": "génomes séquencés en RDC depuis mai 2026",
@@ -365,6 +365,7 @@
     "riposteVaccinTableN": "Personnes vaccinées",
     "riposteVaccinTableLegende": "Détail par zone de santé, au dernier relevé publié par chaque province.",
     "riposteVaccinLede": "Le vaccin Ervebo est réservé aux personnes les plus exposées au virus : le personnel soignant d'abord, puis les autres travailleurs de première ligne — hygiénistes, équipes d'enterrement sécurisé — et, au Bas-Uélé, les contacts à haut risque, dans le cadre d'une vaccination dite compassionnelle. La campagne a démarré le 26 août 2026 à Buta, puis à Kisangani le lendemain ; l'Ituri a publié ses premiers vaccinés le 23 septembre.",
+    "riposteVaccinEssai": "Les chiffres de cette section ne concernent que le vaccin Ervebo. L'essai clinique TUMAINI-TRIAL, lancé le 23 octobre 2026 à Bunia pour un vaccin contre la souche Bundibugyo, en est distinct : ses participants ne sont pas comptés ici.",
     "riposteVaccinQuiLabel": "Qui",
     "riposteVaccinQui": "Le personnel soignant et les autres travailleurs de première ligne (PPL et TPL) : hygiénistes, équipes d'enterrement sécurisé.",
     "riposteVaccinAussiLabel": "Et aussi",
@@ -859,7 +860,7 @@
     "virusFFR2a": "25–50 %",
     "virusFFR2b": "jusqu'à 90 %",
     "virusFFR2Sub": "selon les épidémies",
-    "virusFFR3aSub": "Ervebo utilisé en recherche depuis août 2026",
+    "virusFFR3aSub": "Ervebo en recherche depuis août 2026 ; essai TUMAINI-TRIAL depuis le 23 octobre",
     "virusFFR3b": "Ervebo",
     "virusFFR3bSub": "rVSV-ZEBOV",
     "virusFFR4aSub": "candidats en essai clinique",
@@ -1017,7 +1018,7 @@
     "virusCompareTitle": "Treatments & vaccines: a key difference by species",
     "virusCompareIntro": "The only licensed Ebola treatments and vaccine target the Zaire species — not the Bundibugyo species behind this outbreak.",
     "virusCompareNote": "During this outbreak, several candidates are being evaluated in clinical trials against the Bundibugyo species — including the broad-spectrum antibody MBP134, the antiviral remdesivir, and obeldesivir for post-exposure prophylaxis — under WHO coordination. In the absence of a licensed targeted treatment, intensive supportive care (rehydration, oxygenation, monitoring) remains the cornerstone of care and significantly improves the chances of survival.",
-    "virusVaccinUpdate": "On 31 August 2026, WHO clarified the use of Ervebo, the vaccine licensed against the Zaire species, against Bundibugyo virus: efficacy against this species unknown, use restricted to a research setting, with priority for health workers and front-line staff. INSP bulletins report vaccinations of that staff since early September.",
+    "virusVaccinUpdate": "On 31 August 2026, WHO clarified the use of Ervebo, the vaccine licensed against the Zaire species, against Bundibugyo virus: efficacy against this species unknown, use restricted to a research setting, with priority for health workers and front-line staff. INSP bulletins report vaccinations of that staff since early September. On 23 October 2026, the TUMAINI-TRIAL clinical trial, devoted to a vaccine against the Bundibugyo strain, was launched in Bunia, at the Ituri provincial laboratory. According to INSP, it pays particular attention to front-line staff, and participation is based on informed consent.",
     "virusGenomesTitle": "The virus read in its genome",
     "virusGenomesIntro": "Sequencing the genome of the virus sampled from patients confirms the species, dates the real start of the outbreak and measures its speed. INRB laboratories in Bunia and Kinshasa deposit these sequences in the public Pathoplexus database: that repository is what is counted here.",
     "virusGenomesStatSeq": "genomes sequenced in DRC since May 2026",
@@ -1306,6 +1307,7 @@
     "riposteVaccinTableN": "People vaccinated",
     "riposteVaccinTableLegende": "Breakdown by health zone, at the latest reading published by each province.",
     "riposteVaccinLede": "The Ervebo vaccine is reserved for those most exposed to the virus: health-care staff first, then other front-line workers — hygienists, safe burial teams — and, in Bas-Uélé, high-risk contacts under a so-called compassionate vaccination scheme. The campaign began on 26 August 2026 in Buta, then in Kisangani the next day; Ituri published its first vaccinations on 23 September.",
+    "riposteVaccinEssai": "The figures in this section concern the Ervebo vaccine only. The TUMAINI-TRIAL clinical trial, launched on 23 October 2026 in Bunia for a vaccine against the Bundibugyo strain, is separate: its participants are not counted here.",
     "riposteVaccinQuiLabel": "Who",
     "riposteVaccinQui": "Health-care staff and other front-line workers: hygienists, safe burial teams.",
     "riposteVaccinAussiLabel": "And also",
@@ -1800,7 +1802,7 @@
     "virusFFR2a": "25–50%",
     "virusFFR2b": "up to 90%",
     "virusFFR2Sub": "depending on the outbreak",
-    "virusFFR3aSub": "Ervebo used in research since August 2026",
+    "virusFFR3aSub": "Ervebo in research since August 2026; TUMAINI-TRIAL since 23 October",
     "virusFFR3b": "Ervebo",
     "virusFFR3bSub": "rVSV-ZEBOV",
     "virusFFR4aSub": "candidates in clinical trials",
@@ -2116,6 +2118,22 @@
         "title": "Kisa cha kwanza nchini Nigeria",
         "text": "Nigeria inathibitisha kisa cha kwanza Abuja: mwanamke aliyefika kutoka Uganda kwa ndege, aliyetibiwa siku kadhaa katika hospitali binafsi kabla ya kugunduliwa. Ametengwa; watu 44 wa karibu wanafuatiliwa. Jinsi alivyoambukizwa haijachapishwa; uchunguzi unaendelea. Nigeria inakuwa nchi ya tano kuathirika. Chanzo: taarifa ya Wizara ya Afya ya shirikisho ya Nigeria."
       }
+    },
+    {
+      "date": "2026-10-23",
+      "kind": "default",
+      "fr": {
+        "title": "Lancement de l'essai vaccinal TUMAINI-TRIAL",
+        "text": "À Bunia, au laboratoire provincial de l'Ituri, le gouverneur militaire de la province lance officiellement TUMAINI-TRIAL, un essai clinique consacré à un vaccin contre la souche Bundibugyo, contre laquelle aucun vaccin n'est homologué. Selon l'INSP, l'essai accorde une attention particulière au personnel de première ligne, et la participation repose sur le consentement éclairé. Source : INSP, 23 octobre."
+      },
+      "en": {
+        "title": "Launch of the TUMAINI-TRIAL vaccine trial",
+        "text": "In Bunia, at the Ituri provincial laboratory, the province's military governor officially launches TUMAINI-TRIAL, a clinical trial devoted to a vaccine against the Bundibugyo strain, against which no vaccine is licensed. According to INSP, the trial pays particular attention to front-line staff, and participation is based on informed consent. Source: INSP, 23 October."
+      },
+      "sw": {
+        "title": "Kuzinduliwa kwa jaribio la chanjo TUMAINI-TRIAL",
+        "text": "Bunia, katika maabara ya mkoa wa Ituri, gavana wa kijeshi wa mkoa anazindua rasmi TUMAINI-TRIAL, jaribio la kliniki linalohusu chanjo dhidi ya aina ya Bundibugyo, ambayo haina chanjo iliyoidhinishwa. Kwa mujibu wa INSP, jaribio hili linawapa kipaumbele wafanyakazi wa mstari wa mbele, na ushiriki unategemea ridhaa ya hiari baada ya kuelezwa. Chanzo: INSP, 23 Oktoba."
+      }
     }
   ],
   "faqItems": [
@@ -2178,15 +2196,15 @@
     {
       "fr": {
         "q": "Existe-t-il un vaccin ou un traitement ?",
-        "a": "<p>Aucun vaccin ni traitement n'est encore homologué spécifiquement contre l'espèce Bundibugyo. Le vaccin Ervebo, homologué contre l'espèce Zaïre, est toutefois administré depuis le 26 août 2026 aux personnes les plus exposées — soignants et personnel de première ligne —, dans un cadre de recherche : l'OMS considère que son efficacité contre cette espèce n'est pas encore connue. Plusieurs vaccins et traitements candidats sont par ailleurs évalués en essai clinique. En attendant, les soins de support intensifs — réhydratation, oxygénation, surveillance — restent le socle de la prise en charge et améliorent nettement les chances de survie. La page <a href=\"{url.riposte}\">Riposte</a> suit le nombre de personnes vaccinées.</p>"
+        "a": "<p>Aucun vaccin ni traitement n'est encore homologué spécifiquement contre l'espèce Bundibugyo. Le vaccin Ervebo, homologué contre l'espèce Zaïre, est toutefois administré depuis le 26 août 2026 aux personnes les plus exposées — soignants et personnel de première ligne —, dans un cadre de recherche : l'OMS considère que son efficacité contre cette espèce n'est pas encore connue. Plusieurs vaccins et traitements candidats sont par ailleurs évalués en essai clinique ; le 23 octobre 2026, l'essai TUMAINI-TRIAL, consacré à un vaccin contre la souche Bundibugyo, a été lancé à Bunia. En attendant, les soins de support intensifs — réhydratation, oxygénation, surveillance — restent le socle de la prise en charge et améliorent nettement les chances de survie. La page <a href=\"{url.riposte}\">Riposte</a> suit le nombre de personnes vaccinées.</p>"
       },
       "en": {
         "q": "Is there a vaccine or a treatment?",
-        "a": "<p>No vaccine or treatment has yet been licensed specifically against the Bundibugyo species. The Ervebo vaccine, licensed against the Zaire species, has nonetheless been given since 26 August 2026 to the most exposed people — health workers and frontline staff — in a research setting: the WHO considers its efficacy against this species not yet known. Several candidate vaccines and treatments are also being evaluated in clinical trials. In the meantime, intensive supportive care — rehydration, oxygenation, monitoring — remains the cornerstone of treatment and markedly improves survival. The <a href=\"{url.riposte}\">Response</a> page tracks the number of people vaccinated.</p>"
+        "a": "<p>No vaccine or treatment has yet been licensed specifically against the Bundibugyo species. The Ervebo vaccine, licensed against the Zaire species, has nonetheless been given since 26 August 2026 to the most exposed people — health workers and frontline staff — in a research setting: the WHO considers its efficacy against this species not yet known. Several candidate vaccines and treatments are also being evaluated in clinical trials; on 23 October 2026, the TUMAINI-TRIAL, devoted to a vaccine against the Bundibugyo strain, was launched in Bunia. In the meantime, intensive supportive care — rehydration, oxygenation, monitoring — remains the cornerstone of treatment and markedly improves survival. The <a href=\"{url.riposte}\">Response</a> page tracks the number of people vaccinated.</p>"
       },
       "sw": {
         "q": "Je, kuna chanjo au matibabu?",
-        "a": "<p>Bado hakuna chanjo wala matibabu yaliyoidhinishwa mahsusi dhidi ya aina ya Bundibugyo. Hata hivyo, chanjo ya Ervebo, iliyoidhinishwa dhidi ya aina ya Zaire, imetolewa tangu tarehe 26 Agosti 2026 kwa watu walio hatarini zaidi — wahudumu wa afya na wafanyakazi wa mstari wa mbele — katika mfumo wa utafiti: WHO inaona kwamba ufanisi wake dhidi ya aina hii bado haujulikani. Chanjo na matibabu kadhaa yanayopendekezwa pia yanajaribiwa kliniki. Kwa sasa, huduma za msaada wa hali ya juu — kurejesha maji mwilini, oksijeni, ufuatiliaji — zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi. Ukurasa wa <a href=\"{url.riposte}\">Mapambano</a> unafuatilia idadi ya watu waliopewa chanjo.</p>"
+        "a": "<p>Bado hakuna chanjo wala matibabu yaliyoidhinishwa mahsusi dhidi ya aina ya Bundibugyo. Hata hivyo, chanjo ya Ervebo, iliyoidhinishwa dhidi ya aina ya Zaire, imetolewa tangu tarehe 26 Agosti 2026 kwa watu walio hatarini zaidi — wahudumu wa afya na wafanyakazi wa mstari wa mbele — katika mfumo wa utafiti: WHO inaona kwamba ufanisi wake dhidi ya aina hii bado haujulikani. Chanjo na matibabu kadhaa yanayopendekezwa pia yanajaribiwa kliniki; tarehe 23 Oktoba 2026, jaribio la TUMAINI-TRIAL, linalohusu chanjo dhidi ya aina ya Bundibugyo, lilizinduliwa Bunia. Kwa sasa, huduma za msaada wa hali ya juu — kurejesha maji mwilini, oksijeni, ufuatiliaji — zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi. Ukurasa wa <a href=\"{url.riposte}\">Mapambano</a> unafuatilia idadi ya watu waliopewa chanjo.</p>"
       }
     },
     {
@@ -2650,7 +2668,7 @@
     "virusCompareTitle": "Matibabu na chanjo: tofauti muhimu kulingana na aina",
     "virusCompareIntro": "Matibabu pekee na chanjo pekee zilizoidhinishwa dhidi ya Ebola zinalenga aina ya Zaire — si aina ya Bundibugyo, inayosababisha mlipuko huu.",
     "virusCompareNote": "Wakati wa mlipuko huu, dawa kadhaa zinazopendekezwa zinajaribiwa kliniki dhidi ya aina ya Bundibugyo — ikiwemo kingamwili ya wigo mpana MBP134, dawa ya kuua virusi remdesivir na obeldesivir kama kinga baada ya kuambukizwa — chini ya uratibu wa WHO. Kwa kukosekana kwa matibabu yaliyoidhinishwa yanayolenga aina hii, huduma za msaada wa hali ya juu (kurejesha maji mwilini, oksijeni, ufuatiliaji) zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi.",
-    "virusVaccinUpdate": "Tarehe 31 Agosti 2026, WHO ilifafanua matumizi ya Ervebo, chanjo iliyoidhinishwa dhidi ya aina ya Zaire, dhidi ya virusi vya Bundibugyo: ufanisi dhidi ya aina hii haujulikani, matumizi yamewekewa mipaka ya utafiti, kipaumbele kwa wahudumu wa afya na wafanyakazi wa mstari wa mbele. Ripoti za INSP zinaripoti chanjo za wafanyakazi hao tangu mwanzoni mwa Septemba.",
+    "virusVaccinUpdate": "Tarehe 31 Agosti 2026, WHO ilifafanua matumizi ya Ervebo, chanjo iliyoidhinishwa dhidi ya aina ya Zaire, dhidi ya virusi vya Bundibugyo: ufanisi dhidi ya aina hii haujulikani, matumizi yamewekewa mipaka ya utafiti, kipaumbele kwa wahudumu wa afya na wafanyakazi wa mstari wa mbele. Ripoti za INSP zinaripoti chanjo za wafanyakazi hao tangu mwanzoni mwa Septemba. Tarehe 23 Oktoba 2026, jaribio la kliniki TUMAINI-TRIAL, linalohusu chanjo dhidi ya aina ya Bundibugyo, lilizinduliwa Bunia, katika maabara ya mkoa wa Ituri. Kwa mujibu wa INSP, linawapa kipaumbele wafanyakazi wa mstari wa mbele, na ushiriki unategemea ridhaa ya hiari baada ya kuelezwa.",
     "virusGenomesTitle": "Virusi inavyosomwa katika jenomu yake",
     "virusGenomesIntro": "Kupanga jenomu ya virusi kutoka kwa sampuli za wagonjwa huthibitisha aina, huweka tarehe ya kuanza kwa mlipuko na hupima kasi yake. Maabara za INRB huko Bunia na Kinshasa huweka mfuatano huu katika hifadhidata ya umma Pathoplexus: hifadhi hiyo ndiyo inayohesabiwa hapa.",
     "virusGenomesStatSeq": "jenomu zilizopangwa DRC tangu Mei 2026",
@@ -2939,6 +2957,7 @@
     "riposteVaccinTableN": "Watu waliochanjwa",
     "riposteVaccinTableLegende": "Mchanganuo kwa eneo la afya, kwa takwimu za mwisho zilizochapishwa na kila jimbo.",
     "riposteVaccinLede": "Chanjo ya Ervebo imetengwa kwa walio hatarini zaidi kuambukizwa: watumishi wa afya kwanza, kisha wafanyakazi wengine wa mstari wa mbele — wasafi, timu za mazishi salama — na, Bas-Uélé, walioguswa wenye hatari kubwa, chini ya chanjo iitwayo ya huruma. Kampeni ilianza tarehe 26 Agosti 2026 mjini Buta, kisha Kisangani siku iliyofuata; Ituri ilichapisha wachanjwa wake wa kwanza tarehe 23 Septemba.",
+    "riposteVaccinEssai": "Takwimu za sehemu hii zinahusu chanjo ya Ervebo pekee. Jaribio la kliniki TUMAINI-TRIAL, lililozinduliwa tarehe 23 Oktoba 2026 Bunia kwa chanjo dhidi ya aina ya Bundibugyo, ni tofauti: washiriki wake hawahesabiwi hapa.",
     "riposteVaccinQuiLabel": "Nani",
     "riposteVaccinQui": "Watumishi wa afya na wafanyakazi wengine wa mstari wa mbele: wasafi, timu za mazishi salama.",
     "riposteVaccinAussiLabel": "Na pia",
@@ -3433,7 +3452,7 @@
     "virusFFR2a": "25–50 %",
     "virusFFR2b": "hadi 90 %",
     "virusFFR2Sub": "kulingana na mlipuko",
-    "virusFFR3aSub": "Ervebo inatumika katika utafiti tangu Agosti 2026",
+    "virusFFR3aSub": "Ervebo katika utafiti tangu Agosti 2026; jaribio la TUMAINI-TRIAL tangu tarehe 23 Oktoba",
     "virusFFR3b": "Ervebo",
     "virusFFR3bSub": "rVSV-ZEBOV",
     "virusFFR4aSub": "dawa zinazojaribiwa kliniki",
