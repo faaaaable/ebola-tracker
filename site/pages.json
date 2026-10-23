@@ -1153,6 +1153,37 @@
       }
     },
     {
+      "id": "inscription-confirmee",
+      "fragment": "inscription-confirmee.html",
+      "slug": {
+        "fr": "alertes/confirmation/",
+        "en": "alerts/confirmation/",
+        "sw": "arifa/imethibitishwa/"
+      },
+      "needs": [],
+      "changefreq": "yearly",
+      "priority": "0.1",
+      "schema": [],
+      "noindex": true,
+      "meta": {
+        "fr": {
+          "title": "Inscription confirmée — La Lettre d'ebola-tracker.org",
+          "h1": "C’est confirmé.",
+          "description": "Votre inscription à La Lettre d'ebola-tracker.org est confirmée."
+        },
+        "en": {
+          "title": "Subscription confirmed — The Letter from ebola-tracker.org",
+          "h1": "You’re all set.",
+          "description": "Your subscription to The Letter from ebola-tracker.org is confirmed."
+        },
+        "sw": {
+          "title": "Usajili umethibitishwa — Barua ya ebola-tracker.org",
+          "h1": "Imethibitishwa.",
+          "description": "Usajili wako wa Barua ya ebola-tracker.org umethibitishwa."
+        }
+      }
+    },
+    {
       "id": "contact",
       "fragment": "contact.html",
       "slug": {

@@ -5281,3 +5281,21 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
   .page-accueil .carto-detail .cd-pays{text-align:left;}
   .cd-hors{display:none;}
 }
+
+/* Page « Inscription confirmee » (23 octobre 2026) : la carte du mail de
+   La Lettre (fond creme, bandeau bleu, en-tete LA LETTRE en Georgia) posee
+   dans la page du site. Les couleurs sont celles du mail, pas des jetons du
+   site : la page doit ressembler au mail qu'on vient de quitter. */
+.cf-fond{background:#F7F3EE;padding:36px 16px 44px;margin:0 calc(50% - 50vw);}
+.cf-carte{max-width:600px;margin:0 auto;background:#FFFDFB;border:1px solid #DEDAD5;border-radius:14px;overflow:hidden;}
+.cf-carte::before{content:"";display:block;height:10px;background:#005073;}
+.cf-tete{text-align:center;padding:28px 24px 0;}
+.cf-marque{font:700 40px/1 Georgia,'Times New Roman',serif;letter-spacing:5px;text-transform:uppercase;color:#1F1A13;}
+.cf-sous{font:italic 15px/1.4 Georgia,'Times New Roman',serif;color:#5A544C;margin-top:12px;padding-bottom:22px;border-bottom:3px double #DEDAD5;}
+.cf-corps{padding:24px 36px 8px;font:17px/1.7 Georgia,'Times New Roman',serif;color:#2E2820;}
+.cf-corps h1{font:600 32px/1.15 Georgia,'Times New Roman',serif;letter-spacing:-.4px;color:#1F1A13;margin:0 0 12px;}
+.cf-corps p{margin:0 0 14px;}
+.cf-liens{text-align:center;padding:10px 24px 30px;}
+.cf-liens a{display:inline-block;margin:0 5px 10px;padding:11px 18px;border:1.5px solid #005073;border-radius:10px;color:#005073;font:700 14px Arial,Helvetica,sans-serif;text-decoration:none;}
+.cf-liens a.is-plein{background:#005073;color:#fff;}
+@media (max-width:520px){.cf-corps{padding:20px 22px 6px;}.cf-marque{font-size:32px;letter-spacing:4px;}}

@@ -5081,7 +5081,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "footer": build_footer(config, urls, lang, strings_lang, i18n_lang,
                                provinces,
                                avec_avertissement=(page.get("id") != "accueil"),
-                               avec_abonnement=(page.get("id") not in ("accueil", "alertes", "bulletin")
+                               avec_abonnement=(page.get("id") not in ("accueil", "alertes", "bulletin", "inscription-confirmee")
                                                 and not page.get("lettreNum"))),
         "pageGlobals": "\n".join(page_globals),
         "bodyAssets": "",

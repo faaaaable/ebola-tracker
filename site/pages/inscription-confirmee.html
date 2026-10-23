@@ -1,0 +1,16 @@
+  <!-- Page d'arrivee apres le clic sur le lien du mail de confirmation Brevo
+       (adresse de redirection des formulaires #3 et #4, double opt-in),
+       23 octobre 2026 : maquette 2 de tmp/proto-confirmation-1023, la carte
+       du mail de La Lettre posee dans la page du site. Hors menu, noindex,
+       sans le formulaire d'inscription du pied de page. -->
+  <div class="cf-fond">
+    <div class="cf-carte">
+      <div class="cf-tete"><div class="cf-marque">{{t.confMarque}}</div><div class="cf-sous">{{t.confSous}}</div></div>
+      <div class="cf-corps">
+        <h1>{{meta.h1}}</h1>
+        <p>{{t.confTexte1}}</p>
+        <p>{{t.confTexte2}}</p>
+      </div>
+      <div class="cf-liens"><a class="is-plein" href="{{url.bulletin}}">{{t.confLettre}} →</a><a href="{{url.accueil}}">{{t.confCarte}} →</a></div>
+    </div>
+  </div>
