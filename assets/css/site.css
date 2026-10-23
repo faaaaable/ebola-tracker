@@ -5171,6 +5171,11 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .al-wa:hover{border-color:var(--ink-faint);}
 .al-confid{font-size:13.5px;line-height:1.55;color:var(--ink-faint);margin:32px 0 0;border-top:1px solid var(--line);padding-top:14px;}
 @media (max-width:520px){.al-ligne{flex-direction:column;}}
+.al-apercu{display:flex;gap:22px;align-items:flex-start;margin:0 0 28px;}
+.al-apercu img{width:200px;height:auto;flex:none;border:1px solid var(--line);border-radius:10px;box-shadow:0 4px 18px rgba(31,26,19,.08);}
+.al-apercu ul{margin:0;padding-left:18px;font:400 16px/1.55 var(--font-serif);color:var(--ink-strong);}
+.al-apercu li{margin:0 0 8px;}
+@media (max-width:620px){.al-apercu{flex-direction:column;}.al-apercu img{width:100%;max-width:320px;}}
 .al-form label.al-consent{display:flex;align-items:flex-start;gap:9px;font:400 14.5px/1.45 var(--font-sans);color:var(--ink-strong);margin:14px 0 0;cursor:pointer;}
 .al-consent input{width:17px;height:17px;margin:1px 0 0;flex:none;accent-color:var(--accent-strong);}
 /* Lettre : cases guéris et en CTE de l'encadre (19 octobre 2026). */

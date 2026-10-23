@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recevoir une alerte à chaque nouveau SitRep — Ebola RDC</title>
-<meta name="description" content="Un mail court à chaque nouveau rapport de situation sur l'épidémie d'Ebola en RDC : les derniers cas et décès confirmés, et un lien vers le site.">
+<title>La Lettre par mail, à chaque nouveau SitRep — Ebola RDC</title>
+<meta name="description" content="À chaque nouveau rapport de situation de l'INSP sur l'épidémie d'Ebola en RDC, un résumé par mail : les chiffres du jour, la courbe des trente derniers jours et le lien vers La Lettre.">
 <link rel="canonical" href="https://ebola-tracker.org/alertes/">
 <link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/alertes/">
 <link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/alerts/">
@@ -13,8 +13,8 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#FDFAF6">
 <meta property="og:site_name" content="Ebola Tracker">
-<meta property="og:title" content="Recevoir une alerte à chaque nouveau SitRep — Ebola RDC">
-<meta property="og:description" content="Un mail court à chaque nouveau rapport de situation sur l'épidémie d'Ebola en RDC : les derniers cas et décès confirmés, et un lien vers le site.">
+<meta property="og:title" content="La Lettre par mail, à chaque nouveau SitRep — Ebola RDC">
+<meta property="og:description" content="À chaque nouveau rapport de situation de l'INSP sur l'épidémie d'Ebola en RDC, un résumé par mail : les chiffres du jour, la courbe des trente derniers jours et le lien vers La Lettre.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ebola-tracker.org/alertes/">
 <meta property="og:locale" content="fr_FR">
@@ -22,11 +22,11 @@
 <meta property="og:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="Recevoir une alerte à chaque nouveau SitRep — Ebola RDC">
+<meta property="og:image:alt" content="La Lettre par mail, à chaque nouveau SitRep — Ebola RDC">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ebola-tracker.org/assets/og-image-v3.png">
-<meta name="twitter:title" content="Recevoir une alerte à chaque nouveau SitRep — Ebola RDC">
-<meta name="twitter:description" content="Un mail court à chaque nouveau rapport de situation sur l'épidémie d'Ebola en RDC : les derniers cas et décès confirmés, et un lien vers le site.">
+<meta name="twitter:title" content="La Lettre par mail, à chaque nouveau SitRep — Ebola RDC">
+<meta name="twitter:description" content="À chaque nouveau rapport de situation de l'INSP sur l'épidémie d'Ebola en RDC, un résumé par mail : les chiffres du jour, la courbe des trente derniers jours et le lien vers La Lettre.">
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="kpbL-xHwtgQ-H61ezgLZEOl2f41_3VXpb2ejZz0R1Og" />
 <script type="application/ld+json">
@@ -43,7 +43,7 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Recevoir une alerte à chaque nouveau SitRep",
+      "name": "La Lettre, dans votre boîte mail",
       "item": "https://ebola-tracker.org/alertes/"
     }
   ]
@@ -66,7 +66,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=ac9d7b8f1f">
+<link rel="stylesheet" href="/assets/css/site.css?v=8036b028ee">
 </head>
 <body>
 
@@ -212,8 +212,13 @@
       <main id="contenu">
   <section class="section al">
     <div class="eyebrow"><span class="dot"></span>Alertes</div>
-    <h1 class="al-titre">Recevoir une alerte à chaque nouveau SitRep</h1>
-    <p class="al-chapeau">Dès qu’un nouveau SitRep officiel est mis en ligne, recevez un mail avec les derniers cas et décès confirmés, et un lien vers le site pour en savoir plus.</p>
+    <h1 class="al-titre">La Lettre, dans votre boîte mail</h1>
+    <p class="al-chapeau">À chaque nouveau SitRep officiel, recevez un résumé par mail.</p>
+    <!-- Ce que l'on recoit (24 octobre 2026) : l'apercu du mail reel, fige au
+         bulletin 159 (assets/img/apercu-mail-fr.png, -en.png ; le swahili
+         recoit le mail anglais), et trois lignes qui le decrivent. -->
+    <div class="al-apercu"><img src="/assets/img/apercu-mail-fr.png" width="200" alt="Aperçu du mail : La Lettre n° 159" loading="lazy">
+      <ul><li><b>Les chiffres du jour</b> : cas, décès, guéris, malades en centre de traitement, létalité.</li><li><b>La courbe</b> des nouveaux cas des trente derniers jours.</li><li><b>Les liens</b> vers la carte, l’ensemble de la RDC, les cas hors RDC et La Lettre complète.</li></ul></div>
     <!-- Formulaire Brevo redessine : seuls l'adresse d'envoi, le champ EMAIL,
          le leurre email_address_check et la langue viennent du code fourni par
          Brevo. app.js l'envoie en arriere-plan (?isAjax=1) et affiche le
@@ -226,16 +231,18 @@
       </div>
       <!-- Case de consentement exigee par Brevo depuis le double opt-in
            (champ OPT_IN, valeur 1). -->
-      <label class="al-consent"><input type="checkbox" name="OPT_IN" value="1" required> <span>J’accepte de recevoir les alertes SitRep d’ebola-tracker.org.</span></label>
+      <label class="al-consent"><input type="checkbox" name="OPT_IN" value="1" required> <span>J’accepte de recevoir La Lettre d’ebola-tracker.org.</span></label>
       <input type="text" name="email_address_check" value="" class="al-leurre" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="locale" value="fr">
-      <p class="al-note">Désinscription en un clic dans chaque mail.</p>
-      <p class="al-msg al-ok" id="alertesOk" role="status" hidden>Merci ! Un mail de confirmation vient de vous être envoyé : cliquez sur son lien pour activer votre inscription.</p>
+      <p class="al-note">Un mail par bulletin. Désinscription en un clic en bas de chaque mail.</p>
+      <p class="al-msg al-ok" id="alertesOk" role="status" hidden>Presque fini : cliquez sur le lien du mail de confirmation que vous venez de recevoir. La prochaine Lettre partira avec le prochain SitRep.</p>
       <p class="al-msg al-err" id="alertesErr" role="alert" hidden>L’inscription n’a pas pu être enregistrée. Vérifiez votre adresse et réessayez.</p>
     </form>
-    <div class="al-ou"><span>ou</span></div>
-    <a class="al-wa" href="https://whatsapp.com/channel/0029Vb8nWGJHbFV9KjBkBw2O" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg> Suivre la chaîne WhatsApp</a>
-    <p class="al-confid">Votre adresse sert uniquement à envoyer ces alertes, par l’intermédiaire de Brevo. Elle n’est ni partagée ni revendue.</p>
+    <!-- Chaine WhatsApp retiree de la page le 24 octobre 2026 (demande du
+         proprietaire) ; seed.alertesWhatsapp reste calcule par build_pages :
+         remettre <div class="al-ou"><span>ou</span></div>
+    <a class="al-wa" href="https://whatsapp.com/channel/0029Vb8nWGJHbFV9KjBkBw2O" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg> Suivre la chaîne WhatsApp</a> ici pour la rafficher. -->
+    <p class="al-confid">Votre adresse sert uniquement à envoyer La Lettre, par l’intermédiaire de Brevo. Elle n’est ni partagée ni revendue.</p>
   </section>
 
       </main>

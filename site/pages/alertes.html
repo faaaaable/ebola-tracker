@@ -2,6 +2,11 @@
     <div class="eyebrow"><span class="dot"></span>{{t.alertesEyebrow}}</div>
     <h1 class="al-titre">{{meta.h1}}</h1>
     <p class="al-chapeau">{{t.alertesLede}}</p>
+    <!-- Ce que l'on recoit (24 octobre 2026) : l'apercu du mail reel, fige au
+         bulletin 159 (assets/img/apercu-mail-fr.png, -en.png ; le swahili
+         recoit le mail anglais), et trois lignes qui le decrivent. -->
+    <div class="al-apercu"><img src="/assets/img/{{t.alertesApercuImg}}" width="200" alt="{{t.alertesApercuAlt}}" loading="lazy">
+      <ul><li>{{t.alertesPuce1}}</li><li>{{t.alertesPuce2}}</li><li>{{t.alertesPuce3}}</li></ul></div>
     <!-- Formulaire Brevo redessine : seuls l'adresse d'envoi, le champ EMAIL,
          le leurre email_address_check et la langue viennent du code fourni par
          Brevo. app.js l'envoie en arriere-plan (?isAjax=1) et affiche le
@@ -21,6 +26,8 @@
       <p class="al-msg al-ok" id="alertesOk" role="status" hidden>{{t.alertesSuccess}}</p>
       <p class="al-msg al-err" id="alertesErr" role="alert" hidden>{{t.alertesError}}</p>
     </form>
-    {{seed.alertesWhatsapp}}
+    <!-- Chaine WhatsApp retiree de la page le 24 octobre 2026 (demande du
+         proprietaire) ; seed.alertesWhatsapp reste calcule par build_pages :
+         remettre {{seed.alertesWhatsapp}} ici pour la rafficher. -->
     <p class="al-confid">{{t.alertesConfidentialite}}</p>
   </section>

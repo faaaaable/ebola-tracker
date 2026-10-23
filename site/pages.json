@@ -1137,19 +1137,19 @@
       "navLabelKey": "strings:navAlertes",
       "meta": {
         "fr": {
-          "title": "Recevoir une alerte à chaque nouveau SitRep — Ebola RDC",
-          "h1": "Recevoir une alerte à chaque nouveau SitRep",
-          "description": "Un mail court à chaque nouveau rapport de situation sur l'épidémie d'Ebola en RDC : les derniers cas et décès confirmés, et un lien vers le site."
+          "title": "La Lettre par mail, à chaque nouveau SitRep — Ebola RDC",
+          "h1": "La Lettre, dans votre boîte mail",
+          "description": "À chaque nouveau rapport de situation de l'INSP sur l'épidémie d'Ebola en RDC, un résumé par mail : les chiffres du jour, la courbe des trente derniers jours et le lien vers La Lettre."
         },
         "en": {
-          "title": "Get notified of every new SitRep — Ebola DRC",
-          "h1": "Get notified of every new SitRep",
-          "description": "A short email with every new situation report on the Ebola outbreak in the DRC: the latest confirmed cases and deaths, and a link to the site."
+          "title": "The Letter by email, with every new SitRep — Ebola DRC",
+          "h1": "The Letter, in your inbox",
+          "description": "With every new INSP situation report on the Ebola outbreak in the DRC, a summary by email: today's figures, the curve of the last thirty days and a link to the Letter."
         },
         "sw": {
-          "title": "Pata arifa kwa kila SitRep mpya — Ebola DRC",
-          "h1": "Pata arifa kwa kila SitRep mpya",
-          "description": "Barua pepe fupi kwa kila ripoti mpya ya hali ya mlipuko wa Ebola nchini DRC: visa na vifo vya hivi karibuni vilivyothibitishwa, na kiungo cha tovuti."
+          "title": "Barua kwa barua pepe, kwa kila SitRep mpya — Ebola DRC",
+          "h1": "Barua, kwenye barua pepe yako",
+          "description": "Kwa kila ripoti mpya ya hali ya INSP kuhusu mlipuko wa Ebola nchini DRC, muhtasari kwa barua pepe: takwimu za siku, mkondo wa siku thelathini zilizopita na kiungo cha Barua."
         }
       }
     },
