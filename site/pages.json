@@ -23,7 +23,7 @@
     },
     "whatsappChannel": "https://whatsapp.com/channel/0029Vb8nWGJHbFV9KjBkBw2O",
     "brevoLettre": {
-      "_comment": "Formulaire de l'encadre d'abonnement en bas de chaque Lettre. Depuis le 24 octobre 2026, les memes que la page Etre prevenu (site.brevoForms, #3 fr, #4 en repris en swahili) : une seule liste par langue (3, 4). Les anciens formulaires « Lettre FR / EN » (listes 5 et 6) ne servent plus ; leurs inscrits ont ete copies dans 3 et 4.",
+      "_comment": "Formulaire de l'encadre d'abonnement en bas de chaque Lettre. Depuis le 23 octobre 2026, les memes que la page Etre prevenu (site.brevoForms, #3 fr, #4 en repris en swahili) : une seule liste par langue (3, 4). Les anciens formulaires « Lettre FR / EN » (listes 5 et 6) ne servent plus ; leurs inscrits ont ete copies dans 3 et 4.",
       "fr": "https://c2cb539e.sibforms.com/serve/MUIFAE7SSo35524_9EuBINJN-yX5Q9QAh9Rvd4iH3kWu3H2fePgCa5FwnkkeYrPG0AOwrMN9Z6ERoBqtmuFW_cJ8LUZJjKkvDbC1VCNiv4YGPKY7ixirXpi5M5fGqEY4R6jyhTR23PalWBOiu6xy_mMUuYA6wfIs-95vDi9L4-cEd6emBXIJNgZzj9p-zngL8VKykmmrdM9sfK0Zjg==",
       "en": "https://c2cb539e.sibforms.com/serve/MUIFAMYZIgd-9xDHneWlbT3k9pDmMptte2q8qJ88H3BWt94TaZr4GiPVUs5CbFNqc5pzDCYK6PF6nXSVrMX7Qs4YnIppqRvjz_60aMPVxqJReLmBO-_Zs8bkFEi0aojkQ3YZrjsSj1mpyz0K318RHBVQm7raprTV6temp9N-aw_qKAkV9QseQpjJsNeWmRYdjfMvK25RGnApwCtqWQ==",
       "sw": "https://c2cb539e.sibforms.com/serve/MUIFAMYZIgd-9xDHneWlbT3k9pDmMptte2q8qJ88H3BWt94TaZr4GiPVUs5CbFNqc5pzDCYK6PF6nXSVrMX7Qs4YnIppqRvjz_60aMPVxqJReLmBO-_Zs8bkFEi0aojkQ3YZrjsSj1mpyz0K318RHBVQm7raprTV6temp9N-aw_qKAkV9QseQpjJsNeWmRYdjfMvK25RGnApwCtqWQ=="
@@ -35,7 +35,7 @@
       "desinscription": {"fr": "6ad5cee873668ab11239de1c", "en": "6ada8ff4ce4c07b7ee512156"}
     },
     "brevoEnvoiLettre": {
-      "_comment": "Envoi automatique du mail de la Lettre (scripts/envoi_lettre.py) : une liste Brevo par langue (ID numerique ; 3 fr et 4 en depuis le 24 octobre 2026, la liste unique des inscrits), expediteur valide dans Brevo, formulaire de desinscription par langue (unsubscriptionPageId, depuis le 22 octobre 2026 : sans lui, le lien menait a la page Brevo par defaut). Tant qu'une liste manque, rien n'est envoye dans cette langue.",
+      "_comment": "Envoi automatique du mail de la Lettre (scripts/envoi_lettre.py) : une liste Brevo par langue (ID numerique ; 3 fr et 4 en depuis le 23 octobre 2026, la liste unique des inscrits), expediteur valide dans Brevo, formulaire de desinscription par langue (unsubscriptionPageId, depuis le 22 octobre 2026 : sans lui, le lien menait a la page Brevo par defaut). Tant qu'une liste manque, rien n'est envoye dans cette langue.",
       "listes": {
         "fr": 3,
         "en": 4

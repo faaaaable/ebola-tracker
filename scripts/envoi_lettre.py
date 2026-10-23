@@ -5,7 +5,7 @@
 Depuis le 23 octobre 2026, c'est le SEUL mail d'un nouveau bulletin : il
 remplace aussi l'alerte SitRep (scripts/envoi_alerte.py, retire du workflow)
 et part a la liste unique de chaque langue (site.brevoEnvoiLettre : 3 fr,
-4 en depuis le 24 octobre 2026), ou arrivent les inscriptions de la page
+4 en depuis le 23 octobre 2026), ou arrivent les inscriptions de la page
 Etre prevenu comme celles de l'encadre au bas de chaque Lettre. Dessin retenu parmi les maquettes tmp/proto-mail-fusion-1022
 (option « 1a ») : le nom du site et son favicon au-dessus, l'en-tete de la
 Lettre, le titre et le chapeau, les cinq chiffres en bandeau, la courbe des

@@ -196,6 +196,7 @@ TXT = {
 PAGE = {
  "fr": dict(
   h1a="Visuels", h1b="de l'épidémie",
+  c_section="Images fixes", c_titre="Ebola, l’Est en relief", c_sous="Carte figée au SitRep n°{n} · données au {d}",
   lede="Les images de l'épidémie, redessinées au fil des bulletins : à chaque nouveau bulletin, chaque lundi pour la dernière semaine complète, et au début de chaque mois. Chacune se télécharge, avec sa date et sa source.",
   b_eyebrow="À chaque bulletin", b_titre="L'épidémie au dernier bulletin", b_sous="SitRep n°{n} · données au {d}", b_rythme="mis à jour à chaque nouveau bulletin",
   s_eyebrow="Chaque semaine", s_titre="La semaine du {a} au {b}", s_sous="Dernière semaine complète, du lundi au dimanche.", s_rythme="mis à jour le lundi",
@@ -215,6 +216,7 @@ PAGE = {
  ),
  "en": dict(
   h1a="Visuals", h1b="of the outbreak",
+  c_section="Fixed images", c_titre="Ebola, the East in relief", c_sous="Map frozen at SitRep No. {n} · data as of {d}",
   lede="Images of the outbreak, redrawn as the bulletins come in: with every new bulletin, each Monday for the last complete week, and at the start of each month. Each one can be downloaded, with its date and source.",
   b_eyebrow="With every bulletin", b_titre="The outbreak at the latest bulletin", b_sous="SitRep No. {n} · data as of {d}", b_rythme="updated with every new bulletin",
   s_eyebrow="Every week", s_titre="The week of {a} to {b}", s_sous="Last complete week, Monday to Sunday.", s_rythme="updated on Mondays",
@@ -234,6 +236,7 @@ PAGE = {
  ),
  "sw": dict(
   h1a="Michoro", h1b="ya mlipuko",
+  c_section="Picha zisizobadilika", c_titre="Ebola, the East in relief", c_sous="Ramani ya SitRep Na. {n} · takwimu kufikia {d} (kwa Kiingereza)",
   lede="Picha za mlipuko, zinazochorwa upya kadiri ripoti zinavyotoka: kwa kila ripoti mpya, kila Jumatatu kwa wiki kamili ya mwisho, na mwanzoni mwa kila mwezi. Kila moja inaweza kupakuliwa, pamoja na tarehe na chanzo chake.",
   b_eyebrow="Kwa kila ripoti", b_titre="Mlipuko katika ripoti ya mwisho", b_sous="SitRep Na. {n} · takwimu kufikia {d}", b_rythme="husasishwa kwa kila ripoti mpya",
   s_eyebrow="Kila wiki", s_titre="Wiki ya {a} hadi {b}", s_sous="Wiki kamili ya mwisho, Jumatatu hadi Jumapili.", s_rythme="husasishwa Jumatatu",
@@ -1282,6 +1285,35 @@ LISTE = [
 ]
 
 
+# ================================================================ les cartes a diffuser
+# « Ebola, l'Est en relief » (23 octobre 2026, section « Images fixes » en bas de
+# page, maquette tmp/proto-cartes-1018,
+# variantes n1i, n1i-en et build_169.py) : la RDC en relief, une colonne par
+# zone de sante, haute de ses cas confirmes. Images FIXES, pas redessinees a
+# chaque bulletin : la section dit le SitRep et la date de leurs donnees.
+# PNG haute definition (3200 px) a telecharger, JPEG reduits pour la page ;
+# le swahili montre la version anglaise.
+CARTE_RELIEF = {"sitrep": "159", "date": "2026-10-20",
+                "fichier": {"fr": "ebola-est-en-relief-fr", "en": "ebola-east-in-relief-en", "sw": "ebola-east-in-relief-en"}}
+CARTE_DOSSIER = "/assets/img/visuels/"
+
+
+def cartes_html(c, lang):
+    """Section « Images fixes », en bas de page (23 octobre 2026) : les deux
+    formats sans legende, seulement le lien de telechargement."""
+    p = c.p; f = CARTE_DOSSIER + CARTE_RELIEF["fichier"][lang]
+    figs = []
+    for fmt, (w, h) in (("4x5", (1000, 1250)), ("16x9", (1600, 900))):
+        figs.append('<figure class="vx-fig" id="relief-%s"><div class="vx-img" data-vx-nom="relief-%s" role="button" tabindex="0" aria-label="%s">'
+                    '<img src="%s-%s-web.jpg" width="%d" height="%d" alt="%s" loading="lazy"></div>'
+                    '<figcaption><span></span><a class="vx-png" href="%s-%s.png" download>%s</a></figcaption></figure>'
+                    % (fmt, fmt, esc(p["agrandir"] + " : " + p["c_titre"]), f, fmt, w, h, esc(p["c_titre"]), f, fmt, esc(p["png"])))
+    return ('<section class="vx-etage" id="relief"><div class="vx-tete"><div><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div></div>'
+            '<div class="vx-grille">%s</div></section>'
+            % (esc(p["c_section"]), esc(p["c_sous"].format(n=CARTE_RELIEF["sitrep"], d=c.dl_(dt.date.fromisoformat(CARTE_RELIEF["date"])))),
+               "".join(figs)))
+
+
 def page_html(lang, mois_courts):
     """Le corps de la page Visuels pour une langue : trois etages, chacun avec
     ses visuels, leur titre, leur texte de lecture et le bouton PNG."""
@@ -1306,6 +1338,7 @@ def page_html(lang, mois_courts):
                         % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or PJ[lang]["lire"]), esc(p["png"])))
         out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
                    '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
+    out.append(cartes_html(c, lang))
     out.append('<div class="vx-lb" id="vxLb" hidden><button type="button" class="vx-fermer" aria-label="%s">×</button><div class="vx-lb-in"></div></div>' % esc(p["fermer"]))
     return "".join(out)
 
@@ -1345,7 +1378,11 @@ def vitrine_html(lang, mois_courts, href):
     """Les six vignettes de la bande d'accueil, liens vers href#ancre. Le nom
     du visuel (son titre, dans la langue de la page) ne vit que dans
     l'aria-label : a l'ecran, rien que le dessin."""
-    c = Contexte(lang, mois_courts); out = []
+    c = Contexte(lang, mois_courts)
+    # En tete de bande, la carte « Ebola, l'Est en relief » (23 octobre 2026) :
+    # une image, la carte seule, sans titre ni etiquette (900 x 801).
+    out = ['<a class="vtr-t" href="%s#relief" style="--r:%.4f" aria-label="%s"><img src="%svitrine-relief.jpg" alt=""></a>'
+           % (esc(href), 900 / 801, esc(c.p["c_titre"]), CARTE_DOSSIER)]
     for n, (ident, fn, (x, y, w, h)) in enumerate(VITRINE):
         if callable(ident):
             ident = ident(c)

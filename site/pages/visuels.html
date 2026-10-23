@@ -36,7 +36,9 @@
 .vx-png:hover{border-bottom-color:var(--accent-strong)}.vx-png[disabled]{opacity:.5;cursor:progress}
 .vx-lb{position:fixed;inset:0;z-index:1000;background:rgba(20,16,12,.88);display:flex;align-items:center;justify-content:center;padding:16px}
 .vx-lb[hidden]{display:none}.vx-lb-in{max-width:min(96vw,1100px);max-height:92vh;overflow:auto;border-radius:8px;background:#FDFAF6}
-.vx-lb-in svg{display:block;width:100%;height:auto}
+.vx-lb-in svg,.vx-lb-in img{display:block;width:100%;height:auto}
+.vx-img img{display:block;width:100%;height:auto}
+a.vx-png{text-decoration:none}
 .vx-fermer{position:absolute;top:12px;right:16px;font:400 34px/1 var(--font-sans);color:#fff;background:none;border:0;cursor:pointer}
 @media (max-width:860px){.vx-grille{grid-template-columns:minmax(0,1fr)}}
 </style>
@@ -44,12 +46,13 @@
 (function(){
   var lb=document.getElementById('vxLb'); if(!lb) return;
   var dedans=lb.querySelector('.vx-lb-in');
-  function ouvrir(fig){ dedans.innerHTML=''; dedans.appendChild(fig.querySelector('svg').cloneNode(true)); lb.hidden=false; lb.querySelector('.vx-fermer').focus(); }
+  function ouvrir(fig){ dedans.innerHTML=''; var im=fig.querySelector('svg, img'); var cl=im.cloneNode(true); if(cl.tagName==='IMG'){ cl.src=cl.src.replace('-web.jpg','.png'); cl.removeAttribute('loading'); } dedans.appendChild(cl); lb.hidden=false; lb.querySelector('.vx-fermer').focus(); }
   function fermer(){ lb.hidden=true; dedans.innerHTML=''; }
   document.querySelectorAll('.vx-fig').forEach(function(fig){
     fig.querySelector('.vx-img').addEventListener('click',function(){ouvrir(fig);});
     fig.querySelector('.vx-img').addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();ouvrir(fig);} });
-    fig.querySelector('.vx-png').addEventListener('click',function(){png(fig,this);});
+    /* les cartes a diffuser ont un vrai lien de telechargement (a.vx-png) */
+    var b=fig.querySelector('button.vx-png'); if(b) b.addEventListener('click',function(){png(fig,this);});
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.classList.contains('vx-fermer')) fermer(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!lb.hidden) fermer(); });

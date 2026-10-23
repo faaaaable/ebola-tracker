@@ -621,7 +621,7 @@ def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces, avec_av
     notice = ('    <p class="footer-notice">%s <a href="%s">%s</a></p>\n'
               % (strings_lang["footerNotice"], urls.path("methodologie", lang) + "#avertissement",
                  esc(strings_lang["footerNoticeMore"]))) if avec_avertissement else ""
-    # En tete du pied, sur toutes les pages : s'inscrire a La Lettre (24 octobre
+    # En tete du pied, sur toutes les pages : s'inscrire a La Lettre (23 octobre
     # 2026, demande du proprietaire). Meme formulaire Brevo que la page Etre
     # prevenu (site.brevoForms, #3 fr, #4 en repris en swahili), memes champs ;
     # app.js l'envoie comme tous les form[data-brevo]. Le lien « Alertes » de
