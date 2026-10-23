@@ -4,10 +4,9 @@
 
 Depuis le 23 octobre 2026, c'est le SEUL mail d'un nouveau bulletin : il
 remplace aussi l'alerte SitRep (scripts/envoi_alerte.py, retire du workflow)
-et part aux deux listes de chaque langue, celle de la Lettre
-(site.brevoEnvoiLettre) et celle de la page Etre prevenu
-(site.brevoEnvoiAlerte) ; Brevo n'ecrit qu'une fois a une adresse inscrite
-aux deux. Dessin retenu parmi les maquettes tmp/proto-mail-fusion-1022
+et part a la liste unique de chaque langue (site.brevoEnvoiLettre : 3 fr,
+4 en depuis le 24 octobre 2026), ou arrivent les inscriptions de la page
+Etre prevenu comme celles de l'encadre au bas de chaque Lettre. Dessin retenu parmi les maquettes tmp/proto-mail-fusion-1022
 (option « 1a ») : le nom du site et son favicon au-dessus, l'en-tete de la
 Lettre, le titre et le chapeau, les cinq chiffres en bandeau, la courbe des
 30 derniers jours, trois liens (carte, ensemble de la RDC, hors RDC) et le
@@ -250,13 +249,7 @@ def main():
             print(lang, "|", objet, "|", apercu, "->", sortie)
         return
     conf = json.load(open(os.path.join(ROOT, "site", "pages.json"), encoding="utf-8"))["site"].get("brevoEnvoiLettre") or {}
-    # Lettre et alertes : les deux listes de chaque langue (23 octobre 2026).
-    alerte = json.load(open(os.path.join(ROOT, "site", "pages.json"), encoding="utf-8"))["site"].get("brevoEnvoiAlerte") or {}
-    listes = {}
-    for source in (conf, alerte):
-        for k, v in (source.get("listes") or {}).items():
-            if v and v not in listes.setdefault(k, []):
-                listes[k].append(v)
+    listes = {k: [v] for k, v in (conf.get("listes") or {}).items() if v}
     cle = cle_api()
     if not cle or not listes or not conf.get("expediteur"):
         print("Envoi de la Lettre non configure (cle API, listes ou expediteur manquants) : rien n'est envoye.")
