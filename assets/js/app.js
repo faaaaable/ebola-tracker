@@ -3523,6 +3523,19 @@ function renderOneChartBrut(canvas, chartMode){
       parDate.set(pts[i].date, { rapporte: estRattrapage ? null : delta,
                                  rattrape: estRattrapage ? delta : null });
     }
+    /* La barre du dernier bulletin reprend les nouveaux cas que la province
+       ANNONCE, comme la barre nationale (partsQuotidiennes) et le « + » de son
+       tableau : au SitRep 160, +27 au Nord-Kivu quand l'ecart des cumuls ne
+       donne que 17 (Beni recule de 553 a 552 malgre 9 nouveaux cas). Cas
+       seulement : les deces du jour d'une province ne sont publies qu'en deux
+       compteurs, a ne jamais additionner. */
+    const dernier = pts[pts.length - 1];
+    const ligneDuJour = PROVINCE_TABLE_DATA.find(pr => pr.name === nom);
+    if(!deces && currentMeta && dernier.date === currentMeta.reportingDate
+       && parDate.has(dernier.date) && parDate.get(dernier.date).rapporte !== null
+       && ligneDuJour && ligneDuJour.newCases24h !== null && ligneDuJour.newCases24h !== undefined){
+      parDate.get(dernier.date).rapporte = ligneDuJour.newCases24h;
+    }
 
     /* CALENDRIER JOUR PAR JOUR (21 septembre 2026). L'axe portait les seuls
        jours de bulletin, colles les uns aux autres : le Nord-Kivu a 104

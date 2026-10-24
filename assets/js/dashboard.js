@@ -196,8 +196,12 @@ function quotidien(serie, champ, national){
      « + » de l'accueil et la Lettre (SitRep 160 : +71 et +41, l'ecart des
      cumuls donnant +61 et +40). Niveau national seulement. */
   const der = out[out.length - 1];
-  if(national && der && der.date === D.latest.meta.reportingDate){
-    const annonce = champ === 'confirmed' ? D.latest.national.newCases24h
+  /* Une province : ses nouveaux cas annonces (Nord-Kivu +27 au 160, 17 d'un
+     cumul a l'autre), jamais ses deces, publies en deux compteurs. */
+  const ligne = (!national && serie.province) ? D.latest.provinces.find(x => x.name === serie.province) : null;
+  if((national || ligne) && der && der.date === D.latest.meta.reportingDate){
+    const annonce = !national ? (champ === 'confirmed' ? ligne.newCases24h : null)
+                  : champ === 'confirmed' ? D.latest.national.newCases24h
                   : champ === 'deaths' ? D.latest.national.newDeaths24h : null;
     if(annonce !== null && annonce !== undefined && !RATTRAPAGE[der.date]){
       der.rapporte = annonce; der.total = annonce;
@@ -253,7 +257,8 @@ function serieProvince(nom){
      (Nord-Ubangi, SitRep 155). Apres, une ligne absente reste un trou. */
   const i = s.findIndex(x => x.confirmed !== null);
   if(i > 0 && !ENTREE_REPRISE.has(nom)) Object.assign(s[i - 1], {confirmed:0, deaths:0});
-  return s.filter(x => x.confirmed !== null);
+  // Le nom suit la serie : quotidien() y retrouve les cas annonces du jour.
+  return Object.assign(s.filter(x => x.confirmed !== null), {province: nom});
 }
 
 /* Zones : cumul actuel, 24 h (bulletin), et 30 jours (cumul actuel moins le
