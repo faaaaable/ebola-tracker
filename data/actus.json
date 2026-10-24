@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "dab5a30d",
+   "date": "2026-10-24",
+   "titre": "Ebola : lancement à Bunia de l’étude clinique du vaccin MATUMAINI contre la souche Bundibugyo",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/24/actualite/sante/ebola-lancement-bunia-de-letude-clinique-du-vaccin-matumaini-contre-la",
+   "langue": "fr",
+   "resume": "Vaccination contre Ebola à Bulape (Kasaï), RDC. Septembre 2025. Photo OMS\" /> L’étude clinique du vaccin MATUMAINI, destiné à lutter contre l’épidémie d’Ebola due à la souche Bundibugyo, a été officiellement lancée vendredi 23 octobre à Bunia, chef-lieu de l’Ituri.",
+   "statut": "publie",
+   "collecte": "2026-10-24",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "b389cba0",
+   "date": "2026-10-24",
+   "titre": "New Tumaini Ebola vaccine trial launches in Bunia as DRC struggles",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/10/24/new-tumaini-ebola-vaccine-trial-launches-in-bunia-as-drc-struggles/",
+   "langue": "en",
+   "resume": "A clinical trial for a new Ebola vaccine is getting underway in DR Congo’s Ituri province. The TUMAini trial will evaluate candidate vaccines against the Bundibugyo strain of the virus.",
+   "statut": "publie",
+   "collecte": "2026-10-24",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "80cc8f5c",
    "date": "2026-10-24",
    "titre": "Nigeria: la découverte d'un premier cas d'Ebola s'immisce dans le débat politique",
@@ -9,6 +35,19 @@
    "url": "https://www.rfi.fr/fr/afrique/20261024-nigeria-la-d%C3%A9couverte-d-un-premier-cas-d-ebola-s-immisce-dans-le-d%C3%A9bat-politique",
    "langue": "fr",
    "resume": "La découverte d'un cas d'Ebola au Nigeria vient perturber le débat public au Nigeria, à quelques mois seulement des élections générales qui auront lieu à la mi-janvier 2027.",
+   "statut": "attente",
+   "collecte": "2026-10-24",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "419a2c61",
+   "date": "2026-10-24",
+   "titre": "Macky Sall jette l'éponge, et Ebola de retour au Nigeria",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/podcasts/le-d%C3%A9bat-africain/20261024-macky-sall-jette-l-%C3%A9ponge-et-ebola-de-retour-au-nigeria",
+   "langue": "fr",
+   "resume": "Au sommaire : Macky Sall se retire de la course à la tête de l’ONU. Pourquoi ce retrait ? Que révèle-t-il des rapports de force diplomatiques et de la place de l’Afrique sur la scène internationale ? Également au programme : l’alerte Ebola. Après le Kenya, le Nigeria est touché.",
    "statut": "attente",
    "collecte": "2026-10-24",
    "media": true,
