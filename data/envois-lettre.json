@@ -1,6 +1,6 @@
 {
  "_comment": "Derniere lettre envoyee aux abonnes par scripts/envoi_lettre.py. Initialise a 156 le 20 octobre 2026 : les lettres deja en ligne ne partent pas.",
- "dernier": "160",
+ "dernier": "161",
  "campagnes": {
   "157": {
    "en": 8
@@ -15,6 +15,10 @@
   "160": {
    "fr": 37,
    "en": 38
+  },
+  "161": {
+   "fr": 39,
+   "en": 40
   }
  }
 }
