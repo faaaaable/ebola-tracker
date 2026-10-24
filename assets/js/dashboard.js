@@ -192,6 +192,17 @@ function quotidien(serie, champ, national){
     }
     prev = v;
   }
+  /* Le dernier bulletin : les nouveaux cas et deces qu'il annonce, comme le
+     « + » de l'accueil et la Lettre (SitRep 160 : +71 et +41, l'ecart des
+     cumuls donnant +61 et +40). Niveau national seulement. */
+  const der = out[out.length - 1];
+  if(national && der && der.date === D.latest.meta.reportingDate){
+    const annonce = champ === 'confirmed' ? D.latest.national.newCases24h
+                  : champ === 'deaths' ? D.latest.national.newDeaths24h : null;
+    if(annonce !== null && annonce !== undefined && !RATTRAPAGE[der.date]){
+      der.rapporte = annonce; der.total = annonce;
+    }
+  }
   return out;
 }
 

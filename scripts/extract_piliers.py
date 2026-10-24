@@ -531,6 +531,19 @@ def extraire(num, chemin, date):
     poe = trouver(secs, "point", "contr") or trouver(secs, "poc/poe")
     pci = trouver(secs, "pci") or trouver(secs, "prévention")
     vac = trouver(secs, "vaccination")
+    # SitRep 160 (24 octobre 2026) : « 2.6. Vaccination » suivi aussitot de
+    # « 2.7. Principales actions », qui porte le texte de la vaccination
+    # (« portant le cumul a 1 311 personnes vaccinees »). La section ne
+    # contenait que son titre et rien n'etait lu. Une section vaccination vide
+    # reprend donc la suivante si elle s'intitule « Principales actions »,
+    # coupee a la « Continuite des soins » qui vient ensuite.
+    if vac is not None and len(vac.split("\n", 1)[-1].strip()) < 40:
+        titres = [t for t, _ in secs]
+        i = next(k for k, (t, c) in enumerate(secs) if c is vac)
+        if i + 1 < len(secs) and titres[i + 1].lower().startswith("principales actions"):
+            suite = secs[i + 1][1]
+            suite = re.split(r"\n\s*\d\.\d{1,2}\.\d{1,2}\.\s+Continuit", suite)[0]
+            vac = vac + suite
     rings, eds = lire_pci(pci) if pci else (None, None)
     return {"date": date, "sitrepNumber": num,
             "poe": lire_poe(poe) if poe else None,

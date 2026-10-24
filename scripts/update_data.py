@@ -449,9 +449,13 @@ PROVINCE_SUMMARY_ROW_NEWFIRST_RE = re.compile(
     r"^(?P<name>Ituri|Nord-Kivu|Haut[- ]Uélé|Tshopo|Sud-Kivu|Bas[- ]Uélé|Sud[- ]Ubangi|Nord[- ]Ubangi|Total)\s*\**\s+"
     r"(?P<newcases>\d+)\s+"
     r"(?P<numbers>[\d ]+?)\**\s*(?P<cfr>[\d,]+)\s*%\s+"
-    r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\([\d,]+\s*%\))?\s*$",
+    r"(?P<zn>\d+)\s*(?:/|sur)\s*(?P<zt>\d+)\s*(?:\(\s*(?:[\d,]+\s*%)?\s*\))?\s*$",
     re.MULTILINE,
 )
+# SitRep 160 (24 octobre 2026) : « Nord Ubangi 0 3 1 33,3% 1/11() », le
+# pourcentage absent entre ses parentheses. La ligne ne correspondait plus,
+# la province manquait de latest.json (7 provinces, 64 zones au lieu de 8 et
+# 66) ; les parentheses vides sont desormais acceptees.
 
 
 def _best_cas_deces_split(numbers_str, cfr_target):
@@ -1316,6 +1320,11 @@ def zone_row_looks_unreliable(row):
         return True
     if cases and cases > 0 and not deaths and cfr in (None, 0.0):
         return True
+    # SitRep 160 : pdfplumber rend ['Adja', '', '1', '9,1%', ...] — la cellule
+    # des cas (11) perdue, les deces (1) lus comme cas. Une letalite non nulle
+    # sans deces lisible ne tient pas : la ligne est relue dans le texte.
+    if cases and deaths is None and cfr:
+        return True
     # SitRep 150 : « Bafwasende 7 7 1 14,3% » — les cas recopies dans la
     # colonne voisine, lus 7 cas et 7 deces. Les deces doivent redonner la
     # letalite imprimee (a l'arrondi pres).
@@ -1998,6 +2007,45 @@ def rebuild_zones_history(meta, health_zones):
           f"(SitRep {sitrep_number} ajouté/rafraîchi, {len(new_zones_by_key)} zones).")
 
 
+# SitRep 160 (24 octobre 2026) : le tableau des provinces imprime « Nord-Kivu
+# 16/34 » quand le texte du meme bulletin ecrit trois fois 66 zones (encadre,
+# « Ainsi, 66 zones de sante sur 178 [...] Nord-Kivu (17/34) ») et que le
+# tableau detaille liste 17 zones au Nord-Kivu, comme la veille. Un nombre de
+# zones « touchees depuis le debut » ne baisse pas : la somme du tableau (65)
+# est une coquille. Regle (choix du proprietaire, 24 octobre 2026) : quand la
+# phrase « Ainsi, N zones de sante sur T » existe, que ses fractions par
+# province tombent exactement sur N et que la somme du tableau n'y tombe pas,
+# les fractions du texte remplacent celles du tableau. Rien n'est invente :
+# c'est l'autre valeur imprimee par le bulletin, et le changement est affiche.
+def zones_texte_retenu(full_text, provinces):
+    t = " ".join((full_text or "").split())
+    m = re.search(r"Ainsi,\s*(\d+)\s*zones de santé sur\s*(\d+)(.{0,600})", t)
+    if not m:
+        return
+    n_texte = int(m.group(1))
+    if sum(p["healthZonesAffected"]["n"] or 0 for p in provinces) == n_texte:
+        return
+    phrase = m.group(3)
+    fractions = {}
+    mi = re.search(r"(Ituri|Nord.Kivu|Haut.\s?Uélé|Tshopo|Sud.Kivu|Bas.\s?Uélé|Sud.Ubangi|Nord.Ubangi) compte (\d+) zones de santé touchées sur (\d+)", phrase)
+    if mi:
+        fractions[canon_province(mi.group(1))] = (int(mi.group(2)), int(mi.group(3)))
+    for nom, a, b in re.findall(r"(Ituri|Nord.Kivu|Haut.\s?Uélé|Tshopo|Sud.Kivu|Bas.\s?Uélé|Sud.Ubangi|Nord.Ubangi)\s*\((\d+)\s*/\s*(\d+)\)", phrase):
+        fractions[canon_province(nom)] = (int(a), int(b))
+    noms = {p["name"] for p in provinces}
+    if set(fractions) != noms or sum(a for a, _ in fractions.values()) != n_texte:
+        print("  ! zones : le texte annonce %d zones mais ses fractions ne couvrent pas "
+              "les provinces du tableau — tableau garde." % n_texte)
+        return
+    for p in provinces:
+        a, b = fractions[p["name"]]
+        h = p["healthZonesAffected"]
+        if (h["n"], h["total"]) != (a, b):
+            print("  ! zones %s : tableau %s/%s, texte %d/%d — texte retenu (%d zones annoncees)."
+                  % (p["name"], h["n"], h["total"], a, b, n_texte))
+            p["healthZonesAffected"] = {"n": a, "total": b}
+
+
 def rapport_demande():
     """--sitrep N : integre CE bulletin (et non le plus recent). Regle du
     3 octobre 2026 : quand deux SitRep sont telecharges ensemble, le site est
@@ -2141,6 +2189,7 @@ def main():
         if n_aires is not None:
             health_areas = {"n": n_aires, "total": total_aires}
 
+    zones_texte_retenu(full_text, provinces)
     zones_total_n = sum(p["healthZonesAffected"]["n"] or 0 for p in provinces)
     # Somme des totaux de zones des provinces (36+34+13+23+34+11 = 151 jusqu'au
     # 118 ; 167 depuis le 119 et les 16 zones du Sud-Ubangi ; 178 depuis le 155

@@ -9007,6 +9007,176 @@
 "ruptures"
 ]
 }
+],
+"au nord kivu # rings sur # restent à ouvrir butembo mabalako # ménages sur # n ont pas été décontaminés aucun ménage n a été doté en kits # # et # eds sont reportés à la tshopo # corps n ont pu être swabés et les stocks d intrants pci sont critiques # kg de chlore sur # # kg requis au haut uélé # corps n a pu être swabé à wamba résistance au bas uélé aucun eds n a été réalisé et # ess prioritaires sur # n ont pas de triage fonctionnel": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"eds",
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"eds",
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"eds",
+"resistance"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"eds",
+"ruptures"
+]
+}
+],
+"au nord kivu la couverture smsps reste faible autour des derniers cas confirmés à biena manguredjipa kayna lubero masereka kalunguta mabalako mutwanga et vuhovi # zs affectées n ont pas de crèche et les kits de réinsertion des guéris manquent au bas uélé l accompagnement psychosocial des # confirmés accuse toujours du retard": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": []
+}
+],
+"au nord kivu le poc de butuhe reste fermé depuis le # septembre # les alertes des poc ne sont pas prises en charge à temps et les intrants pci les epi et l ambulance dédiée font défaut en ituri # suspects sur # ont refusé leur transfert et le poc d avakubi reste non fonctionnel pour insécurité au sud kivu la complétude reste faible # # et les poe n ont pas de dispositif d isolement au haut uélé # poc sur # n ont pas rapporté faute de réseau au bas uélé # poc sur # n ont pas rapporté formation motivation eau mobilité et digitalisation font défaut": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"poc",
+"ruptures"
+]
+},
+{
+"province": "Ituri",
+"obstacles": [
+"resistance",
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"poc",
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"poc",
+"completude",
+"impayes",
+"ruptures"
+]
+}
+],
+"au nord kivu les lits des suspects sont occupés à # # # # # patients sur # # # sont pris en charge hors cte ct et la complétude des données n est que de # kalunguta mabalako et lubero manquants": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"saturation",
+"completude"
+]
+}
+],
+"au niveau provincial la couverture des zones touchées reste faible seules # zs sur # # # connaissent le mécanisme de signalement au nord kivu et # sur # au haut uélé au haut uélé aucun des # partenaires ne rapporte ses activités psea les outils de sensibilisation ne sont disponibles qu en swahili alors que cette langue n est parlée que dans # zs et le pilier manque de kits informatiques": [
+{
+"province": "Nord-Kivu",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"en ituri # rings sur # restent à ouvrir # ménages sur # n ont pas été décontaminés # échecs d eds ont été enregistrés # corps sur # # # n ont pas pu être swabés et # eds sont reportés au lendemain": [
+{
+"province": "Ituri",
+"obstacles": [
+"eds"
+]
+}
+],
+"en ituri la cible des tpl et ppl reste à redéfinir et # mapi graves ont été notifiées au bas uélé la mise en marche des ucc n est pas effective et la vaccination n a pas débuté à ango # # # ni à bili # # # au haut uélé la communauté s interroge sur le ciblage exclusif des ppl": [
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": []
+}
+],
+"en ituri le sang reste insuffisant # patients de mandima n ont pas bénéficié d alimentation et la capacité d accueil reste faible à kilo lolwa mandima et biakato": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"saturation"
+]
+}
+],
+"en ituri seules # zs affectées sur # sont couvertes # # et # des # derniers cas confirmés # # n ont pas encore été pris en charge notamment à mandima # #": [
+{
+"province": "Ituri",
+"obstacles": []
+}
+],
+"faible fonctionnalité du triage de l hgr komanda ituri absence de tableau de bord csse à l hgr katwa nord kivu baisse de la pcime et des accouchements à la tshopo": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": []
+}
+],
+"à la tshopo # confirmés demeurent errants dans la communauté # à bafwasende et le cas n #": [
+{
+"province": "Tshopo",
+"obstacles": [
+"resistance"
+]
+}
 ]
 }
 }

@@ -946,7 +946,10 @@
     "alertesPuce2": "<b>La courbe</b> des nouveaux cas des trente derniers jours.",
     "alertesPuce3": "<b>Les liens</b> vers la carte, l’ensemble de la RDC, les cas hors RDC et La Lettre complète.",
     "footerAboTitre": "Recevoir La Lettre à chaque nouveau SitRep",
-    "footerAboTexte": "Un mail par bulletin : les chiffres du jour et le résumé. Désinscription en un clic."
+    "footerAboTexte": "Un mail par bulletin : les chiffres du jour et le résumé. Désinscription en un clic.",
+    "lettreOuEcart": "À {zone}, le cumul passe de {avant} à {apres} cas alors que le bulletin y annonce {n} nouveau{n?x} cas : le site reprend ses chiffres tels qu'ils sont publiés.",
+    "lettreOuEcartReste": "À {zone}, le cumul reste à {avant} cas alors que le bulletin y annonce {n} nouveau{n?x} cas : le site reprend ses chiffres tels qu'ils sont publiés.",
+    "lettreOuEcartSans": "À {zone}, le cumul recule de {avant} à {apres} cas sans aucun nouveau cas annoncé : le site reprend les chiffres tels qu'ils sont publiés."
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -1894,7 +1897,10 @@
     "alertesPuce2": "<b>The curve</b> of new cases over the last thirty days.",
     "alertesPuce3": "<b>Links</b> to the map, the whole DRC, cases outside the DRC and the full Letter.",
     "footerAboTitre": "Get the Letter with every new SitRep",
-    "footerAboTexte": "One email per bulletin: today’s figures and the summary. One-click unsubscribe."
+    "footerAboTexte": "One email per bulletin: today’s figures and the summary. One-click unsubscribe.",
+    "lettreOuEcart": "In {zone}, the cumulative count goes from {avant} to {apres} cases although the bulletin reports {n} new case{n?s} there: the site shows its figures as published.",
+    "lettreOuEcartReste": "In {zone}, the cumulative count stays at {avant} cases although the bulletin reports {n} new case{n?s} there: the site shows its figures as published.",
+    "lettreOuEcartSans": "In {zone}, the cumulative count falls from {avant} to {apres} cases with no new case reported: the site shows the figures as published."
   },
   "timelineEvents": [
     {
@@ -3550,6 +3556,9 @@
     "alertesPuce2": "<b>Mkondo</b> wa visa vipya vya siku thelathini zilizopita.",
     "alertesPuce3": "<b>Viungo</b> vya ramani, DRC nzima, visa nje ya DRC na Barua kamili.",
     "footerAboTitre": "Pokea Barua kwa kila SitRep mpya",
-    "footerAboTexte": "Barua pepe moja kwa kila ripoti: takwimu za siku na muhtasari (kwa Kiingereza). Jiondoe kwa mbofyo mmoja."
+    "footerAboTexte": "Barua pepe moja kwa kila ripoti: takwimu za siku na muhtasari (kwa Kiingereza). Jiondoe kwa mbofyo mmoja.",
+    "lettreOuEcart": "Huko {zone}, jumla inatoka wagonjwa {avant} hadi {apres} ingawa taarifa inatangaza wagonjwa wapya {n} huko: tovuti inaonyesha takwimu zake kama zilivyochapishwa.",
+    "lettreOuEcartReste": "Huko {zone}, jumla inabaki wagonjwa {avant} ingawa taarifa inatangaza wagonjwa wapya {n} huko: tovuti inaonyesha takwimu zake kama zilivyochapishwa.",
+    "lettreOuEcartSans": "Huko {zone}, jumla inashuka kutoka wagonjwa {avant} hadi {apres} bila mgonjwa mpya kutangazwa: tovuti inaonyesha takwimu kama zilivyochapishwa."
   }
 }

@@ -314,6 +314,24 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         somme = sum(z["newCases24h"] for z in actives)
         txt += " " + P("lettreOuZones", k=fmt(len(actives), lang), somme=fmt(somme, lang), total=fmt(nat["newCases24h"], lang),
                        liste=_liste(["%s %s" % (z["name"], fmt(z["newCases24h"], lang)) for z in actives], et))
+    # Ecart entre cumuls et nouveaux cas annonces (24 octobre 2026, choix du
+    # proprietaire) : au SitRep 160, le cumul de Beni recule de 553 a 552
+    # malgre 9 nouveaux cas annonces. Le site ne corrige pas la source, il le
+    # dit. Seulement si le bulletin precedent est celui de la veille, sinon
+    # l'ecart couvre plusieurs jours et ne se compare pas a un chiffre du jour.
+    # A partir du SitRep 160 seulement : les lettres deja publiees ne changent
+    # pas (090, 103 et 151 auraient recu une note, sans relecture des PDF).
+    if zi and date >= "2026-10-21":
+        from datetime import date as _d0
+        j0, j1 = (_d0(*(int(x) for x in zh[k]["date"].split("-"))) for k in (zi - 1, zi))
+        if (j1 - j0).days == 1:
+            avant = {_cle_zone(z): z.get("cases") for z in zh[zi - 1]["zones"]}
+            for z in latest["healthZones"]:
+                a, n = avant.get(_cle_zone(z)), z.get("newCases24h") or 0
+                if a is not None and z.get("cases") is not None and z["cases"] - a != n and z["cases"] < a + n:
+                    cle = ("lettreOuEcartSans" if n == 0 else
+                           "lettreOuEcartReste" if z["cases"] == a else "lettreOuEcart")
+                    txt += " " + P(cle, zone=z["name"], avant=fmt(a, lang), apres=fmt(z["cases"], lang), n=fmt(n, lang))
     # Zones actives : au moins un cas notifie dans les 21 derniers jours,
     # d'apres les cumuls par zone de l'instantane le plus proche 21 jours
     # avant (8 septembre 2026).

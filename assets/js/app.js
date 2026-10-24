@@ -750,6 +750,17 @@ function renderKPIs(){
       return eff[field] - latest[field];
     }
     if(!entry) return null;
+    /* Le dernier bulletin : les nouveaux cas et deces qu'il ANNONCE, pas
+       l'ecart entre deux cumuls (choix du proprietaire, 24 octobre 2026). Au
+       SitRep 160, le cumul de Beni recule de 553 a 552 malgre 9 nouveaux cas
+       annonces : l'ecart donnait +61 cas et +40 deces, le bulletin +71 et +41,
+       comme la Lettre. Si le suivant corrige Beni, l'ecart donnerait un +81
+       artificiel ; le chiffre annonce reste juste les deux jours. */
+    if(entry === s[s.length-1] && national && currentMeta && entry.date === currentMeta.reportingDate){
+      const annonce = field === 'confirmed' ? national.newCases24h
+                    : field === 'deaths' ? national.newDeaths24h : null;
+      if(annonce !== null && annonce !== undefined) return annonce;
+    }
     const prev = prevKnown(field, entry);
     if(!prev) return null;
     return entry[field] - prev[field];
@@ -882,6 +893,18 @@ function partsQuotidiennes(s, champ, partConnue){
     if(v === null || v === undefined){ deltas.push(null); continue; }
     deltas.push(prev === null ? null : Math.max(0, v - prev));
     prev = v;
+  }
+  /* La barre du dernier bulletin reprend, comme le « + » de l'en-tete
+     (deltaValue), les nouveaux cas et deces qu'il annonce : au SitRep 160,
+     +71 et +41 plutot que +61 et +40, l'ecart entre deux cumuls. Au niveau
+     national seulement — une province (partConnue === false) n'a pas ce
+     chiffre ici. */
+  const n = s.length - 1;
+  if(n > 0 && partConnue !== false && deltas[n] !== null && national && currentMeta
+     && s[n].date === currentMeta.reportingDate){
+    const annonce = nom === 'confirmed' ? national.newCases24h
+                  : nom === 'deaths' ? national.newDeaths24h : null;
+    if(annonce !== null && annonce !== undefined) deltas[n] = annonce;
   }
   // Pour les deces, la part rapportee d'une journee de rattrapage vaut zero :
   // tout l'ecart bascule dans la teinte claire.
