@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "fd6847ed",
+   "date": "2026-10-24",
+   "titre": "Ebola : l’Ouganda renforce les contrôles frontaliers avec la RDC et appelle au calme",
+   "source": "ACP",
+   "url": "https://acp.cd/diplomatie/ebola-louganda-renforce-les-controles-frontaliers-avec-la-rdc-et-appelle-au-calme/",
+   "langue": "fr",
+   "resume": "Les autorités sanitaires ougandaises ont réaffirmé l’absence de cas d’Ebola confirmés dans le pays, tout en renforçant les contrôles…",
+   "statut": "publie",
+   "collecte": "2026-10-24",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "dab5a30d",
    "date": "2026-10-24",
    "titre": "Ebola : lancement à Bunia de l’étude clinique du vaccin MATUMAINI contre la souche Bundibugyo",
@@ -9,6 +22,19 @@
    "url": "https://www.radiookapi.net/2026/10/24/actualite/sante/ebola-lancement-bunia-de-letude-clinique-du-vaccin-matumaini-contre-la",
    "langue": "fr",
    "resume": "Vaccination contre Ebola à Bulape (Kasaï), RDC. Septembre 2025. Photo OMS\" /> L’étude clinique du vaccin MATUMAINI, destiné à lutter contre l’épidémie d’Ebola due à la souche Bundibugyo, a été officiellement lancée vendredi 23 octobre à Bunia, chef-lieu de l’Ituri.",
+   "statut": "publie",
+   "collecte": "2026-10-24",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "ca1280da",
+   "date": "2026-10-24",
+   "titre": "Ebola à Mambasa : les décès communautaires favorisent la propagation de l’épidémie (Médecin chef de zone)",
+   "source": "ACP",
+   "url": "https://acp.cd/science-sante-environnement/ebola-a-mambasa-les-deces-communautaires-favorisent-la-propagation-de-lepidemie-medecin-chef-de-zone/",
+   "langue": "fr",
+   "resume": "Les décès communautaires suivis de manipulations des corps constituent un des facteurs de propagation d'Ebola dans la zone de…",
    "statut": "publie",
    "collecte": "2026-10-24",
    "media": true,
@@ -41,6 +67,19 @@
    "image": true
   },
   {
+   "id": "41cee68a",
+   "date": "2026-10-24",
+   "titre": "Ebola au Nigeria et au Kenya: les deux patients se sont-ils croisés en Ouganda?",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261024-ebola-au-nigeria-et-au-kenya-les-deux-patients-se-sont-ils-crois%C3%A9s-en-ouganda",
+   "langue": "fr",
+   "resume": "Après le Kenya où un deuxième décès a été annoncé, vendredi 23 octobre, Ebola est arrivé au Nigeria. Une enquête est en cours pour déterminer son origine.",
+   "statut": "attente",
+   "collecte": "2026-10-24",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "419a2c61",
    "date": "2026-10-24",
    "titre": "Macky Sall jette l'éponge, et Ebola de retour au Nigeria",
@@ -49,6 +88,32 @@
    "langue": "fr",
    "resume": "Au sommaire : Macky Sall se retire de la course à la tête de l’ONU. Pourquoi ce retrait ? Que révèle-t-il des rapports de force diplomatiques et de la place de l’Afrique sur la scène internationale ? Également au programme : l’alerte Ebola. Après le Kenya, le Nigeria est touché.",
    "statut": "attente",
+   "collecte": "2026-10-24",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "303af1f9",
+   "date": "2026-10-24",
+   "titre": "Les prestataires de la riposte contre Ebola en grève à Nia-Nia pour réclamer leurs primes",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/24/actualite/sante/les-prestataires-de-la-riposte-contre-ebola-en-greve-nia-nia-pour",
+   "langue": "fr",
+   "resume": "Le centre de traitement de la maladie à virus Ebola de Beni, le 4 juillet 2026. Radio Okapi/Marc Maro Fimbo\" /> Les prestataires de terrain engagés dans la riposte contre Ebola ont déclenché, depuis vendredi 23 octobre, une grève sèche dans la zone de santé de Nia-Nia, dans le…",
+   "statut": "publie",
+   "collecte": "2026-10-24",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "25506559",
+   "date": "2026-10-24",
+   "titre": "Ebola -RDC: le gouvernement renforce la riposte épidémiologique face à la hausse des cas",
+   "source": "ACP",
+   "url": "https://acp.cd/science-sante-environnement/ebola-rdc-le-gouvernement-renforce-la-riposte-epidemiologique-face-a-la-hausse-des-cas/",
+   "langue": "fr",
+   "resume": "La riposte épidémiologique a été renforcée face à la hausse des cas dus au virus Ebola dans la partie…",
+   "statut": "publie",
    "collecte": "2026-10-24",
    "media": true,
    "image": true
