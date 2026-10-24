@@ -504,7 +504,10 @@ def lire_poe(corps):
     # Les SitReps 123 et 124 (14 et 15 septembre 2026) coupent autrement le
     # libelle de la ligne : « Nombre de personnes passées aux 147 864 … PoE/PoC »
     # — « passées aux » s'intercale avant les nombres, et le total manquait.
-    m = re.search(r"Nombre de personnes(?:\s+passées\s+aux)?((?:\s+(?:\d[\d ]*|ND|NA))+)", t)
+    # Le SitRep 161 (22 octobre 2026) ecrit « Nombre des voyageurs 148 084 …
+    # 305 816 » puis « passés » a la ligne, et « Proportion des voyageurs 97% …
+    # 98% » puis « screenés » : les libelles du 160 ne se lisaient plus.
+    m = re.search(r"Nombre (?:de personnes(?:\s+passées\s+aux)?|des voyageurs)((?:\s+(?:\d[\d ]*|ND|NA))+)", t)
     personnes = None
     if m:
         # Une ligne de tableau : six provinces puis le total, chiffres a
@@ -513,7 +516,7 @@ def lire_poe(corps):
         # nombre est la somme des autres.
         jetons = re.findall(r"\d+|ND|NA", m.group(1))
         personnes = _total_ligne(jetons)
-    m = re.search(r"% des voyageurs screenés((?:\s+(?:[\d,]+\s*%|ND|NA))+)", t)
+    m = re.search(r"(?:% des voyageurs screenés|Proportion des voyageurs)((?:\s+(?:[\d,]+\s*%|ND|NA))+)", t)
     pct = None
     if m:
         p = re.findall(r"([\d,]+)\s*%", m.group(1))

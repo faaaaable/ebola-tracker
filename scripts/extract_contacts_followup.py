@@ -197,6 +197,22 @@ CONTACTS_PARMI_LES_RE = re.compile(
 # un taux de suivi de 77,8 % » — « sous suivi » remplace « à suivre ». Sans
 # l'alternative, le 19 octobre perdait ses effectifs nationaux.
 
+# SitRep 161 (22 octobre 2026) : dix-septieme tournure — « Au 22 octobre 2026,
+# 28 067 contacts étaient sous suivi dans les cinq provinces ayant transmis
+# leurs données ; 25 005 ont été vus au cours des dernières 24 heures, soit un
+# taux de suivi de 89,1 %, en hausse par rapport à la veille (84,8 %) ». Les
+# contacts sont le sujet, sans « parmi » ni « sur » : aucun motif ne lisait la
+# phrase, et le repli prenait dans le résumé « progresse de 84,8 % à 89,1 % »
+# le taux de LA VEILLE. Memes groupes que CONTACTS_PARMI_LES_RE : a suivre,
+# vus, taux.
+CONTACTS_ETAIENT_RE = re.compile(
+    r"(\d[\d\s]*?)\s+contacts\s+étaient\s+(?:sous\s+suivi|en\s+cours\s+de\s+suivi|(?:à|a)\s+suivre)"
+    r"(?:\s+dans\s+les\s+(?:\w+\s+)?provinces\s[^,.;%]{0,60}?)?\s*[,;]?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
+    r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+(?:une\s+proportion|un\s+taux)(?:\s+journali[èe]re)?"
+    r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
+    re.IGNORECASE | re.DOTALL,
+)
+
 # SitRep 127 (18 septembre 2026) : douzieme tournure — « Au cours des
 # dernières 24 heures, 26 803 ont été vus parmi les 30 541 contacts en cours
 # de suivi, soit une proportion de suivi de 87,8% ». Les vus ouvrent la
@@ -442,6 +458,11 @@ def rate_from_text(full_text):
         value = float(m.group(1).replace(",", "."))
         if 0 <= value <= 100:
             return value, "texte (repli, « proportion de suivi au décours du … était de »)"
+    m = CONTACTS_ETAIENT_RE.search(full_text)
+    if m:
+        value = taux_texte(m.group(3))
+        if 0 <= value <= 100:
+            return value, "texte (repli, « N contacts étaient sous suivi ; M ont été vus »)"
     for m in CONTACTS_RE.finditer(full_text):
         # « … était de 74,7 % au 26 septembre 2026, contre … » : un taux date
         # d'un autre jour est une comparaison, pas la mesure du bulletin.
@@ -462,6 +483,12 @@ def rate_from_text(full_text):
         # jamais une — on laisse la main aux motifs suivants.
         elif re.match(r"\s*la\s+veille\b", full_text[m.end():m.end() + 20]):
             continue
+        else:
+            # « progresse de 84,8 % à 89,1 % » (161) : le premier taux est
+            # celui de la veille, la mesure est celle qui suit « à ».
+            ma = re.match(r"\s*(?:à|a)\s+(\d+(?:[,.]\d+)?)\s*%", full_text[m.end():m.end() + 20])
+            if ma and re.search(r"\bde\s*$", full_text[max(0, m.start(1) - 6):m.start(1)]):
+                value = float(ma.group(1).replace(",", "."))
         if 0 <= value <= 100:
             return value, "texte (repli)"
     m = CONTACTS_VUS_SUR_RE.search(full_text)
@@ -641,7 +668,7 @@ def details_contacts(full_text, rows, taux_national=None):
                     out["contacts"] = {"aSuivre": a_suivre, "vus": vus}
             else:
                 # SitRep 119 : « Parmi les 28 672 en cours de suivi, 25 117 ont été vus »
-                m = CONTACTS_PARMI_LES_RE.search(full_text)
+                m = CONTACTS_PARMI_LES_RE.search(full_text) or CONTACTS_ETAIENT_RE.search(full_text)
                 if m:
                     a_suivre, vus = norm_int(m.group(1)), norm_int(m.group(2))
                     if effectifs_verifies(vus, a_suivre, taux_national):
@@ -690,7 +717,7 @@ def details_contacts(full_text, rows, taux_national=None):
     # provinces au profit de « 17,6 % (43/244) du Nord-Kivu », qui parle des
     # cas suspects vivants validés (verifie le 18 septembre 2026).
     depart = None
-    for rx in (CONTACTS_PARMI_LES_RE, CONTACTS_PARMI_RE, CONTACTS_VUS_PARMI_RE,
+    for rx in (CONTACTS_ETAIENT_RE, CONTACTS_PARMI_LES_RE, CONTACTS_PARMI_RE, CONTACTS_VUS_PARMI_RE,
                CONTACTS_DENTRE_EUX_RE, CONTACTS_SITUE_RE, CONTACTS_VUS_SUR_RE):
         mm = rx.search(full_text)
         if mm:

@@ -176,39 +176,50 @@ const charts = {};
    separee (cas, niveau national seulement ; ailleurs toute la journee passe en
    teinte claire). */
 function quotidien(serie, champ, national){
-  const out = []; let prev = null;
-  for(const r of serie){
+  const out = []; let prev = null, prevDate = null;
+  /* Les nouveaux cas et deces ANNONCES par chaque bulletin, conserves par date
+     dans sitreps.json depuis le 160 (choix du proprietaire, 24 octobre 2026),
+     comme le « + » de l'accueil et la Lettre (SitRep 160 : +71 et +41,
+     l'ecart des cumuls donnant +61 et +40) ; latest.json reste le repli du
+     dernier. Une province : ses nouveaux cas annonces (Nord-Kivu +27 au 160,
+     17 d'un cumul a l'autre), jamais ses deces, publies en deux compteurs. Ni
+     un jour de rattrapage ni un bulletin qui suit un trou : leur ecart couvre
+     plusieurs journees, l'annonce une seule. */
+  const annonces = new Map(D.sitreps.filter(x => x.annonce).map(x => [x.date, x.annonce]));
+  const ligne = (!national && serie.province) ? D.latest.provinces.find(x => x.name === serie.province) : null;
+  const annonceDu = (date, dernier) => {
+    const a = annonces.get(date);
+    let v = null;
+    if(a) v = national ? (champ === 'confirmed' ? a.cas : champ === 'deaths' ? a.deces : null)
+                       : (champ === 'confirmed' && a.provinces ? a.provinces[serie.province] : null);
+    if((v === null || v === undefined) && dernier && date === D.latest.meta.reportingDate)
+      v = national ? (champ === 'confirmed' ? D.latest.national.newCases24h
+                    : champ === 'deaths' ? D.latest.national.newDeaths24h : null)
+                   : (champ === 'confirmed' && ligne ? ligne.newCases24h : null);
+    return (v === null || v === undefined) ? null : v;
+  };
+  serie.forEach((r, i) => {
     const v = r[champ];
-    if(v === null || v === undefined){ continue; }
+    if(v === null || v === undefined){ return; }
     if(prev !== null){
       const delta = Math.max(0, v - prev);
       const jour = RATTRAPAGE[r.date];
-      let rapporte = delta, rattrapage = 0;
+      let rapporte = delta, rattrapage = 0, total = delta;
       if(jour !== undefined){
         const part = (champ === 'confirmed' && national) ? jour : 0;
         rapporte = Math.min(part, delta); rattrapage = Math.max(0, delta - part);
+      } else if(veille(r.date) === prevDate){
+        const a = annonceDu(r.date, i === serie.length - 1);
+        if(a !== null){ rapporte = a; total = a; }
       }
-      out.push({date:r.date, rapporte, rattrapage, total:delta});
+      out.push({date:r.date, rapporte, rattrapage, total});
     }
-    prev = v;
-  }
-  /* Le dernier bulletin : les nouveaux cas et deces qu'il annonce, comme le
-     « + » de l'accueil et la Lettre (SitRep 160 : +71 et +41, l'ecart des
-     cumuls donnant +61 et +40). Niveau national seulement. */
-  const der = out[out.length - 1];
-  /* Une province : ses nouveaux cas annonces (Nord-Kivu +27 au 160, 17 d'un
-     cumul a l'autre), jamais ses deces, publies en deux compteurs. */
-  const ligne = (!national && serie.province) ? D.latest.provinces.find(x => x.name === serie.province) : null;
-  if((national || ligne) && der && der.date === D.latest.meta.reportingDate){
-    const annonce = !national ? (champ === 'confirmed' ? ligne.newCases24h : null)
-                  : champ === 'confirmed' ? D.latest.national.newCases24h
-                  : champ === 'deaths' ? D.latest.national.newDeaths24h : null;
-    if(annonce !== null && annonce !== undefined && !RATTRAPAGE[der.date]){
-      der.rapporte = annonce; der.total = annonce;
-    }
-  }
+    prev = v; prevDate = r.date;
+  });
   return out;
 }
+const veille = iso => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() - 1);
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 
 /* Les memes nouveaux cas (ou deces) par semaine (lundi-dimanche) ou par mois,
    comme agregeNouveauxCas() d'app.js. Le rattrapage du 30 juillet couvre les

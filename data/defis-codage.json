@@ -9177,6 +9177,137 @@
 "resistance"
 ]
 }
+],
+"au haut uélé la couverture réseau reste faible dans certaines zs une partie du personnel est démotivée et l ambulance de pawa est immobilisée pour entretien": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"au nord kivi couverture smsps reste faible autour des derniers cas confirmés à biena manguredjipa kayna lubero masereka kalunguta mabalako mutwanga et vuhovi # zs affectées n ont pas de crèche les ressources humaines formées et les moyens logistiques manquent de même que les kits de réinsertion des guéris au bas uélé l accompagnement psychosocial des # confirmés accuse toujours du retard au haut uélé la mobilité des aps wamba et boma mangbetu le matériel informatique et les kits nutritionnels pour nourrissons sevrés pawa et wamba font défaut": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"au nord kivu les lits des suspects sont occupés à # # # # et ceux des confirmés à # # # # # patients sur # # # sont pris en charge hors cte ct la mortalité intra cte reste élevée et # zs lubero masereka biena manguredjipa vuhovi et mabalako n ont pas d ambulance": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"saturation",
+"ruptures"
+]
+}
+],
+"en ituri la cible des tpl et ppl reste à redéfinir et # mapi graves ont été notifiées au haut uélé la vaccination des ppl est à l arrêt et la panne du groupe électrogène de l antenne pev d isiro empêche la mise en marche des # ucc au bas uélé la mise en marche des ucc n est pas effective et les vaccins ainsi que les fonds de la vaccination restent insuffisants": [
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"en ituri le sang reste insuffisant # patients de mandima ct mandima et ct makeke n ont pas bénéficié d alimentation et la capacité d accueil reste faible à aru mambasa kilo lolwa mandima et biakato": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"saturation"
+]
+}
+],
+"la couverture des zones touchées reste faible seules # zs sur # # # en ituri # zs sur # # # au nord kivu et # zs sur # au haut uélé connaissent le mécanisme de signalement et # zs sur # # # ont mené des activités psea au niveau national cette semaine seuls # partenaires sur # ont appuyé les activités aucun des # partenaires du haut uélé ne rapporte ses activités psea la cartographie des intervenants n est pas maîtrisée en ituri les outils de sensibilisation ne sont disponibles qu en swahili au haut uélé et les cbcm restent peu efficaces": [
+{
+"province": "aucune",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Nord-Kivu",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+}
+],
+"plans de redressement du ch kyaghala et de l hgr katwa nord kivu encore à finaliser faible fonctionnalité du triage de l hgr komanda ituri baisse de la pcime et des accouchements à la tshopo déficit de subvention des soins gratuits dans les # zs les plus affectées et retard du projet de rattrapage vaccinal uiv au haut uélé": [
+{
+"province": "Nord-Kivu",
+"obstacles": []
+},
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"à la tshopo la résistance du ménage empêche l investigation autour du cas n # et seuls # ess sur # # # dépassent # au score pci au bas uélé # échecs de swab ont été enregistrés à ganga aucun eds n a été réalisé # ess prioritaires sur # n ont pas de triage fonctionnel # sur # manquent d eau et seuls # prestataires sur # # # sont formés en pci wash au haut uélé # eds n ont pu être réalisés pour résistance communautaire as boma mangbetu et legu seules # zs sur # ont rapporté l dans les ess": [
+{
+"province": "Tshopo",
+"obstacles": [
+"resistance"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"eds",
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"eds",
+"resistance",
+"completude"
+]
+}
 ]
 }
 }

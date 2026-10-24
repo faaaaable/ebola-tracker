@@ -625,3 +625,9 @@ moyenne du lieu des décès (pointillée mais c'est une mesure, pas de marqueur
 La phrase en dur « Un espace vide signifie que les bulletins… » des pages province
 est supprimée (`provinceRiposteBlancs`).
 
+
+## Les barres des nouveaux cas et décès suivent l'ANNONCÉ, conservé par date (24 octobre 2026)
+
+Décision du propriétaire : la barre du 21 oct. avait affiché +71 en ligne (chiffre annoncé par le SitRep 160) et serait redevenue 61 (écart des cumuls) au 161. `update_data.py` écrit désormais dans chaque entrée de `sitreps.json` un champ `annonce` = `{cas, deces, provinces: {nom: nouveaux cas}}`, conservé aux intégrations suivantes ; semé au 160 depuis le `latest.json` en ligne. **Pas d'historique avant le 160** (la relecture des 153 PDF a été écartée) : les barres antérieures restent des écarts de cumul.
+
+Règle commune à `partsQuotidiennes` (national), au bloc `provinceEpidemic` (cas seulement) et à `quotidien` (`dashboard.js`) : l'annoncé si l'entrée le porte, `latest.json` en repli pour le dernier bulletin, sinon l'écart — **jamais un jour de `RATTRAPAGE_ADMIN`, jamais un bulletin dont le précédent n'est pas la veille** (`veilleDe` / `veille`) : l'écart y couvre plusieurs journées. Les notes `chartDailyNote` / `chartDailyDeathsNote` (trois langues) disent que la somme des barres peut s'écarter du cumul depuis le 21 octobre.

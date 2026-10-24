@@ -75,7 +75,7 @@ const I18N = {
     chartWeekOngoingNote:(nom,restants)=>`La semaine en cours, ${nom}, n'est pas terminée : sa barre couvre la semaine entière, mais seuls les jours écoulés sont colorés — ${restants > 1 ? `les ${restants} qui restent sont grisés` : `celui qui reste est grisé`} à droite, et sa hauteur montera encore.`,
     chartStackTotal:(n)=>`Total : ${n}`,
     chartDaysToCome:"Jours à venir",
-    chartDailyNote:(absentes)=>`Nouveaux cas de chaque bulletin, calculés comme l'écart avec le bulletin précédent. `
+    chartDailyNote:(absentes)=>`Nouveaux cas de chaque bulletin, calculés comme l'écart avec le bulletin précédent ; depuis le 21 octobre 2026, ceux que le bulletin annonce, si bien que la somme des barres peut s'écarter du cumul quand il corrige le total d'une zone. `
       + `Une révision à la baisse est ramenée à zéro plutôt que de creuser un trou qui n'a pas eu lieu. `
       + (absentes.length
           ? `Les ${absentes.length} jours sans bulletin (${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]}) n'ont pas de barre : leurs cas sont déjà dans le cumul du bulletin suivant, dont l'écart couvre alors plusieurs journées. `
@@ -84,7 +84,7 @@ const I18N = {
       + `Le 30 juillet est les deux à la fois — il rattrape les 28 et 29, dont les bulletins manquent.`,
     chartWeeklyCases:"Nouveaux cas",
     chartWeeklyDeaths:"Nouveaux décès",
-    chartDailyDeathsNote:(absentes,muets)=>`Nouveaux décès de chaque bulletin, calculés comme l'écart avec le bulletin précédent. `
+    chartDailyDeathsNote:(absentes,muets)=>`Nouveaux décès de chaque bulletin, calculés comme l'écart avec le bulletin précédent ; depuis le 21 octobre 2026, ceux que le bulletin annonce, si bien que la somme des barres peut s'écarter du cumul quand il corrige le total d'une zone. `
       + (muets.length
           ? `${muets.length > 1 ? `Les ${muets.length} bulletins qui ne donnent aucun total de décès — ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} — n'ont pas de barre` : `Le bulletin du ${muets[0]}, qui ne donne aucun total de décès, n'a pas de barre`} : `
             + `l'écart revient au bulletin suivant, dont la barre couvre alors plusieurs journées. `
@@ -410,7 +410,7 @@ const I18N = {
     chartWeekOngoingNote:(nom,restants)=>`The current week, ${nom}, is not over: its bar spans the whole week, but only the elapsed days are coloured — the ${restants > 1 ? `${restants} remaining are` : `remaining one is`} greyed out on the right, and its height will still rise.`,
     chartStackTotal:(n)=>`Total: ${n}`,
     chartDaysToCome:"Days to come",
-    chartDailyNote:(absentes)=>`New cases from each bulletin, computed as the difference with the previous one. `
+    chartDailyNote:(absentes)=>`New cases from each bulletin, computed as the difference with the previous one; since 21 October 2026, the figures the bulletin announces, so the bars may not add up to the cumulative total when it corrects a zone's count. `
       + `A downward revision is brought back to zero rather than digging a dip that never happened. `
       + (absentes.length
           ? `The ${absentes.length} days without a bulletin (${absentes.slice(0,-1).join(', ')} and ${absentes[absentes.length-1]}) carry no bar: their cases are already in the next bulletin's cumulative figure, whose difference then covers several days. `
@@ -419,7 +419,7 @@ const I18N = {
       + `30 July is both at once — it makes up for the 28th and 29th, whose bulletins are missing.`,
     chartWeeklyCases:"New cases",
     chartWeeklyDeaths:"New deaths",
-    chartDailyDeathsNote:(absentes,muets)=>`New deaths from each bulletin, computed as the difference with the previous one. `
+    chartDailyDeathsNote:(absentes,muets)=>`New deaths from each bulletin, computed as the difference with the previous one; since 21 October 2026, the figures the bulletin announces, so the bars may not add up to the cumulative total when it corrects a zone's count. `
       + (muets.length
           ? `${muets.length > 1 ? `The ${muets.length} bulletins that give no death total — ${muets.slice(0,-1).join(', ')} and ${muets[muets.length-1]} — carry no bar` : `The bulletin of ${muets[0]}, which gives no death total, carries no bar`}: `
             + `the difference returns to the next bulletin, whose bar then covers several days. `
@@ -743,7 +743,7 @@ const I18N = {
     chartWeekOngoingNote:(nom,restants)=>`Wiki inayoendelea, ${nom}, haijaisha: safu yake inashughulikia wiki nzima, lakini siku zilizopita pekee ndizo zenye rangi — ${restants} zilizobaki zimetiwa kijivu kulia, na urefu wake bado utapanda.`,
     chartStackTotal:(n)=>`Jumla: ${n}`,
     chartDaysToCome:"Siku zijazo",
-    chartDailyNote:(absentes)=>`Visa vipya vya kila ripoti, vikihesabiwa kama tofauti na ripoti iliyotangulia. `
+    chartDailyNote:(absentes)=>`Visa vipya vya kila ripoti, vikihesabiwa kama tofauti na ripoti iliyotangulia; tangu tarehe 21 Oktoba 2026, ni idadi ambayo ripoti inatangaza, hivyo jumla ya nguzo inaweza kutofautiana na jumla limbikizi pale ripoti inaporekebisha idadi ya kanda. `
       + `Marekebisho ya kupunguza yanarudishwa sifuri badala ya kuchimba shimo lisilokuwepo. `
       + (absentes.length
           ? `Siku ${absentes.length} zisizo na ripoti (${absentes.slice(0,-1).join(', ')} na ${absentes[absentes.length-1]}) hazina safu: visa vyake tayari vimo katika jumla ya ripoti inayofuata, ambayo tofauti yake basi inashughulikia siku kadhaa. `
@@ -752,7 +752,7 @@ const I18N = {
       + `Tarehe 30 Julai ni mambo yote mawili kwa pamoja — inafidia tarehe 28 na 29, ambazo ripoti zake hazipo.`,
     chartWeeklyCases:"Visa vipya",
     chartWeeklyDeaths:"Vifo vipya",
-    chartDailyDeathsNote:(absentes,muets)=>`Vifo vipya vya kila ripoti, vikihesabiwa kama tofauti na ripoti iliyotangulia. `
+    chartDailyDeathsNote:(absentes,muets)=>`Vifo vipya vya kila ripoti, vikihesabiwa kama tofauti na ripoti iliyotangulia; tangu tarehe 21 Oktoba 2026, ni idadi ambayo ripoti inatangaza, hivyo jumla ya nguzo inaweza kutofautiana na jumla limbikizi pale ripoti inaporekebisha idadi ya kanda. `
       + (muets.length
           ? `${muets.length > 1 ? `Ripoti ${muets.length} zisizotoa jumla ya vifo — ${muets.slice(0,-1).join(', ')} na ${muets[muets.length-1]} — hazina safu` : `Ripoti ya ${muets[0]}, isiyotoa jumla ya vifo, haina safu`}: `
             + `tofauti yake inarudi kwenye ripoti inayofuata, ambayo safu yake basi inashughulikia siku kadhaa. `

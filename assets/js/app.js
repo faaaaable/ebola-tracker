@@ -808,6 +808,7 @@ const vuePeriodeDe = canvas => (canvas && vuePeriodeParCanvas[canvas.id]) || vue
 const dateDe = iso => new Date(iso + 'T12:00:00');
 const isoDe = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0')
                  + '-' + String(d.getDate()).padStart(2, '0');
+const veilleDe = iso => { const d = dateDe(iso); d.setDate(d.getDate() - 1); return isoDe(d); };
 const lundiDe = iso => {
   const d = dateDe(iso);
   d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
@@ -887,24 +888,33 @@ function empanRattrapage(date){
    qu'au niveau national. On marque l'incertitude, on ne la chiffre pas. */
 function partsQuotidiennes(s, champ, partConnue){
   const nom = champ || 'confirmed';
-  const deltas = []; let prev = null;
-  for(const r of s){
+  const deltas = []; let prev = null, prevDate = null;
+  const n = s.length - 1;
+  for(let i = 0; i < s.length; i++){
+    const r = s[i];
     const v = r[nom];
     if(v === null || v === undefined){ deltas.push(null); continue; }
-    deltas.push(prev === null ? null : Math.max(0, v - prev));
-    prev = v;
-  }
-  /* La barre du dernier bulletin reprend, comme le « + » de l'en-tete
-     (deltaValue), les nouveaux cas et deces qu'il annonce : au SitRep 160,
-     +71 et +41 plutot que +61 et +40, l'ecart entre deux cumuls. Au niveau
-     national seulement — une province (partConnue === false) n'a pas ce
-     chiffre ici. */
-  const n = s.length - 1;
-  if(n > 0 && partConnue !== false && deltas[n] !== null && national && currentMeta
-     && s[n].date === currentMeta.reportingDate){
-    const annonce = nom === 'confirmed' ? national.newCases24h
-                  : nom === 'deaths' ? national.newDeaths24h : null;
-    if(annonce !== null && annonce !== undefined) deltas[n] = annonce;
+    let d = prev === null ? null : Math.max(0, v - prev);
+    /* La barre d'un bulletin reprend les nouveaux cas et deces qu'il ANNONCE,
+       comme le « + » de l'en-tete et la Lettre, plutot que l'ecart entre deux
+       cumuls : au SitRep 160, +71 et +41 et non +61 et +40. L'annonce est
+       conservee par date dans sitreps.json depuis le 160 (choix du
+       proprietaire, 24 octobre 2026), si bien que la barre ne change plus au
+       bulletin suivant ; avant, seul le dernier bulletin la portait, via
+       latest.json, ce qui reste le repli. Au niveau national seulement — une
+       province (partConnue === false) passe par son propre bloc. Ni un jour
+       de rattrapage ni un bulletin qui suit un trou : leur ecart couvre
+       plusieurs journees, l'annonce une seule. */
+    if(d !== null && partConnue !== false && !RATTRAPAGE_ADMIN[r.date] && veilleDe(r.date) === prevDate){
+      const champAnnonce = nom === 'confirmed' ? 'cas' : nom === 'deaths' ? 'deces' : null;
+      let annonce = champAnnonce && r.annonce ? r.annonce[champAnnonce] : null;
+      if((annonce === null || annonce === undefined) && champAnnonce && i === n && national
+         && currentMeta && r.date === currentMeta.reportingDate)
+        annonce = nom === 'confirmed' ? national.newCases24h : national.newDeaths24h;
+      if(annonce !== null && annonce !== undefined) d = annonce;
+    }
+    deltas.push(d);
+    prev = v; prevDate = r.date;
   }
   // Pour les deces, la part rapportee d'une journee de rattrapage vaut zero :
   // tout l'ecart bascule dans la teinte claire.
@@ -3529,12 +3539,23 @@ function renderOneChartBrut(canvas, chartMode){
        donne que 17 (Beni recule de 553 a 552 malgre 9 nouveaux cas). Cas
        seulement : les deces du jour d'une province ne sont publies qu'en deux
        compteurs, a ne jamais additionner. */
-    const dernier = pts[pts.length - 1];
+    /* Conservee par date dans sitreps.json depuis le 160 (24 octobre 2026),
+       l'annonce de la province tient d'un bulletin a l'autre ; latest.json
+       reste le repli du dernier. Seulement la ou le bulletin precedent date
+       de la veille : apres un trou, l'ecart couvre plusieurs journees. */
     const ligneDuJour = PROVINCE_TABLE_DATA.find(pr => pr.name === nom);
-    if(!deces && currentMeta && dernier.date === currentMeta.reportingDate
-       && parDate.has(dernier.date) && parDate.get(dernier.date).rapporte !== null
-       && ligneDuJour && ligneDuJour.newCases24h !== null && ligneDuJour.newCases24h !== undefined){
-      parDate.get(dernier.date).rapporte = ligneDuJour.newCases24h;
+    const annonceParDate = new Map(sitreps.filter(x => x.annonce && x.annonce.provinces)
+                                          .map(x => [x.date, x.annonce.provinces[nom]]));
+    if(!deces){
+      for(let i = 1; i < pts.length; i++){
+        const jour = parDate.get(pts[i].date);
+        if(!jour || jour.rapporte === null || veilleDe(pts[i].date) !== pts[i-1].date) continue;
+        let annonce = annonceParDate.get(pts[i].date);
+        if((annonce === null || annonce === undefined) && i === pts.length - 1 && currentMeta
+           && pts[i].date === currentMeta.reportingDate && ligneDuJour)
+          annonce = ligneDuJour.newCases24h;
+        if(annonce !== null && annonce !== undefined) jour.rapporte = annonce;
+      }
     }
 
     /* CALENDRIER JOUR PAR JOUR (21 septembre 2026). L'axe portait les seuls

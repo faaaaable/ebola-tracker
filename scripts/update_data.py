@@ -1714,7 +1714,13 @@ def completer_gueris(sitreps, reports):
     return sitreps
 
 
-def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
+def rebuild_sitreps_json(reports, national_recovered_by_sitrep, annonce=None):
+    """annonce = (date, {"cas", "deces", "provinces"}) : les nouveaux cas et
+    deces que le bulletin integre ANNONCE. Conserves par date depuis le
+    SitRep 160 (choix du proprietaire, 24 octobre 2026) pour que la barre
+    d'un jour ne change plus au bulletin suivant : l'ecart entre deux cumuls
+    donnait +61 au 21 octobre quand le bulletin et le site avaient dit +71.
+    Les entrees deja ecrites gardent leur annonce."""
     by_date = {}
     if os.path.exists(SITREPS_PATH):
         try:
@@ -1750,6 +1756,11 @@ def rebuild_sitreps_json(reports, national_recovered_by_sitrep):
             "deaths": r.get("deaths"),
             "recovered": recovered,
         }
+        if existing and existing.get("annonce"):
+            by_date[date]["annonce"] = existing["annonce"]
+
+    if annonce and annonce[0] in by_date and annonce[1].get("cas") is not None:
+        by_date[annonce[0]]["annonce"] = annonce[1]
 
     sitreps = sorted(by_date.values(), key=lambda s: s["date"])
 
@@ -2017,7 +2028,7 @@ def rebuild_zones_history(meta, health_zones):
 # province tombent exactement sur N et que la somme du tableau n'y tombe pas,
 # les fractions du texte remplacent celles du tableau. Rien n'est invente :
 # c'est l'autre valeur imprimee par le bulletin, et le changement est affiche.
-def zones_texte_retenu(full_text, provinces):
+def zones_texte_retenu(full_text, provinces, health_zones=None):
     t = " ".join((full_text or "").split())
     m = re.search(r"Ainsi,\s*(\d+)\s*zones de santé sur\s*(\d+)(.{0,600})", t)
     if not m:
@@ -2034,8 +2045,27 @@ def zones_texte_retenu(full_text, provinces):
         fractions[canon_province(nom)] = (int(a), int(b))
     noms = {p["name"] for p in provinces}
     if set(fractions) != noms or sum(a for a, _ in fractions.values()) != n_texte:
-        print("  ! zones : le texte annonce %d zones mais ses fractions ne couvrent pas "
-              "les provinces du tableau — tableau garde." % n_texte)
+        # SitRep 161 (22 octobre 2026) : le texte ne donne plus que « Ainsi,
+        # 66 zones de sante sur 178 », sans fractions par province, et le
+        # tableau des provinces garde Nord-Kivu 16/34 (65). Le tableau
+        # detaille des zones en liste 17 au Nord-Kivu, 66 en tout. Second
+        # repli (choix du proprietaire, 24 octobre 2026) : le compte des zones
+        # detaillees par province, s'il tombe exactement sur N ; les totaux
+        # (zones de la province) restent ceux du tableau.
+        par_prov = {}
+        for z in health_zones or []:
+            par_prov[z["province"]] = par_prov.get(z["province"], 0) + 1
+        if set(par_prov) == noms and sum(par_prov.values()) == n_texte:
+            for p in provinces:
+                h = p["healthZonesAffected"]
+                if h["n"] != par_prov[p["name"]]:
+                    print("  ! zones %s : tableau %s/%s, zones detaillees %d — detail retenu "
+                          "(%d zones annoncees)." % (p["name"], h["n"], h["total"],
+                                                     par_prov[p["name"]], n_texte))
+                    p["healthZonesAffected"] = {"n": par_prov[p["name"]], "total": h["total"]}
+            return
+        print("  ! zones : le texte annonce %d zones mais ni ses fractions ni les zones "
+              "detaillees ne tombent dessus — tableau garde." % n_texte)
         return
     for p in provinces:
         a, b = fractions[p["name"]]
@@ -2189,7 +2219,7 @@ def main():
         if n_aires is not None:
             health_areas = {"n": n_aires, "total": total_aires}
 
-    zones_texte_retenu(full_text, provinces)
+    zones_texte_retenu(full_text, provinces, health_zones)
     zones_total_n = sum(p["healthZonesAffected"]["n"] or 0 for p in provinces)
     # Somme des totaux de zones des provinces (36+34+13+23+34+11 = 151 jusqu'au
     # 118 ; 167 depuis le 119 et les 16 zones du Sud-Ubangi ; 178 depuis le 155
@@ -2272,7 +2302,14 @@ def main():
         f.write("\n")
 
     national_recovered_by_sitrep = {meta["sitrepNumber"]: national["recovered"]}
-    sitreps = rebuild_sitreps_json(reports, national_recovered_by_sitrep)
+    annonce = (meta.get("reportingDate"), {
+        "cas": national.get("newCases24h"),
+        "deces": national.get("newDeaths24h"),
+        "provinces": {canon_province(p["name"]): p.get("newCases24h")
+                      for p in provinces
+                      if canon_province(p.get("name")) and p.get("newCases24h") is not None},
+    })
+    sitreps = rebuild_sitreps_json(reports, national_recovered_by_sitrep, annonce)
     sitreps = completer_gueris(sitreps, reports)
 
     rebuild_zones_history(meta, health_zones)

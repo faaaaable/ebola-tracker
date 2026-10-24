@@ -912,6 +912,40 @@
     "date": "2026-10-21",
     "confirmed": 9765,
     "deaths": 4727,
-    "recovered": 2618
+    "recovered": 2618,
+    "annonce": {
+      "cas": 71,
+      "deces": 41,
+      "provinces": {
+        "Ituri": 40,
+        "Nord-Kivu": 27,
+        "Haut-Uélé": 4,
+        "Tshopo": 0,
+        "Sud-Kivu": 0,
+        "Bas-Uélé": 0,
+        "Sud-Ubangi": 0,
+        "Nord-Ubangi": 0
+      }
+    }
+  },
+  {
+    "date": "2026-10-22",
+    "confirmed": 9816,
+    "deaths": 4757,
+    "recovered": 2635,
+    "annonce": {
+      "cas": 51,
+      "deces": 30,
+      "provinces": {
+        "Ituri": 27,
+        "Nord-Kivu": 20,
+        "Haut-Uélé": 4,
+        "Tshopo": 0,
+        "Sud-Kivu": 0,
+        "Bas-Uélé": 0,
+        "Sud-Ubangi": 0,
+        "Nord-Ubangi": 0
+      }
+    }
   }
 ]

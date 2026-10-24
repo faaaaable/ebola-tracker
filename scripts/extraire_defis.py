@@ -59,7 +59,9 @@ PILIERS = [
 ]
 
 TITRE_NUMEROTE = re.compile(r'(?m)^\s*(\d+(?:\.\d+)+)\.?\s+([^\n]{3,140})$')
-TITRE_DEFIS = re.compile(r'(?im)^[\s\d.]*d[ée]fis?\s*:?\s*$')
+# Le SitRep 161 (22 octobre 2026) ecrit « 2.4.2. Défis. », point final
+# compris : la section PCI (Tshopo, Bas-Uele, Haut-Uele) etait perdue.
+TITRE_DEFIS = re.compile(r'(?im)^[\s\d.]*d[ée]fis?\s*[:.]?\s*$')
 # La puce est toleree : au 159 la quatrieme de couverture commence par
 # « ▪ MESSAGES CLES CHRONOLOGIE DES FAITS CLÉS » et le bloc PSEA l'avalait.
 TITRE_CAPITALES = re.compile(r'(?m)^\s*(?:[•▪]\s*)?[A-ZÉÈÀÇ][A-ZÉÈÀÇ\s]{7,}$')
