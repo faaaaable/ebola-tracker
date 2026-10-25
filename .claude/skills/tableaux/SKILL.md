@@ -172,8 +172,9 @@ encore que la provenance des contours) — ; le numéro fait partie de la
 chaîne, il apparaît donc aussi dans l'`aria-label` du filtre par mois. Le
 swahili n'est pas relu.
 
-**Rapports OMS : 19 archivés, jusqu'au n°19 (données au 20 septembre 2026),
-ajoutés le 27 septembre (17 à 19, par la même API IRIS).** Jusqu'au 16 : ajouté le 5 septembre. Le propriétaire avait transmis un lien IRIS qui
+**Rapports OMS : 22 archivés, jusqu'au n°23 (données au 19 octobre 2026),
+ajoutés le 25 octobre (21 à 23, par la même API IRIS ; le n°20, données au
+27 septembre, est introuvable sur IRIS ce jour-là).** 17 à 19 : ajoutés le 27 septembre. Jusqu'au 16 : ajouté le 5 septembre. Le propriétaire avait transmis un lien IRIS qui
 était en fait le bitstream du n°12, déjà archivé (SHA-256 identique) ;
 le n°16 a été retrouvé par l'API IRIS (`/discover/search/objects`, puis
 `/core/items/<uuid>/bundles` → ORIGINAL → bitstreams), première page

@@ -62,6 +62,16 @@ WHO_REPORTS = [
     ("17", "2026-09-06", "https://iris.who.int/bitstreams/449c91dc-5a97-4fc6-8646-b696917acbdb/download"),
     ("18", "2026-09-13", "https://iris.who.int/bitstreams/e50e6ee3-c2e4-4715-8f45-01b3ae0abc4d/download"),
     ("19", "2026-09-20", "https://iris.who.int/bitstreams/795534d8-edf3-4352-a141-2cc87ddfa561/download"),
+    # 20 (donnees au 27 septembre) : introuvable sur IRIS au 25 octobre 2026 ;
+    # les recherches « Situation Report 20 » ne renvoient que celui de 2018.
+    # 21 a 23 : retrouves le 25 octobre 2026 par la meme API IRIS (items
+    # d2851683, 0da18b2f, e11c380b, mis en ligne les 7, 14 et 21 octobre).
+    # Le 23 couvre aussi le Kenya et le Nigeria, et ses donnees s'arretent au
+    # 19 octobre (un lundi), pas au dimanche. Premiere page de chaque PDF
+    # verifiee.
+    ("21", "2026-10-04", "https://iris.who.int/bitstreams/1f28125a-3712-4b7c-a31d-434adf5a6152/download"),
+    ("22", "2026-10-11", "https://iris.who.int/bitstreams/0d84cbfc-f4f5-4ed9-915d-fa09d4c6dc70/download"),
+    ("23", "2026-10-19", "https://iris.who.int/bitstreams/b1d5141b-f884-4fef-ac8a-151afe71259d/download"),
 ]
 
 
