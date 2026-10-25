@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "8ac3a9a7",
+   "date": "2026-10-25",
+   "titre": "Red Cross trains staff as Kenya records its second death from Ebola",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/10/25/red-cross-trains-staff-as-kenya-records-its-second-death-from-ebola/",
+   "langue": "en",
+   "resume": "It says the fight to contain the virus does not end when a patient dies, saying the handling and burial of the body is just as important.",
+   "statut": "publie",
+   "collecte": "2026-10-25",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "fd6847ed",
    "date": "2026-10-24",
    "titre": "Ebola : l’Ouganda renforce les contrôles frontaliers avec la RDC et appelle au calme",
