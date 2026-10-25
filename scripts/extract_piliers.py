@@ -52,8 +52,17 @@ def texte_pdf(chemin):
 
 
 def sections(txt):
-    """Decoupe en sections « x.y. Titre » (les x.y.z. restent dedans)."""
-    bornes = [m for m in re.finditer(r"\n\s*(\d\.\d{1,2})\.\s+(?!\d)([^\n]+)", txt)]
+    """Decoupe en sections « x.y. Titre » (les x.y.z. restent dedans).
+
+    SitRep 162 (24 octobre 2026) : les piliers descendent d'un niveau
+    (« 1.3.2. Prévention et Contrôle de l'Infection », « 1.3.8. Vaccination »,
+    tous sous « 1.3. Laboratoire »). Un titre x.y.z. ouvre donc aussi une
+    section, sauf « Principales actions » et « Défis », qui restent dans leur
+    pilier comme avant. Sans cela le PoE, les rings, les EDS et le detail de
+    la vaccination sortaient vides."""
+    bornes = [m for m in re.finditer(r"\n\s*(\d\.\d{1,2}(?:\.\d{1,2})?)\.\s+(?!\d)([^\n]+)", txt)
+              if m.group(1).count(".") == 1
+              or not re.match(r"(?:principales\s+actions|d[ée]fis)\b", m.group(2).strip(), re.I)]
     out = []
     for i, m in enumerate(bornes):
         fin = bornes[i + 1].start() if i + 1 < len(bornes) else len(txt)
@@ -70,7 +79,7 @@ def trouver(secs, *mots):
 
 
 def puces(corps):
-    parts = re.split(r"\n\s*[•\-–]\s+", corps)
+    parts = re.split(r"\n\s*[•▪\-–]\s+", corps)
     return [" ".join(p.split()) for p in parts if p.strip()]
 
 
@@ -132,7 +141,12 @@ def lire_pci(corps):
                          r"re[çc]u " + MOT + r" alertes?",
                          r"EDS r[ée]alis\w+ sur (\d+) alertes",
                          MOT + r" alertes?(?: EDS)? re[çc]ues?",
-                         MOT + r" alertes? de d[ée]c[èe]s"]),
+                         MOT + r" alertes? de d[ée]c[èe]s",
+                         # « Sur 71 alertes EDS (dont 11 reports), 47 EDS ont
+                         # été réalisés » (Ituri, 150 a 162) : jamais lu, les
+                         # alertes ne comptaient que les provinces qui ecrivent
+                         # « reçues ».
+                         r"\bsur (\d+) alertes EDS"]),
             ("realisees", [r"(\d+) EDS (?:ont [ée]t[ée] |a [ée]t[ée] )?r[ée]alis",
                            r"r[ée]alis[ée] (?:les )?(\d+) EDS"]),
             ("swabes", [r"(\d+) corps (?:ont [ée]t[ée] |a [ée]t[ée] )?(?:pr[ée]lev|swab|[ée]couvillonn)",
@@ -547,6 +561,11 @@ def extraire(num, chemin, date):
             suite = secs[i + 1][1]
             suite = re.split(r"\n\s*\d\.\d{1,2}\.\d{1,2}\.\s+Continuit", suite)[0]
             vac = vac + suite
+    # SitRep 162 : « Au Bas-\nUélé, le cumul atteint 1 660 » — le retour a la
+    # ligne apres le tiret laisse « Bas- Uélé », qu'aucune province ne
+    # reconnait, et les 1 660 du Bas-Uele passaient a l'Ituri (1 613).
+    if vac:
+        vac = re.sub(r"\b(Bas|Haut|Nord|Sud)-\s+(?=[A-ZÉ])", r"\1-", vac)
     rings, eds = lire_pci(pci) if pci else (None, None)
     return {"date": date, "sitrepNumber": num,
             "poe": lire_poe(poe) if poe else None,

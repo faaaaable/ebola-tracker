@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-10-22"
+  "fin": "2026-10-23"
  },
  "parDate": [
   {
@@ -1418,12 +1418,12 @@
    "eds": {
     "alertes": 91,
     "realisees": 131,
-    "swabes": 121,
+    "swabes": 120,
     "nonSwabes": null,
     "provinces": {
      "alertes": 1,
      "realisees": 2,
-     "swabes": 3
+     "swabes": 2
     }
    },
    "vaccination": null,
@@ -2606,12 +2606,12 @@
     "attendus": 64
    },
    "eds": {
-    "alertes": 56,
+    "alertes": 143,
     "realisees": 98,
     "swabes": 62,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 3,
      "realisees": 3,
      "swabes": 3
     }
@@ -2647,12 +2647,12 @@
     "attendus": 56
    },
    "eds": {
-    "alertes": 47,
+    "alertes": 136,
     "realisees": 124,
     "swabes": 104,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 4,
      "realisees": 3,
      "swabes": 4
     }
@@ -2687,12 +2687,12 @@
     "attendus": 64
    },
    "eds": {
-    "alertes": 45,
+    "alertes": 127,
     "realisees": 92,
     "swabes": 103,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 3,
      "realisees": 3,
      "swabes": 3
     }
@@ -2727,12 +2727,12 @@
     "attendus": 49
    },
    "eds": {
-    "alertes": 4,
+    "alertes": 102,
     "realisees": 62,
     "swabes": 71,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 3,
      "realisees": 2,
      "swabes": 3
     }
@@ -2763,12 +2763,12 @@
     "attendus": 68
    },
    "eds": {
-    "alertes": 3,
+    "alertes": 130,
     "realisees": 106,
     "swabes": 97,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 4,
      "realisees": 3,
      "swabes": 4
     }
@@ -2799,11 +2799,12 @@
     "attendus": 57
    },
    "eds": {
-    "alertes": null,
+    "alertes": 94,
     "realisees": 128,
     "swabes": 112,
     "nonSwabes": null,
     "provinces": {
+     "alertes": 1,
      "realisees": 2,
      "swabes": 2
     }
@@ -2834,12 +2835,12 @@
     "attendus": 103
    },
    "eds": {
-    "alertes": 2,
+    "alertes": 143,
     "realisees": 105,
     "swabes": 112,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 3,
      "realisees": 3,
      "swabes": 3
     }
@@ -2870,12 +2871,12 @@
     "attendus": 40
    },
    "eds": {
-    "alertes": 3,
+    "alertes": 108,
     "realisees": 82,
     "swabes": 75,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 3,
      "realisees": 3,
      "swabes": 3
     }
@@ -2906,11 +2907,12 @@
     "attendus": 72
    },
    "eds": {
-    "alertes": null,
+    "alertes": 110,
     "realisees": 82,
     "swabes": 79,
     "nonSwabes": null,
     "provinces": {
+     "alertes": 2,
      "realisees": 3,
      "swabes": 3
     }
@@ -2941,11 +2943,12 @@
     "attendus": 48
    },
    "eds": {
-    "alertes": null,
+    "alertes": 161,
     "realisees": 117,
     "swabes": 125,
     "nonSwabes": null,
     "provinces": {
+     "alertes": 3,
      "realisees": 3,
      "swabes": 4
     }
@@ -2971,11 +2974,12 @@
     "attendus": 80
    },
    "eds": {
-    "alertes": null,
+    "alertes": 96,
     "realisees": 110,
     "swabes": 104,
     "nonSwabes": null,
     "provinces": {
+     "alertes": 2,
      "realisees": 3,
      "swabes": 3
     }
@@ -3002,11 +3006,12 @@
     "attendus": 78
    },
    "eds": {
-    "alertes": null,
+    "alertes": 114,
     "realisees": 126,
     "swabes": 149,
     "nonSwabes": null,
     "provinces": {
+     "alertes": 2,
      "realisees": 3,
      "swabes": 3
     }
@@ -3037,12 +3042,12 @@
     "attendus": 54
    },
    "eds": {
-    "alertes": 54,
+    "alertes": 133,
     "realisees": 120,
     "swabes": 116,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 4,
      "realisees": 3,
      "swabes": 4
     }
@@ -3073,12 +3078,12 @@
     "attendus": 83
    },
    "eds": {
-    "alertes": 59,
+    "alertes": 184,
     "realisees": 151,
     "swabes": 146,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 4,
      "realisees": 4,
      "swabes": 5
     }
@@ -3113,12 +3118,12 @@
     "attendus": 75
    },
    "eds": {
-    "alertes": 39,
+    "alertes": 164,
     "realisees": 124,
     "swabes": 139,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 4,
      "realisees": 3,
      "swabes": 5
     }
@@ -3149,11 +3154,12 @@
     "attendus": 38
    },
    "eds": {
-    "alertes": null,
+    "alertes": 103,
     "realisees": 69,
     "swabes": 71,
     "nonSwabes": null,
     "provinces": {
+     "alertes": 2,
      "realisees": 3,
      "swabes": 2
     }
@@ -3185,11 +3191,12 @@
     "attendus": 48
    },
    "eds": {
-    "alertes": null,
+    "alertes": 159,
     "realisees": 126,
     "swabes": 126,
     "nonSwabes": null,
     "provinces": {
+     "alertes": 2,
      "realisees": 2,
      "swabes": 2
     }
@@ -3228,11 +3235,12 @@
     "attendus": 60
    },
    "eds": {
-    "alertes": null,
+    "alertes": 203,
     "realisees": 121,
     "swabes": 141,
     "nonSwabes": null,
     "provinces": {
+     "alertes": 2,
      "realisees": 3,
      "swabes": 4
     }
@@ -3264,12 +3272,12 @@
     "attendus": 67
    },
    "eds": {
-    "alertes": 58,
+    "alertes": 149,
     "realisees": 130,
     "swabes": 124,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 3,
      "realisees": 3,
      "swabes": 3
     }
@@ -3290,18 +3298,22 @@
   {
    "date": "2026-10-18",
    "sitrepNumber": "157",
-   "poe": null,
+   "poe": {
+    "personnes": 278361,
+    "screenesPct": 97.9,
+    "refusScreening": 0
+   },
    "rings": {
     "ouverts": 26,
     "attendus": 42
    },
    "eds": {
-    "alertes": 58,
+    "alertes": 134,
     "realisees": 106,
     "swabes": 106,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 2,
+     "alertes": 3,
      "realisees": 2,
      "swabes": 2
     }
@@ -3312,18 +3324,22 @@
   {
    "date": "2026-10-19",
    "sitrepNumber": "158",
-   "poe": null,
+   "poe": {
+    "personnes": 283933,
+    "screenesPct": 97.5,
+    "refusScreening": 0
+   },
    "rings": {
     "ouverts": 40,
     "attendus": 63
    },
    "eds": {
-    "alertes": 53,
+    "alertes": 181,
     "realisees": 136,
     "swabes": 143,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
+     "alertes": 5,
      "realisees": 4,
      "swabes": 5
     }
@@ -3351,14 +3367,14 @@
     "attendus": 52
    },
    "eds": {
-    "alertes": 67,
+    "alertes": 159,
     "realisees": 108,
     "swabes": 124,
     "nonSwabes": 9,
     "provinces": {
-     "alertes": 1,
-     "realisees": 1,
-     "swabes": 1,
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 4,
      "nonSwabes": 1
     }
    },
@@ -3388,14 +3404,14 @@
     "attendus": 97
    },
    "eds": {
-    "alertes": 76,
+    "alertes": 163,
     "realisees": 117,
     "swabes": 115,
     "nonSwabes": 4,
     "provinces": {
-     "alertes": 1,
-     "realisees": 1,
-     "swabes": 1,
+     "alertes": 2,
+     "realisees": 3,
+     "swabes": 3,
      "nonSwabes": 1
     }
    },
@@ -3425,14 +3441,14 @@
     "attendus": 70
    },
    "eds": {
-    "alertes": 61,
+    "alertes": 143,
     "realisees": 111,
     "swabes": 60,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
-     "realisees": 1,
-     "swabes": 1
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 2
     }
    },
    "vaccination": {
@@ -3443,6 +3459,48 @@
     "provinces": {
      "Ituri": {
       "cumul": 1502
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-23",
+   "sitrepNumber": "162",
+   "poe": {
+    "personnes": 317301,
+    "screenesPct": 98.0,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 53,
+    "attendus": 80
+   },
+   "eds": {
+    "alertes": 154,
+    "realisees": 114,
+    "swabes": 117,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 4,
+     "realisees": 3,
+     "swabes": 3
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 1613,
+     "Bas-Uélé": 1660
+    },
+    "rupture": false,
+    "provinces": {
+     "Ituri": {
+      "cumul": 1613
+     },
+     "Bas-Uélé": {
+      "cumul": 1660,
+      "cible": 13202,
+      "couverture": 12.6
      }
     }
    },

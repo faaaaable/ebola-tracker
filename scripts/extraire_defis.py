@@ -73,7 +73,12 @@ def sans_accent(t):
 
 
 def propre(t):
-    return re.sub(r'\s+', " ", (t or "").replace("\n", " ")).strip()
+    t = re.sub(r'\s+', " ", (t or "").replace("\n", " ")).strip()
+    # « Au Haut-⏎Uélé » (162 et vingt textes plus anciens) : le retour a la
+    # ligne apres le tiret laissait « Haut- Uélé », cite tel quel sur le site,
+    # et la province n'etait pas reconnue (le Haut-Uele manquait au bloc PCI
+    # et a la Continuite des soins du 162).
+    return re.sub(r"\b(Bas|Haut|Nord|Sud)- (Uélé|Uele|Kivu|Ubangi)\b", r"\1-\2", t)
 
 
 def pilier_du_titre(titre):

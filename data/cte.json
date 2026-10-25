@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-22"
+    "fin": "2026-10-23"
   },
   "parDate": [
     {
@@ -4035,9 +4035,7 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 499,
-          "occupation": 49.2,
-          "lits": 1015,
-          "litsRecoupes": true
+          "occupation": 49.2
         },
         "Nord-Kivu": {
           "hospitalises": 477,
@@ -4064,9 +4062,53 @@
       "total": {
         "hospitalises": 1130,
         "provinces": 5,
-        "lits": 1645,
-        "hospitalisesAvecLits": 1024,
-        "occupation": 62.2
+        "lits": 630,
+        "hospitalisesAvecLits": 525,
+        "occupation": 83.3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-23",
+      "sitrepNumber": "162",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 397,
+          "occupation": 39.1,
+          "lits": 1015,
+          "litsReportes": true,
+          "occupationPubliee": 38.0,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 447,
+          "lits": 410,
+          "hospitalisesNormes": 340,
+          "occupationPubliee": 82.9,
+          "occupation": 109.0,
+          "occupationCalculee": true
+        },
+        "Haut-Uélé": {
+          "hospitalises": 41,
+          "lits": 158,
+          "occupation": 25.9
+        },
+        "Tshopo": {
+          "hospitalises": 15,
+          "lits": 36,
+          "occupation": 41.7
+        },
+        "Bas-Uélé": {
+          "hospitalises": 118
+        }
+      },
+      "total": {
+        "hospitalises": 1018,
+        "provinces": 5,
+        "lits": 1619,
+        "hospitalisesAvecLits": 900,
+        "occupation": 55.6
       },
       "source": "SitRep INSP (automatique)"
     }

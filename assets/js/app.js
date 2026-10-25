@@ -2094,7 +2094,6 @@ function renderOneChartBrut(canvas, chartMode){
     /* ---- Contacts : taux national et contacts a suivre, ou par province ---- */
     if(chartMode === 'contactsRiposte'){
       if(!CONTACTS_FOLLOWUP.length){ vide(); return; }
-      const SEUIL_INSP = 85;
       const jours = calendrier(CONTACTS_FOLLOWUP[0].date, CONTACTS_FOLLOWUP[CONTACTS_FOLLOWUP.length-1].date);
       const parDate = {}; CONTACTS_FOLLOWUP.forEach(r => { parDate[r.date] = r; });
       if(provRip || vueDe(canvas, 'national') === 'national'){
@@ -2118,7 +2117,7 @@ function renderOneChartBrut(canvas, chartMode){
                    y1:{ position:'right', beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ drawOnChartArea:false } } } };
         dessiner('bar', data, opts);
         noterPeriode(slot, joursC[0], joursC[joursC.length-1]);
-        noter(tr('chartNoteContactsNational')(SEUIL_INSP));
+        noter(tr('chartNoteContactsNational')());
         return;
       }
       const noms = [];

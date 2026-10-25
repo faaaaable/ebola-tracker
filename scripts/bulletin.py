@@ -20,7 +20,6 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SEUIL_CONTACTS = 85.0   # le seuil que l'INSP s'est fixe depuis aout (cf. app.js, SEUIL_INSP)
 
 
 def _lire(chemin):
@@ -394,7 +393,10 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         muets = [nom for nom, v in (pa.get("provinces") or {}).items() if not (v.get("recues") or 0) and v.get("suspectsInvestigues") is None]
         s1 = P("lettreAlertes", recues=fmt(t["recues"], lang), verifiees=fmt(t.get("verifiees"), lang), validees=fmt(t.get("validees"), lang))
         if muets:
-            s1 += " " + maj(P("lettreAlertesMuet", liste=_liste([forms(m)["the"] for m in muets], et)))
+            # Deux provinces muettes depuis l'arrivee du Nord-Ubangi (155) : le
+            # verbe s'accorde (« le Sud-Ubangi et le Nord-Ubangi n'ont pas »).
+            cle_muet = "lettreAlertesMuetPl" if len(muets) > 1 else "lettreAlertesMuet"
+            s1 += " " + maj(P(cle_muet, liste=_liste([forms(m)["the"] for m in muets], et)))
         phrases.append(s1)
         cases += kpi("alerts", S["lettreKpiAlertes"], fmt(t["recues"], lang), P("lettreKpiAlertesSub", verifiees=fmt(t.get("verifiees"), lang), validees=fmt(t.get("validees"), lang)))
     else:
@@ -418,7 +420,10 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         cases += kpi("labo", S["lettreKpiLabo"], "—", S["riposteKpiNone"]); non_publie.append(S["lettreKpiLabo"])
     if pc and pc.get("contactsFollowUpRate") is not None:
         c = pc.get("contacts") or {}; taux = pc["contactsFollowUpRate"]
-        s3 = P("lettreContactsAuDessus" if taux >= SEUIL_CONTACTS else "lettreContactsEnDessous", taux=pct(taux), seuil=fmt(int(SEUIL_CONTACTS), lang))
+        # Plus de seuil dans la phrase (decision du proprietaire, 25 octobre
+        # 2026) : le site disait « le seuil de 85 % que l'INSP s'est fixe »
+        # quand les bulletins ecrivent « seuil requis de 95,0 % ».
+        s3 = P("lettreContacts", taux=pct(taux))
         bas = [nom for nom, v in (pc.get("provinces") or {}).items() if v.get("taux") is not None and v["taux"] < 75]
         if bas:
             s3 += " " + P("lettreContactsBas", liste=_liste(sorted(bas), et))

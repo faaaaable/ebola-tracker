@@ -100,6 +100,10 @@ HOSPITALISES_RES = [
     # « 53 patients sont pris en charge (36 confirmés et 17 suspects) » (097,
     # Haut-Uele) : la ventilation entre parentheses ancre la tournure.
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+sont\s+pris\s+en\s+charge\s*\(\d", re.I),
+    # « Ainsi, 447 patients sont pris en charge dont 61 enfants de moins de
+    # 5 ans, 5 malades critiques et 107 hors CTE/CT » (162, Nord-Kivu) : sans
+    # parenthese, la province manquait et le total tombait a 571 pour 1 018.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+sont\s+pris\s+en\s+charge,?\s+dont\s+\d", re.I),
     # « 39 cas confirmés restent hospitalisés » (156, Haut-Uele)
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades|cas suspects|cas\s+confirm[ée]s|cas)\s+(?:sont|restent|demeurent)?\s*(?:en\s+)?hospitalis", re.I),
     # « Huit (8) patients sont en isolement pour 25 lits » (109 Sud-Kivu) : le
