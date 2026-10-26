@@ -213,6 +213,18 @@ CONTACTS_ETAIENT_RE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 
+# SitRep 163 (24 octobre 2026) : dix-huitieme tournure — « Concernant le
+# suivi des contacts, 32 697 contacts sur 37 552 ont été vus au cours des
+# dernières 24 heures, soit un taux de suivi de 87,1 % ». Les vus d'abord,
+# puis « sur » et les a suivre, avant « ont été vus » : aucun motif ne lisait
+# la phrase et le 24 octobre sortait sans taux. Groupes : vus, a suivre, taux.
+CONTACTS_SUR_VUS_RE = re.compile(
+    r"(\d[\d\s]*?)\s+contacts\s+sur\s+(\d[\d\s]*?)\s+ont\s+été\s+vus"
+    r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+(?:une\s+proportion|un\s+taux)(?:\s+journali[èe]re)?"
+    r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
+    re.IGNORECASE | re.DOTALL,
+)
+
 # SitRep 127 (18 septembre 2026) : douzieme tournure — « Au cours des
 # dernières 24 heures, 26 803 ont été vus parmi les 30 541 contacts en cours
 # de suivi, soit une proportion de suivi de 87,8% ». Les vus ouvrent la
@@ -463,6 +475,11 @@ def rate_from_text(full_text):
         value = taux_texte(m.group(3))
         if 0 <= value <= 100:
             return value, "texte (repli, « N contacts étaient sous suivi ; M ont été vus »)"
+    m = CONTACTS_SUR_VUS_RE.search(full_text)
+    if m:
+        value = taux_texte(m.group(3))
+        if 0 <= value <= 100:
+            return value, "texte (repli, « N contacts sur M ont été vus »)"
     for m in CONTACTS_RE.finditer(full_text):
         # « … était de 74,7 % au 26 septembre 2026, contre … » : un taux date
         # d'un autre jour est une comparaison, pas la mesure du bulletin.
@@ -612,6 +629,13 @@ PROV_D7_RE = re.compile(
 )
 PROV_D1_RE = re.compile(r"(%s)\s*\((\d+(?:[,.]\d+)?)\s*%%\)" % PROVINCES_DETAIL_RE)
 PROV_D1_ATTEINT_RE = re.compile(r"l[’']?\s*(%s)\s+(?:atteint|est à|se situe à)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
+# SitRep 163 (24 octobre 2026) : « Le Nord-Kivu présente le taux de suivi le
+# plus faible (82,4 %), suivi du Haut-Uélé (88,9 %) … ». PROV_D1_RE lit les
+# trois suivantes, la parenthese collee au nom ; la premiere province en est
+# separee par sa phrase et se perdait. Lu dans la forme libre, meme voisinage.
+PROV_D1_PRESENTE_RE = re.compile(
+    r"(%s)\s+présente\s+le\s+taux(?:\s+de\s+suivi)?\s+le\s+plus\s+(?:faible|élevé|bas|haut)\s*"
+    r"\(\s*(\d+(?:[,.]\d+)?)\s*%%\s*\)" % PROVINCES_DETAIL_RE)
 PROV_C_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
 # L'asterisque d'une note peut suivre le NOMBRE et non le nom : « Ituri
 # 6 244* 4 540 72,7% » (21 juin), « Nord-Kivu 1 938* 1 387 » (22 juin). Et un
@@ -676,7 +700,7 @@ def details_contacts(full_text, rows, taux_national=None):
                 else:
                     # SitRep 127 : « 26 803 ont été vus parmi les 30 541
                     # contacts en cours de suivi » — les vus en tete.
-                    m = CONTACTS_VUS_PARMI_RE.search(full_text)
+                    m = CONTACTS_VUS_PARMI_RE.search(full_text) or CONTACTS_SUR_VUS_RE.search(full_text)
                     if m:
                         vus, a_suivre = norm_int(m.group(1)), norm_int(m.group(2))
                         if effectifs_verifies(vus, a_suivre, taux_national):
@@ -717,7 +741,7 @@ def details_contacts(full_text, rows, taux_national=None):
     # provinces au profit de « 17,6 % (43/244) du Nord-Kivu », qui parle des
     # cas suspects vivants validés (verifie le 18 septembre 2026).
     depart = None
-    for rx in (CONTACTS_ETAIENT_RE, CONTACTS_PARMI_LES_RE, CONTACTS_PARMI_RE, CONTACTS_VUS_PARMI_RE,
+    for rx in (CONTACTS_ETAIENT_RE, CONTACTS_PARMI_LES_RE, CONTACTS_PARMI_RE, CONTACTS_VUS_PARMI_RE, CONTACTS_SUR_VUS_RE,
                CONTACTS_DENTRE_EUX_RE, CONTACTS_SITUE_RE, CONTACTS_VUS_SUR_RE):
         mm = rx.search(full_text)
         if mm:
@@ -778,7 +802,7 @@ def details_contacts(full_text, rows, taux_national=None):
     # D, forme libre (086-092) : des taux entre parentheses, sans effectifs.
     if not provinces and m:
         zone = full_text[max(0, m.start() - 400):m.end() + 400]
-        for rx in (PROV_D1_RE, PROV_D1_ATTEINT_RE):
+        for rx in (PROV_D1_RE, PROV_D1_ATTEINT_RE, PROV_D1_PRESENTE_RE):
             for pm in rx.finditer(zone):
                 nom = canon_detail(pm.group(1))
                 taux = norm_pct(pm.group(2) + "%")

@@ -4235,5 +4235,29 @@
         "aSuivre": 17828
       }
     }
+  },
+  {
+    "date": "2026-10-24",
+    "sitrepNumber": "163",
+    "contactsFollowUpRate": 87.1,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 37552,
+      "vus": 32697
+    },
+    "provinces": {
+      "Haut-Uélé": {
+        "taux": 88.9
+      },
+      "Ituri": {
+        "taux": 92.2
+      },
+      "Bas-Uélé": {
+        "taux": 99.5
+      },
+      "Nord-Kivu": {
+        "taux": 82.4
+      }
+    }
   }
 ]

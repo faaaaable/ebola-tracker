@@ -497,6 +497,9 @@ TOTAL_NOUVEAUX_FRACTION_RE = re.compile(
 )
 
 
+DENOMINATEUR_COUPE_RE = re.compile(r"(\d+/\d+) (\d)(?=\s*\()")
+
+
 def recoller_total_orphelin(section):
     """Les lignes de la section, le libelle « Total » recolle a ses chiffres.
 
@@ -536,6 +539,15 @@ def recoller_total_orphelin(section):
     while i < len(lignes):
         line = lignes[i]
         if line == "Total":
+            # SitRep 163 : « 88 9 964 4 841 48,6% 66/17 8(37,1%) », le
+            # denominateur des zones coupe en deux par l'extraction. Recolle
+            # seulement si la ligne entiere devient une ligne du tableau resume.
+            if sortie and sortie[-1][:1].isdigit():
+                recolle = DENOMINATEUR_COUPE_RE.sub(r"\1\2", sortie[-1])
+                if recolle != sortie[-1] and resume("Total " + recolle):
+                    print("  ! denominateur des zones coupe dans la ligne Total "
+                          "(« %s »), recolle." % sortie[-1])
+                    sortie[-1] = recolle
             if sortie and sortie[-1][:1].isdigit() and resume("Total " + sortie[-1]):
                 sortie[-1] = "Total " + sortie[-1]
                 print("  ! libelle « Total » isole sous ses chiffres, "
