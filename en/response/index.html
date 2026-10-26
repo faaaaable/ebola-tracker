@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=dea686ed49">
+<link rel="stylesheet" href="/assets/css/site.css?v=c712ac6181">
 </head>
 <body>
 
@@ -259,11 +259,12 @@
       <div class="section-sub">Situation as of 24 Oct 2026</div>
     </div>
 
-    <p class="lede">What is being done against the outbreak? Alerts, testing, contact follow-up, treatment centres and vaccination, from the INSP bulletins.</p>
+    <p class="lede">What is being done against the outbreak? Alerts, testing, contact follow-up, treatment centres, vaccination and checkpoints, from the INSP bulletins.</p>
   </section>
 
   <!-- La chaine de riposte (7 octobre 2026, option 2 des maquettes en tete
-       de l'option 3) : les cinq etapes et leur chiffre cle, chacune renvoyant
+       de l'option 3) : les cinq etapes et leur chiffre cle (six depuis le
+       26 octobre 2026, « Controler » pour les points de controle), chacune renvoyant
        a son volet. Remplace la bande claire « La chaine de riposte ». -->
   <section class="section rc-chaine" id="riposte-partie" aria-label="The response chain">
     <a class="rc-e" href="#alertes"><span class="rc-v">Report</span><b class="rc-n is-alerts">23,628</b><em>Alerts received (last 7 bulletins)</em><small>3,598 validated as suspected cases</small></a>
@@ -275,6 +276,8 @@
     <a class="rc-e" href="#cte"><span class="rc-v">Treat</span><b class="rc-n is-cte">60</b><em>Patients per 100 beds</em><small>958 hospitalised for 1,583 beds</small></a>
     <i aria-hidden="true">→</i>
     <a class="rc-e" href="#vaccination"><span class="rc-v">Protect</span><b class="rc-n is-vaccin">9,414</b><em>People vaccinated</em></a>
+    <i aria-hidden="true">→</i>
+    <a class="rc-e" href="#points-controle"><span class="rc-v">Screen</span><b class="rc-n is-poe">313,576</b><em>Travellers screened (last bulletin)</em><small>131 of 140 posts sent their report (94%)</small></a>
   </section>
 
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
@@ -425,6 +428,41 @@
     </div>
   </section>
 
+  <!-- Les points de controle (26 octobre 2026, maquette tmp/proto-poe-1026) :
+       le tableau PoE/PoC de chaque bulletin, lu par extract_poe.py. Les taux
+       de screening restent a 97-99 % et ne sont dits qu'en une phrase ; ce
+       qui bouge, ce sont le flux de voyageurs, les alertes et corps
+       interceptes aux postes, et les postes qui ne rapportent pas. -->
+  <section class="section cadre-fiche r3" id="points-controle">
+    <div class="r3-g">
+      <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">Checkpoints</h2><div class="section-sub">travellers screened at borders, on roads and in ports</div></div></div>
+      <div class="r3-ch"><b class="rc-n is-poe">313,576</b><span>Travellers screened on 24 Oct 2026</span><small>131 of 140 posts sent their report (94%)</small></div>
+      <div class="poe-chiffres"><div><b>299,853</b><span>travellers per day (last 7 bulletins)</span></div><div><b>81</b><span>alerts at the posts, 27 of them validated (last 7 bulletins)</span></div><div><b>14</b><span>bodies intercepted (last 7 bulletins)</span></div></div>
+      <p class="fiche-texte">At points of entry (PoE, on the borders) and points of control (PoC, on inland roads and ports), every traveller goes through a temperature check, hand washing and a prevention message. On 24 May 2026, the bulletins counted 11,628; on 24 Oct 2026, 313,576.</p>
+      <p class="fiche-texte">Screening reaches 98% of travellers in each of the last seven bulletins: what varies is the alerts raised at the posts, the bodies in transit that are intercepted, and the posts that do not send their report.</p>
+    </div>
+    <div class="r3-d">
+    <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="poeChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Share</span>
+        </button>
+      </div>
+      <nav class="subtab-nav chart-vue-nav" data-chart-vue="poeChart">
+        <button type="button" class="subtab-btn active" data-vue="jour">Travellers per day</button>
+        <button type="button" class="subtab-btn" data-vue="alertes">Alerts per week</button>
+        <button type="button" class="subtab-btn" data-vue="rapports">Reports received</button>
+      </nav>
+      <div class="chart-panel">
+        <canvas id="poeChart" data-chart="pointsControle"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+      <div class="panel poe-table-wrap"><table class="province-summary poe-table"><caption>By province, on 24 Oct <small>— PoE/PoC table of SitRep 163</small></caption><thead><tr><th>Province</th><th class="is-num">Posts that reported</th><th class="is-num">Travellers screened</th><th class="is-num">Alerts</th><th class="is-num">of which live, validated</th><th class="is-num">Bodies intercepted</th></tr></thead><tbody><tr><th scope="row">Ituri</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:98%"></i></span>61/62</td><td class="is-num">161,879</td><td class="is-num">4</td><td class="is-num">2</td><td class="is-num">1</td></tr><tr><th scope="row">Nord-Kivu</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:95%"></i></span>20/21</td><td class="is-num">93,284</td><td class="is-num">0</td><td class="is-num">0</td><td class="is-num">0</td></tr><tr><th scope="row">Sud-Kivu</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:56%"></i></span>5/9</td><td class="is-num">7,435</td><td class="is-num">0</td><td class="is-num">0</td><td class="is-num">0</td></tr><tr><th scope="row">Tshopo</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:100%"></i></span>18/18</td><td class="is-num">18,961</td><td class="is-num">0</td><td class="is-num">0</td><td class="is-num">0</td></tr><tr><th scope="row">Haut-Uélé</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:100%"></i></span>10/10</td><td class="is-num">25,160</td><td class="is-num">1</td><td class="is-num">1</td><td class="is-num">0</td></tr><tr><th scope="row">Bas-Uélé</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:85%"></i></span>17/20</td><td class="is-num">6,857</td><td class="is-num">13</td><td class="is-num">2</td><td class="is-num">0</td></tr><tr class="is-total"><th scope="row">Total</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:94%"></i></span>131/140</td><td class="is-num">313,576</td><td class="is-num">18</td><td class="is-num">5</td><td class="is-num">1</td></tr></tbody></table></div>
+    </div>
+  </section>
+
   <!-- Le lieu du deces est parti le 28 septembre 2026 sous la courbe des
        deces, sur « Ensemble du pays » et sur les pages province : c'est un
        resultat de l'epidemie, pas une action de la riposte. -->
@@ -550,8 +588,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=36c42a6b84"></script>
-<script defer src="/assets/js/app.js?v=307c2a7339"></script>
+<script defer src="/assets/js/i18n.js?v=ac9b3c356e"></script>
+<script defer src="/assets/js/app.js?v=d08d869687"></script>
 
 </body>
 </html>

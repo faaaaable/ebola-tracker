@@ -537,3 +537,22 @@ destinée au graphique doit aller dans **`assets/js/i18n.js`** et non dans
 un titre mis au mauvais endroit ne s'affiche jamais. Et le **`footer` de
 l'infobulle Chart.js ne se rendait pas** ici : le total des deux provinces est
 passé par `afterBody`.
+
+## Le cadre 06 « Les points de contrôle » (26 octobre 2026)
+
+Le tableau « Situation indicateurs clés des PoE/PoC par province » de chaque
+bulletin, lu par `scripts/extract_poe.py` (pdfplumber, repli texte, prose) dans
+`data/points-controle.json` : chiffres DU JOUR, chaque valeur avec sa chaîne
+`brut`. Page Riposte : 6e étape « Contrôler » de la bande, chiffre de tête =
+voyageurs du dernier relevé + postes qui ont rapporté, trois petits chiffres
+sur 7 relevés, deux paragraphes calculés (`poe_seed`), mode `pointsControle`
+(vues jour empilé par province / alertes par semaine / rapports reçus depuis le
+23 août), tableau du dernier bulletin (`_poe_table`). Fiches Ituri et Nord-Kivu
+seulement (`poe_province`, data-province). Pages Kenya, Ouganda, Nigeria : une
+phrase `paysPoe` dans « Voir aussi ». Lettre : alertes et corps aux postes dès
+la 163 (`POE_ALERTES_DEPUIS`, bulletin.py).
+Écarts de la source : provinces > total (116, 136 : seul le total est tracé) ;
+Sud-Kivu ~84 000 fin juillet-août, gardé et dit ; `VALEURS_ECARTEES`
+(Nord-Kivu 23 et 24 juin, Ituri 30 juin : imprimés et cohérents, écartés à la
+demande du propriétaire comme hors de proportion). Taux de screening, lavage,
+sensibilisation (97-99 %) : une phrase, pas de graphique.

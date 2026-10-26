@@ -530,7 +530,10 @@ def lire_poe(corps):
         # nombre est la somme des autres.
         jetons = re.findall(r"\d+|ND|NA", m.group(1))
         personnes = _total_ligne(jetons)
-    m = re.search(r"(?:% des voyageurs screenés|Proportion des voyageurs)((?:\s+(?:[\d,]+\s*%|ND|NA))+)", t)
+    # Le SitRep 163 (24 octobre 2026) coupe encore autrement : « Proportion
+    # des 97% … 98% » puis « voyageurs screenés » a la ligne — les taux
+    # s'intercalent avant « voyageurs », et la lettre perdait sa phrase.
+    m = re.search(r"(?:% des voyageurs screenés|Proportion des voyageurs|Proportion des(?=\s+[\d,]+\s*%))((?:\s+(?:[\d,]+\s*%|ND|NA))+)", t)
     pct = None
     if m:
         p = re.findall(r"([\d,]+)\s*%", m.group(1))

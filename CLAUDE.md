@@ -89,6 +89,7 @@ python scripts/extraire_defis.py             # defis.json        (page Riposte, 
 #   (fr/en/sw, langage courant) — à chaque bulletin, sans attendre de signal,
 #   règle du 9 septembre 2026 ; check_coherence le note s'il manque
 python scripts/extract_piliers.py            # piliers.json      (La lettre : EDS, rings, vaccination, PoC/PoE)
+python scripts/extract_poe.py                # points-controle.json (page Riposte, volet 06 : tableau PoE/PoC par province)
 python scripts/build_pages.py                # régénère les 30 pages du site
 python scripts/check_coherence.py            # contrôle, ne modifie rien
 ```

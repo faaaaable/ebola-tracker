@@ -49,6 +49,7 @@ jobs:
           python scripts/extraire_cte.py
           python scripts/extraire_defis.py
           python scripts/extract_piliers.py
+          python scripts/extract_poe.py
       - name: Installation de Node
         # Necessaire a scripts/build_pages.py, qui lit assets/js/i18n.js.
         uses: actions/setup-node@v4

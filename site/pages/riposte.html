@@ -11,7 +11,8 @@
   </section>
 
   <!-- La chaine de riposte (7 octobre 2026, option 2 des maquettes en tete
-       de l'option 3) : les cinq etapes et leur chiffre cle, chacune renvoyant
+       de l'option 3) : les cinq etapes et leur chiffre cle (six depuis le
+       26 octobre 2026, « Controler » pour les points de controle), chacune renvoyant
        a son volet. Remplace la bande claire « La chaine de riposte ». -->
   <section class="section rc-chaine" id="riposte-partie" aria-label="{{t.maqPartieUnTitre}}">
     <a class="rc-e" href="#alertes"><span class="rc-v">{{t.ripVerbe1}}</span><b class="rc-n is-alerts">{{seed.ripAlertes}}</b><em>{{t.riposteKpiAlertes}}</em><small>{{seed.ripAlertesSub}}</small></a>
@@ -23,6 +24,8 @@
     <a class="rc-e" href="#cte"><span class="rc-v">{{t.ripVerbe4}}</span><b class="rc-n is-cte">{{seed.ripOccupation}}</b><em>{{t.riposteKpiOccupation}}</em><small>{{seed.ripOccupationSub}}</small></a>
     <i aria-hidden="true">→</i>
     <a class="rc-e" href="#vaccination"><span class="rc-v">{{t.ripVerbe5}}</span><b class="rc-n is-vaccin">{{seed.ripVaccines}}</b><em>{{t.riposteKpiVaccines}}</em></a>
+    <i aria-hidden="true">→</i>
+    <a class="rc-e" href="#points-controle"><span class="rc-v">{{t.ripVerbe6}}</span><b class="rc-n is-poe">{{seed.ripPoe}}</b><em>{{t.riposteKpiPoeChaine}}</em><small>{{seed.ripPoeSub}}</small></a>
   </section>
 
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
@@ -170,6 +173,41 @@
            graphique (21 septembre 2026) : la courbe dit les provinces, le
            tableau dit ou, dans chacune. -->
       {{seed.ripVaccinZones}}
+    </div>
+  </section>
+
+  <!-- Les points de controle (26 octobre 2026, maquette tmp/proto-poe-1026) :
+       le tableau PoE/PoC de chaque bulletin, lu par extract_poe.py. Les taux
+       de screening restent a 97-99 % et ne sont dits qu'en une phrase ; ce
+       qui bouge, ce sont le flux de voyageurs, les alertes et corps
+       interceptes aux postes, et les postes qui ne rapportent pas. -->
+  <section class="section cadre-fiche r3" id="points-controle">
+    <div class="r3-g">
+      <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">{{t.ripostePoeTitle}}</h2><div class="section-sub">{{t.ripostePoeSub}}</div></div></div>
+      <div class="r3-ch"><b class="rc-n is-poe">{{seed.ripPoe}}</b><span>{{seed.ripPoeLabel}}</span><small>{{seed.ripPoeSub}}</small></div>
+      {{seed.ripPoeChiffres}}
+      <p class="fiche-texte">{{seed.ripPoeLede}}</p>
+      <p class="fiche-texte">{{seed.ripPoeLede2}}</p>
+    </div>
+    <div class="r3-d">
+    <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="poeChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+        </button>
+      </div>
+      <nav class="subtab-nav chart-vue-nav" data-chart-vue="poeChart">
+        <button type="button" class="subtab-btn active" data-vue="jour">{{t.ripostePoeVueVoyageurs}}</button>
+        <button type="button" class="subtab-btn" data-vue="alertes">{{t.ripostePoeVueAlertes}}</button>
+        <button type="button" class="subtab-btn" data-vue="rapports">{{t.ripostePoeVueRapports}}</button>
+      </nav>
+      <div class="chart-panel">
+        <canvas id="poeChart" data-chart="pointsControle"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+      {{seed.ripPoeTable}}
     </div>
   </section>
 

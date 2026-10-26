@@ -65,12 +65,12 @@
 "published": "2026-08-22"
 },
 "donnees/ituri/index.html": {
-"hash": "31501017cfe05fc5",
+"hash": "5c99d4a83b66b9dc",
 "modified": "2026-10-26",
 "published": "2026-08-22"
 },
 "donnees/nord-kivu/index.html": {
-"hash": "baedb20d9281ce9a",
+"hash": "1320258c3583ba04",
 "modified": "2026-10-26",
 "published": "2026-08-22"
 },
@@ -140,12 +140,12 @@
 "published": "2026-08-22"
 },
 "en/data/ituri/index.html": {
-"hash": "f4e6924e719d31fe",
+"hash": "dc8014fdd4deec80",
 "modified": "2026-10-26",
 "published": "2026-08-22"
 },
 "en/data/nord-kivu/index.html": {
-"hash": "a08ff23a18c29bd3",
+"hash": "987253b63823b9f3",
 "modified": "2026-10-26",
 "published": "2026-08-22"
 },
@@ -180,8 +180,8 @@
 "published": "2026-08-22"
 },
 "en/france/index.html": {
-"hash": "89d513702f3cb0f0",
-"modified": "2026-10-21",
+"hash": "ca144fd1ade61f84",
+"modified": "2026-10-26",
 "published": "2026-10-09"
 },
 "en/glossary/index.html": {
@@ -195,7 +195,7 @@
 "published": "2026-08-14"
 },
 "en/kenya/index.html": {
-"hash": "26ba1cc9752e9237",
+"hash": "725f97fbed986395",
 "modified": "2026-10-26",
 "published": "2026-10-09"
 },
@@ -560,12 +560,12 @@
 "published": "2026-10-25"
 },
 "en/letter/163/index.html": {
-"hash": "b0cfda3808653ad0",
+"hash": "5411e59776365bf1",
 "modified": "2026-10-26",
 "published": "2026-10-26"
 },
 "en/letter/index.html": {
-"hash": "b0cfda3808653ad0",
+"hash": "5411e59776365bf1",
 "modified": "2026-10-26",
 "published": "2026-09-08"
 },
@@ -580,7 +580,7 @@
 "published": "2026-09-24"
 },
 "en/nigeria/index.html": {
-"hash": "3fe6db92ea5890cc",
+"hash": "95101d07202f77c8",
 "modified": "2026-10-26",
 "published": "2026-10-20"
 },
@@ -595,7 +595,7 @@
 "published": "2026-08-22"
 },
 "en/response/index.html": {
-"hash": "48514e15cacc80f2",
+"hash": "915a960fd403d414",
 "modified": "2026-10-26",
 "published": "2026-08-28"
 },
@@ -610,7 +610,7 @@
 "published": "2026-08-22"
 },
 "en/uganda/index.html": {
-"hash": "57c15958d09dc2de",
+"hash": "58b99500d2d3bf0f",
 "modified": "2026-10-26",
 "published": "2026-10-09"
 },
@@ -625,8 +625,8 @@
 "published": "2026-08-22"
 },
 "france/index.html": {
-"hash": "b79e142d3d1fe69b",
-"modified": "2026-10-21",
+"hash": "e00274dfc7ec2f87",
+"modified": "2026-10-26",
 "published": "2026-10-09"
 },
 "glossaire/index.html": {
@@ -640,7 +640,7 @@
 "published": "2026-08-11"
 },
 "kenya/index.html": {
-"hash": "e8fa2288200157b6",
+"hash": "43fbc2ad7a75875c",
 "modified": "2026-10-26",
 "published": "2026-10-09"
 },
@@ -1010,12 +1010,12 @@
 "published": "2026-10-25"
 },
 "lettre/163/index.html": {
-"hash": "88f2adc4072e880a",
+"hash": "7310c1639b0fcaa8",
 "modified": "2026-10-26",
 "published": "2026-10-26"
 },
 "lettre/index.html": {
-"hash": "88f2adc4072e880a",
+"hash": "7310c1639b0fcaa8",
 "modified": "2026-10-26",
 "published": "2026-09-08"
 },
@@ -1025,12 +1025,12 @@
 "published": "2026-10-17"
 },
 "nigeria/index.html": {
-"hash": "ea6d1a5a6bdc0557",
+"hash": "35ea7e256216b9fd",
 "modified": "2026-10-26",
 "published": "2026-10-20"
 },
 "ouganda/index.html": {
-"hash": "63ace35dd67a60db",
+"hash": "b5dd3e4a6e6a8642",
 "modified": "2026-10-26",
 "published": "2026-10-09"
 },
@@ -1040,7 +1040,7 @@
 "published": "2026-08-22"
 },
 "riposte/index.html": {
-"hash": "9859049d6070b461",
+"hash": "479324c302de44e5",
 "modified": "2026-10-26",
 "published": "2026-08-28"
 },
@@ -1415,12 +1415,12 @@
 "published": "2026-10-25"
 },
 "sw/barua/163/index.html": {
-"hash": "5549f53f29bb8834",
+"hash": "ef1d7f5a80332a8c",
 "modified": "2026-10-26",
 "published": "2026-10-26"
 },
 "sw/barua/index.html": {
-"hash": "5549f53f29bb8834",
+"hash": "ef1d7f5a80332a8c",
 "modified": "2026-10-26",
 "published": "2026-09-08"
 },
@@ -1455,7 +1455,7 @@
 "published": "2026-09-10"
 },
 "sw/kenya/index.html": {
-"hash": "73b3db6f07b53962",
+"hash": "d314b053d66fc657",
 "modified": "2026-10-26",
 "published": "2026-10-09"
 },
@@ -1465,7 +1465,7 @@
 "published": "2026-08-25"
 },
 "sw/mapambano/index.html": {
-"hash": "0de02432a0c1df95",
+"hash": "6023cb603e9f0d70",
 "modified": "2026-10-26",
 "published": "2026-08-28"
 },
@@ -1500,7 +1500,7 @@
 "published": "2026-10-08"
 },
 "sw/nigeria/index.html": {
-"hash": "004ef0597c2100bb",
+"hash": "b509b0d586436749",
 "modified": "2026-10-26",
 "published": "2026-10-20"
 },
@@ -1525,12 +1525,12 @@
 "published": "2026-08-25"
 },
 "sw/takwimu/ituri/index.html": {
-"hash": "32627e6b07feaef5",
+"hash": "27e01264da191b5a",
 "modified": "2026-10-26",
 "published": "2026-08-25"
 },
 "sw/takwimu/nord-kivu/index.html": {
-"hash": "5825f125739b27c4",
+"hash": "41c2720a798728a5",
 "modified": "2026-10-26",
 "published": "2026-08-25"
 },
@@ -1555,12 +1555,12 @@
 "published": "2026-08-25"
 },
 "sw/ufaransa/index.html": {
-"hash": "14147f8137335338",
-"modified": "2026-10-21",
+"hash": "0734c83fb12f9f95",
+"modified": "2026-10-26",
 "published": "2026-10-09"
 },
 "sw/uganda/index.html": {
-"hash": "9fa5e3a3d0d34d3a",
+"hash": "57144c3b5f3dffe1",
 "modified": "2026-10-26",
 "published": "2026-10-09"
 },

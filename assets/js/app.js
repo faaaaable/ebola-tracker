@@ -480,7 +480,7 @@ async function loadContactsFollowup(){
 /* Les quatre series de la page « Riposte ». Chacune est un objet
    { periode, parDate:[…] } ecrit par son script d'extraction ; les contacts
    reutilisent CONTACTS_FOLLOWUP, enrichi des effectifs et des provinces. */
-let ALERTES = null, LABORATOIRE = null, CTE = null, PILIERS = null;
+let ALERTES = null, LABORATOIRE = null, CTE = null, PILIERS = null, POINTS_CONTROLE = null;
 async function loadRiposte(){
   const charge = async (nom) => {
     try{
@@ -490,9 +490,9 @@ async function loadRiposte(){
       return (d && Array.isArray(d.parDate)) ? d : null;
     }catch(e){ console.warn('data/' + nom + ' indisponible.', e); return null; }
   };
-  [ALERTES, LABORATOIRE, CTE, PILIERS] = await Promise.all([
+  [ALERTES, LABORATOIRE, CTE, PILIERS, POINTS_CONTROLE] = await Promise.all([
     charge('alertes.json'), charge('laboratoire.json'), charge('cte.json'),
-    charge('piliers.json')]);
+    charge('piliers.json'), charge('points-controle.json')]);
 }
 
 /* Répartition par âge des cas et des décès. Contrairement aux autres séries,
@@ -1450,7 +1450,8 @@ function reglerInfobulles(){
      sur les pages province). Les cas par province prennent « (%) » dans la
      vue Parts (data-vue, pose par le rendu). */
   const TITRES_PAR_MODE = { deathsPlace:'chartTitreLieuDeces', newCasesByProvince:'chartTitreProvinces',
-    alertes:'chartTitreAlertes', laboratoire:'chartTitreLabo', contactsRiposte:'chartTitreContacts' };
+    alertes:'chartTitreAlertes', laboratoire:'chartTitreLabo', contactsRiposte:'chartTitreContacts',
+    pointsControle:'chartTitrePoe' };
   function poserTitre(chart){
     const o = chart.config.options || (chart.config.options = {});
     const l = o.plugins && o.plugins.legend;
@@ -1618,7 +1619,7 @@ function renderOneChartBrut(canvas, chartMode){
      qu'elle n'est pas finie — meme regle que « Nouveaux cas ». Les taux
      restent quotidiens, sur un calendrier jour par jour pour que les trous
      aient leur vraie largeur — meme idiome que le suivi des contacts. */
-  const RIPOSTE_MODES = ['alertes', 'laboratoire', 'contactsRiposte', 'cte', 'vaccination'];
+  const RIPOSTE_MODES = ['alertes', 'laboratoire', 'contactsRiposte', 'cte', 'vaccination', 'pointsControle'];
   if(RIPOSTE_MODES.includes(chartMode)){
     /* UNE PROVINCE (16 septembre 2026) : sur les pages de l'Ituri, du
        Nord-Kivu et du Haut-Uele, le canevas porte data-province et chaque
@@ -1872,6 +1873,154 @@ function renderOneChartBrut(canvas, chartMode){
       dessiner('line', data, opts);
       noterPeriode(slot, jours[0], jours[jours.length-1]);
       noter(tr('chartNoteAlertesTaux')());
+      return;
+    }
+
+    /* ---- Points de controle (26 octobre 2026) : le tableau PoE/PoC de
+       chaque bulletin, lu par extract_poe.py (data/points-controle.json).
+       Chiffres DU JOUR, pas des cumuls. Trois vues : les voyageurs par jour
+       et par province, les alertes et corps interceptes par semaine, la part
+       des postes qui envoient leur rapport. ---- */
+    if(chartMode === 'pointsControle'){
+      if(!POINTS_CONTROLE || !POINTS_CONTROLE.parDate.length){ vide(); return; }
+      /* Sur la fiche de l'Ituri et du Nord-Kivu (data-province), chaque vue
+         lit la colonne de la province au lieu de « Global ». */
+      const colProv = e => provRip ? ((e.colonnes || []).find(c => nomProvinceCanonique(c) === provRip) || '—') : 'Global';
+      const pts = POINTS_CONTROLE.parDate;
+      const val = (e, cle, col) => { const c = ((e.indicateurs || {})[cle] || {})[col || colProv(e)]; return c ? c.valeur : null; };
+      const nb = x => (typeof x === 'number') ? x : null;
+      const vue = vueDe(canvas, 'jour');
+      /* Les voyageurs ecartes par VALEURS_ECARTEES (extract_poe.py, 26 octobre
+         2026) : la note les nomme, province, date et chiffre imprime. */
+      const ecartes = [];
+      pts.forEach(e => Object.entries(((e.indicateurs || {}).personnes) || {}).forEach(([c, v]) => {
+        if(v && v.ecarte && c !== 'Global' && (!provRip || nomProvinceCanonique(c) === provRip))
+          ecartes.push(tr('poeEcarteItem')(c, fmt(Number(String(v.brut).replace(/\D/g, ''))), frDate(e.date)));
+      }));
+      const noteEcartes = ecartes.length ? tr('chartNotePoeEcartes')(ecartes.join(', ')) : '';
+
+      if(vue === 'alertes'){
+        /* Les trois series n'ont pas la meme profondeur (les alertes
+           validees manquent certains jours) : la semaine est celle des
+           alertes notifiees, les deux autres y sont additionnees sur les
+           jours qui les publient. */
+        const points = pts.map(e => ({ date:e.date, alertes:nb(val(e, 'alertes')),
+          validees:nb(val(e, 'alertesVivantesValidees')), corps:nb(val(e, 'corpsInterceptes')) }));
+        const semaines = parSemaine(points.filter(p => p.alertes !== null), ['alertes']);
+        if(!semaines.length){ vide(); return; }
+        const somme = (w, champ) => {
+          if(!w.releves) return null;
+          const xs = points.filter(p => lundiDe(p.date) === w.debut && p[champ] !== null);
+          return xs.length ? xs.reduce((t, p) => t + p[champ], 0) : null;
+        };
+        const ouverte = semaineOuverte(semaines, points[points.length-1].date);
+        const data = { labels:semaines.map(libelleSemaine), datasets:[
+          { label:tr('poeAlertesLabel'), data:semaines.map(w=>valeurOuNul(w, x=>x.valeurs.alertes)), backgroundColor:PALETTE.info, order:2 },
+          { label:tr('poeValideesLabel'), data:semaines.map(w=>somme(w, 'validees')), backgroundColor:tint(PALETTE.info, .4), order:2 },
+          { label:tr('poeCorpsLabel'), data:semaines.map(w=>somme(w, 'corps')), backgroundColor:PALETTE.critical, order:2 },
+        ]};
+        const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+          plugins:{ legend:legendeAVenir(Object.assign({}, legende, { labels:Object.assign({}, legende.labels) }), !ouverte),
+            tooltip:infobulle({ callbacks:{ title:titreSemaine(semaines, ouverte), label:c=>c.dataset.label + ' : ' + fmt(c.parsed.y) } }),
+            largeurSemaine: ouverte ? { ratios:ouverte.ratios, futurs:ouverte.futurs } : undefined },
+          scales:{ x:axeX(false), y:{ beginAtZero:true, ticks:Object.assign({}, axeTexte, { precision:0, callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
+        dessiner('bar', data, opts);
+        noterPeriode(slot, semaines[0].debut, ouverte ? ouverte.derniere : semaines[semaines.length-1].fin);
+        noter(tr('chartNotePoeAlertes')(semaines.filter(w=>w.releves).length) + noteOuverte(ouverte));
+        return;
+      }
+
+      const parDate = {}; pts.forEach(e => { parDate[e.date] = e; });
+
+      if(vue === 'rapports'){
+        /* La completude n'est publiee avec ses effectifs que depuis le
+           23 aout : avant, un taux sans nombre de postes, souvent 100 %. La
+           vue commence au premier releve qui donne les deux. */
+        const compl = e => { const c = e && val(e, 'completude'); return (c && c.den) ? c : null; };
+        const i0 = pts.findIndex(e => compl(e));
+        if(i0 < 0){ vide(); return; }
+        const jours = calendrier(pts[i0].date, pts[pts.length-1].date);
+        const part = jours.map(d => { const c = compl(parDate[d]); return c ? c.pct : null; });
+        const postes = jours.map(d => { const c = compl(parDate[d]); return c ? c.den : null; });
+        const lus = part.filter(v => v !== null).length;
+        const data = { labels:jours.map(frDate), datasets:[
+          { label:tr('poeRapportsLabel'), data:part, borderColor:PALETTE.info, backgroundColor:PALETTE.info, borderWidth:2, pointRadius:1.5, tension:.15, spanGaps:false, yAxisID:'y' },
+          jeuPont(part, PALETTE.info, tr('poeRapportsLabel')),
+          { label:tr('poePostesLabel'), data:postes, borderColor:PALETTE.inkFaint, backgroundColor:PALETTE.inkFaint, borderWidth:1.5, borderDash:[4,3], pointRadius:0, stepped:true, spanGaps:true, yAxisID:'y2' },
+        ]};
+        const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+          plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
+                    tooltip:infobulle({ filter:item => !item.dataset.pont && item.parsed.y !== null, callbacks:{
+                      label:c=>c.dataset.label + ' : ' + (c.dataset.yAxisID === 'y2' ? fmt(c.parsed.y) : fmtCfr(c.parsed.y)) } }) },
+          scales:{ x:axeX(true), y:axePct(100),
+                   y2:{ position:'right', beginAtZero:true, grid:{ display:false }, ticks:Object.assign({}, axeTexte, { precision:0, callback:v=>fmt(v) }) } } };
+        dessiner('line', data, opts);
+        noterPeriode(slot, jours[0], jours[jours.length-1]);
+        noter(tr('chartNotePoeRapports')(lus, jours.length));
+        return;
+      }
+
+      /* Voyageurs par jour, empiles par province — Kinshasa comprise, qui a
+         eu sa colonne le 20 juin (SitRep 037, 4 postes, 6 825 voyageurs) et
+         n'a pas de teinte d'identite. La part que les provinces
+         publiees ne couvrent pas reste visible (« non reparti ») : avant le
+         15 juin le bulletin ne donne que le total. Quand les provinces
+         depassent le total — la Tshopo imprimee 218 002 le 27 septembre,
+         pour un total de 247 045 —, le bulletin se contredit : la journee
+         montre son total seul, et la note la nomme. */
+      if(provRip){
+        const i0 = pts.findIndex(e => nb(val(e, 'personnes')) !== null);
+        if(i0 < 0){ vide(); return; }
+        const joursP = calendrier(pts[i0].date, pts[pts.length-1].date);
+        const voy = joursP.map(d => parDate[d] ? nb(val(parDate[d], 'personnes')) : null);
+        const lusP = voy.filter(v => v !== null).length;
+        const dataP = { labels:joursP.map(frDate), datasets:[{ label:provRip, data:voy,
+          backgroundColor:PROVINCE_COLORS[provRip] || PALETTE.info, minBarLength:2, categoryPercentage:1, barPercentage:.96 }] };
+        const optsP = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+          plugins:{ legend:{ display:false },
+                    tooltip:infobulle({ filter:item => item.parsed.y !== null, callbacks:{ label:c=>c.dataset.label + ' : ' + fmt(c.parsed.y) } }) },
+          scales:{ x:axeX(true), y:{ beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
+        dessiner('bar', dataP, optsP);
+        noterPeriode(slot, joursP[0], joursP[joursP.length-1]);
+        noter(tr('chartNotePoeJourProvince')(lusP, joursP.length - lusP) + noteEcartes);
+        return;
+      }
+      const jours = calendrier(pts[0].date, pts[pts.length-1].date);
+      const provs = [];
+      pts.forEach(e => (e.colonnes || []).forEach(c => { if(c !== 'Global' && !provs.includes(c)) provs.push(c); }));
+      const series = {}; provs.forEach(p => { series[p] = jours.map(() => null); });
+      const nonReparti = jours.map(() => null);
+      const incoherents = [];
+      jours.forEach((d, i) => {
+        const e = parDate[d]; if(!e) return;
+        const g = nb(val(e, 'personnes')); if(g === null) return;
+        const vals = {}; let somme = 0;
+        provs.forEach(p => { vals[p] = nb(val(e, 'personnes', p)); somme += vals[p] || 0; });
+        if(somme > g){ incoherents.push(d); nonReparti[i] = g; return; }
+        provs.forEach(p => { series[p][i] = vals[p]; });
+        nonReparti[i] = g - somme;
+      });
+      const lus = nonReparti.filter(v => v !== null).length;
+      if(!lus){ vide(); return; }
+      const barre = { stack:'v', order:2, categoryPercentage:1, barPercentage:.96 };
+      const data = { labels:jours.map(frDate), datasets:[
+        ...provs.map(p => Object.assign({ label:p, data:series[p],
+          backgroundColor:PROVINCE_COLORS[nomProvinceCanonique(p)] || '#B39B72' }, barre)),
+        Object.assign({ label:tr('poeNonReparti'), data:nonReparti, backgroundColor:tint(PALETTE.inkFaint, .35), nonReparti:true }, barre),
+      ]};
+      const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+        plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels) }),
+                  tooltip:infobulle({ filter:item => item.parsed.y !== null && !(item.dataset.nonReparti && item.parsed.y === 0), callbacks:{
+                    label:c=>c.dataset.label + ' : ' + fmt(c.parsed.y),
+                    footer:(items) => {
+                      const barres = items.filter(i => Number.isFinite(i.parsed && i.parsed.y));
+                      return barres.length > 1 ? tr('chartStackTotal')(fmt(barres.reduce((t, i) => t + i.parsed.y, 0))) : '';
+                    } } }) },
+        scales:{ x:Object.assign(axeX(true), { stacked:true }),
+                 y:{ stacked:true, beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
+      dessiner('bar', data, opts);
+      noterPeriode(slot, jours[0], jours[jours.length-1]);
+      noter(tr('chartNotePoeJour')(lus, jours.length - lus, incoherents.map(frDate)) + noteEcartes);
       return;
     }
 

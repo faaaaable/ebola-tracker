@@ -154,6 +154,9 @@ def render(lang, S, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp
 # Premiere lettre avec les cases gueris et en CTE (19 octobre 2026) :
 # celle-ci et toutes les suivantes, pas les anciennes.
 UNE_GUERIS_CTE_DEPUIS = 156
+# Premiere lettre ou la phrase des points de controle dit aussi les alertes
+# et les corps interceptes aux postes (26 octobre 2026, data/points-controle.json).
+POE_ALERTES_DEPUIS = 163
 
 
 def _abonnement(lang, S, esc):
@@ -187,6 +190,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     contacts, cte = _lire("data/contacts-followup.json"), _lire("data/cte.json")
     deces, defis = _lire("data/deces-lieu.json"), _lire("data/defis.json")
     piliers_data = _lire("data/piliers.json") if os.path.exists(os.path.join(ROOT, "data", "piliers.json")) else None
+    poe_data = _lire("data/points-controle.json") if os.path.exists(os.path.join(ROOT, "data", "points-controle.json")) else None
     notes = _lire("data/bulletin-notes.json") if os.path.exists(os.path.join(ROOT, "data", "bulletin-notes.json")) else {}
     index = _lire("reports/_index.json") if os.path.exists(os.path.join(ROOT, "reports", "_index.json")) else {}
     fiche_pdf = index.get(num, {})
@@ -545,6 +549,26 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             s7 = P("lettrePoe", personnes=fmt(po["personnes"], lang), pct=pct(po["screenesPct"]))
             if po.get("refusScreening"):
                 s7 += " " + P("lettrePoeRefus", n=fmt(po["refusScreening"], lang))
+            # Les alertes et les corps interceptes aux postes, lus dans le
+            # tableau PoE/PoC du bulletin ; la province qui fait au moins la
+            # moitie des alertes est nommee (13 sur 18 au Bas-Uele le 24 oct.).
+            pp = _point(poe_data, date) if (poe_data and num.isdigit() and int(num) >= POE_ALERTES_DEPUIS) else None
+            if pp and pp.get("date") == date:
+                ind = pp.get("indicateurs") or {}
+                lu = lambda cle, col="Global": (ind.get(cle) or {}).get(col, {}).get("valeur")
+                na, nc = lu("alertes"), lu("corpsInterceptes")
+                if isinstance(na, int) and isinstance(nc, int):
+                    if na == 0 and nc == 0:
+                        s7 += " " + S["lettrePoeRien"]
+                    else:
+                        detail = ""
+                        parts = [(c, lu("alertes", c)) for c in pp.get("colonnes", []) if c != "Global"]
+                        parts = [(c, n) for c, n in parts if isinstance(n, int)]
+                        if parts and na >= 4:
+                            c, n = max(parts, key=lambda x: x[1])
+                            if n * 2 >= na and n < na:
+                                detail = P("lettrePoeAlertesDont", n=fmt(n, lang), **{"in": forms(c)["in"]})
+                        s7 += " " + P("lettrePoeAlertes", alertes=fmt(na, lang), corps=fmt(nc, lang), detail=detail)
             phrases.append(s7)
     p_ri = prose(esc(" ".join(phrases)))
     c_ri = '    <section class="kpis kpis-riposte" aria-label="%s">\n%s    </section>\n' % (esc(S["bulRiposteTitle"]), cases)
