@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "c516438f",
+   "date": "2026-10-26",
+   "titre": "Ebola: l’Ouganda renforce son dispositif pour prévenir une nouvelle introduction du virus",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261026-ebola-l-ouganda-renforce-son-dispositif-pour-pr%C3%A9venir-une-nouvelle-introduction-du-virus",
+   "langue": "fr",
+   "resume": "Vingt et un jours de quarantaine, à leurs propres frais : c’est ce qui attend les Ougandais de retour de RDC. Face à l'épidémie d'Ebola, Kampala durcit les contrôles et exige le respect des restrictions de voyage.",
+   "statut": "attente",
+   "collecte": "2026-10-26",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "ef559740",
    "date": "2026-10-25",
    "titre": "Un infirmier tué à Bafwasende sur fond de rumeurs liées à Ebola",
