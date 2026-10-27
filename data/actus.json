@@ -2,6 +2,45 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "b0ac2714",
+   "date": "2026-10-27",
+   "titre": "L'Afrique face à une épidémie complexe d'Ebola après sa propagation au Nigeria",
+   "source": "France 24",
+   "url": "https://www.france24.com/fr/vid%C3%A9o/20261027-l-afrique-face-%C3%A0-une-%C3%A9pid%C3%A9mie-complexe-d-ebola-apr%C3%A8s-sa-propagation-au-nigeria",
+   "langue": "fr",
+   "resume": "Le Kenya a signalé son deuxième décès dû à Ebola, a annoncé le ministère de la Santé vendredi soir, la victime étant le troisième cas confirmé dans ce pays d'Afrique de l'Est.",
+   "statut": "attente",
+   "collecte": "2026-10-27",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "8d05ddc0",
+   "date": "2026-10-27",
+   "titre": "Fear and misinformation hamper Ebola response in DR Congo",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/10/26/fear-and-misinformation-hamper-ebola-response-in-dr-congo/",
+   "langue": "en",
+   "resume": "In eastern Congo, fear and misinformation are complicating the Ebola outbreak. After losing her sister and father, 27-year-old Zawadi Kavira Musubao was told she had been poisoned. A pastor blamed evil spirits, while a traditional healer’s potion failed to help.",
+   "statut": "publie",
+   "collecte": "2026-10-27",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "26b0b113",
+   "date": "2026-10-27",
+   "titre": "Ebola au Nord-Kivu : l’organisation HAA remet deux tonnes d’intrants médicaux pour renforcer la riposte",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/27/actualite/sante/ebola-au-nord-kivu-lorganisation-haa-remet-deux-tonnes-dintrants-medicaux",
+   "langue": "fr",
+   "resume": "Photo/Droits Tiers.\" /> L’organisation Aide Humanitaire pour l’Afrique (HAA) a remis, lundi 26 octobre à Beni, au gouvernement provincial du Nord-Kivu deux tonnes d’intrants médicaux destinés à renforcer la riposte contre la maladie à virus Ebola.",
+   "statut": "publie",
+   "collecte": "2026-10-27",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "f82185f4",
    "date": "2026-10-26",
    "titre": "Fear and misinformation hamper Ebola response efforts in DR Congo",
