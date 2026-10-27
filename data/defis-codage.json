@@ -9640,6 +9640,127 @@
 "ruptures"
 ]
 }
+],
+"bas uélé la mise en marche des ucc n est pas effective la prise en charge des acteurs de terrain accuse du retard et la couverture reste très faible à bili # sur # # à aketi # # et à titule # #": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"impayes"
+]
+}
+],
+"faible remontée des données du pilier aucune donnée transmise par la tshopo le bas uélé et le sud ubangi plans de redressement du ch kyaghala et de l hgr katwa nord kivu encore à finaliser et déficit de subvention des soins gratuits dans les zs les plus affectées": [
+{
+"province": "aucune",
+"obstacles": []
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Sud-Ubangi",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": []
+}
+],
+"haut uélé seules # zs sur # ont rapporté les kits pci manquent dans les ess et les superviseurs pci ne sont pas activés dans # zs rungu dungu boma mangbetu et gombari bas uélé # ess prioritaires sur # n ont pas de triage fonctionnel # sur # # # manquent d eau et seuls # prestataires sur # # # sont formés en pci wash sud ubangi aucun personnel n est formé en pci et les intrants pci les zones à déchets et les infrastructures wash font défaut dans les ess visités": [
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Sud-Ubangi",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"ituri les # suspects validés au poc biakato may n ont pas pu être transférés faute d ambulance # # # le poc d avakubi reste non fonctionnel pour cause d insécurité et # # voyageurs # # ont refusé le screening nord kivu le poc butuhe reste fermé depuis l incident sécuritaire du # septembre # et les cellules d alerte tardent à prendre en charge les alertes remontées des poc tshopo et au sud kivu la complétude des rapports reste faible #": [
+{
+"province": "Ituri",
+"obstacles": [
+"poc",
+"ruptures",
+"insecurite",
+"resistance"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"completude",
+"poc"
+]
+}
+],
+"ituri seules # zs affectées sur # # # sont couvertes et la couverture reste incomplète autour des derniers cas de mangala # # et de bunia # # au haut uélé aucune des zs touchées ne dispose d une crèche isiro pawa wamba et boma mangbetu la mobilité des aps fait défaut à wamba et à boma mangbetu et les kits nutritionnels pour nourrissons sevrés restent insuffisants bas uélé l accompagnement psychosocial des # confirmés accuse toujours du retard faute de psychologue dans les zs concernées": [
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": []
+}
+],
+"ituri la quantité de sang reçue reste insuffisante # patients de la zs de mandima n ont pas bénéficié d alimentation et la capacité d accueil reste faible à aru mambasa kilo lolwa et biakato haut uélé la couverture réseau reste faible dans certaines zs une partie du personnel est démotivée et les intrants nutritionnels ainsi que l approvisionnement en eau et en énergie font défaut dans certains cte": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"saturation"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures",
+"impayes"
+]
+}
 ]
 }
 }

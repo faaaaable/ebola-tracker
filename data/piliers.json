@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-10-24"
+  "fin": "2026-10-25"
  },
  "parDate": [
   {
@@ -3546,6 +3546,29 @@
      }
     }
    },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-10-25",
+   "sitrepNumber": "164",
+   "poe": {
+    "personnes": 286879,
+    "screenesPct": 98.0,
+    "refusScreening": 0
+   },
+   "rings": null,
+   "eds": {
+    "alertes": 3,
+    "realisees": 4,
+    "swabes": 5,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 1,
+     "swabes": 1
+    }
+   },
+   "vaccination": null,
    "source": "SitRep INSP (automatique)"
   }
  ]

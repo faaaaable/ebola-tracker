@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-24"
+    "fin": "2026-10-25"
   },
   "parDate": [
     {
@@ -6564,6 +6564,75 @@
         "calcule": true,
         "partVerifiee": 100.0,
         "partValidee": 14.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-25",
+      "sitrepNumber": "164",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 67,
+          "verifiees": 67,
+          "validees": 27,
+          "suspectsInvestigues": 22,
+          "transferes": 6
+        },
+        "Bas-Uélé": {
+          "recues": 114,
+          "verifiees": 114,
+          "validees": 16,
+          "suspectsInvestigues": 16,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Nord-Kivu": {
+          "recues": 1577,
+          "verifiees": 1577,
+          "validees": 199,
+          "suspectsInvestigues": 99,
+          "transferes": 103
+        },
+        "Sud-Ubangi": {
+          "recues": 30,
+          "verifiees": 30,
+          "validees": 3,
+          "suspectsInvestigues": 3,
+          "transferes": 0
+        },
+        "Nord-Ubangi": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Tshopo": {
+          "recues": 51,
+          "verifiees": 51,
+          "validees": 4,
+          "suspectsInvestigues": 2,
+          "transferes": 2
+        }
+      },
+      "total": {
+        "recues": 1839,
+        "verifiees": 1839,
+        "validees": 249,
+        "suspectsInvestigues": 142,
+        "transferes": 111,
+        "calcule": true,
+        "partVerifiee": 100.0,
+        "partValidee": 13.5
       },
       "source": "SitRep INSP (automatique)"
     }
