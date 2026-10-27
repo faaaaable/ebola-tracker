@@ -24,6 +24,7 @@ CODAGE = os.path.join(ROOT, "data", "defis-codage.json")
 # Les bulletins d'avant le 084, geles depuis le corpus (non versionne) par
 # scripts/geler_defis_anciens.py — voir ce script pour la raison.
 DEFIS_ANCIENS = os.path.join(ROOT, "data", "defis-anciens.json")
+DEFIS_COMPLEMENTS = os.path.join(ROOT, "data", "defis-complements.json")
 PROVINCES = ["Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Sud-Kivu", "Bas-Uélé", "Sud-Ubangi", "Nord-Ubangi"]
 
 
@@ -63,6 +64,15 @@ def entrees_brutes():
                 if e["sitrepNumber"] in vus:
                     continue
                 out.append((e["date"], e["sitrepNumber"], e["texte"]))
+    # Faits cites hors des rubriques « Defis » (data/defis-complements.json) :
+    # ceux des bulletins 084 et suivants sont deja fusionnes dans defis.json.
+    if os.path.exists(DEFIS_COMPLEMENTS):
+        with io.open(DEFIS_COMPLEMENTS, encoding="utf-8") as fh:
+            for e in json.load(fh).get("entrees", []):
+                if e["sitrepNumber"] in vus:
+                    continue
+                for it in e["items"]:
+                    out.append((e["date"], e["sitrepNumber"], it))
     return out
 
 

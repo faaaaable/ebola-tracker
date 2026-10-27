@@ -177,6 +177,17 @@
             "Nord-Kivu",
             "Haut-Uélé"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Nord-Kivu, 6 accompagnements sécuritaires ont été assurés aux équipes EDS et PCI à Butembo et Oicha ; incident majeur au PoC de Mukulia (agression de prestataires et d'éléments de sécurité par des députés provinciaux) et matériels du PoC de Vulindi emportés."
+          ],
+          "provinces": [
+            "Nord-Kivu"
+          ],
+          "horsDefis": "1.9.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -354,6 +365,17 @@
             "Nord-Kivu",
             "Haut-Uélé"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Nord-Kivu, un accompagnement sécuritaire a été assuré à l'équipe EDS pour le transfert d'un corps sans vie de la morgue de l'HGR de Beni vers la barrière de Mukuliya ; sécurisation du centre de santé Naissance Désirable, dans l'aire de santé de Butsili, menacé d'incendie par la population."
+          ],
+          "provinces": [
+            "Nord-Kivu"
+          ],
+          "horsDefis": "1.9.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -817,6 +839,20 @@
             "Haut-Uélé",
             "Tshopo"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Insécurité persistante et résistances communautaires lors des enterrements dignes et sécurisés, limitant l’accès des équipes de riposte : EDS non réalisé au PoC d’Epulu/Zunguluka (ZS de Mambasa, Ituri) pour raisons sécuritaires, insécurité dans les villages d’ouverture de rings en Ituri, agression de l’infirmier titulaire de l’AS Apodo (ZS de Gombari, Haut-Uélé), insécurité grandissante à Baego (ZS de Bafwasende, Tshopo) et dix-sept aires de santé identifiées comme zones à problèmes au Nord-Kivu ; non-prise en des éléments de la police affectés aux CTE de Katwa et de Kitatumba."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
+            "Tshopo",
+            "Nord-Kivu"
+          ],
+          "horsDefis": "1.9.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -1155,6 +1191,17 @@
             "Bas-Uélé",
             "Tshopo"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Nord-Kivu, une équipe EDS a été agressée dans l’AS de Bunji, à Kasanga Tuha (plusieurs blessés et un décès probable), l’équipe étant partie sans solliciter d’accompagnement sécuritaire ; le pilier a assuré six couvertures sécuritaires d’équipes EDS et de décontamination à Beni et à Katwa, rétabli l’ordre public au CS de Ndindi menacé d’incendie et mis à jour la cartographie des sites d’hébergement recommandés pour Beni et Butembo."
+          ],
+          "provinces": [
+            "Nord-Kivu"
+          ],
+          "horsDefis": "1.10.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -1534,6 +1581,17 @@
           "provinces": [
             "Ituri"
           ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale (cité dans « Principales actions »)",
+          "items": [
+            "À la Tshopo, 2 nouveaux cas suspects ont bénéficié d’un entretien et d’un soutien psychologique, 17 accompagnants de cas hospitalisés et 406 personnes ont été touchées par la psychoéducation en milieu religieux ; un prestataire menacé par les proches d’un cas suspect à Mangobo a été appuyé."
+          ],
+          "provinces": [
+            "Tshopo"
+          ],
+          "horsDefis": "1.7.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -1626,6 +1684,17 @@
           "provinces": [
             "Ituri"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Nord-Kivu, le pilier a assuré deux accompagnements des équipes PCI (CS Dokotolo/AS Butsili et CS Ngalika/AS Ruwenzori) et un accompagnement des équipes EDS au cimetière de Bundji (100 % de réalisation) ; la sécurisation permanente de toutes les morgues de la ville de Beni a été décidée après le caillassage de la morgue de Ngalika et l’enlèvement d’un corps par la population."
+          ],
+          "provinces": [
+            "Nord-Kivu"
+          ],
+          "horsDefis": "1.8.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -2217,6 +2286,17 @@
           "provinces": [
             "Ituri"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Haut-Uélé, interception par la police, au PK 8 de Pawa, d’un corps sans vie arraché au CTE de Pawa."
+          ],
+          "provinces": [
+            "Haut-Uélé"
+          ],
+          "horsDefis": "1.9.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -4156,6 +4236,17 @@
           "provinces": [
             "Ituri"
           ]
+        },
+        {
+          "pilier": "poe_poc",
+          "titre": "Points de contrôle (cité dans « Principales actions »)",
+          "items": [
+            "Au Haut-Uélé, un corps sans vie intercepté au PoC de PK10 route Poko (ZS d’Isiro) a été récupéré de force par la famille avant le swab."
+          ],
+          "provinces": [
+            "Haut-Uélé"
+          ],
+          "horsDefis": "1.2.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -4778,6 +4869,17 @@
             "Couverture encore insuffisante des activités PSEA, seules 41 des 119 zones de santé suivies (34,5 %) connaissant le mécanisme de signalement ; absence de cartographie des intervenants et refus d’alignement de certains partenaires ; insuffisance de supports de sensibilisation de masse et manque de moyens de transport et de kits informatiques pour le pilier."
           ],
           "provinces": []
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Une équipe EDS a été agressée au cimetière de Paida (ZS de Beni) lors de l’enterrement d’un cas confirmé, occasionnant des tirs de sommation, le caillassage du véhicule, le décès au sein de la population et des blessés parmi les agents de sécurité"
+          ],
+          "provinces": [
+            "Nord-Kivu"
+          ],
+          "horsDefis": "2.10.3. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -5481,6 +5583,17 @@
           "provinces": [
             "Ituri"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Nord-Kivu, des hommes armés non identifiés ont tenté d'incendier les cabanes en construction du PoC Maboya, et la menace reste persistante contre les prestataires de tous les PoC de l'axe Butembo."
+          ],
+          "provinces": [
+            "Nord-Kivu"
+          ],
+          "horsDefis": "2.12. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -5631,6 +5744,17 @@
           "provinces": [
             "Ituri"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "À la Tshopo, le point focal du pilier surveillance de la ZS de Kabondo a été grièvement blessé à la tête à coups de machette lors d'une investigation, et une équipe de riposte a été attaquée par la communauté sur la 7e avenue TP (ZS de Kabondo) lors de la recherche des contacts autour du décès communautaire d'un évadé MVE"
+          ],
+          "provinces": [
+            "Tshopo"
+          ],
+          "horsDefis": "2.11. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -5717,6 +5841,17 @@
           "provinces": [
             "Ituri"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Nord-Kivu, l'équipe de décontamination a été agressée par la population au CS de Boikeni avant d'être libérée par les services de sécurité, qui ont interpellé les auteurs"
+          ],
+          "provinces": [
+            "Nord-Kivu"
+          ],
+          "horsDefis": "2.11. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -5900,6 +6035,17 @@
             "Haut-Uélé",
             "Bas-Uélé"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Nord-Kivu, l'ordre public a été rétabli au bureau du quartier Bundji à la suite de l'agression de l'équipe EDS par la population, sans dégât enregistré"
+          ],
+          "provinces": [
+            "Nord-Kivu"
+          ],
+          "horsDefis": "2.11. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -6438,6 +6584,17 @@
             "Nord-Kivu",
             "Haut-Uélé"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "À la Tshopo, des résistances communautaires et des agressions physiques ou menaces contre les équipes d’intervention rapide ont été signalées à Bafwasende, où le corps d’une patiente a été arraché de force à l’équipe EDS de la Croix-Rouge le 14/10/2026"
+          ],
+          "provinces": [
+            "Tshopo"
+          ],
+          "horsDefis": "2.12. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -6535,6 +6692,19 @@
             "Haut-Uélé",
             "Tshopo"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "À la Tshopo, des tensions communautaires et un refus de swab ont été signalés à Bafwasende, où les agressions et menaces contre les équipes d’intervention rapide empêchent les investigations autour des cas 65 à 70. Au Haut-Uélé, la sous-coordination de Wamba a été déplacée vers la zone de résistance de Bolebole-Mambati et l’accès à l’église de Réveil Gosene (Isiro), où des alertes ont été signalées, a été refusé aux équipes ; en Ituri, le PoC d’Avakubi demeure non fonctionnel en raison de l’insécurité"
+          ],
+          "provinces": [
+            "Tshopo",
+            "Haut-Uélé",
+            "Ituri"
+          ],
+          "horsDefis": "2.12. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -6624,6 +6794,19 @@
             "Ituri",
             "Nord-Kivu"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "À la Tshopo, des tensions communautaires et un refus de swab ont été signalés à Bafwasende, où les agressions et menaces contre les équipes d’intervention rapide empêchent les investigations autour des cas 65 à 70. Au Haut-Uélé, la sous-coordination de Wamba a été déplacée vers la zone de résistance de Bolebole-Mambati et l’accès à l’église de Réveil Gosene (Isiro), où des alertes ont été signalées, a été refusé aux équipes ; en Ituri, le PoC d’Avakubi demeure non fonctionnel en raison de l’insécurité"
+          ],
+          "provinces": [
+            "Tshopo",
+            "Haut-Uélé",
+            "Ituri"
+          ],
+          "horsDefis": "2.12. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -6711,6 +6894,19 @@
           "provinces": [
             "Tshopo"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "À la Tshopo, l’ordre public a été rétabli au CM La Grâce (Beni) face à la résistance d’un cas suspect et des équipes de décontamination ont été agressées dans les AS de Butsili et de Butanuka. À la Tshopo, les menaces contre les équipes empêchent les investigations autour des cas 65 à 70 à Bafwasende ; en Ituri, le PoC d’Avakubi demeure non fonctionnel en raison de l’insécurité."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Tshopo",
+            "Ituri"
+          ],
+          "horsDefis": "2.11. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -6809,6 +7005,19 @@
             "Nord-Kivu",
             "Haut-Uélé"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "À la Tshopo, des agressions et menaces contre les équipes d’intervention sont signalées et le cas confirmé n°53 erres toujours dans la communauté ;",
+            "Au Haut-Uélé, une dépouille a été soustraite par la famille au CH Libiki après un refus de swab et un confirmé évadé d’Isiro est décédé dans l’AS Bala (Rungu)."
+          ],
+          "provinces": [
+            "Tshopo",
+            "Haut-Uélé"
+          ],
+          "horsDefis": "2.11. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -6914,6 +7123,17 @@
             "Nord-Kivu",
             "Haut-Uélé"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "À la Tshopo, le motard confirmé en fuite n’est toujours pas retrouvé et le corps du cas n°71 a été récupéré par la famille avant l’EDS."
+          ],
+          "provinces": [
+            "Tshopo"
+          ],
+          "horsDefis": "2.10.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -7014,6 +7234,19 @@
             "Nord-Kivu",
             "Haut-Uélé"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "En Ituri, l’insécurité persiste dans 17 AS de Mambasa et Mandima. Au Nord-Kivu, les EDS de 4 cas confirmés et la décontamination de 2 ESS et d’un ménage ont été sécurisés. À la Tshopo, des menaces contre les équipes persistent à Bafwasende. Au Haut-Uélé, une réticence est signalée à Rungu."
+          ],
+          "provinces": [
+            "Ituri",
+            "Tshopo",
+            "Haut-Uélé"
+          ],
+          "horsDefis": "2.11.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -7097,6 +7330,21 @@
             "Nord-Kivu",
             "Haut-Uélé"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Nord-Kivu, les enterrements de cas confirmés aux cimetières de Bundji et de Masiani ainsi que la décontamination du CH Muyisa (AS Benengule) ont été sécurisés et une équipe de décontamination a échappé de justesse à une agression au PS Kitaviro (Musienene). À la Tshopo, des agressions et menaces contre les équipes persistent à Bafwasende et au PK 15 (route Buta), où la maison d’un RECO a été incendiée (AS Kenge).",
+            "En Ituri, l’insécurité persiste dans 17 AS de Mambasa et Mandima. Au Nord-Kivu, les EDS de 4 cas confirmés et la décontamination de 2 ESS et d’un ménage ont été sécurisés. À la Tshopo, des menaces contre les équipes persistent à Bafwasende. Au Haut-Uélé, une réticence est signalée à Rungu."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Tshopo",
+            "Ituri",
+            "Haut-Uélé"
+          ],
+          "horsDefis": "2.11.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -7197,6 +7445,19 @@
             "Haut-Uélé",
             "Tshopo"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Au Nord-Kivu, l’attaque des équipes de riposte au PK 15 (route Buta) et l’incendie de la maison d’un RECO à Bafwasende ont fait l’objet d’un plaidoyer auprès des FARDC ; en Ituri, le PoC d’Avakubi reste non fonctionnel en raison de l’insécurité et, au Nord-Kivu, les enterrements de 4 cas confirmés (Bundji et Musienene) ainsi que la décontamination de 2 ESS (AS Mangote) et d’un ménage (AS Kasanga) ont été sécurisés, tandis que le PoC Butuhe demeure fermé depuis le décès d’un prestataire le 26/09/2026."
+          ],
+          "provinces": [
+            "Tshopo",
+            "Ituri",
+            "Nord-Kivu"
+          ],
+          "horsDefis": "1.4.8. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"
@@ -7380,6 +7641,17 @@
             "Nord-Kivu",
             "Haut-Uélé"
           ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            " Tshopo : des agressions physiques et des menaces contre les équipes de riposte, ayant conduit au meurtre d’un infirmier par la population, ont empêché la ZS de Bafwasende de transmettre ses données, et le contact du cas n°76, déjà symptomatique, résiste à son transfert au CTE"
+          ],
+          "provinces": [
+            "Tshopo"
+          ],
+          "horsDefis": "2.10.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"

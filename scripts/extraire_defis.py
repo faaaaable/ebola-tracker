@@ -36,6 +36,10 @@ from textes_pdf import ROOT, rapports, numero, texte_du_rapport  # noqa: E402
 from update_data import extract_meta  # noqa: E402
 
 OUTPUT_PATH = os.path.join(ROOT, "data", "defis.json")
+# Faits hors des rubriques « Defis » (violences contre la riposte racontees
+# dans « Securite, principales actions »...), ajoutes a la main avec leur
+# citation exacte (27 octobre 2026) : fusionnes ici, marques par leur titre.
+COMPLEMENTS_PATH = os.path.join(ROOT, "data", "defis-complements.json")
 PREMIER_BULLETIN = 84   # epoque D : avant, les defis sont un tableau, non lu ici
 
 PROVINCES = ["Ituri", "Nord-Kivu", "Sud-Kivu", "Haut-Uélé", "Bas-Uélé", "Tshopo", "Sud-Ubangi", "Nord-Ubangi"]
@@ -217,6 +221,21 @@ def main():
             sans.append(point["sitrepNumber"])
         points.append(point)
     par_date = {p["date"]: p for p in points}
+    n_compl = 0
+    if os.path.exists(COMPLEMENTS_PATH):
+        with io.open(COMPLEMENTS_PATH, encoding="utf-8") as fh:
+            complements = json.load(fh).get("entrees", [])
+        premier = min((p["sitrepNumber"] for p in points), default="999")
+        for c in complements:
+            if c["sitrepNumber"] < premier:
+                continue  # bulletin anterieur a defis.json : lu par defis_synthese.entrees_brutes
+            point = par_date.get(c["date"])
+            if point is None or point["sitrepNumber"] != c["sitrepNumber"]:
+                erreurs.append("complement %s du %s sans bulletin correspondant" % (c["sitrepNumber"], c["date"]))
+                continue
+            point["piliers"].append({"pilier": c["pilier"], "titre": c["titre"], "items": c["items"],
+                                     "provinces": c["provinces"], "horsDefis": c["rubrique"]})
+            n_compl += 1
     final = sorted(par_date.values(), key=lambda p: p["date"])
     sortie = {
         "periode": {"debut": final[0]["date"], "fin": final[-1]["date"]} if final else None,
@@ -228,6 +247,8 @@ def main():
     n_blocs = sum(len(p["piliers"]) for p in final)
     print("data/defis.json écrit : %d bulletin(s) du %s au %s, %d bloc(s) « Défis »"
           % (len(final), sortie["periode"]["debut"], sortie["periode"]["fin"], n_blocs))
+    if n_compl:
+        print("  dont %d complément(s) hors Défis ajouté(s) à la main (data/defis-complements.json)" % n_compl)
     if sans:
         print("Bulletins sans section Défis lisible (%d) : %s" % (len(sans), ", ".join(sans)))
     autres = [(p["sitrepNumber"], b["titre"]) for p in final for b in p["piliers"] if b["pilier"] == "autre"]

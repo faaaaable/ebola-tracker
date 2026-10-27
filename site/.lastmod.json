@@ -45,32 +45,32 @@
 "published": "2026-10-19"
 },
 "defis/index.html": {
-"hash": "14e72fdd50cfd329",
+"hash": "d91b203d19702b26",
 "modified": "2026-10-27",
 "published": "2026-10-08"
 },
 "donnees/bas-uele/index.html": {
-"hash": "fea2beb8f69fb50b",
+"hash": "d0393af5c3b50bce",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
 "donnees/haut-uele/index.html": {
-"hash": "534cf94072896418",
+"hash": "28936f491e5f8f1f",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
 "donnees/index.html": {
-"hash": "8404467c4000dc36",
+"hash": "e618bbc2ebf2843c",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
 "donnees/ituri/index.html": {
-"hash": "f721c96fedd0d7d3",
+"hash": "fc168f2466685969",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
 "donnees/nord-kivu/index.html": {
-"hash": "6b023efb958aea75",
+"hash": "c0265799ca38fa63",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
@@ -90,7 +90,7 @@
 "published": "2026-09-11"
 },
 "donnees/tshopo/index.html": {
-"hash": "0d9dadadd13547fa",
+"hash": "0b4e62e7653b0442",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
@@ -110,7 +110,7 @@
 "published": "2026-10-19"
 },
 "en/challenges/index.html": {
-"hash": "94971db8c427c315",
+"hash": "d3273c70d84793b2",
 "modified": "2026-10-27",
 "published": "2026-10-08"
 },
@@ -125,27 +125,27 @@
 "published": "2026-10-19"
 },
 "en/data/bas-uele/index.html": {
-"hash": "16919e88f0f5df27",
+"hash": "694b0e6dd9ed24a9",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
 "en/data/haut-uele/index.html": {
-"hash": "35ff929b977ed19b",
+"hash": "40b4d0f9cc44926a",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
 "en/data/index.html": {
-"hash": "6aff3e4a4edfaf15",
+"hash": "a72f1e77fcfc99a0",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
 "en/data/ituri/index.html": {
-"hash": "89451ca4533ca4c1",
+"hash": "45b3765909150683",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
 "en/data/nord-kivu/index.html": {
-"hash": "ce9d0ab71529cec7",
+"hash": "ac3f951c2fd851c3",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
@@ -165,7 +165,7 @@
 "published": "2026-09-11"
 },
 "en/data/tshopo/index.html": {
-"hash": "839c753d9e579509",
+"hash": "8e78e2244cbfa024",
 "modified": "2026-10-27",
 "published": "2026-08-22"
 },
@@ -190,7 +190,7 @@
 "published": "2026-09-10"
 },
 "en/index.html": {
-"hash": "77c4996f3743ff14",
+"hash": "914ee51ba9dead9f",
 "modified": "2026-10-27",
 "published": "2026-08-14"
 },
@@ -640,7 +640,7 @@
 "published": "2026-09-10"
 },
 "index.html": {
-"hash": "d6b6a1c55dd562d8",
+"hash": "628269b32f493c56",
 "modified": "2026-10-27",
 "published": "2026-08-11"
 },
@@ -1440,7 +1440,7 @@
 "published": "2026-09-08"
 },
 "sw/changamoto/index.html": {
-"hash": "001125556f918c14",
+"hash": "53e3823747bea722",
 "modified": "2026-10-27",
 "published": "2026-10-08"
 },
@@ -1460,7 +1460,7 @@
 "published": "2026-10-08"
 },
 "sw/index.html": {
-"hash": "0a3d95b048b32736",
+"hash": "c3f4dbbe43c3caa7",
 "modified": "2026-10-27",
 "published": "2026-08-25"
 },
@@ -1525,27 +1525,27 @@
 "published": "2026-08-25"
 },
 "sw/takwimu/bas-uele/index.html": {
-"hash": "4b08d963edad86a4",
+"hash": "6407f69f2241abe9",
 "modified": "2026-10-27",
 "published": "2026-08-25"
 },
 "sw/takwimu/haut-uele/index.html": {
-"hash": "f126f836f5f6fe1e",
+"hash": "2eeaebf6e14f3329",
 "modified": "2026-10-27",
 "published": "2026-08-25"
 },
 "sw/takwimu/index.html": {
-"hash": "e3096172bf020f8f",
+"hash": "c8c3c23d0ead3372",
 "modified": "2026-10-27",
 "published": "2026-08-25"
 },
 "sw/takwimu/ituri/index.html": {
-"hash": "1c5d12b6df14d608",
+"hash": "f12e2a1254bc2088",
 "modified": "2026-10-27",
 "published": "2026-08-25"
 },
 "sw/takwimu/nord-kivu/index.html": {
-"hash": "239ac4e5f94d1cb0",
+"hash": "1ba26ec7d94e391c",
 "modified": "2026-10-27",
 "published": "2026-08-25"
 },
@@ -1565,7 +1565,7 @@
 "published": "2026-09-11"
 },
 "sw/takwimu/tshopo/index.html": {
-"hash": "ba0d1ce5c6989a43",
+"hash": "10ed5513f7c9b122",
 "modified": "2026-10-27",
 "published": "2026-08-25"
 },
