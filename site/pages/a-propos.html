@@ -4,15 +4,22 @@
        colonne etroite en serif entre deux filets, signature a droite.
        L'ancien contenu (methode, sources, avertissement) est devenu la page
        Methodologie ; app.js y renvoie les anciennes adresses en #lecture,
-       #avertissement... -->
+       #avertissement...
+       27 octobre 2026 : signee Pierre-Emmanuel, avec sa photo a gauche de la
+       lettre (maquette n°3 « ombre douce » de tmp/proto-apropos-photo-1027c) :
+       noirs releves vers le brun de l'encre, coins arrondis, ombre large et
+       legere ; au-dessus du texte et plus petite sur telephone. -->
   <section class="section apr" data-methodo="{{url.methodologie}}">
     <div class="eyebrow"><span class="dot"></span>{{t.footerSiteTitle}}</div>
     <h1 class="apr-titre">{{meta.h1}}</h1>
-    <div class="apr-lettre">
-      <p>{{t.aboutBio1}}</p>
-      <p>{{t.aboutBio2}}</p>
-      <p>{{t.aboutBio3}}</p>
-      <p class="apr-signe">— {{t.aboutSignature}}</p>
+    <div class="apr-grille">
+      <figure class="apr-photo"><img src="/assets/img/pierre-emmanuel.jpg" width="600" height="800" alt="{{t.aboutPhotoAlt}}" loading="eager" decoding="async"></figure>
+      <div class="apr-lettre">
+        <p>{{t.aboutBio1}}</p>
+        <p>{{t.aboutBio2}}</p>
+        <p>{{t.aboutBio3}}</p>
+        <p class="apr-signe">— {{t.aboutSignature}}</p>
+      </div>
     </div>
     <p class="apr-liens"><a href="{{url.methodologie}}">{{t.navMethodo}}</a><span aria-hidden="true">·</span><a href="{{url.contact}}">{{t.aboutWrite}}</a></p>
   </section>

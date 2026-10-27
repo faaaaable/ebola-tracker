@@ -5129,6 +5129,19 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .apr-liens{display:flex;justify-content:center;gap:12px;font-size:15px;margin:22px 0 0;}
 .apr-liens span{color:var(--ink-faint);}
 @media (max-width:560px){.apr-lettre{font-size:18px;padding-top:26px;}}
+/* Photo de l'auteur (27 octobre 2026, maquette n°3 de proto-apropos-photo-1027c) :
+   a gauche de la lettre, coins arrondis et ombre douce plutot qu'un cadre ;
+   la photo est viree dans l'encre brune et le creme du site (noirs releves).
+   Sur telephone, petite et centree au-dessus du texte. */
+.section.apr:has(.apr-grille){max-width:900px;}
+.apr-grille{display:grid;grid-template-columns:260px minmax(0,1fr);gap:44px;align-items:start;}
+.apr-photo{margin:0;position:sticky;top:90px;}
+.apr-photo img{display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 18px 40px -12px rgba(31,26,19,.28),0 2px 6px rgba(31,26,19,.08);}
+@media (max-width:760px){
+  .apr-grille{grid-template-columns:1fr;gap:24px;}
+  .apr-photo{position:static;width:132px;margin:0 auto;}
+  .apr-photo img{border-radius:10px;box-shadow:0 12px 26px -10px rgba(31,26,19,.28),0 1px 4px rgba(31,26,19,.08);}
+}
 
 /* ---- Onglet « Etre prevenu » et sa page (19 octobre 2026) ----
    Un onglet simple au bout de la barre, sans menu : une cloche bleue devant
