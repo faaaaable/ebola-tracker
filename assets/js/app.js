@@ -2620,8 +2620,11 @@ function renderOneChartBrut(canvas, chartMode){
                     },
                   } }) },
         layout:{ padding:{ right: surTelephone() ? 8 : 104 } },
+        /* Une marge au-dessus du plus haut cumul (28 octobre 2026, demande
+           du proprietaire) : sans elle, sur une page province, la courbe
+           finissait collee au bord haut du graphique. */
         scales:{ x:axeX(true),
-                 y:{ beginAtZero:true,
+                 y:{ beginAtZero:true, grace:'15%',
                      ticks:Object.assign({}, axeTexte, { callback:v => fmt(v) }),
                      grid:{ color:PALETTE.line } } } };
       dessiner('line', data, opts);
