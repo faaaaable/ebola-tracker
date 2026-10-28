@@ -5138,8 +5138,8 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .apr-photo{margin:0;}
 /* Etiquette LinkedIn sous la photo (28 octobre 2026, maquette n°2 de
    tmp/proto-apropos-linkedin-1028) : « in » au trait, couleur de l'encre ;
-   « Mon profil LinkedIn » sur une ligne, sans le prenom deja signe. */
-.apr-li{display:flex;align-items:center;gap:10px;margin-top:16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;font-size:15px;line-height:1.25;transition:border-color .15s,background .15s;}
+   « LinkedIn » seul, centre sous la photo (28 octobre 2026). */
+.apr-li{display:flex;align-items:center;gap:10px;width:max-content;margin:16px auto 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;font-size:15px;line-height:1.25;transition:border-color .15s,background .15s;}
 .apr-li:hover{border-color:var(--ink-faint);background:rgba(31,26,19,.03);}
 .apr-li svg{flex:none;}
 .apr-photo img{display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 18px 40px -12px rgba(31,26,19,.28),0 2px 6px rgba(31,26,19,.08);}
