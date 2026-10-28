@@ -375,7 +375,7 @@ ouvert, et alors rien n'est rendu**, exactement comme `xProfile` avant le
 8 septembre. Ouvrir le canal, c'est renseigner ce champ et poser les
 secrets ; aucun code à toucher.
 
-**Telegram** : `scripts/notifier_telegram.py`, un canal public par langue,
+**Telegram — SUPPRIMÉ le 28 octobre 2026** (jamais mis en service, à la demande du propriétaire ; le workflow et le script sont dans l'historique git, commit « Retrait de l'alerte Telegram »). Ce qui suit décrit l'ancien montage. `scripts/notifier_telegram.py`, un canal public par langue,
 appelé par `.github/workflows/flux-et-alertes.yml` quand `data/lettres/**`
 ou `data/bulletin-notes.json` arrive sur `main`. Secrets
 `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID_FR` / `_EN` / `_SW` ; **une

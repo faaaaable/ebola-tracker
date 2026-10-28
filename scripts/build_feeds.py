@@ -13,8 +13,9 @@ flux en lettre par courriel (Brevo, Buttondown) et les relais Slack ou
 Teams des organisations qui suivent l'epidemie s'y branchent sans que le
 depot ait a les connaitre.
 
-Appele par scripts/build_pages.py a chaque generation, et par le workflow
-.github/workflows/flux-et-alertes.yml des qu'une lettre parait.
+Appele par scripts/build_pages.py a chaque generation. Le workflow
+flux-et-alertes.yml (alerte Telegram) qui l'utilisait aussi est supprime
+depuis le 28 octobre 2026.
 """
 
 import json

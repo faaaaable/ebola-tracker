@@ -302,9 +302,11 @@ Cette partie vit dans la skill `page-virus` (`.claude/skills/page-virus/SKILL.md
 ## Nom du site, compte X, alerte Telegram, rangée des provinces
 
 Cette partie vit dans la skill `gabarits-site` (`.claude/skills/gabarits-site/SKILL.md`), chargee a la demande.
-**`scripts/build_feeds.py` ne doit pas être supprimé** : le flux RSS est retiré
-depuis le 23 septembre 2026, mais `notifier_telegram.py` lui emprunte la
-composition du message.
+**L'alerte Telegram est supprimée depuis le 28 octobre 2026** (workflow
+`flux-et-alertes.yml` et `scripts/notifier_telegram.py`, jamais mis en service :
+aucun canal ni secret, le job échouait à chaque bulletin faute de
+`data/notifie.json`). `scripts/build_feeds.py` reste, sans appelant d'annonce :
+le flux RSS (retiré le 23 septembre 2026) peut revenir sans être réécrit.
 
 ## Conventions établies
 

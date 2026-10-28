@@ -267,8 +267,9 @@ portait — ne pas refaire sans qu'il le redemande — sont restees dans le guid
   `backfill-*`, `diagnose-*`, `geocode-*`) ont été supprimés le 21 octobre
   2026 : chantiers finis, surface d'attaque inutile. Les scripts qu'ils
   lançaient restent dans `scripts/`. Restent six workflows : `build-pages`,
-  `sync-sitreps`, `collecter-actus`, `envoi-lettre`, `flux-et-alertes`,
-  `download-who-sitreps` (manuel), tous avec leurs droits déclarés.
+  `sync-sitreps`, `collecter-actus`, `envoi-lettre`, `envoi-test`,
+  `download-who-sitreps` (manuel) ; `flux-et-alertes` (Telegram) supprimé le
+  28 octobre 2026, tous avec leurs droits déclarés.
 - **Bas-Uélé** porte le rouge `#993A2E` comme couleur d'identité. S'il franchit
   les 50 cas, ses barres seraient rouges sur un site où le rouge signifie la
   mort. Lui trouver une autre teinte le moment venu.
