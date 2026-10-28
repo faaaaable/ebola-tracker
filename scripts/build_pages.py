@@ -4729,7 +4729,6 @@ def main():
         common_seed["seed.alertesWhatsapp"] = (
             '<div class="al-ou"><span>%s</span></div>\n    <a class="al-wa" href="%s" rel="noopener" target="_blank">%s %s</a>'
             % (esc(strings_lang["alertesOu"]), esc(wa), WA_ICONE, esc(strings_lang["alertesWhatsapp"]))) if wa else ""
-        common_seed["seed.suivreXContact"] = ('<p class="map-note contact-x">%s %s</p>' % (esc(strings_lang["contactFollowBody"]), lx)) if lx else ""
 
         pages = [(page, None) for page in config["pages"]]
         pages += [(config["provincePage"], province) for province in provinces]

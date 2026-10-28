@@ -2759,7 +2759,6 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 /* Lien vers le compte X : icone en trait avant le libelle, dans le pied et sur A propos / Contact (8 septembre 2026). */
 .lien-x{white-space:nowrap;}  /* l'icone et l'identifiant restent ensemble */
 .lien-x svg{vertical-align:-1px;margin-right:4px;}
-.contact-x{margin-top:14px;}
 
 /* Compte X dans l'en-tete (8 septembre 2026) : sur ordinateur, un glyphe au
    bout de la rangee des langues, meme gris que les codes ; sur telephone,
@@ -4560,7 +4559,6 @@ main:has(.pays-hero) .zones-block,main:has(.pays-hero) .cadre-corps > .panel-fit
 @media(max-width:760px){.ap-etapes{grid-template-columns:1fr;gap:26px;}}
 
 /* Contact : la ligne « Pour suivre les mises a jour sans ecrire : @EbolaTrackerRDC » centree (7 oct. 2026, demande de Fable). */
-.map-note.contact-x{text-align:center;margin-left:auto;margin-right:auto;}
 
 /* Lieu du deces (pages province et Ensemble du pays) : le paragraphe sous le titre centre (7 oct. 2026, demande de Fable). */
 .fiche-texte.fiche-texte-centre{text-align:center;margin-left:auto;margin-right:auto;}
@@ -5135,11 +5133,20 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
    Sur telephone, petite et centree au-dessus du texte. */
 .section.apr:has(.apr-grille){max-width:900px;}
 .apr-grille{display:grid;grid-template-columns:260px minmax(0,1fr);gap:44px;align-items:start;}
-.apr-photo{margin:0;position:sticky;top:90px;}
+/* Fixe dans la page (28 octobre 2026, demande de Fable) : elle suivait le
+   defilement de la lettre (position sticky), elle reste maintenant en haut. */
+.apr-photo{margin:0;}
+/* Etiquette LinkedIn sous la photo (28 octobre 2026, maquette n°2 de
+   tmp/proto-apropos-linkedin-1028) : « in » au trait, couleur de l'encre. */
+.apr-li{display:flex;align-items:center;gap:10px;margin-top:16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;font-size:15px;line-height:1.25;transition:border-color .15s,background .15s;}
+.apr-li:hover{border-color:var(--ink-faint);background:rgba(31,26,19,.03);}
+.apr-li svg{flex:none;}
+.apr-li small{color:var(--ink-faint);font-size:13px;}
 .apr-photo img{display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 18px 40px -12px rgba(31,26,19,.28),0 2px 6px rgba(31,26,19,.08);}
 @media (max-width:760px){
   .apr-grille{grid-template-columns:1fr;gap:24px;}
-  .apr-photo{position:static;width:132px;margin:0 auto;}
+  .apr-photo img{width:132px;margin:0 auto;}
+  .apr-li{justify-content:center;width:max-content;margin:12px auto 0;}
   .apr-photo img{border-radius:10px;box-shadow:0 12px 26px -10px rgba(31,26,19,.28),0 1px 4px rgba(31,26,19,.08);}
 }
 
@@ -5345,3 +5352,5 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
   .grille-legende .leg-br{display:block;flex-basis:100%;height:0;}
   .grille-legende i.tu{margin-left:0;}
 }
+/* Adresse sous le formulaire de contact (28 octobre 2026). */
+.map-note.contact-mail{text-align:center;margin:14px auto 0;}
