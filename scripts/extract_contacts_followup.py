@@ -204,10 +204,12 @@ CONTACTS_PARMI_LES_RE = re.compile(
 # contacts sont le sujet, sans « parmi » ni « sur » : aucun motif ne lisait la
 # phrase, et le repli prenait dans le résumé « progresse de 84,8 % à 89,1 % »
 # le taux de LA VEILLE. Memes groupes que CONTACTS_PARMI_LES_RE : a suivre,
-# vus, taux.
+# vus, taux. SitRep 165 (26 octobre 2026) : « 34 935 contacts étaient sous
+# suivi dans six provinces ; 29 528 ont été vus », sans « les » devant le
+# nombre de provinces : le 26 octobre sortait sans effectifs nationaux.
 CONTACTS_ETAIENT_RE = re.compile(
     r"(\d[\d\s]*?)\s+contacts\s+étaient\s+(?:sous\s+suivi|en\s+cours\s+de\s+suivi|(?:à|a)\s+suivre)"
-    r"(?:\s+dans\s+les\s+(?:\w+\s+)?provinces\s[^,.;%]{0,60}?)?\s*[,;]?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
+    r"(?:\s+dans\s+(?:les\s+)?(?:\w+\s+)?provinces\s[^,.;%]{0,60}?)?\s*[,;]?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
     r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+(?:une\s+proportion|un\s+taux)(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,

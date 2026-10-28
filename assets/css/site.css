@@ -5332,3 +5332,16 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .cf-liens a{display:inline-block;margin:0 5px 10px;padding:11px 18px;border:1.5px solid #005073;border-radius:10px;color:#005073;font:700 14px Arial,Helvetica,sans-serif;text-decoration:none;}
 .cf-liens a.is-plein{background:#005073;color:#fff;}
 @media (max-width:520px){.cf-corps{padding:20px 22px 6px;}.cf-marque{font-size:32px;letter-spacing:4px;}}
+
+/* Grille des obstacles : cases hachurees = semaines apres la derniere
+   mention d'un obstacle que les Defis ont cesse de citer (27 octobre 2026). */
+.grille-cases i.n0.tu,.grille-legende i.n0.tu{background:repeating-linear-gradient(135deg,var(--accent-strong) 0 1.5px,transparent 1.5px 5px);opacity:.55;}
+.grille-legende i.tu{margin-left:14px;}
+.grille-legende .leg-br{display:none;}
+@media (max-width:760px){
+  .grille-legende{flex-wrap:wrap;row-gap:8px;}
+  .grille-legende i{flex:none;}
+  .grille-legende span{flex:1 1 calc(100% - 110px);}
+  .grille-legende .leg-br{display:block;flex-basis:100%;height:0;}
+  .grille-legende i.tu{margin-left:0;}
+}

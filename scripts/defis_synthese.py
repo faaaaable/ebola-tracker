@@ -161,6 +161,15 @@ def grille(L, esc, long_date, i18n_lang, debut, fin, ent_tous, themes, tl, lien,
     # dans site.css ; a la quinzieme semaine (SitRep 119, 10 septembre 2026)
     # la derniere case de chaque ligne passait a la ligne sous juin.
 
+    # Un obstacle que les Defis ont cesse de citer (theme["silence"],
+    # 27 octobre 2026 : les contacts, plus cites apres le 13 septembre alors que
+    # le taux de suivi reste publie) : toutes ses cases apres la derniere
+    # semaine qui le cite sont hachurees, dans la grille du pays comme dans
+    # celle d'une province (a partir de sa propre derniere mention). Essais du
+    # meme jour ecartes : hachures a date fixe avec le taux au survol, note
+    # sous le titre puis sous la legende.
+    tu_vus = False
+
     def niveau(n, p):
         if n == 0 or p == 0:
             return 0
@@ -176,18 +185,25 @@ def grille(L, esc, long_date, i18n_lang, debut, fin, ent_tous, themes, tl, lien,
             k = (_date.fromisoformat(d) - d0).days // 7
             if 0 <= k < nb_sem:
                 comptes[k] += 1
+        dern_k = max((k for k, n in enumerate(comptes) if n), default=None) if t.get("silence") else None
         cases = []
         for k, (n, p) in enumerate(zip(comptes, parus)):
             ds_ = d0 + _td(days=7 * k)
             de_ = min(ds_ + _td(days=6), _date.fromisoformat(fin))
             info = survol % (long_date(ds_.isoformat(), i18n_lang), long_date(de_.isoformat(), i18n_lang), n, "" if (n == 1 or L == "sw") else "s", p)
-            cases.append('<i class="n%d" data-semaine="%s"></i>' % (niveau(n, p), esc(info)))
+            tu = dern_k is not None and k > dern_k
+            tu_vus = tu_vus or tu
+            cases.append('<i class="n%d%s" data-semaine="%s"></i>' % (niveau(n, p), " tu" if tu else "", esc(info)))
         html.append('<div class="grille-row"><div class="frise-label"><a href="%s"><span class="frise-num">%02d</span>%s</a></div>'
                     '<div class="grille-cases">%s</div></div>' % (lien(t), i, esc(tl(t)["titre"]), "".join(cases)))
     legende = {"fr": "part des bulletins de la semaine : aucun, moins de la moitié, la plupart, tous",
                "en": "share of the week's bulletins: none, under half, most, all",
                "sw": "sehemu ya ripoti za wiki: hakuna, chini ya nusu, nyingi, zote"}[L]
-    html.append('<div class="grille-legende"><i class="n0"></i><i class="n1"></i><i class="n2"></i><i class="n3"></i><span>%s</span></div>' % esc(legende))
+    html.append('<div class="grille-legende"><i class="n0"></i><i class="n1"></i><i class="n2"></i><i class="n3"></i><span>%s</span>%s</div>' % (esc(legende), (
+        '<b class="leg-br"></b><i class="n0 tu"></i><span>%s</span>' % esc({
+            "fr": "hachuré : plus cité depuis la dernière mention",
+            "en": "hatched: not cited since the last mention",
+            "sw": "mistari: haijatajwa tangu ilipotajwa mara ya mwisho"}[L])) if tu_vus else ""))
     html.append('</div>')
     return "".join(html)
 

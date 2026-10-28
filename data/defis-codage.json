@@ -1350,7 +1350,14 @@
 ]
 }
 ],
-"démotivation du personnel": [],
+"démotivation du personnel": [
+{
+"province": "aucune",
+"obstacles": [
+"impayes"
+]
+}
+],
 "elaborer la cartographie de la mobilité de la population dans les zones de santé touchées": [],
 "en ituri deux corps sans vie interceptés au poc zunguluka n ont pu être swabés en raison de l insécurité et les équipes de santé animale ne peuvent réaliser de prélèvements faute de formation au nord kivu pas de véhicule permanent et la motivation pécuniaire des agents demeure insuffisante au sud kivu la démotivation des acteurs provinciaux et zonaux liée au non paiement appelle une régularisation immédiate": [
 {
@@ -5673,7 +5680,8 @@
 "province": "Bas-Uélé",
 "obstacles": [
 "completude",
-"ruptures"
+"ruptures",
+"impayes"
 ]
 },
 {
@@ -5704,7 +5712,8 @@
 "province": "Bas-Uélé",
 "obstacles": [
 "completude",
-"ruptures"
+"ruptures",
+"impayes"
 ]
 },
 {
@@ -5732,7 +5741,8 @@
 "province": "Bas-Uélé",
 "obstacles": [
 "completude",
-"ruptures"
+"ruptures",
+"impayes"
 ]
 },
 {
@@ -5759,7 +5769,8 @@
 {
 "province": "Bas-Uélé",
 "obstacles": [
-"completude"
+"completude",
+"impayes"
 ]
 },
 {
@@ -5787,7 +5798,8 @@
 {
 "province": "Bas-Uélé",
 "obstacles": [
-"completude"
+"completude",
+"impayes"
 ]
 },
 {
@@ -8217,7 +8229,8 @@
 "province": "Bas-Uélé",
 "obstacles": [
 "poc",
-"ruptures"
+"ruptures",
+"impayes"
 ]
 }
 ],
@@ -8396,7 +8409,8 @@
 "province": "Bas-Uélé",
 "obstacles": [
 "poc",
-"ruptures"
+"ruptures",
+"impayes"
 ]
 }
 ],
@@ -8544,7 +8558,8 @@
 "province": "Bas-Uélé",
 "obstacles": [
 "poc",
-"ruptures"
+"ruptures",
+"impayes"
 ]
 }
 ],
@@ -9183,7 +9198,8 @@
 "province": "Haut-Uélé",
 "obstacles": [
 "completude",
-"ruptures"
+"ruptures",
+"impayes"
 ]
 }
 ],
@@ -9372,7 +9388,8 @@
 "obstacles": [
 "resistance",
 "completude",
-"ruptures"
+"ruptures",
+"impayes"
 ]
 },
 {
@@ -10231,6 +10248,198 @@
 "poc",
 "insecurite"
 ]
+}
+],
+"couverture encore insuffisante des activités psea limitée à # zones de santé sur # en ituri absence de cartographie des intervenants insuffisance de supports de sensibilisation de masse et manque de moyens de transport et d équipement informatique pour le pilier": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"couverture encore insuffisante des activités de sensibilisation et de renforcement des mécanismes de prévention de signalement et de gestion des cas d exploitation et d abus sexuels dans l ensemble des zones concernées par la riposte": [],
+"insécurité persistante et résistances communautaires lors des enterrements dignes et sécurisés limitant l accès des équipes de riposte la continuité des interventions et la couverture des activités dans certaines zones affectées": [
+{
+"province": "aucune",
+"obstacles": [
+"eds",
+"insecurite",
+"resistance"
+]
+}
+],
+"au bas uélé la mise en marche des ucc n est pas effective et la couverture reste très faible à bili # sur # # à aketi # # et à titule # # à la tshopo seuls # agents sur # # # sont vaccinés": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": []
+}
+],
+"au nord kivu les équipes eds et pci ont été escortées pour l enterrement de # cas confirmés à bundji et la décontamination de ménages et d ess à benengule butanuka et tamende à la tshopo les agressions contre les équipes empêchent le suivi de # contacts": [
+{
+"province": "Nord-Kivu",
+"obstacles": []
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"attaques",
+"contacts"
+]
+}
+],
+"au nord kivu ouverture des rings # # et décontamination des ménages # # faibles à katwa et beni aucun ménage doté en kit en ituri résistances aux eds à bambu mangala et mandima": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"eds",
+"ruptures"
+]
+},
+{
+"province": "Ituri",
+"obstacles": [
+"eds",
+"resistance"
+]
+}
+],
+"en ituri # suspects validés aux poc de mandima et de nizi n ont pas été transférés # ambulance disponible refus le poc d avakubi reste non fonctionnel pour cause d insécurité et # # voyageurs # # ont refusé le screening au nord kivu le poc butuhe reste fermé depuis l incident sécuritaire du # septembre # au bas uélé et au sud kivu la complétude des rapports reste faible # et #": [
+{
+"province": "Ituri",
+"obstacles": [
+"poc",
+"ruptures",
+"insecurite",
+"resistance"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"completude",
+"poc"
+]
+},
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"completude",
+"poc"
+]
+}
+],
+"en ituri la quantité de sang reçue reste insuffisante par rapports aux besoins bénéficié d alimentation et # malades sont critiques au nord kivu les cte ct approchent la saturation # # et # patients sont pris en charge hors cte ct à la tshopo # confirmés se sont évadés à bafwasende au haut uélé la couverture réseau reste faible et les intrants nutritionnels font défaut": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"saturation"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"resistance"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"faible remontée des données du pilier aucune donnée du haut uélé du bas uélé et du sud ubangi rupturesde meg vitaux et produits sanguins insuffisants au ch tinge nord kivu": [
+{
+"province": "aucune",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Sud-Ubangi",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"à la tshopo # corps sur # non swabés au bas uélé # ess prioritaires sur # sans triage fonctionnel # sur # # # sans eau et seuls # prestataires sur # # # formés en pci wash": [
+{
+"province": "Tshopo",
+"obstacles": [
+"eds"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"en ituri seules # zs affectées sur # # # sont couvertes seuls # nouveaux cas confirmés sur # # # ont été pris en charge et la couverture reste incomplète autour des derniers cas de bunia # # et de lita # # à la tshopo les aps de la zs de wanie rukula ne sont pas formés et le pilier manque d unités de communication et de moyens de déplacement": [
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"la couverture des zones touchées reste faible en ituri seules # zs sur # # # connaissent le mécanisme de signalement et seuls # partenaires oms et imc rapportent leurs activités psea au nord kivu seules # zs sur # # # connaissent le mécanisme de signalement seules # dps sur # # # ont rapporté leurs activités psea au cours des dernières # heures": [
+{
+"province": "aucune",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Ituri",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": []
 }
 ]
 }
