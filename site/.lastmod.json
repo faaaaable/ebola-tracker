@@ -25,12 +25,12 @@
 "published": "2026-10-08"
 },
 "base-de-donnees/index.html": {
-"hash": "731fe5bd0cb52489",
+"hash": "249e03dfccf2aacf",
 "modified": "2026-10-28",
 "published": "2026-10-08"
 },
 "chronologie/index.html": {
-"hash": "350305ed8428c9c2",
+"hash": "ec30d8aa012910f8",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
@@ -40,57 +40,57 @@
 "published": "2026-08-22"
 },
 "dashboard/index.html": {
-"hash": "ccbec5c7638d2621",
+"hash": "80c13d02cca0a564",
 "modified": "2026-10-28",
 "published": "2026-10-19"
 },
 "defis/index.html": {
-"hash": "256caa70631bacb5",
+"hash": "bf8a3e666b79b903",
 "modified": "2026-10-28",
 "published": "2026-10-08"
 },
 "donnees/bas-uele/index.html": {
-"hash": "bd60904d0288a2c8",
+"hash": "b59511017e416622",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "donnees/haut-uele/index.html": {
-"hash": "84cc23353bb1d856",
+"hash": "a341a6458b668add",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "donnees/index.html": {
-"hash": "f037a1c9bdd94e5a",
+"hash": "85d97ef67883f0cf",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "donnees/ituri/index.html": {
-"hash": "7215a4d4d2d68c3d",
+"hash": "531b1ebd57cb7738",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "donnees/nord-kivu/index.html": {
-"hash": "a5c0b9263b26da04",
+"hash": "75bec6a0f0429df1",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "donnees/nord-ubangi/index.html": {
-"hash": "c5c7f163e81001d2",
+"hash": "99fd1fd3d6ed759d",
 "modified": "2026-10-28",
 "published": "2026-10-18"
 },
 "donnees/sud-kivu/index.html": {
-"hash": "ade1346952946b1f",
+"hash": "ecf79a297d548e79",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "donnees/sud-ubangi/index.html": {
-"hash": "a828ff85d9aca47a",
+"hash": "97fd69e48d79bfee",
 "modified": "2026-10-28",
 "published": "2026-09-11"
 },
 "donnees/tshopo/index.html": {
-"hash": "c042a1eb34221235",
+"hash": "bf9c1fb6747b297c",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
@@ -110,7 +110,7 @@
 "published": "2026-10-19"
 },
 "en/challenges/index.html": {
-"hash": "0d78098fc8b5556a",
+"hash": "bbf34c3739340ed2",
 "modified": "2026-10-28",
 "published": "2026-10-08"
 },
@@ -120,57 +120,57 @@
 "published": "2026-08-22"
 },
 "en/dashboard/index.html": {
-"hash": "1a82fbcef723f9b0",
+"hash": "de9a771db17fd2bc",
 "modified": "2026-10-28",
 "published": "2026-10-19"
 },
 "en/data/bas-uele/index.html": {
-"hash": "89bb489bb3fc6ecc",
+"hash": "f68dd2bb2b864f6c",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/data/haut-uele/index.html": {
-"hash": "d89748c8ed825dbd",
+"hash": "b585bb670abc2642",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/data/index.html": {
-"hash": "70b991a99031fe71",
+"hash": "7d9649574e6ec7c7",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/data/ituri/index.html": {
-"hash": "eef2fded9cd58974",
+"hash": "a0ed75080d2e84b9",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/data/nord-kivu/index.html": {
-"hash": "7d4b670ed9bfc686",
+"hash": "2e45c3070b950ed3",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/data/nord-ubangi/index.html": {
-"hash": "404745bf98b28c38",
+"hash": "0b05c2e67772af41",
 "modified": "2026-10-28",
 "published": "2026-10-18"
 },
 "en/data/sud-kivu/index.html": {
-"hash": "1e6d028cbd8abd7b",
+"hash": "7a21d897c4b78688",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/data/sud-ubangi/index.html": {
-"hash": "efc42761653b0aa5",
+"hash": "b581ee7d81f7abbc",
 "modified": "2026-10-28",
 "published": "2026-09-11"
 },
 "en/data/tshopo/index.html": {
-"hash": "47c69f0cab1dd8c4",
+"hash": "5e43b41a00f1cef7",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/database/index.html": {
-"hash": "d6883b63decc1620",
+"hash": "10e863eaf24ceec9",
 "modified": "2026-10-28",
 "published": "2026-10-08"
 },
@@ -190,392 +190,397 @@
 "published": "2026-09-10"
 },
 "en/index.html": {
-"hash": "d571b708c8a95299",
+"hash": "1a34555fb14b34b8",
 "modified": "2026-10-28",
 "published": "2026-08-14"
 },
 "en/kenya/index.html": {
-"hash": "5024df96daa9b797",
+"hash": "1dff80989092b123",
 "modified": "2026-10-28",
 "published": "2026-10-09"
 },
 "en/letter/090/index.html": {
-"hash": "368fc8a95d2af15a",
+"hash": "9d848e3f0888e544",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/091/index.html": {
-"hash": "2251893ffa81eb1a",
+"hash": "c4d70a95df0ca8ac",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/092/index.html": {
-"hash": "28072433e3004558",
+"hash": "e82bfc813db95285",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/093/index.html": {
-"hash": "0d64f9b92fef7feb",
+"hash": "b24f629b89dced79",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/094/index.html": {
-"hash": "940377496b5d04ab",
+"hash": "031ababe68463eab",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/095/index.html": {
-"hash": "70fe84d49816cc70",
+"hash": "7c3b7c51645fd701",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/096/index.html": {
-"hash": "e7d546fa3f5610cc",
+"hash": "cae93f2b7cc4dbe8",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/097/index.html": {
-"hash": "d16fb05800263d1d",
+"hash": "bb5976ba86e2c5ad",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/098/index.html": {
-"hash": "c58323af4b2ef0e1",
+"hash": "17c7793192e6f1a9",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/099/index.html": {
-"hash": "bb1c101eed74110c",
+"hash": "27b2c53ca562976e",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/100/index.html": {
-"hash": "8fa3aff57936c802",
+"hash": "3bea965f3f1c59b2",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/101/index.html": {
-"hash": "37b97650dc6d9acb",
+"hash": "f9092a2353cbe365",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/102/index.html": {
-"hash": "8237b39bd99020e2",
+"hash": "155668b6ef869267",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/103/index.html": {
-"hash": "0a98cae71a465563",
+"hash": "ac978490e80cd23b",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/104/index.html": {
-"hash": "4e202a6fe5cdf73e",
+"hash": "9f7bdf9fdb5120a6",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/105/index.html": {
-"hash": "0afcd279c703d3ba",
+"hash": "b0c745d350652b0d",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/106/index.html": {
-"hash": "7ebb37e1e925b062",
+"hash": "cf4acd0eefc4f2a3",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/107/index.html": {
-"hash": "132352d399b8aa05",
+"hash": "58af337326c44f75",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/108/index.html": {
-"hash": "9402b66a1e4f4647",
+"hash": "2eef693f40b9a31d",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/109/index.html": {
-"hash": "b38cd5d5866de90c",
+"hash": "85883d5292fbdc82",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/110/index.html": {
-"hash": "0ffd4113fdbfc408",
+"hash": "c4d269cfb5dba284",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/111/index.html": {
-"hash": "18f51594db366e10",
+"hash": "8ad377ae3336250f",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/112/index.html": {
-"hash": "346c5781fad79d48",
+"hash": "0e1699ba51c8fad9",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/113/index.html": {
-"hash": "cc1a3e6b319f97ff",
+"hash": "86da92597dec916d",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/114/index.html": {
-"hash": "fb88fcd9863de7a8",
+"hash": "8a96cd9f6fd24dff",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "en/letter/115/index.html": {
-"hash": "bcdda3ef5b1978e6",
+"hash": "3e3367f680c4cba4",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/116/index.html": {
-"hash": "2fd94edd47a2e38d",
+"hash": "9dc4513f66417e36",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "en/letter/117/index.html": {
-"hash": "27bd9e9363912c1b",
+"hash": "9649527b5a8ef3e3",
 "modified": "2026-10-28",
 "published": "2026-09-10"
 },
 "en/letter/118/index.html": {
-"hash": "d1557435703d2515",
+"hash": "bf555759660a985a",
 "modified": "2026-10-28",
 "published": "2026-09-11"
 },
 "en/letter/119/index.html": {
-"hash": "328f9c3ddd00ba9c",
+"hash": "c163decb383fbdb7",
 "modified": "2026-10-28",
 "published": "2026-09-11"
 },
 "en/letter/120/index.html": {
-"hash": "53c2dd0efe4985d2",
+"hash": "5c550d02707b38f9",
 "modified": "2026-10-28",
 "published": "2026-09-14"
 },
 "en/letter/121/index.html": {
-"hash": "e58433f176a1531b",
+"hash": "ea0a99bd4605197e",
 "modified": "2026-10-28",
 "published": "2026-09-14"
 },
 "en/letter/122/index.html": {
-"hash": "4b17b12fe8f85e40",
+"hash": "6dd2f1156e462f75",
 "modified": "2026-10-28",
 "published": "2026-09-15"
 },
 "en/letter/123/index.html": {
-"hash": "b7de8b5acd67fa78",
+"hash": "972f0ba6dc9d4ee1",
 "modified": "2026-10-28",
 "published": "2026-09-17"
 },
 "en/letter/124/index.html": {
-"hash": "898afac6deda6030",
+"hash": "3fee700e0ca9d52f",
 "modified": "2026-10-28",
 "published": "2026-09-17"
 },
 "en/letter/125/index.html": {
-"hash": "07ab01c575f22ddf",
+"hash": "1bc0fd8f9faa882e",
 "modified": "2026-10-28",
 "published": "2026-09-18"
 },
 "en/letter/126/index.html": {
-"hash": "e5f54f78522eece4",
+"hash": "fd271f6eccb9e62b",
 "modified": "2026-10-28",
 "published": "2026-09-19"
 },
 "en/letter/127/index.html": {
-"hash": "6ca6bc13c6375084",
+"hash": "6284b4354299abf1",
 "modified": "2026-10-28",
 "published": "2026-09-20"
 },
 "en/letter/128/index.html": {
-"hash": "c356f7153cfdca82",
+"hash": "2774e2f07207d830",
 "modified": "2026-10-28",
 "published": "2026-09-21"
 },
 "en/letter/129/index.html": {
-"hash": "2b3a7528bf6321de",
+"hash": "84e4f2b5f61c6e55",
 "modified": "2026-10-28",
 "published": "2026-09-23"
 },
 "en/letter/130/index.html": {
-"hash": "fc339570aea6d0f3",
+"hash": "25cadd6962380028",
 "modified": "2026-10-28",
 "published": "2026-09-23"
 },
 "en/letter/131/index.html": {
-"hash": "1279a834c0aaae46",
+"hash": "9902f0dcf608a696",
 "modified": "2026-10-28",
 "published": "2026-09-24"
 },
 "en/letter/132/index.html": {
-"hash": "c2ae6d4efba6f3f3",
+"hash": "e8186b111fb67e99",
 "modified": "2026-10-28",
 "published": "2026-09-25"
 },
 "en/letter/133/index.html": {
-"hash": "cf95808769075f92",
+"hash": "76e6f32a5dceff07",
 "modified": "2026-10-28",
 "published": "2026-09-26"
 },
 "en/letter/134/index.html": {
-"hash": "d02865ad418b9229",
+"hash": "589fc78168e643ad",
 "modified": "2026-10-28",
 "published": "2026-09-28"
 },
 "en/letter/135/index.html": {
-"hash": "a48332b27d1faea7",
+"hash": "ec53b0c43acbfefd",
 "modified": "2026-10-28",
 "published": "2026-09-28"
 },
 "en/letter/136/index.html": {
-"hash": "16e41a1d4c245452",
+"hash": "598aa31967390f24",
 "modified": "2026-10-28",
 "published": "2026-09-29"
 },
 "en/letter/137/index.html": {
-"hash": "e638e77033ead875",
+"hash": "6c5ededa56d57e87",
 "modified": "2026-10-28",
 "published": "2026-10-03"
 },
 "en/letter/138/index.html": {
-"hash": "6ddce747b28008f3",
+"hash": "953667e33bbc361f",
 "modified": "2026-10-28",
 "published": "2026-10-01"
 },
 "en/letter/139/index.html": {
-"hash": "7fece3c0bc2fccbb",
+"hash": "c838ae27b9b952fa",
 "modified": "2026-10-28",
 "published": "2026-10-03"
 },
 "en/letter/140/index.html": {
-"hash": "76f97f00cf284d80",
+"hash": "65bedf371b7dcac3",
 "modified": "2026-10-28",
 "published": "2026-10-03"
 },
 "en/letter/141/index.html": {
-"hash": "168d03f4e617207d",
+"hash": "0f1e8082c8d67cb9",
 "modified": "2026-10-28",
 "published": "2026-10-04"
 },
 "en/letter/143/index.html": {
-"hash": "db1df1e253e3b9b2",
+"hash": "276e6ed6a5e92dcd",
 "modified": "2026-10-28",
 "published": "2026-10-06"
 },
 "en/letter/144/index.html": {
-"hash": "1b0d55d944b749e9",
+"hash": "b543a027c0a52210",
 "modified": "2026-10-28",
 "published": "2026-10-07"
 },
 "en/letter/145/index.html": {
-"hash": "8c9771c6b376fcf8",
+"hash": "83f9dda14886c183",
 "modified": "2026-10-28",
 "published": "2026-10-08"
 },
 "en/letter/146/index.html": {
-"hash": "6a9c10e4306b9861",
+"hash": "191806b12eb936af",
 "modified": "2026-10-28",
 "published": "2026-10-11"
 },
 "en/letter/147/index.html": {
-"hash": "70612449dd6928ec",
+"hash": "7fa1b6fbe2cde104",
 "modified": "2026-10-28",
 "published": "2026-10-11"
 },
 "en/letter/148/index.html": {
-"hash": "8ef70905f9362ed9",
+"hash": "8ba9814b44b52ef0",
 "modified": "2026-10-28",
 "published": "2026-10-11"
 },
 "en/letter/149/index.html": {
-"hash": "c3e3327e121e77ac",
+"hash": "5a1850a2664b44d5",
 "modified": "2026-10-28",
 "published": "2026-10-12"
 },
 "en/letter/150/index.html": {
-"hash": "89d59f3b5619ae36",
+"hash": "fb19181aa0f68fbf",
 "modified": "2026-10-28",
 "published": "2026-10-14"
 },
 "en/letter/151/index.html": {
-"hash": "df1bb740157ba8b3",
+"hash": "4da8b52ff0e78cbb",
 "modified": "2026-10-28",
 "published": "2026-10-14"
 },
 "en/letter/152/index.html": {
-"hash": "f85c273106e79592",
+"hash": "ec1d1504ff4e8a0e",
 "modified": "2026-10-28",
 "published": "2026-10-16"
 },
 "en/letter/153/index.html": {
-"hash": "77a117d70195c6e3",
+"hash": "97dff1c9aeedefe4",
 "modified": "2026-10-28",
 "published": "2026-10-16"
 },
 "en/letter/154/index.html": {
-"hash": "0eb3fa4f3d491c7c",
+"hash": "c531b0606c630dcd",
 "modified": "2026-10-28",
 "published": "2026-10-17"
 },
 "en/letter/155/index.html": {
-"hash": "e655525cb550b32e",
+"hash": "1fccea0e4b0bfedb",
 "modified": "2026-10-28",
 "published": "2026-10-18"
 },
 "en/letter/156/index.html": {
-"hash": "82f912aa1bc1b353",
+"hash": "fda04176ca70b59d",
 "modified": "2026-10-28",
 "published": "2026-10-19"
 },
 "en/letter/157/index.html": {
-"hash": "406afdf03f951b01",
+"hash": "c4f5681626975131",
 "modified": "2026-10-28",
 "published": "2026-10-20"
 },
 "en/letter/158/index.html": {
-"hash": "87ce76349df3e69c",
+"hash": "ba06ee4413133798",
 "modified": "2026-10-28",
 "published": "2026-10-21"
 },
 "en/letter/159/index.html": {
-"hash": "24742d47241e2914",
+"hash": "be46f8e1260b3baf",
 "modified": "2026-10-28",
 "published": "2026-10-22"
 },
 "en/letter/160/index.html": {
-"hash": "450558ee576017b0",
+"hash": "da97ac5c7ebdb509",
 "modified": "2026-10-28",
 "published": "2026-10-24"
 },
 "en/letter/161/index.html": {
-"hash": "df2ebf7e38632932",
+"hash": "d3cac10982e1957d",
 "modified": "2026-10-28",
 "published": "2026-10-24"
 },
 "en/letter/162/index.html": {
-"hash": "bb944db9c865d617",
+"hash": "6c43d8b8e079bfa4",
 "modified": "2026-10-28",
 "published": "2026-10-25"
 },
 "en/letter/163/index.html": {
-"hash": "86f3052634df91a5",
+"hash": "2e4a2a92c487c2d5",
 "modified": "2026-10-28",
 "published": "2026-10-26"
 },
 "en/letter/164/index.html": {
-"hash": "d56fa2ceb37f3781",
+"hash": "1de3c415afecaa26",
 "modified": "2026-10-28",
 "published": "2026-10-27"
 },
 "en/letter/165/index.html": {
-"hash": "4a6e77ee4d49b643",
+"hash": "5edbcbda75d421a4",
+"modified": "2026-10-28",
+"published": "2026-10-28"
+},
+"en/letter/166/index.html": {
+"hash": "3897d55f1c9cde20",
 "modified": "2026-10-28",
 "published": "2026-10-28"
 },
 "en/letter/index.html": {
-"hash": "4a6e77ee4d49b643",
+"hash": "3897d55f1c9cde20",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
@@ -590,7 +595,7 @@
 "published": "2026-09-24"
 },
 "en/nigeria/index.html": {
-"hash": "b4fba3158b85f95c",
+"hash": "8997879c5b1e8901",
 "modified": "2026-10-28",
 "published": "2026-10-20"
 },
@@ -600,32 +605,32 @@
 "published": "2026-10-08"
 },
 "en/reports/index.html": {
-"hash": "5034dea579da22c1",
+"hash": "6af49c5e6705a8d0",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/response/index.html": {
-"hash": "12139f2f4598741f",
+"hash": "43e2fbf04e020aa8",
 "modified": "2026-10-28",
 "published": "2026-08-28"
 },
 "en/the-virus/index.html": {
-"hash": "46ce928ec0cbfe7d",
+"hash": "2f910f5547d70e65",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/timeline/index.html": {
-"hash": "a559f3edf1650551",
+"hash": "657b5fe96061c0ed",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "en/uganda/index.html": {
-"hash": "bc5eaae9f732d1df",
+"hash": "39c7e9c53f626918",
 "modified": "2026-10-28",
 "published": "2026-10-09"
 },
 "en/visuals/index.html": {
-"hash": "a0877890cf075332",
+"hash": "7f6aeca3ec88aa36",
 "modified": "2026-10-28",
 "published": "2026-10-12"
 },
@@ -645,397 +650,402 @@
 "published": "2026-09-10"
 },
 "index.html": {
-"hash": "93a2d7c47f58c720",
+"hash": "1897fb4d955a1c8a",
 "modified": "2026-10-28",
 "published": "2026-08-11"
 },
 "kenya/index.html": {
-"hash": "4a93f1d59d02f81a",
+"hash": "9711a3ddbf11952d",
 "modified": "2026-10-28",
 "published": "2026-10-09"
 },
 "le-virus/index.html": {
-"hash": "f1a61d1c9ff20f4c",
+"hash": "bfdbd92901b07e24",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "lettre/090/index.html": {
-"hash": "98484ca76f891419",
+"hash": "2fa2fed522b452c4",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/091/index.html": {
-"hash": "a029f2cc5bacab73",
+"hash": "43ec2e52dccfae12",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/092/index.html": {
-"hash": "5b90261971eebc11",
+"hash": "1c3dd94a4b8d4da4",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/093/index.html": {
-"hash": "95cad78b8beac4bf",
+"hash": "a7ac52b3de47c8ad",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/094/index.html": {
-"hash": "40fffa7b3ab0dd94",
+"hash": "c2362ad65463bb42",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/095/index.html": {
-"hash": "661b27ff4e568d6b",
+"hash": "67f0ced5db700bb9",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/096/index.html": {
-"hash": "9d2b0b5257cc8659",
+"hash": "8596786f69b00feb",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/097/index.html": {
-"hash": "96b3339af1fa630a",
+"hash": "29f9df5352bc0fa0",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/098/index.html": {
-"hash": "268cdfc0e54c5dfe",
+"hash": "f1821a462b5317b0",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/099/index.html": {
-"hash": "7841e3cbdcb215ef",
+"hash": "82ef3ebe0950f18f",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/100/index.html": {
-"hash": "073e3d3563c49a76",
+"hash": "517b7489c79a55a5",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/101/index.html": {
-"hash": "713147d5741d7d91",
+"hash": "6b575b33a78f654f",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/102/index.html": {
-"hash": "6cfbb070b9f5e36c",
+"hash": "0e5712f3a7812849",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/103/index.html": {
-"hash": "eb935ab1fa52b6b3",
+"hash": "20cbad175ab9efa2",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/104/index.html": {
-"hash": "aea21c79a6cedf1b",
+"hash": "d9cbac7d7a1975b3",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/105/index.html": {
-"hash": "9f3f94f746f40936",
+"hash": "36946c5baab975a1",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/106/index.html": {
-"hash": "80267f3f71b1bc21",
+"hash": "1ce0549068520ce7",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/107/index.html": {
-"hash": "fdfa8ff52e3ed994",
+"hash": "92ddd85c95fba395",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/108/index.html": {
-"hash": "b1cf05b49548470b",
+"hash": "961908cab11a0340",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/109/index.html": {
-"hash": "211732dfea7f6aa8",
+"hash": "de9fc52989fe2acf",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/110/index.html": {
-"hash": "317e443cf44b9e3c",
+"hash": "9dfa5069e521bf94",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/111/index.html": {
-"hash": "41216132111fb5d8",
+"hash": "bff977ec7371dba6",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/112/index.html": {
-"hash": "73c49ff91fea86d8",
+"hash": "2b004f1f104f715f",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/113/index.html": {
-"hash": "7886bd549804f472",
+"hash": "9918d7ba1f4feb04",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/114/index.html": {
-"hash": "38ec0936f9048e01",
+"hash": "92bffbfbb0fcbf57",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "lettre/115/index.html": {
-"hash": "a0ee4ac60cfa4482",
+"hash": "a9c11c4e8fd2ead3",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/116/index.html": {
-"hash": "984f8b1acd97e039",
+"hash": "f0cabf26a1df16e3",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "lettre/117/index.html": {
-"hash": "85f95de39b4c5e55",
+"hash": "0104cb9b2e4cf998",
 "modified": "2026-10-28",
 "published": "2026-09-10"
 },
 "lettre/118/index.html": {
-"hash": "6e6b028b0be95ef9",
+"hash": "4c23078358b40d4e",
 "modified": "2026-10-28",
 "published": "2026-09-11"
 },
 "lettre/119/index.html": {
-"hash": "a552715e19cba456",
+"hash": "92ab0ca137d3cc09",
 "modified": "2026-10-28",
 "published": "2026-09-11"
 },
 "lettre/120/index.html": {
-"hash": "f04522cdb74ba3cc",
+"hash": "5de71bf6ca361f66",
 "modified": "2026-10-28",
 "published": "2026-09-14"
 },
 "lettre/121/index.html": {
-"hash": "adc290546756a8f4",
+"hash": "f11fec346cc0d459",
 "modified": "2026-10-28",
 "published": "2026-09-14"
 },
 "lettre/122/index.html": {
-"hash": "53cb78ce403b476c",
+"hash": "5d3ddd396e00de78",
 "modified": "2026-10-28",
 "published": "2026-09-15"
 },
 "lettre/123/index.html": {
-"hash": "5bd26679d6bd36e0",
+"hash": "79dd5e0a2d594dad",
 "modified": "2026-10-28",
 "published": "2026-09-17"
 },
 "lettre/124/index.html": {
-"hash": "d15ce0fbaee98697",
+"hash": "95dcf56b92bdde25",
 "modified": "2026-10-28",
 "published": "2026-09-17"
 },
 "lettre/125/index.html": {
-"hash": "906b4177844d9789",
+"hash": "7da7237fc031c781",
 "modified": "2026-10-28",
 "published": "2026-09-18"
 },
 "lettre/126/index.html": {
-"hash": "4ef4795396fb5c2c",
+"hash": "169d25199b4012c0",
 "modified": "2026-10-28",
 "published": "2026-09-19"
 },
 "lettre/127/index.html": {
-"hash": "967458f2e7b5e539",
+"hash": "5bb8c2c78cb20dad",
 "modified": "2026-10-28",
 "published": "2026-09-20"
 },
 "lettre/128/index.html": {
-"hash": "df06fada34fbf5da",
+"hash": "fce1fe2b1e993bd0",
 "modified": "2026-10-28",
 "published": "2026-09-21"
 },
 "lettre/129/index.html": {
-"hash": "fd3a4c03ac69a996",
+"hash": "2d82532e3c6f4ad8",
 "modified": "2026-10-28",
 "published": "2026-09-23"
 },
 "lettre/130/index.html": {
-"hash": "61935c834e94e133",
+"hash": "07e4a630fdcce4c4",
 "modified": "2026-10-28",
 "published": "2026-09-23"
 },
 "lettre/131/index.html": {
-"hash": "cb955c8fe38e5fc1",
+"hash": "240f0f5e956005d2",
 "modified": "2026-10-28",
 "published": "2026-09-24"
 },
 "lettre/132/index.html": {
-"hash": "418062181994b099",
+"hash": "3f095d1410d45eff",
 "modified": "2026-10-28",
 "published": "2026-09-25"
 },
 "lettre/133/index.html": {
-"hash": "7fcc3debdec053a5",
+"hash": "a00c34e39ff0b96a",
 "modified": "2026-10-28",
 "published": "2026-09-26"
 },
 "lettre/134/index.html": {
-"hash": "269751d0f2c661b0",
+"hash": "c3f308f0675b325d",
 "modified": "2026-10-28",
 "published": "2026-09-28"
 },
 "lettre/135/index.html": {
-"hash": "12d96b7393cb3524",
+"hash": "e58acfea678b12dc",
 "modified": "2026-10-28",
 "published": "2026-09-28"
 },
 "lettre/136/index.html": {
-"hash": "d5dc1ae66526f2e3",
+"hash": "9dc19da97448a0e7",
 "modified": "2026-10-28",
 "published": "2026-09-29"
 },
 "lettre/137/index.html": {
-"hash": "7fc456afeb26350b",
+"hash": "32db5f15253c3f01",
 "modified": "2026-10-28",
 "published": "2026-10-03"
 },
 "lettre/138/index.html": {
-"hash": "447e6e52f0fc0390",
+"hash": "0c4692f1bc862785",
 "modified": "2026-10-28",
 "published": "2026-10-01"
 },
 "lettre/139/index.html": {
-"hash": "3b21c2350d3338d7",
+"hash": "ce851ba77cf9169f",
 "modified": "2026-10-28",
 "published": "2026-10-03"
 },
 "lettre/140/index.html": {
-"hash": "f262676044ab0a1c",
+"hash": "ea475ae4c8f46232",
 "modified": "2026-10-28",
 "published": "2026-10-03"
 },
 "lettre/141/index.html": {
-"hash": "4678a41dbb8d7b25",
+"hash": "ff5529197e30cf8e",
 "modified": "2026-10-28",
 "published": "2026-10-04"
 },
 "lettre/143/index.html": {
-"hash": "d223f2525a54155c",
+"hash": "45189ad05cf4cc77",
 "modified": "2026-10-28",
 "published": "2026-10-06"
 },
 "lettre/144/index.html": {
-"hash": "732d36431dbd1e2e",
+"hash": "7bb51d2968cc0802",
 "modified": "2026-10-28",
 "published": "2026-10-07"
 },
 "lettre/145/index.html": {
-"hash": "ca147a94bc86e83b",
+"hash": "f623e7da50525a81",
 "modified": "2026-10-28",
 "published": "2026-10-08"
 },
 "lettre/146/index.html": {
-"hash": "09f72fe8b2eaa5e6",
+"hash": "3e2d9cf36b15529c",
 "modified": "2026-10-28",
 "published": "2026-10-11"
 },
 "lettre/147/index.html": {
-"hash": "62457b05d68263b2",
+"hash": "6d81d73e731ff00a",
 "modified": "2026-10-28",
 "published": "2026-10-11"
 },
 "lettre/148/index.html": {
-"hash": "bad34967c45822cf",
+"hash": "1965944d236919ce",
 "modified": "2026-10-28",
 "published": "2026-10-11"
 },
 "lettre/149/index.html": {
-"hash": "17b3176c8a678226",
+"hash": "e0938cdb500825fe",
 "modified": "2026-10-28",
 "published": "2026-10-12"
 },
 "lettre/150/index.html": {
-"hash": "b62e82fb130b92d9",
+"hash": "bd85f02bc8dc3ef8",
 "modified": "2026-10-28",
 "published": "2026-10-14"
 },
 "lettre/151/index.html": {
-"hash": "e9023ff42c20ab87",
+"hash": "35a5302e93c54f7f",
 "modified": "2026-10-28",
 "published": "2026-10-14"
 },
 "lettre/152/index.html": {
-"hash": "0438cb81293509e1",
+"hash": "0defc4b80c9c8b8d",
 "modified": "2026-10-28",
 "published": "2026-10-16"
 },
 "lettre/153/index.html": {
-"hash": "5bf06b799cecdc53",
+"hash": "46f2653ae65648cb",
 "modified": "2026-10-28",
 "published": "2026-10-16"
 },
 "lettre/154/index.html": {
-"hash": "d447cfbabd16686a",
+"hash": "1745c9bb43cc5516",
 "modified": "2026-10-28",
 "published": "2026-10-17"
 },
 "lettre/155/index.html": {
-"hash": "452b0fb35c1de52c",
+"hash": "565324b85b751df6",
 "modified": "2026-10-28",
 "published": "2026-10-18"
 },
 "lettre/156/index.html": {
-"hash": "ba60991f8b6ff071",
+"hash": "eda8fc36573fbc15",
 "modified": "2026-10-28",
 "published": "2026-10-19"
 },
 "lettre/157/index.html": {
-"hash": "90870e538f6484db",
+"hash": "ac2eef20b1635d83",
 "modified": "2026-10-28",
 "published": "2026-10-20"
 },
 "lettre/158/index.html": {
-"hash": "77b1e19359996cc0",
+"hash": "35363db997a88725",
 "modified": "2026-10-28",
 "published": "2026-10-21"
 },
 "lettre/159/index.html": {
-"hash": "cc5a4ad10f1959fb",
+"hash": "5a3c6897a6c2dfcd",
 "modified": "2026-10-28",
 "published": "2026-10-22"
 },
 "lettre/160/index.html": {
-"hash": "ab8b0c9b79f21b92",
+"hash": "f23374618d8f94a8",
 "modified": "2026-10-28",
 "published": "2026-10-24"
 },
 "lettre/161/index.html": {
-"hash": "9fdd1555528a27e2",
+"hash": "ccfa2bdf8e1eb250",
 "modified": "2026-10-28",
 "published": "2026-10-24"
 },
 "lettre/162/index.html": {
-"hash": "ab00a0af00aeef04",
+"hash": "2e0399160f556907",
 "modified": "2026-10-28",
 "published": "2026-10-25"
 },
 "lettre/163/index.html": {
-"hash": "7db19df1b39af4ae",
+"hash": "dd105e7508b6e64f",
 "modified": "2026-10-28",
 "published": "2026-10-26"
 },
 "lettre/164/index.html": {
-"hash": "af6abf2967d77bea",
+"hash": "2dee7903f97f7a18",
 "modified": "2026-10-28",
 "published": "2026-10-27"
 },
 "lettre/165/index.html": {
-"hash": "36e2e4ad01143f6f",
+"hash": "e07a3d54fbd3b72f",
+"modified": "2026-10-28",
+"published": "2026-10-28"
+},
+"lettre/166/index.html": {
+"hash": "db318e1b7e399e81",
 "modified": "2026-10-28",
 "published": "2026-10-28"
 },
 "lettre/index.html": {
-"hash": "36e2e4ad01143f6f",
+"hash": "db318e1b7e399e81",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
@@ -1045,22 +1055,22 @@
 "published": "2026-10-17"
 },
 "nigeria/index.html": {
-"hash": "04474b3b597d1036",
+"hash": "3d113790ab5aee2f",
 "modified": "2026-10-28",
 "published": "2026-10-20"
 },
 "ouganda/index.html": {
-"hash": "a85458c64fd881b4",
+"hash": "f54c293c1bb490cf",
 "modified": "2026-10-28",
 "published": "2026-10-09"
 },
 "rapports/index.html": {
-"hash": "97d91bf88d1e847a",
+"hash": "18390423896d32b0",
 "modified": "2026-10-28",
 "published": "2026-08-22"
 },
 "riposte/index.html": {
-"hash": "be533d8858bece7f",
+"hash": "ae0f2f34beea6d76",
 "modified": "2026-10-28",
 "published": "2026-08-28"
 },
@@ -1075,392 +1085,397 @@
 "published": "2026-10-19"
 },
 "sw/barua/090/index.html": {
-"hash": "61c6577e3acb89a8",
+"hash": "a967b0afc055e8ef",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/091/index.html": {
-"hash": "09c7939e16a67d89",
+"hash": "5c6eb5f5290d285c",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/092/index.html": {
-"hash": "3d5918f035d05ffa",
+"hash": "284825f3ddb7fde2",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/093/index.html": {
-"hash": "550035240f3e27ef",
+"hash": "f6f175417b3a691d",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/094/index.html": {
-"hash": "b8677ebcda1f80e1",
+"hash": "d567cfb07afa3efd",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/095/index.html": {
-"hash": "66e8662e24958d0b",
+"hash": "67aab3b90dbdf8f9",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/096/index.html": {
-"hash": "775488e49798c906",
+"hash": "79b6a0d811293dfa",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/097/index.html": {
-"hash": "ff4bee3237eb17bb",
+"hash": "785fa360edfd8e03",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/098/index.html": {
-"hash": "7492cc8185274960",
+"hash": "6af20ccf07eeec3b",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/099/index.html": {
-"hash": "cbd85974d7568d8e",
+"hash": "ee3a3cc9beaed3c3",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/100/index.html": {
-"hash": "13d6d45304a1fa9c",
+"hash": "0a0bc72ba3c15e41",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/101/index.html": {
-"hash": "c4cff57d9665ae30",
+"hash": "5267fc6a222bce72",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/102/index.html": {
-"hash": "9b7de2e91903960f",
+"hash": "668e0b673372aea4",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/103/index.html": {
-"hash": "eecefc3bec764382",
+"hash": "b3aebe723d42e22e",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/104/index.html": {
-"hash": "2dbf132f1928b2b8",
+"hash": "4a1798f8c690524a",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/105/index.html": {
-"hash": "d758bc9fe5e3b173",
+"hash": "5f8e1882ff19cfe8",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/106/index.html": {
-"hash": "7363cf69fb934f4f",
+"hash": "f53cff5bbfc15b85",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/107/index.html": {
-"hash": "c31c0af66c17b4e5",
+"hash": "b2caa344a12112f2",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/108/index.html": {
-"hash": "214137164e6253c7",
+"hash": "e9d0b2a75b3ca5c7",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/109/index.html": {
-"hash": "25a3994b085c21b8",
+"hash": "4de5bff6e93c2193",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/110/index.html": {
-"hash": "176997948de4499e",
+"hash": "9fe7db983ab9c685",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/111/index.html": {
-"hash": "df14a34c6c09cf23",
+"hash": "2f1fe0b016475cae",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/112/index.html": {
-"hash": "43d61fb28a3a45d9",
+"hash": "85666e647cdd0b40",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/113/index.html": {
-"hash": "825c407b58d2cf90",
+"hash": "bffdd35827e3640e",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/114/index.html": {
-"hash": "401e1650f8801006",
+"hash": "102830505ec90df0",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/barua/115/index.html": {
-"hash": "aef53bbc63d66d7f",
+"hash": "cc58783ae45ed331",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/116/index.html": {
-"hash": "338adf017e1af29d",
+"hash": "59e2986573c09e7b",
 "modified": "2026-10-28",
 "published": "2026-09-09"
 },
 "sw/barua/117/index.html": {
-"hash": "54c9e1e55272a3e5",
+"hash": "c8c904f069756cae",
 "modified": "2026-10-28",
 "published": "2026-09-10"
 },
 "sw/barua/118/index.html": {
-"hash": "539a73c94afb4627",
+"hash": "87138a07cd021bf8",
 "modified": "2026-10-28",
 "published": "2026-09-11"
 },
 "sw/barua/119/index.html": {
-"hash": "a1323241c4421198",
+"hash": "eec92383836a4951",
 "modified": "2026-10-28",
 "published": "2026-09-11"
 },
 "sw/barua/120/index.html": {
-"hash": "ad17e25ed5db66e2",
+"hash": "7e32423be847e7cc",
 "modified": "2026-10-28",
 "published": "2026-09-14"
 },
 "sw/barua/121/index.html": {
-"hash": "1b92c7d51a0853a2",
+"hash": "386eafffbb7669d2",
 "modified": "2026-10-28",
 "published": "2026-09-14"
 },
 "sw/barua/122/index.html": {
-"hash": "45a9b76a09b3600e",
+"hash": "b3688c19b7e16450",
 "modified": "2026-10-28",
 "published": "2026-09-15"
 },
 "sw/barua/123/index.html": {
-"hash": "1e0b8d9e92b137a3",
+"hash": "0dbeb74ebc476bcc",
 "modified": "2026-10-28",
 "published": "2026-09-17"
 },
 "sw/barua/124/index.html": {
-"hash": "5a9b8989a032dc2c",
+"hash": "1b90a3c700f0d87c",
 "modified": "2026-10-28",
 "published": "2026-09-17"
 },
 "sw/barua/125/index.html": {
-"hash": "4fe2ad2ce8b7108a",
+"hash": "0d37330980415da3",
 "modified": "2026-10-28",
 "published": "2026-09-18"
 },
 "sw/barua/126/index.html": {
-"hash": "1c964b2b5307a18f",
+"hash": "e002a7d6ea532899",
 "modified": "2026-10-28",
 "published": "2026-09-19"
 },
 "sw/barua/127/index.html": {
-"hash": "c7981e59c14ab679",
+"hash": "1f5a51570c018050",
 "modified": "2026-10-28",
 "published": "2026-09-20"
 },
 "sw/barua/128/index.html": {
-"hash": "f49c88fc5f590cdd",
+"hash": "8bf46b9b36f22412",
 "modified": "2026-10-28",
 "published": "2026-09-21"
 },
 "sw/barua/129/index.html": {
-"hash": "7bc8d7663e38bdd8",
+"hash": "bd8ce712a3897ed0",
 "modified": "2026-10-28",
 "published": "2026-09-23"
 },
 "sw/barua/130/index.html": {
-"hash": "07c61cdc7e7c256d",
+"hash": "0afdb8ad4b0aacc6",
 "modified": "2026-10-28",
 "published": "2026-09-23"
 },
 "sw/barua/131/index.html": {
-"hash": "8a7d212c094e43e7",
+"hash": "edf068f1cff9302e",
 "modified": "2026-10-28",
 "published": "2026-09-24"
 },
 "sw/barua/132/index.html": {
-"hash": "7b47243f5b5ee223",
+"hash": "bc045fcb09b5d4ec",
 "modified": "2026-10-28",
 "published": "2026-09-25"
 },
 "sw/barua/133/index.html": {
-"hash": "1fc07ea94c9e8d53",
+"hash": "4ce15aee418f38c2",
 "modified": "2026-10-28",
 "published": "2026-09-26"
 },
 "sw/barua/134/index.html": {
-"hash": "b2da7081c6db876e",
+"hash": "3c1c36d7c5021c70",
 "modified": "2026-10-28",
 "published": "2026-09-28"
 },
 "sw/barua/135/index.html": {
-"hash": "9aa25c1269ef12b5",
+"hash": "70791c76ed5af9b5",
 "modified": "2026-10-28",
 "published": "2026-09-28"
 },
 "sw/barua/136/index.html": {
-"hash": "217d215ff6967a00",
+"hash": "5b225c244c3ae4a5",
 "modified": "2026-10-28",
 "published": "2026-09-29"
 },
 "sw/barua/137/index.html": {
-"hash": "63ae279b4a796086",
+"hash": "373d2d6b67ef70c1",
 "modified": "2026-10-28",
 "published": "2026-10-03"
 },
 "sw/barua/138/index.html": {
-"hash": "00664d7435489653",
+"hash": "cf397b47c1eba4b9",
 "modified": "2026-10-28",
 "published": "2026-10-01"
 },
 "sw/barua/139/index.html": {
-"hash": "b2c9faebfb1af99c",
+"hash": "354d29247ca6382f",
 "modified": "2026-10-28",
 "published": "2026-10-03"
 },
 "sw/barua/140/index.html": {
-"hash": "4ed16870600c2c3b",
+"hash": "4a603174084c69f6",
 "modified": "2026-10-28",
 "published": "2026-10-03"
 },
 "sw/barua/141/index.html": {
-"hash": "1f8193c5a4124075",
+"hash": "51f9f2ab2c82932a",
 "modified": "2026-10-28",
 "published": "2026-10-04"
 },
 "sw/barua/143/index.html": {
-"hash": "df9b5ba43e80cbba",
+"hash": "329c0188c59aa516",
 "modified": "2026-10-28",
 "published": "2026-10-06"
 },
 "sw/barua/144/index.html": {
-"hash": "0f615fd816c5b12b",
+"hash": "2303188cff7a4553",
 "modified": "2026-10-28",
 "published": "2026-10-07"
 },
 "sw/barua/145/index.html": {
-"hash": "bc85e6d43d9a8cf1",
+"hash": "ec3a843620afa92d",
 "modified": "2026-10-28",
 "published": "2026-10-08"
 },
 "sw/barua/146/index.html": {
-"hash": "1b6b762a1d3edbf6",
+"hash": "067f5c8e1994296b",
 "modified": "2026-10-28",
 "published": "2026-10-11"
 },
 "sw/barua/147/index.html": {
-"hash": "c920d5626cfc158b",
+"hash": "7f20f71c8446e37c",
 "modified": "2026-10-28",
 "published": "2026-10-11"
 },
 "sw/barua/148/index.html": {
-"hash": "30e87eb0d82d4733",
+"hash": "36f30bbba4744c8b",
 "modified": "2026-10-28",
 "published": "2026-10-11"
 },
 "sw/barua/149/index.html": {
-"hash": "70e1ba427264a1db",
+"hash": "7862a60fd7263a4e",
 "modified": "2026-10-28",
 "published": "2026-10-12"
 },
 "sw/barua/150/index.html": {
-"hash": "1c7b0e3d77317f5e",
+"hash": "ca04074833d7e169",
 "modified": "2026-10-28",
 "published": "2026-10-14"
 },
 "sw/barua/151/index.html": {
-"hash": "ba7ab6c7a93b5c6e",
+"hash": "ab8aae8f61cf7ba3",
 "modified": "2026-10-28",
 "published": "2026-10-14"
 },
 "sw/barua/152/index.html": {
-"hash": "57c077e3eeecee12",
+"hash": "99565f443ac0d2bb",
 "modified": "2026-10-28",
 "published": "2026-10-16"
 },
 "sw/barua/153/index.html": {
-"hash": "60172128d322e5e9",
+"hash": "b81ec940d0c4971c",
 "modified": "2026-10-28",
 "published": "2026-10-16"
 },
 "sw/barua/154/index.html": {
-"hash": "79cfddf54dac6dc4",
+"hash": "4f786c5ddc51894d",
 "modified": "2026-10-28",
 "published": "2026-10-17"
 },
 "sw/barua/155/index.html": {
-"hash": "d6d9450ec850ad0f",
+"hash": "552ee57a8aa0083c",
 "modified": "2026-10-28",
 "published": "2026-10-18"
 },
 "sw/barua/156/index.html": {
-"hash": "10b59e8c9aa25805",
+"hash": "07839f5af8b3e87c",
 "modified": "2026-10-28",
 "published": "2026-10-19"
 },
 "sw/barua/157/index.html": {
-"hash": "a1b2e80ee00b92e3",
+"hash": "6785d8bd4e5921cc",
 "modified": "2026-10-28",
 "published": "2026-10-20"
 },
 "sw/barua/158/index.html": {
-"hash": "5e87e7baf89b091f",
+"hash": "e7025738cd9c8148",
 "modified": "2026-10-28",
 "published": "2026-10-21"
 },
 "sw/barua/159/index.html": {
-"hash": "e55443f6892b8e7f",
+"hash": "4ff774c73ef7a613",
 "modified": "2026-10-28",
 "published": "2026-10-22"
 },
 "sw/barua/160/index.html": {
-"hash": "b7fb373c7655a654",
+"hash": "459d8f6659e74ba8",
 "modified": "2026-10-28",
 "published": "2026-10-24"
 },
 "sw/barua/161/index.html": {
-"hash": "aecaf53baad64815",
+"hash": "92b8c34e0173f167",
 "modified": "2026-10-28",
 "published": "2026-10-24"
 },
 "sw/barua/162/index.html": {
-"hash": "b255887ee6068ed9",
+"hash": "efe9c5dfbf867a8b",
 "modified": "2026-10-28",
 "published": "2026-10-25"
 },
 "sw/barua/163/index.html": {
-"hash": "4d64f7e06c7cca94",
+"hash": "2278b539f9e898ed",
 "modified": "2026-10-28",
 "published": "2026-10-26"
 },
 "sw/barua/164/index.html": {
-"hash": "b7e2273cb7932b90",
+"hash": "1e14e5f8d96ebff3",
 "modified": "2026-10-28",
 "published": "2026-10-27"
 },
 "sw/barua/165/index.html": {
-"hash": "c5cfb32f5dd4d47c",
+"hash": "49417ff16fbedee7",
+"modified": "2026-10-28",
+"published": "2026-10-28"
+},
+"sw/barua/166/index.html": {
+"hash": "6b625ff15be29eea",
 "modified": "2026-10-28",
 "published": "2026-10-28"
 },
 "sw/barua/index.html": {
-"hash": "c5cfb32f5dd4d47c",
+"hash": "6b625ff15be29eea",
 "modified": "2026-10-28",
 "published": "2026-09-08"
 },
 "sw/changamoto/index.html": {
-"hash": "4ae6940794097ac6",
+"hash": "5b7bde2a3128d50c",
 "modified": "2026-10-28",
 "published": "2026-10-08"
 },
 "sw/dashibodi/index.html": {
-"hash": "a055d3461338d95e",
+"hash": "8e2b2428e4a4054d",
 "modified": "2026-10-28",
 "published": "2026-10-19"
 },
@@ -1470,12 +1485,12 @@
 "published": "2026-09-24"
 },
 "sw/hifadhidata/index.html": {
-"hash": "e6be66991f58ba39",
+"hash": "4f0c7858fa76f029",
 "modified": "2026-10-28",
 "published": "2026-10-08"
 },
 "sw/index.html": {
-"hash": "b2713b0c75a5c257",
+"hash": "2a76d080c45ef278",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
@@ -1485,7 +1500,7 @@
 "published": "2026-09-10"
 },
 "sw/kenya/index.html": {
-"hash": "ee413fdcf42277a4",
+"hash": "065fcc665b8b61b1",
 "modified": "2026-10-28",
 "published": "2026-10-09"
 },
@@ -1495,7 +1510,7 @@
 "published": "2026-08-25"
 },
 "sw/mapambano/index.html": {
-"hash": "3f11030532fea899",
+"hash": "a725de0ecd6a03a3",
 "modified": "2026-10-28",
 "published": "2026-08-28"
 },
@@ -1505,7 +1520,7 @@
 "published": "2026-08-25"
 },
 "sw/matukio/index.html": {
-"hash": "69614c5eabc15900",
+"hash": "dd0c65f94435333b",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
@@ -1520,7 +1535,7 @@
 "published": "2026-10-17"
 },
 "sw/michoro/index.html": {
-"hash": "20fc79aac8c0c80c",
+"hash": "826fedd4041a3f41",
 "modified": "2026-10-28",
 "published": "2026-10-12"
 },
@@ -1530,57 +1545,57 @@
 "published": "2026-10-08"
 },
 "sw/nigeria/index.html": {
-"hash": "3bc1883e90b7e6c6",
+"hash": "933575bf2d041781",
 "modified": "2026-10-28",
 "published": "2026-10-20"
 },
 "sw/ripoti/index.html": {
-"hash": "802bfab26774800c",
+"hash": "24985a230f3a8922",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
 "sw/takwimu/bas-uele/index.html": {
-"hash": "732562d1357ad150",
+"hash": "3506f0a266da3377",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
 "sw/takwimu/haut-uele/index.html": {
-"hash": "4100bdaeb429f678",
+"hash": "bd5af1275588cda9",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
 "sw/takwimu/index.html": {
-"hash": "b9e179f3075556b5",
+"hash": "9ec4c613f94dc4cc",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
 "sw/takwimu/ituri/index.html": {
-"hash": "2a03a09e48c7ef0b",
+"hash": "7acb5362727980bb",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
 "sw/takwimu/nord-kivu/index.html": {
-"hash": "de127a71ab85d65d",
+"hash": "014705f2c9ed32b9",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
 "sw/takwimu/nord-ubangi/index.html": {
-"hash": "8fa0eb25a1453e4e",
+"hash": "c637992ade2b7b8f",
 "modified": "2026-10-28",
 "published": "2026-10-18"
 },
 "sw/takwimu/sud-kivu/index.html": {
-"hash": "9ce8eef6e0dd698d",
+"hash": "0d081e354583541a",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
 "sw/takwimu/sud-ubangi/index.html": {
-"hash": "6996c080996b36e0",
+"hash": "f12ffe66028bb550",
 "modified": "2026-10-28",
 "published": "2026-09-11"
 },
 "sw/takwimu/tshopo/index.html": {
-"hash": "9f08015c3785c815",
+"hash": "088019ced473428f",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
@@ -1590,17 +1605,17 @@
 "published": "2026-10-09"
 },
 "sw/uganda/index.html": {
-"hash": "f1c9bec440181961",
+"hash": "35a2c09cfbce37ff",
 "modified": "2026-10-28",
 "published": "2026-10-09"
 },
 "sw/virusi/index.html": {
-"hash": "f89541e727a8e3c2",
+"hash": "fb7e4bd6851597a5",
 "modified": "2026-10-28",
 "published": "2026-08-25"
 },
 "visuels/index.html": {
-"hash": "da7e774ac3f813e2",
+"hash": "250c865bc3fad9a9",
 "modified": "2026-10-28",
 "published": "2026-10-12"
 }
