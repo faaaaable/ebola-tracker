@@ -5367,7 +5367,10 @@ def write_404(config, urls, strings, i18n, layout):
         "<title>404 — %s</title>" % esc(strings["fr"]["siteTitleMain"]),
         '<meta name="robots" content="noindex, follow">',
         '<meta name="theme-color" content="#FDFAF6">',
-        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '<link rel="icon" href="/favicon.ico" sizes="48x48">',
+        '<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">',
+        '<link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192">',
+        '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
         '<link rel="preconnect" href="https://fonts.googleapis.com">',
         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
         '<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700'
