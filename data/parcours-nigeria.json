@@ -1,0 +1,275 @@
+{
+ "_comment": "Textes de la carte du parcours du premier cas du Nigeria (page Nigeria, 29 octobre 2026), en trois langues. Le francais reprend a l'identique le texte de scripts/parcours_nigeria.py d'avant la traduction ; l'anglais et le swahili reprennent le vocabulaire de data/autres-pays.json (NCDC, Addis Ababa, Uswisi, laboratoire national de reference). Les mois courts suivent i18n.js (Sep, Oct / Sep., Okt.).",
+ "textes": {
+  "fr": {
+   "titre": "D’Abuja à Abuja, le trajet du premier cas",
+   "chapo": "Partie d’Abuja le 16 septembre, elle rentre le 3 octobre par Entebbe et Addis-Abeba.",
+   "aria": "Le trajet du premier cas : Abuja, l’Ouganda, Entebbe, Addis-Abeba, Abuja, puis Genève",
+   "noms": {
+    "rdc": "RDC",
+    "uga": "OUGANDA",
+    "ken": "KENYA",
+    "eth": "ÉTHIOPIE",
+    "nga": "NIGERIA"
+   },
+   "lieux": {
+    "Entebbe": "Entebbe",
+    "Addis-Abeba": "Addis-Abeba",
+    "Abuja": "Abuja"
+   },
+   "d16": "16 septembre",
+   "d3": "3 octobre",
+   "evac1": "26 octobre : vers Genève",
+   "evac2": "évacuée vers les Hôpitaux universitaires",
+   "aller1": "départ le 16 sept.,",
+   "aller2": "retour le 3 oct.",
+   "modes": {
+    "avion": "avion",
+    "aller": "aller, trajet non connu",
+    "evac": "évacuation vers la Suisse"
+   },
+   "pays": {
+    "uga": "Ouganda",
+    "eth": "Éthiopie (escale)",
+    "nga": "Nigeria"
+   },
+   "cas": "Cas confirmés au 3 octobre 2026",
+   "paliers": [
+    "1–9",
+    "10–49",
+    "50–199",
+    "200–499",
+    "500–999",
+    "1 000 et plus"
+   ],
+   "frise": [
+    [
+     "16 sept.",
+     "Départ d’Abuja vers l’Ouganda",
+     "Elle reste en Ouganda jusqu’au 3 octobre ; les lieux visités ne sont pas connus."
+    ],
+    [
+     "3 oct.",
+     "Entebbe → Addis-Abeba → Abuja",
+     "Elle quitte l’Ouganda par l’aéroport d’Entebbe, vol international par Addis-Abeba jusqu’à Abuja."
+    ],
+    [
+     "7 oct.",
+     "Premiers symptômes",
+     "Fièvre, diarrhée, douleurs dans tout le corps, mal de gorge, sans saignement."
+    ],
+    [
+     "10 oct.",
+     "Premier établissement privé",
+     "Elle consulte dans un établissement privé d’Abuja."
+    ],
+    [
+     "11 oct.",
+     "Admise",
+     "Admise dans un second établissement privé du Territoire de la capitale fédérale."
+    ],
+    [
+     "19 oct.",
+     "Le NCDC est prévenu",
+     "Enquête et prélèvement."
+    ],
+    [
+     "20 oct.",
+     "Ebola confirmé",
+     "Par le laboratoire national de référence du NCDC."
+    ],
+    [
+     "23 oct.",
+     "Virus apparenté au Kenya",
+     "Le génome est apparenté à celui d’un cas du Kenya ; une transmission directe n’est pas établie."
+    ],
+    [
+     "26 oct.",
+     "Évacuée vers Genève",
+     "Son état s’étant nettement amélioré, elle est soignée aux Hôpitaux universitaires de Genève."
+    ]
+   ],
+   "source": "Départ d’Abuja le 16 septembre : représentant de l’OMS au Nigeria (Reuters, 22 octobre 2026). Retour : rapport de situation du NCDC du 24 octobre 2026 (Ouganda, Addis-Abeba, Abuja le 3 octobre). Évacuation : ministère fédéral de la Santé, 26 octobre 2026 ; Genève : autorités suisses (AP). Les établissements d’Abuja ne sont pas nommés. Zones de santé de la RDC coloriées selon les cas confirmés au 3 octobre 2026 ; aucun cas n’était encore confirmé au Kenya ni au Nigeria ; en Ouganda, l’épidémie de mai à août était close depuis le 27 août. L’Ouganda affirme qu’elle était passée par l’est de la RDC ; la Suisse le dément, le directeur de l’Africa CDC dit que ses documents de voyage n’en montrent aucune trace, et l’OMS n’a aucune information sur un voyage hors d’Ouganda."
+  },
+  "en": {
+   "titre": "From Abuja to Abuja: the first case’s journey",
+   "chapo": "She left Abuja on 16 September and returned on 3 October via Entebbe and Addis Ababa.",
+   "aria": "The first case’s journey: Abuja, Uganda, Entebbe, Addis Ababa, Abuja, then Geneva",
+   "noms": {
+    "rdc": "DRC",
+    "uga": "UGANDA",
+    "ken": "KENYA",
+    "eth": "ETHIOPIA",
+    "nga": "NIGERIA"
+   },
+   "lieux": {
+    "Entebbe": "Entebbe",
+    "Addis-Abeba": "Addis Ababa",
+    "Abuja": "Abuja"
+   },
+   "d16": "16 September",
+   "d3": "3 October",
+   "evac1": "26 October: to Geneva",
+   "evac2": "evacuated to the University Hospitals",
+   "aller1": "departure 16 Sep.,",
+   "aller2": "return 3 Oct.",
+   "modes": {
+    "avion": "flight",
+    "aller": "outbound, route unknown",
+    "evac": "evacuation to Switzerland"
+   },
+   "pays": {
+    "uga": "Uganda",
+    "eth": "Ethiopia (stopover)",
+    "nga": "Nigeria"
+   },
+   "cas": "Confirmed cases on 3 October 2026",
+   "paliers": [
+    "1–9",
+    "10–49",
+    "50–199",
+    "200–499",
+    "500–999",
+    "1,000 or more"
+   ],
+   "frise": [
+    [
+     "16 Sep",
+     "Departure from Abuja for Uganda",
+     "She stays in Uganda until 3 October; the places she visited are not known."
+    ],
+    [
+     "3 Oct",
+     "Entebbe → Addis Ababa → Abuja",
+     "She leaves Uganda through Entebbe airport, on an international flight via Addis Ababa to Abuja."
+    ],
+    [
+     "7 Oct",
+     "First symptoms",
+     "Fever, diarrhoea, aches all over the body, sore throat, no bleeding."
+    ],
+    [
+     "10 Oct",
+     "First private hospital",
+     "She seeks care at a private hospital in Abuja."
+    ],
+    [
+     "11 Oct",
+     "Admitted",
+     "Admitted to a second private hospital in the Federal Capital Territory."
+    ],
+    [
+     "19 Oct",
+     "The NCDC is notified",
+     "Investigation and sampling."
+    ],
+    [
+     "20 Oct",
+     "Ebola confirmed",
+     "By the NCDC’s national reference laboratory."
+    ],
+    [
+     "23 Oct",
+     "Virus related to Kenya",
+     "The genome is related to that of a case in Kenya; direct transmission has not been established."
+    ],
+    [
+     "26 Oct",
+     "Evacuated to Geneva",
+     "Her condition having improved markedly, she is treated at the Geneva University Hospitals."
+    ]
+   ],
+   "source": "Departure from Abuja on 16 September: WHO representative in Nigeria (Reuters, 22 October 2026). Return: NCDC situation report of 24 October 2026 (Uganda, Addis Ababa, Abuja on 3 October). Evacuation: Federal Ministry of Health, 26 October 2026; Geneva: Swiss authorities (AP). The Abuja facilities are not named. Health zones in the DRC are shaded by confirmed cases on 3 October 2026; no case had yet been confirmed in Kenya or Nigeria; in Uganda, the outbreak of May to August had been over since 27 August. Uganda says she had passed through eastern DRC; Switzerland denies it, the Africa CDC director says her travel documents show no trace of it, and WHO has no information about any travel outside Uganda."
+  },
+  "sw": {
+   "titre": "Kutoka Abuja hadi Abuja: safari ya mgonjwa wa kwanza",
+   "chapo": "Aliondoka Abuja tarehe 16 Septemba, na akarudi tarehe 3 Oktoba kupitia Entebbe na Addis Ababa.",
+   "aria": "Safari ya mgonjwa wa kwanza: Abuja, Uganda, Entebbe, Addis Ababa, Abuja, kisha Geneva",
+   "noms": {
+    "rdc": "DRC",
+    "uga": "UGANDA",
+    "ken": "KENYA",
+    "eth": "ETHIOPIA",
+    "nga": "NIGERIA"
+   },
+   "lieux": {
+    "Entebbe": "Entebbe",
+    "Addis-Abeba": "Addis Ababa",
+    "Abuja": "Abuja"
+   },
+   "d16": "16 Septemba",
+   "d3": "3 Oktoba",
+   "evac1": "26 Oktoba: kwenda Geneva",
+   "evac2": "amehamishiwa hospitali za chuo kikuu",
+   "aller1": "kuondoka 16 Sep.,",
+   "aller2": "kurudi 3 Okt.",
+   "modes": {
+    "avion": "ndege",
+    "aller": "kwenda, njia haijulikani",
+    "evac": "kuhamishiwa Uswisi"
+   },
+   "pays": {
+    "uga": "Uganda",
+    "eth": "Ethiopia (kituo cha kupita)",
+    "nga": "Nigeria"
+   },
+   "cas": "Wagonjwa waliothibitishwa tarehe 3 Oktoba 2026",
+   "paliers": [
+    "1–9",
+    "10–49",
+    "50–199",
+    "200–499",
+    "500–999",
+    "1 000 na zaidi"
+   ],
+   "frise": [
+    [
+     "16 Sep.",
+     "Kuondoka Abuja kwenda Uganda",
+     "Anabaki Uganda hadi tarehe 3 Oktoba; mahali alipotembelea hapajulikani."
+    ],
+    [
+     "3 Okt.",
+     "Entebbe → Addis Ababa → Abuja",
+     "Anaondoka Uganda kupitia uwanja wa ndege wa Entebbe, kwa ndege ya kimataifa kupitia Addis Ababa hadi Abuja."
+    ],
+    [
+     "7 Okt.",
+     "Dalili za kwanza",
+     "Homa, kuhara, maumivu ya mwili mzima, kuumwa koo, bila kutokwa damu."
+    ],
+    [
+     "10 Okt.",
+     "Hospitali binafsi ya kwanza",
+     "Anatafuta huduma katika hospitali binafsi ya Abuja."
+    ],
+    [
+     "11 Okt.",
+     "Analazwa",
+     "Analazwa katika hospitali binafsi ya pili ya Eneo la Mji Mkuu wa Shirikisho."
+    ],
+    [
+     "19 Okt.",
+     "NCDC inajulishwa",
+     "Uchunguzi na kuchukua sampuli."
+    ],
+    [
+     "20 Okt.",
+     "Ebola yathibitishwa",
+     "Na maabara ya kitaifa ya rejea ya NCDC."
+    ],
+    [
+     "23 Okt.",
+     "Virusi vinahusiana na Kenya",
+     "Jenomu inahusiana na ya mgonjwa mmoja wa Kenya; maambukizi ya moja kwa moja hayajathibitishwa."
+    ],
+    [
+     "26 Okt.",
+     "Ahamishiwa Geneva",
+     "Hali yake ikiwa imeimarika sana, anatibiwa katika Hospitali za Chuo Kikuu cha Geneva."
+    ]
+   ],
+   "source": "Kuondoka Abuja tarehe 16 Septemba: mwakilishi wa WHO nchini Nigeria (Reuters, 22 Oktoba 2026). Kurudi: ripoti ya hali ya NCDC ya 24 Oktoba 2026 (Uganda, Addis Ababa, Abuja tarehe 3 Oktoba). Kuhamishiwa: Wizara ya Afya ya shirikisho, 26 Oktoba 2026; Geneva: mamlaka za Uswisi (AP). Vituo vya afya vya Abuja havitajwi majina. Maeneo ya afya ya DRC yamepakwa rangi kulingana na wagonjwa waliothibitishwa tarehe 3 Oktoba 2026; hakuna mgonjwa aliyekuwa amethibitishwa Kenya wala Nigeria bado; nchini Uganda, mlipuko wa Mei hadi Agosti ulikuwa umekwisha tangu tarehe 27 Agosti. Uganda inasema alipitia mashariki mwa DRC; Uswisi inakanusha, mkurugenzi wa Africa CDC anasema nyaraka zake za safari hazionyeshi dalili yoyote ya hilo, na WHO haina taarifa yoyote kuhusu safari nje ya Uganda."
+  }
+ }
+}

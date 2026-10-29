@@ -4975,8 +4975,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         values["pays.questions"] = hors_rdc.questions_html(page["pays"], lang)
         # Kenya : carte du parcours du premier malade (20 octobre 2026), sous
         # l'en-tete ; et, pour tous les pays, une barre des parties de la page.
-        # Nigeria : carte du parcours du premier cas (29 octobre 2026), en
-        # francais seulement pour l'instant.
+        # Nigeria : carte du parcours du premier cas (29 octobre 2026), en trois
+        # langues (data/parcours-nigeria.json).
         dessin = lambda zones: zone_map_html(config, geo, zones, provinces, urls, lang, strings_lang)
         values["pays.parcours"] = (parcours.carte_html(lang, dessin) if page["pays"] == "kenya"
                                    else parcours_nigeria.carte_html(lang, dessin) if page["pays"] == "nigeria"
