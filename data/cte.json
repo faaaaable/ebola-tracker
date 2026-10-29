@@ -10,10 +10,12 @@
       "methode": "prose",
       "provinces": {
         "Ituri": {
-          "hospitalises": 158
+          "hospitalises": 158,
+          "admissions": 21
         },
         "Nord-Kivu": {
-          "hospitalises": 8
+          "hospitalises": 8,
+          "admissions": 1
         },
         "Sud-Kivu": {
           "hospitalises": 5
@@ -1397,7 +1399,8 @@
         "Ituri": {
           "hospitalises": 595,
           "lits": 860,
-          "occupation": 69.2
+          "occupation": 69.2,
+          "gueris": 14
         }
       },
       "total": {
@@ -1417,7 +1420,8 @@
         "Ituri": {
           "hospitalises": 501,
           "lits": 840,
-          "occupation": 60.0
+          "occupation": 60.0,
+          "gueris": 21
         }
       },
       "total": {
@@ -1437,7 +1441,8 @@
         "Ituri": {
           "hospitalises": 508,
           "lits": 840,
-          "occupation": 61.0
+          "occupation": 61.0,
+          "gueris": 17
         }
       },
       "total": {
@@ -1457,7 +1462,8 @@
         "Ituri": {
           "hospitalises": 417,
           "lits": 845,
-          "occupation": 49.3
+          "occupation": 49.3,
+          "gueris": 16
         }
       },
       "total": {
@@ -1480,7 +1486,8 @@
           "occupation": 44.4
         },
         "Nord-Kivu": {
-          "hospitalises": 176
+          "hospitalises": 176,
+          "gueris": 2
         }
       },
       "total": {
@@ -1503,17 +1510,20 @@
           "occupation": 45.0
         },
         "Nord-Kivu": {
-          "hospitalises": 180
+          "hospitalises": 180,
+          "gueris": 5
         },
         "Haut-Uélé": {
           "hospitalises": 53,
           "lits": 78,
           "occupation": 67.9,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 11
         },
         "Tshopo": {
           "hospitalises": 5,
-          "occupation": 41.7
+          "occupation": 41.7,
+          "admissions": 2
         }
       },
       "total": {
@@ -1538,17 +1548,20 @@
         "Nord-Kivu": {
           "hospitalises": 151,
           "lits": 206,
-          "occupation": 73.3
+          "occupation": 73.3,
+          "admissions": 48
         },
         "Haut-Uélé": {
           "hospitalises": 56,
           "lits": 84,
           "occupation": 66.7,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 4
         },
         "Tshopo": {
           "hospitalises": 8,
-          "occupation": 66.7
+          "occupation": 66.7,
+          "admissions": 6
         }
       },
       "total": {
@@ -1568,18 +1581,22 @@
         "Ituri": {
           "hospitalises": 545,
           "lits": 991,
-          "occupation": 55.0
+          "occupation": 55.0,
+          "gueris": 27
         },
         "Nord-Kivu": {
           "hospitalises": 165,
           "lits": 206,
-          "occupation": 80.1
+          "occupation": 80.1,
+          "admissions": 56,
+          "gueris": 3
         },
         "Haut-Uélé": {
           "hospitalises": 61,
           "lits": 84,
           "occupation": 72.6,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 13
         }
       },
       "total": {
@@ -1599,18 +1616,22 @@
         "Ituri": {
           "hospitalises": 548,
           "lits": 991,
-          "occupation": 55.3
+          "occupation": 55.3,
+          "admissions": 116,
+          "gueris": 34
         },
         "Nord-Kivu": {
           "hospitalises": 170,
           "lits": 206,
           "occupation": 82.5,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 32
         },
         "Tshopo": {
           "hospitalises": 8,
           "lits": 12,
-          "occupation": 66.7
+          "occupation": 66.7,
+          "admissions": 1
         }
       },
       "total": {
@@ -1630,12 +1651,16 @@
         "Ituri": {
           "hospitalises": 577,
           "lits": 991,
-          "occupation": 58.2
+          "occupation": 58.2,
+          "admissions": 127,
+          "gueris": 18
         },
         "Nord-Kivu": {
           "hospitalises": 170,
           "lits": 206,
-          "occupation": 82.5
+          "occupation": 82.5,
+          "admissions": 48,
+          "gueris": 2
         }
       },
       "total": {
@@ -1655,7 +1680,9 @@
         "Ituri": {
           "hospitalises": 470,
           "lits": 996,
-          "occupation": 47.2
+          "occupation": 47.2,
+          "admissions": 79,
+          "gueris": 27
         },
         "Nord-Kivu": {
           "hospitalises": 181,
@@ -1665,7 +1692,8 @@
         "Haut-Uélé": {
           "hospitalises": 49,
           "lits": 78,
-          "occupation": 62.8
+          "occupation": 62.8,
+          "admissions": 3
         },
         "Sud-Kivu": {
           "hospitalises": 14
@@ -1688,12 +1716,15 @@
         "Ituri": {
           "hospitalises": 447,
           "lits": 965,
-          "occupation": 46.3
+          "occupation": 46.3,
+          "admissions": 70,
+          "gueris": 22
         },
         "Nord-Kivu": {
           "hospitalises": 205,
           "lits": 206,
-          "occupation": 99.5
+          "occupation": 99.5,
+          "gueris": 2
         },
         "Haut-Uélé": {
           "hospitalises": 53,
@@ -1704,7 +1735,8 @@
         "Tshopo": {
           "hospitalises": 5,
           "lits": 12,
-          "occupation": 41.7
+          "occupation": 41.7,
+          "admissions": 1
         },
         "Sud-Kivu": {
           "hospitalises": 20
@@ -1727,12 +1759,15 @@
         "Ituri": {
           "hospitalises": 551,
           "lits": 965,
-          "occupation": 57.1
+          "occupation": 57.1,
+          "admissions": 138,
+          "gueris": 36
         },
         "Nord-Kivu": {
           "hospitalises": 196,
           "lits": 206,
-          "occupation": 95.1
+          "occupation": 95.1,
+          "gueris": 1
         },
         "Haut-Uélé": {
           "hospitalises": 53,
@@ -1760,12 +1795,15 @@
         "Ituri": {
           "hospitalises": 536,
           "lits": 965,
-          "occupation": 55.2
+          "occupation": 55.2,
+          "admissions": 89,
+          "gueris": 9
         },
         "Nord-Kivu": {
           "hospitalises": 169,
           "lits": 206,
-          "occupation": 82.0
+          "occupation": 82.0,
+          "gueris": 2
         },
         "Tshopo": {
           "hospitalises": 6,
@@ -1793,17 +1831,21 @@
         "Ituri": {
           "hospitalises": 521,
           "lits": 965,
-          "occupation": 54.0
+          "occupation": 54.0,
+          "admissions": 98,
+          "gueris": 9
         },
         "Nord-Kivu": {
           "hospitalises": 176,
           "lits": 206,
-          "occupation": 85.4
+          "occupation": 85.4,
+          "gueris": 4
         },
         "Tshopo": {
           "hospitalises": 5,
           "lits": 14,
-          "occupation": 35.7
+          "occupation": 35.7,
+          "admissions": 1
         },
         "Haut-Uélé": {
           "hospitalises": 69,
@@ -1831,17 +1873,21 @@
         "Ituri": {
           "hospitalises": 528,
           "lits": 965,
-          "occupation": 54.7
+          "occupation": 54.7,
+          "admissions": 94,
+          "gueris": 14
         },
         "Nord-Kivu": {
           "hospitalises": 167,
           "lits": 206,
-          "occupation": 81.1
+          "occupation": 81.1,
+          "gueris": 3
         },
         "Tshopo": {
           "hospitalises": 4,
           "lits": 14,
-          "occupation": 28.6
+          "occupation": 28.6,
+          "admissions": 1
         },
         "Haut-Uélé": {
           "hospitalises": 72,
@@ -1869,7 +1915,9 @@
         "Ituri": {
           "hospitalises": 555,
           "lits": 965,
-          "occupation": 57.5
+          "occupation": 57.5,
+          "admissions": 118,
+          "gueris": 13
         },
         "Nord-Kivu": {
           "hospitalises": 181,
@@ -1879,13 +1927,15 @@
         "Tshopo": {
           "hospitalises": 7,
           "lits": 14,
-          "occupation": 50.0
+          "occupation": 50.0,
+          "admissions": 4
         },
         "Haut-Uélé": {
           "hospitalises": 72,
           "lits": 130,
           "occupation": 55.4,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "gueris": 2
         }
       },
       "total": {
@@ -1905,18 +1955,22 @@
         "Ituri": {
           "hospitalises": 522,
           "lits": 978,
-          "occupation": 53.4
+          "occupation": 53.4,
+          "admissions": 76,
+          "gueris": 23
         },
         "Nord-Kivu": {
           "hospitalises": 178,
           "lits": 206,
-          "occupation": 86.4
+          "occupation": 86.4,
+          "gueris": 4
         },
         "Haut-Uélé": {
           "hospitalises": 81,
           "lits": 130,
           "occupation": 62.3,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "gueris": 3
         }
       },
       "total": {
@@ -1936,18 +1990,24 @@
         "Ituri": {
           "hospitalises": 488,
           "lits": 978,
-          "occupation": 49.9
+          "occupation": 49.9,
+          "admissions": 88,
+          "gueris": 20
         },
         "Nord-Kivu": {
           "hospitalises": 194,
           "lits": 206,
-          "occupation": 94.2
+          "occupation": 94.2,
+          "sorties": 37,
+          "gueris": 1
         },
         "Haut-Uélé": {
           "hospitalises": 79,
           "lits": 120,
           "occupation": 65.8,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "sorties": 6,
+          "gueris": 3
         }
       },
       "total": {
@@ -1967,16 +2027,22 @@
         "Ituri": {
           "hospitalises": 549,
           "lits": 978,
-          "occupation": 56.1
+          "occupation": 56.1,
+          "admissions": 111,
+          "gueris": 12
         },
         "Nord-Kivu": {
           "hospitalises": 214,
           "lits": 206,
-          "occupation": 103.9
+          "occupation": 103.9,
+          "sorties": 33,
+          "gueris": 1
         },
         "Haut-Uélé": {
           "hospitalises": 68,
           "occupation": 56.7,
+          "sorties": 15,
+          "gueris": 11,
           "lits": 120,
           "litsEncadres": true,
           "occupationPubliee": 56.7,
@@ -2000,12 +2066,16 @@
         "Ituri": {
           "hospitalises": 522,
           "lits": 978,
-          "occupation": 53.4
+          "occupation": 53.4,
+          "admissions": 119,
+          "gueris": 22
         },
         "Nord-Kivu": {
           "hospitalises": 232,
           "lits": 220,
-          "occupation": 105.5
+          "occupation": 105.5,
+          "sorties": 42,
+          "gueris": 1
         }
       },
       "total": {
@@ -2025,22 +2095,29 @@
         "Ituri": {
           "hospitalises": 552,
           "lits": 978,
-          "occupation": 56.4
+          "occupation": 56.4,
+          "admissions": 113,
+          "gueris": 8
         },
         "Nord-Kivu": {
           "hospitalises": 236,
           "lits": 220,
-          "occupation": 107.3
+          "occupation": 107.3,
+          "sorties": 64,
+          "gueris": 1
         },
         "Haut-Uélé": {
           "hospitalises": 70,
           "lits": 120,
-          "occupation": 58.3
+          "occupation": 58.3,
+          "admissions": 11
         },
         "Tshopo": {
           "hospitalises": 11,
           "lits": 25,
-          "occupation": 44.0
+          "occupation": 44.0,
+          "admissions": 3,
+          "sorties": 4
         },
         "Sud-Kivu": {
           "hospitalises": 26
@@ -2063,17 +2140,23 @@
         "Ituri": {
           "hospitalises": 550,
           "lits": 978,
-          "occupation": 56.2
+          "occupation": 56.2,
+          "admissions": 117,
+          "gueris": 34
         },
         "Haut-Uélé": {
           "hospitalises": 44,
           "lits": 120,
-          "occupation": 36.7
+          "occupation": 36.7,
+          "admissions": 12,
+          "gueris": 5
         },
         "Tshopo": {
           "hospitalises": 10,
           "lits": 25,
-          "occupation": 40.0
+          "occupation": 40.0,
+          "admissions": 1,
+          "sorties": 4
         }
       },
       "total": {
@@ -2093,17 +2176,23 @@
         "Ituri": {
           "hospitalises": 524,
           "lits": 978,
-          "occupation": 53.6
+          "occupation": 53.6,
+          "admissions": 75,
+          "gueris": 13
         },
         "Nord-Kivu": {
           "hospitalises": 282,
           "lits": 220,
-          "occupation": 128.2
+          "occupation": 128.2,
+          "admissions": 75,
+          "gueris": 3
         },
         "Tshopo": {
           "hospitalises": 7,
           "lits": 25,
-          "occupation": 32.0
+          "occupation": 32.0,
+          "admissions": 1,
+          "gueris": 1
         }
       },
       "total": {
@@ -2123,17 +2212,23 @@
         "Ituri": {
           "hospitalises": 539,
           "lits": 978,
-          "occupation": 55.1
+          "occupation": 55.1,
+          "admissions": 97,
+          "sorties": 82,
+          "gueris": 16
         },
         "Nord-Kivu": {
           "hospitalises": 283,
           "lits": 220,
-          "occupation": 128.6
+          "occupation": 128.6,
+          "admissions": 55,
+          "gueris": 6
         },
         "Sud-Kivu": {
           "hospitalises": 8,
           "lits": 25,
-          "occupation": 32.0
+          "occupation": 32.0,
+          "admissions": 1
         }
       },
       "total": {
@@ -2153,27 +2248,37 @@
         "Ituri": {
           "hospitalises": 564,
           "lits": 978,
-          "occupation": 57.7
+          "occupation": 57.7,
+          "admissions": 112,
+          "sorties": 87,
+          "gueris": 27
         },
         "Nord-Kivu": {
           "hospitalises": 232,
           "lits": 220,
-          "occupation": 105.5
+          "occupation": 105.5,
+          "admissions": 60,
+          "gueris": 2
         },
         "Sud-Kivu": {
           "hospitalises": 8,
           "lits": 25,
-          "occupation": 32.0
+          "occupation": 32.0,
+          "admissions": 1
         },
         "Haut-Uélé": {
           "hospitalises": 62,
           "lits": 120,
-          "occupation": 51.7
+          "occupation": 51.7,
+          "admissions": 11
         },
         "Tshopo": {
           "hospitalises": 3,
           "lits": 25,
-          "occupation": 12.0
+          "occupation": 12.0,
+          "admissions": 1,
+          "sorties": 3,
+          "gueris": 1
         }
       },
       "total": {
@@ -2193,22 +2298,29 @@
         "Ituri": {
           "hospitalises": 434,
           "lits": 978,
-          "occupation": 44.4
+          "occupation": 44.4,
+          "admissions": 63,
+          "sorties": 106,
+          "gueris": 28
         },
         "Nord-Kivu": {
           "hospitalises": 261,
           "lits": 220,
-          "occupation": 118.6
+          "occupation": 118.6,
+          "admissions": 73,
+          "gueris": 6
         },
         "Haut-Uélé": {
           "hospitalises": 56,
           "lits": 120,
-          "occupation": 46.7
+          "occupation": 46.7,
+          "admissions": 9
         },
         "Tshopo": {
           "hospitalises": 7,
           "lits": 25,
-          "occupation": 28.0
+          "occupation": 28.0,
+          "admissions": 3
         }
       },
       "total": {
@@ -2228,22 +2340,30 @@
         "Ituri": {
           "hospitalises": 434,
           "lits": 978,
-          "occupation": 44.4
+          "occupation": 44.4,
+          "admissions": 53,
+          "sorties": 66,
+          "gueris": 18
         },
         "Nord-Kivu": {
           "hospitalises": 225,
           "lits": 220,
-          "occupation": 102.7
+          "occupation": 102.7,
+          "admissions": 70,
+          "gueris": 2
         },
         "Haut-Uélé": {
           "hospitalises": 62,
           "lits": 128,
-          "occupation": 50.8
+          "occupation": 50.8,
+          "admissions": 14,
+          "sorties": 7
         },
         "Tshopo": {
           "hospitalises": 6,
           "lits": 25,
-          "occupation": 24.0
+          "occupation": 24.0,
+          "admissions": 1
         }
       },
       "total": {
@@ -2263,27 +2383,36 @@
         "Ituri": {
           "hospitalises": 495,
           "lits": 978,
-          "occupation": 50.6
+          "occupation": 50.6,
+          "admissions": 96,
+          "sorties": 110,
+          "gueris": 19
         },
         "Nord-Kivu": {
           "hospitalises": 237,
           "lits": 220,
-          "occupation": 107.7
+          "occupation": 107.7,
+          "admissions": 78,
+          "gueris": 2
         },
         "Haut-Uélé": {
           "hospitalises": 62,
           "lits": 128,
-          "occupation": 48.4
+          "occupation": 48.4,
+          "admissions": 10,
+          "sorties": 7
         },
         "Tshopo": {
           "hospitalises": 7,
           "lits": 25,
-          "occupation": 28.0
+          "occupation": 28.0,
+          "admissions": 1
         },
         "Sud-Kivu": {
           "hospitalises": 16,
           "lits": 25,
-          "occupation": 64.0
+          "occupation": 64.0,
+          "admissions": 5
         }
       },
       "total": {
@@ -2303,22 +2432,32 @@
         "Ituri": {
           "hospitalises": 510,
           "lits": 978,
-          "occupation": 52.1
+          "occupation": 52.1,
+          "admissions": 100,
+          "sorties": 85,
+          "gueris": 21
         },
         "Nord-Kivu": {
           "hospitalises": 253,
           "lits": 220,
-          "occupation": 115.0
+          "occupation": 115.0,
+          "admissions": 54,
+          "gueris": 2
         },
         "Haut-Uélé": {
           "hospitalises": 65,
           "lits": 128,
-          "occupation": 50.8
+          "occupation": 50.8,
+          "admissions": 15,
+          "sorties": 7,
+          "gueris": 8
         },
         "Tshopo": {
           "hospitalises": 6,
           "lits": 25,
-          "occupation": 24.0
+          "occupation": 24.0,
+          "admissions": 1,
+          "gueris": 1
         },
         "Sud-Kivu": {
           "hospitalises": 17,
@@ -2343,22 +2482,31 @@
         "Ituri": {
           "hospitalises": 484,
           "lits": 978,
-          "occupation": 49.5
+          "occupation": 49.5,
+          "admissions": 55,
+          "sorties": 79,
+          "gueris": 11
         },
         "Nord-Kivu": {
           "hospitalises": 262,
           "lits": 220,
-          "occupation": 123.2
+          "occupation": 123.2,
+          "admissions": 67,
+          "gueris": 1
         },
         "Haut-Uélé": {
           "hospitalises": 68,
           "lits": 128,
-          "occupation": 50.8
+          "occupation": 50.8,
+          "admissions": 13,
+          "sorties": 6,
+          "gueris": 3
         },
         "Tshopo": {
           "hospitalises": 5,
           "lits": 25,
-          "occupation": 20.0
+          "occupation": 20.0,
+          "admissions": 1
         }
       },
       "total": {
@@ -2378,17 +2526,23 @@
         "Ituri": {
           "hospitalises": 473,
           "lits": 978,
-          "occupation": 48.4
+          "occupation": 48.4,
+          "admissions": 77,
+          "sorties": 88,
+          "gueris": 21
         },
         "Nord-Kivu": {
           "hospitalises": 254,
           "lits": 220,
-          "occupation": 115.5
+          "occupation": 115.5,
+          "admissions": 74
         },
         "Haut-Uélé": {
           "hospitalises": 62,
           "lits": 128,
-          "occupation": 48.4
+          "occupation": 48.4,
+          "admissions": 11,
+          "sorties": 6
         },
         "Tshopo": {
           "hospitalises": 4,
@@ -2398,6 +2552,7 @@
         "Sud-Kivu": {
           "hospitalises": 20,
           "occupation": 80.0,
+          "admissions": 6,
           "lits": 25,
           "litsEncadres": true,
           "occupationPubliee": 80.0,
@@ -2421,26 +2576,34 @@
         "Ituri": {
           "hospitalises": 471,
           "lits": 983,
-          "occupation": 47.9
+          "occupation": 47.9,
+          "admissions": 87,
+          "sorties": 89,
+          "gueris": 9
         },
         "Nord-Kivu": {
           "hospitalises": 287,
           "lits": 220,
-          "occupation": 130.5
+          "occupation": 130.5,
+          "admissions": 88
         },
         "Haut-Uélé": {
           "hospitalises": 49,
           "lits": 134,
-          "occupation": 36.6
+          "occupation": 36.6,
+          "admissions": 3,
+          "sorties": 16
         },
         "Tshopo": {
           "hospitalises": 7,
           "lits": 25,
-          "occupation": 28.0
+          "occupation": 28.0,
+          "admissions": 3
         },
         "Sud-Kivu": {
           "hospitalises": 19,
           "occupation": 76.0,
+          "admissions": 1,
           "lits": 25,
           "litsEncadres": true,
           "occupationPubliee": 76.0,
@@ -2464,22 +2627,33 @@
         "Ituri": {
           "hospitalises": 457,
           "lits": 989,
-          "occupation": 46.2
+          "occupation": 46.2,
+          "admissions": 92,
+          "sorties": 106,
+          "gueris": 32
         },
         "Nord-Kivu": {
           "hospitalises": 291,
           "lits": 220,
-          "occupation": 132.2
+          "occupation": 132.2,
+          "admissions": 72,
+          "gueris": 1
         },
         "Haut-Uélé": {
           "hospitalises": 54,
           "lits": 134,
-          "occupation": 40.3
+          "occupation": 40.3,
+          "admissions": 3,
+          "sorties": 16,
+          "gueris": 1
         },
         "Tshopo": {
           "hospitalises": 3,
           "lits": 25,
-          "occupation": 12.0
+          "occupation": 12.0,
+          "admissions": 1,
+          "sorties": 4,
+          "gueris": 2
         }
       },
       "total": {
@@ -2499,21 +2673,28 @@
         "Ituri": {
           "hospitalises": 435,
           "lits": 1005,
-          "occupation": 43.3
+          "occupation": 43.3,
+          "admissions": 82,
+          "sorties": 104
         },
         "Nord-Kivu": {
           "hospitalises": 311,
-          "occupation": 141.4
+          "occupation": 141.4,
+          "admissions": 89
         },
         "Haut-Uélé": {
           "hospitalises": 64,
           "lits": 134,
-          "occupation": 47.8
+          "occupation": 47.8,
+          "admissions": 12,
+          "sorties": 1
         },
         "Tshopo": {
           "hospitalises": 9,
           "lits": 31,
-          "occupation": 29.0
+          "occupation": 29.0,
+          "admissions": 1,
+          "sorties": 0
         }
       },
       "total": {
@@ -2533,24 +2714,34 @@
         "Ituri": {
           "hospitalises": 442,
           "lits": 1007,
-          "occupation": 43.9
+          "occupation": 43.9,
+          "admissions": 94,
+          "sorties": 77
         },
         "Nord-Kivu": {
           "hospitalises": 317,
-          "occupation": 139.0
+          "occupation": 139.0,
+          "admissions": 127,
+          "sorties": 121
         },
         "Haut-Uélé": {
           "hospitalises": 65,
           "lits": 134,
-          "occupation": 48.5
+          "occupation": 48.5,
+          "admissions": 10,
+          "sorties": 10
         },
         "Bas-Uélé": {
-          "hospitalises": 6
+          "hospitalises": 6,
+          "admissions": 1,
+          "sorties": 1
         },
         "Tshopo": {
           "hospitalises": 9,
           "lits": 31,
-          "occupation": 29.0
+          "occupation": 29.0,
+          "admissions": 2,
+          "sorties": 1
         }
       },
       "total": {
@@ -2570,27 +2761,37 @@
         "Ituri": {
           "hospitalises": 476,
           "lits": 1015,
-          "occupation": 46.9
+          "occupation": 46.9,
+          "admissions": 131,
+          "sorties": 88
         },
         "Nord-Kivu": {
           "hospitalises": 342,
-          "occupation": 150.0
+          "occupation": 150.0,
+          "admissions": 82,
+          "sorties": 60
         },
         "Haut-Uélé": {
           "hospitalises": 69,
           "lits": 134,
-          "occupation": 51.5
+          "occupation": 51.5,
+          "admissions": 11,
+          "sorties": 9
         },
         "Bas-Uélé": {
           "hospitalises": 7,
           "lits": 13,
           "occupation": 53.8,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 3,
+          "sorties": 2
         },
         "Tshopo": {
           "hospitalises": 12,
           "lits": 31,
-          "occupation": 38.7
+          "occupation": 38.7,
+          "admissions": 9,
+          "sorties": 3
         },
         "Sud-Kivu": {
           "hospitalises": 17,
@@ -2615,16 +2816,24 @@
         "Ituri": {
           "hospitalises": 472,
           "lits": 1015,
-          "occupation": 46.5
+          "occupation": 46.5,
+          "admissions": 86,
+          "sorties": 88,
+          "gueris": 12
         },
         "Nord-Kivu": {
           "hospitalises": 332,
-          "occupation": 145.6
+          "occupation": 145.6,
+          "admissions": 46,
+          "sorties": 53,
+          "gueris": 2
         },
         "Haut-Uélé": {
           "hospitalises": 69,
           "lits": 134,
-          "occupation": 51.5
+          "occupation": 51.5,
+          "admissions": 7,
+          "sorties": 3
         },
         "Bas-Uélé": {
           "hospitalises": 7
@@ -2632,12 +2841,15 @@
         "Tshopo": {
           "hospitalises": 8,
           "lits": 31,
-          "occupation": 25.8
+          "occupation": 25.8,
+          "admissions": 1,
+          "sorties": 1
         },
         "Sud-Kivu": {
           "hospitalises": 17,
           "lits": 25,
-          "occupation": 68.0
+          "occupation": 68.0,
+          "admissions": 1
         }
       },
       "total": {
@@ -2657,16 +2869,23 @@
         "Ituri": {
           "hospitalises": 485,
           "lits": 1015,
-          "occupation": 47.8
+          "occupation": 47.8,
+          "admissions": 95,
+          "gueris": 17
         },
         "Nord-Kivu": {
           "hospitalises": 348,
-          "occupation": 152.6
+          "occupation": 152.6,
+          "admissions": 81,
+          "sorties": 79,
+          "gueris": 6
         },
         "Haut-Uélé": {
           "hospitalises": 76,
           "lits": 136,
-          "occupation": 55.9
+          "occupation": 55.9,
+          "admissions": 22,
+          "sorties": 15
         },
         "Bas-Uélé": {
           "hospitalises": 7
@@ -2679,7 +2898,8 @@
         "Sud-Kivu": {
           "hospitalises": 16,
           "lits": 25,
-          "occupation": 64.0
+          "occupation": 64.0,
+          "admissions": 1
         }
       },
       "total": {
@@ -2699,7 +2919,9 @@
         "Ituri": {
           "hospitalises": 461,
           "lits": 1015,
-          "occupation": 45.4
+          "occupation": 45.4,
+          "admissions": 82,
+          "gueris": 13
         },
         "Nord-Kivu": {
           "hospitalises": 373,
@@ -2707,26 +2929,34 @@
           "occupationPubliee": 94.7,
           "litsDeduits": true,
           "occupation": 163.6,
+          "admissions": 118,
+          "sorties": 93,
+          "gueris": 4,
           "lits": 228,
           "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 63,
           "lits": 136,
-          "occupation": 46.3
+          "occupation": 46.3,
+          "admissions": 6,
+          "sorties": 17
         },
         "Bas-Uélé": {
-          "hospitalises": 11
+          "hospitalises": 11,
+          "sorties": 1
         },
         "Tshopo": {
           "hospitalises": 6,
           "lits": 31,
-          "occupation": 19.4
+          "occupation": 19.4,
+          "admissions": 1
         },
         "Sud-Kivu": {
           "hospitalises": 16,
           "lits": 25,
-          "occupation": 64.0
+          "occupation": 64.0,
+          "admissions": 1
         }
       },
       "total": {
@@ -2746,7 +2976,9 @@
         "Ituri": {
           "hospitalises": 442,
           "lits": 1015,
-          "occupation": 43.5
+          "occupation": 43.5,
+          "admissions": 89,
+          "sorties": 107
         },
         "Nord-Kivu": {
           "hospitalises": 376,
@@ -2754,12 +2986,16 @@
           "hospitalisesNormes": 221,
           "occupationPubliee": 96.9,
           "occupation": 164.9,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 103,
+          "sorties": 60
         },
         "Haut-Uélé": {
           "hospitalises": 62,
           "lits": 136,
-          "occupation": 45.6
+          "occupation": 45.6,
+          "admissions": 10,
+          "sorties": 2
         },
         "Bas-Uélé": {
           "hospitalises": 5
@@ -2772,7 +3008,8 @@
         "Sud-Kivu": {
           "hospitalises": 13,
           "lits": 25,
-          "occupation": 52.0
+          "occupation": 52.0,
+          "admissions": 2
         }
       },
       "total": {
@@ -2792,7 +3029,9 @@
         "Ituri": {
           "hospitalises": 430,
           "lits": 1015,
-          "occupation": 42.4
+          "occupation": 42.4,
+          "admissions": 72,
+          "sorties": 84
         },
         "Nord-Kivu": {
           "hospitalises": 403,
@@ -2800,25 +3039,33 @@
           "hospitalisesNormes": 217,
           "occupationPubliee": 95.2,
           "occupation": 176.8,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 122,
+          "sorties": 95
         },
         "Haut-Uélé": {
           "hospitalises": 61,
           "lits": 138,
-          "occupation": 44.2
+          "occupation": 44.2,
+          "admissions": 17,
+          "sorties": 17
         },
         "Bas-Uélé": {
-          "hospitalises": 11
+          "hospitalises": 11,
+          "admissions": 6
         },
         "Tshopo": {
           "hospitalises": 12,
           "lits": 31,
-          "occupation": 38.7
+          "occupation": 38.7,
+          "admissions": 5,
+          "sorties": 0
         },
         "Sud-Kivu": {
           "hospitalises": 13,
           "lits": 25,
-          "occupation": 52.0
+          "occupation": 52.0,
+          "admissions": 1
         }
       },
       "total": {
@@ -2838,7 +3085,9 @@
         "Ituri": {
           "hospitalises": 434,
           "lits": 1015,
-          "occupation": 42.8
+          "occupation": 42.8,
+          "admissions": 102,
+          "sorties": 98
         },
         "Nord-Kivu": {
           "hospitalises": 392,
@@ -2846,20 +3095,28 @@
           "hospitalisesNormes": 224,
           "occupationPubliee": 98.2,
           "occupation": 171.9,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 70,
+          "sorties": 69
         },
         "Haut-Uélé": {
           "hospitalises": 63,
           "lits": 138,
-          "occupation": 45.7
+          "occupation": 45.7,
+          "admissions": 14,
+          "sorties": 16
         },
         "Bas-Uélé": {
-          "hospitalises": 10
+          "hospitalises": 10,
+          "admissions": 1
         },
         "Tshopo": {
           "hospitalises": 10,
           "lits": 31,
-          "occupation": 32.3
+          "occupation": 32.3,
+          "admissions": 2,
+          "sorties": 4,
+          "gueris": 2
         }
       },
       "total": {
@@ -2879,7 +3136,9 @@
         "Ituri": {
           "hospitalises": 439,
           "lits": 1015,
-          "occupation": 43.3
+          "occupation": 43.3,
+          "admissions": 85,
+          "sorties": 74
         },
         "Nord-Kivu": {
           "hospitalises": 376,
@@ -2887,17 +3146,23 @@
           "hospitalisesNormes": 218,
           "occupationPubliee": 95.6,
           "occupation": 164.9,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 54,
+          "sorties": 63
         },
         "Haut-Uélé": {
           "hospitalises": 60,
           "lits": 138,
-          "occupation": 43.5
+          "occupation": 43.5,
+          "admissions": 8,
+          "sorties": 7
         },
         "Tshopo": {
           "hospitalises": 11,
           "lits": 31,
-          "occupation": 35.5
+          "occupation": 35.5,
+          "admissions": 4,
+          "sorties": 2
         }
       },
       "total": {
@@ -2917,7 +3182,9 @@
         "Ituri": {
           "hospitalises": 442,
           "lits": 1015,
-          "occupation": 43.5
+          "occupation": 43.5,
+          "admissions": 77,
+          "sorties": 73
         },
         "Nord-Kivu": {
           "hospitalises": 316,
@@ -2925,20 +3192,28 @@
           "hospitalisesNormes": 208,
           "occupationPubliee": 91.2,
           "occupation": 138.6,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 63,
+          "sorties": 123
         },
         "Haut-Uélé": {
           "hospitalises": 45,
           "lits": 138,
-          "occupation": 32.6
+          "occupation": 32.6,
+          "admissions": 1,
+          "sorties": 10
         },
         "Tshopo": {
           "hospitalises": 12,
           "lits": 31,
-          "occupation": 38.7
+          "occupation": 38.7,
+          "admissions": 1,
+          "sorties": 0
         },
         "Bas-Uélé": {
-          "hospitalises": 6
+          "hospitalises": 6,
+          "admissions": 1,
+          "sorties": 0
         }
       },
       "total": {
@@ -2958,7 +3233,9 @@
         "Ituri": {
           "hospitalises": 432,
           "lits": 1015,
-          "occupation": 42.6
+          "occupation": 42.6,
+          "admissions": 92,
+          "sorties": 102
         },
         "Nord-Kivu": {
           "hospitalises": 338,
@@ -2966,12 +3243,16 @@
           "hospitalisesNormes": 274,
           "occupationPubliee": 66.2,
           "occupation": 109.7,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 92,
+          "sorties": 70
         },
         "Haut-Uélé": {
           "hospitalises": 50,
           "lits": 138,
-          "occupation": 36.2
+          "occupation": 36.2,
+          "admissions": 11,
+          "sorties": 6
         },
         "Tshopo": {
           "hospitalises": 11,
@@ -2979,7 +3260,8 @@
           "occupation": 35.5
         },
         "Bas-Uélé": {
-          "hospitalises": 8
+          "hospitalises": 8,
+          "sorties": 0
         }
       },
       "total": {
@@ -2999,7 +3281,9 @@
         "Ituri": {
           "hospitalises": 429,
           "lits": 1015,
-          "occupation": 42.3
+          "occupation": 42.3,
+          "admissions": 77,
+          "sorties": 73
         },
         "Nord-Kivu": {
           "hospitalises": 377,
@@ -3007,12 +3291,16 @@
           "hospitalisesNormes": 280,
           "occupationPubliee": 90.9,
           "occupation": 122.4,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 95,
+          "sorties": 56
         },
         "Haut-Uélé": {
           "hospitalises": 56,
           "lits": 138,
-          "occupation": 40.6
+          "occupation": 40.6,
+          "admissions": 12,
+          "sorties": 6
         },
         "Tshopo": {
           "hospitalises": 16,
@@ -3020,7 +3308,8 @@
           "occupation": 51.6
         },
         "Bas-Uélé": {
-          "hospitalises": 7
+          "hospitalises": 7,
+          "admissions": 1
         }
       },
       "total": {
@@ -3040,7 +3329,9 @@
         "Ituri": {
           "hospitalises": 440,
           "lits": 1015,
-          "occupation": 43.3
+          "occupation": 43.3,
+          "admissions": 63,
+          "sorties": 46
         },
         "Nord-Kivu": {
           "hospitalises": 369,
@@ -3048,13 +3339,17 @@
           "occupationPubliee": 81.2,
           "litsDeduits": true,
           "occupation": 119.8,
+          "admissions": 70,
+          "sorties": 67,
           "lits": 308,
           "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 62,
           "lits": 138,
-          "occupation": 44.9
+          "occupation": 44.9,
+          "admissions": 12,
+          "sorties": 3
         }
       },
       "total": {
@@ -3074,7 +3369,9 @@
         "Ituri": {
           "hospitalises": 394,
           "lits": 1015,
-          "occupation": 38.8
+          "occupation": 38.8,
+          "admissions": 72,
+          "sorties": 117
         },
         "Nord-Kivu": {
           "hospitalises": 365,
@@ -3082,17 +3379,22 @@
           "hospitalisesNormes": 251,
           "occupationPubliee": 81.5,
           "occupation": 103.1,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 75,
+          "sorties": 79
         },
         "Haut-Uélé": {
           "hospitalises": 66,
           "lits": 138,
-          "occupation": 47.8
+          "occupation": 47.8,
+          "admissions": 9,
+          "sorties": 5
         },
         "Sud-Ubangi": {
           "hospitalises": 2,
           "lits": 12,
-          "occupation": 16.7
+          "occupation": 16.7,
+          "admissions": 1
         }
       },
       "total": {
@@ -3112,13 +3414,17 @@
         "Ituri": {
           "hospitalises": 385,
           "lits": 1015,
-          "occupation": 37.9
+          "occupation": 37.9,
+          "admissions": 71,
+          "sorties": 79
         },
         "Nord-Kivu": {
           "hospitalises": 351,
           "hospitalisesNormes": 271,
           "occupationPubliee": 70.9,
           "occupation": 99.2,
+          "admissions": 54,
+          "sorties": 68,
           "lits": 354,
           "litsEncadres": true,
           "occupationCalculee": true
@@ -3126,7 +3432,9 @@
         "Haut-Uélé": {
           "hospitalises": 69,
           "lits": 138,
-          "occupation": 50.0
+          "occupation": 50.0,
+          "admissions": 10,
+          "sorties": 5
         }
       },
       "total": {
@@ -3146,7 +3454,9 @@
         "Ituri": {
           "hospitalises": 380,
           "lits": 1015,
-          "occupation": 37.4
+          "occupation": 37.4,
+          "admissions": 73,
+          "sorties": 77
         },
         "Nord-Kivu": {
           "hospitalises": 328,
@@ -3154,12 +3464,16 @@
           "hospitalisesNormes": 223,
           "occupationPubliee": 63.0,
           "occupation": 92.7,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 54,
+          "sorties": 76
         },
         "Haut-Uélé": {
           "hospitalises": 60,
           "lits": 138,
-          "occupation": 43.5
+          "occupation": 43.5,
+          "admissions": 11,
+          "sorties": 18
         }
       },
       "total": {
@@ -3178,11 +3492,17 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 368,
-          "occupation": 36.3
+          "occupation": 36.3,
+          "admissions": 45,
+          "sorties": 57,
+          "gueris": 7
         },
         "Nord-Kivu": {
           "hospitalises": 345,
           "occupation": 97.5,
+          "admissions": 82,
+          "sorties": 65,
+          "gueris": 6,
           "occupationPubliee": 63.0,
           "lits": 354,
           "litsReportes": true,
@@ -3190,7 +3510,10 @@
         },
         "Haut-Uélé": {
           "hospitalises": 68,
-          "occupation": 49.3
+          "occupation": 49.3,
+          "admissions": 14,
+          "sorties": 6,
+          "gueris": 3
         }
       },
       "total": {
@@ -3209,7 +3532,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 381,
-          "occupation": 37.5
+          "occupation": 37.5,
+          "admissions": 93,
+          "sorties": 80,
+          "gueris": 11
         },
         "Nord-Kivu": {
           "hospitalises": 366,
@@ -3217,6 +3543,8 @@
           "occupationPubliee": 70.3,
           "litsDeduits": true,
           "occupation": 103.4,
+          "admissions": 69,
+          "sorties": 48,
           "lits": 354,
           "occupationCalculee": true
         }
@@ -3237,7 +3565,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 392,
-          "occupation": 38.6
+          "occupation": 38.6,
+          "admissions": 83,
+          "sorties": 72,
+          "gueris": 12
         },
         "Nord-Kivu": {
           "hospitalises": 365,
@@ -3245,12 +3576,17 @@
           "occupationPubliee": 63.0,
           "litsDeduits": true,
           "occupation": 103.1,
+          "admissions": 68,
+          "sorties": 68,
           "lits": 354,
           "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 70,
-          "occupation": 50.7
+          "occupation": 50.7,
+          "admissions": 7,
+          "sorties": 13,
+          "gueris": 1
         }
       },
       "total": {
@@ -3269,7 +3605,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 398,
-          "occupation": 39.2
+          "occupation": 39.2,
+          "admissions": 90,
+          "sorties": 80,
+          "gueris": 27
         },
         "Nord-Kivu": {
           "hospitalises": 360,
@@ -3277,12 +3616,17 @@
           "occupationPubliee": 72.3,
           "litsDeduits": true,
           "occupation": 101.7,
+          "admissions": 76,
+          "sorties": 71,
           "lits": 354,
           "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 69,
-          "occupation": 50.0
+          "occupation": 50.0,
+          "admissions": 11,
+          "sorties": 18,
+          "gueris": 5
         }
       },
       "total": {
@@ -3302,6 +3646,9 @@
         "Ituri": {
           "hospitalises": 394,
           "occupation": 38.8,
+          "admissions": 100,
+          "sorties": 108,
+          "gueris": 19,
           "lits": 1015,
           "litsEncadres": true,
           "occupationPubliee": 38.8,
@@ -3312,13 +3659,16 @@
           "hospitalisesNormes": 271,
           "occupationPubliee": 63.0,
           "occupation": 108.2,
+          "admissions": 71,
+          "sorties": 57,
           "lits": 354,
           "litsReportes": true,
           "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 74,
-          "occupation": 53.6
+          "occupation": 53.6,
+          "admissions": 11
         }
       },
       "total": {
@@ -3338,6 +3688,9 @@
         "Ituri": {
           "hospitalises": 378,
           "occupation": 37.2,
+          "admissions": 74,
+          "sorties": 90,
+          "gueris": 9,
           "lits": 1015,
           "litsEncadres": true,
           "occupationPubliee": 37.2,
@@ -3348,17 +3701,24 @@
           "hospitalisesNormes": 261,
           "occupationPubliee": 63.0,
           "occupation": 102.8,
+          "admissions": 79,
+          "sorties": 98,
           "lits": 354,
           "litsReportes": true,
           "occupationCalculee": true
         },
         "Tshopo": {
           "hospitalises": 14,
-          "occupation": 45.2
+          "occupation": 45.2,
+          "admissions": 3,
+          "sorties": 1
         },
         "Haut-Uélé": {
           "hospitalises": 74,
-          "occupation": 53.6
+          "occupation": 53.6,
+          "admissions": 11,
+          "sorties": 14,
+          "gueris": 8
         }
       },
       "total": {
@@ -3378,6 +3738,9 @@
         "Ituri": {
           "hospitalises": 372,
           "occupation": 36.7,
+          "admissions": 75,
+          "sorties": 58,
+          "gueris": 4,
           "lits": 1015,
           "litsEncadres": true,
           "occupationPubliee": 36.7,
@@ -3388,17 +3751,23 @@
           "hospitalisesNormes": 263,
           "occupationPubliee": 63.0,
           "occupation": 107.9,
+          "admissions": 61,
+          "sorties": 48,
           "lits": 354,
           "litsReportes": true,
           "occupationCalculee": true
         },
         "Tshopo": {
           "hospitalises": 20,
-          "occupation": 64.5
+          "occupation": 64.5,
+          "admissions": 6
         },
         "Haut-Uélé": {
           "hospitalises": 70,
-          "occupation": 50.7
+          "occupation": 50.7,
+          "admissions": 14,
+          "sorties": 15,
+          "gueris": 1
         }
       },
       "total": {
@@ -3418,6 +3787,9 @@
         "Ituri": {
           "hospitalises": 366,
           "occupation": 36.1,
+          "admissions": 86,
+          "sorties": 92,
+          "gueris": 17,
           "lits": 1015,
           "litsEncadres": true,
           "occupationPubliee": 36.1,
@@ -3429,17 +3801,24 @@
           "hospitalisesNormes": 271,
           "occupationPubliee": 74.2,
           "occupation": 114.2,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 155,
+          "sorties": 85,
+          "gueris": 1
         },
         "Tshopo": {
           "hospitalises": 18,
           "lits": 36,
-          "occupation": 50.0
+          "occupation": 50.0,
+          "admissions": 3,
+          "sorties": 2
         },
         "Haut-Uélé": {
           "hospitalises": 60,
           "lits": 153,
-          "occupation": 39.2
+          "occupation": 39.2,
+          "admissions": 9,
+          "sorties": 8
         }
       },
       "total": {
@@ -3459,6 +3838,9 @@
         "Ituri": {
           "hospitalises": 360,
           "occupation": 35.5,
+          "admissions": 45,
+          "sorties": 76,
+          "gueris": 15,
           "lits": 1015,
           "litsEncadres": true,
           "occupationPubliee": 35.5,
@@ -3470,12 +3852,17 @@
           "hospitalisesNormes": 315,
           "occupationPubliee": 84.2,
           "occupation": 138.8,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 142,
+          "sorties": 116,
+          "gueris": 8
         },
         "Haut-Uélé": {
           "hospitalises": 76,
           "lits": 153,
-          "occupation": 49.7
+          "occupation": 49.7,
+          "admissions": 9,
+          "sorties": 2
         },
         "Tshopo": {
           "hospitalises": 15,
@@ -3483,7 +3870,9 @@
           "hospitalisesNormes": 10,
           "occupationPubliee": 27.8,
           "occupation": 41.7,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 1,
+          "sorties": 7
         }
       },
       "total": {
@@ -3503,6 +3892,9 @@
         "Ituri": {
           "hospitalises": 316,
           "occupation": 31.1,
+          "admissions": 58,
+          "sorties": 102,
+          "gueris": 14,
           "lits": 1015,
           "litsEncadres": true,
           "occupationPubliee": 31.1,
@@ -3514,20 +3906,30 @@
           "lits": 354,
           "occupationPubliee": 91.8,
           "occupation": 147.7,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 100,
+          "sorties": 96,
+          "gueris": 11
         },
         "Haut-Uélé": {
           "hospitalises": 71,
           "lits": 138,
-          "occupation": 51.4
+          "occupation": 51.4,
+          "admissions": 12,
+          "sorties": 17,
+          "gueris": 3
         },
         "Tshopo": {
           "hospitalises": 14,
           "lits": 31,
-          "occupation": 45.2
+          "occupation": 45.2,
+          "admissions": 3,
+          "sorties": 4
         },
         "Bas-Uélé": {
-          "hospitalises": 2
+          "hospitalises": 2,
+          "admissions": 18,
+          "sorties": 0
         }
       },
       "total": {
@@ -3547,6 +3949,9 @@
         "Ituri": {
           "hospitalises": 316,
           "occupation": 31.1,
+          "admissions": 81,
+          "sorties": 86,
+          "gueris": 18,
           "lits": 1015,
           "litsEncadres": true,
           "occupationPubliee": 30.6,
@@ -3558,16 +3963,22 @@
           "lits": 374,
           "occupationPubliee": 87.2,
           "occupation": 139.8,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 121,
+          "sorties": 121
         },
         "Haut-Uélé": {
           "hospitalises": 71,
-          "occupation": 53.6
+          "occupation": 53.6,
+          "admissions": 71,
+          "sorties": 4
         },
         "Tshopo": {
           "hospitalises": 15,
           "lits": 36,
-          "occupation": 41.7
+          "occupation": 41.7,
+          "admissions": 1,
+          "sorties": 0
         }
       },
       "total": {
@@ -3587,11 +3998,17 @@
         "Ituri": {
           "hospitalises": 336,
           "lits": 1015,
-          "occupation": 35.5
+          "occupation": 35.5,
+          "admissions": 80,
+          "sorties": 59,
+          "gueris": 11
         },
         "Nord-Kivu": {
           "hospitalises": 501,
           "occupation": 134.0,
+          "admissions": 103,
+          "sorties": 125,
+          "gueris": 5,
           "lits": 374,
           "litsEncadres": true,
           "occupationPubliee": 94.9,
@@ -3603,10 +4020,14 @@
           "hospitalisesNormes": 11,
           "occupationPubliee": 30.6,
           "occupation": 38.9,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 1,
+          "sorties": 2
         },
         "Bas-Uélé": {
-          "hospitalises": 26
+          "hospitalises": 26,
+          "admissions": 26,
+          "sorties": 0
         }
       },
       "total": {
@@ -3625,7 +4046,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 337,
-          "occupation": 33.2
+          "occupation": 33.2,
+          "admissions": 76,
+          "sorties": 71,
+          "gueris": 16
         },
         "Nord-Kivu": {
           "hospitalises": 471,
@@ -3633,16 +4057,22 @@
           "hospitalisesNormes": 330,
           "occupationPubliee": 88.2,
           "occupation": 125.9,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 79,
+          "sorties": 109,
+          "gueris": 10
         },
         "Haut-Uélé": {
           "hospitalises": 45,
-          "occupation": 32.6
+          "occupation": 32.6,
+          "admissions": 7
         },
         "Tshopo": {
           "hospitalises": 15,
           "lits": 36,
-          "occupation": 41.7
+          "occupation": 41.7,
+          "admissions": 11,
+          "sorties": 2
         }
       },
       "total": {
@@ -3661,7 +4091,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 382,
-          "occupation": 36.0
+          "occupation": 36.0,
+          "admissions": 100,
+          "sorties": 75,
+          "gueris": 13
         },
         "Nord-Kivu": {
           "hospitalises": 445,
@@ -3669,17 +4102,24 @@
           "hospitalisesNormes": 333,
           "occupationPubliee": 89.0,
           "occupation": 119.0,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 86,
+          "sorties": 82,
+          "gueris": 13
         },
         "Haut-Uélé": {
           "hospitalises": 45,
           "lits": 169,
-          "occupation": 26.6
+          "occupation": 26.6,
+          "admissions": 6
         },
         "Tshopo": {
           "hospitalises": 13,
           "lits": 36,
-          "occupation": 36.1
+          "occupation": 36.1,
+          "admissions": 3,
+          "sorties": 1,
+          "gueris": 1
         }
       },
       "total": {
@@ -3698,7 +4138,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 363,
-          "occupation": 34.0
+          "occupation": 34.0,
+          "admissions": 80,
+          "sorties": 97,
+          "gueris": 13
         },
         "Nord-Kivu": {
           "hospitalises": 468,
@@ -3706,17 +4149,23 @@
           "hospitalisesNormes": 328,
           "occupationPubliee": 87.7,
           "occupation": 125.1,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 115,
+          "sorties": 92,
+          "gueris": 14
         },
         "Haut-Uélé": {
           "hospitalises": 45,
           "lits": 169,
-          "occupation": 26.6
+          "occupation": 26.6,
+          "admissions": 6
         },
         "Tshopo": {
           "hospitalises": 16,
           "lits": 36,
-          "occupation": 44.4
+          "occupation": 44.4,
+          "admissions": 4,
+          "sorties": 1
         }
       },
       "total": {
@@ -3735,7 +4184,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 407,
-          "occupation": 40.0
+          "occupation": 40.0,
+          "admissions": 88,
+          "sorties": 75,
+          "gueris": 18
         },
         "Nord-Kivu": {
           "hospitalises": 453,
@@ -3743,17 +4195,25 @@
           "hospitalisesNormes": 330,
           "occupationPubliee": 84.2,
           "occupation": 115.6,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 74,
+          "sorties": 88,
+          "gueris": 15
         },
         "Haut-Uélé": {
           "hospitalises": 43,
           "lits": 169,
-          "occupation": 25.4
+          "occupation": 25.4,
+          "admissions": 16,
+          "sorties": 18,
+          "gueris": 5
         },
         "Tshopo": {
           "hospitalises": 13,
           "lits": 36,
-          "occupation": 36.1
+          "occupation": 36.1,
+          "admissions": 4,
+          "sorties": 5
         }
       },
       "total": {
@@ -3772,7 +4232,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 384,
-          "occupation": 37.0
+          "occupation": 37.0,
+          "admissions": 60,
+          "sorties": 82,
+          "gueris": 11
         },
         "Nord-Kivu": {
           "hospitalises": 464,
@@ -3780,17 +4243,24 @@
           "hospitalisesNormes": 333,
           "occupationPubliee": 84.9,
           "occupation": 118.4,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 97,
+          "sorties": 86,
+          "gueris": 10
         },
         "Haut-Uélé": {
           "hospitalises": 44,
           "lits": 169,
-          "occupation": 26.0
+          "occupation": 26.0,
+          "admissions": 5,
+          "sorties": 8
         },
         "Tshopo": {
           "hospitalises": 21,
           "lits": 36,
-          "occupation": 58.3
+          "occupation": 58.3,
+          "admissions": 8,
+          "sorties": 1
         },
         "Bas-Uélé": {
           "hospitalises": 3
@@ -3813,6 +4283,9 @@
         "Ituri": {
           "hospitalises": 380,
           "occupation": 37.4,
+          "admissions": 72,
+          "sorties": 76,
+          "gueris": 14,
           "occupationPubliee": 37.0,
           "lits": 1015,
           "litsReportes": true,
@@ -3821,12 +4294,17 @@
         "Haut-Uélé": {
           "hospitalises": 44,
           "lits": 169,
-          "occupation": 26.0
+          "occupation": 26.0,
+          "admissions": 15,
+          "sorties": 15,
+          "gueris": 1
         },
         "Tshopo": {
           "hospitalises": 18,
           "lits": 36,
-          "occupation": 50.0
+          "occupation": 50.0,
+          "admissions": 2,
+          "sorties": 1
         },
         "Bas-Uélé": {
           "hospitalises": 3
@@ -3848,7 +4326,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 393,
-          "occupation": 38.0
+          "occupation": 38.0,
+          "admissions": 114,
+          "sorties": 101,
+          "gueris": 7
         },
         "Nord-Kivu": {
           "hospitalises": 471,
@@ -3856,7 +4337,10 @@
           "lits": 410,
           "occupationPubliee": 85.1,
           "occupation": 114.9,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 50,
+          "sorties": 62,
+          "gueris": 1
         },
         "Haut-Uélé": {
           "hospitalises": 39,
@@ -3868,7 +4352,9 @@
         "Tshopo": {
           "hospitalises": 19,
           "lits": 36,
-          "occupation": 52.8
+          "occupation": 52.8,
+          "admissions": 2,
+          "sorties": 1
         },
         "Bas-Uélé": {
           "hospitalises": 3
@@ -3890,7 +4376,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 429,
-          "occupation": 41.0
+          "occupation": 41.0,
+          "admissions": 104,
+          "sorties": 68,
+          "gueris": 12
         },
         "Nord-Kivu": {
           "hospitalises": 450,
@@ -3898,12 +4387,17 @@
           "hospitalisesNormes": 359,
           "occupationPubliee": 87.6,
           "occupation": 109.8,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 74,
+          "sorties": 95,
+          "gueris": 7
         },
         "Tshopo": {
           "hospitalises": 16,
           "lits": 36,
-          "occupation": 44.4
+          "occupation": 44.4,
+          "admissions": 2,
+          "sorties": 3
         }
       },
       "total": {
@@ -3922,7 +4416,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 431,
-          "occupation": 42.5
+          "occupation": 42.5,
+          "admissions": 83,
+          "sorties": 81,
+          "gueris": 5
         },
         "Nord-Kivu": {
           "hospitalises": 509,
@@ -3930,20 +4427,29 @@
           "hospitalisesNormes": 332,
           "occupationPubliee": 81.0,
           "occupation": 124.1,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 154,
+          "sorties": 95,
+          "gueris": 10
         },
         "Tshopo": {
           "hospitalises": 13,
           "lits": 36,
-          "occupation": 36.1
+          "occupation": 36.1,
+          "admissions": 3,
+          "sorties": 2
         },
         "Bas-Uélé": {
-          "hospitalises": 47
+          "hospitalises": 47,
+          "admissions": 20
         },
         "Haut-Uélé": {
           "hospitalises": 29,
           "lits": 169,
-          "occupation": 17.2
+          "occupation": 17.2,
+          "admissions": 4,
+          "sorties": 28,
+          "gueris": 7
         }
       },
       "total": {
@@ -3962,7 +4468,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 452,
-          "occupation": 43.0
+          "occupation": 43.0,
+          "admissions": 108,
+          "sorties": 87,
+          "gueris": 15
         },
         "Nord-Kivu": {
           "hospitalises": 488,
@@ -3970,15 +4479,22 @@
           "hospitalisesNormes": 340,
           "occupationPubliee": 82.9,
           "occupation": 119.0,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 87,
+          "sorties": 106,
+          "gueris": 6
         },
         "Tshopo": {
           "hospitalises": 12,
           "lits": 36,
-          "occupation": 33.3
+          "occupation": 33.3,
+          "admissions": 2,
+          "sorties": 2
         },
         "Bas-Uélé": {
-          "hospitalises": 60
+          "hospitalises": 60,
+          "admissions": 14,
+          "sorties": 1
         },
         "Haut-Uélé": {
           "hospitalises": 29
@@ -4000,7 +4516,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 499,
-          "occupation": 48.0
+          "occupation": 48.0,
+          "admissions": 151,
+          "sorties": 104,
+          "gueris": 21
         },
         "Nord-Kivu": {
           "hospitalises": 468,
@@ -4008,15 +4527,22 @@
           "hospitalisesNormes": 331,
           "occupationPubliee": 80.7,
           "occupation": 114.1,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 57,
+          "sorties": 77,
+          "gueris": 11
         },
         "Tshopo": {
           "hospitalises": 9,
           "lits": 36,
-          "occupation": 25.0
+          "occupation": 25.0,
+          "admissions": 4,
+          "sorties": 1
         },
         "Bas-Uélé": {
-          "hospitalises": 86
+          "hospitalises": 86,
+          "admissions": 23,
+          "sorties": 1
         }
       },
       "total": {
@@ -4035,7 +4561,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 499,
-          "occupation": 49.2
+          "occupation": 49.2,
+          "admissions": 102,
+          "sorties": 102,
+          "gueris": 8
         },
         "Nord-Kivu": {
           "hospitalises": 477,
@@ -4043,20 +4572,29 @@
           "hospitalisesNormes": 339,
           "occupationPubliee": 82.7,
           "occupation": 116.3,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 57,
+          "sorties": 69,
+          "gueris": 9
         },
         "Haut-Uélé": {
           "hospitalises": 35,
           "lits": 184,
-          "occupation": 19.0
+          "occupation": 19.0,
+          "admissions": 14,
+          "sorties": 15
         },
         "Tshopo": {
           "hospitalises": 13,
           "lits": 36,
-          "occupation": 36.1
+          "occupation": 36.1,
+          "admissions": 4,
+          "sorties": 0
         },
         "Bas-Uélé": {
-          "hospitalises": 106
+          "hospitalises": 106,
+          "admissions": 20,
+          "sorties": 2
         }
       },
       "total": {
@@ -4075,7 +4613,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 397,
-          "occupation": 38.0
+          "occupation": 38.0,
+          "admissions": 93,
+          "sorties": 99,
+          "gueris": 17
         },
         "Nord-Kivu": {
           "hospitalises": 447,
@@ -4083,20 +4624,29 @@
           "hospitalisesNormes": 340,
           "occupationPubliee": 82.9,
           "occupation": 109.0,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 95,
+          "sorties": 125,
+          "gueris": 11
         },
         "Haut-Uélé": {
           "hospitalises": 41,
           "lits": 158,
-          "occupation": 25.9
+          "occupation": 25.9,
+          "admissions": 15,
+          "sorties": 6
         },
         "Tshopo": {
           "hospitalises": 15,
           "lits": 36,
-          "occupation": 41.7
+          "occupation": 41.7,
+          "admissions": 4,
+          "sorties": 2
         },
         "Bas-Uélé": {
-          "hospitalises": 118
+          "hospitalises": 118,
+          "admissions": 17,
+          "sorties": 0
         }
       },
       "total": {
@@ -4115,7 +4665,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 422,
-          "occupation": 40.0
+          "occupation": 40.0,
+          "admissions": 88,
+          "sorties": 76,
+          "gueris": 9
         },
         "Nord-Kivu": {
           "hospitalises": 495,
@@ -4123,15 +4676,22 @@
           "hospitalisesNormes": 348,
           "occupationPubliee": 84.9,
           "occupation": 120.7,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 156,
+          "sorties": 108,
+          "gueris": 12
         },
         "Haut-Uélé": {
           "hospitalises": 41,
           "lits": 158,
-          "occupation": 25.9
+          "occupation": 25.9,
+          "admissions": 15,
+          "sorties": 6
         },
         "Bas-Uélé": {
-          "hospitalises": 92
+          "hospitalises": 92,
+          "admissions": 15,
+          "sorties": 20
         }
       },
       "total": {
@@ -4150,19 +4710,40 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 409,
-          "occupation": 40.3
+          "occupation": 40.3,
+          "admissions": 59,
+          "sorties": 72,
+          "gueris": 9
+        },
+        "Nord-Kivu": {
+          "hospitalises": 497,
+          "occupation": 121.2,
+          "admissions": 495,
+          "sorties": 82,
+          "gueris": 4,
+          "lits": 410,
+          "litsEncadres": true,
+          "occupationPubliee": 87.8,
+          "occupationCalculee": true
         },
         "Haut-Uélé": {
           "hospitalises": 38,
-          "occupation": 21.2
+          "occupation": 21.2,
+          "admissions": 36,
+          "sorties": 6
         },
         "Bas-Uélé": {
-          "hospitalises": 38
+          "hospitalises": 38,
+          "admissions": 14,
+          "sorties": 8
         }
       },
       "total": {
-        "hospitalises": 485,
-        "provinces": 3
+        "hospitalises": 982,
+        "provinces": 4,
+        "lits": 410,
+        "hospitalisesAvecLits": 497,
+        "occupation": 121.2
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -4173,7 +4754,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 412,
-          "occupation": 40.6
+          "occupation": 40.6,
+          "admissions": 94,
+          "sorties": 88,
+          "gueris": 14
         },
         "Nord-Kivu": {
           "hospitalises": 536,
@@ -4181,23 +4765,42 @@
           "hospitalisesNormes": 370,
           "occupationPubliee": 90.2,
           "occupation": 130.7,
-          "occupationCalculee": true
+          "occupationCalculee": true,
+          "admissions": 132,
+          "sorties": 98,
+          "gueris": 7
         },
         "Tshopo": {
           "hospitalises": 14,
           "occupation": 38.9,
+          "admissions": 3,
+          "sorties": 6,
+          "gueris": 2,
           "lits": 36,
           "litsEncadres": true,
           "occupationPubliee": 38.9,
           "occupationCalculee": true
+        },
+        "Haut-Uélé": {
+          "hospitalises": 37,
+          "lits": 149,
+          "occupation": 24.8,
+          "admissions": 9,
+          "sorties": 3,
+          "gueris": 1
+        },
+        "Bas-Uélé": {
+          "hospitalises": 124,
+          "admissions": 25,
+          "sorties": 10
         }
       },
       "total": {
-        "hospitalises": 962,
-        "provinces": 3,
-        "lits": 446,
-        "hospitalisesAvecLits": 550,
-        "occupation": 123.3
+        "hospitalises": 1123,
+        "provinces": 5,
+        "lits": 595,
+        "hospitalisesAvecLits": 587,
+        "occupation": 98.7
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -4209,23 +4812,46 @@
         "Ituri": {
           "hospitalises": 359,
           "occupation": 35.4,
+          "admissions": 63,
+          "sorties": 99,
+          "gueris": 23,
           "lits": 1015,
           "litsReportes": true,
           "occupationPubliee": 34.0,
           "occupationCalculee": true
         },
+        "Nord-Kivu": {
+          "hospitalises": 523,
+          "lits": 410,
+          "hospitalisesNormes": 363,
+          "occupationPubliee": 88.5,
+          "occupation": 127.6,
+          "occupationCalculee": true,
+          "admissions": 120,
+          "sorties": 130,
+          "gueris": 17
+        },
         "Tshopo": {
           "hospitalises": 22,
           "lits": 36,
-          "occupation": 61.1
+          "occupation": 61.1,
+          "admissions": 7
+        },
+        "Haut-Uélé": {
+          "hospitalises": 32,
+          "lits": 149,
+          "occupation": 21.5,
+          "admissions": 9,
+          "sorties": 9,
+          "gueris": 1
         }
       },
       "total": {
-        "hospitalises": 381,
-        "provinces": 2,
-        "lits": 1051,
-        "hospitalisesAvecLits": 381,
-        "occupation": 36.3
+        "hospitalises": 936,
+        "provinces": 4,
+        "lits": 1610,
+        "hospitalisesAvecLits": 936,
+        "occupation": 58.1
       },
       "source": "SitRep INSP (automatique)"
     }

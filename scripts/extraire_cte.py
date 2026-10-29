@@ -124,6 +124,15 @@ HOSPITALISES_RES = [
     # file active de 5 patients au CTE Lwiro » (018, epoque A tardive).
     re.compile(r"patients\s+hospitalis\w*\s*\((\d[\d ]{0,4}\d|\d)\s*/\s*\d", re.I),
     re.compile(r"file\s+active\s+de\s+(\d[\d ]{0,4}\d|\d)\s+patients", re.I),
+    # Tournures d'octobre 2026, lues en dernier (29 octobre 2026) :
+    # « 523 patients (178 confirmés et 345 suspects) sont pris en charge, dont
+    # 160 hors CTE/CT » (166 Nord-Kivu), « 497 patients sont pris en charge
+    # CTE/CT » (164 Nord-Kivu), « 32 patients (16 confirmés et 16 suspects)
+    # hospitalisés pour 149 lits » (165-166 Haut-Uele, sans « sont ») et
+    # « 124 patients suspects demeurent en isolement » (165 Bas-Uele).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*(?:\(\s*\d[^)]{0,90}\)\s*)?sont\s+pris\s+en\s+charge\b", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,90}\)\s*hospitalis", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)(?:\s+(?:suspects|confirm[ée]s))?\s+demeurent\s+en\s+(?:isolement|hospitalisation)", re.I),
 ]
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits|atteint\s+\d[\d ]{0,4}\s+lits\s+sur\s+(\d[\d ]{0,4}\d|\d)", re.I)
 # « taux d'occupation global de 51,7% (120 lits) » (110 Haut-Uele) : les lits
@@ -195,6 +204,23 @@ OCCUPATION_RES = [
     # precedent, qui interdit \n ; le mot lui-meme suffit a ancrer le taux.
     re.compile(r"sursaturation\s*\((\d+(?:[,.]\d+)?)\s*%", re.I),
 ]
+
+
+_N = r"(\d[\d ]{0,4}\d|\d|une?)"
+# « 63 nouvelles admissions », « 1 nouvelle admission », « 16 nouveaux cas
+# suspects ont été admis » (148 Bas-Uele).
+ADMISSIONS_RE = re.compile(r"%s\s+nouvel(?:le)?s?\s+admissions?|%s\s+nouveaux\s+cas\s+suspects\s+ont\s+[ée]t[ée]\s+admis"
+                           % (_N, _N), re.I)
+SORTIES_RE = re.compile(r"contre\s+%s\s+sorties?\b" % _N, re.I)
+SANS_SORTIE_RE = re.compile(r"sans\s+aucune\s+sortie|aucune\s+sortie\s+n[’']a\s+[ée]t[ée]", re.I)
+# « dont 23 guérisons », « (78 non-cas, 11 guérisons et 7 décès) », « : 14
+# guérisons », « dont 12 patients guéris » ; jamais un nombre isolé, qui
+# pourrait venir d'une autre phrase.
+GUERIS_RE = re.compile(r"(?:dont|:|\(|,)\s*%s\s+(?:patients?\s+)?gu[ée]ri(?:s|sons?)?\b" % _N, re.I)
+
+
+def nombre_ou_un(t):
+    return 1 if t.lower() in ("un", "une") else entier(t)
 
 
 def numerateur(ligne):
@@ -276,9 +302,22 @@ def lire_prose(morceau):
     elif ligne.get("lits"):
         ligne["occupation"] = round(numerateur(ligne) / ligne["lits"] * 100, 1)
         ligne["occupationCalculee"] = True
-    # Admissions, sorties et guéris sont dans la même phrase, mais sous des
-    # tournures trop variables pour être publiés sans relecture : on ne garde
-    # que ce que la page affiche, hospitalisés, lits et occupation.
+    # Flux du jour (29 octobre 2026) : admissions, sorties et guéris, sous
+    # leurs trois formes stables (« 63 nouvelles admissions … contre 99
+    # sorties, dont 23 guérisons », « sans aucune sortie »). Les décès en CTE,
+    # trop variables (« 11 décès (dont 8 confirmés) », « 1 décès confirmé à
+    # Paw »), ne sont pas lus : la série des décès intra-CTE vient d'ailleurs.
+    m = ADMISSIONS_RE.search(morceau)
+    if m:
+        ligne["admissions"] = nombre_ou_un(m.group(1) or m.group(2))
+    m = SORTIES_RE.search(morceau)
+    if m:
+        ligne["sorties"] = nombre_ou_un(m.group(1))
+    elif SANS_SORTIE_RE.search(morceau):
+        ligne["sorties"] = 0
+    m = GUERIS_RE.search(morceau)
+    if m:
+        ligne["gueris"] = nombre_ou_un(m.group(1))
     return ligne
 
 
