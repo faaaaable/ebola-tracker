@@ -167,6 +167,14 @@ def construire(origin="https://ebola-tracker.org"):
         for p, v in (((x.get("vaccination") or {}).get("provinces")) or {}).items():
             if v.get("cumul") is not None:
                 r(x["date"], p)["vaccines_cumul"] = v["cumul"]
+        # cumulParProvince porte aussi les cumuls que la lecture detaillee
+        # ne remplit pas (16 couples date/province au 29 octobre 2026, dont
+        # le Bas-Uele du 25 au 27) ; jamais de desaccord avec « cumul ».
+        for p, n in (((x.get("vaccination") or {}).get("cumulParProvince")) or {}).items():
+            if n is not None:
+                o = r(x["date"], p)
+                if o.get("vaccines_cumul") is None:
+                    o["vaccines_cumul"] = n
 
     index = {(o["date"], o["province"] if o["niveau"] == "province" else ""): o
              for o in lignes if o["niveau"] != "zone"}

@@ -3579,7 +3579,16 @@ def vaccination_seed(piliers, date_bulletin, lang, strings_lang, i18n_lang, vide
         out["ripVaccines"], out["ripVaccinZones"] = vide["value"], ""
         return out
 
-    total = sum(v["cumul"] for v in dernier.values())
+    # Le total vient de cumulParProvince, comme la lettre : « provinces[*].cumul »
+    # n'est rempli que par la lecture detaillee et manquait des le 25 octobre
+    # pour le Bas-Uele (1 785 le 27, la page gardait 1 660 du 24) — 9 674 sur
+    # la page, 9 800 dans la lettre 166 (trouve le 29 octobre 2026).
+    derniers_cumuls = {}
+    for p in points:
+        for prov, n in (((p.get("vaccination") or {}).get("cumulParProvince")) or {}).items():
+            if n is not None:
+                derniers_cumuls[prov] = n
+    total = sum(derniers_cumuls.values()) if derniers_cumuls else sum(v["cumul"] for v in dernier.values())
     ordre = sorted(dernier, key=lambda n: -dernier[n]["cumul"])
     # Le dernier total national publie l'emporte tant que la somme des
     # provinces ne le depasse pas (choix de Fable, 7 octobre 2026).
@@ -3918,17 +3927,26 @@ CHAINE_RIPOSTE = [("alerts", "ripVerbe1"), ("labo", "ripVerbe2"), ("contacts", "
                   ("cte", "ripVerbe4"), ("vaccin", "ripVerbe5")]
 
 
-def chaine_riposte_html(kpis, strings_lang):
+# Les volets de la page Riposte, par case de la chaine : la page du pays,
+# qui n'a pas les volets sous les ancres #rip-*, y renvoie (29 octobre 2026).
+ANCRES_PAGE_RIPOSTE = {"alerts": "alertes", "labo": "laboratoire", "contacts": "contacts",
+                       "cte": "cte", "vaccin": "vaccination"}
+
+
+def chaine_riposte_html(kpis, strings_lang, vers=None):
     """La chaine de la page Riposte (signaler, tester, suivre, soigner,
     proteger) pour les pages province (7 octobre 2026) : les cases connues,
-    dans l'ordre de la chaine, chacune renvoyant a son volet."""
+    dans l'ordre de la chaine, chacune renvoyant a son volet. `vers` : chemin
+    de la page Riposte, pour la page du pays, dont les volets n'ont pas
+    d'ancre #rip-* ; sans lui, les ancres de la page elle-meme."""
     par = {k[0]: k for k in kpis}
     cases = []
     for cls, verbe in CHAINE_RIPOSTE:
         if cls in par:
             _, label, val, sub = par[cls]
-            cases.append('<a class="rc-e" href="#rip-%s"><span class="rc-v">%s</span><b class="rc-n is-%s">%s</b><em>%s</em>%s</a>'
-                         % (cls, esc(strings_lang[verbe]), cls, val, label, ("<small>%s</small>" % sub) if sub else ""))
+            href = "%s#%s" % (vers, ANCRES_PAGE_RIPOSTE[cls]) if vers else "#rip-%s" % cls
+            cases.append('<a class="rc-e" href="%s"><span class="rc-v">%s</span><b class="rc-n is-%s">%s</b><em>%s</em>%s</a>'
+                         % (href, esc(strings_lang[verbe]), cls, val, label, ("<small>%s</small>" % sub) if sub else ""))
     return ('      <div class="rc-chaine">%s</div>\n' % '<i aria-hidden="true">→</i>'.join(cases)) if cases else ""
 
 
@@ -3943,7 +3961,7 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
         % k for k in kpis)
     bloc_kpis = '      <div class="kpis riposte-kpis">\n%s      </div>\n' % cases if kpis else ""
     if chaine:
-        bloc_kpis = chaine_riposte_html(kpis, strings_lang)
+        bloc_kpis = chaine_riposte_html(kpis, strings_lang, vers=liens[0][0] if liens else None)
     if not avec_defis:
         # Ni resume des difficultes, ni source, ni extraits pilier par pilier
         # (29 septembre 2026, demande du proprietaire) : les difficultes ont

@@ -3759,7 +3759,7 @@
 2026-08-25,zone,Tshopo,Tshopo,103,https://ebola-tracker.org/reports/SITREP_MVE_103.pdf,,1,0,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-08-25,zone,Tshopo,Wanie-Rukula,103,https://ebola-tracker.org/reports/SITREP_MVE_103.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-08-26,pays,,,104,https://ebola-tracker.org/reports/SITREP_MVE_104.pdf,,5794,81,1,2786,42,48.1,1293,35,7,2026,431,372,81,21.8,831,1304,63.7,26850,22091,82.3,
-2026-08-26,province,Bas-Uélé,,104,https://ebola-tracker.org/reports/SITREP_MVE_104.pdf,,3,0,1,1,0,33.3,,0,0,15,5,2,0,0.0,,,,297,167,56.2,
+2026-08-26,province,Bas-Uélé,,104,https://ebola-tracker.org/reports/SITREP_MVE_104.pdf,,3,0,1,1,0,33.3,,0,0,15,5,2,0,0.0,,,,297,167,56.2,20
 2026-08-26,province,Haut-Uélé,,104,https://ebola-tracker.org/reports/SITREP_MVE_104.pdf,,194,5,1,90,1,46.4,,0,1,14,14,21,5,23.8,68,120,56.7,1694,1033,61.0,
 2026-08-26,province,Ituri,,104,https://ebola-tracker.org/reports/SITREP_MVE_104.pdf,,4802,52,1,2159,26,45.0,,21,5,726,256,152,52,34.2,549,978,56.1,16010,13706,85.6,
 2026-08-26,province,Nord-Kivu,,104,https://ebola-tracker.org/reports/SITREP_MVE_104.pdf,,775,22,1,527,15,68.0,,14,1,1069,146,185,22,11.9,214,206,103.9,8541,6877,80.5,
@@ -3831,7 +3831,7 @@
 2026-08-27,province,Ituri,,105,https://ebola-tracker.org/reports/SITREP_MVE_105.pdf,,4845,43,1,2185,26,45.1,,14,12,864,204,292,43,14.7,522,978,53.4,17477,15712,89.9,
 2026-08-27,province,Nord-Kivu,,105,https://ebola-tracker.org/reports/SITREP_MVE_105.pdf,,788,13,1,538,11,68.3,,9,2,996,160,185,13,7.0,232,220,105.5,8770,7371,84.0,
 2026-08-27,province,Sud-Kivu,,105,https://ebola-tracker.org/reports/SITREP_MVE_105.pdf,,3,0,1,1,0,33.3,,0,0,4,0,,,,,,,,,,
-2026-08-27,province,Tshopo,,105,https://ebola-tracker.org/reports/SITREP_MVE_105.pdf,,19,2,1,8,0,42.1,,0,0,130,8,8,2,25.0,,,,398,306,76.9,
+2026-08-27,province,Tshopo,,105,https://ebola-tracker.org/reports/SITREP_MVE_105.pdf,,19,2,1,8,0,42.1,,0,0,130,8,8,2,25.0,,,,398,306,76.9,122
 2026-08-27,zone,Bas-Uélé,Buta,105,https://ebola-tracker.org/reports/SITREP_MVE_105.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-08-27,zone,Bas-Uélé,Ganga,105,https://ebola-tracker.org/reports/SITREP_MVE_105.pdf,,1,0,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-08-27,zone,Bas-Uélé,Viadana,105,https://ebola-tracker.org/reports/SITREP_MVE_105.pdf,,1,0,1,0,0,0.0,,,,,,,,,,,,,,,
@@ -4295,12 +4295,12 @@
 2026-09-02,zone,Tshopo,Tshopo,111,https://ebola-tracker.org/reports/SITREP_MVE_111.pdf,,1,0,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-09-02,zone,Tshopo,Wanie-Rukula,111,https://ebola-tracker.org/reports/SITREP_MVE_111.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-09-03,pays,,,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,6436,94,1,3095,23,48.1,1495,17,6,1792,345,514,94,18.3,727,1351,53.8,24497,21678,88.5,
-2026-09-03,province,Bas-Uélé,,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,4,0,1,3,0,75.0,,0,0,40,17,8,0,0.0,,,,148,103,69.6,
+2026-09-03,province,Bas-Uélé,,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,4,0,1,3,0,75.0,,0,0,40,17,8,0,0.0,,,,148,103,69.6,459
 2026-09-03,province,Haut-Uélé,,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,245,9,1,104,1,42.4,,0,1,24,21,37,9,24.3,62,128,50.8,1573,1449,92.1,
 2026-09-03,province,Ituri,,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,5224,60,1,2355,13,45.1,,10,3,740,193,287,60,20.9,434,978,44.4,13362,12173,91.1,
 2026-09-03,province,Nord-Kivu,,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,938,25,1,623,9,66.4,,7,2,849,109,176,25,14.2,225,220,102.7,9060,7712,85.1,
 2026-09-03,province,Sud-Kivu,,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,3,0,1,1,0,33.3,,0,0,,,,,,,,,,,,
-2026-09-03,province,Tshopo,,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,22,0,1,9,0,40.9,,0,0,139,5,6,0,0.0,6,25,24.0,354,241,68.1,
+2026-09-03,province,Tshopo,,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,22,0,1,9,0,40.9,,0,0,139,5,6,0,0.0,6,25,24.0,354,241,68.1,1375
 2026-09-03,zone,Bas-Uélé,Buta,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-09-03,zone,Bas-Uélé,Ganga,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,2,0,1,2,0,100.0,,,,,,,,,,,,,,,
 2026-09-03,zone,Bas-Uélé,Viadana,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,1,0,1,0,0,0.0,,,,,,,,,,,,,,,
@@ -4362,7 +4362,7 @@
 2026-09-03,zone,Tshopo,Tshopo,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,1,0,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-09-03,zone,Tshopo,Wanie-Rukula,112,https://ebola-tracker.org/reports/SITREP_MVE_112.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-09-04,pays,,,113,https://ebola-tracker.org/reports/SITREP_MVE_113.pdf,,6522,86,1,3134,39,48.1,1516,30,9,2144,399,575,86,15.0,817,1376,59.4,25500,21909,86.0,
-2026-09-04,province,Bas-Uélé,,113,https://ebola-tracker.org/reports/SITREP_MVE_113.pdf,,4,0,1,3,0,75.0,,0,0,30,5,5,0,0.0,,,,152,106,69.7,
+2026-09-04,province,Bas-Uélé,,113,https://ebola-tracker.org/reports/SITREP_MVE_113.pdf,,4,0,1,3,0,75.0,,0,0,30,5,5,0,0.0,,,,152,106,69.7,486
 2026-09-04,province,Haut-Uélé,,113,https://ebola-tracker.org/reports/SITREP_MVE_113.pdf,,247,2,1,105,1,42.5,,0,1,24,23,37,2,5.4,62,128,48.4,1685,1215,72.1,
 2026-09-04,province,Ituri,,113,https://ebola-tracker.org/reports/SITREP_MVE_113.pdf,,5277,53,1,2378,23,45.1,,16,7,819,206,341,53,15.5,495,978,50.6,13839,12432,89.8,
 2026-09-04,province,Nord-Kivu,,113,https://ebola-tracker.org/reports/SITREP_MVE_113.pdf,,969,31,1,638,15,65.8,,14,1,1158,154,189,31,16.4,237,220,107.7,9491,7910,83.3,
@@ -4430,7 +4430,7 @@
 2026-09-04,zone,Tshopo,Tshopo,113,https://ebola-tracker.org/reports/SITREP_MVE_113.pdf,,1,0,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-09-04,zone,Tshopo,Wanie-Rukula,113,https://ebola-tracker.org/reports/SITREP_MVE_113.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-09-05,pays,,,114,https://ebola-tracker.org/reports/SITREP_MVE_114.pdf,,6604,82,1,3175,41,48.1,1548,32,9,1628,286,404,82,20.3,851,1376,61.8,23880,20459,85.7,
-2026-09-05,province,Bas-Uélé,,114,https://ebola-tracker.org/reports/SITREP_MVE_114.pdf,,4,0,1,3,0,75.0,,0,0,27,3,3,0,0.0,,,,152,107,70.4,
+2026-09-05,province,Bas-Uélé,,114,https://ebola-tracker.org/reports/SITREP_MVE_114.pdf,,4,0,1,3,0,75.0,,0,0,27,3,3,0,0.0,,,,152,107,70.4,500
 2026-09-05,province,Haut-Uélé,,114,https://ebola-tracker.org/reports/SITREP_MVE_114.pdf,,249,2,1,105,0,42.2,,0,0,23,18,8,2,25.0,65,128,50.8,1884,1321,70.1,
 2026-09-05,province,Ituri,,114,https://ebola-tracker.org/reports/SITREP_MVE_114.pdf,,5326,49,1,2398,20,45.0,,15,5,715,160,292,49,16.8,510,978,52.1,11339,10302,90.9,
 2026-09-05,province,Nord-Kivu,,114,https://ebola-tracker.org/reports/SITREP_MVE_114.pdf,,1000,31,1,659,21,65.9,,17,4,776,100,96,31,32.3,253,220,115.0,10163,8491,83.5,
@@ -6756,7 +6756,7 @@
 2026-10-07,zone,Tshopo,Tshopo,146,https://ebola-tracker.org/reports/SITREP_MVE_146.pdf,,2,0,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-10-07,zone,Tshopo,Wanie-Rukula,146,https://ebola-tracker.org/reports/SITREP_MVE_146.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-10-08,pays,,,147,https://ebola-tracker.org/reports/SITREP_MVE_147.pdf,,8845,58,1,4275,33,48.3,2320,14,19,1722,270,,58,,926,1538,60.1,29140,24337,83.5,
-2026-10-08,province,Bas-Uélé,,147,https://ebola-tracker.org/reports/SITREP_MVE_147.pdf,,11,1,1,4,0,36.4,,0,0,135,18,,1,,2,,,186,172,92.5,
+2026-10-08,province,Bas-Uélé,,147,https://ebola-tracker.org/reports/SITREP_MVE_147.pdf,,11,1,1,4,0,36.4,,0,0,135,18,,1,,2,,,186,172,92.5,1500
 2026-10-08,province,Haut-Uélé,,147,https://ebola-tracker.org/reports/SITREP_MVE_147.pdf,,371,3,1,157,1,42.3,,0,1,145,51,24,3,12.5,71,138,51.4,2081,1779,85.5,
 2026-10-08,province,Ituri,,147,https://ebola-tracker.org/reports/SITREP_MVE_147.pdf,,6562,20,1,3036,11,46.3,,2,9,,,139,20,14.4,316,1015,31.1,10772,9038,83.9,
 2026-10-08,province,Nord-Kivu,,147,https://ebola-tracker.org/reports/SITREP_MVE_147.pdf,,1841,30,1,1054,18,57.3,,11,7,1297,191,180,30,16.7,523,354,147.7,15460,12736,82.4,
@@ -6829,8 +6829,8 @@
 2026-10-08,zone,Tshopo,Tshopo,147,https://ebola-tracker.org/reports/SITREP_MVE_147.pdf,,2,0,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-10-08,zone,Tshopo,Wanie-Rukula,147,https://ebola-tracker.org/reports/SITREP_MVE_147.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-10-09,pays,,,148,https://ebola-tracker.org/reports/SITREP_MVE_148.pdf,,8914,69,1,4315,40,48.4,2338,30,10,3149,473,431,69,16.0,925,1425,59.9,31476,26170,83.1,
-2026-10-09,province,Bas-Uélé,,148,https://ebola-tracker.org/reports/SITREP_MVE_148.pdf,,13,2,1,4,0,30.8,,0,0,141,18,33,2,6.1,,,,223,189,84.8,
-2026-10-09,province,Haut-Uélé,,148,https://ebola-tracker.org/reports/SITREP_MVE_148.pdf,,372,1,1,157,0,42.2,,0,0,110,20,13,1,7.7,71,,53.6,2170,1964,90.5,
+2026-10-09,province,Bas-Uélé,,148,https://ebola-tracker.org/reports/SITREP_MVE_148.pdf,,13,2,1,4,0,30.8,,0,0,141,18,33,2,6.1,,,,223,189,84.8,1500
+2026-10-09,province,Haut-Uélé,,148,https://ebola-tracker.org/reports/SITREP_MVE_148.pdf,,372,1,1,157,0,42.2,,0,0,110,20,13,1,7.7,71,,53.6,2170,1964,90.5,100
 2026-10-09,province,Ituri,,148,https://ebola-tracker.org/reports/SITREP_MVE_148.pdf,,6609,47,1,3065,29,46.4,,25,4,1278,195,218,47,21.6,316,1015,31.1,12173,9758,80.2,
 2026-10-09,province,Nord-Kivu,,148,https://ebola-tracker.org/reports/SITREP_MVE_148.pdf,,1858,17,1,1065,11,57.3,,5,6,1467,229,156,17,10.9,523,374,139.8,16251,13659,84.1,
 2026-10-09,province,Sud-Kivu,,148,https://ebola-tracker.org/reports/SITREP_MVE_148.pdf,,3,0,1,1,0,33.3,,0,0,,,,,,,,,,,,
@@ -7195,7 +7195,7 @@
 2026-10-13,zone,Tshopo,Wanie-Rukula,152,https://ebola-tracker.org/reports/SITREP_MVE_152.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-10-14,pays,,,153,https://ebola-tracker.org/reports/SITREP_MVE_153.pdf,,9277,65,1,4478,37,48.3,2486,22,15,4048,612,506,65,12.8,916,597,85.3,33264,25956,78.0,
 2026-10-14,province,Bas-Uélé,,153,https://ebola-tracker.org/reports/SITREP_MVE_153.pdf,,13,0,1,4,0,30.8,,0,0,153,29,15,0,0.0,,,,626,596,95.2,
-2026-10-14,province,Haut-Uélé,,153,https://ebola-tracker.org/reports/SITREP_MVE_153.pdf,,398,5,1,167,2,42.0,,1,1,166,18,23,5,21.7,43,169,25.4,1622,1362,84.0,
+2026-10-14,province,Haut-Uélé,,153,https://ebola-tracker.org/reports/SITREP_MVE_153.pdf,,398,5,1,167,2,42.0,,1,1,166,18,23,5,21.7,43,169,25.4,1622,1362,84.0,470
 2026-10-14,province,Ituri,,153,https://ebola-tracker.org/reports/SITREP_MVE_153.pdf,,6806,31,1,3148,17,46.3,,11,6,1572,229,244,31,12.7,407,,40.0,12634,9394,74.4,1033
 2026-10-14,province,Nord-Kivu,,153,https://ebola-tracker.org/reports/SITREP_MVE_153.pdf,,1991,28,1,1133,16,56.9,,10,6,1920,318,216,28,13.0,453,392,115.6,17303,13680,79.1,
 2026-10-14,province,Sud-Kivu,,153,https://ebola-tracker.org/reports/SITREP_MVE_153.pdf,,3,0,1,1,0,33.3,,0,0,,,,,,,,,,,,
@@ -7268,7 +7268,7 @@
 2026-10-14,zone,Tshopo,Wanie-Rukula,153,https://ebola-tracker.org/reports/SITREP_MVE_153.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-10-15,pays,,,154,https://ebola-tracker.org/reports/SITREP_MVE_154.pdf,,9348,71,1,4510,32,48.2,2507,18,14,3779,545,462,71,15.4,916,597,88.6,35306,27976,79.2,
 2026-10-15,province,Bas-Uélé,,154,https://ebola-tracker.org/reports/SITREP_MVE_154.pdf,,13,0,1,4,0,30.8,,0,0,247,66,27,0,0.0,3,,,682,626,91.8,
-2026-10-15,province,Haut-Uélé,,154,https://ebola-tracker.org/reports/SITREP_MVE_154.pdf,,399,1,1,169,2,42.4,,0,2,184,9,21,1,4.8,44,169,26.0,1723,1515,87.9,
+2026-10-15,province,Haut-Uélé,,154,https://ebola-tracker.org/reports/SITREP_MVE_154.pdf,,399,1,1,169,2,42.4,,0,2,184,9,21,1,4.8,44,169,26.0,1723,1515,87.9,503
 2026-10-15,province,Ituri,,154,https://ebola-tracker.org/reports/SITREP_MVE_154.pdf,,6847,41,1,3164,16,46.2,,10,6,1523,243,270,41,15.2,384,,37.0,,,,1120
 2026-10-15,province,Nord-Kivu,,154,https://ebola-tracker.org/reports/SITREP_MVE_154.pdf,,2013,22,1,1146,13,56.9,,7,6,1586,211,128,22,17.2,464,392,118.4,17084,14204,83.1,
 2026-10-15,province,Sud-Kivu,,154,https://ebola-tracker.org/reports/SITREP_MVE_154.pdf,,3,0,1,1,0,33.3,,0,0,,,,,,,,,,,,
@@ -7343,7 +7343,7 @@
 2026-10-16,province,Bas-Uélé,,155,https://ebola-tracker.org/reports/SITREP_MVE_155.pdf,,13,0,1,4,0,30.8,,0,0,136,17,26,0,0.0,3,,,804,745,92.7,
 2026-10-16,province,Haut-Uélé,,155,https://ebola-tracker.org/reports/SITREP_MVE_155.pdf,,406,7,1,174,5,42.9,,3,2,134,15,28,7,25.0,44,169,26.0,1523,1365,89.6,588
 2026-10-16,province,Ituri,,155,https://ebola-tracker.org/reports/SITREP_MVE_155.pdf,,6891,44,1,3180,16,46.1,,10,6,1199,229,155,44,28.4,380,1015,37.4,12447,8703,69.9,
-2026-10-16,province,Nord-Kivu,,155,https://ebola-tracker.org/reports/SITREP_MVE_155.pdf,,2027,14,1,1150,4,56.7,,4,0,1659,257,239,14,5.9,,,,17105,14381,84.1,
+2026-10-16,province,Nord-Kivu,,155,https://ebola-tracker.org/reports/SITREP_MVE_155.pdf,,2027,14,1,1150,4,56.7,,4,0,1659,257,239,14,5.9,,,,17105,14381,84.1,62
 2026-10-16,province,Nord-Ubangi,,155,https://ebola-tracker.org/reports/SITREP_MVE_155.pdf,,2,,,1,,50.0,,1,0,,,,,,,,,,,,
 2026-10-16,province,Sud-Kivu,,155,https://ebola-tracker.org/reports/SITREP_MVE_155.pdf,,3,0,1,1,0,33.3,,0,0,,,,,,,,,,,,
 2026-10-16,province,Sud-Ubangi,,155,https://ebola-tracker.org/reports/SITREP_MVE_155.pdf,,2,0,1,1,0,50.0,,0,0,,,,,,,,,44,44,100.0,
@@ -7566,7 +7566,7 @@
 2026-10-18,zone,Tshopo,Wanie-Rukula,157,https://ebola-tracker.org/reports/SITREP_MVE_157.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-10-19,pays,,,158,https://ebola-tracker.org/reports/SITREP_MVE_158.pdf,,9637,85,1,4646,44,48.2,2574,29,15,3184,556,514,85,16.5,1029,615,89.6,31725,24679,77.8,
 2026-10-19,province,Bas-Uélé,,158,https://ebola-tracker.org/reports/SITREP_MVE_158.pdf,,13,0,1,4,0,30.8,,0,0,188,22,2,0,0.0,47,,,743,741,99.7,
-2026-10-19,province,Haut-Uélé,,158,https://ebola-tracker.org/reports/SITREP_MVE_158.pdf,,421,6,1,180,3,42.8,,2,1,155,54,24,6,25.0,29,169,17.2,1694,1576,93.0,
+2026-10-19,province,Haut-Uélé,,158,https://ebola-tracker.org/reports/SITREP_MVE_158.pdf,,421,6,1,180,3,42.8,,2,1,155,54,24,6,25.0,29,169,17.2,1694,1576,93.0,589
 2026-10-19,province,Ituri,,158,https://ebola-tracker.org/reports/SITREP_MVE_158.pdf,,7003,43,1,3242,25,46.3,,15,10,1196,213,278,43,15.5,431,,42.5,,,,
 2026-10-19,province,Nord-Kivu,,158,https://ebola-tracker.org/reports/SITREP_MVE_158.pdf,,2117,33,1,1191,15,56.3,,11,4,1456,251,199,33,16.6,509,410,124.1,19316,15394,79.7,472
 2026-10-19,province,Nord-Ubangi,,158,https://ebola-tracker.org/reports/SITREP_MVE_158.pdf,,3,1,1,1,0,33.3,,0,0,1,1,4,1,25.0,,,,61,61,100.0,
@@ -8015,7 +8015,7 @@
 2026-10-24,zone,Tshopo,Tshopo,163,https://ebola-tracker.org/reports/SITREP_MVE_163.pdf,,3,0,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-10-24,zone,Tshopo,Wanie-Rukula,163,https://ebola-tracker.org/reports/SITREP_MVE_163.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-10-25,pays,,,164,https://ebola-tracker.org/reports/SITREP_MVE_164.pdf,,10060,96,1,4887,46,48.6,2684,40,6,1839,249,479,96,20.0,982,410,121.2,19853,16205,81.6,
-2026-10-25,province,Bas-Uélé,,164,https://ebola-tracker.org/reports/SITREP_MVE_164.pdf,,13,0,1,4,0,30.8,,0,0,114,16,3,0,0.0,38,,,776,763,98.3,
+2026-10-25,province,Bas-Uélé,,164,https://ebola-tracker.org/reports/SITREP_MVE_164.pdf,,13,0,1,4,0,30.8,,0,0,114,16,3,0,0.0,38,,,776,763,98.3,1735
 2026-10-25,province,Haut-Uélé,,164,https://ebola-tracker.org/reports/SITREP_MVE_164.pdf,,436,0,1,190,0,43.6,,0,0,67,27,11,0,0.0,38,,21.2,2055,1744,84.9,
 2026-10-25,province,Ituri,,164,https://ebola-tracker.org/reports/SITREP_MVE_164.pdf,,7211,32,1,3370,15,46.7,,13,2,,,257,32,12.5,409,,40.3,,,,
 2026-10-25,province,Nord-Kivu,,164,https://ebola-tracker.org/reports/SITREP_MVE_164.pdf,,2309,58,1,1293,31,56.0,,27,4,1577,199,189,58,30.7,497,410,121.2,16413,13194,80.4,
@@ -8090,7 +8090,7 @@
 2026-10-25,zone,Tshopo,Tshopo,164,https://ebola-tracker.org/reports/SITREP_MVE_164.pdf,,4,1,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-10-25,zone,Tshopo,Wanie-Rukula,164,https://ebola-tracker.org/reports/SITREP_MVE_164.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-10-26,pays,,,165,https://ebola-tracker.org/reports/SITREP_MVE_165.pdf,,10141,81,1,4928,41,48.6,2708,28,13,4203,581,383,81,21.1,1123,595,98.7,34935,29528,84.5,
-2026-10-26,province,Bas-Uélé,,165,https://ebola-tracker.org/reports/SITREP_MVE_165.pdf,,13,0,1,4,0,30.8,,0,0,181,25,4,0,0.0,124,,,784,778,99.2,
+2026-10-26,province,Bas-Uélé,,165,https://ebola-tracker.org/reports/SITREP_MVE_165.pdf,,13,0,1,4,0,30.8,,0,0,181,25,4,0,0.0,124,,,784,778,99.2,1735
 2026-10-26,province,Haut-Uélé,,165,https://ebola-tracker.org/reports/SITREP_MVE_165.pdf,,442,6,1,192,2,43.4,,2,0,148,29,24,6,25.0,37,149,24.8,2079,1691,81.3,
 2026-10-26,province,Ituri,,165,https://ebola-tracker.org/reports/SITREP_MVE_165.pdf,,7247,36,1,3388,18,46.8,,14,4,1773,246,185,36,19.5,412,,40.6,11820,10834,91.7,1748
 2026-10-26,province,Nord-Kivu,,165,https://ebola-tracker.org/reports/SITREP_MVE_165.pdf,,2345,36,1,1314,21,56.0,,12,9,1912,272,156,36,23.1,536,410,130.7,18805,15379,81.8,
@@ -8165,7 +8165,7 @@
 2026-10-26,zone,Tshopo,Tshopo,165,https://ebola-tracker.org/reports/SITREP_MVE_165.pdf,,5,1,1,0,0,0.0,,,,,,,,,,,,,,,
 2026-10-26,zone,Tshopo,Wanie-Rukula,165,https://ebola-tracker.org/reports/SITREP_MVE_165.pdf,,1,0,1,1,0,100.0,,,,,,,,,,,,,,,
 2026-10-27,pays,,,166,https://ebola-tracker.org/reports/SITREP_MVE_166.pdf,,10193,52,1,4960,32,48.7,2749,20,12,3990,632,474,52,11.0,936,1610,58.1,38538,32930,85.4,
-2026-10-27,province,Bas-Uélé,,166,https://ebola-tracker.org/reports/SITREP_MVE_166.pdf,,13,0,1,4,0,30.8,,0,0,176,9,4,0,0.0,,,,784,776,99.0,
+2026-10-27,province,Bas-Uélé,,166,https://ebola-tracker.org/reports/SITREP_MVE_166.pdf,,13,0,1,4,0,30.8,,0,0,176,9,4,0,0.0,,,,784,776,99.0,1785
 2026-10-27,province,Haut-Uélé,,166,https://ebola-tracker.org/reports/SITREP_MVE_166.pdf,,444,2,1,194,2,43.7,,1,1,136,90,13,2,15.4,32,149,21.5,1372,1168,85.1,
 2026-10-27,province,Ituri,,166,https://ebola-tracker.org/reports/SITREP_MVE_166.pdf,,7278,31,1,3407,19,46.8,,12,7,1539,235,238,31,13.0,359,1015,35.4,16136,14766,91.5,1873
 2026-10-27,province,Nord-Kivu,,166,https://ebola-tracker.org/reports/SITREP_MVE_166.pdf,,2361,16,1,1325,11,56.1,,7,4,2029,288,213,16,7.5,523,410,127.6,18911,15626,82.6,
