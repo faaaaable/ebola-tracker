@@ -411,6 +411,11 @@ VALEURS_ECARTEES = [
     # 166 171 63 837 230 008 » — l'Ituri fait 95 558 la veille, 89 504 le
     # 2 juillet.
     ("047", "personnes", ("Ituri", "Global"), "Ituri 166 171, hors de proportion avec les jours voisins"),
+    # SitRep 136 (27 septembre) : la Tshopo imprimee 218 002 pour un total de
+    # 247 045 (Ituri 132 860, Nord-Kivu 93 183) — un 8 glisse dans 21 002 ;
+    # 20 878 la veille. Le total, coherent, reste (29 octobre 2026, demande de
+    # Fable).
+    ("136", "personnes", ("Tshopo",), "Tshopo 218 002, hors de proportion avec les jours voisins"),
 ]
 
 

@@ -28640,8 +28640,9 @@
       "brut": "93 183"
      },
      "Tshopo": {
-      "valeur": 218002,
-      "brut": "218 002"
+      "valeur": null,
+      "brut": "218 002",
+      "ecarte": "Tshopo 218 002, hors de proportion avec les jours voisins"
      },
      "Global": {
       "valeur": 247045,

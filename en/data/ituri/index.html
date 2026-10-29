@@ -115,7 +115,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=c62163c7cb">
+<link rel="stylesheet" href="/assets/css/site.css?v=1c8bce9727">
 </head>
 <body>
 
@@ -441,7 +441,7 @@
     <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">The response</h2><div class="section-sub">figures from the last 7 reports</div></div></div>
     <div class="cadre-corps">
       <p class="fiche-texte fiche-texte-centre">The response means all the actions taken to stop the outbreak: finding patients, testing and treating them, following up the people they were in contact with, and vaccinating those most at risk.</p>
-      <div class="rc-chaine"><a class="rc-e" href="#rip-alerts"><span class="rc-v">Report</span><b class="rc-n is-alerts">10,091</b><em>Alerts received (last 7 bulletins)</em><small>1,598 validated as suspected cases</small></a><i aria-hidden="true">→</i><a class="rc-e" href="#rip-labo"><span class="rc-v">Test</span><b class="rc-n is-labo">14.3%</b><em>Test positivity (last 7 bulletins)</em><small>238 positive out of 1,666 samples</small></a><i aria-hidden="true">→</i><a class="rc-e" href="#rip-contacts"><span class="rc-v">Trace</span><b class="rc-n is-contacts">90.7%</b><em>Contacts seen (last 7 bulletins)</em></a><i aria-hidden="true">→</i><a class="rc-e" href="#rip-cte"><span class="rc-v">Treat</span><b class="rc-n is-cte">35</b><em>Patients per 100 beds</em><small>359 hospitalised for 1,015 beds</small></a><i aria-hidden="true">→</i><a class="rc-e" href="#rip-vaccin"><span class="rc-v">Protect</span><b class="rc-n is-vaccin">1,873</b><em>People vaccinated</em><small>as of 27 Oct 2026</small></a></div>
+      <div class="rc-chaine"><a class="rc-e" href="#rip-alerts"><span class="rc-v">Report</span><b class="rc-n is-alerts">10,091</b><em>Alerts received (last 7 bulletins)</em><small>1,598 validated as suspected cases</small></a><i aria-hidden="true">→</i><a class="rc-e" href="#rip-labo"><span class="rc-v">Test</span><b class="rc-n is-labo">14.3%</b><em>Test positivity (last 7 bulletins)</em><small>238 positive out of 1,666 samples</small></a><i aria-hidden="true">→</i><a class="rc-e" href="#rip-contacts"><span class="rc-v">Trace</span><b class="rc-n is-contacts">90.7%</b><em>Contacts seen (last 7 bulletins)</em></a><i aria-hidden="true">→</i><a class="rc-e" href="#rip-cte"><span class="rc-v">Treat</span><b class="rc-n is-cte">35</b><em>Patients per 100 beds</em><small>359 hospitalised for 1,015 beds</small></a><i aria-hidden="true">→</i><a class="rc-e" href="#rip-vaccin"><span class="rc-v">Protect</span><b class="rc-n is-vaccin">1,873</b><em>People vaccinated</em><small>as of 27 Oct 2026</small></a><i aria-hidden="true">→</i><a class="rc-e" href="#rip-poe"><span class="rc-v">Screen</span><b class="rc-n is-poe">157,408</b><em>Travellers screened (last bulletin)</em><small>58 of 62 posts sent their report (94%)</small></a></div>
       <div class="rp-v" id="rip-alerts"><div class="rp-g">
         <h3>Alerts</h3>
         <p class="rp-sub">what surveillance receives, and what it keeps</p>
@@ -552,24 +552,43 @@
         <div class="rp-ch"><b class="rc-n is-poe">157,408</b><span>Travellers screened on 27 Oct 2026</span><small>58 of 62 posts sent their report (94%)</small></div>
       <p class="fiche-texte">At the province's points of entry and control, every traveller goes through a temperature check, hand washing and a prevention message. The chart follows the flow of travellers day by day, the alerts raised at the posts and the share of posts that send their report.</p>
       </div><div class="rp-d">
-      <div class="panel chart-panel-wrap">
+      <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="provPoeChart">
         <button type="button" class="share-btn">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
           <span data-i18n="chartShareBtn">Share</span>
         </button>
       </div>
-        <nav class="subtab-nav chart-vue-nav" data-chart-vue="provPoeChart">
-          <button type="button" class="subtab-btn active" data-vue="jour" data-i18n="chartVuePoeVoyageurs">Travellers per day</button>
-          <button type="button" class="subtab-btn" data-vue="alertes" data-i18n="chartVuePoeAlertes">Alerts per week</button>
-          <button type="button" class="subtab-btn" data-vue="rapports" data-i18n="chartVuePoeRapports">Reports received</button>
-        </nav>
         <div class="chart-panel">
-          <canvas id="provPoeChart" data-chart="pointsControle" data-province="Ituri"></canvas>
+          <canvas id="provPoeChart" data-chart="pointsControle" data-province="Ituri" data-vue="jour" data-titre="Travellers per day"></canvas>
         </div>
         <div class="map-note chart-note"></div>
       </div>
-<div class="panel poe-table-wrap"><table class="province-summary poe-table"><caption>On 27 Oct <small>— PoE/PoC table of SitRep 166</small></caption><thead><tr><th>Province</th><th class="is-num">Posts that reported</th><th class="is-num">Travellers screened</th><th class="is-num">Alerts</th><th class="is-num">of which live, validated</th><th class="is-num">Bodies intercepted</th></tr></thead><tbody><tr><th scope="row">Ituri</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:94%"></i></span>58/62</td><td class="is-num">157,408</td><td class="is-num">5</td><td class="is-num">5</td><td class="is-num">0</td></tr></tbody></table></div>      </div></div>
+      <div class="panel chart-panel-wrap poe-panneau">
+      <div class="chart-actions" data-export-chart="provPoeChartAlertes">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Share</span>
+        </button>
+      </div>
+        <div class="chart-panel">
+          <canvas id="provPoeChartAlertes" data-chart="pointsControle" data-province="Ituri" data-vue="alertes" data-titre="Alerts per week"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+      <div class="panel chart-panel-wrap poe-panneau">
+      <div class="chart-actions" data-export-chart="provPoeChartRapports">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Share</span>
+        </button>
+      </div>
+        <div class="chart-panel">
+          <canvas id="provPoeChartRapports" data-chart="pointsControle" data-province="Ituri" data-vue="rapports" data-titre="Reports received"></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+      </div></div>
     </div>
   </section>
 
@@ -843,8 +862,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=b024f7bc03"></script>
-<script defer src="/assets/js/app.js?v=20155e1594"></script>
+<script defer src="/assets/js/i18n.js?v=ddb0027390"></script>
+<script defer src="/assets/js/app.js?v=889bdb2bb2"></script>
 
 </body>
 </html>

@@ -109,7 +109,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,87.5,600;12..96,87.5,700&display=swap" rel="stylesheet">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=c62163c7cb">
+<link rel="stylesheet" href="/assets/css/site.css?v=1c8bce9727">
 </head>
 <body>
 
@@ -445,24 +445,48 @@
       <p class="fiche-texte">Le dépistage touche 97 % à 98 % des voyageurs sur les sept derniers relevés : ce qui varie, ce sont les alertes levées aux postes, les corps transportés interceptés, et les postes qui n'envoient pas leur rapport.</p>
     </div>
     <div class="r3-d">
-    <div class="panel chart-panel-wrap">
+    <!-- Trois graphiques montres d'un coup (29 octobre 2026, demande de
+         Fable) : voyageurs, alertes et rapports ne se lisent pas de la
+         meme facon, des onglets en cachaient deux. data-vue fixe la vue
+         de chaque canevas, data-titre lui donne son titre. -->
+    <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChart">
         <button type="button" class="share-btn">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
           <span data-i18n="chartShareBtn">Partager</span>
         </button>
       </div>
-      <nav class="subtab-nav chart-vue-nav" data-chart-vue="poeChart">
-        <button type="button" class="subtab-btn active" data-vue="jour">Voyageurs par jour</button>
-        <button type="button" class="subtab-btn" data-vue="alertes">Alertes par semaine</button>
-        <button type="button" class="subtab-btn" data-vue="rapports">Rapports reçus</button>
-      </nav>
       <div class="chart-panel">
-        <canvas id="poeChart" data-chart="pointsControle"></canvas>
+        <canvas id="poeChart" data-chart="pointsControle" data-vue="jour" data-titre="Voyageurs par jour"></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
-      <div class="panel poe-table-wrap"><table class="province-summary poe-table"><caption>Par province, le 27 oct. <small>— tableau des PoE/PoC du SitRep 166</small></caption><thead><tr><th>Province</th><th class="is-num">Postes qui ont rapporté</th><th class="is-num">Voyageurs contrôlés</th><th class="is-num">Alertes</th><th class="is-num">dont vivantes validées</th><th class="is-num">Corps interceptés</th></tr></thead><tbody><tr><th scope="row">Ituri</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:94%"></i></span>58/62</td><td class="is-num">157 408</td><td class="is-num">5</td><td class="is-num">5</td><td class="is-num">0</td></tr><tr><th scope="row">Nord-Kivu</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:95%"></i></span>20/21</td><td class="is-num">95 822</td><td class="is-num">0</td><td class="is-num">0</td><td class="is-num">0</td></tr><tr><th scope="row">Sud-Kivu</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:56%"></i></span>5/9</td><td class="is-num">7 072</td><td class="is-num">2</td><td class="is-num">0</td><td class="is-num">2</td></tr><tr><th scope="row">Tshopo</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:100%"></i></span>18/18</td><td class="is-num">22 661</td><td class="is-num">1</td><td class="is-num">1</td><td class="is-num">0</td></tr><tr><th scope="row">Haut-Uélé</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:67%"></i></span>8/12</td><td class="is-num">18 493</td><td class="is-num">0</td><td class="is-num">0</td><td class="is-num">0</td></tr><tr><th scope="row">Bas-Uélé</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:45%"></i></span>10/22</td><td class="is-num">2 008</td><td class="is-num">2</td><td class="is-num">0</td><td class="is-num">0</td></tr><tr class="is-total"><th scope="row">Ensemble</th><td class="is-num"><span class="poe-jauge" aria-hidden="true"><i style="width:83%"></i></span>119/144</td><td class="is-num">303 464</td><td class="is-num">10</td><td class="is-num">6</td><td class="is-num">2</td></tr></tbody></table></div>
+    <div class="panel chart-panel-wrap poe-panneau">
+      <div class="chart-actions" data-export-chart="poeChartAlertes">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Partager</span>
+        </button>
+      </div>
+      <div class="chart-panel">
+        <canvas id="poeChartAlertes" data-chart="pointsControle" data-vue="alertes" data-titre="Alertes par semaine"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+    <div class="panel chart-panel-wrap poe-panneau">
+      <div class="chart-actions" data-export-chart="poeChartRapports">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Partager</span>
+        </button>
+      </div>
+      <div class="chart-panel">
+        <canvas id="poeChartRapports" data-chart="pointsControle" data-vue="rapports" data-titre="Rapports reçus"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+      <!-- Le tableau par province du dernier bulletin est retire (29 octobre
+           2026, demande de Fable) : les trois graphiques suffisent. -->
     </div>
   </section>
 
@@ -591,8 +615,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=b024f7bc03"></script>
-<script defer src="/assets/js/app.js?v=20155e1594"></script>
+<script defer src="/assets/js/i18n.js?v=ddb0027390"></script>
+<script defer src="/assets/js/app.js?v=889bdb2bb2"></script>
 
 </body>
 </html>

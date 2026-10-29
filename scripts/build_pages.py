@@ -3047,6 +3047,16 @@ def provinces_qui_vaccinent(piliers):
 PROVINCES_OBSTACLES = ("Ituri", "Nord-Kivu", "Tshopo", "Haut-Uélé", "Bas-Uélé")
 
 
+# Provinces dont la colonne du tableau PoE/PoC a assez de releves de
+# voyageurs pour une courbe (29 octobre 2026, demande de Fable) : Tshopo,
+# Haut-Uele, Sud-Kivu, Bas-Uele en plus de l'Ituri et du Nord-Kivu. Remplie
+# par main() depuis points-controle.json, comme VACCIN_PROVINCES.
+POE_PROVINCES = set()
+# Retirees le meme jour, a la demande de Fable : le Sud-Kivu (journees a
+# ~84 000 imprimees fin juillet-aout) et le Bas-Uele (20 releves).
+PROVINCES_SANS_POE = {"Sud-Kivu", "Bas-Uélé"}
+
+
 def a_une_riposte(province):
     return province.get("name") in PROVINCES_RIPOSTE_FICHE
 
@@ -3085,7 +3095,7 @@ def province_numeros(province):
         suivant("courbe")
         suivant("deces")
     suivant("zones")
-    if a_une_riposte(province) or province.get("name") in VACCIN_PROVINCES:
+    if a_une_riposte(province) or province.get("name") in VACCIN_PROVINCES | POE_PROVINCES:
         suivant("riposte")
     if province.get("name") in PROVINCES_OBSTACLES:
         suivant("obstacles")
@@ -3653,31 +3663,44 @@ def _poe_table(der, colonnes, lang, strings_lang, i18n_lang):
                    % (round(c["pct"] or 0), fmt(c["num"], lang), fmt(c["den"], lang)))
         else:
             rap = "—"
-        rangs.append('<tr%s><th scope="row">%s</th><td class="is-num">%s</td><td class="is-num">%s</td>'
-                     '<td class="is-num">%s</td><td class="is-num">%s</td><td class="is-num">%s</td></tr>' % (
+        # Style des tableaux de zones des pages province (29 octobre 2026,
+        # demande de Fable) : voyageurs et corps en chiffres forts, comme les
+        # cas et les deces ; le contenu ne change pas.
+        rangs.append('<tr%s><th scope="row">%s</th><td>%s</td><td class="zt z-cas">%s</td>'
+                     '<td>%s</td><td>%s</td><td class="zt z-dec">%s</td></tr>' % (
                          ' class="is-total"' if tot else "",
                          esc(strings_lang["ripostePoeTableTotal"] if tot else col), rap,
                          cell(_poe_v(der, "personnes", col)), cell(_poe_v(der, "alertes", col)),
                          cell(_poe_v(der, "alertesVivantesValidees", col)),
                          cell(_poe_v(der, "corpsInterceptes", col))))
-    tete = "".join('<th%s>%s</th>' % (' class="is-num"' if i else "", esc(strings_lang[k])) for i, k in enumerate(
-        ("ripostePoeTableProvince", "ripostePoeTableRapports", "ripostePoeTableVoyageurs",
-         "ripostePoeTableAlertes", "ripostePoeTableValidees", "ripostePoeTableCorps")))
-    return ('<div class="panel poe-table-wrap"><table class="province-summary poe-table">'
-            '<caption>%s <small>— %s</small></caption><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>'
+    tete = "".join('<th scope="col">%s</th>' % esc(strings_lang[k]) for k in (
+        "ripostePoeTableProvince", "ripostePoeTableRapports", "ripostePoeTableVoyageurs",
+        "ripostePoeTableAlertes", "ripostePoeTableValidees", "ripostePoeTableCorps"))
+    return ('<div class="panel poe-table-wrap"><div class="table-scroll"><table class="zq poe-table">'
+            '<caption>%s <small>— %s</small></caption><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div></div>'
             % (esc(interp(strings_lang["ripostePoeTableCaption" if "Global" in colonnes else "ripostePoeTableCaptionProvince"],
                           {"date": short_date(der["date"], i18n_lang)})),
                esc(interp(strings_lang["ripostePoeTableSource"], {"n": str(int(der["sitrepNumber"]))})),
                tete, "".join(rangs)))
 
 
-def poe_province(poe, name, lang, strings_lang, i18n_lang):
-    """Le volet « points de controle » de la fiche d'une province (Ituri,
-    Nord-Kivu : 26 octobre 2026) : le nombre de releves de sa colonne, son
-    chiffre cle au dernier releve et sa ligne du tableau."""
+def _poe_avec(poe, name):
+    """Les releves de la colonne d'une province qui donnent les voyageurs."""
     points = (poe or {}).get("parDate") or []
     col = lambda e: next((c for c in e.get("colonnes", []) if _canon_prov(c) == name), None)
-    avec = [(e, col(e)) for e in points if col(e) and _poe_n(_poe_v(e, "personnes", col(e))) is not None]
+    return [(e, col(e)) for e in points if col(e) and _poe_n(_poe_v(e, "personnes", col(e))) is not None]
+
+
+def _poe_releves(poe, name):
+    return len(_poe_avec(poe, name))
+
+
+def poe_province(poe, name, lang, strings_lang, i18n_lang):
+    """Le volet « points de controle » de la fiche d'une province (Ituri,
+    Nord-Kivu : 26 octobre 2026 ; toutes celles de POE_PROVINCES depuis le
+    29 octobre) : le nombre de releves de sa colonne et son chiffre cle au
+    dernier releve."""
+    avec = _poe_avec(poe, name)
     if not avec:
         return None
     der, c = avec[-1]
@@ -3689,8 +3712,7 @@ def poe_province(poe, name, lang, strings_lang, i18n_lang):
     return {"releves": len(avec),
             "chiffre": (fmt(_poe_v(der, "personnes", c), lang),
                         esc(interp(strings_lang["riposteKpiPoe"], {"date": long_date(der["date"], i18n_lang)})),
-                        esc(sub)),
-            "ligne": _poe_table(der, [c], lang, strings_lang, i18n_lang)}
+                        esc(sub))}
 
 
 def poe_seed(poe, lang, strings_lang, i18n_lang, vide):
@@ -3924,13 +3946,13 @@ def difficultes_province(texte, name):
 
 
 CHAINE_RIPOSTE = [("alerts", "ripVerbe1"), ("labo", "ripVerbe2"), ("contacts", "ripVerbe3"),
-                  ("cte", "ripVerbe4"), ("vaccin", "ripVerbe5")]
+                  ("cte", "ripVerbe4"), ("vaccin", "ripVerbe5"), ("poe", "ripVerbe6")]
 
 
 # Les volets de la page Riposte, par case de la chaine : la page du pays,
 # qui n'a pas les volets sous les ancres #rip-*, y renvoie (29 octobre 2026).
 ANCRES_PAGE_RIPOSTE = {"alerts": "alertes", "labo": "laboratoire", "contacts": "contacts",
-                       "cte": "cte", "vaccin": "vaccination"}
+                       "cte": "cte", "vaccin": "vaccination", "poe": "points-controle"}
 
 
 def chaine_riposte_html(kpis, strings_lang, vers=None):
@@ -4003,15 +4025,19 @@ def _cadre_vaccination_seule(province, riposte, meta_data, lang, strings_lang, i
     complete (Tshopo, Bas-Uele ; 29 septembre 2026) : le chiffre des personnes
     vaccinees, puis la courbe de la vaccination de la province."""
     nom = province["name"]
-    if nom not in VACCIN_PROVINCES or a_une_riposte(province):
+    vaccine, controle = nom in VACCIN_PROVINCES, nom in POE_PROVINCES
+    if not (vaccine or controle) or a_une_riposte(province):
         return ""
     vac, vac_sub = vaccines_province(riposte, nom, meta_data, lang, strings_lang, i18n_lang)
-    # Un seul volet : son chiffre va a cote du graphique, sans chaine.
-    graph = riposte_graphiques_province(riposte, nom, lang, strings_lang, i18n_lang, seulement={"vaccination"},
+    # Chaque volet porte son chiffre a cote de son graphique, sans chaine.
+    # Les controles aux points d'entree s'y ajoutent le 29 octobre 2026.
+    graph = riposte_graphiques_province(riposte, nom, lang, strings_lang, i18n_lang, seulement={"vaccination", "pointsControle"},
                                         chiffres={"vaccination": (vac, esc(strings_lang["ficheKpiVaccines"]), vac_sub)})
+    sous = ("ficheRiposteSubVaccinPoe" if vaccine and controle
+            else "ficheRiposteSubVaccin" if vaccine else "ficheRiposteSubPoe")
     return fiche_riposte_html(
         province_numeros(province)["riposte"], [], "", "", [], strings_lang,
-        graphiques=graph, avec_defis=False, sous_titre=strings_lang["ficheRiposteSubVaccin"], chaine=True)
+        graphiques=graph, avec_defis=False, sous_titre=strings_lang[sous], chaine=True)
 
 
 # La riposte developpee sur la fiche (28 septembre 2026, demande du
@@ -4161,22 +4187,29 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
     CLASSE = {"alertes": "alerts", "laboratoire": "labo", "contactsRiposte": "contacts", "cte": "cte", "vaccination": "vaccin",
               "pointsControle": "poe"}
 
-    def bloc(titre, sous_titre, canvas_id, mode, vues=None, apres="", lede_cle=None):
+    def panneau(canvas_id, mode, vues=None, vue=None, titre_cle=None):
+        attrs = (' data-vue="%s" data-titre="%s"' % (vue, esc(i18n_lang[titre_cle]))) if vue else ""
+        return ('      <div class="panel chart-panel-wrap%s">\n%s%s'
+                '        <div class="chart-panel">\n'
+                '          <canvas id="%s" data-chart="%s" data-province="%s"%s></canvas>\n'
+                '        </div>\n        <div class="map-note chart-note"></div>\n      </div>\n'
+                % (" poe-panneau" if vue else "", BOUTON_PARTAGE % (canvas_id, esc(i18n_lang["chartShareBtn"])),
+                   nav(canvas_id, vues) if vues else "", canvas_id, mode, esc(name), attrs))
+
+    def bloc(titre, sous_titre, canvas_id, mode, vues=None, apres="", lede_cle=None, fixes=None):
+        """fixes : des vues montrees d'un coup, un canevas chacune, au lieu
+        d'une bascule (points de controle, 29 octobre 2026, demande de Fable)."""
         ch = chiffres.get(mode)
         cle = ('        <div class="rp-ch"><b class="rc-n is-%s">%s</b><span>%s</span><small>%s</small></div>\n'
                % (CLASSE.get(mode, ""), ch[0], ch[1], ch[2])) if ch else ""
+        panneaux = ("".join(panneau(canvas_id + suffixe, mode, vue=v, titre_cle=k) for suffixe, v, k in fixes)
+                    if fixes else panneau(canvas_id, mode, vues))
         return ('      <div class="rp-v" id="rip-%s"><div class="rp-g">\n'
                 '        <h3>%s</h3>\n        <p class="rp-sub">%s</p>\n%s%s'
-                '      </div><div class="rp-d">\n'
-                '      <div class="panel chart-panel-wrap">\n%s%s'
-                '        <div class="chart-panel">\n'
-                '          <canvas id="%s" data-chart="%s" data-province="%s"></canvas>\n'
-                '        </div>\n        <div class="map-note chart-note"></div>\n      </div>\n%s'
+                '      </div><div class="rp-d">\n%s%s'
                 '      </div></div>\n'
                 % (CLASSE.get(mode, mode), esc(strings_lang[titre]), esc(strings_lang[sous_titre]), cle,
-                   lede(lede_cle or titre.replace("Title", "Lede")),
-                   BOUTON_PARTAGE % (canvas_id, esc(i18n_lang["chartShareBtn"])),
-                   nav(canvas_id, vues) if vues else "", canvas_id, mode, esc(name), apres))
+                   lede(lede_cle or titre.replace("Title", "Lede")), panneaux, apres))
 
     out = []
     def voulu(mode):
@@ -4213,15 +4246,25 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
     # Les points de controle (26 octobre 2026) : sur les seules fiches a cadre
     # riposte developpe, apres la vaccination comme sur la page Riposte. Le
     # paragraphe de la page Riposte porte des chiffres nationaux : la fiche a
-    # le sien, sans chiffre ; la ligne de la province du tableau suit le graphique.
-    if voulu("pointsControle") and name in PROVINCES_RIPOSTE_FICHE:
+    # le sien, sans chiffre. La ligne de la province du tableau est retiree
+    # (29 octobre 2026, demande de Fable), comme le tableau de la page Riposte.
+    # Les autres provinces du tableau (29 octobre 2026, demande de Fable) n'ont
+    # que la courbe des voyageurs, avec son propre paragraphe.
+    if voulu("pointsControle") and name in POE_PROVINCES:
         pp = poe_province(riposte.get("poe"), name, lang, strings_lang, i18n_lang)
-        if pp and pp["releves"] >= RELEVES_MIN_GRAPHIQUE:
-            chiffres.setdefault("pointsControle", pp["chiffre"])
-            out.append(bloc("ripostePoeTitle", "ripostePoeSub", "provPoeChart", "pointsControle",
-                            [("jour", "chartVuePoeVoyageurs"), ("alertes", "chartVuePoeAlertes"),
-                             ("rapports", "chartVuePoeRapports")],
-                            apres=pp["ligne"], lede_cle="ripostePoeLedeProvince"))
+        if pp:
+            # Le libelle date du releve, a cote du graphique, plutot que celui
+            # de la chaine.
+            chiffres["pointsControle"] = pp["chiffre"]
+            if name in PROVINCES_RIPOSTE_FICHE:
+                out.append(bloc("ripostePoeTitle", "ripostePoeSub", "provPoeChart", "pointsControle",
+                                fixes=[("", "jour", "chartVuePoeVoyageurs"), ("Alertes", "alertes", "chartVuePoeAlertes"),
+                                       ("Rapports", "rapports", "chartVuePoeRapports")],
+                                lede_cle="ripostePoeLedeProvince"))
+            else:
+                out.append(bloc("ripostePoeTitle", "ripostePoeSub", "provPoeChart", "pointsControle",
+                                fixes=[("", "jour", "chartVuePoeVoyageurs")],
+                                lede_cle="ripostePoeLedeVoyageurs"))
     return "".join(out)
 
 
@@ -4462,6 +4505,9 @@ def main():
     }
     VACCIN_PROVINCES.clear()
     VACCIN_PROVINCES.update(provinces_qui_vaccinent(riposte["piliers"]))
+    POE_PROVINCES.clear()
+    POE_PROVINCES.update(n for n in PROVINCE_COLORS if _poe_releves(riposte["poe"], n) >= RELEVES_MIN_GRAPHIQUE
+                         and n not in PROVINCES_SANS_POE)
     # Traces des zones de sante : geometrie figee, produite a part par
     # scripts/build_geo.py. Elle ne change qu'en cas de nouvelle province
     # touchee ou de mise a jour de la source.
@@ -4690,9 +4736,13 @@ def main():
                 _al = alertes_province(riposte, _n, lang, strings_lang)
                 if _al:
                     _kpis.insert(0, ("alerts", esc(strings_lang["riposteKpiAlertes"]), _al[0], _al[1]))
+                _pp = poe_province(riposte.get("poe"), _n, lang, strings_lang, i18n_lang) if _n in POE_PROVINCES else None
+                if _pp:
+                    _kpis.append(("poe", esc(strings_lang["riposteKpiPoeChaine"]), _pp["chiffre"][0], _pp["chiffre"][2]))
             _graph, _extr = "", ""
             if a_une_courbe(_p):
-                _MODE = {"alerts": "alertes", "labo": "laboratoire", "contacts": "contactsRiposte", "cte": "cte", "vaccin": "vaccination"}
+                _MODE = {"alerts": "alertes", "labo": "laboratoire", "contacts": "contactsRiposte", "cte": "cte", "vaccin": "vaccination",
+                         "poe": "pointsControle"}
                 _graph = riposte_graphiques_province(riposte, _n, lang, strings_lang, i18n_lang,
                                                      chiffres={_MODE[k[0]]: (k[2], k[1], k[3]) for k in _kpis})
                 _ex, _num = extraits_defis_province(riposte["defis"], _n, {
@@ -4717,7 +4767,9 @@ def main():
              ("labo", esc(strings_lang["riposteKpiPositivite"]), common_seed["seed.ripPositivite"], common_seed["seed.ripPositiviteSub"]),
              ("contacts", esc(strings_lang["riposteKpiContacts"]), common_seed["seed.ripContacts"], common_seed["seed.ripContactsSub"]),
              ("cte", esc(strings_lang["riposteKpiOccupation"]), common_seed["seed.ripOccupation"], common_seed["seed.ripOccupationSub"]),
-             ("vaccin", esc(strings_lang["riposteKpiVaccines"]), common_seed.get("seed.ripVaccines", "—"), "")],
+             ("vaccin", esc(strings_lang["riposteKpiVaccines"]), common_seed.get("seed.ripVaccines", "—"), ""),
+             # Les controles, 6e case de la chaine (29 octobre 2026, demande de Fable).
+             ("poe", esc(strings_lang["riposteKpiPoeChaine"]), common_seed["seed.ripPoe"], common_seed["seed.ripPoeSub"])],
             "", "", _liens, strings_lang, avec_defis=False, chaine=True)
         # La frise de chaque page province (8 septembre 2026).
         common_seed["provinceTimelines"] = {

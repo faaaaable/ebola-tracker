@@ -1111,6 +1111,7 @@ const boutsDeCourbe = {
     ctx.font = '600 11.5px ' + PALETTE.font;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
+    const bouts = [];
     chart.data.datasets.forEach((ds, i) => {
       const meta = chart.getDatasetMeta(i);
       if(meta.hidden || !meta.data.length) return;
@@ -1124,8 +1125,15 @@ const boutsDeCourbe = {
       const pt = meta.data[j];
       ctx.fillStyle = ds.borderColor;
       ctx.beginPath(); ctx.arc(pt.x, pt.y, 3.5, 0, Math.PI * 2); ctx.fill();
-      ctx.fillText(ds.label + ' ' + fmt(ds.data[j]), pt.x + 9, pt.y);
+      bouts.push({ x:pt.x + 9, y:pt.y, couleur:ds.borderColor,
+                   texte:opts.sansNom ? fmt(ds.data[j]) : ds.label + ' ' + fmt(ds.data[j]) });
     });
+    /* Deux courbes qui finissent au meme niveau (29 octobre 2026 : Ituri et
+       Bas-Uele, Haut-Uele et Nord-Kivu) ecrivaient leurs chiffres l'un sur
+       l'autre : les etiquettes s'ecartent d'une ligne, de haut en bas. */
+    bouts.sort((a, b) => a.y - b.y);
+    bouts.forEach((b, k) => { if(k && b.y - bouts[k-1].y < 13) b.y = bouts[k-1].y + 13; });
+    bouts.forEach(b => { ctx.fillStyle = b.couleur; ctx.fillText(b.texte, b.x, b.y); });
     ctx.restore();
   },
 };
@@ -1475,7 +1483,9 @@ function reglerInfobulles(){
     const dansCarrousel = cv && cv.closest && cv.closest('.cr-card');
     const t = o.plugins.title || {};
     const cle = cv && TITRES_PAR_MODE[cv.dataset.chart];
-    let texte = cle ? tr(cle) + (cv.dataset.vue === 'parts' ? ' (%)' : '') : t.text;
+    /* data-titre prime (29 octobre 2026) : les trois graphiques des points
+       de controle partagent un mode, chacun a son titre. */
+    let texte = (cv && cv.dataset.titre) || (cle ? tr(cle) + (cv.dataset.vue === 'parts' ? ' (%)' : '') : t.text);
     if(!texte && cv && !dansCarrousel){
       const cadre = cv.closest('.cadre-fiche, .home-sec, section');
       const h = cv.dataset.titre ? null : (cadre && cadre.querySelector('.frame-title, .section-title'));
@@ -1989,7 +1999,34 @@ function renderOneChartBrut(canvas, chartMode){
           scales:{ x:axeX(true), y:{ beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
         dessiner('bar', dataP, optsP);
         noterPeriode(slot, joursP[0], joursP[joursP.length-1]);
-        noter(tr('chartNotePoeJourProvince')(lusP, joursP.length - lusP) + noteEcartes);
+        /* Les trous expliques par les bulletins (29 octobre 2026, demande de
+           Fable), entre le premier et le dernier releve de la province :
+           les bulletins de suite sans sa colonne — « ne figure plus dans le
+           tableau » quand tous ont un tableau (le Haut-Uele du 23 septembre
+           au 11 octobre), « aucun chiffre » quand certains n'en donnent que
+           la prose (la Tshopo, 6-14 aout) —, puis les jours marques « ND ». */
+        const absences = [], sansChiffre = [], nd = []; let run = [];
+        const finRun = () => {
+          if(!run.length) return;
+          const de = frDate(run[0].date), a = frDate(run[run.length-1].date);
+          if(run.every(e => e.lecture === 'tableau') && run.length >= 5) absences.push(tr('poeProvinceAbsente')(de, a));
+          else sansChiffre.push(tr('poePeriode')(de, a));
+          run = [];
+        };
+        const liste = xs => xs.length > 1 ? xs.slice(0, -1).join(', ') + tr('poeEt') + xs[xs.length-1] : xs[0];
+        pts.filter(e => e.date >= joursP[0] && e.date <= joursP[joursP.length-1]).forEach(e => {
+          const col = (e.colonnes || []).find(c => nomProvinceCanonique(c) === provRip);
+          if(!col){ run.push(e); return; }
+          finRun();
+          const v = ((e.indicateurs || {}).personnes || {})[col];
+          if(v && /^\s*ND\s*$/i.test(String(v.brut || ''))) nd.push(frDate(e.date));
+        });
+        finRun();
+        const noteSans = sansChiffre.length ? tr('poeProvinceSansChiffre')(liste(sansChiffre)) : '';
+        const noteNd = nd.length ? tr('poeProvinceNd')(liste(nd)) : '';
+        // Une date abregee en fin de phrase (« 14 Ago. ») ne prend pas un second point.
+        noter((tr('chartNotePoeJourProvince')(lusP, joursP.length - lusP) + noteSans + absences.join('') + noteNd + noteEcartes)
+          .replace(/\.\.(?=\s|$)/g, '.'));
         return;
       }
       const jours = calendrier(pts[0].date, pts[pts.length-1].date);
@@ -2611,7 +2648,10 @@ function renderOneChartBrut(canvas, chartMode){
                      juste au-dessus : l'aller-retour qu'elles evitaient sur
                      grand ecran ne coute rien ici. Meme seuil que le reste
                      du site. */
-                  boutsDeCourbe:{ actif: !surTelephone() },
+                  /* Le chiffre seul au bout de chaque courbe (29 octobre
+                     2026, demande de Fable) : la legende nomme deja les
+                     provinces. */
+                  boutsDeCourbe:{ actif: !surTelephone(), sansNom:true },
                   tooltip:infobulle({ callbacks:{
                     label:c => c.dataset.label + ' : ' + fmt(c.parsed.y),
                     /* Le total des deux provinces sous chaque infobulle : c'est
@@ -2626,7 +2666,7 @@ function renderOneChartBrut(canvas, chartMode){
                       return tr('vaccChartTotal')(fmt(t));
                     },
                   } }) },
-        layout:{ padding:{ right: surTelephone() ? 8 : 104 } },
+        layout:{ padding:{ right: surTelephone() ? 8 : 60 } },
         /* Une marge au-dessus du plus haut cumul (28 octobre 2026, demande
            du proprietaire) : sans elle, sur une page province, la courbe
            finissait collee au bord haut du graphique. */
@@ -4679,7 +4719,9 @@ document.querySelectorAll('[data-pyramide-vue]').forEach(nav=>{
    comme vuePeriode : quatre cadres cohabitent sur la page, chacun avec sa
    propre bascule. */
 const vuesParCanvas = {};
-function vueDe(canvas, defaut){ return vuesParCanvas[canvas.id] || defaut; }
+/* Un canevas sans bascule peut fixer sa vue par data-vue (29 octobre 2026 :
+   les trois graphiques des points de controle, montres d'un coup). */
+function vueDe(canvas, defaut){ return vuesParCanvas[canvas.id] || canvas.dataset.vue || defaut; }
 document.querySelectorAll('[data-chart-vue]').forEach(nav=>{
   const canvas = document.getElementById(nav.dataset.chartVue);
   if(!canvas) return;
@@ -6449,6 +6491,7 @@ function legendesDuGraphique(canvas){
       if(vue) sousTitre = vue.textContent.trim();
     }
   }
+  if(!sousTitre && canvas.dataset.titre) sousTitre = canvas.dataset.titre;
   /* La periode complete la vue plutot que de la remplacer : « Par semaine ·
      du 11 mai au 23 aout 2026 ». Elle est lue en haut, avant la figure, et ne
      depend pas de ce que l'axe a reussi a afficher — ses graduations sautent

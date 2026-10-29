@@ -190,24 +190,48 @@
       <p class="fiche-texte">{{seed.ripPoeLede2}}</p>
     </div>
     <div class="r3-d">
-    <div class="panel chart-panel-wrap">
+    <!-- Trois graphiques montres d'un coup (29 octobre 2026, demande de
+         Fable) : voyageurs, alertes et rapports ne se lisent pas de la
+         meme facon, des onglets en cachaient deux. data-vue fixe la vue
+         de chaque canevas, data-titre lui donne son titre. -->
+    <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChart">
         <button type="button" class="share-btn">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
           <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
         </button>
       </div>
-      <nav class="subtab-nav chart-vue-nav" data-chart-vue="poeChart">
-        <button type="button" class="subtab-btn active" data-vue="jour">{{t.ripostePoeVueVoyageurs}}</button>
-        <button type="button" class="subtab-btn" data-vue="alertes">{{t.ripostePoeVueAlertes}}</button>
-        <button type="button" class="subtab-btn" data-vue="rapports">{{t.ripostePoeVueRapports}}</button>
-      </nav>
       <div class="chart-panel">
-        <canvas id="poeChart" data-chart="pointsControle"></canvas>
+        <canvas id="poeChart" data-chart="pointsControle" data-vue="jour" data-titre="{{t.ripostePoeVueVoyageurs}}"></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
-      {{seed.ripPoeTable}}
+    <div class="panel chart-panel-wrap poe-panneau">
+      <div class="chart-actions" data-export-chart="poeChartAlertes">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+        </button>
+      </div>
+      <div class="chart-panel">
+        <canvas id="poeChartAlertes" data-chart="pointsControle" data-vue="alertes" data-titre="{{t.ripostePoeVueAlertes}}"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+    <div class="panel chart-panel-wrap poe-panneau">
+      <div class="chart-actions" data-export-chart="poeChartRapports">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+        </button>
+      </div>
+      <div class="chart-panel">
+        <canvas id="poeChartRapports" data-chart="pointsControle" data-vue="rapports" data-titre="{{t.ripostePoeVueRapports}}"></canvas>
+      </div>
+      <div class="map-note chart-note"></div>
+    </div>
+      <!-- Le tableau par province du dernier bulletin est retire (29 octobre
+           2026, demande de Fable) : les trois graphiques suffisent. -->
     </div>
   </section>
 

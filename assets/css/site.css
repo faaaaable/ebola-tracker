@@ -4288,18 +4288,21 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .poe-chiffres div{border-left:2px solid var(--line);padding-left:10px;}
 .poe-chiffres b{display:block;font:700 20px/1.1 var(--font-sans);color:var(--ink);font-variant-numeric:tabular-nums;}
 .poe-chiffres span{display:block;font-size:12px;line-height:1.4;color:var(--ink-faint);margin-top:3px;}
+.poe-panneau + .poe-panneau{margin-top:20px;}
 .r3 .poe-table-wrap{margin-top:24px;padding:18px 20px 12px;overflow-x:auto;}
 .poe-table{width:100%;min-width:560px;}
 /* Le defilement horizontal ne tenait que sous .r3 (page Riposte) : sur les fiches
    Ituri et Nord-Kivu, la table de 560 px elargissait tout le volet (+194 px a 390 px). */
 .poe-table-wrap{overflow-x:auto;}
+/* Style des tableaux de zones des pages province (.zq, 29 octobre 2026) :
+   en-tetes en petites capitales sur un filet noir, nom de province en serif,
+   voyageurs et corps en chiffres forts. Pas de tri : pas de main au survol. */
 .poe-table caption{text-align:left;font-weight:600;font-size:13.5px;padding-bottom:8px;color:var(--ink);}
 .poe-table caption small{font-weight:400;color:var(--ink-faint);}
-.poe-table th,.poe-table td{padding:7px 10px;white-space:nowrap;}
-.poe-table thead th{position:static;background:none;white-space:normal;vertical-align:bottom;}
-.poe-table tbody th{position:static;background:none;}
-.poe-table td.is-num,.poe-table th.is-num{text-align:right;font-variant-numeric:tabular-nums;}
-.poe-table tr.is-total th,.poe-table tr.is-total td{font-weight:700;border-top:1px solid var(--ink-faint);}
+.zq.poe-table th{cursor:default;white-space:normal;vertical-align:bottom;}
+.zq.poe-table tbody th{text-align:left;font:600 16px var(--font-serif);letter-spacing:0;text-transform:none;color:var(--ink);padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle;}
+.zq.poe-table tr.is-total th,.zq.poe-table tr.is-total td{border-top:2px solid var(--ink);border-bottom:none;}
+.zq.poe-table tr.is-total td:not(.zt){font-weight:700;}
 .poe-jauge{display:inline-block;width:40px;height:5px;background:var(--line-soft);margin-right:8px;vertical-align:middle;}
 .poe-jauge i{display:block;height:100%;background:var(--accent);}
 @media (max-width:640px){ .poe-chiffres{grid-template-columns:1fr;gap:8px;} }
