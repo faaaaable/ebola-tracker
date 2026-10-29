@@ -77,6 +77,7 @@
 .bdd-dico{width:100%;border-collapse:collapse;font-size:13.5px;}
 .bdd-dico td{padding:6px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top;}
 .bdd-dico td:first-child{font-weight:600;white-space:nowrap;}
+@media (max-width:480px){.bdd-dico td:first-child{white-space:normal;overflow-wrap:anywhere;}}
 .bdd-zones .prose p{margin:0 0 6px;}
 @media (max-width:760px){
   .bdd-filtres .bdd-actions{margin-left:0;}

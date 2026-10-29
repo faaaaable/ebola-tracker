@@ -4290,6 +4290,9 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .poe-chiffres span{display:block;font-size:12px;line-height:1.4;color:var(--ink-faint);margin-top:3px;}
 .r3 .poe-table-wrap{margin-top:24px;padding:18px 20px 12px;overflow-x:auto;}
 .poe-table{width:100%;min-width:560px;}
+/* Le defilement horizontal ne tenait que sous .r3 (page Riposte) : sur les fiches
+   Ituri et Nord-Kivu, la table de 560 px elargissait tout le volet (+194 px a 390 px). */
+.poe-table-wrap{overflow-x:auto;}
 .poe-table caption{text-align:left;font-weight:600;font-size:13.5px;padding-bottom:8px;color:var(--ink);}
 .poe-table caption small{font-weight:400;color:var(--ink-faint);}
 .poe-table th,.poe-table td{padding:7px 10px;white-space:nowrap;}
@@ -4468,7 +4471,7 @@ main:has(.prov-hero-b) .drill,main:has(.prov-hero-b) .dn-more{background:none;bo
 .rp-ch small{display:block;font-size:12px;color:var(--ink-faint);}
 .rp-g .fiche-texte{font:400 15px/1.65 var(--font-serif);margin:0;color:var(--ink);}
 .rp-d .vaccin-zones{margin-top:20px;}
-@media (max-width:900px){ .rp-v{grid-template-columns:1fr;gap:12px;} }
+@media (max-width:900px){ .rp-v{grid-template-columns:minmax(0,1fr);gap:12px;} }
 main:has(.prov-hero-b) .cadre-fiche:not(.fiche-centree) > .fiche-tete{display:block;}
 
 /* Tableau des zones d'une province en mini-courbes (7 octobre 2026, option 3) */
@@ -5092,9 +5095,17 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .ap2-frise .bl{font:600 12px var(--font-sans);fill:var(--ink-dim);}
 
 @media (max-width:860px){
-  .pp-hero{grid-template-columns:1fr;gap:20px;}
+  /* minmax(0,1fr) et non 1fr : sinon la rangee de chiffres (nowrap) elargit la
+     colonne au-dela de l'ecran quand un libelle est long, en swahili
+     (« waliothibitishwa » : 431 px pour 342 sur /sw/uganda/, 29 octobre 2026). */
+  .pp-hero{grid-template-columns:minmax(0,1fr);gap:20px;}
   .pp-carte{max-width:300px;max-height:340px;}
   .pp-kpi .k{padding:0 16px;}
+  /* Les libelles swahilis sont longs (« waliothibitishwa ») : les cases passent a
+     la ligne au lieu de s'ecraser. Francais et anglais tiennent sur une ligne et
+     ne bougent pas. */
+  :lang(sw) .pp-kpi{flex-wrap:wrap;row-gap:16px;}
+  :lang(sw) .pp-kpi .k{min-width:0;}
   .pp-kpi b{font-size:30px;}
   .pp-tl::before{left:58px;}
   .pp-e{grid-template-columns:50px 1fr;gap:26px;}
