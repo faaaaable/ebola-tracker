@@ -3667,6 +3667,34 @@ function renderOneChartBrut(canvas, chartMode){
     const jours = iso => Math.round(new Date(iso + 'T00:00:00').getTime() / 86400000);
     const parDate = new Map();
     const trous = [];
+    /* Les barres qui suivent un releve manquant de la PROVINCE (ecart de 2 ou 3
+       jours, au-dela c'est un trou sans barre) : date -> nombre de jours. */
+    const multiJours = new Map();
+    /* LES JOURNEES QU'ON PEUT REPARTIR EXACTEMENT (29 octobre 2026). Quand le
+       bulletin du jour de retour annonce lui-meme les cas de la province pour
+       sa journee, l'autre journee est l'ecart des cumuls moins cette annonce :
+       une soustraction sans inconnue, comme le jour 142. Les deux barres sont
+       alors pleines, sans teinte de rattrapage. Chaque ligne a ete recoupee
+       avec le total du pays ; le garde-fou plus bas ecarte une annonce
+       superieure a l'ecart. Cas seulement : la part de chaque journee n'est
+       pas publiee pour les deces. Les autres trous de 2 ou 3 jours (13, 27 et
+       29 juin, 30 juillet) n'ont pas d'annonce provinciale : teinte claire.
+         21 mai, SitRep 007 : « 19 nouveaux cas confirmes dont 18 en Ituri [...]
+                et 1 au Sud-Kivu » ; le 20 mai fait 30 + 1 = 31, le pays 64 - 33.
+         23 mai, SitRep 009 : « 10 nouveaux cas confirmes (Mongbwalu : 9 et
+                Katwa : 1) » ; le 22 mai fait 7 + 1 = 8, le pays 91 - 83.
+         29 mai, SitRep 015, tableau I, colonne « Nouveaux cas confirmes » : 52,
+                0 et 2 ; le 28 mai fait 83 + 1 = 84, comme le SitRep 014.
+         17 juillet, SitRep 064 : « 86 nouveaux cas (Ituri 75, Nord-Kivu 7,
+                Haut-Uele 4, Tshopo et Sud-Kivu aucun) » ; le 16 juillet fait
+                44 + 8 + 4 + 1 = 57, le pays 2 267 - 2 124 - 86. */
+    const JOURNEES_ANNONCEES = {
+      '2026-05-21': { 'Ituri': 18, 'Nord-Kivu': 0, 'Sud-Kivu': 1 },
+      '2026-05-23': { 'Ituri': 9, 'Nord-Kivu': 1, 'Sud-Kivu': 0 },
+      '2026-05-29': { 'Ituri': 52, 'Nord-Kivu': 0, 'Sud-Kivu': 2 },
+      '2026-07-17': { 'Ituri': 75, 'Nord-Kivu': 7, 'Haut-Uélé': 4, 'Tshopo': 0, 'Sud-Kivu': 0 }
+    };
+    const calculees = new Set();      // les veilles dont la barre est calculee
     for(let i = 1; i < pts.length; i++){
       const ecart = jours(pts[i].date) - jours(pts[i-1].date);
       if(ecart > ECART_MAX_JOURS){
@@ -3683,7 +3711,23 @@ function renderOneChartBrut(canvas, chartMode){
         continue;          // la journee de retour reste sans barre
       }
       const delta = Math.max(0, pts[i][champ] - pts[i-1][champ]);
-      const estRattrapage = RATTRAPAGE.has(pts[i].date);
+      /* Apres un jour sans releve pour la province, le delta des cumuls reunit
+         plusieurs journees : le 29 mai, +135 en Ituri, c'est le 28 et le 29, le
+         SitRep n°14 ne repartissant pas les cas entre les provinces. Dessinee
+         comme une journee ordinaire, la barre se lisait comme le plus gros jour
+         de la province (29 octobre 2026). Meme teinte claire que les deux
+         rattrapages : la part de chaque journee n'est publiee nulle part. */
+      const annonce = !deces && ecart === 2 && JOURNEES_ANNONCEES[pts[i].date]
+                      ? JOURNEES_ANNONCEES[pts[i].date][nom] : undefined;
+      if(annonce !== undefined && annonce >= 0 && annonce <= delta){
+        const veille = veilleDe(pts[i].date);
+        parDate.set(veille, { rapporte: delta - annonce, rattrape: null });
+        parDate.set(pts[i].date, { rapporte: annonce, rattrape: null });
+        calculees.add(veille);
+        continue;
+      }
+      if(ecart > 1 && !RATTRAPAGE.has(pts[i].date)) multiJours.set(pts[i].date, ecart);
+      const estRattrapage = RATTRAPAGE.has(pts[i].date) || multiJours.has(pts[i].date);
       /* Une seule des deux series porte la journee, l'autre est nulle et non
          zero : un zero vaut desormais un trait au ras de l'axe (minBarLength),
          et deux traits superposes sous la barre claire d'un rattrapage ne
@@ -3732,7 +3776,7 @@ function renderOneChartBrut(canvas, chartMode){
     const joursCal = [];
     for(let d = dateDe(pts[0].date), fin = dateDe(pts[pts.length - 1].date);
         d <= fin; d.setDate(d.getDate() + 1)) joursCal.push(isoDe(d));
-    const sansReleve = joursCal.filter(iso => !releves.has(iso)).length;
+    const sansReleve = joursCal.filter(iso => !releves.has(iso) && !calculees.has(iso)).length;
     const valeur = (iso, champ) => parDate.has(iso) ? parDate.get(iso)[champ] : null;
     const rapporte = joursCal.map(iso => valeur(iso, 'rapporte'));
     const rattrape = joursCal.map(iso => valeur(iso, 'rattrape'));
@@ -3746,6 +3790,8 @@ function renderOneChartBrut(canvas, chartMode){
       if(sansReleve) bouts.push(tr(deces ? 'provinceDeathsChartBlanks' : 'provinceChartBlanks')(sansReleve));
       if(trous.length) bouts.push(tr(deces ? 'provinceDeathsChartGap' : 'provinceChartGap')(trous.join(' ; ')));
       if(pts.some(pt => RATTRAPAGE.has(pt.date))) bouts.push(tr('provinceChartCatchup'));
+      if(multiJours.size) bouts.push(tr('provinceChartMultiDay'));
+      if(calculees.size) bouts.push(tr('provinceChartSplit')([...calculees].sort().map(frDate).join(', ')));
       noteEl.textContent = bouts.join(' ');
       noteEl.style.display = bouts.length ? 'block' : 'none';
     }
@@ -3930,6 +3976,14 @@ function renderOneChartBrut(canvas, chartMode){
        ne se declenche que la ou elle sert : la Tshopo n'a pris aucun cas le
        22 juillet, son graphique ne bouge pas. Le plafond seul : l'axe des
        cumuls repart de zero, comme a l'accueil (25 septembre 2026). */
+    if(multiJours.size || calculees.size){
+      opts.plugins.tooltip.callbacks.afterTitle = items => {
+        const iso = joursCal[items[0].dataIndex];
+        if(calculees.has(iso)) return tr('provinceChartSplitTip');
+        const n = multiJours.get(iso);
+        return n ? tr('provinceChartMultiDayTip')(n) : '';
+      };
+    }
     const plafondP = plafondSansRattrapage(rapporte, rattrape);
     /* Plafond fixe pose par le generateur (`data-y-max`) pour une province a
        petits nombres — la Tshopo, axe a 10 (28 septembre 2026). Il ne vaut
