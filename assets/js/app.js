@@ -3850,29 +3850,11 @@ function renderOneChartBrut(canvas, chartMode){
           categoryPercentage: 1, barPercentage: .96 },
         { label: tr('catchupLabel'), data: rattrape, backgroundColor: tint(teinte, .35),
           borderRadius: 2, minBarLength: 2, stack: 'd',
-          categoryPercentage: 1, barPercentage: .96 },
-        /* La courbe des cas reprend la teinte des barres, et celle des deces
-           le rouge du site. Meme encodage que le graphique de l'accueil : la
-           couleur dit de quoi on parle, la forme dit quelle lecture.
-
-           L'ambre precedent etait un piege discret — c'est la couleur
-           d'identite du Nord-Kivu, dont le graphique affichait donc une courbe
-           strictement invisible sur ses propres barres. Le probleme
-           disparait avec la teinte de la province, quelle qu'elle soit. */
-        { type: 'line', label: tr('chartCumulativeLabel'),
-          data: joursCal.map(iso => releves.has(iso) ? releves.get(iso).confirmed : null),
-          yAxisID: 'y1',
-          borderColor: teinte, borderWidth: 2, tension: .25,
-          pointRadius: 0, fill: false, spanGaps: true, order: 0 },
-        { type: 'line', label: tr('chartCumulativeDeathsLabel'),
-          data: joursCal.map(iso => releves.has(iso) ? releves.get(iso).deaths : null),
-          yAxisID: 'y1',
-          borderColor: PALETTE.critical, borderWidth: 2, tension: .25,
-          pointRadius: 0, fill: false, spanGaps: true, order: 0 }
+          categoryPercentage: 1, barPercentage: .96 }
+        /* Plus de courbes de cumul des cas et des deces (29 octobre 2026,
+           demande de Fable) : les barres seules, et un seul axe. */
       ]
     };
-    // Le cadre des deces ne garde que sa propre courbe de cumul.
-    if(deces) data.datasets = data.datasets.filter(d => d.label !== tr('chartCumulativeLabel'));
     const opts = {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
@@ -3904,11 +3886,7 @@ function renderOneChartBrut(canvas, chartMode){
            2026). Invisible sur l'Ituri, dont l'axe monte a 350. */
         y: { ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
                       precision: 0, callback: v => fmt(v) },
-             grid: { color: PALETTE.lineSoft }, beginAtZero: true },
-        y1: { position: 'right', beginAtZero: true,
-              ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 },
-                       precision: 0, callback: v => fmt(v) },
-              grid: { display: false } }
+             grid: { color: PALETTE.lineSoft }, beginAtZero: true }
       }
     };
     /* TROIS PAS DE TEMPS SUR LE GRAPHIQUE DE PROVINCE, comme sur /donnees/

@@ -1015,10 +1015,10 @@ def _phrase(c, txt, y=965):
     return c.T(60, y, txt, 24, INK, fam=SERIF)
 
 
-def _notes(c, notes, y=1002):
+def _notes(c, notes, y=1002, max_l=4):
     import textwrap
     lignes = [l for n in notes for l in textwrap.wrap(n, 140)]
-    return "".join(c.T(60, y + i * 22, l, 15, INK_DIM) for i, l in enumerate(lignes[:4]))
+    return "".join(c.T(60, y + i * 22, l, 15, INK_DIM) for i, l in enumerate(lignes[:max_l]))
 
 
 def _jour(c, d):
@@ -1269,17 +1269,372 @@ def r_province(c, rang):
     if any(v for v in rat if v): notes.append(r["rattNote"])
     if coupees: notes.append(r["coupe"])
     out.append(_notes(c, notes))
-    return c.carte(r["titre"].format(p=pnom), r["sous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
+    return c.carte(r["titre"].format(p=pnom), r["sous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
+
+
+# ================================================================ ajouts du 29 octobre 2026
+# Demande de Fable : tous les graphiques du site sur la page Visuels, a
+# l'endroit qui les concerne. Ajoutes : les nouveaux cas et les nouveaux deces
+# du pays jour par jour (accueil, Ensemble du pays), la carte des zones de
+# sante (accueil), cas et deces de chaque province qui a une courbe (pages
+# province), les nouveaux cas par province semaine apres semaine (Ensemble du
+# pays) et les points de controle (Riposte). L'etage « Hors RDC » (carte des
+# pays touches, parcours, frise) a ete retire le 30 octobre 2026.
+AJ = {
+ "fr": dict(
+  casTitre="Les nouveaux cas, jour par jour", casSous="Nouveaux cas confirmés déclarés chaque jour en RDC, du {a} au {b}.",
+  decTitre="Les nouveaux décès, jour par jour", decSous="Nouveaux décès déclarés chaque jour en RDC, du {a} au {b}.",
+  jourCas="Nouveaux cas quotidiens", jourDec="Nouveaux décès quotidiens", ratt="Rattrapage",
+  phraseCas="Le {d} : {n} nouveaux cas ; {s} en sept jours, {c} depuis le début.",
+  phraseDec="Le {d} : {n} nouveaux décès ; {s} en sept jours, {c} depuis le début.",
+  blancs="{n} jours sans bulletin restent en blanc ; leurs chiffres sont comptés dans le bulletin suivant.",
+  rattCas="Les 22 et 30 juillet, rattrapages administratifs en teinte claire : {r1} et {r2} cas qui n'appartiennent pas à la journée.",
+  rattDec="Les 22 et 30 juillet portent aussi un rattrapage de décès, dont le bulletin ne donne pas la part : la journée entière est en teinte claire.",
+  coupe="Barre coupée : l'axe s'arrête au plus fort jour ordinaire, le total est écrit au-dessus.",
+  provDecTitre="{p} : les nouveaux décès, jour par jour", provDecSous="Nouveaux décès déclarés chaque jour dans la province, du {a} au {b}.",
+  provDecPhrase="Le {d} : {n} nouveaux décès ; {s} en sept jours, {c} depuis le début.",
+  provRattDec="Les 22 et 30 juillet, rattrapages de données, en teinte claire : leur part n'est publiée qu'au niveau national.",
+  spTitre="Les nouveaux cas par province, chaque semaine", spSous="Cas confirmés déclarés chaque semaine, du lundi au dimanche, empilés par province, depuis la semaine du {d}.",
+  spPhrase="Du {a} au {b} : {n} nouveaux cas, dont {x} en {p}.",
+  spNote="Sous chaque barre, le lundi de la semaine. Le total de la semaine est écrit au-dessus.",
+  voTitre="Les voyageurs contrôlés, jour par jour", voSous="Voyageurs passés chaque jour aux points d'entrée et de contrôle, par province, du {a} au {b}.",
+  voNonReparti="Non réparti", voPhrase="Le {d} : {n} voyageurs contrôlés ; {r} postes sur {t} ont envoyé leur rapport.",
+  voPhraseSans="Le {d} : {n} voyageurs contrôlés.",
+  voNote="Chiffres du jour, non cumulés. « Non réparti » : l'écart entre le total publié et la somme des provinces. Une journée sans relevé reste en blanc.",
+  voEcartes="Écartés, bien qu'imprimés par le bulletin, car hors de proportion avec les jours voisins : {l}.",
+  voIncoh="Le {l}, les provinces dépassent le total publié : seul le total est montré.",
+  apTitre="Les alertes aux postes de contrôle, par semaine", apSous="Alertes notifiées aux postes, alertes de personnes vivantes validées comme cas suspects, et corps interceptés, du lundi au dimanche.",
+  apAlertes="Alertes notifiées", apValidees="Alertes vivantes validées", apCorps="Corps interceptés",
+  apPhrase="Du {a} au {b} : {n} alertes aux postes, dont {v} validées, et {k} corps interceptés.",
+  apNote="Additionnées à partir des chiffres du jour de chaque bulletin ; semaines complètes seulement. Sous chaque groupe, le lundi de la semaine.",
+  lire=dict(nat="La courbe de l'accueil : les à-coups du jour, que la vue par semaine lisse.",
+            natdec="Les décès du jour, du même pas que les cas : l'écart entre les deux courbes, c'est la létalité.",
+            provdec="Les décès quotidiens de la province, comme sur sa page.",
+            spcas="Le volume de chaque semaine et sa répartition : la part du Nord-Kivu grandit quand l'Ituri reflue.",
+            voy="Le flux aux frontières et sur les routes : un trou est un bulletin qui ne publie pas une province, pas un poste fermé.",
+            apost="Ce que les postes interceptent : alertes, malades suspects, corps transportés."),
+ ),
+ "en": dict(
+  casTitre="New cases, day by day", casSous="New confirmed cases reported each day in the DRC, {a} to {b}.",
+  decTitre="New deaths, day by day", decSous="New deaths reported each day in the DRC, {a} to {b}.",
+  jourCas="New daily cases", jourDec="New daily deaths", ratt="Catch-up",
+  phraseCas="On {d}: {n} new cases; {s} in seven days, {c} since the start.",
+  phraseDec="On {d}: {n} new deaths; {s} in seven days, {c} since the start.",
+  blancs="{n} days without a bulletin are left blank; their figures are counted in the next bulletin.",
+  rattCas="22 and 30 July, administrative catch-ups in the lighter tone: {r1} and {r2} cases that do not belong to the day.",
+  rattDec="22 and 30 July also carry a catch-up of deaths, whose share the bulletin does not give: the whole day is in the lighter tone.",
+  coupe="Cut bar: the axis stops at the highest ordinary day, the total is written above.",
+  provDecTitre="{p}: new deaths, day by day", provDecSous="New deaths reported each day in the province, {a} to {b}.",
+  provDecPhrase="On {d}: {n} new deaths; {s} in seven days, {c} since the start.",
+  provRattDec="22 and 30 July, data catch-ups, in the lighter tone: their share is published only at national level.",
+  spTitre="New cases by province, each week", spSous="Confirmed cases reported each week, Monday to Sunday, stacked by province, since the week of {d}.",
+  spPhrase="{a} to {b}: {n} new cases, {x} of them in {p}.",
+  spNote="Under each bar, the Monday of the week. The week's total is written above.",
+  voTitre="Travellers screened, day by day", voSous="Travellers through points of entry and control each day, by province, {a} to {b}.",
+  voNonReparti="Not broken down", voPhrase="On {d}: {n} travellers screened; {r} posts out of {t} sent their report.",
+  voPhraseSans="On {d}: {n} travellers screened.",
+  voNote="Daily figures, not cumulative. \"Not broken down\": the gap between the published total and the sum of the provinces. A day without a record stays blank.",
+  voEcartes="Set aside, although printed by the bulletin, as out of proportion with the neighbouring days: {l}.",
+  voIncoh="On {l}, the provinces exceed the published total: only the total is shown.",
+  apTitre="Alerts at control posts, week by week", apSous="Alerts notified at the posts, alerts of living people validated as suspected cases, and bodies intercepted, Monday to Sunday.",
+  apAlertes="Alerts notified", apValidees="Living alerts validated", apCorps="Bodies intercepted",
+  apPhrase="{a} to {b}: {n} alerts at the posts, {v} of them validated, and {k} bodies intercepted.",
+  apNote="Added up from each bulletin's daily figures; complete weeks only. Under each group, the Monday of the week.",
+  lire=dict(nat="The home page chart: the day-to-day jolts that the weekly view smooths out.",
+            natdec="Daily deaths, in step with the cases: the gap between the two is the fatality rate.",
+            provdec="The province's daily deaths, as on its page.",
+            spcas="Each week's volume and how it splits: North Kivu's share grows as Ituri recedes.",
+            voy="The flow at borders and on roads: a gap is a bulletin that does not publish a province, not a closed post.",
+            apost="What the posts intercept: alerts, suspected patients, bodies being transported."),
+ ),
+ "sw": dict(
+  casTitre="Visa vipya, siku kwa siku", casSous="Visa vipya vilivyothibitishwa vinavyoripotiwa kila siku DRC, {a} hadi {b}.",
+  decTitre="Vifo vipya, siku kwa siku", decSous="Vifo vipya vinavyoripotiwa kila siku DRC, {a} hadi {b}.",
+  jourCas="Visa vipya vya kila siku", jourDec="Vifo vipya vya kila siku", ratt="Marekebisho",
+  phraseCas="Tarehe {d}: visa vipya {n}; {s} katika siku saba, {c} tangu mwanzo.",
+  phraseDec="Tarehe {d}: vifo vipya {n}; {s} katika siku saba, {c} tangu mwanzo.",
+  blancs="Siku {n} bila ripoti zimeachwa wazi; takwimu zake zimehesabiwa katika ripoti inayofuata.",
+  rattCas="Tarehe 22 na 30 Julai, marekebisho ya kiutawala kwa rangi hafifu: visa {r1} na {r2} visivyo vya siku hiyo.",
+  rattDec="Tarehe 22 na 30 Julai pia zina marekebisho ya vifo, ambayo ripoti haitoi sehemu yake: siku nzima iko kwa rangi hafifu.",
+  coupe="Safu iliyokatwa: mhimili unaishia kwenye siku ya kawaida ya juu zaidi, jumla imeandikwa juu.",
+  provDecTitre="{p}: vifo vipya, siku kwa siku", provDecSous="Vifo vipya vinavyoripotiwa kila siku katika jimbo, {a} hadi {b}.",
+  provDecPhrase="Tarehe {d}: vifo vipya {n}; {s} katika siku saba, {c} tangu mwanzo.",
+  provRattDec="Tarehe 22 na 30 Julai, marekebisho ya takwimu, kwa rangi hafifu: sehemu yake imechapishwa kwa kiwango cha kitaifa pekee.",
+  spTitre="Visa vipya kwa jimbo, kila wiki", spSous="Visa vilivyothibitishwa vinavyoripotiwa kila wiki, Jumatatu hadi Jumapili, vimepangwa kwa jimbo, tangu wiki ya {d}.",
+  spPhrase="{a} hadi {b}: visa vipya {n}, {x} kati yake {p}.",
+  spNote="Chini ya kila safu, Jumatatu ya wiki. Jumla ya wiki imeandikwa juu.",
+  voTitre="Wasafiri waliokaguliwa, siku kwa siku", voSous="Wasafiri waliopita vituo vya kuingilia na vya ukaguzi kila siku, kwa jimbo, {a} hadi {b}.",
+  voNonReparti="Haijagawanywa", voPhrase="Tarehe {d}: wasafiri {n} waliokaguliwa; vituo {r} kati ya {t} vilituma ripoti yao.",
+  voPhraseSans="Tarehe {d}: wasafiri {n} waliokaguliwa.",
+  voNote="Takwimu za siku, si za jumla. « Haijagawanywa »: tofauti kati ya jumla iliyochapishwa na jumla ya majimbo. Siku bila rekodi inabaki tupu.",
+  voEcartes="Zimewekwa kando, ingawa zimechapishwa na ripoti, kwa kuwa haziendani na siku jirani: {l}.",
+  voIncoh="Tarehe {l}, majimbo yanazidi jumla iliyochapishwa: jumla pekee inaonyeshwa.",
+  apTitre="Tahadhari vituoni, wiki baada ya wiki", apSous="Tahadhari zilizotolewa vituoni, tahadhari za watu walio hai zilizothibitishwa kama visa vinavyoshukiwa, na maiti zilizozuiliwa, Jumatatu hadi Jumapili.",
+  apAlertes="Tahadhari zilizotolewa", apValidees="Tahadhari za walio hai zilizothibitishwa", apCorps="Maiti zilizozuiliwa",
+  apPhrase="{a} hadi {b}: tahadhari {n} vituoni, {v} kati yake zimethibitishwa, na maiti {k} zilizozuiliwa.",
+  apNote="Zimejumlishwa kutoka takwimu za siku za kila ripoti; wiki kamili pekee. Chini ya kila kundi, Jumatatu ya wiki.",
+  lire=dict(nat="Mchoro wa ukurasa wa mwanzo: mabadiliko ya kila siku ambayo mwonekano wa wiki unalainisha.",
+            natdec="Vifo vya kila siku, sambamba na visa: tofauti kati ya hizo mbili ni kiwango cha vifo.",
+            provdec="Vifo vya kila siku vya jimbo, kama kwenye ukurasa wake.",
+            spcas="Wingi wa kila wiki na mgawanyo wake: sehemu ya Kivu Kaskazini inakua Ituri inapopungua.",
+            voy="Mtiririko mipakani na barabarani: pengo ni ripoti isiyochapisha jimbo, si kituo kilichofungwa.",
+            apost="Kile vituo vinachozuia: tahadhari, wagonjwa wanaoshukiwa, maiti zinazosafirishwa."),
+ ),
+}
+SEUIL_COURBE = 50          # SEUIL_COURBE_PROVINCE de build_pages.py
+def _quotidien(c, jours, rap, rat, teinte, lab_jour, lab_ratt):
+    """Barres du jour et du rattrapage, axe plafonne au pic ordinaire quand un
+    rattrapage l'ecraserait (meme regle que r_province et app.js)."""
+    ordinaire = max((v for v, k in zip(rap, rat) if v is not None and not k), default=0)
+    plus_haute = max(((v or 0) + (k or 0) for v, k in zip(rap, rat)), default=0)
+    plafond = None
+    if ordinaire and plus_haute >= ordinaire * DECLENCHE_RUPTURE:
+        brut = ordinaire * MARGE_PLAFOND; pas = 10 ** (math.floor(math.log10(brut)) - 1) * 2
+        plafond = math.ceil(brut / pas) * pas
+    ymax = plafond or (plus_haute * 1.06) or 1
+    R = Repere(c, jours, ymax)
+    # Le plafond vaut pour la pile entiere : la part du jour, puis le
+    # rattrapage dans ce qui reste sous l'axe.
+    rap_c = [None if v is None else min(v, ymax) for v in rap]
+    rat_c = [None if v is None else min(v, ymax - (r or 0)) for v, r in zip(rat, rap_c)]
+    legende = [(lab_jour, teinte)] + ([(lab_ratt, _tint(teinte, .35))] if any(rat) else [])
+    out = [c.legende(R.X0, 262, legende), R.grille(c.nb), R.barres([(rap_c, teinte), (rat_c, _tint(teinte, .35))])]
+    coupees = [(i, (a or 0) + (b or 0)) for i, (a, b) in enumerate(zip(rap, rat)) if (a or 0) + (b or 0) > ymax]
+    for i, tot in coupees:
+        x, y = R.x(i), R.Y0
+        out.append('<path d="M%.1f %.1f l%.1f -5 M%.1f %.1f l%.1f -5" stroke="%s" stroke-width="2"/>' % (x - 6, y + 12, 12, x - 6, y + 18, 12, BG))
+        out.append(c.T(x, y - 8, c.nb(tot), 13, INK, "middle", 700))
+    return R, out, coupees
+
+
+def r_national(c, champ):
+    """Les nouveaux cas (accueil) ou les nouveaux deces (Ensemble du pays) du
+    pays, jour par jour. Les 22 et 30 juillet : pour les cas, la part du jour
+    publiee par le bulletin en pleine teinte, le reste en rattrapage ; pour
+    les deces, dont la part n'est pas publiee, la journee entiere en clair."""
+    a = AJ[c.lang]; deces = champ == "deaths"; k = 1 if deces else 0
+    teinte = RED if deces else BLUE
+    jours = c.tous_jours[1:]
+    rap, rat = [], []
+    for d in jours:
+        v = c.jours.get(d, (None, None))[k]
+        iso = d.isoformat()
+        if v is None or iso not in RATTRAPAGES:
+            rap.append(v); rat.append(None)
+        elif deces:
+            rap.append(None); rat.append(v)
+        else:
+            part = min(RATTRAPAGES[iso], v); rap.append(part); rat.append(v - part)
+    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec" if deces else "jourCas"], a["ratt"])
+    i = max(j for j, d in enumerate(jours) if (rap[j] is not None or rat[j] is not None))
+    d = jours[i]; cum = c.au(d)[champ]; avant = c.au(d - dt.timedelta(7))[champ]
+    n = (rap[i] or 0) + (rat[i] or 0)
+    out.append(_phrase(c, a["phraseDec" if deces else "phraseCas"].format(d=c.dc(d), n=c.nb(n), s=c.nb(cum - avant), c=c.nb(cum))))
+    notes = []
+    blancs = sum(1 for d in jours if d not in c.jours)
+    if blancs: notes.append(a["blancs"].format(n=blancs))
+    if deces: notes.append(a["rattDec"])
+    else:
+        r = [c.jours.get(D(x), (0, 0))[0] - v for x, v in sorted(RATTRAPAGES.items())]
+        notes.append(a["rattCas"].format(r1=c.nb(r[0]), r2=c.nb(r[1])))
+    if coupees: notes.append(a["coupe"])
+    out.append(_notes(c, notes))
+    return c.carte(a["decTitre" if deces else "casTitre"],
+                   a["decSous" if deces else "casSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
+
+
+def provinces_a_courbe(c):
+    """Les provinces qui ont une courbe sur leur page (SEUIL_COURBE_PROVINCE),
+    dans l'ordre des cas."""
+    cas = {p["name"]: p["confirmed"] for p in c.latest["provinces"]}
+    return [n for n in c.ordre_provinces() if (cas.get(n) or 0) >= SEUIL_COURBE]
+
+
+def r_province_serie(c, rang, champ):
+    """Cas ou deces d'une province, jour par jour (mode provinceEpidemic) ;
+    None si la province de ce rang n'a pas de courbe sur le site."""
+    noms = provinces_a_courbe(c)
+    if rang >= len(noms):
+        return None
+    if champ == "confirmed":
+        return r_province(c, rang)
+    a = AJ[c.lang]; r = PJ[c.lang]; nom = noms[rang]
+    pnom = PROV_NOM.get(c.lang, {}).get(nom, nom); teinte = PROV.get(nom, BLUE)
+    pts = []
+    for h in sorted(c.ph, key=lambda h: h["date"]):
+        for p in h.get("provinces") or []:
+            if _prov_canon(p["name"]) == nom and p.get(champ) is not None:
+                pts.append((D(h["date"]), p[champ])); break
+    par, trous = {}, []
+    for (d0, c0), (d1, c1) in zip(pts, pts[1:]):
+        if (d1 - d0).days > ECART_MAX_JOURS:
+            trous.append("%s %s %s" % (c.dc(d0 + dt.timedelta(1)), {"fr": "au", "en": "to", "sw": "hadi"}[c.lang], c.dc(d1)))
+            continue
+        delta = max(0, c1 - c0); ratt = d1.isoformat() in RATTRAPAGES
+        par[d1] = (None if ratt else delta, delta if ratt else None)
+    jours = _calendrier(pts[0][0], pts[-1][0]); releves = dict(pts)
+    rap = [par[d][0] if d in par else None for d in jours]
+    rat = [par[d][1] if d in par else None for d in jours]
+    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec"], r["ratt"])
+    k = max(i for i, v in enumerate(rap) if v is not None)
+    d = jours[k]; avant = [v for dd, v in pts if dd <= d - dt.timedelta(7)]
+    sept = releves[d] - avant[-1] if avant else releves[d]
+    out.append(_phrase(c, a["provDecPhrase"].format(d=c.dc(d), n=c.nb(rap[k]), s=c.nb(sept), c=c.nb(releves[d]))))
+    notes = []
+    blancs = sum(1 for d in jours if d not in releves)
+    if blancs: notes.append(r["blancs"].format(n=blancs))
+    if trous: notes.append(r["trou"].format(p=" ; ".join(trous)))
+    if any(v for v in rat if v): notes.append(a["provRattDec"])
+    if coupees: notes.append(a["coupe"])
+    out.append(_notes(c, notes))
+    return c.carte(a["provDecTitre"].format(p=pnom), a["provDecSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
+
+
+def h_cas_provinces(c):
+    """Les nouveaux cas par province, semaine apres semaine : la vue « Cas » du
+    graphique par province d'Ensemble du pays."""
+    a = AJ[c.lang]; hp = hebdo_prov(c); ordre = c.ordre_provinces()
+    nom = lambda n: PROV_NOM.get(c.lang, {}).get(n, n)
+    X0, X1, Y0, Y1 = 110, 1140, 300, 840
+    n = len(c.semaines); bw = (X1 - X0) / n; out = []
+    tots = [sum(max(hp[p][i], 0) for p in ordre) for i in range(n)]
+    mx = max(tots) or 1; pas = _pas(mx); v = 0
+    while v <= mx:
+        y = Y1 - (Y1 - Y0) * v / mx
+        out.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="%s"/>' % (X0, X1, y, y, LINE_SOFT) + c.T(X0 - 12, y + 5, c.nb(v), 13, INK_FAINT, "end"))
+        v += pas
+    for i, (d0, d1) in enumerate(c.semaines):
+        y = Y1; x = X0 + i * bw + 3
+        for p in ordre:
+            v = max(hp[p][i], 0)
+            if not v: continue
+            hh = (Y1 - Y0) * v / mx
+            out.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="%s"><title>%s, %s : %s</title></rect>'
+                       % (x, y - hh, bw - 6, max(hh - 0.6, 0.5), PROV.get(p, INK_DIM), esc(c.dc(d0)), esc(nom(p)), c.nb(v)))
+            y -= hh
+        out.append(c.T(x + (bw - 6) / 2, y - 7, c.nb(tots[i]), 12, INK if i == n - 1 else INK_DIM, "middle", 700 if i == n - 1 else 500))
+    out.append(c.axe_semaines(X0, bw, Y1, c.semaines))
+    out.append(c.legende(110, 262, [(nom(p), PROV.get(p, INK_DIM)) for p in ordre if any(hp[p])], gap=14))
+    d0, d1 = c.semaines[-1]; premier = max(ordre, key=lambda p: hp[p][-1])
+    out.append(c.T(60, 975, a["spPhrase"].format(a=c.dc(d0), b=c.dc(d1), n=c.nb(tots[-1]), x=c.nb(max(hp[premier][-1], 0)), p=nom(premier)), 24, INK, fam=SERIF))
+    out.append(c.T(60, 1008, a["spNote"], 15, INK_DIM))
+    return c.carte(a["spTitre"], a["spSous"].format(d=c.dc(c.semaines[0][0])), "".join(out), h=1110, pied=c.pied_semaine())
+
+
+def _poe():
+    return (_j("data/points-controle.json") or {}).get("parDate") or []
+
+
+def _poe_val(e, cle, col):
+    v = ((e.get("indicateurs") or {}).get(cle) or {}).get(col)
+    return v.get("valeur") if isinstance(v, dict) and isinstance(v.get("valeur"), (int, float)) else None
+
+
+def r_voyageurs(c):
+    """Les voyageurs controles par jour, empiles par province (cadre 06 de la
+    page Riposte) : « non reparti » pour l'ecart au total, total seul les jours
+    ou les provinces le depassent, valeurs ecartees (extract_poe.py) en blanc."""
+    a = AJ[c.lang]; pts = _poe()
+    nom = lambda n: PROV_NOM.get(c.lang, {}).get(n, n)
+    jours = _calendrier(pts[0]["date"], pts[-1]["date"]); par = {D(e["date"]): e for e in pts}
+    provs = []
+    for e in pts:
+        for col in e.get("colonnes") or []:
+            if col != "Global" and col not in provs: provs.append(col)
+    series = {p: [None] * len(jours) for p in provs}; reste = [None] * len(jours); incoh, ecartes = [], []
+    for i, d in enumerate(jours):
+        e = par.get(d)
+        if not e: continue
+        for col, v in ((e.get("indicateurs") or {}).get("personnes") or {}).items():
+            if isinstance(v, dict) and v.get("ecarte") and col != "Global":
+                ecartes.append("%s, %s (%s)" % (nom(_prov_canon(col)), c.dc(d), c.nb(int(re.sub(r"\D", "", str(v.get("brut")))))))
+        g = _poe_val(e, "personnes", "Global")
+        if g is None: continue
+        vals = {p: _poe_val(e, "personnes", p) for p in provs}; somme = sum(v or 0 for v in vals.values())
+        if somme > g:
+            incoh.append(c.dc(d)); reste[i] = g; continue
+        for p in provs: series[p][i] = vals[p]
+        reste[i] = g - somme
+    ordre = sorted(provs, key=lambda p: -sum(v or 0 for v in series[p]))
+    tot = [None if reste[i] is None else reste[i] + sum(series[p][i] or 0 for p in provs) for i in range(len(jours))]
+    R = Repere(c, jours, max(v for v in tot if v is not None) * 1.06)
+    gris = "#C9C4BE"
+    # Kinshasa (une colonne, le 20 juin) n'a pas de teinte d'identite : un
+    # brun clair, distinct du gris du Sud-Kivu.
+    teinte = lambda p: PROV.get(_prov_canon(p), "#B39B7A" if _prov_canon(p) == "Kinshasa" else INK_DIM)
+    piles = [(series[p], teinte(p)) for p in ordre] + [(reste, gris)]
+    leg = [(nom(_prov_canon(p)), teinte(p)) for p in ordre if sum(v or 0 for v in series[p]) > 0] + [(a["voNonReparti"], gris)]
+    out = [c.legende(R.X0, 262, leg, 14), R.grille(c.nb), R.barres(piles)]
+    k = max(i for i, v in enumerate(tot) if v is not None); e = par[jours[k]]
+    comp = ((e.get("indicateurs") or {}).get("completude") or {}).get("Global")
+    comp = comp.get("valeur") if isinstance(comp, dict) else None
+    if isinstance(comp, dict) and comp.get("den"):
+        out.append(_phrase(c, a["voPhrase"].format(d=c.dc(jours[k]), n=c.nb(tot[k]), r=c.nb(comp["num"]), t=c.nb(comp["den"]))))
+    else:
+        out.append(_phrase(c, a["voPhraseSans"].format(d=c.dc(jours[k]), n=c.nb(tot[k]))))
+    notes = [a["voNote"]]
+    if incoh: notes.append(a["voIncoh"].format(l=", ".join(incoh)))
+    if ecartes: notes.append(a["voEcartes"].format(l=" ; ".join(ecartes)))
+    out.append(_notes(c, notes, max_l=6))
+    return c.carte(a["voTitre"], a["voSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1230)
+
+
+def r_alertes_postes(c):
+    """Alertes, alertes vivantes validees et corps interceptes aux postes,
+    additionnes par semaine complete (vue « Alertes par semaine » du cadre 06)."""
+    a = AJ[c.lang]; pts = _poe()
+    lun = lambda d: d - dt.timedelta(days=d.weekday())
+    fin_complete = c.FIN - dt.timedelta(days=(c.FIN.weekday() + 1) % 7)
+    sem = OrderedDict()
+    for e in pts:
+        d = D(e["date"]); s = lun(d)
+        if s + dt.timedelta(6) > fin_complete: continue
+        w = sem.setdefault(s, {"al": None, "va": None, "co": None})
+        for cle, champ in (("al", "alertes"), ("va", "alertesVivantesValidees"), ("co", "corpsInterceptes")):
+            v = _poe_val(e, champ, "Global")
+            if v is not None: w[cle] = (w[cle] or 0) + v
+    sem = OrderedDict((s, w) for s, w in sem.items() if w["al"] is not None)
+    semaines = list(sem.keys()); n = len(semaines)
+    X0, X1, Y0, Y1 = 110, 1140, 300, 840
+    mx = max(max(w["al"] or 0, w["va"] or 0, w["co"] or 0) for w in sem.values()) * 1.08 or 1
+    bw = (X1 - X0) / n; out = []; pas = _pas(mx); v = 0
+    while v <= mx:
+        y = Y1 - (Y1 - Y0) * v / mx
+        out.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="%s"/>' % (X0, X1, y, y, LINE_SOFT) + c.T(X0 - 12, y + 5, c.nb(v), 13, INK_FAINT, "end"))
+        v += pas
+    cols = (("al", BLUE), ("va", _tint(BLUE, .4)), ("co", RED))
+    for i, s in enumerate(semaines):
+        w = sem[s]; sb = (bw - 6) / 3
+        for j, (cle, col) in enumerate(cols):
+            v = w[cle]
+            if v is None: continue
+            hh = max((Y1 - Y0) * v / mx, 1.5)
+            out.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="%s"/>' % (X0 + i * bw + 3 + j * sb, Y1 - hh, sb - 1, hh, col))
+    out.append(c.axe_semaines(X0, bw, Y1, [(s, s + dt.timedelta(6)) for s in semaines]))
+    out.append(c.legende(110, 262, [(a["apAlertes"], BLUE), (a["apValidees"], _tint(BLUE, .4)), (a["apCorps"], RED)]))
+    s = semaines[-1]; w = sem[s]
+    out.append(c.T(60, 975, a["apPhrase"].format(a=c.dc(s), b=c.dc(s + dt.timedelta(6)), n=c.nb(w["al"] or 0), v=c.nb(w["va"] or 0), k=c.nb(w["co"] or 0)), 24, INK, fam=SERIF))
+    out.append(_notes(c, [a["apNote"]], y=1008))
+    return c.carte(a["apTitre"], a["apSous"], "".join(out), h=1110)
 
 
 # ================================================================ la page
+# Cas et deces de chaque province qui a une courbe sur le site (29 octobre
+# 2026) : six rangs prevus, un rang sans province ne dessine rien. Les ancres
+# nouveaux-cas-province-N restent celles de la vitrine de l'accueil.
+PROVINCES_JOUR = [item for n in range(6) for item in (
+    ("nouveaux-cas-province-%d" % (n + 1), None, (lambda r: lambda c: r_province_serie(c, r, "confirmed"))(n), "provjour"),
+    ("nouveaux-deces-province-%d" % (n + 1), None, (lambda r: lambda c: r_province_serie(c, r, "deaths"))(n), "provdec"))]
+
 LISTE = [
-    ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"), ("provinces", None, carte_provinces, "provinces"),
-           ("nouveaux-cas-province-1", None, lambda c: r_province(c, 0), "provjour"), ("nouveaux-cas-province-2", None, lambda c: r_province(c, 1), "provjour"),
-           ("nouveaux-cas-province-3", None, lambda c: r_province(c, 2), "provjour")]),
+    ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"),
+           ("nouveaux-cas-jour", None, lambda c: r_national(c, "confirmed"), "nat"), ("nouveaux-deces-jour", None, lambda c: r_national(c, "deaths"), "natdec"),
+           ("provinces", None, carte_provinces, "provinces")] + PROVINCES_JOUR),
     ("r", [("alertes-jour", None, r_alertes, "alertes"), ("laboratoire-jour", None, r_labo, "labo"), ("contacts-jour", None, r_contacts, "contacts"),
-           ("cte-jour", None, r_cte, "cte"), ("vaccination-jour", None, r_vaccin, "vaccin")]),
-    ("s", [("part-provinces", "partTitre", h_part, "part"), ("cas-semaine", "casTitre", h_cas, "cas"), ("lieu-deces", "lieuTitre", h_lieu, "lieu"),
+           ("cte-jour", None, r_cte, "cte"), ("vaccination-jour", None, r_vaccin, "vaccin"),
+           ("voyageurs-jour", None, r_voyageurs, "voy"), ("alertes-postes-semaine", None, r_alertes_postes, "apost")]),
+    ("s", [("part-provinces", "partTitre", h_part, "part"), ("cas-semaine", "casTitre", h_cas, "cas"),
+           ("cas-semaine-provinces", None, h_cas_provinces, "spcas"), ("lieu-deces", "lieuTitre", h_lieu, "lieu"),
            ("zones-actives", "zonTitre", h_zones, "zones"), ("zone-apres-zone", "tapTitre", h_tapis, "tapis")]),
     ("m", [("zones-par-mois", None, m_zones, "mzones"), ("cas-par-mois", None, m_cas, "mcas"), ("deces-par-mois", None, m_deces, "mdeces"), ("part-par-mois", None, m_part, "mpart")]),
 ]
@@ -1331,11 +1686,13 @@ def page_html(lang, mois_courts):
         figs = []
         for ident, _, fn, lire in items:
             svg = fn(c)
+            if svg is None:
+                continue
             m = re.findall(r'<text x="60\.0" y="(?:110|156)\.0"[^>]*font-size="(?:42|38)"[^>]*>([^<]*)</text>', svg)
             titre = html.unescape(" ".join(m)) if m else ident
             figs.append('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
                         '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
-                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or PJ[lang]["lire"]), esc(p["png"])))
+                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or PJ[lang]["lire"]), esc(p["png"])))
         out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
                    '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
     out.append(cartes_html(c, lang))
