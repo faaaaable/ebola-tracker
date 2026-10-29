@@ -107,7 +107,17 @@ def lire_pci(corps):
 
     for numero_puce, p in enumerate(puces(corps)):
         puce_en_cours[0] = numero_puce
-        for m in re.finditer(r"(\d+) rings?(?: ouverts?)? (?:ont été|a été) ouverts? (?:sur les|autour des|sur) (\d+)", p):
+        # « 35 rings ont été ouverts sur 38 » jusqu'au 163 ; « 28 rings ouverts
+        # sur 34 », sans « ont été », depuis le 165 (rien n'etait plus lu). Le
+        # mot « ouverts » reste exige : « 3 rings sur 5 restent à ouvrir » ne
+        # compte pas des rings ouverts.
+        # La forme courte rattrape aussi des chiffres du jour jamais lus (Tshopo
+        # au 090, Haut-Uele aux 107 et 149, Nord-Kivu aux 110 et 111), mais
+        # « Le cumul atteint 53 rings ouverts sur 53 » (Tshopo, 149 a 152) est
+        # un cumul depuis le debut : il ne s'ajoute pas au jour.
+        for m in re.finditer(r"(\d+) rings?(?: ouverts?)? (?:(?:ont|a) été )?ouverts? (?:sur les|autour des|sur) (\d+)", p):
+            if re.search(r"cumul\b[^.;]{0,30}$", p[max(0, m.start() - 40):m.start()]):
+                continue
             rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(2))
         m = re.search(r"les (\d+) rings attendus ont tous été ouverts", p)
         if m:
@@ -146,7 +156,11 @@ def lire_pci(corps):
                          # été réalisés » (Ituri, 150 a 162) : jamais lu, les
                          # alertes ne comptaient que les provinces qui ecrivent
                          # « reçues ».
-                         r"\bsur (\d+) alertes EDS"]),
+                         r"\bsur (\d+) alertes EDS",
+                         # « 1 EDS réalisé et 1 corps swabé sur 10 alertes »
+                         # (Tshopo, 165 et 166) : les alertes viennent apres
+                         # les corps.
+                         r"swab\w*\s+sur (\d+) alertes"]),
             ("realisees", [r"(\d+) EDS (?:ont [ée]t[ée] |a [ée]t[ée] )?r[ée]alis",
                            r"r[ée]alis[ée] (?:les )?(\d+) EDS"]),
             ("swabes", [r"(\d+) corps (?:ont [ée]t[ée] |a [ée]t[ée] )?(?:pr[ée]lev|swab|[ée]couvillonn)",
@@ -322,6 +336,7 @@ def lire_vaccination_detail(corps):
         # provincial à 1 019 » — le premier nombre est celui du jour, le cumul
         # est le second.
         m = (re.search(r"portant\s+le\s+cumul(?:\s+provincial)?\s+à\s+" + NUM, seg)
+             or re.search(r"portant\s+à\s+" + NUM + r"\s+le\s+nombre\s+de\s+personnes\s+vaccinées", seg)
              or VAC_CUMUL_RE.search(seg) or VAC_CUMUL_TPL_RE.search(seg)
              or VAC_CUMUL_ATTEINT_RE.search(seg) or VAC_CUMUL_ETAT_RE.search(seg))
         if m:
@@ -452,7 +467,11 @@ def lire_vaccination(corps, texte_entier):
             continue
         # « 66 PPL ont été vaccinés à Bunia du 21 au 23 septembre, portant le
         # cumul à 96 » (132) : le cumul est le second nombre, pas le premier.
-        m = re.search(r"portant le cumul(?: provincial)? à " + NUM, phr)
+        # « portant à 1 748 le nombre de personnes vaccinées (704 femmes et
+        # 1 044 hommes) » (Ituri, 165 et 166) : jamais lu, l'Ituri restait a
+        # son 1 613 du 162.
+        m = (re.search(r"portant le cumul(?: provincial)? à " + NUM, phr)
+             or re.search(r"portant à " + NUM + r" le nombre de personnes vaccinées", phr))
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         m = re.search(r"cumul (?:des )?personnes vaccinées\s*:\s*" + NUM, phr)

@@ -888,8 +888,8 @@
     "refusScreening": 86
    },
    "rings": {
-    "ouverts": 19,
-    "attendus": 143
+    "ouverts": 25,
+    "attendus": 153
    },
    "eds": {
     "alertes": 140,
@@ -1318,8 +1318,8 @@
     "refusScreening": 0
    },
    "rings": {
-    "ouverts": 33,
-    "attendus": 45
+    "ouverts": 35,
+    "attendus": 50
    },
    "eds": null,
    "vaccination": null,
@@ -1360,8 +1360,8 @@
     "refusScreening": 0
    },
    "rings": {
-    "ouverts": 16,
-    "attendus": 30
+    "ouverts": 17,
+    "attendus": 35
    },
    "eds": {
     "alertes": 93,
@@ -1386,8 +1386,8 @@
     "refusScreening": 0
    },
    "rings": {
-    "ouverts": 19,
-    "attendus": 45
+    "ouverts": 29,
+    "attendus": 75
    },
    "eds": {
     "alertes": 126,
@@ -1412,8 +1412,8 @@
     "refusScreening": 0
    },
    "rings": {
-    "ouverts": 18,
-    "attendus": 55
+    "ouverts": 37,
+    "attendus": 93
    },
    "eds": {
     "alertes": 91,
@@ -3002,8 +3002,8 @@
     "refusScreening": 0
    },
    "rings": {
-    "ouverts": 51,
-    "attendus": 78
+    "ouverts": 52,
+    "attendus": 79
    },
    "eds": {
     "alertes": 114,
@@ -3568,7 +3568,12 @@
      "swabes": 1
     }
    },
-   "vaccination": null,
+   "vaccination": {
+    "cumulParProvince": {
+     "Bas-Uélé": 1735
+    },
+    "rupture": false
+   },
    "source": "SitRep INSP (automatique)"
   },
   {
@@ -3579,9 +3584,12 @@
     "screenesPct": 98.0,
     "refusScreening": 0
    },
-   "rings": null,
+   "rings": {
+    "ouverts": 47,
+    "attendus": 90
+   },
    "eds": {
-    "alertes": 192,
+    "alertes": 202,
     "realisees": 106,
     "swabes": 97,
     "nonSwabes": null,
@@ -3593,10 +3601,14 @@
    },
    "vaccination": {
     "cumulParProvince": {
+     "Ituri": 1748,
      "Bas-Uélé": 1735
     },
     "rupture": false,
     "provinces": {
+     "Ituri": {
+      "cumul": 1748
+     },
      "Bas-Uélé": {
       "cible": 13202,
       "couverture": 13.1
@@ -3609,9 +3621,12 @@
    "date": "2026-10-27",
    "sitrepNumber": "166",
    "poe": null,
-   "rings": null,
+   "rings": {
+    "ouverts": 64,
+    "attendus": 75
+   },
    "eds": {
-    "alertes": 164,
+    "alertes": 174,
     "realisees": 100,
     "swabes": 119,
     "nonSwabes": null,
@@ -3623,10 +3638,14 @@
    },
    "vaccination": {
     "cumulParProvince": {
+     "Ituri": 1873,
      "Bas-Uélé": 1785
     },
     "rupture": false,
     "provinces": {
+     "Ituri": {
+      "cumul": 1873
+     },
      "Bas-Uélé": {
       "cible": 13202,
       "couverture": 13.5
