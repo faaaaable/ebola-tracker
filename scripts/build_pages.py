@@ -38,6 +38,7 @@ import face_accueil  # la riposte et ses defis, sur l'accueil (13 octobre 2026)
 import visuels  # la page Visuels : douze images SVG, trois rythmes (12 octobre 2026)
 import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 2026), en local
 import parcours  # carte du parcours du premier malade du Kenya (20 octobre 2026)
+import parcours_nigeria  # carte du parcours du premier cas du Nigeria (29 octobre 2026)
 import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -4956,9 +4957,12 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         values["pays.questions"] = hors_rdc.questions_html(page["pays"], lang)
         # Kenya : carte du parcours du premier malade (20 octobre 2026), sous
         # l'en-tete ; et, pour tous les pays, une barre des parties de la page.
-        values["pays.parcours"] = (parcours.carte_html(lang, lambda zones: zone_map_html(
-                                       config, geo, zones, provinces, urls, lang, strings_lang))
-                                   if page["pays"] == "kenya" else "")
+        # Nigeria : carte du parcours du premier cas (29 octobre 2026), en
+        # francais seulement pour l'instant.
+        dessin = lambda zones: zone_map_html(config, geo, zones, provinces, urls, lang, strings_lang)
+        values["pays.parcours"] = (parcours.carte_html(lang, dessin) if page["pays"] == "kenya"
+                                   else parcours_nigeria.carte_html(lang, dessin) if page["pays"] == "nigeria"
+                                   else "")
         parties = ([("parcours", parcours.nav_libelle(lang))] if values["pays.parcours"] else [])
         parties += [("chronologie", hors_rdc.LIB[lang]["chrono"])]
         parties += [("cas", hors_rdc.LIB[lang]["courbe"])] if courbe else []
