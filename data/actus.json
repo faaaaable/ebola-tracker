@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "8d4ff0ae",
+   "date": "2026-10-29",
+   "titre": "Ebola: la situation régionale appelle «à davantage de soutien», car «aucun pays n'est actuellement à l'abri»",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261029-ebola-la-situation-r%C3%A9gionale-appelle-%C3%A0-davantage-de-soutien-car-aucun-pays-n-est-actuellement-%C3%A0-l-abri",
+   "langue": "fr",
+   "resume": "Les ministres de la Santé des différents pays africains se sont réunis mercredi 28 octobre, lors d'une réunion virtuelle d'urgence convoquée par les autorités sanitaires de l'Union africaine.",
+   "statut": "attente",
+   "collecte": "2026-10-29",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "0a97d462",
    "date": "2026-10-29",
    "titre": "Ebola in Bafwasende: a provincial deputy denounces deficiencies in the response",
@@ -1889,6 +1902,19 @@
    "resume": "La population et le personnel soignant de la ville d'Isiro, ont été félicités par le gouverneur du Haut-Uélé dans le…",
    "statut": "publie",
    "collecte": "2026-10-20",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "7a454a8d",
+   "date": "2026-10-20",
+   "titre": "Ebola: pour l’OMS, «c’est bien sûr possible de retracer ces fonds» dont la gestion est «floue» selon Africa CDC",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261020-ebola-pour-l-oms-c-est-bien-s%C3%BBr-possible-de-retracer-ces-fonds-dont-la-gestion-est-floue-selon-africa-cdc",
+   "langue": "fr",
+   "resume": "Le 14 octobre, Jean Kaseya, directeur général du Centre africain de contrôle et de prévention des maladies (Africa CDC), indiquait une différence entre les 962 millions de dollars annoncés comme décaissés par des bailleurs internationaux pour la lutte contre Ebola et les…",
+   "statut": "attente",
+   "collecte": "2026-10-29",
    "media": true,
    "image": true
   },
