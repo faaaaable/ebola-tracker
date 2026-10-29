@@ -1496,6 +1496,13 @@ function reglerInfobulles(){
      centre : le canevas n'en remet pas. Repose a chaque mise a jour : les
      rendus remplacent leurs options en changeant de vue. */
   Chart.register({ id:'legendeStandard', beforeInit:poserTitre });
+  /* Sous zoom CSS, Chart.js lit la position de la souris en pixels d'ecran et
+     la compare a un canevas en pixels de la page : le survol glissait vers la
+     gauche (barre 131 pour 147 a 90 %). On la ramene dans le repere du canevas. */
+  Chart.register({ id:'zoomPage', beforeEvent(chart, args){
+    const c = chart.canvas, k = c.offsetWidth ? c.getBoundingClientRect().width / c.offsetWidth : 1;
+    if(Math.abs(k - 1) > 0.005){ args.event.x /= k; args.event.y /= k; }
+  } });
   const majOrigine = Chart.prototype.update;
   Chart.prototype.update = function(mode){ safeRun(() => poserTitre(this), 'poserTitre'); return majOrigine.call(this, mode); };
   reglerInfobulles.fait = true;
@@ -4919,6 +4926,15 @@ function applyView(animate){
   }
 }
 
+/* Zoom CSS de la page (html{zoom:.9} sur les 13 pouces, 29 octobre 2026) :
+   la souris (clientX) et getBoundingClientRect parlent en pixels d'ecran,
+   style.left et offsetWidth en pixels de la page. Tout ce qui pose un
+   element d'apres la souris divise par ce rapport ; 1 sans zoom. */
+function zoomPage(){
+  const b = document.body;
+  return b && b.offsetWidth ? (b.getBoundingClientRect().width / b.offsetWidth) || 1 : 1;
+}
+
 /* Combien de pixels ecran vaut une unite du viewBox, a zoom 1. Le SVG est en
    preserveAspectRatio meet : c'est la plus contraignante des deux dimensions
    qui compte. Sans mise en page (carte masquee), on suppose 1. */
@@ -5175,11 +5191,12 @@ function setupMonde(svg, btn){
     stage.querySelectorAll('[data-a3="' + a3 + '"]').forEach(e=>e.classList.add('is-on'));
     if(actif !== a3) bulle.innerHTML = bulles[a3];
     actif = a3;
-    const r = stage.getBoundingClientRect(), w = bulle.offsetWidth, h = bulle.offsetHeight;
-    let l = x - r.left + 16, t = y - r.top + 16;
-    if(l + w > r.width - 8) l = x - r.left - w - 16;
+    const r = stage.getBoundingClientRect(), w = bulle.offsetWidth, h = bulle.offsetHeight, k = zoomPage();
+    const px = (x - r.left) / k, py = (y - r.top) / k, W = r.width / k, H = r.height / k;
+    let l = px + 16, t = py + 16;
+    if(l + w > W - 8) l = px - w - 16;
     if(l < 8) l = 8;
-    if(t + h > r.height - 8) t = Math.max(8, y - r.top - h - 16);
+    if(t + h > H - 8) t = Math.max(8, py - h - 16);
     bulle.style.left = l + 'px';
     bulle.style.top = t + 'px';
     bulle.classList.add('is-visible');
@@ -6813,7 +6830,7 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
   // Marque, langues et bouton de menu tiennent sur une ligne : la barre
   // elle-meme, panneau fixe exclu, EST l'en-tete — sa hauteur suffit.
   function mesurerEntete(){
-    barre.style.setProperty('--entete', Math.round(barre.getBoundingClientRect().height) + 'px');
+    barre.style.setProperty('--entete', barre.offsetHeight + 'px');   // offsetHeight : en pixels de la page, zoom compris
   }
 
   function poser(ouvert){
@@ -7053,15 +7070,16 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
   function placer(zone){
     const rz = zone.getBoundingClientRect();
     const rs = scene.getBoundingClientRect();
-    const ancre = rz.left + rz.width / 2 - rs.left;
+    const k = zoomPage();   // les rectangles sont en pixels d'ecran, la case en pixels de la page
+    const ancre = (rz.left + rz.width / 2 - rs.left) / k;
     const largeur = popup.offsetWidth, hauteur = popup.offsetHeight;
 
-    let haut = rz.top - rs.top - 13 - hauteur;
+    let haut = (rz.top - rs.top) / k - 13 - hauteur;
     const dessous = haut < 4;
-    if(dessous) haut = rz.bottom - rs.top + 13;
+    if(dessous) haut = (rz.bottom - rs.top) / k + 13;
 
     let gauche = Math.round(ancre - largeur / 2);
-    gauche = Math.max(6, Math.min(gauche, rs.width - largeur - 6));
+    gauche = Math.max(6, Math.min(gauche, rs.width / k - largeur - 6));
 
     popup.style.left = gauche + 'px';
     popup.style.top = Math.round(haut) + 'px';
@@ -7383,7 +7401,7 @@ function initVitrineVisuels(){
   vue.addEventListener('pointerdown', e => { tween = null; tient = { x: e.clientX, o, id: e.pointerId }; bouge = false; });
   vue.addEventListener('pointermove', e => {
     if(!tient) return;
-    const d = e.clientX - tient.x;
+    const d = (e.clientX - tient.x) / zoomPage();
     if(!bouge && Math.abs(d) > 5){
       bouge = true; vue.classList.add('is-drag');
       try { vue.setPointerCapture(tient.id); } catch(_){}
@@ -7523,7 +7541,7 @@ function initRiposteCarousel(){
   });
   piste.addEventListener('pointermove', e=>{
     if(!glisse || e.pointerId !== glisse.id) return;
-    const dx = e.clientX - glisse.x;
+    const dx = (e.clientX - glisse.x) / zoomPage();
     if(!glisse.bouge && Math.abs(dx) > 6){
       glisse.bouge = true; piste.classList.add('is-drag');
       try{ piste.setPointerCapture(e.pointerId); }catch(_){}
@@ -7593,8 +7611,8 @@ function initBulleEntete(){
       bulle.hidden = false; p.classList.add('is-survol');
     });
     p.addEventListener('pointermove', e=>{
-      const r = fond.getBoundingClientRect();
-      bulle.style.left = (e.clientX - r.left) + 'px'; bulle.style.top = (e.clientY - r.top) + 'px';
+      const r = fond.getBoundingClientRect(), k = zoomPage();
+      bulle.style.left = (e.clientX - r.left) / k + 'px'; bulle.style.top = (e.clientY - r.top) / k + 'px';
     });
     p.addEventListener('pointerleave', ()=>{ bulle.hidden = true; p.classList.remove('is-survol'); });
   });
