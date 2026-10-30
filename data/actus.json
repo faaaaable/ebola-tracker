@@ -2,6 +2,45 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "a80683c7",
+   "date": "2026-10-30",
+   "titre": "Ebola au Nord-Kivu : les mesures de prévention encore peu respectées à Beni, Butembo et Lubero",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/10/30/actualite/sante/ebola-au-nord-kivu-les-mesures-de-prevention-encore-peu-respectees-beni",
+   "langue": "fr",
+   "resume": "Radio Okapi/Marc Maro Fimbo\" /> La limitation du nombre de passagers à moto et dans les véhicules, le lavage des mains et le port des équipements de protection restent des défis dans plusieurs localités du Nord-Kivu, alors que l’épidémie d’Ebola continue de faire des victimes…",
+   "statut": "publie",
+   "collecte": "2026-10-30",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "4c90faaa",
+   "date": "2026-10-30",
+   "titre": "CAR tightens border checks as DR Congo's Ebola cases rise",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/10/30/car-tightens-border-checks-tightened-as-dr-congos-ebola-cases-rise/",
+   "langue": "en",
+   "resume": "With the virus in three Congolese regions bordering the country, the authorities have also launched awareness campaigns.",
+   "statut": "publie",
+   "collecte": "2026-10-30",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "2703da2d",
+   "date": "2026-10-30",
+   "titre": "DR Congo: MSF celebrates Ebola patient discharges in Ituri province",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/10/30/dr-congo-msf-celebrates-ebola-patient-discharges-in-ituri-province/",
+   "langue": "en",
+   "resume": "Dancing and singing erupted at an Ebola treatment centre in DR Congo as the last patients were discharged. For the first time since May, the MSF-run facility has no confirmed cases under treatment, although the wider outbreak continues.",
+   "statut": "publie",
+   "collecte": "2026-10-30",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "d6f32bf6",
    "date": "2026-10-29",
    "titre": "Ebola dans la Tshopo : la population appelée à renouveler sa confiance à un hôpital",
