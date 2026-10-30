@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-28"
+    "fin": "2026-10-29"
   },
   "parDate": [
     {
@@ -4858,14 +4858,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 386,
-          "occupation": 38.0,
+          "occupation": 37.0,
           "admissions": 88,
           "sorties": 60,
-          "gueris": 7,
-          "lits": 1015,
-          "litsReportes": true,
-          "occupationPubliee": 37.0,
-          "occupationCalculee": true
+          "gueris": 7
         },
         "Nord-Kivu": {
           "hospitalises": 508,
@@ -4896,9 +4892,54 @@
       "total": {
         "hospitalises": 946,
         "provinces": 4,
-        "lits": 1623,
-        "hospitalisesAvecLits": 946,
-        "occupation": 58.3
+        "lits": 608,
+        "hospitalisesAvecLits": 560,
+        "occupation": 92.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-29",
+      "sitrepNumber": "168",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 422,
+          "occupation": 41.6,
+          "admissions": 117,
+          "sorties": 67,
+          "gueris": 9,
+          "lits": 1015,
+          "litsReportes": true,
+          "occupationPubliee": 40.0,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 546,
+          "lits": 410,
+          "hospitalisesNormes": 358,
+          "occupationPubliee": 87.3,
+          "occupation": 133.2,
+          "occupationCalculee": true,
+          "admissions": 108,
+          "sorties": 70,
+          "gueris": 10
+        },
+        "Tshopo": {
+          "hospitalises": 19,
+          "lits": 36,
+          "occupation": 52.8,
+          "admissions": 5,
+          "sorties": 5,
+          "gueris": 3
+        }
+      },
+      "total": {
+        "hospitalises": 987,
+        "provinces": 3,
+        "lits": 1461,
+        "hospitalisesAvecLits": 987,
+        "occupation": 67.6
       },
       "source": "SitRep INSP (automatique)"
     }

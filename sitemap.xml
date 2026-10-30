@@ -41,7 +41,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/nigeria/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/nigeria/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/nigeria/"/>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -52,7 +52,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/kenya/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/kenya/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/kenya/"/>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -63,7 +63,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/uganda/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/uganda/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/ouganda/"/>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -1103,6 +1103,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/lettre/168/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/168/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/168/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/168/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/168/"/>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/donnees/ituri/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
@@ -1229,7 +1240,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/nigeria/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/nigeria/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/nigeria/"/>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1240,7 +1251,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/kenya/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/kenya/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/kenya/"/>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1251,7 +1262,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/uganda/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/uganda/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/ouganda/"/>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2291,6 +2302,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/letter/168/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/168/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/168/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/168/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/168/"/>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/data/ituri/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/donnees/ituri/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/data/ituri/"/>
@@ -2417,7 +2439,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/nigeria/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/nigeria/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/nigeria/"/>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2428,7 +2450,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/kenya/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/kenya/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/kenya/"/>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2439,7 +2461,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/uganda/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/uganda/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/ouganda/"/>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3473,6 +3495,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/167/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/167/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/167/"/>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/barua/168/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/168/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/168/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/168/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/168/"/>
     <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
