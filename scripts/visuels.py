@@ -1198,6 +1198,10 @@ PJ = {
             blancs="{n} jours sans bulletin pour la province restent en blanc ; leurs cas sont comptés dans le relevé suivant.",
             trou="Aucune barre du {p} : les bulletins ne répartissent pas les cas entre les provinces.",
             rattNote="Les 22 et 30 juillet, rattrapages de données, en teinte claire : leur part n'est publiée qu'au niveau national.",
+            multi="Une barre claire hors des 22 et 30 juillet réunit plusieurs journées : la province n'a pas de relevé pour la veille.",
+            calcule="Barres du {l} calculées : le bulletin du lendemain annonce les cas de sa journée, le reste revient à la veille.",
+            blancsDec="{n} jours sans bulletin pour la province restent en blanc ; leurs décès sont comptés dans le relevé suivant.",
+            trouDec="Aucune barre du {p} : les bulletins ne répartissent pas les décès entre les provinces.",
             coupe="Barre coupée : l'axe s'arrête au plus fort jour ordinaire, le total est écrit au-dessus.",
             lire="La courbe quotidienne de la province, comme sur sa page : les à-coups du jour que la vue par semaine lisse."),
  "en": dict(titre="{p}: new cases, day by day",
@@ -1207,6 +1211,10 @@ PJ = {
             blancs="{n} days without a bulletin for the province are left blank; their cases are counted in the next report.",
             trou="No bars from {p}: the bulletins do not break cases down by province.",
             rattNote="22 and 30 July, data catch-ups, in the lighter tone: their share is published only at national level.",
+            multi="A light bar other than 22 and 30 July combines several days: the province has no report for the day before.",
+            calcule="Bars for {l} are calculated: the next day's bulletin announces that day's cases, the rest goes to the day before.",
+            blancsDec="{n} days without a bulletin for the province are left blank; their deaths are counted in the next report.",
+            trouDec="No bars from {p}: the bulletins do not break deaths down by province.",
             coupe="Cut bar: the axis stops at the highest ordinary day, the total is written above.",
             lire="The province's daily chart, as on its page: the day-to-day jolts that the weekly view smooths out."),
  "sw": dict(titre="{p}: visa vipya, siku kwa siku",
@@ -1216,60 +1224,92 @@ PJ = {
             blancs="Siku {n} bila ripoti kwa jimbo zimeachwa wazi; visa vyake vimehesabiwa katika ripoti inayofuata.",
             trou="Hakuna safu kutoka {p}: ripoti hazigawanyi visa kati ya majimbo.",
             rattNote="Tarehe 22 na 30 Julai, marekebisho ya takwimu, kwa rangi hafifu: sehemu yake imechapishwa kwa kiwango cha kitaifa pekee.",
+            multi="Safu hafifu isiyo ya tarehe 22 na 30 Julai inaunganisha siku kadhaa: jimbo halina ripoti ya siku iliyotangulia.",
+            calcule="Safu za {l} zimekokotolewa: ripoti ya siku inayofuata inatangaza visa vya siku hiyo, kilichobaki ni cha siku iliyotangulia.",
+            blancsDec="Siku {n} bila ripoti kwa jimbo zimeachwa wazi; vifo vyake vimehesabiwa katika ripoti inayofuata.",
+            trouDec="Hakuna safu kutoka {p}: ripoti hazigawanyi vifo kati ya majimbo.",
             coupe="Safu iliyokatwa: mhimili unaishia kwenye siku ya kawaida ya juu zaidi, jumla imeandikwa juu.",
             lire="Mchoro wa kila siku wa jimbo, kama kwenye ukurasa wake: mabadiliko ya kila siku ambayo mwonekano wa wiki unalainisha."),
 }
 ECART_MAX_JOURS, MARGE_PLAFOND, DECLENCHE_RUPTURE = 3, 1.12, 1.4
 
 
-def r_province(c, rang):
-    r = PJ[c.lang]; nom = c.ordre_provinces()[rang]
-    pnom = PROV_NOM.get(c.lang, {}).get(nom, nom); teinte = PROV.get(nom, BLUE)
+# Les journees qu'on peut repartir exactement : le bulletin du jour de retour
+# annonce les cas de la province pour sa journee, la veille prend le reste de
+# l'ecart des cumuls. Meme table que JOURNEES_ANNONCEES dans app.js.
+JOURNEES_ANNONCEES = {
+    "2026-05-21": {"Ituri": 18, "Nord-Kivu": 0, "Sud-Kivu": 1},
+    "2026-05-23": {"Ituri": 9, "Nord-Kivu": 1, "Sud-Kivu": 0},
+    "2026-05-29": {"Ituri": 52, "Nord-Kivu": 0, "Sud-Kivu": 2},
+    "2026-07-17": {"Ituri": 75, "Nord-Kivu": 7, "Haut-Uélé": 4, "Tshopo": 0, "Sud-Kivu": 0},
+}
+
+
+def _serie_province(c, nom, champ):
+    """Les barres du graphique de la page province (app.js, provinceEpidemic),
+    au meme calcul : journees reparties d'apres l'annonce, barre qui suit un
+    jour sans releve en teinte claire, barre du jour = cas annonces par la
+    province quand le bulletin precedent date de la veille (cas seulement)."""
     pts = []
     for h in sorted(c.ph, key=lambda h: h["date"]):
         for p in h.get("provinces") or []:
-            if _prov_canon(p["name"]) == nom and p.get("confirmed") is not None:
-                pts.append((D(h["date"]), p["confirmed"])); break
-    par, trous = {}, []
+            if _prov_canon(p["name"]) == nom and p.get(champ) is not None:
+                pts.append((D(h["date"]), p[champ])); break
+    par, trous, multi, calculees = {}, [], set(), set()
     for (d0, c0), (d1, c1) in zip(pts, pts[1:]):
-        if (d1 - d0).days > ECART_MAX_JOURS:
-            trous.append("%s au %s" % (c.dc(d0 + dt.timedelta(1)), c.dc(d1)) if c.lang == "fr" else
-                         "%s to %s" % (c.dc(d0 + dt.timedelta(1)), c.dc(d1)) if c.lang == "en" else
-                         "%s hadi %s" % (c.dc(d0 + dt.timedelta(1)), c.dc(d1)))
+        ecart = (d1 - d0).days; iso = d1.isoformat()
+        if ecart > ECART_MAX_JOURS:
+            trous.append("%s %s %s" % (c.dc(d0 + dt.timedelta(1)), {"fr": "au", "en": "to", "sw": "hadi"}[c.lang], c.dc(d1)))
             continue
-        delta = max(0, c1 - c0); ratt = d1.isoformat() in RATTRAPAGES
+        delta = max(0, c1 - c0)
+        annonce = JOURNEES_ANNONCEES.get(iso, {}).get(nom) if champ == "confirmed" and ecart == 2 else None
+        if annonce is not None and 0 <= annonce <= delta:
+            veille = d1 - dt.timedelta(1)
+            par[veille] = (delta - annonce, None); par[d1] = (annonce, None); calculees.add(veille)
+            continue
+        if ecart > 1 and iso not in RATTRAPAGES: multi.add(d1)
+        ratt = iso in RATTRAPAGES or d1 in multi
         par[d1] = (None if ratt else delta, delta if ratt else None)
-    jours = _calendrier(pts[0][0], pts[-1][0]); releves = dict(pts)
+    if champ == "confirmed":
+        annonces = {D(x["date"]): x["annonce"]["provinces"].get(nom) for x in c.sitreps
+                    if (x.get("annonce") or {}).get("provinces")}
+        for (d0, _), (d1, _) in zip(pts, pts[1:]):
+            jour = par.get(d1)
+            if jour and jour[0] is not None and (d1 - d0).days == 1 and annonces.get(d1) is not None:
+                par[d1] = (annonces[d1], jour[1])
+    jours = _calendrier(pts[0][0], pts[-1][0])
     rap = [par[d][0] if d in par else None for d in jours]
     rat = [par[d][1] if d in par else None for d in jours]
-    ordinaire = max((v for v, k in zip(rap, rat) if v is not None and not k), default=0)
-    plus_haute = max((v or 0) + (k or 0) for v, k in zip(rap, rat))
-    plafond = None
-    if ordinaire and plus_haute >= ordinaire * DECLENCHE_RUPTURE:
-        brut = ordinaire * MARGE_PLAFOND; pas = 10 ** (math.floor(math.log10(brut)) - 1) * 2
-        plafond = math.ceil(brut / pas) * pas
-    ymax = plafond or plus_haute * 1.06
-    R = Repere(c, jours, ymax)
-    cap = lambda vals: [None if v is None else min(v, ymax) for v in vals]
-    out = [c.legende(R.X0, 262, [(r["jour"], teinte), (r["ratt"], _tint(teinte, .35))]),
-           R.grille(c.nb), R.barres([(cap(rap), teinte), (cap(rat), _tint(teinte, .35))])]
-    coupees = [(i, (a or 0) + (b or 0)) for i, (a, b) in enumerate(zip(rap, rat)) if (a or 0) + (b or 0) > ymax]
-    for i, tot in coupees:
-        x, y = R.x(i), R.Y0
-        out.append('<path d="M%.1f %.1f l%.1f -5 M%.1f %.1f l%.1f -5" stroke="%s" stroke-width="2"/>' % (x - 6, y + 12, 12, x - 6, y + 18, 12, BG))
-        out.append(c.T(x, y - 8, c.nb(tot), 13, INK, "middle", 700))
+    return pts, jours, rap, rat, trous, multi, calculees
+
+
+def _province(c, nom, champ):
+    """Cas ou deces d'une province, jour par jour, comme sur sa page."""
+    a = AJ[c.lang]; r = PJ[c.lang]; deces = champ == "deaths"
+    pnom = PROV_NOM.get(c.lang, {}).get(nom, nom); teinte = RED if deces else PROV.get(nom, BLUE)
+    pts, jours, rap, rat, trous, multi, calculees = _serie_province(c, nom, champ)
+    releves = dict(pts)
+    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec"] if deces else r["jour"], r["ratt"])
     k = max(i for i, v in enumerate(rap) if v is not None)
     d = jours[k]; avant = [v for dd, v in pts if dd <= d - dt.timedelta(7)]
     sept = releves[d] - avant[-1] if avant else releves[d]
-    out.append(_phrase(c, r["phrase"].format(d=c.dc(d), n=c.nb(rap[k]), s=c.nb(sept), c=c.nb(releves[d]))))
+    out.append(_phrase(c, (a["provDecPhrase"] if deces else r["phrase"]).format(d=c.dc(d), n=c.nb(rap[k]), s=c.nb(sept), c=c.nb(releves[d]))))
     notes = []
-    blancs = sum(1 for d in jours if d not in releves)
-    if blancs: notes.append(r["blancs"].format(n=blancs))
-    if trous: notes.append(r["trou"].format(p=" ; ".join(trous)))
-    if any(v for v in rat if v): notes.append(r["rattNote"])
-    if coupees: notes.append(r["coupe"])
-    out.append(_notes(c, notes))
+    blancs = sum(1 for d in jours if d not in releves and d not in calculees)
+    if blancs: notes.append(r["blancsDec" if deces else "blancs"].format(n=blancs))
+    if trous: notes.append(r["trouDec" if deces else "trou"].format(p=" ; ".join(trous)))
+    if any(d.isoformat() in RATTRAPAGES for d, _ in pts): notes.append(a["provRattDec"] if deces else r["rattNote"])
+    if multi: notes.append(r["multi"])
+    if calculees: notes.append(r["calcule"].format(l=", ".join(c.dc(d) for d in sorted(calculees))))
+    if coupees: notes.append(a["coupe"])
+    out.append(_notes(c, notes, max_l=5))
+    if deces:
+        return c.carte(a["provDecTitre"].format(p=pnom), a["provDecSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
     return c.carte(r["titre"].format(p=pnom), r["sous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
+
+
+def r_province(c, rang):
+    return _province(c, c.ordre_provinces()[rang], "confirmed")
 
 
 # ================================================================ ajouts du 29 octobre 2026
@@ -1458,36 +1498,7 @@ def r_province_serie(c, rang, champ):
         return None
     if champ == "confirmed":
         return r_province(c, rang)
-    a = AJ[c.lang]; r = PJ[c.lang]; nom = noms[rang]
-    pnom = PROV_NOM.get(c.lang, {}).get(nom, nom); teinte = PROV.get(nom, BLUE)
-    pts = []
-    for h in sorted(c.ph, key=lambda h: h["date"]):
-        for p in h.get("provinces") or []:
-            if _prov_canon(p["name"]) == nom and p.get(champ) is not None:
-                pts.append((D(h["date"]), p[champ])); break
-    par, trous = {}, []
-    for (d0, c0), (d1, c1) in zip(pts, pts[1:]):
-        if (d1 - d0).days > ECART_MAX_JOURS:
-            trous.append("%s %s %s" % (c.dc(d0 + dt.timedelta(1)), {"fr": "au", "en": "to", "sw": "hadi"}[c.lang], c.dc(d1)))
-            continue
-        delta = max(0, c1 - c0); ratt = d1.isoformat() in RATTRAPAGES
-        par[d1] = (None if ratt else delta, delta if ratt else None)
-    jours = _calendrier(pts[0][0], pts[-1][0]); releves = dict(pts)
-    rap = [par[d][0] if d in par else None for d in jours]
-    rat = [par[d][1] if d in par else None for d in jours]
-    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec"], r["ratt"])
-    k = max(i for i, v in enumerate(rap) if v is not None)
-    d = jours[k]; avant = [v for dd, v in pts if dd <= d - dt.timedelta(7)]
-    sept = releves[d] - avant[-1] if avant else releves[d]
-    out.append(_phrase(c, a["provDecPhrase"].format(d=c.dc(d), n=c.nb(rap[k]), s=c.nb(sept), c=c.nb(releves[d]))))
-    notes = []
-    blancs = sum(1 for d in jours if d not in releves)
-    if blancs: notes.append(r["blancs"].format(n=blancs))
-    if trous: notes.append(r["trou"].format(p=" ; ".join(trous)))
-    if any(v for v in rat if v): notes.append(a["provRattDec"])
-    if coupees: notes.append(a["coupe"])
-    out.append(_notes(c, notes))
-    return c.carte(a["provDecTitre"].format(p=pnom), a["provDecSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
+    return _province(c, noms[rang], champ)
 
 
 def h_cas_provinces(c):
