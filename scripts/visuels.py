@@ -60,8 +60,8 @@ TXT = {
   # bulletin
   calTitre="Le calendrier de l'épidémie", calSous="Une case par jour, teintée et chiffrée : les cas en bleu, les décès en rouge",
   calCas="NOUVEAUX CAS CONFIRMÉS, LE CHIFFRE DU JOUR DANS CHAQUE CASE", calDeces="DÉCÈS DU JOUR",
-  calRatt="Rattrapages administratifs : le {a}, {ta} cas déclarés dont {ra} rattrapés ; le {b}, {tb} dont {rb} pour les 28 et 29 juillet, sans bulletin.",
-  calRattDeces="Les décès des {a} et {b} comportent aussi un rattrapage, dont le bulletin ne donne pas la part.",
+  calRatt="Coin ambré : rattrapage administratif ({ra} cas le {a}, {rb} le {b}).",
+  calRattDeces="Coin ambré : les décès de ces deux jours comportent aussi un rattrapage.",
   calHach="Case hachurée : pas de bulletin ce jour-là.",
   rayTitre="Le code-barre de l'épidémie", raySous="Du {a} au {b}, une rayure par jour : plus elle est sombre, plus il y a eu de cas",
   rayCas="NOUVEAUX CAS CONFIRMÉS, UN TRAIT PAR JOUR", rayDeces="DÉCÈS DU JOUR",
@@ -70,13 +70,12 @@ TXT = {
   provLegende="CAS CONFIRMÉS", provPhrase="{cas} cas confirmés dans {zones} zones de santé, sur les {total} que comptent ces {np} provinces.",
   provPied=" · contours des zones de santé : OCHA",
   # semaine
-  lundi="Sous chaque barre, le lundi de la semaine.",
   partTitre="La part de chaque province, semaine après semaine", partSous="Répartition des nouveaux cas confirmés de chaque semaine entre les provinces.",
   partPhrase="Le Nord-Kivu : {a} des nouveaux cas la semaine du {da}, {b} la semaine du {db}",
   partNote="Chaque barre vaut 100 % des nouveaux cas de la semaine.",
   casTitre="Les nouveaux cas, semaine après semaine", casSous="Cas confirmés déclarés chaque semaine, du lundi au dimanche, depuis la semaine du {d}.",
   casPhrase="Du {a} au {b} : {n} nouveaux cas, {v} par rapport à la semaine précédente.",
-  casNote="Les semaines du 20 et du 27 juillet portent des rattrapages administratifs : {r1} cas le 22 juillet, {r2} le 30.",
+  casNote="Semaines des 20 et 27 juillet : rattrapages administratifs ({r1} et {r2} cas).",
   lieuTitre="Où meurent les malades", lieuSous="Part des décès survenus dans la communauté et en centre de traitement, semaine par semaine, depuis que les bulletins la publient.",
   lieuCom="décès dans la communauté", lieuCte="décès dans un centre de traitement",
   lieuPhrase="Du {a} au {b}, {p} des décès sont survenus hors d'un centre de traitement ({c} sur {t}).",
@@ -95,8 +94,8 @@ TXT = {
   moisZonTotal="total : {n}", moisZonNote="Le suivi par zone commence le 21 mai : les zones touchées avant comptent en mai.",
   moisPartTitre="Le Nord-Kivu : {a} des nouveaux cas en {M}, {b} en {m}", moisPartSous="Part de chaque province dans les nouveaux cas confirmés du mois.",
   moisMai="Mai : à partir du 14 mai, premier bulletin.",
-  moisRattCas="Juillet inclut deux rattrapages administratifs, les 22 et 30 juillet ({n} cas au-delà des cas du jour).",
-  moisRattDec="Juillet inclut deux rattrapages : le cumul des décès bondit les 22 et 30 juillet.",
+  moisRattCas="Juillet : {n} cas de rattrapage, les 22 et 30 juillet.",
+  moisRattDec="Juillet : rattrapages de décès les 22 et 30 juillet.",
  ),
  "en": dict(
   moisLong=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -108,8 +107,8 @@ TXT = {
   moisClos="Closed month: {m} · data as of {d}",
   calTitre="The outbreak calendar", calSous="One cell per day, tinted and numbered: cases in blue, deaths in red",
   calCas="NEW CONFIRMED CASES, THE DAY'S FIGURE IN EACH CELL", calDeces="DEATHS OF THE DAY",
-  calRatt="Administrative catch-ups: on {a}, {ta} cases reported, {ra} of them backlog; on {b}, {tb}, of which {rb} cover 28 and 29 July, days without a bulletin.",
-  calRattDeces="Deaths on {a} and {b} also include a backlog, whose share the bulletin does not give.",
+  calRatt="Amber corner: administrative catch-up ({ra} cases on {a}, {rb} on {b}).",
+  calRattDeces="Amber corner: deaths on these two days also include a catch-up.",
   calHach="Hatched cell: no bulletin that day.",
   rayTitre="The outbreak's barcode", raySous="From {a} to {b}, one stripe per day: the darker it is, the more cases that day",
   rayCas="NEW CONFIRMED CASES, ONE STRIPE PER DAY", rayDeces="DEATHS OF THE DAY",
@@ -117,13 +116,12 @@ TXT = {
   provTitre="{n} affected provinces", provSous="Cumulative confirmed cases by province, 15 May to {d}. The other {autres} provinces of the DRC have reported no cases.",
   provLegende="CONFIRMED CASES", provPhrase="{cas} confirmed cases in {zones} health zones, out of the {total} in these {np} provinces.",
   provPied=" · health zone boundaries: OCHA",
-  lundi="Under each bar, the Monday of the week.",
   partTitre="Each province's share, week by week", partSous="How each week's new confirmed cases are split between the provinces.",
   partPhrase="North Kivu: {a} of new cases in the week of {da}, {b} in the week of {db}",
   partNote="Each bar is 100% of the week's new cases.",
   casTitre="New cases, week by week", casSous="Confirmed cases reported each week, Monday to Sunday, since the week of {d}.",
   casPhrase="{a} to {b}: {n} new cases, {v} on the previous week.",
-  casNote="The weeks of 20 and 27 July include administrative catch-ups: {r1} cases on 22 July, {r2} on the 30th.",
+  casNote="Weeks of 20 and 27 July: administrative catch-ups ({r1} and {r2} cases).",
   lieuTitre="Where patients die", lieuSous="Share of deaths in the community and in treatment centres, week by week, since the bulletins started publishing it.",
   lieuCom="deaths in the community", lieuCte="deaths in a treatment centre",
   lieuPhrase="From {a} to {b}, {p} of deaths happened outside a treatment centre ({c} of {t}).",
@@ -141,8 +139,8 @@ TXT = {
   moisZonTotal="total: {n}", moisZonNote="Zone-level tracking starts on 21 May: zones affected before then count in May.",
   moisPartTitre="North Kivu: {a} of new cases in {M}, {b} in {m}", moisPartSous="Each province's share of the month's new confirmed cases.",
   moisMai="May: from 14 May, the first bulletin.",
-  moisRattCas="July includes two administrative catch-ups, on 22 and 30 July ({n} cases beyond that day's cases).",
-  moisRattDec="July includes two catch-ups: the death toll jumps on 22 and 30 July.",
+  moisRattCas="July: {n} catch-up cases, on 22 and 30 July.",
+  moisRattDec="July: death catch-ups on 22 and 30 July.",
  ),
  "sw": dict(
   moisLong=["Januari", "Februari", "Machi", "Aprili", "Mei", "Juni", "Julai", "Agosti", "Septemba", "Oktoba", "Novemba", "Desemba"],
@@ -154,8 +152,8 @@ TXT = {
   moisClos="Mwezi uliokamilika: {m} · takwimu kufikia {d}",
   calTitre="Kalenda ya mlipuko", calSous="Kisanduku kimoja kwa siku, chenye rangi na nambari: visa kwa buluu, vifo kwa nyekundu",
   calCas="VISA VIPYA VILIVYOTHIBITISHWA, NAMBARI YA SIKU KATIKA KILA KISANDUKU", calDeces="VIFO VYA SIKU",
-  calRatt="Marekebisho ya kiutawala: tarehe {a}, visa {ta} vilitangazwa, {ra} kati yake vikiwa vya nyuma; tarehe {b}, {tb}, kati yake {rb} vya tarehe 28 na 29 Julai, siku zisizo na ripoti.",
-  calRattDeces="Vifo vya tarehe {a} na {b} pia vina marekebisho, ambayo ripoti haitaji sehemu yake.",
+  calRatt="Kona ya kahawia: marekebisho ya kiutawala (visa {ra} tarehe {a}, {rb} tarehe {b}).",
+  calRattDeces="Kona ya kahawia: vifo vya siku hizi mbili pia vina marekebisho.",
   calHach="Kisanduku chenye mistari: hakuna ripoti siku hiyo.",
   rayTitre="Msimbo-pau wa mlipuko", raySous="Kuanzia {a} hadi {b}, mstari mmoja kwa siku: kadiri ulivyo mweusi, ndivyo visa vilivyokuwa vingi",
   rayCas="VISA VIPYA VILIVYOTHIBITISHWA, MSTARI MMOJA KWA SIKU", rayDeces="VIFO VYA SIKU",
@@ -163,13 +161,12 @@ TXT = {
   provTitre="Majimbo {n} yaliyoathirika", provSous="Visa vilivyothibitishwa kwa jumla kwa kila jimbo, kuanzia 15 Mei hadi {d}. Majimbo mengine {autres} ya DRC hayajatangaza kisa chochote.",
   provLegende="VISA VILIVYOTHIBITISHWA", provPhrase="Visa {cas} vilivyothibitishwa katika kanda {zones} za afya, kati ya {total} zilizo katika majimbo haya {np}.",
   provPied=" · mipaka ya kanda za afya: OCHA",
-  lundi="Chini ya kila nguzo, Jumatatu ya wiki hiyo.",
   partTitre="Sehemu ya kila jimbo, wiki baada ya wiki", partSous="Mgawanyo wa visa vipya vilivyothibitishwa vya kila wiki kati ya majimbo.",
   partPhrase="Kivu Kaskazini: {a} ya visa vipya wiki ya {da}, {b} wiki ya {db}",
   partNote="Kila nguzo ni asilimia 100 ya visa vipya vya wiki hiyo.",
   casTitre="Visa vipya, wiki baada ya wiki", casSous="Visa vilivyothibitishwa vilivyotangazwa kila wiki, Jumatatu hadi Jumapili, tangu wiki ya {d}.",
   casPhrase="{a} hadi {b}: visa vipya {n}, {v} ikilinganishwa na wiki iliyotangulia.",
-  casNote="Wiki za 20 na 27 Julai zina marekebisho ya kiutawala: visa {r1} tarehe 22 Julai, {r2} tarehe 30.",
+  casNote="Wiki za 20 na 27 Julai: marekebisho ya kiutawala (visa {r1} na {r2}).",
   lieuTitre="Wagonjwa wanafia wapi", lieuSous="Sehemu ya vifo vilivyotokea katika jamii na katika vituo vya matibabu, wiki baada ya wiki, tangu ripoti zianze kuichapisha.",
   lieuCom="vifo katika jamii", lieuCte="vifo katika kituo cha matibabu",
   lieuPhrase="Kuanzia {a} hadi {b}, {p} ya vifo vilitokea nje ya kituo cha matibabu ({c} kati ya {t}).",
@@ -187,8 +184,8 @@ TXT = {
   moisZonTotal="jumla: {n}", moisZonNote="Ufuatiliaji kwa kanda unaanza tarehe 21 Mei: kanda zilizoathirika kabla zinahesabiwa Mei.",
   moisPartTitre="Kivu Kaskazini: {a} ya visa vipya mwezi {M}, {b} mwezi {m}", moisPartSous="Sehemu ya kila jimbo katika visa vipya vilivyothibitishwa vya mwezi.",
   moisMai="Mei: kuanzia 14 Mei, ripoti ya kwanza.",
-  moisRattCas="Julai ina marekebisho mawili ya kiutawala, tarehe 22 na 30 Julai (visa {n} zaidi ya visa vya siku).",
-  moisRattDec="Julai ina marekebisho mawili: jumla ya vifo inaruka tarehe 22 na 30 Julai.",
+  moisRattCas="Julai: visa {n} vya marekebisho, tarehe 22 na 30 Julai.",
+  moisRattDec="Julai: marekebisho ya vifo tarehe 22 na 30 Julai.",
  ),
 }
 
@@ -585,7 +582,7 @@ def h_part(c):
     out.append(c.legende(110, 262, [(p, PROV.get(p, INK_DIM)) for p in ordre], gap=14))
     nk = hp.get("Nord-Kivu", [0] * n); t0 = sum(max(hp[p][0], 0) for p in ordre) or 1; t1 = sum(max(hp[p][-1], 0) for p in ordre) or 1
     out.append(c.T(60, 975, t["partPhrase"].format(a=c.pc(100 * max(nk[0], 0) / t0), da=c.dc(c.semaines[0][0]), b=c.pc(100 * max(nk[-1], 0) / t1), db=c.dc(c.semaines[-1][0])), 24, INK, fam=SERIF))
-    out.append(c.T(60, 1008, t["partNote"] + " " + t["lundi"], 15, INK_DIM))
+    out.append(c.T(60, 1008, t["partNote"], 15, INK_DIM))
     return c.carte(t["partTitre"], t["partSous"], "".join(out), h=1110, pied=c.pied_semaine())
 
 
@@ -606,7 +603,7 @@ def h_cas(c):
     a, b = c.semaines[-1]
     out.append(c.T(60, 975, t["casPhrase"].format(a=c.dc(a), b=c.dc(b), n=c.nb(vals[-1]), v=c.var(vals[-1], vals[-2])), 24, INK, fam=SERIF))
     r = [c.jours.get(D(k), (0, 0))[0] - v for k, v in sorted(RATTRAPAGES.items())]
-    out.append(c.T(60, 1008, t["casNote"].format(r1=c.nb(r[0]), r2=c.nb(r[1])) + " " + t["lundi"], 15, INK_DIM))
+    out.append(c.T(60, 1008, t["casNote"].format(r1=c.nb(r[0]), r2=c.nb(r[1])), 15, INK_DIM))
     return c.carte(t["casTitre"], t["casSous"].format(d=c.dc(c.semaines[0][0])), "".join(out), h=1110, pied=c.pied_semaine())
 
 
@@ -634,7 +631,7 @@ def h_lieu(c):
     out.append(c.legende(110, 262, [(t["lieuCom"], RED), (t["lieuCte"], "#E5B7AE")]))
     a, b, co, ct = [d for d in data if d[2] + d[3]][-1]
     out.append(c.T(60, 960, t["lieuPhrase"].format(a=c.dc(a), b=c.dc(b), p=c.pc(100 * co / (co + ct)), c=co, t=co + ct), 24, INK, fam=SERIF))
-    out.append(c.T(60, 994, t["lieuNote"] + " " + t["lundi"], 15, INK_DIM))
+    out.append(c.T(60, 994, t["lieuNote"], 15, INK_DIM))
     return c.carte(t["lieuTitre"], t["lieuSous"], "".join(out), h=1110, pied=c.pied_semaine())
 
 
@@ -663,7 +660,7 @@ def h_zones(c):
     out.append(c.T(X1, Y1 - (Y1 - Y0) * (ac + ca) / mx - 12, t["zonTouchees"].format(n=ac + ca), 15, INK, "end", 700))
     out.append(c.legende(110, 262, [(t["zonActive"], BLUE), (t["zonCalme"], "#B7D3E1")]))
     out.append(c.T(60, 975, t["zonPhrase"].format(d=c.dl_(b), a=ac, t=ac + ca), 24, INK, fam=SERIF))
-    out.append(c.T(60, 1008, t["zonNote"] + " " + t["lundi"], 15, INK_DIM))
+    out.append(c.T(60, 1008, t["zonNote"], 15, INK_DIM))
     return c.carte(t["zonTitre"], t["zonSous"], "".join(out), h=1110, pied=c.pied_semaine())
 
 
@@ -798,25 +795,23 @@ RIP = {
   alTitre="Les alertes, jour par jour", alSous="Alertes reçues chaque jour par les équipes de surveillance, et celles validées comme cas suspects, du {a} au {b}.",
   alVal="Validées comme cas suspects", alAut="Autres alertes reçues",
   alPhrase="Le {d} : {n} alertes reçues, dont {v} validées comme cas suspects.",
-  alNote="L'axe suit le calendrier : {lus} journées relevées sur {tot} ; une journée sans relevé reste en blanc.",
+  alNote="En blanc : pas de relevé ce jour-là.",
   laTitre="Le laboratoire, jour par jour", laSous="Échantillons analysés chaque jour, résultats positifs en couleur pleine, et positivité de la journée sur l'axe de droite, du {a} au {b}.",
   laPos="Résultats positifs", laNeg="Échantillons négatifs", laTaux="Positivité",
   laPhrase="Le {d} : {n} échantillons analysés, {p} positifs, soit {t}.",
-  laNote="{lus} journées relevées sur {tot}. Hachures ({k} jours) : une province ne donne pas ses échantillons, seules les provinces complètes sont comptées.",
-  laNote2="Pointillés : un repère au-dessus des jours sans relevé, jamais une valeur.",
+  laNote="Hachures : une province ne publie pas ses échantillons. Pointillés : jours sans relevé.",
   coTitre="Le suivi des contacts, jour par jour", coSous="Part des contacts vus dans les dernières 24 heures et, en barres claires sur l'axe de droite, nombre de contacts à suivre, du {a} au {b}.",
   coTaux="Part des contacts vus", coSuivre="Contacts à suivre",
   coPhrase="Le {d} : {p} des {n} contacts à suivre ont été vus.",
-  coNote="L'OMS fixait une cible de 95 %. Pointillés : un repère au-dessus des jours sans relevé.",
+  coNote="Cible de l'OMS : 95 %. Pointillés : jours sans relevé.",
   ctTitre="Patients pour 100 lits des CTE", ctSous="Patients hospitalisés, confirmés et suspects, rapportés aux lits que le bulletin déclare, province par province, du {a} au {b}.",
   ctNormees="Nord-Kivu, patients dans les lits des CTE",
   ctPhrase="Le {d} : {l}.", ctItem="{p} {v}",
-  ctNote="Au-dessus de 100, il y a plus de malades que de lits. Provinces de moins de 20 lits écartées. Point creux : lits empruntés à un bulletin voisin.",
-  ctNote2="Courbe claire et zone teintée : au Nord-Kivu, les patients des seuls lits des CTE ; l'écart, ceux soignés ailleurs.",
+  ctNote="Au-dessus de 100 : plus de malades que de lits.",
+  ctNote2="Zone teintée : au Nord-Kivu, les malades soignés hors des CTE.",
   vaTitre="{n} personnes vaccinées", vaSous="Cumul des personnes vaccinées avec l'ERVEBO, province par province, depuis le début de la campagne, le {a}.",
   vaPhrase="Au {d} : {l}.", vaItem="{p} {v}",
-  vaNote="Le dernier cumul connu est reporté tant que le bulletin n'en publie pas de nouveau. Du 28 août au 2 septembre, aucun chiffre publié : la marche du 3 est un rattrapage.",
-  vaRevision="Le {d}, le bulletin donnait {a} au {p}, corrigé ensuite à {b} : la courbe porte la valeur corrigée.",
+  vaNote="Sans nouveau chiffre, le dernier cumul connu est reporté.",
   lire=dict(alertes="Le volume de signalements et ce que la surveillance en retient : les à-coups du jour, que la vue par semaine lisse.",
             labo="L'irrégularité des analyses d'un jour à l'autre, et la part de positifs : un positif n'est pas toujours un malade de plus.",
             contacts="Combien de personnes exposées sont vues chaque jour : quand la part baisse, des chaînes de transmission échappent au suivi.",
@@ -829,25 +824,23 @@ RIP = {
   alTitre="Alerts, day by day", alSous="Alerts received each day by surveillance teams, and those validated as suspected cases, {a} to {b}.",
   alVal="Validated as suspected cases", alAut="Other alerts received",
   alPhrase="On {d}: {n} alerts received, {v} of them validated as suspected cases.",
-  alNote="The axis follows the calendar: {lus} days recorded out of {tot}; a day without a record stays blank.",
+  alNote="Blank: no record that day.",
   laTitre="The laboratory, day by day", laSous="Samples tested each day, positive results in full colour, and the day's positivity on the right axis, {a} to {b}.",
   laPos="Positive results", laNeg="Negative samples", laTaux="Positivity",
   laPhrase="On {d}: {n} samples tested, {p} positive, or {t}.",
-  laNote="{lus} days recorded out of {tot}. Hatching ({k} days): one province does not report its samples, only complete provinces are counted.",
-  laNote2="Dotted lines: a guide over days without a record, never a value.",
+  laNote="Hatching: one province does not publish its samples. Dotted lines: days without a record.",
   coTitre="Contact follow-up, day by day", coSous="Share of contacts seen in the previous 24 hours and, as light bars on the right axis, the number of contacts to follow, {a} to {b}.",
   coTaux="Share of contacts seen", coSuivre="Contacts to follow",
   coPhrase="On {d}: {p} of the {n} contacts to follow were seen.",
-  coNote="WHO set a 95% target. Dotted lines: a guide over days without a record.",
+  coNote="WHO target: 95%. Dotted lines: days without a record.",
   ctTitre="Patients per 100 treatment-centre beds", ctSous="Hospitalised patients, confirmed and suspected, relative to the beds the bulletin declares, province by province, {a} to {b}.",
   ctNormees="North Kivu, patients in treatment-centre beds",
   ctPhrase="On {d}: {l}.", ctItem="{p} {v}",
-  ctNote="Above 100, there are more patients than beds. Provinces with fewer than 20 beds are left out. Hollow dot: beds taken from a neighbouring bulletin.",
-  ctNote2="Pale line and shaded area: in North Kivu, patients in treatment-centre beds only; the gap, those cared for elsewhere.",
+  ctNote="Above 100: more patients than beds.",
+  ctNote2="Shaded area: in North Kivu, patients cared for outside treatment centres.",
   vaTitre="{n} people vaccinated", vaSous="Cumulative number of people vaccinated with ERVEBO, province by province, since the campaign began on {a}.",
   vaPhrase="As of {d}: {l}.", vaItem="{p} {v}",
-  vaNote="The last known total is carried forward until the bulletin publishes a new one. From 28 August to 2 September no figure was published: the step on the 3rd is a catch-up.",
-  vaRevision="On {d}, the bulletin gave {a} in {p}, later corrected to {b}: the line carries the corrected value.",
+  vaNote="Without a new figure, the last known total is carried forward.",
   lire=dict(alertes="The volume of reports and what surveillance keeps from them: the day-to-day jolts that the weekly view smooths out.",
             labo="How uneven testing is from one day to the next, and the share of positives: a positive is not always one more patient.",
             contacts="How many exposed people are seen each day: when the share drops, chains of transmission escape follow-up.",
@@ -860,25 +853,23 @@ RIP = {
   alTitre="Tahadhari, siku kwa siku", alSous="Tahadhari zilizopokelewa kila siku na timu za ufuatiliaji, na zile zilizothibitishwa kama visa vinavyoshukiwa, {a} hadi {b}.",
   alVal="Zimethibitishwa kama visa vinavyoshukiwa", alAut="Tahadhari nyingine zilizopokelewa",
   alPhrase="Tarehe {d}: tahadhari {n} zilizopokelewa, {v} kati yake zimethibitishwa kama visa vinavyoshukiwa.",
-  alNote="Mhimili unafuata kalenda: siku {lus} zimerekodiwa kati ya {tot}; siku bila rekodi inabaki tupu.",
+  alNote="Tupu: hakuna rekodi siku hiyo.",
   laTitre="Maabara, siku kwa siku", laSous="Sampuli zilizopimwa kila siku, matokeo chanya kwa rangi kamili, na kiwango cha chanya cha siku kwenye mhimili wa kulia, {a} hadi {b}.",
   laPos="Matokeo chanya", laNeg="Sampuli hasi", laTaux="Kiwango cha chanya",
   laPhrase="Tarehe {d}: sampuli {n} zilizopimwa, {p} chanya, yaani {t}.",
-  laNote="Siku {lus} zimerekodiwa kati ya {tot}. Mistari ya mlalo (siku {k}): jimbo moja halitoi sampuli zake, majimbo kamili pekee yanahesabiwa.",
-  laNote2="Vitone: kielelezo juu ya siku bila rekodi, kamwe si thamani.",
+  laNote="Mistari ya mlalo: jimbo moja halitoi sampuli zake. Vitone: siku bila rekodi.",
   coTitre="Ufuatiliaji wa walioguswa, siku kwa siku", coSous="Sehemu ya walioguswa walioonwa katika saa 24 zilizopita na, kama pau nyepesi kwenye mhimili wa kulia, idadi ya walioguswa wa kufuatiliwa, {a} hadi {b}.",
   coTaux="Sehemu ya walioguswa walioonwa", coSuivre="Walioguswa wa kufuatiliwa",
   coPhrase="Tarehe {d}: {p} ya walioguswa {n} wa kufuatiliwa walionwa.",
-  coNote="WHO iliweka lengo la 95%. Vitone: kielelezo juu ya siku bila rekodi.",
+  coNote="Lengo la WHO: 95%. Vitone: siku bila rekodi.",
   ctTitre="Wagonjwa kwa kila vitanda 100 vya vituo vya matibabu", ctSous="Wagonjwa waliolazwa, waliothibitishwa na wanaoshukiwa, ikilinganishwa na vitanda vinavyotangazwa na ripoti, jimbo kwa jimbo, {a} hadi {b}.",
   ctNormees="Kivu Kaskazini, wagonjwa katika vitanda vya vituo vya matibabu",
   ctPhrase="Tarehe {d}: {l}.", ctItem="{p} {v}",
-  ctNote="Zaidi ya 100, kuna wagonjwa wengi kuliko vitanda. Majimbo yenye vitanda chini ya 20 yameachwa. Nukta tupu: vitanda vimechukuliwa kutoka ripoti jirani.",
-  ctNote2="Mstari hafifu na eneo lenye rangi: Kivu Kaskazini, wagonjwa wa vitanda vya vituo pekee; tofauti, wale wanaotibiwa mahali pengine.",
+  ctNote="Zaidi ya 100: wagonjwa wengi kuliko vitanda.",
+  ctNote2="Eneo lenye rangi: Kivu Kaskazini, wagonjwa wanaotibiwa nje ya vituo.",
   vaTitre="Watu {n} waliochanjwa", vaSous="Jumla ya watu waliochanjwa kwa ERVEBO, jimbo kwa jimbo, tangu kampeni ilipoanza tarehe {a}.",
   vaPhrase="Kufikia {d}: {l}.", vaItem="{p} {v}",
-  vaNote="Jumla ya mwisho inayojulikana hubaki hadi ripoti itoe mpya. Kati ya 28 Agosti na 2 Septemba hakuna takwimu iliyochapishwa: hatua ya tarehe 3 ni kuchelewa kuchapisha.",
-  vaRevision="Tarehe {d}, ripoti ilitoa {a} {p}, baadaye ikasahihishwa kuwa {b}: mstari unabeba thamani iliyosahihishwa.",
+  vaNote="Bila takwimu mpya, jumla ya mwisho inayojulikana hubaki.",
   lire=dict(alertes="Wingi wa taarifa na kile ufuatiliaji unachohifadhi: mabadiliko ya kila siku ambayo mwonekano wa wiki unalainisha.",
             labo="Jinsi vipimo vinavyobadilika siku hadi siku, na sehemu ya chanya: chanya si mara zote mgonjwa mwingine.",
             contacts="Watu wangapi walioathirika wanaonwa kila siku: sehemu inaposhuka, minyororo ya maambukizi inakwepa ufuatiliaji.",
@@ -1078,7 +1069,7 @@ def r_labo(c):
     # que les provinces completes, pas le pays
     k = max(i for i in range(len(jours)) if pos[i] is not None and not partiel[i])
     out.append(_phrase(c, r["laPhrase"].format(d=_jour(c, jours[k]), n=c.nb(pos[k] + neg[k]), p=c.nb(pos[k]), t=c.pc(taux[k], 1))))
-    out.append(_notes(c, [r["laNote"].format(lus=len(par), tot=len(jours), k=sum(partiel)), r["laNote2"]]))
+    out.append(_notes(c, [r["laNote"]]))
     return c.carte(r["laTitre"], r["laSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
 
 
@@ -1172,11 +1163,7 @@ def r_vaccin(c):
     tot = sum(series[n][-1] or 0 for n in noms)
     items = [r["vaItem"].format(v=c.nb(series[n][-1]), p=nom(n)) for n in sorted(noms, key=lambda n: -(series[n][-1] or 0)) if series[n][-1]]
     out.append(_phrase(c, r["vaPhrase"].format(d=_jour(c, jours[-1]), l=", ".join(items))))
-    notes = [r["vaNote"]]
-    if revisions:
-        d, n, a, b = revisions[0]
-        notes.append(r["vaRevision"].format(d=c.dc(D(d)), a=c.nb(a), p=nom(n), b=c.nb(b)))
-    out.append(_notes(c, notes))
+    out.append(_notes(c, [r["vaNote"]]))
     return c.carte(r["vaTitre"].format(n=c.nb(tot)), r["vaSous"].format(a=c.dl_(jours[0])), "".join(out), h=1160)
 
 
@@ -1195,40 +1182,31 @@ PJ = {
             sous="Nouveaux cas confirmés déclarés chaque jour dans la province, du {a} au {b}.",
             jour="Nouveaux cas quotidiens", ratt="Rattrapage",
             phrase="Le {d} : {n} nouveaux cas ; {s} en sept jours, {c} depuis le début.",
-            blancs="{n} jours sans bulletin pour la province restent en blanc ; leurs cas sont comptés dans le relevé suivant.",
-            trou="Aucune barre du {p} : les bulletins ne répartissent pas les cas entre les provinces.",
-            rattNote="Les 22 et 30 juillet, rattrapages de données, en teinte claire : leur part n'est publiée qu'au niveau national.",
-            multi="Une barre claire hors des 22 et 30 juillet réunit plusieurs journées : la province n'a pas de relevé pour la veille.",
-            calcule="Barres du {l} calculées : le bulletin du lendemain annonce les cas de sa journée, le reste revient à la veille.",
-            blancsDec="{n} jours sans bulletin pour la province restent en blanc ; leurs décès sont comptés dans le relevé suivant.",
-            trouDec="Aucune barre du {p} : les bulletins ne répartissent pas les décès entre les provinces.",
-            coupe="Barre coupée : l'axe s'arrête au plus fort jour ordinaire, le total est écrit au-dessus.",
+            blancs="En blanc : pas de relevé pour la province.",
+            trou="Du {p} : cas non répartis par province.",
+            rattNote="En clair : rattrapages des 22 et 30 juillet, ou plusieurs jours réunis.",
+            blancsDec="En blanc : pas de relevé pour la province.",
+            trouDec="Du {p} : décès non répartis par province.",
             lire="La courbe quotidienne de la province, comme sur sa page : les à-coups du jour que la vue par semaine lisse."),
  "en": dict(titre="{p}: new cases, day by day",
             sous="New confirmed cases reported each day in the province, {a} to {b}.",
             jour="New daily cases", ratt="Catch-up",
             phrase="On {d}: {n} new cases; {s} in seven days, {c} since the start.",
-            blancs="{n} days without a bulletin for the province are left blank; their cases are counted in the next report.",
-            trou="No bars from {p}: the bulletins do not break cases down by province.",
-            rattNote="22 and 30 July, data catch-ups, in the lighter tone: their share is published only at national level.",
-            multi="A light bar other than 22 and 30 July combines several days: the province has no report for the day before.",
-            calcule="Bars for {l} are calculated: the next day's bulletin announces that day's cases, the rest goes to the day before.",
-            blancsDec="{n} days without a bulletin for the province are left blank; their deaths are counted in the next report.",
-            trouDec="No bars from {p}: the bulletins do not break deaths down by province.",
-            coupe="Cut bar: the axis stops at the highest ordinary day, the total is written above.",
+            blancs="Blank: no report for the province.",
+            trou="From {p}: cases not broken down by province.",
+            rattNote="Lighter tone: catch-ups of 22 and 30 July, or several days combined.",
+            blancsDec="Blank: no report for the province.",
+            trouDec="From {p}: deaths not broken down by province.",
             lire="The province's daily chart, as on its page: the day-to-day jolts that the weekly view smooths out."),
  "sw": dict(titre="{p}: visa vipya, siku kwa siku",
             sous="Visa vipya vilivyothibitishwa vinavyoripotiwa kila siku katika jimbo, {a} hadi {b}.",
             jour="Visa vipya vya kila siku", ratt="Marekebisho",
             phrase="Tarehe {d}: visa vipya {n}; {s} katika siku saba, {c} tangu mwanzo.",
-            blancs="Siku {n} bila ripoti kwa jimbo zimeachwa wazi; visa vyake vimehesabiwa katika ripoti inayofuata.",
-            trou="Hakuna safu kutoka {p}: ripoti hazigawanyi visa kati ya majimbo.",
-            rattNote="Tarehe 22 na 30 Julai, marekebisho ya takwimu, kwa rangi hafifu: sehemu yake imechapishwa kwa kiwango cha kitaifa pekee.",
-            multi="Safu hafifu isiyo ya tarehe 22 na 30 Julai inaunganisha siku kadhaa: jimbo halina ripoti ya siku iliyotangulia.",
-            calcule="Safu za {l} zimekokotolewa: ripoti ya siku inayofuata inatangaza visa vya siku hiyo, kilichobaki ni cha siku iliyotangulia.",
-            blancsDec="Siku {n} bila ripoti kwa jimbo zimeachwa wazi; vifo vyake vimehesabiwa katika ripoti inayofuata.",
-            trouDec="Hakuna safu kutoka {p}: ripoti hazigawanyi vifo kati ya majimbo.",
-            coupe="Safu iliyokatwa: mhimili unaishia kwenye siku ya kawaida ya juu zaidi, jumla imeandikwa juu.",
+            blancs="Tupu: hakuna ripoti kwa jimbo.",
+            trou="Kuanzia {p}: visa havijagawanywa kwa jimbo.",
+            rattNote="Rangi hafifu: marekebisho ya 22 na 30 Julai, au siku kadhaa zilizounganishwa.",
+            blancsDec="Tupu: hakuna ripoti kwa jimbo.",
+            trouDec="Kuanzia {p}: vifo havijagawanywa kwa jimbo.",
             lire="Mchoro wa kila siku wa jimbo, kama kwenye ukurasa wake: mabadiliko ya kila siku ambayo mwonekano wa wiki unalainisha."),
 }
 ECART_MAX_JOURS, MARGE_PLAFOND, DECLENCHE_RUPTURE = 3, 1.12, 1.4
@@ -1298,11 +1276,8 @@ def _province(c, nom, champ):
     blancs = sum(1 for d in jours if d not in releves and d not in calculees)
     if blancs: notes.append(r["blancsDec" if deces else "blancs"].format(n=blancs))
     if trous: notes.append(r["trouDec" if deces else "trou"].format(p=" ; ".join(trous)))
-    if any(d.isoformat() in RATTRAPAGES for d, _ in pts): notes.append(a["provRattDec"] if deces else r["rattNote"])
-    if multi: notes.append(r["multi"])
-    if calculees: notes.append(r["calcule"].format(l=", ".join(c.dc(d) for d in sorted(calculees))))
-    if coupees: notes.append(a["coupe"])
-    out.append(_notes(c, notes, max_l=5))
+    if multi or any(d.isoformat() in RATTRAPAGES for d, _ in pts): notes.append(a["provRattDec"] if deces else r["rattNote"])
+    out.append(_notes(c, [" ".join(notes)]))
     if deces:
         return c.carte(a["provDecTitre"].format(p=pnom), a["provDecSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
     return c.carte(r["titre"].format(p=pnom), r["sous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
@@ -1327,26 +1302,23 @@ AJ = {
   jourCas="Nouveaux cas quotidiens", jourDec="Nouveaux décès quotidiens", ratt="Rattrapage",
   phraseCas="Le {d} : {n} nouveaux cas ; {s} en sept jours, {c} depuis le début.",
   phraseDec="Le {d} : {n} nouveaux décès ; {s} en sept jours, {c} depuis le début.",
-  blancs="{n} jours sans bulletin restent en blanc ; leurs chiffres sont comptés dans le bulletin suivant.",
-  rattCas="Les 22 et 30 juillet, rattrapages administratifs en teinte claire : {r1} et {r2} cas qui n'appartiennent pas à la journée.",
-  rattDec="Les 22 et 30 juillet portent aussi un rattrapage de décès, dont le bulletin ne donne pas la part : la journée entière est en teinte claire.",
-  coupe="Barre coupée : l'axe s'arrête au plus fort jour ordinaire, le total est écrit au-dessus.",
+  blancs="En blanc : pas de bulletin.",
+  rattCas="En clair : rattrapages des 22 et 30 juillet ({r1} et {r2} cas).",
+  rattDec="En clair : les 22 et 30 juillet, jours de rattrapage.",
   provDecTitre="{p} : les nouveaux décès, jour par jour", provDecSous="Nouveaux décès déclarés chaque jour dans la province, du {a} au {b}.",
   provDecPhrase="Le {d} : {n} nouveaux décès ; {s} en sept jours, {c} depuis le début.",
-  provRattDec="Les 22 et 30 juillet, rattrapages de données, en teinte claire : leur part n'est publiée qu'au niveau national.",
+  provRattDec="En clair : rattrapages des 22 et 30 juillet, ou plusieurs jours réunis.",
   spTitre="Les nouveaux cas par province, chaque semaine", spSous="Cas confirmés déclarés chaque semaine, du lundi au dimanche, empilés par province, depuis la semaine du {d}.",
   spPhrase="Du {a} au {b} : {n} nouveaux cas, dont {x} en {p}.",
-  spNote="Sous chaque barre, le lundi de la semaine. Le total de la semaine est écrit au-dessus.",
+  spNote="Le total de la semaine est écrit au-dessus.",
   voTitre="Les voyageurs contrôlés, jour par jour", voSous="Voyageurs passés chaque jour aux points d'entrée et de contrôle, par province, du {a} au {b}.",
   voNonReparti="Non réparti", voPhrase="Le {d} : {n} voyageurs contrôlés ; {r} postes sur {t} ont envoyé leur rapport.",
   voPhraseSans="Le {d} : {n} voyageurs contrôlés.",
-  voNote="Chiffres du jour, non cumulés. « Non réparti » : l'écart entre le total publié et la somme des provinces. Une journée sans relevé reste en blanc.",
-  voEcartes="Écartés, bien qu'imprimés par le bulletin, car hors de proportion avec les jours voisins : {l}.",
-  voIncoh="Le {l}, les provinces dépassent le total publié : seul le total est montré.",
+  voNote="Chiffres du jour. « Non réparti » : écart entre le total publié et la somme des provinces.",
   apTitre="Les alertes aux postes de contrôle, par semaine", apSous="Alertes notifiées aux postes, alertes de personnes vivantes validées comme cas suspects, et corps interceptés, du lundi au dimanche.",
   apAlertes="Alertes notifiées", apValidees="Alertes vivantes validées", apCorps="Corps interceptés",
   apPhrase="Du {a} au {b} : {n} alertes aux postes, dont {v} validées, et {k} corps interceptés.",
-  apNote="Additionnées à partir des chiffres du jour de chaque bulletin ; semaines complètes seulement. Sous chaque groupe, le lundi de la semaine.",
+  apNote="Semaines complètes seulement.",
   lire=dict(nat="La courbe de l'accueil : les à-coups du jour, que la vue par semaine lisse.",
             natdec="Les décès du jour, du même pas que les cas : l'écart entre les deux courbes, c'est la létalité.",
             provdec="Les décès quotidiens de la province, comme sur sa page.",
@@ -1360,26 +1332,23 @@ AJ = {
   jourCas="New daily cases", jourDec="New daily deaths", ratt="Catch-up",
   phraseCas="On {d}: {n} new cases; {s} in seven days, {c} since the start.",
   phraseDec="On {d}: {n} new deaths; {s} in seven days, {c} since the start.",
-  blancs="{n} days without a bulletin are left blank; their figures are counted in the next bulletin.",
-  rattCas="22 and 30 July, administrative catch-ups in the lighter tone: {r1} and {r2} cases that do not belong to the day.",
-  rattDec="22 and 30 July also carry a catch-up of deaths, whose share the bulletin does not give: the whole day is in the lighter tone.",
-  coupe="Cut bar: the axis stops at the highest ordinary day, the total is written above.",
+  blancs="Blank: no bulletin.",
+  rattCas="Lighter tone: catch-ups of 22 and 30 July ({r1} and {r2} cases).",
+  rattDec="Lighter tone: 22 and 30 July, catch-up days.",
   provDecTitre="{p}: new deaths, day by day", provDecSous="New deaths reported each day in the province, {a} to {b}.",
   provDecPhrase="On {d}: {n} new deaths; {s} in seven days, {c} since the start.",
-  provRattDec="22 and 30 July, data catch-ups, in the lighter tone: their share is published only at national level.",
+  provRattDec="Lighter tone: catch-ups of 22 and 30 July, or several days combined.",
   spTitre="New cases by province, each week", spSous="Confirmed cases reported each week, Monday to Sunday, stacked by province, since the week of {d}.",
   spPhrase="{a} to {b}: {n} new cases, {x} of them in {p}.",
-  spNote="Under each bar, the Monday of the week. The week's total is written above.",
+  spNote="The week's total is written above.",
   voTitre="Travellers screened, day by day", voSous="Travellers through points of entry and control each day, by province, {a} to {b}.",
   voNonReparti="Not broken down", voPhrase="On {d}: {n} travellers screened; {r} posts out of {t} sent their report.",
   voPhraseSans="On {d}: {n} travellers screened.",
-  voNote="Daily figures, not cumulative. \"Not broken down\": the gap between the published total and the sum of the provinces. A day without a record stays blank.",
-  voEcartes="Set aside, although printed by the bulletin, as out of proportion with the neighbouring days: {l}.",
-  voIncoh="On {l}, the provinces exceed the published total: only the total is shown.",
+  voNote="Daily figures. \"Not broken down\": gap between the published total and the sum of the provinces.",
   apTitre="Alerts at control posts, week by week", apSous="Alerts notified at the posts, alerts of living people validated as suspected cases, and bodies intercepted, Monday to Sunday.",
   apAlertes="Alerts notified", apValidees="Living alerts validated", apCorps="Bodies intercepted",
   apPhrase="{a} to {b}: {n} alerts at the posts, {v} of them validated, and {k} bodies intercepted.",
-  apNote="Added up from each bulletin's daily figures; complete weeks only. Under each group, the Monday of the week.",
+  apNote="Complete weeks only.",
   lire=dict(nat="The home page chart: the day-to-day jolts that the weekly view smooths out.",
             natdec="Daily deaths, in step with the cases: the gap between the two is the fatality rate.",
             provdec="The province's daily deaths, as on its page.",
@@ -1393,26 +1362,23 @@ AJ = {
   jourCas="Visa vipya vya kila siku", jourDec="Vifo vipya vya kila siku", ratt="Marekebisho",
   phraseCas="Tarehe {d}: visa vipya {n}; {s} katika siku saba, {c} tangu mwanzo.",
   phraseDec="Tarehe {d}: vifo vipya {n}; {s} katika siku saba, {c} tangu mwanzo.",
-  blancs="Siku {n} bila ripoti zimeachwa wazi; takwimu zake zimehesabiwa katika ripoti inayofuata.",
-  rattCas="Tarehe 22 na 30 Julai, marekebisho ya kiutawala kwa rangi hafifu: visa {r1} na {r2} visivyo vya siku hiyo.",
-  rattDec="Tarehe 22 na 30 Julai pia zina marekebisho ya vifo, ambayo ripoti haitoi sehemu yake: siku nzima iko kwa rangi hafifu.",
-  coupe="Safu iliyokatwa: mhimili unaishia kwenye siku ya kawaida ya juu zaidi, jumla imeandikwa juu.",
+  blancs="Tupu: hakuna ripoti.",
+  rattCas="Rangi hafifu: marekebisho ya 22 na 30 Julai (visa {r1} na {r2}).",
+  rattDec="Rangi hafifu: 22 na 30 Julai, siku za marekebisho.",
   provDecTitre="{p}: vifo vipya, siku kwa siku", provDecSous="Vifo vipya vinavyoripotiwa kila siku katika jimbo, {a} hadi {b}.",
   provDecPhrase="Tarehe {d}: vifo vipya {n}; {s} katika siku saba, {c} tangu mwanzo.",
-  provRattDec="Tarehe 22 na 30 Julai, marekebisho ya takwimu, kwa rangi hafifu: sehemu yake imechapishwa kwa kiwango cha kitaifa pekee.",
+  provRattDec="Rangi hafifu: marekebisho ya 22 na 30 Julai, au siku kadhaa zilizounganishwa.",
   spTitre="Visa vipya kwa jimbo, kila wiki", spSous="Visa vilivyothibitishwa vinavyoripotiwa kila wiki, Jumatatu hadi Jumapili, vimepangwa kwa jimbo, tangu wiki ya {d}.",
   spPhrase="{a} hadi {b}: visa vipya {n}, {x} kati yake {p}.",
-  spNote="Chini ya kila safu, Jumatatu ya wiki. Jumla ya wiki imeandikwa juu.",
+  spNote="Jumla ya wiki imeandikwa juu.",
   voTitre="Wasafiri waliokaguliwa, siku kwa siku", voSous="Wasafiri waliopita vituo vya kuingilia na vya ukaguzi kila siku, kwa jimbo, {a} hadi {b}.",
   voNonReparti="Haijagawanywa", voPhrase="Tarehe {d}: wasafiri {n} waliokaguliwa; vituo {r} kati ya {t} vilituma ripoti yao.",
   voPhraseSans="Tarehe {d}: wasafiri {n} waliokaguliwa.",
-  voNote="Takwimu za siku, si za jumla. « Haijagawanywa »: tofauti kati ya jumla iliyochapishwa na jumla ya majimbo. Siku bila rekodi inabaki tupu.",
-  voEcartes="Zimewekwa kando, ingawa zimechapishwa na ripoti, kwa kuwa haziendani na siku jirani: {l}.",
-  voIncoh="Tarehe {l}, majimbo yanazidi jumla iliyochapishwa: jumla pekee inaonyeshwa.",
+  voNote="Takwimu za siku. « Haijagawanywa »: tofauti kati ya jumla iliyochapishwa na jumla ya majimbo.",
   apTitre="Tahadhari vituoni, wiki baada ya wiki", apSous="Tahadhari zilizotolewa vituoni, tahadhari za watu walio hai zilizothibitishwa kama visa vinavyoshukiwa, na maiti zilizozuiliwa, Jumatatu hadi Jumapili.",
   apAlertes="Tahadhari zilizotolewa", apValidees="Tahadhari za walio hai zilizothibitishwa", apCorps="Maiti zilizozuiliwa",
   apPhrase="{a} hadi {b}: tahadhari {n} vituoni, {v} kati yake zimethibitishwa, na maiti {k} zilizozuiliwa.",
-  apNote="Zimejumlishwa kutoka takwimu za siku za kila ripoti; wiki kamili pekee. Chini ya kila kundi, Jumatatu ya wiki.",
+  apNote="Wiki kamili pekee.",
   lire=dict(nat="Mchoro wa ukurasa wa mwanzo: mabadiliko ya kila siku ambayo mwonekano wa wiki unalainisha.",
             natdec="Vifo vya kila siku, sambamba na visa: tofauti kati ya hizo mbili ni kiwango cha vifo.",
             provdec="Vifo vya kila siku vya jimbo, kama kwenye ukurasa wake.",
@@ -1477,7 +1443,6 @@ def r_national(c, champ):
     else:
         r = [c.jours.get(D(x), (0, 0))[0] - v for x, v in sorted(RATTRAPAGES.items())]
         notes.append(a["rattCas"].format(r1=c.nb(r[0]), r2=c.nb(r[1])))
-    if coupees: notes.append(a["coupe"])
     out.append(_notes(c, notes))
     return c.carte(a["decTitre" if deces else "casTitre"],
                    a["decSous" if deces else "casSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
@@ -1583,10 +1548,7 @@ def r_voyageurs(c):
         out.append(_phrase(c, a["voPhrase"].format(d=c.dc(jours[k]), n=c.nb(tot[k]), r=c.nb(comp["num"]), t=c.nb(comp["den"]))))
     else:
         out.append(_phrase(c, a["voPhraseSans"].format(d=c.dc(jours[k]), n=c.nb(tot[k]))))
-    notes = [a["voNote"]]
-    if incoh: notes.append(a["voIncoh"].format(l=", ".join(incoh)))
-    if ecartes: notes.append(a["voEcartes"].format(l=" ; ".join(ecartes)))
-    out.append(_notes(c, notes, max_l=6))
+    out.append(_notes(c, [a["voNote"]]))
     return c.carte(a["voTitre"], a["voSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1230)
 
 
