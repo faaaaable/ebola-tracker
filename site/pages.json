@@ -832,9 +832,6 @@
         "datasetBase"
       ],
       "navLabelKey": "t:navBase",
-      "navBadge": {
-        "key": "navBadgeNouveau"
-      },
       "meta": {
         "fr": {
           "title": "Données Ebola RDC : cas et décès par zone de santé, jour par jour (CSV)",
@@ -870,9 +867,6 @@
         "dataset"
       ],
       "navLabelKey": "t:navDashboard",
-      "navBadge": {
-        "key": "navBadgeNouveau"
-      },
       "meta": {
         "fr": {
           "title": "Ebola RDC en direct : carte, cas et décès par zone de santé",
@@ -904,9 +898,6 @@
       "changefreq": "daily",
       "priority": "0.7",
       "navLabelKey": "t:navVisuels",
-      "navBadge": {
-        "key": "navBadgeNouveau"
-      },
       "meta": {
         "fr": {
           "title": "Ebola RDC en images : calendrier, cartes et graphiques de l'épidémie",
