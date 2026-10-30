@@ -1637,10 +1637,67 @@ PROVINCES_JOUR = [item for n in range(6) for item in (
     ("nouveaux-cas-province-%d" % (n + 1), None, (lambda r: lambda c: r_province_serie(c, r, "confirmed"))(n), "provjour"),
     ("nouveaux-deces-province-%d" % (n + 1), None, (lambda r: lambda c: r_province_serie(c, r, "deaths"))(n), "provdec"))]
 
+# ================================================================ dix-sept epidemies
+# La frise « Dix-sept epidemies en cinquante ans » de la page Le virus (vue
+# RDC) en visuel au format X, 1200 x 675 (30 octobre 2026, maquette
+# tmp/proto-17-epidemies) : les cercles seuls, surface proportionnelle aux
+# cas, toutes les epidemies passees en gris sans distinguer l'espece, seule
+# l'actuelle nommee. Le cercle bleu suit le dernier bulletin. La difference de
+# comptage (passe : confirmes et probables, CDC ; actuelle : confirmes seuls)
+# est dite sous l'image, dans le texte de lecture.
+EPI = {
+ "fr": dict(titre="Dix-sept épidémies d'Ebola en cinquante ans",
+            sous="Toutes les épidémies d'Ebola en RDC depuis 1976, un cercle par épidémie.",
+            passe="Épidémies passées", cur="Épidémie actuelle", auj="Aujourd’hui", cas="%s cas",
+            lire="Un cercle par épidémie, sa surface suit le nombre de cas. Passées : cas confirmés et probables, bilans du CDC ; actuelle : cas confirmés seuls."),
+ "en": dict(titre="Seventeen Ebola outbreaks in fifty years",
+            sous="Every Ebola outbreak in the DR Congo since 1976, one circle per outbreak.",
+            passe="Past outbreaks", cur="Current outbreak", auj="Today", cas="%s cases",
+            lire="One circle per outbreak, its area following the number of cases. Past: confirmed and probable cases, CDC totals; current: confirmed cases only."),
+ "sw": dict(titre="Milipuko kumi na saba katika miaka hamsini",
+            sous="Kila mlipuko wa Ebola nchini DRC tangu 1976, duara moja kwa kila mlipuko.",
+            passe="Milipuko iliyopita", cur="Mlipuko wa sasa", auj="Leo", cas="visa %s",
+            lire="Duara moja kwa kila mlipuko, eneo lake linafuata idadi ya visa. Iliyopita: visa vilivyothibitishwa na vinavyowezekana, jumla za CDC; wa sasa: visa vilivyothibitishwa pekee."),
+}
+
+
+def epidemies_rdc(c):
+    e = EPI[c.lang]; ep = _j("data/epidemies-ebola.json")
+    cas = c.latest["national"]["confirmed"]
+    rdc = [dict(x, i=i) for i, x in enumerate(ep["epidemies"]) if x["pays"] == ["COD"]]
+    toutes = rdc + [{"i": -1, "annee": 2026, "cas": cas}]
+    GRIS, BLEU, BLEU_FORT = "#BDB4A8", "#1B6C8C", BLUE_STRONG
+    h, BASE, X0, X1 = 675, 528, 80, 1060
+    x = lambda an: X0 + (an - 1974) / (2030 - 1974) * (X1 - X0)
+    k = 142 / math.sqrt(cas)
+    rayon = lambda x_: max(4, k * math.sqrt(x_["cas"]))
+    # meme ecart que la frise de la page pour deux epidemies de la meme annee
+    pos = {}
+    for an in sorted({x_["annee"] for x_ in toutes}):
+        meme = sorted([x_ for x_ in toutes if x_["annee"] == an], key=lambda x_: -x_["cas"])
+        for j, x_ in enumerate(meme):
+            pos[x_["i"]] = x(an) + (0 if j == 0 else 9 * ((j + 1) // 2) * (1 if j % 2 else -1))
+    out = [c.legende(60, 206, [(e["passe"], GRIS)]), c.legende(60, 234, [(e["cur"], BLEU)]),
+           '<line x1="60" x2="1140" y1="%d" y2="%d" stroke="%s" stroke-width="1.4"/>' % (BASE, BASE, INK)]
+    for an in range(1980, 2030, 10):
+        out.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%d" stroke="%s"/>' % (x(an), x(an), BASE, BASE + 7, INK_FAINT)
+                   + c.T(x(an), BASE + 25, str(an), 15, INK_FAINT, "middle", 500))
+    top = BASE - 2 * rayon(toutes[-1])
+    out.append(c.T(pos[-1], top - 44, e["auj"], 24, BLEU_FORT, "middle", 600, SERIF))
+    out.append(c.T(pos[-1], top - 14, e["cas"] % c.nb(cas), 27, BLEU_FORT, "middle", 800))
+    for x_ in sorted(toutes, key=lambda x_: -x_["cas"]):
+        r = rayon(x_)
+        out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" stroke="%s" stroke-width="1.5"/>'
+                   % (pos[x_["i"]], BASE - r, r, BLEU if x_["i"] == -1 else GRIS, BG))
+    svg = c.carte(e["titre"], e["sous"], "".join(out), h=h, source_plus=", CDC")
+    # sans le filet au-dessus du pied de page (demande du 30 octobre 2026)
+    return svg.replace('<line x1="60" x2="%d" y1="%d" y2="%d" stroke="%s"/>' % (W - 60, h - 92, h - 92, LINE), "")
+
+
 LISTE = [
     ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"),
            ("nouveaux-cas-jour", None, lambda c: r_national(c, "confirmed"), "nat"), ("nouveaux-deces-jour", None, lambda c: r_national(c, "deaths"), "natdec"),
-           ("provinces", None, carte_provinces, "provinces")] + PROVINCES_JOUR),
+           ("provinces", None, carte_provinces, "provinces"), ("dix-sept-epidemies", None, epidemies_rdc, "epi")] + PROVINCES_JOUR),
     ("r", [("alertes-jour", None, r_alertes, "alertes"), ("laboratoire-jour", None, r_labo, "labo"), ("contacts-jour", None, r_contacts, "contacts"),
            ("cte-jour", None, r_cte, "cte"), ("vaccination-jour", None, r_vaccin, "vaccin"),
            ("voyageurs-jour", None, r_voyageurs, "voy"), ("alertes-postes-semaine", None, r_alertes_postes, "apost")]),
@@ -1703,7 +1760,7 @@ def page_html(lang, mois_courts):
             titre = html.unescape(" ".join(m)) if m else ident
             figs.append('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
                         '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
-                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or PJ[lang]["lire"]), esc(p["png"])))
+                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else PJ[lang]["lire"])), esc(p["png"])))
         out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
                    '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
     out.append(cartes_html(c, lang))
