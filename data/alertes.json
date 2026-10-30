@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-27"
+    "fin": "2026-10-28"
   },
   "parDate": [
     {
@@ -6770,6 +6770,74 @@
         "calcule": true,
         "partVerifiee": 93.3,
         "partValidee": 15.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-28",
+      "sitrepNumber": "167",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 129,
+          "verifiees": 129,
+          "validees": 65,
+          "suspectsInvestigues": 65,
+          "transferes": 2
+        },
+        "Bas-Uélé": {
+          "recues": 157,
+          "verifiees": 157,
+          "validees": 24,
+          "suspectsInvestigues": 24,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1562,
+          "verifiees": 1562,
+          "validees": 237,
+          "suspectsInvestigues": 230,
+          "transferes": 136
+        },
+        "Nord-Kivu": {
+          "recues": 1694,
+          "verifiees": 1694,
+          "validees": 279,
+          "suspectsInvestigues": 279,
+          "transferes": 146
+        },
+        "Sud-Ubangi": {
+          "recues": 41,
+          "verifiees": 41,
+          "validees": 2,
+          "suspectsInvestigues": 2,
+          "transferes": 0
+        },
+        "Nord-Ubangi": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Tshopo": {
+          "recues": 160,
+          "verifiees": 160,
+          "validees": 4,
+          "suspectsInvestigues": 1,
+          "transferes": 1
+        }
+      },
+      "total": {
+        "recues": 3743,
+        "verifiees": 3743,
+        "validees": 611,
+        "suspectsInvestigues": 601,
+        "transferes": 285,
+        "calcule": true,
+        "partVerifiee": 100.0,
+        "partValidee": 16.3
       },
       "source": "SitRep INSP (automatique)"
     }

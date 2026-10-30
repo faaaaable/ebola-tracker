@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-10-27"
+    "fin": "2026-10-28"
   },
   "parDate": [
     {
@@ -7987,6 +7987,112 @@
             "Tshopo"
           ],
           "horsDefis": "2.9.2. Principales actions"
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-28",
+      "sitrepNumber": "167",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "En Ituri, 2 suspects validés aux PoC de Bela et de Foner Mambasa n’ont pas été transférés (absence d’ambulance, refus), les prestataires des PoC de Mandima ne sont pas formés et les salaires de septembre restent impayés ; Au Nord-Kivu, le PoC Butuhe reste fermé depuis l’incident sécuritaire du 26 septembre 2026 ; au Haut-Uélé, la communauté de Bolebole (ZS de Pawa et de Wamba) refuse l’activation des PoC sur les deux rives et menace les équipes ; au Sud-Kivu, le corps intercepté à Kavimvira n’a pas été swabé (0 % ; 0/1) ; la complétude des rapports reste faible au Bas-Uélé (50,0 % ; 11/22) et au Sud-Kivu (55,6 % ; 5/9)."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Sud-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "2Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "Au Nord-Kivu, aucun ménage décontaminé doté en kit (0/13), 1 ring non ouvert à Katwa et 40 EDS reportés au jour suivant ; seuls 2 ESS évalués sur 7 disposent d’un triage avec circuit unidirectionnel. En Ituri, équipes PCI insuffisantes à Mangala, Mandima, Damas et Mambasa, intrants PCI insuffisants à Mandima et Niania, et 16 échecs de swab (17 %). Au Haut-Uélé, seules 4 ZS sur 7 ont transmis leurs données, les kits PCI manquent pour les ESS et les superviseurs PCI ne sont pas activés dans 4 ZS. À la Tshopo, aucun EDS réalisé et 6 corps non swabés sur 6 pour non-exécution des recommandations de l’arrêté. Au Bas-Uélé, 16 ESS prioritaires sur 20 sans triage fonctionnel, 17 sur 20 sans approvisionnement en eau couvrant 72 heures et seulement 130 prestataires sur 632 (20,6 %) formés en PCI-WASH."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "En Ituri, la rupture de stock de sang persiste, 7 patients n’ont pas bénéficié d’alimentation à Mandima et 38 malades sont critiques ; la capacité d’accueil reste faible aux CTE/CT de Lolwa, Jina et Biakato. Au Nord-Kivu, les CTE/CT restent proches de la saturation (86,3 %), 154 patients sont pris en charge hors CTE/CT et 22 malades sont critiques ; à la Tshopo, 2 confirmés évadés à Bafwasende restent à retrouver"
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "Au Bas-Uélé, la mise en marche des UCC n’est pas effective, la prise en charge des acteurs de terrain accuse du retard et la couverture reste très faible à Bili (0 sur 1 067), à Aketi (7,8 %) et à Titule (7,8 %)."
+          ],
+          "provinces": [
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Continuité des Soins",
+          "items": [
+            "Faible remontée des données du pilier (aucune donnée du Haut-Uélé, du Bas-Uélé et du Sud-Ubangi) ; absence de service d’urgences et de plan de contingence d’absentéisme au CH Maboya et à l’hôpital de Matanda (Nord-Kivu) ; plans de redressement des ESS évalués non mis en œuvre et 22 PPL ayant interrompu leur prophylaxie à Bafwasende pour cause d’insécurité (Tshopo)."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo",
+            "Sud-Ubangi"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            " En Ituri, seules 15 ZS affectées sur 28 (53,6 %) sont couvertes et la couverture reste incomplète autour des derniers cas de Mandima (3/10) et de Bunia (8/12). Au Nord-Kivu, seuls 10 derniers cas sur 16 (62,5 %) sont couverts et 10 ZS affectées n’ont pas de crèche. À la Tshopo, les APS de la ZS de Wanie-Rukula ne sont pas formés et le pilier manque d’unités de communication et de moyens de déplacement. Au Haut-Uélé, aucune crèche n’est disponible à Isiro, Pawa, Wamba et Boma Mangbetu."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            " La couverture des zones touchées reste faible : au Nord-Kivu, seules 5 ZS sur 34 (14,7 %) connaissent le mécanisme de signalement et un seul partenaire (WAA) rapporte ses activités PSEA ; à la Tshopo, les outils de collecte font défaut et le mécanisme communautaire de gestion des plaintes n’est pas installé dans toutes les ZS de Kisangani ; seules 2 DPS sur 8 (25,0 %) ont rapporté leurs activités PSEA au cours des dernières 24 heures."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "À la Tshopo, la grève du personnel de santé et les agressions et menaces contre les équipes de riposte continuent de perturber la surveillance et le suivi des contacts."
+          ],
+          "provinces": [
+            "Tshopo"
+          ],
+          "horsDefis": "2.11.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"

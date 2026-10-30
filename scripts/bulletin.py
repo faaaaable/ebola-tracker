@@ -92,6 +92,30 @@ def _cle_zone(z):
     return (z.get("province"), re.sub(r"[^a-z0-9]", "", nom.lower()))
 
 
+def ajouts_cumul(zones, zh, date):
+    """Les zones dont le cumul monte plus que les nouveaux cas annonces, au
+    bulletin du `date` (30 octobre 2026, SitRep 167 : Yakoma entre avec 3 cas,
+    0 annonce). Memes conditions que la note d'ecart de la Lettre : bulletin
+    precedent de la veille, a partir du 160. Liste de {name, province, ecart},
+    vide sinon : la note des tableaux disparait au bulletin suivant."""
+    from datetime import date as _d
+    zi = next((i for i, z in enumerate(zh) if z["date"] == date), None)
+    if not zi or date < "2026-10-21":
+        return []
+    j0, j1 = (_d(*(int(x) for x in zh[k]["date"].split("-"))) for k in (zi - 1, zi))
+    if (j1 - j0).days != 1:
+        return []
+    avant = {_cle_zone(z): z.get("cases") for z in zh[zi - 1]["zones"]}
+    out = []
+    for z in zones:
+        if z.get("cases") is None:
+            continue
+        ecart = z["cases"] - (avant.get(_cle_zone(z)) or 0) - (z.get("newCases24h") or 0)
+        if ecart > 0:
+            out.append({"name": z["name"], "province": z["province"], "ecart": ecart})
+    return out
+
+
 def _instantanes():
     """Une lettre par bulletin (8 septembre 2026) : data/lettres/<num>.json
     est la copie de data/latest.json au moment ou le bulletin a ete integre.
@@ -324,6 +348,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     # l'ecart couvre plusieurs jours et ne se compare pas a un chiffre du jour.
     # A partir du SitRep 160 seulement : les lettres deja publiees ne changent
     # pas (090, 103 et 151 auraient recu une note, sans relecture des PDF).
+    ajouts, k_ajouts = [], 0
     if zi and date >= "2026-10-21":
         from datetime import date as _d0
         j0, j1 = (_d0(*(int(x) for x in zh[k]["date"].split("-"))) for k in (zi - 1, zi))
@@ -331,10 +356,23 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             avant = {_cle_zone(z): z.get("cases") for z in zh[zi - 1]["zones"]}
             for z in latest["healthZones"]:
                 a, n = avant.get(_cle_zone(z)), z.get("newCases24h") or 0
-                if a is not None and z.get("cases") is not None and z["cases"] - a != n and z["cases"] < a + n:
+                if z.get("cases") is None:
+                    continue
+                if a is not None and z["cases"] - a != n and z["cases"] < a + n:
                     cle = ("lettreOuEcartSans" if n == 0 else
                            "lettreOuEcartReste" if z["cases"] == a else "lettreOuEcart")
                     txt += " " + P(cle, zone=z["name"], avant=fmt(a, lang), apres=fmt(z["cases"], lang), n=fmt(n, lang))
+                # Cumul qui monte plus que les nouveaux cas annonces (30 octobre
+                # 2026, choix du proprietaire) : au SitRep 167, Yakoma entre
+                # avec 3 cas, 0 annonce ; le total du pays les compte, le
+                # chiffre des 24 heures non.
+                elif z["cases"] > (a or 0) + n:
+                    cle = ("lettreOuEcartNouvelle" if a is None else
+                           "lettreOuEcartAjout" if n == 0 else "lettreOuEcart")
+                    txt += " " + P(cle, zone=z["name"], avant=fmt(a or 0, lang), apres=fmt(z["cases"], lang), n=fmt(n, lang),
+                                   ecart=fmt(z["cases"] - (a or 0) - n, lang))
+                    k_ajouts += z["cases"] - (a or 0) - n
+                    ajouts.append(P("lettreTableauEcartItem", n=fmt(z["cases"] - (a or 0) - n, lang), zone=z["name"], province=z["province"]))
     # Zones actives : au moins un cas notifie dans les 21 derniers jours,
     # d'apres les cumuls par zone de l'instantane le plus proche 21 jours
     # avant (8 septembre 2026).
@@ -361,8 +399,14 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                       "%s/%s" % (fmt(zi.get("n"), lang), fmt(zi.get("total"), lang)) if zi else "—"))
     corps += ('    <div class="panel panel-fit" style="padding:16px;"><table class="province-summary bul-table">\n'
               '      <thead><tr><th>%s</th><th class="is-num">%s</th><th class="is-num">%s</th><th class="is-num">%s</th><th class="is-num">%s</th><th class="is-num">%s</th></tr></thead>\n'
-              '      <tbody>\n%s      </tbody></table></div>\n'
-              % (esc(S["bulThProvince"]), esc(S["bulThNewCases"]), esc(S["bulThNewDeaths"]), esc(i18n_lang["labelConfirmed"]), esc(i18n_lang["labelDeaths"]), esc(S["bulThZones"]), lignes))
+              '      <tbody>\n%s      </tbody></table>%s</div>\n'
+              % (esc(S["bulThProvince"]), esc(S["bulThNewCases"]), esc(S["bulThNewDeaths"]), esc(i18n_lang["labelConfirmed"]), esc(i18n_lang["labelDeaths"]), esc(S["bulThZones"]), lignes,
+                 # Note sous le tableau quand un cumul monte sans nouveaux cas
+                 # annonces (30 octobre 2026, SitRep 167, Yakoma) : la colonne
+                 # « Nouveaux cas » ne s'additionne plus a l'ecart des cumuls.
+                 '\n      <p class="map-note zones-note">%s</p>' % esc(P("lettreTableauEcart", liste=_liste(ajouts, et), k=fmt(k_ajouts, lang),
+                     n=fmt(nat.get("newCases24h"), lang), delta=fmt(nat["confirmed"] - veille["confirmed"], lang)))
+                 if ajouts and veille and veille.get("confirmed") is not None and nat.get("confirmed") is not None else ""))
     corps += '    <p class="drill"><a href="%s">%s</a></p>\n' % (urls.path("donnees", lang), esc(S["lettreDonneesLien"]))
     html.append(cadre("02", S["lettreOuTitle"], "", corps, "ou", prose(esc(txt)), corps[len(prose(esc(txt))):]))
 

@@ -985,7 +985,14 @@
     "footerAboTexte": "Un mail par bulletin : les chiffres du jour et le résumé. Désinscription en un clic.",
     "lettreOuEcart": "À {zone}, le cumul passe de {avant} à {apres} cas alors que le bulletin y annonce {n} nouveau{n?x} cas : le site reprend ses chiffres tels qu'ils sont publiés.",
     "lettreOuEcartReste": "À {zone}, le cumul reste à {avant} cas alors que le bulletin y annonce {n} nouveau{n?x} cas : le site reprend ses chiffres tels qu'ils sont publiés.",
-    "lettreOuEcartSans": "À {zone}, le cumul recule de {avant} à {apres} cas sans aucun nouveau cas annoncé : le site reprend les chiffres tels qu'ils sont publiés."
+    "lettreOuEcartSans": "À {zone}, le cumul recule de {avant} à {apres} cas sans aucun nouveau cas annoncé : le site reprend les chiffres tels qu'ils sont publiés.",
+    "lettreOuEcartAjout": "À {zone}, le cumul passe de {avant} à {apres} cas sans aucun nouveau cas annoncé : le total du pays en tient compte, pas le chiffre des dernières 24 heures.",
+    "lettreOuEcartNouvelle": "À {zone}, zone touchée pour la première fois, {ecart} cas entre{ecart?nt} dans le cumul sans figurer parmi les nouveaux cas du jour : le total du pays en tient compte, pas le chiffre des dernières 24 heures.",
+    "lettreTableauEcart": "Les nouveaux cas du tableau sont ceux qu'annonce le bulletin ({n} pour le pays), mais le cumul du pays augmente de {delta} depuis le bulletin précédent : {liste} figure{k?nt} dans les cumuls sans être compté{k?s} parmi les nouveaux cas.",
+    "lettreTableauEcartItem": "{n} cas à {zone} ({province})",
+    "noteAjoutsPays": "Dans le SitRep {num}, le bulletin annonce {n} nouveaux cas pour le pays, mais le cumul augmente de {delta} : {liste} figure{k?nt} dans les cumuls sans être compté{k?s} parmi les nouveaux cas des dernières 24 heures.",
+    "noteAjoutsProvince": "Dans le SitRep {num}, {liste} figure{k?nt} dans le cumul sans être compté{k?s} parmi les nouveaux cas des dernières 24 heures.",
+    "noteAjoutsItem": "{n} cas à {zone}"
   },
   "en": {
     "skipToContent": "Skip to main content",
@@ -1972,7 +1979,14 @@
     "footerAboTexte": "One email per bulletin: today’s figures and the summary. One-click unsubscribe.",
     "lettreOuEcart": "In {zone}, the cumulative count goes from {avant} to {apres} cases although the bulletin reports {n} new case{n?s} there: the site shows its figures as published.",
     "lettreOuEcartReste": "In {zone}, the cumulative count stays at {avant} cases although the bulletin reports {n} new case{n?s} there: the site shows its figures as published.",
-    "lettreOuEcartSans": "In {zone}, the cumulative count falls from {avant} to {apres} cases with no new case reported: the site shows the figures as published."
+    "lettreOuEcartSans": "In {zone}, the cumulative count falls from {avant} to {apres} cases with no new case reported: the site shows the figures as published.",
+    "lettreOuEcartAjout": "In {zone}, the cumulative count goes from {avant} to {apres} cases with no new case reported: the national total takes them into account, the 24-hour figure does not.",
+    "lettreOuEcartNouvelle": "{zone}, a newly affected zone, adds {ecart} case{ecart?s} to the cumulative count, none of them among the day's new cases: the national total takes them into account, the 24-hour figure does not.",
+    "lettreTableauEcart": "New cases in the table are those reported by the bulletin ({n} nationwide), but the national cumulative count rises by {delta} since the previous bulletin: the cumulative counts include {liste}, not counted among new cases.",
+    "lettreTableauEcartItem": "{n} case{n?s} in {zone} ({province})",
+    "noteAjoutsPays": "In SitRep {num}, the bulletin reports {n} new cases nationwide, but the cumulative count rises by {delta}: the cumulative counts include {liste}, not counted among the last 24 hours' new cases.",
+    "noteAjoutsProvince": "In SitRep {num}, the cumulative count includes {liste}, not counted among the last 24 hours' new cases.",
+    "noteAjoutsItem": "{n} case{n?s} in {zone}"
   },
   "timelineEvents": [
     {
@@ -3667,6 +3681,13 @@
     "footerAboTexte": "Barua pepe moja kwa kila ripoti: takwimu za siku na muhtasari (kwa Kiingereza). Jiondoe kwa mbofyo mmoja.",
     "lettreOuEcart": "Huko {zone}, jumla inatoka wagonjwa {avant} hadi {apres} ingawa taarifa inatangaza wagonjwa wapya {n} huko: tovuti inaonyesha takwimu zake kama zilivyochapishwa.",
     "lettreOuEcartReste": "Huko {zone}, jumla inabaki wagonjwa {avant} ingawa taarifa inatangaza wagonjwa wapya {n} huko: tovuti inaonyesha takwimu zake kama zilivyochapishwa.",
-    "lettreOuEcartSans": "Huko {zone}, jumla inashuka kutoka wagonjwa {avant} hadi {apres} bila mgonjwa mpya kutangazwa: tovuti inaonyesha takwimu kama zilivyochapishwa."
+    "lettreOuEcartSans": "Huko {zone}, jumla inashuka kutoka wagonjwa {avant} hadi {apres} bila mgonjwa mpya kutangazwa: tovuti inaonyesha takwimu kama zilivyochapishwa.",
+    "lettreOuEcartAjout": "Huko {zone}, jumla inatoka wagonjwa {avant} hadi {apres} bila mgonjwa mpya kutangazwa: jumla ya nchi inawahesabu, takwimu ya saa 24 haiwahesabu.",
+    "lettreOuEcartNouvelle": "Huko {zone}, kanda iliyoathirika kwa mara ya kwanza, wagonjwa {ecart} wanaingia katika jumla bila kuwa miongoni mwa wagonjwa wapya wa siku: jumla ya nchi inawahesabu, takwimu ya saa 24 haiwahesabu.",
+    "lettreTableauEcart": "Wagonjwa wapya katika jedwali ni wale wanaotangazwa na taarifa ({n} kwa nchi nzima), lakini jumla ya nchi inaongezeka kwa {delta} tangu taarifa iliyotangulia: jumla zinajumuisha {liste}, bila kuhesabiwa miongoni mwa wagonjwa wapya.",
+    "lettreTableauEcartItem": "wagonjwa {n} huko {zone} ({province})",
+    "noteAjoutsPays": "Katika SitRep {num}, taarifa inatangaza wagonjwa wapya {n} kwa nchi nzima, lakini jumla inaongezeka kwa {delta}: jumla zinajumuisha {liste}, bila kuhesabiwa miongoni mwa wagonjwa wapya wa saa 24 zilizopita.",
+    "noteAjoutsProvince": "Katika SitRep {num}, jumla inajumuisha {liste}, bila kuhesabiwa miongoni mwa wagonjwa wapya wa saa 24 zilizopita.",
+    "noteAjoutsItem": "wagonjwa {n} huko {zone}"
   }
 }

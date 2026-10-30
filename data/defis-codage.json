@@ -10639,6 +10639,199 @@
 "contacts"
 ]
 }
+],
+"au bas uélé la mise en marche des ucc n est pas effective la prise en charge des acteurs de terrain accuse du retard et la couverture reste très faible à bili # sur # # à aketi # # et à titule # #": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures",
+"impayes"
+]
+}
+],
+"au nord kivu aucun ménage décontaminé doté en kit # # # ring non ouvert à katwa et # eds reportés au jour suivant seuls # ess évalués sur # disposent d un triage avec circuit unidirectionnel en ituri équipes pci insuffisantes à mangala mandima damas et mambasa intrants pci insuffisants à mandima et niania et # échecs de swab # au haut uélé seules # zs sur # ont transmis leurs données les kits pci manquent pour les ess et les superviseurs pci ne sont pas activés dans # zs à la tshopo aucun eds réalisé et # corps non swabés sur # pour non exécution des recommandations de l arrêté au bas uélé # ess prioritaires sur # sans triage fonctionnel # sur # sans approvisionnement en eau couvrant # heures et seulement # prestataires sur # # # formés en pci wash": [
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures",
+"eds"
+]
+},
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"eds"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"eds"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"en ituri # suspects validés aux poc de bela et de foner mambasa n ont pas été transférés absence d ambulance refus les prestataires des poc de mandima ne sont pas formés et les salaires de septembre restent impayés au nord kivu le poc butuhe reste fermé depuis l incident sécuritaire du # septembre # au haut uélé la communauté de bolebole zs de pawa et de wamba refuse l activation des poc sur les deux rives et menace les équipes au sud kivu le corps intercepté à kavimvira n a pas été swabé # # # la complétude des rapports reste faible au bas uélé # # # # et au sud kivu # # # #": [
+{
+"province": "Ituri",
+"obstacles": [
+"poc",
+"ruptures",
+"resistance",
+"impayes"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"poc",
+"resistance",
+"attaques"
+]
+},
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"poc",
+"eds",
+"completude"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"completude",
+"poc"
+]
+}
+],
+"en ituri la rupture de stock de sang persiste # patients n ont pas bénéficié d alimentation à mandima et # malades sont critiques la capacité d accueil reste faible aux cte ct de lolwa jina et biakato au nord kivu les cte ct restent proches de la saturation # # # patients sont pris en charge hors cte ct et # malades sont critiques à la tshopo # confirmés évadés à bafwasende restent à retrouver": [
+{
+"province": "Ituri",
+"obstacles": [
+"ruptures",
+"saturation"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"saturation"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"resistance"
+]
+}
+],
+"en ituri seules # zs affectées sur # # # sont couvertes et la couverture reste incomplète autour des derniers cas de mandima # # et de bunia # # au nord kivu seuls # derniers cas sur # # # sont couverts et # zs affectées n ont pas de crèche à la tshopo les aps de la zs de wanie rukula ne sont pas formés et le pilier manque d unités de communication et de moyens de déplacement au haut uélé aucune crèche n est disponible à isiro pawa wamba et boma mangbetu": [
+{
+"province": "Ituri",
+"obstacles": []
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"faible remontée des données du pilier aucune donnée du haut uélé du bas uélé et du sud ubangi absence de service d urgences et de plan de contingence d absentéisme au ch maboya et à l hôpital de matanda nord kivu plans de redressement des ess évalués non mis en œuvre et # ppl ayant interrompu leur prophylaxie à bafwasende pour cause d insécurité tshopo": [
+{
+"province": "aucune",
+"obstacles": []
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Sud-Ubangi",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"ruptures"
+]
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"insecurite"
+]
+}
+],
+"la couverture des zones touchées reste faible au nord kivu seules # zs sur # # # connaissent le mécanisme de signalement et un seul partenaire waa rapporte ses activités psea à la tshopo les outils de collecte font défaut et le mécanisme communautaire de gestion des plaintes n est pas installé dans toutes les zs de kisangani seules # dps sur # # # ont rapporté leurs activités psea au cours des dernières # heures": [
+{
+"province": "aucune",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": []
+},
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"à la tshopo la grève du personnel de santé et les agressions et menaces contre les équipes de riposte continuent de perturber la surveillance et le suivi des contacts": [
+{
+"province": "Tshopo",
+"obstacles": [
+"attaques",
+"contacts"
+]
+}
 ]
 }
 }

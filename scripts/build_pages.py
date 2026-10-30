@@ -1246,6 +1246,29 @@ def province_map_html(geo_map, province_name, zones, config, lang, strings_lang,
     return svg, touched, sum(1 for z in geo_map["zones"] if z["inside"])
 
 
+def note_ajouts(ajouts, province, sitreps, national, meta, lang, strings_lang):
+    """La note sous les tableaux des provinces et des zones quand des cas
+    entrent dans les cumuls sans figurer parmi les nouveaux cas du jour
+    (30 octobre 2026, SitRep 167, Yakoma). `province` None : la page du pays,
+    qui dit aussi l'ecart entre le chiffre annonce et la hausse du cumul.
+    Chaine vide sans ecart : la note s'efface au bulletin suivant."""
+    liste = [a for a in ajouts if province is None or a["province"] == province]
+    if not liste:
+        return ""
+    items = [interp(strings_lang["lettreTableauEcartItem" if province is None else "noteAjoutsItem"],
+                    {"n": fmt(a["ecart"], lang), "zone": a["name"], "province": a["province"]}) for a in liste]
+    valeurs = {"liste": bulletin._liste(items, strings_lang["timelineListAnd"]), "k": fmt(sum(a["ecart"] for a in liste), lang),
+               "num": meta.get("sitrepNumber") or ""}
+    if province is None:
+        prec = [s for s in sitreps if s.get("date") < meta.get("reportingDate", "")]
+        if not prec or national.get("confirmed") is None:
+            return ""
+        valeurs.update(n=fmt(national.get("newCases24h"), lang),
+                       delta=fmt(national["confirmed"] - prec[-1]["confirmed"], lang))
+    cle = "noteAjoutsPays" if province is None else "noteAjoutsProvince"
+    return '<p class="map-note zones-note">%s</p>' % esc(interp(strings_lang[cle], valeurs))
+
+
 def normalise_zone(text):
     """Meme normalisation que scripts/build_geo.py : accents, casse, tirets et
     espaces. Les ecarts d'orthographe restants sont resolus par la table
@@ -4483,6 +4506,10 @@ def main():
     actus = read_json(chemin_actus) if os.path.exists(chemin_actus) else {"items": []}
     social_updates = read_json(os.path.join(ROOT, "data", "social-updates.json"))
     province_history = read_json(os.path.join(ROOT, "data", "province-history.json"))
+    # Cas entres dans les cumuls sans figurer parmi les nouveaux cas annonces
+    # (30 octobre 2026) : une note sous les tableaux, le temps d'un bulletin.
+    ajouts = bulletin.ajouts_cumul(latest.get("healthZones", []), zones_history,
+                                   (latest.get("meta") or {}).get("reportingDate") or "")
     # Repartition par age : instantane fige au 5 aout 2026, l'INSP ayant
     # cesse de publier la figure ensuite. Voir scripts/demographie_figures.py.
     demographie = read_json(os.path.join(ROOT, "data", "demographie.json"))
@@ -4558,6 +4585,8 @@ def main():
         cards = province_cards_html(provinces, urls, lang, strings_lang, province_history,
                                     province_maps, latest.get("healthZones", []), config, geo.get("aliases", {}))
         common_seed = {
+            "notesAjouts": {p["name"]: note_ajouts(ajouts, p["name"], sitreps, national, meta_data, lang, strings_lang)
+                            for p in provinces},
             "seed.confirmed": fmt(national.get("confirmed"), lang),
             "seed.deaths": fmt(national.get("deaths"), lang),
             "seed.recovered": fmt(national.get("recovered"), lang),
@@ -4597,6 +4626,7 @@ def main():
                 "zones": fmt(len(latest.get("healthZones", [])), lang)})),
             "mapHint": hint_pair(strings_lang, "cartoHint", "cartoHintTouch"),
             "seed.provinceRows": province_rows_html(provinces, national, lang, province_history, strings_lang),
+            "seed.noteAjouts": note_ajouts(ajouts, None, sitreps, national, meta_data, lang, strings_lang),
             "seed.agesRows": ages_rows_html(demographie, lang, strings_lang),
             "seed.agesPapillon": ages_papillon_html(demographie, lang, strings_lang),
             "seed.vgeTitre": interp(strings_lang["vgeTitre"], {"n": fmt(genomes["rdc2026"], lang)}) if genomes else "",
@@ -5122,6 +5152,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.zonesTable": province_zones_table_html(
                 zones, forms, lang, strings_lang, i18n_lang, zones_history=common_seed.get("zonesHistory"), province=name),
             "province.fullTable": esc(interp(strings_lang["provinceOpenFullTable"], forms)),
+            "province.noteAjouts": common_seed.get("notesAjouts", {}).get(name, ""),
             "province.baseLien": esc(interp(strings_lang["provinceBaseLien"], forms)),
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
