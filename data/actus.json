@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "991b801d",
+   "date": "2026-11-01",
+   "titre": "Club RFI Butembo (RDC): une campagne de sensibilisation pour contenir l’épidémie d’Ebola",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/podcasts/le-club-rfi/20261101-club-rfi-butembo-rdc-une-campagne-de-sensibilisation-pour-contenir-l-%C3%A9pid%C3%A9mie-d-ebola",
+   "langue": "fr",
+   "resume": "Des volontaires du club se sont engagés et participent à la lutte contre le virus Ebola : « STOP Ebola ». Ils mènent des campagnes de sensibilisation pour des mesures préventives contre le virus dans les différentes écoles de la région.",
+   "statut": "attente",
+   "collecte": "2026-11-01",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "f9ad78dc",
    "date": "2026-10-31",
    "titre": "Ebola à Kisangani : désinfection d’une école primaire après un décès suspect",
