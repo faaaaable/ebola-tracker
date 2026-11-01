@@ -112,6 +112,27 @@ TOTAL_D_RE = re.compile(r"\n\s*Total\s*(?:\n\s*)?G[ée]n[ée]ral\s+([^\n]+)", re
 TOTAL_D_COUPE_RE = re.compile(r"\n\s*Total\s*\n\s*([\d][\d ]+)\n\s*G[ée]n[ée]ral", re.I)
 
 
+# 169 (30 octobre 2026) : une colonne de plus, « Nombre de suspects non
+# investigues », entre les suspects investigues et les transferes : dix
+# nombres par ligne. L'en-tete la signale (« non⏎investigu ») ; une ligne ne
+# se lit alors en dix que si reçues = vivants + decedes et si investigues +
+# non investigues = validees (Haut-Uele : 15 + 3 = 15 + 3).
+NON_INVESTIGUES_RE = re.compile(r"\bnon\s+investigu", re.I)
+
+
+def cellules_D10(ligne):
+    """Les dix cellules d'une ligne du tableau D a partir du 169, ramenees aux
+    neuf de l'ancien format (sans les suspects non investigues)."""
+    ok = lambda c: (c[2] is not None and c[2] == (c[0] or 0) + (c[1] or 0)
+                    and (c[7] or 0) + (c[8] or 0) == (c[3] or 0) + (c[4] or 0))
+    c = cellules(ligne, 10, valide=ok)
+    if c is None:
+        return None
+    if all(x is None for x in c):
+        return [None] * 9
+    return c[:8] + c[9:] if ok(c) else None
+
+
 def cellules_D(ligne):
     """Les neuf cellules d'une ligne du tableau D. Au 136 (27 septembre 2026)
     la ligne du Nord-Kivu n'a que huit nombres — « 761 761 77 21 630 0 98 46 »
@@ -134,10 +155,12 @@ def lire_D(texte):
     if not m:
         return None
     section = texte[m.end():m.end() + 1800]
+    dix = bool(NON_INVESTIGUES_RE.search(section[:section.find("\n", LIGNE_D_RE.search(section).start() + 1)]
+                                         if LIGNE_D_RE.search(section) else section))
     provinces = {}
     for lm in LIGNE_D_RE.finditer(section):
         nom = canon(lm.group(1))
-        c = cellules_D(lm.group(2))
+        c = cellules_D10(lm.group(2)) if dix else cellules_D(lm.group(2))
         if c is None or nom in provinces:
             continue
         # Une ligne toute en « ND » (Ituri au 149 : « n'ont pas transmis de
@@ -162,7 +185,7 @@ def lire_D(texte):
     total = None
     tm = TOTAL_D_RE.search(section) or TOTAL_D_COUPE_RE.search(section)
     if tm:
-        c = cellules(tm.group(1), 9,
+        c = cellules_D10(tm.group(1)) if dix else cellules(tm.group(1), 9,
                      valide=lambda c: c[2] is not None and c[2] == (c[0] or 0) + (c[1] or 0))
         if c:
             total = {"recues": c[2], "verifiees": (c[3] or 0) + (c[4] or 0) + (c[5] or 0) + (c[6] or 0),

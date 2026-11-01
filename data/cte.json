@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-29"
+    "fin": "2026-10-30"
   },
   "parDate": [
     {
@@ -4905,14 +4905,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 422,
-          "occupation": 41.6,
+          "occupation": 40.0,
           "admissions": 117,
           "sorties": 67,
-          "gueris": 9,
-          "lits": 1015,
-          "litsReportes": true,
-          "occupationPubliee": 40.0,
-          "occupationCalculee": true
+          "gueris": 9
         },
         "Nord-Kivu": {
           "hospitalises": 546,
@@ -4937,9 +4933,61 @@
       "total": {
         "hospitalises": 987,
         "provinces": 3,
-        "lits": 1461,
-        "hospitalisesAvecLits": 987,
-        "occupation": 67.6
+        "lits": 446,
+        "hospitalisesAvecLits": 565,
+        "occupation": 126.7
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-30",
+      "sitrepNumber": "169",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 401,
+          "occupation": 39.5,
+          "admissions": 78,
+          "sorties": 98,
+          "gueris": 12,
+          "lits": 1015,
+          "litsReportes": true,
+          "occupationPubliee": 38.0,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 506,
+          "lits": 410,
+          "hospitalisesNormes": 361,
+          "occupationPubliee": 88.0,
+          "occupation": 123.4,
+          "occupationCalculee": true,
+          "admissions": 76,
+          "sorties": 116,
+          "gueris": 2
+        },
+        "Tshopo": {
+          "hospitalises": 15,
+          "lits": 36,
+          "occupation": 41.7,
+          "admissions": 1,
+          "sorties": 4
+        },
+        "Haut-Uélé": {
+          "hospitalises": 32,
+          "lits": 162,
+          "occupation": 19.8,
+          "admissions": 11,
+          "sorties": 2,
+          "gueris": 1
+        }
+      },
+      "total": {
+        "hospitalises": 954,
+        "provinces": 4,
+        "lits": 1623,
+        "hospitalisesAvecLits": 954,
+        "occupation": 58.8
       },
       "source": "SitRep INSP (automatique)"
     }

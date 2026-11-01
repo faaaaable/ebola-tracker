@@ -29,10 +29,13 @@ import io
 import json
 import os
 import unicodedata
+
+import harmonisations
 from datetime import date
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 RATTRAPAGES = {"2026-07-22", "2026-07-30"}
+HARMONISATIONS = harmonisations.charger()
 ALIAS_ZONES = {"gety": "gethy"}
 LICENCE = "https://creativecommons.org/licenses/by/4.0/"
 
@@ -97,6 +100,11 @@ def construire(origin="https://ebola-tracker.org"):
             o["letalite"] = round(o["deces"] / o["cas"] * 100, 1) if (o["cas"] and o["deces"] is not None) else None
             if x["date"] in RATTRAPAGES:
                 o["mention"].append("rattrapage")
+            # Harmonisation des donnees (SitRep 169, Ituri, 30 octobre 2026) :
+            # le pays, la province et ses zones.
+            h = HARMONISATIONS.get(x["date"])
+            if h and (niveau == "pays" or province == h["province"]):
+                o["mention"].append("harmonisation")
             if o["cas"] is not None:
                 pc, pdate = o["cas"], x["date"]
             if o["deces"] is not None:

@@ -27,6 +27,8 @@ import re
 import unicodedata
 from collections import OrderedDict
 
+import harmonisations
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = dt.date.fromisoformat
 
@@ -46,6 +48,34 @@ W = 1200
 # Les deux rattrapages administratifs du site (RATTRAPAGE_ADMIN dans app.js) :
 # date -> part du jour publiee par le bulletin ; le reste est le rattrapage.
 RATTRAPAGES = {"2026-07-22": 97, "2026-07-30": 73}
+
+# Les harmonisations de donnees (data/harmonisations.json, 1er novembre
+# 2026) : au SitRep 169, 314 deces plus anciens de l'Ituri entrent dans le
+# cumul le 30 octobre. Les deces du jour (32, dont 19 en Ituri) en pleine
+# teinte, le reste en rattrapage ; les ecarts par zone s'en retranchent.
+HARM = harmonisations.charger()
+HARM_TXT = {
+ "fr": dict(clair="Le {d}, en clair : {n} décès plus anciens, entrés par l'harmonisation des données de l'Ituri.",
+            coin="Coin ambré le {d} : {n} décès plus anciens, entrés par l'harmonisation des données de l'Ituri.",
+            mois="{M} : {n} décès plus anciens entrés le {d}, par l'harmonisation des données de l'Ituri."),
+ "en": dict(clair="On {d}, lighter tone: {n} earlier deaths, added when Ituri harmonised its data.",
+            coin="Amber corner on {d}: {n} earlier deaths, added when Ituri harmonised its data.",
+            mois="{M}: {n} earlier deaths added on {d}, when Ituri harmonised its data."),
+ "sw": dict(clair="Tarehe {d}, rangi hafifu: vifo {n} vya awali, vilivyoingizwa Ituri ilipooanisha takwimu zake.",
+            coin="Kona ya kahawia tarehe {d}: vifo {n} vya awali, vilivyoingizwa Ituri ilipooanisha takwimu zake.",
+            mois="{M}: vifo {n} vya awali viliingizwa tarehe {d}, Ituri ilipooanisha takwimu zake."),
+}
+
+
+def _harm_notes(c, cle, debut=None, fin=None, province=None):
+    """Une phrase par harmonisation de la periode (et de la province)."""
+    out = []
+    for iso, h in sorted(HARM.items()):
+        d = D(iso)
+        if (debut and d < debut) or (fin and d > fin) or (province and h["province"] != province):
+            continue
+        out.append(HARM_TXT[c.lang][cle].format(d=c.dc(d), n=c.nb(h["deces"]), M=c.M((d.year, d.month))))
+    return out
 
 # ---------------------------------------------------------------- textes
 TXT = {
@@ -321,7 +351,12 @@ class Contexte:
         while lun + dt.timedelta(6) <= dim:
             self.semaines.append((lun, lun + dt.timedelta(6))); lun += dt.timedelta(7)
         # serie par zone, cle normalisee + alias
-        self.serie_z = OrderedDict()
+        self.serie_z = OrderedDict(); self.serie_zb = OrderedDict()
+        # serie_zb : cumuls anterieurs a une harmonisation remis sur sa base,
+        # pour les ecarts seulement (zones actives, zone apres zone).
+        for s in sorted(harmonisations.rebaser(self.zh), key=lambda s: s["date"]):
+            for z in s["zones"]:
+                self.serie_zb.setdefault((self.cle(z["name"]), _cle(z["province"])), []).append((D(s["date"]), z.get("cases") or 0))
         for s in sorted(self.zh, key=lambda s: s["date"]):
             for z in s["zones"]:
                 k = (self.cle(z["name"]), _cle(z["province"]))
@@ -374,6 +409,10 @@ class Contexte:
         return {p["name"]: p for p in max(av, key=lambda s: s["date"])["provinces"]}
     def cum_zone(self, k, d):
         pts = [c for dd, c, _ in self.serie_z[k] if dd <= d]
+        return max(pts) if pts else 0
+    def cum_zone_b(self, k, d):
+        """Cumul sur la base harmonisee, pour un ecart entre deux dates."""
+        pts = [c for dd, c in self.serie_zb.get(k, []) if dd <= d]
         return max(pts) if pts else 0
     def zones_touchees(self, d):
         return {k for k in self.serie_z if self.cum_zone(k, d) > 0}
@@ -432,7 +471,7 @@ def calendrier(c):
         cell = int((colw - 6 * gap) / 7)
         if cell >= 21: break
     pas = cell + gap; coin = round(cell * 0.4); hligne = 36 + 6 * pas + 52
-    def bloc(vals, cols, y, titre):
+    def bloc(vals, cols, y, titre, coins=RATTRAPAGES):
         smax = quantile(vals.values(), 0.95)
         out.append(c.T(60, y, titre, 15, INK_DIM, weight=700, extra=' letter-spacing=".06em"'))
         y += 40
@@ -453,7 +492,7 @@ def calendrier(c):
                 out.append('<rect x="%.1f" y="%.1f" width="%d" height="%d" rx="3" fill="%s" stroke="%s"/>' % (cx, cy, cell, cell, fill, stroke))
                 if v is not None:
                     out.append(c.T(cx + cell / 2, cy + cell / 2 + 3.5, str(v), 10 if v < 100 else 8.5, "#fff" if v / smax > 0.5 else INK, "middle", 600))
-                if d.isoformat() in RATTRAPAGES:
+                if d.isoformat() in coins:
                     out.append('<path d="M%.1f,%.1f h%d v%d z" fill="%s"/>' % (cx + cell - coin, cy, coin, coin, AMBER))
         lignes = (len(mois) - 1) // par_ligne + 1
         return y + (lignes - 1) * hligne + 36 + 6 * pas
@@ -471,8 +510,8 @@ def calendrier(c):
     t1, t2 = cas[D(r1)], cas[D(r2)]
     n = note(y + 30, t["calRatt"].format(a=c.dc(D(r1)), ta=c.nb(t1), ra=c.nb(t1 - RATTRAPAGES[r1]), b=c.dc(D(r2)), tb=c.nb(t2), rb=c.nb(t2 - RATTRAPAGES[r2])))
     out.append(c.T(60, y + 34 + n * 20, t["calHach"], 14, INK_FAINT))
-    y = bloc(dec, REDS, y + 100 + n * 20, t["calDeces"])
-    n = note(y + 24, t["calRattDeces"].format(a=c.dc(D(r1)), b=c.dc(D(r2))))
+    y = bloc(dec, REDS, y + 100 + n * 20, t["calDeces"], set(RATTRAPAGES) | set(HARM))
+    n = note(y + 24, " ".join([t["calRattDeces"].format(a=c.dc(D(r1)), b=c.dc(D(r2)))] + _harm_notes(c, "coin", c.DEBUT, c.FIN)))
     return c.carte(t["calTitre"], t["calSous"], "".join(out), h=int(y + 24 + (n - 1) * 20 + 130))
 
 
@@ -642,7 +681,7 @@ def h_zones(c):
         for k in c.serie_z:
             cf = c.cum_zone(k, b)
             if not cf: continue
-            if cf > c.cum_zone(k, b - dt.timedelta(21)): ac += 1
+            if c.cum_zone_b(k, b) > c.cum_zone_b(k, b - dt.timedelta(21)): ac += 1
             else: ca += 1
         data.append((a, b, ac, ca))
     mx = max(x[2] + x[3] for x in data)
@@ -685,7 +724,7 @@ def h_tapis(c):
         x = x0 + j * cw
         for i, k in enumerate(ordre):
             if premiere[k] > b: continue
-            v = c.cum_zone(k, b) - c.cum_zone(k, a - dt.timedelta(1))
+            v = c.cum_zone_b(k, b) - c.cum_zone_b(k, a - dt.timedelta(1))
             out.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="1.5" fill="%s"><title>%s, %s : %d</title></rect>' % (x + 1, y0 + i * rh + 1, cw - 2, rh - 2, col(v), esc(nom[k]), esc(c.dc(a)), max(v, 0)))
     for i, k in enumerate(ordre):
         out.append(c.T(x0 - 8, y0 + i * rh + rh * 0.78, nom[k], 9.5, INK_DIM, "end"))
@@ -738,7 +777,7 @@ def m_cas(c):
 
 def m_deces(c):
     vals = par_mois(c, lambda d: c.au(d)["deaths"])
-    notes = [c.t["moisRattDec"], c.t["moisMai"]]
+    notes = [c.t["moisRattDec"]] + _harm_notes(c, "mois", fin=c.mois[-1][1] if c.mois else None) + [c.t["moisMai"]]
     corps = barres_mois(c, vals, RED) + "".join(c.T(60, 1040 + i * 22, x, 15, INK_FAINT) for i, x in enumerate(notes))
     return c.carte(titre_variation(c, "moisDecTitre", vals), c.t["moisDecSous"], corps, pied=c.pied_mois())
 
@@ -1245,6 +1284,10 @@ def _serie_province(c, nom, champ):
             veille = d1 - dt.timedelta(1)
             par[veille] = (delta - annonce, None); par[d1] = (annonce, None); calculees.add(veille)
             continue
+        h = HARM.get(iso)
+        if champ == "deaths" and h and h["province"] == nom and ecart == 1:
+            part = min(h["decesJourProvince"], delta); par[d1] = (part, delta - part)
+            continue
         if ecart > 1 and iso not in RATTRAPAGES: multi.add(d1)
         ratt = iso in RATTRAPAGES or d1 in multi
         par[d1] = (None if ratt else delta, delta if ratt else None)
@@ -1271,12 +1314,15 @@ def _province(c, nom, champ):
     k = max(i for i, v in enumerate(rap) if v is not None)
     d = jours[k]; avant = [v for dd, v in pts if dd <= d - dt.timedelta(7)]
     sept = releves[d] - avant[-1] if avant else releves[d]
+    if deces:
+        sept -= sum(h["deces"] for iso, h in HARM.items() if h["province"] == nom and d - dt.timedelta(7) < D(iso) <= d)
     out.append(_phrase(c, (a["provDecPhrase"] if deces else r["phrase"]).format(d=c.dc(d), n=c.nb(rap[k]), s=c.nb(sept), c=c.nb(releves[d]))))
     notes = []
     blancs = sum(1 for d in jours if d not in releves and d not in calculees)
     if blancs: notes.append(r["blancsDec" if deces else "blancs"].format(n=blancs))
     if trous: notes.append(r["trouDec" if deces else "trou"].format(p=" ; ".join(trous)))
     if multi or any(d.isoformat() in RATTRAPAGES for d, _ in pts): notes.append(a["provRattDec"] if deces else r["rattNote"])
+    if deces: notes += _harm_notes(c, "clair", jours[0], jours[-1], nom)
     out.append(_notes(c, [" ".join(notes)]))
     if deces:
         return c.carte(a["provDecTitre"].format(p=pnom), a["provDecSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
@@ -1425,7 +1471,9 @@ def r_national(c, champ):
     for d in jours:
         v = c.jours.get(d, (None, None))[k]
         iso = d.isoformat()
-        if v is None or iso not in RATTRAPAGES:
+        if deces and v is not None and iso in HARM:
+            part = min(HARM[iso]["decesJour"], v); rap.append(part); rat.append(v - part)
+        elif v is None or iso not in RATTRAPAGES:
             rap.append(v); rat.append(None)
         elif deces:
             rap.append(None); rat.append(v)
@@ -1435,11 +1483,14 @@ def r_national(c, champ):
     i = max(j for j, d in enumerate(jours) if (rap[j] is not None or rat[j] is not None))
     d = jours[i]; cum = c.au(d)[champ]; avant = c.au(d - dt.timedelta(7))[champ]
     n = (rap[i] or 0) + (rat[i] or 0)
+    if deces:   # les deces d'une harmonisation n'appartiennent a aucune journee
+        if d.isoformat() in HARM: n = rap[i] or 0
+        avant += harmonisations.deces_entre((d - dt.timedelta(7)).isoformat(), d.isoformat())
     out.append(_phrase(c, a["phraseDec" if deces else "phraseCas"].format(d=c.dc(d), n=c.nb(n), s=c.nb(cum - avant), c=c.nb(cum))))
     notes = []
     blancs = sum(1 for d in jours if d not in c.jours)
     if blancs: notes.append(a["blancs"].format(n=blancs))
-    if deces: notes.append(a["rattDec"])
+    if deces: notes.append(" ".join([a["rattDec"]] + _harm_notes(c, "clair", jours[0], jours[-1])))
     else:
         r = [c.jours.get(D(x), (0, 0))[0] - v for x, v in sorted(RATTRAPAGES.items())]
         notes.append(a["rattCas"].format(r1=c.nb(r[0]), r2=c.nb(r[1])))

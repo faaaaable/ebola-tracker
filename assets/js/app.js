@@ -352,7 +352,24 @@ let currentMeta = null;
    uniquement pour le curseur temporel de la carte. Pas de repli intégré : si le
    fichier est indisponible, le curseur reste simplement masqué. */
 let ZONES_HISTORY = [];
+/* Les harmonisations de donnees (data/harmonisations.json, 1er novembre
+   2026) : au 30 octobre, les cas de l'Ituri sont redistribues entre ses
+   zones. L'ajustement de chaque zone se retranche de tout ecart qui encadre
+   la date ; les cumuls affiches, eux, restent ceux des bulletins. */
+let HARMONISATIONS = {};
+function ajustementZone(name, province, avant, apres){
+  let d = 0;
+  for(const [date, h] of Object.entries(HARMONISATIONS)){
+    if(date[0] === '_' || h.province !== province || !(avant < date && date <= apres)) continue;
+    d += (h.zones || {})[name] || 0;
+  }
+  return d;
+}
 async function loadZonesHistory(){
+  try{
+    const rh = await fetch('/data/harmonisations.json', { cache:'no-store' });
+    if(rh.ok) HARMONISATIONS = await rh.json();
+  }catch(e){ /* sans le fichier, les ecarts restent bruts */ }
   try{
     const res = await fetch('/data/zones-history.json', { cache:'no-store' });
     if(!res.ok) return;
@@ -850,10 +867,26 @@ const moisAnnee = iso => `${tr('months')[parseInt(iso.slice(5, 7), 10) - 1]} ${i
    endroit. Le 22 juillet ne nomme rien — une harmonisation de bases peut
    remonter aussi loin qu'elle veut —, d'ou `null` : un empan inconnu ne tombe
    dans aucune periode, et la teinte claire le suit partout. */
+/* - 30 octobre (SitRep 169) : « harmonisation des donnees » de l'Ituri faite
+     le 29 avec le pilier Gestion des donnees, sur 97 % de ses zones : ses
+     deces passent de 3 436 a 3 750 (+314), le total du pays a 5 372. Le
+     bulletin annonce 32 deces pour la journee (19 en Ituri) ; les cas ne sont
+     pas touches (10 351 + 63 = 10 414). Rattrapage des DECES SEULEMENT, dont
+     la part du jour est cette fois publiee : `jour: null` (pas de rattrapage
+     de cas), `deces` la part du jour au niveau national, `provincesDeces`
+     celle des provinces concernees (choix du proprietaire, 1er novembre 2026). */
 const RATTRAPAGE_ADMIN = {
   '2026-07-22': { jour: 97, couvre: null },
-  '2026-07-30': { jour: 73, couvre: ['2026-07-28', '2026-07-29'] }
+  '2026-07-30': { jour: 73, couvre: ['2026-07-28', '2026-07-29'] },
+  '2026-10-30': { jour: null, deces: 32, provincesDeces: { 'Ituri': 19 }, couvre: null }
 };
+/* Le jour est-il un rattrapage pour ce champ ? Celui du 30 octobre ne vaut
+   que pour les deces. */
+function rattrapageDe(date, champ){
+  const r = RATTRAPAGE_ADMIN[date];
+  if(!r) return undefined;
+  return (champ || 'confirmed') === 'confirmed' && r.jour === null ? undefined : r;
+}
 
 /* L'empan des journees qu'un rattrapage peut concerner : sa propre date, plus
    celles que le bulletin declare rattraper. Null quand il ne les declare pas.
@@ -905,7 +938,7 @@ function partsQuotidiennes(s, champ, partConnue){
        province (partConnue === false) passe par son propre bloc. Ni un jour
        de rattrapage ni un bulletin qui suit un trou : leur ecart couvre
        plusieurs journees, l'annonce une seule. */
-    if(d !== null && partConnue !== false && !RATTRAPAGE_ADMIN[r.date] && veilleDe(r.date) === prevDate){
+    if(d !== null && partConnue !== false && !rattrapageDe(r.date, nom) && veilleDe(r.date) === prevDate){
       const champAnnonce = nom === 'confirmed' ? 'cas' : nom === 'deaths' ? 'deces' : null;
       let annonce = champAnnonce && r.annonce ? r.annonce[champAnnonce] : null;
       if((annonce === null || annonce === undefined) && champAnnonce && i === n && national
@@ -919,14 +952,18 @@ function partsQuotidiennes(s, champ, partConnue){
   // Pour les deces, la part rapportee d'une journee de rattrapage vaut zero :
   // tout l'ecart bascule dans la teinte claire.
   const partRapportee = date => {
-    const r = RATTRAPAGE_ADMIN[date];
+    const r = rattrapageDe(date, nom);
     if(r === undefined) return undefined;
     /* partConnue === false : la part rapportee du jour n'existe pas a cette
        echelle. Les bulletins ne la publient qu'au NIVEAU NATIONAL — une
        province qui recevrait les 97 cas du 22 juillet afficherait un chiffre
        du pays. Toute la journee bascule alors en teinte claire, exactement
        comme du cote des deces, dont la part n'est pas publiee non plus. */
-    return (nom === 'confirmed' && partConnue !== false) ? r.jour : 0;
+    if(partConnue === false) return 0;
+    if(nom === 'confirmed') return r.jour;
+    /* Le 30 octobre publie la part du jour des deces (32) : seule
+       l'harmonisation passe en teinte claire. */
+    return nom === 'deaths' && r.deces !== undefined ? r.deces : 0;
   };
   return {
     rapporte: s.map((r, i) => {
@@ -3685,6 +3722,13 @@ function renderOneChartBrut(canvas, chartMode){
        n'est publiee qu'au niveau national, et pour les deces pas du tout. */
     const champ = canvas.dataset.champ || 'confirmed';
     const deces = champ === 'deaths';
+    /* L'harmonisation du 30 octobre ne touche que les deces des provinces
+       qu'elle nomme (l'Ituri), dont le bulletin publie la part du jour. */
+    const partDuJour = {};
+    for(const [d, r] of Object.entries(RATTRAPAGE_ADMIN))
+      if(deces && r.provincesDeces && r.provincesDeces[nom] !== undefined){
+        RATTRAPAGE.add(d); partDuJour[d] = r.provincesDeces[nom];
+      }
 
     const pts = [];
     for(const h of PROVINCE_HISTORY){
@@ -3772,6 +3816,11 @@ function renderOneChartBrut(canvas, chartMode){
          zero : un zero vaut desormais un trait au ras de l'axe (minBarLength),
          et deux traits superposes sous la barre claire d'un rattrapage ne
          diraient rien. */
+      const part = partDuJour[pts[i].date];
+      if(part !== undefined && part <= delta){
+        parDate.set(pts[i].date, { rapporte: part, rattrape: delta - part });
+        continue;
+      }
       parDate.set(pts[i].date, { rapporte: estRattrapage ? null : delta,
                                  rattrape: estRattrapage ? delta : null });
     }
@@ -3829,7 +3878,8 @@ function renderOneChartBrut(canvas, chartMode){
          les cas ne sont justement reportes sur aucune journee. */
       if(sansReleve) bouts.push(tr(deces ? 'provinceDeathsChartBlanks' : 'provinceChartBlanks')(sansReleve));
       if(trous.length) bouts.push(tr(deces ? 'provinceDeathsChartGap' : 'provinceChartGap')(trous.join(' ; ')));
-      if(pts.some(pt => RATTRAPAGE.has(pt.date))) bouts.push(tr('provinceChartCatchup'));
+      if(pts.some(pt => RATTRAPAGE.has(pt.date) && partDuJour[pt.date] === undefined)) bouts.push(tr('provinceChartCatchup'));
+      if(pts.some(pt => partDuJour[pt.date] !== undefined)) bouts.push(tr('provinceChartHarmonisation'));
       if(multiJours.size) bouts.push(tr('provinceChartMultiDay'));
       if(calculees.size) bouts.push(tr('provinceChartSplit')([...calculees].sort().map(frDate).join(', ')));
       noteEl.textContent = bouts.join(' ');
@@ -4094,7 +4144,7 @@ function renderOneChartBrut(canvas, chartMode){
     const data = { labels: liste.map(w => tr('chartWeekOf')(frDate(w.debut), frDate(w.fin))),
       datasets: noms.map(nom => ({ label:nom, data:liste.map((w, i) => valeur(w, nom, i)),
         backgroundColor:PROVINCE_COLORS[nom], stack:'p', order:2 })) };
-    const rattrapages = Object.keys(RATTRAPAGE_ADMIN)
+    const rattrapages = Object.keys(RATTRAPAGE_ADMIN).filter(d => rattrapageDe(d, 'confirmed'))
       .map(d => liste.find(w => w.debut <= d && d <= w.fin)).filter(Boolean)
       .map(w => frDate(w.debut) + ' → ' + frDate(w.fin));
     /* Au survol, toute la pile — les six provinces de la semaine — et non le
@@ -5975,12 +6025,14 @@ function nouveaux30parZone(){
   const fin = new Date(ZONES_HISTORY[ZONES_HISTORY.length - 1].date + 'T00:00:00');
   const debut = new Date(fin); debut.setDate(debut.getDate() - 30);
   const iso = debut.toISOString().slice(0, 10);
-  const prec = {};
+  const prec = {}, precDate = {};
   ZONES_HISTORY.filter(h => h.date >= iso).forEach(h => {
     h.zones.forEach(z => {
       const k = zoneKey(z.name, z.province);
-      if(prec[k] !== undefined) (out[k] = out[k] || []).push(Math.max(0, (z.cases || 0) - prec[k]));
-      prec[k] = z.cases || 0;
+      if(prec[k] !== undefined)
+        (out[k] = out[k] || []).push(Math.max(0, (z.cases || 0) - prec[k]
+          - ajustementZone(z.name, z.province, precDate[k], h.date)));
+      prec[k] = z.cases || 0; precDate[k] = h.date;
     });
   });
   return out;

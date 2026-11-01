@@ -1,0 +1,36 @@
+{
+  "_comment": "Harmonisations de donnees annoncees par les bulletins (1er novembre 2026, choix du proprietaire). Au SitRep 169 (30 octobre 2026), l'Ituri a « harmonise ses donnees » le 29 avec le pilier Gestion des donnees, sur 97 % de ses zones : ses deces passent de 3 436 a 3 750 (+314), le total du pays a 5 372 ; la ligne « A ventiler » (493 deces) disparait et les cas sont redistribues entre les zones, sans changer le total de la province (7 346 + 34 = 7 380). Le site ne corrige pas les cumuls publies : il traite ce jour comme un rattrapage. « deces » : deces entres par l'harmonisation, hors deces du jour (32 au pays, 19 en Ituri). « zones » : pour chaque zone, cumul du jour - cumul de la veille - nouveaux cas annonces ; ce qui n'appartient a aucune journee. Les ecarts entre deux dates qui encadrent l'harmonisation s'en retranchent (nouveaux cas sur 30 jours, zones actives, zone apres zone). Meme date dans RATTRAPAGE_ADMIN (assets/js/app.js) et RATTRAPAGES_DECES (scripts/visuels.py).",
+  "2026-10-30": {
+    "sitrep": "169",
+    "province": "Ituri",
+    "deces": 314,
+    "decesJour": 32,
+    "decesJourProvince": 19,
+    "zones": {
+      "Ariwara": 3,
+      "Bambu": 23,
+      "Boga": 1,
+      "Bunia": -126,
+      "Damas": -1,
+      "Drodro": 4,
+      "Fataki": 10,
+      "Kambala": 2,
+      "Kilo": -4,
+      "Komanda": -3,
+      "Lita": -35,
+      "Logo": 2,
+      "Lolwa": 6,
+      "Mahagi": -1,
+      "Mambasa": -12,
+      "Mandima": 5,
+      "Mangala": 46,
+      "Mongbwalu": -25,
+      "Nia-Nia": 27,
+      "Nizi": -5,
+      "Rimba": 2,
+      "Rwampara": 65,
+      "Tchomia": 1,
+      "Nyankunde": 15
+    }
+  }
+}

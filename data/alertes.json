@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-29"
+    "fin": "2026-10-30"
   },
   "parDate": [
     {
@@ -6907,6 +6907,74 @@
         "calcule": true,
         "partVerifiee": 99.4,
         "partValidee": 14.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-30",
+      "sitrepNumber": "169",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 96,
+          "verifiees": 96,
+          "validees": 18,
+          "suspectsInvestigues": 15,
+          "transferes": 6
+        },
+        "Bas-Uélé": {
+          "recues": 198,
+          "verifiees": 198,
+          "validees": 20,
+          "suspectsInvestigues": 20,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1232,
+          "verifiees": 1232,
+          "validees": 144,
+          "suspectsInvestigues": 142,
+          "transferes": 76
+        },
+        "Nord-Kivu": {
+          "recues": 2129,
+          "verifiees": 2129,
+          "validees": 274,
+          "suspectsInvestigues": 188,
+          "transferes": 129
+        },
+        "Sud-Ubangi": {
+          "recues": 47,
+          "verifiees": 47,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 1
+        },
+        "Nord-Ubangi": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Tshopo": {
+          "recues": 100,
+          "verifiees": 100,
+          "validees": 8,
+          "suspectsInvestigues": 0,
+          "transferes": 0
+        }
+      },
+      "total": {
+        "recues": 3802,
+        "verifiees": 3802,
+        "validees": 465,
+        "suspectsInvestigues": 366,
+        "transferes": 212,
+        "calcule": true,
+        "partVerifiee": 100.0,
+        "partValidee": 12.2
       },
       "source": "SitRep INSP (automatique)"
     }

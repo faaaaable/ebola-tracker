@@ -19,6 +19,8 @@ import json
 import os
 import re
 
+import harmonisations
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -99,6 +101,8 @@ def ajouts_cumul(zones, zh, date):
     precedent de la veille, a partir du 160. Liste de {name, province, ecart},
     vide sinon : la note des tableaux disparait au bulletin suivant."""
     from datetime import date as _d
+    # Une harmonisation (SitRep 169) ne compte pas comme un ajout.
+    zh = harmonisations.rebaser(zh, date)
     zi = next((i for i, z in enumerate(zh) if z["date"] == date), None)
     if not zi or date < "2026-10-21":
         return []
@@ -209,7 +213,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     num, date = meta["sitrepNumber"], meta["reportingDate"]
     serie = sorted([s for s in _lire("data/sitreps.json") if s.get("date")], key=lambda s: s["date"])
     veille = next((s for s in reversed(serie) if s["date"] < date), None)
-    zh = _lire("data/zones-history.json")
+    # Cumuls anterieurs a une harmonisation remis sur sa base : les ecarts
+    # par zone et les zones actives ne comptent que les nouveaux cas.
+    zh = harmonisations.rebaser(_lire("data/zones-history.json"), date)
     alertes, labo = _lire("data/alertes.json"), _lire("data/laboratoire.json")
     contacts, cte = _lire("data/contacts-followup.json"), _lire("data/cte.json")
     deces, defis = _lire("data/deces-lieu.json"), _lire("data/defis.json")
@@ -273,7 +279,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         from datetime import date as _d
         ja = _d(*(int(x) for x in a["date"].split("-"))); jb = _d(*(int(x) for x in b["date"].split("-")))
         n = (ja - jb).days
-        return (a[cle] - b[cle]) / float(n) if n > 0 else None
+        # Les deces entres par harmonisation n'appartiennent a aucune journee.
+        hors = harmonisations.deces_entre(b["date"], a["date"]) if cle == "deaths" else 0
+        return (a[cle] - b[cle] - hors) / float(n) if n > 0 else None
     moy_cas, moy_cas_prec = _moy(s0, s7, "confirmed"), _moy(s7, s14, "confirmed")
     moy_dec, moy_dec_prec = _moy(s0, s7, "deaths"), _moy(s7, s14, "deaths")
     un_dec = lambda v: fmt_decimal(round(v, 1), lang) if v is not None else "—"
@@ -308,6 +316,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     txt = P("lettreBilan", cas=fmt(nat.get("confirmed"), lang), deces=fmt(nat.get("deaths"), lang), cfr=fmt_cfr(nat.get("cfr"), lang), gueris=fmt(nat.get("recovered"), lang))
     if gueris_delta is not None and gueris_delta > 0:
         txt += " " + P("lettreBilanGueris", n=fmt(gueris_delta, lang))
+    harm = harmonisations.charger().get(date)
+    if harm:
+        txt += " " + maj(P("lettreBilanHarmonisation", the=forms(harm["province"])["the"], n=fmt(harm["deces"], lang), jour=fmt(harm["decesJour"], lang)))
     if nat.get("inCTE") is not None:
         txt += " " + P("lettreBilanCte", n=fmt(nat.get("inCTE"), lang))
     if None not in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec):

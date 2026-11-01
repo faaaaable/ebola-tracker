@@ -106,6 +106,14 @@ def titre_parent(texte, position):
     parent = ""
     for m in TITRE_NUMEROTE.finditer(texte, 0, position):
         t = propre(m.group(2))
+        # 169 (30 octobre 2026) : « 2.4.⏎••P⏎rév ention et Contrôle de
+        # l'Infection (PCI/EDS) » — la lettrine reste seule sur sa ligne, le
+        # reste du titre passe a la suivante. Un titre d'une ou deux lettres
+        # est recolle a la ligne qui suit.
+        t = t.lstrip("\uf0b7•▪ ")       # puces de police Symbol devant la lettrine
+        if len(t) <= 2:
+            suite = texte[m.end():].lstrip("\n").split("\n", 1)[0]
+            t = propre(t + suite)
         bas = sans_accent(t).lower()
         if bas.startswith("principales action") or bas.startswith("defi"):
             continue

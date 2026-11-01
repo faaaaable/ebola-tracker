@@ -1509,7 +1509,14 @@ def recouper_avec_la_veille(health_zones, meta):
             continue
         d_cas = (z["cases"] or 0) - (prev.get("cases") or 0)
         d_dec = (z["deaths"] or 0) - (prev.get("deaths") or 0)
-        if d_cas == 0 and (z["newCases24h"] or 0) > 0:
+        # Sauf si la ligne porte sa queue complete et coherente — nouveaux cas,
+        # communautaires, intra-CTE, total : au SitRep 169, « Nizi 846 494
+        # 58,4% 5 1 1 2 » annonce bien 5 nouveaux cas, le cumul reste a 846
+        # par l'harmonisation des donnees de l'Ituri (1er novembre 2026).
+        queue = (z.get("deathsCommunity24h") is not None and z.get("deathsIntraCTE24h") is not None
+                 and (z["newDeaths24h"] or 0) > 0
+                 and z["newDeaths24h"] == z["deathsCommunity24h"] + z["deathsIntraCTE24h"])
+        if d_cas == 0 and (z["newCases24h"] or 0) > 0 and not queue:
             n = z["newCases24h"]
             print(f"  · {z['name']} ({z['province']}) : cumul inchangé ({z['cases']}) mais {n} nouveau(x) cas lu(s) "
                   f"— remis à 0, le nombre lu appartient aux décès (recoupement avec le SitRep {veille['sitrep']}).")

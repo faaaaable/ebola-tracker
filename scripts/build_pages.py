@@ -32,6 +32,7 @@ import sys
 from datetime import date, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import harmonisations  # ecarts par zone hors harmonisation (SitRep 169)
 import defis_synthese  # maquette « Riposte & defis », seconde partie redigee
 import base_donnees  # la base de donnees unifiee (9 octobre 2026)
 import face_accueil  # la riposte et ses defis, sur l'accueil (13 octobre 2026)
@@ -2895,7 +2896,9 @@ def province_zones_table_html(zones, forms, lang, strings_lang, i18n_lang, zones
     def cle(z):
         return normalise_zone(z.get("name"))
 
-    hist = sorted(zones_history or [], key=lambda h: h["date"])
+    # Cumuls anterieurs a une harmonisation remis sur sa base (SitRep 169,
+    # Ituri) : les barres ne comptent que les nouveaux cas.
+    hist = sorted(harmonisations.rebaser(zones_history or []), key=lambda h: h["date"])
     fin = hist[-1]["date"] if hist else None
     debut = (_d.fromisoformat(fin) - _td(days=30)).isoformat() if fin else None
     # Avant sa premiere ligne, une zone est a zero (meme raison que pour les
