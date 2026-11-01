@@ -2,6 +2,19 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "bae94280",
+   "date": "2026-11-01",
+   "titre": "Ebola à Bolebole : le vice-gouverneur appelle les malades à se présenter au CTE",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-bolebole-le-vice-gouverneur-appelle-les-malades-a-se-presenter-au-cte/",
+   "langue": "fr",
+   "resume": "Les personnes présentant des symptômes de la maladie à virus Ebola et restant à domicile par crainte des actes…",
+   "statut": "publie",
+   "collecte": "2026-11-01",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "991b801d",
    "date": "2026-11-01",
    "titre": "Club RFI Butembo (RDC): une campagne de sensibilisation pour contenir l’épidémie d’Ebola",
@@ -10,6 +23,32 @@
    "langue": "fr",
    "resume": "Des volontaires du club se sont engagés et participent à la lutte contre le virus Ebola : « STOP Ebola ». Ils mènent des campagnes de sensibilisation pour des mesures préventives contre le virus dans les différentes écoles de la région.",
    "statut": "attente",
+   "collecte": "2026-11-01",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "5816ed47",
+   "date": "2026-11-01",
+   "titre": "Ebola à Kasindi: collaboration entre les communautés congolaise et ougandaise encouragée",
+   "source": "ACP",
+   "url": "https://acp.cd/science-sante-environnement/ebola-a-kasindi-collaboration-entre-les-communautes-congolaise-et-ougandaise-encouragee/",
+   "langue": "fr",
+   "resume": "La collaboration entre les communautés congolaise et ougandaise, a été encouragée dimanche par la société civile depuis la notification…",
+   "statut": "publie",
+   "collecte": "2026-11-01",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "0dabae89",
+   "date": "2026-11-01",
+   "titre": "Recrudescence d’Ebola à Bunia : un plaidoyer pour une sensibilisation de proximité",
+   "source": "ACP",
+   "url": "https://acp.cd/province/recrudescence-debola-a-bunia-un-plaidoyer-pour-une-sensibilisation-de-proximite/",
+   "langue": "fr",
+   "resume": "Un plaidoyer pour le renforcement des activités de sensibilisation de proximité contre la maladie à virus Ebola a été formulé…",
+   "statut": "publie",
    "collecte": "2026-11-01",
    "media": true,
    "image": true
