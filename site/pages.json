@@ -175,7 +175,8 @@
       "pages": [
         "a-propos",
         "methodologie",
-        "contact"
+        "contact",
+        "mentions-legales"
       ]
     }
   ],
@@ -1012,6 +1013,37 @@
           "title": "Maswali yanayoulizwa mara kwa mara — Ebola DRC 2026",
           "h1": "Maswali yanayoulizwa mara kwa mara",
           "description": "Majibu ya maswali yanayoulizwa mara nyingi kuhusu mlipuko, takwimu zinazoonyeshwa na vyanzo vyake."
+        }
+      }
+    },
+    {
+      "id": "mentions-legales",
+      "fragment": "mentions-legales.html",
+      "slug": {
+        "fr": "mentions-legales/",
+        "en": "legal-notice/",
+        "sw": "taarifa-za-kisheria/"
+      },
+      "needs": [],
+      "changefreq": "yearly",
+      "priority": "0.2",
+      "schema": [],
+      "navLabelKey": "t:navMentions",
+      "meta": {
+        "fr": {
+          "title": "Mentions légales — éditeur, hébergeur et licence",
+          "h1": "Mentions légales",
+          "description": "Éditeur et directeur de la publication, hébergeur, licence CC BY 4.0 des textes et des données, sources et crédits d’ebola-tracker.org."
+        },
+        "en": {
+          "title": "Legal notice — publisher, host and licence",
+          "h1": "Legal notice",
+          "description": "Publisher and editor, host, CC BY 4.0 licence for texts and data, sources and credits of ebola-tracker.org."
+        },
+        "sw": {
+          "title": "Taarifa za kisheria — mchapishaji, mhifadhi na leseni",
+          "h1": "Taarifa za kisheria",
+          "description": "Mchapishaji na mkurugenzi wa uchapishaji, mhifadhi, leseni ya CC BY 4.0 ya maandishi na takwimu, vyanzo na shukrani za ebola-tracker.org."
         }
       }
     },

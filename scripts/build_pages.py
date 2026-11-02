@@ -2701,6 +2701,20 @@ def faq_items_html(strings, lang, url_values):
     return "\n".join(parts), plain
 
 
+def mentions_legales_html(strings_lang, urls, lang):
+    """Les mentions legales (2 novembre 2026) : sections de mlSections, titre
+    echappe, paragraphes en HTML de confiance ; les liens internes passent par
+    {contact}, {methodo} et {apropos}, jamais d'URL en dur."""
+    liens = {"contact": urls.path("contact", lang),
+             "methodo": urls.path("methodologie", lang),
+             "apropos": urls.path("a-propos", lang)}
+    parts = []
+    for sec in strings_lang["mlSections"]:
+        parts.append('    <h2>%s</h2>\n%s' % (esc(sec["t"]), "\n".join(
+            '    <p>%s</p>' % interp(p, liens) for p in sec["p"])))
+    return "\n".join(parts)
+
+
 def glossaire_items_html(strings, lang):
     """Le glossaire en dictionnaire (7 octobre 2026) : les termes dans l'ordre
     alphabetique de la langue, accents ignores, groupes sous leur lettre."""
@@ -4658,6 +4672,7 @@ def main():
             "provinceTableRows": province_table_rows_html(provinces, urls, lang),
             "faqItems": faq_html,
             "glossaireItems": glossaire_items_html(strings, lang),
+            "mentionsLegales": mentions_legales_html(strings_lang, urls, lang),
             "autresPaysItems": hors_rdc.tableau_html(lang, {"premier": strings_lang["autresPaysPremier"]},
                                                      {x["pays"]: urls.path(x["id"], lang) for x in config["pages"] if x.get("pays")}),
             "autresPaysFrise": hors_rdc.frise_html(lang),

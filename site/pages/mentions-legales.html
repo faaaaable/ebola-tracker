@@ -1,0 +1,17 @@
+  <!-- Mentions legales (2 novembre 2026, LCEN) : editeur particulier publiant
+       a titre non professionnel, prenom seul ; hebergeur ; licence CC BY 4.0
+       des textes et des donnees ; sources et credits ; independance. Texte
+       dans strings.json (mlSections), rendu par mentions_legales_html. Reliee
+       seulement depuis la colonne « Le site » du pied de page. -->
+  <section class="section ml-tete">
+    <div class="eyebrow"><span class="dot"></span>{{t.footerSiteTitle}}</div>
+    <h1 class="page-title">{{meta.h1}}</h1>
+    <p class="lede">{{t.mlLede}}</p>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+{{mentionsLegales}}
+    <p class="ml-maj">{{t.mlMaj}}</p>
+    </div>
+  </section>

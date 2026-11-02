@@ -5401,3 +5401,12 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
      soit 9,5 px une fois reduits) */
   .lq-bloc th,.zq th,#zonesDetailTable th,.map-legend .legend-step span{font-size:11.5px;}
 }
+
+/* Mentions legales (2 novembre 2026) : en-tete aligne a gauche sur la
+   colonne de texte, comme A propos, et serre sur elle. */
+.ml-tete{text-align:left;padding-bottom:14px;}
+.ml-tete .eyebrow{justify-content:flex-start;}
+.ml-tete .page-title{text-align:left;}
+.ml-tete .lede{text-align:left;margin-left:0;margin-bottom:0;max-width:68ch;}
+.ml-tete + .section{padding-top:14px;}
+.ml-maj{font-size:13px !important;margin-top:28px !important;}

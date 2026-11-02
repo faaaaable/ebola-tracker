@@ -179,6 +179,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/mentions-legales/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/mentions-legales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/legal-notice/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/taarifa-za-kisheria/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/mentions-legales/"/>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/glossaire/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/glossaire/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/glossary/"/>
@@ -1400,6 +1411,17 @@
   </url>
 
   <url>
+    <loc>https://ebola-tracker.org/en/legal-notice/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/mentions-legales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/legal-notice/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/taarifa-za-kisheria/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/mentions-legales/"/>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.1</priority>
+  </url>
+
+  <url>
     <loc>https://ebola-tracker.org/en/glossary/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/glossaire/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/glossary/"/>
@@ -2618,6 +2640,17 @@
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ebola-tracker.org/sw/taarifa-za-kisheria/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/mentions-legales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/legal-notice/"/>
+    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/taarifa-za-kisheria/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/mentions-legales/"/>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.1</priority>
   </url>
 
   <url>
