@@ -318,7 +318,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         txt += " " + P("lettreBilanGueris", n=fmt(gueris_delta, lang))
     harm = harmonisations.charger().get(date)
     if harm:
-        txt += " " + maj(P("lettreBilanHarmonisation", the=forms(harm["province"])["the"], n=fmt(harm["deces"], lang), jour=fmt(harm["decesJour"], lang)))
+        # Un retrait (SitRep 170 : les 314 du 169 sortent du total) a sa phrase.
+        cle = "lettreBilanHarmonisationRetrait" if harm["deces"] < 0 else "lettreBilanHarmonisation"
+        txt += " " + maj(P(cle, the=forms(harm["province"])["the"], n=fmt(abs(harm["deces"]), lang), jour=fmt(harm["decesJour"], lang)))
     if nat.get("inCTE") is not None:
         txt += " " + P("lettreBilanCte", n=fmt(nat.get("inCTE"), lang))
     if None not in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec):

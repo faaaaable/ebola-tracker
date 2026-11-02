@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-30"
+    "fin": "2026-10-31"
   },
   "parDate": [
     {
@@ -4946,14 +4946,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 401,
-          "occupation": 39.5,
+          "occupation": 38.0,
           "admissions": 78,
           "sorties": 98,
-          "gueris": 12,
-          "lits": 1015,
-          "litsReportes": true,
-          "occupationPubliee": 38.0,
-          "occupationCalculee": true
+          "gueris": 12
         },
         "Nord-Kivu": {
           "hospitalises": 506,
@@ -4985,9 +4981,61 @@
       "total": {
         "hospitalises": 954,
         "provinces": 4,
+        "lits": 608,
+        "hospitalisesAvecLits": 553,
+        "occupation": 91.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-31",
+      "sitrepNumber": "170",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 385,
+          "occupation": 37.9,
+          "admissions": 88,
+          "sorties": 101,
+          "gueris": 12,
+          "lits": 1015,
+          "litsReportes": true,
+          "occupationPubliee": 37.0,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 501,
+          "lits": 410,
+          "hospitalisesNormes": 358,
+          "occupationPubliee": 87.3,
+          "occupation": 122.2,
+          "occupationCalculee": true,
+          "admissions": 60,
+          "sorties": 65,
+          "gueris": 8
+        },
+        "Tshopo": {
+          "hospitalises": 15,
+          "lits": 36,
+          "occupation": 41.7,
+          "admissions": 3,
+          "sorties": 3
+        },
+        "Haut-Uélé": {
+          "hospitalises": 29,
+          "lits": 162,
+          "occupation": 17.9,
+          "admissions": 7,
+          "sorties": 3,
+          "gueris": 1
+        }
+      },
+      "total": {
+        "hospitalises": 930,
+        "provinces": 4,
         "lits": 1623,
-        "hospitalisesAvecLits": 954,
-        "occupation": 58.8
+        "hospitalisesAvecLits": 930,
+        "occupation": 57.3
       },
       "source": "SitRep INSP (automatique)"
     }

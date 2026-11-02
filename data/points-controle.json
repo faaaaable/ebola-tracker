@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-24",
-  "fin": "2026-10-29"
+  "fin": "2026-10-31"
  },
  "parDate": [
   {
@@ -40182,6 +40182,411 @@
        "den": 2
       },
       "brut": "100% (2/2)"
+     }
+    }
+   },
+   "ecarts": [],
+   "lecture": "tableau",
+   "source": "SitRep INSP, tableau PoE/PoC"
+  },
+  {
+   "date": "2026-10-31",
+   "sitrepNumber": "170",
+   "colonnes": [
+    "Ituri",
+    "Nord-Kivu",
+    "Sud-Kivu",
+    "Tshopo",
+    "Bas-Uélé",
+    "Global"
+   ],
+   "indicateurs": {
+    "completude": {
+     "Ituri": {
+      "valeur": {
+       "pct": 94.0,
+       "num": 58,
+       "den": 62
+      },
+      "brut": "94% (58/62)"
+     },
+     "Nord-Kivu": {
+      "valeur": {
+       "pct": 95.0,
+       "num": 20,
+       "den": 21
+      },
+      "brut": "95% (20/21)"
+     },
+     "Sud-Kivu": {
+      "valeur": {
+       "pct": 56.0,
+       "num": 5,
+       "den": 9
+      },
+      "brut": "56% (5/9)"
+     },
+     "Tshopo": {
+      "valeur": {
+       "pct": 100.0,
+       "num": 18,
+       "den": 18
+      },
+      "brut": "100% (18/18)"
+     },
+     "Bas-Uélé": {
+      "valeur": {
+       "pct": 64.0,
+       "num": 14,
+       "den": 22
+      },
+      "brut": "64% (14/22)"
+     },
+     "Global": {
+      "valeur": {
+       "pct": 87.1,
+       "num": 115,
+       "den": 132
+      },
+      "brut": "87,1% (115/132)"
+     }
+    },
+    "posteStrategiquesFonctionnels": {
+     "Ituri": {
+      "valeur": 1,
+      "brut": "1"
+     },
+     "Nord-Kivu": {
+      "valeur": null,
+      "brut": "NA"
+     },
+     "Sud-Kivu": {
+      "valeur": null,
+      "brut": "NA"
+     },
+     "Tshopo": {
+      "valeur": null,
+      "brut": "NA"
+     },
+     "Bas-Uélé": {
+      "valeur": null,
+      "brut": "NA"
+     },
+     "Global": {
+      "valeur": 1,
+      "brut": "1"
+     }
+    },
+    "personnes": {
+     "Ituri": {
+      "valeur": 145370,
+      "brut": "145 370"
+     },
+     "Nord-Kivu": {
+      "valeur": 92000,
+      "brut": "92 000"
+     },
+     "Sud-Kivu": {
+      "valeur": 7150,
+      "brut": "7 150"
+     },
+     "Tshopo": {
+      "valeur": 21766,
+      "brut": "21 766"
+     },
+     "Bas-Uélé": {
+      "valeur": 6485,
+      "brut": "6 485"
+     },
+     "Global": {
+      "valeur": 272771,
+      "brut": "272 771"
+     }
+    },
+    "screenes": {
+     "Ituri": {
+      "valeur": {
+       "pct": 97.0
+      },
+      "brut": "97%"
+     },
+     "Nord-Kivu": {
+      "valeur": {
+       "pct": 98.0
+      },
+      "brut": "98%"
+     },
+     "Sud-Kivu": {
+      "valeur": {
+       "pct": 99.0
+      },
+      "brut": "99%"
+     },
+     "Tshopo": {
+      "valeur": {
+       "pct": 99.0
+      },
+      "brut": "99%"
+     },
+     "Bas-Uélé": {
+      "valeur": {
+       "pct": 98.0
+      },
+      "brut": "98%"
+     },
+     "Global": {
+      "valeur": {
+       "pct": 98.0
+      },
+      "brut": "98%"
+     }
+    },
+    "sensibilises": {
+     "Ituri": {
+      "valeur": {
+       "pct": 99.0
+      },
+      "brut": "99%"
+     },
+     "Nord-Kivu": {
+      "valeur": {
+       "pct": 98.0
+      },
+      "brut": "98%"
+     },
+     "Sud-Kivu": {
+      "valeur": {
+       "pct": 100.0
+      },
+      "brut": "100%"
+     },
+     "Tshopo": {
+      "valeur": {
+       "pct": 100.0
+      },
+      "brut": "100%"
+     },
+     "Bas-Uélé": {
+      "valeur": {
+       "pct": 74.0
+      },
+      "brut": "74%"
+     },
+     "Global": {
+      "valeur": {
+       "pct": 98.0
+      },
+      "brut": "98%"
+     }
+    },
+    "alertes": {
+     "Ituri": {
+      "valeur": 4,
+      "brut": "04"
+     },
+     "Nord-Kivu": {
+      "valeur": 1,
+      "brut": "01"
+     },
+     "Sud-Kivu": {
+      "valeur": 3,
+      "brut": "03"
+     },
+     "Tshopo": {
+      "valeur": 0,
+      "brut": "00"
+     },
+     "Bas-Uélé": {
+      "valeur": 0,
+      "brut": "00"
+     },
+     "Global": {
+      "valeur": 8,
+      "brut": "8"
+     }
+    },
+    "alertesVivantesValidees": {
+     "Ituri": {
+      "valeur": 3,
+      "brut": "03"
+     },
+     "Nord-Kivu": {
+      "valeur": 1,
+      "brut": "01"
+     },
+     "Sud-Kivu": {
+      "valeur": 0,
+      "brut": "00"
+     },
+     "Tshopo": {
+      "valeur": 0,
+      "brut": "00"
+     },
+     "Bas-Uélé": {
+      "valeur": 0,
+      "brut": "00"
+     },
+     "Global": {
+      "valeur": 4,
+      "brut": "4"
+     }
+    },
+    "corpsInterceptes": {
+     "Ituri": {
+      "valeur": 1,
+      "brut": "01"
+     },
+     "Nord-Kivu": {
+      "valeur": 0,
+      "brut": "00"
+     },
+     "Sud-Kivu": {
+      "valeur": 3,
+      "brut": "03"
+     },
+     "Tshopo": {
+      "valeur": 0,
+      "brut": "00"
+     },
+     "Bas-Uélé": {
+      "valeur": 0,
+      "brut": "00"
+     },
+     "Global": {
+      "valeur": 4,
+      "brut": "4"
+     }
+    },
+    "suspectsTransferes": {
+     "Ituri": {
+      "valeur": {
+       "pct": 100.0,
+       "num": 3,
+       "den": 3
+      },
+      "brut": "100% (3/3)"
+     },
+     "Nord-Kivu": {
+      "valeur": {
+       "pct": 100.0,
+       "num": 1,
+       "den": 1
+      },
+      "brut": "100% (1/1)"
+     },
+     "Sud-Kivu": {
+      "valeur": {
+       "pct": 0.0
+      },
+      "brut": "0%"
+     },
+     "Tshopo": {
+      "valeur": {
+       "pct": 0.0
+      },
+      "brut": "0%"
+     },
+     "Bas-Uélé": {
+      "valeur": {
+       "pct": 0.0
+      },
+      "brut": "0%"
+     },
+     "Global": {
+      "valeur": {
+       "pct": 100.0,
+       "num": 4,
+       "den": 4
+      },
+      "brut": "100% (4/4)"
+     }
+    },
+    "corpsSwabes": {
+     "Ituri": {
+      "valeur": {
+       "pct": 0.0,
+       "num": 0,
+       "den": 1
+      },
+      "brut": "0% (0/1)"
+     },
+     "Nord-Kivu": {
+      "valeur": {
+       "pct": 0.0
+      },
+      "brut": "0%"
+     },
+     "Sud-Kivu": {
+      "valeur": {
+       "pct": 0.0,
+       "num": 0,
+       "den": 3
+      },
+      "brut": "0% (0/3)"
+     },
+     "Tshopo": {
+      "valeur": {
+       "pct": 0.0
+      },
+      "brut": "0%"
+     },
+     "Bas-Uélé": {
+      "valeur": {
+       "pct": 0.0
+      },
+      "brut": "0%"
+     },
+     "Global": {
+      "valeur": {
+       "pct": 0.0,
+       "num": 0,
+       "den": 4
+      },
+      "brut": "0% (0/4)"
+     }
+    },
+    "suspectsInvestigues24h": {
+     "Ituri": {
+      "valeur": {
+       "pct": 100.0,
+       "num": 3,
+       "den": 3
+      },
+      "brut": "100% (3/3)"
+     },
+     "Nord-Kivu": {
+      "valeur": {
+       "pct": 100.0,
+       "num": 1,
+       "den": 1
+      },
+      "brut": "100% (1/1)"
+     },
+     "Sud-Kivu": {
+      "valeur": {
+       "pct": 0.0
+      },
+      "brut": "0%"
+     },
+     "Tshopo": {
+      "valeur": {
+       "pct": 0.0
+      },
+      "brut": "0%"
+     },
+     "Bas-Uélé": {
+      "valeur": {
+       "pct": 0.0
+      },
+      "brut": "0%"
+     },
+     "Global": {
+      "valeur": {
+       "pct": 100.0,
+       "num": 4,
+       "den": 4
+      },
+      "brut": "100% (4/4)"
      }
     }
    },

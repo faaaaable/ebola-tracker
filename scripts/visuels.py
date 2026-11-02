@@ -53,28 +53,48 @@ RATTRAPAGES = {"2026-07-22": 97, "2026-07-30": 73}
 # 2026) : au SitRep 169, 314 deces plus anciens de l'Ituri entrent dans le
 # cumul le 30 octobre. Les deces du jour (32, dont 19 en Ituri) en pleine
 # teinte, le reste en rattrapage ; les ecarts par zone s'en retranchent.
+# Au SitRep 170, le bulletin les retire le 31 octobre (entree de signe
+# oppose) : le rattrapage du 30 n'a plus de sens et disparait. Les deux
+# journees portent leurs seuls deces du jour (32 puis 45, dont 19 puis 28 en
+# Ituri), en pleine teinte (choix du proprietaire, 2 novembre 2026).
 HARM = harmonisations.charger()
+ANNULEES = harmonisations.annulees()
 HARM_TXT = {
  "fr": dict(clair="Le {d}, en clair : {n} décès plus anciens, entrés par l'harmonisation des données de l'Ituri.",
             coin="Coin ambré le {d} : {n} décès plus anciens, entrés par l'harmonisation des données de l'Ituri.",
-            mois="{M} : {n} décès plus anciens entrés le {d}, par l'harmonisation des données de l'Ituri."),
+            mois="{M} : {n} décès plus anciens entrés le {d}, par l'harmonisation des données de l'Ituri.",
+            annulee="Le {d}, l'Ituri a harmonisé ses données et {n} décès plus anciens sont entrés dans le cumul ; le bulletin du lendemain les a retirés. Les barres de ces deux jours ne portent que leurs décès du jour."),
  "en": dict(clair="On {d}, lighter tone: {n} earlier deaths, added when Ituri harmonised its data.",
             coin="Amber corner on {d}: {n} earlier deaths, added when Ituri harmonised its data.",
-            mois="{M}: {n} earlier deaths added on {d}, when Ituri harmonised its data."),
+            mois="{M}: {n} earlier deaths added on {d}, when Ituri harmonised its data.",
+            annulee="On {d}, Ituri harmonised its data and {n} earlier deaths entered the total; the next day's bulletin removed them. The bars for those two days show only that day's deaths."),
  "sw": dict(clair="Tarehe {d}, rangi hafifu: vifo {n} vya awali, vilivyoingizwa Ituri ilipooanisha takwimu zake.",
             coin="Kona ya kahawia tarehe {d}: vifo {n} vya awali, vilivyoingizwa Ituri ilipooanisha takwimu zake.",
-            mois="{M}: vifo {n} vya awali viliingizwa tarehe {d}, Ituri ilipooanisha takwimu zake."),
+            mois="{M}: vifo {n} vya awali viliingizwa tarehe {d}, Ituri ilipooanisha takwimu zake.",
+            annulee="Tarehe {d}, Ituri ilioanisha takwimu zake na vifo {n} vya zamani viliingia kwenye jumla; taarifa ya siku iliyofuata iliviondoa. Mistari ya siku hizo mbili inaonyesha vifo vya siku hiyo tu."),
 }
 
 
 def _harm_notes(c, cle, debut=None, fin=None, province=None):
-    """Une phrase par harmonisation de la periode (et de la province)."""
+    """Une phrase par harmonisation de la periode (et de la province). Une
+    harmonisation reprise ensuite (ANNULEES) n'a qu'une phrase, a sa date, et
+    aucune sur le calendrier, qui n'a plus de coin ; au mois, une
+    harmonisation retiree le meme mois ne change pas son total et ne se dit
+    pas."""
     out = []
+    net = {}
+    for iso, h in HARM.items():
+        net[(iso[:7], h["province"])] = net.get((iso[:7], h["province"]), 0) + h["deces"]
     for iso, h in sorted(HARM.items()):
         d = D(iso)
         if (debut and d < debut) or (fin and d > fin) or (province and h["province"] != province):
             continue
-        out.append(HARM_TXT[c.lang][cle].format(d=c.dc(d), n=c.nb(h["deces"]), M=c.M((d.year, d.month))))
+        if cle == "mois" and not net[(iso[:7], h["province"])]:
+            continue
+        if iso in ANNULEES and (cle == "coin" or h["deces"] < 0):
+            continue
+        texte = HARM_TXT[c.lang]["annulee" if iso in ANNULEES else cle]
+        out.append(texte.format(d=c.dc(d), n=c.nb(abs(h["deces"])), M=c.M((d.year, d.month))))
     return out
 
 # ---------------------------------------------------------------- textes
@@ -374,7 +394,11 @@ class Contexte:
             d = D(r["date"]); nc = nd = None
             if prev:
                 if r["confirmed"] is not None and prev["confirmed"] is not None: nc = max(0, r["confirmed"] - prev["confirmed"])
-                if r["deaths"] is not None and prev.get("deaths") is not None: nd = max(0, r["deaths"] - prev["deaths"])
+                if r["deaths"] is not None and prev.get("deaths") is not None:
+                    # Une harmonisation reprise ensuite (30 et 31 octobre) n'appartient a
+                    # aucune des deux journees.
+                    hors = HARM[r["date"]]["deces"] if r["date"] in ANNULEES else 0
+                    nd = max(0, r["deaths"] - prev["deaths"] - hors)
             self.jours[d] = (nc, nd)
             if r["confirmed"] is not None:
                 prev = {"confirmed": r["confirmed"], "deaths": r["deaths"] if r["deaths"] is not None else (prev or {}).get("deaths")}
@@ -510,7 +534,7 @@ def calendrier(c):
     t1, t2 = cas[D(r1)], cas[D(r2)]
     n = note(y + 30, t["calRatt"].format(a=c.dc(D(r1)), ta=c.nb(t1), ra=c.nb(t1 - RATTRAPAGES[r1]), b=c.dc(D(r2)), tb=c.nb(t2), rb=c.nb(t2 - RATTRAPAGES[r2])))
     out.append(c.T(60, y + 34 + n * 20, t["calHach"], 14, INK_FAINT))
-    y = bloc(dec, REDS, y + 100 + n * 20, t["calDeces"], set(RATTRAPAGES) | set(HARM))
+    y = bloc(dec, REDS, y + 100 + n * 20, t["calDeces"], set(RATTRAPAGES) | {k for k, h in HARM.items() if h["deces"] > 0 and k not in ANNULEES})
     n = note(y + 24, " ".join([t["calRattDeces"].format(a=c.dc(D(r1)), b=c.dc(D(r2)))] + _harm_notes(c, "coin", c.DEBUT, c.FIN)))
     return c.carte(t["calTitre"], t["calSous"], "".join(out), h=int(y + 24 + (n - 1) * 20 + 130))
 
@@ -1278,13 +1302,17 @@ def _serie_province(c, nom, champ):
         if ecart > ECART_MAX_JOURS:
             trous.append("%s %s %s" % (c.dc(d0 + dt.timedelta(1)), {"fr": "au", "en": "to", "sw": "hadi"}[c.lang], c.dc(d1)))
             continue
-        delta = max(0, c1 - c0)
+        h = HARM.get(iso)
+        annulee = champ == "deaths" and h and h["province"] == nom and iso in ANNULEES
+        delta = max(0, c1 - c0 - (h["deces"] if annulee else 0))
         annonce = JOURNEES_ANNONCEES.get(iso, {}).get(nom) if champ == "confirmed" and ecart == 2 else None
         if annonce is not None and 0 <= annonce <= delta:
             veille = d1 - dt.timedelta(1)
             par[veille] = (delta - annonce, None); par[d1] = (annonce, None); calculees.add(veille)
             continue
-        h = HARM.get(iso)
+        if annulee and ecart == 1:
+            par[d1] = (delta, None)
+            continue
         if champ == "deaths" and h and h["province"] == nom and ecart == 1:
             part = min(h["decesJourProvince"], delta); par[d1] = (part, delta - part)
             continue
@@ -1471,7 +1499,9 @@ def r_national(c, champ):
     for d in jours:
         v = c.jours.get(d, (None, None))[k]
         iso = d.isoformat()
-        if deces and v is not None and iso in HARM:
+        if deces and v is not None and iso in ANNULEES:
+            rap.append(v); rat.append(None)
+        elif deces and v is not None and iso in HARM:
             part = min(HARM[iso]["decesJour"], v); rap.append(part); rat.append(v - part)
         elif v is None or iso not in RATTRAPAGES:
             rap.append(v); rat.append(None)

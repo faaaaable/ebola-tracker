@@ -874,12 +874,29 @@ const moisAnnee = iso => `${tr('months')[parseInt(iso.slice(5, 7), 10) - 1]} ${i
      pas touches (10 351 + 63 = 10 414). Rattrapage des DECES SEULEMENT, dont
      la part du jour est cette fois publiee : `jour: null` (pas de rattrapage
      de cas), `deces` la part du jour au niveau national, `provincesDeces`
-     celle des provinces concernees (choix du proprietaire, 1er novembre 2026). */
+     celle des provinces concernees (choix du proprietaire, 1er novembre 2026).
+   - 31 octobre (SitRep 170) : le bulletin defait cette harmonisation sans
+     l'annoncer. Les deces de l'Ituri font 3 769 - 314 + 28 = 3 483, ceux du
+     pays 5 372 - 314 + 45 = 5 103 ; la ligne « A ventiler » (493) revient et
+     chaque zone retrouve la base du 168. Le rattrapage du 30 n'a donc plus
+     de sens et il est retire (choix du proprietaire, 2 novembre 2026) : ce
+     n'est plus une entree de RATTRAPAGE_ADMIN. Les deux journees portent
+     leurs seuls deces annonces, en pleine teinte, et la courbe de cumul,
+     celle des bulletins, monte puis redescend. */
 const RATTRAPAGE_ADMIN = {
   '2026-07-22': { jour: 97, couvre: null },
-  '2026-07-30': { jour: 73, couvre: ['2026-07-28', '2026-07-29'] },
-  '2026-10-30': { jour: null, deces: 32, provincesDeces: { 'Ituri': 19 }, couvre: null }
+  '2026-07-30': { jour: 73, couvre: ['2026-07-28', '2026-07-29'] }
 };
+/* Les deces annonces par province ces deux jours-la : l'ecart des cumuls de
+   l'Ituri (+333 puis -286) ne dit rien de la journee. Au niveau national, la
+   barre prend deja l'annonce du bulletin (32 puis 45). */
+const DECES_ANNONCES_HARMONISATION = {
+  '2026-10-30': { 'Ituri': 19 },
+  '2026-10-31': { 'Ituri': 28 }
+};
+/* Les deces que la courbe de cumul retranche, par date : ceux d'une
+   harmonisation reprise ensuite par la source. */
+const CUMUL_HORS_HARMONISATION = { '2026-10-30': 314 };
 /* Le jour est-il un rattrapage pour ce champ ? Celui du 30 octobre ne vaut
    que pour les deces. */
 function rattrapageDe(date, champ){
@@ -3816,6 +3833,13 @@ function renderOneChartBrut(canvas, chartMode){
          zero : un zero vaut desormais un trait au ras de l'axe (minBarLength),
          et deux traits superposes sous la barre claire d'un rattrapage ne
          diraient rien. */
+      /* Les 30 et 31 octobre, l'Ituri gagne 333 deces puis en perd 286 : la
+         barre porte les deces annonces (19 puis 28), en pleine teinte. */
+      const annonceHarm = deces && ecart === 1 && (DECES_ANNONCES_HARMONISATION[pts[i].date] || {})[nom];
+      if(annonceHarm !== undefined && annonceHarm !== false){
+        parDate.set(pts[i].date, { rapporte: annonceHarm, rattrape: null });
+        continue;
+      }
       const part = partDuJour[pts[i].date];
       if(part !== undefined && part <= delta){
         parDate.set(pts[i].date, { rapporte: part, rattrape: delta - part });
@@ -3879,7 +3903,8 @@ function renderOneChartBrut(canvas, chartMode){
       if(sansReleve) bouts.push(tr(deces ? 'provinceDeathsChartBlanks' : 'provinceChartBlanks')(sansReleve));
       if(trous.length) bouts.push(tr(deces ? 'provinceDeathsChartGap' : 'provinceChartGap')(trous.join(' ; ')));
       if(pts.some(pt => RATTRAPAGE.has(pt.date) && partDuJour[pt.date] === undefined)) bouts.push(tr('provinceChartCatchup'));
-      if(pts.some(pt => partDuJour[pt.date] !== undefined)) bouts.push(tr('provinceChartHarmonisation'));
+      if(deces && pts.some(pt => (DECES_ANNONCES_HARMONISATION[pt.date] || {})[nom] !== undefined))
+        bouts.push(tr('provinceChartHarmonisation'));
       if(multiJours.size) bouts.push(tr('provinceChartMultiDay'));
       if(calculees.size) bouts.push(tr('provinceChartSplit')([...calculees].sort().map(frDate).join(', ')));
       noteEl.textContent = bouts.join(' ');
@@ -4365,9 +4390,14 @@ function renderOneChartBrut(canvas, chartMode){
          les cas et les deces ensemble ; un cadre par serie la reprend pour la
          sienne. Deux ordres de grandeur, d'ou l'axe droit. Sans l'attribut
          (/donnees/), rien ne change. */
+      /* Le 30 octobre, la courbe des deces cumules ne compte pas les 314 de
+         l'harmonisation, retires par le bulletin du lendemain : 5 058 et non
+         les 5 372 du SitRep 169 (demande du proprietaire, 2 novembre 2026).
+         Seule la courbe est touchee ; tableaux et base gardent le bulletin. */
       if(canvas.dataset.cumul === '1'){
+        const horsHarm = r => deces ? (CUMUL_HORS_HARMONISATION[r.date] || 0) : 0;
         dataJ.datasets.push({ type: 'line', label: tr(deces ? 'chartCumulativeDeathsLabel' : 'chartCumulativeLabel'),
-          data: s.map(r => (r[champ] === null || r[champ] === undefined) ? null : r[champ]), yAxisID: 'y1',
+          data: s.map(r => (r[champ] === null || r[champ] === undefined) ? null : r[champ] - horsHarm(r)), yAxisID: 'y1',
           borderColor: teinte, borderWidth: 2, tension: .25, pointRadius: 0, fill: false, spanGaps: true, order: 0 });
         optsN.scales.y1 = { position: 'right', beginAtZero: true,
           ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 }, callback: v => fmt(v) },

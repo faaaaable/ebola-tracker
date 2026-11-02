@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-05-20",
-    "fin": "2026-10-30"
+    "fin": "2026-10-31"
   },
   "parDate": [
     {
@@ -3547,7 +3547,12 @@
         "positifs": 78,
         "positivite": 18.5
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 422,
+        "positifs": 78,
+        "positivite": 18.5
+      }
     },
     {
       "date": "2026-09-27",
@@ -3589,7 +3594,12 @@
         "positifs": 49,
         "positivite": 18.1
       },
-      "source": "SitRep INSP (automatique)"
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 270,
+        "positifs": 49,
+        "positivite": 18.1
+      }
     },
     {
       "date": "2026-09-28",
@@ -5068,6 +5078,49 @@
         "positifs": 63
       },
       "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-10-31",
+      "sitrepNumber": "170",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 216,
+          "positifs": 32,
+          "vivants": 19,
+          "deces": 13,
+          "positivite": 14.8
+        },
+        "Nord-Kivu": {
+          "echantillons": null,
+          "positifs": 18,
+          "vivants": 6,
+          "deces": 12,
+          "positivite": 10.8
+        },
+        "Haut-Uélé": {
+          "echantillons": 11,
+          "positifs": 3,
+          "vivants": 2,
+          "deces": 1,
+          "positivite": 27.3
+        },
+        "Bas-Uélé": {
+          "echantillons": null,
+          "positifs": 0,
+          "positivite": 0.0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": null,
+        "positifs": 53
+      },
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 421,
+        "positifs": 53,
+        "positivite": 12.6
+      }
     }
   ]
 }

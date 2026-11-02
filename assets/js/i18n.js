@@ -92,7 +92,7 @@ const I18N = {
       + (absentes.length ? `Il en va de même des ${absentes.length} jours sans bulletin. ` : '')
       + `Les 22 et 30 juillet relèvent d'autre chose — le 30 étant les deux à la fois, puisqu'il rattrape aussi les 28 et 29 : le bulletin signale un rattrapage de données, mais n'en publie la part que pour les cas ; `
       + `faute de chiffre, ces deux journées sont affichées en entier dans la teinte claire. `
-      + `Le 30 octobre, l'Ituri a harmonisé ses données : 314 décès plus anciens entrent d'un coup dans le cumul, en teinte claire au-dessus des 32 décès du jour. `
+      + `Le 30 octobre, l'Ituri a harmonisé ses données et 314 décès plus anciens sont entrés dans le cumul ; le bulletin du 31 les a retirés. Les barres de ces deux jours ne portent que leurs décès du jour (32 puis 45), et la courbe de cumul ne les compte pas : 5 058 décès le 30, quand le bulletin du jour en imprimait 5 372. `
       + `Un décès n'entre dans la série qu'une fois confirmé — ceux survenus en communauté le sont souvent avec plusieurs jours de retard.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`Nouveaux décès agrégés par semaine calendaire, du lundi au dimanche. `
       + (enCours ? `La semaine en cours, ${enCours.nom}, n'est pas terminée : sa barre couvre la semaine entière, mais seuls les jours écoulés sont colorés — ${enCours.restants > 1 ? `les ${enCours.restants} qui restent sont grisés` : `celui qui reste est grisé`} à droite, et sa hauteur montera encore. ` : '')
@@ -251,7 +251,7 @@ const I18N = {
     dailyChartLabel:"Nouveaux cas quotidiens",
     provinceChartGap:(plages)=>`Aucune barre du ${plages} : les bulletins de ces jours-là ne répartissent pas les cas entre les provinces. Ces cas sont bien comptés dans le cumul, mais on ne peut pas les attribuer à une journée précise.`,
     provinceChartBlanks:(n)=>`${n} jours n'ont pas de bulletin pour cette province : ils restent sans barre, et sauf indication contraire leurs cas sont comptés dans le relevé suivant.`,
-    provinceChartHarmonisation:"Le 30 octobre, l'Ituri a harmonisé ses données : 314 décès plus anciens entrent d'un coup dans le cumul. Ils sont en teinte claire, au-dessus des 19 décès du jour.",
+    provinceChartHarmonisation:"Le 30 octobre, l'Ituri a harmonisé ses données et 314 décès plus anciens sont entrés dans le cumul ; le bulletin du 31 les a retirés. Les barres de ces deux jours ne portent que leurs décès du jour (19 puis 28).",
     provinceChartCatchup:"Les 22 et 30 juillet, le bulletin signale un rattrapage de données. Sa part n'étant publiée qu'au niveau national, ces barres sont affichées en entier dans la teinte claire.",
     provinceDeathsChartGap:(plages)=>`Aucune barre du ${plages} : les bulletins de ces jours-là ne répartissent pas les décès entre les provinces. Ces décès sont bien comptés dans le cumul, mais on ne peut pas les attribuer à une journée précise.`,
     provinceDeathsChartBlanks:(n)=>`${n} jours n'ont pas de bulletin pour cette province : ils restent sans barre, et sauf indication contraire leurs décès sont comptés dans le relevé suivant.`,
@@ -445,7 +445,7 @@ const I18N = {
       + (absentes.length ? `The same goes for the ${absentes.length} days without a bulletin. ` : '')
       + `22 and 30 July are a different matter — the 30th being both at once, since it also makes up for the 28th and 29th: the bulletin reports a data catch-up, but only publishes its share for cases; `
       + `with no figure to go on, those two days are shown entirely in the lighter shade. `
-      + `On 30 October, Ituri harmonised its data: 314 earlier deaths enter the cumulative total at once, in the lighter shade above the day's 32 deaths. `
+      + `On 30 October Ituri harmonised its data and 314 earlier deaths entered the cumulative total; the bulletin of the 31st removed them. The bars for those two days show only that day's deaths (32, then 45), and the cumulative curve leaves them out: 5,058 deaths on the 30th, where that day's bulletin printed 5,372. `
       + `A death only enters the series once confirmed — those occurring in the community often are, several days late.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`New deaths aggregated by calendar week, Monday to Sunday. `
       + (enCours ? `The current week, ${enCours.nom}, is not over: its bar spans the whole week, but only the elapsed days are coloured — the ${enCours.restants > 1 ? `${enCours.restants} remaining are` : `remaining one is`} greyed out on the right, and its height will still rise. ` : '')
@@ -602,7 +602,7 @@ const I18N = {
     dailyChartLabel:"New daily cases",
     provinceChartGap:(plages)=>`No bars from ${plages}: the bulletins for those days do not break cases down by province. Those cases are counted in the cumulative total, but cannot be assigned to a specific day.`,
     provinceChartBlanks:(n)=>`${n} days have no bulletin for this province: they are left blank, and unless stated otherwise their cases are counted in the next report.`,
-    provinceChartHarmonisation:"On 30 October, Ituri harmonised its data: 314 earlier deaths enter the cumulative total at once. They are in the lighter tone, above the day's 19 deaths.",
+    provinceChartHarmonisation:"On 30 October Ituri harmonised its data and 314 earlier deaths entered the cumulative total; the bulletin of the 31st removed them. The bars for those two days show only that day's deaths (19, then 28).",
     provinceChartCatchup:"On 22 and 30 July the bulletin reports a data catch-up. Its share is published only at national level, so these bars are shown entirely in the lighter tone.",
     provinceDeathsChartGap:(plages)=>`No bars from ${plages}: the bulletins for those days do not break deaths down by province. Those deaths are counted in the cumulative total, but cannot be assigned to a specific day.`,
     provinceDeathsChartBlanks:(n)=>`${n} days have no bulletin for this province: they are left blank, and unless stated otherwise their deaths are counted in the next report.`,
@@ -796,7 +796,7 @@ const I18N = {
       + (absentes.length ? `Vivyo hivyo kwa siku ${absentes.length} zisizo na ripoti. ` : '')
       + `Tarehe 22 na 30 Julai ni jambo jingine — tarehe 30 ikiwa mambo yote mawili, kwa kuwa inafidia pia tarehe 28 na 29: ripoti inataja marekebisho ya data, lakini inachapisha sehemu yake kwa visa tu; `
       + `bila takwimu, siku hizo mbili zinaonyeshwa nzima kwa rangi hafifu. `
-      + `Tarehe 30 Oktoba, Ituri ilioanisha takwimu zake: vifo 314 vya zamani vinaingia mara moja katika jumla, kwa rangi hafifu juu ya vifo 32 vya siku hiyo. `
+      + `Tarehe 30 Oktoba, Ituri ilioanisha takwimu zake na vifo 314 vya zamani viliingia katika jumla; taarifa ya tarehe 31 iliviondoa. Mistari ya siku hizo mbili inaonyesha vifo vya siku hiyo tu (32, kisha 45), na mstari wa jumla hauvihesabu: vifo 5 058 tarehe 30, wakati taarifa ya siku hiyo ilichapisha 5 372. `
       + `Kifo kinaingia kwenye mfululizo tu baada ya kuthibitishwa — vile vilivyotokea jamiini mara nyingi huchelewa siku kadhaa.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`Vifo vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
       + (enCours ? `Wiki inayoendelea, ${enCours.nom}, haijaisha: safu yake inashughulikia wiki nzima, lakini siku zilizopita pekee ndizo zenye rangi — ${enCours.restants} zilizobaki zimetiwa kijivu kulia, na urefu wake bado utapanda. ` : '')
@@ -955,7 +955,7 @@ const I18N = {
     dailyChartLabel:"Visa vipya vya kila siku",
     provinceChartGap:(plages)=>`Hakuna safu kutoka ${plages}: ripoti za siku hizo hazigawanyi visa kati ya majimbo. Visa hivyo vimehesabiwa kwenye jumla, lakini haviwezi kuhusishwa na siku maalum.`,
     provinceChartBlanks:(n)=>`Siku ${n} hazina ripoti kwa jimbo hili: zimeachwa wazi, na isipokuwa imeelezwa vinginevyo visa vyake vimehesabiwa katika ripoti inayofuata.`,
-    provinceChartHarmonisation:"Tarehe 30 Oktoba, Ituri ilioanisha takwimu zake: vifo 314 vya zamani vinaingia mara moja katika jumla. Viko kwa rangi hafifu, juu ya vifo 19 vya siku hiyo.",
+    provinceChartHarmonisation:"Tarehe 30 Oktoba, Ituri ilioanisha takwimu zake na vifo 314 vya zamani viliingia katika jumla; taarifa ya tarehe 31 iliviondoa. Mistari ya siku hizo mbili inaonyesha vifo vya siku hiyo tu (19, kisha 28).",
     provinceChartCatchup:"Tarehe 22 na 30 Julai, ripoti inaonyesha marekebisho ya takwimu. Kwa kuwa sehemu yake imechapishwa kwa kiwango cha kitaifa pekee, safu hizi zinaonyeshwa nzima kwa rangi hafifu.",
     provinceDeathsChartGap:(plages)=>`Hakuna safu kutoka ${plages}: ripoti za siku hizo hazigawanyi vifo kati ya majimbo. Vifo hivyo vimehesabiwa kwenye jumla, lakini haviwezi kuhusishwa na siku maalum.`,
     provinceDeathsChartBlanks:(n)=>`Siku ${n} hazina ripoti kwa jimbo hili: zimeachwa wazi, na isipokuwa imeelezwa vinginevyo vifo vyake vimehesabiwa katika ripoti inayofuata.`,

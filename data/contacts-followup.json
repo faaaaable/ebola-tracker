@@ -4481,5 +4481,37 @@
         "aSuivre": 1011
       }
     }
+  },
+  {
+    "date": "2026-10-31",
+    "sitrepNumber": "170",
+    "contactsFollowUpRate": 86.6,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 36517,
+      "vus": 31621
+    },
+    "provinces": {
+      "Bas-Uélé": {
+        "taux": 100.0,
+        "vus": 695,
+        "aSuivre": 695
+      },
+      "Ituri": {
+        "taux": 94.3,
+        "vus": 16133,
+        "aSuivre": 17106
+      },
+      "Sud-Ubangi": {
+        "taux": 89.3,
+        "vus": 109,
+        "aSuivre": 122
+      },
+      "Tshopo": {
+        "taux": 73.0,
+        "vus": 688,
+        "aSuivre": 942
+      }
+    }
   }
 ]

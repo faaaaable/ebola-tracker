@@ -251,8 +251,9 @@ def extract_one_date(full_text, label):
     window = full_text[idx + len(label): idx + len(label) + 60]
     # \s* et non \s+ entre le jour et le mois : le 158 imprime
     # « Date de publication : 20octobre 2026 », colle. \w+ s'arrete au mois
-    # car le jour est capture d'abord par \d.
-    m = re.search(r"(\d{1,2})\s*([^\W\d_]+)\s+(\d{4})", window)
+    # car le jour est capture d'abord par \d. Le 170 imprime « 1er novembre
+    # 2026 » : sans (?:er)?, « er » etait pris pour le mois.
+    m = re.search(r"(\d{1,2})(?:er)?\s*([^\W\d_]+)\s+(\d{4})", window)
     if not m:
         return None
     d, mo, y = m.groups()
@@ -1513,8 +1514,12 @@ def recouper_avec_la_veille(health_zones, meta):
         # communautaires, intra-CTE, total : au SitRep 169, « Nizi 846 494
         # 58,4% 5 1 1 2 » annonce bien 5 nouveaux cas, le cumul reste a 846
         # par l'harmonisation des donnees de l'Ituri (1er novembre 2026).
+        # Au SitRep 170, « Rimba 25 6 24,0% 2 0 0 0 » : quatre nombres, deux
+        # nouveaux cas sans deces ; le cumul reste a 25 parce que le bulletin
+        # defait l'harmonisation du 169 (Rimba y avait gagne 2 cas). Une
+        # queue entiere vaut aussi quand son total est nul.
         queue = (z.get("deathsCommunity24h") is not None and z.get("deathsIntraCTE24h") is not None
-                 and (z["newDeaths24h"] or 0) > 0
+                 and z["newDeaths24h"] is not None
                  and z["newDeaths24h"] == z["deathsCommunity24h"] + z["deathsIntraCTE24h"])
         if d_cas == 0 and (z["newCases24h"] or 0) > 0 and not queue:
             n = z["newCases24h"]
@@ -1531,6 +1536,43 @@ def recouper_avec_la_veille(health_zones, meta):
         if d_dec != (z["newDeaths24h"] or 0):
             print(f"  ! {z['name']} ({z['province']}) : décès {prev.get('deaths')} -> {z['deaths']} (+{d_dec}) "
                   f"mais {z['newDeaths24h']} décès du jour — laissé tel quel, à vérifier dans le PDF.")
+
+
+def recouper_avec_la_province(health_zones, provinces):
+    """La ligne de province tranche une queue « n n » que la veille ne peut
+    plus trancher.
+
+    Au SitRep 170, « Lolwa 37 11 29,7% 1 1 » : un nouveau cas et un deces, ou
+    un deces (intra-CTE) suivi de son total, comme Wamba au 113 ? Le cumul ne
+    le dit plus — il recule de 43 a 37, le bulletin defaisant l'harmonisation
+    de l'Ituri du 169. Les zones de l'Ituri sommaient 33 nouveaux cas pour 32
+    declares, et seule Lolwa portait une queue ambigue de 1 : c'est un deces,
+    et les deces des zones tombent alors sur ceux de la province (28).
+
+    Regle : si les nouveaux cas des zones depassent ceux de la province et
+    que les queues ambigues « n n » (deux nombres egaux, ventilation
+    inconnue) en rendent compte exactement — une seule de cette valeur, ou
+    toutes ensemble —, leurs nouveaux cas sont remis a zero. Sinon rien."""
+    for p in provinces:
+        annonce = p.get("newCases24h")
+        if annonce is None:
+            continue
+        zones = [z for z in health_zones if z["province"] == p["name"]]
+        exces = sum(z["newCases24h"] or 0 for z in zones) - annonce
+        if exces <= 0:
+            continue
+        ambigues = [z for z in zones
+                    if z["deathsCommunity24h"] is None and z["deathsIntraCTE24h"] is None
+                    and (z["newCases24h"] or 0) > 0 and z["newCases24h"] == z["newDeaths24h"]]
+        justes = [z for z in ambigues if z["newCases24h"] == exces]
+        if len(justes) == 1:
+            ambigues = justes
+        elif sum(z["newCases24h"] for z in ambigues) != exces:
+            continue
+        for z in ambigues:
+            print(f"  · {z['name']} ({p['name']}) : {z['newCases24h']} nouveau(x) cas lu(s) remis à 0 — "
+                  f"les zones sommaient {annonce + exces} pour {annonce} déclarés, le nombre lu appartient aux décès.")
+            z["newCases24h"] = 0
 
 
 def ventiler_par_soustraction(health_zones, provinces):
@@ -2217,6 +2259,7 @@ def main():
 
     health_zones = [zone_row_to_dict(prov, name, row) for prov, name, row in zones_raw]
     recouper_avec_la_veille(health_zones, meta)
+    recouper_avec_la_province(health_zones, provinces)
     ventiler_par_soustraction(health_zones, provinces)
 
     # La colonne de gauche est recollee mot a mot avec le texte voisin : le 123

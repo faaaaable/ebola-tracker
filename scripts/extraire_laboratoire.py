@@ -311,11 +311,13 @@ NATIONAL_RE = re.compile(
 # donne que ses positifs effaçait la journée de la vue par semaine (une seule
 # journée lue du 5 au 11 octobre). Le taux manque parfois au bout de la ligne.
 # La phrase est dans les faits saillants, en tete du bulletin, pas dans la
-# section Laboratoire : elle se cherche dans tout le texte.
+# section Laboratoire : elle se cherche dans tout le texte. Le 170 ecrit « a
+# ete analyse, 53 de ces echantillons [...] soit de 12,6 % » : virgule au lieu
+# du point-virgule, et « de » avant le taux.
 NATIONAL_TOTAL_RE = re.compile(
-    r"Un\s+total\s+de\s+(\d[\d ]{0,6}\d|\d)\s+nouveaux\s+[ée]chantillons\s+a\s+[ée]t[ée]\s+analys[ée]\s*;\s*"
+    r"Un\s+total\s+de\s+(\d[\d ]{0,6}\d|\d)\s+nouveaux\s+[ée]chantillons\s+a\s+[ée]t[ée]\s+analys[ée]\s*[;,]\s*"
     r"(\d[\d ]{0,4}\d|\d)\s+de\s+ces\s+[ée]chantillons\s+se\s+sont\s+r[ée]v[ée]l[ée]s\s+positifs"
-    r"(?:[^%;]{0,60}?soit\s+(\d+(?:[,.]\d+)?)\s*%)?", re.I | re.S)
+    r"(?:[^%;]{0,60}?soit\s+(?:de\s+)?(\d+(?:[,.]\d+)?)\s*%)?", re.I | re.S)
 
 
 # ---------------------------------------------------------------------------

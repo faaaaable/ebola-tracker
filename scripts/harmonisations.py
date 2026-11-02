@@ -50,3 +50,20 @@ def deces_entre(avant, apres):
     """Les deces entres par harmonisation entre deux dates (avant exclu,
     apres inclus) : a retrancher d'une moyenne de deces sur la periode."""
     return sum(h.get("deces") or 0 for d, h in charger().items() if avant < d <= apres)
+
+
+def annulees():
+    """Les dates d'harmonisation dont les deces sont repris par une entree
+    ulterieure de signe oppose dans la meme province (SitRep 170 : les 314 du
+    30 octobre retires le 31). Les deux journees n'ont plus de rattrapage :
+    chacune ne porte que ses deces du jour (choix du proprietaire,
+    2 novembre 2026)."""
+    harm = sorted(charger().items())
+    out = set()
+    for i, (d, h) in enumerate(harm):
+        for d2, h2 in harm[i + 1:]:
+            if h2["province"] == h["province"] and (h.get("deces") or 0) + (h2.get("deces") or 0) == 0 \
+                    and d not in out and d2 not in out:
+                out.update((d, d2))
+                break
+    return out
