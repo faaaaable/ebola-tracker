@@ -1601,7 +1601,7 @@ function annoterTrous(canvas, mode){
     const premier = connu.indexOf(true), dernier = connu.lastIndexOf(true);
     for(let k = premier + 1; k < dernier; k++) if(!connu[k]){ trou = true; break; }
   });
-  const phrases = [trou && tr('noteBlancs'), pont && tr('notePointilles'), noteJoursCalcules(canvas, mode)].filter(Boolean);
+  const phrases = [trou && tr('noteBlancs'), pont && tr('notePointilles')].filter(Boolean);
   if(!phrases.length) return;
   const avant = noteEl.textContent.trim();
   noteEl.textContent = (avant ? avant + ' ' : '') + phrases.join(' ');
@@ -1611,16 +1611,13 @@ function annoterTrous(canvas, mode){
 /* Jour sans bulletin reconstitue par soustraction (6 octobre 2026) : le
    SitRep 142 n'a jamais ete publie, ses chiffres sont ceux du 143 moins ses
    « 24 h » (data/jours-calcules.json, marques `calcule` dans les historiques).
-   Une note le dit sous les graphiques qui les tracent — jamais sous celui de
-   l'accueil, ou la page n'en porte pas. */
-const MODES_JOUR_CALCULE = ['newCases', 'newDeaths', 'provinceEpidemic', 'newCasesByProvince'];
-function joursCalcules(){
-  return sortedSitreps().filter(r => r.calcule)
-    .map(r => ({ sitrep: r.sitrep, apres: r.apres, date: frDate(r.date) }));
-}
-function noteJoursCalcules(canvas, mode){
-  if(canvas.id === 'epiChart' || !MODES_JOUR_CALCULE.includes(mode)) return '';
-  return joursCalcules().map(j => tr('noteJourCalcule')(j)).join(' ');
+   Depuis le 2 novembre 2026 (demande du proprietaire), plus de phrase sous
+   les graphiques : une barre sur 170, et un chiffre exact, pas une
+   estimation. C'est l'infobulle de cette barre qui le dit, la ou le lecteur
+   la regarde. */
+function tipJourCalcule(iso){
+  const r = sortedSitreps().find(x => x.date === iso && x.calcule);
+  return r ? tr('jourCalculeTip')(r.sitrep, r.apres) : '';
 }
 
 function renderOneChart(canvas, chartMode){
@@ -4069,10 +4066,12 @@ function renderOneChartBrut(canvas, chartMode){
        ne se declenche que la ou elle sert : la Tshopo n'a pris aucun cas le
        22 juillet, son graphique ne bouge pas. Le plafond seul : l'axe des
        cumuls repart de zero, comme a l'accueil (25 septembre 2026). */
-    if(multiJours.size || calculees.size){
+    const joursCalc = new Set(pts.filter(pt => pt.calcule).map(pt => pt.date));
+    if(multiJours.size || calculees.size || joursCalc.size){
       opts.plugins.tooltip.callbacks.afterTitle = items => {
         const iso = joursCal[items[0].dataIndex];
         if(calculees.has(iso)) return tr('provinceChartSplitTip');
+        if(joursCalc.has(iso)) return tipJourCalcule(iso);
         const n = multiJours.get(iso);
         return n ? tr('provinceChartMultiDayTip')(n) : '';
       };
@@ -4404,6 +4403,7 @@ function renderOneChartBrut(canvas, chartMode){
           grid: { drawOnChartArea: false } };
       }
       optsN.plugins.tooltip.callbacks.title = items => frDate(s[items[0].dataIndex].date);
+      optsN.plugins.tooltip.callbacks.afterTitle = items => tipJourCalcule(s[items[0].dataIndex].date);
       /* Les journees de rattrapage rognees, comme a l'accueil et sur les
          pages province (demande du proprietaire, 25 septembre 2026) : meme
          plafond, meme coupe dentelee, meme etiquette du total. La regle ne

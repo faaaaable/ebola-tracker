@@ -20,9 +20,9 @@ const I18N = {
     /* Les deux phrases standard sous tout graphique a trous ou a pointilles
        (27 septembre 2026, demande du proprietaire) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
-    noteBlancs:"Un espace vide signifie une absence de données ou une donnée incomplète, jamais un zéro.",
-    noteJourCalcule:(j)=>`Le SitRep n°${j.sitrep} n'a pas été publié : les chiffres du ${j.date} sont calculés à partir du n°${j.apres}.`,
+    noteBlancs:"Espace vide : donnée absente ou incomplète, jamais un zéro.",
     jourCalculeCourt:`calculé`,
+    jourCalculeTip:(n,apres)=>`Calculé d'après le SitRep n°${apres} (n°${n} non publié)`,
     notePointilles:"Les pointillés sont purement illustratifs.",
     eyebrow:"Suivi en direct — épidémie d'Ebola",
     h1:"Suivi Ebola RDC",
@@ -72,47 +72,39 @@ const I18N = {
     chartPeriodDays:(n,total)=>`${n} relevé${n>1?'s':''} sur ${total}`,
     chartMonthOngoing:(date)=>`mois en cours, arrêté au ${date}`,
     chartWeekOngoing:(date)=>`semaine en cours, arrêtée au ${date}`,
-    chartWeekOngoingNote:(nom,restants)=>`La semaine en cours, ${nom}, n'est pas terminée : sa barre couvre la semaine entière, mais seuls les jours écoulés sont colorés — ${restants > 1 ? `les ${restants} qui restent sont grisés` : `celui qui reste est grisé`} à droite, et sa hauteur montera encore.`,
+    chartWeekOngoingNote:(nom,restants)=>`La semaine en cours (${nom}) n'est pas finie : ${restants > 1 ? `ses ${restants} derniers jours sont grisés` : `son dernier jour est grisé`}.`,
     chartStackTotal:(n)=>`Total : ${n}`,
     chartDaysToCome:"Jours à venir",
-    chartDailyNote:(absentes)=>`Nouveaux cas de chaque bulletin : l'écart avec le précédent, puis, depuis le 21 octobre 2026, le chiffre annoncé. La somme des barres peut donc s'écarter du cumul quand le bulletin corrige une zone. `
-      + `Une révision à la baisse est ramenée à zéro plutôt que de creuser un trou qui n'a pas eu lieu. `
-      + (absentes.length
-          ? `Les ${absentes.length} jours sans bulletin (${absentes.slice(0,-1).join(', ')} et ${absentes[absentes.length-1]}) n'ont pas de barre : leurs cas sont déjà dans le cumul du bulletin suivant, dont l'écart couvre alors plusieurs journées. `
-          : '')
-      + `Les 22 et 30 juillet relèvent d'autre chose : le bulletin y annonce moins de nouveaux cas que ne monte le cumul, et l'excédent passe en teinte claire. `
-      + `Le 30 juillet est les deux à la fois — il rattrape les 28 et 29, dont les bulletins manquent.`,
+    chartDailyNote:(absentes)=>`Nouveaux cas de chaque bulletin : l'écart avec le précédent, puis, depuis le 21 octobre 2026, le chiffre annoncé ; leur somme peut donc s'écarter du cumul. Une révision à la baisse compte pour zéro. `
+      + (absentes.length ? `Les ${absentes.length} jours sans bulletin n'ont pas de barre : leurs cas sont dans celle du bulletin suivant. ` : '')
+      + `Les 22 et 30 juillet, l'excédent du cumul sur les cas annoncés est un rattrapage, en teinte claire ; celui du 30 couvre aussi les 28 et 29, sans bulletin.`,
     chartWeeklyCases:"Nouveaux cas",
     chartWeeklyDeaths:"Nouveaux décès",
-    chartDailyDeathsNote:(absentes,muets)=>`Nouveaux décès de chaque bulletin : l'écart avec le précédent, puis, depuis le 21 octobre 2026, le chiffre annoncé. La somme des barres peut donc s'écarter du cumul quand le bulletin corrige une zone. `
-      + (muets.length
-          ? `${muets.length > 1 ? `Les ${muets.length} bulletins qui ne donnent aucun total de décès — ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} — n'ont pas de barre` : `Le bulletin du ${muets[0]}, qui ne donne aucun total de décès, n'a pas de barre`} : `
-            + `l'écart revient au bulletin suivant, dont la barre couvre alors plusieurs journées. `
-          : '')
+    chartDailyDeathsNote:(absentes,muets)=>`Nouveaux décès de chaque bulletin : l'écart avec le précédent, puis, depuis le 21 octobre 2026, le chiffre annoncé ; leur somme peut donc s'écarter du cumul. `
+      + (muets.length ? `${muets.length > 1 ? `Les bulletins des ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} ne donnent` : `Le bulletin du ${muets[0]} ne donne`} aucun total de décès : pas de barre, l'écart revient au bulletin suivant. ` : '')
       + (absentes.length ? `Il en va de même des ${absentes.length} jours sans bulletin. ` : '')
-      + `Les 22 et 30 juillet relèvent d'autre chose — le 30 étant les deux à la fois, puisqu'il rattrape aussi les 28 et 29 : le bulletin signale un rattrapage de données, mais n'en publie la part que pour les cas ; `
-      + `faute de chiffre, ces deux journées sont affichées en entier dans la teinte claire. `
-      + `Le 30 octobre, l'Ituri a harmonisé ses données et 314 décès plus anciens sont entrés dans le cumul ; le bulletin du 31 les a retirés. Les barres de ces deux jours ne portent que leurs décès du jour (32 puis 45), et la courbe de cumul ne les compte pas : 5 058 décès le 30, quand le bulletin du jour en imprimait 5 372. `
-      + `Un décès n'entre dans la série qu'une fois confirmé — ceux survenus en communauté le sont souvent avec plusieurs jours de retard.`,
+      + `Les 22 et 30 juillet sont des rattrapages dont la part du jour n'est pas publiée pour les décès : ces journées sont entières en teinte claire. `
+      + `Les 314 décès entrés le 30 octobre par l'harmonisation de l'Ituri, puis retirés le 31, ne sont comptés ni dans les barres ni dans la courbe de cumul (5 058 le 30, contre 5 372 imprimés). `
+      + `Un décès n'entre dans la série qu'une fois confirmé, souvent avec retard quand il survient en communauté.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`Nouveaux décès agrégés par semaine calendaire, du lundi au dimanche. `
-      + (enCours ? `La semaine en cours, ${enCours.nom}, n'est pas terminée : sa barre couvre la semaine entière, mais seuls les jours écoulés sont colorés — ${enCours.restants > 1 ? `les ${enCours.restants} qui restent sont grisés` : `celui qui reste est grisé`} à droite, et sa hauteur montera encore. ` : '')
+      + (enCours ? `La semaine en cours (${enCours.nom}) n'est pas finie : les jours à venir sont grisés. ` : '')
       + `${absentes.length} bulletins manquent : les totaux sont des minimums. La vue « par jour » liste les dates. `
       + (muets.length ? `${muets.length > 1 ? `Les bulletins des ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} ne donnent` : `Le bulletin du ${muets[0]} ne donne`} aucun total de décès. ` : '')
       + `En juillet, deux journées de rattrapage sont affichées en entier, la part du jour n'étant pas publiée pour les décès : celle du 22 reste en teinte claire, faute de période déclarée ; celle du 30 rattrape les 28 et 29, que sa semaine contient. `
       + `Une semaine ne mesure pas les décès de la semaine, mais ceux qu'elle a enregistrés : un décès n'entre dans la série qu'une fois confirmé.`,
     chartMonthlyDeathsNote:(mois,partiels,absentes,enCours,muets)=>`Nouveaux décès agrégés par mois calendaire. `
-      + (enCours ? `Le mois en cours, ${enCours.nom}, n'est pas terminé : sa barre couvre le mois entier, mais seuls les jours écoulés sont colorés — les ${enCours.restants} qui restent sont grisés à droite, et sa hauteur montera encore. ` : '')
+      + (enCours ? `Le mois en cours (${enCours.nom}) n'est pas fini : les jours à venir sont grisés. ` : '')
       + `${absentes.length} bulletins manquent, et le premier mois ne commence qu'au premier bulletin publié : les totaux sont des minimums. La vue « par jour » liste les dates. `
       + (muets.length ? `${muets.length > 1 ? `Les bulletins des ${muets.slice(0,-1).join(', ')} et ${muets[muets.length-1]} ne donnent` : `Le bulletin du ${muets[0]} ne donne`} aucun total de décès. ` : '')
       + `En juillet, deux journées de rattrapage sont affichées en entier, la part du jour n'étant pas publiée pour les décès : celle du 22 reste en teinte claire, faute de période déclarée ; celle du 30 rattrape les 28 et 29, que le mois contient. `
       + `Un décès n'entre dans la série qu'une fois confirmé, souvent avec plusieurs jours de retard quand il est survenu en communauté.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Nouveaux cas agrégés par semaine calendaire, du lundi au dimanche. `
-      + (enCours ? `La semaine en cours, ${enCours.nom}, n'est pas terminée : sa barre couvre la semaine entière, mais seuls les jours écoulés sont colorés — ${enCours.restants > 1 ? `les ${enCours.restants} qui restent sont grisés` : `celui qui reste est grisé`} à droite, et sa hauteur montera encore. ` : '')
+      + (enCours ? `La semaine en cours (${enCours.nom}) n'est pas finie : les jours à venir sont grisés. ` : '')
       + `${absentes.length} bulletins manquent : les totaux sont des minimums. La vue « par jour » liste les dates. `
       + CATCHUP_AGREGE.fr(false),
     chartCatchupAggregated:CATCHUP_AGREGE.fr,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`Nouveaux cas agrégés par mois calendaire. `
-      + (enCours ? `Le mois en cours, ${enCours.nom}, n'est pas terminé : sa barre couvre le mois entier, mais seuls les jours écoulés sont colorés — les ${enCours.restants} qui restent sont grisés à droite, et sa hauteur montera encore. ` : '')
+      + (enCours ? `Le mois en cours (${enCours.nom}) n'est pas fini : les jours à venir sont grisés. ` : '')
       + `${absentes.length} bulletins manquent, et le premier mois ne commence qu'au premier bulletin publié : les totaux sont des minimums. La vue « par jour » liste les dates. `
       + CATCHUP_AGREGE.fr(true),
     chartModeCumulative:"Cas/décès cumulés",
@@ -150,8 +142,8 @@ const I18N = {
       + (sans ? `${sans} bulletin${sans>1?'s':''} ne donnent pas à la fois les échantillons et les positifs : leurs journées manquent aux totaux, qui sont des minimums. ` : ''),
     chartNoteContactsNational:()=>`Part des contacts listés vus dans les dernières 24 heures ; en barres claires, sur l'axe de droite, le nombre de contacts à suivre.`,
     chartNoteContactsProvinces:()=>`La même part, province par province, les jours où le bulletin la détaille. Une province à 100 % suit souvent quelques dizaines de contacts ; l'Ituri en suit plus de dix mille.`,
-    chartNoteCteProvince:(seuilLits)=>`Patients hospitalisés — confirmés et suspects — rapportés aux lits que le bulletin déclare pour la province. Jusqu'à début août le taux est recalculé depuis un tableau de patients et de lits ; depuis, c'est celui que le bulletin imprime, même quand il ne donne plus le nombre de lits — la courbe s'arrête alors sous ${seuilLits} patients, un taux n'y voulant plus rien dire. Quand le bulletin cesse de compter tous les patients pour ne retenir que ceux des structures normées — le Nord-Kivu depuis le 15 septembre — la courbe rétablit la définition d'avant : tous les hospitalisés rapportés aux lits déclarés. Sinon les malades soignés hors des lits prévus disparaîtraient du taux censé les signaler. Au-dessus de 100 %, il y a plus de malades que de lits déclarés : le surplus est soigné ailleurs. Au Nord-Kivu, le bulletin précise depuis septembre où : dans des établissements de soins ordinaires, hors des centres de traitement. Seuls les trous de cinq jours au plus sont reliés : au-delà, le nombre de lits a pu changer entre-temps.`,
-    chartNoteCteCapacite:(date,prov,avant,apres,monte)=>`Le ${date}, la capacité déclarée passe de ${avant} à ${apres} lits pour cette province — ${prov} — et le taux baisse pour cette raison, alors que le nombre de patients ${monte?'augmente':'ne baisse pas d\'autant'} : c'est le dénominateur qui a grandi, pas la saturation qui se relâche.`,
+    chartNoteCteProvince:(seuilLits)=>`Patients hospitalisés — confirmés et suspects — pour 100 lits déclarés par le bulletin dans la province. Au-dessus de 100, le surplus est soigné ailleurs ; au Nord-Kivu, dans des établissements de soins ordinaires. Sans lits déclarés, la courbe s'arrête sous ${seuilLits} patients. Quand le bulletin ne compte plus que les patients des structures normées (le Nord-Kivu depuis le 15 septembre), la courbe garde la définition d'avant, tous les hospitalisés.`,
+    chartNoteCteCapacite:(date,prov,avant,apres,monte)=>`Le ${date}, les lits déclarés (${prov}) passent de ${avant} à ${apres} : si le taux baisse${monte ? ' alors que les patients augmentent' : ''}, c'est que le dénominateur a grandi, pas que la saturation se relâche.`,
     vaccChartTitre:`Nombre de personnes vaccinées`,
     cteChartTitre:`Patients pour 100 lits des CTE`,
     ctePour100:(n)=>`${n} pour 100 lits`,
@@ -160,7 +152,7 @@ const I18N = {
     chartTitreLieuDeces:`Lieu du décès`, chartTitreProvinces:`Nouveaux cas par province`,
     chartTitreAlertes:`Les alertes`, chartTitreLabo:`Le laboratoire`, chartTitreContacts:`Suivi des cas contacts`,
     chartTitrePoe:`Les points de contrôle`, poeAlertesLabel:"Alertes notifiées", poeValideesLabel:"Alertes vivantes validées", poeCorpsLabel:"Corps interceptés", poeRapportsLabel:"Postes qui ont rapporté (%)", poePostesLabel:"Postes suivis", poeNonReparti:"Non réparti",
-    chartNotePoeEcartes:(liste)=>` Écartés, bien qu'imprimés par le bulletin, car hors de proportion avec les jours voisins : ${liste}.`, poeEcarteItem:(prov,n,date)=>`${prov} le ${date} (${n})`,
+    chartNotePoeEcartes:(liste)=>` Écartés car hors de proportion avec les jours voisins : ${liste}.`, poeEcarteItem:(prov,n,date)=>`${prov} le ${date} (${n})`,
     chartVuePoeVoyageurs:"Voyageurs par jour", chartVuePoeAlertes:"Alertes par semaine", chartVuePoeRapports:"Rapports reçus",
     poeProvinceAbsente:(de,a)=>` Du ${de} au ${a}, la province ne figure plus dans le tableau des points de contrôle des bulletins.`,
     poeProvinceSansChiffre:p=>` Les bulletins ne donnent aucun chiffre de voyageurs pour la province ${p}.`,
@@ -168,20 +160,20 @@ const I18N = {
     poeEt:" et ",
     poeProvinceNd:dates=>` Le bulletin marque la province « ND » (non disponible) le ${dates}.`,
     chartNotePoeJourProvince:(lus,sans)=>`Voyageurs passés aux points d'entrée et de contrôle de la province : chiffres du jour, non cumulés. L'axe suit le calendrier : ${lus} journées sont relevées sur ${lus + sans}.`,
-    chartNotePoeJour:(lus,sans,inc)=>`Voyageurs passés aux points d'entrée et de contrôle, par province : chiffres du jour, non cumulés. L'axe suit le calendrier : ${lus} journées sont relevées sur ${lus + sans}. « Non réparti » est l'écart entre le total publié et la somme des provinces.${inc.length ? ` Le ${inc.join(' et le ')}, les provinces dépassent le total publié : seul le total est montré.` : ''} Le Sud-Kivu est imprimé autour de 84 000 voyageurs plusieurs jours entre le 31 juillet et le 25 août, contre quelques milliers d'habitude : chiffre du bulletin, gardé tel quel.`,
+    chartNotePoeJour:(lus,sans,inc)=>`Voyageurs passés chaque jour aux points d'entrée et de contrôle, par province (${lus} journées relevées sur ${lus + sans}). « Non réparti » : l'écart entre le total publié et la somme des provinces.${inc.length ? ` Le ${inc.join(' et le ')}, les provinces dépassent le total publié : seul le total est montré.` : ''} Le Sud-Kivu est imprimé autour de 84 000 voyageurs certains jours du 31 juillet au 25 août, contre quelques milliers d'habitude : chiffre gardé tel quel.`,
     chartNotePoeAlertes:(n)=>`Alertes notifiées aux postes, alertes de personnes vivantes validées comme cas suspects, et corps interceptés en transit, additionnés par semaine (du lundi au dimanche) à partir des chiffres du jour de chaque bulletin ; ${n} semaines relevées.`,
     chartNotePoeRapports:(lus,total)=>`Part des postes qui ont envoyé leur rapport du jour (trait plein, axe de gauche) et nombre de postes suivis (tirets, axe de droite), qui monte quand une province entre dans le tableau. ${lus} journées relevées sur ${total}.`,
     cteNormeesLabel:`Nord-Kivu, patients dans les lits des CTE`,
     cteHorsNormees:`soignés hors des lits des CTE`,
-    chartNoteCteNormees:`La courbe claire ne compte, au Nord-Kivu depuis le 15 septembre, que les patients couchés dans les lits des CTE. L'écart entre les deux courbes, ce sont les malades soignés hors des CTE.`,
+    chartNoteCteNormees:`Courbe claire : au Nord-Kivu depuis le 15 septembre, les seuls patients des lits des CTE ; l'écart avec l'autre courbe, ce sont les malades soignés hors des CTE.`,
     vaccChartTotal:(n)=>`Total : ${n} vaccinés`,
     vaccChartTrou:`aucun chiffre|publié`,
-    vaccChartRevision:(date,prov,publie,retenu)=>`Le ${date}, le bulletin donnait ${publie} personnes vaccinées pour cette province — ${prov} — puis le relevé suivant ramène ce cumul à ${retenu}. Un cumul ne recule pas : la courbe porte la valeur révisée, à cette date comme aux suivantes.`,
+    vaccChartRevision:(date,prov,publie,retenu)=>`Le ${date}, le bulletin donnait ${publie} personnes vaccinées (${prov}), ramenées à ${retenu} au relevé suivant : un cumul ne reculant pas, la courbe porte la valeur révisée.`,
     chartNoteVaccProv:()=>`Cumul des personnes vaccinées avec l'ERVEBO dans la province, depuis son premier chiffre publié. Le dernier cumul connu est reporté tant que le bulletin n'en publie pas de nouveau.`,
     chartNoteVaccGap:()=>`Entre le 28 août et le 2 septembre aucun chiffre n'est publié : la marche du 3 septembre est un rattrapage de publication, pas une flambée de vaccinations en un jour.`,
     chartNoteVaccButa:()=>`Le palier entre le 5 et le 16 septembre est un arrêt réel : la rupture de stock d'Ervebo à Buta.`,
     chartNoteVaccination:()=>`Cumul des personnes vaccinées avec l'ERVEBO depuis le 26 août 2026. La marche du 3 septembre rattrape six jours sans chiffre publié ; le palier du Bas-Uélé, du 5 au 16 septembre, est un vrai arrêt : la rupture de stock à Buta. Sans nouveau chiffre, le dernier cumul est reporté.`,
-    chartNoteCte:(seuilLits)=>`Patients hospitalisés — confirmés et suspects — rapportés aux lits que le bulletin déclare, province par province. Jusqu'à début août le taux est recalculé depuis un tableau de patients et de lits ; depuis, c'est celui que le bulletin imprime. Au-dessus de 100 %, il y a plus de malades que de lits déclarés : le surplus est soigné ailleurs. Au Nord-Kivu, le bulletin précise depuis septembre où : dans des établissements de soins ordinaires, hors des centres de traitement. Une province n'est tracée qu'à partir de ${seuilLits} lits déclarés — ou de ${seuilLits} patients quand le bulletin ne donne pas ses lits : en deçà, un taux ne veut rien dire. Le 15 septembre, le bulletin cesse de compter tous les patients du Nord-Kivu et ne retient au numérateur que ceux de ses structures normées, ce qui fait tomber son taux publié de 152,6 % à 94,7 % alors que le nombre de malades monte : les 157 patients soignés hors des lits prévus — ce que le dépassement de 100 % sert précisément à signaler — sortaient du calcul. Le nombre de lits, lui, n'a pas bougé : 228 depuis le 11 septembre. La courbe rétablit donc la définition d'avant, tous les hospitalisés rapportés aux lits déclarés. Seuls les trous de cinq jours au plus sont reliés : au-delà, le nombre de lits a pu changer entre-temps.`,
+    chartNoteCte:(seuilLits)=>`Patients hospitalisés — confirmés et suspects — pour 100 lits déclarés par le bulletin, province par province. Au-dessus de 100, le surplus est soigné ailleurs ; au Nord-Kivu, dans des établissements de soins ordinaires. Les provinces de moins de ${seuilLits} lits (ou patients) ne sont pas tracées. Depuis le 15 septembre, le bulletin ne compte plus au Nord-Kivu que les patients des structures normées : son taux tombe de 152,6 % à 94,7 % alors que les malades augmentent. La courbe garde la définition d'avant, tous les hospitalisés.`,
     chartModeByProvince:"Cas par province",
     chartModeNewCasesByProvince:"Nouveaux cas par province",
     chartVueCas:"Cas",
@@ -214,22 +206,18 @@ const I18N = {
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} au ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`${n} relevé${n>1?'s':''} sur 7`,
     chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours,partIturi)=>
-      `Part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, agrégée sur l'ensemble du pays et regroupée par semaine. `
-      + `Sur les ${semaines} semaines couvertes, cette part n'a pas de tendance : elle oscille autour de ${String(part).replace('.',',')} % `
-      + `— ${comm} décès en communauté contre ${cte} en centre — et les écarts d'une semaine à l'autre restent dans le bruit `
-      + `d'échantillonnage attendu pour ces effectifs. La ligne pointillée marque cette moyenne : c'est elle le résultat, `
-      + `pas les creux et les bosses. `
-      + `Trois réserves. Les bulletins antérieurs au 13 juillet ne distinguent pas les deux lieux, la fenêtre ne peut pas remonter plus loin. `
-      + (manquants ? `${manquants} jour${manquants>1?'s':''} sans relevé du lieu (${liste}) : seules les parts sont comparables d'une semaine à l'autre, jamais les effectifs. ` : `Aucun jour ne manque à la série. `)
-      + (enCours ? `La dernière barre est la semaine en cours, sur ${enCours} relevé${enCours>1?'s':''} sur sept. ` : '')
-      + (partIturi != null ? `Enfin l'Ituri pèse ${partIturi} % des décès classés, si bien que cette courbe nationale suit d'abord la sienne : les boutons au-dessus du graphique montrent chaque province.` : ''),
+      `Part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, pour tout le pays, par semaine. `
+      + `Sur ${semaines} semaines, elle oscille sans tendance autour de ${String(part).replace('.',',')} % (${comm} décès en communauté, ${cte} en centre) : `
+      + `la moyenne pointillée est le résultat, les écarts d'une semaine à l'autre restent dans le bruit attendu. `
+      + `Les bulletins ne distinguent les deux lieux que depuis le 13 juillet. `
+      + (manquants ? `${manquants} jour${manquants>1?'s':''} sans relevé du lieu (${liste}) : seules les parts se comparent, pas les effectifs. ` : '')
+      + (partIturi != null ? `L'Ituri pèse ${partIturi} % des décès classés : la courbe nationale suit d'abord la sienne, les boutons au-dessus montrent chaque province.` : ''),
     chartDeathPlaceNoteProvince:(nom,part,semaines,comm,cte,parSemaine,manquants,liste,enCours)=>
-      `${nom} : part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, regroupée par semaine. `
-      + `Sur les ${semaines} semaines où la province compte des décès classés, ${comm} sont survenus en communauté et ${cte} en centre, soit ${String(part).replace('.',',')} % en moyenne (ligne pointillée). `
+      `${nom} : part des décès confirmés survenus en communauté plutôt qu'en centre de traitement, par semaine. `
+      + `Sur ${semaines} semaines, ${comm} en communauté et ${cte} en centre, soit ${String(part).replace('.',',')} % en moyenne (ligne pointillée). `
       + (parSemaine < 30 ? `Avec environ ${parSemaine} décès classés par semaine, un seul décès déplace la part de plusieurs points : seule une évolution sur plusieurs semaines a un sens. ` : '')
-      + `Les bulletins antérieurs au 13 juillet ne distinguent pas les deux lieux. `
-      + (manquants ? `${manquants} jour${manquants>1?'s':''} sans relevé du lieu (${liste}) : seules les parts se comparent d'une semaine à l'autre, jamais les effectifs. ` : '')
-      + (enCours ? `La dernière barre est la semaine en cours, sur ${enCours} relevé${enCours>1?'s':''} sur sept.` : ''),
+      + `Les bulletins ne distinguent les deux lieux que depuis le 13 juillet. `
+      + (manquants ? `${manquants} jour${manquants>1?'s':''} sans relevé du lieu (${liste}) : seules les parts se comparent, pas les effectifs.` : ''),
     chartDeathPlaceCommunity:"En communauté",
     chartDeathPlaceCte:"En centre de traitement",
     chartDeathPlaceMissing:"Jours sans donnée",
@@ -249,16 +237,16 @@ const I18N = {
             + `trop peu de décès pour qu'une proportion ait un sens.`
           : ''),
     dailyChartLabel:"Nouveaux cas quotidiens",
-    provinceChartGap:(plages)=>`Aucune barre du ${plages} : les bulletins de ces jours-là ne répartissent pas les cas entre les provinces. Ces cas sont bien comptés dans le cumul, mais on ne peut pas les attribuer à une journée précise.`,
-    provinceChartBlanks:(n)=>`${n} jours n'ont pas de bulletin pour cette province : ils restent sans barre, et sauf indication contraire leurs cas sont comptés dans le relevé suivant.`,
-    provinceChartHarmonisation:"Le 30 octobre, l'Ituri a harmonisé ses données et 314 décès plus anciens sont entrés dans le cumul ; le bulletin du 31 les a retirés. Les barres de ces deux jours ne portent que leurs décès du jour (19 puis 28).",
-    provinceChartCatchup:"Les 22 et 30 juillet, le bulletin signale un rattrapage de données. Sa part n'étant publiée qu'au niveau national, ces barres sont affichées en entier dans la teinte claire.",
-    provinceDeathsChartGap:(plages)=>`Aucune barre du ${plages} : les bulletins de ces jours-là ne répartissent pas les décès entre les provinces. Ces décès sont bien comptés dans le cumul, mais on ne peut pas les attribuer à une journée précise.`,
-    provinceDeathsChartBlanks:(n)=>`${n} jours n'ont pas de bulletin pour cette province : ils restent sans barre, et sauf indication contraire leurs décès sont comptés dans le relevé suivant.`,
+    provinceChartGap:(plages)=>`Aucune barre du ${plages} : ces bulletins ne répartissent pas les cas entre provinces ; ils sont dans le cumul, sans qu'on sache quel jour.`,
+    provinceChartBlanks:(n)=>`${n} jours sans bulletin pour cette province restent sans barre ; sauf indication contraire, leurs cas sont dans le relevé suivant.`,
+    provinceChartHarmonisation:"Les 314 décès entrés le 30 octobre par l'harmonisation de l'Ituri, puis retirés le 31, ne sont pas comptés : ces deux barres portent les décès du jour (19 puis 28).",
+    provinceChartCatchup:"Les 22 et 30 juillet sont des rattrapages dont la part n'est publiée qu'au niveau national : ces barres sont entières en teinte claire.",
+    provinceDeathsChartGap:(plages)=>`Aucune barre du ${plages} : ces bulletins ne répartissent pas les décès entre provinces ; ils sont dans le cumul, sans qu'on sache quel jour.`,
+    provinceDeathsChartBlanks:(n)=>`${n} jours sans bulletin pour cette province restent sans barre ; sauf indication contraire, leurs décès sont dans le relevé suivant.`,
     provinceChartNoData:"Données insuffisantes pour tracer une courbe dans cette province.",
     chartCumulativeLabel:"Cas cumulés",
     chartCumulativeDeathsLabel:"Décès cumulés",
-    provinceChartMultiDay:"Une barre claire qui n'est pas un rattrapage réunit plusieurs journées : la province n'a pas de relevé pour le jour qui précède, et l'écart des cumuls les additionne.",
+    provinceChartMultiDay:"Une autre barre claire réunit plusieurs journées : la province n'a pas de relevé la veille.",
     provinceChartMultiDayTip:(n)=>`Réunit ${n} journées, sans relevé intermédiaire pour cette province.`,
     provinceChartSplit:(dates)=>`Les barres du ${dates} sont calculées : le bulletin du lendemain annonce les cas de sa journée, le reste de l'écart des cumuls revient à la veille.`,
     provinceChartSplitTip:"Calculé : écart des cumuls moins les cas annoncés le lendemain.",
@@ -375,9 +363,9 @@ const I18N = {
     /* Les deux phrases standard sous tout graphique a trous ou a pointilles
        (27 septembre 2026, demande du proprietaire) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
-    noteBlancs:"A blank space means missing or incomplete data, never a zero.",
-    noteJourCalcule:(j)=>`SitRep No. ${j.sitrep} was not published: the figures for ${j.date} are calculated from No. ${j.apres}.`,
+    noteBlancs:"Blank space: missing or incomplete data, never a zero.",
     jourCalculeCourt:`calculated`,
+    jourCalculeTip:(n,apres)=>`Calculated from SitRep No. ${apres} (No. ${n} not published)`,
     notePointilles:"Dashed lines are purely illustrative.",
     eyebrow:"Live tracking — Ebola outbreak",
     h1:"DRC Ebola Tracker",
@@ -425,47 +413,39 @@ const I18N = {
     chartPeriodDays:(n,total)=>`${n} report${n>1?'s':''} of ${total}`,
     chartMonthOngoing:(date)=>`month in progress, data to ${date}`,
     chartWeekOngoing:(date)=>`week in progress, data to ${date}`,
-    chartWeekOngoingNote:(nom,restants)=>`The current week, ${nom}, is not over: its bar spans the whole week, but only the elapsed days are coloured — the ${restants > 1 ? `${restants} remaining are` : `remaining one is`} greyed out on the right, and its height will still rise.`,
+    chartWeekOngoingNote:(nom,restants)=>`The current week (${nom}) is not over: ${restants > 1 ? `its last ${restants} days are` : `its last day is`} greyed out.`,
     chartStackTotal:(n)=>`Total: ${n}`,
     chartDaysToCome:"Days to come",
-    chartDailyNote:(absentes)=>`New cases from each bulletin: the difference with the previous one, then, since 21 October 2026, the announced figure. The bars may therefore not add up to the cumulative total when the bulletin corrects a zone. `
-      + `A downward revision is brought back to zero rather than digging a dip that never happened. `
-      + (absentes.length
-          ? `The ${absentes.length} days without a bulletin (${absentes.slice(0,-1).join(', ')} and ${absentes[absentes.length-1]}) carry no bar: their cases are already in the next bulletin's cumulative figure, whose difference then covers several days. `
-          : '')
-      + `22 and 30 July are a different matter: the bulletin there reports fewer new cases than the cumulative total rises by, and the excess is shown in the lighter shade. `
-      + `30 July is both at once — it makes up for the 28th and 29th, whose bulletins are missing.`,
+    chartDailyNote:(absentes)=>`New cases in each bulletin: the difference from the previous one, then, since 21 October 2026, the reported figure; their sum can therefore differ from the cumulative total. A downward revision counts as zero. `
+      + (absentes.length ? `The ${absentes.length} days without a bulletin have no bar: their cases are in the next bulletin's bar. ` : '')
+      + `On 22 and 30 July, the rise in the total beyond the reported cases is a catch-up, in the lighter shade; the one on the 30th also covers the 28th and 29th, which had no bulletin.`,
     chartWeeklyCases:"New cases",
     chartWeeklyDeaths:"New deaths",
-    chartDailyDeathsNote:(absentes,muets)=>`New deaths from each bulletin: the difference with the previous one, then, since 21 October 2026, the announced figure. The bars may therefore not add up to the cumulative total when the bulletin corrects a zone. `
-      + (muets.length
-          ? `${muets.length > 1 ? `The ${muets.length} bulletins that give no death total — ${muets.slice(0,-1).join(', ')} and ${muets[muets.length-1]} — carry no bar` : `The bulletin of ${muets[0]}, which gives no death total, carries no bar`}: `
-            + `the difference returns to the next bulletin, whose bar then covers several days. `
-          : '')
+    chartDailyDeathsNote:(absentes,muets)=>`New deaths in each bulletin: the difference from the previous one, then, since 21 October 2026, the reported figure; their sum can therefore differ from the cumulative total. `
+      + (muets.length ? `${muets.length > 1 ? `The bulletins of ${muets.slice(0,-1).join(', ')} and ${muets[muets.length-1]} give` : `The bulletin of ${muets[0]} gives`} no death total: no bar, the difference goes to the next bulletin. ` : '')
       + (absentes.length ? `The same goes for the ${absentes.length} days without a bulletin. ` : '')
-      + `22 and 30 July are a different matter — the 30th being both at once, since it also makes up for the 28th and 29th: the bulletin reports a data catch-up, but only publishes its share for cases; `
-      + `with no figure to go on, those two days are shown entirely in the lighter shade. `
-      + `On 30 October Ituri harmonised its data and 314 earlier deaths entered the cumulative total; the bulletin of the 31st removed them. The bars for those two days show only that day's deaths (32, then 45), and the cumulative curve leaves them out: 5,058 deaths on the 30th, where that day's bulletin printed 5,372. `
-      + `A death only enters the series once confirmed — those occurring in the community often are, several days late.`,
+      + `22 and 30 July are catch-ups whose share for the day is not published for deaths: those days are shown entirely in the lighter shade. `
+      + `The 314 deaths added on 30 October by Ituri's data harmonisation, then removed on the 31st, are counted neither in the bars nor in the cumulative curve (5,058 on the 30th, against 5,372 printed). `
+      + `A death enters the series only once confirmed, often late when it occurs in the community.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`New deaths aggregated by calendar week, Monday to Sunday. `
-      + (enCours ? `The current week, ${enCours.nom}, is not over: its bar spans the whole week, but only the elapsed days are coloured — the ${enCours.restants > 1 ? `${enCours.restants} remaining are` : `remaining one is`} greyed out on the right, and its height will still rise. ` : '')
+      + (enCours ? `The current week (${enCours.nom}) is not over: the days to come are greyed out. ` : '')
       + `${absentes.length} bulletins are missing: the totals are minimums. The daily view lists the dates. `
       + (muets.length ? `${muets.length > 1 ? `The bulletins of ${muets.slice(0,-1).join(', ')} and ${muets[muets.length-1]} give` : `The bulletin of ${muets[0]} gives`} no death total. ` : '')
       + `In July, two catch-up days are shown in full, the day's share not being published for deaths: that of the 22nd stays in the lighter shade, for want of a stated period; that of the 30th makes up for the 28th and 29th, which its week contains. `
       + `A week measures not the deaths of that week but those it recorded: a death only enters the series once confirmed.`,
     chartMonthlyDeathsNote:(mois,partiels,absentes,enCours,muets)=>`New deaths aggregated by calendar month. `
-      + (enCours ? `The current month, ${enCours.nom}, is not over: its bar covers the whole month, but only the days elapsed are coloured — the ${enCours.restants} remaining are greyed out on the right, and its height will keep rising. ` : '')
+      + (enCours ? `The current month (${enCours.nom}) is not over: the days to come are greyed out. ` : '')
       + `${absentes.length} bulletins are missing, and the first month only starts at the first one published: the totals are minimums. The daily view lists the dates. `
       + (muets.length ? `${muets.length > 1 ? `The bulletins of ${muets.slice(0,-1).join(', ')} and ${muets[muets.length-1]} give` : `The bulletin of ${muets[0]} gives`} no death total. ` : '')
       + `In July, two catch-up days are shown in full, the day's share not being published for deaths: that of the 22nd stays in the lighter shade, for want of a stated period; that of the 30th makes up for the 28th and 29th, which the month contains. `
       + `A death only enters the series once confirmed, often several days late when it occurred in the community.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`New cases aggregated by calendar week, Monday to Sunday. `
-      + (enCours ? `The current week, ${enCours.nom}, is not over: its bar spans the whole week, but only the elapsed days are coloured — the ${enCours.restants > 1 ? `${enCours.restants} remaining are` : `remaining one is`} greyed out on the right, and its height will still rise. ` : '')
+      + (enCours ? `The current week (${enCours.nom}) is not over: the days to come are greyed out. ` : '')
       + `${absentes.length} bulletins are missing: the totals are minimums. The daily view lists the dates. `
       + CATCHUP_AGREGE.en(false),
     chartCatchupAggregated:CATCHUP_AGREGE.en,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`New cases aggregated by calendar month. `
-      + (enCours ? `The current month, ${enCours.nom}, is not over: its bar covers the whole month, but only the days elapsed are coloured — the ${enCours.restants} remaining are greyed out on the right, and its height will keep rising. ` : '')
+      + (enCours ? `The current month (${enCours.nom}) is not over: the days to come are greyed out. ` : '')
       + `${absentes.length} bulletins are missing, and the first month only starts at the first one published: the totals are minimums. The daily view lists the dates. `
       + CATCHUP_AGREGE.en(true),
     chartModeCumulative:"Cumulative cases/deaths",
@@ -503,8 +483,8 @@ const I18N = {
       + (sans ? `${sans} bulletin${sans>1?'s':''} do not give both samples and positives: their days are missing from the totals, which are minimums. ` : ''),
     chartNoteContactsNational:()=>`Share of listed contacts seen in the previous 24 hours; as light bars, on the right axis, the number of contacts to follow.`,
     chartNoteContactsProvinces:()=>`The same share, province by province, on the days the bulletin details it. A province at 100% often follows a few dozen contacts; Ituri follows more than ten thousand.`,
-    chartNoteCteProvince:(seuilLits)=>`Hospitalised patients — confirmed and suspected — relative to the beds the bulletin declares for the province. Until early August the rate is recalculated from a table of patients and beds; since then it is the one the bulletin prints, even when it no longer gives the number of beds — the line then stops below ${seuilLits} patients, where a rate no longer means anything. When the bulletin stops counting all patients and keeps only those in standard-compliant facilities — North Kivu since 15 September — the line restores the earlier definition: all hospitalised patients relative to declared beds. Otherwise patients cared for outside the planned beds would vanish from the very rate meant to signal them. Above 100%, there are more patients than declared beds: the surplus is cared for elsewhere. In North Kivu, since September the bulletin says where: in ordinary health facilities, outside the treatment centres. Only gaps of five days or fewer are bridged: beyond that, the number of beds may have changed in between.`,
-    chartNoteCteCapacite:(date,prov,avant,apres,monte)=>`On ${date} the declared capacity in ${prov} goes from ${avant} to ${apres} beds, and the rate falls for that reason while the number of patients ${monte?'rises':'does not fall as much'}: the denominator grew, the strain did not ease.`,
+    chartNoteCteProvince:(seuilLits)=>`Hospitalised patients — confirmed and suspected — per 100 beds declared by the bulletin in the province. Above 100, the surplus is treated elsewhere; in Nord-Kivu, in ordinary health facilities. Without declared beds, the curve stops below ${seuilLits} patients. When the bulletin counts only patients in standard facilities (Nord-Kivu since 15 September), the curve keeps the earlier definition, all hospitalised patients.`,
+    chartNoteCteCapacite:(date,prov,avant,apres,monte)=>`On ${date}, declared beds (${prov}) go from ${avant} to ${apres}: if the rate falls${monte ? ' while patient numbers rise' : ''}, it is because the denominator grew, not because pressure eased.`,
     vaccChartTitre:`Number of people vaccinated`,
     cteChartTitre:`Patients per 100 treatment-centre beds`,
     ctePour100:(n)=>`${n} per 100 beds`,
@@ -513,7 +493,7 @@ const I18N = {
     chartTitreLieuDeces:`Place of death`, chartTitreProvinces:`New cases by province`,
     chartTitreAlertes:`Alerts`, chartTitreLabo:`Laboratory`, chartTitreContacts:`Contact follow-up`,
     chartTitrePoe:`Checkpoints`, poeAlertesLabel:"Alerts notified", poeValideesLabel:"Live alerts validated", poeCorpsLabel:"Bodies intercepted", poeRapportsLabel:"Posts that reported (%)", poePostesLabel:"Posts monitored", poeNonReparti:"Not broken down",
-    chartNotePoeEcartes:(liste)=>` Set aside, although printed by the bulletin, as out of proportion with the neighbouring days: ${liste}.`, poeEcarteItem:(prov,n,date)=>`${prov} on ${date} (${n})`,
+    chartNotePoeEcartes:(liste)=>` Set aside as out of proportion with the neighbouring days: ${liste}.`, poeEcarteItem:(prov,n,date)=>`${prov} on ${date} (${n})`,
     chartVuePoeVoyageurs:"Travellers per day", chartVuePoeAlertes:"Alerts per week", chartVuePoeRapports:"Reports received",
     poeProvinceAbsente:(de,a)=>` From ${de} to ${a}, the province no longer appears in the bulletins' table of points of control.`,
     poeProvinceSansChiffre:p=>` The bulletins give no traveller figure for the province ${p}.`,
@@ -521,20 +501,20 @@ const I18N = {
     poeEt:" and ",
     poeProvinceNd:dates=>` The bulletin marks the province "ND" (not available) on ${dates}.`,
     chartNotePoeJourProvince:(lus,sans)=>`Travellers through the province's points of entry and control: daily figures, not cumulative. The axis follows the calendar: ${lus} days are recorded out of ${lus + sans}.`,
-    chartNotePoeJour:(lus,sans,inc)=>`Travellers through points of entry and control, by province: daily figures, not cumulative. The axis follows the calendar: ${lus} days are recorded out of ${lus + sans}. "Not broken down" is the gap between the published total and the sum of the provinces.${inc.length ? ` On ${inc.join(' and ')}, the provinces exceed the published total: only the total is shown.` : ''} South Kivu is printed at around 84,000 travellers on several days between 31 July and 25 August, against a few thousand usually: the bulletin's figure, kept as is.`,
+    chartNotePoeJour:(lus,sans,inc)=>`Travellers through points of entry and control each day, by province (${lus} days recorded out of ${lus + sans}). "Not broken down": the gap between the published total and the sum of the provinces.${inc.length ? ` On ${inc.join(' and ')}, the provinces exceed the published total: only the total is shown.` : ''} South Kivu is printed at around 84,000 travellers on some days from 31 July to 25 August, against a few thousand usually: figure kept as is.`,
     chartNotePoeAlertes:(n)=>`Alerts notified at the posts, alerts on living people validated as suspected cases, and bodies intercepted in transit, summed by week (Monday to Sunday) from each bulletin's daily figures; ${n} weeks recorded.`,
     chartNotePoeRapports:(lus,total)=>`Share of posts that sent their daily report (solid line, left axis) and number of posts monitored (dashes, right axis), which rises when a province joins the table. ${lus} days recorded out of ${total}.`,
     cteNormeesLabel:`North Kivu, patients in treatment-centre beds`,
     cteHorsNormees:`cared for outside treatment-centre beds`,
-    chartNoteCteNormees:`In North Kivu since 15 September, the pale line counts only patients lying in treatment-centre beds. The gap between the two lines is the patients cared for outside treatment centres.`,
+    chartNoteCteNormees:`Pale line: in North Kivu since 15 September, only patients in treatment-centre beds; the gap with the other line is the patients cared for outside treatment centres.`,
     vaccChartTotal:(n)=>`Total: ${n} vaccinated`,
     vaccChartTrou:`no figures|published`,
-    vaccChartRevision:(date,prov,publie,retenu)=>`On ${date} the bulletin gave ${publie} people vaccinated in ${prov}, then the next report brought that total back to ${retenu}. A cumulative total does not fall: the line carries the revised figure, on that date as on the following ones.`,
+    vaccChartRevision:(date,prov,publie,retenu)=>`On ${date}, the bulletin gave ${publie} people vaccinated (${prov}), brought down to ${retenu} in the next report: as a cumulative total cannot fall, the curve shows the revised value.`,
     chartNoteVaccProv:()=>`Cumulative number of people vaccinated with ERVEBO in the province, since its first published figure. The last known total is carried forward until the bulletin publishes a new one.`,
     chartNoteVaccGap:()=>`Between 28 August and 2 September no figure is published: the step on 3 September is a reporting catch-up, not a surge of vaccinations in one day.`,
     chartNoteVaccButa:()=>`The plateau between 5 and 16 September is a real stoppage: the Ervebo stock-out in Buta.`,
     chartNoteVaccination:()=>`Cumulative number of people vaccinated with ERVEBO since 26 August 2026. The step on 3 September catches up six days with no published figure; the Bas-Uélé plateau from 5 to 16 September is a real stoppage: the stock-out in Buta. Without a new figure, the last total is carried forward.`,
-    chartNoteCte:(seuilLits)=>`Hospitalised patients — confirmed and suspected — relative to the beds the bulletin declares, province by province. Until early August the rate is recalculated from a table of patients and beds; since then it is the one the bulletin prints. Above 100%, there are more patients than declared beds: the surplus is cared for elsewhere. In North Kivu, since September the bulletin says where: in ordinary health facilities, outside the treatment centres. A province is drawn only from ${seuilLits} declared beds — or ${seuilLits} patients when the bulletin gives no bed count: below that, a rate means nothing. On 15 September the bulletin stops counting all of North Kivu's patients and keeps only those in standard-compliant facilities in the numerator, which drops its published rate from 152.6% to 94.7% while patient numbers rise: the 157 patients cared for outside the planned beds — exactly what exceeding 100% is meant to signal — fell out of the calculation. The bed count itself never moved: 228 since 11 September. The line therefore restores the earlier definition, all hospitalised patients relative to declared beds. Only gaps of five days or fewer are bridged: beyond that, the number of beds may have changed in between.`,
+    chartNoteCte:(seuilLits)=>`Hospitalised patients — confirmed and suspected — per 100 beds declared by the bulletin, province by province. Above 100, the surplus is treated elsewhere; in Nord-Kivu, in ordinary health facilities. Provinces with fewer than ${seuilLits} beds (or patients) are not plotted. Since 15 September, the bulletin counts only patients in Nord-Kivu's standard facilities: its rate falls from 152.6% to 94.7% while patient numbers rise. The curve keeps the earlier definition, all hospitalised patients.`,
     chartModeByProvince:"Cases by province",
     chartModeNewCasesByProvince:"New cases by province",
     chartVueCas:"Cases",
@@ -567,21 +547,18 @@ const I18N = {
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} to ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`${n} report${n>1?'s':''} of 7`,
     chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours,partIturi)=>
-      `Share of confirmed deaths occurring in the community rather than in a treatment centre, aggregated nationally and grouped by week. `
-      + `Across the ${semaines} weeks covered there is no trend: the share hovers around ${part}% `
-      + `— ${comm} community deaths against ${cte} in treatment centres — and week-to-week variation stays within the sampling noise `
-      + `expected at these numbers. The dashed line marks that average: it is the finding, not the peaks and dips. `
-      + `Three caveats. Bulletins before 13 July do not distinguish the two places, so the window cannot reach further back. `
-      + (manquants ? `${manquants} day${manquants>1?'s':''} without the place of death (${liste}): only shares are comparable between weeks, never counts. ` : `No day is missing from the series. `)
-      + (enCours ? `The last bar is the current week, on ${enCours} report${enCours>1?'s':''} out of seven. ` : '')
-      + (partIturi != null ? `And Ituri accounts for ${partIturi}% of classified deaths, so this national curve mainly follows its own: the buttons above the chart show each province.` : ''),
+      `Share of confirmed deaths occurring in the community rather than in a treatment centre, nationally, by week. `
+      + `Over ${semaines} weeks it hovers without trend around ${part}% (${comm} community deaths, ${cte} in treatment centres): `
+      + `the dashed average is the finding, week-to-week variation stays within the expected noise. `
+      + `Bulletins distinguish the two places only since 13 July. `
+      + (manquants ? `${manquants} day${manquants>1?'s':''} without the place of death (${liste}): only shares compare, not counts. ` : '')
+      + (partIturi != null ? `Ituri accounts for ${partIturi}% of classified deaths: the national curve mainly follows its own, the buttons above show each province.` : ''),
     chartDeathPlaceNoteProvince:(nom,part,semaines,comm,cte,parSemaine,manquants,liste,enCours)=>
-      `${nom}: share of confirmed deaths occurring in the community rather than in a treatment centre, grouped by week. `
-      + `Across the ${semaines} weeks in which the province has classified deaths, ${comm} occurred in the community and ${cte} in treatment centres, an average of ${part}% (dashed line). `
+      `${nom}: share of confirmed deaths occurring in the community rather than in a treatment centre, by week. `
+      + `Over ${semaines} weeks, ${comm} in the community and ${cte} in treatment centres, an average of ${part}% (dashed line). `
       + (parSemaine < 30 ? `With about ${parSemaine} classified deaths a week, a single death moves the share by several points: only a change over several weeks is meaningful. ` : '')
-      + `Bulletins before 13 July do not distinguish the two places. `
-      + (manquants ? `${manquants} day${manquants>1?'s':''} without the place of death (${liste}): only shares are comparable between weeks, never counts. ` : '')
-      + (enCours ? `The last bar is the current week, on ${enCours} report${enCours>1?'s':''} out of seven.` : ''),
+      + `Bulletins distinguish the two places only since 13 July. `
+      + (manquants ? `${manquants} day${manquants>1?'s':''} without the place of death (${liste}): only shares compare, not counts.` : ''),
     chartDeathPlaceCommunity:"In the community",
     chartDeathPlaceCte:"In a treatment centre",
     chartDeathPlaceMissing:"Days without data",
@@ -600,16 +577,16 @@ const I18N = {
             + `too few deaths for a proportion to mean anything.`
           : ''),
     dailyChartLabel:"New daily cases",
-    provinceChartGap:(plages)=>`No bars from ${plages}: the bulletins for those days do not break cases down by province. Those cases are counted in the cumulative total, but cannot be assigned to a specific day.`,
-    provinceChartBlanks:(n)=>`${n} days have no bulletin for this province: they are left blank, and unless stated otherwise their cases are counted in the next report.`,
-    provinceChartHarmonisation:"On 30 October Ituri harmonised its data and 314 earlier deaths entered the cumulative total; the bulletin of the 31st removed them. The bars for those two days show only that day's deaths (19, then 28).",
-    provinceChartCatchup:"On 22 and 30 July the bulletin reports a data catch-up. Its share is published only at national level, so these bars are shown entirely in the lighter tone.",
-    provinceDeathsChartGap:(plages)=>`No bars from ${plages}: the bulletins for those days do not break deaths down by province. Those deaths are counted in the cumulative total, but cannot be assigned to a specific day.`,
-    provinceDeathsChartBlanks:(n)=>`${n} days have no bulletin for this province: they are left blank, and unless stated otherwise their deaths are counted in the next report.`,
+    provinceChartGap:(plages)=>`No bars from ${plages}: those bulletins do not break cases down by province; they are in the cumulative total, with no way to tell which day.`,
+    provinceChartBlanks:(n)=>`${n} days without a bulletin for this province are left blank; unless stated otherwise, their cases are in the next report.`,
+    provinceChartHarmonisation:"The 314 deaths added on 30 October by Ituri's harmonisation, then removed on the 31st, are not counted: those two bars show the day's deaths (19, then 28).",
+    provinceChartCatchup:"22 and 30 July are catch-ups whose share is published only nationally: these bars are entirely in the lighter tone.",
+    provinceDeathsChartGap:(plages)=>`No bars from ${plages}: those bulletins do not break deaths down by province; they are in the cumulative total, with no way to tell which day.`,
+    provinceDeathsChartBlanks:(n)=>`${n} days without a bulletin for this province are left blank; unless stated otherwise, their deaths are in the next report.`,
     provinceChartNoData:"Not enough data to plot a curve for this province.",
     chartCumulativeLabel:"Cumulative cases",
     chartCumulativeDeathsLabel:"Cumulative deaths",
-    provinceChartMultiDay:"A light bar that is not a catch-up combines several days: the province has no report for the preceding day, and the difference between cumulative totals adds them up.",
+    provinceChartMultiDay:"Any other light bar combines several days: the province has no report for the day before.",
     provinceChartMultiDayTip:(n)=>`Combines ${n} days, with no intermediate report for this province.`,
     provinceChartSplit:(dates)=>`The bars for ${dates} are calculated: the next day's bulletin announces that day's cases, and the rest of the change in cumulative totals goes to the day before.`,
     provinceChartSplitTip:"Calculated: change in cumulative total minus the cases announced the next day.",
@@ -726,9 +703,9 @@ const I18N = {
     /* Les deux phrases standard sous tout graphique a trous ou a pointilles
        (27 septembre 2026, demande du proprietaire) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
-    noteBlancs:"Nafasi tupu inamaanisha kukosekana kwa takwimu au takwimu isiyokamilika, kamwe si sifuri.",
-    noteJourCalcule:(j)=>`SitRep Na. ${j.sitrep} haikuchapishwa: takwimu za ${j.date} zimekokotolewa kutoka Na. ${j.apres}.`,
+    noteBlancs:"Nafasi tupu: takwimu hazipo au hazijakamilika, kamwe si sifuri.",
     jourCalculeCourt:`imekokotolewa`,
+    jourCalculeTip:(n,apres)=>`Imekokotolewa kutoka SitRep Na. ${apres} (Na. ${n} haikuchapishwa)`,
     notePointilles:"Mistari ya nukta ni ya kielelezo tu.",
     eyebrow:"Ufuatiliaji wa moja kwa moja — mlipuko wa Ebola",
     h1:"Ufuatiliaji wa Ebola DRC",
@@ -776,47 +753,39 @@ const I18N = {
     chartPeriodDays:(n,total)=>`ripoti ${n} kati ya ${total}`,
     chartMonthOngoing:(date)=>`mwezi unaoendelea, data hadi ${date}`,
     chartWeekOngoing:(date)=>`wiki inayoendelea, data hadi ${date}`,
-    chartWeekOngoingNote:(nom,restants)=>`Wiki inayoendelea, ${nom}, haijaisha: safu yake inashughulikia wiki nzima, lakini siku zilizopita pekee ndizo zenye rangi — ${restants} zilizobaki zimetiwa kijivu kulia, na urefu wake bado utapanda.`,
+    chartWeekOngoingNote:(nom,restants)=>`Wiki inayoendelea (${nom}) haijaisha: siku ${restants} zilizobaki zimetiwa kijivu.`,
     chartStackTotal:(n)=>`Jumla: ${n}`,
     chartDaysToCome:"Siku zijazo",
-    chartDailyNote:(absentes)=>`Visa vipya vya kila ripoti: tofauti na ripoti iliyotangulia, kisha, tangu tarehe 21 Oktoba 2026, idadi iliyotangazwa. Kwa hiyo jumla ya nguzo inaweza kutofautiana na jumla limbikizi pale ripoti inaporekebisha kanda. `
-      + `Marekebisho ya kupunguza yanarudishwa sifuri badala ya kuchimba shimo lisilokuwepo. `
-      + (absentes.length
-          ? `Siku ${absentes.length} zisizo na ripoti (${absentes.slice(0,-1).join(', ')} na ${absentes[absentes.length-1]}) hazina safu: visa vyake tayari vimo katika jumla ya ripoti inayofuata, ambayo tofauti yake basi inashughulikia siku kadhaa. `
-          : '')
-      + `Tarehe 22 na 30 Julai ni jambo jingine: hapo ripoti inataja visa vipya vichache kuliko jumla inavyopanda, na ziada inaonyeshwa kwa rangi hafifu. `
-      + `Tarehe 30 Julai ni mambo yote mawili kwa pamoja — inafidia tarehe 28 na 29, ambazo ripoti zake hazipo.`,
+    chartDailyNote:(absentes)=>`Visa vipya vya kila ripoti: tofauti na ripoti iliyotangulia, kisha, tangu tarehe 21 Oktoba 2026, idadi iliyotangazwa; jumla yake inaweza kwa hiyo kutofautiana na jumla limbikizi. Marekebisho ya kushuka yanahesabiwa kama sifuri. `
+      + (absentes.length ? `Siku ${absentes.length} bila ripoti hazina safu: visa vyake viko kwenye safu ya ripoti inayofuata. ` : '')
+      + `Tarehe 22 na 30 Julai, ziada ya jumla juu ya visa vilivyotangazwa ni marekebisho, kwa rangi hafifu; ya tarehe 30 inashughulikia pia tarehe 28 na 29, zisizo na ripoti.`,
     chartWeeklyCases:"Visa vipya",
     chartWeeklyDeaths:"Vifo vipya",
-    chartDailyDeathsNote:(absentes,muets)=>`Vifo vipya vya kila ripoti: tofauti na ripoti iliyotangulia, kisha, tangu tarehe 21 Oktoba 2026, idadi iliyotangazwa. Kwa hiyo jumla ya nguzo inaweza kutofautiana na jumla limbikizi pale ripoti inaporekebisha kanda. `
-      + (muets.length
-          ? `${muets.length > 1 ? `Ripoti ${muets.length} zisizotoa jumla ya vifo — ${muets.slice(0,-1).join(', ')} na ${muets[muets.length-1]} — hazina safu` : `Ripoti ya ${muets[0]}, isiyotoa jumla ya vifo, haina safu`}: `
-            + `tofauti yake inarudi kwenye ripoti inayofuata, ambayo safu yake basi inashughulikia siku kadhaa. `
-          : '')
-      + (absentes.length ? `Vivyo hivyo kwa siku ${absentes.length} zisizo na ripoti. ` : '')
-      + `Tarehe 22 na 30 Julai ni jambo jingine — tarehe 30 ikiwa mambo yote mawili, kwa kuwa inafidia pia tarehe 28 na 29: ripoti inataja marekebisho ya data, lakini inachapisha sehemu yake kwa visa tu; `
-      + `bila takwimu, siku hizo mbili zinaonyeshwa nzima kwa rangi hafifu. `
-      + `Tarehe 30 Oktoba, Ituri ilioanisha takwimu zake na vifo 314 vya zamani viliingia katika jumla; taarifa ya tarehe 31 iliviondoa. Mistari ya siku hizo mbili inaonyesha vifo vya siku hiyo tu (32, kisha 45), na mstari wa jumla hauvihesabu: vifo 5 058 tarehe 30, wakati taarifa ya siku hiyo ilichapisha 5 372. `
-      + `Kifo kinaingia kwenye mfululizo tu baada ya kuthibitishwa — vile vilivyotokea jamiini mara nyingi huchelewa siku kadhaa.`,
+    chartDailyDeathsNote:(absentes,muets)=>`Vifo vipya vya kila ripoti: tofauti na ripoti iliyotangulia, kisha, tangu tarehe 21 Oktoba 2026, idadi iliyotangazwa; jumla yake inaweza kwa hiyo kutofautiana na jumla limbikizi. `
+      + (muets.length ? `${muets.length > 1 ? `Ripoti za ${muets.slice(0,-1).join(', ')} na ${muets[muets.length-1]} hazitoi` : `Ripoti ya ${muets[0]} haitoi`} jumla ya vifo: hakuna safu, tofauti inarudi kwenye ripoti inayofuata. ` : '')
+      + (absentes.length ? `Vivyo hivyo kwa siku ${absentes.length} bila ripoti. ` : '')
+      + `Tarehe 22 na 30 Julai ni marekebisho ambayo sehemu ya siku haichapishwi kwa vifo: siku hizo zinaonyeshwa nzima kwa rangi hafifu. `
+      + `Vifo 314 vilivyoingizwa tarehe 30 Oktoba na uoanishaji wa takwimu za Ituri, kisha kuondolewa tarehe 31, havihesabiwi kwenye safu wala kwenye mstari wa jumla (5 058 tarehe 30, badala ya 5 372 vilivyochapishwa). `
+      + `Kifo kinaingia kwenye mfululizo pale tu kinapothibitishwa, mara nyingi kwa kuchelewa kinapotokea katika jamii.`,
     chartWeeklyDeathsNote:(sem,partielles,absentes,enCours,muets)=>`Vifo vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
-      + (enCours ? `Wiki inayoendelea, ${enCours.nom}, haijaisha: safu yake inashughulikia wiki nzima, lakini siku zilizopita pekee ndizo zenye rangi — ${enCours.restants} zilizobaki zimetiwa kijivu kulia, na urefu wake bado utapanda. ` : '')
+      + (enCours ? `Wiki inayoendelea (${enCours.nom}) haijaisha: siku zijazo zimetiwa kijivu. ` : '')
       + `Ripoti ${absentes.length} hazipo: jumla ni kima cha chini. Mwonekano wa kila siku unaorodhesha tarehe. `
       + (muets.length ? `${muets.length > 1 ? `Ripoti za ${muets.slice(0,-1).join(', ')} na ${muets[muets.length-1]} hazitoi` : `Ripoti ya ${muets[0]} haitoi`} jumla ya vifo. ` : '')
       + `Julai, siku mbili za marekebisho zinaonyeshwa nzima, kwa kuwa sehemu ya siku haijachapishwa kwa vifo: ile ya tarehe 22 inabaki kwa rangi hafifu, kwa kukosa kipindi kilichotajwa; ile ya tarehe 30 inafidia tarehe 28 na 29, ambazo wiki yake inazibeba. `
       + `Wiki hupima si vifo vya wiki hiyo, bali vile ilivyosajili: kifo kinaingia kwenye mfululizo tu baada ya kuthibitishwa.`,
     chartMonthlyDeathsNote:(mois,partiels,absentes,enCours,muets)=>`Vifo vipya vimekusanywa kwa mwezi wa kalenda. `
-      + (enCours ? `Mwezi unaoendelea, ${enCours.nom}, haujakamilika: safu yake inashika mwezi mzima, lakini siku zilizopita pekee ndizo zenye rangi — siku ${enCours.restants} zilizosalia zimepakwa kijivu upande wa kulia, na urefu wake utaendelea kupanda. ` : '')
+      + (enCours ? `Mwezi unaoendelea (${enCours.nom}) haujakamilika: siku zijazo zimetiwa kijivu. ` : '')
       + `Ripoti ${absentes.length} hazipo, na mwezi wa kwanza unaanza tu na ripoti ya kwanza iliyochapishwa: jumla ni kima cha chini. Mwonekano wa kila siku unaorodhesha tarehe. `
       + (muets.length ? `${muets.length > 1 ? `Ripoti za ${muets.slice(0,-1).join(', ')} na ${muets[muets.length-1]} hazitoi` : `Ripoti ya ${muets[0]} haitoi`} jumla ya vifo. ` : '')
       + `Julai, siku mbili za marekebisho zinaonyeshwa nzima, kwa kuwa sehemu ya siku haijachapishwa kwa vifo: ile ya tarehe 22 inabaki kwa rangi hafifu, kwa kukosa kipindi kilichotajwa; ile ya tarehe 30 inafidia tarehe 28 na 29, ambazo mwezi unazibeba. `
       + `Kifo kinaingia kwenye mfululizo tu baada ya kuthibitishwa, mara nyingi kwa kuchelewa kikitokea jamiini.`,
     chartWeeklyNote:(sem,partielles,absentes,enCours)=>`Visa vipya vimekusanywa kwa wiki ya kalenda, Jumatatu hadi Jumapili. `
-      + (enCours ? `Wiki inayoendelea, ${enCours.nom}, haijaisha: safu yake inashughulikia wiki nzima, lakini siku zilizopita pekee ndizo zenye rangi — ${enCours.restants} zilizobaki zimetiwa kijivu kulia, na urefu wake bado utapanda. ` : '')
+      + (enCours ? `Wiki inayoendelea (${enCours.nom}) haijaisha: siku zijazo zimetiwa kijivu. ` : '')
       + `Ripoti ${absentes.length} hazipo: jumla ni kima cha chini. Mwonekano wa kila siku unaorodhesha tarehe. `
       + CATCHUP_AGREGE.sw(false),
     chartCatchupAggregated:CATCHUP_AGREGE.sw,
     chartMonthlyNote:(mois,partiels,absentes,enCours)=>`Visa vipya vimekusanywa kwa mwezi wa kalenda. `
-      + (enCours ? `Mwezi unaoendelea, ${enCours.nom}, haujakamilika: safu yake inashika mwezi mzima, lakini siku zilizopita pekee ndizo zenye rangi — siku ${enCours.restants} zilizosalia zimepakwa kijivu upande wa kulia, na urefu wake utaendelea kupanda. ` : '')
+      + (enCours ? `Mwezi unaoendelea (${enCours.nom}) haujakamilika: siku zijazo zimetiwa kijivu. ` : '')
       + `Ripoti ${absentes.length} hazipo, na mwezi wa kwanza unaanza tu na ripoti ya kwanza iliyochapishwa: jumla ni kima cha chini. Mwonekano wa kila siku unaorodhesha tarehe. `
       + CATCHUP_AGREGE.sw(true),
     chartModeCumulative:"Visa/vifo vilivyokusanywa",
@@ -854,8 +823,8 @@ const I18N = {
       + (sans ? `Ripoti ${sans} hazitoi sampuli na chanya kwa pamoja: siku zake hazimo kwenye jumla, ambazo ni viwango vya chini. ` : ''),
     chartNoteContactsNational:()=>`Sehemu ya walioguswa walioorodheshwa walioonwa katika saa 24 zilizopita; kama pau nyepesi, kwenye mhimili wa kulia, idadi ya walioguswa wa kufuatiliwa.`,
     chartNoteContactsProvinces:()=>`Sehemu ile ile, jimbo kwa jimbo, siku ambazo ripoti inaielezea. Jimbo lenye 100% mara nyingi hufuatilia walioguswa makumi machache; Ituri inafuatilia zaidi ya elfu kumi.`,
-    chartNoteCteProvince:(seuilLits)=>`Wagonjwa waliolazwa — waliothibitishwa na wanaoshukiwa — ikilinganishwa na vitanda ambavyo ripoti inatangaza kwa jimbo. Hadi mwanzoni mwa Agosti kiwango kinahesabiwa upya kutoka jedwali la wagonjwa na vitanda; tangu wakati huo ni kile ripoti inachapisha, hata isipotoa tena idadi ya vitanda — mstari husimama chini ya wagonjwa ${seuilLits}, ambapo kiwango hakina maana tena. Ripoti inapoacha kuhesabu wagonjwa wote na kubakiza tu wale wa vituo vyenye viwango — Kivu Kaskazini tangu tarehe 15 Septemba — mstari unarejesha maana ya awali: wagonjwa wote waliolazwa ikilinganishwa na vitanda vilivyotangazwa. Vinginevyo wagonjwa waliotibiwa nje ya vitanda vilivyopangwa wangetoweka kwenye kiwango kinachokusudiwa kuwaonyesha. Zaidi ya 100%, kuna wagonjwa wengi kuliko vitanda vilivyotangazwa: waliozidi wanatibiwa mahali pengine. Kivu Kaskazini, tangu Septemba ripoti inaeleza wapi: katika vituo vya kawaida vya huduma za afya, nje ya vituo vya matibabu. Mapengo ya siku tano au chini pekee ndiyo yanaunganishwa: zaidi ya hapo, idadi ya vitanda inaweza kuwa imebadilika.`,
-    chartNoteCteCapacite:(date,prov,avant,apres,monte)=>`Tarehe ${date} uwezo uliotangazwa ${prov} unatoka vitanda ${avant} hadi ${apres}, na kiwango kinashuka kwa sababu hiyo wakati idadi ya wagonjwa ${monte?'inaongezeka':'haishuki kiasi hicho'}: kilichokua ni kigawanyo, si msongamano kupungua.`,
+    chartNoteCteProvince:(seuilLits)=>`Wagonjwa waliolazwa — waliothibitishwa na washukiwa — kwa kila vitanda 100 vilivyotangazwa na ripoti katika jimbo. Zaidi ya 100, ziada inatibiwa mahali pengine; Nord-Kivu, katika vituo vya kawaida vya afya. Bila vitanda vilivyotangazwa, mstari unasimama chini ya wagonjwa ${seuilLits}. Ripoti inapohesabu tu wagonjwa wa vituo rasmi (Nord-Kivu tangu tarehe 15 Septemba), mstari unabaki na maana ya awali, wagonjwa wote waliolazwa.`,
+    chartNoteCteCapacite:(date,prov,avant,apres,monte)=>`Tarehe ${date}, vitanda vilivyotangazwa (${prov}) vinatoka ${avant} hadi ${apres}: kiwango kikishuka${monte ? ' ingawa wagonjwa wanaongezeka' : ''}, ni kwa sababu kigawanyo kimeongezeka, si kwa sababu msongamano umepungua.`,
     vaccChartTitre:`Idadi ya watu waliochanjwa`,
     cteChartTitre:`Wagonjwa kwa kila vitanda 100 vya vituo vya matibabu`,
     ctePour100:(n)=>`${n} kwa kila vitanda 100`,
@@ -864,7 +833,7 @@ const I18N = {
     chartTitreLieuDeces:`Mahali pa kifo`, chartTitreProvinces:`Visa vipya kwa jimbo`,
     chartTitreAlertes:`Tahadhari`, chartTitreLabo:`Maabara`, chartTitreContacts:`Ufuatiliaji wa walioguswa`,
     chartTitrePoe:`Vituo vya ukaguzi`, poeAlertesLabel:"Tahadhari zilizoripotiwa", poeValideesLabel:"Tahadhari za walio hai zilizothibitishwa", poeCorpsLabel:"Maiti zilizozuiliwa", poeRapportsLabel:"Vituo vilivyoripoti (%)", poePostesLabel:"Vituo vinavyofuatiliwa", poeNonReparti:"Haijagawanywa",
-    chartNotePoeEcartes:(liste)=>` Zimewekwa kando, ingawa zimechapishwa na ripoti, kwa kuwa haziendani na siku jirani: ${liste}.`, poeEcarteItem:(prov,n,date)=>`${prov} tarehe ${date} (${n})`,
+    chartNotePoeEcartes:(liste)=>` Zimewekwa kando kwa kuwa haziendani na siku jirani: ${liste}.`, poeEcarteItem:(prov,n,date)=>`${prov} tarehe ${date} (${n})`,
     chartVuePoeVoyageurs:"Wasafiri kwa siku", chartVuePoeAlertes:"Tahadhari kwa wiki", chartVuePoeRapports:"Ripoti zilizopokelewa",
     poeProvinceAbsente:(de,a)=>` Kuanzia ${de} hadi ${a}, mkoa haupo tena kwenye jedwali la vituo vya ukaguzi la ripoti.`,
     poeProvinceSansChiffre:p=>` Ripoti hazitoi idadi ya wasafiri kwa mkoa ${p}.`,
@@ -872,20 +841,20 @@ const I18N = {
     poeEt:" na ",
     poeProvinceNd:dates=>` Ripoti inaandika « ND » (haipatikani) kwa mkoa tarehe ${dates}.`,
     chartNotePoeJourProvince:(lus,sans)=>`Wasafiri waliopita vituo vya kuingilia na vya ukaguzi vya mkoa: takwimu za siku, si za jumla. Mhimili unafuata kalenda: siku ${lus} zimerekodiwa kati ya ${lus + sans}.`,
-    chartNotePoeJour:(lus,sans,inc)=>`Wasafiri waliopita vituo vya kuingilia na vya ukaguzi, kwa mkoa: takwimu za siku, si za jumla. Mhimili unafuata kalenda: siku ${lus} zimerekodiwa kati ya ${lus + sans}. "Haijagawanywa" ni tofauti kati ya jumla iliyochapishwa na jumla ya mikoa.${inc.length ? ` Tarehe ${inc.join(' na ')}, mikoa inazidi jumla iliyochapishwa: jumla pekee inaonyeshwa.` : ''} Kivu Kusini imechapishwa karibu wasafiri 84,000 siku kadhaa kati ya 31 Julai na 25 Agosti, badala ya elfu chache kama kawaida: ni takwimu ya ripoti, imeachwa kama ilivyo.`,
+    chartNotePoeJour:(lus,sans,inc)=>`Wasafiri waliopita kila siku vituo vya kuingilia na vya ukaguzi, kwa mkoa (siku ${lus} zimerekodiwa kati ya ${lus + sans}). "Haijagawanywa": tofauti kati ya jumla iliyochapishwa na jumla ya mikoa.${inc.length ? ` Tarehe ${inc.join(' na ')}, mikoa inazidi jumla iliyochapishwa: jumla pekee inaonyeshwa.` : ''} Kivu Kusini imechapishwa karibu wasafiri 84,000 baadhi ya siku kati ya 31 Julai na 25 Agosti, badala ya elfu chache kama kawaida: takwimu imeachwa kama ilivyo.`,
     chartNotePoeAlertes:(n)=>`Tahadhari zilizoripotiwa vituoni, tahadhari za watu walio hai zilizothibitishwa kama visa vinavyoshukiwa, na maiti zilizozuiliwa safarini, zimejumlishwa kwa wiki (Jumatatu hadi Jumapili) kutoka takwimu za siku za kila ripoti; wiki ${n} zimerekodiwa.`,
     chartNotePoeRapports:(lus,total)=>`Sehemu ya vituo vilivyotuma ripoti ya siku (mstari kamili, mhimili wa kushoto) na idadi ya vituo vinavyofuatiliwa (vistari, mhimili wa kulia), inayopanda mkoa unapoingia kwenye jedwali. Siku ${lus} zimerekodiwa kati ya ${total}.`,
     cteNormeesLabel:`Kivu Kaskazini, wagonjwa katika vitanda vya vituo vya matibabu`,
     cteHorsNormees:`wanaotibiwa nje ya vitanda vya vituo vya matibabu`,
-    chartNoteCteNormees:`Kivu Kaskazini tangu tarehe 15 Septemba, mstari hafifu unahesabu wagonjwa waliolala katika vitanda vya vituo vya matibabu pekee. Pengo kati ya mistari miwili ni wagonjwa wanaotibiwa nje ya vituo vya matibabu.`,
+    chartNoteCteNormees:`Mstari hafifu: Kivu Kaskazini tangu tarehe 15 Septemba, wagonjwa wa vitanda vya vituo vya matibabu pekee; pengo na mstari mwingine ni wagonjwa wanaotibiwa nje ya vituo hivyo.`,
     vaccChartTotal:(n)=>`Jumla: ${n} wamechanjwa`,
     vaccChartTrou:`hakuna takwimu|zilizochapishwa`,
-    vaccChartRevision:(date,prov,publie,retenu)=>`Tarehe ${date} ripoti ilitoa watu ${publie} waliochanjwa ${prov}, kisha ripoti iliyofuata ikarudisha jumla hiyo hadi ${retenu}. Jumla haiwezi kupungua: mstari unabeba takwimu iliyorekebishwa, tarehe hiyo na zinazofuata.`,
+    vaccChartRevision:(date,prov,publie,retenu)=>`Tarehe ${date}, ripoti ilitoa watu ${publie} waliochanjwa (${prov}), waliopunguzwa hadi ${retenu} katika taarifa iliyofuata: kwa kuwa jumla limbikizi haipungui, mstari unaonyesha thamani iliyorekebishwa.`,
     chartNoteVaccProv:()=>`Jumla ya watu waliochanjwa kwa ERVEBO katika jimbo, tangu takwimu yake ya kwanza iliyochapishwa. Jumla ya mwisho inayojulikana hubaki hadi ripoti itoe mpya.`,
     chartNoteVaccGap:()=>`Kati ya tarehe 28 Agosti na 2 Septemba hakuna takwimu iliyochapishwa: hatua ya tarehe 3 Septemba ni kuchelewa kuchapisha, si wimbi la chanjo kwa siku moja.`,
     chartNoteVaccButa:()=>`Uwanda kati ya tarehe 5 na 16 Septemba ni kusimama halisi: kuisha kwa Ervebo Buta.`,
     chartNoteVaccination:()=>`Jumla ya watu waliochanjwa kwa ERVEBO tangu tarehe 26 Agosti 2026. Hatua ya tarehe 3 Septemba inafidia siku sita bila takwimu iliyochapishwa; uwanda wa Bas-Uélé, kuanzia tarehe 5 hadi 16 Septemba, ni kusimama halisi: kuisha kwa chanjo Buta. Bila takwimu mpya, jumla ya mwisho hubaki.`,
-    chartNoteCte:(seuilLits)=>`Wagonjwa waliolazwa — waliothibitishwa na wanaoshukiwa — ikilinganishwa na vitanda ambavyo ripoti inatangaza, jimbo kwa jimbo. Hadi mwanzoni mwa Agosti kiwango kinahesabiwa upya kutoka jedwali la wagonjwa na vitanda; tangu wakati huo ni kile ripoti inachapisha. Zaidi ya 100%, kuna wagonjwa wengi kuliko vitanda vilivyotangazwa: waliozidi wanatibiwa mahali pengine. Kivu Kaskazini, tangu Septemba ripoti inaeleza wapi: katika vituo vya kawaida vya huduma za afya, nje ya vituo vya matibabu. Jimbo huchorwa tu kuanzia vitanda ${seuilLits} vilivyotangazwa — au wagonjwa ${seuilLits} wakati ripoti haitoi idadi ya vitanda: chini ya hapo, kiwango hakina maana. Tarehe 15 Septemba ripoti inaacha kuhesabu wagonjwa wote wa Kivu Kaskazini na kubakiza tu wale wa vituo vyenye viwango, hivyo kiwango kilichochapishwa kinashuka kutoka 152,6% hadi 94,7% wakati idadi ya wagonjwa inapanda: wagonjwa 157 waliotibiwa nje ya vitanda vilivyopangwa — kile hasa kuzidi 100% kunakusudia kuonyesha — waliondolewa kwenye hesabu. Idadi ya vitanda haikubadilika: 228 tangu tarehe 11 Septemba. Kwa hiyo mstari unarejesha maana ya awali, wagonjwa wote waliolazwa ikilinganishwa na vitanda vilivyotangazwa. Mapengo ya siku tano au chini pekee ndiyo yanaunganishwa: zaidi ya hapo, idadi ya vitanda inaweza kuwa imebadilika.`,
+    chartNoteCte:(seuilLits)=>`Wagonjwa waliolazwa — waliothibitishwa na washukiwa — kwa kila vitanda 100 vilivyotangazwa na ripoti, jimbo kwa jimbo. Zaidi ya 100, ziada inatibiwa mahali pengine; Nord-Kivu, katika vituo vya kawaida vya afya. Majimbo yenye vitanda (au wagonjwa) chini ya ${seuilLits} hayaonyeshwi. Tangu tarehe 15 Septemba, ripoti inahesabu tu wagonjwa wa vituo rasmi vya Nord-Kivu: kiwango chake kinashuka kutoka 152,6 % hadi 94,7 % ingawa wagonjwa wanaongezeka. Mstari unabaki na maana ya awali, wagonjwa wote waliolazwa.`,
     chartModeByProvince:"Visa kwa jimbo",
     chartModeNewCasesByProvince:"Visa vipya kwa jimbo",
     chartVueCas:"Visa",
@@ -918,22 +887,18 @@ const I18N = {
     chartDeathPlaceWeekLabel:(debut,fin)=>`${debut} hadi ${fin}`,
     chartDeathPlaceWeekDays:(n)=>`ripoti ${n} kati ya 7`,
     chartDeathPlaceNoteTemps:(part,semaines,comm,cte,manquants,liste,enCours,partIturi)=>
-      `Sehemu ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, kwa nchi nzima na kwa wiki. `
-      + `Katika wiki ${semaines} zilizofunikwa, sehemu hii haina mwelekeo: inazunguka karibu ${part} % `
-      + `— vifo ${comm} katika jamii dhidi ya ${cte} kituoni — na tofauti kutoka wiki hadi wiki zinabaki ndani ya `
-      + `mtawanyiko unaotarajiwa kwa idadi hizi. Mstari wa nukta unaonyesha wastani huu: ndio matokeo, `
-      + `si mabonde na milima. `
-      + `Tahadhari tatu. Ripoti za kabla ya tarehe 13 Julai hazitofautishi maeneo mawili, dirisha haliwezi kurudi nyuma zaidi. `
-      + (manquants ? `Siku ${manquants} bila mahali pa kifo (${liste}): ni sehemu tu zinazoweza kulinganishwa kutoka wiki hadi wiki, kamwe si idadi. ` : `Hakuna siku inayokosekana kwenye mfululizo. `)
-      + (enCours ? `Pau la mwisho ni wiki inayoendelea, kwa ripoti ${enCours} kati ya saba. ` : '')
-      + (partIturi != null ? `Hatimaye Ituri inabeba ${partIturi} % ya vifo vilivyoainishwa, hivyo mkondo huu wa kitaifa unafuata kwanza wake: vitufe vilivyo juu ya chati vinaonyesha kila jimbo.` : ''),
+      `Sehemu ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, kwa nchi nzima, kwa wiki. `
+      + `Katika wiki ${semaines}, inazunguka bila mwelekeo karibu ${part} % (vifo ${comm} katika jamii, ${cte} kituoni): `
+      + `wastani wa nukta ndio matokeo, tofauti kutoka wiki hadi wiki zinabaki ndani ya mtawanyiko unaotarajiwa. `
+      + `Ripoti zinatofautisha maeneo mawili tangu tarehe 13 Julai tu. `
+      + (manquants ? `Siku ${manquants} bila mahali pa kifo (${liste}): ni sehemu tu zinazolinganishwa, si idadi. ` : '')
+      + (partIturi != null ? `Ituri inabeba ${partIturi} % ya vifo vilivyoainishwa: mkondo wa kitaifa unafuata kwanza wake, vitufe vilivyo juu vinaonyesha kila jimbo.` : ''),
     chartDeathPlaceNoteProvince:(nom,part,semaines,comm,cte,parSemaine,manquants,liste,enCours)=>
       `${nom}: sehemu ya vifo vilivyothibitishwa vilivyotokea katika jamii badala ya kituo cha matibabu, kwa wiki. `
-      + `Katika wiki ${semaines} ambazo jimbo lina vifo vilivyoainishwa, vifo ${comm} vilitokea katika jamii na ${cte} kituoni, wastani wa ${part} % (mstari wa nukta). `
+      + `Katika wiki ${semaines}, vifo ${comm} katika jamii na ${cte} kituoni, wastani wa ${part} % (mstari wa nukta). `
       + (parSemaine < 30 ? `Kwa takriban vifo ${parSemaine} vilivyoainishwa kwa wiki, kifo kimoja kinabadilisha sehemu kwa pointi kadhaa: ni mabadiliko ya wiki kadhaa tu yenye maana. ` : '')
-      + `Ripoti za kabla ya tarehe 13 Julai hazitofautishi maeneo mawili. `
-      + (manquants ? `Siku ${manquants} bila mahali pa kifo (${liste}): ni sehemu tu zinazoweza kulinganishwa kutoka wiki hadi wiki, kamwe si idadi. ` : '')
-      + (enCours ? `Pau la mwisho ni wiki inayoendelea, kwa ripoti ${enCours} kati ya saba.` : ''),
+      + `Ripoti zinatofautisha maeneo mawili tangu tarehe 13 Julai tu. `
+      + (manquants ? `Siku ${manquants} bila mahali pa kifo (${liste}): ni sehemu tu zinazolinganishwa, si idadi.` : ''),
     chartDeathPlaceCommunity:"Katika jamii",
     chartDeathPlaceCte:"Katika kituo cha matibabu",
     chartDeathPlaceMissing:"Siku zisizo na takwimu",
@@ -953,16 +918,16 @@ const I18N = {
             + `vifo vichache mno kwa uwiano kuwa na maana.`
           : ''),
     dailyChartLabel:"Visa vipya vya kila siku",
-    provinceChartGap:(plages)=>`Hakuna safu kutoka ${plages}: ripoti za siku hizo hazigawanyi visa kati ya majimbo. Visa hivyo vimehesabiwa kwenye jumla, lakini haviwezi kuhusishwa na siku maalum.`,
-    provinceChartBlanks:(n)=>`Siku ${n} hazina ripoti kwa jimbo hili: zimeachwa wazi, na isipokuwa imeelezwa vinginevyo visa vyake vimehesabiwa katika ripoti inayofuata.`,
-    provinceChartHarmonisation:"Tarehe 30 Oktoba, Ituri ilioanisha takwimu zake na vifo 314 vya zamani viliingia katika jumla; taarifa ya tarehe 31 iliviondoa. Mistari ya siku hizo mbili inaonyesha vifo vya siku hiyo tu (19, kisha 28).",
-    provinceChartCatchup:"Tarehe 22 na 30 Julai, ripoti inaonyesha marekebisho ya takwimu. Kwa kuwa sehemu yake imechapishwa kwa kiwango cha kitaifa pekee, safu hizi zinaonyeshwa nzima kwa rangi hafifu.",
-    provinceDeathsChartGap:(plages)=>`Hakuna safu kutoka ${plages}: ripoti za siku hizo hazigawanyi vifo kati ya majimbo. Vifo hivyo vimehesabiwa kwenye jumla, lakini haviwezi kuhusishwa na siku maalum.`,
-    provinceDeathsChartBlanks:(n)=>`Siku ${n} hazina ripoti kwa jimbo hili: zimeachwa wazi, na isipokuwa imeelezwa vinginevyo vifo vyake vimehesabiwa katika ripoti inayofuata.`,
+    provinceChartGap:(plages)=>`Hakuna safu kutoka ${plages}: ripoti hizo hazigawanyi visa kati ya majimbo; viko kwenye jumla, bila kujua ni siku gani.`,
+    provinceChartBlanks:(n)=>`Siku ${n} bila ripoti kwa jimbo hili zimeachwa wazi; isipokuwa imeelezwa vinginevyo, visa vyake viko katika ripoti inayofuata.`,
+    provinceChartHarmonisation:"Vifo 314 vilivyoingizwa tarehe 30 Oktoba na uoanishaji wa Ituri, kisha kuondolewa tarehe 31, havihesabiwi: safu hizo mbili zinaonyesha vifo vya siku (19, kisha 28).",
+    provinceChartCatchup:"Tarehe 22 na 30 Julai ni marekebisho ambayo sehemu yake inachapishwa kitaifa tu: safu hizi ni nzima kwa rangi hafifu.",
+    provinceDeathsChartGap:(plages)=>`Hakuna safu kutoka ${plages}: ripoti hizo hazigawanyi vifo kati ya majimbo; viko kwenye jumla, bila kujua ni siku gani.`,
+    provinceDeathsChartBlanks:(n)=>`Siku ${n} bila ripoti kwa jimbo hili zimeachwa wazi; isipokuwa imeelezwa vinginevyo, vifo vyake viko katika ripoti inayofuata.`,
     provinceChartNoData:"Takwimu hazitoshi kuchora mkondo katika jimbo hili.",
     chartCumulativeLabel:"Visa vilivyokusanywa",
     chartCumulativeDeathsLabel:"Vifo vilivyokusanywa",
-    provinceChartMultiDay:"Safu hafifu ambayo si marekebisho inaunganisha siku kadhaa: jimbo halina ripoti ya siku iliyotangulia, na tofauti kati ya jumla huziongeza pamoja.",
+    provinceChartMultiDay:"Safu nyingine hafifu inaunganisha siku kadhaa: jimbo halina ripoti ya siku iliyotangulia.",
     provinceChartMultiDayTip:(n)=>`Inaunganisha siku ${n}, bila ripoti ya katikati kwa jimbo hili.`,
     provinceChartSplit:(dates)=>`Safu za ${dates} zimekokotolewa: ripoti ya siku inayofuata inatangaza visa vya siku hiyo, na kilichobaki cha tofauti ya jumla ni cha siku iliyotangulia.`,
     provinceChartSplitTip:"Imekokotolewa: tofauti ya jumla ukiondoa visa vilivyotangazwa siku inayofuata.",
