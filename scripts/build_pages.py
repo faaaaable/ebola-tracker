@@ -4352,14 +4352,11 @@ def vaccines_province(riposte, name, meta_data, lang, strings_lang, i18n_lang):
 
 def head_assets(needs):
     tags = []
-    if "leaflet" in needs:
-        tags.append('<link rel="stylesheet" '
-                    'href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">')
-        tags.append('<script defer '
-                    'src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>')
+    # Chart.js 4.4.1 servi par le site (2 novembre 2026) : plus d'appel a
+    # cdnjs, donc plus d'IP de visiteur transmise a Cloudflare (licence MIT,
+    # assets/vendor/chart.js-LICENSE.md).
     if "chart" in needs:
-        tags.append('<script defer '
-                    'src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>')
+        tags.append('<script defer src="/assets/vendor/chart.umd.min.js"></script>')
     # La base de donnees (9 octobre 2026) : sa feuille et son script a part.
     if "base" in needs:
         tags.append('<link rel="stylesheet" href="/assets/css/base.css?v=%s">' % jeton_version("assets/css/base.css"))
@@ -5298,6 +5295,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         # Jetons de cache des fichiers statiques : c'est le gabarit qui porte
         # les balises <link> et <script>, donc c'est ici qu'ils doivent vivre.
         "v.css": jeton_version("assets/css/site.css"),
+        "v.fonts": jeton_version("assets/fonts/fonts.css"),
         "v.app": jeton_version("assets/js/app.js"),
         "v.i18n": jeton_version("assets/js/i18n.js"),
         "v.dash": jeton_version("assets/js/dashboard.js"),
@@ -5457,10 +5455,8 @@ def write_404(config, urls, strings, i18n, layout):
         '<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">',
         '<link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192">',
         '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
-        '<link rel="preconnect" href="https://fonts.googleapis.com">',
-        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
-        '<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700'
-        '&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">',
+        '<link rel="stylesheet" href="/assets/fonts/fonts.css?v=%s">'
+        % jeton_version("assets/fonts/fonts.css"),
         '<link rel="stylesheet" href="/assets/css/site.css?v=%s">'
         % jeton_version("assets/css/site.css"),
         "</head>", '<body>',

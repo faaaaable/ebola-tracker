@@ -63,7 +63,7 @@ a.vx-png{text-decoration:none}
   function enDataUrl(blob){ return new Promise(function(ok){ var r=new FileReader(); r.onload=function(){ok(r.result);}; r.readAsDataURL(blob); }); }
   function chargerPolices(){
     if(polices) return polices;
-    var lien=document.querySelector('link[href*="fonts.googleapis.com/css"]');
+    var lien=document.querySelector('link[href*="/assets/fonts/fonts.css"]');
     if(!lien) return (polices=Promise.resolve(''));
     polices=fetch(lien.href).then(function(r){return r.text();}).then(function(css){
       var blocs=css.split('@font-face').slice(1).filter(function(b,i,all){ return /\/\*\s*latin(-ext)?\s*\*\//.test(css.split('@font-face')[i]); });
