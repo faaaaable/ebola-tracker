@@ -329,7 +329,7 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs, lien_defis="
             tr = trace % (mm["bulletins"], mm["premier"][1], long_date(mm["premier"][0], i18n_lang),
                           mm["dernier"][1], long_date(mm["dernier"][0], i18n_lang))
         n = ('<p class="d4-c"><b>%d</b> %s</p>' % (mm["bulletins"], esc(compte))) if mm else ""
-        html.append('<li class="fiche" id="defi-%s"><div class="d4-g"><span class="fiche-num">%02d</span>'
+        html.append('<li class="fiche" id="defi-%s"><div class="d4-g"><span class="fiche-num" aria-hidden="true">%02d</span>'
                     '<h3 class="frame-title">%s</h3>%s<div class="d4-p">%s</div><p class="fiche-trace">%s</p></div>'
                     '<div class="d4-d"><p class="fiche-texte">%s</p></div></li>'
                     % (t["id"], i, esc(tl(t)["titre"]), n, pts, esc(tr), esc(tl(t)["texte"])))

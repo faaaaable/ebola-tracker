@@ -5344,6 +5344,14 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         "t.siteTitleLinkLabel": esc(strings_lang["siteTitleLinkLabel"]),
         "langSwitch": lang_switch_html(config, alt_paths, lang, strings_lang,
                                        cloche=urls.path("alertes", lang) if accueil_cloche else None),
+        # Le meme bloc, apres le menu, pour l'ordinateur (4 novembre 2026,
+        # revue d'accessibilite) : la rangee y montre logo, menu, puis langues,
+        # mais Tab suivait le code (logo, langues, menu). Celui de .side-head
+        # sert au telephone, ou les langues precedent le bouton du menu ;
+        # l'autre est masque (display:none), Tab ne passe jamais deux fois.
+        "langSwitchOrdi": lang_switch_html(config, alt_paths, lang, strings_lang,
+                                           cloche=urls.path("alertes", lang) if accueil_cloche else None
+                                           ).replace('class="lang-switch"', 'class="lang-switch ls-ordi"', 1),
         # Telephone : « Suivre » avec le glyphe, dans le pied du menu (a la
         # place de l'ancien bouton Partager). Rien sans compte.
         "suivreXMenu": ('      <a class="share-btn suivre-x" href="https://x.com/%s" rel="me noopener" target="_blank" aria-label="%s">%s <span>%s</span></a>'

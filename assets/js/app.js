@@ -7177,6 +7177,14 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
       if(!grand.matches) return;
       g.classList.contains('open') ? fermer() : ouvrir(g);
     });
+    /* Au clavier (3 novembre 2026, revue d'accessibilite) : quand le focus
+       quitte le groupe (Tab ou Maj+Tab au-dela de son panneau), il se
+       referme ; il restait ouvert par-dessus la page. */
+    g.addEventListener('focusout', e=>{
+      if(!grand.matches) return;
+      if(e.relatedTarget && g.contains(e.relatedTarget)) return;
+      if(g.classList.contains('open')) fermer();
+    });
   });
   document.addEventListener('keydown', e=>{
     if(e.key === 'Escape') fermer();

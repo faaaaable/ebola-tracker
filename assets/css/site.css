@@ -24,7 +24,7 @@
   --ink-strong:#4D473F;      /* oklch(0.40 0.015 75) */
   --ink-dim:#5A544C;         /* oklch(0.45 0.015 75) */
   --ink-label:#635D54;       /* oklch(0.48 0.015 75) */
-  --ink-faint:#777068;       /* oklch(0.55 0.015 75) */
+  --ink-faint:#726B63;       /* fonce le 3 nov. 2026 (4,5:1 aussi sur --bg-alt ; etait #777068) */
 
   /* ---- filets ---- */
   --line:#DEDAD5;            /* oklch(0.89 0.008 75) */
@@ -63,7 +63,7 @@
   --accent-info:#005E82;     /* cas confirmés — oklch(0.45 0.10 230) */
   --accent-critical:#993A2E; /* décès        — oklch(0.48 0.13 30)  */
   --accent-stable:#327957;   /* guéris       — oklch(0.52 0.09 160) */
-  --accent-active:#A06F30;   /* isolement    — oklch(0.58 0.10 70)  */
+  --accent-active:#8A5E26;   /* isolement — fonce le 3 nov. 2026 (contraste 4,5:1 sur les fonds clairs ; etait #A06F30, 4,2:1) */
   --wash-critical:#FFE4DF;
   --wash-stable:#DBF2E4;
   --wash-active:#F9E8D6;
@@ -236,6 +236,7 @@ ul,ol{margin:0;padding:0;}
 /* ---- selecteur de langue ---- */
 /* Chaque langue a sa propre URL : ce sont de vrais liens, pas une bascule. */
 .lang-switch{display:flex;gap:6px;}
+.lang-switch.ls-ordi{display:none;}  /* le bloc pour ordinateur (4 nov. 2026) */
 .lang-btn{
   display:inline-flex;align-items:center;gap:6px;
   padding:5px 4px;border:0;border-bottom:2px solid transparent;border-radius:0;
@@ -1487,7 +1488,7 @@ td.is-soft{color:var(--ink-faint);}
 .actus-puce{font:500 12.5px var(--font-sans);border:1px solid var(--line);background:var(--bg-panel);color:var(--ink-strong);border-radius:999px;padding:5px 11px;cursor:pointer;}
 .actus-puce b{font-weight:600;color:var(--ink-faint);margin-left:3px;}
 .actus-puce.on{background:var(--ink);border-color:var(--ink);color:var(--bg);}
-.actus-puce.on b{color:inherit;opacity:.75;}
+.actus-puce.on b{color:inherit;}
 .actus-mos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:210px;gap:12px;margin-top:14px;}
 .actu-case{position:relative;border-radius:10px;overflow:hidden;}
 .actu-case[hidden]{display:none;}
@@ -2670,8 +2671,8 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .dossier:not(.dossier-clair) .dossier-chiffres b{color:#CFE6F1;}
 .dossier:not(.dossier-clair) .dossier-chiffres span{color:#8EC3DC;opacity:.9;}
 .dossier:not(.dossier-clair) .dossier-lede{opacity:.92;}
-.frise-num{color:var(--accent-strong);opacity:.7;}
-.fiche-num{color:var(--accent-strong);opacity:.55;}
+.frise-num{color:var(--accent-strong);opacity:.8;}
+.fiche-num{color:var(--accent-strong);opacity:.8;}  /* .7 et .55 jusqu'au 3 nov. 2026 : sous 4,5:1 */
 .fiche{border-top-color:var(--line);}
 
 /* Premiere partie de la maquette : les cinq cadres prennent l'idiome des
@@ -3066,6 +3067,8 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
   .side-nav{order:2;flex-direction:row;align-items:center;gap:2px;font-size:14px;}
   .side-foot{order:3;flex:0 1 auto;margin:0 0 0 auto;padding:0;border:0;text-align:right;}
   .lang-switch{order:4;margin-left:6px;}
+  .side-head .lang-switch{display:none;}  /* sur ordinateur, c'est .ls-ordi, apres le menu dans le code (ordre de Tab) */
+  .lang-switch.ls-ordi{display:flex;}
   .side-freshness{
     display:block;font-size:10.5px;line-height:1.35;border:0;margin:0;padding:0;
   }
@@ -4179,7 +4182,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .lq-chiffre span{font-size:12.5px;color:var(--ink-dim);}
 .lq-mini{padding-top:12px;} .lq-mini span{font-size:11.5px;color:var(--ink-faint);}
 .lq-barres{display:block;width:100%;height:56px;}
-.lq-barres rect{fill:color-mix(in srgb,var(--accent-info) 35%,transparent);} .lq-barres rect.is-der{fill:var(--accent-info);}
+.lq-barres rect{fill:color-mix(in srgb,var(--accent-info) 65%,transparent);}  /* 35 % jusqu'au 3 nov. 2026 : 1,8:1, sous les 3:1 des elements graphiques */ .lq-barres rect.is-der{fill:var(--accent-hover);}  /* plus fonce que les autres barres (65 %) depuis le 3 nov. 2026 */
 .lq-cols{columns:3;column-gap:34px;column-rule:1px solid var(--line);padding:24px 0;border-bottom:1px solid var(--ink);}
 .lq-art{break-inside:avoid-column;margin-bottom:22px;}
 .lq-art h2{font:600 22px/1.15 var(--font-serif);margin:0 0 8px;color:var(--ink);text-transform:none;letter-spacing:-.01em;}
@@ -5464,3 +5467,11 @@ svg.o3b-b{height:44px;}
 @media (max-width:900px){.o3-grille{grid-template-columns:1fr;gap:40px;}.o3-pile{padding:12px 14px 18px 0;}.o3-f{inset:12px 14px 18px 0;}}
 @media (max-width:760px){.o3b-chapo .ph-long{display:none;}.o3b-papier{padding:0 18px 20px;}.o3b-barre{margin:0 -18px;}.o3b-corps{grid-template-columns:1fr;}.o3b-enc{border-left:0;padding-left:0;display:grid;grid-template-columns:1fr 1fr;column-gap:18px;}.o3b-mini{grid-column:1/-1;}
 .o3b-edition{flex-direction:column;gap:2px;font-size:9.5px;}.o3b-edition i,.o3b-edition::before,.o3b-edition::after{display:none;}.o3b-marque{font-size:34px;}}
+
+/* Liens dans le texte (3 novembre 2026, revue d'accessibilite) : un lien au
+   milieu d'une phrase ou d'une liste se reconnait sans la couleur, il est
+   souligne. Les liens isoles a classe (« Voir... → », cartes, boutons) gardent
+   leur dessin, soulignes au survol. */
+main :where(p,li,dd,td,figcaption,blockquote,.info-note) a:not([class]){text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;}
+main :where(p,li,dd,td,figcaption,blockquote,.info-note) a:not([class]):hover{text-decoration-thickness:2px;}
+main :where(p,li) a.lien-x{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;}
