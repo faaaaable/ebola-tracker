@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "fd06aaa0",
+   "date": "2026-11-03",
+   "titre": "Ebola à Bunia : des sanctions exigées contre les récalcitrants aux mesures barrières",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-bunia-des-sanctions-exigees-contre-les-recalcitrants-aux-mesures-barrieres/",
+   "langue": "fr",
+   "resume": "Les habitants de Bunia, chef-lieu de l’Ituri, dans le Nord-Est de la République démocratique du Congo(RDC) ont plaidé mardi…",
+   "statut": "publie",
+   "collecte": "2026-11-03",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "d9072009",
+   "date": "2026-11-03",
+   "titre": "Plus de 330 professionnels de santé formés contre Ebola à Bunia",
+   "source": "ACP",
+   "url": "https://acp.cd/province/plus-de-330-professionnels-de-sante-formes-contre-ebola-a-bunia/",
+   "langue": "fr",
+   "resume": "Plus de 330 professionnels de santé ont été formés aux différentes étapes de la prise en charge des patients atteints…",
+   "statut": "publie",
+   "collecte": "2026-11-03",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "9c8e9e80",
    "date": "2026-11-03",
    "titre": "Les centres de traitement d’Ebola saturés, des élèves parmi les malades pris en charge à Beni",
@@ -15,6 +41,19 @@
    "image": true
   },
   {
+   "id": "8f46d73b",
+   "date": "2026-11-03",
+   "titre": "Ituri : les guéris appelés à témoigner pour contrer le déni d’Ebola à Mambasa",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ituri-les-gueris-appeles-a-temoigner-pour-contrer-le-deni-debola-a-mambasa/",
+   "langue": "fr",
+   "resume": "Les personnes guéries de la maladie à virus Ebola ont été invitées, mardi auprès de l’ACP, à témoigner au…",
+   "statut": "publie",
+   "collecte": "2026-11-03",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "7e3ce529",
    "date": "2026-11-03",
    "titre": "Ebola: des moyens matériel et financier sollicités pour renforcer la riposte à Watsa",
@@ -22,6 +61,32 @@
    "url": "https://acp.cd/province/ebola-des-moyens-materiel-et-financier-sollicites-pour-renforcer-la-riposte-a-watsa/",
    "langue": "fr",
    "resume": "Des moyens matériel et financier, ont été sollicités, lundi, pour renforcer la riposte contre la maladie à virus Ebola, dans…",
+   "statut": "publie",
+   "collecte": "2026-11-03",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "6df1707f",
+   "date": "2026-11-03",
+   "titre": "Ebola à Bunia : appel au soutien psychologique des patients et soignants",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-a-bunia-appel-au-soutien-psychologique-des-patients-et-soignants/",
+   "langue": "fr",
+   "resume": "Un médecin engagé dans la prise en charge d’Ebola à Bunia, en Ituri, dans le Nord-Est de la République…",
+   "statut": "publie",
+   "collecte": "2026-11-03",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "477f3d40",
+   "date": "2026-11-03",
+   "titre": "Nord-Kivu : des dispositions prises contre Ebola dans la zone de santé de Mutwanga",
+   "source": "ACP",
+   "url": "https://acp.cd/province/nord-kivu-des-dispositions-prises-contre-ebola-dans-la-zone-de-sante-de-mutwanga/",
+   "langue": "fr",
+   "resume": "Les équipes sanitaires sont désormais renforcées avec des dispositions prises par la coordination provinciale de la riposte contre Ebola dans…",
    "statut": "publie",
    "collecte": "2026-11-03",
    "media": true,
