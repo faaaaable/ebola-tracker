@@ -36,6 +36,7 @@ import harmonisations  # ecarts par zone hors harmonisation (SitRep 169)
 import defis_synthese  # maquette « Riposte & defis », seconde partie redigee
 import base_donnees  # la base de donnees unifiee (9 octobre 2026)
 import face_accueil  # la riposte et ses defis, sur l'accueil (13 octobre 2026)
+import lettre_accueil  # la derniere Lettre et l'abonnement, sur l'accueil (3 novembre 2026)
 import visuels  # la page Visuels : douze images SVG, trois rythmes (12 octobre 2026)
 import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 2026), en local
 import parcours  # carte du parcours du premier malade du Kenya (20 octobre 2026)
@@ -5053,6 +5054,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         values["vis.vitrine"] = visuels.vitrine_html(lang, i18n_lang["months"], urls.path("visuels", lang))
         values["face.html"] = face_accueil.section_html(lang, strings_lang, values.get("seed.ripVaccines"),
                                                         urls.path("riposte", lang), urls.path("defis", lang))
+        # La Lettre (3 novembre 2026, maquette tmp/proto-lettre-accueil-1103,
+        # option 3b) : la derniere lettre en encart et le formulaire Brevo.
+        values["lettre.accueil"] = lettre_accueil.section_html(
+            lang, strings_lang, values.get("seed.lettres") or {},
+            lambda n: urls.path("bulletin-%s" % n, lang), esc)
     if page.get("id") == "dashboard":
         values.update(dashboard_values(config, urls, lang, strings_lang, i18n_lang, alt_paths,
                                        national, meta_data, provinces))
