@@ -2,6 +2,58 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "9c8e9e80",
+   "date": "2026-11-03",
+   "titre": "Les centres de traitement d’Ebola saturés, des élèves parmi les malades pris en charge à Beni",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/11/03/actualite/sante/les-centres-de-traitement-debola-satures-des-eleves-parmi-les-malades",
+   "langue": "fr",
+   "resume": "Radio Okapi/ Ph. Marc Maro Fimbo\" /> Les deux centres de traitement d’Ebola (CTE) de Beni, au Nord-Kivu, ont atteint et dépassé leurs capacités d’accueil depuis plusieurs jours en raison de l’augmentation des cas confirmés et suspects de la maladie.",
+   "statut": "publie",
+   "collecte": "2026-11-03",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "7e3ce529",
+   "date": "2026-11-03",
+   "titre": "Ebola: des moyens matériel et financier sollicités pour renforcer la riposte à Watsa",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-des-moyens-materiel-et-financier-sollicites-pour-renforcer-la-riposte-a-watsa/",
+   "langue": "fr",
+   "resume": "Des moyens matériel et financier, ont été sollicités, lundi, pour renforcer la riposte contre la maladie à virus Ebola, dans…",
+   "statut": "publie",
+   "collecte": "2026-11-03",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "42228685",
+   "date": "2026-11-03",
+   "titre": "Beni: quatre patients guéris d’Ebola dont un écolier libérés du centre de traitement",
+   "source": "ACP",
+   "url": "https://acp.cd/province/beni-quatre-patients-gueris-debola-dont-un-ecolier-liberes-du-centre-de-traitement/",
+   "langue": "fr",
+   "resume": "Quatre patients guéris dont un écolier de la première année primaire ont quitté lundi le centre de traitement de…",
+   "statut": "publie",
+   "collecte": "2026-11-03",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "373a3da7",
+   "date": "2026-11-03",
+   "titre": "Ebola dans le Bas-Uélé : « La presse est une force contre l’infodémie » (Ministre provincial de la Santé)",
+   "source": "ACP",
+   "url": "https://acp.cd/province/ebola-dans-le-bas-uele-la-presse-est-une-force-contre-linfodemie-ministre-provincial-de-la-sante/",
+   "langue": "fr",
+   "resume": "Les médias du Bas-Uélé , dans le Nord-Est de la République démocratique du Congo(RDC), ont été qualifiés lundi, de…",
+   "statut": "publie",
+   "collecte": "2026-11-03",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "eb89f4b0",
    "date": "2026-11-02",
    "titre": "Ebola à Mambasa : 85 cas confirmés et 51 décès enregistrés",
