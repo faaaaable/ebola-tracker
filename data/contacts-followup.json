@@ -4513,5 +4513,27 @@
         "aSuivre": 942
       }
     }
+  },
+  {
+    "date": "2026-11-01",
+    "sitrepNumber": "171",
+    "contactsFollowUpRate": 84.0,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 36126,
+      "vus": 30362
+    },
+    "provinces": {
+      "Bas-Uélé": {
+        "taux": 100.0,
+        "vus": 4,
+        "aSuivre": 4
+      },
+      "Tshopo": {
+        "taux": 66.6,
+        "vus": 589,
+        "aSuivre": 884
+      }
+    }
   }
 ]

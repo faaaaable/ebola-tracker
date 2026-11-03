@@ -657,7 +657,10 @@ def recouper_lits_precedents(points):
         # Quinze bulletins depuis le 7 octobre 2026 (sept jusque-la) : l'Ituri
         # n'imprime plus ses lits que de loin en loin, et le 144 restait sans
         # capacite. Le recoupement a 0,15 point pres reste exige.
-        avant = next((imprime(q) for q in reversed(points[max(0, i - 15):i]) if imprime(q)), None)
+        # Trente bulletins depuis le 3 novembre 2026 : le 171 sortait de la
+        # fenetre de quinze (derniers lits de l'Ituri au 155), et la lettre
+        # passait de 57 a 121 malades pour 100 lits, l'Ituri sorti du calcul.
+        avant = next((imprime(q) for q in reversed(points[max(0, i - 30):i]) if imprime(q)), None)
         if not avant:
             continue
         calcule = round(ligne["hospitalises"] / avant * 100, 1)

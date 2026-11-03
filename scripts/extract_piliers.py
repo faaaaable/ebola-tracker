@@ -477,6 +477,12 @@ def lire_vaccination(corps, texte_entier):
         m = re.search(r"cumul (?:des )?personnes vaccinées\s*:\s*" + NUM, phr)
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
+        # « au cumul, 1 972 personnes sur 13 202 ciblées (14,9 %) ont été
+        # vaccinées dans la province » (Bas-Uele, 171) : la cible s'intercale
+        # entre le nombre et « vaccinées », jamais lu (3 novembre 2026).
+        m = re.search(r"au cumul,?\s+" + NUM + r"\s+personnes\s+sur\s+\d[\d  ]*\s+ciblées\s*\([^)]*\)\s+ont\s+été\s+vaccinées", phr)
+        if m:
+            pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         m = re.search(r"au profit de " + NUM + r" personnes", phr)
         if m and ("vaccin" in phr.lower()):
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue

@@ -556,6 +556,12 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                 # porte sur plusieurs jours, et la lettre le dit.
                 if prov in connus and connus[prov][0] != v:
                     avant[prov] = connus[prov]
+                elif prov in connus:
+                    # Cumul inchange (« le cumul reste de 2 448 », Ituri, SitRep
+                    # 171) : la journee n'ajoute rien. Sans cet oubli, l'ecart
+                    # du bulletin d'avant (+233 le 31 oct.) reparaissait comme
+                    # un ajout « en deux jours » (corrige le 3 novembre 2026).
+                    avant.pop(prov, None)
                 connus[prov] = (v, e["date"]); debut = debut or e["date"]
         if connus or (va and va.get("rupture")):
             s6 = ""

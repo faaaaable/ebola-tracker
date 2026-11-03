@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-31"
+    "fin": "2026-11-01"
   },
   "parDate": [
     {
@@ -7044,6 +7044,74 @@
         "calcule": true,
         "partVerifiee": 98.9,
         "partValidee": 15.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-01",
+      "sitrepNumber": "171",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 78,
+          "verifiees": 78,
+          "validees": 7,
+          "suspectsInvestigues": 5,
+          "transferes": 4
+        },
+        "Bas-Uélé": {
+          "recues": 103,
+          "verifiees": 103,
+          "validees": 7,
+          "suspectsInvestigues": 7,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1381,
+          "verifiees": 1381,
+          "validees": 163,
+          "suspectsInvestigues": 160,
+          "transferes": 93
+        },
+        "Nord-Kivu": {
+          "recues": 1111,
+          "verifiees": 1111,
+          "validees": 164,
+          "suspectsInvestigues": 164,
+          "transferes": 99
+        },
+        "Sud-Ubangi": {
+          "recues": 25,
+          "verifiees": 22,
+          "validees": 0,
+          "suspectsInvestigues": 0,
+          "transferes": 0
+        },
+        "Nord-Ubangi": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Tshopo": {
+          "recues": 60,
+          "verifiees": 60,
+          "validees": 1,
+          "suspectsInvestigues": 1,
+          "transferes": 1
+        }
+      },
+      "total": {
+        "recues": 2758,
+        "verifiees": 2755,
+        "validees": 342,
+        "suspectsInvestigues": 337,
+        "transferes": 197,
+        "calcule": true,
+        "partVerifiee": 99.9,
+        "partValidee": 12.4
       },
       "source": "SitRep INSP (automatique)"
     }

@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-10-31"
+    "fin": "2026-11-01"
   },
   "parDate": [
     {
@@ -4994,14 +4994,10 @@
       "provinces": {
         "Ituri": {
           "hospitalises": 385,
-          "occupation": 37.9,
+          "occupation": 37.0,
           "admissions": 88,
           "sorties": 101,
-          "gueris": 12,
-          "lits": 1015,
-          "litsReportes": true,
-          "occupationPubliee": 37.0,
-          "occupationCalculee": true
+          "gueris": 12
         },
         "Nord-Kivu": {
           "hospitalises": 501,
@@ -5033,9 +5029,53 @@
       "total": {
         "hospitalises": 930,
         "provinces": 4,
-        "lits": 1623,
-        "hospitalisesAvecLits": 930,
-        "occupation": 57.3
+        "lits": 608,
+        "hospitalisesAvecLits": 545,
+        "occupation": 89.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-01",
+      "sitrepNumber": "171",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 355,
+          "occupation": 35.0,
+          "admissions": 47,
+          "sorties": 69,
+          "gueris": 4,
+          "lits": 1015,
+          "litsReportes": true,
+          "occupationPubliee": 34.0,
+          "occupationCalculee": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 541,
+          "lits": 424,
+          "hospitalisesNormes": 362,
+          "occupationPubliee": 85.4,
+          "occupation": 127.6,
+          "occupationCalculee": true,
+          "admissions": 138,
+          "sorties": 98,
+          "gueris": 4
+        },
+        "Tshopo": {
+          "hospitalises": 14,
+          "lits": 36,
+          "occupation": 38.9,
+          "admissions": 1,
+          "sorties": 2
+        }
+      },
+      "total": {
+        "hospitalises": 910,
+        "provinces": 3,
+        "lits": 1475,
+        "hospitalisesAvecLits": 910,
+        "occupation": 61.7
       },
       "source": "SitRep INSP (automatique)"
     }
