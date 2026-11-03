@@ -5472,6 +5472,10 @@ svg.o3b-b{height:44px;}
    milieu d'une phrase ou d'une liste se reconnait sans la couleur, il est
    souligne. Les liens isoles a classe (« Voir... → », cartes, boutons) gardent
    leur dessin, soulignes au survol. */
-main :where(p,li,dd,td,figcaption,blockquote,.info-note) a:not([class]){text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;}
-main :where(p,li,dd,td,figcaption,blockquote,.info-note) a:not([class]):hover{text-decoration-thickness:2px;}
-main :where(p,li) a.lien-x{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;}
+main :where(p,li,dd,td,figcaption,blockquote,.info-note) a:not([class]),
+main :where(p,li) a.lien-x{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;
+  text-decoration-color:color-mix(in srgb,currentColor 40%,transparent);}
+/* Soulignement discret (4 novembre 2026) : trait fin a 40 %, franc au survol
+   et au focus. Les liens isoles gardent la regle de base (souligne au survol). */
+main :where(p,li,dd,td,figcaption,blockquote,.info-note) a:not([class]):is(:hover,:focus-visible),
+main :where(p,li) a.lien-x:is(:hover,:focus-visible){text-decoration-color:currentColor;text-decoration-thickness:2px;}
