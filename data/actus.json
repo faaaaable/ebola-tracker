@@ -2,6 +2,58 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "ae5941d9",
+   "date": "2026-11-04",
+   "titre": "Ebola: des centaines de travailleurs kényans dans l'incertitude après la fermeture de la frontière saoudienne",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261104-ebola-des-centaines-de-travailleurs-k%C3%A9nyans-dans-l-incertitude-apr%C3%A8s-la-fermeture-de-la-fronti%C3%A8re-saoudienne",
+   "langue": "fr",
+   "resume": "L’Arabie saoudite a fermé ses frontières aux voyageurs en provenance du Kenya le 30 octobre, en raison des cas recensés dans le pays, laissant ainsi des centaines de travailleurs recrutés dans le royaume dans l’incertitude.",
+   "statut": "attente",
+   "collecte": "2026-11-04",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "aab9e2b5",
+   "date": "2026-11-04",
+   "titre": "L’OMS octroie au moins 7 tonnes d’intrants médicaux pour renforcer la préparation contre Ebola et le choléra au Maniema",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/11/04/actualite/sante/loms-octroie-au-moins-7-tonnes-dintrants-medicaux-pour-renforcer-la",
+   "langue": "fr",
+   "resume": "Radio Okapi/Ph. Marc Maro\" /> L’Organisation mondiale de la Santé (OMS) a remis, mardi 03 novembre à Kindu, entre au moins 7 tonnes d’intrants médicaux à la Division provinciale de la santé (DPS) du Maniema.",
+   "statut": "publie",
+   "collecte": "2026-11-04",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "55ed8952",
+   "date": "2026-11-04",
+   "titre": "Le Parlement d’enfants intensifie la sensibilisation contre Ebola dans les écoles de Butembo",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/11/04/actualite/sante/le-parlement-denfants-intensifie-la-sensibilisation-contre-ebola-dans-les",
+   "langue": "fr",
+   "resume": "Marc Maro Fimbo, Radio Okapi\" /> La campagne de sensibilisation des élèves contre la maladie à virus Ebola, lancée la semaine dernière par le Parlement d’enfants de Butembo (Nord-Kivu), se poursuit dans plusieurs établissements scolaires de la ville.",
+   "statut": "publie",
+   "collecte": "2026-11-04",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "03277349",
+   "date": "2026-11-04",
+   "titre": "US requires air passengers to attest they haven’t visited Ebola-hit DRC",
+   "source": "Africanews",
+   "url": "http://www.africanews.com/2026/11/04/us-requires-air-passengers-to-attest-they-havent-visited-ebola-hit-drc/",
+   "langue": "en",
+   "resume": "US-bound air passengers must sign a statement that they have not travelled to the Democratic Republic of Congo, the epicentre of a deadly Ebola outbreak, under new rules coming into force on Tuesday, according to the Centers for Disease Control and Prevention.",
+   "statut": "publie",
+   "collecte": "2026-11-04",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "fd06aaa0",
    "date": "2026-11-03",
    "titre": "Ebola à Bunia : des sanctions exigées contre les récalcitrants aux mesures barrières",
