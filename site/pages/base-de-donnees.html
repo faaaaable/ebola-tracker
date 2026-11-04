@@ -14,10 +14,11 @@
         <p class="lede">{{t.bddLede}}</p>
         <p class="bdd-resume">{{bdd.resume}}</p>
       <div class="bdd-dl" aria-label="{{t.bddTelecharger}}">
-        <a class="bdd-btn" href="/data/base-ebola-rdc.csv" download>{{t.bddCsv}}</a>
-        <a class="bdd-btn bdd-sec" href="/data/base-ebola-rdc.json" download>{{t.bddJson}}</a>
+        <a class="bdd-btn" href="{{bdd.csv}}" download>{{t.bddCsv}}</a>
+        <a class="bdd-btn bdd-sec" href="{{bdd.json}}" download>{{t.bddJson}}</a>
         <a class="bdd-lic" href="#licence">{{t.bddLicenceCourt}}</a>
       </div>
+      <p class="bdd-autre">{{t.bddAutre}} <a href="{{bdd.autreCsv}}" download>CSV</a> · <a href="{{bdd.autreJson}}" download>JSON</a></p>
     </div>
 
     <p class="bdd-avert">{{t.bddAvert}} <b>{{t.bddAvertPdf}}</b> <a href="{{url.contact}}">{{t.bddSignaler}}</a> · <a href="#erreurs">{{t.bddEnSavoir}}</a></p>
@@ -58,7 +59,7 @@
       <details id="rattrapages"><summary>{{t.bddN4T}}</summary><div class="prose"><p>{{t.bddN4}}</p></div></details>
       <details id="reconstitue"><summary>{{t.bddN6T}}</summary><div class="prose"><p>{{t.bddN6}}</p></div></details>
       <details id="provinces-zones"><summary>{{t.bddN5T}}</summary><div class="prose"><p>{{t.bddN5}}</p></div></details>
-      <details id="colonnes"><summary>{{t.bddDicoT}}</summary><div class="prose" id="bddDico"></div></details>
+      <details id="colonnes"><summary>{{t.bddDicoT}}</summary><div class="prose" id="bddDico">{{bdd.dico}}</div></details>
       <details id="zones" class="bdd-zones"><summary>{{bdd.zonesTitre}}</summary><div class="prose">
 {{bdd.zones}}
       </div></details>

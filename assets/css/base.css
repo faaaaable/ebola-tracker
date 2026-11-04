@@ -12,6 +12,8 @@
 .bdd-btn.bdd-sec{background:var(--bg-panel);color:var(--accent-strong);}
 .bdd-btn.bdd-sec:hover{background:var(--bg-alt);}
 .bdd-lic{font:600 11px var(--font-sans);color:var(--ink-faint);text-decoration:none;border:1px solid var(--line);border-radius:4px;padding:2px 6px;}
+.bdd-autre{margin:10px 0 0;font-size:13px;color:var(--ink-faint);}
+.bdd-autre a{font-weight:600;}
 .bdd-avert{margin:18px 0 0;font-size:13px;color:var(--ink-dim);background:#F9EFE2;border-left:3px solid var(--accent-active);padding:6px 12px;border-radius:0 6px 6px 0;}
 .bdd-avert b{color:var(--ink);font-weight:600;}
 .bdd-h2{margin:26px 0 4px;font:600 22px/1.2 var(--font-serif);}
@@ -104,3 +106,5 @@
    la police des textes du site, comme la fin de la FAQ. */
 #licence p{max-width:720px;margin-left:auto;margin-right:auto;font:400 16.5px/1.65 var(--font-serif);color:var(--ink-dim);}
 #licence h2:not(.ap-h2){margin-top:30px;}
+.bdd-cles{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+.bdd-cles code{font-size:11.5px;background:var(--bg-panel,#fff);border:1px solid var(--line);border-radius:3px;padding:1px 5px;font-weight:400;}

@@ -735,12 +735,12 @@ def build_json_ld(kinds, context):
                                      "alertes validées", "échantillons de laboratoire", "positivité",
                                      "hospitalisés en CTE", "occupation des lits", "contacts suivis",
                                      "personnes vaccinées"],
+                # Les deux versions, francaise et anglaise (4 novembre 2026).
                 "distribution": [
-                    {"@type": "DataDownload", "encodingFormat": "text/csv",
-                     "contentUrl": context["origin"] + "/data/base-ebola-rdc.csv"},
-                    {"@type": "DataDownload", "encodingFormat": "application/json",
-                     "contentUrl": context["origin"] + "/data/base-ebola-rdc.json"},
-                ],
+                    {"@type": "DataDownload", "encodingFormat": fmt_, "inLanguage": lg,
+                     "contentUrl": "%s/data/%s.%s" % (context["origin"], base_donnees.FICHIERS[lg], ext)}
+                    for lg in ("fr", "en")
+                    for fmt_, ext in (("text/csv", "csv"), ("application/json", "json"))],
                 "isBasedOn": [{"@type": "WebSite",
                                "name": "Institut National de Santé Publique (INSP) RDC",
                                "url": "https://insp.cd/"}],
@@ -4532,6 +4532,27 @@ def head_assets(needs):
 BASE = None
 
 
+def _bdd_fichiers(lang):
+    ici, autre = ("fr", "en") if lang == "fr" else ("en", "fr")
+    f = lambda v, ext: "/data/%s.%s" % (base_donnees.FICHIERS[v], ext)
+    return {"bdd.csv": f(ici, "csv"), "bdd.json": f(ici, "json"),
+            "bdd.autreCsv": f(autre, "csv"), "bdd.autreJson": f(autre, "json")}
+
+
+def _bdd_dico(lang, strings_lang):
+    """Le dictionnaire des colonnes, ecrit dans la page a la generation
+    (4 novembre 2026) : il s'affiche sans attendre le JSON de 1,2 Mo, meme si
+    celui-ci ne charge pas, et les moteurs le lisent. Sous chaque libelle, le
+    nom des colonnes dans le fichier de la page (anglais hors page francaise)."""
+    nom = (lambda k: k) if lang == "fr" else (lambda k: base_donnees.COLONNES_EN[k])
+    lignes = strings_lang["bddDico"]
+    assert len(lignes) == len(base_donnees.DICO_CLES), "bddDico et DICO_CLES desalignes"
+    return '<table class="bdd-dico"><tbody>%s</tbody></table>' % "".join(
+        '<tr><td>%s<span class="bdd-cles">%s</span></td><td>%s</td></tr>'
+        % (esc(titre), " ".join("<code>%s</code>" % esc(nom(k)) for k in cles), esc(texte))
+        for (titre, texte), cles in zip(lignes, base_donnees.DICO_CLES))
+
+
 def base_values(config, urls, lang, strings_lang, i18n_lang, latest_reports):
     """Ce que le generateur ecrit en dur dans la page Base de donnees : le
     resume, le tableau du dernier bulletin (pays et provinces), la liste des
@@ -4576,6 +4597,11 @@ def base_values(config, urls, lang, strings_lang, i18n_lang, latest_reports):
         "bdd.zonesTitre": esc(interp(strings_lang["bddZonesT"], {"n": fmt(len(BASE["zones"]), lang)})),
         "bdd.zones": zones_html,
         "bdd.citation": esc(interp(strings_lang["bddCite"], {"date": long_date(date.today().isoformat(), i18n_lang)})),
+        # Le fichier de la langue de la page (4 novembre 2026) : le francais
+        # sur la page francaise, l'anglais sur les pages anglaise et swahilie ;
+        # l'autre version est proposee juste dessous.
+        **_bdd_fichiers(lang),
+        "bdd.dico": _bdd_dico(lang, strings_lang),
         "bdd.config": json.dumps(cfg, ensure_ascii=False).replace("</", "<\\/"),
     }
 

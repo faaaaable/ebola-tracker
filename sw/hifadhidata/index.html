@@ -93,12 +93,26 @@
     {
       "@type": "DataDownload",
       "encodingFormat": "text/csv",
+      "inLanguage": "fr",
       "contentUrl": "https://ebola-tracker.org/data/base-ebola-rdc.csv"
     },
     {
       "@type": "DataDownload",
       "encodingFormat": "application/json",
+      "inLanguage": "fr",
       "contentUrl": "https://ebola-tracker.org/data/base-ebola-rdc.json"
+    },
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "text/csv",
+      "inLanguage": "en",
+      "contentUrl": "https://ebola-tracker.org/data/ebola-drc-database.csv"
+    },
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "inLanguage": "en",
+      "contentUrl": "https://ebola-tracker.org/data/ebola-drc-database.json"
     }
   ],
   "isBasedOn": [
@@ -145,8 +159,8 @@
   gtag('config', 'G-TY2M5LDVN3');
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
-<link rel="stylesheet" href="/assets/css/base.css?v=a0799565de">
-<script defer src="/assets/js/base.js?v=29a7f6d43d"></script>
+<link rel="stylesheet" href="/assets/css/base.css?v=110a4eed8c">
+<script defer src="/assets/js/base.js?v=e53ca01e06"></script>
 <link rel="stylesheet" href="/assets/css/site.css?v=c9e92d2722">
 </head>
 <body>
@@ -320,10 +334,11 @@
         <p class="lede">Takwimu zote za tovuti, siku kwa siku, kwa nchi, kila jimbo na kila eneo la afya. Kila mstari unaelekeza kwenye ripoti ya INSP iliyoichapisha. Chunguza, chuja, panga au pakua.</p>
         <p class="bdd-resume">Mistari 8,620, ripoti 163 za INSP, maeneo 67 ya afya, kuanzia 14 Mei 2026 hadi 1 Nov. 2026.</p>
       <div class="bdd-dl" aria-label="Pakua hifadhidata">
-        <a class="bdd-btn" href="/data/base-ebola-rdc.csv" download>Yote kwa CSV</a>
-        <a class="bdd-btn bdd-sec" href="/data/base-ebola-rdc.json" download>Yote kwa JSON</a>
+        <a class="bdd-btn" href="/data/ebola-drc-database.csv" download>Yote kwa CSV</a>
+        <a class="bdd-btn bdd-sec" href="/data/ebola-drc-database.json" download>Yote kwa JSON</a>
         <a class="bdd-lic" href="#licence">Leseni CC BY 4.0</a>
       </div>
+      <p class="bdd-autre">Pia kwa Kifaransa, pamoja na majina ya safu: <a href="/data/base-ebola-rdc.csv" download>CSV</a> · <a href="/data/base-ebola-rdc.json" download>JSON</a></p>
     </div>
 
     <p class="bdd-avert">Takwimu zimetolewa kwenye PDF za INSP, sehemu kwa njia ya kiotomatiki: makosa bado yanawezekana. <b>Ukiwa na shaka, PDF ya ripoti ndiyo yenye mamlaka.</b> <a href="/sw/mawasiliano/">Ripoti kosa</a> · <a href="#erreurs">Soma zaidi</a></p>
@@ -372,7 +387,7 @@
       <details id="rattrapages"><summary>Ucheleweshaji</summary><div class="prose"><p>Tarehe 22 na 30 Julai 2026, tofauti inajumuisha zaidi ya siku moja: kuoanishwa kwa hifadhidata tarehe 22, na tarehe 28 na 29 Julai bila ripoti tarehe 30. Mistari hii ina alama « rattrapage ». Tarehe 30 Oktoba 2026, Ituri iliioanisha takwimu zake: vifo 314 vya awali vinaingia kwenye jumla na wagonjwa wake wamegawanywa upya kati ya kanda zake, bila kubadilisha jumla yake; mistari ya nchi, Ituri na kanda zake tarehe hiyo ina alama « harmonisation ». Tarehe 31 Oktoba, taarifa inabatilisha uoanishaji huo: vifo 314 vinaondolewa kwenye jumla, kila kanda inarudi kwenye mgawanyo wake wa awali, na mistari hiyo hiyo ina alama hiyo hiyo.</p></div></details>
       <details id="reconstitue"><summary>Tarehe 3 Oktoba 2026</summary><div class="prose"><p>SitRep na. 142 haikuchapishwa. Mstari wa tarehe 3 Oktoba umejengwa upya: jumla ya na. 143 ukiondoa visa na vifo vyake vipya vya saa 24. Una alama « reconstitue ».</p></div></details>
       <details id="provinces-zones"><summary>Majimbo na maeneo</summary><div class="prose"><p>Jumla ya jimbo inaweza kutofautiana na jumla ya maeneo yake: ripoti huhesabu kando visa na vifo ambavyo bado havijahusishwa na eneo. Visa vya kwanza vya Haut-Uélé na Tshopo vilihesabiwa Ituri hadi tarehe 10 Julai.</p></div></details>
-      <details id="colonnes"><summary>Safu</summary><div class="prose" id="bddDico"></div></details>
+      <details id="colonnes"><summary>Safu</summary><div class="prose" id="bddDico"><table class="bdd-dico"><tbody><tr><td>Utambulisho<span class="bdd-cles"><code>date</code> <code>level</code> <code>province</code> <code>zone</code> <code>sitrep</code> <code>source_pdf</code> <code>note</code></span></td><td>Safu moja kwa kila tarehe na eneo: ngazi (nchi, jimbo au eneo), namba ya SitRep na anwani ya PDF yake. Maelezo yanaonyesha safu maalum: “catch-up”, tofauti inayohusu siku kadhaa (22 na 30 Julai); “reconstructed”, siku ya SitRep 142 ambayo haikuchapishwa, iliyohesabiwa kwa kutoa; “harmonisation”, marekebisho ya vifo vya Ituri na chanzo; “WHO Weekly Report … (manual reading)”, thamani iliyosomwa kwenye ripoti ya WHO.</td></tr><tr><td>Visa, vifo (jumla)<span class="bdd-cles"><code>cases</code> <code>deaths</code></span></td><td>Visa vilivyothibitishwa na vifo tangu mwanzo wa mlipuko, kama vilivyochapishwa na ripoti ya siku hiyo.</td></tr><tr><td>Visa vipya, vifo vipya<span class="bdd-cles"><code>new_cases</code> <code>new_deaths</code> <code>days_covered</code></span></td><td>Tofauti na takwimu iliyotangulia ya eneo hilo, iliyohesabiwa na tovuti; hasi = marekebisho ya kupunguza.</td></tr><tr><td>Kiwango cha vifo<span class="bdd-cles"><code>cfr</code></span></td><td>Vifo vya jumla kugawanywa kwa visa vya jumla.</td></tr><tr><td>Waliopona<span class="bdd-cles"><code>recovered</code></span></td><td>Jumla iliyochapishwa, kwa kiwango cha kitaifa tu.</td></tr><tr><td>Mahali pa kifo<span class="bdd-cles"><code>community_deaths</code> <code>etc_deaths</code></span></td><td>Vifo vya siku katika jamii au katika kituo cha matibabu (CTE), kama vinavyochapishwa na ripoti, tangu 13 Julai. Kwa eneo, baadhi ya vifo vya CTE havihusishwi na eneo lolote na vinaonekana kwenye jimbo tu: jumla ya maeneo inaweza kuwa ndogo zaidi. Kisanduku kitupu: ripoti haisemi.</td></tr><tr><td>Tahadhari<span class="bdd-cles"><code>alerts_received</code> <code>alerts_validated</code></span></td><td>Tahadhari zilizopokelewa na kuthibitishwa kama visa vinavyoshukiwa, kwa siku, tangu 1 Juni.</td></tr><tr><td>Maabara<span class="bdd-cles"><code>lab_samples</code> <code>lab_positives</code> <code>lab_positivity</code></span></td><td>Sampuli zilizochambuliwa na chanya za siku; kiwango cha chanya kinahesabiwa tu zote mbili zikichapishwa.</td></tr><tr><td>Matibabu<span class="bdd-cles"><code>etc_admitted</code> <code>etc_beds</code> <code>etc_occupancy</code></span></td><td>Waliolazwa katika CTE, vitanda na kiwango cha vitanda vilivyojaa.</td></tr><tr><td>Watu wa karibu<span class="bdd-cles"><code>contacts_to_follow</code> <code>contacts_seen</code> <code>contacts_seen_pct</code></span></td><td>Wa kufuatiliwa, walioonekana na sehemu ya walioonekana.</td></tr><tr><td>Waliochanjwa<span class="bdd-cles"><code>vaccinated_total</code></span></td><td>Jumla ya waliochanjwa iliyochapishwa kwa jimbo.</td></tr></tbody></table></div></details>
       <details id="zones" class="bdd-zones"><summary>Maeneo 67 ya afya katika hifadhidata</summary><div class="prose">
         <p><a href="/sw/takwimu/ituri/"><b>Ituri</b></a> : Adja, Ariwara, Aru, Aungba, Bambu, Boga, Bunia, Damas, Drodro, Fataki, Gethy, Kambala, Kilo, Komanda, Lita, Logo, Lolwa, Mahagi, Mambasa, Mandima, Mangala, Mongbwalu, Nia-Nia, Nizi, Nyankunde, Rimba, Rwampara, Tchomia</p>
         <p><a href="/sw/takwimu/nord-kivu/"><b>Nord-Kivu</b></a> : Alimbongo, Beni, Biena, Butembo, Goma, Kalunguta, Katwa, Kayna, Kyondo, Lubero, Mabalako, Manguredjipa, Masereka, Musienene, Mutwanga, Oicha, Vuhovi</p>

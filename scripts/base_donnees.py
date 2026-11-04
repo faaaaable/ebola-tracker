@@ -9,6 +9,8 @@ deja produits par le pipeline : aucune nouvelle lecture de PDF.
   celui que lisent R, Python, Google Dataset Search) ;
 - data/base-ebola-rdc.json : la meme chose en colonnes + lignes, plus les
   metadonnees (licence, source, periode). La page /base-de-donnees/ le lit.
+- data/ebola-drc-database.csv et .json : la version anglaise (4 novembre
+  2026), colonnes et libelles traduits, offerte sur les pages en et sw.
 
 Regles, a garder alignees sur la page et sur le reste du site :
 - une zone = sa cle normalisee (jamais le nom brut) plus les alias du site
@@ -53,6 +55,52 @@ COLONNES = [
     ("vaccines_cumul", "rip", "int"),
 ]
 RIPOSTE = [c for c, g, _ in COLONNES if g == "rip"]
+
+# La version anglaise (4 novembre 2026, decision du proprietaire : « une bdd
+# francaise et une bdd anglaise ») : memes lignes, memes valeurs, colonnes et
+# libelles traduits. Les noms de provinces et de zones restent ceux des
+# bulletins. Ecrite par le meme appel, elle ne peut pas diverger.
+COLONNES_EN = {
+    "date": "date", "niveau": "level", "province": "province", "zone": "zone",
+    "sitrep": "sitrep", "source_pdf": "source_pdf", "mention": "note",
+    "cas": "cases", "nouveaux_cas": "new_cases", "ecart_jours": "days_covered",
+    "deces": "deaths", "nouveaux_deces": "new_deaths", "letalite": "cfr", "gueris": "recovered",
+    "deces_communaute": "community_deaths", "deces_cte": "etc_deaths",
+    "alertes_recues": "alerts_received", "alertes_validees": "alerts_validated",
+    "labo_echantillons": "lab_samples", "labo_positifs": "lab_positives", "labo_positivite": "lab_positivity",
+    "cte_hospitalises": "etc_admitted", "cte_lits": "etc_beds", "cte_occupation": "etc_occupancy",
+    "contacts_a_suivre": "contacts_to_follow", "contacts_vus": "contacts_seen", "contacts_vus_pct": "contacts_seen_pct",
+    "vaccines_cumul": "vaccinated_total",
+}
+assert set(COLONNES_EN) == {c for c, _, _ in COLONNES}
+# Les colonnes que decrit chaque ligne du dictionnaire de la page, dans
+# l'ordre de bddDico (strings.json, onze lignes dans les trois langues).
+DICO_CLES = [["date", "niveau", "province", "zone", "sitrep", "source_pdf", "mention"], ["cas", "deces"],
+             ["nouveaux_cas", "nouveaux_deces", "ecart_jours"], ["letalite"], ["gueris"],
+             ["deces_communaute", "deces_cte"], ["alertes_recues", "alertes_validees"],
+             ["labo_echantillons", "labo_positifs", "labo_positivite"],
+             ["cte_hospitalises", "cte_lits", "cte_occupation"],
+             ["contacts_a_suivre", "contacts_vus", "contacts_vus_pct"], ["vaccines_cumul"]]
+NIVEAUX_EN = {"pays": "country", "province": "province", "zone": "zone"}
+MENTIONS_EN = {"rattrapage": "catch-up", "reconstitue": "reconstructed", "harmonisation": "harmonisation"}
+FICHIERS = {"fr": "base-ebola-rdc", "en": "ebola-drc-database"}
+
+
+def _mention_en(m):
+    """« rattrapage + OMS Weekly Report 02 (lecture manuelle) » en anglais."""
+    out = []
+    for x in [x for x in (m or "").split(" + ") if x]:
+        x = MENTIONS_EN.get(x, x)
+        x = x.replace("OMS ", "WHO ").replace("(lecture manuelle)", "(manual reading)")
+        out.append(x)
+    return " + ".join(out)
+
+
+def _ligne_en(o):
+    o = dict(o)
+    o["niveau"] = NIVEAUX_EN.get(o["niveau"], o["niveau"])
+    o["mention"] = _mention_en(o["mention"])
+    return o
 
 
 def _lire(nom):
@@ -229,32 +277,47 @@ def construire(origin="https://ebola-tracker.org"):
     return lignes
 
 
-def ecrire(origin="https://ebola-tracker.org"):
-    """Ecrit le CSV et le JSON ; renvoie un resume pour la page."""
-    lignes = construire(origin)
-    cles = [c for c, _, _ in COLONNES]
+def _ecrire_fichiers(nom, lignes, cles, entete, meta, origin):
     sortie = io.StringIO()
     w = csv.writer(sortie, lineterminator="\n")
-    w.writerow(cles)
+    w.writerow(entete)
     for o in lignes:
         w.writerow(["" if o.get(k) is None else o.get(k) for k in cles])
-    with io.open(os.path.join(ROOT, "data", "base-ebola-rdc.csv"), "w", encoding="utf-8-sig", newline="") as f:
+    with io.open(os.path.join(ROOT, "data", nom + ".csv"), "w", encoding="utf-8-sig", newline="") as f:
         f.write(sortie.getvalue())
+    # Le JSON ne repete pas l'adresse du PDF sur chaque ligne (elle doublait
+    # le poids du fichier) : meta.pdf donne le fichier de chaque numero.
+    meta["pdf"] = {str(o["sitrep"]): o["source_pdf"].replace(origin, "") for o in lignes if o.get("source_pdf")}
+    sans_pdf = [k if k != "source_pdf" else None for k in cles]
+    with io.open(os.path.join(ROOT, "data", nom + ".json"), "w", encoding="utf-8") as f:
+        json.dump({"meta": meta, "lignes": [[o.get(k) if k else None for k in sans_pdf] for o in lignes]}, f,
+                  ensure_ascii=False, separators=(",", ":"))
 
+
+def ecrire(origin="https://ebola-tracker.org"):
+    """Ecrit le CSV et le JSON, en francais et en anglais ; renvoie un resume
+    pour la page."""
+    lignes = construire(origin)
+    cles = [c for c, _, _ in COLONNES]
     dates = sorted({o["date"] for o in lignes})
     zones = sorted({(o["province"], o["zone"]) for o in lignes if o["niveau"] == "zone"})
+    # Le JSON francais est celui que lit la page, dans les trois langues ;
+    # « en » donne a base.js le nom de chaque colonne dans le fichier anglais.
     meta = {
         "titre": "Base de donnees de l'epidemie d'Ebola Bundibugyo en RDC (2026)",
         "source": "Rapports de situation (SitRep) de l'Institut national de sante publique (INSP), RDC",
         "licence": LICENCE, "citation": "Ebola Tracker (ebola-tracker.org), d'apres les SitRep de l'INSP",
         "debut": dates[0], "fin": dates[-1], "lignes": len(lignes),
-        "colonnes": [{"cle": c, "groupe": g, "type": t} for c, g, t in COLONNES],
+        "colonnes": [{"cle": c, "en": COLONNES_EN[c], "groupe": g, "type": t} for c, g, t in COLONNES],
     }
-    # Le JSON ne repete pas l'adresse du PDF sur chaque ligne (elle doublait
-    # le poids du fichier) : meta.pdf donne le fichier de chaque numero.
-    meta["pdf"] = {str(o["sitrep"]): o["source_pdf"].replace(origin, "") for o in lignes if o.get("source_pdf")}
-    sans_pdf = [k if k != "source_pdf" else None for k in cles]
-    with io.open(os.path.join(ROOT, "data", "base-ebola-rdc.json"), "w", encoding="utf-8") as f:
-        json.dump({"meta": meta, "lignes": [[o.get(k) if k else None for k in sans_pdf] for o in lignes]}, f,
-                  ensure_ascii=False, separators=(",", ":"))
+    _ecrire_fichiers(FICHIERS["fr"], lignes, cles, cles, meta, origin)
+    meta_en = {
+        "title": "Database of the 2026 Bundibugyo Ebola outbreak in the DRC",
+        "source": "Situation reports (SitReps) of the National Institute of Public Health (INSP), DRC",
+        "licence": LICENCE, "citation": "Ebola Tracker (ebola-tracker.org), from INSP SitReps",
+        "start": dates[0], "end": dates[-1], "rows": len(lignes),
+        "columns": [{"key": COLONNES_EN[c], "type": t} for c, g, t in COLONNES],
+    }
+    _ecrire_fichiers(FICHIERS["en"], [_ligne_en(o) for o in lignes], cles,
+                     [COLONNES_EN[c] for c in cles], meta_en, origin)
     return {"lignes": lignes, "dates": dates, "zones": zones}

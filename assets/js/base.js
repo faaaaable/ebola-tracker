@@ -37,15 +37,6 @@ const TXT = {
     g:{epi:'Épidémie', lieu:'Lieu du décès', surv:'Surveillance', labo:'Laboratoire', cte:'Prise en charge (CTE)', ct:'Contacts', vac:'Vaccination'},
     calc:'calc.', calcT:'Ligne reconstituée : SitRep non publié', rat:'R', ratT:'Rattrapage : l’écart couvre plus d’une journée',
     sur:n => `${n} j`, surT:n => `Écart sur ${n} jours : pas de relevé pour ce territoire entre-temps`, neg:'Révision à la baisse par la source', oms:'OMS',
-    dicoT:'Les colonnes',
-    dico:[['Cas, décès (cumul)','Cas confirmés et décès depuis le début de l’épidémie, tels que publiés par le bulletin du jour, pour le pays, la province ou la zone.'],
-          ['Nouveaux cas, nouveaux décès','Écart de cumul avec le relevé précédent du même territoire, calculé par le site ; négatif = révision à la baisse ; « 3 j » = écart couvrant trois journées.'],
-          ['Létalité','Décès cumulés divisés par cas confirmés cumulés.'], ['Guéris','Cumul publié, au niveau national seulement.'],
-          ['Lieu du décès','Décès confirmés du jour en communauté ou en centre de traitement (CTE), tels que les publie le bulletin, depuis le 13 juillet. Par zone, certains décès en CTE ne sont rattachés à aucune zone et ne figurent qu’à la province : la somme des zones peut être inférieure. Case vide : le bulletin ne permet pas de le savoir.'],
-          ['Alertes','Alertes reçues et validées comme cas suspects, par jour, depuis le 1er juin.'],
-          ['Laboratoire','Échantillons analysés et positifs du jour ; la positivité n’est calculée que si les deux sont publiés.'],
-          ['Prise en charge','Personnes hospitalisées en CTE, lits disponibles et taux d’occupation.'],
-          ['Contacts','Contacts à suivre, contacts vus et part des contacts vus.'], ['Vaccinés','Cumul des personnes vaccinées publié pour la province.']],
     erreur:'La base n’a pas pu être chargée. Les fichiers restent téléchargeables ci-dessus.',
   },
   en: {
@@ -64,15 +55,6 @@ const TXT = {
     g:{epi:'Outbreak', lieu:'Place of death', surv:'Surveillance', labo:'Laboratory', cte:'Treatment (ETC)', ct:'Contacts', vac:'Vaccination'},
     calc:'calc.', calcT:'Reconstructed row: SitRep not published', rat:'C', ratT:'Catch-up: the difference covers more than one day',
     sur:n => `${n} d`, surT:n => `Difference over ${n} days: no reading for this area in between`, neg:'Downward revision by the source', oms:'WHO',
-    dicoT:'The columns',
-    dico:[['Cases, deaths (total)','Confirmed cases and deaths since the start of the outbreak, as published by the day’s bulletin, for the country, province or zone.'],
-          ['New cases, new deaths','Difference from the previous reading for the same area, computed by the site; negative = downward revision; “3 d” = difference covering three days.'],
-          ['Fatality','Total deaths divided by total confirmed cases.'], ['Recovered','Published total, national level only.'],
-          ['Place of death','Confirmed deaths of the day in the community or in a treatment centre (ETC), as published by the bulletin, since 13 July. By zone, some ETC deaths are not assigned to any zone and appear only under the province: the sum of the zones can be lower. Empty cell: the bulletin does not say.'],
-          ['Alerts','Alerts received and validated as suspected cases, per day, since 1 June.'],
-          ['Laboratory','Samples analysed and positive results of the day; positivity is only computed when both are published.'],
-          ['Treatment','People hospitalised in ETCs, available beds and occupancy rate.'],
-          ['Contacts','Contacts to follow, contacts seen and share of contacts seen.'], ['Vaccinated','Published total of people vaccinated in the province.']],
     erreur:'The database could not be loaded. The files remain available for download above.',
   },
   sw: {
@@ -91,15 +73,6 @@ const TXT = {
     g:{epi:'Mlipuko', lieu:'Mahali pa kifo', surv:'Ufuatiliaji', labo:'Maabara', cte:'Matibabu (CTE)', ct:'Watu wa karibu', vac:'Chanjo'},
     calc:'calc.', calcT:'Mstari uliojengwa upya: SitRep haikuchapishwa', rat:'R', ratT:'Ucheleweshaji: tofauti inajumuisha zaidi ya siku moja',
     sur:n => `siku ${n}`, surT:n => `Tofauti ya siku ${n}: hakuna takwimu za eneo hili katikati`, neg:'Marekebisho ya kupunguza na chanzo', oms:'WHO',
-    dicoT:'Safu',
-    dico:[['Visa, vifo (jumla)','Visa vilivyothibitishwa na vifo tangu mwanzo wa mlipuko, kama vilivyochapishwa na ripoti ya siku hiyo.'],
-          ['Visa vipya, vifo vipya','Tofauti na takwimu iliyotangulia ya eneo hilo, iliyohesabiwa na tovuti; hasi = marekebisho ya kupunguza.'],
-          ['Kiwango cha vifo','Vifo vya jumla kugawanywa kwa visa vya jumla.'], ['Waliopona','Jumla iliyochapishwa, kwa kiwango cha kitaifa tu.'],
-          ['Mahali pa kifo','Vifo vya siku katika jamii au katika kituo cha matibabu (CTE), kama vinavyochapishwa na ripoti, tangu 13 Julai. Kwa eneo, baadhi ya vifo vya CTE havihusishwi na eneo lolote na vinaonekana kwenye jimbo tu: jumla ya maeneo inaweza kuwa ndogo zaidi. Kisanduku kitupu: ripoti haisemi.'],
-          ['Tahadhari','Tahadhari zilizopokelewa na kuthibitishwa kama visa vinavyoshukiwa, kwa siku, tangu 1 Juni.'],
-          ['Maabara','Sampuli zilizochambuliwa na chanya za siku; kiwango cha chanya kinahesabiwa tu zote mbili zikichapishwa.'],
-          ['Matibabu','Waliolazwa katika CTE, vitanda na kiwango cha vitanda vilivyojaa.'],
-          ['Watu wa karibu','Wa kufuatiliwa, walioonekana na sehemu ya walioonekana.'], ['Waliochanjwa','Jumla ya waliochanjwa iliyochapishwa kwa jimbo.']],
     erreur:'Hifadhidata haikuweza kupakiwa. Faili bado zinaweza kupakuliwa hapo juu.',
   },
 };
@@ -150,7 +123,6 @@ function interface_(){
     </div>
     <div class="bdd-compte" id="bddCompte"></div>
     <div class="bdd-grille" id="bddGrille"><table><thead id="bddThead"></thead><tbody id="bddTbody"></tbody></table></div>`;
-  document.getElementById('bddDico').innerHTML = `<table class="bdd-dico"><tbody>${T('dico').map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join('')}</tbody></table>`;
 }
 
 function filtrer(){
@@ -301,4 +273,19 @@ demarrer().catch(e => {
   if(c) c.textContent = T('erreur');
 });
 
+})();
+
+// « Les colonnes » s'ouvre quand on arrive par #colonnes ou qu'on suit un
+// lien vers cette ancre (4 novembre 2026) ; fermee sinon.
+(function(){
+  const ouvrir = () => {
+    const d = document.getElementById('colonnes');
+    if(d && location.hash === '#colonnes' && !d.open){ d.open = true; d.scrollIntoView(); }
+  };
+  window.addEventListener('hashchange', ouvrir);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href$="#colonnes"]');
+    if(a && location.hash === '#colonnes') setTimeout(ouvrir);
+  });
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ouvrir); else ouvrir();
 })();
