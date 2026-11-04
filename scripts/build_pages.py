@@ -42,6 +42,7 @@ import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 20
 import parcours  # carte du parcours du premier malade du Kenya (20 octobre 2026)
 import parcours_nigeria  # carte du parcours du premier cas du Nigeria (29 octobre 2026)
 import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
+import chapitres  # Ensemble du pays et provinces en chapitres (4 novembre 2026)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
@@ -5352,6 +5353,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         values["seed.paysRank"] = " ".join(esc(x) for x in lignes)
 
     content = render(fragment, values, fragment_name + " [" + lang + "]")
+    # Ensemble du pays et provinces en chapitres numerotes (4 novembre 2026,
+    # maquette 2b) : voir scripts/chapitres.py.
+    if is_province or page["id"] == "donnees":
+        content = chapitres.transformer(content, strings_lang, pays=not is_province,
+                                         dans=province_forms(config, province["name"], lang)["in"] if is_province else "")
     # Les notes sous les graphiques restent visibles (7 octobre 2026, decision
     # du proprietaire : elles portent les reserves qui changent la lecture).
 

@@ -5508,3 +5508,40 @@ main :where(p,li) a.lien-x:is(:hover,:focus-visible){text-decoration-color:curre
   .lz-l li{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;}
   .lz-b{grid-column:1 / -1;order:3;}
 }
+
+/* ---- Ensemble du pays et provinces en chapitres (4 novembre 2026, maquette
+   2b ; HTML rendu par scripts/chapitres.py). Menu a ancres de la page Kenya
+   avec numeros ; chapitre = numero bleu (celui des .fiche-num), titre,
+   chapeau, filet fin AU-DESSUS ; figures et tableaux en pleine largeur,
+   titres a gauche, au-dessus. ---- */
+.chap-nav{margin-top:32px;}
+.chap-nav-n{font-family:var(--font-serif);font-weight:600;color:var(--accent-strong);opacity:.8;margin-right:6px;}
+.chap{border-top:1px solid var(--line);margin-top:72px;padding-top:56px;scroll-margin-top:130px;}
+.chap-nav + .chap{border-top:0;margin-top:0;}
+.chap-ancre{display:block;scroll-margin-top:130px;}
+.chap-ouv{display:flex;gap:28px;align-items:flex-start;}
+.chap-num{font-family:var(--font-serif);font-size:64px;line-height:.8;font-weight:600;letter-spacing:-.02em;color:var(--accent-strong);opacity:.8;min-width:90px;}
+.chap-t{font-family:var(--font-serif);font-size:clamp(32px,4vw,48px);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin:0 0 12px;color:var(--ink);}
+.chap-chapo{font-family:var(--font-serif);font-size:19px;line-height:1.55;color:var(--ink-strong);max-width:640px;margin:0;}
+.chap-corps{padding-top:40px;}
+.chap-corps > .section-head,.chap-fig{display:block;margin:40px 0 14px !important;text-align:left;}
+.chap-corps > .section-head:first-child,.chap-corps > .chap-fig:first-child,.chap-corps > .chap-ancre:first-child + .chap-fig{margin-top:0 !important;}
+.chap-corps .section-head .frame-title{text-align:left;margin:0 0 4px;}
+.chap-corps .section-head .section-sub{display:block;font-style:normal;font-size:13px;color:var(--ink-faint);text-align:left;}
+/* lignes equilibrees pour les titres et chapeaux, pas de mot seul ailleurs */
+main:has(.chap) :is(.page-title,.lede,.chap-t,.chap-chapo,.frame-title,.section-sub,.rp-g h3,.rp-sub){text-wrap:balance;}
+main:has(.chap) :is(.page-intro,.fiche-texte,.map-note,.chart-note,.zones-note){text-wrap:pretty;}
+/* tout a gauche, tableaux en pleine largeur (le site les centrait et les
+   calait sur leur contenu sur ces pages ; meme prefixe pour l'emporter) */
+main:has(.prov-hero-b) .chap-corps :is(.zones-block,.panel-fit){margin-left:0;margin-right:0;width:auto;}
+main:has(.prov-hero-b) .chap-corps .panel-fit .table-scroll,main:has(.prov-hero-b) .chap-corps .zones-block .table-scroll{display:block;width:auto;}
+main:has(.prov-hero-b) .chap-corps :is(.province-summary,.zones-detail,.zones-province){width:100%;margin:0;}
+main .chap-corps #zonesProvinceTable{width:100%;min-width:0;margin:0;}
+main:has(.prov-hero-b) .chap-corps :is(.drill,.zones-note,.map-note,.fiche-texte-centre){text-align:left;margin-left:0;}
+.chap-corps :is(.rc-chaine,.grille){margin-left:0;}
+.chap-corps .tl-legend{justify-content:flex-start;text-align:left;margin-left:0;}
+/* Riposte des provinces : la presentation de la page Riposte, texte a
+   gauche et graphique a droite (.rp-v, regles du site), retablie le
+   4 novembre 2026 a la demande du proprietaire. */
+@media (max-width:900px){.chap,.chap-ancre{scroll-margin-top:16px;}}
+@media (max-width:700px){.chap-num{font-size:44px;min-width:52px;}.chap-ouv{gap:16px;}.chap{margin-top:48px;padding-top:40px;}}
