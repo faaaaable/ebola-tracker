@@ -5261,9 +5261,9 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
    La barre suit la lecture (collee sous la barre du site sur ordinateur, qui
    fait 69 px) ; sur telephone elle defile a l'horizontale. */
 .pp-sousnav{position:sticky;top:69px;z-index:40;margin:0 0 8px;background:rgba(253,250,246,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-.pp-sousnav div{display:flex;gap:4px 22px;overflow-x:auto;scrollbar-width:none;padding:11px 2px;}
+.pp-sousnav div{display:flex;gap:4px 22px;overflow-x:auto;scrollbar-width:none;padding:3px 2px;}
 .pp-sousnav div::-webkit-scrollbar{display:none;}
-.pp-sousnav a{font:600 14px var(--font-sans);color:var(--ink-dim);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;padding-bottom:2px;}
+.pp-sousnav a{font:600 14px var(--font-sans);color:var(--ink-dim);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;display:inline-flex;align-items:center;min-height:40px;box-sizing:border-box;padding:2px 0 0;}
 .pp-sousnav a:hover{color:var(--accent-strong);border-bottom-color:var(--accent-strong);}
 #parcours,#chronologie,#cas,#recit,#questions,#sources{scroll-margin-top:130px;}
 @media (max-width:900px){.pp-sousnav{position:static;}#parcours,#chronologie,#cas,#recit,#questions,#sources{scroll-margin-top:16px;}}
@@ -5535,6 +5535,16 @@ main:has(.prov-hero-b) .chap-corps :is(.drill,.zones-note,.map-note,.fiche-texte
    4 novembre 2026 a la demande du proprietaire. */
 @media (max-width:900px){.chap,.chap-ancre{scroll-margin-top:16px;}}
 @media (max-width:700px){.chap-num{font-size:44px;min-width:52px;}.chap-ouv{gap:16px;}.chap{margin-top:48px;padding-top:40px;}}
+/* Telephone (4 novembre 2026) : le numero sur la ligne du titre, le chapeau
+   sur toute la largeur ; les tableaux sortent de leur carte pour regagner
+   les 34 px de marge (ils defilent de cote, comme avant les chapitres). */
+@media (max-width:640px){
+  .chap-ouv{display:grid;grid-template-columns:auto 1fr;gap:0 14px;align-items:baseline;}
+  .chap-ouv > div{display:contents;}
+  .chap-num{min-width:0;}
+  .chap-chapo{grid-column:1 / -1;margin-top:4px;}
+  .chap-corps .panel:has(.table-scroll){background:none;border:0;border-radius:0;box-shadow:none;padding-left:0 !important;padding-right:0 !important;}
+}
 /* Points de controle des provinces : une rangee par graphique, son titre et
    son resume a gauche (4 novembre 2026). La rangee continue le volet : pas
    de filet, un titre plus petit que celui du volet. */
