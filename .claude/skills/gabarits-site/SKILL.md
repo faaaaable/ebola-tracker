@@ -5,6 +5,25 @@ description: "La structure des pages d'ebola-tracker : l'en-tete a quatre couche
 
 # La structure du site
 
+**Ensemble du pays et les pages province sont en chapitres depuis le
+4 novembre 2026** (maquette 2b, en ligne 8eb6a0c38). Sous l'en-tête : le menu
+à ancres de la page Kenya, numéroté (`.pp-sousnav.chap-nav`), puis des
+chapitres `section.chap` (numéro bleu `.chap-num`, titre `.chap-t`, chapeau
+`.chap-chapo`, corps `.chap-corps`, filet fin au-dessus) : 01 Évolution,
+02 Lieu des décès, 03 Provinces & zones de santé (province : Zones de santé),
+04 Riposte, 05 Défis, 06 Chronologie — une province n'a que ceux qu'elle a
+(`province_numeros`, `CHAPITRES_PROVINCE`). Les gabarits les écrivent
+directement : `donnees.html`, `province.html`, et dans `build_pages.py`
+`chapitre_html()`, `chap_fig()` (titre de figure au-dessus, à gauche),
+`chap_nav_liens_province()`, `province_chart_html()`, `fiche_riposte_html()`,
+`province_timeline_html()` ; `defis_synthese.grille_province()` rend ses
+parties. Chaque graphique titré au-dessus porte `data-sans-titre`. Les
+chapeaux des provinces nomment la province (`{in}` de `province_forms`,
+clés `chap*Prov`). La riposte des provinces garde ses deux colonnes
+(`.rp-v`, comme la page Riposte). Un premier essai passait par une
+transformation après coup (`scripts/chapitres.py`), supprimée le même jour
+après comparaison : les 27 pages étaient identiques.
+
 **Un seul en-tête de page, en quatre couches, depuis le 5 septembre 2026.**
 Le propriétaire avait relevé que chaque page commençait autrement — bille
 ici, pas là ; chapeau en serif sur deux pages, en sans-serif sur sept ;

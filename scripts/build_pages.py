@@ -42,7 +42,6 @@ import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 20
 import parcours  # carte du parcours du premier malade du Kenya (20 octobre 2026)
 import parcours_nigeria  # carte du parcours du premier cas du Nigeria (29 octobre 2026)
 import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
-import chapitres  # Ensemble du pays et provinces en chapitres (4 novembre 2026)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
@@ -3121,13 +3120,11 @@ PROVINCES_RIPOSTE = ("Ituri", "Nord-Kivu")
 
 
 def province_numeros(province):
-    """Les numeros des cadres d'une page province, dans l'ordre de la page :
-    [courbe des cas, courbe des deces et lieu du deces], zones,
-    riposte, [obstacles], chronologie — le plan de la fiche du 28 septembre 2026.
-    Un seul calcul pour le gabarit et les fonctions qui ecrivent les cadres :
-    chaque ajout decalait la chronologie a la main (16 septembre 2026)."""
-    # La carte des zones est partie le 6 octobre 2026 : celle de l'en-tete
-    # suffit. Les cadres commencent donc a 01 avec la courbe des cas.
+    """Les numeros des chapitres d'une page province, dans l'ordre de la
+    page (mise en page en chapitres du 4 novembre 2026) : Evolution, Lieu
+    des deces, Zones de sante, Riposte, Defis, Chronologie — seulement ceux
+    que la province a. Un seul calcul pour le menu a ancres et pour chaque
+    chapitre."""
     n, nums = 0, {}
     def suivant(cle):
         nonlocal n
@@ -3135,7 +3132,8 @@ def province_numeros(province):
         nums[cle] = "%02d" % n
     if a_une_courbe(province):
         suivant("courbe")
-        suivant("deces")
+        if province.get("name") in PROVINCES_LIEU_DECES:
+            suivant("lieu")
     suivant("zones")
     if a_une_riposte(province) or province.get("name") in VACCIN_PROVINCES | POE_PROVINCES:
         suivant("riposte")
@@ -3143,6 +3141,36 @@ def province_numeros(province):
         suivant("obstacles")
     suivant("chrono")
     return nums
+
+
+# Les chapitres (4 novembre 2026, maquette 2b) : id d'ancre et cle du titre
+# de chaque chapitre d'une page province, dans l'ordre de province_numeros.
+CHAPITRES_PROVINCE = [("courbe", "evolution", "chapEvolution"), ("lieu", "lieu", "chapLieu"),
+                      ("zones", "zones", "chapZones"), ("riposte", "riposte", "chapRiposte"),
+                      ("obstacles", "defis", "chapDefis"), ("chrono", "chronologie", "chapChrono")]
+
+
+def chapitre_html(cid, numero, titre, chapo, corps):
+    """Un chapitre : numero bleu, titre, chapeau, puis son corps en pleine
+    largeur (styles « .chap » de site.css). titre et chapo deja echappes."""
+    return ('  <section class="section chap" id="%s">\n'
+            '    <header class="chap-ouv"><span class="chap-num">%s</span><div><h2 class="chap-t">%s</h2>%s</div></header>\n'
+            '    <div class="chap-corps">\n%s    </div>\n  </section>\n'
+            % (cid, numero, titre, ('<p class="chap-chapo">%s</p>' % chapo) if chapo else "", corps))
+
+
+def chap_fig(titre, sous=""):
+    """Le titre d'une figure, au-dessus d'elle, a gauche. Deja echappes."""
+    return ('      <div class="section-head chap-fig"><h3 class="frame-title">%s</h3>%s</div>\n'
+            % (titre, ('<span class="section-sub">%s</span>' % sous) if sous else ""))
+
+
+def chap_nav_liens_province(province, strings_lang):
+    """Les entrees du menu a ancres d'une page province (celui de la page
+    Kenya, numerote) ; le gabarit pose le <nav> autour."""
+    nums = province_numeros(province)
+    return "".join('<a href="#%s"><b class="chap-nav-n">%s</b>%s</a>' % (cid, nums[cle], esc(strings_lang[t]))
+                   for cle, cid, t in CHAPITRES_PROVINCE if cle in nums)
 
 
 BOUTON_PARTAGE = (
@@ -3189,26 +3217,20 @@ def province_riposte_charts_html(province, strings_lang, i18n_lang, numero):
 
 
 def lieu_deces_bloc(province, strings_lang, i18n_lang):
-    """Le lieu du deces, SOUS la courbe des deces de la fiche (28 septembre
-    2026) : c'est la meme question — combien, puis ou ils meurent. Meme
-    graphique que la page Riposte, restreint a la province par data-province,
-    pour les trois provinces qui classent assez de deces."""
+    """Le graphique du lieu du deces d'une page province (28 septembre 2026),
+    restreint a la province par data-province, pour les provinces qui
+    classent assez de deces. Depuis le 4 novembre 2026, il ouvre le chapitre
+    « Lieu des deces », qui porte le titre et la phrase (riposteDecesLede)."""
     if province.get("name") not in PROVINCES_LIEU_DECES:
         return ""
     return (
-        '      <div class="section-head" style="margin-top:32px;">\n'
-        '        <h3 class="frame-title">%s</h3>\n'
-        '        <span class="section-sub">%s</span>\n'
-        '      </div>\n'
-        '      <p class="fiche-texte fiche-texte-centre">%s</p>\n'
         '      <div class="panel chart-panel-wrap">\n%s'
         '        <div class="chart-panel">\n'
-        '          <canvas id="decesLieuChart" data-chart="deathsPlace" data-province="%s"></canvas>\n'
+        '          <canvas id="decesLieuChart" data-chart="deathsPlace" data-province="%s" data-sans-titre></canvas>\n'
         '        </div>\n'
         '        <div class="map-note chart-note"></div>\n'
         '      </div>\n'
-        % (esc(strings_lang["riposteDecesTitle"]), esc(strings_lang["provinceDecesLieuSub"]),
-           esc(strings_lang["riposteDecesLede"]), BOUTON_PARTAGE % ("decesLieuChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"])))
+        % (BOUTON_PARTAGE % ("decesLieuChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"])))
 
 
 SEUIL_LIEU_ZONE = 20   # meme seuil que deces-lieu.json pour les provinces
@@ -3370,78 +3392,55 @@ def province_deces_lieu_html(province, strings_lang, i18n_lang, numero="04"):
            esc(i18n_lang["chartShareBtn"]), esc(province["name"])))
 
 
-def _cadre_courbe_province(province, strings_lang, i18n_lang, numero, canvas_id, champ,
-                            cle_titre, cle_sous_titre, apres=""):
+def _cadre_courbe_province(province, strings_lang, i18n_lang, canvas_id, champ,
+                            cle_titre, cle_sous_titre):
+    """Une figure du chapitre « Evolution » d'une page province : son titre
+    au-dessus, a gauche (chap_fig), puis le graphique et ses trois pas de
+    temps (15 septembre 2026). Le graphique ne repete pas le titre
+    (data-sans-titre) ; le cadre des deces porte le rouge du site."""
     plafond = COURBE_PROVINCE_FORCEE.get(province.get("name"))
     attrs = ' data-y-max="%d"' % plafond if plafond else ""
     if champ != "confirmed":
         attrs += ' data-champ="%s"' % champ
-    # Cadre numerote, comme la page Riposte & defis (demande du proprietaire,
-    # 8 septembre 2026) : carte 01, courbe 02, zones 03 depuis le 16 septembre
-    # 2026, ou la courbe est remontee au-dessus du tableau des zones.
-    return (
-        '  <section class="section cadre-fiche">\n'
-        '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
-        '<div class="section-sub">%s</div></div></div>\n'
-        '    <div class="cadre-corps">\n'
-        '    <div class="panel chart-panel-wrap">\n'
-        # Le graphique de province se partage comme les autres : figure et note
-        # comprises. Le libelle vient d'i18n, comme partout ailleurs.
-        '      <div class="chart-actions" data-export-chart="%s">\n'
-        '        <button type="button" class="share-btn">\n'
-        '          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>\n'
-        '          <span data-i18n="chartShareBtn">%s</span>\n'
-        '        </button>\n'
-        '      </div>\n'
-        # Trois pas de temps, comme les cadres de /donnees/ (15 septembre 2026).
-        # La bascule vise le canevas de SON cadre (`.chart-panel-wrap`), le
-        # cablage d'`app.js` est generique : rien a declarer de plus.
-        '      <nav class="subtab-nav chart-vue-nav" data-vue-periode>\n'
-        '        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">%s</button>\n'
-        '        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">%s</button>\n'
-        '        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">%s</button>\n'
-        '      </nav>\n'
-        '      <div class="chart-panel">\n'
-        '        <canvas id="%s" data-chart="provinceEpidemic"%s></canvas>\n'
-        '      </div>\n'
-        '      <div class="map-note chart-note"></div>\n'
-        '    </div>\n'
-        '%s'
-        '    </div>\n'
-        '  </section>\n'
-        # Le titre porte le nom de la province entre parentheses. Sans lui,
-        # « Evolution de l'epidemie » est mot pour mot l'intitule du premier
-        # sous-onglet de /donnees/, qui lui trace le pays entier : un lecteur
-        # arrive par le menu lateral n'a rien pour distinguer les deux courbes.
-        % (esc(numero),
-           esc(interp(strings_lang[cle_titre],
-                      {"name": province["name"]})),
-           esc(strings_lang[cle_sous_titre]),
-           canvas_id,
-           esc(i18n_lang["chartShareBtn"]),
-           esc(i18n_lang["chartVueDaily"]),
-           esc(i18n_lang["chartVueWeekly"]),
-           esc(i18n_lang["chartVueMonthly"]),
-           canvas_id, attrs, apres))
+    # Le titre porte le nom de la province : sans lui, il serait mot pour mot
+    # celui de la courbe du pays entier sur /donnees/.
+    return (chap_fig(esc(interp(strings_lang[cle_titre], {"name": province["name"]})),
+                     esc(strings_lang[cle_sous_titre]))
+            + '    <div class="panel chart-panel-wrap">\n'
+            + BOUTON_PARTAGE % (canvas_id, esc(i18n_lang["chartShareBtn"]))
+            + '      <nav class="subtab-nav chart-vue-nav" data-vue-periode>\n'
+              '        <button type="button" class="subtab-btn active" data-vue="quotidien" data-i18n="chartVueDaily">%s</button>\n'
+              '        <button type="button" class="subtab-btn" data-vue="hebdo" data-i18n="chartVueWeekly">%s</button>\n'
+              '        <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">%s</button>\n'
+              '      </nav>\n'
+              '      <div class="chart-panel">\n'
+              '        <canvas id="%s" data-chart="provinceEpidemic"%s data-sans-titre></canvas>\n'
+              '      </div>\n'
+              '      <div class="map-note chart-note"></div>\n'
+              '    </div>\n'
+            % (esc(i18n_lang["chartVueDaily"]), esc(i18n_lang["chartVueWeekly"]), esc(i18n_lang["chartVueMonthly"]),
+               canvas_id, attrs))
 
-
-def province_chart_html(province, strings_lang, i18n_lang, lang="fr", url_base=""):
-    """Les deux cadres de courbe d'une page province : les cas, puis les
-    deces (demande du proprietaire, 28 septembre 2026, pour les quatre
-    provinces qui ont une courbe). Meme dessin, memes trois pas de temps ;
-    le cadre des deces porte le rouge du site et sa seule courbe de cumul."""
+def province_chart_html(province, strings_lang, i18n_lang, lang="fr", url_base="", dans=""):
+    """Les chapitres « Evolution » (cas puis deces, 28 septembre 2026) et
+    « Lieu des deces » d'une page province, pour les provinces qui ont une
+    courbe. dans = « en Ituri », « au Nord-Kivu »... pour le chapeau."""
     if not a_une_courbe(province):
         return ""
     nums = province_numeros(province)
-    return (_cadre_courbe_province(province, strings_lang, i18n_lang, nums["courbe"],
-                                   "provinceChart", "confirmed",
-                                   "provinceChartTitle", "provinceChartSub")
-            + _cadre_courbe_province(province, strings_lang, i18n_lang, nums["deces"],
-                                     "provinceDeathsChart", "deaths",
-                                     "provinceDeathsChartTitle", "provinceDeathsChartSub",
-                                     apres=lieu_deces_bloc(province, strings_lang, i18n_lang)
-                                     + lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base)))
-
+    out = chapitre_html(
+        "evolution", nums["courbe"], esc(strings_lang["chapEvolution"]),
+        esc(strings_lang["chapEvolutionChapoProv"].replace("{in}", dans)),
+        _cadre_courbe_province(province, strings_lang, i18n_lang, "provinceChart", "confirmed",
+                               "provinceChartTitle", "provinceChartSub")
+        + _cadre_courbe_province(province, strings_lang, i18n_lang, "provinceDeathsChart", "deaths",
+                                 "provinceDeathsChartTitle", "provinceDeathsChartSub"))
+    if "lieu" in nums:
+        out += chapitre_html(
+            "lieu", nums["lieu"], esc(strings_lang["chapLieu"]), esc(strings_lang["riposteDecesLede"]),
+            lieu_deces_bloc(province, strings_lang, i18n_lang)
+            + lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base))
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -3585,20 +3584,19 @@ def province_timeline_html(name, forms, strings, lang, i18n_lang, province_histo
                '      <li class="is-spread">%s</li>\n      <li class="is-milestone">%s</li>\n    </ul>\n'
                % (esc(strings_lang["timelineKindOfficial"]), esc(strings_lang["timelineKindSpread"]),
                   esc(strings_lang["timelineKindMilestone"])))
-    return ('  <section class="section cadre-fiche">\n'
-            '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2><div class="section-sub">%s</div></div></div>\n'
-            '    <div class="cadre-corps">\n'
-            '%s'
+    corps = ('%s'
             '    <div class="th-scroller">\n'
             '      <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="%s">\n'
             '        <ol class="th-track">\n%s\n        </ol>\n      </div>\n'
             '      <button class="th-nav is-prev" type="button" data-th-nav="-1" aria-controls="timelineTeaser" aria-label="%s" hidden>%s</button>\n'
             '      <button class="th-nav is-next" type="button" data-th-nav="1" aria-controls="timelineTeaser" aria-label="%s" hidden>%s</button>\n'
-            '    </div>\n    </div>\n  </section>\n'
-            % (esc(numero), esc(interp(strings_lang["provinceTimelineTitle"], forms)), esc(strings_lang["provinceTimelineSub"]),
-               legende, esc(interp(strings_lang["provinceTimelineTitle"], forms)), items,
+            '    </div>\n'
+            % (legende, esc(interp(strings_lang["provinceTimelineTitle"], forms)), items,
                esc(strings_lang["timelineScrollPrev"]), TH_FLECHE_PREV,
                esc(strings_lang["timelineScrollNext"]), TH_FLECHE_NEXT))
+    # Chapitre « Chronologie » (4 novembre 2026) : le chapeau nomme la province.
+    return chapitre_html("chronologie", esc(numero), esc(strings_lang["chapChrono"]),
+                         esc(strings_lang["chapChronoChapo"].replace("{in}", forms["in"])), corps)
 
 
 def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
@@ -4163,20 +4161,14 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
         # leur cadre sur les pages province, et la page Riposte les detaille.
         # Ne jamais ecrire « resume ... redige par ebola-tracker.org ».
         # Les liens ne servent qu'au pays (vers la page Riposte).
-        return (
-            '  <section class="section cadre-fiche%s" id="riposte">\n'
-            '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
-            '<div class="section-sub">%s</div></div></div>\n'
-            '    <div class="cadre-corps">\n%s%s%s%s'
-            '    </div>\n  </section>\n'
-            % (" fiche-centree" if chaine else "", esc(numero), esc(strings_lang["ficheRiposteTitle"]),
-               esc(sous_titre or strings_lang["ficheRiposteSub"]),
-               # Ce qu'est la riposte, en une phrase sous le titre (7 octobre
-               # 2026, demande de Fable).
-               '      <p class="fiche-texte fiche-texte-centre">%s</p>\n' % esc(strings_lang["ficheRiposteLede"]),
-               bloc_kpis, graphiques,
-               '      <p class="drill">%s</p>\n' % " · ".join(
-                   '<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens) if liens else ""))
+        # Chapitre « Riposte » (4 novembre 2026) : ce qu'est la riposte en
+        # chapeau (7 octobre 2026, demande de Fable), puis la chaine et les
+        # graphiques.
+        return chapitre_html(
+            "riposte", esc(numero), esc(strings_lang["chapRiposte"]), esc(strings_lang["ficheRiposteLede"]),
+            bloc_kpis + graphiques
+            + ('      <p class="drill">%s</p>\n' % " · ".join(
+                '<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens) if liens else ""))
     return (
         '  <section class="section cadre-fiche" id="riposte">\n'
         '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
@@ -4361,7 +4353,9 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
               "pointsControle": "poe"}
 
     def panneau(canvas_id, mode, vues=None, vue=None, titre_cle=None):
-        attrs = (' data-vue="%s" data-titre="%s"' % (vue, esc(i18n_lang[titre_cle]))) if vue else ""
+        # Le titre du volet est a gauche : le graphique ne le repete pas,
+        # sauf ceux qui portent le leur (data-titre, points de controle).
+        attrs = (' data-vue="%s" data-titre="%s"' % (vue, esc(i18n_lang[titre_cle]))) if vue else " data-sans-titre"
         return ('      <div class="panel chart-panel-wrap%s">\n%s%s'
                 '        <div class="chart-panel">\n'
                 '          <canvas id="%s" data-chart="%s" data-province="%s"%s></canvas>\n'
@@ -4968,12 +4962,20 @@ def main():
                                                numero=province_numeros(_p)["chrono"])
             for _p in provinces}
         # La grille des obstacles de chaque page province (29 septembre 2026).
+        # Chapitre « Defis » depuis le 4 novembre 2026 : titre de la grille
+        # au-dessus d'elle, chapeau qui nomme la province.
+        def _chap_defis(_p):
+            _dans = province_forms(config, _p["name"], lang)["in"]
+            _g = defis_synthese.grille_province(
+                _p["name"], lang, i18n_lang, long_date, esc, urls.path("defis", lang),
+                (lambda f: f[:1].upper() + f[1:])(_dans))
+            if not _g:
+                return ""
+            return chapitre_html("defis", province_numeros(_p)["obstacles"], esc(strings_lang["chapDefis"]),
+                                 esc(strings_lang["chapDefisChapoProv"].replace("{in}", _dans)),
+                                 chap_fig(_g["titre"], _g["sous"]) + _g["grille"] + "\n")
         common_seed["provinceObstacles"] = {
-            _p["name"]: defis_synthese.grille_province(
-                _p["name"], lang, i18n_lang, long_date, esc, province_numeros(_p)["obstacles"],
-                urls.path("defis", lang),
-                (lambda f: f[:1].upper() + f[1:])(province_forms(config, _p["name"], lang).get("in", _p["name"])))
-            for _p in provinces if _p["name"] in PROVINCES_OBSTACLES}
+            _p["name"]: _chap_defis(_p) for _p in provinces if _p["name"] in PROVINCES_OBSTACLES}
         common_seed.update(defis_synthese.render(lang, strings_lang, i18n_lang, long_date, esc, PROVINCE_COLORS,
                                                   lien_defis=urls.path("defis", lang)))
         common_seed.update(bulletin.render(lang, strings_lang, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp, province_forms, PROVINCE_COLORS, urls))
@@ -5324,7 +5326,12 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.chart": province_chart_html(
                 province, strings_lang, i18n_lang, lang=lang,
                 url_base="%s?niveau=zone&province=%s" % (urls.path("base-de-donnees", lang),
-                                                          name.replace(" ", "%20"))),
+                                                          name.replace(" ", "%20")),
+                dans=province_forms(config, name, lang)["in"]),
+            # Le menu a ancres et le chapeau des zones (chapitres, 4 novembre 2026).
+            "province.chapNavLiens": chap_nav_liens_province(province, strings_lang),
+            "province.zonesChapo": esc(strings_lang["chapZonesChapo"].replace(
+                "{in}", province_forms(config, name, lang)["in"])),
             **common_seed.get("provinceFiche", {}).get(name, {}),
             "province.zonesNum": province_numeros(province)["zones"],
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
@@ -5365,11 +5372,6 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         values["seed.paysRank"] = " ".join(esc(x) for x in lignes)
 
     content = render(fragment, values, fragment_name + " [" + lang + "]")
-    # Ensemble du pays et provinces en chapitres numerotes (4 novembre 2026,
-    # maquette 2b) : voir scripts/chapitres.py.
-    if is_province or page["id"] == "donnees":
-        content = chapitres.transformer(content, strings_lang, pays=not is_province,
-                                         dans=province_forms(config, province["name"], lang)["in"] if is_province else "")
     # Les notes sous les graphiques restent visibles (7 octobre 2026, decision
     # du proprietaire : elles portent les reserves qui changent la lecture).
 

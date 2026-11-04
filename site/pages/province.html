@@ -46,15 +46,17 @@
          de riposte sont dans le cadre « La riposte ». -->
   </section>
 
-  <!-- La carte des zones de sante (cadre 01) est partie le 6 octobre 2026,
-       a la demande du proprietaire : celle de l'en-tete la montre deja. -->
+  <!-- La page en chapitres (4 novembre 2026, maquette 2b) : le menu a
+       ancres de la page Kenya, numerote, puis Evolution, Lieu des deces,
+       Zones de sante, Riposte, Defis, Chronologie — seulement ceux que la
+       province a (province_numeros). Styles « .chap » de site.css. -->
+  <nav class="pp-sousnav chap-nav" aria-label="{{meta.h1}}"><div>{{province.chapNavLiens}}</div></nav>
 
-  <!-- Cas puis deces (et lieu du deces), au-dessus du tableau des zones.
-       Numeros calcules par province_numeros(). -->
+  <!-- Evolution (cas puis deces) et Lieu des deces : province_chart_html(). -->
 {{province.chart}}
-  <section class="section cadre-fiche">
-    <div class="fiche-tete"><span class="fiche-num">{{province.zonesNum}}</span><div><h2 class="frame-title">{{province.zonesTitle}}</h2></div></div>
-    <div class="cadre-corps">
+  <section class="section chap" id="zones">
+    <header class="chap-ouv"><span class="chap-num">{{province.zonesNum}}</span><div><h2 class="chap-t">{{t.chapZones}}</h2><p class="chap-chapo">{{province.zonesChapo}}</p></div></header>
+    <div class="chap-corps">
     <div class="zones-block">
       <div class="panel panel-fit" style="padding:16px;">
         <!-- Le tableau se partage en image, note comprise, comme les figures. -->

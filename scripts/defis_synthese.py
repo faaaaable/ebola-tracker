@@ -208,7 +208,7 @@ def grille(L, esc, long_date, i18n_lang, debut, fin, ent_tous, themes, tl, lien,
     return "".join(html)
 
 
-def grille_province(province, lang, i18n_lang, long_date, esc, numero, lien_riposte, prep_lien):
+def grille_province(province, lang, i18n_lang, long_date, esc, lien_riposte, prep_lien):
     """Le cadre « Des obstacles qui apparaissent dans chaque bulletin » d'une
     page province : la grille du pays, filtree sur les difficultes qui citent
     la province (29 septembre 2026). Les difficultes rattachees a aucune
@@ -232,10 +232,9 @@ def grille_province(province, lang, i18n_lang, long_date, esc, numero, lien_ripo
            "sw": "%s: kisanduku kimoja kwa wiki, rangi kulingana na sehemu ya ripoti zinazotaja kikwazo katika jimbo"}[L] % prep_lien
     g = grille(L, esc, long_date, i18n_lang, S["debut"], max(e[0] for e in ent), ent, themes, tl,
                lambda t: "%s#defi-%s" % (lien_riposte, t["id"]), province=province)
-    return ('  <section class="section cadre-fiche cadre-obstacles fiche-centree">\n'
-            '    <div class="fiche-tete"><span class="fiche-num">%s</span><div><h2 class="frame-title">%s</h2>'
-            '<div class="section-sub">%s</div></div></div>\n'
-            '    <div class="cadre-corps">\n%s\n    </div>\n  </section>\n' % (esc(numero), esc(titre), esc(sub), g))
+    # Depuis le 4 novembre 2026, le chapitre « Defis » de la page province
+    # (build_pages.chapitre_html) porte cette grille : on rend ses parties.
+    return {"titre": esc(titre), "sous": esc(sub), "grille": g}
 
 
 def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs, lien_defis=""):

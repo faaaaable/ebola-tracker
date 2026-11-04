@@ -50,22 +50,17 @@
     </section>
   </section>
 
-  <section class="section">
-    <!-- Le point des 7 derniers jours a ete retire le 7 octobre 2026 (proprietaire). -->
-    <nav class="riposte-ancres" aria-label="{{t.ddCombien}} · {{t.ddOu}}">
-      <a href="#cas">{{i18n.chartModeNewCases}}</a>
-      <a href="#deces">{{i18n.chartModeNewDeaths}}</a>
-      <a href="#ou">{{t.ddOu}}</a>
-      <a href="#riposte">{{t.ficheRiposteTitle}}</a>
-      <a href="#defis">{{t.navDefis}}</a>
-      <a href="#chronologie">{{t.navTimeline}}</a>
-    </nav>
-  </section>
+  <!-- La page en chapitres (4 novembre 2026, maquette 2b) : le menu a
+       ancres de la page Kenya, numerote, a remplace le sommaire ; chaque
+       chapitre a son numero bleu, son titre, son chapeau, et ses figures en
+       pleine largeur, titrees au-dessus (styles « .chap » de site.css). -->
+  <nav class="pp-sousnav chap-nav" aria-label="{{meta.h1}}"><div><a href="#cas"><b class="chap-nav-n">01</b>{{t.chapEvolution}}</a><a href="#lieu"><b class="chap-nav-n">02</b>{{t.chapLieu}}</a><a href="#ou"><b class="chap-nav-n">03</b>{{t.chapGeo}}</a><a href="#riposte"><b class="chap-nav-n">04</b>{{t.chapRiposte}}</a><a href="#defis"><b class="chap-nav-n">05</b>{{t.chapDefis}}</a><a href="#chronologie"><b class="chap-nav-n">06</b>{{t.chapChrono}}</a></div></nav>
 
-  <!-- ============ CAS ============ -->
-  <section class="section cadre-fiche" id="cas">
-    <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">{{i18n.chartModeNewCases}}</h2><div class="section-sub">{{t.provinceChartSub}}</div></div></div>
-    <div class="cadre-corps">
+  <!-- ============ 01 EVOLUTION : nouveaux cas, nouveaux deces ============ -->
+  <section class="section chap" id="cas">
+    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">{{t.chapEvolution}}</h2><p class="chap-chapo">{{t.chapEvolutionChapo}}</p></div></header>
+    <div class="chap-corps">
+      <div class="section-head chap-fig"><h3 class="frame-title">{{i18n.chartModeNewCases}}</h3><span class="section-sub">{{t.provinceChartSub}}</span></div>
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="casChart">
           <button type="button" class="share-btn">
@@ -79,17 +74,12 @@
           <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">{{i18n.chartVueMonthly}}</button>
         </nav>
         <div class="chart-panel">
-          <canvas id="casChart" data-chart="newCases" data-cumul="1"></canvas>
+          <canvas id="casChart" data-chart="newCases" data-cumul="1" data-sans-titre></canvas>
         </div>
         <div class="map-note chart-note"></div>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ DECES ============ -->
-  <section class="section cadre-fiche" id="deces">
-    <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">{{i18n.chartModeNewDeaths}}</h2><div class="section-sub">{{t.provinceDeathsChartSub}}</div></div></div>
-    <div class="cadre-corps">
+      <span id="deces" class="chap-ancre"></span>
+      <div class="section-head chap-fig"><h3 class="frame-title">{{i18n.chartModeNewDeaths}}</h3><span class="section-sub">{{t.provinceDeathsChartSub}}</span></div>
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="decesChart">
           <button type="button" class="share-btn">
@@ -103,18 +93,20 @@
           <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">{{i18n.chartVueMonthly}}</button>
         </nav>
         <div class="chart-panel">
-          <canvas id="decesChart" data-chart="newDeaths" data-cumul="1"></canvas>
+          <canvas id="decesChart" data-chart="newDeaths" data-cumul="1" data-sans-titre></canvas>
         </div>
         <div class="map-note chart-note"></div>
       </div>
 
-      <!-- Le lieu du deces, venu de la page Riposte le 28 septembre 2026 :
-           combien de deces, puis ou ils surviennent. -->
-      <div class="section-head" style="margin-top:32px;">
-        <h3 class="frame-title">{{t.riposteDecesTitle}}</h3>
-        <span class="section-sub">{{t.riposteDecesSub}}</span>
-      </div>
-      <p class="fiche-texte fiche-texte-centre">{{t.riposteDecesLede}}</p>
+    </div>
+  </section>
+
+  <!-- ============ 02 LIEU DES DECES ============ -->
+  <!-- Venu de la page Riposte le 28 septembre 2026 : combien de deces, puis
+       ou ils surviennent. Le chapitre porte le titre et la phrase. -->
+  <section class="section chap" id="lieu">
+    <header class="chap-ouv"><span class="chap-num">02</span><div><h2 class="chap-t">{{t.chapLieu}}</h2><p class="chap-chapo">{{t.riposteDecesLede}}</p></div></header>
+    <div class="chap-corps">
       <div class="panel chart-panel-wrap">
         <div class="chart-actions" data-export-chart="decesLieuChart">
           <button type="button" class="share-btn">
@@ -129,7 +121,7 @@
           <button type="button" class="subtab-btn" data-vue="Haut-Uélé">Haut-Uélé</button>
         </nav>
         <div class="chart-panel">
-          <canvas id="decesLieuChart" data-chart="deathsPlace"></canvas>
+          <canvas id="decesLieuChart" data-chart="deathsPlace" data-sans-titre></canvas>
         </div>
         <p class="map-note">{{t.maqDecesNoteCourte}}</p>
         <details class="maq-methode">
@@ -141,10 +133,33 @@
     </div>
   </section>
 
-  <!-- ============ OU ============ -->
-  <section class="section cadre-fiche" id="ou">
-    <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">{{t.ddOu}}</h2><div class="section-sub">{{t.ddOuSub}}</div></div></div>
-    <div class="cadre-corps">
+  <!-- ============ 03 PROVINCES & ZONES DE SANTE ============ -->
+  <!-- Du plus large au plus fin (4 novembre 2026) : la part de chaque
+       province semaine apres semaine, puis le tableau par province, puis
+       celui des zones. -->
+  <section class="section chap" id="ou">
+    <header class="chap-ouv"><span class="chap-num">03</span><div><h2 class="chap-t">{{t.chapGeo}}</h2><p class="chap-chapo">{{t.chapGeoChapo}}</p></div></header>
+    <div class="chap-corps">
+      <div class="section-head" style="margin-top:32px;">
+        <h3 class="frame-title">{{i18n.chartModeNewCasesByProvince}}</h3>
+      </div>
+      <div class="panel chart-panel-wrap">
+        <div class="chart-actions" data-export-chart="provChart">
+          <button type="button" class="share-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
+          </button>
+        </div>
+        <nav class="subtab-nav chart-vue-nav" data-chart-vue="provChart">
+        <button type="button" class="subtab-btn active" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>
+        <button type="button" class="subtab-btn" data-vue="cas" data-i18n="chartVueCas">{{i18n.chartVueCas}}</button>
+      </nav>
+        <div class="chart-panel">
+          <canvas id="provChart" data-chart="newCasesByProvince" data-sans-titre></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+
       <div class="section-head">
         <h3 class="frame-title">{{i18n.zonesViewProvince}}</h3>
       </div>
@@ -171,26 +186,6 @@
            2026) : les en-tetes disent ce qui est cumule et ce qui est du jour. -->
       {{seed.noteAjouts}}
       <p class="map-note dn-more"><a href="{{url.methodologie}}#lecture">{{t.dataNoteMore}} →</a></p>
-
-      <div class="section-head" style="margin-top:32px;">
-        <h3 class="frame-title">{{i18n.chartModeNewCasesByProvince}}</h3>
-      </div>
-      <div class="panel chart-panel-wrap">
-        <div class="chart-actions" data-export-chart="provChart">
-          <button type="button" class="share-btn">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
-            <span data-i18n="chartShareBtn">{{i18n.chartShareBtn}}</span>
-          </button>
-        </div>
-        <nav class="subtab-nav chart-vue-nav" data-chart-vue="provChart">
-        <button type="button" class="subtab-btn active" data-vue="parts" data-i18n="chartPyramideVueParts">{{i18n.chartPyramideVueParts}}</button>
-        <button type="button" class="subtab-btn" data-vue="cas" data-i18n="chartVueCas">{{i18n.chartVueCas}}</button>
-      </nav>
-        <div class="chart-panel">
-          <canvas id="provChart" data-chart="newCasesByProvince"></canvas>
-        </div>
-        <div class="map-note chart-note"></div>
-      </div>
 
       <div class="section-head" style="margin-top:32px;">
         <h3 class="frame-title">{{i18n.zonesViewZone}}</h3>
@@ -231,26 +226,27 @@
        couvrait plus que 40 % des cas et 27 % des deces. Les donnees restent
        dans data/demographie.json ; l'age reste sur la page Le virus. -->
 
-  <!-- ============ LA RIPOSTE ============ -->
-  <!-- Chiffres des 7 derniers releves et difficultes du dernier bulletin,
-       rendus par fiche_riposte_html() comme sur les pages province. -->
+  <!-- ============ 04 RIPOSTE ============ -->
+  <!-- La chaine des 7 derniers releves, rendue par fiche_riposte_html()
+       comme sur les pages province. -->
 {{seed.riposteIci}}
 
-  <!-- ============ LES DEFIS ============ -->
-  <!-- La grille de la page Defis, pour le pays (7 octobre 2026), comme sur
-       les pages province : le visuel seul, les fiches restent sur /defis/. -->
-  <section class="section cadre-fiche cadre-obstacles fiche-centree" id="defis">
-    <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">{{seed.defisGrilleTitre}}</h2><div class="section-sub">{{seed.defisGrilleSub}}</div></div></div>
-    <div class="cadre-corps">
+  <!-- ============ 05 DEFIS ============ -->
+  <!-- La grille de la page Defis, pour le pays (7 octobre 2026) : le visuel
+       seul, les fiches restent sur /defis/. -->
+  <section class="section chap" id="defis">
+    <header class="chap-ouv"><span class="chap-num">05</span><div><h2 class="chap-t">{{t.chapDefis}}</h2><p class="chap-chapo">{{t.chapDefisChapo}}</p></div></header>
+    <div class="chap-corps">
+      <div class="section-head chap-fig"><h3 class="frame-title">{{seed.defisGrilleTitre}}</h3><span class="section-sub">{{seed.defisGrilleSub}}</span></div>
 {{seed.defisGrilleHome}}
-      <p class="drill"><a href="{{url.defis}}">{{t.navDefis}} →</a></p>
+      <p class="drill"><a href="{{url.defis}}">{{t.chapDefisLien}} →</a></p>
     </div>
   </section>
 
-  <!-- ============ CHRONOLOGIE ============ -->
-  <section class="section cadre-fiche" id="chronologie">
-    <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">{{t.navTimeline}}</h2></div></div>
-    <div class="cadre-corps">
+  <!-- ============ 06 CHRONOLOGIE ============ -->
+  <section class="section chap" id="chronologie">
+    <header class="chap-ouv"><span class="chap-num">06</span><div><h2 class="chap-t">{{t.chapChrono}}</h2><p class="chap-chapo">{{t.chapChronoChapoPays}}</p></div></header>
+    <div class="chap-corps">
       <div class="th-scroller">
         <div class="timeline-h is-inline" id="timelineTeaser" tabindex="0" role="region" aria-label="{{t.timelineRegionLabel}}">
           <ol class="th-track">

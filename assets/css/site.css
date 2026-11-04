@@ -4452,14 +4452,8 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
    PAGES PROVINCE (7 octobre 2026, option 1) : sans cadre, sans numero ; la
    riposte comme la page Riposte, les defis avec la grille de la page Defis.
    ========================================================================== */
-main:has(.prov-hero-b) .fiche-num{display:none;}
-main:has(.prov-hero-b) .cadre-fiche{background:none;box-shadow:none;border:0;border-top:1px solid var(--line);}
-main:has(.prov-hero-b) .cadre-fiche .panel{background:none;border:0;box-shadow:none;padding:0 !important;border-radius:0;}
 main:has(.prov-hero-b) .chart-actions{display:none !important;}
-main:has(.prov-hero-b) .cadre-fiche table th{background:none;position:static;}
-main:has(.prov-hero-b) .cadre-fiche tbody tr:hover td{background:none;}
 main:has(.prov-hero-b) .frame-title{font-family:var(--font-serif);}
-main:has(.prov-hero-b) .fiche-tete .frame-title{font-size:clamp(26px,2.8vw,34px);line-height:1.1;letter-spacing:-.025em;}
 main:has(.prov-hero-b) .th-item{background:none !important;border:0 !important;box-shadow:none !important;border-top:3px solid var(--line) !important;border-radius:0 !important;}
 main:has(.prov-hero-b) .th-item.is-official{border-top-color:#24573D !important;}
 main:has(.prov-hero-b) .th-item.is-spread{border-top-color:var(--accent-active) !important;}
@@ -4478,7 +4472,6 @@ main:has(.prov-hero-b) .drill,main:has(.prov-hero-b) .dn-more{background:none;bo
 .rp-g .fiche-texte{font:400 15px/1.65 var(--font-serif);margin:0;color:var(--ink);}
 .rp-d .vaccin-zones{margin-top:20px;}
 @media (max-width:900px){ .rp-v{grid-template-columns:minmax(0,1fr);gap:12px;} }
-main:has(.prov-hero-b) .cadre-fiche:not(.fiche-centree) > .fiche-tete{display:block;}
 
 /* Tableau des zones d'une province en mini-courbes (7 octobre 2026, option 3) */
 .zq{border-collapse:collapse;width:100%;font-size:14.5px;}
@@ -4495,16 +4488,12 @@ main:has(.prov-hero-b) .cadre-fiche:not(.fiche-centree) > .fiche-tete{display:bl
 .z-spark rect{fill:color-mix(in srgb,var(--accent-info) 45%,transparent);} .z-spark rect.is-der{fill:var(--accent-info);}
 .z-plus{font-weight:700;} .z-zero{color:var(--ink-faint);}
 
-/* Pages province : tous les titres de parties centres (7 octobre 2026) */
-main:has(.prov-hero-b) .cadre-fiche > .fiche-tete{display:flex;flex-direction:column;align-items:center;text-align:center;}
-main:has(.prov-hero-b) .cadre-fiche > .fiche-tete .section-sub{text-align:center;}
-main:has(.prov-hero-b) .cadre-corps > .section-head{justify-content:center;text-align:center;flex-direction:column;align-items:center;}
 /* Tableau des zones centre (7 octobre 2026) : il se cale sur son contenu */
 #zonesProvinceTable{width:auto;min-width:min(100%,860px);margin:0 auto;}
 .zones-block .table-scroll{display:flex;justify-content:center;}
 .zones-block .zones-note{text-align:center;}
 main:has(.prov-hero-b) .zones-block .panel-fit{margin-left:auto;margin-right:auto;}
-main:has(.prov-hero-b) .zones-block + .drill,main:has(.prov-hero-b) .cadre-corps > .drill{text-align:center;}
+main:has(.prov-hero-b) .zones-block + .drill{text-align:center;}
 main:has(.prov-hero-b) .zones-block{margin-left:auto;margin-right:auto;}
 /* Tableau des zones : espacement regulier (7 octobre 2026) — memes marges
    pour toutes les colonnes, chiffres centres dans leur colonne, la courbe
@@ -5510,7 +5499,8 @@ main :where(p,li) a.lien-x:is(:hover,:focus-visible){text-decoration-color:curre
 }
 
 /* ---- Ensemble du pays et provinces en chapitres (4 novembre 2026, maquette
-   2b ; HTML rendu par scripts/chapitres.py). Menu a ancres de la page Kenya
+   2b ; HTML ecrit par donnees.html, province.html et chapitre_html() de
+   build_pages.py). Menu a ancres de la page Kenya
    avec numeros ; chapitre = numero bleu (celui des .fiche-num), titre,
    chapeau, filet fin AU-DESSUS ; figures et tableaux en pleine largeur,
    titres a gauche, au-dessus. ---- */
