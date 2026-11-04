@@ -171,6 +171,27 @@ def construire(origin="https://ebola-tracker.org"):
             c += v.get("communautaires") or 0; t += v.get("intraCte") or 0
         if x.get("provinces"):
             o = r(x["date"], ""); o["deces_communaute"], o["deces_cte"] = c, t
+    # Par zone (deces-lieu-zones.json, 4 novembre 2026). Une zone classee
+    # recoit sa ventilation ; une zone sans deces ce jour-la recoit 0 et 0,
+    # mais seulement quand les zones de sa province tombent sur la ligne de
+    # la province (concordeProvince) : ailleurs on ne sait pas, case vide.
+    # Les deces intra-CTE « a ventiler » ne vont a aucune zone.
+    zl = {}
+    if os.path.exists(os.path.join(ROOT, "data", "deces-lieu-zones.json")):
+        for x in _lire("deces-lieu-zones.json")["parDate"]:
+            for p, b in x["provinces"].items():
+                zl[(x["date"], p)] = (b.get("concordeProvince"),
+                                      {_cle(e["zone"]): e for e in b["zones"]})
+    for o in lignes:
+        if o["niveau"] != "zone" or (o["date"], o["province"]) not in zl:
+            continue
+        concorde, par_zone = zl[(o["date"], o["province"])]
+        e = par_zone.get(_cle(o["zone"]))
+        if e is not None:
+            o["deces_communaute"], o["deces_cte"] = e.get("communautaires"), e.get("intraCte")
+        elif concorde:
+            o["deces_communaute"], o["deces_cte"] = 0, 0
+
     for x in _lire("piliers.json")["parDate"]:
         for p, v in (((x.get("vaccination") or {}).get("provinces")) or {}).items():
             if v.get("cumul") is not None:

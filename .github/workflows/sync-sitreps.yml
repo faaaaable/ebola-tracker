@@ -39,6 +39,11 @@ jobs:
         # comme la série des décès communautaires l'avait fait pendant six
         # jours faute d'y figurer.
         run: python scripts/extraire_deces_lieu.py
+      - name: Mise à jour du lieu des décès par zone (data/deces-lieu-zones.json)
+        # Relit tout depuis le SitRep 060 (4 minutes environ) : lecture par
+        # position des colonnes, arbitrée par la ligne de province ci-dessus.
+        # Alimente les lignes « zone » de la base de données.
+        run: python scripts/extraire_deces_lieu_zones.py
       - name: Mise à jour de la page Riposte (alertes, laboratoire, CTE)
         # Trois séries lues dans le texte des bulletins, mises en cache dans
         # .cache/textes/ (ignoré par git) pour ne relire que le PDF nouveau.
@@ -72,7 +77,7 @@ jobs:
           # lui le graphique « Par province », premier onglet de /donnees/.
           git add reports/ data/latest.json data/sitreps.json data/zones-history.json
           git add data/province-history.json data/contacts-followup.json
-          git add data/deces-lieu.json
+          git add data/deces-lieu.json data/deces-lieu-zones.json
           git add $(python -c "import json;print(' '.join(json.load(open('site/.generated.json'))))") site/.generated.json
           if git diff --cached --quiet; then
             echo "Aucun nouveau SitRep — rien à committer."

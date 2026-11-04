@@ -81,6 +81,7 @@ python scripts/download_all_sitreps.py       # récupère les nouveaux PDF depui
 python scripts/update_data.py                # latest.json, sitreps.json, zones-history, province-history
 python scripts/extract_contacts_followup.py  # contacts-followup.json
 python scripts/extraire_deces_lieu.py        # deces-lieu.json
+python scripts/extraire_deces_lieu_zones.py  # deces-lieu-zones.json (base de donnees, lignes zone ; ~4 min)
 python scripts/extraire_alertes.py           # alertes.json      (page Riposte)
 python scripts/extraire_laboratoire.py       # laboratoire.json  (page Riposte)
 python scripts/extraire_cte.py               # cte.json          (page Riposte)

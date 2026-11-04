@@ -11,7 +11,8 @@
 
    Vue d'ouverture : Pays, colonnes Epidemie (decision du 9 octobre 2026). Le
    choix de colonnes est garde d'un niveau a l'autre ; seule la vue Zones
-   repasse en Epidemie, la riposte n'existant pas par zone. L'adresse retient
+   repasse en Epidemie, la riposte n'existant pas par zone — sauf le lieu du
+   deces, ajoute a cette vue le 4 novembre 2026. L'adresse retient
    les filtres (?niveau=zone&province=Ituri). Le tableau ne cree que les lignes
    visibles : la recherche du navigateur ne les trouve pas toutes, le champ
    Rechercher si. */
@@ -40,7 +41,7 @@ const TXT = {
     dico:[['Cas, décès (cumul)','Cas confirmés et décès depuis le début de l’épidémie, tels que publiés par le bulletin du jour, pour le pays, la province ou la zone.'],
           ['Nouveaux cas, nouveaux décès','Écart de cumul avec le relevé précédent du même territoire, calculé par le site ; négatif = révision à la baisse ; « 3 j » = écart couvrant trois journées.'],
           ['Létalité','Décès cumulés divisés par cas confirmés cumulés.'], ['Guéris','Cumul publié, au niveau national seulement.'],
-          ['Lieu du décès','Décès confirmés du jour en communauté ou en centre de traitement (CTE), depuis le 13 juillet.'],
+          ['Lieu du décès','Décès confirmés du jour en communauté ou en centre de traitement (CTE), tels que les publie le bulletin, depuis le 13 juillet. Par zone, certains décès en CTE ne sont rattachés à aucune zone et ne figurent qu’à la province : la somme des zones peut être inférieure. Case vide : le bulletin ne permet pas de le savoir.'],
           ['Alertes','Alertes reçues et validées comme cas suspects, par jour, depuis le 1er juin.'],
           ['Laboratoire','Échantillons analysés et positifs du jour ; la positivité n’est calculée que si les deux sont publiés.'],
           ['Prise en charge','Personnes hospitalisées en CTE, lits disponibles et taux d’occupation.'],
@@ -67,7 +68,7 @@ const TXT = {
     dico:[['Cases, deaths (total)','Confirmed cases and deaths since the start of the outbreak, as published by the day’s bulletin, for the country, province or zone.'],
           ['New cases, new deaths','Difference from the previous reading for the same area, computed by the site; negative = downward revision; “3 d” = difference covering three days.'],
           ['Fatality','Total deaths divided by total confirmed cases.'], ['Recovered','Published total, national level only.'],
-          ['Place of death','Confirmed deaths of the day in the community or in a treatment centre (ETC), since 13 July.'],
+          ['Place of death','Confirmed deaths of the day in the community or in a treatment centre (ETC), as published by the bulletin, since 13 July. By zone, some ETC deaths are not assigned to any zone and appear only under the province: the sum of the zones can be lower. Empty cell: the bulletin does not say.'],
           ['Alerts','Alerts received and validated as suspected cases, per day, since 1 June.'],
           ['Laboratory','Samples analysed and positive results of the day; positivity is only computed when both are published.'],
           ['Treatment','People hospitalised in ETCs, available beds and occupancy rate.'],
@@ -94,7 +95,7 @@ const TXT = {
     dico:[['Visa, vifo (jumla)','Visa vilivyothibitishwa na vifo tangu mwanzo wa mlipuko, kama vilivyochapishwa na ripoti ya siku hiyo.'],
           ['Visa vipya, vifo vipya','Tofauti na takwimu iliyotangulia ya eneo hilo, iliyohesabiwa na tovuti; hasi = marekebisho ya kupunguza.'],
           ['Kiwango cha vifo','Vifo vya jumla kugawanywa kwa visa vya jumla.'], ['Waliopona','Jumla iliyochapishwa, kwa kiwango cha kitaifa tu.'],
-          ['Mahali pa kifo','Vifo vya siku katika jamii au katika kituo cha matibabu (CTE), tangu 13 Julai.'],
+          ['Mahali pa kifo','Vifo vya siku katika jamii au katika kituo cha matibabu (CTE), kama vinavyochapishwa na ripoti, tangu 13 Julai. Kwa eneo, baadhi ya vifo vya CTE havihusishwi na eneo lolote na vinaonekana kwenye jimbo tu: jumla ya maeneo inaweza kuwa ndogo zaidi. Kisanduku kitupu: ripoti haisemi.'],
           ['Tahadhari','Tahadhari zilizopokelewa na kuthibitishwa kama visa vinavyoshukiwa, kwa siku, tangu 1 Juni.'],
           ['Maabara','Sampuli zilizochambuliwa na chanya za siku; kiwango cha chanya kinahesabiwa tu zote mbili zikichapishwa.'],
           ['Matibabu','Waliolazwa katika CTE, vitanda na kiwango cha vitanda vilivyojaa.'],
@@ -127,7 +128,9 @@ const COLS = [
 ];
 
 let LIGNES = [], META = null, COLV = 'epi', NIVEAU = 'pays', TRI = {k:'date', sens:-1}, VUES = [];
-const colonnes = () => COLS.filter(c => (!c.vue || COLV === 'tout' || c.vue === COLV) &&
+// Vue Zones : Epidemie, plus le lieu du deces, seule colonne de riposte qui
+// existe par zone (deces-lieu-zones.json, 4 novembre 2026).
+const colonnes = () => COLS.filter(c => (!c.vue || COLV === 'tout' || c.vue === COLV || (NIVEAU === 'zone' && c.grp === 'lieu')) &&
   !((NIVEAU === 'pays' || NIVEAU === 'province') && (c.k === 'zone' || c.k === 'niveau')));
 
 function interface_(){
