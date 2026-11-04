@@ -5473,6 +5473,7 @@ main :where(p,li) a.lien-x:is(:hover,:focus-visible){text-decoration-color:curre
    (4 novembre 2026). Memes deux rouges que ce graphique : plein = communaute,
    rgba .30 = centre de traitement. */
 .lz{margin-top:28px;}
+.lz-prov{margin:0 0 12px;}
 .lz-tete{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;}
 .lz-t{margin:0;font-size:16px;font-weight:600;color:var(--ink);}
 .lz-s{font-size:13px;color:var(--ink-faint);}
@@ -5481,17 +5482,25 @@ main :where(p,li) a.lien-x:is(:hover,:focus-visible){text-decoration-color:curre
 .lz-c,.lz-b i{background:var(--accent-critical);}
 .lz-e,.lz-b{background:rgba(153,58,46,.30);}
 .lz-l{list-style:none;margin:0;padding:0;display:grid;gap:7px;}
-.lz-l li{display:grid;grid-template-columns:minmax(96px,150px) minmax(0,1fr) 150px;gap:14px;align-items:center;font-size:14px;}
+.lz-l li{display:grid;grid-template-columns:minmax(96px,150px) minmax(0,1fr) 92px;gap:14px;align-items:center;font-size:14px;}
 .lz-n{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.lz-b{position:relative;display:block;height:12px;border-radius:2px;}
-.lz-b i{display:block;height:100%;border-radius:2px 0 0 2px;}
-/* Repere : la part depuis le 13 juillet. */
-.lz-b u{position:absolute;top:-4px;bottom:-4px;width:2px;margin-left:-1px;background:var(--ink);text-decoration:none;}
-.lz-m{width:2px !important;height:14px !important;border-radius:0 !important;background:var(--ink);vertical-align:-3px !important;}
-.lz-v{white-space:nowrap;font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-faint);}
+/* Barre a 100 % depuis le 13 juillet (4 novembre 2026) : les deux parts
+   ecrites dans leur segment, la communaute a gauche, le CTE a droite. */
+.lz-b{position:relative;display:flex;height:22px;border-radius:2px;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;line-height:22px;overflow:hidden;}
+.lz-b i{display:block;height:100%;border-radius:2px 0 0 2px;font-style:normal;color:#fff;padding-left:7px;box-sizing:border-box;white-space:nowrap;}
+.lz-b s{position:absolute;right:7px;top:0;text-decoration:none;color:var(--accent-critical);}
+.lz-v{white-space:nowrap;font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-faint);text-align:right;}
 .lz-v b{font-weight:600;color:var(--ink);}
 .lz-p,.lz-note{margin:14px 0 0;font-size:13px;line-height:1.55;color:var(--ink-faint);}
 .lz-note a{white-space:nowrap;}
+.lz-plus{margin-top:14px;}
+.lz-plus summary{cursor:pointer;display:inline-flex;align-items:center;min-height:40px;font-size:13.5px;font-weight:600;color:var(--accent-strong);list-style:none;}
+.lz-plus summary::-webkit-details-marker{display:none;}
+.lz-plus summary::after{content:'+';margin-left:8px;font-weight:600;}
+.lz-plus[open] summary::after{content:'\2212';}
+.lz-plus .lz-p{margin:2px 0 12px;}
+.lz-pale .lz-b{opacity:.55;}
+.lz-b i:empty{padding:0;}
 @media(max-width:600px){
   .lz-l{gap:10px;}
   .lz-l li{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;}

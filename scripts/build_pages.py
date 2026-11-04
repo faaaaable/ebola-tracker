@@ -3249,19 +3249,20 @@ def _deces_lieu_zones():
 
 def lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base):
     """Le lieu du deces PAR ZONE, sous le graphique hebdomadaire de la
-    province (4 novembre 2026). Une barre par zone : la part des deces
-    survenus en communaute sur les 30 DERNIERS JOURS ; un trait fin
-    marque la part depuis le 13 juillet, pour dire dans quel sens la zone a
-    bouge. Memes deux rouges que le graphique du dessus.
+    province (4 novembre 2026). Une barre a 100 % par zone, depuis le
+    13 juillet (debut de la distinction communaute / CTE dans les
+    bulletins) : la part en communaute a gauche, celle en CTE a droite,
+    chacune ecrite dans son segment ; le nombre de deces a droite.
 
-    Pourquoi le recent et pas le cumul (essaye d'abord, ecarte le meme jour) :
-    les parts ont beaucoup bouge. Nizi 88 % avant le 5 octobre, 30 % sur les
-    quatre semaines suivantes ; Rwampara 60 % puis 26 % ; Beni 78 % puis 82 %.
-    Le cumul faisait lire l'ete comme le present et cachait Beni.
+    Historique du meme jour : cumul essaye d'abord, puis 30 derniers jours
+    avec un trait pour le cumul (Nizi 80 % sur la periode, 30 % en
+    octobre), puis retour au cumul seul a la demande du proprietaire :
+    « le % de deces en communaute et en CTE, pour chaque zone, depuis le
+    debut des releves ». Le recent reste lisible dans la base de donnees.
 
-    Seuil de 20 deces ventiles sur la fenetre, comme pour les provinces : en
-    dessous, la part n'est pas un signal ; ces zones sont citees en une ligne
-    avec leurs chiffres bruts.
+    Seuil de 20 deces ventiles, comme pour les provinces : en dessous, la
+    part n'est pas un signal ; ces zones sont citees en une ligne avec leurs
+    chiffres bruts.
 
     Le piege, ecrit sous les barres quand il se voit : les deces intra-CTE « a
     ventiler » ne sont rattaches a aucune zone, donc manquent aux zones (Ituri).
@@ -3270,73 +3271,80 @@ def lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base):
     nom = province.get("name")
     if not d or nom not in PROVINCES_LIEU_DECES or not d.get("parDate"):
         return ""
-    fin = max(r["date"] for r in d["parDate"] if r.get("date"))
-    # 30 jours, fin comprise (4 novembre 2026 : « les 30 derniers jours »,
-    # plutot que du 5 oct. au 1 nov.).
-    debut = (date.fromisoformat(fin) - timedelta(days=29)).isoformat()
     noms = {}
     for e in _lire_json_data("zones-history.json") or []:
         for z in e.get("zones", []):
             noms[normalise_zone(z["name"])] = z["name"]
-    rec, tout, a_ventiler = {}, {}, 0
+    tout, a_ventiler = {}, 0
     for r in d["parDate"]:
         b = r["provinces"].get(nom)
         if not b:
             continue
-        recent = debut <= (r["date"] or "") <= fin
-        if recent:
-            a_ventiler += b.get("aVentiler", 0)
+        a_ventiler += b.get("aVentiler", 0)
         for e in b["zones"]:
             if e["communautaires"] is None:
                 continue
-            k = normalise_zone(e["zone"])
-            for cible, ok in ((tout, True), (rec, recent)):
-                if ok:
-                    c = cible.setdefault(k, [0, 0])
-                    c[0] += e["communautaires"]
-                    c[1] += e["total"]
-    if not rec:
+            c = tout.setdefault(normalise_zone(e["zone"]), [0, 0])
+            c[0] += e["communautaires"]
+            c[1] += e["total"]
+    if not tout:
         return ""
+    # Depuis le 13 juillet seulement (4 novembre 2026, choix du proprietaire :
+    # « le % de deces en communaute et en CTE, pour chaque zone, depuis le
+    # debut des releves »). La fenetre de 30 jours (rec) n'est plus affichee ;
+    # elle montrait Nizi a 30 % contre 80 % sur la periode.
     nom_zone = lambda k: noms.get(k, k)
-    grandes = sorted([k for k, v in rec.items() if v[1] >= SEUIL_LIEU_ZONE],
-                     key=lambda k: (-rec[k][0] / rec[k][1], -rec[k][1]))
-    petites = sorted([k for k, v in rec.items() if v[1] < SEUIL_LIEU_ZONE],
-                     key=lambda k: (-rec[k][1], nom_zone(k)))
-    lignes = []
-    for k in grandes:
-        c, t = rec[k]
+    grandes = sorted([k for k, v in tout.items() if v[1] >= SEUIL_LIEU_ZONE],
+                     key=lambda k: (-tout[k][0] / tout[k][1], -tout[k][1]))
+    petites = sorted([k for k, v in tout.items() if v[1] < SEUIL_LIEU_ZONE],
+                     key=lambda k: (-tout[k][1], nom_zone(k)))
+    # Dans la barre, la part arrondie a l'unite (« 81 % ») ; la decimale
+    # reste dans le texte lu par les lecteurs d'ecran.
+    pct_entier = lambda n: fmt_cfr(n, lang).replace(",0", "").replace(".0", "")
+    def ligne(k, pale=False):
+        c, t = tout[k]
         part = c / t * 100
-        pt = tout[k][0] / tout[k][1] * 100
-        lignes.append(
-            '<li><span class="lz-n">%s</span>'
-            '<span class="lz-b" aria-hidden="true"><i style="width:%.1f%%"></i><u style="left:%.1f%%"></u></span>'
-            '<span class="lz-v"><b>%s</b> %s<span class="visually-hidden"> ; %s</span></span></li>'
-            % (esc(nom_zone(k)), part, pt, esc(fmt_cfr(round(part, 1), lang)),
-               esc(interp(strings_lang["lzSur"], {"n": fmt(t, lang)})),
-               esc(interp(strings_lang["lzDepuis"], {"p": fmt_cfr(round(pt, 1), lang)}))))
+        pc_, pe_ = round(part), 100 - round(part)
+        return ('<li%s><span class="lz-n">%s</span>'
+                '<span class="lz-b" aria-hidden="true"><i style="width:%.1f%%">%s</i>%s</span>'
+                '<span class="lz-v">%s<span class="visually-hidden"> ; %s</span></span></li>'
+                % (' class="lz-pale"' if pale else "", esc(nom_zone(k)), part,
+                   esc(pct_entier(pc_)) if pc_ >= 12 else "",
+                   ('<s>%s</s>' % esc(pct_entier(pe_))) if pe_ >= 12 else "",
+                   esc(interp(strings_lang["lzSur"], {"n": fmt(t, lang)})),
+                   esc(interp(strings_lang["lzParts"], {"c": fmt_cfr(round(part, 1), lang),
+                                                        "e": fmt_cfr(round(100 - part, 1), lang)}))))
+    st = sum(v[1] for v in tout.values())
     html = ['<div class="lz">',
             '<div class="lz-tete"><h4 class="lz-t">%s</h4><span class="lz-s">%s</span></div>'
             % (esc(strings_lang["lzTitre"]),
-               esc(interp(strings_lang["lzSous"], {"fin": _date_fin(fin, lang, i18n_lang)}))),
-            '<div class="lz-leg"><span><i class="lz-c"></i>%s</span><span><i class="lz-e"></i>%s</span>'
-            '<span><i class="lz-m"></i>%s</span></div>'
-            % (esc(strings_lang["lzComm"]), esc(strings_lang["lzCte"]), esc(strings_lang["lzRepere"]))]
-    if lignes:
-        html.append('<ol class="lz-l">%s</ol>' % "".join(lignes))
+               # Le compte face au cumul de la province (4 novembre 2026 :
+               # « 205 deces indiques mais bcp moins » sur le Haut-Uele).
+               esc(interp(strings_lang["lzSous"], {"n": fmt(st, lang),
+                                                   "total": fmt(province.get("deaths") or 0, lang)}))),
+            '<div class="lz-leg"><span><i class="lz-c"></i>%s</span><span><i class="lz-e"></i>%s</span></div>'
+            % (esc(strings_lang["lzComm"]), esc(strings_lang["lzCte"]))]
+    if grandes:
+        html.append('<ol class="lz-l">%s</ol>' % "".join(ligne(k) for k in grandes))
+    # Toutes les zones (4 novembre 2026, demande du proprietaire) : celles
+    # sous le seuil ont aussi leur barre, mais pale, rangees par nombre de
+    # deces dans un depliant ferme, avec la mise en garde.
     if petites:
-        liste = ", ".join(interp(strings_lang["lzPetit"], {"zone": nom_zone(k), "c": fmt(rec[k][0], lang),
-                                                          "n": fmt(rec[k][1], lang)}) for k in petites)
-        html.append('<p class="lz-p">%s</p>' % esc(interp(strings_lang["lzPetits"],
-                                                         {"seuil": SEUIL_LIEU_ZONE, "liste": liste})))
+        html.append('<details class="lz-plus"><summary>%s</summary><p class="lz-p">%s</p>'
+                    '<ol class="lz-l">%s</ol></details>'
+                    % (esc(interp(strings_lang["lzPlus"], {"n": len(petites), "seuil": SEUIL_LIEU_ZONE})),
+                       esc(interp(strings_lang["lzPlusNote"], {"seuil": SEUIL_LIEU_ZONE})),
+                       "".join(ligne(k, True) for k in petites)))
     notes = []
-    # Part de la province sur la meme fenetre (deces-lieu.json).
+    # Part de la province sur toute la periode (deces-lieu.json), pour la
+    # note des deces en CTE sans zone.
     pc = pt_ = 0
     for r in (_lire_json_data("deces-lieu.json") or {}).get("parDate", []):
         v = r["provinces"].get(nom)
-        if v and debut <= r["date"] <= fin:
+        if v:
             pc += v["communautaires"]
             pt_ += v["communautaires"] + v["intraCte"]
-    sc, st = sum(v[0] for v in rec.values()), sum(v[1] for v in rec.values())
+    sc = sum(v[0] for v in tout.values())
     if a_ventiler and pt_ and st and abs(sc / st - pc / pt_) * 100 >= 3:
         notes.append(interp(strings_lang["lzNoteVentiler"],
                             {"n": fmt(a_ventiler, lang), "p": fmt_cfr(round(pc / pt_ * 100, 1), lang)}))
@@ -3438,7 +3446,11 @@ def province_chart_html(province, strings_lang, i18n_lang, lang="fr", url_base="
     if "lieu" in nums:
         out += chapitre_html(
             "lieu", nums["lieu"], esc(strings_lang["chapLieu"]), esc(strings_lang["riposteDecesLede"]),
-            lieu_deces_bloc(province, strings_lang, i18n_lang)
+            # Titre du graphique, sur le modele de « Par zone de sante » en
+            # dessous (4 novembre 2026, demande du proprietaire).
+            '<div class="lz lz-prov"><div class="lz-tete"><h4 class="lz-t">%s</h4><span class="lz-s">%s</span></div></div>\n'
+            % (esc(strings_lang["lzProvTitre"]), esc(strings_lang["lzProvSous"]))
+            + lieu_deces_bloc(province, strings_lang, i18n_lang)
             + lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base))
     return out
 
