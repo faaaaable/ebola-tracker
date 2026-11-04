@@ -3210,6 +3210,136 @@ def lieu_deces_bloc(province, strings_lang, i18n_lang):
            esc(strings_lang["riposteDecesLede"]), BOUTON_PARTAGE % ("decesLieuChart", esc(i18n_lang["chartShareBtn"])), esc(province["name"])))
 
 
+SEUIL_LIEU_ZONE = 20   # meme seuil que deces-lieu.json pour les provinces
+_DECES_LIEU_ZONES = {}
+
+
+def _deces_lieu_zones():
+    if "d" not in _DECES_LIEU_ZONES:
+        chemin = os.path.join(ROOT, "data", "deces-lieu-zones.json")
+        _DECES_LIEU_ZONES["d"] = None
+        if os.path.exists(chemin):
+            with io.open(chemin, encoding="utf-8") as fh:
+                _DECES_LIEU_ZONES["d"] = json.load(fh)
+    return _DECES_LIEU_ZONES["d"]
+
+
+def lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base):
+    """Le lieu du deces PAR ZONE, sous le graphique hebdomadaire de la
+    province (4 novembre 2026). Une barre par zone : la part des deces
+    survenus en communaute sur les 30 DERNIERS JOURS ; un trait fin
+    marque la part depuis le 13 juillet, pour dire dans quel sens la zone a
+    bouge. Memes deux rouges que le graphique du dessus.
+
+    Pourquoi le recent et pas le cumul (essaye d'abord, ecarte le meme jour) :
+    les parts ont beaucoup bouge. Nizi 88 % avant le 5 octobre, 30 % sur les
+    quatre semaines suivantes ; Rwampara 60 % puis 26 % ; Beni 78 % puis 82 %.
+    Le cumul faisait lire l'ete comme le present et cachait Beni.
+
+    Seuil de 20 deces ventiles sur la fenetre, comme pour les provinces : en
+    dessous, la part n'est pas un signal ; ces zones sont citees en une ligne
+    avec leurs chiffres bruts.
+
+    Le piege, ecrit sous les barres quand il se voit : les deces intra-CTE « a
+    ventiler » ne sont rattaches a aucune zone, donc manquent aux zones (Ituri).
+    Les zones se comparent entre elles, pas a la province."""
+    d = _deces_lieu_zones()
+    nom = province.get("name")
+    if not d or nom not in PROVINCES_LIEU_DECES or not d.get("parDate"):
+        return ""
+    fin = max(r["date"] for r in d["parDate"] if r.get("date"))
+    # 30 jours, fin comprise (4 novembre 2026 : « les 30 derniers jours »,
+    # plutot que du 5 oct. au 1 nov.).
+    debut = (date.fromisoformat(fin) - timedelta(days=29)).isoformat()
+    noms = {}
+    for e in _lire_json_data("zones-history.json") or []:
+        for z in e.get("zones", []):
+            noms[normalise_zone(z["name"])] = z["name"]
+    rec, tout, a_ventiler = {}, {}, 0
+    for r in d["parDate"]:
+        b = r["provinces"].get(nom)
+        if not b:
+            continue
+        recent = debut <= (r["date"] or "") <= fin
+        if recent:
+            a_ventiler += b.get("aVentiler", 0)
+        for e in b["zones"]:
+            if e["communautaires"] is None:
+                continue
+            k = normalise_zone(e["zone"])
+            for cible, ok in ((tout, True), (rec, recent)):
+                if ok:
+                    c = cible.setdefault(k, [0, 0])
+                    c[0] += e["communautaires"]
+                    c[1] += e["total"]
+    if not rec:
+        return ""
+    nom_zone = lambda k: noms.get(k, k)
+    grandes = sorted([k for k, v in rec.items() if v[1] >= SEUIL_LIEU_ZONE],
+                     key=lambda k: (-rec[k][0] / rec[k][1], -rec[k][1]))
+    petites = sorted([k for k, v in rec.items() if v[1] < SEUIL_LIEU_ZONE],
+                     key=lambda k: (-rec[k][1], nom_zone(k)))
+    lignes = []
+    for k in grandes:
+        c, t = rec[k]
+        part = c / t * 100
+        pt = tout[k][0] / tout[k][1] * 100
+        lignes.append(
+            '<li><span class="lz-n">%s</span>'
+            '<span class="lz-b" aria-hidden="true"><i style="width:%.1f%%"></i><u style="left:%.1f%%"></u></span>'
+            '<span class="lz-v"><b>%s</b> %s<span class="visually-hidden"> ; %s</span></span></li>'
+            % (esc(nom_zone(k)), part, pt, esc(fmt_cfr(round(part, 1), lang)),
+               esc(interp(strings_lang["lzSur"], {"n": fmt(t, lang)})),
+               esc(interp(strings_lang["lzDepuis"], {"p": fmt_cfr(round(pt, 1), lang)}))))
+    html = ['<div class="lz">',
+            '<div class="lz-tete"><h4 class="lz-t">%s</h4><span class="lz-s">%s</span></div>'
+            % (esc(strings_lang["lzTitre"]),
+               esc(interp(strings_lang["lzSous"], {"fin": _date_fin(fin, lang, i18n_lang)}))),
+            '<div class="lz-leg"><span><i class="lz-c"></i>%s</span><span><i class="lz-e"></i>%s</span>'
+            '<span><i class="lz-m"></i>%s</span></div>'
+            % (esc(strings_lang["lzComm"]), esc(strings_lang["lzCte"]), esc(strings_lang["lzRepere"]))]
+    if lignes:
+        html.append('<ol class="lz-l">%s</ol>' % "".join(lignes))
+    if petites:
+        liste = ", ".join(interp(strings_lang["lzPetit"], {"zone": nom_zone(k), "c": fmt(rec[k][0], lang),
+                                                          "n": fmt(rec[k][1], lang)}) for k in petites)
+        html.append('<p class="lz-p">%s</p>' % esc(interp(strings_lang["lzPetits"],
+                                                         {"seuil": SEUIL_LIEU_ZONE, "liste": liste})))
+    notes = []
+    # Part de la province sur la meme fenetre (deces-lieu.json).
+    pc = pt_ = 0
+    for r in (_lire_json_data("deces-lieu.json") or {}).get("parDate", []):
+        v = r["provinces"].get(nom)
+        if v and debut <= r["date"] <= fin:
+            pc += v["communautaires"]
+            pt_ += v["communautaires"] + v["intraCte"]
+    sc, st = sum(v[0] for v in rec.values()), sum(v[1] for v in rec.values())
+    if a_ventiler and pt_ and st and abs(sc / st - pc / pt_) * 100 >= 3:
+        notes.append(interp(strings_lang["lzNoteVentiler"],
+                            {"n": fmt(a_ventiler, lang), "p": fmt_cfr(round(pc / pt_ * 100, 1), lang)}))
+    notes.append(strings_lang["lzNoteSource"])
+    html.append('<p class="lz-note">%s <a href="%s">%s →</a></p>'
+                % (esc(" ".join(notes)), esc(url_base), esc(strings_lang["lzLienBase"])))
+    html.append('</div>')
+    return "\n".join(html) + "\n"
+
+
+def _date_fin(iso, lang, i18n_lang):
+    """« 1er nov. » en francais, « 1 nov. » ailleurs."""
+    txt = short_date(iso, i18n_lang)
+    if lang == "fr" and iso.endswith("-01"):
+        txt = "1er" + txt[1:]
+    return txt
+
+
+def _lire_json_data(nom):
+    chemin = os.path.join(ROOT, "data", nom)
+    if not os.path.exists(chemin):
+        return None
+    with io.open(chemin, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
 def province_deces_lieu_html(province, strings_lang, i18n_lang, numero="04"):
     """Le cadre « Le lieu du deces » d'une page province : le graphique de la
     page Riposte, restreint a la province par data-province. Place sous le
@@ -3294,7 +3424,7 @@ def _cadre_courbe_province(province, strings_lang, i18n_lang, numero, canvas_id,
            canvas_id, attrs, apres))
 
 
-def province_chart_html(province, strings_lang, i18n_lang):
+def province_chart_html(province, strings_lang, i18n_lang, lang="fr", url_base=""):
     """Les deux cadres de courbe d'une page province : les cas, puis les
     deces (demande du proprietaire, 28 septembre 2026, pour les quatre
     provinces qui ont une courbe). Meme dessin, memes trois pas de temps ;
@@ -3308,7 +3438,8 @@ def province_chart_html(province, strings_lang, i18n_lang):
             + _cadre_courbe_province(province, strings_lang, i18n_lang, nums["deces"],
                                      "provinceDeathsChart", "deaths",
                                      "provinceDeathsChartTitle", "provinceDeathsChartSub",
-                                     apres=lieu_deces_bloc(province, strings_lang, i18n_lang)))
+                                     apres=lieu_deces_bloc(province, strings_lang, i18n_lang)
+                                     + lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base)))
 
 
 
@@ -5177,7 +5308,10 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.baseLien": esc(interp(strings_lang["provinceBaseLien"], forms)),
             **province_map_values(province_maps, name, zones, config, lang,
                                   strings_lang, geo.get("aliases", {})),
-            "province.chart": province_chart_html(province, strings_lang, i18n_lang),
+            "province.chart": province_chart_html(
+                province, strings_lang, i18n_lang, lang=lang,
+                url_base="%s?niveau=zone&province=%s" % (urls.path("base-de-donnees", lang),
+                                                          name.replace(" ", "%20"))),
             **common_seed.get("provinceFiche", {}).get(name, {}),
             "province.zonesNum": province_numeros(province)["zones"],
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),

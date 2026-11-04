@@ -5479,3 +5479,32 @@ main :where(p,li) a.lien-x{text-decoration:underline;text-decoration-thickness:1
    et au focus. Les liens isoles gardent la regle de base (souligne au survol). */
 main :where(p,li,dd,td,figcaption,blockquote,.info-note) a:not([class]):is(:hover,:focus-visible),
 main :where(p,li) a.lien-x:is(:hover,:focus-visible){text-decoration-color:currentColor;text-decoration-thickness:2px;}
+
+/* Lieu du deces par zone, sous le graphique hebdomadaire des pages province
+   (4 novembre 2026). Memes deux rouges que ce graphique : plein = communaute,
+   rgba .30 = centre de traitement. */
+.lz{margin-top:28px;}
+.lz-tete{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;}
+.lz-t{margin:0;font-size:16px;font-weight:600;color:var(--ink);}
+.lz-s{font-size:13px;color:var(--ink-faint);}
+.lz-leg{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 10px;font-size:12.5px;color:var(--ink-dim);}
+.lz-leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;}
+.lz-c,.lz-b i{background:var(--accent-critical);}
+.lz-e,.lz-b{background:rgba(153,58,46,.30);}
+.lz-l{list-style:none;margin:0;padding:0;display:grid;gap:7px;}
+.lz-l li{display:grid;grid-template-columns:minmax(96px,150px) minmax(0,1fr) 150px;gap:14px;align-items:center;font-size:14px;}
+.lz-n{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.lz-b{position:relative;display:block;height:12px;border-radius:2px;}
+.lz-b i{display:block;height:100%;border-radius:2px 0 0 2px;}
+/* Repere : la part depuis le 13 juillet. */
+.lz-b u{position:absolute;top:-4px;bottom:-4px;width:2px;margin-left:-1px;background:var(--ink);text-decoration:none;}
+.lz-m{width:2px !important;height:14px !important;border-radius:0 !important;background:var(--ink);vertical-align:-3px !important;}
+.lz-v{white-space:nowrap;font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-faint);}
+.lz-v b{font-weight:600;color:var(--ink);}
+.lz-p,.lz-note{margin:14px 0 0;font-size:13px;line-height:1.55;color:var(--ink-faint);}
+.lz-note a{white-space:nowrap;}
+@media(max-width:600px){
+  .lz-l{gap:10px;}
+  .lz-l li{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;}
+  .lz-b{grid-column:1 / -1;order:3;}
+}
