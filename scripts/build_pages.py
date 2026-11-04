@@ -4430,10 +4430,22 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
             # de la chaine.
             chiffres["pointsControle"] = pp["chiffre"]
             if name in PROVINCES_RIPOSTE_FICHE:
+                # Un resume a gauche de CHAQUE graphique (4 novembre 2026,
+                # demande de Fable) : les voyageurs avec le titre du volet,
+                # puis les alertes et les rapports, chacun sa rangee, son
+                # titre a gauche (le graphique ne le repete pas) et sa phrase.
                 out.append(bloc("ripostePoeTitle", "ripostePoeSub", "provPoeChart", "pointsControle",
-                                fixes=[("", "jour", "chartVuePoeVoyageurs"), ("Alertes", "alertes", "chartVuePoeAlertes"),
-                                       ("Rapports", "rapports", "chartVuePoeRapports")],
-                                lede_cle="ripostePoeLedeProvince"))
+                                fixes=[("", "jour", "chartVuePoeVoyageurs")],
+                                lede_cle="ripostePoeLedeVoyageurs"))
+                for suffixe, vue, titre_cle, resume_cle in (
+                        ("Alertes", "alertes", "chartVuePoeAlertes", "ripostePoeResumeAlertes"),
+                        ("Rapports", "rapports", "chartVuePoeRapports", "ripostePoeResumeRapports")):
+                    out.append('      <div class="rp-v rp-suite"><div class="rp-g">\n'
+                               '        <h4 class="rp-h4">%s</h4>\n%s'
+                               '      </div><div class="rp-d">\n%s      </div></div>\n'
+                               % (esc(i18n_lang[titre_cle]), lede(resume_cle),
+                                  panneau("provPoeChart" + suffixe, "pointsControle", vue=vue, titre_cle=titre_cle)
+                                  .replace("></canvas>", " data-sans-titre></canvas>", 1)))
             else:
                 out.append(bloc("ripostePoeTitle", "ripostePoeSub", "provPoeChart", "pointsControle",
                                 fixes=[("", "jour", "chartVuePoeVoyageurs")],

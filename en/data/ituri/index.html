@@ -113,7 +113,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 <script defer src="/assets/vendor/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=8c89cdd02e">
+<link rel="stylesheet" href="/assets/css/site.css?v=4d638dbb87">
 </head>
 <body>
 
@@ -527,7 +527,7 @@
 <h3>Checkpoints</h3>
 <p class="rp-sub">travellers screened at borders, on roads and in ports</p>
 <div class="rp-ch"><b class="rc-n is-poe">145,193</b><span>Travellers screened on 1 Nov 2026</span><small>60 of 62 posts sent their report (97%)</small></div>
-<p class="fiche-texte">At the province's points of entry and control, every traveller goes through a temperature check, hand washing and a prevention message. The chart follows the flow of travellers day by day, the alerts raised at the posts and the share of posts that send their report.</p>
+<p class="fiche-texte">At the province's points of entry and control, every traveller goes through a temperature check, hand washing and a prevention message. The chart follows the number of travellers screened, day by day.</p>
 </div><div class="rp-d">
 <div class="panel chart-panel-wrap poe-panneau">
 <div class="chart-actions" data-export-chart="provPoeChart">
@@ -541,6 +541,11 @@
 </div>
 <div class="map-note chart-note"></div>
 </div>
+</div></div>
+<div class="rp-v rp-suite"><div class="rp-g">
+<h4 class="rp-h4">Alerts per week</h4>
+<p class="fiche-texte">Each week, the alerts raised at the posts: travellers reported ill, those validated as suspected cases, and bodies intercepted in transit. A rise points to sick people on the move.</p>
+</div><div class="rp-d">
 <div class="panel chart-panel-wrap poe-panneau">
 <div class="chart-actions" data-export-chart="provPoeChartAlertes">
 <button class="share-btn" type="button">
@@ -549,10 +554,15 @@
 </button>
 </div>
 <div class="chart-panel">
-<canvas data-chart="pointsControle" data-province="Ituri" data-titre="Alerts per week" data-vue="alertes" id="provPoeChartAlertes"></canvas>
+<canvas data-chart="pointsControle" data-province="Ituri" data-sans-titre="" data-titre="Alerts per week" data-vue="alertes" id="provPoeChartAlertes"></canvas>
 </div>
 <div class="map-note chart-note"></div>
 </div>
+</div></div>
+<div class="rp-v rp-suite"><div class="rp-g">
+<h4 class="rp-h4">Reports received</h4>
+<p class="fiche-texte">The share of posts that send their report each day, and the number of posts monitored. When it drops, the number of travellers in the first chart is underestimated.</p>
+</div><div class="rp-d">
 <div class="panel chart-panel-wrap poe-panneau">
 <div class="chart-actions" data-export-chart="provPoeChartRapports">
 <button class="share-btn" type="button">
@@ -561,7 +571,7 @@
 </button>
 </div>
 <div class="chart-panel">
-<canvas data-chart="pointsControle" data-province="Ituri" data-titre="Reports received" data-vue="rapports" id="provPoeChartRapports"></canvas>
+<canvas data-chart="pointsControle" data-province="Ituri" data-sans-titre="" data-titre="Reports received" data-vue="rapports" id="provPoeChartRapports"></canvas>
 </div>
 <div class="map-note chart-note"></div>
 </div>

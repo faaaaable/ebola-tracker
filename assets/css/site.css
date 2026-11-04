@@ -5545,3 +5545,8 @@ main:has(.prov-hero-b) .chap-corps :is(.drill,.zones-note,.map-note,.fiche-texte
    4 novembre 2026 a la demande du proprietaire. */
 @media (max-width:900px){.chap,.chap-ancre{scroll-margin-top:16px;}}
 @media (max-width:700px){.chap-num{font-size:44px;min-width:52px;}.chap-ouv{gap:16px;}.chap{margin-top:48px;padding-top:40px;}}
+/* Points de controle des provinces : une rangee par graphique, son titre et
+   son resume a gauche (4 novembre 2026). La rangee continue le volet : pas
+   de filet, un titre plus petit que celui du volet. */
+.rp-v.rp-suite{border-top:0;padding-top:4px;}
+.rp-g .rp-h4{font:600 19px/1.25 var(--font-serif);letter-spacing:-.01em;color:var(--ink);margin:0 0 10px;}
