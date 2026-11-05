@@ -4150,8 +4150,10 @@ def chaine_riposte_html(kpis, strings_lang, vers=None):
         if cls in par:
             _, label, val, sub = par[cls]
             href = "%s#%s" % (vers, ANCRES_PAGE_RIPOSTE[cls]) if vers else "#rip-%s" % cls
-            cases.append('<a class="rc-e" href="%s"><span class="rc-v">%s</span><b class="rc-n is-%s">%s</b><em>%s</em>%s</a>'
-                         % (href, esc(strings_lang[verbe]), cls, val, label, ("<small>%s</small>" % sub) if sub else ""))
+            # Sans la ligne de detail sous le libelle (5 novembre 2026, « ca
+            # fait trop de lignes ») : le detail reste dans chaque volet.
+            cases.append('<a class="rc-e" href="%s"><span class="rc-v">%s</span><b class="rc-n is-%s">%s</b><em>%s</em></a>'
+                         % (href, esc(strings_lang[verbe]), cls, val, label))
     return ('      <div class="rc-chaine">%s</div>\n' % '<i aria-hidden="true">→</i>'.join(cases)) if cases else ""
 
 
