@@ -2,6 +2,32 @@
  "_comment": "Genere par scripts/collecter_actus.py. statut : publie (visible), attente (a valider), ecarte (jamais publie). Un article connu n'est jamais reecrit par la collecte. paire : identifiant commun aux traductions d'un meme communique ; chaque page n'en montre qu'une, dans sa langue (saisi a la main).",
  "items": [
   {
+   "id": "ac18910d",
+   "date": "2026-11-05",
+   "titre": "Ebola: mécontentement de Nairobi face aux restrictions de voyage pour ses ressortissants",
+   "source": "RFI",
+   "url": "https://www.rfi.fr/fr/afrique/20261105-ebola-m%C3%A9contentement-de-nairobi-face-aux-restrictions-de-voyage-pour-ses-ressortissants",
+   "langue": "fr",
+   "resume": "Le Kenya ne décolère pas, après que plusieurs pays ont imposé des restrictions de voyage pour ses ressortissants et les personnes en transit sur son territoire, afin de se prémunir du virus Ebola.",
+   "statut": "attente",
+   "collecte": "2026-11-05",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "75fff0c4",
+   "date": "2026-11-05",
+   "titre": "RDC : les survivants d'Ebola confrontés aux stigmatisations après leur guérison",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/11/05/actualite/sante/rdc-les-survivants-debola-confrontes-aux-stigmatisations-apres-leur",
+   "langue": "fr",
+   "resume": "Droits tiers\" /> Si la guérison d'Ebola met fin à la maladie, elle ne met pas toujours fin aux souffrances. En République démocratique du Congo, de nombreux survivants continuent de faire face à l'exclusion sociale, à la méfiance de leur entourage et à des difficultés…",
+   "statut": "publie",
+   "collecte": "2026-11-05",
+   "media": true,
+   "image": true
+  },
+  {
    "id": "6b9f2586",
    "date": "2026-11-05",
    "titre": "Ebola in Ituri: MONUSCO strengthens protection for police officers",
@@ -9,6 +35,19 @@
    "url": "https://acp.cd/anglais/ebola-in-ituri-monusco-strengthens-protection-for-police-officers/",
    "langue": "en",
    "resume": "Kinshasa, November 4th, 2026 (CPA): - MONUSCO has handed over protective equipment against Ebola to the Congolese National Police in Bunia, in the Democratic Republic…",
+   "statut": "publie",
+   "collecte": "2026-11-05",
+   "media": true,
+   "image": true
+  },
+  {
+   "id": "39c83022",
+   "date": "2026-11-05",
+   "titre": "Le directeur provincial de l’Éducation de Beni appelle les parents à protéger les élèves contre Ebola hors du cadre scolaire",
+   "source": "Radio Okapi",
+   "url": "https://www.radiookapi.net/2026/11/05/actualite/sante/le-directeur-provincial-de-leducation-de-beni-appelle-les-parents",
+   "langue": "fr",
+   "resume": "Marc Maro Fimbo, Radio Okapi\" /> Le directeur de l’Éducation et Nouvelle citoyenneté dans la province éducationnelle Nord-Kivu 2, Norbert Bisimwa a appelé, mardi 03 novembre à Beni, les parents à renforcer la protection des enfants contre la maladie à virus Ebola en dehors des…",
    "statut": "publie",
    "collecte": "2026-11-05",
    "media": true,
