@@ -107,7 +107,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 <script defer src="/assets/vendor/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=e75d8b1476">
+<link rel="stylesheet" href="/assets/css/site.css?v=1ba7dce7fb">
 </head>
 <body>
 
@@ -294,16 +294,21 @@
     <a class="rc-e" href="#points-controle"><span class="rc-v">Kukagua</span><b class="rc-n is-poe">260,995</b><em>Wasafiri waliokaguliwa (ripoti ya mwisho)</em><small>vituo 114 kati ya 132 vilituma ripoti yao (86%)</small></a>
   </section>
 
+  <!-- Menu a ancres (4 novembre 2026), celui des pages en chapitres : il
+       reste colle en haut pendant la lecture des six volets. -->
+  <nav class="pp-sousnav chap-nav" aria-label="Mapambano"><div><a href="#alertes"><b class="chap-nav-n">01</b>Tahadhari</a><a href="#laboratoire"><b class="chap-nav-n">02</b>Maabara</a><a href="#contacts"><b class="chap-nav-n">03</b>Ufuatiliaji wa walioguswa</a><a href="#cte"><b class="chap-nav-n">04</b>Vituo vya matibabu</a><a href="#vaccination"><b class="chap-nav-n">05</b>Chanjo</a><a href="#points-controle"><b class="chap-nav-n">06</b>Vituo vya ukaguzi</a></div></nav>
+
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
        on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
        et non des onglets : ce qui n'est pas clique n'est pas lu. -->
-  <section class="section cadre-fiche r3" id="alertes">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">Tahadhari</h2><div class="section-sub">kile ufuatiliaji hupokea, na kile huhifadhi</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-alerts">24,227</b><span>Tahadhari zilizopokelewa (ripoti 7 za mwisho)</span><small>3,471 zimethibitishwa kama visa vinavyoshukiwa</small></div>
+  <section class="section chap rip-volet" id="alertes">
+    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">Tahadhari</h2><p class="chap-chapo">kile ufuatiliaji hupokea, na kile huhifadhi</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-alerts">24,227</b><span>Tahadhari zilizopokelewa (ripoti 7 za mwisho)</span><small>3,471 zimethibitishwa kama visa vinavyoshukiwa</small></div>
       <p class="fiche-texte">Tahadhari ni taarifa — mgonjwa, kifo, uvumi — ambayo timu lazima ziende kuhakiki. Takriban moja kati ya tano huthibitishwa kama kisa kinachoshukiwa na kuchukuliwa sampuli. Tahadhari nyingi ni ufuatiliaji unaotafuta; sehemu iliyothibitishwa inaonyesha kile unachopata.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="alertesChart">
         <button type="button" class="share-btn">
@@ -320,20 +325,23 @@
         <button type="button" class="subtab-btn" data-vue="taux" data-i18n="chartVueTaux">Viwango</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="alertesChart" data-chart="alertes"></canvas>
+        <canvas id="alertesChart" data-chart="alertes" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
     </div>
+  </div>
+    </div>
   </section>
 
-  <section class="section cadre-fiche r3" id="laboratoire">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Maabara</h2><div class="section-sub">sampuli zilizopimwa na matokeo chanya</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-labo">15.1%</b><span>Kiwango cha vipimo chanya (ripoti 7 za mwisho)</span><small>468 chanya kati ya sampuli 3,101</small></div>
+  <section class="section chap rip-volet" id="laboratoire">
+    <header class="chap-ouv"><span class="chap-num">02</span><div><h2 class="chap-t">Maabara</h2><p class="chap-chapo">sampuli zilizopimwa na matokeo chanya</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-labo">15.1%</b><span>Kiwango cha vipimo chanya (ripoti 7 za mwisho)</span><small>468 chanya kati ya sampuli 3,101</small></div>
       <p class="fiche-texte">Kiwango cha chanya ni sehemu ya sampuli zinazothibitisha virusi. Kinapima jinsi vipimo vinavyolengwa, si idadi ya walioambukizwa: kinapopanda wakati idadi ya sampuli haibadiliki, wagonjwa dhahiri tu ndio wanachukuliwa sampuli na wengine wanakosekana.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="laboChart">
         <button type="button" class="share-btn">
@@ -349,20 +357,23 @@
         <button type="button" class="subtab-btn" data-vue="semaine" data-i18n="chartVueWeekly">Kwa wiki</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="laboChart" data-chart="laboratoire"></canvas>
+        <canvas id="laboChart" data-chart="laboratoire" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
     </div>
+  </div>
+    </div>
   </section>
 
-  <section class="section cadre-fiche r3" id="contacts">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Ufuatiliaji wa walioguswa</h2><div class="section-sub">watu walioathirika, walioonwa au waliopotea machoni</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-contacts">85.3%</b><span>Walioguswa walioonwa (ripoti 7 za mwisho)</span><small>223,562 walionwa kati ya 261,984 wa kufuatiliwa</small></div>
+  <section class="section chap rip-volet" id="contacts">
+    <header class="chap-ouv"><span class="chap-num">03</span><div><h2 class="chap-t">Ufuatiliaji wa walioguswa</h2><p class="chap-chapo">watu walioathirika, walioonwa au waliopotea machoni</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-contacts">85.3%</b><span>Walioguswa walioonwa (ripoti 7 za mwisho)</span><small>223,562 walionwa kati ya 261,984 wa kufuatiliwa</small></div>
       <p class="fiche-texte">Kila kisa kilichothibitishwa huacha walioguswa wa kufuatiliwa kwa siku ishirini na moja. Idadi yao ni ukubwa wa mlipuko kama mapambano yanavyouona; sehemu inayoonwa kila siku ni mshiko wanaoshikilia — chini ya kiwango, watu walioathirika huambukiza bila kugunduliwa.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="contactsChart">
         <button type="button" class="share-btn">
@@ -375,20 +386,23 @@
         <button type="button" class="subtab-btn" data-vue="provinces" data-i18n="chartVueProvinces">Kwa jimbo</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="contactsChart" data-chart="contactsRiposte"></canvas>
+        <canvas id="contactsChart" data-chart="contactsRiposte" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
     </div>
+  </div>
+    </div>
   </section>
 
-  <section class="section cadre-fiche r3" id="cte">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">Vituo vya matibabu</h2><div class="section-sub">wagonjwa waliolazwa na vitanda vilivyopo</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-cte">32</b><span>Wagonjwa kwa kila vitanda 100</span><small>382 wamelazwa kwa vitanda 1,213</small></div>
+  <section class="section chap rip-volet" id="cte">
+    <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">Vituo vya matibabu</h2><p class="chap-chapo">wagonjwa waliolazwa na vitanda vilivyopo</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-cte">32</b><span>Wagonjwa kwa kila vitanda 100</span><small>382 wamelazwa kwa vitanda 1,213</small></div>
       <p class="fiche-texte">Kituo cha matibabu kilichojaa hurudisha wagonjwa kwenye jamii, ambapo vifo hutokea nje ya huduma. Tovuti inahesabu wagonjwa waliolazwa — waliothibitishwa na wanaoshukiwa — kwa kila vitanda 100 ambavyo ripoti inatangaza; zaidi ya 100, kuna wagonjwa wengi kuliko vitanda, na waliozidi wanatibiwa nje ya vitanda vilivyopangwa. Hiki si kiwango cha matumizi cha ripoti, ambacho kinahesabu wagonjwa waliolala vitandani pekee.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="cteChart">
         <button type="button" class="share-btn">
@@ -397,10 +411,12 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="cteChart" data-chart="cte"></canvas>
+        <canvas id="cteChart" data-chart="cte" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+    </div>
+  </div>
     </div>
   </section>
 
@@ -412,14 +428,15 @@
        pas a l'epidemie mais la devance. Le cadre restera plus maigre que les
        autres tant que peu de provinces vaccinent ; l'Ituri est entree
        le 19 septembre. -->
-  <section class="section cadre-fiche r3" id="vaccination">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">Chanjo</h2><div class="section-sub">nani amechanjwa na katika majimbo yapi</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-vaccin">11,858</b><span>Watu waliochanjwa</span></div>
+  <section class="section chap rip-volet" id="vaccination">
+    <header class="chap-ouv"><span class="chap-num">05</span><div><h2 class="chap-t">Chanjo</h2><p class="chap-chapo">nani amechanjwa na katika majimbo yapi</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-vaccin">11,858</b><span>Watu waliochanjwa</span></div>
       <p class="fiche-texte">Chanjo ya Ervebo imetengwa kwa walio hatarini zaidi kuambukizwa: watumishi wa afya kwanza, kisha wafanyakazi wengine wa mstari wa mbele — wasafi, timu za mazishi salama — na, Bas-Uélé, walioguswa wenye hatari kubwa, chini ya chanjo iitwayo ya huruma. Kampeni ilianza tarehe 26 Agosti 2026 mjini Buta, kisha Kisangani siku iliyofuata; Ituri ilichapisha wachanjwa wake wa kwanza tarehe 23 Septemba.</p>
       <p class="fiche-texte">Takwimu za sehemu hii zinahusu chanjo ya Ervebo pekee. Jaribio la kliniki TUMAINI-TRIAL, lililozinduliwa tarehe 23 Oktoba 2026 Bunia kwa chanjo dhidi ya aina ya Bundibugyo, ni tofauti: washiriki wake hawahesabiwi hapa.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="vaccinationChart">
         <button type="button" class="share-btn">
@@ -428,7 +445,7 @@
         </button>
       </div>
       <div class="chart-panel chart-panel-barres">
-        <canvas id="vaccinationChart" data-chart="vaccination"></canvas>
+        <canvas id="vaccinationChart" data-chart="vaccination" data-sans-titre></canvas>
       </div>
       <!-- La note du graphique n'est plus repliee derriere « Methode et
            sources » : elle porte les deux avertissements sans lesquels les
@@ -440,6 +457,8 @@
            tableau dit ou, dans chacune. -->
       
     </div>
+  </div>
+    </div>
   </section>
 
   <!-- Les points de controle (26 octobre 2026, maquette tmp/proto-poe-1026) :
@@ -447,19 +466,16 @@
        de screening restent a 97-99 % et ne sont dits qu'en une phrase ; ce
        qui bouge, ce sont le flux de voyageurs, les alertes et corps
        interceptes aux postes, et les postes qui ne rapportent pas. -->
-  <section class="section cadre-fiche r3" id="points-controle">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">Vituo vya ukaguzi</h2><div class="section-sub">wasafiri wanaokaguliwa mipakani, barabarani na bandarini</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-poe">260,995</b><span>Wasafiri waliokaguliwa tarehe 3 Nov. 2026</span><small>vituo 114 kati ya 132 vilituma ripoti yao (86%)</small></div>
+  <section class="section chap rip-volet" id="points-controle">
+    <header class="chap-ouv"><span class="chap-num">06</span><div><h2 class="chap-t">Vituo vya ukaguzi</h2><p class="chap-chapo">wasafiri wanaokaguliwa mipakani, barabarani na bandarini</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-poe">260,995</b><span>Wasafiri waliokaguliwa tarehe 3 Nov. 2026</span><small>vituo 114 kati ya 132 vilituma ripoti yao (86%)</small></div>
       <div class="poe-chiffres"><div><b>288,219</b><span>wasafiri kwa siku (ripoti 7 za mwisho)</span></div><div><b>56</b><span>tahadhari vituoni, 28 kati yake zimethibitishwa (ripoti 7 za mwisho)</span></div><div><b>11</b><span>maiti zilizozuiliwa (ripoti 7 za mwisho)</span></div></div>
       <p class="fiche-texte">Katika vituo vya kuingilia (PoE, mipakani) na vituo vya ukaguzi (PoC, kwenye barabara na bandari za ndani), kila msafiri hupimwa joto, huosha mikono na hupewa ujumbe wa kinga. Tarehe 24 Mei 2026, ripoti zilihesabu 11,628; tarehe 3 Nov. 2026, 260,995.</p>
       <p class="fiche-texte">Uchunguzi unawafikia 97% hadi 98% ya wasafiri katika ripoti saba za mwisho: kinachobadilika ni tahadhari zinazotolewa vituoni, maiti zinazosafirishwa ambazo zinazuiliwa, na vituo visivyotuma ripoti yao.</p>
     </div>
-    <div class="r3-d">
-    <!-- Trois graphiques montres d'un coup (29 octobre 2026, demande de
-         Fable) : voyageurs, alertes et rapports ne se lisent pas de la
-         meme facon, des onglets en cachaient deux. data-vue fixe la vue
-         de chaque canevas, data-titre lui donne son titre. -->
+    <div class="rp-d">
     <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChart">
         <button type="button" class="share-btn">
@@ -468,10 +484,18 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="poeChart" data-chart="pointsControle" data-vue="jour" data-titre="Wasafiri kwa siku"></canvas>
+        <canvas id="poeChart" data-chart="pointsControle" data-vue="jour" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+    </div>
+    </div>
+    <!-- Trois graphiques, chacun avec son resume a gauche (4 novembre 2026),
+         comme sur les pages province : voyageurs, alertes, rapports. -->
+    <div class="rp-v rp-suite"><div class="rp-g">
+      <h3 class="rp-h4">Tahadhari kwa wiki</h3>
+      <p class="fiche-texte">Kila wiki, tahadhari zinazotolewa vituoni: wasafiri walioripotiwa kuwa wagonjwa, wale waliothibitishwa kuwa washukiwa, na maiti zilizozuiliwa njiani. Ongezeko linaonyesha wagonjwa wanaosafiri.</p>
+    </div><div class="rp-d">
     <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChartAlertes">
         <button type="button" class="share-btn">
@@ -480,10 +504,15 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="poeChartAlertes" data-chart="pointsControle" data-vue="alertes" data-titre="Tahadhari kwa wiki"></canvas>
+        <canvas id="poeChartAlertes" data-chart="pointsControle" data-vue="alertes" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+    </div></div>
+    <div class="rp-v rp-suite"><div class="rp-g">
+      <h3 class="rp-h4">Ripoti zilizopokelewa</h3>
+      <p class="fiche-texte">Sehemu ya vituo vinavyotuma ripoti yao kila siku, na idadi ya vituo vinavyofuatiliwa. Inaposhuka, idadi ya wasafiri katika grafu ya kwanza inakadiriwa chini.</p>
+    </div><div class="rp-d">
     <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChartRapports">
         <button type="button" class="share-btn">
@@ -492,12 +521,11 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="poeChartRapports" data-chart="pointsControle" data-vue="rapports" data-titre="Ripoti zilizopokelewa"></canvas>
+        <canvas id="poeChartRapports" data-chart="pointsControle" data-vue="rapports" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
-      <!-- Le tableau par province du dernier bulletin est retire (29 octobre
-           2026, demande de Fable) : les trois graphiques suffisent. -->
+    </div></div>
     </div>
   </section>
 

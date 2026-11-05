@@ -28,16 +28,21 @@
     <a class="rc-e" href="#points-controle"><span class="rc-v">{{t.ripVerbe6}}</span><b class="rc-n is-poe">{{seed.ripPoe}}</b><em>{{t.riposteKpiPoeChaine}}</em><small>{{seed.ripPoeSub}}</small></a>
   </section>
 
+  <!-- Menu a ancres (4 novembre 2026), celui des pages en chapitres : il
+       reste colle en haut pendant la lecture des six volets. -->
+  <nav class="pp-sousnav chap-nav" aria-label="{{meta.h1}}"><div><a href="#alertes"><b class="chap-nav-n">01</b>{{t.riposteAlertesTitle}}</a><a href="#laboratoire"><b class="chap-nav-n">02</b>{{t.riposteLaboTitle}}</a><a href="#contacts"><b class="chap-nav-n">03</b>{{t.riposteContactsTitle}}</a><a href="#cte"><b class="chap-nav-n">04</b>{{t.riposteCteTitle}}</a><a href="#vaccination"><b class="chap-nav-n">05</b>{{t.riposteVaccinTitle}}</a><a href="#points-controle"><b class="chap-nav-n">06</b>{{t.ripostePoeTitle}}</a></div></nav>
+
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
        on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
        et non des onglets : ce qui n'est pas clique n'est pas lu. -->
-  <section class="section cadre-fiche r3" id="alertes">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">{{t.riposteAlertesTitle}}</h2><div class="section-sub">{{t.riposteAlertesSub}}</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-alerts">{{seed.ripAlertes}}</b><span>{{t.riposteKpiAlertes}}</span><small>{{seed.ripAlertesSub}}</small></div>
+  <section class="section chap rip-volet" id="alertes">
+    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">{{t.riposteAlertesTitle}}</h2><p class="chap-chapo">{{t.riposteAlertesSub}}</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-alerts">{{seed.ripAlertes}}</b><span>{{t.riposteKpiAlertes}}</span><small>{{seed.ripAlertesSub}}</small></div>
       <p class="fiche-texte">{{t.riposteAlertesLede}}</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="alertesChart">
         <button type="button" class="share-btn">
@@ -54,20 +59,23 @@
         <button type="button" class="subtab-btn" data-vue="taux" data-i18n="chartVueTaux">{{i18n.chartVueTaux}}</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="alertesChart" data-chart="alertes"></canvas>
+        <canvas id="alertesChart" data-chart="alertes" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
     </div>
+  </div>
+    </div>
   </section>
 
-  <section class="section cadre-fiche r3" id="laboratoire">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">{{t.riposteLaboTitle}}</h2><div class="section-sub">{{t.riposteLaboSub}}</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-labo">{{seed.ripPositivite}}</b><span>{{t.riposteKpiPositivite}}</span><small>{{seed.ripPositiviteSub}}</small></div>
+  <section class="section chap rip-volet" id="laboratoire">
+    <header class="chap-ouv"><span class="chap-num">02</span><div><h2 class="chap-t">{{t.riposteLaboTitle}}</h2><p class="chap-chapo">{{t.riposteLaboSub}}</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-labo">{{seed.ripPositivite}}</b><span>{{t.riposteKpiPositivite}}</span><small>{{seed.ripPositiviteSub}}</small></div>
       <p class="fiche-texte">{{t.riposteLaboLede}}</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="laboChart">
         <button type="button" class="share-btn">
@@ -83,20 +91,23 @@
         <button type="button" class="subtab-btn" data-vue="semaine" data-i18n="chartVueWeekly">{{i18n.chartVueWeekly}}</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="laboChart" data-chart="laboratoire"></canvas>
+        <canvas id="laboChart" data-chart="laboratoire" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
     </div>
+  </div>
+    </div>
   </section>
 
-  <section class="section cadre-fiche r3" id="contacts">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">{{t.riposteContactsTitle}}</h2><div class="section-sub">{{t.riposteContactsSub}}</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-contacts">{{seed.ripContacts}}</b><span>{{t.riposteKpiContacts}}</span><small>{{seed.ripContactsSub}}</small></div>
+  <section class="section chap rip-volet" id="contacts">
+    <header class="chap-ouv"><span class="chap-num">03</span><div><h2 class="chap-t">{{t.riposteContactsTitle}}</h2><p class="chap-chapo">{{t.riposteContactsSub}}</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-contacts">{{seed.ripContacts}}</b><span>{{t.riposteKpiContacts}}</span><small>{{seed.ripContactsSub}}</small></div>
       <p class="fiche-texte">{{t.riposteContactsLede}}</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="contactsChart">
         <button type="button" class="share-btn">
@@ -109,20 +120,23 @@
         <button type="button" class="subtab-btn" data-vue="provinces" data-i18n="chartVueProvinces">{{i18n.chartVueProvinces}}</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="contactsChart" data-chart="contactsRiposte"></canvas>
+        <canvas id="contactsChart" data-chart="contactsRiposte" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
     </div>
+  </div>
+    </div>
   </section>
 
-  <section class="section cadre-fiche r3" id="cte">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">{{t.riposteCteTitle}}</h2><div class="section-sub">{{t.riposteCteSub}}</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-cte">{{seed.ripOccupation}}</b><span>{{t.riposteKpiOccupation}}</span><small>{{seed.ripOccupationSub}}</small></div>
+  <section class="section chap rip-volet" id="cte">
+    <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">{{t.riposteCteTitle}}</h2><p class="chap-chapo">{{t.riposteCteSub}}</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-cte">{{seed.ripOccupation}}</b><span>{{t.riposteKpiOccupation}}</span><small>{{seed.ripOccupationSub}}</small></div>
       <p class="fiche-texte">{{t.riposteCteLede}}</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="cteChart">
         <button type="button" class="share-btn">
@@ -131,10 +145,12 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="cteChart" data-chart="cte"></canvas>
+        <canvas id="cteChart" data-chart="cte" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+    </div>
+  </div>
     </div>
   </section>
 
@@ -146,14 +162,15 @@
        pas a l'epidemie mais la devance. Le cadre restera plus maigre que les
        autres tant que peu de provinces vaccinent ; l'Ituri est entree
        le 19 septembre. -->
-  <section class="section cadre-fiche r3" id="vaccination">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">{{t.riposteVaccinTitle}}</h2><div class="section-sub">{{t.riposteVaccinSub}}</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-vaccin">{{seed.ripVaccines}}</b><span>{{t.riposteKpiVaccines}}</span></div>
+  <section class="section chap rip-volet" id="vaccination">
+    <header class="chap-ouv"><span class="chap-num">05</span><div><h2 class="chap-t">{{t.riposteVaccinTitle}}</h2><p class="chap-chapo">{{t.riposteVaccinSub}}</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-vaccin">{{seed.ripVaccines}}</b><span>{{t.riposteKpiVaccines}}</span></div>
       <p class="fiche-texte">{{t.riposteVaccinLede}}</p>
       <p class="fiche-texte">{{t.riposteVaccinEssai}}</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="vaccinationChart">
         <button type="button" class="share-btn">
@@ -162,7 +179,7 @@
         </button>
       </div>
       <div class="chart-panel chart-panel-barres">
-        <canvas id="vaccinationChart" data-chart="vaccination"></canvas>
+        <canvas id="vaccinationChart" data-chart="vaccination" data-sans-titre></canvas>
       </div>
       <!-- La note du graphique n'est plus repliee derriere « Methode et
            sources » : elle porte les deux avertissements sans lesquels les
@@ -174,6 +191,8 @@
            tableau dit ou, dans chacune. -->
       {{seed.ripVaccinZones}}
     </div>
+  </div>
+    </div>
   </section>
 
   <!-- Les points de controle (26 octobre 2026, maquette tmp/proto-poe-1026) :
@@ -181,19 +200,16 @@
        de screening restent a 97-99 % et ne sont dits qu'en une phrase ; ce
        qui bouge, ce sont le flux de voyageurs, les alertes et corps
        interceptes aux postes, et les postes qui ne rapportent pas. -->
-  <section class="section cadre-fiche r3" id="points-controle">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">{{t.ripostePoeTitle}}</h2><div class="section-sub">{{t.ripostePoeSub}}</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-poe">{{seed.ripPoe}}</b><span>{{seed.ripPoeLabel}}</span><small>{{seed.ripPoeSub}}</small></div>
+  <section class="section chap rip-volet" id="points-controle">
+    <header class="chap-ouv"><span class="chap-num">06</span><div><h2 class="chap-t">{{t.ripostePoeTitle}}</h2><p class="chap-chapo">{{t.ripostePoeSub}}</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-poe">{{seed.ripPoe}}</b><span>{{seed.ripPoeLabel}}</span><small>{{seed.ripPoeSub}}</small></div>
       {{seed.ripPoeChiffres}}
       <p class="fiche-texte">{{seed.ripPoeLede}}</p>
       <p class="fiche-texte">{{seed.ripPoeLede2}}</p>
     </div>
-    <div class="r3-d">
-    <!-- Trois graphiques montres d'un coup (29 octobre 2026, demande de
-         Fable) : voyageurs, alertes et rapports ne se lisent pas de la
-         meme facon, des onglets en cachaient deux. data-vue fixe la vue
-         de chaque canevas, data-titre lui donne son titre. -->
+    <div class="rp-d">
     <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChart">
         <button type="button" class="share-btn">
@@ -202,10 +218,18 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="poeChart" data-chart="pointsControle" data-vue="jour" data-titre="{{t.ripostePoeVueVoyageurs}}"></canvas>
+        <canvas id="poeChart" data-chart="pointsControle" data-vue="jour" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+    </div>
+    </div>
+    <!-- Trois graphiques, chacun avec son resume a gauche (4 novembre 2026),
+         comme sur les pages province : voyageurs, alertes, rapports. -->
+    <div class="rp-v rp-suite"><div class="rp-g">
+      <h3 class="rp-h4">{{t.ripostePoeVueAlertes}}</h3>
+      <p class="fiche-texte">{{t.ripostePoeResumeAlertes}}</p>
+    </div><div class="rp-d">
     <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChartAlertes">
         <button type="button" class="share-btn">
@@ -214,10 +238,15 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="poeChartAlertes" data-chart="pointsControle" data-vue="alertes" data-titre="{{t.ripostePoeVueAlertes}}"></canvas>
+        <canvas id="poeChartAlertes" data-chart="pointsControle" data-vue="alertes" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+    </div></div>
+    <div class="rp-v rp-suite"><div class="rp-g">
+      <h3 class="rp-h4">{{t.ripostePoeVueRapports}}</h3>
+      <p class="fiche-texte">{{t.ripostePoeResumeRapports}}</p>
+    </div><div class="rp-d">
     <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChartRapports">
         <button type="button" class="share-btn">
@@ -226,12 +255,11 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="poeChartRapports" data-chart="pointsControle" data-vue="rapports" data-titre="{{t.ripostePoeVueRapports}}"></canvas>
+        <canvas id="poeChartRapports" data-chart="pointsControle" data-vue="rapports" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
-      <!-- Le tableau par province du dernier bulletin est retire (29 octobre
-           2026, demande de Fable) : les trois graphiques suffisent. -->
+    </div></div>
     </div>
   </section>
 

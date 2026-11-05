@@ -4266,35 +4266,27 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .rc-e small{font-size:11.5px;color:var(--ink-faint);max-width:190px;margin-top:2px;}
 .rc-n.is-alerts{color:var(--accent-info);} .rc-n.is-labo{color:var(--accent-critical);} .rc-n.is-contacts{color:var(--accent-active);}
 .rc-n.is-cte{color:var(--accent-stable);} .rc-n.is-vaccin{color:#6B5CA5;}
-.cadre-fiche.r3{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:44px;align-items:start;border-top:1px solid var(--line);padding-top:36px;background:none;box-shadow:none;}
-/* Colonne de gauche immobile (7 octobre 2026) : collante, elle semblait
-   bouger au defilement. */
-.r3-g{position:static;}
-.r3 .fiche-tete{display:block;margin:0;}
-.r3 .fiche-num{display:block;font:700 12px var(--font-sans);letter-spacing:.1em;color:var(--accent-strong);margin-bottom:4px;}
-.r3 .frame-title{font:600 clamp(26px,2.8vw,36px)/1.08 var(--font-serif);letter-spacing:-.03em;margin:0 0 6px;}
-.r3-ch{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin:18px 0;}
-.r3-ch .rc-n{display:block;font-size:52px;line-height:1;}
-.r3-ch span{display:block;font-weight:600;font-size:13.5px;margin-top:6px;}
-.r3-ch small{display:block;font-size:12px;color:var(--ink-faint);}
-.r3-g .fiche-texte{font:400 15px/1.65 var(--font-serif);color:var(--ink);margin:0;}
-.r3-g .fiche-texte + .fiche-texte{margin-top:12px;}
-.r3 .panel.chart-panel-wrap{background:none;border:0;box-shadow:none;padding:0;}
-.r3 .chart-actions{display:none !important;}
+/* Les six volets de la page Riposte (4 novembre 2026) : chacun est un
+   chapitre (.chap, grand numero, titre, chapeau) comme sur Ensemble du pays
+   et les provinces, puis la rangee de leurs sections riposte (.rp-v : texte
+   a gauche, graphique dans sa carte a droite, sans titre dedans). Les
+   regles .r3 sont parties avec. */
+.rip-volet .chap-corps > .rp-v:first-child{border-top:0;padding-top:0;}
+.rip-volet .chap-corps > .rp-v:last-child{padding-bottom:0;}
+.rip-volet .chap-chapo::first-letter{text-transform:uppercase;}
+.rp-g .fiche-texte + .fiche-texte{margin-top:12px;}
 .rip-note summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink-dim);margin-top:8px;}
-.r3 .vaccin-zones{margin-top:24px;}
 /* Cadre 06, les points de controle (26 octobre 2026) : trois petits chiffres
    sous le chiffre de tete, et le tableau du dernier bulletin par province. */
 .rc-n.is-poe{color:var(--accent-strong);}
-#points-controle .r3-g,#points-controle .r3-d{min-width:0;}
+#points-controle .rp-g,#points-controle .rp-d{min-width:0;}
 .poe-chiffres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 18px;}
 .poe-chiffres div{border-left:2px solid var(--line);padding-left:10px;}
 .poe-chiffres b{display:block;font:700 20px/1.1 var(--font-sans);color:var(--ink);font-variant-numeric:tabular-nums;}
 .poe-chiffres span{display:block;font-size:12px;line-height:1.4;color:var(--ink-faint);margin-top:3px;}
 .poe-panneau + .poe-panneau{margin-top:20px;}
-.r3 .poe-table-wrap{margin-top:24px;padding:18px 20px 12px;overflow-x:auto;}
 .poe-table{width:100%;min-width:560px;}
-/* Le defilement horizontal ne tenait que sous .r3 (page Riposte) : sur les fiches
+/* Le defilement horizontal ne tenait que sous la page Riposte : sur les fiches
    Ituri et Nord-Kivu, la table de 560 px elargissait tout le volet (+194 px a 390 px). */
 .poe-table-wrap{overflow-x:auto;}
 /* Style des tableaux de zones des pages province (.zq, 29 octobre 2026) :
@@ -4310,7 +4302,6 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .poe-jauge i{display:block;height:100%;background:var(--accent);}
 @media (max-width:640px){ .poe-chiffres{grid-template-columns:1fr;gap:8px;} }
 @media (max-width:900px){
-  .cadre-fiche.r3{grid-template-columns:1fr;gap:16px;} .r3-g{position:static;}
   .rc-chaine{flex-wrap:wrap;} .rc-chaine > i{display:none;} .rc-e{flex:1 1 45%;border-bottom:1px solid var(--line);}
 }
 
@@ -5515,20 +5506,23 @@ main :where(p,li) a.lien-x:is(:hover,:focus-visible){text-decoration-color:curre
    titres a gauche, au-dessus. ---- */
 .chap-nav{margin-top:32px;}
 .chap-nav-n{font-family:var(--font-serif);font-weight:600;color:var(--accent-strong);opacity:.8;margin-right:6px;}
-.chap{border-top:1px solid var(--line);margin-top:72px;padding-top:56px;scroll-margin-top:130px;}
+/* Espacement resserre le 4 novembre 2026 (« ca fait bcp de vide ») : 80 px
+   au lieu de 128 entre la fin d'un chapitre et le filet, 44 au lieu de 56
+   du filet au titre. */
+.chap{border-top:1px solid var(--line);margin-top:24px;padding-top:44px;scroll-margin-top:130px;}
 .chap-nav + .chap{border-top:0;margin-top:0;}
 .chap-ancre{display:block;scroll-margin-top:130px;}
 .chap-ouv{display:flex;gap:28px;align-items:flex-start;}
 .chap-num{font-family:var(--font-serif);font-size:64px;line-height:.8;font-weight:600;letter-spacing:-.02em;color:var(--accent-strong);opacity:.8;min-width:90px;}
 .chap-t{font-family:var(--font-serif);font-size:clamp(32px,4vw,48px);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin:0 0 12px;color:var(--ink);}
 .chap-chapo{font-family:var(--font-serif);font-size:19px;line-height:1.55;color:var(--ink-strong);max-width:640px;margin:0;}
-.chap-corps{padding-top:40px;}
+.chap-corps{padding-top:32px;}
 .chap-corps > .section-head,.chap-fig{display:block;margin:40px 0 14px !important;text-align:left;}
 .chap-corps > .section-head:first-child,.chap-corps > .chap-fig:first-child,.chap-corps > .chap-ancre:first-child + .chap-fig{margin-top:0 !important;}
 .chap-corps .section-head .frame-title{text-align:left;margin:0 0 4px;}
 .chap-corps .section-head .section-sub{display:block;font-style:normal;font-size:13px;color:var(--ink-faint);text-align:left;}
 /* lignes equilibrees pour les titres et chapeaux, pas de mot seul ailleurs */
-main:has(.chap) :is(.page-title,.lede,.chap-t,.chap-chapo,.frame-title,.section-sub,.rp-g h3,.rp-sub){text-wrap:balance;}
+main:is(:has(.chap),:has(.chap-nav)) :is(.page-title,.lede,.chap-t,.chap-chapo,.frame-title,.section-sub,.rp-g h3,.rp-sub){text-wrap:balance;}
 main:has(.chap) :is(.page-intro,.fiche-texte,.map-note,.chart-note,.zones-note){text-wrap:pretty;}
 /* tout a gauche, tableaux en pleine largeur (le site les centrait et les
    calait sur leur contenu sur ces pages ; meme prefixe pour l'emporter) */
@@ -5542,8 +5536,11 @@ main:has(.prov-hero-b) .chap-corps :is(.drill,.zones-note,.map-note,.fiche-texte
 /* Riposte des provinces : la presentation de la page Riposte, texte a
    gauche et graphique a droite (.rp-v, regles du site), retablie le
    4 novembre 2026 a la demande du proprietaire. */
-@media (max-width:900px){.chap,.chap-ancre{scroll-margin-top:16px;}}
-@media (max-width:700px){.chap-num{font-size:44px;min-width:52px;}.chap-ouv{gap:16px;}.chap{margin-top:48px;padding-top:40px;}}
+/* Riposte : les six volets sous le meme menu colle (4 novembre 2026). */
+main:has(.chap-nav) .rip-volet{scroll-margin-top:130px;}
+.rc-chaine + .chap-nav{margin-top:0;border-top:0;}
+@media (max-width:900px){.chap,.chap-ancre,main:has(.chap-nav) .rip-volet{scroll-margin-top:16px;}}
+@media (max-width:700px){.chap-num{font-size:44px;min-width:52px;}.chap-ouv{gap:16px;}.chap{margin-top:8px;padding-top:32px;}}
 /* Telephone (4 novembre 2026) : le numero sur la ligne du titre, le chapeau
    sur toute la largeur ; les tableaux sortent de leur carte pour regagner
    les 34 px de marge (ils defilent de cote, comme avant les chapitres). */

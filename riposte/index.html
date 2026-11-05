@@ -107,7 +107,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 <script defer src="/assets/vendor/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=e75d8b1476">
+<link rel="stylesheet" href="/assets/css/site.css?v=1ba7dce7fb">
 </head>
 <body>
 
@@ -294,16 +294,21 @@
     <a class="rc-e" href="#points-controle"><span class="rc-v">Contrôler</span><b class="rc-n is-poe">260 995</b><em>Voyageurs contrôlés (dernier relevé)</em><small>114 postes sur 132 ont envoyé leur rapport (86 %)</small></a>
   </section>
 
+  <!-- Menu a ancres (4 novembre 2026), celui des pages en chapitres : il
+       reste colle en haut pendant la lecture des six volets. -->
+  <nav class="pp-sousnav chap-nav" aria-label="La riposte"><div><a href="#alertes"><b class="chap-nav-n">01</b>Les alertes</a><a href="#laboratoire"><b class="chap-nav-n">02</b>Le laboratoire</a><a href="#contacts"><b class="chap-nav-n">03</b>Le suivi des contacts</a><a href="#cte"><b class="chap-nav-n">04</b>Les centres de traitement</a><a href="#vaccination"><b class="chap-nav-n">05</b>La vaccination</a><a href="#points-controle"><b class="chap-nav-n">06</b>Les points de contrôle</a></div></nav>
+
   <!-- Les quatre cadres suivent la chaine de riposte : on signale, on teste,
        on suit les contacts, on soigne. Ils se lisent ensemble — d'ou une page
        et non des onglets : ce qui n'est pas clique n'est pas lu. -->
-  <section class="section cadre-fiche r3" id="alertes">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">01</span><div><h2 class="frame-title">Les alertes</h2><div class="section-sub">ce que la surveillance reçoit, et ce qu'elle en retient</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-alerts">24 227</b><span>Alertes reçues (7 derniers relevés)</span><small>3 471 validées comme cas suspects</small></div>
+  <section class="section chap rip-volet" id="alertes">
+    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">Les alertes</h2><p class="chap-chapo">ce que la surveillance reçoit, et ce qu'elle en retient</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-alerts">24 227</b><span>Alertes reçues (7 derniers relevés)</span><small>3 471 validées comme cas suspects</small></div>
       <p class="fiche-texte">Une alerte est un signalement — un malade, un décès, une rumeur — que les équipes doivent aller vérifier. Une sur cinq environ est validée comme cas suspect et prélevée. Beaucoup d'alertes, c'est une surveillance qui cherche ; la part validée dit ce qu'elle trouve.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="alertesChart">
         <button type="button" class="share-btn">
@@ -320,20 +325,23 @@
         <button type="button" class="subtab-btn" data-vue="taux" data-i18n="chartVueTaux">Taux</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="alertesChart" data-chart="alertes"></canvas>
+        <canvas id="alertesChart" data-chart="alertes" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
     </div>
+  </div>
+    </div>
   </section>
 
-  <section class="section cadre-fiche r3" id="laboratoire">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">02</span><div><h2 class="frame-title">Le laboratoire</h2><div class="section-sub">échantillons analysés et résultats positifs</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-labo">15,1 %</b><span>Positivité des tests (7 derniers relevés)</span><small>468 positifs sur 3 101 échantillons</small></div>
+  <section class="section chap rip-volet" id="laboratoire">
+    <header class="chap-ouv"><span class="chap-num">02</span><div><h2 class="chap-t">Le laboratoire</h2><p class="chap-chapo">échantillons analysés et résultats positifs</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-labo">15,1 %</b><span>Positivité des tests (7 derniers relevés)</span><small>468 positifs sur 3 101 échantillons</small></div>
       <p class="fiche-texte">La positivité est la part des échantillons qui confirment le virus. Elle mesure le ciblage des tests, pas la population infectée : quand elle monte alors que le nombre d'échantillons stagne, on ne prélève que les malades évidents et l'on en manque d'autres.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="laboChart">
         <button type="button" class="share-btn">
@@ -349,20 +357,23 @@
         <button type="button" class="subtab-btn" data-vue="semaine" data-i18n="chartVueWeekly">Par semaine</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="laboChart" data-chart="laboratoire"></canvas>
+        <canvas id="laboChart" data-chart="laboratoire" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
     </div>
+  </div>
+    </div>
   </section>
 
-  <section class="section cadre-fiche r3" id="contacts">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">03</span><div><h2 class="frame-title">Le suivi des contacts</h2><div class="section-sub">les personnes exposées, vues ou perdues de vue</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-contacts">85,3 %</b><span>Contacts vus (7 derniers relevés)</span><small>223 562 vus sur 261 984 à suivre</small></div>
+  <section class="section chap rip-volet" id="contacts">
+    <header class="chap-ouv"><span class="chap-num">03</span><div><h2 class="chap-t">Le suivi des contacts</h2><p class="chap-chapo">les personnes exposées, vues ou perdues de vue</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-contacts">85,3 %</b><span>Contacts vus (7 derniers relevés)</span><small>223 562 vus sur 261 984 à suivre</small></div>
       <p class="fiche-texte">Chaque cas confirmé laisse des contacts à suivre pendant vingt et un jours. Leur nombre est la taille de l'épidémie vue par la riposte ; la part vue chaque jour est la prise qu'elle garde dessus — en dessous du seuil, des personnes exposées transmettent sans être détectées.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="contactsChart">
         <button type="button" class="share-btn">
@@ -375,20 +386,23 @@
         <button type="button" class="subtab-btn" data-vue="provinces" data-i18n="chartVueProvinces">Par province</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="contactsChart" data-chart="contactsRiposte"></canvas>
+        <canvas id="contactsChart" data-chart="contactsRiposte" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
     </div>
+  </div>
+    </div>
   </section>
 
-  <section class="section cadre-fiche r3" id="cte">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">04</span><div><h2 class="frame-title">Les centres de traitement</h2><div class="section-sub">patients hospitalisés et lits disponibles</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-cte">32</b><span>Patients pour 100 lits</span><small>382 hospitalisés pour 1 213 lits</small></div>
+  <section class="section chap rip-volet" id="cte">
+    <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">Les centres de traitement</h2><p class="chap-chapo">patients hospitalisés et lits disponibles</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-cte">32</b><span>Patients pour 100 lits</span><small>382 hospitalisés pour 1 213 lits</small></div>
       <p class="fiche-texte">Un centre de traitement saturé renvoie les malades vers la communauté, où les décès échappent à la prise en charge. Le site compte les patients hospitalisés — confirmés et suspects — pour 100 lits que le bulletin déclare ; au-delà de 100, il y a plus de malades que de lits, et le surplus est soigné hors des lits prévus. Ce n'est pas le taux d'occupation du bulletin, qui ne compte que les malades couchés dans les lits.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="cteChart">
         <button type="button" class="share-btn">
@@ -397,10 +411,12 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="cteChart" data-chart="cte"></canvas>
+        <canvas id="cteChart" data-chart="cte" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+    </div>
+  </div>
     </div>
   </section>
 
@@ -412,14 +428,15 @@
        pas a l'epidemie mais la devance. Le cadre restera plus maigre que les
        autres tant que peu de provinces vaccinent ; l'Ituri est entree
        le 19 septembre. -->
-  <section class="section cadre-fiche r3" id="vaccination">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">05</span><div><h2 class="frame-title">La vaccination</h2><div class="section-sub">qui est vacciné et dans quelles provinces</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-vaccin">11 858</b><span>Personnes vaccinées</span></div>
+  <section class="section chap rip-volet" id="vaccination">
+    <header class="chap-ouv"><span class="chap-num">05</span><div><h2 class="chap-t">La vaccination</h2><p class="chap-chapo">qui est vacciné et dans quelles provinces</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-vaccin">11 858</b><span>Personnes vaccinées</span></div>
       <p class="fiche-texte">Le vaccin Ervebo est réservé aux personnes les plus exposées au virus : le personnel soignant d'abord, puis les autres travailleurs de première ligne — hygiénistes, équipes d'enterrement sécurisé — et, au Bas-Uélé, les contacts à haut risque, dans le cadre d'une vaccination dite compassionnelle. La campagne a démarré le 26 août 2026 à Buta, puis à Kisangani le lendemain ; l'Ituri a publié ses premiers vaccinés le 23 septembre.</p>
       <p class="fiche-texte">Les chiffres de cette section ne concernent que le vaccin Ervebo. L'essai clinique TUMAINI-TRIAL, lancé le 23 octobre 2026 à Bunia pour un vaccin contre la souche Bundibugyo, en est distinct : ses participants ne sont pas comptés ici.</p>
     </div>
-    <div class="r3-d">
+    <div class="rp-d">
     <div class="panel chart-panel-wrap">
       <div class="chart-actions" data-export-chart="vaccinationChart">
         <button type="button" class="share-btn">
@@ -428,7 +445,7 @@
         </button>
       </div>
       <div class="chart-panel chart-panel-barres">
-        <canvas id="vaccinationChart" data-chart="vaccination"></canvas>
+        <canvas id="vaccinationChart" data-chart="vaccination" data-sans-titre></canvas>
       </div>
       <!-- La note du graphique n'est plus repliee derriere « Methode et
            sources » : elle porte les deux avertissements sans lesquels les
@@ -440,6 +457,8 @@
            tableau dit ou, dans chacune. -->
       
     </div>
+  </div>
+    </div>
   </section>
 
   <!-- Les points de controle (26 octobre 2026, maquette tmp/proto-poe-1026) :
@@ -447,19 +466,16 @@
        de screening restent a 97-99 % et ne sont dits qu'en une phrase ; ce
        qui bouge, ce sont le flux de voyageurs, les alertes et corps
        interceptes aux postes, et les postes qui ne rapportent pas. -->
-  <section class="section cadre-fiche r3" id="points-controle">
-    <div class="r3-g">
-      <div class="fiche-tete"><span class="fiche-num">06</span><div><h2 class="frame-title">Les points de contrôle</h2><div class="section-sub">les voyageurs contrôlés aux frontières, sur les routes et dans les ports</div></div></div>
-      <div class="r3-ch"><b class="rc-n is-poe">260 995</b><span>Voyageurs contrôlés le 3 nov. 2026</span><small>114 postes sur 132 ont envoyé leur rapport (86 %)</small></div>
+  <section class="section chap rip-volet" id="points-controle">
+    <header class="chap-ouv"><span class="chap-num">06</span><div><h2 class="chap-t">Les points de contrôle</h2><p class="chap-chapo">les voyageurs contrôlés aux frontières, sur les routes et dans les ports</p></div></header>
+    <div class="chap-corps"><div class="rp-v">
+    <div class="rp-g">
+      <div class="rp-ch"><b class="rc-n is-poe">260 995</b><span>Voyageurs contrôlés le 3 nov. 2026</span><small>114 postes sur 132 ont envoyé leur rapport (86 %)</small></div>
       <div class="poe-chiffres"><div><b>288 219</b><span>voyageurs par jour (7 derniers relevés)</span></div><div><b>56</b><span>alertes aux postes, dont 28 validées (7 derniers relevés)</span></div><div><b>11</b><span>corps interceptés (7 derniers relevés)</span></div></div>
       <p class="fiche-texte">Aux points d'entrée (PoE, aux frontières) et aux points de contrôle (PoC, sur les routes et dans les ports de l'intérieur), chaque voyageur passe par la prise de température, le lavage des mains et un message de prévention. Le 24 mai 2026, les bulletins en comptaient 11 628 ; le 3 nov. 2026, 260 995.</p>
       <p class="fiche-texte">Le dépistage touche 97 % à 98 % des voyageurs sur les sept derniers relevés : ce qui varie, ce sont les alertes levées aux postes, les corps transportés interceptés, et les postes qui n'envoient pas leur rapport.</p>
     </div>
-    <div class="r3-d">
-    <!-- Trois graphiques montres d'un coup (29 octobre 2026, demande de
-         Fable) : voyageurs, alertes et rapports ne se lisent pas de la
-         meme facon, des onglets en cachaient deux. data-vue fixe la vue
-         de chaque canevas, data-titre lui donne son titre. -->
+    <div class="rp-d">
     <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChart">
         <button type="button" class="share-btn">
@@ -468,10 +484,18 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="poeChart" data-chart="pointsControle" data-vue="jour" data-titre="Voyageurs par jour"></canvas>
+        <canvas id="poeChart" data-chart="pointsControle" data-vue="jour" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+    </div>
+    </div>
+    <!-- Trois graphiques, chacun avec son resume a gauche (4 novembre 2026),
+         comme sur les pages province : voyageurs, alertes, rapports. -->
+    <div class="rp-v rp-suite"><div class="rp-g">
+      <h3 class="rp-h4">Alertes par semaine</h3>
+      <p class="fiche-texte">Chaque semaine, les alertes levées aux postes : des voyageurs signalés malades, ceux qui sont validés comme cas suspects, et les corps interceptés en transit. Une hausse signale des malades qui se déplacent.</p>
+    </div><div class="rp-d">
     <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChartAlertes">
         <button type="button" class="share-btn">
@@ -480,10 +504,15 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="poeChartAlertes" data-chart="pointsControle" data-vue="alertes" data-titre="Alertes par semaine"></canvas>
+        <canvas id="poeChartAlertes" data-chart="pointsControle" data-vue="alertes" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
+    </div></div>
+    <div class="rp-v rp-suite"><div class="rp-g">
+      <h3 class="rp-h4">Rapports reçus</h3>
+      <p class="fiche-texte">La part des postes qui envoient leur rapport chaque jour, et le nombre de postes suivis. Quand elle baisse, le nombre de voyageurs du premier graphique est sous-estimé.</p>
+    </div><div class="rp-d">
     <div class="panel chart-panel-wrap poe-panneau">
       <div class="chart-actions" data-export-chart="poeChartRapports">
         <button type="button" class="share-btn">
@@ -492,12 +521,11 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="poeChartRapports" data-chart="pointsControle" data-vue="rapports" data-titre="Rapports reçus"></canvas>
+        <canvas id="poeChartRapports" data-chart="pointsControle" data-vue="rapports" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
-      <!-- Le tableau par province du dernier bulletin est retire (29 octobre
-           2026, demande de Fable) : les trois graphiques suffisent. -->
+    </div></div>
     </div>
   </section>
 
