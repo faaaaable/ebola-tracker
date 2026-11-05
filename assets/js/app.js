@@ -7909,7 +7909,8 @@ document.querySelectorAll('table.zq.tri').forEach(function(tb){
    apres le cadre du graphique, jamais sur la page Visuels elle-meme. */
 document.addEventListener('DOMContentLoaded', function(){
   var url = tr('lienVisuelsUrl');
-  if(!url || location.pathname.indexOf(url) === 0) return;
+  // Ni sur la page Visuels, ni sur l'accueil (5 novembre 2026).
+  if(!url || location.pathname.indexOf(url) === 0 || /^\/((en|sw)\/)?(index\.html)?$/.test(location.pathname)) return;
   document.querySelectorAll('.chart-panel-wrap').forEach(function(w){
     if(!w.querySelector('canvas') || (w.nextElementSibling && w.nextElementSibling.classList.contains('vers-visuels'))) return;
     var p = document.createElement('p');
