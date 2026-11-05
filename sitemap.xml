@@ -256,17 +256,6 @@
   </url>
 
   <url>
-    <loc>https://ebola-tracker.org/actualites/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/actualites/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/news/"/>
-    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/habari/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/actualites/"/>
-    <lastmod>2026-11-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
     <loc>https://ebola-tracker.org/lettre/090/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/090/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/090/"/>
@@ -1510,17 +1499,6 @@
   </url>
 
   <url>
-    <loc>https://ebola-tracker.org/en/news/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/actualites/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/news/"/>
-    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/habari/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/actualites/"/>
-    <lastmod>2026-11-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
     <loc>https://ebola-tracker.org/en/letter/090/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/lettre/090/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/090/"/>
@@ -2758,17 +2736,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/letter/"/>
     <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/barua/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/lettre/"/>
-    <lastmod>2026-11-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://ebola-tracker.org/sw/habari/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ebola-tracker.org/actualites/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebola-tracker.org/en/news/"/>
-    <xhtml:link rel="alternate" hreflang="sw" href="https://ebola-tracker.org/sw/habari/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebola-tracker.org/actualites/"/>
     <lastmod>2026-11-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>

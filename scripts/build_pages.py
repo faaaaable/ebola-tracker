@@ -469,6 +469,16 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
 
     groupes = []
     for groupe in config["mainNav"]:
+        if "direct" in groupe:
+            # Onglet simple, sans menu deroulant ni cloche (5 novembre 2026) :
+            # La lettre seule, une fois la page Nouvelles supprimee. Meme
+            # allure que les titres de groupe (classe nav-alerte).
+            page = by_id[groupe["direct"]]
+            current = ' aria-current="page"' if groupe["direct"] == current_id else ""
+            groupes.append('      <a class="nav-alerte nav-direct" href="%s"%s>%s</a>'
+                           % (urls.path(groupe["direct"], lang), current,
+                              esc(label_for(page, strings_lang, i18n_lang))))
+            continue
         if "link" in groupe:
             # Onglet simple, sans menu deroulant (19 octobre 2026, « Etre
             # prevenu ») : une cloche devant le libelle, qui se raccourcit
@@ -5058,6 +5068,7 @@ def main():
     generated.append("site/.lastmod.json")
     write_404(config, urls, strings, i18n, layout)
     generated.append("404.html")
+    generated += write_redirections(config, urls)
     remove_stale(generated)
     write(MANIFEST, json.dumps(sorted(generated), ensure_ascii=False, indent=1) + "\n")
 
@@ -5648,6 +5659,30 @@ def write_sitemap(config, urls, provinces):
             lines.append("")
     lines.append("</urlset>")
     write(os.path.join(ROOT, "sitemap.xml"), "\n".join(lines))
+
+
+def write_redirections(config, urls):
+    """Pages supprimees dont l'adresse renvoie ailleurs (5 novembre 2026,
+    Nouvelles de l'epidemie -> La lettre) : « redirections » dans pages.json.
+    GitHub Pages ne sait pas rediriger cote serveur ; une page minimale fait
+    le renvoi (meta refresh + location.replace), declare la page cible en
+    canonique et reste hors du sitemap."""
+    faits = []
+    for r in config.get("redirections", []):
+        for lang, slug in r["slug"].items():
+            cible = urls.path(r["vers"], lang)
+            chemin = "%s/%s" % (loc(lang, "urlPrefix"), slug)
+            html = ('<!DOCTYPE html>\n<html lang="%s">\n<head>\n<meta charset="utf-8">\n'
+                    '<title>%s</title>\n<meta name="robots" content="noindex">\n'
+                    '<link rel="canonical" href="%s">\n<meta http-equiv="refresh" content="0; url=%s">\n'
+                    '<script>location.replace(%s);</script>\n</head>\n'
+                    '<body><p><a href="%s">%s</a></p></body>\n</html>\n'
+                    % (lang, esc(cible), esc(urls.absolute(cible)), esc(cible),
+                       json.dumps(cible), esc(cible), esc(urls.absolute(cible))))
+            fichier = urls.output_file(chemin)
+            write(fichier, html)
+            faits.append(os.path.relpath(fichier, ROOT))
+    return faits
 
 
 def write_404(config, urls, strings, i18n, layout):

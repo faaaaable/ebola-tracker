@@ -162,12 +162,21 @@ def pages_lettres(config):
     return pages
 
 
+_DATES = {}
+_NATIONAL = {}
+
+
 def render(lang, S, i18n_lang, fmt, fmt_decimal, fmt_cfr, long_date, esc, interp,
            province_forms, couleurs, urls):
     """Les graines de la maquette (dernier bulletin) et, sous seed.lettres,
     la lettre « agence » de chaque bulletin fige, par numero."""
     instantanes = _instantanes()
     nums = sorted(instantanes)
+    # Date de chaque lettre, pour la liste du pied (5 novembre 2026).
+    _DATES.clear()
+    _DATES.update({n: instantanes[n]["meta"].get("reportingDate") for n in nums})
+    _NATIONAL.clear()
+    _NATIONAL.update({n: instantanes[n].get("national") for n in nums})
     lettres, seeds = {}, {}
     for i, num in enumerate(nums):
         prec_date = instantanes[nums[i - 1]]["meta"]["reportingDate"] if i else None
@@ -690,8 +699,50 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     if suiv_num and _url(suiv_num):
         nav += '<a class="ag-nav-next" href="%s">%s</a>' % (_url(suiv_num), esc(P("lettreNavNext", num=suiv_num)))
     nav_html = '<nav class="ag-nav">%s</nav>' % nav if nav else ""
-    toutes = [('<a href="%s">n°%s</a>' % (_url(n), n)) if n != num and _url(n) else ('<b>n°%s</b>' % n) for n in reversed(nums)]
-    archive_html = '<p class="ag-archive">%s %s</p>' % (esc(S["lettreToutes"]), " · ".join(toutes)) if len(nums) > 1 else ""
+    # Pied (5 novembre 2026) : un registre comme la page Rapports. Les six
+    # dernieres lettres sur deux colonnes (numero, date, cumuls), puis
+    # toutes les lettres par mois dans un depliant. Les 80 numeros alignes
+    # d'un bloc faisaient quatre lignes illisibles.
+    def _ligne(n):
+        d = _DATES.get(n)
+        nat = (_NATIONAL.get(n) or {})
+        chiffres = interp(S["reportsCasDeces"], {"c": fmt(nat.get("confirmed"), lang), "d": fmt(nat.get("deaths"), lang)}) \
+            if nat.get("confirmed") is not None and nat.get("deaths") is not None else ""
+        corps = ('<span class="rg-n"><small class="rg-k">%s</small>%s</span><span class="rg-d">%s</span>'
+                 '<span class="rg-c">%s</span><span class="rg-p" aria-hidden="true">%s</span>'
+                 % (esc(S["lettreKicker"]), esc(n), esc(long_date(d, i18n_lang)) if d else "", esc(chiffres),
+                    "" if n == num else "→"))
+        if n == num or not _url(n):
+            return '<div class="report-chip rg-l is-courante" aria-current="page">%s</div>' % corps
+        return '<a class="report-chip rg-l" href="%s">%s</a>' % (_url(n), corps)
+    archive_html = ""
+    if len(nums) > 1:
+        recentes = [n for n in reversed(nums) if n != num and _url(n)][:6]
+        archive_html = ('<div class="ag-registre"><h3 class="ag-arch-t">%s</h3>'
+                        '<div class="reports-grid is-registre">%s</div></div>'
+                        % (esc(S["lettreDernieres"]), "".join(_ligne(n) for n in recentes)))
+        mois_noms = S["lettreMoisNoms"].split(",")
+        par_mois = {}
+        for n in reversed(nums):
+            par_mois.setdefault((_DATES.get(n) or "")[:7], []).append(n)
+        # Un onglet par mois (5 novembre 2026) : tout afficher faisait une
+        # liste de 2 600 px. Sans JS, tous les mois restent visibles.
+        cles = sorted(par_mois, reverse=True)
+        mois_courant = (_DATES.get(num) or "")[:7]
+        actif = mois_courant if mois_courant in par_mois else cles[0]
+        annees = {k[:4] for k in cles if k}
+        def _nom(k):
+            nom = (mois_noms[int(k[5:7]) - 1] + (" " + k[:4] if len(annees) > 1 else "")) if k else "—"
+            return nom[:1].upper() + nom[1:]
+        onglets = "".join('<button type="button" class="subtab-btn%s" data-mois="%s" aria-pressed="%s">%s <small>%d</small></button>'
+                          % (" active" if k == actif else "", k, "true" if k == actif else "false",
+                             esc(_nom(k)), len(par_mois[k])) for k in cles)
+        panneaux = "".join('<div class="reports-grid is-registre ag-mois-p" data-mois="%s">%s</div>'
+                           % (k, "".join(_ligne(n) for n in par_mois[k])) for k in cles)
+        archive_html += ('<details class="ag-lexique ag-toutes"><summary>%s</summary>'
+                         '<nav class="subtab-nav ag-onglets" aria-label="%s">%s</nav>%s</details>'
+                         % (esc(interp(S["lettreToutesN"], {"n": len(nums)})),
+                            esc(interp(S["lettreToutesN"], {"n": len(nums)})), onglets, panneaux))
     # Lexique (8 septembre 2026) : les mots du bulletin expliques en une
     # ligne, pour un lecteur qui ne connait pas le vocabulaire de la riposte.
     lex = [S[k] for k in ("lettreLexCasConfirme", "lettreLexCasSuspect", "lettreLexAlerte", "lettreLexContact", "lettreLexZone",

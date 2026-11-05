@@ -7922,3 +7922,19 @@ document.addEventListener('DOMContentLoaded', function(){
     w.insertAdjacentElement('afterend', p);
   });
 });
+
+/* Onglets par mois de « Toutes les lettres » (5 novembre 2026) : un seul
+   mois affiche a la fois. Sans ce script, tous les mois restent visibles. */
+document.querySelectorAll('.ag-toutes').forEach(function(box){
+  var btns = box.querySelectorAll('.ag-onglets .subtab-btn');
+  var pans = box.querySelectorAll('.ag-mois-p');
+  function montre(m){
+    btns.forEach(function(b){ var on = b.getAttribute('data-mois') === m; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+    pans.forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-mois') === m); });
+  }
+  var actif = box.querySelector('.ag-onglets .subtab-btn.active');
+  if(!actif) return;
+  box.classList.add('js-mois');
+  montre(actif.getAttribute('data-mois'));
+  btns.forEach(function(b){ b.addEventListener('click', function(){ montre(b.getAttribute('data-mois')); }); });
+});

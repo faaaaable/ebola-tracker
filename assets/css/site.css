@@ -2781,8 +2781,11 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 
 /* Maquette « Le bulletin » (8 septembre 2026), en local. */
 .bul-table td:first-child .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px;}
-.bul-table td:first-child a{color:inherit;text-decoration:none;}
-.bul-table td:first-child a:hover{color:var(--accent-strong);}
+/* Noms de province en liens visibles (5 novembre 2026), comme le tableau
+   par province d'Ensemble du pays : bleu, souligne fin, franc au survol. */
+.bul-table td:first-child a{color:var(--accent-strong);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;
+  text-decoration-color:color-mix(in srgb,currentColor 40%,transparent);}
+.bul-table td:first-child a:hover,.bul-table td:first-child a:focus-visible{text-decoration-color:currentColor;text-decoration-thickness:2px;}
 .kpi.zones .value{color:var(--accent-active);}
 .bul-defi{border-top:1px solid var(--line);padding:10px 0;}
 .bul-defi summary{cursor:pointer;list-style:none;display:flex;gap:12px;align-items:baseline;}
@@ -2830,6 +2833,20 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .ag-lexique summary{cursor:pointer;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:11px;color:var(--ink);}
 .ag-lexique ul{margin:8px 0 0;padding-left:18px;line-height:1.55;}
 .ag-lexique li{margin:3px 0;}
+/* Pied de la Lettre (5 novembre 2026) : registre des lettres sur le modele
+   de la page Rapports (.reports-grid.is-registre), les six dernieres puis
+   toutes dans un depliant. */
+.ag-registre{margin-top:18px;}
+.ag-arch-t{margin:0 0 6px;font:700 11px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);}
+.lq-pied .reports-grid.is-registre .report-chip.rg-l{color:var(--ink);text-decoration:none;}
+.lq-pied .reports-grid.is-registre .rg-p{font-size:14px;letter-spacing:0;}
+.lq-pied .report-chip.is-courante .rg-n{color:var(--accent-strong);}
+.ag-toutes{margin-top:18px;}
+.ag-onglets{margin:12px 0 4px;}
+.ag-onglets .subtab-btn{text-transform:none;letter-spacing:0;}
+.ag-onglets small{font-size:11px;color:var(--ink-faint);margin-left:4px;}
+.ag-mois-p{margin-top:6px;}
+.js-mois .ag-mois-p:not(.on){display:none;}
 .ag-objet{display:flex;gap:10px;align-items:center;margin:16px 0 22px;padding:12px 14px;background:var(--bg-panel);border:1px solid var(--line);font-size:14px;font-weight:600;}
 .ag-objet i{width:10px;height:10px;background:var(--accent-strong);flex:none;}
 .ag-infos{font-size:12.5px;color:var(--ink-dim);margin:0 0 22px;}
