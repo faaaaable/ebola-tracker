@@ -194,6 +194,11 @@ UNE_GUERIS_CTE_DEPUIS = 156
 # Premiere lettre ou la phrase des points de controle dit aussi les alertes
 # et les corps interceptes aux postes (26 octobre 2026, data/points-controle.json).
 POE_ALERTES_DEPUIS = 163
+# Style « fluide » de la Lettre (5 novembre 2026, demande de Fable) : dates en
+# toutes lettres sans annee, moyennes a l'unite, un verbe qui donne le sens,
+# phrases reliees, un paragraphe par sujet. A partir de cette lettre ; les
+# lettres deja publiees gardent leurs tournures.
+STYLE_FLUIDE_DEPUIS = 174
 
 
 def _abonnement(lang, S, esc):
@@ -255,7 +260,25 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                 '%s</div></div>\n    <div class="cadre-corps">\n%s    </div>\n  </section>\n'
                 % (ident, n, esc(titre), ('<div class="section-sub">%s</div>' % esc(sub)) if sub else "", corps))
     def prose(txt):
-        return '    <p class="fiche-texte lettre-texte">%s</p>\n' % txt
+        # Paragraphes separes par une ligne vide (style fluide, 5 novembre 2026).
+        return "".join('    <p class="fiche-texte lettre-texte">%s</p>\n' % t.strip()
+                       for t in txt.split("\n\n") if t.strip())
+    FL = num.isdigit() and int(num) >= STYLE_FLUIDE_DEPUIS
+    mois_noms = S["lettreMoisNoms"].split(",")
+    def jour_mois(d):
+        """« 3 novembre » (style fluide) : l'annee seulement si elle differe
+        de celle du bulletin."""
+        if not FL or not d:
+            return long_date(d, i18n_lang)
+        t = "%d %s" % (int(d[8:10]), mois_noms[int(d[5:7]) - 1].lower() if lang == "fr" else mois_noms[int(d[5:7]) - 1])
+        return t + (" " + d[:4] if d[:4] != date[:4] else "")
+    petits = S["lettrePetitsNombres"].split(",")
+    def nb(n):
+        """Petit nombre en toutes lettres (style fluide) : « cinq zones »."""
+        # Vide en swahili : le nombre s'y accorde avec le nom (« majimbo matano »).
+        return petits[n] if FL and len(petits) > 1 and isinstance(n, int) and 0 <= n < len(petits) else fmt(n, lang)
+    if FL:
+        pct = lambda v: (fmt_decimal(v, lang).replace(",0", "").replace(".0", "") + "\u202f%") if v is not None else "—"
     non_publie = []
     html = []
 
@@ -303,13 +326,40 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
 
     # ---------------------------------------------------------------- en-tete : objet + jour en une phrase
     objet = P("lettreObjet", date=long_date(date, i18n_lang), cas=fmt(nat.get("newCases24h"), lang), deces=fmt(nat.get("newDeaths24h"), lang), zones=zones_phrase)
-    jour = P("lettreJour", rapport=long_date(date, i18n_lang), publie=long_date(meta.get("publicationDate") or date, i18n_lang),
-             cas=fmt(nat.get("newCases24h"), lang), deces=fmt(nat.get("newDeaths24h"), lang))
-    if moy_cas is not None and nat.get("newCases24h") is not None:
+    if FL:
+        pub = meta.get("publicationDate") or date
+        ecart_pub = _nb_jours(date, pub) if pub != date else 0
+        publie = (S["lettrePublieMemeJour"] if ecart_pub == 0 else S["lettrePublieLendemain"] if ecart_pub == 1
+                  else P("lettrePublieLe", date=jour_mois(pub)))
+        jour = P("lettreJourF", rapport=jour_mois(date), publie=publie,
+                 cas=fmt(nat.get("newCases24h"), lang), deces=fmt(nat.get("newDeaths24h"), lang))
+        if moy_cas is not None and nat.get("newCases24h") is not None:
+            m_ = round(moy_cas); n_ = nat["newCases24h"]
+            if n_ == m_:
+                cle = "lettreNiveauEgalF"
+            else:
+                r = n_ / moy_cas if moy_cas else 2
+                cle = ("lettreNiveauPlusF" if r > 1.1 else "lettreNiveauUnPeuPlusF" if n_ > m_ else
+                       "lettreNiveauMoinsF" if r < 0.9 else "lettreNiveauUnPeuMoinsF")
+            jour += " " + P(cle, moy=fmt(m_, lang))
+        if nouvelles:
+            jour += " " + P("lettreZonesNewF" if len(nouvelles) == 1 else "lettreZonesNewPlF",
+                            zones=_liste(["%s (%s)" % (z["name"], z["province"]) for z in nouvelles], et),
+                            n=fmt(zt.get("n"), lang), prov=fmt(nb_prov, lang))
+        elif derniere_nouvelle:
+            jour += " " + P("lettreZonesDepuisF", date=jour_mois(derniere_nouvelle), n=fmt(zt.get("n"), lang), prov=fmt(nb_prov, lang))
+        else:
+            jour += " " + P("lettreZonesNoneF", n=fmt(zt.get("n"), lang), prov=fmt(nb_prov, lang))
+    else:
+        jour = P("lettreJour", rapport=long_date(date, i18n_lang), publie=long_date(meta.get("publicationDate") or date, i18n_lang),
+                 cas=fmt(nat.get("newCases24h"), lang), deces=fmt(nat.get("newDeaths24h"), lang))
+    if not FL and moy_cas is not None and nat.get("newCases24h") is not None:
         r = nat["newCases24h"] / moy_cas if moy_cas else None
         cle = "lettreJourNiveauMoyen" if r is None else ("lettreJourNiveauHaut" if r > 1.1 else "lettreJourNiveauBas" if r < 0.9 else "lettreJourNiveauMoyen")
         jour += " " + P(cle, cas=fmt(nat["newCases24h"], lang), moy=un_dec(moy_cas))
-    if nouvelles:
+    if FL:
+        pass
+    elif nouvelles:
         jour += " " + P("lettreJourZonesNew", zones=zones_phrase, n=fmt(zt.get("n"), lang), prov=fmt(nb_prov, lang))
     elif derniere_nouvelle:
         jour += " " + P("lettreJourZonesDepuis", date=long_date(derniere_nouvelle, i18n_lang), n=fmt(zt.get("n"), lang), prov=fmt(nb_prov, lang))
@@ -322,17 +372,50 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # Le lien « La page de l'INSP » a ete retire le 8 septembre 2026 ; seul le PDF reste.
     # ---------------------------------------------------------------- 01 le bilan
     gueris_delta = (nat.get("recovered") - veille.get("recovered")) if (veille and veille.get("recovered") is not None and nat.get("recovered") is not None) else None
-    txt = P("lettreBilan", cas=fmt(nat.get("confirmed"), lang), deces=fmt(nat.get("deaths"), lang), cfr=fmt_cfr(nat.get("cfr"), lang), gueris=fmt(nat.get("recovered"), lang))
-    if gueris_delta is not None and gueris_delta > 0:
+    if FL:
+        cfr_v = nat.get("cfr") or 0
+        letal = P("lettreLetalPresF" if 45 <= cfr_v < 50 else "lettreLetalPlusF" if 50 < cfr_v <= 55 else "lettreLetalF",
+                  cfr=fmt_cfr(nat.get("cfr"), lang))
+        txt = P("lettreBilanF", cas=fmt(nat.get("confirmed"), lang), deces=fmt(nat.get("deaths"), lang), letal=letal)
+    else:
+        txt = P("lettreBilan", cas=fmt(nat.get("confirmed"), lang), deces=fmt(nat.get("deaths"), lang), cfr=fmt_cfr(nat.get("cfr"), lang), gueris=fmt(nat.get("recovered"), lang))
+    if not FL and gueris_delta is not None and gueris_delta > 0:
         txt += " " + P("lettreBilanGueris", n=fmt(gueris_delta, lang))
     harm = harmonisations.charger().get(date)
     if harm:
         # Un retrait (SitRep 170 : les 314 du 169 sortent du total) a sa phrase.
         cle = "lettreBilanHarmonisationRetrait" if harm["deces"] < 0 else "lettreBilanHarmonisation"
         txt += " " + maj(P(cle, the=forms(harm["province"])["the"], n=fmt(abs(harm["deces"]), lang), jour=fmt(harm["decesJour"], lang)))
-    if nat.get("inCTE") is not None:
+    if FL:
+        # Gueris et malades en CTE dans une seule phrase.
+        if nat.get("recovered") is not None:
+            g = P("lettreGuerisF", gueris=fmt(nat.get("recovered"), lang))
+            dont = gueris_delta is not None and gueris_delta > 0
+            if dont:
+                g += P("lettreGuerisDontF", n=fmt(gueris_delta, lang))
+            if nat.get("inCTE") is not None:
+                g = g + (", " if dont else " ") + P("lettreCteEtF", n=fmt(nat.get("inCTE"), lang))
+            txt += " " + g.rstrip(",") + "."
+        elif nat.get("inCTE") is not None:
+            txt += " " + P("lettreCteSeulF", n=fmt(nat.get("inCTE"), lang))
+        if None not in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec):
+            mc, mcp, md, mdp = (round(v) for v in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec))
+            if mc == mcp and md == mdp:
+                txt += " " + P("lettreTendanceStableF", cas=fmt(mc, lang), deces=fmt(md, lang))
+            else:
+                sc, sd = (mc > mcp) - (mc < mcp), (md > mdp) - (md < mdp)
+                ecart = max(abs(moy_cas / moy_cas_prec - 1) if moy_cas_prec else 1, abs(moy_dec / moy_dec_prec - 1) if moy_dec_prec else 1)
+                if sc <= 0 and sd <= 0:
+                    v_ = "lettreVerdictBaisseLegF" if ecart < 0.1 else "lettreVerdictBaisseF"
+                elif sc >= 0 and sd >= 0:
+                    v_ = "lettreVerdictHausseLegF" if ecart < 0.1 else "lettreVerdictHausseF"
+                else:
+                    v_ = "lettreVerdictCasBasDecesHautF" if sc < 0 else "lettreVerdictCasHautDecesBasF"
+                txt += " " + P("lettreTendanceF", verdict=S[v_], cas=fmt(mc, lang), deces=fmt(md, lang),
+                               casPrec=fmt(mcp, lang), decesPrec=fmt(mdp, lang))
+    elif nat.get("inCTE") is not None:
         txt += " " + P("lettreBilanCte", n=fmt(nat.get("inCTE"), lang))
-    if None not in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec):
+    if not FL and None not in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec):
         txt += " " + P("lettreTendance", cas=un_dec(moy_cas), deces=un_dec(moy_dec), casPrec=un_dec(moy_cas_prec), decesPrec=un_dec(moy_dec_prec))
     corps = prose(esc(txt))
     corps += '    <section class="kpis kpis-riposte" aria-label="%s">\n' % esc(S["bulBilanTitle"])
@@ -349,7 +432,22 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     provs = sorted(latest["provinces"], key=lambda p: -(p.get("newCases24h") or 0))
     avec = [p for p in provs if (p.get("newCases24h") or 0) > 0]
     sans = [p for p in provs if not (p.get("newCases24h") or 0)]
-    if avec:
+    if FL and avec:
+        premiere = avec[0]; tot = nat.get("newCases24h") or sum(p["newCases24h"] for p in avec)
+        f0 = forms(premiere["name"])
+        if len(avec) == 1:
+            txt = P("lettreOuSeulF", **{"in": f0["in"]}) if tot == 1 else P("lettreOuTousF", total=fmt(tot, lang), **{"in": f0["in"]})
+        elif avec[1]["newCases24h"] == premiere["newCases24h"]:
+            # Egalite en tete (5 novembre 2026) : pas de « premiere », une liste.
+            txt = P("lettreOuRepartitionF", total=fmt(tot, lang),
+                    liste=_liste([P("lettreOuItemF", the=forms(p["name"])["the"], n=fmt(p["newCases24h"], lang)) for p in avec], et))
+        else:
+            part = premiere["newCases24h"] * 2
+            cle = "lettreOuMoitiePlusF" if part > tot else "lettreOuMoitieF" if part == tot else "lettreOuPlusF"
+            txt = maj(P(cle, the=f0["the"], n=fmt(premiere["newCases24h"], lang), total=fmt(tot, lang)))
+            txt += " " + P("lettreOuSuiteF" if len(avec) > 2 else "lettreOuSuiteUneF",
+                           liste=_liste([P("lettreOuItemF", the=forms(p["name"])["the"], n=fmt(p["newCases24h"], lang)) for p in avec[1:]], et))
+    elif avec:
         premiere = avec[0]
         txt = maj(P("lettreOuPremiere", the=forms(premiere["name"])["the"], n=fmt(premiere["newCases24h"], lang), total=fmt(nat.get("newCases24h"), lang)))
         if len(avec) > 1:
@@ -357,9 +455,25 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     else:
         txt = S["lettreOuAucun"]
     if sans and avec:
-        txt += " " + (P("lettreOuSansPlusieurs", n=fmt(len(sans), lang)) if len(sans) > 1 else maj(P("lettreOuSansUne", the=forms(sans[0]["name"])["the"])))
+        txt += " " + ((P("lettreOuSansPlusieursF", n=nb(len(sans))) if FL else P("lettreOuSansPlusieurs", n=fmt(len(sans), lang))) if len(sans) > 1
+                      else maj(P("lettreOuSansUne", the=forms(sans[0]["name"])["the"])))
     actives = sorted([z for z in latest["healthZones"] if (z.get("newCases24h") or 0) > 0], key=lambda z: -(z.get("newCases24h") or 0))[:5]
-    if actives and nat.get("newCases24h"):
+    if FL and actives and nat.get("newCases24h"):
+        somme = sum(z["newCases24h"] for z in actives)
+        tot = nat["newCases24h"]
+        if len(actives) == 1:
+            z = actives[0]
+            txt += "\n\n" + (P("lettreOuZoneSeuleF", zone=z["name"]) if z["newCases24h"] >= tot
+                              else P("lettreOuZoneUneF", zone=z["name"], n=fmt(z["newCases24h"], lang)))
+        elif actives[1]["newCases24h"] == actives[0]["newCases24h"]:
+            txt += "\n\n" + maj(P("lettreOuZonesToutesListeF" if somme >= tot else "lettreOuZonesListeF", k=nb(len(actives)),
+                                    somme=fmt(somme, lang),
+                                    liste=_liste([P("lettreOuZoneItemF", zone=z["name"], n=fmt(z["newCases24h"], lang)) for z in actives], et)))
+        else:
+            txt += "\n\n" + maj(P("lettreOuZonesToutesF" if somme >= tot else "lettreOuZonesF", k=nb(len(actives)),
+                                somme=fmt(somme, lang), premiere=actives[0]["name"], n1=fmt(actives[0]["newCases24h"], lang),
+                                liste=_liste([P("lettreOuZoneItemF", zone=z["name"], n=fmt(z["newCases24h"], lang)) for z in actives[1:]], et)))
+    elif actives and nat.get("newCases24h"):
         somme = sum(z["newCases24h"] for z in actives)
         txt += " " + P("lettreOuZones", k=fmt(len(actives), lang), somme=fmt(somme, lang), total=fmt(nat["newCases24h"], lang),
                        liste=_liste(["%s %s" % (z["name"], fmt(z["newCases24h"], lang)) for z in actives], et))
@@ -407,8 +521,14 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             zones_now = zh[zi]["zones"]
             k = sum(1 for z in zones_now if (z.get("cases") or 0) > avant21.get(_cle_zone(z), 0))
             n = len(zones_now)
-            txt += " " + (P("lettreZonesActivesToutes", n=fmt(n, lang)) if k == n
-                          else P("lettreZonesActives", k=fmt(k, lang), n=fmt(n, lang), s=fmt(n - k, lang)))
+            if FL:
+                txt += (" " if "\n\n" in txt else "\n\n") + (
+                    P("lettreZonesActivesToutesF", n=fmt(n, lang)) if k == n else
+                    P("lettreZonesActivesUneF", k=fmt(k, lang), n=fmt(n, lang)) if n - k == 1 else
+                    P("lettreZonesActivesF", k=fmt(k, lang), n=fmt(n, lang), s=fmt(n - k, lang)))
+            else:
+                txt += " " + (P("lettreZonesActivesToutes", n=fmt(n, lang)) if k == n
+                              else P("lettreZonesActives", k=fmt(k, lang), n=fmt(n, lang), s=fmt(n - k, lang)))
     corps = prose(esc(txt))
     lignes = ""
     for p in provs:
@@ -434,7 +554,31 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
 
     # ---------------------------------------------------------------- 03 les deces
     d_comm, d_cte = nat.get("newDeathsCommunity24h"), nat.get("newDeathsIntraCTE24h")
-    if d_comm is not None and d_cte is not None:
+    if FL and d_comm is not None and d_cte is not None:
+        tot = nat.get("newDeaths24h") or (d_comm + d_cte)
+        def _lst(cle_n):
+            ps = sorted([p for p in provs if (p.get(cle_n) or 0) > 0], key=lambda p: -p[cle_n])
+            if not ps:
+                return ""
+            return (" : " if lang == "fr" else ": ") + _liste([P("lettreDecesItem", n=fmt(p[cle_n], lang), the=forms(p["name"])["the"], **{"in": forms(p["name"])["in"]}) for p in ps], et)
+        lc, lt = _lst("newDeathsCommunity24h"), _lst("newDeathsIntraCTE24h")
+        if not tot:
+            txt = S["lettreDecesAucunF"]
+        elif d_cte == 0:
+            txt = P("lettreDecesSeulCommF" if tot == 1 else "lettreDecesToutCommF", total=fmt(tot, lang), liste=lc)
+        elif d_comm == 0:
+            txt = P("lettreDecesSeulCteF" if tot == 1 else "lettreDecesToutCteF", total=fmt(tot, lang), liste=lt)
+        else:
+            txt = P("lettreDecesComm1F" if d_comm == 1 else "lettreDecesCommF", total=fmt(tot, lang), comm=fmt(d_comm, lang), liste=lc)
+            txt += " " + P("lettreDecesCteAutre1F" if d_cte == 1 else "lettreDecesCteAutresF", cte=fmt(d_cte, lang), liste=lt)
+        cte_prov = sorted([p for p in provs if (p.get("newDeathsIntraCTE24h") or 0) > 0], key=lambda p: -p["newDeathsIntraCTE24h"])
+        for p in cte_prov:
+            zones_p = [z for z in latest["healthZones"] if z.get("province") == p["name"]]
+            if zones_p and sum(z.get("deathsIntraCTE24h") or 0 for z in zones_p) == 0:
+                ecart = (p.get("deaths") or 0) - sum(z.get("deaths") or 0 for z in zones_p)
+                if ecart > 0:
+                    txt += " " + P("lettreDecesVentiler", n=fmt(p["newDeathsIntraCTE24h"], lang), of=forms(p["name"])["of"], **{"in": forms(p["name"])["in"]}, total=fmt(ecart - p["newDeathsIntraCTE24h"], lang))
+    elif d_comm is not None and d_cte is not None:
         txt = P("lettreDeces", total=fmt(nat.get("newDeaths24h"), lang), comm=fmt(d_comm, lang), cte=fmt(d_cte, lang))
         # Les deces communautaires, province par province, du plus au moins
         # touche (demande du 8 septembre 2026).
@@ -461,7 +605,11 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     if pa and (pa.get("total") or {}).get("recues") is not None:
         t = pa["total"]
         muets = [nom for nom, v in (pa.get("provinces") or {}).items() if not (v.get("recues") or 0) and v.get("suspectsInvestigues") is None]
-        s1 = P("lettreAlertes", recues=fmt(t["recues"], lang), verifiees=fmt(t.get("verifiees"), lang), validees=fmt(t.get("validees"), lang))
+        if FL:
+            s1 = P("lettreAlertesTousF" if t.get("verifiees") == t["recues"] else "lettreAlertesF", recues=fmt(t["recues"], lang),
+                   verifiees=fmt(t.get("verifiees"), lang), validees=fmt(t.get("validees"), lang))
+        else:
+            s1 = P("lettreAlertes", recues=fmt(t["recues"], lang), verifiees=fmt(t.get("verifiees"), lang), validees=fmt(t.get("validees"), lang))
         if muets:
             # Deux provinces muettes depuis l'arrivee du Nord-Ubangi (155) : le
             # verbe s'accorde (« le Sud-Ubangi et le Nord-Ubangi n'ont pas »).
@@ -478,7 +626,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         pl = dict(pl, total=dict(pl.get("total") or {}, **nl))
     if pl and (pl.get("total") or {}).get("echantillons"):
         t = pl["total"]
-        s2 = P("lettreLabo", positifs=fmt(t.get("positifs"), lang), echantillons=fmt(t.get("echantillons"), lang), taux=pct(t.get("positivite")))
+        s2 = P("lettreLaboF" if FL else "lettreLabo", positifs=fmt(t.get("positifs"), lang), echantillons=fmt(t.get("echantillons"), lang), taux=pct(t.get("positivite")))
         haut = [(nom, v) for nom, v in (pl.get("provinces") or {}).items() if (v.get("echantillons") or 0) >= 20 and v.get("positivite") is not None]
         if haut:
             nom, v = max(haut, key=lambda x: x[1]["positivite"])
@@ -493,9 +641,12 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # Plus de seuil dans la phrase (decision du proprietaire, 25 octobre
         # 2026) : le site disait « le seuil de 85 % que l'INSP s'est fixe »
         # quand les bulletins ecrivent « seuil requis de 95,0 % ».
-        s3 = P("lettreContacts", taux=pct(taux))
+        s3 = P("lettreContactsF" if FL else "lettreContacts", taux=pct(taux))
         bas = [nom for nom, v in (pc.get("provinces") or {}).items() if v.get("taux") is not None and v["taux"] < 75]
-        if bas:
+        if bas and FL:
+            s3 += " " + (maj(P("lettreContactsBasUneF", **{"in": forms(bas[0])["in"]})) if len(bas) == 1
+                         else P("lettreContactsBasF", liste=_liste([forms(b)["in"] for b in sorted(bas)], et)))
+        elif bas:
             s3 += " " + P("lettreContactsBas", liste=_liste(sorted(bas), et))
         phrases.append(s3)
         cases += kpi("contacts", S["lettreKpiContacts"], pct(taux), P("lettreKpiContactsSub", vus=fmt(c.get("vus"), lang), aSuivre=fmt(c.get("aSuivre"), lang)) if c.get("vus") is not None else "")
@@ -503,7 +654,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         cases += kpi("contacts", S["lettreKpiContacts"], "—", S["riposteKpiNone"]); non_publie.append(S["lettreKpiContacts"])
     if pk and (pk.get("total") or {}).get("occupation") is not None:
         t = pk["total"]
-        s4 = P("lettreCte", taux=fmt(round(t["occupation"]), lang), hospitalises=fmt(t.get("hospitalisesAvecLits") or t.get("hospitalises"), lang), lits=fmt(t.get("lits"), lang))
+        s4 = P("lettreCteF" if FL else "lettreCte", taux=fmt(round(t["occupation"]), lang), hospitalises=fmt(t.get("hospitalisesAvecLits") or t.get("hospitalises"), lang), lits=fmt(t.get("lits"), lang))
         satures = [(nom, v) for nom, v in (pk.get("provinces") or {}).items() if (v.get("occupation") or 0) > 100]
         if satures:
             # Une province saturee dont le bulletin ne donne pas les lits (le 117
@@ -583,7 +734,28 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                     else:
                         items.append(P("lettreVaccinItemDate", n=fmt(v, lang), the=f["the"], date=long_date(d_, i18n_lang), **{"in": f["in"]}))
                 total = sum(v for v, _ in connus.values())
-                if nat_vacc and nat_vacc[0] > total:
+                if FL:
+                    # Total, puis l'ajout du jour en une incise ; le detail par
+                    # province (dont les chiffres anciens) reste sur la page Riposte.
+                    neufs_f = []
+                    for prov, (v, d_) in sorted(connus.items(), key=lambda x: -x[1][0]):
+                        if prov in avant and d_ == date and v > avant[prov][0]:
+                            neufs_f.append((prov, v - avant[prov][0], _nb_jours(avant[prov][1], d_)))
+                    dont = ""
+                    if neufs_f:
+                        neufs_f.sort(key=lambda x: -x[1])
+                        js = {j for _, _, j in neufs_f}
+                        quand = (S["lettreVaccinVeilleF"] if js == {1} else
+                                 P("lettreVaccinJoursF", jours=_jours_mot(next(iter(js)), lang, fmt)) if len(js) == 1 else S["lettreVaccinPrecF"])
+                        ou = ((", " + forms(neufs_f[0][0])["in"]) if len(neufs_f) == 1 else
+                              " (%s)" % _liste([P("lettreVaccinItem", n=fmt(n_, lang), the=forms(pv)["the"], **{"in": forms(pv)["in"]}) for pv, n_, _ in neufs_f], et))
+                        dont = P("lettreVaccinDontF", n=fmt(sum(n_ for _, n_, _ in neufs_f), lang), quand=quand, ou=ou)
+                    if nat_vacc and nat_vacc[0] > total:
+                        total = nat_vacc[0]
+                        s6 = P("lettreVaccinationNationalF", total=fmt(total, lang), debut=jour_mois(debut), date=jour_mois(nat_vacc[1]), dont=dont)
+                    else:
+                        s6 = P("lettreVaccinationF", total=fmt(total, lang), debut=jour_mois(debut), dont=dont)
+                elif nat_vacc and nat_vacc[0] > total:
                     total = nat_vacc[0]
                     s6 = P("lettreVaccinationNational", total=fmt(total, lang), debut=long_date(debut, i18n_lang),
                            date=long_date(nat_vacc[1], i18n_lang), detail=_liste(items, et))
@@ -612,13 +784,13 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                     else:
                         neufs.append(P("lettreVaccinJourItem", n=fmt(v - v0, lang),
                                        the=f["the"], **{"in": f["in"]}))
-                if neufs:
+                if neufs and not FL:
                     s6 += " " + P("lettreVaccinationJour", detail=_liste(neufs, et))
             if va and va.get("rupture"):
                 s6 = (s6 + " " if s6 else "") + S["lettreVaccinationRupture"]
             phrases.append(s6)
         if po and po.get("personnes") is not None and po.get("screenesPct") is not None:
-            s7 = P("lettrePoe", personnes=fmt(po["personnes"], lang), pct=pct(po["screenesPct"]))
+            s7 = P("lettrePoeF" if FL else "lettrePoe", personnes=fmt(po["personnes"], lang), pct=pct(po["screenesPct"]))
             if po.get("refusScreening"):
                 s7 += " " + P("lettrePoeRefus", n=fmt(po["refusScreening"], lang))
             # Les alertes et les corps interceptes aux postes, lus dans le
@@ -640,9 +812,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                             c, n = max(parts, key=lambda x: x[1])
                             if n * 2 >= na and n < na:
                                 detail = P("lettrePoeAlertesDont", n=fmt(n, lang), **{"in": forms(c)["in"]})
-                        s7 += " " + P("lettrePoeAlertes", alertes=fmt(na, lang), corps=fmt(nc, lang), detail=detail)
+                        s7 += " " + P("lettrePoeAlertesF" if FL else "lettrePoeAlertes", alertes=fmt(na, lang), corps=fmt(nc, lang), detail=detail)
             phrases.append(s7)
-    p_ri = prose(esc(" ".join(phrases)))
+    p_ri = prose(esc(("\n\n" if FL else " ").join(phrases)))
     c_ri = '    <section class="kpis kpis-riposte" aria-label="%s">\n%s    </section>\n' % (esc(S["bulRiposteTitle"]), cases)
     c_ri += '    <p class="drill"><a href="%s">%s</a></p>\n' % (urls.path("riposte", lang), esc(S["provinceRiposteLinkBul"]))
     html.append(cadre("04", S["lettreRiposteTitle"], "", p_ri + c_ri, "riposte", p_ri, c_ri))
