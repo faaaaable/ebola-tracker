@@ -7903,3 +7903,21 @@ document.querySelectorAll('table.zq.tri').forEach(function(tb){
     h.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); trier(); } });
   });
 });
+
+/* « Tous les visuels → » sous chaque graphique (5 novembre 2026) : la page
+   Visuels n'etait presque pas reliee au contenu du site. Le lien se place
+   apres le cadre du graphique, jamais sur la page Visuels elle-meme. */
+document.addEventListener('DOMContentLoaded', function(){
+  var url = tr('lienVisuelsUrl');
+  if(!url || location.pathname.indexOf(url) === 0) return;
+  document.querySelectorAll('.chart-panel-wrap').forEach(function(w){
+    if(!w.querySelector('canvas') || (w.nextElementSibling && w.nextElementSibling.classList.contains('vers-visuels'))) return;
+    var p = document.createElement('p');
+    p.className = 'vers-visuels';
+    var a = document.createElement('a');
+    a.href = url;
+    a.textContent = tr('lienVisuels') + ' →';
+    p.appendChild(a);
+    w.insertAdjacentElement('afterend', p);
+  });
+});

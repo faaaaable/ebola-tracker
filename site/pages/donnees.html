@@ -261,3 +261,25 @@
       <p class="drill"><a href="{{url.chronologie}}">{{t.teaserTimelineMore}} →</a></p>
     </div>
   </section>
+
+  <!-- Les provinces (5 novembre 2026) : une porte vers chaque page province,
+       de la plus touchee a la moins touchee. -->
+  <section class="section section-split" id="provinces-liens">
+    <div><h2 class="section-title">{{t.provincesTitre}}</h2></div>
+    <div>
+{{provinces.liens}}
+    </div>
+  </section>
+  <!-- Pour aller plus loin (5 novembre 2026) : des portes vers les pages que le lecteur de cette page ne voit pas, pour inciter a explorer le site. -->
+  <section class="section section-split" id="plus-loin">
+    <div>
+      <h2 class="section-title">{{t.plusLoinTitle}}</h2>
+    </div>
+    <div>
+      <ul class="plus-loin">
+        <li><a href="{{url.visuels}}">{{t.plVisuelsLink}} →</a><span>{{t.plVisuelsText}}</span></li>
+        <li><a href="{{url.base-de-donnees}}">{{t.plBaseLink}} →</a><span>{{t.plBaseText}}</span></li>
+        <li><a href="{{url.chronologie}}">{{t.plChronoLink}} →</a><span>{{t.plChronoText}}</span></li>
+      </ul>
+    </div>
+  </section>

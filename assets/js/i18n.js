@@ -14,6 +14,7 @@ const CATCHUP_AGREGE = {
 
 const I18N = {
   fr: {
+    lienVisuels:"Tous les visuels", lienVisuelsUrl:"/visuels/",
     /* Les deux phrases standard sous tout graphique a trous ou a pointilles
        (27 septembre 2026, demande du proprietaire) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
@@ -316,6 +317,7 @@ const I18N = {
     locale:'fr-FR'
   },
   en: {
+    lienVisuels:"All visuals", lienVisuelsUrl:"/en/visuals/",
     /* Les deux phrases standard sous tout graphique a trous ou a pointilles
        (27 septembre 2026, demande du proprietaire) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
@@ -615,6 +617,7 @@ const I18N = {
     locale:'en-US'
   },
   sw: {
+    lienVisuels:"Michoro yote", lienVisuelsUrl:"/sw/michoro/",
     /* Les deux phrases standard sous tout graphique a trous ou a pointilles
        (27 septembre 2026, demande du proprietaire) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */

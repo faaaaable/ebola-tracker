@@ -893,7 +893,7 @@ def cfr_badge_class(cfr):
     return "zone-badge-high"
 
 
-def province_rows_html(provinces, national, lang, province_history=None, strings_lang=None):
+def province_rows_html(provinces, national, lang, province_history=None, strings_lang=None, urls=None):
     """Lignes du tableau « par province » d'Ensemble du pays, sur le modele du
     tableau des zones des pages province (7 octobre 2026) : province, cas
     cumules, part du pays, nouveaux cas 24 h, courbe des nouveaux cas sur 30
@@ -963,7 +963,7 @@ def province_rows_html(provinces, national, lang, province_history=None, strings
             '<td class="zt z-cas" data-v="%d">%s</td><td data-v="%.1f">%s</td><td data-v="%d">%s</td>'
             '<td class="zs" data-v="%d">%s</td><td class="zt z-dec" data-v="%d">%s</td><td data-v="%d">%s</td>'
             '<td data-v="%.1f">%s</td><td data-v="%d">%s</td></tr>' % (
-                color, esc(nom), province.get("confirmed") or 0, fmt(province.get("confirmed"), lang),
+                color, ('<a href="%s">%s</a>' % (urls.province_path(nom, lang), esc(nom))) if urls else esc(nom), province.get("confirmed") or 0, fmt(province.get("confirmed"), lang),
                 part, fmt_cfr(part, lang) if total else "—", n24, plus(n24), n30, spark(nv, color, titre),
                 province.get("deaths") or 0, fmt(province.get("deaths"), lang), d24, plus(d24),
                 province.get("cfr") or 0, fmt_cfr(province.get("cfr"), lang),
@@ -1712,6 +1712,13 @@ def province_mosaique_html(provinces, urls, lang, strings_lang, maps=None, healt
                    % (cls, urls.province_path(nom, lang), style, esc(nom), fmt(cas, lang), mini, bas))
     return "\n".join(out)
 
+
+def autres_provinces_html(provinces, nom, urls, lang, strings_lang):
+    """Les autres provinces en pied de page province : liens simples, les uns
+    sous les autres, de la plus touchee a la moins touchee (5 novembre 2026)."""
+    autres = sorted((p for p in provinces if p["name"] != nom), key=lambda p: -(p.get("confirmed") or 0))
+    out = ['        <li><a href="%s">%s →</a></li>' % (urls.province_path(p["name"], lang), esc(p["name"])) for p in autres]
+    return ('      <ul class="plus-loin liste-provinces">\n%s\n      </ul>' % "\n".join(out)) if out else ""
 
 def province_liste_html(provinces, urls, lang, strings_lang):
     """Les provinces de l'accueil en LISTE COMPACTE, pour le telephone (8 octobre
@@ -4818,7 +4825,7 @@ def main():
             "about.scopeSub": esc(interp(strings_lang["aboutFactScopeSub"], {
                 "zones": fmt(len(latest.get("healthZones", [])), lang)})),
             "mapHint": hint_pair(strings_lang, "cartoHint", "cartoHintTouch"),
-            "seed.provinceRows": province_rows_html(provinces, national, lang, province_history, strings_lang),
+            "seed.provinceRows": province_rows_html(provinces, national, lang, province_history, strings_lang, urls),
             "seed.noteAjouts": note_ajouts(ajouts, None, sitreps, national, meta_data, lang, strings_lang),
             "seed.agesRows": ages_rows_html(demographie, lang, strings_lang),
             "seed.agesPapillon": ages_papillon_html(demographie, lang, strings_lang),
@@ -5226,6 +5233,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     values.update({"t.%s" % key: interp(value, url_values) if isinstance(value, str) else value
                    for key, value in strings_lang.items()})
     values["meta.h1"] = esc(meta["h1"])
+    # Liste des provinces en pied de page Ensemble du pays (5 novembre 2026).
+    values["provinces.liens"] = autres_provinces_html(provinces or [], None, urls, lang, strings_lang)
     if page.get("id") == "base-de-donnees":
         values.update(base_values(config, urls, lang, strings_lang, i18n_lang,
                                   read_json(os.path.join(ROOT, "data", "latest.json")).get("reports", [])))
@@ -5376,6 +5385,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.zonesNum": province_numeros(province)["zones"],
             "province.timeline": common_seed.get("provinceTimelines", {}).get(name, ""),
             "province.obstacles": common_seed.get("provinceObstacles", {}).get(name, ""),
+            "province.autres": autres_provinces_html(provinces, name, urls, lang, strings_lang),
             "province.query": name.replace(" ", "%20"),
             # Rang dans le pays, puis quand ca a commence, puis quand ca a
             # bouge pour la derniere fois : un bloc temporel qui se lit d'un

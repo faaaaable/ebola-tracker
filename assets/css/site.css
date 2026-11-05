@@ -2547,6 +2547,8 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .plus-loin a{font-weight:600;color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--line);}
 .plus-loin a:hover{border-bottom-color:var(--accent-strong);}
 .plus-loin span{display:block;font-size:14.5px;line-height:1.7;color:var(--ink-dim);margin-top:2px;}
+/* Listes de provinces en pied de page sur deux colonnes (5 novembre 2026). */
+@media (min-width:641px){.plus-loin.liste-provinces{grid-template-columns:repeat(2,max-content);column-gap:72px;}}
 
 /* ---- Les « Defis » du bulletin (page Riposte & defis, 6 septembre 2026) ----
    Une citation mot pour mot sous le cadre qu'elle explique : etiquette et
@@ -5558,3 +5560,9 @@ main:has(.chap-nav) .rip-volet{scroll-margin-top:130px;}
    de filet, un titre plus petit que celui du volet. */
 .rp-v.rp-suite{border-top:0;padding-top:4px;}
 .rp-g .rp-h4{font:600 19px/1.25 var(--font-serif);letter-spacing:-.01em;color:var(--ink);margin:0 0 10px;}
+
+/* « Tous les visuels » sous chaque graphique (5 novembre 2026) : la page
+   Visuels n'avait presque aucun lien depuis le contenu du site. */
+.vers-visuels{margin:6px 0 0;text-align:right;font-size:12.5px;}
+.vers-visuels a{color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--line);}
+.vers-visuels a:hover{border-bottom-color:var(--accent-strong);}
