@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-11-01"
+  "fin": "2026-11-03"
  },
  "parDate": [
   {
@@ -3801,6 +3801,38 @@
      "Bas-Uélé": {
       "cible": 13202,
       "couverture": 14.9
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-11-03",
+   "sitrepNumber": "173",
+   "poe": {
+    "personnes": 260995,
+    "screenesPct": 97.0,
+    "refusScreening": 0
+   },
+   "rings": null,
+   "eds": null,
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 2699,
+     "Nord-Kivu": 1617,
+     "Bas-Uélé": 2000
+    },
+    "rupture": false,
+    "provinces": {
+     "Ituri": {
+      "cumul": 2699
+     },
+     "Nord-Kivu": {
+      "cumul": 1617
+     },
+     "Bas-Uélé": {
+      "cible": 13202,
+      "couverture": 15.1
      }
     }
    },

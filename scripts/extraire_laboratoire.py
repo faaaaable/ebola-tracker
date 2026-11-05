@@ -131,6 +131,9 @@ ECHANTILLONS_RES = [
     # échantillons ont été envoyés au laboratoire Isiro tous sont revenus
     # négatifs » (157, Bas-Uélé) : les 12 entrent dans les 500 analysés du pays
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons\s+re[çc]us\s+au\s+laboratoire\s+d[e']\s*[\w-]+\s+dont\b(?=[^.]*n[ée]gati)", re.I),
+    # « les laboratoires de Beni et de Butembo ont analysé 202 échantillons
+    # (17,8 %) » (173, Nord-Kivu, 3 novembre 2026)
+    re.compile(r"ont\s+analys[ée]\s+(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons", re.I),
 ]
 POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux?\s+)?r[ée]sultats?\s+positifs?", re.I),
@@ -141,6 +144,9 @@ POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+nouveaux?\s+cas\s+confirm[ée]s?\s*(?:\([^)]{0,30}\)\s*)?sur\s+\d", re.I),
     # « 3 cas confirmés (vivants) parmi les 9 échantillons » (093, Haut-Uélé)
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:nouveaux?\s+)?cas\s+confirm[ée]s?\s*(?:\([^)]{0,30}\)\s*)?parmi\s", re.I),
+    # « 36 nouveaux cas confirmés (26 vivants et 10 décès) retenus par la
+    # surveillance » (173, Nord-Kivu) : 36 sur 202 font les 17,8 % imprimés
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+nouveaux?\s+cas\s+confirm[ée]s?\s*(?:\([^)]{0,40}\)\s*)?retenus\s+par\s+la\s+surveillance", re.I),
     re.compile(r"(\d+)\s+(?:est|sont)\s+revenus?\s+positifs?", re.I),
     re.compile(r"soit\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),
     re.compile(r"parmi\s+lesquels\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),
@@ -313,9 +319,10 @@ NATIONAL_RE = re.compile(
 # La phrase est dans les faits saillants, en tete du bulletin, pas dans la
 # section Laboratoire : elle se cherche dans tout le texte. Le 170 ecrit « a
 # ete analyse, 53 de ces echantillons [...] soit de 12,6 % » : virgule au lieu
-# du point-virgule, et « de » avant le taux.
+# du point-virgule, et « de » avant le taux. Le 173 intercale « dans les
+# laboratoires ayant transmis leurs données » avant le point-virgule.
 NATIONAL_TOTAL_RE = re.compile(
-    r"Un\s+total\s+de\s+(\d[\d ]{0,6}\d|\d)\s+nouveaux\s+[ée]chantillons\s+a\s+[ée]t[ée]\s+analys[ée]\s*[;,]\s*"
+    r"Un\s+total\s+de\s+(\d[\d ]{0,6}\d|\d)\s+nouveaux\s+[ée]chantillons\s+a\s+[ée]t[ée]\s+analys[ée](?:\s+dans\s+les\s+laboratoires[^;,.]{0,50})?\s*[;,]\s*"
     r"(\d[\d ]{0,4}\d|\d)\s+de\s+ces\s+[ée]chantillons\s+se\s+sont\s+r[ée]v[ée]l[ée]s\s+positifs"
     r"(?:[^%;]{0,60}?soit\s+(?:de\s+)?(\d+(?:[,.]\d+)?)\s*%)?", re.I | re.S)
 

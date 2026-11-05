@@ -2,9 +2,9 @@
  "source": "SitRep INSP, tableau 2, colonnes « Situation du jour (24h) »",
  "periode": {
   "debut": "2026-07-13",
-  "fin": "2026-11-01"
+  "fin": "2026-11-03"
  },
- "releves": 107,
+ "releves": 108,
  "bulletinsSansVentilation": [
   "087"
  ],
@@ -12,10 +12,10 @@
   {
    "province": "Ituri",
    "zone": "Bunia",
-   "communautaires": 430,
-   "intraCte": 128,
+   "communautaires": 431,
+   "intraCte": 129,
    "nonVentiles": 0,
-   "jours": 100
+   "jours": 101
   },
   {
    "province": "Nord-Kivu",
@@ -28,34 +28,34 @@
   {
    "province": "Nord-Kivu",
    "zone": "Katwa",
-   "communautaires": 244,
-   "intraCte": 91,
+   "communautaires": 245,
+   "intraCte": 94,
    "nonVentiles": 0,
-   "jours": 91
+   "jours": 92
   },
   {
    "province": "Ituri",
    "zone": "Mandima",
-   "communautaires": 204,
-   "intraCte": 48,
+   "communautaires": 206,
+   "intraCte": 51,
    "nonVentiles": 0,
-   "jours": 48
+   "jours": 49
   },
   {
    "province": "Ituri",
    "zone": "Rwampara",
    "communautaires": 117,
-   "intraCte": 107,
+   "intraCte": 108,
    "nonVentiles": 0,
-   "jours": 74
+   "jours": 75
   },
   {
    "province": "Ituri",
    "zone": "Nizi",
    "communautaires": 171,
-   "intraCte": 43,
+   "intraCte": 44,
    "nonVentiles": 0,
-   "jours": 60
+   "jours": 61
   },
   {
    "province": "Nord-Kivu",
@@ -77,9 +77,9 @@
    "province": "Ituri",
    "zone": "Mongbwalu",
    "communautaires": 86,
-   "intraCte": 54,
+   "intraCte": 55,
    "nonVentiles": 0,
-   "jours": 65
+   "jours": 66
   },
   {
    "province": "Ituri",
@@ -101,9 +101,9 @@
    "province": "Ituri",
    "zone": "Lita",
    "communautaires": 75,
-   "intraCte": 21,
+   "intraCte": 22,
    "nonVentiles": 0,
-   "jours": 51
+   "jours": 52
   },
   {
    "province": "Nord-Kivu",
@@ -124,10 +124,18 @@
   {
    "province": "Ituri",
    "zone": "Mambasa",
-   "communautaires": 37,
-   "intraCte": 13,
+   "communautaires": 40,
+   "intraCte": 14,
    "nonVentiles": 0,
-   "jours": 25
+   "jours": 26
+  },
+  {
+   "province": "Haut-Uélé",
+   "zone": "Isiro",
+   "communautaires": 21,
+   "intraCte": 27,
+   "nonVentiles": 0,
+   "jours": 32
   },
   {
    "province": "Haut-Uélé",
@@ -136,14 +144,6 @@
    "intraCte": 12,
    "nonVentiles": 2,
    "jours": 34
-  },
-  {
-   "province": "Haut-Uélé",
-   "zone": "Isiro",
-   "communautaires": 20,
-   "intraCte": 25,
-   "nonVentiles": 0,
-   "jours": 31
   },
   {
    "province": "Ituri",
@@ -176,6 +176,14 @@
    "intraCte": 15,
    "nonVentiles": 0,
    "jours": 26
+  },
+  {
+   "province": "Nord-Kivu",
+   "zone": "Biena",
+   "communautaires": 17,
+   "intraCte": 2,
+   "nonVentiles": 0,
+   "jours": 8
   },
   {
    "province": "Ituri",
@@ -240,14 +248,6 @@
    "intraCte": 8,
    "nonVentiles": 0,
    "jours": 11
-  },
-  {
-   "province": "Nord-Kivu",
-   "zone": "Biena",
-   "communautaires": 8,
-   "intraCte": 1,
-   "nonVentiles": 0,
-   "jours": 7
   },
   {
    "province": "Nord-Kivu",
@@ -347,6 +347,14 @@
   },
   {
    "province": "Tshopo",
+   "zone": "Kabondo",
+   "communautaires": 2,
+   "intraCte": 1,
+   "nonVentiles": 0,
+   "jours": 3
+  },
+  {
+   "province": "Tshopo",
    "zone": "Bafwasende",
    "communautaires": 2,
    "intraCte": 1,
@@ -370,14 +378,6 @@
    "jours": 2
   },
   {
-   "province": "Tshopo",
-   "zone": "Kabondo",
-   "communautaires": 2,
-   "intraCte": 0,
-   "nonVentiles": 0,
-   "jours": 2
-  },
-  {
    "province": "Bas-Uélé",
    "zone": "Ganga",
    "communautaires": 1,
@@ -392,6 +392,14 @@
    "intraCte": 0,
    "nonVentiles": 0,
    "jours": 1
+  },
+  {
+   "province": "Ituri",
+   "zone": "Rimba",
+   "communautaires": 2,
+   "intraCte": 0,
+   "nonVentiles": 0,
+   "jours": 2
   },
   {
    "province": "Ituri",
@@ -452,14 +460,6 @@
   {
    "province": "Nord-Ubangi",
    "zone": "Wapinda",
-   "communautaires": 1,
-   "intraCte": 0,
-   "nonVentiles": 0,
-   "jours": 1
-  },
-  {
-   "province": "Ituri",
-   "zone": "Rimba",
    "communautaires": 1,
    "intraCte": 0,
    "nonVentiles": 0,
@@ -12271,6 +12271,128 @@
       },
       {
        "zone": "Vuhovi",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      }
+     ]
+    }
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "sitrep": "173",
+   "provinces": {
+    "Haut-Uélé": {
+     "province": {
+      "communautaires": 1,
+      "intraCte": 2,
+      "source": "deces-lieu"
+     },
+     "lecture": "colonnes",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Isiro",
+       "total": 3,
+       "communautaires": 1,
+       "intraCte": 2
+      }
+     ]
+    },
+    "Ituri": {
+     "province": {
+      "communautaires": 7,
+      "intraCte": 9,
+      "source": "deces-lieu"
+     },
+     "lecture": "colonnes",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Bunia",
+       "total": 2,
+       "communautaires": 1,
+       "intraCte": 1
+      },
+      {
+       "zone": "Lita",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Mambasa",
+       "total": 4,
+       "communautaires": 3,
+       "intraCte": 1
+      },
+      {
+       "zone": "Mandima",
+       "total": 5,
+       "communautaires": 2,
+       "intraCte": 3
+      },
+      {
+       "zone": "Mongbwalu",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Nizi",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Rimba",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      },
+      {
+       "zone": "Rwampara",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      }
+     ]
+    },
+    "Nord-Kivu": {
+     "province": {
+      "communautaires": 10,
+      "intraCte": 4,
+      "source": "deces-lieu"
+     },
+     "lecture": "colonnes",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Biena",
+       "total": 10,
+       "communautaires": 9,
+       "intraCte": 1
+      },
+      {
+       "zone": "Katwa",
+       "total": 4,
+       "communautaires": 1,
+       "intraCte": 3
+      }
+     ]
+    },
+    "Tshopo": {
+     "province": {
+      "communautaires": 0,
+      "intraCte": 1,
+      "source": "deces-lieu"
+     },
+     "lecture": "colonnes",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Kabondo",
        "total": 1,
        "communautaires": 0,
        "intraCte": 1
