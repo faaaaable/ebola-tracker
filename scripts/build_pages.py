@@ -5153,7 +5153,10 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     site = config["site"]
     origin = urls.origin
     is_province = province is not None
-    accueil_cloche = not is_province and page.get("id") == "accueil"
+    # La cloche d'« Etre prevenu » sur toutes les pages (5 novembre 2026,
+    # demande de Fable) ; elle etait reservee a l'accueil depuis le 21 octobre.
+    # Le nom est garde : il sert aux trois endroits qui affichent la cloche.
+    accueil_cloche = True
 
     if is_province:
         name = province["name"]
