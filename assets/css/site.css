@@ -755,7 +755,7 @@ ul,ol{margin:0;padding:0;}
 .chart-panel canvas{width:100%!important;height:100%!important;}
 /* Note explicative propre a chaque graphique : le script la remplit selon ce
    que le graphique montre, et la masque quand il n'y a rien a dire. */
-.chart-note:empty{display:none;}
+.chart-note:empty{display:none !important;}
 /* Elle est soeur du canevas dans .panel, qui n'a aucun rembourrage : elle
    heritait donc de .map-note un rembourrage horizontal nul et courait d'une
    bordure a l'autre. On l'aligne sur le cadre du graphique — 30 px — et on

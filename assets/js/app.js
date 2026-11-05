@@ -2705,6 +2705,13 @@ function renderOneChartBrut(canvas, chartMode){
                   boutsDeCourbe:{ actif: !surTelephone(), sansNom:true },
                   tooltip:infobulle({ callbacks:{
                     label:c => c.dataset.label + ' : ' + fmt(c.parsed.y),
+                    /* La revision passe de la note a l'infobulle du point
+                       (5 novembre 2026, notes reduites a l'essentiel) : le
+                       chiffre publie ce jour-la reste lisible la ou il porte. */
+                    afterLabel:c => {
+                      const r = revisions.find(x => x.date === jours[c.dataIndex] && x.nom === c.dataset.label);
+                      return r ? tr('vaccChartRevisionTip')(fmt(r.publie)) : '';
+                    },
                     /* Le total des deux provinces sous chaque infobulle : c'est
                        le chiffre que la page met en tete, et l'empilement le
                        montre sans le nommer. Somme des series REPORTEES, donc
@@ -3904,8 +3911,11 @@ function renderOneChartBrut(canvas, chartMode){
         bouts.push(tr('provinceChartHarmonisation'));
       if(multiJours.size) bouts.push(tr('provinceChartMultiDay'));
       if(calculees.size) bouts.push(tr('provinceChartSplit')([...calculees].sort().map(frDate).join(', ')));
-      noteEl.textContent = bouts.join(' ');
-      noteEl.style.display = bouts.length ? 'block' : 'none';
+      /* Notes reduites a l'essentiel (5 novembre 2026) : une phrase vide
+         n'entre pas dans la note. */
+      const pleins = bouts.filter(Boolean);
+      noteEl.textContent = pleins.join(' ');
+      noteEl.style.display = pleins.length ? 'block' : 'none';
     }
 
     const teinte = deces ? PALETTE.critical : (PROVINCE_COLORS[nom] || PALETTE.info);
@@ -4039,8 +4049,9 @@ function renderOneChartBrut(canvas, chartMode){
            en couleur pleine. La phrase agregee est celle du pays, partagee. */
         if(serie.some(p => p.rattrapage > 0)) bouts.push(tr('chartCatchupAggregated')(parMois));
         if(ouverte) bouts.push(tr(parMois ? 'chartMonthOngoing' : 'chartWeekOngoing')(frDate(derniereDate)));
-        noteEl.textContent = bouts.join(' \u00b7 ');
-        noteEl.style.display = bouts.length ? 'block' : 'none';
+        const pleins = bouts.filter(Boolean);
+        noteEl.textContent = pleins.join(' \u00b7 ');
+        noteEl.style.display = pleins.length ? 'block' : 'none';
       }
       slot.chart = new Chart(canvas.getContext('2d'),
         { type: 'bar', data: dataA, options: opts,
