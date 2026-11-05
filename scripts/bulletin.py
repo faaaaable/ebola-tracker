@@ -699,9 +699,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     if suiv_num and _url(suiv_num):
         nav += '<a class="ag-nav-next" href="%s">%s</a>' % (_url(suiv_num), esc(P("lettreNavNext", num=suiv_num)))
     nav_html = '<nav class="ag-nav">%s</nav>' % nav if nav else ""
-    # Pied (5 novembre 2026) : un registre comme la page Rapports. Les six
-    # dernieres lettres sur deux colonnes (numero, date, cumuls), puis
-    # toutes les lettres par mois dans un depliant. Les 80 numeros alignes
+    # Pied (5 novembre 2026) : toutes les lettres dans un depliant, en
+    # registre comme la page Rapports (numero, date, cumuls), un onglet par
+    # mois. Les 80 numeros alignes
     # d'un bloc faisaient quatre lignes illisibles.
     def _ligne(n):
         d = _DATES.get(n)
@@ -717,10 +717,8 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         return '<a class="report-chip rg-l" href="%s">%s</a>' % (_url(n), corps)
     archive_html = ""
     if len(nums) > 1:
-        recentes = [n for n in reversed(nums) if n != num and _url(n)][:6]
-        archive_html = ('<div class="ag-registre"><h3 class="ag-arch-t">%s</h3>'
-                        '<div class="reports-grid is-registre">%s</div></div>'
-                        % (esc(S["lettreDernieres"]), "".join(_ligne(n) for n in recentes)))
+        # « Les dernieres lettres » retire le 5 novembre 2026 (demande de
+        # Fable) : doublon du lien « Lettre precedente » et de l'onglet du mois.
         mois_noms = S["lettreMoisNoms"].split(",")
         par_mois = {}
         for n in reversed(nums):

@@ -2834,10 +2834,8 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .ag-lexique ul{margin:8px 0 0;padding-left:18px;line-height:1.55;}
 .ag-lexique li{margin:3px 0;}
 /* Pied de la Lettre (5 novembre 2026) : registre des lettres sur le modele
-   de la page Rapports (.reports-grid.is-registre), les six dernieres puis
-   toutes dans un depliant. */
-.ag-registre{margin-top:18px;}
-.ag-arch-t{margin:0 0 6px;font:700 11px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);}
+   de la page Rapports (.reports-grid.is-registre), dans un depliant a
+   onglets par mois. */
 .lq-pied .reports-grid.is-registre .report-chip.rg-l{color:var(--ink);text-decoration:none;}
 .lq-pied .reports-grid.is-registre .rg-p{font-size:14px;letter-spacing:0;}
 .lq-pied .report-chip.is-courante .rg-n{color:var(--accent-strong);}
