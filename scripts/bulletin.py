@@ -94,6 +94,35 @@ def _cle_zone(z):
     return (z.get("province"), re.sub(r"[^a-z0-9]", "", nom.lower()))
 
 
+def reclassements(zones, avant, date):
+    """Paires de zones d'une meme province dont l'une gagne exactement ce que
+    l'autre perd, hors nouveaux cas annonces (6 novembre 2026, SitRep 174 :
+    Beni 737 -> 775 pour 16 annonces, Biena 48 -> 26 pour 0 ; 22 cas de part
+    et d'autre, le cumul du pays tombe juste). Le site ne dit pas qu'il s'agit
+    d'un reclassement, le bulletin ne l'ecrit pas : il dit les deux chiffres en
+    une phrase, et les tableaux n'ont pas de note (rien n'entre dans le cumul
+    du pays). A partir du 4 novembre 2026 : les lettres publiees ne changent
+    pas. Renvoie {cle_zone: (zone, autre_zone, ecart)} pour les deux zones."""
+    if date < "2026-11-04":
+        return {}
+    ec = []
+    for z in zones:
+        a = avant.get(_cle_zone(z))
+        if z.get("cases") is None or a is None:
+            continue
+        e = z["cases"] - a - (z.get("newCases24h") or 0)
+        if e:
+            ec.append((z, a, e))
+    out = {}
+    for prov in {z["province"] for z, _, _ in ec}:
+        plus = [x for x in ec if x[0]["province"] == prov and x[2] > 0]
+        moins = [x for x in ec if x[0]["province"] == prov and x[2] < 0]
+        if len(plus) == 1 and len(moins) == 1 and plus[0][2] == -moins[0][2]:
+            out[_cle_zone(plus[0][0])] = (plus[0], moins[0])
+            out[_cle_zone(moins[0][0])] = None
+    return out
+
+
 def ajouts_cumul(zones, zh, date):
     """Les zones dont le cumul monte plus que les nouveaux cas annonces, au
     bulletin du `date` (30 octobre 2026, SitRep 167 : Yakoma entre avec 3 cas,
@@ -110,9 +139,10 @@ def ajouts_cumul(zones, zh, date):
     if (j1 - j0).days != 1:
         return []
     avant = {_cle_zone(z): z.get("cases") for z in zh[zi - 1]["zones"]}
+    paires = reclassements(zones, avant, date)
     out = []
     for z in zones:
-        if z.get("cases") is None:
+        if z.get("cases") is None or _cle_zone(z) in paires:
             continue
         ecart = z["cases"] - (avant.get(_cle_zone(z)) or 0) - (z.get("newCases24h") or 0)
         if ecart > 0:
@@ -490,9 +520,18 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         j0, j1 = (_d0(*(int(x) for x in zh[k]["date"].split("-"))) for k in (zi - 1, zi))
         if (j1 - j0).days == 1:
             avant = {_cle_zone(z): z.get("cases") for z in zh[zi - 1]["zones"]}
+            paires = reclassements(latest["healthZones"], avant, date)
             for z in latest["healthZones"]:
                 a, n = avant.get(_cle_zone(z)), z.get("newCases24h") or 0
                 if z.get("cases") is None:
+                    continue
+                if _cle_zone(z) in paires:
+                    pr = paires[_cle_zone(z)]
+                    if pr:
+                        (zp, ap, ep), (zm, am, _) = pr
+                        txt += " " + P("lettreOuEcartPaire", zone=zp["name"], avant=fmt(ap, lang), apres=fmt(zp["cases"], lang),
+                                       n=fmt(zp.get("newCases24h") or 0, lang), ecart=fmt(ep, lang),
+                                       zone2=zm["name"], avant2=fmt(am, lang), apres2=fmt(zm["cases"], lang))
                     continue
                 if a is not None and z["cases"] - a != n and z["cases"] < a + n:
                     cle = ("lettreOuEcartSans" if n == 0 else

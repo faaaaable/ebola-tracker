@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-11-03"
+    "fin": "2026-11-04"
   },
   "parDate": [
     {
@@ -7181,6 +7181,75 @@
         "calcule": true,
         "partVerifiee": 100.0,
         "partValidee": 12.9
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-04",
+      "sitrepNumber": "174",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 115,
+          "verifiees": 115,
+          "validees": 22,
+          "suspectsInvestigues": 22,
+          "transferes": 9
+        },
+        "Bas-Uélé": {
+          "recues": 91,
+          "verifiees": 91,
+          "validees": 11,
+          "suspectsInvestigues": 11,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1597,
+          "verifiees": 1597,
+          "validees": 258,
+          "suspectsInvestigues": 258,
+          "transferes": 128
+        },
+        "Nord-Kivu": {
+          "recues": 2062,
+          "verifiees": 2062,
+          "validees": 241,
+          "suspectsInvestigues": 241,
+          "transferes": 141
+        },
+        "Sud-Ubangi": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Nord-Ubangi": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Tshopo": {
+          "recues": 107,
+          "verifiees": 107,
+          "validees": 7,
+          "suspectsInvestigues": 7,
+          "transferes": 2
+        }
+      },
+      "total": {
+        "recues": 3972,
+        "verifiees": 3972,
+        "validees": 539,
+        "suspectsInvestigues": 539,
+        "transferes": 280,
+        "calcule": true,
+        "partVerifiee": 100.0,
+        "partValidee": 13.6
       },
       "source": "SitRep INSP (automatique)"
     }

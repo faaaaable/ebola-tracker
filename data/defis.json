@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-03"
+    "fin": "2026-11-04"
   },
   "parDate": [
     {
@@ -8659,6 +8659,121 @@
             "Bas-Uélé"
           ],
           "horsDefis": "2.11.1. Principales actions"
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-04",
+      "sitrepNumber": "174",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "Au Bas-Uélé, la complétude n’est que de 55 % (12/22) : 5 PoC de la ZS de Viadana n’ont pas fonctionné en raison de la grève des prestataires et 5 n’ont pas rapporté faute de connectivité et de mobilité, seuls 72 % des voyageurs ont été sensibilisés et la couverture reste de 22 sites sur 61 (36 %) ; au Sud-Kivu, la complétude reste faible (56 % ; 5/9), les antennes du poste de Baraka ne rapportent pas et les PoE de Kavimvira, Kalundu Port et Baraka n’ont toujours pas de dispositif d’isolement ; en Ituri, la complétude recule à 87 % (54/62), 6 061 voyageurs (4,4 %) ont refusé le screening, avec des taux de refus élevés à Nzebi (45 %), Pluto (35 %), Frigo (29 %) et Poipo (26 %), les PoC de la ZS de Nia-Nia n’ont pas fonctionné (réclamation de deux mois de paiement) et celui d’Avakubi reste fermé pour cause d’insécurité"
+          ],
+          "provinces": [
+            "Ituri",
+            "Sud-Kivu",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prév ention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "Au Bas-Uélé, seuls 130 prestataires sur 632 (20,6 %) sont formés en PCI-WASH, 16 ESS prioritaires sur 20 n’ont pas de triage fonctionnel, 17 sur 20 manquent d’eau pour 72 heures, aucun des 20 ne dispose de matelas garnis, le chlore disponible se limite à 45 kg, aucun partenaire WASH n’appuie les activités autour des cas et 2 EDS complets n’ont pu être réalisés. Au Haut-Uélé, aucun ring n’a pu être ouvert à Isiro en raison de la résistance communautaire, seules 4 ZS sur 7 ont transmis leurs données PCI, les kits PCI manquent pour les ESS et les superviseurs PCI ne sont pas activés dans 4 ZS (Rungu, Dungu, Boma Mangbetu et Gombari). En Ituri, les équipes restent insuffisantes à Mangala et à Mandima, les intrants PCI manquent à Mandima, Nia-Nia et Nizi et 22 échecs de prélèvement ont été enregistrés sur les corps."
+          ],
+          "provinces": [
+            "Ituri",
+            "Haut-Uélé",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "En Ituri, la rupture de stock de sang persiste, 35 malades sont critiques, 8 patients n’ont pas bénéficié d’alimentation à Mandima, la capacité d’accueil reste faible à Mambasa, Kilo, Lolwa et Biakato et le CTE de Kasenyi n’a toujours pas rapporté en raison de la grève des prestataires (complétude : 27/28) ; au Nord-Kivu, l’occupation globale dépasse la capacité d’accueil (108,8 %), les CTE/CT sont occupés à 90,8 %, 210 patients sont pris en charge hors CTE/CT, 27 malades sont critiques, la complétude des données PEC n’est que de 79 % (Mabalako, Mutwanga et Lubero manquants) et le lait UHT manque pour les enfants de 6 à 23 mois ; à la Tshopo, 2 confirmés évadés de Bafwasende restent à retrouver, le CTE Météo a été envahi par des jeunes de Kabondo venus récupérer de force le corps d’un cas confirmé décédé et le cas confirmé n°84 refuse toujours l’hospitalisation depuis 8 jours ; au Bas-Uélé, le CTE normé de Buta est encore en construction, aucune ambulance n’est disponible et aucun des 47 suspects isolés ne bénéficie d’un soutien nutritionnel ; au Haut-Uélé, seuls 2 CTE sur 8 sont normés, la famille d’un PPL confirmé à Bolebole s’oppose à son transfert au CTE d’Isiro, la couverture réseau reste faible dans certaines ZS et les intrants nutritionnels (F75, F100, Plumpy’Nut) ainsi que l’approvisionnement en eau et en énergie des CTE restent insuffisants."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "En Ituri, la cible TPL/PPL reste à redéfinir et 5 MAPI graves ont été notifiées au cumul ; au Nord-Kivu, la vaccination reste concentrée dans la ZS de Beni (83,4 % des vaccinés) et il ne reste que 633 doses, soit 24,3 % du stock reçu ; au Haut-Uélé, seule la ZS de Pawa a transmis sa liste de préenregistrement des PPL sur les quatre attendues ; au Bas-Uélé, la mise en marche des UCC n’est toujours pas effective, la prise en charge des acteurs de terrain accuse du retard et la ZS de Bili ne compte encore aucun vacciné (0/1 067)."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Continuité des Soins",
+          "items": [
+            "Mise en œuvre encore attendue des plans de redressement des ESS évalués à la Tshopo, où la grève des agents des ESS publiques et la non-activation du plan de continuité du PEV persistent, avec une baisse de l’utilisation des services curatifs, de la PCIME, de la CPN, de la maternité et de la vaccination ; au Nord-Kivu, le CS Tulizeni ne dispose ni de chaîne de froid, ni d’examens de laboratoire essentiels, ni de plan de contingence pour l’absentéisme, et les relais communautaires y sont trop peu nombreux pour récupérer les femmes enceintes, les malades chroniques et les malnutris ; au Haut-Uélé, le démarrage du projet de rattrapage vaccinal (UiV) accuse du retard, la subvention des soins gratuits fait défaut dans les 7 ZS les plus affectées et seuls 19 ESS sur 67 ont été évalués ; au Bas-Uélé, la grève des professionnels de santé non médecins prive les 13 HGR de 63,5 % de leur personnel ; aucune donnée transmise par le Sud-Ubangi et le Nord-Ubangi."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo",
+            "Sud-Ubangi",
+            "Nord-Ubangi"
+          ]
+        },
+        {
+          "pilier": "smsps",
+          "titre": "Santé mentale et soutien psychosocial (SMSPS)",
+          "items": [
+            "En Ituri, seules 15 ZS affectées sur 28 (53,6 %) sont couvertes et à peine 13 des 23 derniers cas confirmés (56,5 %) ont été pris en charge, la collaboration interpiliers restant à renforcer à Mandima. Au Nord-Kivu, 7 des 36 nouveaux cas (19,4 %) n’ont pas bénéficié d’un accompagnement, la couverture reste faible autour des derniers cas à Biena, Manguredjipa, Kayna, Lubero, Masereka, Kalunguta, Mabalako, Mutwanga et Vuhovi, 10 ZS affectées n’ont pas de crèche et 7 ménages d’enfants séparés et orphelins sur 30 restent sans appui. Au Haut-Uélé, aucune crèche n’existe à Isiro, Pawa, Wamba et Boma Mangbetu et les APS manquent de mobilité et de kits nutritionnels pour les nourrissons sevrés. À la Tshopo, les APS de la ZS de Wanie-Rukula ne sont pas formés et le pilier manque d’unités de communication et de motos. Au Bas-Uélé, l’accompagnement psychosocial des 3 confirmés accuse du retard."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            " La couverture des zones touchées reste faible : seuls l’Ituri, le Nord-Kivu et le Bas-Uélé ont rapporté leurs activités PSEA pour la journée (3 DPS sur 8 ; 37,5 %) ; au Bas-Uélé, 4 ZS (Viadana, Bondo, Likati et Ango) restent silencieuses, le financement du pilier est faible et les affiches et banderoles sont en rupture ; le mécanisme de signalement n’est connu que dans 15 ZS sur 36 (41,7 %) en Ituri, 6 ZS sur 13 (46,2 %) au Haut-Uélé et 4 ZS sur 34 (11,8 %) au Nord-Kivu, et les outils de sensibilisation, les supports de visibilité et les kits informatiques du pilier restent insuffisants."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "En Ituri, le PoC d’Avakubi reste non fonctionnel en raison de l’insécurité ; au Nord-Kivu, les équipes EDS ont été accompagnées et sécurisées pour l’enterrement de 3 cas confirmés au cimetière de Bundji et la menace contre les prestataires des PoC de l’axe Butembo persiste ; au Haut-Uélé, la menace sécuritaire contre les prestataires des PoC persiste sur l’axe Bolebole (Pawa et Wamba) ; à la Tshopo, des jeunes de Kabondo ont envahi le CTE Météo pour récupérer de force le corps d’un cas confirmé décédé, ce qui a nécessité l’intervention rapide de la PNC, et des incidents d’insécurité ont été signalés dans l’AS de Wandugu (Kabondo) ; au Bas-Uélé, le pilier a accompagné l’équipe PoE/PoC, l’OIM et l’Africa CDC au site de Télé, évalué la situation sécuritaire et sécurisé la riposte au niveau zonal."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Tshopo",
+            "Bas-Uélé"
+          ],
+          "horsDefis": "2.12.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"

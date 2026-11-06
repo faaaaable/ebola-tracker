@@ -94,6 +94,12 @@ HOSPITALISES_RES = [
     # (Tshopo), « 60 patients (31 confirmés et 29 suspects) sont en
     # isolement dans les CTE » (Haut-Uele).
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,60}\)\s*(?:demeuraient|sont)\s+(?:en\s+isolement|hospitalis)", re.I),
+    # « Au total, 595 patients (197 confirmés et 398 suspects, dont 67 enfants
+    # de moins de 5 ans et 27 malades critiques) restent en isolement » (173 et
+    # 174, Nord-Kivu ; 174 Haut-Uele) : « restent », et une parenthese plus
+    # longue. Sans ce motif, le Nord-Kivu n'etait lu que dans les « Defis »
+    # (« 210 patients sont pris en charge hors CTE/CT ») : trouve le 6 novembre 2026.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,110}\)\s*restent\s+en\s+(?:isolement|hospitalisation)", re.I),
     # « L'occupation des structures de prise en charge atteint 488 lits sur
     # 833 (59 %) » (084, 6 aout) : les patients comptes en lits occupes.
     re.compile(r"occupation[^.;]{0,60}?atteint\s+(\d[\d ]{0,4}\d|\d)\s+lits\s+sur\s+\d", re.I),
@@ -133,6 +139,9 @@ HOSPITALISES_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*(?:\(\s*\d[^)]{0,90}\)\s*)?sont\s+pris\s+en\s+charge\b", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,90}\)\s*hospitalis", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)(?:\s+(?:suspects|confirm[ée]s))?\s+demeurent\s+en\s+(?:isolement|hospitalisation)", re.I),
+    # « 47 suspects restent isolés dans les ESS faute de CTE fonctionnel »
+    # (173 et 174, Bas-Uele).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+suspects\s+restent\s+isol[ée]s", re.I),
 ]
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits|atteint\s+\d[\d ]{0,4}\s+lits\s+sur\s+(\d[\d ]{0,4}\d|\d)", re.I)
 # « taux d'occupation global de 51,7% (120 lits) » (110 Haut-Uele) : les lits
@@ -191,6 +200,8 @@ HOSPITALISES_NORMES_RE = re.compile(
 # fait 35,3 % — fraction fausse, ignoree.
 HOSPITALISES_AUX_LITS_RE = re.compile(
     r"occupation[^%;]{0,60}?(\d+(?:[,.]\d+)?)\s*%\s*:?\s*\(\s*(\d[\d ]{0,4}\d|\d)\s*(?:/|patients\s+aux\s+lits[^)]{0,40}?sur)\s*(\d[\d ]{0,4}\d|\d)\s*(?:lits)?\s*\)", re.I)
+CTE_FRACTION_RE = re.compile(
+    r"\(\s*(\d+(?:[,.]\d+)?)\s*%\s*dans\s+les\s+CTE[^;)]{0,12};\s*(\d[\d ]{0,4}\d|\d)\s*/\s*(\d[\d ]{0,4}\d|\d)\s+lits\s*\)", re.I)
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
@@ -266,6 +277,16 @@ def lire_prose(morceau):
         normes = entier(mn.group(1))
         if normes is not None and normes <= hosp:
             ligne["hospitalisesNormes"] = normes
+    # « soit un taux d'occupation global de 108,8 % (90,8 % dans les CTE/CT ;
+    # 385/424 lits) » (173 et 174, Nord-Kivu) : patients aux lits des CTE/CT
+    # et lits, retenus si la fraction retombe sur le taux a 1,5 point pres.
+    mc = CTE_FRACTION_RE.search(morceau)
+    if mc and "hospitalisesNormes" not in ligne:
+        taux_c, aux_lits, lits_c = pourcent(mc.group(1)), entier(mc.group(2)), entier(mc.group(3))
+        if aux_lits is not None and lits_c and aux_lits <= hosp and taux_c is not None and abs(aux_lits / lits_c * 100 - taux_c) <= 1.5:
+            ligne["hospitalisesNormes"] = aux_lits
+            ligne["lits"] = lits_c
+            ligne["_occCte"] = taux_c
     ma = HOSPITALISES_AUX_LITS_RE.search(morceau)
     if ma and "hospitalisesNormes" not in ligne:
         taux_frac, aux_lits, lits_frac = pourcent(ma.group(1)), entier(ma.group(2)), entier(ma.group(3))
@@ -280,6 +301,10 @@ def lire_prose(morceau):
         if mo:
             occ = pourcent(mo.group(1))
             break
+    # Le taux « dans les CTE/CT » est celui qui porte sur les patients aux
+    # lits : c'est lui le taux publie comparable, pas le taux « global ».
+    if "_occCte" in ligne:
+        occ = ligne.pop("_occCte")
     normes = ligne.get("hospitalisesNormes")
     if occ is not None and normes is not None and normes != hosp:
         # Le taux publie ne porte que sur les structures normees : on le garde
@@ -331,6 +356,13 @@ def section_prose(texte):
     # Le bilan national qui clot la section (« Au total, 146 nouvelles
     # admissions … Ainsi, 803 patients demeuraient en isolement », 136) serait
     # sinon lu comme la ligne de la derniere province citee.
+    # Les « Defis » qui suivent la rubrique (« 2.5.2. Défis ») ne sont pas
+    # des relevés : au 174, « au Nord-Kivu, … 210 patients sont pris en
+    # charge hors CTE/CT » y etait lu comme la ligne du Nord-Kivu
+    # (6 novembre 2026).
+    d = re.search(r"\n[\d.\s]{0,12}D[ée]fis\b", reste)
+    if d:
+        reste = reste[:d.start()]
     g = re.search(r"\n\s*Au total,\s*\d[\d ]*\s+nouvelles\s+admissions", reste)
     return reste[:g.start()] if g else reste
 
@@ -628,6 +660,44 @@ def reporter_lits_taux_recopie(points):
             ligne["occupationCalculee"] = True
 
 
+def lits_qui_recoupent(points, i, nom, ligne):
+    """La capacite imprimee la plus recente, dans les trente bulletins
+    precedents, sur laquelle le taux publie retombe a 0,15 point pres — pas
+    seulement la derniere imprimee (6 novembre 2026). Au 173 et au 174, le
+    Haut-Uele publie 23,9 % pour 33 patients et 25,4 % pour 35 : 138 lits,
+    la capacite du 147, quand les derniers bulletins en imprimaient 162 ; la
+    Tshopo, 19,4 % pour 6 et 25,8 % pour 8 : 31 lits (147), et non 36."""
+    for q in reversed(points[max(0, i - 30):i]):
+        v = (q.get("provinces") or {}).get(nom) or {}
+        l = v.get("lits") if v.get("lits") and not v.get("litsDeduits") and not v.get("litsReportes") else None
+        if l and abs(round(ligne["hospitalises"] / l * 100, 1) - ligne["occupation"]) <= 0.15:
+            return l
+    return None
+
+
+def recouper_lits_historique(points):
+    """Comme recouper_lits_precedents, pour les bulletins qui ne sont plus le
+    dernier, mais seulement le cas strict : la capacite imprimee dans les
+    trente bulletins precedents, si le taux publie retombe dessus a 0,15
+    point pres (6 novembre 2026). Au 173, l'Ituri ecrit 343 patients et
+    33,8 % sans nombre de lits ; 343/1 015 fait 33,8 %. Tant que le 173 etait
+    le dernier, recouper_lits_precedents lui donnait ces 1 015 lits ; des
+    l'arrivee du 174 il les perdait, et la Lettre 173 ne comptait plus que le
+    Nord-Kivu (634 malades pour 424 lits, « 150 pour 100 lits »). Le report
+    sans recoupement reste reserve au dernier bulletin."""
+    for i, p in enumerate(points[:-1]):
+        for nom, ligne in (p.get("provinces") or {}).items():
+            if ligne.get("lits") or not ligne.get("hospitalises") or ligne.get("occupation") is None:
+                continue
+            def imprime(q):
+                v = (q.get("provinces") or {}).get(nom) or {}
+                return v.get("lits") if v.get("lits") and not v.get("litsDeduits") and not v.get("litsReportes") else None
+            avant = lits_qui_recoupent(points, i, nom, ligne)
+            if avant:
+                ligne["lits"] = avant
+                ligne["litsRecoupes"] = True
+
+
 def recouper_lits_precedents(points):
     """Le DERNIER bulletin n'a pas de voisin suivant, et encadrer_lits ne peut
     rien pour lui. Le 136 (27 septembre 2026) ne publie aucun nombre de lits :
@@ -660,7 +730,8 @@ def recouper_lits_precedents(points):
         # Trente bulletins depuis le 3 novembre 2026 : le 171 sortait de la
         # fenetre de quinze (derniers lits de l'Ituri au 155), et la lettre
         # passait de 57 a 121 malades pour 100 lits, l'Ituri sorti du calcul.
-        avant = next((imprime(q) for q in reversed(points[max(0, i - 30):i]) if imprime(q)), None)
+        recoupe = lits_qui_recoupent(points, i, nom, ligne)
+        avant = recoupe or next((imprime(q) for q in reversed(points[max(0, i - 30):i]) if imprime(q)), None)
         if not avant:
             continue
         calcule = round(ligne["hospitalises"] / avant * 100, 1)
@@ -763,6 +834,7 @@ def main():
     confirmer_lits_deduits(final)
     encadrer_lits(final)
     reporter_lits_taux_recopie(final)
+    recouper_lits_historique(final)
     recouper_lits_precedents(final)
     for p in final:
         recalculer_total(p)
