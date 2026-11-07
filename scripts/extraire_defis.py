@@ -73,6 +73,11 @@ TITRE_DEFIS = re.compile(r'(?im)^[\s\d.]*(?:les\s+)?d[ée]fis?\s*[:.]?\s*$')
 TITRE_CAPITALES = re.compile(r'(?m)^\s*(?:[•▪]\s*)?[A-ZÉÈÀÇ][A-ZÉÈÀÇ\s]{7,}$')
 
 
+# SitRep 175 : le titre « Laboratoire » arrive seul sur sa ligne, sans
+# numero, et se collait a la fin du defi PoE/PoC qui le precede.
+TITRE_SEUL = re.compile(r'(?m)^[ \t]*Laboratoire[ \t]*$')
+
+
 def sans_accent(t):
     return "".join(c for c in unicodedata.normalize("NFD", t or "")
                    if unicodedata.category(c) != "Mn")
@@ -141,7 +146,8 @@ def fin_du_bloc(texte, debut):
     ce defi (verifie le 29 septembre 2026). Le bloc court alors jusqu'au
     premier vrai titre."""
     fins = [x.start() for x in (TITRE_NUMEROTE.search(texte, debut),
-                                TITRE_CAPITALES.search(texte, debut)) if x]
+                                TITRE_CAPITALES.search(texte, debut),
+                                TITRE_SEUL.search(texte, debut)) if x]
     fin = min(fins) if fins else len(texte)
     vide = not re.sub(r'(?m)^\s*\d{1,2}\s*$', '', texte[debut:fin]).strip()
     m = TITRE_NUMEROTE.match(texte, fin) if vide else None

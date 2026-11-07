@@ -682,9 +682,15 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # quand les bulletins ecrivent « seuil requis de 95,0 % ».
         s3 = P("lettreContactsF" if FL else "lettreContacts", taux=pct(taux))
         bas = [nom for nom, v in (pc.get("provinces") or {}).items() if v.get("taux") is not None and v["taux"] < 75]
+        # Le taux de chaque province sous les 75 % (7 novembre 2026) : « moins
+        # de trois sur quatre » disait trop peu de la Tshopo a 46,1 % (175).
+        tx = {nom: (pc.get("provinces") or {})[nom]["taux"] for nom in bas}
         if bas and FL:
-            s3 += " " + (maj(P("lettreContactsBasUneF", **{"in": forms(bas[0])["in"]})) if len(bas) == 1
-                         else P("lettreContactsBasF", liste=_liste([forms(b)["in"] for b in sorted(bas)], et)))
+            if len(bas) == 1:
+                frac = S["lettreContactsFrac2" if tx[bas[0]] < 50 else "lettreContactsFrac4"]
+                s3 += " " + maj(P("lettreContactsBasUneF", taux=pct(tx[bas[0]]), frac=frac, **{"in": forms(bas[0])["in"]}))
+            else:
+                s3 += " " + P("lettreContactsBasF", liste=_liste([f'{forms(b)["in"]} ({pct(tx[b])})' for b in sorted(bas)], et))
         elif bas:
             s3 += " " + P("lettreContactsBas", liste=_liste(sorted(bas), et))
         phrases.append(s3)

@@ -4479,6 +4479,11 @@
         "taux": 73.2,
         "vus": 740,
         "aSuivre": 1011
+      },
+      "Haut-Uélé": {
+        "taux": 84.9,
+        "vus": 1906,
+        "aSuivre": 2245
       }
     }
   },
@@ -4511,6 +4516,16 @@
         "taux": 73.0,
         "vus": 688,
         "aSuivre": 942
+      },
+      "Haut-Uélé": {
+        "taux": 79.4,
+        "vus": 1682,
+        "aSuivre": 2119
+      },
+      "Nord-Kivu": {
+        "taux": 79.3,
+        "vus": 12314,
+        "aSuivre": 15533
       }
     }
   },
@@ -4533,6 +4548,26 @@
         "taux": 66.6,
         "vus": 589,
         "aSuivre": 884
+      },
+      "Ituri": {
+        "taux": 90.8,
+        "vus": 13768,
+        "aSuivre": 15155
+      },
+      "Haut-Uélé": {
+        "taux": 87.2,
+        "vus": 1288,
+        "aSuivre": 1477
+      },
+      "Nord-Kivu": {
+        "taux": 79.0,
+        "vus": 14604,
+        "aSuivre": 18494
+      },
+      "Sud-Ubangi": {
+        "taux": 97.3,
+        "vus": 109,
+        "aSuivre": 112
       }
     }
   },
@@ -4607,6 +4642,48 @@
         "taux": 76.1,
         "vus": 417,
         "aSuivre": 548
+      }
+    }
+  },
+  {
+    "date": "2026-11-05",
+    "sitrepNumber": "175",
+    "contactsFollowUpRate": 82.6,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 38054,
+      "vus": 31419
+    },
+    "provinces": {
+      "Ituri": {
+        "taux": 89.3,
+        "vus": 13366,
+        "aSuivre": 14973
+      },
+      "Haut-Uélé": {
+        "taux": 83.4,
+        "vus": 1794,
+        "aSuivre": 2152
+      },
+      "Nord-Kivu": {
+        "taux": 78.8,
+        "vus": 15182,
+        "aSuivre": 19262
+      },
+      "Tshopo": {
+        "taux": 46.1,
+        "vus": 492,
+        "aSuivre": 1068
+      },
+      "Sud-Ubangi": {
+        "taux": 97.3,
+        "vus": 109,
+        "aSuivre": 112
+      },
+      "Nord-Ubangi": {
+        "taux": 97.7,
+        "vus": 476,
+        "aSuivre": 487
       }
     }
   }

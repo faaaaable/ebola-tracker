@@ -85,7 +85,7 @@ LECTURES_NOMMEES = {
 # suivants) : un tiret long remplace le point. Sans lui, le tableau n'etait
 # jamais localise et le 12 juillet prenait le 81,5 % de l'encadre de tete
 # au lieu du 82,1 % du tableau (10 156 / 12 370) — audit du 27 septembre 2026.
-TABLE_TITLE_RE = re.compile(r"Tableau\s*\d*\s*[.:—–-]\s*Suivi des contacts", re.IGNORECASE)
+TABLE_TITLE_RE = re.compile(r"Tableau\s*\d*\s*[.:—–-]\s*(?:Situation\s+du\s+)?Suivi des contacts", re.IGNORECASE)
 TABLE_HEADER_RE = re.compile(r"Taux\s+de\s+suivi", re.IGNORECASE)
 PROVINCE_RE = re.compile(
     r"^(Ituri|Nord-Kivu|Sud-Kivu|Haut-Uélé|Tshopo|Bas Uélé|Sud[ -]Ubangi|Nord[ -]Ubangi)\s*\*?$", re.IGNORECASE
@@ -207,9 +207,12 @@ CONTACTS_PARMI_LES_RE = re.compile(
 # vus, taux. SitRep 165 (26 octobre 2026) : « 34 935 contacts étaient sous
 # suivi dans six provinces ; 29 528 ont été vus », sans « les » devant le
 # nombre de provinces : le 26 octobre sortait sans effectifs nationaux.
+# SitRep 175 (5 novembre 2026) : « 38 054 contacts étaient sous suivi dans
+# les six provinces ayant rapporté des contacts à suivre, dont 31 419 ont été
+# vus » : « dont » devant les vus.
 CONTACTS_ETAIENT_RE = re.compile(
     r"(\d[\d\s]*?)\s+contacts\s+étaient\s+(?:sous\s+suivi|en\s+cours\s+de\s+suivi|(?:à|a)\s+suivre)"
-    r"(?:\s+dans\s+(?:les\s+)?(?:\w+\s+)?provinces\s[^,.;%]{0,60}?)?\s*[,;]?\s*(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
+    r"(?:\s+dans\s+(?:les\s+)?(?:\w+\s+)?provinces\s[^,.;%]{0,60}?)?\s*[,;]?\s*(?:dont\s+)?(\d[\d\s]*?)\s+(?:contacts\s+)?ont\s+été\s+vus"
     r"[^.%]{0,60}?(?:correspondant\s+à|soit|exprimant)\s+(?:une\s+proportion|un\s+taux)(?:\s+journali[èe]re)?"
     r"(?:\s+de\s+suivi)?\s+(?:de|à)\s+(\d+(?:\s*[,.]\s*\d+)?)\s*%",
     re.IGNORECASE | re.DOTALL,
@@ -644,6 +647,12 @@ PROV_C_RE = re.compile(r"(%s)\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
 # nombre peut s'ecrire d'un bloc : « Nord-Kivu 1037 700 67,5% » (11 juin).
 PROV_LIGNE_B_RE = re.compile(
     r"\n\s*(%s)\s*\**\s+(\d{1,3}(?: \d{3})+|\d+)\*?\s+(\d{1,3}(?: \d{3})+|\d+)\*?\s+(\d+(?:[,.]\d+)?)\s*%%" % PROVINCES_DETAIL_RE)
+# SitRep 175 (5 novembre 2026) : plus de phrase par province, et le texte du
+# tableau met les chiffres AVANT le nom (« 14 973 13 366 89,3%⏎Ituri »).
+PROV_LIGNE_B_INV_RE = re.compile(
+    r"\n\s*(\d{1,3}(?: \d{3})+|\d+)\*?\s+(\d{1,3}(?: \d{3})+|\d+)\*?\s+(\d+(?:[,.]\d+)?)\s*%%[ \t]*\n[ \t]*(%s)[ \t]*\**[ \t]*(?=\n)" % PROVINCES_DETAIL_RE)
+TOTAL_LIGNE_B_INV_RE = re.compile(
+    r"\n\s*(\d{1,3}(?: \d{3})*)\*?\s+(\d{1,3}(?: \d{3})*)\*?\s+(\d+(?:[,.]\d+)?)\s*%[ \t]*\n[ \t]*Total\b")
 TOTAL_LIGNE_B_RE = re.compile(
     r"\n\s*Total\s*\*?\s+(\d{1,3}(?: \d{3})*)\*?\s+(\d{1,3}(?: \d{3})*)\*?\s+(\d+(?:[,.]\d+)?)\s*%")
 
@@ -825,10 +834,20 @@ def details_contacts(full_text, rows, taux_national=None):
     mt = TABLE_TITLE_RE.search(full_text)
     if mt:
         zone = full_text[mt.end():mt.end() + 700]
-        for pm in PROV_LIGNE_B_RE.finditer(zone):
-            nom = canon_detail(pm.group(1))
-            a_suivre, vus = norm_int(pm.group(2)), norm_int(pm.group(3))
-            taux = norm_pct(pm.group(4) + "%")
+        # Chiffres avant le nom (175) : la lecture nom-puis-chiffres y prend
+        # chaque nom avec les chiffres de la province SUIVANTE, et les
+        # effectifs se verifient quand meme. L'ordre se lit sur la premiere
+        # ligne qui suit l'en-tete : des chiffres, c'est l'ordre inverse.
+        normal = list(PROV_LIGNE_B_RE.finditer(zone))
+        inverse = list(PROV_LIGNE_B_INV_RE.finditer(zone))
+        if inverse and (not normal or inverse[0].start() < normal[0].start()):
+            lignes_b = [(pm.group(4), pm.group(1), pm.group(2), pm.group(3)) for pm in inverse]
+        else:
+            lignes_b = [(pm.group(1), pm.group(2), pm.group(3), pm.group(4)) for pm in normal]
+        for g_nom, g_suivre, g_vus, g_taux in lignes_b:
+            nom = canon_detail(g_nom)
+            a_suivre, vus = norm_int(g_suivre), norm_int(g_vus)
+            taux = norm_pct(g_taux + "%")
             if taux is None:
                 continue
             ok = effectifs_verifies(vus, a_suivre, taux)
@@ -842,7 +861,7 @@ def details_contacts(full_text, rows, taux_national=None):
                 provinces[nom] = {"taux": taux}
         # La ligne Total : candidate aux effectifs nationaux, departagee plus
         # bas par la somme des provinces.
-        tm = TOTAL_LIGNE_B_RE.search(zone)
+        tm = TOTAL_LIGNE_B_RE.search(zone) or TOTAL_LIGNE_B_INV_RE.search(zone)
         if tm:
             total_tableau = effectifs_verifies(norm_int(tm.group(2)), norm_int(tm.group(1)),
                                                norm_pct(tm.group(3) + "%"))

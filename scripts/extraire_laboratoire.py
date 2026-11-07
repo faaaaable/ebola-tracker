@@ -75,7 +75,10 @@ FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Prévention et Contrôle|PCI\b|Pr[ée]vent
 # (060) — et la vraie section, plus loin, n'etait jamais lue.
 DEBUT_NUMEROTE_RE = re.compile(
     r"\n[ \t]*(?:▍[ \t]*)?\d+(?:\.\d+)+\.?[ \t]*(?:[—–-][ \t]*)?Laboratoire\b(?:\s*[:—–-]\s*tests et positivit[ée])?"
-    r"|\n[ \t]*Tableau\s*\d+\s*[:.]\s*Indicateurs\s+laboratoire[^\n]*", re.IGNORECASE)
+    r"|\n[ \t]*Tableau\s*\d+\s*[:.]\s*Indicateurs\s+laboratoire[^\n]*"
+    # SitRep 175 : titre « Laboratoire » seul sur sa ligne, sans numero ; le
+    # repere large s'arretait sur « dans les laboratoires » du resume.
+    r"|\n[ \t]*Laboratoire[ \t]*(?=\n)", re.IGNORECASE)
 
 
 def section_laboratoire(texte):
@@ -134,6 +137,9 @@ ECHANTILLONS_RES = [
     # « les laboratoires de Beni et de Butembo ont analysé 202 échantillons
     # (17,8 %) » (173, Nord-Kivu, 3 novembre 2026)
     re.compile(r"ont\s+analys[ée]\s+(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons", re.I),
+    # « ont reçu 279 échantillons et en ont analysé 2 32 (positivité : 13,8%) »
+    # (175, Nord-Kivu) : 32 sur 232 font les 13,8 % imprimés
+    re.compile(r"en\s+ont\s+analys[ée]\s+(\d[\d ]{0,6}\d|\d)\s*\(", re.I),
 ]
 POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux?\s+)?r[ée]sultats?\s+positifs?", re.I),
@@ -147,6 +153,9 @@ POSITIFS_RES = [
     # « 36 nouveaux cas confirmés (26 vivants et 10 décès) retenus par la
     # surveillance » (173, Nord-Kivu) : 36 sur 202 font les 17,8 % imprimés
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+nouveaux?\s+cas\s+confirm[ée]s?\s*(?:\([^)]{0,40}\)\s*)?retenus\s+par\s+la\s+surveillance", re.I),
+    # « 32 nouveaux cas confirmés (23 vivants et 9 décès) ; les laboratoires
+    # de Beni et de Butembo ont reçu… » (175, Nord-Kivu)
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+nouveaux?\s+cas\s+confirm[ée]s?\s*(?:\([^)]{0,40}\)\s*)?;\s*les\s+laboratoires", re.I),
     re.compile(r"(\d+)\s+(?:est|sont)\s+revenus?\s+positifs?", re.I),
     re.compile(r"soit\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),
     re.compile(r"parmi\s+lesquels\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),

@@ -202,6 +202,10 @@ HOSPITALISES_AUX_LITS_RE = re.compile(
     r"occupation[^%;]{0,60}?(\d+(?:[,.]\d+)?)\s*%\s*:?\s*\(\s*(\d[\d ]{0,4}\d|\d)\s*(?:/|patients\s+aux\s+lits[^)]{0,40}?sur)\s*(\d[\d ]{0,4}\d|\d)\s*(?:lits)?\s*\)", re.I)
 CTE_FRACTION_RE = re.compile(
     r"\(\s*(\d+(?:[,.]\d+)?)\s*%\s*dans\s+les\s+CTE[^;)]{0,12};\s*(\d[\d ]{0,4}\d|\d)\s*/\s*(\d[\d ]{0,4}\d|\d)\s+lits\s*\)", re.I)
+# « dont 184 hors CTE/CT, les CTE/CT étant occupés à 90,8 % (394/434 lits) »
+# (175, Nord-Kivu) : meme lecture que CTE_FRACTION_RE, autre tournure.
+CTE_OCCUPES_RE = re.compile(
+    r"CTE/CT\s+[ée]tant\s+occup[ée]s\s+[àa]\s+(\d+(?:[,.]\d+)?)\s*%\s*\(\s*(\d[\d ]{0,4}\d|\d)\s*/\s*(\d[\d ]{0,4}\d|\d)\s+lits\s*\)", re.I)
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
@@ -280,7 +284,7 @@ def lire_prose(morceau):
     # « soit un taux d'occupation global de 108,8 % (90,8 % dans les CTE/CT ;
     # 385/424 lits) » (173 et 174, Nord-Kivu) : patients aux lits des CTE/CT
     # et lits, retenus si la fraction retombe sur le taux a 1,5 point pres.
-    mc = CTE_FRACTION_RE.search(morceau)
+    mc = CTE_FRACTION_RE.search(morceau) or CTE_OCCUPES_RE.search(morceau)
     if mc and "hospitalisesNormes" not in ligne:
         taux_c, aux_lits, lits_c = pourcent(mc.group(1)), entier(mc.group(2)), entier(mc.group(3))
         if aux_lits is not None and lits_c and aux_lits <= hosp and taux_c is not None and abs(aux_lits / lits_c * 100 - taux_c) <= 1.5:
