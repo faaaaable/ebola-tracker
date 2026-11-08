@@ -47,7 +47,7 @@
     "url": "https://ebola-tracker.org/"
   },
   "datePublished": "2026-10-17",
-  "dateModified": "2026-11-05"
+  "dateModified": "2026-11-08"
 }
 </script>
 <script type="application/ld+json">
@@ -85,7 +85,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=9000d43a49">
+<link rel="stylesheet" href="/assets/css/site.css?v=491c24eeac">
 </head>
 <body>
 
@@ -253,6 +253,12 @@
     <p class="lede">This site produces no figures of its own. Everything it shows was read in an official bulletin from the National Institute of Public Health (INSP), archived and available. To show it, here is one bulletin, and what the site does with each of its figures.</p>
   </section>
 
+  <!-- Deux extraits depuis le 8 novembre 2026 (demande du proprietaire) :
+       la page 1 (chiffres du jour) puis la page 4 du meme SitRep 141 (ligne
+       Total du tableau par zone, tableau des alertes), rendue a 170 dpi entre
+       y = 88 et 438 pt ; surlignages calcules depuis pdfplumber. app.js relie
+       les numeros bloc par bloc. -->
+  <div class="section dc-tete"><h2 class="ap-h2">Extract 1 · the first page</h2><p class="ap-sous">The day's figures, checked against one another.</p></div>
   <section class="section dc">
     <figure class="dc-doc">
       <figcaption><b>SitRep No. 141</b> · situation as of 2 October 2026, published by INSP on 3 October · <a href="/reports/SITREP_MVE_141.pdf" target="_blank" rel="noopener">open the PDF</a></figcaption>
@@ -280,6 +286,31 @@
     </ol>
   </section>
 
+  <div class="section dc-tete"><h2 class="ap-h2">Extract 2 · page 4</h2><p class="ap-sous">The detailed tables: every total is rebuilt from its rows.</p></div>
+  <section class="section dc">
+    <figure class="dc-doc">
+      <figcaption><b>SitRep no. 141</b> · page 4: end of the health-zone table and the alerts table · <a href="/reports/SITREP_MVE_141.pdf#page=4" target="_blank" rel="noopener">open the PDF</a></figcaption>
+      <div class="dc-page">
+        <img src="/assets/img/sitrep141-p4.png" width="1445" height="826" alt="Page 4 of INSP SitRep no. 141: Total row of the health-zone table and the alerts table, checked figures highlighted" loading="lazy">
+          <span class="dc-hl" data-n="1" style="left:21.76%;top:9.79%;width:24.74%;height:3.57%"><b>1</b></span>
+          <span class="dc-hl" data-n="2" style="left:53.34%;top:9.79%;width:24.55%;height:3.57%"><b>2</b></span>
+          <span class="dc-hl" data-n="3" style="left:32.90%;top:90.68%;width:5.26%;height:5.14%"></span>
+          <span class="dc-hl" data-n="3" style="left:33.10%;top:72.78%;width:4.88%;height:5.14%"><b>3</b></span>
+          <span class="dc-hl" data-n="4" style="left:18.03%;top:72.78%;width:11.47%;height:5.14%"><b>4</b></span>
+          <span class="dc-hl" data-n="5" style="left:40.94%;top:90.68%;width:26.26%;height:5.14%"></span>
+          <span class="dc-hl" data-n="5" style="left:40.94%;top:72.78%;width:19.24%;height:5.14%"></span>
+          <span class="dc-hl" data-n="5" style="left:74.21%;top:90.68%;width:15.31%;height:5.14%"><b>5</b></span>
+      </div>
+    </figure>
+    <ol class="dc-liste">
+        <li data-n="1"><span class="dc-n">1</span><div><div class="dc-v">8,442 · 4,080 · 66</div><div class="dc-q">the Total row of the health-zone table</div><p>It must give back the first page's figures: 8,442 cases, 4,080 deaths, 66 new cases. It does. If the detailed table and the banner disagreed, the site would flag it rather than pick one of the two.</p></div></li>
+        <li data-n="2"><span class="dc-n">2</span><div><div class="dc-v">22 + 16 = 38</div><div class="dc-q">deaths of the day, in the community and in treatment centres</div><p>The site reads the three columns and checks that the first two make the third. It never adds them itself: when a cell is empty in the PDF, one of the two counters sometimes already carries the total.</p></div></li>
+        <li data-n="3"><span class="dc-n">3</span><div><div class="dc-v">2,493</div><div class="dc-q">alerts received during the day</div><p>The grand total must be the sum of the six provinces: 25 + 156 + 1,164 + 976 + 57 + 115 = 2,493. On days when Ituri or North Kivu is missing ("ND"), the Letter gives no national figure: a total without one of them does not represent the country.</p></div></li>
+        <li data-n="4"><span class="dc-n">4</span><div><div class="dc-v">1,089 + 75 = 1,164</div><div class="dc-q">a reading trap, on the Ituri row</div><p>In the PDF's text, the row reads "1 089 75 1164": the space in "1 089" looks like a column break, and "1", "089", "75" would pass for three numbers. The site tries the possible splits and keeps the one where living + deceased = total.</p></div></li>
+        <li data-n="5"><span class="dc-n">5</span><div><div class="dc-v">2,492 · 405 · 207</div><div class="dc-q">verified alerts, suspected cases, transfers</div><p>Verified = validated + invalidated: 290 + 115 + 2,086 + 1 = 2,492, one fewer than received — Ituri verified 129 + 75 + 959 = 1,163 of 1,164. The 405 suspected cases are the 290 + 115 validated alerts; 207 were transferred to a centre. The bulletin's next page repeats 2,492 (99.9%), 405 and 207.</p></div></li>
+    </ol>
+  </section>
+
   <!-- Bas de page « rubriques a filets » (7 octobre 2026, maquette n°1 de
        tmp/proto-pages-1007h, choix de Fable) : les trois etapes en colonnes
        sous un grand numero, la methode repliee entre filets comme la FAQ.
@@ -301,10 +332,10 @@
       <details id="lecture"><summary>How to read these figures</summary><div class="prose"><p><strong>Confirmed cases</strong> and <strong>deaths</strong> are totals since the start of the outbreak. Only new cases and deaths — the “24h” columns, or “(+…)” on the map — are daily figures, announced by the latest bulletin. The <strong>fatality rate</strong> covers confirmed cases only, and the outcome of the most recent cases is not yet known: it describes the severity observed so far, not an individual's risk of dying from the disease, and it will keep moving. <strong>New cases (24h)</strong> is taken as published in the latest bulletin — so it does not always match the gap between two successive cumulative totals, since retroactive revisions land in the totals but not in that figure.</p><p>Two known limitations. National figures are sometimes published before the province and health-zone breakdown, so a temporary gap between levels is normal. And the authorities sometimes revise figures retroactively — those revisions are reflected here as they come, unsmoothed.</p></div></details>
       <details id="sources"><summary data-i18n="aboutSourcesTitle">Data sources</summary><div class="prose"><p data-i18n="aboutSourcesBody">The figures shown come from the bulletins of the DRC's National Institute of Public Health (INSP), occasionally supplemented by World Health Organization (WHO) reports. Both sources are archived and available on the Sources &amp; bulletins page.</p></div></details>
       <details id="methode"><summary data-i18n="aboutMethodTitle">Methodology</summary><div class="prose"><p data-i18n="aboutMethodBody">This site is powered by a tool that's actively developed and supervised: it fetches each newly published SitRep and extracts the key figures (confirmed cases, deaths, recoveries, breakdown by province and health zone), generally once a day. Every report is then read in full — the tables as well as the prose — and the extractions are checked by hand, bulletin by bulletin, with manual correction when needed (a bulletin's layout changing, fixing a numbering error, etc.). The WHO weekly reports are read the same way and are used to complete the series the INSP SitRep does not cover. Data may be revised retroactively by health authorities (harmonisation between provinces, reclassification of community deaths): such revisions are reflected on the site automatically as soon as they're published.</p></div></details>
-      <details id="limites"><summary data-i18n="aboutLimitationsTitle">Known limitations</summary><div class="prose"><p data-i18n="aboutLimitationsBody">Official reports mix data at different levels of detail (national, provincial, health zone), sometimes in different formats, which can occasionally produce minor inconsistencies or approximations. National figures are also sometimes published before the province and health zone breakdown, causing a temporary lag between these levels.</p></div></details>
+      <details id="limites"><summary data-i18n="aboutLimitationsTitle">Known limitations</summary><div class="prose"><p data-i18n="aboutLimitationsBody">Official reports mix data at different levels of detail (national, provincial, health zone), sometimes in different formats, which can occasionally produce minor inconsistencies or approximations. National figures are also sometimes published before the province and health zone breakdown, causing a temporary lag between these levels.</p><p>The bulletins are written every day, in difficult conditions, from field reports that are completed and corrected over time. A figure may therefore vary from one section to another, or from one bulletin to the next. A few examples:</p><ul><li><b>One rate, three values.</b> SitRep no. 138 (29 September) gives 78.7% of contacts followed, "lower than the day before (82.0%)" in its text, then "higher than the day before (78.7 vs 73.5%)" in its summary box.</li><li><b>Two numbers for the same cases.</b> In no. 176 (6 November), the table counts 24 new cases in North Kivu; the laboratory section reports 14.</li><li><b>More alerts verified than received.</b> Also in no. 176, Bas-Uélé verifies 119 alerts for 114 received.</li><li><b>A paragraph repeated unchanged.</b> The vaccination figures of no. 176 are word for word those of no. 175 (194 people vaccinated in Ituri, 299 in North Kivu).</li><li><b>A cumulative total that goes down.</b> No. 169 adds 314 deaths in Ituri through "harmonisation", no. 170 removes them. No. 129 brings Bas-Uélé's vaccinations down from 987 to 874.</li><li><b>Totals still being allocated.</b> The sum of a province's zones often differs from its total (in Ituri, 493 deaths remain "to be allocated"), and the new cases announced do not always match the rise in the cumulative total: 71 announced for a rise of 61 in no. 160.</li></ul><p>The site uses the bulletin's figures. When a gap can be resolved from the bulletins themselves, it corrects it and says so: bed capacity cross-checked against previous days, an unpublished day rebuilt from the difference between two bulletins, a retroactive addition treated as a catch-up rather than as deaths of the day, cases moved from one zone to another shown as a reclassification. Otherwise, it keeps the published figure and mentions the gap. Finally, it refrains from giving a national figure when a large province is not reported.</p></div></details>
       <details id="frequence"><summary data-i18n="aboutUpdateTitle">Update frequency</summary><div class="prose"><p data-i18n="aboutUpdateBody">As soon as a new bulletin is published, it is checked and the site is updated. Checking the data takes less than 24 hours. The date of the latest bulletin included is shown at the top of every page.</p></div></details>
       <details id="donnees"><summary>Access to the data</summary><div class="prose"><p>All the data shown on this site comes from the official bulletins archived in the <a href="/en/reports/">Sources and bulletins</a> section, where each one can be read as its original PDF.</p></div></details>
-      <details id="avertissement"><summary data-i18n="aboutDisclaimerTitle">Disclaimer</summary><div class="prose"><p data-i18n="aboutDisclaimerBody">This site is strictly informational. It compiles and formats public data already published by official sources, without independent analysis or interpretation. It is not medical, epidemiological, or geopolitical advice of any kind, and should not be used as the basis for a health, travel, or safety decision. For any medical question, consult a health professional or the relevant health authorities (WHO, DRC Ministry of Health). Despite our best efforts, errors, approximations, or update delays are possible.</p></div></details>
+      <details id="avertissement"><summary data-i18n="aboutDisclaimerTitle">Disclaimer</summary><div class="prose"><p data-i18n="aboutDisclaimerBody">This site is strictly informational. It compiles, checks and formats public data published by official sources. It is independent: it depends on no institution and speaks for none. Its figures are those of the bulletins; its texts summarise them and put them in context. It is not medical, epidemiological, or geopolitical advice of any kind, and should not be used as the basis for a health, travel, or safety decision. For any medical question, consult a health professional or the relevant health authorities (WHO, DRC Ministry of Health). Despite our best efforts, errors, approximations, or update delays are possible.</p></div></details>
     </div>
   </section>
 
@@ -435,8 +466,8 @@ window.DATA_PAGE_URL = "/en/data/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=d0d2b91d19"></script>
-<script defer src="/assets/js/app.js?v=08585a1aef"></script>
+<script defer src="/assets/js/i18n.js?v=f4a981de46"></script>
+<script defer src="/assets/js/app.js?v=7ce32aaed2"></script>
 
 </body>
 </html>

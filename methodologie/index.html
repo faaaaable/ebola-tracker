@@ -47,7 +47,7 @@
     "url": "https://ebola-tracker.org/"
   },
   "datePublished": "2026-10-17",
-  "dateModified": "2026-11-05"
+  "dateModified": "2026-11-08"
 }
 </script>
 <script type="application/ld+json">
@@ -85,7 +85,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=9000d43a49">
+<link rel="stylesheet" href="/assets/css/site.css?v=491c24eeac">
 </head>
 <body>
 
@@ -253,6 +253,12 @@
     <p class="lede">Ce site ne produit aucun chiffre. Tout ce qu'il affiche a été lu dans un bulletin officiel de l'Institut national de santé publique (INSP), archivé et consultable. Pour le montrer, voici un bulletin, et ce que le site fait de chacun de ses chiffres.</p>
   </section>
 
+  <!-- Deux extraits depuis le 8 novembre 2026 (demande du proprietaire) :
+       la page 1 (chiffres du jour) puis la page 4 du meme SitRep 141 (ligne
+       Total du tableau par zone, tableau des alertes), rendue a 170 dpi entre
+       y = 88 et 438 pt ; surlignages calcules depuis pdfplumber. app.js relie
+       les numeros bloc par bloc. -->
+  <div class="section dc-tete"><h2 class="ap-h2">Extrait 1 · la première page</h2><p class="ap-sous">Les chiffres du jour, contrôlés les uns par les autres.</p></div>
   <section class="section dc">
     <figure class="dc-doc">
       <figcaption><b>SitRep n°141</b> · situation au 2 octobre 2026, publié par l'INSP le 3 octobre · <a href="/reports/SITREP_MVE_141.pdf" target="_blank" rel="noopener">ouvrir le PDF</a></figcaption>
@@ -280,6 +286,31 @@
     </ol>
   </section>
 
+  <div class="section dc-tete"><h2 class="ap-h2">Extrait 2 · la page 4</h2><p class="ap-sous">Les tableaux de détail : chaque total est refait à partir de ses lignes.</p></div>
+  <section class="section dc">
+    <figure class="dc-doc">
+      <figcaption><b>SitRep n°141</b> · page 4 : fin du tableau par zone de santé et tableau des alertes · <a href="/reports/SITREP_MVE_141.pdf#page=4" target="_blank" rel="noopener">ouvrir le PDF</a></figcaption>
+      <div class="dc-page">
+        <img src="/assets/img/sitrep141-p4.png" width="1445" height="826" alt="Page 4 du SitRep n°141 de l'INSP : ligne Total du tableau par zone de santé et tableau des alertes, chiffres contrôlés surlignés" loading="lazy">
+          <span class="dc-hl" data-n="1" style="left:21.76%;top:9.79%;width:24.74%;height:3.57%"><b>1</b></span>
+          <span class="dc-hl" data-n="2" style="left:53.34%;top:9.79%;width:24.55%;height:3.57%"><b>2</b></span>
+          <span class="dc-hl" data-n="3" style="left:32.90%;top:90.68%;width:5.26%;height:5.14%"></span>
+          <span class="dc-hl" data-n="3" style="left:33.10%;top:72.78%;width:4.88%;height:5.14%"><b>3</b></span>
+          <span class="dc-hl" data-n="4" style="left:18.03%;top:72.78%;width:11.47%;height:5.14%"><b>4</b></span>
+          <span class="dc-hl" data-n="5" style="left:40.94%;top:90.68%;width:26.26%;height:5.14%"></span>
+          <span class="dc-hl" data-n="5" style="left:40.94%;top:72.78%;width:19.24%;height:5.14%"></span>
+          <span class="dc-hl" data-n="5" style="left:74.21%;top:90.68%;width:15.31%;height:5.14%"><b>5</b></span>
+      </div>
+    </figure>
+    <ol class="dc-liste">
+        <li data-n="1"><span class="dc-n">1</span><div><div class="dc-v">8 442 · 4 080 · 66</div><div class="dc-q">la ligne Total du tableau par zone de santé</div><p>Elle doit redonner les chiffres de la première page : 8 442 cas, 4 080 décès, 66 nouveaux cas. C'est le cas. Si le tableau détaillé et la bannière ne s'accordaient pas, le site le signalerait au lieu de choisir l'un des deux.</p></div></li>
+        <li data-n="2"><span class="dc-n">2</span><div><div class="dc-v">22 + 16 = 38</div><div class="dc-q">décès du jour, en communauté et dans les centres de traitement</div><p>Le site lit les trois colonnes et vérifie que les deux premières font la troisième. Il ne fait jamais l'addition lui-même : quand une case est vide dans le PDF, l'un des deux compteurs porte parfois déjà le total.</p></div></li>
+        <li data-n="3"><span class="dc-n">3</span><div><div class="dc-v">2 493</div><div class="dc-q">alertes reçues dans la journée</div><p>Le total général doit être la somme des six provinces : 25 + 156 + 1 164 + 976 + 57 + 115 = 2 493. Les jours où l'Ituri ou le Nord-Kivu manque (« ND »), la Lettre ne donne pas de chiffre national : un total sans l'une d'elles ne représente pas le pays.</p></div></li>
+        <li data-n="4"><span class="dc-n">4</span><div><div class="dc-v">1 089 + 75 = 1 164</div><div class="dc-q">un piège de lecture, sur la ligne de l'Ituri</div><p>Dans le texte du PDF, la ligne se lit « 1 089 75 1164 » : l'espace de « 1 089 » ressemble à une séparation de colonnes, et « 1 », « 089 », « 75 » passeraient pour trois nombres. Le site essaie les découpages possibles et garde celui où vivants + décédés = total.</p></div></li>
+        <li data-n="5"><span class="dc-n">5</span><div><div class="dc-v">2 492 · 405 · 207</div><div class="dc-q">alertes vérifiées, cas suspects, transferts</div><p>Vérifiées = validées + invalidées : 290 + 115 + 2 086 + 1 = 2 492, une de moins que les reçues — l'Ituri en a vérifié 129 + 75 + 959 = 1 163 sur 1 164. Les 405 suspects sont les 290 + 115 alertes validées ; 207 ont été transférés vers un centre. La page suivante du bulletin redit 2 492 (99,9 %), 405 et 207.</p></div></li>
+    </ol>
+  </section>
+
   <!-- Bas de page « rubriques a filets » (7 octobre 2026, maquette n°1 de
        tmp/proto-pages-1007h, choix de Fable) : les trois etapes en colonnes
        sous un grand numero, la methode repliee entre filets comme la FAQ.
@@ -301,10 +332,10 @@
       <details id="lecture"><summary>Comment lire ces chiffres</summary><div class="prose"><p><strong>Cas confirmés</strong> et <strong>décès</strong> sont des totaux depuis le début de l'épidémie. Seuls les nouveaux cas et décès — colonnes « 24 h », ou « (+…) » sur la carte — sont les chiffres du jour, annoncés par le dernier bulletin. La <strong>létalité</strong> ne porte que sur les cas confirmés, et l'issue des cas les plus récents n'est pas encore connue : elle décrit la gravité observée à ce jour, pas le risque individuel de mourir de la maladie, et elle continuera de bouger. Les <strong>nouveaux cas (24 h)</strong> sont repris tels quels du dernier bulletin — ils ne correspondent donc pas toujours à l'écart entre deux totaux cumulés successifs, les révisions rétroactives se répercutant sur les totaux mais pas sur ce chiffre.</p><p>Deux limites connues. Le bilan national est parfois publié avant le détail par province et par zone de santé : un écart temporaire entre les niveaux est donc normal. Et les autorités révisent parfois leurs chiffres rétroactivement — ces révisions se répercutent ici telles quelles, sans lissé.</p></div></details>
       <details id="sources"><summary data-i18n="aboutSourcesTitle">Sources des données</summary><div class="prose"><p data-i18n="aboutSourcesBody">Les chiffres affichés proviennent des bulletins de l'Institut national de santé publique (INSP) de la RDC, complétés ponctuellement par les rapports de l'Organisation mondiale de la santé (OMS). Les deux sources sont archivées et consultables dans la page Sources &amp; bulletins.</p></div></details>
       <details id="methode"><summary data-i18n="aboutMethodTitle">Méthodologie</summary><div class="prose"><p data-i18n="aboutMethodBody">Ce site s'appuie sur un outil développé et supervisé en continu : il récupère chaque nouveau SitRep publié et en extrait les chiffres clés (cas confirmés, décès, guéris, détail par province et par zone de santé), généralement une fois par jour. Chaque rapport est ensuite lu dans son intégralité — les tableaux comme le texte de présentation — et les extractions sont vérifiées manuellement, bulletin par bulletin, avec correction à la main lorsque nécessaire (changement de mise en page d'un bulletin, correction d'une erreur de numérotation, etc.). Les rapports hebdomadaires de l'OMS sont lus de la même façon et servent à compléter les séries que le SitRep de l'INSP ne renseigne pas. Les données peuvent faire l'objet de révisions rétroactives par les autorités sanitaires (harmonisation entre provinces, reclassification de décès communautaires) : ces révisions se répercutent automatiquement sur le site dès leur publication.</p></div></details>
-      <details id="limites"><summary data-i18n="aboutLimitationsTitle">Limites connues</summary><div class="prose"><p data-i18n="aboutLimitationsBody">Les rapports officiels mêlent des données à différents niveaux de détail (national, provincial, zone de santé), parfois sous des formats différents, ce qui peut occasionnellement produire de légères incohérences ou approximations. Il arrive aussi que les chiffres nationaux soient publiés avant le détail par province et par zone de santé, entraînant un décalage temporaire entre ces différents niveaux.</p></div></details>
+      <details id="limites"><summary data-i18n="aboutLimitationsTitle">Limites connues</summary><div class="prose"><p data-i18n="aboutLimitationsBody">Les rapports officiels mêlent des données à différents niveaux de détail (national, provincial, zone de santé), parfois sous des formats différents, ce qui peut occasionnellement produire de légères incohérences ou approximations. Il arrive aussi que les chiffres nationaux soient publiés avant le détail par province et par zone de santé, entraînant un décalage temporaire entre ces différents niveaux.</p><p>Les bulletins sont rédigés chaque jour, dans des conditions difficiles, à partir de remontées de terrain qui se complètent et se corrigent avec le temps. Il arrive donc qu’un chiffre varie d’une partie à l’autre, ou d’un bulletin au suivant. Quelques exemples :</p><ul><li><b>Un même taux, trois valeurs.</b> Le SitRep n°138 (29 septembre) donne 78,7 % de contacts suivis, « inférieure à celle de la veille (82,0 %) » dans son texte, puis « supérieur par rapport à la veille (78,7 vs 73,5 %) » dans son encadré.</li><li><b>Deux nombres pour les mêmes cas.</b> Au n°176 (6 novembre), le tableau compte 24 nouveaux cas au Nord-Kivu ; la partie laboratoire en annonce 14.</li><li><b>Plus d'alertes vérifiées que reçues.</b> Au n°176 encore, le Bas-Uélé vérifie 119 alertes pour 114 reçues.</li><li><b>Un paragraphe repris à l’identique.</b> Les chiffres de vaccination du n°176 sont mot pour mot ceux du n°175 (194 personnes vaccinées en Ituri, 299 au Nord-Kivu).</li><li><b>Un cumul qui recule.</b> Le n°169 ajoute 314 décès en Ituri par « harmonisation », le n°170 les retire. Le n°129 ramène la vaccination du Bas-Uélé de 987 à 874.</li><li><b>Des totaux encore en cours de répartition.</b> La somme des zones d'une province diffère souvent de son total (en Ituri, 493 décès restent « à ventiler »), et les nouveaux cas annoncés ne correspondent pas toujours à la hausse du cumul : 71 annoncés pour une hausse de 61 au n°160.</li></ul><p>Le site reprend les chiffres du bulletin. Lorsqu’un écart peut être résolu à partir des bulletins eux-mêmes, il le corrige et l’indique : capacité en lits recoupée avec les jours précédents, journée non publiée reconstituée par différence entre deux bulletins, ajout rétroactif traité comme un rattrapage plutôt que comme des décès du jour, cas passés d’une zone à une autre présentés comme un reclassement. Sinon, il conserve le chiffre publié et mentionne l’écart. Il s’abstient enfin de donner un chiffre national quand une grande province n’est pas renseignée.</p></div></details>
       <details id="frequence"><summary data-i18n="aboutUpdateTitle">Fréquence de mise à jour</summary><div class="prose"><p data-i18n="aboutUpdateBody">Dès qu'un nouveau bulletin est publié, il est vérifié et le site est mis à jour. La vérification des données prend moins de 24 heures. La date du dernier bulletin intégré est affichée en haut de chaque page.</p></div></details>
       <details id="donnees"><summary>Accès aux données</summary><div class="prose"><p>Toutes les données affichées sur ce site proviennent des bulletins officiels archivés dans l'onglet <a href="/rapports/">Sources et bulletins</a>, où chacun est consultable au format PDF d'origine.</p></div></details>
-      <details id="avertissement"><summary data-i18n="aboutDisclaimerTitle">Avertissement</summary><div class="prose"><p data-i18n="aboutDisclaimerBody">Ce site a une vocation strictement informative. Il compile et met en forme des données publiques déjà publiées par des sources officielles, sans analyse ni interprétation indépendante. Il ne constitue en aucun cas un avis médical, épidémiologique ou géopolitique, et ne doit pas être utilisé comme base pour une décision de santé, de voyage ou de sécurité. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé de la RDC). Malgré le soin apporté, des erreurs, approximations ou délais de mise à jour sont possibles.</p></div></details>
+      <details id="avertissement"><summary data-i18n="aboutDisclaimerTitle">Avertissement</summary><div class="prose"><p data-i18n="aboutDisclaimerBody">Ce site a une vocation strictement informative. Il compile, vérifie et met en forme des données publiques publiées par des sources officielles. Il est indépendant : il ne dépend d'aucune institution et ne parle au nom d'aucune. Ses chiffres sont ceux des bulletins ; ses textes les résument et les replacent dans leur contexte. Il ne constitue en aucun cas un avis médical, épidémiologique ou géopolitique, et ne doit pas être utilisé comme base pour une décision de santé, de voyage ou de sécurité. Pour toute question médicale, consulte un professionnel de santé ou les autorités sanitaires compétentes (OMS, ministère de la Santé de la RDC). Malgré le soin apporté, des erreurs, approximations ou délais de mise à jour sont possibles.</p></div></details>
     </div>
   </section>
 
@@ -435,8 +466,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=d0d2b91d19"></script>
-<script defer src="/assets/js/app.js?v=08585a1aef"></script>
+<script defer src="/assets/js/i18n.js?v=f4a981de46"></script>
+<script defer src="/assets/js/app.js?v=7ce32aaed2"></script>
 
 </body>
 </html>

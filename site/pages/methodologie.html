@@ -13,6 +13,12 @@
     <p class="lede">{{t.aboutDemoLede}}</p>
   </section>
 
+  <!-- Deux extraits depuis le 8 novembre 2026 (demande du proprietaire) :
+       la page 1 (chiffres du jour) puis la page 4 du meme SitRep 141 (ligne
+       Total du tableau par zone, tableau des alertes), rendue a 170 dpi entre
+       y = 88 et 438 pt ; surlignages calcules depuis pdfplumber. app.js relie
+       les numeros bloc par bloc. -->
+  <div class="section dc-tete"><h2 class="ap-h2">{{t.aboutDemoPart1}}</h2><p class="ap-sous">{{t.aboutDemoPart1Sub}}</p></div>
   <section class="section dc">
     <figure class="dc-doc">
       <figcaption>{{t.aboutDemoCaption}} · <a href="/reports/SITREP_MVE_141.pdf" target="_blank" rel="noopener">{{t.aboutDemoOpen}}</a></figcaption>
@@ -40,6 +46,31 @@
     </ol>
   </section>
 
+  <div class="section dc-tete"><h2 class="ap-h2">{{t.aboutDemoPart2}}</h2><p class="ap-sous">{{t.aboutDemoPart2Sub}}</p></div>
+  <section class="section dc">
+    <figure class="dc-doc">
+      <figcaption>{{t.aboutDemo2Caption}} · <a href="/reports/SITREP_MVE_141.pdf#page=4" target="_blank" rel="noopener">{{t.aboutDemoOpen}}</a></figcaption>
+      <div class="dc-page">
+        <img src="/assets/img/sitrep141-p4.png" width="1445" height="826" alt="{{t.aboutDemo2Alt}}" loading="lazy">
+          <span class="dc-hl" data-n="1" style="left:21.76%;top:9.79%;width:24.74%;height:3.57%"><b>1</b></span>
+          <span class="dc-hl" data-n="2" style="left:53.34%;top:9.79%;width:24.55%;height:3.57%"><b>2</b></span>
+          <span class="dc-hl" data-n="3" style="left:32.90%;top:90.68%;width:5.26%;height:5.14%"></span>
+          <span class="dc-hl" data-n="3" style="left:33.10%;top:72.78%;width:4.88%;height:5.14%"><b>3</b></span>
+          <span class="dc-hl" data-n="4" style="left:18.03%;top:72.78%;width:11.47%;height:5.14%"><b>4</b></span>
+          <span class="dc-hl" data-n="5" style="left:40.94%;top:90.68%;width:26.26%;height:5.14%"></span>
+          <span class="dc-hl" data-n="5" style="left:40.94%;top:72.78%;width:19.24%;height:5.14%"></span>
+          <span class="dc-hl" data-n="5" style="left:74.21%;top:90.68%;width:15.31%;height:5.14%"><b>5</b></span>
+      </div>
+    </figure>
+    <ol class="dc-liste">
+        <li data-n="1"><span class="dc-n">1</span><div><div class="dc-v">{{t.aboutDemoB1Value}}</div><div class="dc-q">{{t.aboutDemoB1What}}</div><p>{{t.aboutDemoB1Text}}</p></div></li>
+        <li data-n="2"><span class="dc-n">2</span><div><div class="dc-v">{{t.aboutDemoB2Value}}</div><div class="dc-q">{{t.aboutDemoB2What}}</div><p>{{t.aboutDemoB2Text}}</p></div></li>
+        <li data-n="3"><span class="dc-n">3</span><div><div class="dc-v">{{t.aboutDemoB3Value}}</div><div class="dc-q">{{t.aboutDemoB3What}}</div><p>{{t.aboutDemoB3Text}}</p></div></li>
+        <li data-n="4"><span class="dc-n">4</span><div><div class="dc-v">{{t.aboutDemoB4Value}}</div><div class="dc-q">{{t.aboutDemoB4What}}</div><p>{{t.aboutDemoB4Text}}</p></div></li>
+        <li data-n="5"><span class="dc-n">5</span><div><div class="dc-v">{{t.aboutDemoB5Value}}</div><div class="dc-q">{{t.aboutDemoB5What}}</div><p>{{t.aboutDemoB5Text}}</p></div></li>
+    </ol>
+  </section>
+
   <!-- Bas de page « rubriques a filets » (7 octobre 2026, maquette n°1 de
        tmp/proto-pages-1007h, choix de Fable) : les trois etapes en colonnes
        sous un grand numero, la methode repliee entre filets comme la FAQ.
@@ -61,7 +92,7 @@
       <details id="lecture"><summary>{{t.aboutReadingTitle}}</summary><div class="prose">{{t.dataNoteBody}}</div></details>
       <details id="sources"><summary data-i18n="aboutSourcesTitle">{{i18n.aboutSourcesTitle}}</summary><div class="prose"><p data-i18n="aboutSourcesBody">{{i18n.aboutSourcesBody}}</p></div></details>
       <details id="methode"><summary data-i18n="aboutMethodTitle">{{i18n.aboutMethodTitle}}</summary><div class="prose"><p data-i18n="aboutMethodBody">{{i18n.aboutMethodBody}}</p></div></details>
-      <details id="limites"><summary data-i18n="aboutLimitationsTitle">{{i18n.aboutLimitationsTitle}}</summary><div class="prose"><p data-i18n="aboutLimitationsBody">{{i18n.aboutLimitationsBody}}</p></div></details>
+      <details id="limites"><summary data-i18n="aboutLimitationsTitle">{{i18n.aboutLimitationsTitle}}</summary><div class="prose"><p data-i18n="aboutLimitationsBody">{{i18n.aboutLimitationsBody}}</p><p>{{t.aboutLimitesSourceIntro}}</p><ul>{{t.aboutLimitesSourceList}}</ul><p>{{t.aboutLimitesSourceFin}}</p></div></details>
       <details id="frequence"><summary data-i18n="aboutUpdateTitle">{{i18n.aboutUpdateTitle}}</summary><div class="prose"><p data-i18n="aboutUpdateBody">{{i18n.aboutUpdateBody}}</p></div></details>
       <details id="donnees"><summary>{{t.aboutOpenDataTitle}}</summary><div class="prose"><p>{{t.aboutOpenDataBody}}</p></div></details>
       <details id="avertissement"><summary data-i18n="aboutDisclaimerTitle">{{i18n.aboutDisclaimerTitle}}</summary><div class="prose"><p data-i18n="aboutDisclaimerBody">{{i18n.aboutDisclaimerBody}}</p></div></details>

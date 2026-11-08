@@ -7862,11 +7862,14 @@ Promise.allSettled([loadRemoteSitreps(), loadRemoteLatest(), besoinHistorique ? 
    surlignage dans le bulletin, et l'inverse ; une adresse en #lecture,
    #avertissement… ouvre la rubrique repliee qu'elle vise. */
 (function(){
-  const L = document.querySelectorAll('.dc-liste li'), H = document.querySelectorAll('.dc-hl');
-  if(L.length){
+  /* Deux extraits depuis le 8 novembre 2026 : chaque bloc .dc relie ses
+     propres numeros, le 1 du second extrait n'allume pas celui du premier. */
+  document.querySelectorAll('.dc').forEach(bloc => {
+    const L = bloc.querySelectorAll('.dc-liste li'), H = bloc.querySelectorAll('.dc-hl');
+    if(!L.length) return;
     const on = n => { L.forEach(x => x.classList.toggle('is-on', x.dataset.n === n)); H.forEach(x => x.classList.toggle('is-on', x.dataset.n === n)); };
     [...L, ...H].forEach(x => { x.addEventListener('mouseenter', () => on(x.dataset.n)); x.addEventListener('mouseleave', () => on('')); });
-  }
+  });
   const ouvrir = () => {
     const id = decodeURIComponent(location.hash.slice(1));
     const d = id && document.getElementById(id);
