@@ -640,8 +640,36 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
 
     # ---------------------------------------------------------------- 04 la riposte
     pa, pl, pc, pk = _point(alertes, date), _point(labo, date), _point(contacts, date, None), _point(cte, date)
+    # Une seule regle pour les cases nationales de la riposte (8 novembre
+    # 2026, decision du proprietaire : la partie nationale montre le pays
+    # entier). Un total sans l'Ituri ou sans le Nord-Kivu n'est pas un
+    # chiffre du pays : il tombait de moitie (alertes 3 149 -> 1 713 du 148
+    # au 149, EDS 44 au 102 avec le seul Nord-Kivu, lits 63 -> 121). Ces
+    # jours-la, case et phrase sont tues, sans « non publie » : le bulletin
+    # publie bien des chiffres, mais pas pour tout le pays.
+    PILIERS_PAYS = ("Ituri", "Nord-Kivu")
+    def pays_entier(presentes):
+        return all(nom in presentes for nom in PILIERS_PAYS)
+    def alertes_completes(p):
+        return pays_entier([n for n, v in (p.get("provinces") or {}).items()
+                            if not v.get("nonTransmis") and v.get("recues") is not None])
+    def contacts_complets(p):
+        # Le detail par province manque parfois sans que le total soit
+        # ampute (154, 158) : une province absente ne manque au total que si
+        # les provinces presentes en font deja la somme (164 : 19 853).
+        # Sans detail par province, ou sans effectif national (129, 130,
+        # 136), rien ne prouve un manque : le taux du bulletin est garde.
+        prov = p.get("provinces") or {}
+        absentes = [n for n in PILIERS_PAYS if n not in prov]
+        tot = (p.get("contacts") or {}).get("aSuivre")
+        if not absentes or not prov or not tot:
+            return True
+        somme = sum((v.get("aSuivre") or 0) for v in prov.values())
+        return somme < 0.97 * tot
     phrases, cases = [], ""
-    if pa and (pa.get("total") or {}).get("recues") is not None:
+    if pa and not alertes_completes(pa):
+        pass
+    elif pa and (pa.get("total") or {}).get("recues") is not None:
         t = pa["total"]
         muets = [nom for nom, v in (pa.get("provinces") or {}).items() if not (v.get("recues") or 0) and v.get("suspectsInvestigues") is None]
         if FL:
@@ -675,7 +703,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         cases += kpi("labo", S["lettreKpiLabo"], pct(t.get("positivite")), P("lettreKpiLaboSub", positifs=fmt(t.get("positifs"), lang), echantillons=fmt(t.get("echantillons"), lang)))
     else:
         cases += kpi("labo", S["lettreKpiLabo"], "—", S["riposteKpiNone"]); non_publie.append(S["lettreKpiLabo"])
-    if pc and pc.get("contactsFollowUpRate") is not None:
+    if pc and pc.get("contactsFollowUpRate") is not None and not contacts_complets(pc):
+        pass
+    elif pc and pc.get("contactsFollowUpRate") is not None:
         c = pc.get("contacts") or {}; taux = pc["contactsFollowUpRate"]
         # Plus de seuil dans la phrase (decision du proprietaire, 25 octobre
         # 2026) : le site disait « le seuil de 85 % que l'INSP s'est fixe »
@@ -704,10 +734,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     # 157. Un jour incomplet, case et phrase sont tues — sans « non
     # publie », le bulletin donnant bien des chiffres (8 novembre 2026,
     # decision du proprietaire : la partie nationale montre le pays entier).
-    pk_complet = bool(pk) and all(
-        ((pk.get("provinces") or {}).get(nom) or {}).get("lits") is not None
-        and ((pk.get("provinces") or {}).get(nom) or {}).get("hospitalises") is not None
-        for nom in ("Ituri", "Nord-Kivu"))
+    pk_complet = bool(pk) and pays_entier([
+        n for n, v in (pk.get("provinces") or {}).items()
+        if v.get("lits") is not None and v.get("hospitalises") is not None])
     if pk and not pk_complet:
         pass
     elif pk and (pk.get("total") or {}).get("occupation") is not None:
@@ -733,13 +762,11 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     pp = _point(piliers_data, date) if piliers_data else None
     if pp:
         rg, ed, va, po = pp.get("rings"), pp.get("eds"), pp.get("vaccination"), pp.get("poe")
-        # Sans l'Ituri ni le Nord-Kivu, qui font l'essentiel des deces, le
-        # chiffre ne dit rien du pays (176 : Haut-Uele seul, « 4 realises sur
-        # 4 deces signales ») : la phrase et la case sont tues, comme un jour
-        # sans chiffre (8 novembre 2026). Un point lu avant provincesNoms
-        # garde l'ancien comportement.
-        noms_eds = (ed or {}).get("provincesNoms")
-        if noms_eds is not None and not ({"Ituri", "Nord-Kivu"} & set(noms_eds)):
+        # EDS realises sans l'Ituri OU sans le Nord-Kivu : pas un chiffre du
+        # pays (176 : Haut-Uele et Tshopo seuls, « 4 realises sur 4 deces
+        # signales » ; 102 : Nord-Kivu seul, 44). Regle commune pays_entier.
+        couv_eds = ((ed or {}).get("couverture") or {}).get("realisees")
+        if ed and couv_eds is not None and not pays_entier(couv_eds):
             ed = None
         if ed and ed.get("alertes") is not None and ed.get("realisees") is not None:
             # Les trois nombres ne couvrent pas toujours les memes provinces :

@@ -493,6 +493,12 @@ def rate_from_text(full_text):
         before = full_text[max(0, m.start(1) - 40): m.start(1)]
         if TARGET_RE.search(before):
             continue
+        # 138 : « supérieur par rapport à la veille (78,7 vs 73,5%) » — le taux
+        # apres « vs » est celui de la veille ; la mesure (« Parmi 30 751
+        # contacts … soit une proportion de suivi de 78,7 % ») est lue par les
+        # motifs suivants (audit des lettres, 8 novembre 2026).
+        if re.search(r"\bvs\.?\s*$", before):
+            continue
         value = float(m.group(1).replace(",", "."))
         # « … a diminué, passant de 79,5 % la veille à 77,6 % » (151) : le
         # premier taux est celui de la veille, la mesure suit.

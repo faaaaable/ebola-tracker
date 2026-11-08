@@ -3324,8 +3324,12 @@
   {
     "date": "2026-09-29",
     "sitrepNumber": "138",
-    "contactsFollowUpRate": 73.5,
+    "contactsFollowUpRate": 78.7,
     "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 30751,
+      "vus": 24206
+    },
     "provinces": {
       "Haut-Uélé": {
         "taux": 82.7,
