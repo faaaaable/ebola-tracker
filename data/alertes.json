@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-11-05"
+    "fin": "2026-11-06"
   },
   "parDate": [
     {
@@ -7318,6 +7318,73 @@
         "calcule": true,
         "partVerifiee": 99.9,
         "partValidee": 14.4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-06",
+      "sitrepNumber": "176",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 124,
+          "verifiees": 124,
+          "validees": 23,
+          "suspectsInvestigues": 23,
+          "transferes": 10
+        },
+        "Bas-Uélé": {
+          "recues": 114,
+          "verifiees": 119,
+          "validees": 11,
+          "suspectsInvestigues": 11,
+          "transferes": 11
+        },
+        "Ituri": {
+          "recues": 1538,
+          "verifiees": 1528,
+          "validees": 179,
+          "suspectsInvestigues": 179,
+          "transferes": 179
+        },
+        "Nord-Kivu": {
+          "recues": 2258,
+          "verifiees": 1947,
+          "validees": 280,
+          "suspectsInvestigues": 280,
+          "transferes": 280
+        },
+        "Sud-Ubangi": {
+          "recues": 18,
+          "verifiees": 13,
+          "validees": 8,
+          "suspectsInvestigues": 8,
+          "transferes": 8
+        },
+        "Nord-Ubangi": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Tshopo": {
+          "recues": 124,
+          "verifiees": 124,
+          "validees": 5,
+          "suspectsInvestigues": 5,
+          "transferes": 5
+        }
+      },
+      "total": {
+        "recues": 4176,
+        "verifiees": 3855,
+        "validees": 506,
+        "suspectsInvestigues": 506,
+        "transferes": 493,
+        "partVerifiee": 92.3,
+        "partValidee": 12.1
       },
       "source": "SitRep INSP (automatique)"
     }

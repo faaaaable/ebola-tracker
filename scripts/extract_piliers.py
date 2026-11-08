@@ -79,13 +79,25 @@ def trouver(secs, *mots):
 
 
 def puces(corps):
-    parts = re.split(r"\n\s*[•▪\-–]\s+", corps)
+    # \uf0b7 : puce de police Symbol, seule forme des SitRep 175 et 176 —
+    # sans elle toute la section PCI tenait en une puce (8 novembre 2026).
+    parts = re.split(r"\n\s*[•▪\-–\uf0b7]\s+|\s*\uf0b7\s+", corps)
     return [" ".join(p.split()) for p in parts if p.strip()]
 
 
 def nombre_ou_mot(s):
     s = s.strip().lower()
     return entier(s) if re.match(r"^[\d   ]+$", s) else MOTS.get(s)
+
+
+PROVINCE_EDS_RE = re.compile(r"Ituri|Nord[ -]?Kivu|Sud[ -]?Kivu|Haut[ -]?U[ée]l[ée]|Bas[ -]?U[ée]l[ée]|Tshopo|TSHOPO|Sud[ -]?Ubangi|Nord[ -]?Ubangi", re.IGNORECASE)
+
+
+def canon_eds(nom):
+    n = re.sub(r"[\s-]+", " ", nom).lower().replace("uele", "uélé")
+    return {"ituri": "Ituri", "nord kivu": "Nord-Kivu", "nordkivu": "Nord-Kivu", "sud kivu": "Sud-Kivu",
+            "haut uélé": "Haut-Uélé", "bas uélé": "Bas-Uélé", "tshopo": "Tshopo",
+            "sud ubangi": "Sud-Ubangi", "nord ubangi": "Nord-Ubangi"}.get(n, nom)
 
 
 def lire_pci(corps):
@@ -100,13 +112,24 @@ def lire_pci(corps):
     # Sans ce compte, la lettre alignait trois nombres incomparables.
     eds_prov = {"alertes": set(), "realisees": set(), "swabes": set(), "nonSwabes": set()}
     puce_en_cours = [0]
+    # Les provinces dont viennent les chiffres EDS (8 novembre 2026). Au 176,
+    # seuls le Haut-Uele et la Tshopo chiffrent leurs EDS : « 4 realises sur
+    # 4 deces signales » se lisait comme un total du pays. La lettre tait le
+    # chiffre quand ni l'Ituri ni le Nord-Kivu n'y contribuent.
+    province_en_cours = [None]
+    eds_noms = set()
+    eds_couv = {"alertes": set(), "realisees": set(), "swabes": set(), "nonSwabes": set()}
 
     def add(cle, v):
         eds[cle] = (eds[cle] or 0) + v
         eds_prov[cle].add(puce_en_cours[0])
+        if province_en_cours[0]:
+            eds_noms.add(province_en_cours[0])
+            eds_couv[cle].add(province_en_cours[0])
 
     for numero_puce, p in enumerate(puces(corps)):
         puce_en_cours[0] = numero_puce
+        province_en_cours[0] = None
         # « 35 rings ont été ouverts sur 38 » jusqu'au 163 ; « 28 rings ouverts
         # sur 34 », sans « ont été », depuis le 165 (rien n'etait plus lu). Le
         # mot « ouverts » reste exige : « 3 rings sur 5 restent à ouvrir » ne
@@ -161,7 +184,8 @@ def lire_pci(corps):
                          # (Tshopo, 165 et 166) : les alertes viennent apres
                          # les corps.
                          r"swab\w*\s+sur (\d+) alertes"]),
-            ("realisees", [r"(\d+) EDS (?:ont [ée]t[ée] |a [ée]t[ée] )?r[ée]alis",
+            # « 1 EDS complet réalisé » (Tshopo, 175 et 176).
+            ("realisees", [r"(\d+) EDS (?:complets? )?(?:ont [ée]t[ée] |a [ée]t[ée] )?r[ée]alis",
                            r"r[ée]alis[ée] (?:les )?(\d+) EDS"]),
             ("swabes", [r"(\d+) corps (?:ont [ée]t[ée] |a [ée]t[ée] )?(?:pr[ée]lev|swab|[ée]couvillonn)",
                         r"(\d+) corps (?:ont [ée]t[ée] )?swab",
@@ -187,6 +211,8 @@ def lire_pci(corps):
                             add(cle, v)
                         break
 
+        noms = [canon_eds(m.group(0)) for m in PROVINCE_EDS_RE.finditer(p)]
+        province_en_cours[0] = noms[0] if noms else None
         recap = re.search(r"soit (\d+) EDS sur (\d+) alertes", p, re.IGNORECASE)
         if recap:
             add("realisees", int(recap.group(1)))
@@ -195,11 +221,18 @@ def lire_pci(corps):
         else:
             restantes = {"alertes", "realisees", "swabes", "nonSwabes"}
         for phrase in re.split(r"\s*;\s*|(?<=[.)])\s+(?=[A-ZÀ-Ý])", p):
+            nm = PROVINCE_EDS_RE.search(phrase)
+            if nm:
+                province_en_cours[0] = canon_eds(nm.group(0))
             lire_phrase(phrase, restantes)
 
     rings = {"ouverts": rings_o, "attendus": rings_a} if rings_a else None
     if any(v is not None for v in eds.values()):
         eds["provinces"] = {k: len(v) for k, v in eds_prov.items() if v}
+        eds["provincesNoms"] = sorted(eds_noms)
+        # Les provinces de CHAQUE nombre : au 175, 106 alertes (Ituri,
+        # Haut-Uele) pour 137 EDS (Ituri, Nord-Kivu, Haut-Uele).
+        eds["couverture"] = {k: sorted(v) for k, v in eds_couv.items() if v}
     else:
         eds = None
     return rings, eds

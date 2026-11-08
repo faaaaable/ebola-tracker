@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-11-05"
+    "fin": "2026-11-06"
   },
   "parDate": [
     {
@@ -5288,6 +5288,41 @@
         "lits": 1652,
         "hospitalisesAvecLits": 972,
         "occupation": 58.8
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-06",
+      "sitrepNumber": "176",
+      "methode": "prose",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 344,
+          "occupation": 34.0,
+          "admissions": 116,
+          "sorties": 96,
+          "gueris": 7,
+          "lits": 1015,
+          "litsRecoupes": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 578,
+          "lits": 434,
+          "hospitalisesNormes": 394,
+          "occupationPubliee": 90.8,
+          "occupation": 133.2,
+          "occupationCalculee": true,
+          "admissions": 140,
+          "sorties": 146,
+          "gueris": 12
+        }
+      },
+      "total": {
+        "hospitalises": 922,
+        "provinces": 2,
+        "lits": 1449,
+        "hospitalisesAvecLits": 922,
+        "occupation": 63.6
       },
       "source": "SitRep INSP (automatique)"
     }

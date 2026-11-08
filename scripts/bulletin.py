@@ -720,6 +720,14 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     pp = _point(piliers_data, date) if piliers_data else None
     if pp:
         rg, ed, va, po = pp.get("rings"), pp.get("eds"), pp.get("vaccination"), pp.get("poe")
+        # Sans l'Ituri ni le Nord-Kivu, qui font l'essentiel des deces, le
+        # chiffre ne dit rien du pays (176 : Haut-Uele seul, « 4 realises sur
+        # 4 deces signales ») : la phrase et la case sont tues, comme un jour
+        # sans chiffre (8 novembre 2026). Un point lu avant provincesNoms
+        # garde l'ancien comportement.
+        noms_eds = (ed or {}).get("provincesNoms")
+        if noms_eds is not None and not ({"Ituri", "Nord-Kivu"} & set(noms_eds)):
+            ed = None
         if ed and ed.get("alertes") is not None and ed.get("realisees") is not None:
             # Les trois nombres ne couvrent pas toujours les memes provinces :
             # au 111, seul l'Ituri publie ses signalements quand le Nord-Kivu
@@ -729,6 +737,13 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             # ferait lire un rapport qui n'existe pas (19 septembre 2026).
             couv = ed.get("provinces") or {}
             memes = len({couv.get(k) for k in ("alertes", "realisees", "swabes") if couv.get(k)}) <= 1
+            # Depuis le 8 novembre 2026, les PROVINCES de chaque nombre : au
+            # 175, 106 alertes (Ituri, Haut-Uele) et 137 EDS (Ituri,
+            # Nord-Kivu, Haut-Uele) tenaient dans une seule puce, et la
+            # lettre ecrivait « 137 realises sur 106 deces signales ».
+            parchamp = ed.get("couverture")
+            if parchamp:
+                memes = len({tuple(parchamp.get(k) or ()) for k in ("alertes", "realisees", "swabes") if parchamp.get(k)}) <= 1
             cle = "lettreEds" if memes else "lettreEdsPartiel"
             s5 = P(cle, alertes=fmt(ed["alertes"], lang), realisees=fmt(ed["realisees"], lang), swabes=fmt(ed.get("swabes"), lang) if ed.get("swabes") is not None else "—")
             if ed.get("nonSwabes"):

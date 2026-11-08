@@ -12446,6 +12446,48 @@
 "province": "Bas-Uélé",
 "obstacles": []
 }
+],
+"au bas uélé la complétude n est que de # # # # poc de la zs de viadana n ont pas fonctionné en raison de la grève des prestataires et # n ont pas rapporté faute de connectivité et de mobilité seuls # des voyageurs ont été sensibilisés et la couverture reste de # sites sur # # en ituri la complétude est de # # # # # voyageurs # # ont refusé le screening avec des taux de refus élevés à nzebi # pluto # poipo # et frigo # trois poc de la zs de nia nia n ont pas fonctionné réclamation de deux mois de paiement celui d avakubi reste fermé pour cause d insécurité et le poc bella mandima n a pas transmis ses données au haut uélé # poc sur # seulement ont rapporté # voyageurs # # ont refusé le screening dont # à bangwene # et le poc de magambe reste à l arrêt en raison de la grève des prestataires au sud ubangi les postes de libenge et de dongo n ont pas transmis leurs rapports complétude # # # nord kivu dans la nuit du jeudi # au vendredi # novembre # une attaque des adf dans le groupement baswagha madiwe territoire de beni a entraîné selon une source sanitaire la fuite de plusieurs malades dont des contacts à haut risque de mve du centre où ils étaient en observation": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"completude",
+"impayes",
+"poc"
+]
+},
+{
+"province": "Ituri",
+"obstacles": [
+"completude",
+"resistance",
+"impayes",
+"insecurite",
+"poc"
+]
+},
+{
+"province": "Haut-Uélé",
+"obstacles": [
+"completude",
+"resistance",
+"impayes",
+"poc"
+]
+},
+{
+"province": "Sud-Ubangi",
+"obstacles": [
+"completude"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"insecurite",
+"contacts"
+]
+}
 ]
 }
 }

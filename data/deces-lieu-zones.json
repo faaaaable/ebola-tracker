@@ -2,9 +2,9 @@
  "source": "SitRep INSP, tableau 2, colonnes « Situation du jour (24h) »",
  "periode": {
   "debut": "2026-07-13",
-  "fin": "2026-11-05"
+  "fin": "2026-11-06"
  },
- "releves": 110,
+ "releves": 111,
  "bulletinsSansVentilation": [
   "087"
  ],
@@ -12,18 +12,18 @@
   {
    "province": "Ituri",
    "zone": "Bunia",
-   "communautaires": 438,
+   "communautaires": 440,
    "intraCte": 130,
    "nonVentiles": 0,
-   "jours": 103
+   "jours": 104
   },
   {
    "province": "Nord-Kivu",
    "zone": "Beni",
-   "communautaires": 366,
-   "intraCte": 90,
+   "communautaires": 373,
+   "intraCte": 93,
    "nonVentiles": 0,
-   "jours": 87
+   "jours": 88
   },
   {
    "province": "Nord-Kivu",
@@ -36,26 +36,26 @@
   {
    "province": "Ituri",
    "zone": "Mandima",
-   "communautaires": 209,
+   "communautaires": 215,
    "intraCte": 55,
    "nonVentiles": 0,
-   "jours": 51
+   "jours": 52
   },
   {
    "province": "Ituri",
    "zone": "Rwampara",
-   "communautaires": 117,
-   "intraCte": 110,
+   "communautaires": 119,
+   "intraCte": 112,
    "nonVentiles": 0,
-   "jours": 76
+   "jours": 77
   },
   {
    "province": "Ituri",
    "zone": "Nizi",
-   "communautaires": 174,
+   "communautaires": 175,
    "intraCte": 44,
    "nonVentiles": 0,
-   "jours": 62
+   "jours": 63
   },
   {
    "province": "Nord-Kivu",
@@ -69,17 +69,17 @@
    "province": "Ituri",
    "zone": "Nia-Nia",
    "communautaires": 109,
-   "intraCte": 44,
+   "intraCte": 45,
    "nonVentiles": 0,
-   "jours": 62
+   "jours": 63
   },
   {
    "province": "Ituri",
    "zone": "Mongbwalu",
-   "communautaires": 87,
-   "intraCte": 57,
+   "communautaires": 88,
+   "intraCte": 59,
    "nonVentiles": 0,
-   "jours": 68
+   "jours": 69
   },
   {
    "province": "Ituri",
@@ -108,10 +108,10 @@
   {
    "province": "Nord-Kivu",
    "zone": "Musienene",
-   "communautaires": 48,
-   "intraCte": 15,
+   "communautaires": 49,
+   "intraCte": 16,
    "nonVentiles": 0,
-   "jours": 41
+   "jours": 42
   },
   {
    "province": "Haut-Uélé",
@@ -125,9 +125,9 @@
    "province": "Ituri",
    "zone": "Mambasa",
    "communautaires": 40,
-   "intraCte": 15,
+   "intraCte": 16,
    "nonVentiles": 0,
-   "jours": 27
+   "jours": 28
   },
   {
    "province": "Haut-Uélé",
@@ -163,19 +163,19 @@
   },
   {
    "province": "Nord-Kivu",
+   "zone": "Oicha",
+   "communautaires": 23,
+   "intraCte": 15,
+   "nonVentiles": 0,
+   "jours": 28
+  },
+  {
+   "province": "Nord-Kivu",
    "zone": "Mabalako",
    "communautaires": 31,
    "intraCte": 7,
    "nonVentiles": 0,
    "jours": 26
-  },
-  {
-   "province": "Nord-Kivu",
-   "zone": "Oicha",
-   "communautaires": 22,
-   "intraCte": 15,
-   "nonVentiles": 0,
-   "jours": 27
   },
   {
    "province": "Nord-Kivu",
@@ -188,10 +188,10 @@
   {
    "province": "Nord-Kivu",
    "zone": "Biena",
-   "communautaires": 17,
+   "communautaires": 18,
    "intraCte": 3,
    "nonVentiles": 0,
-   "jours": 9
+   "jours": 10
   },
   {
    "province": "Haut-Uélé",
@@ -221,9 +221,9 @@
    "province": "Ituri",
    "zone": "Nyankunde",
    "communautaires": 3,
-   "intraCte": 13,
+   "intraCte": 14,
    "nonVentiles": 0,
-   "jours": 14
+   "jours": 15
   },
   {
    "province": "Nord-Kivu",
@@ -245,17 +245,17 @@
    "province": "Tshopo",
    "zone": "Makiso-Kisangani",
    "communautaires": 4,
-   "intraCte": 8,
+   "intraCte": 9,
    "nonVentiles": 0,
-   "jours": 11
+   "jours": 12
   },
   {
    "province": "Nord-Kivu",
    "zone": "Masereka",
    "communautaires": 6,
-   "intraCte": 4,
+   "intraCte": 5,
    "nonVentiles": 0,
-   "jours": 9
+   "jours": 10
   },
   {
    "province": "Ituri",
@@ -12655,6 +12655,129 @@
        "total": 1,
        "communautaires": 1,
        "intraCte": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "sitrep": "176",
+   "provinces": {
+    "Ituri": {
+     "province": {
+      "communautaires": 12,
+      "intraCte": 7,
+      "source": "deces-lieu"
+     },
+     "lecture": "colonnes",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Bunia",
+       "total": 2,
+       "communautaires": 2,
+       "intraCte": 0
+      },
+      {
+       "zone": "Mambasa",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Mandima",
+       "total": 6,
+       "communautaires": 6,
+       "intraCte": 0
+      },
+      {
+       "zone": "Mongbwalu",
+       "total": 3,
+       "communautaires": 1,
+       "intraCte": 2
+      },
+      {
+       "zone": "Nia-Nia",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Nizi",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      },
+      {
+       "zone": "Nyankunde",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Rwampara",
+       "total": 4,
+       "communautaires": 2,
+       "intraCte": 2
+      }
+     ]
+    },
+    "Nord-Kivu": {
+     "province": {
+      "communautaires": 10,
+      "intraCte": 5,
+      "source": "deces-lieu"
+     },
+     "lecture": "colonnes",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Beni",
+       "total": 10,
+       "communautaires": 7,
+       "intraCte": 3
+      },
+      {
+       "zone": "Biena",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      },
+      {
+       "zone": "Masereka",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Musienene",
+       "total": 2,
+       "communautaires": 1,
+       "intraCte": 1
+      },
+      {
+       "zone": "Oicha",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      }
+     ]
+    },
+    "Tshopo": {
+     "province": {
+      "communautaires": 0,
+      "intraCte": 1,
+      "source": "deces-lieu"
+     },
+     "lecture": "colonnes",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Makiso-Kisangani",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
       }
      ]
     }

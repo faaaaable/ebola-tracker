@@ -88,7 +88,7 @@ LECTURES_NOMMEES = {
 TABLE_TITLE_RE = re.compile(r"Tableau\s*\d*\s*[.:—–-]\s*(?:Situation\s+du\s+)?Suivi des contacts", re.IGNORECASE)
 TABLE_HEADER_RE = re.compile(r"Taux\s+de\s+suivi", re.IGNORECASE)
 PROVINCE_RE = re.compile(
-    r"^(Ituri|Nord-Kivu|Sud-Kivu|Haut-Uélé|Tshopo|Bas Uélé|Sud[ -]Ubangi|Nord[ -]Ubangi)\s*\*?$", re.IGNORECASE
+    r"^(Ituri|Nord-Kivu|Sud-Kivu|Haut-Uélé|Tshopo|Bas[ -]Uélé|Sud[ -]Ubangi|Nord[ -]Ubangi)\s*\*?$", re.IGNORECASE
 )
 
 # Repli pour les bulletins SANS ce tableau (017, et à partir du 059 où la

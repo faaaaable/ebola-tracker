@@ -498,6 +498,11 @@ TOTAL_NOUVEAUX_FRACTION_RE = re.compile(
 )
 
 
+# SitRep 176, voir recoller_total_orphelin.
+TOTAL_CUMULS_SEULS_RE = re.compile(r"^Total\**\s+(?P<cumuls>[\d ]+[\d,]+\s*%)\s*$")
+FRACTION_SEULE_RE = re.compile(r"^\d+\s*(?:/|sur)\s*\d+\s*(?:\([\d,]+\s*%\))?\s*$")
+
+
 DENOMINATEUR_COUPE_RE = re.compile(r"(\d+/\d+) (\d)(?=\s*\()")
 
 
@@ -579,6 +584,22 @@ def recoller_total_orphelin(section):
                 print("  ! libelle « Total », nouveaux cas et fraction de zones sous "
                       "les cumuls, ligne recollee (texte brut).")
                 i += 1
+                continue
+        # SitRep 176 : la ligne Total eclatee sur TROIS lignes, la fraction
+        # de zones au-dessus, les nouveaux cas seuls en dessous :
+        #     67/178 (37,6%)
+        #     Total 10879 5302 48,7%
+        #     76
+        mc = TOTAL_CUMULS_SEULS_RE.match(line)
+        suivante = lignes[i + 1] if i + 1 < len(lignes) else ""
+        if (mc and sortie and FRACTION_SEULE_RE.match(sortie[-1])
+                and re.fullmatch(r"\d+", suivante)):
+            candidat = "Total %s %s %s" % (suivante, mc.group("cumuls"), sortie[-1])
+            if resume(candidat):
+                sortie[-1] = candidat
+                print("  ! ligne « Total » eclatee sur trois lignes (fraction "
+                      "au-dessus, nouveaux cas dessous), recollee (texte brut).")
+                i += 2
                 continue
         sortie.append(line)
         i += 1

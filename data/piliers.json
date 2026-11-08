@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-11-05"
+  "fin": "2026-11-06"
  },
  "parDate": [
   {
@@ -259,6 +259,14 @@
     "nonSwabes": null,
     "provinces": {
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "realisees": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -276,6 +284,14 @@
     "nonSwabes": null,
     "provinces": {
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "realisees": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -311,6 +327,14 @@
     "nonSwabes": null,
     "provinces": {
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "realisees": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -346,6 +370,14 @@
     "nonSwabes": null,
     "provinces": {
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Ituri"
+    ],
+    "couverture": {
+     "realisees": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": null,
@@ -364,6 +396,19 @@
     "provinces": {
      "alertes": 1,
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -381,6 +426,14 @@
     "nonSwabes": null,
     "provinces": {
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Ituri"
+    ],
+    "couverture": {
+     "realisees": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": null,
@@ -403,6 +456,19 @@
     "provinces": {
      "realisees": 1,
      "swabes": 1
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -420,6 +486,14 @@
     "nonSwabes": null,
     "provinces": {
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Ituri"
+    ],
+    "couverture": {
+     "realisees": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": null,
@@ -447,6 +521,17 @@
     "provinces": {
      "alertes": 1,
      "swabes": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -464,6 +549,14 @@
     "nonSwabes": null,
     "provinces": {
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "realisees": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -490,6 +583,14 @@
     "nonSwabes": null,
     "provinces": {
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Ituri"
+    ],
+    "couverture": {
+     "realisees": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": null,
@@ -507,6 +608,14 @@
     "nonSwabes": null,
     "provinces": {
      "realisees": 1
+    },
+    "provincesNoms": [
+     "Ituri"
+    ],
+    "couverture": {
+     "realisees": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": null,
@@ -524,6 +633,14 @@
     "nonSwabes": null,
     "provinces": {
      "swabes": 1
+    },
+    "provincesNoms": [
+     "Ituri"
+    ],
+    "couverture": {
+     "swabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": null,
@@ -541,6 +658,14 @@
     "nonSwabes": null,
     "provinces": {
      "alertes": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -559,6 +684,17 @@
     "provinces": {
      "alertes": 1,
      "swabes": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -775,6 +911,17 @@
     "provinces": {
      "realisees": 1,
      "swabes": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "realisees": [
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -794,6 +941,23 @@
      "alertes": 1,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -813,6 +977,23 @@
      "alertes": 1,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -832,6 +1013,23 @@
      "alertes": 1,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -851,6 +1049,23 @@
      "alertes": 1,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -874,6 +1089,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -900,6 +1137,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -926,6 +1185,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri"
+     ]
     }
    },
    "vaccination": null,
@@ -949,6 +1226,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -972,6 +1271,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -995,6 +1312,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -1021,6 +1356,26 @@
      "alertes": 1,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -1047,6 +1402,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -1073,6 +1446,29 @@
      "alertes": 4,
      "realisees": 2,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": null,
@@ -1099,6 +1495,27 @@
      "alertes": 3,
      "realisees": 2,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -1125,6 +1542,31 @@
      "alertes": 4,
      "realisees": 4,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": null,
@@ -1151,6 +1593,20 @@
      "alertes": 1,
      "realisees": 1,
      "swabes": 1
+    },
+    "provincesNoms": [
+     "Haut-Uélé"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé"
+     ],
+     "realisees": [
+      "Haut-Uélé"
+     ],
+     "swabes": [
+      "Haut-Uélé"
+     ]
     }
    },
    "vaccination": null,
@@ -1178,6 +1634,31 @@
      "realisees": 3,
      "swabes": 3,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "nonSwabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": null,
@@ -1204,6 +1685,20 @@
      "alertes": 1,
      "realisees": 1,
      "swabes": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -1226,6 +1721,27 @@
      "alertes": 3,
      "realisees": 2,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -1252,6 +1768,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -1283,6 +1817,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -1346,6 +1898,32 @@
      "alertes": 2,
      "realisees": 4,
      "swabes": 5
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": null,
@@ -1372,6 +1950,25 @@
      "alertes": 1,
      "realisees": 2,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -1398,6 +1995,23 @@
      "alertes": 1,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -1424,6 +2038,23 @@
      "alertes": 1,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -1450,6 +2081,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -1483,6 +2132,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -1515,6 +2182,31 @@
      "realisees": 3,
      "swabes": 3,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "nonSwabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -1555,6 +2247,23 @@
      "realisees": 2,
      "swabes": 2,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Ituri"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Ituri"
+     ],
+     "swabes": [
+      "Ituri"
+     ],
+     "nonSwabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -1584,6 +2293,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -1621,6 +2352,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -1671,6 +2420,28 @@
      "realisees": 2,
      "swabes": 1,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri"
+     ],
+     "nonSwabes": [
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -1724,6 +2495,30 @@
      "realisees": 3,
      "swabes": 2,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "nonSwabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -1777,6 +2572,29 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -1828,6 +2646,31 @@
      "alertes": 4,
      "realisees": 4,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": null,
@@ -1855,6 +2698,37 @@
      "realisees": 4,
      "swabes": 5,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "nonSwabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -1901,6 +2775,34 @@
      "alertes": 4,
      "realisees": 4,
      "swabes": 5
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -1948,6 +2850,33 @@
      "realisees": 3,
      "swabes": 3,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "nonSwabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -1994,6 +2923,27 @@
      "alertes": 3,
      "realisees": 2,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2053,6 +3003,26 @@
      "alertes": 3,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -2113,6 +3083,31 @@
      "alertes": 3,
      "realisees": 4,
      "swabes": 4
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Sud-Ubangi"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Sud-Ubangi"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Sud-Ubangi"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Sud-Ubangi"
+     ]
     }
    },
    "vaccination": {
@@ -2163,6 +3158,28 @@
      "realisees": 1,
      "swabes": 2,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Ituri",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Ituri"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Ituri"
+     ],
+     "nonSwabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -2226,6 +3243,26 @@
      "alertes": 2,
      "realisees": 3,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2274,6 +3311,29 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2320,6 +3380,27 @@
      "realisees": 2,
      "swabes": 2,
      "nonSwabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "nonSwabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -2367,6 +3448,29 @@
      "alertes": 4,
      "realisees": 2,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2420,6 +3524,27 @@
      "alertes": 3,
      "realisees": 2,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri"
+     ]
     }
    },
    "vaccination": null,
@@ -2446,6 +3571,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2510,6 +3653,22 @@
      "alertes": 1,
      "realisees": 1,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2563,6 +3722,19 @@
     "provinces": {
      "realisees": 2,
      "swabes": 1
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -2614,6 +3786,29 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -2655,6 +3850,31 @@
      "alertes": 4,
      "realisees": 3,
      "swabes": 4
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2695,6 +3915,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2735,6 +3977,27 @@
      "alertes": 3,
      "realisees": 2,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -2771,6 +4034,31 @@
      "alertes": 4,
      "realisees": 3,
      "swabes": 4
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2807,6 +4095,23 @@
      "alertes": 1,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -2843,6 +4148,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -2879,6 +4206,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -2915,6 +4264,27 @@
      "alertes": 2,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -2951,6 +4321,30 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 4
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -2982,6 +4376,27 @@
      "alertes": 2,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -3014,6 +4429,27 @@
      "alertes": 2,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -3050,6 +4486,31 @@
      "alertes": 4,
      "realisees": 3,
      "swabes": 4
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -3086,6 +4547,34 @@
      "alertes": 4,
      "realisees": 4,
      "swabes": 5
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -3126,6 +4615,33 @@
      "alertes": 4,
      "realisees": 3,
      "swabes": 5
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -3162,6 +4678,26 @@
      "alertes": 2,
      "realisees": 3,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "realisees": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri"
+     ]
     }
    },
    "vaccination": {
@@ -3199,6 +4735,24 @@
      "alertes": 2,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -3243,6 +4797,29 @@
      "alertes": 2,
      "realisees": 3,
      "swabes": 4
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -3280,6 +4857,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -3316,6 +4915,26 @@
      "alertes": 3,
      "realisees": 2,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": null,
@@ -3342,6 +4961,35 @@
      "alertes": 5,
      "realisees": 4,
      "swabes": 5
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -3376,6 +5024,33 @@
      "realisees": 3,
      "swabes": 4,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "nonSwabes": [
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -3413,6 +5088,31 @@
      "realisees": 3,
      "swabes": 3,
      "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "nonSwabes": [
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -3449,6 +5149,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 2
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -3485,6 +5207,30 @@
      "alertes": 4,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -3527,6 +5273,28 @@
      "alertes": 3,
      "realisees": 3,
      "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -3566,6 +5334,20 @@
      "alertes": 1,
      "realisees": 1,
      "swabes": 1
+    },
+    "provincesNoms": [
+     "Sud-Ubangi"
+    ],
+    "couverture": {
+     "alertes": [
+      "Sud-Ubangi"
+     ],
+     "realisees": [
+      "Sud-Ubangi"
+     ],
+     "swabes": [
+      "Sud-Ubangi"
+     ]
     }
    },
    "vaccination": {
@@ -3594,9 +5376,31 @@
     "swabes": 97,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
-     "realisees": 1,
-     "swabes": 1
+     "alertes": 3,
+     "realisees": 3,
+     "swabes": 3
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -3631,9 +5435,35 @@
     "swabes": 119,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
-     "realisees": 1,
-     "swabes": 1
+     "alertes": 4,
+     "realisees": 4,
+     "swabes": 4
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {
@@ -3700,9 +5530,33 @@
     "swabes": 94,
     "nonSwabes": null,
     "provinces": {
-     "alertes": 1,
-     "realisees": 1,
-     "swabes": 1
+     "alertes": 4,
+     "realisees": 3,
+     "swabes": 3
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ]
     }
    },
    "vaccination": {
@@ -3884,13 +5738,99 @@
    },
    "eds": {
     "alertes": 106,
-    "realisees": 137,
+    "realisees": 138,
     "swabes": 141,
     "nonSwabes": null,
     "provinces": {
+     "alertes": 2,
+     "realisees": 4,
+     "swabes": 4
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 3023,
+     "Nord-Kivu": 2266,
+     "Bas-Uélé": 2000
+    },
+    "rupture": false,
+    "provinces": {
+     "Ituri": {
+      "cumul": 3023
+     },
+     "Nord-Kivu": {
+      "cumul": 2266
+     },
+     "Bas-Uélé": {
+      "cible": 13202,
+      "couverture": 15.1
+     }
+    }
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-11-06",
+   "sitrepNumber": "176",
+   "poe": {
+    "personnes": 276403,
+    "screenesPct": 98.0,
+    "refusScreening": 0
+   },
+   "rings": {
+    "ouverts": 17,
+    "attendus": 20
+   },
+   "eds": {
+    "alertes": 4,
+    "realisees": 5,
+    "swabes": 5,
+    "nonSwabes": null,
+    "provinces": {
      "alertes": 1,
-     "realisees": 1,
-     "swabes": 1
+     "realisees": 2,
+     "swabes": 2
+    },
+    "provincesNoms": [
+     "Haut-Uélé",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Tshopo"
+     ]
     }
    },
    "vaccination": {

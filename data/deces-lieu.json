@@ -1,9 +1,9 @@
 {
   "periode": {
     "debut": "2026-07-13",
-    "fin": "2026-11-05"
+    "fin": "2026-11-06"
   },
-  "releves": 107,
+  "releves": 108,
   "seuilLisibilite": 20,
   "provinces": [
     {
@@ -12,7 +12,7 @@
       "intraCte": 0,
       "total": 1,
       "partCommunautaire": 100.0,
-      "releves": 55,
+      "releves": 56,
       "assezDeVolume": false,
       "couverture": 100
     },
@@ -22,7 +22,7 @@
       "intraCte": 0,
       "total": 1,
       "partCommunautaire": 100.0,
-      "releves": 20,
+      "releves": 21,
       "assezDeVolume": false,
       "couverture": 100
     },
@@ -32,27 +32,27 @@
       "intraCte": 1,
       "total": 4,
       "partCommunautaire": 75.0,
-      "releves": 84,
+      "releves": 85,
       "assezDeVolume": false,
       "couverture": 100
     },
     {
       "name": "Nord-Kivu",
-      "communautaires": 900,
-      "intraCte": 301,
-      "total": 1201,
-      "partCommunautaire": 74.9,
-      "releves": 103,
+      "communautaires": 910,
+      "intraCte": 306,
+      "total": 1216,
+      "partCommunautaire": 74.8,
+      "releves": 104,
       "assezDeVolume": true,
       "couverture": 89
     },
     {
       "name": "Ituri",
-      "communautaires": 1518,
-      "intraCte": 1001,
-      "total": 2519,
+      "communautaires": 1530,
+      "intraCte": 1008,
+      "total": 2538,
       "partCommunautaire": 60.3,
-      "releves": 106,
+      "releves": 107,
       "assezDeVolume": true,
       "couverture": 85
     },
@@ -62,17 +62,17 @@
       "intraCte": 93,
       "total": 174,
       "partCommunautaire": 46.6,
-      "releves": 97,
+      "releves": 98,
       "assezDeVolume": true,
       "couverture": 87
     },
     {
       "name": "Tshopo",
       "communautaires": 11,
-      "intraCte": 13,
-      "total": 24,
-      "partCommunautaire": 45.8,
-      "releves": 92,
+      "intraCte": 14,
+      "total": 25,
+      "partCommunautaire": 44.0,
+      "releves": 93,
       "assezDeVolume": true,
       "couverture": 96
     },
@@ -82,7 +82,7 @@
       "intraCte": 0,
       "total": 0,
       "partCommunautaire": null,
-      "releves": 92,
+      "releves": 93,
       "assezDeVolume": false,
       "couverture": null
     }
@@ -3323,6 +3323,44 @@
         "Tshopo": {
           "communautaires": 0,
           "intraCte": 0
+        }
+      }
+    },
+    {
+      "date": "2026-11-06",
+      "sitrep": "176",
+      "provinces": {
+        "Bas-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Haut-Uélé": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Ituri": {
+          "communautaires": 12,
+          "intraCte": 7
+        },
+        "Nord-Kivu": {
+          "communautaires": 10,
+          "intraCte": 5
+        },
+        "Nord-Ubangi": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Sud-Kivu": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Sud-Ubangi": {
+          "communautaires": 0,
+          "intraCte": 0
+        },
+        "Tshopo": {
+          "communautaires": 0,
+          "intraCte": 1
         }
       }
     }

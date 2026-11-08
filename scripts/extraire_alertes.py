@@ -123,8 +123,16 @@ NON_INVESTIGUES_RE = re.compile(r"\bnon\s+investigu", re.I)
 def cellules_D10(ligne):
     """Les dix cellules d'une ligne du tableau D a partir du 169, ramenees aux
     neuf de l'ancien format (sans les suspects non investigues)."""
+    # 176 (6 novembre 2026) : la huitieme colonne porte le TOTAL des suspects
+    # (= validees ; « Sur les 506 cas suspects validés, 506 ont été
+    # investigués ») et la neuvieme ne s'y additionne plus (Haut-Uele
+    # « 23 13 10 », Ituri « 179 99 179 », total « 506 262 493 »). Seconde
+    # lecture admise : huitieme = validees, transferes <= huitieme ; la
+    # neuvieme est ecartee comme avant.
     ok = lambda c: (c[2] is not None and c[2] == (c[0] or 0) + (c[1] or 0)
-                    and (c[7] or 0) + (c[8] or 0) == (c[3] or 0) + (c[4] or 0))
+                    and ((c[7] or 0) + (c[8] or 0) == (c[3] or 0) + (c[4] or 0)
+                         or ((c[7] or 0) == (c[3] or 0) + (c[4] or 0)
+                             and (c[9] or 0) <= (c[7] or 0))))
     c = cellules(ligne, 10, valide=ok)
     if c is None:
         return None
