@@ -697,7 +697,20 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         cases += kpi("contacts", S["lettreKpiContacts"], pct(taux), P("lettreKpiContactsSub", vus=fmt(c.get("vus"), lang), aSuivre=fmt(c.get("aSuivre"), lang)) if c.get("vus") is not None else "")
     else:
         cases += kpi("contacts", S["lettreKpiContacts"], "—", S["riposteKpiNone"]); non_publie.append(S["lettreKpiContacts"])
-    if pk and (pk.get("total") or {}).get("occupation") is not None:
+    # Le total national n'a de sens que si l'Ituri ET le Nord-Kivu y sont
+    # (plus de 90 % des malades) : l'Ituri y entrait seulement les jours ou
+    # le bulletin donne ses lits, et le chiffre sautait de 63 (173, Ituri
+    # comprise) a 121 (171, Nord-Kivu et Tshopo seuls), 36 a 104 de 155 a
+    # 157. Un jour incomplet, case et phrase sont tues — sans « non
+    # publie », le bulletin donnant bien des chiffres (8 novembre 2026,
+    # decision du proprietaire : la partie nationale montre le pays entier).
+    pk_complet = bool(pk) and all(
+        ((pk.get("provinces") or {}).get(nom) or {}).get("lits") is not None
+        and ((pk.get("provinces") or {}).get(nom) or {}).get("hospitalises") is not None
+        for nom in ("Ituri", "Nord-Kivu"))
+    if pk and not pk_complet:
+        pass
+    elif pk and (pk.get("total") or {}).get("occupation") is not None:
         t = pk["total"]
         s4 = P("lettreCteF" if FL else "lettreCte", taux=fmt(round(t["occupation"]), lang), hospitalises=fmt(t.get("hospitalisesAvecLits") or t.get("hospitalises"), lang), lits=fmt(t.get("lits"), lang))
         satures = [(nom, v) for nom, v in (pk.get("provinces") or {}).items() if (v.get("occupation") or 0) > 100]
