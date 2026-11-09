@@ -1,115 +1,113 @@
 # ebola-tracker.org
 
-Suivi indépendant de la **17ᵉ épidémie d'Ebola en République démocratique du Congo**
-(espèce Bundibugyo, déclarée le 15 mai 2026), d'après les bulletins officiels.
+An independent tracker of the **17th Ebola outbreak in the Democratic Republic of the
+Congo** (Bundibugyo species, declared on 15 May 2026), based on official reports.
 
-**Site : [ebola-tracker.org](https://ebola-tracker.org)** · en français, anglais et swahili
+**Website: [ebola-tracker.org](https://ebola-tracker.org/en/)** · in French, English and Swahili
 
-> **English summary.** An independent tracker of the 17th Ebola outbreak in the
-> Democratic Republic of the Congo (Bundibugyo species, declared 15 May 2026). Every
-> figure on the site is read from the official situation reports of the DRC National
-> Institute of Public Health (INSP) and from WHO reports, all archived in this
-> repository. Data are free to reuse under CC BY 4.0; code is under the MIT licence.
-> The site is available in [English](https://ebola-tracker.org/en/).
+*[Version française](README.fr.md)*
 
 ---
 
-## Ce que fait le site
+## What the site does
 
-- **Le bilan du jour** : cas confirmés, décès, guéris, létalité, par province et par
-  zone de santé, avec leur évolution depuis mai 2026.
-- **La riposte** : alertes, laboratoire, suivi des contacts, centres de traitement,
-  vaccination, points de contrôle, et les difficultés signalées par les bulletins.
-- **La Lettre** : un résumé en langage courant de chaque bulletin, envoyé par mail
-  aux abonnés.
-- **Le virus, la chronologie, les questions fréquentes**, et le suivi des cas
-  confirmés hors de RDC.
+- **Daily figures**: confirmed cases, deaths, recoveries and case fatality rate, by
+  province and by health zone, with their trend since May 2026.
+- **The response**: alerts, laboratory testing, contact tracing, treatment centres,
+  vaccination, points of entry, and the challenges reported in each bulletin.
+- **The Letter**: a plain-language summary of each bulletin, sent by email to
+  subscribers.
+- **The virus, the timeline, frequently asked questions**, and the follow-up of
+  confirmed cases outside the DRC.
 
-## D'où viennent les chiffres
+## Where the figures come from
 
-**Chaque chiffre affiché renvoie à un document de [`reports/`](reports/).** Le site est
-un miroir des sources, pas une source : il ne corrige pas une valeur publiée, ne
-déplace pas un cas d'une province à une autre et ne comble pas un trou par
-interpolation. Quand un bulletin ne dit rien, le site ne dit rien, et le signale.
+**Every figure shown on the site can be traced to a document in [`reports/`](reports/).**
+The site mirrors its sources; it is not a source itself. It does not correct a
+published value, move a case from one province to another, or fill a gap by
+interpolation. When a bulletin is silent, the site is silent too, and says so.
 
-| Source | Contenu | Dans ce dépôt |
+| Source | Content | In this repository |
 |---|---|---|
-| INSP, Task Force présidentielle Ebola 17 | bulletins quotidiens (SitRep) | [`reports/`](reports/), un PDF par bulletin |
-| Organisation mondiale de la santé | rapports de situation | [`reports/who/`](reports/who/) |
-| Ministères de la santé (Kenya, Ouganda, Nigeria…) | communiqués sur les cas hors RDC | cités page par page |
+| INSP (DRC National Institute of Public Health), Presidential Ebola Task Force | daily situation reports (SitReps) | [`reports/`](reports/), one PDF per bulletin |
+| World Health Organization | situation reports | [`reports/who/`](reports/who/) |
+| Ministries of health (Kenya, Uganda, Nigeria…) | statements on cases outside the DRC | cited on each page |
 
-La méthode (lecture des bulletins, contrôles, limites connues) est décrite sur la
-page [Méthodologie](https://ebola-tracker.org/methodologie/).
+The method (how bulletins are read, checks, known limitations) is described on the
+[Methodology](https://ebola-tracker.org/en/methodology/) page.
 
-## Les données
+## The data
 
-La base complète, un relevé par jour, par province et par zone de santé, se
-télécharge en CSV ou en JSON, en français ou en anglais :
+The full database, one record per day, per province and per health zone, can be
+downloaded as CSV or JSON, in English or in French:
 
-| | Français | English |
+| | English | Français |
 |---|---|---|
-| CSV | [`data/base-ebola-rdc.csv`](data/base-ebola-rdc.csv) | [`data/ebola-drc-database.csv`](data/ebola-drc-database.csv) |
-| JSON | [`data/base-ebola-rdc.json`](data/base-ebola-rdc.json) | [`data/ebola-drc-database.json`](data/ebola-drc-database.json) |
+| CSV | [`data/ebola-drc-database.csv`](data/ebola-drc-database.csv) | [`data/base-ebola-rdc.csv`](data/base-ebola-rdc.csv) |
+| JSON | [`data/ebola-drc-database.json`](data/ebola-drc-database.json) | [`data/base-ebola-rdc.json`](data/base-ebola-rdc.json) |
 
-Le dictionnaire des colonnes est sur la page
-[Base de données](https://ebola-tracker.org/base-de-donnees/). Les autres fichiers
-de [`data/`](data/) sont décrits dans [`data/README.md`](data/README.md).
+The column dictionary is on the [Database](https://ebola-tracker.org/en/database/)
+page. The other files in [`data/`](data/) are described in
+[`data/README.md`](data/README.md).
 
 ## Licences
 
-- **Données, textes, graphiques et cartes** : [CC BY 4.0](LICENSE-DATA.md). Vous pouvez
-  les reprendre, y compris à des fins commerciales, en citant ebola-tracker.org.
-- **Code** (scripts, gabarits, JavaScript) : [MIT](LICENSE).
-- **Documents d'autres auteurs** (bulletins de l'INSP, rapports de l'OMS, communiqués
-  officiels) : ils restent soumis à leurs propres conditions et ne sont archivés ici
-  que pour permettre la vérification.
+- **Data, texts, charts and maps**: [CC BY 4.0](LICENSE-DATA.md). You may reuse them,
+  including for commercial purposes, provided you credit ebola-tracker.org.
+- **Code** (scripts, templates, JavaScript): [MIT](LICENSE).
+- **Documents by other authors** (INSP bulletins, WHO reports, official statements)
+  remain under their own terms; they are archived here only so that figures can be
+  checked.
 
-Pour citer le projet, GitHub propose un format prêt à l'emploi (« Cite this
-repository », d'après [`CITATION.cff`](CITATION.cff)).
+To cite the project, GitHub offers a ready-made format ("Cite this repository",
+based on [`CITATION.cff`](CITATION.cff)).
 
-## Organisation du dépôt
+## Repository layout
 
-Le site est statique et servi par GitHub Pages depuis la branche `main`. Les pages
-HTML de la racine (`index.html`, `riposte/`, `en/`, `sw/`…) sont **générées** : on
-ne les modifie jamais à la main.
+The site is static and served by GitHub Pages from the `main` branch. The HTML pages
+at the root (`index.html`, `riposte/`, `en/`, `sw/`…) are **generated**: they are
+never edited by hand.
 
 ```
-reports/         bulletins INSP (PDF) et rapports OMS (reports/who/) : les sources
-data/            données extraites des bulletins, et la base publiée
-scripts/         extraction des PDF, contrôles, génération des pages
-site/            gabarits des pages, textes en trois langues (strings.json)
-assets/          feuilles de style, JavaScript, polices, images
-.github/         automatisations (génération, envoi de la Lettre)
+reports/         INSP bulletins (PDF) and WHO reports (reports/who/): the sources
+data/            data extracted from the bulletins, and the published database
+scripts/         PDF extraction, checks, page generation
+site/            page templates, texts in three languages (strings.json)
+assets/          stylesheets, JavaScript, fonts, images
+.github/         automation (page generation, sending the Letter)
 ```
 
-## Reconstruire le site
+## Rebuilding the site
 
-Il faut Python 3.9 ou plus récent et Node 20 ou plus récent.
+You need Python 3.9 or later and Node 20 or later.
 
 ```bash
 pip install requests beautifulsoup4 pdfplumber pyshp
 
-python scripts/download_all_sitreps.py   # récupère les nouveaux bulletins
-python scripts/update_data.py            # extrait cas, décès, provinces, zones
+python scripts/download_all_sitreps.py   # fetches new bulletins
+python scripts/update_data.py            # extracts cases, deaths, provinces, zones
 python scripts/extract_contacts_followup.py
-python scripts/extraire_alertes.py       # puis les autres extracteurs de la riposte
-python scripts/build_pages.py            # génère toutes les pages
-python scripts/check_coherence.py        # contrôle final, ne modifie rien
+python scripts/extraire_alertes.py       # then the other response extractors
+python scripts/build_pages.py            # generates every page
+python scripts/check_coherence.py        # final check, changes nothing
 ```
 
-`check_coherence.py` recoupe la somme des provinces avec le total national, la
-létalité recalculée, la somme des zones avec chaque province et la présence de
-chaque PDF cité. Chaque bulletin est intégré à la main et relu contre son PDF : la
-synchronisation automatique est volontairement arrêtée depuis août 2026, le format
-des bulletins ayant changé plusieurs fois.
+`check_coherence.py` checks the sum of provinces against the national total, the
+recomputed case fatality rate, the sum of zones against each province, and that
+every cited PDF is present. Each bulletin is integrated by hand and checked against
+its PDF: automatic synchronisation has been switched off on purpose since August
+2026, because the bulletin format has changed several times.
 
-Pour prévisualiser : `python -m http.server 8080`, puis
+Script names and code comments are in French.
+
+To preview: `python -m http.server 8080`, then
 [http://localhost:8080](http://localhost:8080).
 
-## Auteur et contact
+## Author and contact
 
-Projet de **Pierre-Emmanuel Moingt**, mené à titre personnel, sans publicité ni activité
-commerciale ([À propos](https://ebola-tracker.org/a-propos/)).
+A project by **Pierre-Emmanuel Moingt**, carried out in a personal capacity, with no
+advertising or commercial activity ([About](https://ebola-tracker.org/en/about/)).
 
-contact [at] ebola-tracker.org, ou le [formulaire du site](https://ebola-tracker.org/contact/).
-Les signalements d'erreur sont bienvenus, avec le numéro du bulletin concerné.
+contact [at] ebola-tracker.org, or the [contact form](https://ebola-tracker.org/en/contact/).
+Error reports are welcome; please give the bulletin number. See
+[`CONTRIBUTING.md`](CONTRIBUTING.md).

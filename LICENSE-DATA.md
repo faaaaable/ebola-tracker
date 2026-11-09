@@ -1,3 +1,27 @@
+# Licence for data and content
+
+*[Version française plus bas](#licence-des-données-et-des-contenus)*
+
+The **data** published in [`data/`](data/) (including the CSV and JSON database), and
+the **texts, tables, charts, maps and visuals** produced by ebola-tracker.org, are
+made available under the
+**[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)**
+licence.
+
+You may copy, adapt and republish them, including for commercial purposes,
+**provided you credit the source**: "ebola-tracker.org", with a link where possible,
+and indicate whether changes were made.
+
+**Not covered**: the photograph on the About page, and documents by other authors
+archived in [`reports/`](reports/) (INSP bulletins, WHO reports) or cited by the site
+(ministry statements), which remain under their own terms.
+
+The code in this repository is under the MIT licence: see [`LICENSE`](LICENSE).
+
+Full licence text: <https://creativecommons.org/licenses/by/4.0/legalcode>
+
+---
+
 # Licence des données et des contenus
 
 Les **données** publiées dans [`data/`](data/) (dont la base en CSV et en JSON), ainsi
@@ -15,10 +39,5 @@ l'OMS) ou cités par le site (communiqués des ministères), qui restent soumis 
 propres conditions.
 
 Le code du dépôt est sous licence MIT : voir [`LICENSE`](LICENSE).
-
----
-
-*Data and content are licensed under CC BY 4.0 (attribution: “ebola-tracker.org”).
-Code is under the MIT licence. Third-party documents in `reports/` keep their own terms.*
 
 Texte complet de la licence : <https://creativecommons.org/licenses/by/4.0/legalcode.fr>

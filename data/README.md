@@ -1,66 +1,71 @@
-# Les données
+# The data
 
-Tout ce dossier est produit à partir des bulletins archivés dans [`../reports/`](../reports/),
-sauf mention contraire ci-dessous. Licence : [CC BY 4.0](../LICENSE-DATA.md).
+*[Version française](README.fr.md)*
 
-**Pour réutiliser les chiffres, partez de la base** : elle réunit tout le reste en
-un seul tableau, avec un dictionnaire des colonnes sur la page
-[Base de données](https://ebola-tracker.org/base-de-donnees/).
+Everything in this folder is produced from the bulletins archived in
+[`../reports/`](../reports/), unless stated otherwise below. Licence:
+[CC BY 4.0](../LICENSE-DATA.md).
 
-## La base
+**To reuse the figures, start from the database**: it brings everything else together
+in a single table, with a column dictionary on the
+[Database](https://ebola-tracker.org/en/database/) page.
 
-| Fichier | Contenu |
+File names are in French; the English database has English column names and values.
+
+## The database
+
+| File | Content |
 |---|---|
-| `base-ebola-rdc.csv`, `base-ebola-rdc.json` | la base en français : un relevé par jour et par niveau (pays, province, zone de santé), épidémie et riposte |
-| `ebola-drc-database.csv`, `ebola-drc-database.json` | la même base, colonnes et valeurs en anglais |
+| `ebola-drc-database.csv`, `ebola-drc-database.json` | the database in English: one record per day and per level (country, province, health zone), outbreak and response |
+| `base-ebola-rdc.csv`, `base-ebola-rdc.json` | the same database, with French column names and values |
 
-## L'épidémie
+## The outbreak
 
-| Fichier | Contenu |
+| File | Content |
 |---|---|
-| `latest.json` | le dernier bulletin : bilan national, provinces, zones de santé |
-| `sitreps.json` | le bilan national, bulletin par bulletin |
-| `province-history.json` | cas et décès par province, jour par jour |
-| `zones-history.json` | cas et décès par zone de santé, jour par jour |
-| `deces-lieu.json`, `deces-lieu-zones.json` | décès en communauté ou en centre de traitement, par province et par zone |
-| `demographie.json` | répartition des cas et des décès par âge et par sexe (dernière figure publiée) |
-| `jours-calcules.json` | journées sans bulletin, reconstituées par différence entre deux bulletins |
-| `harmonisations.json` | corrections de séries annoncées par les bulletins eux-mêmes |
+| `latest.json` | the latest bulletin: national totals, provinces, health zones |
+| `sitreps.json` | national totals, bulletin by bulletin |
+| `province-history.json` | cases and deaths by province, day by day |
+| `zones-history.json` | cases and deaths by health zone, day by day |
+| `deces-lieu.json`, `deces-lieu-zones.json` | deaths in the community or in a treatment centre, by province and by zone |
+| `demographie.json` | cases and deaths by age and sex (latest published figure) |
+| `jours-calcules.json` | days without a bulletin, reconstructed as the difference between two bulletins |
+| `harmonisations.json` | series corrections announced by the bulletins themselves |
 
-## La riposte
+## The response
 
-| Fichier | Contenu |
+| File | Content |
 |---|---|
-| `alertes.json` | alertes reçues, vérifiées et validées, par province |
-| `laboratoire.json` | échantillons analysés, résultats positifs, positivité |
-| `contacts-followup.json` | taux de suivi des contacts |
-| `cte.json` | centres de traitement : patients isolés, admissions, sorties, lits |
-| `piliers.json` | vaccination, enterrements sécurisés, ceintures de prévention, voyageurs contrôlés |
-| `points-controle.json` | indicateurs des points d'entrée et de contrôle, par province |
-| `defis.json`, `defis-anciens.json`, `defis-complements.json` | les difficultés citées par les bulletins, texte intégral |
-| `defis-codage.json`, `defis-synthese.json` | leur classement en dix obstacles, et la synthèse rédigée de la page Défis |
+| `alertes.json` | alerts received, investigated and validated, by province |
+| `laboratoire.json` | samples tested, positive results, positivity rate |
+| `contacts-followup.json` | contact follow-up rate |
+| `cte.json` | treatment centres: patients in isolation, admissions, discharges, beds |
+| `piliers.json` | vaccination, safe burials, ring prevention, travellers screened |
+| `points-controle.json` | points of entry and control indicators, by province |
+| `defis.json`, `defis-anciens.json`, `defis-complements.json` | the challenges reported by the bulletins, full text |
+| `defis-codage.json`, `defis-synthese.json` | their classification into ten obstacles, and the written summary on the Challenges page |
 
-## Les cartes
+## Maps
 
-| Fichier | Contenu |
+| File | Content |
 |---|---|
-| `health-zones.geojson` | contours des zones de santé de la RDC (source : OCHA, via HDX) |
-| `zones-supplementaires.geojson` | zones absentes du fond OCHA, tracées d'après OpenStreetMap |
+| `health-zones.geojson` | DRC health zone boundaries (source: OCHA, via HDX) |
+| `zones-supplementaires.geojson` | zones missing from the OCHA layer, traced from OpenStreetMap |
 
-## Sources extérieures aux bulletins de l'INSP
+## Sources other than INSP bulletins
 
-Ces fichiers ne viennent pas des bulletins ; chacun nomme sa source dans son en-tête.
+These files do not come from the bulletins; each one names its source in its header.
 
-| Fichier | Source |
+| File | Source |
 |---|---|
-| `who-reports.json` | rapports de situation de l'OMS (`../reports/who/`) |
-| `hors-rdc.json`, `autres-pays.json`, `parcours-kenya.json`, `parcours-nigeria.json` | communiqués des ministères de la santé et de l'OMS sur les cas hors RDC |
-| `epidemies-ebola.json` | épidémies d'Ebola antérieures, d'après le CDC (*History of Ebola Disease Outbreaks*) |
-| `genomes.json` | nombre de génomes déposés dans Pathoplexus (agrégats seulement) |
+| `who-reports.json` | WHO situation reports (`../reports/who/`) |
+| `hors-rdc.json`, `autres-pays.json`, `parcours-kenya.json`, `parcours-nigeria.json` | statements by ministries of health and WHO on cases outside the DRC |
+| `epidemies-ebola.json` | previous Ebola outbreaks, from the CDC (*History of Ebola Disease Outbreaks*) |
+| `genomes.json` | number of genomes deposited in Pathoplexus (aggregates only) |
 
-## Fichiers de fonctionnement du site
+## Files used to run the site
 
-`bulletin-notes.json` et `lettres/` (textes de la Lettre), `envois-*.json`,
-`envoi-test.json` et `mail-accueil.json` (envoi des mails), `actus.json`,
-`social-updates.json` et `community-deaths-daily.json` (fonctions retirées, gardées
-pour l'historique), `diagnostic_report.json` (contrôle d'extraction).
+`bulletin-notes.json` and `lettres/` (texts of the Letter), `envois-*.json`,
+`envoi-test.json` and `mail-accueil.json` (email sending), `actus.json`,
+`social-updates.json` and `community-deaths-daily.json` (retired features, kept for
+the record), `diagnostic_report.json` (extraction check).
