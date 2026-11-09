@@ -1983,62 +1983,6 @@ def fmt_pct(valeur, lang):
     return ("%.1f" % valeur).replace(".", loc(lang, "decimal"))
 
 
-def genomes_seeds(genomes, lang, strings_lang, i18n_lang):
-    """Le bloc « genomes » de la page Le virus : trois chiffres, les mois, les
-    zones. Comptes agreges lus dans Pathoplexus (data/genomes.json, produit a
-    la main par scripts/extraire_genomes.py) — un chiffre de contexte, pas de
-    suivi, d'ou la date de consultation ecrite dans la note.
-
-    Les barres reprennent l'idiome mb-bar de la page Flux (une barre par zone,
-    valeur a droite) ; les mois sont des colonnes, parce qu'un mois se lit
-    dans le temps et une zone dans une liste.
-    """
-    if not genomes:
-        return {}
-    zones = genomes["parZone"]
-    total = genomes["rdc2026"]
-    deux = sum(r["n"] for r in zones if r["zone"] in ("Bunia", "Rwampara"))
-    maxi = max(r["n"] for r in zones) if zones else 1
-    # Douze lignes suffisent : au-dela, les barres font deux pixels et la queue
-    # de la liste tient en une phrase. Les six premieres portent 90 % du total.
-    tetes, queue = zones[:12], zones[12:]
-    barres = []
-    for r in tetes:
-        barres.append('<div class="mb-bar"><div class="mb-bar-label">%s <span class="vg-prov">%s</span></div>'
-                      '<div class="mb-bar-track"><div class="mb-bar-fill" style="width:%.1f%%"></div></div>'
-                      '<div class="mb-bar-val">%s</div></div>'
-                      % (esc(r["zone"]), esc(r.get("province") or ""), r["n"] / maxi * 100, fmt(r["n"], lang)))
-    reste = ""
-    if queue:
-        reste = interp(strings_lang["virusGenomesReste"], {
-            "n": fmt(len(queue), lang),
-            "min": fmt(min(r["n"] for r in queue), lang),
-            "max": fmt(max(r["n"] for r in queue), lang)})
-    mois = [m for m in genomes["parMois"] if m["mois"] >= "2026-05"]
-    maxm = max(m["n"] for m in mois) if mois else 1
-    cols = []
-    for m in mois:
-        cols.append('<div class="vg-col"><div class="vg-n">%s</div><div class="vg-track"><div class="vg-fill" style="height:%.1f%%"></div></div>'
-                    '<div class="vg-lab">%s</div></div>'
-                    % (fmt(m["n"], lang), m["n"] / maxm * 100, esc(i18n_lang["months"][int(m["mois"][5:7]) - 1])))
-    autres = sum(genomes.get("autresLieux", {}).values())
-    return {
-        "seed.genomesSeq": fmt(total, lang),
-        "seed.genomesZones": fmt(len(zones), lang),
-        "seed.genomesPart": fmt_pct(100.0 * deux / total, lang) + loc(lang, "percent") if total else "",
-        "seed.genomesBarres": '<div class="mb-bars vg-bars">%s</div>%s' % (
-            "".join(barres), ('<p class="vg-reste">%s</p>' % esc(reste)) if reste else ""),
-        "seed.genomesMois": '<div class="vg-mois">%s</div>' % "".join(cols),
-        "seed.genomesAutres": interp(strings_lang["virusGenomesOther"], {
-            "n": fmt(autres, lang), "m": fmt(genomes.get("nonPrecise", 0), lang)}),
-        "seed.genomesNote": interp(strings_lang["virusGenomesNote"], {
-            "date": long_date(genomes["consulte"], i18n_lang),
-            "ouganda": fmt(genomes.get("parPays2026", {}).get("Uganda", 0), lang),
-            "ouvert": fmt(genomes.get("termes", {}).get("OPEN", 0), lang),
-            "restreint": fmt(genomes.get("termes", {}).get("RESTRICTED", 0), lang)}),
-    }
-
-
 def histoire_seeds(epidemies, national, meta_data, lang, strings_lang, i18n_lang):
     """La partie « Histoire » de la page Le virus : l'epidemie actuelle sur une
     frise de 1976 a aujourd'hui, un cercle par epidemie dont la SURFACE suit le
@@ -4839,7 +4783,6 @@ def main():
             "seed.noteAjouts": note_ajouts(ajouts, None, sitreps, national, meta_data, lang, strings_lang),
             "seed.agesRows": ages_rows_html(demographie, lang, strings_lang),
             "seed.agesPapillon": ages_papillon_html(demographie, lang, strings_lang),
-            "seed.vgeTitre": interp(strings_lang["vgeTitre"], {"n": fmt(genomes["rdc2026"], lang)}) if genomes else "",
             "seed.sexRows": sex_rows_html(demographie, lang, strings_lang),
             "seed.agesFrozen": esc(interp(strings_lang["ddAgesFrozen"], {
                 "date": long_date(demographie["date"], i18n_lang)})),
@@ -4850,7 +4793,6 @@ def main():
                 "deces": fmt(demographie["totaux"]["deces"], lang),
                 "partCas": fmt_pct(demographie["couverture"]["partCas"], lang),
                 "partDeces": fmt_pct(demographie["couverture"]["partDeces"], lang)}),
-            **genomes_seeds(genomes, lang, strings_lang, i18n_lang),
             **histoire_seeds(epidemies_ebola, national, meta_data, lang, strings_lang, i18n_lang),
             "seed.reportsList": reports_list_html(latest.get("reports", []), lang, i18n_lang, strings_lang),
             "seed.reportsManquants": reports_manquants_html(latest.get("reports", []), lang, strings_lang),
@@ -5731,8 +5673,8 @@ def write_404(config, urls, strings, i18n, layout):
         '<meta name="robots" content="noindex, follow">',
         '<meta name="theme-color" content="#FDFAF6">',
         '<link rel="icon" href="/favicon.ico" sizes="48x48">',
-        '<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">',
-        '<link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192">',
+        '<link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" sizes="any">',
+        '<link rel="icon" type="image/png" href="/assets/img/favicon-192.png" sizes="192x192">',
         '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
         '<link rel="stylesheet" href="/assets/fonts/fonts.css?v=%s">'
         % jeton_version("assets/fonts/fonts.css"),
