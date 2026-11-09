@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "Si vous utilisez ces données, merci de citer ebola-tracker.org. / If you use these data, please cite ebola-tracker.org."
+type: dataset
+title: "ebola-tracker.org : suivi de la 17e épidémie d'Ebola en RDC (Bundibugyo, 2026)"
+abstract: >-
+  Données quotidiennes de la 17e épidémie d'Ebola en République démocratique
+  du Congo (espèce Bundibugyo, déclarée le 15 mai 2026), extraites des
+  bulletins de situation de l'INSP et des rapports de l'OMS : cas, décès,
+  guéris et létalité par province et par zone de santé, et indicateurs de la
+  riposte.
+authors:
+  - family-names: Moingt
+    given-names: Pierre-Emmanuel
+url: "https://ebola-tracker.org"
+repository-code: "https://github.com/faaaaable/ebola-tracker"
+license:
+  - CC-BY-4.0
+  - MIT
+keywords:
+  - ebola
+  - bundibugyo
+  - democratic republic of the congo
+  - epidemiology
+  - outbreak
+  - open data
