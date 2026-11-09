@@ -1,78 +1,73 @@
-  <!-- Le virus, refonte du 6 octobre 2026 (choix du proprietaire) : le
-       comparatif Bundibugyo / Zaire de la maquette n°2 ouvre la page, la
-       maladie « jour apres jour » de la maquette n°3 suit. Les sections
-       Transmission, Incubation et Evolution, et la bande de quatre chiffres,
-       y sont reprises ; le tableau a deux colonnes est devenu le face-a-face. -->
-  <section class="section ff-tete">
-    <div class="eyebrow"><span class="dot"></span>{{t.footerUnderstandTitle}}</div>
-    <h1 class="page-title ff-titre"><span class="visually-hidden">{{meta.h1}} — </span>{{t.virusFFTitle}}</h1>
-    <p class="lede">{{t.virusFFLede}}</p>
-    <nav class="riposte-ancres" aria-label="{{t.virusAnchorsLabel}}">
-      <a href="#espece">{{t.virusAncreFace}}</a>
-      <a href="#histoire">{{t.virusAncreHistoire}}</a>
-      <a href="#evolution">{{t.virusAncreJours}}</a>
-      <a href="#ages">{{t.virusAncreAges}}</a>
-      <a href="#traitements">{{t.virusAncreTraitements}}</a>
-      <a href="#genomes">{{t.virusAncreGenomes}}</a>
-    </nav>
+  <!-- Le virus, refonte du 9 novembre 2026 (maquette tmp/proto-virus-1109,
+       choix du proprietaire) : plus de face-a-face Bundibugyo / Zaire. La page
+       parle de l'espece de cette epidemie ; Zaire n'est plus qu'un repere, dans
+       l'encadre sur le vaccin. Menu a ancres colle et chapitres numerotes,
+       comme Riposte et les fiches province. Le chapitre Genomes est supprime :
+       son comptage (Pathoplexus, fige au 4 septembre) se lisait comme un etat
+       du jour ; ses trois resultats passent en fin de chapitre 01. -->
+  <section class="section maq-tete">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>{{t.footerUnderstandTitle}}</div>
+        <h1 class="page-title"><span class="visually-hidden">{{meta.h1}} — </span>{{t.veTitre}}</h1>
+      </div>
+    </div>
+    <p class="lede">{{t.veLede}}</p>
   </section>
 
-  <section class="section ff" id="espece">
-    <table class="ff-table">
-      <caption class="visually-hidden">{{t.virusCompareCaption}}</caption>
-      <thead>
-        <tr>
-          <th scope="col" class="ff-g"><strong>{{t.virusCompareThisOutbreak}}</strong><span>{{t.virusCompareThisOutbreakNote}}</span></th>
-          <th scope="col" class="ff-q0"><span class="visually-hidden">{{t.virusCompareCaption}}</span></th>
-          <th scope="col" class="ff-d"><strong>{{t.virusCompareZaire}}</strong><span>{{t.virusCompareZaireNote}}</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="ff-g"><b>{{t.virusFFR0a}}</b><span>{{t.virusFFR0aSub}}</span></td>
-          <th scope="row" class="ff-q">{{t.virusFFR0}}</th>
-          <td class="ff-d"><b>{{t.virusFFR0b}}</b><span>{{t.virusFFR0bSub}}</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>{{t.virusCompareRow1a}}</b><span>{{t.virusFFR1aSub}}</span></td>
-          <th scope="row" class="ff-q">{{t.virusCompareRow1}}</th>
-          <td class="ff-d"><b>{{t.virusFFR1b}}</b><span>{{t.virusFFR1bSub}}</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>{{t.virusFFR2a}}</b><span>{{t.virusFFR2Sub}}</span></td>
-          <th scope="row" class="ff-q">{{t.virusCompareRow2}}</th>
-          <td class="ff-d"><b>{{t.virusFFR2b}}</b><span>{{t.virusFFR2Sub}}</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>{{t.virusCompareRow3a}}</b><span>{{t.virusFFR3aSub}}</span></td>
-          <th scope="row" class="ff-q">{{t.virusCompareRow3}}</th>
-          <td class="ff-d"><b>{{t.virusFFR3b}}</b><span>{{t.virusFFR3bSub}}</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>{{t.virusCompareRow4a}}</b><span>{{t.virusFFR4aSub}}</span></td>
-          <th scope="row" class="ff-q">{{t.virusCompareRow4}}</th>
-          <td class="ff-d"><b>{{t.virusFFR4b}}</b><span>{{t.virusFFR4bSub}}</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>{{t.virusFFR5a}}</b></td>
-          <th scope="row" class="ff-q">{{t.virusFFR5}}</th>
-          <td class="ff-d"><b>{{t.virusFFR5b}}</b></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="prose ff-histoire">{{t.virusHistoryBody}}</div>
+  <nav class="pp-sousnav chap-nav" aria-label="{{t.virusAnchorsLabel}}"><div><a href="#espece"><b class="chap-nav-n">01</b>{{t.veAncreEspece}}</a><a href="#histoire"><b class="chap-nav-n">02</b>{{t.virusAncreHistoire}}</a><a href="#evolution"><b class="chap-nav-n">03</b>{{t.virusAncreJours}}</a><a href="#ages"><b class="chap-nav-n">04</b>{{t.virusAncreAges}}</a><a href="#traitements"><b class="chap-nav-n">05</b>{{t.virusAncreTraitements}}</a></div></nav>
+
+  <section class="section chap" id="espece">
+    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">{{t.veEspT}}</h2><p class="chap-chapo">{{t.veEspChapo}}</p></div></header>
+    <div class="chap-corps">
+      <dl class="fi">
+        <div class="fi-c"><dt>{{t.veFi1L}}</dt><dd><b>{{t.veFi1V}}</b><span>{{t.veFi1S}}</span></dd></div>
+        <div class="fi-c"><dt>{{t.veFi2L}}</dt><dd><b>{{t.veFi2V}}</b><span>{{t.veFi2S}}</span></dd></div>
+        <div class="fi-c"><dt>{{t.veFi3L}}</dt><dd><b>{{t.veFi3V}}</b><span>{{seed.veFi3S}}</span></dd></div>
+        <div class="fi-c"><dt>{{t.veFi4L}}</dt><dd><b>{{t.veFi4V}}</b><span>{{t.veFi4S}}</span></dd></div>
+        <div class="fi-c"><dt>{{t.veFi5L}}</dt><dd><b>{{t.veFi5V}}</b><span>{{t.veFi5S}}</span></dd></div>
+      </dl>
+      <div class="fi-bas">
+        <div class="fi-especes">
+          <h3 class="fi-h">{{t.veEspecesT}}</h3>
+          <ul class="fi-pastilles" aria-label="{{t.veEspecesAria}}">
+            <li class="fi-zaire"><i></i>{{t.veZaire}}</li><li class="fi-soudan"><i></i>{{t.veSoudan}}</li><li class="fi-tai"><i></i>{{t.veTai}}</li><li class="is-ici"><i></i>{{t.veBdbv}}<em>{{t.veIci}}</em></li>
+          </ul>
+          <p>{{t.veEspecesP}}</p>
+        </div>
+        <aside class="fi-encadre">
+          <h3 class="fi-h">{{t.veEncadreT}}</h3>
+          <p>{{t.veEncadreP}}</p>
+        </aside>
+      </div>
+      <div class="vl-bloc">
+        <h3 class="fi-h vl-titre">{{t.veGenT}}</h3>
+        <p class="vl-intro">{{t.virusGenomesLuP1}}</p>
+        <p class="vl-amorce">{{t.veGenAmorce}}</p>
+        <ol class="vl-res">
+          <li><span class="vl-n">1</span><b class="vl-v">{{t.veR1V}}</b><span class="vl-k">{{t.veR1K}}</span><p>{{t.veR1P}}</p></li>
+          <li><span class="vl-n">2</span><b class="vl-v">{{t.veR2V}}</b><span class="vl-k">{{t.veR2K}}</span><p>{{t.veR2P}}</p></li>
+          <li><span class="vl-n">3</span><b class="vl-v">{{t.veR3V}}</b><span class="vl-k">{{t.veR3K}}</span><p>{{t.veR3P}}</p></li>
+        </ol>
+        <aside class="fi-encadre vl-limite">
+          <h4 class="fi-h">{{t.veLimT}}</h4>
+          <p>{{t.veLimP}}</p>
+        </aside>
+        <div class="info-note">{{t.virusGenomesLuCredit}} {{seed.veGenDepot}}</div>
+      </div>
+    </div>
   </section>
 
   <!-- La frise des epidemies (11 octobre 2026) : la RDC d'abord (option A des
        maquettes tmp/proto-histoire-1011), le monde au second bouton
        (tmp/proto-histoire-monde-1011). Bascule sans JavaScript : deux radios,
        freres des blocs qu'elles affichent, et des regles CSS. -->
-  <section class="section vb-sec hx-sec" id="histoire">
+  <section class="section vb-sec chap hx-sec" id="histoire">
     <input type="radio" name="hx-vue" id="hx-vue-rdc" class="hx-radio" checked>
     <input type="radio" name="hx-vue" id="hx-vue-monde" class="hx-radio">
-    <div class="vb-tete"><div class="eyebrow">{{t.virusAncreHistoire}}</div>
-      <h2 class="hx-v-rdc">{{t.hxTitre}}</h2><h2 class="hx-v-monde">{{seed.hxTitreMonde}}</h2>
-      <p class="hx-v-rdc">{{seed.hxLede}}</p><p class="hx-v-monde">{{seed.hxLedeMonde}}</p></div>
+    <header class="chap-ouv"><span class="chap-num">02</span><div><h2 class="chap-t hx-v-rdc">{{t.hxTitre}}</h2><h2 class="chap-t hx-v-monde">{{seed.hxTitreMonde}}</h2>
+      <p class="chap-chapo hx-v-rdc">{{seed.hxLede}}</p><p class="chap-chapo hx-v-monde">{{seed.hxLedeMonde}}</p></div></header>
+    <div class="chap-corps">
     <div class="hx-bascule" role="group" aria-label="{{t.hxVueLabel}}">
       <label for="hx-vue-rdc" class="subtab-btn">{{t.hxVueRdc}}</label><label for="hx-vue-monde" class="subtab-btn">{{t.hxVueMonde}}</label>
     </div>
@@ -88,13 +83,14 @@
       {{seed.hxChiffresMonde}}
       <p class="vb-src">{{seed.hxNoteMonde}}</p>
     </div>
+    </div>
   </section>
 
-  <!-- Suite de la page dans le theme du face-a-face (6 octobre 2026, option 3
-       « l'axe central ») : le filet du milieu du comparatif devient un axe ;
-       le malade a gauche, la riposte a droite ; les ages en papillon. -->
-  <section class="section vb-sec" id="evolution">
-    <div class="vb-tete"><div class="eyebrow">{{t.vjpEyebrow}}</div><h2>{{t.vjpTitle}}</h2><p>{{t.vjpLede}}</p></div>
+  <!-- Jour apres jour (6 octobre 2026, option 3 « l'axe central ») : le
+       malade a gauche, la riposte a droite ; les ages en papillon. -->
+  <section class="section vb-sec chap" id="evolution">
+    <header class="chap-ouv"><span class="chap-num">03</span><div><h2 class="chap-t">{{t.vjpTitle}}</h2><p class="chap-chapo">{{t.vjpLede}}</p></div></header>
+    <div class="chap-corps">
     <div class="ax-tete"><span>{{t.vjpGauche}}</span><span></span><span>{{t.vjpDroite}}</span></div>
     <div class="ax">
       <div class="ax-l"><div class="ax-g"><h3>{{t.vjp1Title}}</h3><p>{{t.vjp1Text}}</p></div><div class="ax-c"><span>{{t.vjp1Tag}}</span></div><div class="ax-d"><p>{{t.vjp1Rip}}</p></div></div>
@@ -103,10 +99,12 @@
       <div class="ax-l"><div class="ax-g"><h3>{{t.vjp4Title}}</h3><p>{{t.vjp4Text}}</p></div><div class="ax-c"><span>{{t.vjp4Tag}}</span></div><div class="ax-d"><p>{{t.vjp4Rip}}</p></div></div>
       <div class="ax-l"><div class="ax-g"><h3>{{t.vjp5Title}}</h3><p>{{seed.vjp5Text}}</p></div><div class="ax-c"><span>{{t.vjp5Tag}}</span></div><div class="ax-d"><p>{{seed.vjp5Rip}}</p></div></div>
     </div>
+    </div>
   </section>
 
-  <section class="section vb-sec" id="ages">
-    <div class="vb-tete"><div class="eyebrow">{{t.virusAncreAges}}</div><h2>{{t.vagTitre}}</h2><p>{{t.virusAgesIntro}}</p></div>
+  <section class="section vb-sec chap" id="ages">
+    <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">{{t.vagTitre}}</h2><p class="chap-chapo">{{t.virusAgesIntro}}</p></div></header>
+    <div class="chap-corps">
     <div class="ax-tete pa-tete"><span>{{t.virusAgesCases}}</span><span></span><span>{{t.virusAgesDeaths}}</span></div>
     {{seed.agesPapillon}}
     <div class="vb-sexes">
@@ -120,68 +118,26 @@
       </div>
     </div>
     <p class="vb-src">{{seed.agesNote}}</p>
-  </section>
-
-  <section class="section vb-sec" id="traitements">
-    <div class="vb-tete"><div class="eyebrow">{{t.vtrEyebrow}}</div><h2>{{t.vtrTitre}}</h2><p>{{t.virusCompareIntro}}</p></div>
-    <table class="ff-table vb-ff">
-      <caption class="visually-hidden">{{t.vtrEyebrow}}</caption>
-      <tbody>
-        <tr><td class="ff-g"><b>{{t.vtrVaccinG}}</b><span>{{t.vtrVaccinGSub}}</span></td><th scope="row" class="ff-q">{{t.vtrVaccin}}</th><td class="ff-d"><b>{{t.vtrVaccinD}}</b><span>{{t.vtrVaccinDSub}}</span></td></tr>
-        <tr><td class="ff-g"><b>{{t.vtrTraitG}}</b><span>{{t.vtrTraitGSub}}</span></td><th scope="row" class="ff-q">{{t.vtrTrait}}</th><td class="ff-d"><b>{{t.vtrTraitD}}</b><span>{{t.vtrTraitDSub}}</span></td></tr>
-      </tbody>
-    </table>
-    <div class="vb-texte">
-      <p>{{t.virusVaccinUpdate}}</p>
-      <p>{{t.virusCompareNote}}</p>
     </div>
   </section>
 
-  <!-- Genomes sequences : comptes agreges lus dans Pathoplexus par
-       scripts/extraire_genomes.py (data/genomes.json). Un chiffre de
-       contexte, pas de suivi : il ne bouge qu'a la main. -->
-  <section class="section vb-sec" id="genomes">
-    <div class="vb-tete"><div class="eyebrow">{{t.virusGenomesTitle}}</div><h2>{{seed.vgeTitre}}</h2><p>{{t.virusGenomesIntro}}</p></div>
-    <div class="vb-genomes">
-      <div class="figure-band vg-band">
-        <div class="fb-item">
-          <div class="fb-value">{{seed.genomesSeq}}</div>
-          <div class="fb-label">{{t.virusGenomesStatSeq}}</div>
-        </div>
-        <div class="fb-item">
-          <div class="fb-value">{{seed.genomesZones}}</div>
-          <div class="fb-label">{{t.virusGenomesStatZones}}</div>
-        </div>
-        <div class="fb-item">
-          <div class="fb-value">{{seed.genomesPart}}</div>
-          <div class="fb-label">{{t.virusGenomesStatShare}}</div>
-        </div>
+  <section class="section vb-sec chap" id="traitements">
+    <header class="chap-ouv"><span class="chap-num">05</span><div><h2 class="chap-t">{{t.vtrTitre}}</h2><p class="chap-chapo">{{t.veTrChapo}}</p></div></header>
+    <div class="chap-corps">
+    <div class="vt">
+      <div class="vt-c">
+        <div class="vt-l">{{t.veVacL}}</div>
+        <b class="vt-v">{{t.veVacV}}</b>
+        <span class="vt-s">{{t.veVacS}}</span>
+        <p>{{t.virusVaccinUpdate}}</p>
       </div>
-      <div class="section-head">
-        <h3 class="frame-title">{{t.virusGenomesMonthsTitle}}</h3>
+      <div class="vt-c">
+        <div class="vt-l">{{t.veTrL}}</div>
+        <b class="vt-v">{{t.veTrV}}</b>
+        <span class="vt-s">{{t.veTrS}}</span>
+        <p>{{t.virusCompareNote}}</p>
       </div>
-      <div class="panel">
-        <figure class="mb-figure">
-          {{seed.genomesMois}}
-        </figure>
-      </div>
-      <div class="section-head">
-        <h3 class="frame-title">{{t.virusGenomesZonesTitle}}</h3>
-      </div>
-      <div class="panel">
-        <figure class="mb-figure">
-          {{seed.genomesBarres}}
-          <p class="mb-credit">{{seed.genomesAutres}}</p>
-        </figure>
-      </div>
-      <div class="info-note">{{seed.genomesNote}}</div>
-      <h3 class="frame-title">{{t.virusGenomesLuTitre}}</h3>
-      <div class="prose vg-lu">
-        <p>{{t.virusGenomesLuP1}}</p>
-        <p>{{t.virusGenomesLuP2}}</p>
-        <p>{{t.virusGenomesLuP3}}</p>
-      </div>
-      <div class="info-note">{{t.virusGenomesLuCredit}}</div>
+    </div>
     </div>
   </section>
 

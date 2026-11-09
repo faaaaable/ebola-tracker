@@ -85,7 +85,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=491c24eeac">
+<link rel="stylesheet" href="/assets/css/site.css?v=e415b8bc73">
 </head>
 <body>
 
@@ -238,81 +238,76 @@
 
 
       <main id="contenu">
-  <!-- Le virus, refonte du 6 octobre 2026 (choix du proprietaire) : le
-       comparatif Bundibugyo / Zaire de la maquette n°2 ouvre la page, la
-       maladie « jour apres jour » de la maquette n°3 suit. Les sections
-       Transmission, Incubation et Evolution, et la bande de quatre chiffres,
-       y sont reprises ; le tableau a deux colonnes est devenu le face-a-face. -->
-  <section class="section ff-tete">
-    <div class="eyebrow"><span class="dot"></span>Understand</div>
-    <h1 class="page-title ff-titre"><span class="visually-hidden">The Bundibugyo Ebola virus — </span>Bundibugyo <em>versus</em> Zaire</h1>
-    <p class="lede">Two species of the same Ebola virus. This outbreak is caused by the Bundibugyo species.</p>
-    <nav class="riposte-ancres" aria-label="Page sections">
-      <a href="#espece">Versus Zaire</a>
-      <a href="#histoire">History</a>
-      <a href="#evolution">Day by day</a>
-      <a href="#ages">Who it affects</a>
-      <a href="#traitements">Treatments & vaccines</a>
-      <a href="#genomes">Genomes</a>
-    </nav>
+  <!-- Le virus, refonte du 9 novembre 2026 (maquette tmp/proto-virus-1109,
+       choix du proprietaire) : plus de face-a-face Bundibugyo / Zaire. La page
+       parle de l'espece de cette epidemie ; Zaire n'est plus qu'un repere, dans
+       l'encadre sur le vaccin. Menu a ancres colle et chapitres numerotes,
+       comme Riposte et les fiches province. Le chapitre Genomes est supprime :
+       son comptage (Pathoplexus, fige au 4 septembre) se lisait comme un etat
+       du jour ; ses trois resultats passent en fin de chapitre 01. -->
+  <section class="section maq-tete">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Understand</div>
+        <h1 class="page-title"><span class="visually-hidden">The Bundibugyo Ebola virus — </span>The <em>Bundibugyo</em> virus</h1>
+      </div>
+    </div>
+    <p class="lede">This outbreak is caused by the Bundibugyo species of Ebola virus.</p>
   </section>
 
-  <section class="section ff" id="espece">
-    <table class="ff-table">
-      <caption class="visually-hidden">What the species changes</caption>
-      <thead>
-        <tr>
-          <th scope="col" class="ff-g"><strong>Bundibugyo</strong><span>the species behind this outbreak</span></th>
-          <th scope="col" class="ff-q0"><span class="visually-hidden">What the species changes</span></th>
-          <th scope="col" class="ff-d"><strong>Zaire</strong><span>the most studied species</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="ff-g"><b>2007</b><span>Uganda</span></td>
-          <th scope="row" class="ff-q">Identified in</th>
-          <td class="ff-d"><b>1976</b><span>DRC (Yambuku)</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>3</b><span>including this one</span></td>
-          <th scope="row" class="ff-q">Known outbreaks</th>
-          <td class="ff-d"><b>most</b><span>of documented outbreaks</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>25–50%</b><span>depending on the outbreak</span></td>
-          <th scope="row" class="ff-q">Historical fatality rate</th>
-          <td class="ff-d"><b>up to 90%</b><span>depending on the outbreak</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>none</b><span>Ervebo in research since August 2026; TUMAINI-TRIAL since 23 October</span></td>
-          <th scope="row" class="ff-q">Licensed vaccine</th>
-          <td class="ff-d"><b>Ervebo</b><span>rVSV-ZEBOV</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>none</b><span>candidates in clinical trials</span></td>
-          <th scope="row" class="ff-q">Licensed treatments</th>
-          <td class="ff-d"><b>2</b><span>Inmazeb, Ebanga</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>Uganda 2007, DRC 2012</b></td>
-          <th scope="row" class="ff-q">Major outbreaks</th>
-          <td class="ff-d"><b>West Africa 2014-2016, Nord-Kivu 2018-2020</b></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="prose ff-histoire"><p>The <em>Orthoebolavirus</em> genus contains six species, four of which are pathogenic to humans. The vast majority of documented outbreaks — including the 2014-2016 West Africa epidemic and the 2018-2020 North Kivu outbreak — were caused by the Zaire species, by far the most studied.</p><p>The Bundibugyo species is named after the Ugandan district where it was first identified in 2007. Before this outbreak it had been involved in only two others: Uganda in 2007, then the DRC's Orientale province in 2012. That thin track record is why no licensed vaccine exists against it, and why the response relies on supportive care and on products still under clinical evaluation.</p></div>
+  <nav class="pp-sousnav chap-nav" aria-label="Page sections"><div><a href="#espece"><b class="chap-nav-n">01</b>The species</a><a href="#histoire"><b class="chap-nav-n">02</b>History</a><a href="#evolution"><b class="chap-nav-n">03</b>Day by day</a><a href="#ages"><b class="chap-nav-n">04</b>Who it affects</a><a href="#traitements"><b class="chap-nav-n">05</b>Vaccines and treatments</a></div></nav>
+
+  <section class="section chap" id="espece">
+    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">The Bundibugyo species</h2><p class="chap-chapo">Identified in 2007, it had caused only two outbreaks before this one.</p></div></header>
+    <div class="chap-corps">
+      <dl class="fi">
+        <div class="fi-c"><dt>Identified in</dt><dd><b>2007</b><span>in Uganda, in the Bundibugyo district, which gave it its name</span></dd></div>
+        <div class="fi-c"><dt>Known outbreaks</dt><dd><b>3</b><span>Uganda 2007, Isiro (DRC) 2012, and this one</span></dd></div>
+        <div class="fi-c"><dt>Fatality rate</dt><dd><b>25 to 50%</b><span>in past outbreaks; 48.7% of confirmed cases in this one</span></dd></div>
+        <div class="fi-c"><dt>Licensed vaccine</dt><dd><b>none</b><span>Ervebo used in research since August 2026; TUMAINI-TRIAL since 23 October</span></dd></div>
+        <div class="fi-c"><dt>Licensed treatment</dt><dd><b>none</b><span>supportive care; several candidates in clinical trials</span></dd></div>
+      </dl>
+      <div class="fi-bas">
+        <div class="fi-especes">
+          <h3 class="fi-h">One species among four</h3>
+          <ul class="fi-pastilles" aria-label="The four species that cause disease in humans">
+            <li class="fi-zaire"><i></i>Zaire</li><li class="fi-soudan"><i></i>Sudan</li><li class="fi-tai"><i></i>Taï Forest</li><li class="is-ici"><i></i>Bundibugyo<em>this outbreak</em></li>
+          </ul>
+          <p>The Ebola virus comprises six species, four of which cause disease in humans: Zaire, Sudan, Taï Forest and Bundibugyo. This one is named after the Ugandan district where it was identified in 2007. Before 2026, it had caused only two outbreaks: in Uganda in 2007, then in Isiro, in today's Haut-Uélé, in 2012.</p>
+        </div>
+        <aside class="fi-encadre">
+          <h3 class="fi-h">Why no licensed vaccine?</h3>
+          <p>The best-known species, Zaire, is behind most documented outbreaks, including those in West Africa (2014-2016) and North Kivu (2018-2020). It is against Zaire that the Ervebo vaccine and the two licensed treatments, Inmazeb and Ebanga, were developed. With so few outbreaks, Bundibugyo never got these tools: the response relies on supportive care and on products evaluated in clinical trials.</p>
+        </aside>
+      </div>
+      <div class="vl-bloc">
+        <h3 class="fi-h vl-titre">What genetics has revealed</h3>
+        <p class="vl-intro">Sequencing does more than confirm the species. Comparing genomes with one another traces them back to a common ancestor, dates the real start of transmission and measures how fast the outbreak spread.</p>
+        <p class="vl-amorce">Three findings from the analyses published by INRB and its partners</p>
+        <ol class="vl-res">
+          <li><span class="vl-n">1</span><b class="vl-v">a recent spillover</b><span class="vl-k">from the animal reservoir</span><p>The 2026 virus descends neither from the 2007 outbreak in Uganda nor from the 2012 one in Isiro.</p></li>
+          <li><span class="vl-n">2</span><b class="vl-v">late February 2026</b><span class="vl-k">the common ancestor of the sequenced genomes</span><p>Nearly three months before the official declaration of 15 May: the virus was circulating unseen.</p></li>
+          <li><span class="vl-n">3</span><b class="vl-v">21 days</b><span class="vl-k">the doubling time, roughly</span><p>Growth accelerated from March to June, then eased.</p></li>
+        </ol>
+        <aside class="fi-encadre vl-limite">
+          <h4 class="fi-h">What the genomes do not say</h4>
+          <p>Which zone infected which. The virus mutates slowly compared with the speed at which it travels: from one zone to the next, samples resemble each other too closely for transmission chains to be reconstructed. The authors explicitly warn against that reading.</p>
+        </aside>
+        <div class="info-note">From analyses by INRB, INSP and their partners published on <a href="https://virological.org/t/1046" target="_blank" rel="noopener">virological.org</a> on 9 July and 25 August 2026, and an independent replication by Imperial College London. They cover 626 genomes sampled between 2 May and 9 August across 21 health zones in Ituri and one in North Kivu. Uncertainty ranges are wide: the common ancestor falls between mid-January and late March, the doubling time between 15 and 41 days. As of 4 Sep 2026, INRB had deposited 731 genomes from this outbreak in <a href="https://pathoplexus.org/ebola-bdbv/search" target="_blank" rel="noopener">Pathoplexus</a>.</div>
+      </div>
+    </div>
   </section>
 
   <!-- La frise des epidemies (11 octobre 2026) : la RDC d'abord (option A des
        maquettes tmp/proto-histoire-1011), le monde au second bouton
        (tmp/proto-histoire-monde-1011). Bascule sans JavaScript : deux radios,
        freres des blocs qu'elles affichent, et des regles CSS. -->
-  <section class="section vb-sec hx-sec" id="histoire">
+  <section class="section vb-sec chap hx-sec" id="histoire">
     <input type="radio" name="hx-vue" id="hx-vue-rdc" class="hx-radio" checked>
     <input type="radio" name="hx-vue" id="hx-vue-monde" class="hx-radio">
-    <div class="vb-tete"><div class="eyebrow">History</div>
-      <h2 class="hx-v-rdc">Seventeen outbreaks <em>in fifty years</em></h2><h2 class="hx-v-monde">39 outbreaks <em>worldwide since 1976</em></h2>
-      <p class="hx-v-rdc">The DRC's 17th Ebola outbreak is already the largest in the country's history: 10,920 confirmed cases as of 7 Nov 2026, 3.1 times as many as the 2018-2020 North Kivu outbreak. It is also, by far, the largest ever caused by the Bundibugyo species. Worldwide, only the West Africa epidemic (2014-2016) was larger.</p><p class="hx-v-monde">Since the virus was discovered in 1976, the world has seen 39 Ebola outbreaks, including this one. With 10,920 confirmed cases as of 7 Nov 2026, it is by far the largest ever caused by the Bundibugyo species. Worldwide, only the West Africa epidemic (2014-2016) was larger.</p></div>
+    <header class="chap-ouv"><span class="chap-num">02</span><div><h2 class="chap-t hx-v-rdc">Seventeen outbreaks <em>in fifty years</em></h2><h2 class="chap-t hx-v-monde">39 outbreaks <em>worldwide since 1976</em></h2>
+      <p class="chap-chapo hx-v-rdc">The DRC's 17th Ebola outbreak is already the largest in the country's history: 10,920 confirmed cases as of 7 Nov 2026, 3.1 times as many as the 2018-2020 North Kivu outbreak. It is also, by far, the largest ever caused by the Bundibugyo species. Worldwide, only the West Africa epidemic (2014-2016) was larger.</p><p class="chap-chapo hx-v-monde">Since the virus was discovered in 1976, the world has seen 39 Ebola outbreaks, including this one. With 10,920 confirmed cases as of 7 Nov 2026, it is by far the largest ever caused by the Bundibugyo species. Worldwide, only the West Africa epidemic (2014-2016) was larger.</p></div></header>
+    <div class="chap-corps">
     <div class="hx-bascule" role="group" aria-label="Outbreaks shown">
       <label for="hx-vue-rdc" class="subtab-btn">DRC</label><label for="hx-vue-monde" class="subtab-btn">World</label>
     </div>
@@ -328,13 +323,14 @@
       <div class="hx-chiffres"><div><b>39</b><span>Ebola outbreaks worldwide since 1976, in 10 countries.</span></div><div><b>17</b><span>of them in the DRC, by far the country that has had the most.</span></div><div><b>2nd</b><span>largest outbreak in history: only the West Africa epidemic (2014-2016, 28,610 cases) was larger.</span></div></div>
       <p class="vb-src">Past outbreaks: confirmed and probable cases (CDC, <a href="https://www.cdc.gov/ebola/outbreaks/index.html" rel="noopener">History of Ebola Disease Outbreaks</a>), excluding Reston virus, laboratory infections and cases exported from West Africa. “Sudan”: present-day South Sudan. Current outbreak, ongoing: confirmed cases in the DRC (SitRep no. 177, 7 Nov 2026).</p>
     </div>
+    </div>
   </section>
 
-  <!-- Suite de la page dans le theme du face-a-face (6 octobre 2026, option 3
-       « l'axe central ») : le filet du milieu du comparatif devient un axe ;
-       le malade a gauche, la riposte a droite ; les ages en papillon. -->
-  <section class="section vb-sec" id="evolution">
-    <div class="vb-tete"><div class="eyebrow">The disease</div><h2>Day by day</h2><p>What an infected person goes through, from infection to recovery or death, and what teams on the ground do to treat them and protect those around them.</p></div>
+  <!-- Jour apres jour (6 octobre 2026, option 3 « l'axe central ») : le
+       malade a gauche, la riposte a droite ; les ages en papillon. -->
+  <section class="section vb-sec chap" id="evolution">
+    <header class="chap-ouv"><span class="chap-num">03</span><div><h2 class="chap-t">Day by day</h2><p class="chap-chapo">What an infected person goes through, from infection to recovery or death, and what teams on the ground do to treat them and protect those around them.</p></div></header>
+    <div class="chap-corps">
     <div class="ax-tete"><span>The patient</span><span></span><span>The response</span></div>
     <div class="ax">
       <div class="ax-l"><div class="ax-g"><h3>Infection</h3><p>Direct contact with the blood, secretions or body of a sick or deceased person — never through the air.</p></div><div class="ax-c"><span>Day 0</span></div><div class="ax-d"><p>What the response does: safe and dignified burials, protection of health workers.</p></div></div>
@@ -343,10 +339,12 @@
       <div class="ax-l"><div class="ax-g"><h3>Advanced phase</h3><p>Vomiting, diarrhoea, rash, kidney and liver damage, sometimes bleeding.</p></div><div class="ax-c"><span>Then</span></div><div class="ax-d"><p>Treatment centre: intensive supportive care — rehydration, oxygen, monitoring.</p></div></div>
       <div class="ax-l"><div class="ax-g"><h3>Recovery or death</h3><p>The species' historical fatality rate is 25 to 50%. In this outbreak, 48.7% of confirmed cases have died so far.</p></div><div class="ax-c"><span>Outcome</span></div><div class="ax-d"><p>Recovery declared after two negative tests; 2,940 people recovered as of 7 Nov 2026.</p></div></div>
     </div>
+    </div>
   </section>
 
-  <section class="section vb-sec" id="ages">
-    <div class="vb-tete"><div class="eyebrow">Who it affects</div><h2>Cases <em>and</em> deaths, by age</h2><p>Cases and deaths are not distributed the same way. Comparing the two shows which age groups die more often than they fall ill.</p></div>
+  <section class="section vb-sec chap" id="ages">
+    <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">Cases <em>and</em> deaths, by age</h2><p class="chap-chapo">Cases and deaths are not distributed the same way. Comparing the two shows which age groups die more often than they fall ill.</p></div></header>
+    <div class="chap-corps">
     <div class="ax-tete pa-tete"><span>Share of cases</span><span></span><span>Share of deaths</span></div>
     <div class="pa"><div class="pa-l"><div class="pa-g"><span>10.0%</span><i style="width:28.4%"></i></div><div class="pa-c">0–4 years</div><div class="pa-d"><i style="width:54.0%"></i><span>19.0%</span></div></div><div class="pa-l"><div class="pa-g"><span>13.2%</span><i style="width:37.5%"></i></div><div class="pa-c">5–17 years</div><div class="pa-d"><i style="width:36.4%"></i><span>12.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>26.5%</span><i style="width:75.3%"></i></div><div class="pa-c">18–29 years</div><div class="pa-d"><i style="width:70.5%"></i><span>24.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>35.2%</span><i style="width:100.0%"></i></div><div class="pa-c">30–49 years</div><div class="pa-d"><i style="width:77.3%"></i><span>27.2%</span></div></div><div class="pa-l"><div class="pa-g"><span>15.1%</span><i style="width:42.9%"></i></div><div class="pa-c">50 and over</div><div class="pa-d"><i style="width:46.0%"></i><span>16.2%</span></div></div></div>
     <div class="vb-sexes">
@@ -373,68 +371,26 @@
       </div>
     </div>
     <p class="vb-src">As of 5 Aug 2026, the latest published breakdown. Based on the 3,454 cases and 1,124 deaths with known age and sex (85.2% of cases, 60.8% of deaths).</p>
-  </section>
-
-  <section class="section vb-sec" id="traitements">
-    <div class="vb-tete"><div class="eyebrow">Protection and care</div><h2>Vaccines <em>and</em> treatments</h2><p>The only licensed Ebola treatments and vaccine target the Zaire species — not the Bundibugyo species behind this outbreak.</p></div>
-    <table class="ff-table vb-ff">
-      <caption class="visually-hidden">Protection and care</caption>
-      <tbody>
-        <tr><td class="ff-g"><b>Ervebo</b><span>used in research since August 2026</span></td><th scope="row" class="ff-q">Vaccine</th><td class="ff-d"><b>efficacy unknown</b><span>against Bundibugyo, according to WHO</span></td></tr>
-        <tr><td class="ff-g"><b>several candidates</b><span>in clinical trials</span></td><th scope="row" class="ff-q">Treatments</th><td class="ff-d"><b>supportive care</b><span>the cornerstone of treatment</span></td></tr>
-      </tbody>
-    </table>
-    <div class="vb-texte">
-      <p>On 31 August 2026, WHO clarified the use of Ervebo, the vaccine licensed against the Zaire species, against Bundibugyo virus: efficacy against this species unknown, use restricted to a research setting, with priority for health workers and front-line staff. INSP bulletins report vaccinations of that staff since early September. On 23 October 2026, the TUMAINI-TRIAL clinical trial, devoted to a vaccine against the Bundibugyo strain, was launched in Bunia, at the Ituri provincial laboratory. According to INSP, it pays particular attention to front-line staff, and participation is based on informed consent.</p>
-      <p>During this outbreak, several candidates are being evaluated in clinical trials against the Bundibugyo species — including the broad-spectrum antibody MBP134, the antiviral remdesivir, and obeldesivir for post-exposure prophylaxis — under WHO coordination. In the absence of a licensed targeted treatment, intensive supportive care (rehydration, oxygenation, monitoring) remains the cornerstone of care and significantly improves the chances of survival.</p>
     </div>
   </section>
 
-  <!-- Genomes sequences : comptes agreges lus dans Pathoplexus par
-       scripts/extraire_genomes.py (data/genomes.json). Un chiffre de
-       contexte, pas de suivi : il ne bouge qu'a la main. -->
-  <section class="section vb-sec" id="genomes">
-    <div class="vb-tete"><div class="eyebrow">The virus read in its genome</div><h2>731 genomes <em>sequenced</em></h2><p>Sequencing the genome of the virus sampled from patients confirms the species, dates the real start of the outbreak and measures its speed. INRB laboratories in Bunia and Kinshasa deposit these sequences in the public Pathoplexus database: that repository is what is counted here.</p></div>
-    <div class="vb-genomes">
-      <div class="figure-band vg-band">
-        <div class="fb-item">
-          <div class="fb-value">731</div>
-          <div class="fb-label">genomes sequenced in DRC since May 2026</div>
-        </div>
-        <div class="fb-item">
-          <div class="fb-value">22</div>
-          <div class="fb-label">health zones the samples come from</div>
-        </div>
-        <div class="fb-item">
-          <div class="fb-value">57.6%</div>
-          <div class="fb-label">of genomes come from Bunia and Rwampara</div>
-        </div>
+  <section class="section vb-sec chap" id="traitements">
+    <header class="chap-ouv"><span class="chap-num">05</span><div><h2 class="chap-t">Vaccines <em>and</em> treatments</h2><p class="chap-chapo">No vaccine or treatment is yet licensed against Bundibugyo. Those that exist were designed against the Zaire species, hence the trials under way during this outbreak.</p></div></header>
+    <div class="chap-corps">
+    <div class="vt">
+      <div class="vt-c">
+        <div class="vt-l">Vaccine</div>
+        <b class="vt-v">in trials</b>
+        <span class="vt-s">Ervebo since August 2026, efficacy against Bundibugyo unknown according to WHO; TUMAINI-TRIAL since 23 October</span>
+        <p>On 31 August 2026, WHO clarified the use of Ervebo, the vaccine licensed against the Zaire species, against Bundibugyo virus: efficacy against this species unknown, use restricted to a research setting, with priority for health workers and front-line staff. INSP bulletins report vaccinations of that staff since early September. On 23 October 2026, the TUMAINI-TRIAL clinical trial, devoted to a vaccine against the Bundibugyo strain, was launched in Bunia, at the Ituri provincial laboratory. According to INSP, it pays particular attention to front-line staff, and participation is based on informed consent.</p>
       </div>
-      <div class="section-head">
-        <h3 class="frame-title">Genomes by month of sampling</h3>
+      <div class="vt-c">
+        <div class="vt-l">Treatments</div>
+        <b class="vt-v">supportive care</b>
+        <span class="vt-s">the cornerstone of care; several candidates in clinical trials</span>
+        <p>During this outbreak, several candidates are being evaluated in clinical trials against the Bundibugyo species — including the broad-spectrum antibody MBP134, the antiviral remdesivir, and obeldesivir for post-exposure prophylaxis — under WHO coordination. In the absence of a licensed targeted treatment, intensive supportive care (rehydration, oxygenation, monitoring) remains the cornerstone of care and significantly improves the chances of survival.</p>
       </div>
-      <div class="panel">
-        <figure class="mb-figure">
-          <div class="vg-mois"><div class="vg-col"><div class="vg-n">114</div><div class="vg-track"><div class="vg-fill" style="height:35.3%"></div></div><div class="vg-lab">May</div></div><div class="vg-col"><div class="vg-n">254</div><div class="vg-track"><div class="vg-fill" style="height:78.6%"></div></div><div class="vg-lab">Jun</div></div><div class="vg-col"><div class="vg-n">323</div><div class="vg-track"><div class="vg-fill" style="height:100.0%"></div></div><div class="vg-lab">Jul</div></div><div class="vg-col"><div class="vg-n">39</div><div class="vg-track"><div class="vg-fill" style="height:12.1%"></div></div><div class="vg-lab">Aug</div></div></div>
-        </figure>
-      </div>
-      <div class="section-head">
-        <h3 class="frame-title">Genomes by health zone of sampling</h3>
-      </div>
-      <div class="panel">
-        <figure class="mb-figure">
-          <div class="mb-bars vg-bars"><div class="mb-bar"><div class="mb-bar-label">Bunia <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:100.0%"></div></div><div class="mb-bar-val">240</div></div><div class="mb-bar"><div class="mb-bar-label">Rwampara <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:75.4%"></div></div><div class="mb-bar-val">181</div></div><div class="mb-bar"><div class="mb-bar-label">Nizi <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:33.8%"></div></div><div class="mb-bar-val">81</div></div><div class="mb-bar"><div class="mb-bar-label">Mongbwalu <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:24.6%"></div></div><div class="mb-bar-val">59</div></div><div class="mb-bar"><div class="mb-bar-label">Lita <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:19.2%"></div></div><div class="mb-bar-val">46</div></div><div class="mb-bar"><div class="mb-bar-label">Mangala <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:12.9%"></div></div><div class="mb-bar-val">31</div></div><div class="mb-bar"><div class="mb-bar-label">Bambu <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:7.9%"></div></div><div class="mb-bar-val">19</div></div><div class="mb-bar"><div class="mb-bar-label">Nia-Nia <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:4.2%"></div></div><div class="mb-bar-val">10</div></div><div class="mb-bar"><div class="mb-bar-label">Tchomia <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:4.2%"></div></div><div class="mb-bar-val">10</div></div><div class="mb-bar"><div class="mb-bar-label">Komanda <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:2.5%"></div></div><div class="mb-bar-val">6</div></div><div class="mb-bar"><div class="mb-bar-label">Nyankunde <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:2.5%"></div></div><div class="mb-bar-val">6</div></div><div class="mb-bar"><div class="mb-bar-label">Drodro <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:1.7%"></div></div><div class="mb-bar-val">4</div></div></div><p class="vg-reste">and 10 other zones, with 1 to 4 genomes each</p>
-          <p class="mb-credit">10 samples located to a place that is not a health zone, and 2 with no place</p>
-        </figure>
-      </div>
-      <div class="info-note">Genomes submitted by the INRB to <a href="https://pathoplexus.org/ebola-bdbv/search" target="_blank" rel="noopener">Pathoplexus</a> (read on 4 Sep 2026), samples from 2026 in DRC; 20 others in Uganda. Their number follows sequencing capacity, not the number of cases.</div>
-      <h3 class="frame-title">What these genomes revealed</h3>
-      <div class="prose vg-lu">
-        <p>Sequencing does more than confirm the species. Comparing genomes with one another traces them back to a common ancestor, dates the real start of transmission and measures how fast the outbreak spread.</p>
-        <p>Three findings stand out from the analyses published by INRB and its partners. The 2026 virus descends neither from the 2007 outbreak in Uganda nor from the 2012 one in Isiro: it is a recent spillover from the animal reservoir. The common ancestor of the sequenced genomes dates back to late February 2026, nearly three months before the official declaration of 15 May: the virus was circulating unseen. And the outbreak was doubling in size roughly every 21 days, with growth accelerating from March to June and easing afterwards.</p>
-        <p>What these genomes do not say is which zone infected which. The virus mutates slowly compared with the speed at which it travels: from one zone to the next, samples resemble each other too closely for transmission chains to be reconstructed. The authors explicitly warn against that reading.</p>
-      </div>
-      <div class="info-note">From analyses by INRB, INSP and their partners published on <a href="https://virological.org/t/1046" target="_blank" rel="noopener">virological.org</a> on 9 July and 25 August 2026, and an independent replication by Imperial College London. They cover 626 genomes sampled between 2 May and 9 August across 21 health zones in Ituri and one in North Kivu. Uncertainty ranges are wide: the common ancestor falls between mid-January and late March, the doubling time between 15 and 41 days.</div>
+    </div>
     </div>
   </section>
 

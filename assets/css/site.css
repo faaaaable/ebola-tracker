@@ -4109,25 +4109,6 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 /* ==========================================================================
    LE VIRUS : Bundibugyo face à Zaïre, puis jour après jour (6 octobre 2026)
    ========================================================================== */
-.ff-tete{text-align:center;}
-.ff-tete .eyebrow{justify-content:center;}
-.ff-tete .page-title.ff-titre{font-size:clamp(44px,6vw,76px);line-height:1.02;letter-spacing:-.035em;margin:6px 0 16px;}
-.ff-titre em{font-style:italic;font-weight:400;color:var(--ink-faint);font-size:.6em;}
-.ff-tete .lede{margin:0 auto 24px;max-width:720px;}
-.ff-tete .riposte-ancres{justify-content:center;}
-.ff-table{width:100%;max-width:1000px;margin:0 auto;border-collapse:collapse;}
-.ff-table thead th{padding:10px 26px 14px;vertical-align:bottom;}
-.ff-table thead strong{display:block;font:600 34px var(--font-serif);}
-.ff-table thead span{font-size:13px;color:var(--ink-faint);font-weight:400;}
-.ff-table thead .ff-g strong{color:var(--accent-critical);}
-.ff-table thead .ff-d strong{color:var(--ink-dim);}
-.ff-table td,.ff-table tbody th{border-top:1px solid var(--line);padding:22px 26px;vertical-align:middle;}
-.ff-g{text-align:right;width:40%;} .ff-d{text-align:left;width:40%;}
-.ff-table b{display:block;font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-size:clamp(24px,3.2vw,40px);line-height:1.05;letter-spacing:-.03em;}
-.ff-table td.ff-g b{color:var(--accent-critical);} .ff-table td.ff-d b{color:var(--ink-dim);}
-.ff-table td span{font-size:13px;color:var(--ink-faint);}
-.ff-q{width:20%;text-align:center;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);border-left:1px solid var(--line);border-right:1px solid var(--line);}
-.ff-histoire{max-width:760px;margin:34px auto 0;}
 .jp-sec{border-top:1px solid var(--line);padding-top:40px;}
 .jp-titre{font-size:clamp(32px,4vw,48px);}
 .jp-reg{display:flex;gap:3px;margin:30px 0 0;font-size:11.5px;font-weight:600;color:#fff;}
@@ -4142,17 +4123,6 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .jp-m{font-size:14.5px;line-height:1.6;color:var(--ink);margin:0 0 12px;}
 .jp-r{font-size:13px;line-height:1.55;color:var(--ink-dim);margin:0;padding:10px 12px;background:#fff;border:1px solid var(--line);border-radius:12px;}
 @media (max-width:1000px){ .jp{grid-template-columns:1fr;} .jp li{border-top:0;border-left:4px solid var(--c);padding:0 0 26px 24px;margin:0;} .jp li::before{top:0;left:-11px;} .jp-reg{display:none;} }
-@media (max-width:700px){ .ff-table thead th,.ff-table td,.ff-table tbody th{padding:14px 8px;} .ff-q{font-size:10px;} .ff-table thead strong{font-size:22px;} }
-/* correctifs d'integration (6 octobre 2026) : neutraliser les styles
-   generaux des tableaux et des titres de section */
-.ff-table,.ff-table th,.ff-table td{border:0;background:none;text-transform:none;letter-spacing:normal;font-size:inherit;color:inherit;}
-.ff-table thead th{border-bottom:1px solid var(--line);}
-.ff-table thead strong{font:600 34px var(--font-serif);letter-spacing:-.01em;}
-.ff-table thead span{display:block;}
-.ff-table td,.ff-table tbody th{border-top:1px solid var(--line);}
-.ff-table tbody th.ff-q{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);border-left:1px solid var(--line);border-right:1px solid var(--line);}
-.ff-q0{width:20%;}
-.ff-table td span{display:block;}
 .jp-titre{font:600 clamp(32px,4vw,48px)/1.1 var(--font-serif);letter-spacing:-.03em;margin:6px 0 10px;color:var(--ink);text-transform:none;}
 .jp-sec .eyebrow{justify-content:flex-start;}
 .jp-sec .page-intro,.about-detail .page-intro{text-align:left;margin-left:0;}
@@ -4247,7 +4217,6 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .pa-c{text-align:center;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-label);}
 .vb-sexes{max-width:620px;margin:30px auto 0;}
 .vb-sexes .frame-title{text-align:center;}
-.vb-ff{max-width:1000px;}
 .vb-texte{max-width:720px;margin:26px auto 0;font:400 16px/1.65 var(--font-serif);color:var(--ink-dim);text-align:center;}
 .vb-texte p{margin:0 0 12px;}
 .vb-genomes{max-width:860px;margin:0 auto;}
@@ -4445,7 +4414,6 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .section.actus-tete,.section.faq-tete,.section.gl-tete,.section.about-tete{padding-bottom:14px;}
 .actus-tete + .section,.faq-tete + .section,.gl-tete + .section,.about-tete + .section{padding-top:14px;}
 /* l'ecart entre la barre des sous-parties et le comparatif reste celui d'origine (7 octobre 2026) */
-.ff-histoire{margin-top:24px;}
 .section.vb-sec{padding:28px 0;}
 .vb-sec .vb-tete{margin-bottom:18px;}
 .vb-sec .vb-tete h2{margin:4px 0 8px;}
@@ -4456,7 +4424,6 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .faq-tete .lede,.gl-tete .lede,.about-tete .lede,.actus-tete .lede{margin-bottom:0;}
 .actus-tete .actus-note{margin-bottom:0;}
 .section.vb-sec{padding:20px 0;}
-.ff-tete + .section.ff{padding-bottom:12px;}
 .section.actus{margin-top:0;}
 .reports-manquants{font-size:13px;line-height:1.55;color:var(--ink-dim);margin:14px 0 0;max-width:860px;}
 
@@ -4751,22 +4718,6 @@ html.js .page-accueil .zonemap:not([data-scope]).is-pret{opacity:1;transition:op
 html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var(--ch) * 1.12 + 104px);padding:0;overflow:hidden;}
 
 /* ---- Telephone (8 octobre 2026, audit a 360 px de tous les gabarits) ---- */
-/* Le virus : le face-a-face en trois colonnes (Bundibugyo | question | Zaire)
-   faisait 566 px. Sous 640 px, la question passe en titre de ligne, les deux
-   valeurs cote a cote dessous ; l'en-tete garde les deux noms. */
-@media (max-width:640px){
-  .ff-table,.ff-table thead,.ff-table tbody{display:block;width:100%;}
-  .ff-table thead tr{display:grid;grid-template-columns:1fr 1fr;}
-  .ff-table thead .ff-q0{display:none;}
-  .ff-table thead th{padding:6px 10px 12px;}
-  .ff-table thead th.ff-g{border-right:1px solid var(--line);}
-  .ff-table tbody tr{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"q q" "g d";border-top:1px solid var(--line);}
-  .ff-table tbody th.ff-q{grid-area:q;width:auto;border:0;padding:14px 8px 2px;text-align:center;font-size:10.5px;}
-  .ff-table td.ff-g{grid-area:g;width:auto;border:0;border-right:1px solid var(--line);padding:8px 10px 16px;}
-  .ff-table td.ff-d{grid-area:d;width:auto;border:0;padding:8px 10px 16px;}
-  .ff-table b{font-size:24px;}
-  .ff-table td span{display:block;font-size:12.5px;line-height:1.4;}
-}
 /* La lettre : une case de grille ne descend pas sous la largeur de son
    contenu ; le tableau des provinces poussait le bloc a 384 px sur 360. */
 .lq-chiffres > *,.lq-grille > *{min-width:0;}
@@ -4795,9 +4746,6 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
   .pm-t.is-petite .pm-cas{font-size:24px;}
   /* Chronologie : le texte collait au filet de couleur. */
   .tl-zig .tl-body{padding-left:14px;}
-  /* Le virus : les deux noms de l'en-tete tiennent dans leur demi-largeur. */
-  .ff-table thead strong{font-size:22px;line-height:1.1;}
-  .ff-table thead span{display:block;font-size:11.5px;line-height:1.35;}
 }
 @media (max-width:760px){
   /* Vue « Pays touches » sur telephone : le nom et, dessous, les chiffres et
@@ -4971,13 +4919,6 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .hx-chiffres b{display:block;font:700 34px/1.1 'Bricolage Grotesque',var(--font-sans);font-stretch:87.5%;color:var(--ink);margin-bottom:4px;}
 @media (max-width:720px){.hx-chiffres{grid-template-columns:1fr;gap:16px;}}
 
-/* Le virus : six ancres depuis l'ajout de « Histoire » (11 octobre 2026). Sur
-   une seule ligne des que l'ecran le permet : marges laterales ramenees de 22
-   a 15 px, soit 973 px en francais pour une barre de 1000. */
-@media (min-width:1040px){
-  .ff-tete .riposte-ancres{flex-wrap:nowrap;}
-  .ff-tete .riposte-ancres a{padding:14px 15px;white-space:nowrap;}
-}
 
 /* Le virus, « Histoire » : deux vues, RDC puis monde (11 octobre 2026). Les
    radios sont cachees mais restent focalisables ; leurs etiquettes prennent
@@ -4991,14 +4932,14 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .hx-radio{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
 .hx-bascule{display:flex;justify-content:center;gap:8px;margin:0 0 16px;}
 .hx-bascule label{min-width:84px;justify-content:center;}
-#hx-vue-rdc:checked ~ .hx-bascule label[for="hx-vue-rdc"],
-#hx-vue-monde:checked ~ .hx-bascule label[for="hx-vue-monde"]{
+#hx-vue-rdc:checked ~ .chap-corps .hx-bascule label[for="hx-vue-rdc"],
+#hx-vue-monde:checked ~ .chap-corps .hx-bascule label[for="hx-vue-monde"]{
   border-color:var(--accent-strong);box-shadow:inset 0 0 0 1px var(--accent-strong);color:var(--accent-hover);font-weight:700;}
-#hx-vue-rdc:focus-visible ~ .hx-bascule label[for="hx-vue-rdc"],
-#hx-vue-monde:focus-visible ~ .hx-bascule label[for="hx-vue-monde"]{outline:2px solid var(--accent-strong);outline-offset:2px;}
+#hx-vue-rdc:focus-visible ~ .chap-corps .hx-bascule label[for="hx-vue-rdc"],
+#hx-vue-monde:focus-visible ~ .chap-corps .hx-bascule label[for="hx-vue-monde"]{outline:2px solid var(--accent-strong);outline-offset:2px;}
 .hx-sec .hx-v-monde{display:none;}
-#hx-vue-monde:checked ~ .hx-v-monde,#hx-vue-monde:checked ~ .vb-tete .hx-v-monde{display:block;}
-#hx-vue-monde:checked ~ .hx-v-rdc,#hx-vue-monde:checked ~ .vb-tete .hx-v-rdc{display:none;}
+#hx-vue-monde:checked ~ .chap-corps .hx-v-monde,#hx-vue-monde:checked ~ .chap-ouv .hx-v-monde{display:block;}
+#hx-vue-monde:checked ~ .chap-corps .hx-v-rdc,#hx-vue-monde:checked ~ .chap-ouv .hx-v-rdc{display:none;}
 
 /* Menu du telephone, onglet Explorer (12 octobre 2026, option 6 des maquettes
    tmp/proto-menu-mobile-1012, choisie par le proprietaire) : les provinces et
@@ -5585,3 +5526,52 @@ main:has(.chap-nav) .rip-volet{scroll-margin-top:130px;}
 .vers-visuels{margin:6px 0 0;text-align:right;font-size:12.5px;}
 .vers-visuels a{color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--line);}
 .vers-visuels a:hover{border-bottom-color:var(--accent-strong);}
+
+/* ---- Le virus sans face-a-face (9 novembre 2026, maquette
+   tmp/proto-virus-1109) : fiche d'identite de l'espece, quatre especes en
+   pastilles, encadres, vaccin et traitements en deux colonnes, resultats
+   de la genetique en trois colonnes numerotees. ---- */
+.fi{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.fi-c{padding:22px 20px 24px;border-left:1px solid var(--line);}
+.fi-c:first-child{border-left:0;padding-left:0;}
+.fi dt{font:600 12px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px;}
+.fi dd{margin:0;}
+.fi dd b{display:block;font-family:var(--font-serif);font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.05;color:var(--accent-strong);margin-bottom:8px;}
+.fi dd span{display:block;font-size:14px;line-height:1.45;color:var(--ink-dim);}
+.fi-bas{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;margin-top:40px;align-items:start;}
+.fi-h{font-family:var(--font-serif);font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0 0 14px;color:var(--ink);text-transform:none;}
+.fi-bas p{font-size:16px;line-height:1.65;color:var(--ink-strong);margin:0;}
+.fi-pastilles{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;}
+.fi-pastilles li{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--font-sans);color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--bg);}
+.fi-pastilles i{width:10px;height:10px;border-radius:50%;background:var(--c);}
+.fi-zaire{--c:#BDB4A8;} .fi-soudan{--c:#9DAA86;} .fi-tai{--c:#D9C29A;}
+.fi-pastilles li.is-ici{color:#fff;background:var(--accent-strong);border-color:var(--accent-strong);}
+.fi-pastilles li.is-ici i{background:#fff;}
+.fi-pastilles em{font-style:normal;font-weight:500;opacity:.8;margin-left:2px;}
+.fi-pastilles em::before{content:"· ";}
+.fi-encadre{background:rgba(0,94,130,.05);border-left:3px solid var(--accent-strong);border-radius:0 10px 10px 0;padding:22px 26px;}
+.vt{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line);}
+.vt-c{padding:24px 32px 8px;border-left:1px solid var(--line);}
+.vt-c:first-child{border-left:0;padding-left:0;}
+.vt-l{font:600 12px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px;}
+.vt-v{display:block;font-family:var(--font-serif);font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.05;color:var(--accent-strong);margin-bottom:8px;}
+.vt-s{display:block;font-size:14px;line-height:1.45;color:var(--ink-dim);padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:18px;}
+.vt-c p{font-size:16px;line-height:1.65;color:var(--ink-strong);margin:0;}
+.vl-bloc{margin-top:56px;padding-top:40px;border-top:1px solid var(--line);}
+.vl-titre{font-size:26px;margin-bottom:16px;}
+.vl-intro{font-family:var(--font-serif);font-size:19px;line-height:1.55;color:var(--ink-strong);max-width:720px;margin:0 0 26px;}
+.vl-amorce{font:600 12px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 12px;}
+.vl-res{list-style:none;padding:0;margin:0 0 30px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.vl-res li{padding:22px 24px 24px;border-left:1px solid var(--line);}
+.vl-res li:first-child{border-left:0;padding-left:0;}
+.vl-n{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:1px solid var(--accent-strong);color:var(--accent-strong);font:600 12px var(--font-sans);margin-bottom:12px;}
+.vl-v{display:block;font-family:var(--font-serif);font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.1;color:var(--accent-strong);margin-bottom:6px;}
+.vl-k{display:block;font:600 13px var(--font-sans);color:var(--ink-dim);margin-bottom:12px;}
+.vl-res p{font-size:15px;line-height:1.55;color:var(--ink-strong);margin:0;}
+.vl-limite{max-width:720px;margin-bottom:18px;}
+.vl-limite .fi-h{font-size:20px;}
+.vl-limite p{font-size:16px;line-height:1.65;color:var(--ink-strong);margin:0;}
+.vb-sec.chap .chap-ouv{text-align:left;}
+@media (max-width:1100px){.fi{grid-template-columns:repeat(3,minmax(0,1fr));}.fi-c:nth-child(4){border-left:0;padding-left:0;}.fi-c:nth-child(n+4){border-top:1px solid var(--line);}}
+@media (max-width:900px){.fi-bas{grid-template-columns:1fr;gap:28px;}.vt{grid-template-columns:1fr;}.vt-c,.vt-c:first-child{border-left:0;padding:22px 0 8px;}.vt-c + .vt-c{border-top:1px solid var(--line);margin-top:20px;}.vl-res{grid-template-columns:1fr;}.vl-res li,.vl-res li:first-child{border-left:0;padding:18px 0 20px;}.vl-res li + li{border-top:1px solid var(--line);}}
+@media (max-width:640px){.fi{grid-template-columns:1fr;}.fi-c,.fi-c:nth-child(n){border-left:0;padding:16px 0 18px;border-top:1px solid var(--line);}.fi-c:first-child{border-top:0;}.fi dt{margin-bottom:6px;}.fi dd b{font-size:28px;margin-bottom:4px;}}

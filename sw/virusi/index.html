@@ -85,7 +85,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=491c24eeac">
+<link rel="stylesheet" href="/assets/css/site.css?v=e415b8bc73">
 </head>
 <body>
 
@@ -238,81 +238,76 @@
 
 
       <main id="contenu">
-  <!-- Le virus, refonte du 6 octobre 2026 (choix du proprietaire) : le
-       comparatif Bundibugyo / Zaire de la maquette n°2 ouvre la page, la
-       maladie « jour apres jour » de la maquette n°3 suit. Les sections
-       Transmission, Incubation et Evolution, et la bande de quatre chiffres,
-       y sont reprises ; le tableau a deux colonnes est devenu le face-a-face. -->
-  <section class="section ff-tete">
-    <div class="eyebrow"><span class="dot"></span>Elewa</div>
-    <h1 class="page-title ff-titre"><span class="visually-hidden">Virusi vya Ebola Bundibugyo — </span>Bundibugyo <em>dhidi ya</em> Zaire</h1>
-    <p class="lede">Aina mbili za virusi vile vile vya Ebola. Mlipuko huu unasababishwa na aina ya Bundibugyo.</p>
-    <nav class="riposte-ancres" aria-label="Sehemu za ukurasa">
-      <a href="#espece">Dhidi ya Zaire</a>
-      <a href="#histoire">Historia</a>
-      <a href="#evolution">Siku kwa siku</a>
-      <a href="#ages">Unamgusa nani</a>
-      <a href="#traitements">Matibabu na chanjo</a>
-      <a href="#genomes">Jenomu</a>
-    </nav>
+  <!-- Le virus, refonte du 9 novembre 2026 (maquette tmp/proto-virus-1109,
+       choix du proprietaire) : plus de face-a-face Bundibugyo / Zaire. La page
+       parle de l'espece de cette epidemie ; Zaire n'est plus qu'un repere, dans
+       l'encadre sur le vaccin. Menu a ancres colle et chapitres numerotes,
+       comme Riposte et les fiches province. Le chapitre Genomes est supprime :
+       son comptage (Pathoplexus, fige au 4 septembre) se lisait comme un etat
+       du jour ; ses trois resultats passent en fin de chapitre 01. -->
+  <section class="section maq-tete">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Elewa</div>
+        <h1 class="page-title"><span class="visually-hidden">Virusi vya Ebola Bundibugyo — </span>Virusi vya <em>Bundibugyo</em></h1>
+      </div>
+    </div>
+    <p class="lede">Mlipuko huu unasababishwa na aina ya Bundibugyo ya virusi vya Ebola.</p>
   </section>
 
-  <section class="section ff" id="espece">
-    <table class="ff-table">
-      <caption class="visually-hidden">Kile aina inachobadilisha</caption>
-      <thead>
-        <tr>
-          <th scope="col" class="ff-g"><strong>Bundibugyo</strong><span>aina ya mlipuko huu</span></th>
-          <th scope="col" class="ff-q0"><span class="visually-hidden">Kile aina inachobadilisha</span></th>
-          <th scope="col" class="ff-d"><strong>Zaire</strong><span>aina iliyochunguzwa zaidi</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="ff-g"><b>2007</b><span>Uganda</span></td>
-          <th scope="row" class="ff-q">Iligunduliwa</th>
-          <td class="ff-d"><b>1976</b><span>DRC (Yambuku)</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>3</b><span>ukiwemo huu</span></td>
-          <th scope="row" class="ff-q">Milipuko inayojulikana</th>
-          <td class="ff-d"><b>mingi</b><span>ya milipuko iliyoandikwa</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>25–50 %</b><span>kulingana na mlipuko</span></td>
-          <th scope="row" class="ff-q">Kiwango cha vifo cha kihistoria</th>
-          <td class="ff-d"><b>hadi 90 %</b><span>kulingana na mlipuko</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>hakuna</b><span>Ervebo katika utafiti tangu Agosti 2026; jaribio la TUMAINI-TRIAL tangu tarehe 23 Oktoba</span></td>
-          <th scope="row" class="ff-q">Chanjo iliyoidhinishwa</th>
-          <td class="ff-d"><b>Ervebo</b><span>rVSV-ZEBOV</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>hakuna</b><span>dawa zinazojaribiwa kliniki</span></td>
-          <th scope="row" class="ff-q">Matibabu yaliyoidhinishwa</th>
-          <td class="ff-d"><b>2</b><span>Inmazeb, Ebanga</span></td>
-        </tr>
-        <tr>
-          <td class="ff-g"><b>Uganda 2007, DRC 2012</b></td>
-          <th scope="row" class="ff-q">Milipuko mikubwa</th>
-          <td class="ff-d"><b>Afrika Magharibi 2014-2016, Nord-Kivu 2018-2020</b></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="prose ff-histoire"><p>Jenasi <em>Orthoebolavirus</em> ina aina sita, ambazo nne kati yake huwaathiri binadamu. Milipuko mingi iliyoandikwa — ikiwemo ule wa 2014-2016 Afrika Magharibi na ule wa 2018-2020 Kivu Kaskazini — inatokana na aina ya Zaire, iliyochunguzwa zaidi kuliko zote.</p><p>Aina ya Bundibugyo imepewa jina la wilaya ya Uganda ambako ilitambuliwa kwa mara ya kwanza mwaka 2007. Ilihusika katika milipuko miwili tu kabla ya huu: Uganda mwaka 2007, kisha jimbo la Orientale la DRC mwaka 2012. Historia hii fupi ndiyo inayoeleza kukosekana kwa chanjo iliyoidhinishwa dhidi yake, na kwa nini mapambano yanategemea huduma za msaada na dawa zinazojaribiwa kliniki.</p></div>
+  <nav class="pp-sousnav chap-nav" aria-label="Sehemu za ukurasa"><div><a href="#espece"><b class="chap-nav-n">01</b>Aina ya virusi</a><a href="#histoire"><b class="chap-nav-n">02</b>Historia</a><a href="#evolution"><b class="chap-nav-n">03</b>Siku kwa siku</a><a href="#ages"><b class="chap-nav-n">04</b>Unamgusa nani</a><a href="#traitements"><b class="chap-nav-n">05</b>Chanjo na matibabu</a></div></nav>
+
+  <section class="section chap" id="espece">
+    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">Aina ya Bundibugyo</h2><p class="chap-chapo">Ilitambuliwa mwaka 2007, na ilikuwa imesababisha milipuko miwili tu kabla ya huu.</p></div></header>
+    <div class="chap-corps">
+      <dl class="fi">
+        <div class="fi-c"><dt>Ilitambuliwa mwaka</dt><dd><b>2007</b><span>nchini Uganda, katika wilaya ya Bundibugyo iliyoipa jina lake</span></dd></div>
+        <div class="fi-c"><dt>Milipuko inayojulikana</dt><dd><b>3</b><span>Uganda 2007, Isiro (DRC) 2012, na huu</span></dd></div>
+        <div class="fi-c"><dt>Kiwango cha vifo</dt><dd><b>25 hadi 50 %</b><span>katika milipuko iliyopita; 48.7% ya visa vilivyothibitishwa katika huu</span></dd></div>
+        <div class="fi-c"><dt>Chanjo iliyoidhinishwa</dt><dd><b>hakuna</b><span>Ervebo inatumika katika utafiti tangu Agosti 2026; TUMAINI-TRIAL tangu tarehe 23 Oktoba</span></dd></div>
+        <div class="fi-c"><dt>Tiba iliyoidhinishwa</dt><dd><b>hakuna</b><span>huduma za msaada; dawa kadhaa zinajaribiwa kliniki</span></dd></div>
+      </dl>
+      <div class="fi-bas">
+        <div class="fi-especes">
+          <h3 class="fi-h">Aina moja kati ya nne</h3>
+          <ul class="fi-pastilles" aria-label="Aina nne zinazowaathiri binadamu">
+            <li class="fi-zaire"><i></i>Zaire</li><li class="fi-soudan"><i></i>Sudan</li><li class="fi-tai"><i></i>Taï Forest</li><li class="is-ici"><i></i>Bundibugyo<em>mlipuko huu</em></li>
+          </ul>
+          <p>Virusi vya Ebola vina aina sita, ambazo nne kati yake huwaathiri binadamu: Zaire, Sudan, Taï Forest na Bundibugyo. Aina hii imepewa jina la wilaya ya Uganda ambako ilitambuliwa mwaka 2007. Kabla ya 2026, ilikuwa imesababisha milipuko miwili tu: Uganda mwaka 2007, kisha Isiro, katika jimbo la sasa la Haut-Uélé, mwaka 2012.</p>
+        </div>
+        <aside class="fi-encadre">
+          <h3 class="fi-h">Kwa nini hakuna chanjo iliyoidhinishwa?</h3>
+          <p>Aina inayojulikana zaidi, Zaire, ndiyo chanzo cha milipuko mingi iliyoandikwa, ikiwemo ile ya Afrika Magharibi (2014-2016) na Kivu Kaskazini (2018-2020). Ni dhidi yake ndipo chanjo ya Ervebo na tiba mbili zilizoidhinishwa, Inmazeb na Ebanga, zilitengenezwa. Bundibugyo, ikiwa na milipuko michache hivyo, haikupata zana hizi: mapambano yanategemea huduma za msaada na dawa zinazojaribiwa kliniki.</p>
+        </aside>
+      </div>
+      <div class="vl-bloc">
+        <h3 class="fi-h vl-titre">Jenetiki imetufundisha nini</h3>
+        <p class="vl-intro">Kupanga jenomu si tu kuthibitisha aina. Kwa kulinganisha jenomu, tunarudi kwa babu wa pamoja, tunaweka tarehe ya kuanza kwa maambukizi na tunapima kasi ya kuenea kwa mlipuko.</p>
+        <p class="vl-amorce">Matokeo matatu ya uchambuzi uliochapishwa na INRB na washirika wake</p>
+        <ol class="vl-res">
+          <li><span class="vl-n">1</span><b class="vl-v">kuruka kwa hivi karibuni</b><span class="vl-k">kutoka kwa hifadhi ya wanyama</span><p>Virusi vya 2026 havitokani na mlipuko wa 2007 nchini Uganda wala wa 2012 huko Isiro.</p></li>
+          <li><span class="vl-n">2</span><b class="vl-v">mwishoni mwa Februari 2026</b><span class="vl-k">babu wa pamoja wa jenomu zilizopangwa</span><p>Karibu miezi mitatu kabla ya tangazo rasmi la tarehe 15 Mei: virusi vilikuwa vinaenea bila kuonekana.</p></li>
+          <li><span class="vl-n">3</span><b class="vl-v">siku 21</b><span class="vl-k">muda wa kuongezeka maradufu, takriban</span><p>Ukuaji uliongezeka kasi kutoka Machi hadi Juni, kisha ukapungua.</p></li>
+        </ol>
+        <aside class="fi-encadre vl-limite">
+          <h4 class="fi-h">Kile ambacho jenomu hazisemi</h4>
+          <p>Ni eneo gani liliambukiza jingine. Virusi hubadilika polepole ikilinganishwa na kasi ya kusafiri kwake: kutoka eneo moja hadi jingine, sampuli zinafanana mno kiasi kwamba minyororo ya maambukizi haiwezi kujengwa upya. Waandishi wanaonya waziwazi dhidi ya usomaji huo.</p>
+        </aside>
+        <div class="info-note">Kutoka uchambuzi wa INRB, INSP na washirika wao uliochapishwa katika <a href="https://virological.org/t/1046" target="_blank" rel="noopener">virological.org</a> tarehe 9 Julai na 25 Agosti 2026, na uthibitisho huru wa Imperial College London. Unahusu jenomu 626 zilizochukuliwa kati ya tarehe 2 Mei na 9 Agosti katika maeneo 21 ya afya ya Ituri na moja la Kivu Kaskazini. Mipaka ya kutokuwa na uhakika ni mipana: babu wa pamoja yuko kati ya katikati ya Januari na mwisho wa Machi, muda wa kuongezeka maradufu kati ya siku 15 na 41. Kufikia 4 Sep. 2026, INRB ilikuwa imeweka jenomu 731 za mlipuko huu katika <a href="https://pathoplexus.org/ebola-bdbv/search" target="_blank" rel="noopener">Pathoplexus</a>.</div>
+      </div>
+    </div>
   </section>
 
   <!-- La frise des epidemies (11 octobre 2026) : la RDC d'abord (option A des
        maquettes tmp/proto-histoire-1011), le monde au second bouton
        (tmp/proto-histoire-monde-1011). Bascule sans JavaScript : deux radios,
        freres des blocs qu'elles affichent, et des regles CSS. -->
-  <section class="section vb-sec hx-sec" id="histoire">
+  <section class="section vb-sec chap hx-sec" id="histoire">
     <input type="radio" name="hx-vue" id="hx-vue-rdc" class="hx-radio" checked>
     <input type="radio" name="hx-vue" id="hx-vue-monde" class="hx-radio">
-    <div class="vb-tete"><div class="eyebrow">Historia</div>
-      <h2 class="hx-v-rdc">Milipuko kumi na saba <em>katika miaka hamsini</em></h2><h2 class="hx-v-monde">Milipuko 39 <em>duniani tangu 1976</em></h2>
-      <p class="hx-v-rdc">Mlipuko wa 17 wa Ebola nchini DRC tayari ndio mkubwa zaidi katika historia ya nchi: visa 10,920 vilivyothibitishwa kufikia 7 Nov. 2026, mara 3.1 zaidi ya ule wa Kivu Kaskazini wa 2018-2020. Pia ndio mkubwa zaidi, kwa mbali, kuwahi kusababishwa na aina ya Bundibugyo. Duniani, ni mlipuko wa Afrika Magharibi (2014-2016) pekee uliokuwa mkubwa zaidi.</p><p class="hx-v-monde">Tangu virusi vigunduliwe mwaka 1976, dunia imeshuhudia milipuko 39 ya Ebola, ukiwemo huu. Ukiwa na visa 10,920 vilivyothibitishwa kufikia 7 Nov. 2026, ndio mkubwa zaidi, kwa mbali, kuwahi kusababishwa na aina ya Bundibugyo. Duniani, ni mlipuko wa Afrika Magharibi (2014-2016) pekee uliokuwa mkubwa zaidi.</p></div>
+    <header class="chap-ouv"><span class="chap-num">02</span><div><h2 class="chap-t hx-v-rdc">Milipuko kumi na saba <em>katika miaka hamsini</em></h2><h2 class="chap-t hx-v-monde">Milipuko 39 <em>duniani tangu 1976</em></h2>
+      <p class="chap-chapo hx-v-rdc">Mlipuko wa 17 wa Ebola nchini DRC tayari ndio mkubwa zaidi katika historia ya nchi: visa 10,920 vilivyothibitishwa kufikia 7 Nov. 2026, mara 3.1 zaidi ya ule wa Kivu Kaskazini wa 2018-2020. Pia ndio mkubwa zaidi, kwa mbali, kuwahi kusababishwa na aina ya Bundibugyo. Duniani, ni mlipuko wa Afrika Magharibi (2014-2016) pekee uliokuwa mkubwa zaidi.</p><p class="chap-chapo hx-v-monde">Tangu virusi vigunduliwe mwaka 1976, dunia imeshuhudia milipuko 39 ya Ebola, ukiwemo huu. Ukiwa na visa 10,920 vilivyothibitishwa kufikia 7 Nov. 2026, ndio mkubwa zaidi, kwa mbali, kuwahi kusababishwa na aina ya Bundibugyo. Duniani, ni mlipuko wa Afrika Magharibi (2014-2016) pekee uliokuwa mkubwa zaidi.</p></div></header>
+    <div class="chap-corps">
     <div class="hx-bascule" role="group" aria-label="Milipuko inayoonyeshwa">
       <label for="hx-vue-rdc" class="subtab-btn">DRC</label><label for="hx-vue-monde" class="subtab-btn">Dunia</label>
     </div>
@@ -328,13 +323,14 @@
       <div class="hx-chiffres"><div><b>39</b><span>milipuko ya Ebola duniani tangu 1976, katika nchi 10.</span></div><div><b>17</b><span>kati yake nchini DRC, nchi iliyokumbwa na mingi zaidi kwa mbali.</span></div><div><b>ya 2</b><span>kwa ukubwa katika historia: ni mlipuko wa Afrika Magharibi (2014-2016, visa 28,610) pekee uliokuwa mkubwa zaidi.</span></div></div>
       <p class="vb-src">Milipuko iliyopita: visa vilivyothibitishwa na vinavyowezekana (CDC, <a href="https://www.cdc.gov/ebola/outbreaks/index.html" rel="noopener">History of Ebola Disease Outbreaks</a>), bila virusi vya Reston, maambukizi ya maabara wala visa vilivyosafirishwa kutoka Afrika Magharibi. « Sudan »: Sudan Kusini ya leo. Mlipuko wa sasa, bado unaendelea: visa vilivyothibitishwa nchini DRC (SitRep Na. 177, 7 Nov. 2026).</p>
     </div>
+    </div>
   </section>
 
-  <!-- Suite de la page dans le theme du face-a-face (6 octobre 2026, option 3
-       « l'axe central ») : le filet du milieu du comparatif devient un axe ;
-       le malade a gauche, la riposte a droite ; les ages en papillon. -->
-  <section class="section vb-sec" id="evolution">
-    <div class="vb-tete"><div class="eyebrow">Ugonjwa</div><h2>Siku kwa siku</h2><p>Anachopitia mtu aliyeambukizwa, tangu kuambukizwa hadi kupona au kufariki, na kile ambacho timu za uwanjani hufanya kumtibu na kuwalinda walio karibu naye.</p></div>
+  <!-- Jour apres jour (6 octobre 2026, option 3 « l'axe central ») : le
+       malade a gauche, la riposte a droite ; les ages en papillon. -->
+  <section class="section vb-sec chap" id="evolution">
+    <header class="chap-ouv"><span class="chap-num">03</span><div><h2 class="chap-t">Siku kwa siku</h2><p class="chap-chapo">Anachopitia mtu aliyeambukizwa, tangu kuambukizwa hadi kupona au kufariki, na kile ambacho timu za uwanjani hufanya kumtibu na kuwalinda walio karibu naye.</p></div></header>
+    <div class="chap-corps">
     <div class="ax-tete"><span>Mgonjwa</span><span></span><span>Mapambano</span></div>
     <div class="ax">
       <div class="ax-l"><div class="ax-g"><h3>Maambukizi</h3><p>Kugusana moja kwa moja na damu, majimaji au mwili wa mtu mgonjwa au aliyefariki — kamwe si kupitia hewa.</p></div><div class="ax-c"><span>Siku 0</span></div><div class="ax-d"><p>Kile mapambano hufanya: mazishi salama na ya heshima, ulinzi wa wahudumu wa afya.</p></div></div>
@@ -343,10 +339,12 @@
       <div class="ax-l"><div class="ax-g"><h3>Hatua ya juu</h3><p>Kutapika, kuhara, vipele, kuathirika kwa figo na ini, wakati mwingine kutokwa na damu.</p></div><div class="ax-c"><span>Kisha</span></div><div class="ax-d"><p>Kituo cha matibabu: huduma za msaada wa hali ya juu — kurejesha maji mwilini, oksijeni, ufuatiliaji.</p></div></div>
       <div class="ax-l"><div class="ax-g"><h3>Kupona au kifo</h3><p>Kiwango cha kihistoria cha vifo vya aina hii ni 25 hadi 50 %. Katika mlipuko huu, 48.7% ya visa vilivyothibitishwa wamefariki hadi sasa.</p></div><div class="ax-c"><span>Matokeo</span></div><div class="ax-d"><p>Kupona hutangazwa baada ya vipimo viwili hasi; watu 2,940 wamepona hadi 7 Nov. 2026.</p></div></div>
     </div>
+    </div>
   </section>
 
-  <section class="section vb-sec" id="ages">
-    <div class="vb-tete"><div class="eyebrow">Unamgusa nani</div><h2>Visa <em>na</em> vifo, kwa umri</h2><p>Visa havienei kama vifo. Kulinganisha viwili kunaonyesha makundi gani ya umri hufa mara nyingi zaidi kuliko yanavyougua.</p></div>
+  <section class="section vb-sec chap" id="ages">
+    <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">Visa <em>na</em> vifo, kwa umri</h2><p class="chap-chapo">Visa havienei kama vifo. Kulinganisha viwili kunaonyesha makundi gani ya umri hufa mara nyingi zaidi kuliko yanavyougua.</p></div></header>
+    <div class="chap-corps">
     <div class="ax-tete pa-tete"><span>Sehemu ya visa</span><span></span><span>Sehemu ya vifo</span></div>
     <div class="pa"><div class="pa-l"><div class="pa-g"><span>10.0%</span><i style="width:28.4%"></i></div><div class="pa-c">0–4 miaka</div><div class="pa-d"><i style="width:54.0%"></i><span>19.0%</span></div></div><div class="pa-l"><div class="pa-g"><span>13.2%</span><i style="width:37.5%"></i></div><div class="pa-c">5–17 miaka</div><div class="pa-d"><i style="width:36.4%"></i><span>12.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>26.5%</span><i style="width:75.3%"></i></div><div class="pa-c">18–29 miaka</div><div class="pa-d"><i style="width:70.5%"></i><span>24.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>35.2%</span><i style="width:100.0%"></i></div><div class="pa-c">30–49 miaka</div><div class="pa-d"><i style="width:77.3%"></i><span>27.2%</span></div></div><div class="pa-l"><div class="pa-g"><span>15.1%</span><i style="width:42.9%"></i></div><div class="pa-c">50 na zaidi</div><div class="pa-d"><i style="width:46.0%"></i><span>16.2%</span></div></div></div>
     <div class="vb-sexes">
@@ -373,68 +371,26 @@
       </div>
     </div>
     <p class="vb-src">Hali hadi 5 Ago. 2026, mgawanyo wa mwisho uliochapishwa. Umeandaliwa kwa visa 3,454 na vifo 1,124 ambavyo umri na jinsia vinajulikana (85.2 % ya visa, 60.8 % ya vifo).</p>
-  </section>
-
-  <section class="section vb-sec" id="traitements">
-    <div class="vb-tete"><div class="eyebrow">Kujikinga na kutibiwa</div><h2>Chanjo <em>na</em> matibabu</h2><p>Matibabu pekee na chanjo pekee zilizoidhinishwa dhidi ya Ebola zinalenga aina ya Zaire — si aina ya Bundibugyo, inayosababisha mlipuko huu.</p></div>
-    <table class="ff-table vb-ff">
-      <caption class="visually-hidden">Kujikinga na kutibiwa</caption>
-      <tbody>
-        <tr><td class="ff-g"><b>Ervebo</b><span>inatumika katika utafiti tangu Agosti 2026</span></td><th scope="row" class="ff-q">Chanjo</th><td class="ff-d"><b>ufanisi haujulikani</b><span>dhidi ya Bundibugyo, kwa mujibu wa WHO</span></td></tr>
-        <tr><td class="ff-g"><b>dawa kadhaa</b><span>zinajaribiwa kliniki</span></td><th scope="row" class="ff-q">Matibabu</th><td class="ff-d"><b>huduma za msaada</b><span>msingi wa uangalizi</span></td></tr>
-      </tbody>
-    </table>
-    <div class="vb-texte">
-      <p>Tarehe 31 Agosti 2026, WHO ilifafanua matumizi ya Ervebo, chanjo iliyoidhinishwa dhidi ya aina ya Zaire, dhidi ya virusi vya Bundibugyo: ufanisi dhidi ya aina hii haujulikani, matumizi yamewekewa mipaka ya utafiti, kipaumbele kwa wahudumu wa afya na wafanyakazi wa mstari wa mbele. Ripoti za INSP zinaripoti chanjo za wafanyakazi hao tangu mwanzoni mwa Septemba. Tarehe 23 Oktoba 2026, jaribio la kliniki TUMAINI-TRIAL, linalohusu chanjo dhidi ya aina ya Bundibugyo, lilizinduliwa Bunia, katika maabara ya mkoa wa Ituri. Kwa mujibu wa INSP, linawapa kipaumbele wafanyakazi wa mstari wa mbele, na ushiriki unategemea ridhaa ya hiari baada ya kuelezwa.</p>
-      <p>Wakati wa mlipuko huu, dawa kadhaa zinazopendekezwa zinajaribiwa kliniki dhidi ya aina ya Bundibugyo — ikiwemo kingamwili ya wigo mpana MBP134, dawa ya kuua virusi remdesivir na obeldesivir kama kinga baada ya kuambukizwa — chini ya uratibu wa WHO. Kwa kukosekana kwa matibabu yaliyoidhinishwa yanayolenga aina hii, huduma za msaada wa hali ya juu (kurejesha maji mwilini, oksijeni, ufuatiliaji) zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi.</p>
     </div>
   </section>
 
-  <!-- Genomes sequences : comptes agreges lus dans Pathoplexus par
-       scripts/extraire_genomes.py (data/genomes.json). Un chiffre de
-       contexte, pas de suivi : il ne bouge qu'a la main. -->
-  <section class="section vb-sec" id="genomes">
-    <div class="vb-tete"><div class="eyebrow">Virusi inavyosomwa katika jenomu yake</div><h2>Jenomu 731 <em>zilizosomwa</em></h2><p>Kupanga jenomu ya virusi kutoka kwa sampuli za wagonjwa huthibitisha aina, huweka tarehe ya kuanza kwa mlipuko na hupima kasi yake. Maabara za INRB huko Bunia na Kinshasa huweka mfuatano huu katika hifadhidata ya umma Pathoplexus: hifadhi hiyo ndiyo inayohesabiwa hapa.</p></div>
-    <div class="vb-genomes">
-      <div class="figure-band vg-band">
-        <div class="fb-item">
-          <div class="fb-value">731</div>
-          <div class="fb-label">jenomu zilizopangwa DRC tangu Mei 2026</div>
-        </div>
-        <div class="fb-item">
-          <div class="fb-value">22</div>
-          <div class="fb-label">maeneo ya afya sampuli zinakotoka</div>
-        </div>
-        <div class="fb-item">
-          <div class="fb-value">57.6%</div>
-          <div class="fb-label">ya jenomu zinatoka Bunia na Rwampara</div>
-        </div>
+  <section class="section vb-sec chap" id="traitements">
+    <header class="chap-ouv"><span class="chap-num">05</span><div><h2 class="chap-t">Chanjo <em>na</em> matibabu</h2><p class="chap-chapo">Hakuna chanjo wala tiba iliyoidhinishwa bado dhidi ya Bundibugyo. Zilizopo zilitengenezwa dhidi ya aina ya Zaire, ndiyo sababu ya majaribio yanayofanyika wakati wa mlipuko huu.</p></div></header>
+    <div class="chap-corps">
+    <div class="vt">
+      <div class="vt-c">
+        <div class="vt-l">Chanjo</div>
+        <b class="vt-v">katika majaribio</b>
+        <span class="vt-s">Ervebo tangu Agosti 2026, ufanisi dhidi ya Bundibugyo haujulikani kwa mujibu wa WHO; TUMAINI-TRIAL tangu tarehe 23 Oktoba</span>
+        <p>Tarehe 31 Agosti 2026, WHO ilifafanua matumizi ya Ervebo, chanjo iliyoidhinishwa dhidi ya aina ya Zaire, dhidi ya virusi vya Bundibugyo: ufanisi dhidi ya aina hii haujulikani, matumizi yamewekewa mipaka ya utafiti, kipaumbele kwa wahudumu wa afya na wafanyakazi wa mstari wa mbele. Ripoti za INSP zinaripoti chanjo za wafanyakazi hao tangu mwanzoni mwa Septemba. Tarehe 23 Oktoba 2026, jaribio la kliniki TUMAINI-TRIAL, linalohusu chanjo dhidi ya aina ya Bundibugyo, lilizinduliwa Bunia, katika maabara ya mkoa wa Ituri. Kwa mujibu wa INSP, linawapa kipaumbele wafanyakazi wa mstari wa mbele, na ushiriki unategemea ridhaa ya hiari baada ya kuelezwa.</p>
       </div>
-      <div class="section-head">
-        <h3 class="frame-title">Jenomu kwa mwezi wa sampuli</h3>
+      <div class="vt-c">
+        <div class="vt-l">Matibabu</div>
+        <b class="vt-v">huduma za msaada</b>
+        <span class="vt-s">msingi wa uangalizi; dawa kadhaa zinajaribiwa kliniki</span>
+        <p>Wakati wa mlipuko huu, dawa kadhaa zinazopendekezwa zinajaribiwa kliniki dhidi ya aina ya Bundibugyo — ikiwemo kingamwili ya wigo mpana MBP134, dawa ya kuua virusi remdesivir na obeldesivir kama kinga baada ya kuambukizwa — chini ya uratibu wa WHO. Kwa kukosekana kwa matibabu yaliyoidhinishwa yanayolenga aina hii, huduma za msaada wa hali ya juu (kurejesha maji mwilini, oksijeni, ufuatiliaji) zinabaki msingi wa uangalizi na huongeza kwa kiasi kikubwa nafasi za kuishi.</p>
       </div>
-      <div class="panel">
-        <figure class="mb-figure">
-          <div class="vg-mois"><div class="vg-col"><div class="vg-n">114</div><div class="vg-track"><div class="vg-fill" style="height:35.3%"></div></div><div class="vg-lab">Mei</div></div><div class="vg-col"><div class="vg-n">254</div><div class="vg-track"><div class="vg-fill" style="height:78.6%"></div></div><div class="vg-lab">Jun.</div></div><div class="vg-col"><div class="vg-n">323</div><div class="vg-track"><div class="vg-fill" style="height:100.0%"></div></div><div class="vg-lab">Jul.</div></div><div class="vg-col"><div class="vg-n">39</div><div class="vg-track"><div class="vg-fill" style="height:12.1%"></div></div><div class="vg-lab">Ago.</div></div></div>
-        </figure>
-      </div>
-      <div class="section-head">
-        <h3 class="frame-title">Jenomu kwa eneo la afya la sampuli</h3>
-      </div>
-      <div class="panel">
-        <figure class="mb-figure">
-          <div class="mb-bars vg-bars"><div class="mb-bar"><div class="mb-bar-label">Bunia <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:100.0%"></div></div><div class="mb-bar-val">240</div></div><div class="mb-bar"><div class="mb-bar-label">Rwampara <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:75.4%"></div></div><div class="mb-bar-val">181</div></div><div class="mb-bar"><div class="mb-bar-label">Nizi <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:33.8%"></div></div><div class="mb-bar-val">81</div></div><div class="mb-bar"><div class="mb-bar-label">Mongbwalu <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:24.6%"></div></div><div class="mb-bar-val">59</div></div><div class="mb-bar"><div class="mb-bar-label">Lita <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:19.2%"></div></div><div class="mb-bar-val">46</div></div><div class="mb-bar"><div class="mb-bar-label">Mangala <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:12.9%"></div></div><div class="mb-bar-val">31</div></div><div class="mb-bar"><div class="mb-bar-label">Bambu <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:7.9%"></div></div><div class="mb-bar-val">19</div></div><div class="mb-bar"><div class="mb-bar-label">Nia-Nia <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:4.2%"></div></div><div class="mb-bar-val">10</div></div><div class="mb-bar"><div class="mb-bar-label">Tchomia <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:4.2%"></div></div><div class="mb-bar-val">10</div></div><div class="mb-bar"><div class="mb-bar-label">Komanda <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:2.5%"></div></div><div class="mb-bar-val">6</div></div><div class="mb-bar"><div class="mb-bar-label">Nyankunde <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:2.5%"></div></div><div class="mb-bar-val">6</div></div><div class="mb-bar"><div class="mb-bar-label">Drodro <span class="vg-prov">Ituri</span></div><div class="mb-bar-track"><div class="mb-bar-fill" style="width:1.7%"></div></div><div class="mb-bar-val">4</div></div></div><p class="vg-reste">na maeneo 10 mengine, yenye jenomu 1 hadi 4 kila moja</p>
-          <p class="mb-credit">sampuli 10 zimewekwa mahali ambapo si eneo la afya, na 2 bila mahali</p>
-        </figure>
-      </div>
-      <div class="info-note">Jenomu zilizowasilishwa na INRB kwenye <a href="https://pathoplexus.org/ebola-bdbv/search" target="_blank" rel="noopener">Pathoplexus</a> (zimesomwa tarehe 4 Sep. 2026), sampuli za 2026 nchini DRC; 20 nyingine Uganda. Idadi yake inafuata uwezo wa kupanga mfuatano, si idadi ya wagonjwa.</div>
-      <h3 class="frame-title">Jenomu hizi zilifundisha nini</h3>
-      <div class="prose vg-lu">
-        <p>Kupanga jenomu si tu kuthibitisha aina. Kwa kulinganisha jenomu, tunarudi kwa babu wa pamoja, tunaweka tarehe ya kuanza kwa maambukizi na tunapima kasi ya kuenea kwa mlipuko.</p>
-        <p>Matokeo matatu yanajitokeza katika uchambuzi uliochapishwa na INRB na washirika wake. Virusi vya 2026 havitokani na mlipuko wa 2007 nchini Uganda wala wa 2012 huko Isiro: ni kuruka kwa hivi karibuni kutoka kwa hifadhi ya wanyama. Babu wa pamoja wa jenomu zilizopangwa anarudi mwishoni mwa Februari 2026, karibu miezi mitatu kabla ya tangazo rasmi la tarehe 15 Mei: virusi vilikuwa vinaenea bila kuonekana. Na mlipuko ulikuwa unaongezeka maradufu kila siku 21 hivi, ukikua kwa kasi kutoka Machi hadi Juni kisha kupungua.</p>
-        <p>Lakini jenomu hizi hazisemi ni eneo gani liliambukiza jingine. Virusi hubadilika polepole ikilinganishwa na kasi ya kusafiri kwake: kutoka eneo moja hadi jingine, sampuli zinafanana mno kiasi kwamba minyororo ya maambukizi haiwezi kujengwa upya. Waandishi wanaonya waziwazi dhidi ya usomaji huo.</p>
-      </div>
-      <div class="info-note">Kutoka uchambuzi wa INRB, INSP na washirika wao uliochapishwa katika <a href="https://virological.org/t/1046" target="_blank" rel="noopener">virological.org</a> tarehe 9 Julai na 25 Agosti 2026, na uthibitisho huru wa Imperial College London. Unahusu jenomu 626 zilizochukuliwa kati ya tarehe 2 Mei na 9 Agosti katika maeneo 21 ya afya ya Ituri na moja la Kivu Kaskazini. Mipaka ya kutokuwa na uhakika ni mipana: babu wa pamoja yuko kati ya katikati ya Januari na mwisho wa Machi, muda wa kuongezeka maradufu kati ya siku 15 na 41.</div>
+    </div>
     </div>
   </section>
 

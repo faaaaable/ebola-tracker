@@ -4920,6 +4920,14 @@ def main():
         common_seed["seed.vjp5Rip"] = interp(strings_lang["vjp5Rip"], {
             "recovered": fmt(national.get("recovered"), lang),
             "date": long_date(meta_data.get("reportingDate"), i18n_lang)})
+        # Fiche d'identite de l'espece (9 novembre 2026) : la letalite du
+        # dernier bulletin a cote de la fourchette historique, et le nombre
+        # de genomes deposes, date de sa lecture (plus de chapitre Genomes).
+        common_seed["seed.veFi3S"] = interp(strings_lang["veFi3S"], {
+            "cfr": fmt_cfr(national.get("cfr"), lang)})
+        common_seed["seed.veGenDepot"] = interp(strings_lang["veGenDepot"], {
+            "n": fmt(genomes["rdc2026"], lang),
+            "date": long_date(genomes["consulte"], i18n_lang)}) if genomes else ""
         common_seed["seed.cartoAsOf"] = esc(interp(strings_lang["cartoAsOf"], {
             "date": long_date((latest.get("meta") or {}).get("reportingDate", ""), i18n_lang)}))
         # Sous « Situation au… », le numero du bulletin, lie a son PDF
