@@ -22,3 +22,8 @@ data/corpus/
 # de navigateur de 16 Mo (profil-rendu/) cree par le rendu headless.
 assets/social/
 report_iom/
+
+# Guide de travail et skills de Claude Code : gardes sur le disque, sauvegardes
+# dans un depot prive, hors du depot public.
+CLAUDE.md
+.claude/
