@@ -487,8 +487,15 @@ def lire_tableau(section):
     return lues
 
 
+# SitRep 177 : le bulletin est paru avec ses notes de relecture internes,
+# « Un total de 423 (A l'equipe : Q2) nouveaux echantillons a ete analyse ».
+# La parenthese coupait NATIONAL_TOTAL_RE. On l'ote avant toute lecture :
+# elle ne porte aucun chiffre publie, seulement une remarque aux redacteurs.
+NOTE_EQUIPE_RE = re.compile(r"\s*\(\s*[ÀA]\s+l[’']\s*[ée]quipe\s*:[^()]*(?:\([^()]*\)[^()]*)*\)", re.I)
+
+
 def lire_rapport(chemin):
-    texte = texte_du_rapport(chemin)
+    texte = NOTE_EQUIPE_RE.sub("", texte_du_rapport(chemin))
     meta = extract_meta(texte, fallback_number=numero(chemin))
     section = section_laboratoire(texte)
     if not section or not meta.get("reportingDate"):

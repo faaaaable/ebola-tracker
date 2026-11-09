@@ -601,6 +601,19 @@ def recoller_total_orphelin(section):
                       "au-dessus, nouveaux cas dessous), recollee (texte brut).")
                 i += 2
                 continue
+        # SitRep 177 : meme fraction au-dessus, mais les nouveaux cas
+        # restent sur la ligne du libelle, en tete, et les milliers prennent
+        # une espace :
+        #     67/178 (37,6 %)
+        #     Total 41 10 920 5 323 48,7%
+        if mc and sortie and FRACTION_SEULE_RE.match(sortie[-1]):
+            candidat = "Total %s %s" % (mc.group("cumuls"), sortie[-1])
+            if resume(candidat):
+                sortie[-1] = candidat
+                print("  ! fraction de zones au-dessus de la ligne « Total » "
+                      "(nouveaux cas en tete), recollee (texte brut).")
+                i += 1
+                continue
         sortie.append(line)
         i += 1
     return sortie

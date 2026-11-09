@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-11-06"
+    "fin": "2026-11-07"
   },
   "parDate": [
     {
@@ -7385,6 +7385,73 @@
         "transferes": 493,
         "partVerifiee": 92.3,
         "partValidee": 12.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-07",
+      "sitrepNumber": "177",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 116,
+          "verifiees": 116,
+          "validees": 25,
+          "suspectsInvestigues": 25,
+          "transferes": 23
+        },
+        "Bas-Uélé": {
+          "recues": 90,
+          "verifiees": 90,
+          "validees": 4,
+          "suspectsInvestigues": 4,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1320,
+          "verifiees": 1320,
+          "validees": 175,
+          "suspectsInvestigues": 179,
+          "transferes": 90
+        },
+        "Nord-Kivu": {
+          "recues": 2095,
+          "verifiees": 2095,
+          "validees": 239,
+          "suspectsInvestigues": 239,
+          "transferes": 118
+        },
+        "Sud-Ubangi": {
+          "recues": 14,
+          "verifiees": 14,
+          "validees": 3,
+          "suspectsInvestigues": 3,
+          "transferes": 0
+        },
+        "Nord-Ubangi": {
+          "recues": null,
+          "verifiees": null,
+          "validees": null,
+          "suspectsInvestigues": null,
+          "transferes": null,
+          "nonTransmis": true
+        },
+        "Tshopo": {
+          "recues": 51,
+          "verifiees": 51,
+          "validees": 11,
+          "suspectsInvestigues": 11,
+          "transferes": 1
+        }
+      },
+      "total": {
+        "recues": 3686,
+        "verifiees": 3686,
+        "validees": 457,
+        "suspectsInvestigues": 461,
+        "transferes": 232,
+        "partVerifiee": 100.0,
+        "partValidee": 12.4
       },
       "source": "SitRep INSP (automatique)"
     }

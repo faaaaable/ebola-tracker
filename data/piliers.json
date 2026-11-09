@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-11-06"
+  "fin": "2026-11-07"
  },
  "parDate": [
   {
@@ -5853,6 +5853,19 @@
      }
     }
    },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-11-07",
+   "sitrepNumber": "177",
+   "poe": {
+    "personnes": 276403,
+    "screenesPct": 98.0,
+    "refusScreening": 0
+   },
+   "rings": null,
+   "eds": null,
+   "vaccination": null,
    "source": "SitRep INSP (automatique)"
   }
  ]

@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-06"
+    "fin": "2026-11-07"
   },
   "parDate": [
     {
@@ -8969,6 +8969,26 @@
             "Tshopo"
           ]
         },
+        {
+          "pilier": "psea",
+          "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
+          "items": [
+            " La couverture des zones touchées reste faible : seuls l’Ituri, le Nord-Kivu, le Haut-Uélé et le Bas-Uélé ont rapporté leurs activités PSEA pour la journée (4 DPS sur 8 ; 50,0 %) ; au Bas-Uélé, 4 ZS (Viadana, Bondo, Likati et Ango) restent silencieuses, le financement du pilier est faible et les affiches et banderoles sont en rupture ; le mécanisme de signalement n’est connu que dans 15 ZS sur 36 (41,7 %) en Ituri et 6 ZS sur 13 (46,2 %) au Haut-Uélé, un seul partenaire (OMS) rapporte ses activités PSEA au Haut-Uélé, certains partenaires refusent de s’aligner en Ituri et les outils de sensibilisation en français et en lingala, les supports de visibilité et les kits informatiques du pilier restent insuffisants."
+          ],
+          "provinces": [
+            "Ituri",
+            "Nord-Kivu",
+            "Haut-Uélé",
+            "Bas-Uélé"
+          ]
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-07",
+      "sitrepNumber": "177",
+      "piliers": [
         {
           "pilier": "psea",
           "titre": "PSEA (Prévention de l'Exploitation et Abus Sexuels)",
