@@ -56,7 +56,7 @@ COLONNES = [
 ]
 RIPOSTE = [c for c, g, _ in COLONNES if g == "rip"]
 
-# La version anglaise (4 novembre 2026, decision du proprietaire : « une bdd
+# La version anglaise (4 novembre 2026 : « une bdd
 # francaise et une bdd anglaise ») : memes lignes, memes valeurs, colonnes et
 # libelles traduits. Les noms de provinces et de zones restent ceux des
 # bulletins. Ecrite par le meme appel, elle ne peut pas diverger.

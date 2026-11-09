@@ -13,6 +13,8 @@ import os
 
 import pdfplumber
 
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))  # scripts/
 from update_data import (
     extract_number_from_filename,
     extract_province_summary,

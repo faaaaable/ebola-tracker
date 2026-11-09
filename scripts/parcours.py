@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Carte du parcours du premier malade du Kenya, de Buta a Nairobi (page
-Kenya, 20 octobre 2026 ; maquette 1 de tmp/proto-kenya-parcours-1019).
+Kenya, 20 octobre 2026).
 
 Fond : la carte de l'accueil (zones de sante coloriees par les cas, pays
 voisins de assets/geo/monde-<lang>.json), meme projection que

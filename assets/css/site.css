@@ -208,7 +208,7 @@ ul,ol{margin:0;padding:0;}
 .side-nav-title:first-child{margin-top:0;padding-top:2px;}
 /* Depuis le 4 septembre 2026, plus de filet du tout : avec les intertitres
    de groupe, le trait pesait trop, et le gras suffit a dire la page
-   courante (essai du proprietaire, a confirmer). */
+   courante. */
 .side-nav a[aria-current="page"]{
   color:var(--ink);font-weight:600;
 }
@@ -440,8 +440,7 @@ ul,ol{margin:0;padding:0;}
   font-variant-numeric:tabular-nums;
 }
 .cd-fig .d{font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;}
-/* Les chiffres du panneau de la carte sont en Bricolage Grotesque, decision
-   du proprietaire du 10 septembre 2026 (« push and commit l'option
+/* Les chiffres du panneau de la carte sont en Bricolage Grotesque du 10 septembre 2026 (« push and commit l'option
    bricolage ») apres une maquette de six polices : Public Sans en gras
    sur cinq lignes de couleurs differentes faisait « tableau de bord
    automatique ». Une grotesque un peu resserree (largeur 87,5), aux formes
@@ -661,8 +660,7 @@ ul,ol{margin:0;padding:0;}
 .legend-circles .legend-circle{fill:var(--map-5);fill-opacity:.5;stroke:var(--map-6);stroke-width:1;}
 .legend-circles text{font-size:10px;fill:var(--ink-label);font-family:var(--font-sans);}
 /* Les commandes de la carte sont des encadres, a toutes les largeurs — le
-   27 aout au soir, le proprietaire a voulu sur ordinateur les memes boutons
-   que sur telephone. L'etat actif est un cadre, pas un fond : bord de 2 px
+   27 aout, ordinateur et telephone ont les memes boutons. L'etat actif est un cadre, pas un fond : bord de 2 px
    dans l'accent fort (le bleu de la date a cote) et texte gras, le second
    pixel en ombre interieure pour que la boite garde sa taille — rien ne
    saute au clic. Le pastel --accent-light d'origine n'existait nulle part
@@ -1007,9 +1005,8 @@ td.is-soft{color:var(--ink-faint);}
    empilees, seule facon de rester lisible dans une colonne etroite. */
 /* PLUS DE CARTE, UNE COLONNE COIFFEE D'UN FILET (22 septembre 2026). Les
    vignettes etaient des boites a bordure gauche coloree portant trois paires
-   libelle/valeur en capitales — le gabarit qu'on voit partout, « ca fait
-   beaucoup trop IA », meme reproche que la police des chiffres du panneau de
-   la carte le 10 septembre. Ne restent que le filet, le nom, le chiffre.
+   libelle/valeur en capitales — le gabarit qu'on voit partout, trop
+   generique. Ne restent que le filet, le nom, le chiffre.
 
    LE FILET PORTE L'IDENTITE, LE TEXTE GARDE L'ENCRE. Le nom du Nord-Kivu
    ecrit dans son ambre tombe a 3,9 de contraste quand le site s'impose 4,5 ;
@@ -1019,7 +1016,7 @@ td.is-soft{color:var(--ink-faint);}
 
    La letalite est tombee avec les libelles : a cet endroit la question est ou
    est l'epidemie, pas comment elle tue. Elle reste sur chaque page province.
-   Six variantes montrees en local avant celle-ci. */
+   */
 /* La ligne italique sous le titre de la rangee : elle repond une fois pour
    sept colonnes a « ce chiffre, c'est quoi ». Le `.section-sub` du site est
    cale sur un titre en serif ; ici il suit un `.section-title` en capitales
@@ -2779,7 +2776,7 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 /* Cadres numerotes des pages Donnees et province (8 septembre 2026) : un peu d'air entre la tete du cadre et son premier intertitre. */
 .cadre-corps > .section-head:first-child{margin-top:10px;}
 
-/* Maquette « Le bulletin » (8 septembre 2026), en local. */
+/* Maquette « Le bulletin » (8 septembre 2026). */
 .bul-table td:first-child .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px;}
 /* Noms de province en liens visibles (5 novembre 2026), comme le tableau
    par province d'Ensemble du pays : bleu, souligne fin, franc au survol. */
@@ -2810,7 +2807,7 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 /* ===================== La lettre, mise en page agence (8 septembre 2026) ===================== */
 /* --- 3. Le bulletin d'agence : bande bleue, deux colonnes --- */
 /* Bande, losange, titres de chapitres et de blocs en --accent-strong depuis le
-   9 septembre 2026 (proprietaire) : l'ambre est la couleur de l'isolement et du
+   9 septembre 2026  : l'ambre est la couleur de l'isolement et du
    suivi des contacts, elle ne signifiait rien ici ; le bleu est celui du site. */
 .ag{color:var(--ink);}
 .ag-barre{height:12px;background:var(--accent-strong);margin:0 calc(-1 * var(--gutter));}
@@ -2923,9 +2920,8 @@ details.mb-details summary{cursor:pointer;color:var(--accent-strong);font-weight
 .fiche-extraits-liste b{color:var(--ink);font-weight:600;}
 
 /* ==========================================================================
-   REFONTE DU 2 OCTOBRE 2026 — en local, a la demande du proprietaire
-   Direction : celle des maquettes tmp/proto-design-lovable (V1 a V5), inspirees
-   de lovable.dev — barre en haut avec menus deroulants, halo doux, cartes
+   REFONTE DU 2 OCTOBRE 2026
+   Direction inspiree de lovable.dev — barre en haut avec menus deroulants, halo doux, cartes
    blanches tres arrondies, titres serif, grands espaces. Palette inchangee.
    Ce bloc est le DERNIER du fichier et surcharge ce qui precede : pour revenir
    en arriere, le supprimer, avec les changements de build_pages.py (build_nav,
@@ -3119,8 +3115,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
     color:var(--ink);letter-spacing:-.01em;
   }
   .nav-pop a:hover{background:var(--bg-alt);color:var(--ink);}
-  /* La page courante n'est plus surlignee dans les panneaux (3 octobre 2026,
-     demande du proprietaire) : aria-current reste pose pour les lecteurs d'ecran. */
+  /* La page courante n'est plus surlignee dans les panneaux (3 octobre 2026) : aria-current reste pose pour les lecteurs d'ecran. */
   .nav-pop a:has(.nav-badge){padding-right:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
   .nav-pop .nav-badge{position:static;transform:none;}
 
@@ -3543,8 +3538,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .accroche{margin-left:0;margin-right:0;text-align:left;}
 
 /* ==========================================================================
-   ACCUEIL : LA CARTE AU PREMIER PLAN (3 octobre 2026) — option E de la
-   maquette tmp/proto-accueil-carte. Grand ecran seulement (>= 901 px) : la
+   ACCUEIL : LA CARTE AU PREMIER PLAN (3 octobre 2026) — option E de la maquette. Grand ecran seulement (>= 901 px) : la
    carte s'ouvre sur l'emprise de l'epidemie, en cadre large qui se fond dans
    la page ; plus de colonne de droite — le panneau devient deux pastilles
    (cas, deces) posees au bas a gauche de la carte, sous « Situation au… » ; la
@@ -3594,7 +3588,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
   .page-accueil .cd-national,.page-accueil .cd-figures{display:flex;flex-direction:column;gap:0;margin:0;}
   /* le chiffre au-dessus, son libelle juste dessous, le tout a droite : des
      pastilles etroites qui n'empietent pas sur la carte */
-  /* 5 octobre 2026, option A de la maquette chiffres-cles : texte pose sur la
+  /* 5 octobre 2026 chiffres-cles : texte pose sur la
      carte, sans case — grand chiffre, libelle en petites capitales dessous,
      un filet entre les deux chiffres. */
   .page-accueil .cd-nat,.page-accueil .cd-fig{
@@ -3791,8 +3785,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 /* les grands mots sont les liens vers les pages Riposte et Defis : au survol
    ils sortent du filigrane, en bleu fonce et en rouge fonce, et les chiffres
    s'effacent le temps du survol (le mot opaque les recouvrirait). Toute la
-   surface du mot reagit, y compris sous les chiffres (13 octobre 2026,
-   demande du proprietaire) : le lien est un bloc, et les chiffres, qui ne
+   surface du mot reagit, y compris sous les chiffres (13 octobre 2026) : le lien est un bloc, et les chiffres, qui ne
    sont pas des liens, laissent passer le pointeur. */
 .fa h3 a{display:inline-block;color:inherit;text-decoration:none;pointer-events:auto;transition:color .25s ease;}
 .fa ul{pointer-events:none;}
@@ -3833,7 +3826,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 @media (max-width:760px){
   .fa{display:block;min-height:0;}
   .fa-courbe,.fa-pt{display:none;}
-  /* telephone (13 octobre 2026, maquette tmp/proto-face-mobile-1013, b1) :
+  /* telephone (13 octobre 2026, b1) :
      le mot passe AU-DESSUS de ses chiffres, dans le flux, au lieu de passer
      dessous ; les deux camps se resserrent autour de la petite courbe */
   .fa-r{padding:44px 0 0;}
@@ -3920,8 +3913,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 }
 
 /* ==========================================================================
-   PROVINCES DE L'ACCUEIL : MOSAIQUE (5 octobre 2026) — option B de la maquette
-   tmp/proto-provinces-accueil. Des cases dont la taille suit le poids : l'Ituri
+   PROVINCES DE L'ACCUEIL : MOSAIQUE (5 octobre 2026) — option B de la maquette. Des cases dont la taille suit le poids : l'Ituri
    en grand (deux rangees) avec ses chiffres detailles, le Nord-Kivu large, deux
    provinces moyennes, puis un bandeau de petites cases. Grille de 12 colonnes,
    rangees fixes (262 / 262 / 92 px) : tout tombe juste, sans trou. Sous 900 px :
@@ -3972,7 +3964,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 
 
 /* ==========================================================================
-   5 OCTOBRE 2026 — CHOIX DES MAQUETTES tmp/proto-maquettes-1005
+   5 OCTOBRE 2026 — CHOIX DES MAQUETTES
    2B : en-tete des pages province, carte en fond et nom en tres grand.
    4A : graphiques standard — titre du cadre, legende en haut a gauche (app.js),
         source / note dessous, plus de bouton Partager.
@@ -4032,7 +4024,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .cr-head{text-align:center;}
 .cr-src{text-align:center;}
 /* en-tete province : chiffres poses, separes d'un filet, sans case
-   (5 octobre 2026, option A de la maquette chiffres-province) */
+   (5 octobre 2026 chiffres-province) */
 .prov-hero-b .kpis-province{display:flex;flex-wrap:wrap;gap:0;background:transparent;border:0;box-shadow:none;width:auto;}
 .prov-hero-b .kpis-province .kpi{background:transparent;border:0;border-left:1px solid var(--line);border-radius:0;box-shadow:none;padding:0 34px;min-width:0;}
 .prov-hero-b .kpis-province .kpi:first-child{padding-left:0;border-left:0;}
@@ -4129,7 +4121,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .about-h2{font:600 clamp(26px,3vw,36px)/1.1 var(--font-serif);letter-spacing:-.03em;margin:0 0 10px;color:var(--ink);text-transform:none;}
 
 /* ==========================================================================
-   SOURCES & BULLETINS : le registre (6 octobre 2026, option 1 du proprietaire)
+   SOURCES & BULLETINS : le registre (6 octobre 2026)
    Une ligne par bulletin, deux colonnes, un mois a la fois (onglets).
    ========================================================================== */
 .reports-grid.is-registre{display:block;columns:2;column-gap:44px;}
@@ -4153,7 +4145,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 }
 
 /* ==========================================================================
-   LA LETTRE en « quotidien » (6 octobre 2026, option 1 du proprietaire)
+   LA LETTRE en « quotidien » (6 octobre 2026)
    ========================================================================== */
 .lq{max-width:1180px;margin:0 auto;}
 .lq-une{border-top:6px double var(--ink);border-bottom:1px solid var(--ink);padding:14px 0 10px;margin-bottom:30px;}
@@ -4409,7 +4401,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .af-plus[hidden],.af-j[hidden],.af-a[hidden]{display:none !important;}
 @media (max-width:640px){ .af-a{grid-template-columns:1fr 96px;gap:14px;} .af-img{width:96px;height:72px;} .af-a h3{font-size:18px;} .actus .actus-puce{padding:9px 12px;font-size:14px;} }
 
-/* Espacements resserres (7 octobre 2026, demande du proprietaire) : moins de
+/* Espacements resserres (7 octobre 2026) : moins de
    vide entre l'en-tete d'une page et la suite, et entre les parties. */
 .section.actus-tete,.section.faq-tete,.section.gl-tete,.section.about-tete{padding-bottom:14px;}
 .actus-tete + .section,.faq-tete + .section,.gl-tete + .section,.about-tete + .section{padding-top:14px;}
@@ -4513,8 +4505,7 @@ main:has(.pays-hero) .zones-block,main:has(.pays-hero) .cadre-corps > .panel-fit
 .pays-hero + .section{padding-top:0;}
 .pays-hero + .section .riposte-ancres{margin-top:12px;}
 
-/* A PROPOS, BAS DE PAGE « RUBRIQUES A FILETS » (7 oct. 2026, maquette n°1 de
-   tmp/proto-pages-1007h, choix de Fable) : etapes en trois colonnes sous un
+/* A PROPOS, BAS DE PAGE « RUBRIQUES A FILETS » (7 oct. 2026) : etapes en trois colonnes sous un
    grand numero, methode repliee entre filets comme la FAQ, fin centree. */
 .ap-f1{max-width:1060px;margin:0 auto;padding-top:28px;text-align:center;}
 .ap-h2{font:600 clamp(30px,3.6vw,42px)/1.08 var(--font-serif);letter-spacing:-.025em;color:var(--ink);margin:0;}
@@ -4537,23 +4528,23 @@ main:has(.pays-hero) .zones-block,main:has(.pays-hero) .cadre-corps > .panel-fit
 .ap-fin h2:not(.ap-h2){font:600 20px/1.3 var(--font-serif);margin:26px 0 0;}
 @media(max-width:760px){.ap-etapes{grid-template-columns:1fr;gap:26px;}}
 
-/* Contact : la ligne « Pour suivre les mises a jour sans ecrire : @EbolaTrackerRDC » centree (7 oct. 2026, demande de Fable). */
+/* Contact : la ligne « Pour suivre les mises a jour sans ecrire : @EbolaTrackerRDC » centree (7 oct. 2026). */
 
-/* Lieu du deces (pages province et Ensemble du pays) : le paragraphe sous le titre centre (7 oct. 2026, demande de Fable). */
+/* Lieu du deces (pages province et Ensemble du pays) : le paragraphe sous le titre centre (7 oct. 2026). */
 .fiche-texte.fiche-texte-centre{text-align:center;margin-left:auto;margin-right:auto;}
 
-/* Accueil : le graphique « Evolution de l epidemie » sans fond blanc ni ombre, dans un filet fin comme les vues du carrousel (7 oct. 2026, demande de Fable). */
+/* Accueil : le graphique « Evolution de l epidemie » sans fond blanc ni ombre, dans un filet fin comme les vues du carrousel (7 oct. 2026). */
 .home-sec > .panel.chart-panel-wrap{background:none;border:1px solid var(--line);box-shadow:none;border-radius:20px;}
 
-/* Carrousel de l accueil sans cartes blanches (7 oct. 2026, demande de Fable) : plus de fond ni d ombre, seulement un filet fin pour delimiter chaque vue ; la vue du milieu reste la plus grande, les autres s estompent. */
+/* Carrousel de l accueil sans cartes blanches (7 oct. 2026) : plus de fond ni d ombre, seulement un filet fin pour delimiter chaque vue ; la vue du milieu reste la plus grande, les autres s estompent. */
 .cr-card{background:none;border:1px solid var(--line);box-shadow:none;border-radius:20px;}
 
-/* Accueil, cases des provinces : option 1 « filet fin » (7 oct. 2026, maquette tmp/proto-pages-1007j, choix de Fable). Ni fond blanc ni ombre, un trait fin comme le carrousel et le graphique principal ; la barre de couleur de la province reste a gauche. */
+/* Accueil, cases des provinces : option 1 « filet fin » (7 oct. 2026). Ni fond blanc ni ombre, un trait fin comme le carrousel et le graphique principal ; la barre de couleur de la province reste a gauche. */
 .pm-t,.pm-t.is-grande{background:none;box-shadow:none;border:1px solid var(--line);border-radius:20px;}
 .pm-t:hover{border-color:var(--teinte);}
 
 /* Chronologie : jalons hors de RDC (Ouganda, France, Kenya), cinquieme
-   couleur « Hors de RDC » (7 oct. 2026, demande de Fable). Indigo, distinct
+   couleur « Hors de RDC » (7 oct. 2026). Indigo, distinct
    du bleu des cas, du rouge des deces, de l'ocre et du vert officiel. */
 :root{--tl-intl:#4B4A8C;}
 .tl-item.is-intl .tl-dot,.tl-legend .is-intl::before,.th-item.is-intl .th-dot{border-color:var(--tl-intl);background:var(--tl-intl);}
@@ -4565,12 +4556,12 @@ main:has(.prov-hero-b) .th-item.is-intl{border-top-color:var(--tl-intl) !importa
 .tl-item.is-intl .tl-toll{display:none;}
 
 /* Accueil : sous « Situation au… », le numero du SitRep en petit, lie a son
-   PDF (7 oct. 2026, demande de Fable). Masque au survol d'une zone. */
+   PDF (7 oct. 2026). Masque au survol d'une zone. */
 .cd-sitrep{display:block;margin-top:2px;font-size:11.5px;color:var(--ink-faint);text-decoration:none;}
 .cd-sitrep:hover{color:var(--accent-strong);text-decoration:underline;}
 .carto-detail:not(.is-empty) .cd-sitrep{display:none;}
 
-/* Vue « Pays touches » de la carte de l'accueil (8 octobre 2026, en local).
+/* Vue « Pays touches » de la carte de l'accueil (8 octobre 2026).
    scripts/hors_rdc.py dessine le fond des pays voisins et les pays touches
    (.zm-monde, sous les zones), le point de la ville et le nom du pays
    (.zm-hors, au-dessus) ; app.js (setupMonde) pose .is-monde sur le cadre au
@@ -4649,7 +4640,7 @@ main:has(.prov-hero-b) .th-item.is-intl{border-top-color:var(--tl-intl) !importa
 .hr-bulle p{margin:6px 0 0;}
 .hr-bulle .hb-s{font-size:11.5px;color:var(--ink-faint);}
 
-/* Page « Autres pays » (8 octobre 2026, en local ; option 1 des maquettes) :
+/* Page « Autres pays » (8 octobre 2026 ; option 1 des maquettes) :
    trois fiches cote a cote, dans l'ordre du premier cas. En tete de chaque
    fiche, la date du premier cas en grand, posee sur un filet commun a pointes
    qui se lit comme une frise (de gauche a droite, le temps). Pastille indigo
@@ -4783,7 +4774,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
   .curseur-bulle::after{content:"";position:absolute;left:50%;bottom:-4px;margin-left:-4px;border:4px solid transparent;border-top-color:var(--ink);border-bottom:0;}
   .curseur-bulle.is-visible{opacity:1;}
 }
-/* Telephone (8 octobre 2026, demande du proprietaire) : sans la note « Certains
+/* Telephone (8 octobre 2026) : sans la note « Certains
    bulletins ne detaillent pas les zones… » sous le curseur. */
 @media (max-width:760px){ .map-timeline-note{display:none !important;} }
 /* Accueil, sous la grille des provinces : « Ensemble du pays » et, dessous,
@@ -4851,8 +4842,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
     font:600 15px var(--font-sans);color:var(--accent-strong);}
   /* Au second niveau, le nom de l'onglet se fait discret (etiquette) et ce
      sont les pages qui ressortent (8 octobre 2026). */
-  /* Le nom de l'onglet sous « Retour » est retire (12 octobre 2026, demande du
-     proprietaire) : une ligne de gagnee, l'onglet ouvert se devine a ses pages.
+  /* Le nom de l'onglet sous « Retour » est retire (12 octobre 2026) : une ligne de gagnee, l'onglet ouvert se devine a ses pages.
      Le filet passe sous « Retour ». */
   .menu-niv2-titre{display:none;}
   .side-panel.is-niv2 .menu-niv2-tete{padding-bottom:8px;margin-bottom:0;border-bottom:1px solid var(--line);}
@@ -4941,8 +4931,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 #hx-vue-monde:checked ~ .chap-corps .hx-v-monde,#hx-vue-monde:checked ~ .chap-ouv .hx-v-monde{display:block;}
 #hx-vue-monde:checked ~ .chap-corps .hx-v-rdc,#hx-vue-monde:checked ~ .chap-ouv .hx-v-rdc{display:none;}
 
-/* Menu du telephone, onglet Explorer (12 octobre 2026, option 6 des maquettes
-   tmp/proto-menu-mobile-1012, choisie par le proprietaire) : les provinces et
+/* Menu du telephone, onglet Explorer (12 octobre 2026) : les provinces et
    « Autres pays » a la suite, separes d'un point a mi-hauteur, en trois lignes
    fixes (3, 3, puis 2), sans intertitre. Le menu tient sur un iPhone SE.
    CSS seul : le HTML (et le menu de l'ordinateur) ne changent pas. Les liens
@@ -4961,8 +4950,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 }
 
 /* ==========================================================================
-   PAGES PAYS ET « AUTRES PAYS » (refonte du 17 octobre 2026, options 1 et 2
-   des maquettes tmp/proto-pays-1017) : en-tete des pages province, chronologie
+   PAGES PAYS ET « AUTRES PAYS » (refonte du 17 octobre 2026, options 1 et 2 des maquettes) : en-tete des pages province, chronologie
    au code couleur de la page Chronologie, escalier des cas ; Autres pays en
    tableau a filets + frise. Rendu : scripts/hors_rdc.py.
    ========================================================================== */
@@ -5094,11 +5082,10 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
    Sur telephone, petite et centree au-dessus du texte. */
 .section.apr:has(.apr-grille){max-width:900px;}
 .apr-grille{display:grid;grid-template-columns:260px minmax(0,1fr);gap:44px;align-items:start;}
-/* Fixe dans la page (28 octobre 2026, demande de Fable) : elle suivait le
+/* Fixe dans la page (28 octobre 2026) : elle suivait le
    defilement de la lettre (position sticky), elle reste maintenant en haut. */
 .apr-photo{margin:0;}
-/* Etiquette LinkedIn sous la photo (28 octobre 2026, maquette n°2 de
-   tmp/proto-apropos-linkedin-1028) : « in » au trait, couleur de l'encre ;
+/* Etiquette LinkedIn sous la photo (28 octobre 2026) : « in » au trait, couleur de l'encre ;
    « LinkedIn » seul, centre sous la photo (28 octobre 2026). */
 .apr-li{display:flex;align-items:center;gap:10px;width:max-content;margin:16px auto 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;font-size:15px;line-height:1.25;transition:border-color .15s,background .15s;}
 .apr-li:hover{border-color:var(--ink-faint);background:rgba(31,26,19,.03);}
@@ -5264,7 +5251,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 @media (max-width:760px){.pn-frise{grid-template-columns:1fr 1fr;}}
 
 /* ==========================================================================
-   Panneau de la carte (21 octobre 2026, demande de Fable) : « RDC » au-dessus
+   Panneau de la carte (21 octobre 2026) : « RDC » au-dessus
    des deux chiffres ; il disparait au survol d'une zone, comme eux.
    ========================================================================== */
 .cd-pays{margin:2px 0 6px;font:700 11px/1.2 var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);}
@@ -5289,7 +5276,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
    la derniere date (is-historical, pose par updateTimelineLabel), sinon le
    1er septembre afficherait des cas au Kenya et au Nigeria. Pas de barre sur
    telephone, ou elle arrivait sous la carte, la legende et les boutons
-   (21 octobre 2026, demande de Fable). */
+   (21 octobre 2026). */
 .map-timeline.is-historical .cd-hors{display:none;}
 /* Vue « Hors RDC » : pas de curseur du temps (curseurPourMonde, app.js). La
    date a droite des boutons reste : elle dit de quand datent les chiffres. */
@@ -5335,8 +5322,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .map-note.contact-mail{text-align:center;margin:14px auto 0;}
 
 /* 13 pouces (29 octobre 2026) : de 1 001 a 1 480 px de large et jusqu'a
-   900 px de haut, le site s'affiche a 90 %, comme un 15 pouces — le
-   proprietaire le trouvait plus juste qu'a 100 %. La borne de largeur garde
+   900 px de haut, le site s'affiche a 90 %, comme un 15 pouces, plus juste qu'a 100 %. La borne de largeur garde
    le 15 pouces a 100 % : sa fenetre (1 512 px et plus) fait elle aussi
    moins de 900 px de haut, barres du navigateur deduites. Le texte courant de la Lettre passe d'environ 17 a 15 px.
    Ce qui pose un element d'apres la souris tient compte du zoom : zoomPage()
@@ -5358,7 +5344,7 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
 .ml-tete + .section{padding-top:14px;}
 .ml-maj{font-size:13px !important;margin-top:28px !important;}
 
-/* La Lettre sur l'accueil (3 novembre 2026, maquette tmp/proto-lettre-accueil-1103,
+/* La Lettre sur l'accueil (3 novembre 2026,
    option 3b ; scripts/lettre_accueil.py) : la derniere lettre posee sur la
    pile des precedentes, l'abonnement et les lettres d'avant a droite. */
 .o3-grille{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:64px;align-items:center;}
@@ -5470,7 +5456,7 @@ main :where(p,li) a.lien-x:is(:hover,:focus-visible){text-decoration-color:curre
    titres a gauche, au-dessus. ---- */
 .chap-nav{margin-top:32px;}
 .chap-nav-n{font-family:var(--font-serif);font-weight:600;color:var(--accent-strong);opacity:.8;margin-right:6px;}
-/* Espacement resserre le 4 novembre 2026 (« ca fait bcp de vide ») : 80 px
+/* Espacement resserre le 4 novembre 2026 : 80 px
    au lieu de 128 entre la fin d'un chapitre et le filet, 44 au lieu de 56
    du filet au titre. */
 .chap{border-top:1px solid var(--line);margin-top:24px;padding-top:44px;scroll-margin-top:130px;}
@@ -5499,7 +5485,7 @@ main:has(.prov-hero-b) .chap-corps :is(.drill,.zones-note,.map-note,.fiche-texte
 .chap-corps .tl-legend{justify-content:flex-start;text-align:left;margin-left:0;}
 /* Riposte des provinces : la presentation de la page Riposte, texte a
    gauche et graphique a droite (.rp-v, regles du site), retablie le
-   4 novembre 2026 a la demande du proprietaire. */
+   4 novembre 2026. */
 /* Riposte : les six volets sous le meme menu colle (4 novembre 2026). */
 main:has(.chap-nav) .rip-volet{scroll-margin-top:130px;}
 .rc-chaine + .chap-nav{margin-top:0;border-top:0;}
@@ -5527,8 +5513,7 @@ main:has(.chap-nav) .rip-volet{scroll-margin-top:130px;}
 .vers-visuels a{color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--line);}
 .vers-visuels a:hover{border-bottom-color:var(--accent-strong);}
 
-/* ---- Le virus sans face-a-face (9 novembre 2026, maquette
-   tmp/proto-virus-1109) : fiche d'identite de l'espece, quatre especes en
+/* ---- Le virus sans face-a-face (9 novembre 2026) : fiche d'identite de l'espece, quatre especes en
    pastilles, encadres, vaccin et traitements en deux colonnes, resultats
    de la genetique en trois colonnes numerotees. ---- */
 .fi{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}

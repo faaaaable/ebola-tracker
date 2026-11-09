@@ -10,7 +10,7 @@
      revision a la baisse ramenee a zero, rattrapages des 22 et 30 juillet en
      teinte claire (partsQuotidiennes() d'app.js) ;
    - deces du jour d'une province : ecart de cumul, JAMAIS la somme des deces
-     communautaires et intra-CTE (CLAUDE.md, pieges connus) ;
+     communautaires et intra-CTE (voir zone_new_deaths dans build_pages.py) ;
    - lieu du deces : des parts par semaine, pas des volumes ;
    - vaccination : dernier cumul de chaque province, le dernier total national
      publie l'emporte tant que la somme ne le depasse pas ;
@@ -178,7 +178,7 @@ const charts = {};
 function quotidien(serie, champ, national){
   const out = []; let prev = null, prevDate = null;
   /* Les nouveaux cas et deces ANNONCES par chaque bulletin, conserves par date
-     dans sitreps.json depuis le 160 (choix du proprietaire, 24 octobre 2026),
+     dans sitreps.json depuis le 160 (24 octobre 2026),
      comme le « + » de l'accueil et la Lettre (SitRep 160 : +71 et +41,
      l'ecart des cumuls donnant +61 et +40) ; latest.json reste le repli du
      dernier. Une province : ses nouveaux cas annonces (Nord-Kivu +27 au 160,
@@ -367,7 +367,7 @@ function renderKpis(){
   const cas = p ? p.confirmed : nat.confirmed, deces = p ? p.deaths : nat.deaths;
   const casJ = p ? p.newCases24h : nat.newCases24h;
   // Province : l'ecart de cumul entre les deux derniers bulletins. Jamais la
-  // somme des deces communautaires et intra-CTE du jour (CLAUDE.md, pieges).
+  // somme des deces communautaires et intra-CTE du jour (le PDF n'imprime pas la cellule vide).
   const derD = quotidien(serie, 'deaths', !PROV).pop();
   const decesJ = p ? (derD && derD.date === date ? derD.total : null) : nat.newDeaths24h;
   h.push(kpi('is-cas', T('kCas'), fmt(cas), `<b>+${fmt(casJ)}</b> ${T('k24')}`, sparkline(cumul.map(x => x.confirmed), 'var(--cas)')));
@@ -627,7 +627,7 @@ const sous = (id, html) => { document.getElementById(id).innerHTML = html; };
 const etiquettes = pts => pts.map(p => dateC(p.date));
 
 /* Cas et deces par jour, semaine ou mois : chaque graphique a son propre pas
-   (9 octobre 2026, demande de Fable) ; un clic ne redessine que le sien. La
+   (9 octobre 2026) ; un clic ne redessine que le sien. La
    coupe des rattrapages, l'axe minimum des petites provinces et la moyenne
    sur 7 jours ne valent qu'en vue par jour : en semaines il n'y a plus de pic
    isole et les totaux sont plus grands. */
@@ -700,7 +700,7 @@ function renderGraphes(){
     vals.forEach(v => { sem[k].com += v.communautaires || 0; sem[k].cte += v.intraCte || 0; });
   });
   /* Des PARTS, pas des volumes : des jours manquent a la fenetre et les
-     volumes hebdomadaires ne se comparent pas (CLAUDE.md). Sous le seuil de
+     volumes hebdomadaires ne se comparent pas. Sous le seuil de
      lisibilite de deces-lieu.json (20 deces), une part ne dit rien. */
   const seuil = D.decesLieu.seuilLisibilite || 20;
   const sl = Object.values(sem).sort(parDate);

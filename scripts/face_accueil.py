@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""« La riposte et ses defis » sur l'accueil (13 octobre 2026, maquettes
-tmp/proto-accueil-face-1013 : option g3 sur le fond h5). Remplace le carrousel
+"""« La riposte et ses defis » sur l'accueil (13 octobre 2026 : option g3 sur le fond h5). Remplace le carrousel
 de cinq cartes.
 
 Pas de graphique ni de carrousel : deux camps de part et d'autre de la courbe

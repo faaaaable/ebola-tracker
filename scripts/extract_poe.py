@@ -392,7 +392,7 @@ def controle_somme(entree):
     return notes
 
 
-# Valeurs ecartees a la demande du proprietaire (26 octobre 2026), apres
+# Valeurs ecartees (26 octobre 2026), apres
 # relecture des PDF. Les trois chiffres sont bien imprimes, et la ligne
 # s'additionne juste avec le total : le bulletin ne se contredit pas, mais
 # un flux qui triple d'un jour a l'autre sur une douzaine de postes, puis
@@ -413,8 +413,7 @@ VALEURS_ECARTEES = [
     ("047", "personnes", ("Ituri", "Global"), "Ituri 166 171, hors de proportion avec les jours voisins"),
     # SitRep 136 (27 septembre) : la Tshopo imprimee 218 002 pour un total de
     # 247 045 (Ituri 132 860, Nord-Kivu 93 183) — un 8 glisse dans 21 002 ;
-    # 20 878 la veille. Le total, coherent, reste (29 octobre 2026, demande de
-    # Fable).
+    # 20 878 la veille. Le total, coherent, reste (29 octobre 2026).
     ("136", "personnes", ("Tshopo",), "Tshopo 218 002, hors de proportion avec les jours voisins"),
 ]
 

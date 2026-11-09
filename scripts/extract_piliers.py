@@ -462,7 +462,7 @@ def lire_vaccination(corps, texte_entier):
     cumul = {}
     # Le total national, quand le bulletin le donne (112 : « Au total, 1 834
     # personnes ont ete vaccinees » ; 137 : « Au niveau national, 6 897 »).
-    # Le site le prefere a la somme des provinces (choix de Fable, 7 octobre
+    # Le site le prefere a la somme des provinces (7 octobre
     # 2026), voir vaccines_total() dans build_pages et bulletin.
     national = None
     def pose(prov, v):

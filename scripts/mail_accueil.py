@@ -3,7 +3,7 @@
 Mail d'accueil (23 octobre 2026) : envoye par Brevo une fois
 l'inscription confirmee (double opt-in), en francais par le formulaire #3
 (liste 3), en anglais par le formulaire #4 (liste 4, swahili compris).
-Dessin : maquette 2 de tmp/proto-mail-accueil-1023 (en-tete LA LETTRE, mot
+Dessin : (en-tete LA LETTRE, mot
 signe Pierre, sans bouton), meme enveloppe que le mail de la Lettre
 (scripts/envoi_lettre.py).
 
@@ -11,8 +11,7 @@ Mail de confirmation du double opt-in (24 octobre 2026), a la place du
 modele standard de Brevo : meme dessin, « Encore une etape », un bouton
 dont le lien est la balise {{ doubleoptin }} (Brevo ne la remplit que lors
 d'une vraie inscription : dans un envoi test, le bouton ne mene nulle
-part). Modele etiquete « optin », sans lien de desinscription (la personne
-n'est pas encore inscrite). Maquette : tmp/proto-mail-optin-1024.
+part). Modele etiquete « optin », sans lien de desinscription (la personne n'est pas encore inscrite).
 
     python scripts/mail_accueil.py --apercu          ecrit tmp/mail-<accueil|optin>-<lang>.html
     python scripts/mail_accueil.py --brevo           cree ou met a jour les quatre modeles Brevo

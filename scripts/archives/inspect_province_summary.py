@@ -11,6 +11,8 @@ Usage: python3 scripts/inspect_province_summary.py reports/SITREP_MVE_086.pdf
 import sys
 import pdfplumber
 
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))  # scripts/
 from update_data import (
     extract_province_summary,
     parse_province_summary,

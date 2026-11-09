@@ -23,7 +23,6 @@ data/corpus/
 assets/social/
 report_iom/
 
-# Guide de travail et skills de Claude Code : gardes sur le disque, sauvegardes
-# dans un depot prive, hors du depot public.
+# Notes de travail locales, hors du depot public.
 CLAUDE.md
 .claude/

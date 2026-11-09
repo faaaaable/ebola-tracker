@@ -15,6 +15,8 @@ import os
 
 import pdfplumber
 
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))  # scripts/
 from update_data import extract_meta, extract_number_from_filename, get_zone_section_text
 
 REPORTS_DIR = "reports"

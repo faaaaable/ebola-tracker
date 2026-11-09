@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Carte du parcours du premier cas du Nigeria, d'Abuja a Abuja (page
-Nigeria, 29 octobre 2026 ; maquette tmp/proto-parcours-nigeria-1029). Trois
+Nigeria, 29 octobre 2026). Trois
 langues depuis le 29 octobre 2026 : tous les textes (titre, noms de pays et de
 lieux, dates, legende, frise, sources) vivent dans data/parcours-nigeria.json ;
 chaque langue a son trace fige, site/geo/parcours-nigeria-<lang>.svg.
@@ -24,7 +24,7 @@ Sources des etapes :
 Le trajet aller n'est pas connu : un pointille courbe par le nord, pour ne pas
 passer au-dessus de la RDC (passage affirme par l'Ouganda, dementi par la
 Suisse, l'Africa CDC et l'OMS). Le mari et le premier malade du Kenya ne sont
-pas mentionnes (demande du proprietaire, 29 octobre 2026)."""
+pas mentionnes (29 octobre 2026)."""
 import json, math, os, re
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

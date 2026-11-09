@@ -38,10 +38,10 @@ import base_donnees  # la base de donnees unifiee (9 octobre 2026)
 import face_accueil  # la riposte et ses defis, sur l'accueil (13 octobre 2026)
 import lettre_accueil  # la derniere Lettre et l'abonnement, sur l'accueil (3 novembre 2026)
 import visuels  # la page Visuels : douze images SVG, trois rythmes (12 octobre 2026)
-import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 2026), en local
+import hors_rdc  # vue « Pays touches » de la carte de l'accueil (8 octobre 2026)
 import parcours  # carte du parcours du premier malade du Kenya (20 octobre 2026)
 import parcours_nigeria  # carte du parcours du premier cas du Nigeria (29 octobre 2026)
-import bulletin  # maquette « Le bulletin » (8 septembre 2026), en local
+import bulletin  # maquette « Le bulletin » (8 septembre 2026)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
@@ -376,8 +376,7 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
         page = by_id[page_id]
         label = esc(label_for(page, strings_lang, i18n_lang))
         # Pastille a droite d'un onglet, pour annoncer une page : navBadge =
-        # {key} dans pages.json (« Nouveau » : retiree a la main quand le
-        # proprietaire le dit, decision du 7 septembre 2026 ; « Bientot » sur
+        # {key} dans pages.json (« Nouveau » : retiree a la main, depuis le 7 septembre 2026 ; « Bientot » sur
         # la base de donnees), un « jusquau » facultatif (AAAA-MM-JJ) la fait
         # expirer seule.
         badge = page.get("navBadge")
@@ -520,7 +519,7 @@ def build_nav(config, urls, lang, strings_lang, i18n_lang, current_id, provinces
 def build_breadcrumb(urls, lang, strings_lang, trail):
     """trail : liste de (libellé, chemin ou None pour la page courante).
 
-    La ligne visible est retiree le 7 octobre 2026 (demande du proprietaire) :
+    La ligne visible est retiree le 7 octobre 2026 :
     avec la barre du haut, elle repetait le titre de la page. Le fil reste
     declare aux moteurs de recherche (BreadcrumbList, json-LD, plus haut)."""
     return ""
@@ -628,19 +627,17 @@ def build_footer(config, urls, lang, strings_lang, i18n_lang, provinces, avec_av
     # n'importe laquelle, pas sur l'accueil — mais le texte complet, lui, n'a
     # besoin d'exister qu'une fois, sur la page Methodologie (A propos jusqu'au
     # 17 octobre 2026).
-    # Sur l'accueil, la ligne d'avertissement est retiree (4 octobre 2026, a la
-    # demande du proprietaire) : elle reste sur toutes les autres pages, et le
+    # Sur l'accueil, la ligne d'avertissement est retiree (4 octobre 2026) : elle reste sur toutes les autres pages, et le
     # texte complet est sur Methodologie.
     notice = ('    <p class="footer-notice">%s <a href="%s">%s</a></p>\n'
               % (strings_lang["footerNotice"], urls.path("methodologie", lang) + "#avertissement",
                  esc(strings_lang["footerNoticeMore"]))) if avec_avertissement else ""
     # En tete du pied, sur toutes les pages : s'inscrire a La Lettre (23 octobre
-    # 2026, demande du proprietaire). Meme formulaire Brevo que la page Etre
+    # 2026). Meme formulaire Brevo que la page Etre
     # prevenu (site.brevoForms, #3 fr, #4 en repris en swahili), memes champs ;
     # app.js l'envoie comme tous les form[data-brevo]. Le lien « Alertes » de
     # la colonne « Le site » est parti avec : il faisait doublon. Pas sur
-    # l'accueil, la page Etre prevenu ni les Lettres (encadre d'abonnement deja
-    # la) : demande du proprietaire, meme jour.
+    # l'accueil, la page Etre prevenu ni les Lettres (encadre d'abonnement deja la), meme jour.
     abo = (
         '    <div class="footer-abo">\n'
         '      <p class="footer-abo-t">%s<span>%s</span></p>\n'
@@ -1321,7 +1318,7 @@ def panel_stats_html(national, lang, i18n_lang):
     rows = []
     for key, label_key, _value_id, _delta_id, _delta_key in SIDE_STAT_KEYS:
         # Depuis le 3 octobre 2026 le panneau de la carte ne garde que les cas
-        # et les deces (choix du proprietaire) ; gueris, isolement et letalite
+        # et les deces ; gueris, isolement et letalite
         # restent dans le bento sous la carte et sur les autres pages.
         if key not in ("confirmed", "deaths"):
             continue
@@ -1628,11 +1625,9 @@ def province_cards_html(provinces, urls, lang, strings_lang, history=None,
 
     Ce qui a remplace les cartes bordees a gauche (22 septembre 2026) : trois
     paires libelle/valeur en capitales dans une boite, c'etait le gabarit qu'on
-    voit partout — « ca fait beaucoup trop IA », meme reproche que la police
-    des chiffres du panneau de la carte le 10 septembre. La letalite est
+    voit partout, trop generique. La letalite est
     tombee au passage : a cet endroit la question est ou est l'epidemie, pas
-    comment elle tue ; elle reste sur chaque page province. Six variantes
-    montrees en local avant celle-ci.
+    comment elle tue ; elle reste sur chaque page province.
 
     Le compte de deces s'ecrit en toutes lettres sous le chiffre des cas —
     plus aucun libelle en capitales : c'est le mot qui porte l'unite.
@@ -1680,8 +1675,7 @@ def province_cards_html(provinces, urls, lang, strings_lang, history=None,
 
 def province_mosaique_html(provinces, urls, lang, strings_lang, maps=None, health_zones=(),
                            config=None, aliases=None):
-    """Les provinces de l'accueil en MOSAIQUE (5 octobre 2026, option B de la
-    maquette tmp/proto-provinces-accueil) : des cases dont la taille suit le
+    """Les provinces de l'accueil en MOSAIQUE (5 octobre 2026) : des cases dont la taille suit le
     poids de la province. La premiere (l'Ituri) est grande, avec ses chiffres
     detailles ; la deuxieme est large ; les deux suivantes sont moyennes ; le
     reste tient en bandeau de petites cases. Les rangees tombent juste : grille
@@ -1704,7 +1698,7 @@ def province_mosaique_html(provinces, urls, lang, strings_lang, maps=None, healt
         if cls == "is-petite":
             style += "grid-column:span %d;" % span_petite
         # La grande case ne garde que les deces en petit, comme les autres
-        # (7 octobre 2026, demande de Fable) : letalite, part du pays et
+        # (7 octobre 2026) : letalite, part du pays et
         # nouveaux cas retires. Branche gardee mais eteinte.
         if False and cls == "is-grande":
             cfr = pr.get("cfr") if pr.get("cfr") is not None else (deces / cas * 100 if cas else 0)
@@ -1752,15 +1746,14 @@ def province_liste_html(provinces, urls, lang, strings_lang):
     return "\n".join(out)
 
 
-# Les provinces de l'accueil en LIGNES (13 octobre 2026, maquettes
-# tmp/proto-provinces-accueil-1013, habillage k3, effet h3) : remplace la
+# Les provinces de l'accueil en LIGNES (13 octobre 2026, habillage k3, effet h3) : remplace la
 # mosaique et la liste telephone. Une ligne par province, toute la ligne mene a
 # sa page : nom, cas, deces, nouveaux cas par jour sur 30 jours. Les barres
 # prennent les paliers bleus de la carte de l'accueil, du plus fonce (la plus
 # touchee) au plus clair. Echelle « adoucie » : chaque province garde sa forme,
 # sa hauteur maximale suit (pic de la province / plus haut pic) ** 0,4, jamais
 # sous 0,3 — l'ordre de grandeur se devine sans rendre les petites invisibles
-# (demande du proprietaire : proportionner « legerement »). Nouveaux cas du
+# (proportion « legere »). Nouveaux cas du
 # jour = ecart avec le releve precedent (3 jours d'ecart au plus), pose au jour
 # du releve ; jour sans releve, pas de barre.
 LIGNES_PALIERS = ["#00324B", "#015174", "#267294", "#5693AF", "#88B3C8", "#B7D3E1", "#B7D3E1"]
@@ -1854,8 +1847,7 @@ DOWNLOAD_ICON = (
 
 def registre_ligne(numero, date_text, chiffres, href, title, label, month=None,
                    search=None, variant="", kicker=""):
-    """Une ligne du registre des bulletins (6 octobre 2026, option 1 du
-    proprietaire : « les cases font trop IA »). Garde la classe report-chip,
+    """Une ligne du registre des bulletins (6 octobre 2026). Garde la classe report-chip,
     sur laquelle reposent le filtre par mois et la recherche d'app.js, qui
     produit le meme balisage (registreLigne) : toute retouche des deux cotes.
     kicker : le mot ecrit en petit devant le numero (« SitRep », 9 octobre
@@ -2426,8 +2418,7 @@ def timeline_events(strings, sitreps, lang, i18n_lang, config=None, urls=None,
             # Toutes les entrees redigees sont des jalons officiels : la
             # distinction critique/default de site/strings.json ne sert plus
             # qu'a marquer les plus lourdes.
-            # Les jalons hors de RDC (Ouganda, France, Kenya ; 7 octobre 2026,
-            # demande de Fable) ont leur propre couleur, « International ».
+            # Les jalons hors de RDC (Ouganda, France, Kenya ; 7 octobre 2026) ont leur propre couleur, « International ».
             "kind": "intl" if event.get("intl") else "official",
             "weight": event["kind"],
             "title": event[lang]["title"],
@@ -2565,7 +2556,7 @@ def classe_jalon(event):
 
 def titre_jalon(event):
     """Titre d'un jalon. Les seuils franchis (« 1 000 cas confirmes ») portent
-    leur nombre en tres grand (5 octobre 2026, option A de la maquette
+    leur nombre en tres grand (5 octobre 2026
     chronologie) : le chiffre devient le titre, la suite son libelle."""
     titre = esc(event["title"])
     if event.get("kind") == "milestone":
@@ -2855,7 +2846,7 @@ def province_map_values(province_maps, name, zones, config, lang, strings_lang, 
 
 def province_zones_table_html(zones, forms, lang, strings_lang, i18n_lang, zones_history=None, province=None):
     """Le tableau des zones touchees d'une province, en « mini-courbes »
-    (7 octobre 2026, option 3 des maquettes) : la zone, ses cas cumules, la
+    (7 octobre 2026) : la zone, ses cas cumules, la
     courbe de ses nouveaux cas sur les 30 derniers jours, ses deces cumules,
     la letalite et ses cas des 7 derniers jours. Les nouveaux cas d'un jour
     sont l'ecart de cumul entre deux instantanes de zones-history.json (un
@@ -2928,7 +2919,7 @@ def province_zones_table_html(zones, forms, lang, strings_lang, i18n_lang, zones
         n30 = sum(v for _, v in nv)
         n24 = max(0, zone.get("newCases24h") or 0)
         d24 = max(0, zone_new_deaths(zone) or 0)
-        # Ordre du 7 octobre 2026 (proprietaire) : cumul, 24 h, 30 jours pour
+        # Ordre du 7 octobre 2026  : cumul, 24 h, 30 jours pour
         # les cas ; cumul et 24 h pour les deces ; puis la letalite.
         rows.append(
             '            <tr><td>%s</td><td class="zt z-cas" data-v="%d">%s</td><td data-v="%d">%s</td>'
@@ -3002,21 +2993,18 @@ def jeton_version(chemin_relatif):
 # Sous ce cumul, une province n'a pas de graphique : la courbe serait plate et
 # les barres invisibles. Essaye a 20 le 15 septembre 2026 pour donner le sien
 # a la Tshopo (28 cas, 16 journees avec au moins un cas), puis REMIS a 50 le
-# meme jour — « on ne va pas garder cette idee la ». Ne pas y revenir sans
-# qu'il le redemande.
+# meme jour.
 SEUIL_COURBE_PROVINCE = 50
 
 # Exceptions nommees au seuil, avec le plafond de l'axe des nouveaux cas
-# quotidiens. La Tshopo (43 cas, 5 au plus en une journee) a son graphique a la
-# demande du proprietaire le 28 septembre 2026, axe fixe a 10 : a cette echelle
+# quotidiens. La Tshopo (43 cas, 5 au plus en une journee) a son graphique depuis le 28 septembre 2026, axe fixe a 10 : a cette echelle
 # une journee a 1 cas reste lisible, et l'axe ne saute pas d'un bulletin a
 # l'autre. Le seuil general, lui, reste a 50 ; les vues par semaine et par mois
 # gardent leur axe automatique (une semaine peut depasser 10).
 COURBE_PROVINCE_FORCEE = {"Tshopo": 10}
 
 
-# Les provinces dont la fiche porte le cadre « La riposte » (decisions du
-# proprietaire, 28 septembre 2026). D'abord un seuil a 40 cas, qui ecartait
+# Les provinces dont la fiche porte le cadre « La riposte » (28 septembre 2026). D'abord un seuil a 40 cas, qui ecartait
 # le Sud-Kivu, le Bas-Uele et le Sud-Ubangi (2 a 10 cas) ; puis, une fois les
 # graphiques developpes montres, le Haut-Uele et la Tshopo aussi : « les
 # donnees semblent trop instables a cause du petit echantillon » — 47
@@ -3025,8 +3013,7 @@ COURBE_PROVINCE_FORCEE = {"Tshopo": 10}
 # cote des autres provinces.
 PROVINCES_RIPOSTE_FICHE = ("Ituri", "Nord-Kivu")
 
-# Provinces qui ont commence a vacciner (29 septembre 2026, demande du
-# proprietaire) : au moins un cumul publie dans les bulletins. Remplie par
+# Provinces qui ont commence a vacciner (29 septembre 2026) : au moins un cumul publie dans les bulletins. Remplie par
 # main() depuis piliers.json, avant la numerotation des cadres. Celles qui
 # n'ont pas la fiche complete de la riposte (Tshopo, Bas-Uele) recoivent un
 # cadre « La riposte » reduit a la vaccination.
@@ -3050,11 +3037,11 @@ PROVINCES_OBSTACLES = ("Ituri", "Nord-Kivu", "Tshopo", "Haut-Uélé", "Bas-Uél�
 
 
 # Provinces dont la colonne du tableau PoE/PoC a assez de releves de
-# voyageurs pour une courbe (29 octobre 2026, demande de Fable) : Tshopo,
+# voyageurs pour une courbe (29 octobre 2026) : Tshopo,
 # Haut-Uele, Sud-Kivu, Bas-Uele en plus de l'Ituri et du Nord-Kivu. Remplie
 # par main() depuis points-controle.json, comme VACCIN_PROVINCES.
 POE_PROVINCES = set()
-# Retirees le meme jour, a la demande de Fable : le Sud-Kivu (journees a
+# Retirees le meme jour : le Sud-Kivu (journees a
 # ~84 000 imprimees fin juillet-aout) et le Bas-Uele (20 releves).
 PROVINCES_SANS_POE = {"Sud-Kivu", "Bas-Uélé"}
 
@@ -3075,7 +3062,7 @@ PROVINCES_LIEU_DECES = ("Ituri", "Nord-Kivu", "Haut-Uélé")
 
 
 # Provinces dont la page porte le cadre « La riposte » : le Haut-Uele en a ete
-# retire a la demande du proprietaire (16 septembre 2026), comme le cadre « Sur
+# retire (16 septembre 2026), comme le cadre « Sur
 # le terrain » de toutes les provinces, supprime le meme jour.
 PROVINCES_RIPOSTE = ("Ituri", "Nord-Kivu")
 
@@ -3217,7 +3204,7 @@ def lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base):
 
     Historique du meme jour : cumul essaye d'abord, puis 30 derniers jours
     avec un trait pour le cumul (Nizi 80 % sur la periode, 30 % en
-    octobre), puis retour au cumul seul a la demande du proprietaire :
+    octobre), puis retour au cumul seul :
     « le % de deces en communaute et en CTE, pour chaque zone, depuis le
     debut des releves ». Le recent reste lisible dans la base de donnees.
 
@@ -3250,7 +3237,7 @@ def lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base):
             c[1] += e["total"]
     if not tout:
         return ""
-    # Depuis le 13 juillet seulement (4 novembre 2026, choix du proprietaire :
+    # Depuis le 13 juillet seulement (4 novembre 2026 :
     # « le % de deces en communaute et en CTE, pour chaque zone, depuis le
     # debut des releves »). La fenetre de 30 jours (rec) n'est plus affichee ;
     # elle montrait Nizi a 30 % contre 80 % sur la periode.
@@ -3287,7 +3274,7 @@ def lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base):
             % (esc(strings_lang["lzComm"]), esc(strings_lang["lzCte"]))]
     if grandes:
         html.append('<ol class="lz-l">%s</ol>' % "".join(ligne(k) for k in grandes))
-    # Toutes les zones (4 novembre 2026, demande du proprietaire) : celles
+    # Toutes les zones (4 novembre 2026) : celles
     # sous le seuil ont aussi leur barre, mais pale, rangees par nombre de
     # deces dans un depliant ferme, avec la mise en garde.
     if petites:
@@ -3408,7 +3395,7 @@ def province_chart_html(province, strings_lang, i18n_lang, lang="fr", url_base="
         out += chapitre_html(
             "lieu", nums["lieu"], esc(strings_lang["chapLieu"]), esc(strings_lang["riposteDecesLede"]),
             # Titre du graphique, sur le modele de « Par zone de sante » en
-            # dessous (4 novembre 2026, demande du proprietaire).
+            # dessous (4 novembre 2026).
             '<div class="lz lz-prov"><div class="lz-tete"><h4 class="lz-t">%s</h4><span class="lz-s">%s</span></div></div>\n'
             % (esc(strings_lang["lzProvTitre"]), esc(strings_lang["lzProvSous"]))
             + lieu_deces_bloc(province, strings_lang, i18n_lang)
@@ -3599,8 +3586,7 @@ def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
     out = {}
 
     # Les trois premieres cases cumulent les SEPT derniers releves qui
-    # publient la donnee, et nomment la periode couverte — decision du
-    # proprietaire, 30 aout. La valeur du jour etait trop bruyante pour une
+    # publient la donnee, et nomment la periode couverte — depuis le 30 aout. La valeur du jour etait trop bruyante pour une
     # case de tete : alertes recues du simple au double d'un bulletin a
     # l'autre (1 164 le 22 aout, 2 371 le 25), positivite de 13,3 a 21,8
     # puis 13,9 % en trois jours sur 370 a 500 echantillons, et elle
@@ -3628,9 +3614,7 @@ def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
     def periode(releves):
         # Le libelle dit deja « 7 derniers releves » : ni bornes, ni date de
         # fin, meme quand la fenetre s'arrete avant le bulletin (la
-        # positivite au 27 aout quand le 106 est du 28). Decision du
-        # proprietaire, 30 aout, apres avoir vu les bornes puis la date
-        # seule. Seule l'occupation des CTE, valeur du jour, reste datee
+        # positivite au 27 aout quand le 106 est du 28). Depuis le 30 aout : la date seule, plutot que les bornes. Seule l'occupation des CTE, valeur du jour, reste datee
         # quand elle manque au dernier bulletin.
         return ""
 
@@ -3745,7 +3729,7 @@ def vaccination_seed(piliers, date_bulletin, lang, strings_lang, i18n_lang, vide
     total = sum(derniers_cumuls.values()) if derniers_cumuls else sum(v["cumul"] for v in dernier.values())
     ordre = sorted(dernier, key=lambda n: -dernier[n]["cumul"])
     # Le dernier total national publie l'emporte tant que la somme des
-    # provinces ne le depasse pas (choix de Fable, 7 octobre 2026).
+    # provinces ne le depasse pas (7 octobre 2026).
     nats = [p["vaccination"]["national"] for p in points
             if (p.get("vaccination") or {}).get("national") is not None]
     if nats and nats[-1] > total:
@@ -3807,8 +3791,7 @@ def _poe_table(der, colonnes, lang, strings_lang, i18n_lang):
                    % (round(c["pct"] or 0), fmt(c["num"], lang), fmt(c["den"], lang)))
         else:
             rap = "—"
-        # Style des tableaux de zones des pages province (29 octobre 2026,
-        # demande de Fable) : voyageurs et corps en chiffres forts, comme les
+        # Style des tableaux de zones des pages province (29 octobre 2026) : voyageurs et corps en chiffres forts, comme les
         # cas et les deces ; le contenu ne change pas.
         rangs.append('<tr%s><th scope="row">%s</th><td>%s</td><td class="zt z-cas">%s</td>'
                      '<td>%s</td><td>%s</td><td class="zt z-dec">%s</td></tr>' % (
@@ -3935,8 +3918,7 @@ def poe_seed(poe, lang, strings_lang, i18n_lang, vide):
     return out
 
 
-# Provinces sans les deux cases de riposte en tete de page (decision du
-# proprietaire, 16 septembre 2026) : trop peu de cas pour que le taux de
+# Provinces sans les deux cases de riposte en tete de page (16 septembre 2026) : trop peu de cas pour que le taux de
 # contacts ou l'occupation des CTE disent quelque chose, et des series
 # interrompues (Sud-Kivu depuis le 5 aout, rien pour les CTE du Bas-Uele et du
 # Sud-Ubangi ; de meme le Nord-Ubangi, entre au SitRep 155).
@@ -3945,7 +3927,7 @@ PROVINCES_SANS_CASES_RIPOSTE = {"Bas-Uélé", "Sud-Kivu", "Sud-Ubangi", "Nord-Ub
 
 def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lang):
     """Contacts vus et occupation des CTE d'UNE province, pour ses cases de tete
-    (demande du proprietaire, 16 septembre 2026).
+    (16 septembre 2026).
 
     Memes regles que les cases nationales de `riposte_seed` : les contacts
     cumulent les sept derniers releves ou la province publie son taux (vus
@@ -4032,9 +4014,7 @@ def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lan
 #
 # Le pays et chaque province suivent desormais le meme plan, a deux echelles :
 # le point (chiffres cles et sept derniers jours), [carte], cas, deces (et le
-# lieu du deces dessous), ou, [qui], la riposte, la chronologie. Demande du
-# proprietaire apres l'avis du 28 septembre : « j'ai l'impression de devenir
-# confus sur comment agencer toutes ces infos ». La regle qui en sort : une
+# lieu du deces dessous), ou, [qui], la riposte, la chronologie. Plan fixe le 28 septembre, pour que l'agencement se lise d'une page a l'autre. La regle : une
 # information a UNE page qui la detaille — les graphiques de la riposte vivent
 # sur la page Riposte, ou l'on compare les provinces ; la fiche n'en garde que
 # les chiffres et les difficultes du dernier bulletin, avec les liens.
@@ -4132,12 +4112,12 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
         bloc_kpis = chaine_riposte_html(kpis, strings_lang, vers=liens[0][0] if liens else None)
     if not avec_defis:
         # Ni resume des difficultes, ni source, ni extraits pilier par pilier
-        # (29 septembre 2026, demande du proprietaire) : les difficultes ont
+        # (29 septembre 2026) : les difficultes ont
         # leur cadre sur les pages province, et la page Riposte les detaille.
         # Ne jamais ecrire « resume ... redige par ebola-tracker.org ».
         # Les liens ne servent qu'au pays (vers la page Riposte).
         # Chapitre « Riposte » (4 novembre 2026) : ce qu'est la riposte en
-        # chapeau (7 octobre 2026, demande de Fable), puis la chaine et les
+        # chapeau (7 octobre 2026), puis la chaine et les
         # graphiques.
         return chapitre_html(
             "riposte", esc(numero), esc(strings_lang["chapRiposte"]), esc(strings_lang["ficheRiposteLede"]),
@@ -4180,8 +4160,7 @@ def _cadre_vaccination_seule(province, riposte, meta_data, lang, strings_lang, i
         graphiques=graph, avec_defis=False, sous_titre=strings_lang[sous], chaine=True)
 
 
-# La riposte developpee sur la fiche (28 septembre 2026, demande du
-# proprietaire : « que chaque page province, en commencant par les 4 plus
+# La riposte developpee sur la fiche (28 septembre 2026 : « que chaque page province, en commencant par les 4 plus
 # affectees, ait sur sa propre page la partie riposte/defis developpee, qui
 # inclut notamment les graphiques »). Les memes graphiques que la page
 # Riposte, restreints a la province par data-province, dans l'ordre de la
@@ -4320,7 +4299,7 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
 
     def lede(cle):
         # Le paragraphe explicatif de la page Riposte, repris tel quel sous
-        # chaque titre (29 septembre 2026, demande du proprietaire).
+        # chaque titre (29 septembre 2026).
         t = strings_lang.get(cle)
         return '      <p class="fiche-texte">%s</p>\n' % esc(t) if t else ""
 
@@ -4340,7 +4319,7 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
 
     def bloc(titre, sous_titre, canvas_id, mode, vues=None, apres="", lede_cle=None, fixes=None):
         """fixes : des vues montrees d'un coup, un canevas chacune, au lieu
-        d'une bascule (points de controle, 29 octobre 2026, demande de Fable)."""
+        d'une bascule (points de controle, 29 octobre 2026)."""
         ch = chiffres.get(mode)
         cle = ('        <div class="rp-ch"><b class="rc-n is-%s">%s</b><span>%s</span><small>%s</small></div>\n'
                % (CLASSE.get(mode, ""), ch[0], ch[1], ch[2])) if ch else ""
@@ -4373,11 +4352,10 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
     n_vacc = sum(1 for p in pts if ((p.get("vaccination") or {}).get("cumulParProvince") or {}).get(name))
     zones = vaccin_zones_province_html(pil, name, lang, strings_lang, i18n_lang)
     # Deux releves suffisent depuis le 29 septembre 2026 : l'Ituri a publie ses
-    # premiers vaccines le 23 septembre, et le proprietaire veut la courbe
-    # de toute province qui a commence.
+    # premiers vaccines le 23 septembre, et toute province qui a commence a sa courbe.
     if n_vacc >= 2:
         # Le tableau des zones vaccinees n'est plus pose sous la courbe
-        # (7 octobre 2026, demande de Fable) ; il ne reste que si la province
+        # (7 octobre 2026) ; il ne reste que si la province
         # n'a pas encore de courbe (branche suivante).
         out.append(bloc("riposteVaccinTitle", "riposteVaccinSub", "provVaccinChart", "vaccination"))
     elif zones:
@@ -4389,8 +4367,8 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
     # riposte developpe, apres la vaccination comme sur la page Riposte. Le
     # paragraphe de la page Riposte porte des chiffres nationaux : la fiche a
     # le sien, sans chiffre. La ligne de la province du tableau est retiree
-    # (29 octobre 2026, demande de Fable), comme le tableau de la page Riposte.
-    # Les autres provinces du tableau (29 octobre 2026, demande de Fable) n'ont
+    # (29 octobre 2026), comme le tableau de la page Riposte.
+    # Les autres provinces du tableau (29 octobre 2026) n'ont
     # que la courbe des voyageurs, avec son propre paragraphe.
     if voulu("pointsControle") and name in POE_PROVINCES:
         pp = poe_province(riposte.get("poe"), name, lang, strings_lang, i18n_lang)
@@ -4399,8 +4377,7 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
             # de la chaine.
             chiffres["pointsControle"] = pp["chiffre"]
             if name in PROVINCES_RIPOSTE_FICHE:
-                # Un resume a gauche de CHAQUE graphique (4 novembre 2026,
-                # demande de Fable) : les voyageurs avec le titre du volet,
+                # Un resume a gauche de CHAQUE graphique (4 novembre 2026) : les voyageurs avec le titre du volet,
                 # puis les alertes et les rapports, chacun sa rangee, son
                 # titre a gauche (le graphique ne le repete pas) et sa phrase.
                 out.append(bloc("ripostePoeTitle", "ripostePoeSub", "provPoeChart", "pointsControle",
@@ -4830,7 +4807,7 @@ def main():
         # L'apercu part du debut de l'epidemie et s'arrete au dixieme jalon :
         # on lit la chronologie dans son ordre, et le lien en dessous mene a
         # la suite. Six jusqu'au 5 octobre 2026 (la piste en tient 5,7 sur un
-        # ecran de 1920 px) ; dix depuis, a la demande du proprietaire : la
+        # ecran de 1920 px) ; dix depuis : la
         # piste defile, les fleches l'indiquent, et les quatre jalons ajoutes
         # (Nord-Kivu et Sud-Kivu atteints, 10 puis 20 zones touchees) montrent
         # la premiere extension de l'epidemie.
@@ -4873,7 +4850,7 @@ def main():
         common_seed["seed.cartoAsOf"] = esc(interp(strings_lang["cartoAsOf"], {
             "date": long_date((latest.get("meta") or {}).get("reportingDate", ""), i18n_lang)}))
         # Sous « Situation au… », le numero du bulletin, lie a son PDF
-        # (7 octobre 2026, demande de Fable).
+        # (7 octobre 2026).
         _num = (latest.get("meta") or {}).get("sitrepNumber") or ""
         common_seed["seed.cartoSitrep"] = (
             '<a class="cd-sitrep" href="/reports/SITREP_MVE_%s.pdf" target="_blank" rel="noopener">%s'
@@ -4959,7 +4936,7 @@ def main():
              ("contacts", esc(strings_lang["riposteKpiContacts"]), common_seed["seed.ripContacts"], common_seed["seed.ripContactsSub"]),
              ("cte", esc(strings_lang["riposteKpiOccupation"]), common_seed["seed.ripOccupation"], common_seed["seed.ripOccupationSub"]),
              ("vaccin", esc(strings_lang["riposteKpiVaccines"]), common_seed.get("seed.ripVaccines", "—"), ""),
-             # Les controles, 6e case de la chaine (29 octobre 2026, demande de Fable).
+             # Les controles, 6e case de la chaine (29 octobre 2026).
              ("poe", esc(strings_lang["riposteKpiPoeChaine"]), common_seed["seed.ripPoe"], common_seed["seed.ripPoeSub"])],
             "", "", _liens, strings_lang, avec_defis=False, chaine=True)
         # La frise de chaque page province (8 septembre 2026).
@@ -5071,7 +5048,7 @@ def lang_switch_html(config, alt_paths, lang, strings_lang=None, cloche=None):
     labels = " / ".join(loc(code, "label") for code in codes)
     boutons = []
     # En tete de rangee, juste a gauche de FR : la cloche d'« Etre prevenu »,
-    # sur l'accueil seulement (21 octobre 2026, demande de Fable) ; cloche =
+    # sur l'accueil seulement (21 octobre 2026) ; cloche =
     # le chemin de la page des alertes. Le telephone a .na-tel.
     if cloche and strings_lang is not None:
         boutons.append('        <a class="lang-cloche" href="%s" title="%s" aria-label="%s">%s</a>'
@@ -5103,8 +5080,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     site = config["site"]
     origin = urls.origin
     is_province = province is not None
-    # La cloche d'« Etre prevenu » sur toutes les pages (5 novembre 2026,
-    # demande de Fable) ; elle etait reservee a l'accueil depuis le 21 octobre.
+    # La cloche d'« Etre prevenu » sur toutes les pages (5 novembre 2026) ; elle etait reservee a l'accueil depuis le 21 octobre.
     # Le nom est garde : il sert aux trois endroits qui affichent la cloche.
     accueil_cloche = True
 
@@ -5213,7 +5189,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         values["vis.vitrine"] = visuels.vitrine_html(lang, i18n_lang["months"], urls.path("visuels", lang))
         values["face.html"] = face_accueil.section_html(lang, strings_lang, values.get("seed.ripVaccines"),
                                                         urls.path("riposte", lang), urls.path("defis", lang))
-        # La Lettre (3 novembre 2026, maquette tmp/proto-lettre-accueil-1103,
+        # La Lettre (3 novembre 2026,
         # option 3b) : la derniere lettre en encart et le formulaire Brevo.
         values["lettre.accueil"] = lettre_accueil.section_html(
             lang, strings_lang, values.get("seed.lettres") or {},
@@ -5325,7 +5301,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.shareSentence": esc(share),
             "province.newDeaths": esc(interp(strings_lang["provinceNewDeaths"],
                                              {"n": fmt(new_deaths, lang)})),
-            # Meme forme que les deces, demande du proprietaire le 8 septembre 2026.
+            # Meme forme que les deces.
             "province.newCases": esc(interp(strings_lang["provinceNewDeaths"],
                                             {"n": fmt(province.get("newCases24h") or 0, lang)})),
             "province.zonesTitle": esc(interp(strings_lang["provinceZonesTitle"], forms)),
@@ -5386,8 +5362,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         values["seed.paysRank"] = " ".join(esc(x) for x in lignes)
 
     content = render(fragment, values, fragment_name + " [" + lang + "]")
-    # Les notes sous les graphiques restent visibles (7 octobre 2026, decision
-    # du proprietaire : elles portent les reserves qui changent la lecture).
+    # Les notes sous les graphiques restent visibles (7 octobre 2026 : elles portent les reserves qui changent la lecture).
 
     # Chart.js pese 200 Ko : inutile de le charger sur une page province
     # qui n'a pas de graphique. « needs » est declare par type de page,
@@ -5528,7 +5503,7 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                            X_ICONE, esc(strings_lang["menuFollowX"]))) if (config["site"].get("xProfile") or "").strip() else "",
         # Telephone : la cloche d'« Etre prevenu » dans la barre, avant les
         # trois traits (19 octobre 2026). Retiree pour l'instant le 21 octobre
-        # 2026 (demande de Fable), avec l'onglet « Alertes » de mainNav
+        # 2026, avec l'onglet « Alertes » de mainNav
         # (site/pages.json) ; la page /alertes/ reste, liee du pied de page.
         # Pour la remettre : "alerteTel" valait
         # '    <a class="na-tel" href="%s" aria-label="%s">%s</a>'

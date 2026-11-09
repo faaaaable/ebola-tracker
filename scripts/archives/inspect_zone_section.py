@@ -11,6 +11,8 @@ Usage: python3 scripts/inspect_zone_section.py reports/SITREP_MVE_096.pdf
 import sys
 import pdfplumber
 
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))  # scripts/
 from update_data import get_zone_section_text
 
 

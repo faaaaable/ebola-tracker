@@ -56,8 +56,7 @@ def annulees():
     """Les dates d'harmonisation dont les deces sont repris par une entree
     ulterieure de signe oppose dans la meme province (SitRep 170 : les 314 du
     30 octobre retires le 31). Les deux journees n'ont plus de rattrapage :
-    chacune ne porte que ses deces du jour (choix du proprietaire,
-    2 novembre 2026)."""
+    chacune ne porte que ses deces du jour (2 novembre 2026)."""
     harm = sorted(charger().items())
     out = set()
     for i, (d, h) in enumerate(harm):

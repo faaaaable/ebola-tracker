@@ -1812,7 +1812,7 @@ def completer_gueris(sitreps, reports):
 def rebuild_sitreps_json(reports, national_recovered_by_sitrep, annonce=None):
     """annonce = (date, {"cas", "deces", "provinces"}) : les nouveaux cas et
     deces que le bulletin integre ANNONCE. Conserves par date depuis le
-    SitRep 160 (choix du proprietaire, 24 octobre 2026) pour que la barre
+    SitRep 160 (24 octobre 2026) pour que la barre
     d'un jour ne change plus au bulletin suivant : l'ecart entre deux cumuls
     donnait +61 au 21 octobre quand le bulletin et le site avaient dit +71.
     Les entrees deja ecrites gardent leur annonce."""
@@ -1931,7 +1931,7 @@ def completer_provinces(full_text, provinces, national):
 # une phrase ou s'additionnent par zone, les deces presque jamais. Lus a la
 # main, chacun tombe exactement sur le total national du jour. Les 20 et
 # 22 mai restent vides : la source s'y contredit (61 et 88 pour 64 et 91).
-# Decision du proprietaire, 27 septembre 2026 : afficher les cas seuls.
+# Depuis le 27 septembre 2026 : afficher les cas seuls.
 PROVINCES_FIN_MAI = {
     # 007, tableau IV par zone, total 83 : Ituri 78 (dont 4 « échantillons
     # sans fiche »), Nord-Kivu 4, Sud-Kivu 1.
@@ -2118,7 +2118,7 @@ def rebuild_zones_history(meta, health_zones):
 # « Ainsi, 66 zones de sante sur 178 [...] Nord-Kivu (17/34) ») et que le
 # tableau detaille liste 17 zones au Nord-Kivu, comme la veille. Un nombre de
 # zones « touchees depuis le debut » ne baisse pas : la somme du tableau (65)
-# est une coquille. Regle (choix du proprietaire, 24 octobre 2026) : quand la
+# est une coquille. Regle (24 octobre 2026) : quand la
 # phrase « Ainsi, N zones de sante sur T » existe, que ses fractions par
 # province tombent exactement sur N et que la somme du tableau n'y tombe pas,
 # les fractions du texte remplacent celles du tableau. Rien n'est invente :
@@ -2144,7 +2144,7 @@ def zones_texte_retenu(full_text, provinces, health_zones=None):
         # 66 zones de sante sur 178 », sans fractions par province, et le
         # tableau des provinces garde Nord-Kivu 16/34 (65). Le tableau
         # detaille des zones en liste 17 au Nord-Kivu, 66 en tout. Second
-        # repli (choix du proprietaire, 24 octobre 2026) : le compte des zones
+        # repli (24 octobre 2026) : le compte des zones
         # detaillees par province, s'il tombe exactement sur N ; les totaux
         # (zones de la province) restent ceux du tableau.
         par_prov = {}

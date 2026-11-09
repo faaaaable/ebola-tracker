@@ -2,7 +2,7 @@
 """La page « Visuels » (12 octobre 2026) : douze images de l'epidemie, en SVG,
 redessinees a chaque generation du site, dans la langue de la page.
 
-Trois rythmes, choisis par le proprietaire le 11 octobre 2026 :
+Trois rythmes le 11 octobre 2026 :
   - a chaque bulletin : le calendrier, le code-barre, la carte des provinces ;
   - chaque semaine, arretes a la DERNIERE SEMAINE COMPLETE (lundi-dimanche) :
     la part de chaque province, les nouveaux cas par semaine, le lieu des
@@ -10,14 +10,13 @@ Trois rythmes, choisis par le proprietaire le 11 octobre 2026 :
   - chaque mois, pour le DERNIER MOIS CLOS : nouvelles zones, nouveaux cas,
     nouveaux deces, part de chaque province.
 
-Les visuels viennent des maquettes publiees sur X (tmp/proto-visuels,
-tmp/proto-mensuel, tmp/proto-page-visuels-2-1011), reecrits ici pour trois
+Les visuels viennent d'images d'abord publiees sur X, reecrites ici pour trois
 langues et pour que rien ne soit ecrit en dur : le mois mis en avant, la
 semaine, les comptes se calculent. Regles reprises du site :
   - une zone se compare par cle normalisee, alias compris (« Gety » / « Gethy ») ;
   - chaque chiffre vient de data/, aucune valeur inventee ni interpolee ;
   - les volumes hebdomadaires du lieu du deces ne se comparent pas : parts.
-Le swahili est redige par l'assistant, a faire relire."""
+Le swahili n'est pas encore relu par un locuteur."""
 import datetime as dt
 import html
 import json
@@ -56,7 +55,7 @@ RATTRAPAGES = {"2026-07-22": 97, "2026-07-30": 73}
 # Au SitRep 170, le bulletin les retire le 31 octobre (entree de signe
 # oppose) : le rattrapage du 30 n'a plus de sens et disparait. Les deux
 # journees portent leurs seuls deces du jour (32 puis 45, dont 19 puis 28 en
-# Ituri), en pleine teinte (choix du proprietaire, 2 novembre 2026).
+# Ituri), en pleine teinte (2 novembre 2026).
 HARM = harmonisations.charger()
 ANNULEES = harmonisations.annulees()
 HARM_TXT = {
@@ -845,8 +844,7 @@ def m_part(c):
 
 
 # ================================================================ la riposte, jour par jour
-# Les cinq graphiques quotidiens de la page Riposte (12 octobre 2026, demande
-# du proprietaire), redessines en SVG avec les regles de app.js : axe
+# Les cinq graphiques quotidiens de la page Riposte (12 octobre 2026), redessines en SVG avec les regles de app.js : axe
 # calendaire, journee sans releve laissee en blanc, pont en pointilles au-dessus
 # d'un trou (un repere, jamais une valeur), journee partielle du laboratoire
 # hachuree, lits empruntes des CTE en point creux, cumul de vaccination revise
@@ -1233,13 +1231,12 @@ def r_vaccin(c):
 # ================================================================ nouveaux cas par jour, trois premieres provinces
 # Le graphique quotidien des pages province (mode provinceEpidemic de app.js),
 # pour les trois provinces qui comptent le plus de cas au dernier bulletin
-# (12 octobre 2026, demande du proprietaire). Memes garde-fous : calendrier
+# (12 octobre 2026). Memes garde-fous : calendrier
 # jour par jour, jour sans bulletin en blanc, pas de barre au retour d'un
 # trou de plus de 3 jours (ventilation non publiee du 20 au 30 mai), les
 # 22 et 30 juillet en entier dans la teinte claire du rattrapage, et l'axe
 # plafonne au pic ordinaire quand un rattrapage l'ecraserait (barre coupee,
-# total ecrit au-dessus). Sans la courbe des cas cumules (choix du
-# proprietaire, 12 octobre 2026) : les barres seules.
+# total ecrit au-dessus). Sans la courbe des cas cumules (12 octobre 2026) : les barres seules.
 PJ = {
  "fr": dict(titre="{p} : les nouveaux cas, jour par jour",
             sous="Nouveaux cas confirmés déclarés chaque jour dans la province, du {a} au {b}.",
@@ -1362,7 +1359,7 @@ def r_province(c, rang):
 
 
 # ================================================================ ajouts du 29 octobre 2026
-# Demande de Fable : tous les graphiques du site sur la page Visuels, a
+# Tous les graphiques du site sur la page Visuels, a
 # l'endroit qui les concerne. Ajoutes : les nouveaux cas et les nouveaux deces
 # du pays jour par jour (accueil, Ensemble du pays), la carte des zones de
 # sante (accueil), cas et deces de chaque province qui a une courbe (pages
@@ -1682,8 +1679,7 @@ PROVINCES_JOUR = [item for n in range(6) for item in (
 
 # ================================================================ dix-sept epidemies
 # La frise « Dix-sept epidemies en cinquante ans » de la page Le virus (vue
-# RDC) en visuel au format X, 1200 x 675 (30 octobre 2026, maquette
-# tmp/proto-17-epidemies) : les cercles seuls, surface proportionnelle aux
+# RDC) en visuel au format X, 1200 x 675 (30 octobre 2026) : les cercles seuls, surface proportionnelle aux
 # cas, toutes les epidemies passees en gris sans distinguer l'espece, seule
 # l'actuelle nommee. Le cercle bleu suit le dernier bulletin. La difference de
 # comptage (passe : confirmes et probables, CDC ; actuelle : confirmes seuls)
@@ -1753,7 +1749,7 @@ LISTE = [
 
 # ================================================================ les cartes a diffuser
 # « Ebola, l'Est en relief » (23 octobre 2026, section « Images fixes » en bas de
-# page, maquette tmp/proto-cartes-1018,
+# page,
 # variantes n1i, n1i-en et build_169.py) : la RDC en relief, une colonne par
 # zone de sante, haute de ses cas confirmes. Images FIXES, pas redessinees a
 # chaque bulletin : la section dit le SitRep et la date de leurs donnees.
@@ -1813,7 +1809,7 @@ def page_html(lang, mois_courts):
 
 # ================================================================ la vitrine de l'accueil
 # Bande « Visuels » de l'accueil, a la place de la Chronologie (13 octobre
-# 2026, maquette tmp/proto-accueil-vitrine-1013, option 3 « le ruban pleine
+# 2026, option 3 « le ruban pleine
 # largeur ») : six visuels SANS AUCUN TEXTE — titres, axes, legendes, notes
 # retires, cadres sur le dessin seul — pour attirer l'oeil, pas pour informer.
 # Chaque image mene a son visuel sur la page Visuels ; app.js les fait
@@ -1825,7 +1821,7 @@ def _nk(c):
     return c.ordre_provinces().index("Nord-Kivu")
 
 
-# Ordre du proprietaire (13 octobre 2026, deuxieme version) : code-barre,
+# Ordre de la page (13 octobre 2026, deuxieme version) : code-barre,
 # calendrier, laboratoire, lieu des deces, suivi des contacts, nouveaux cas du
 # Nord-Kivu, nouveaux cas semaine apres semaine, zones actives et calmes, et
 # zone apres zone en dernier. La part de chaque province a ete retiree.

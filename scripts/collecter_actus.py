@@ -75,8 +75,7 @@ SOURCES = [
             "&$select=Title,PublicationDateAndTime,UrlName,Summary"},
     # Le flux RSS ne garde que les vingt derniers articles, soit deux a trois
     # jours : la collecte doit tourner au moins toutes les six heures. L'API,
-    # qui filtrerait mieux et remonterait l'historique, demande un « appname »
-    # approuve, a demander par le proprietaire.
+    # qui filtrerait mieux et remonterait l'historique, demande un « appname » approuve, non demande.
     # Filtre sur le titre et le debut du texte : ReliefWeb donne le rapport
     # entier, et un point sur la securite alimentaire qui cite Ebola au
     # dixieme paragraphe n'est pas une actualite de l'epidemie.
@@ -97,10 +96,8 @@ SOURCES = [
      "statut": "attente", "media": True, "langue": "en"},
     {"id": "guardian", "nom": "The Guardian", "url": "https://www.theguardian.com/world/ebola/rss",
      "statut": "attente", "media": True, "langue": "en"},
-    # Ajouts du 25 septembre 2026, apres le releve de 118 flux fait par Hermes
-    # et recontrole ici. Radio Okapi et Africanews sont generalistes (4 et 2
-    # articles sur Ebola sur 50) et publies SANS VALIDATION, a la demande du
-    # proprietaire : le filtre est donc resserre au titre et au debut du
+    # Ajouts du 25 septembre 2026, apres un releve de 118 flux recontrole ici. Radio Okapi et Africanews sont generalistes (4 et 2
+    # articles sur Ebola sur 50) et publies SANS VALIDATION : le filtre est donc resserre au titre et au debut du
     # resume — « Beni : deux morts [...] au cimetiere » passe, Ebola y est
     # nomme des la deuxieme phrase. Radio Okapi a change d'adresse : son
     # ancien rss.xml est fige au 15 juillet.
@@ -112,14 +109,14 @@ SOURCES = [
     # son actualite, l'epidemie doit etre nommee dans le titre.
     {"id": "alima", "nom": "ALIMA", "url": "https://alima.ngo/feed/",
      "statut": "publie", "filtre": "titre", "langue": "fr"},
-    # L'ECDC n'est pas lu (decision du proprietaire, 25 septembre 2026) : pas
+    # L'ECDC n'est pas lu (25 septembre 2026) : pas
     # de flux Ebola, et son rapport hebdomadaire sur les menaces couvre toutes
     # les maladies de la semaine, Ebola parmi huit ou dix.
     # Les autorites congolaises (essai du 24 septembre 2026). Le ministere de
     # la Sante n'a ni flux ni actualites sur son site : il communique sur X,
     # a saisir a la main (--ajouter).
     # L'INSP n'est pas lu : son flux ne donne que ses rapports de situation et
-    # les comptes rendus du COUSP, ecartes de la page par le proprietaire.
+    # les comptes rendus du COUSP, ecartes de la page.
     {"id": "primature", "nom": "Primature", "url": "https://primature.cd/feed/",
      "statut": "publie", "filtre": "titre", "langue": "fr"},
     # L'ACP n'a pas de flux (erreur 500) : sa page de recherche est lue telle

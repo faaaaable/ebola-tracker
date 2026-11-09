@@ -247,8 +247,7 @@ def render(lang, strings_lang, i18n_lang, long_date, esc, couleurs, lien_defis="
     debut = S["debut"]
     total = jours(debut, fin) or 1
     nb_bulletins = len({e[1] for e in ent})
-    # Le swahili est rendu depuis le 7 septembre 2026 (traduction de
-    # l'assistant, a faire relire) ; toute autre langue tombe sur le francais
+    # Le swahili est rendu depuis le 7 septembre 2026 (traduction non relue par un locuteur) ; toute autre langue tombe sur le francais
     # avec la note. Un theme sans texte dans la langue retombe sur le francais.
     L = lang if lang in ("fr", "en", "sw") else "fr"
     note_langue = lang not in ("fr", "en", "sw")

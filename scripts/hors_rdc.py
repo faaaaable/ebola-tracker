@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""La vue « Pays touches » de la carte de l'accueil (8 octobre 2026, en local).
+"""La vue « Pays touches » de la carte de l'accueil (8 octobre 2026).
 
 Un bouton de la carte recule jusqu'aux pays touches hors de RDC : l'Ouganda,
 le Kenya et, depuis le 20 octobre 2026, le Nigeria. (La France, 1 cas importe, a ete retiree le 8 octobre 2026.) Ces chiffres ne viennent pas des
 bulletins de l'INSP mais de sources ouvertes (OMS, ministeres), citees dans
 l'infobulle : data/hors-rdc.json.
 
-L'Ouganda et le Kenya sont dessines COMME LA RDC (choix du proprietaire, 8
+L'Ouganda et le Kenya sont dessines COMME LA RDC (8
 octobre 2026) : leurs districts et comtes en creme, ceux qui ont eu des cas
 dans le bleu de la legende, aux memes paliers que les zones de sante. Par-dessus,
 la proposition retenue parmi six : un point sur la ville du cas et le nom du
@@ -163,7 +163,7 @@ def _bulle(p, lang):
         _esc(p["note"][lang]), _esc(t["voir_souris"]), _esc(t["voir_doigt"]))
     # La derniere ligne dit que le pays mene a sa page (21 octobre 2026) :
     # un clic a la souris, un second toucher au doigt (app.js, setupMonde).
-    # Plus de ligne « Source : … » (21 octobre 2026, demande de Fable) : les
+    # Plus de ligne « Source : … » (21 octobre 2026) : les
     # sources sont sur la page de chaque pays, avec leurs liens ; le champ
     # source de data/hors-rdc.json reste comme trace.
 
@@ -218,7 +218,7 @@ def greffer(svg_html, geo, lang, seuils):
             '<text class="hr-n1" y="0">%s</text><text class="hr-n2" y="19">%s</text></g>'
             % (p["etat"], a3, lx, ly, tx, ty, lx, ly, _esc(p["nom"][lang]), n))
         # Plus de troisieme ligne « en cours depuis le… » / « terminee le… »
-        # (21 octobre 2026, demande de Fable : elle encombrait la carte et
+        # (21 octobre 2026 : elle encombrait la carte et
         # doublait l'infobulle) ; l'etat passe par la couleur (site.css).
 
     couche = ('          <g class="zm-hors"><g class="hr-g-noms">%s</g><g class="hr-g-villes">%s</g></g>\n'
@@ -238,7 +238,7 @@ def greffer(svg_html, geo, lang, seuils):
     os.makedirs(os.path.join(ROOT, "assets", "geo"), exist_ok=True)
     with io.open(os.path.join(ROOT, "assets", "geo", nom), "w", encoding="utf-8") as fh:
         fh.write(contenu)
-    # Cadre resserre sur l'est (8 octobre 2026, demande du proprietaire :
+    # Cadre resserre sur l'est (8 octobre 2026 :
     # « stopper le focus de la RDC ») : de l'Ituri a la cote kenyane, avec de
     # l'ocean a droite pour que le Kenya ne passe pas sous le panneau des
     # chiffres, pose en haut a droite de la carte.
@@ -248,7 +248,7 @@ def greffer(svg_html, geo, lang, seuils):
     x1, y1 = pr.xy(46.5, -5.5)
     # Sur telephone (carte de ~310 px), le cadre complet rendait l'Ouganda et
     # le Kenya minuscules : on cadre sur l'est, de l'Ituri a la cote kenyane.
-    # Resserre encore le 8 octobre 2026 (demande du proprietaire, comme sur
+    # Resserre encore le 8 octobre 2026 (comme sur
     # ordinateur) : l'Ouganda et le Kenya seuls, avec la frange est de l'Ituri.
     # Depuis le 20 octobre 2026 il doit aussi montrer le Nigeria : il part de
     # sa frontiere ouest et coupe l'ocean a droite du Kenya.
@@ -328,7 +328,7 @@ def _fiche_html(p, lang, libelles, lien=""):
 
 
 def page_html(lang, libelles, liens=None):
-    """La page « Autres pays » (8 octobre 2026, option 1 des maquettes) : une
+    """La page « Autres pays » (8 octobre 2026) : une
     fiche par pays touche hors de RDC, cote a cote, DANS L'ORDRE DU PREMIER CAS.
     La date du premier cas, posee sur un filet commun, se lit comme une frise.
     liens : {id du pays: url de sa page} (Kenya et Ouganda, 9 octobre 2026),
@@ -365,8 +365,7 @@ def questions_html(pid, lang):
 
 
 # ---------------------------------------------------------------------------
-# Refonte du 17 octobre 2026 (melange des options 1 et 2 des maquettes
-# tmp/proto-pays-1017) : la page d'un pays prend l'en-tete des pages province
+# Refonte du 17 octobre 2026 (melange des options 1 et 2 des maquettes) : la page d'un pays prend l'en-tete des pages province
 # (grand titre, « Situation au », chiffres bleu / rouge, carte a droite), puis
 # sa chronologie « Jour apres jour » (data/autres-pays.json, « evenements »),
 # l'escalier des cas quand chaque cas a sa date d'annonce (« courbe »), le
@@ -536,7 +535,7 @@ def courbe_html(pid, lang, w=680, h=220):
 
 def recit_html(pid, lang):
     p = _pays(pid)
-    # Deplie en entier (17 octobre 2026, demande du proprietaire). Mise en
+    # Deplie en entier (17 octobre 2026). Mise en
     # page legere : le premier paragraphe en chapeau, et la date qui ouvre un
     # paragraphe (« Le 16 octobre 2026, ») en gras, pour reperer les etapes.
     import re
@@ -575,8 +574,7 @@ def tableau_html(lang, libelles, liens):
 
 
 def panneau_html(lang, titre, liens):
-    """Accueil, barre sous la carte (21 octobre 2026, option 4 de
-    tmp/proto-hors-rdc-1021) : apres le bouton « Hors RDC », les autres pays
+    """Accueil, barre sous la carte (21 octobre 2026) : apres le bouton « Hors RDC », les autres pays
     touches dans l'ordre du premier cas, chacun avec ses cas confirmes et un
     lien vers sa page, precedes de « Cas confirmes hors RDC » qui dit ce que
     sont les nombres. Les cas sont ceux de la fiche (data/autres-pays.json),

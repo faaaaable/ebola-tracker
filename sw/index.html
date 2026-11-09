@@ -106,7 +106,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 <script defer src="/assets/vendor/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/assets/css/site.css?v=e415b8bc73">
+<link rel="stylesheet" href="/assets/css/site.css?v=4e1748988c">
 </head>
 <body class="page-accueil">
 
@@ -225,12 +225,11 @@
 
     <div class="side-foot">
       <!-- La fraicheur des donnees (« Dernier bulletin officiel », « verifie le »)
-           a quitte la barre le 3 octobre 2026, a la demande du proprietaire.
+           a quitte la barre le 3 octobre 2026.
            app.js ecrit encore dans #autoUpdateNote / #todayUpdateNote s'ils
            existent : ils n'existent plus, et rien ne s'affiche. -->
 
-      <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 a la
-           demande du proprietaire (les graphiques gardent le leur). A sa place,
+      <!-- Le bouton Partager de la colonne a ete retire le 8 septembre 2026 (les graphiques gardent le leur). A sa place,
            sur telephone seulement, le lien vers le compte X ; sur ordinateur ce
            lien est un glyphe au bout de la rangee des langues. -->
       <a class="share-btn suivre-x" href="https://x.com/EbolaTrackerRDC" rel="me noopener" target="_blank" aria-label="Fuata @EbolaTrackerRDC kwenye X"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.2 22h-6.6l-5.2-6.8L5.5 22H2.3l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2z"/></svg> <span>Fuata</span></a>
@@ -877,8 +876,7 @@
                 <button type="button" class="map-btn map-zoom-btn" id="btnZoomOut" aria-label="Punguza" title="Punguza">&minus;</button>
               </span>
               <!-- Les pays touches hors de RDC et leurs cas confirmes, juste
-                   apres le bouton « Hors RDC » qui les dessine (21 octobre 2026,
-                   option 4 de tmp/proto-hors-rdc-1021). -->
+                   apres le bouton « Hors RDC » qui les dessine (21 octobre 2026). -->
               <span class="cd-hors" role="group" aria-label="Visa vilivyothibitishwa nje ya DRC"><span class="k">Visa vilivyothibitishwa nje ya DRC</span><a class="is-fini" href="/sw/uganda/">Uganda <b>20</b></a> <a class="is-cours" href="/sw/kenya/">Kenya <b>9</b></a> <a class="is-cours" href="/sw/nigeria/">Nigeria <b>1</b></a> <a class="is-fini" href="/sw/ufaransa/">Ufaransa <b>1</b></a></span>
             </div>
             <span class="map-timeline-date" id="timelineDate">7 Nov. 2026</span>
@@ -903,8 +901,7 @@
         <div class="name" id="cartoName">Hali kufikia 7 Nov. 2026</div>
         <a class="cd-sitrep" href="/reports/SITREP_MVE_177.pdf" target="_blank" rel="noopener">SitRep ya INSP na. 177<span class="cd-rdc"> takwimu za DRC</span></a>
         <div class="note" id="cartoNote"></div>
-        <!-- « RDC » au-dessus des deux chiffres (21 octobre 2026, demande de
-             Fable : l'epidemie est nee en RDC, elle n'y est plus seule). Les
+        <!-- « RDC » au-dessus des deux chiffres (21 octobre 2026 : l'epidemie est nee en RDC, elle n'y est plus seule). Les
              autres pays sont dans la barre sous la carte. -->
         <div class="cd-pays">DRC</div>
         <div class="cd-national">
@@ -967,8 +964,7 @@
       <h2 class="section-title">Majimbo yaliyoathirika</h2>
     </div>
     <div>
-      <!-- Une ligne par province (13 octobre 2026, maquette
-           tmp/proto-provinces-accueil-1013, habillage k3 et effet h3) : remplace la
+      <!-- Une ligne par province (13 octobre 2026, habillage k3 et effet h3) : remplace la
            mosaique et la liste telephone. Toute la ligne mene a la page de la
            province ; au survol, les autres lignes s'estompent
            (province_lignes_html). -->
@@ -1006,7 +1002,7 @@
 
   <div class="sep" aria-hidden="true"></div>
 
-  <!-- Riposte et defis (13 octobre 2026, maquette tmp/proto-accueil-face-1013,
+  <!-- Riposte et defis (13 octobre 2026,
        option g3) : remplace le carrousel de cinq cartes du 4 octobre. Ni
        graphique ni carrousel : la courbe des cas cumules separe les deux
        camps, la riposte au-dessus, les defis en dessous, trois chiffres cles
@@ -1022,7 +1018,7 @@
 
   <div class="sep" aria-hidden="true"></div>
 
-  <!-- La Lettre (3 novembre 2026, maquette tmp/proto-lettre-accueil-1103,
+  <!-- La Lettre (3 novembre 2026,
        option 3b) : la derniere lettre posee sur la pile, et l'abonnement
        (vrai formulaire Brevo de la langue). scripts/lettre_accueil.py. -->
   <section class="section home-sec o3 o3b" id="lettre">
@@ -1061,7 +1057,7 @@
 
   <div class="sep" aria-hidden="true"></div>
 
-  <!-- Visuels (13 octobre 2026, maquette tmp/proto-accueil-vitrine-1013,
+  <!-- Visuels (13 octobre 2026,
        option 3 « le ruban ») : a la place de la Chronologie, qui garde sa
        page et son entree de menu ; derniere section de l'accueil depuis le
        13 octobre 2026 (apres la riposte et ses defis). Six visuels de la page
@@ -1184,8 +1180,8 @@ window.LEGACY_HASH_ROUTES = {"zones": "/sw/takwimu/", "reports": "/sw/ripoti/", 
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=f4a981de46"></script>
-<script defer src="/assets/js/app.js?v=7ce32aaed2"></script>
+<script defer src="/assets/js/i18n.js?v=cf68403494"></script>
+<script defer src="/assets/js/app.js?v=1d2dfe1cd0"></script>
 
 </body>
 </html>

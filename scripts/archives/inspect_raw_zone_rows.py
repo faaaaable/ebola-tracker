@@ -10,6 +10,8 @@ Usage: python3 scripts/inspect_raw_zone_rows.py reports/SITREP_MVE_096.pdf
 import sys
 import pdfplumber
 
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))  # scripts/
 from update_data import extract_zone_detail_rows, PROVINCE_NAMES_MAIN
 
 

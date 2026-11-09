@@ -10,7 +10,7 @@ Trois natures de phrases, a distinguer :
   nouvelle zone » / « une nouvelle zone : Kayna ») — elles se regenerent
   seules ; elles decrivent, jamais n'interpretent ;
 - CITEES mot pour mot (les « Defis »), entre guillemets ;
-- REDIGEES par l'assistant au signal du proprietaire : le resume des Defis
+- REDIGEES a chaque integration : le resume des Defis
   (data/bulletin-notes.json), date.
 Un indicateur absent du bulletin s'ecrit « non publie ».
 """
@@ -224,7 +224,7 @@ UNE_GUERIS_CTE_DEPUIS = 156
 # Premiere lettre ou la phrase des points de controle dit aussi les alertes
 # et les corps interceptes aux postes (26 octobre 2026, data/points-controle.json).
 POE_ALERTES_DEPUIS = 163
-# Style « fluide » de la Lettre (5 novembre 2026, demande de Fable) : dates en
+# Style « fluide » de la Lettre (5 novembre 2026) : dates en
 # toutes lettres sans annee, moyennes a l'unite, un verbe qui donne le sens,
 # phrases reliees, un paragraphe par sujet. A partir de cette lettre ; les
 # lettres deja publiees gardent leurs tournures.
@@ -507,8 +507,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         somme = sum(z["newCases24h"] for z in actives)
         txt += " " + P("lettreOuZones", k=fmt(len(actives), lang), somme=fmt(somme, lang), total=fmt(nat["newCases24h"], lang),
                        liste=_liste(["%s %s" % (z["name"], fmt(z["newCases24h"], lang)) for z in actives], et))
-    # Ecart entre cumuls et nouveaux cas annonces (24 octobre 2026, choix du
-    # proprietaire) : au SitRep 160, le cumul de Beni recule de 553 a 552
+    # Ecart entre cumuls et nouveaux cas annonces (24 octobre 2026) : au SitRep 160, le cumul de Beni recule de 553 a 552
     # malgre 9 nouveaux cas annonces. Le site ne corrige pas la source, il le
     # dit. Seulement si le bulletin precedent est celui de la veille, sinon
     # l'ecart couvre plusieurs jours et ne se compare pas a un chiffre du jour.
@@ -538,7 +537,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                            "lettreOuEcartReste" if z["cases"] == a else "lettreOuEcart")
                     txt += " " + P(cle, zone=z["name"], avant=fmt(a, lang), apres=fmt(z["cases"], lang), n=fmt(n, lang))
                 # Cumul qui monte plus que les nouveaux cas annonces (30 octobre
-                # 2026, choix du proprietaire) : au SitRep 167, Yakoma entre
+                # 2026) : au SitRep 167, Yakoma entre
                 # avec 3 cas, 0 annonce ; le total du pays les compte, le
                 # chiffre des 24 heures non.
                 elif z["cases"] > (a or 0) + n:
@@ -641,7 +640,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     # ---------------------------------------------------------------- 04 la riposte
     pa, pl, pc, pk = _point(alertes, date), _point(labo, date), _point(contacts, date, None), _point(cte, date)
     # Une seule regle pour les cases nationales de la riposte (8 novembre
-    # 2026, decision du proprietaire : la partie nationale montre le pays
+    # 2026 : la partie nationale montre le pays
     # entier). Un total sans l'Ituri ou sans le Nord-Kivu n'est pas un
     # chiffre du pays : il tombait de moitie (alertes 3 149 -> 1 713 du 148
     # au 149, EDS 44 au 102 avec le seul Nord-Kivu, lits 63 -> 121). Ces
@@ -707,7 +706,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         pass
     elif pc and pc.get("contactsFollowUpRate") is not None:
         c = pc.get("contacts") or {}; taux = pc["contactsFollowUpRate"]
-        # Plus de seuil dans la phrase (decision du proprietaire, 25 octobre
+        # Plus de seuil dans la phrase (25 octobre
         # 2026) : le site disait « le seuil de 85 % que l'INSP s'est fixe »
         # quand les bulletins ecrivent « seuil requis de 95,0 % ».
         s3 = P("lettreContactsF" if FL else "lettreContacts", taux=pct(taux))
@@ -732,8 +731,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     # le bulletin donne ses lits, et le chiffre sautait de 63 (173, Ituri
     # comprise) a 121 (171, Nord-Kivu et Tshopo seuls), 36 a 104 de 155 a
     # 157. Un jour incomplet, case et phrase sont tues — sans « non
-    # publie », le bulletin donnant bien des chiffres (8 novembre 2026,
-    # decision du proprietaire : la partie nationale montre le pays entier).
+    # publie », le bulletin donnant bien des chiffres (8 novembre 2026 : la partie nationale montre le pays entier).
     pk_complet = bool(pk) and pays_entier([
         n for n, v in (pk.get("provinces") or {}).items()
         if v.get("lits") is not None and v.get("hospitalises") is not None])
@@ -799,7 +797,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # dernier cumul connu de chaque province a la date de la lettre, en
         # datant ceux qui viennent d'un bulletin anterieur.
         connus, avant, debut = {}, {}, None
-        # Dernier total national publie (choix de Fable, 7 octobre 2026) : il
+        # Dernier total national publie (7 octobre 2026) : il
         # l'emporte sur la somme des provinces tant que celle-ci ne le depasse
         # pas, pour qu'un total cumule ne baisse jamais.
         nat_vacc = None
@@ -811,7 +809,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             for prov, v in ((e.get("vaccination") or {}).get("cumulParProvince") or {}).items():
                 # Le cumul precedent de CETTE province, pour en tirer le chiffre
                 # du jour : le bulletin ne publie jamais de vaccines du jour,
-                # seulement des cumuls (demande du proprietaire, 21 septembre
+                # seulement des cumuls (21 septembre
                 # 2026). Une province qui saute un bulletin donne un ecart qui
                 # porte sur plusieurs jours, et la lettre le dit.
                 if prov in connus and connus[prov][0] != v:
@@ -925,17 +923,15 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         piliers = pf["piliers"]
         resume = ((notes.get(num) or {}).get("defis") or {}).get(lang)
         if resume:
-            # Le resume des Defis, redige par l'assistant au signal du
-            # proprietaire quand le bulletin est integre (data/bulletin-notes.json).
+            # Le resume des Defis, redige quand le bulletin est integre (data/bulletin-notes.json).
             corps = prose(esc(resume))
             # La mention « Resume redige le ... d'apres les n piliers » a ete
-            # retiree le 8 septembre 2026 a la demande du proprietaire.
+            # retiree le 8 septembre 2026.
         else:
             # Sans resume : le sommaire compose, piliers et provinces citees.
             sommaire = _liste([S.get("defiPilier_" + b["pilier"], b["pilier"]) + ((" (%s)" % ", ".join(b["provinces"])) if b.get("provinces") else "") for b in piliers], et)
             corps = prose(esc(P("lettreDefisSommaire", n=fmt(len(piliers), lang), liste=sommaire)))
-        # Les neuf piliers en entier ont ete retires le 8 septembre 2026 a la
-        # demande du proprietaire : le resume suffit, le PDF est en tete.
+        # Les neuf piliers en entier ont ete retires le 8 septembre 2026 : le resume suffit, le PDF est en tete.
     else:
         corps = prose(esc(S["bulDefisNone"]))
     p_de = corps[:corps.index('    <details')] if '    <details' in corps else corps
@@ -989,8 +985,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         return '<a class="report-chip rg-l" href="%s">%s</a>' % (_url(n), corps)
     archive_html = ""
     if len(nums) > 1:
-        # « Les dernieres lettres » retire le 5 novembre 2026 (demande de
-        # Fable) : doublon du lien « Lettre precedente » et de l'onglet du mois.
+        # « Les dernieres lettres » retire le 5 novembre 2026  : doublon du lien « Lettre precedente » et de l'onglet du mois.
         mois_noms = S["lettreMoisNoms"].split(",")
         par_mois = {}
         for n in reversed(nums):
@@ -1059,7 +1054,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
 # variantes cadres, gazette et revue ont ete supprimees le meme jour).
 # ---------------------------------------------------------------------------
 def assembler_agence(t, chapitres, S, esc, interp):
-    """La lettre en « quotidien » (6 octobre 2026, option 1 du proprietaire :
+    """La lettre en « quotidien » (6 octobre 2026 :
     l'ancienne mise en page faisait « trop scolaire ») : une de journal avec
     numero, titre et date, manchette sur les chiffres du jour, chapeau et
     premier chapitre a gauche, encadre des chiffres et courbe des 30 jours a
@@ -1077,8 +1072,7 @@ def assembler_agence(t, chapitres, S, esc, interp):
     abo = t.get("abo_html", "")
     lien = ('<p class="ag-abo"><a href="#abonnement">%s</a></p>' % esc(S["lettreAboTitre"])) if abo else ""
     out = ['<div class="lq">',
-           # En-tete de l'ancienne lettre gardee (6 octobre 2026, demande du
-           # proprietaire) : bande, nom en capitales, edition et date, sous-titre.
+           # En-tete de l'ancienne lettre gardee (6 octobre 2026) : bande, nom en capitales, edition et date, sous-titre.
            '<header class="ag-tete"><div class="ag-barre"></div><div class="ag-manchette">'
            '<p class="ag-marque">%s</p>'
            '<p class="ag-edition"><span>%s</span><i></i><span>%s</span></p>'

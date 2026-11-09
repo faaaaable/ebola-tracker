@@ -72,6 +72,7 @@ never edited by hand.
 reports/         INSP bulletins (PDF) and WHO reports (reports/who/): the sources
 data/            data extracted from the bulletins, and the published database
 scripts/         PDF extraction, checks, page generation
+scripts/archives one-off investigation scripts, not part of the update
 site/            page templates, texts in three languages (strings.json)
 assets/          stylesheets, JavaScript, fonts, images
 .github/         automation (page generation, sending the Letter)

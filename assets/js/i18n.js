@@ -16,7 +16,7 @@ const I18N = {
   fr: {
     lienVisuels:"Tous les visuels", lienVisuelsUrl:"/visuels/",
     /* Les deux phrases standard sous tout graphique a trous ou a pointilles
-       (27 septembre 2026, demande du proprietaire) : ajoutees par
+       (27 septembre 2026) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
     noteBlancs:"Espace vide : donnée absente ou incomplète.",
     jourCalculeCourt:`calculé`,
@@ -55,7 +55,7 @@ const I18N = {
     chartShareDone:"Image téléchargée",
     chartShareCopied:"Graphique copié",
     /* Un tableau n'est pas un graphique, et le message le dit sans rien
-       ajouter : demande du proprietaire, 27 aout. */
+       ajouter (27 aout). */
     tableShareCopied:"Tableau copié",
     chartShareFailed:"Copie impossible",
     chartShareFile:"ebola-tracker.png",
@@ -319,7 +319,7 @@ const I18N = {
   en: {
     lienVisuels:"All visuals", lienVisuelsUrl:"/en/visuals/",
     /* Les deux phrases standard sous tout graphique a trous ou a pointilles
-       (27 septembre 2026, demande du proprietaire) : ajoutees par
+       (27 septembre 2026) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
     noteBlancs:"Blank space: missing or incomplete data.",
     jourCalculeCourt:`calculated`,
@@ -619,7 +619,7 @@ const I18N = {
   sw: {
     lienVisuels:"Michoro yote", lienVisuelsUrl:"/sw/michoro/",
     /* Les deux phrases standard sous tout graphique a trous ou a pointilles
-       (27 septembre 2026, demande du proprietaire) : ajoutees par
+       (27 septembre 2026) : ajoutees par
        annoterTrous() dans app.js, jamais recopiees dans une note. */
     noteBlancs:"Nafasi tupu: takwimu hazipo au hazijakamilika.",
     jourCalculeCourt:`imekokotolewa`,

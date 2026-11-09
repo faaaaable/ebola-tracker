@@ -27,6 +27,8 @@ import pdfplumber
 # Réutilise les fonctions d'extraction déjà éprouvées par update_data.py,
 # plutôt que de les dupliquer / risquer une divergence de comportement.
 sys.path.insert(0, os.path.dirname(__file__))
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))  # scripts/
 import update_data as ud
 
 REPORTS_DIR = "reports"

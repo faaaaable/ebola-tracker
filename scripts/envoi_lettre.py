@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 """Mail aux abonnes de la Lettre, envoye par Brevo quand une nouvelle lettre
-(un nouveau SitRep) est en ligne (20 octobre 2026, demande du proprietaire).
+(un nouveau SitRep) est en ligne (20 octobre 2026).
 
 Depuis le 23 octobre 2026, c'est le SEUL mail d'un nouveau bulletin : il
 remplace aussi l'alerte SitRep (scripts/envoi_alerte.py, retire du workflow)
 et part a la liste unique de chaque langue (site.brevoEnvoiLettre : 3 fr,
 4 en depuis le 23 octobre 2026), ou arrivent les inscriptions de la page
-Etre prevenu comme celles de l'encadre au bas de chaque Lettre. Dessin retenu parmi les maquettes tmp/proto-mail-fusion-1022
-(option « 1a ») : le nom du site et son favicon au-dessus, l'en-tete de la
+Etre prevenu comme celles de l'encadre au bas de chaque Lettre. Dessin : le nom du site et son favicon au-dessus, l'en-tete de la
 Lettre, le titre et le chapeau, les cinq chiffres en bandeau, la courbe des
 30 derniers jours, trois liens (carte, ensemble de la RDC, hors RDC) et le
 bouton vers la lettre. Tout est lu dans la lettre generee

@@ -248,7 +248,7 @@
   }
  },
  "fond": {
-  "_comment": "La carte est figee au jour de la mort du malade a Nairobi (20 octobre 2026, demande du proprietaire) : zones de RDC coloriees selon les cas confirmes du SitRep 144 (5 octobre 2026) ; aucun cas au Kenya, dont le premier n'est confirme que le 6. Le trace est conserve dans site/geo/parcours-kenya-<langue>.svg et n'est plus recalcule ; supprimer ces fichiers pour le refaire.",
+  "_comment": "La carte est figee au jour de la mort du malade a Nairobi (20 octobre 2026) : zones de RDC coloriees selon les cas confirmes du SitRep 144 (5 octobre 2026) ; aucun cas au Kenya, dont le premier n'est confirme que le 6. Le trace est conserve dans site/geo/parcours-kenya-<langue>.svg et n'est plus recalcule ; supprimer ces fichiers pour le refaire.",
   "date": "2026-10-05",
   "sitrep": "144",
   "paysSansCas": [

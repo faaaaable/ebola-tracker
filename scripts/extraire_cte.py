@@ -249,8 +249,7 @@ def numerateur(ligne):
     patients monte : les 157 malades couchés hors lits prévus — justement ce
     que le dépassement de 100 % sert à signaler — sortent du calcul. Le site
     rétablit donc la série à définition constante, et garde le taux du
-    bulletin dans `occupationPubliee`. Décision du propriétaire, 20 septembre
-    2026."""
+    bulletin dans `occupationPubliee`. Depuis le 20 septembre 2026."""
     return ligne.get("hospitalises")
 
 
@@ -591,7 +590,7 @@ def encadrer_lits(points):
     constante (tous les hospitalises sur les lits) tombait ce jour-la au taux
     publie, 70,9 %, entre 103,1 et 92,7 : une chute qui n'a pas eu lieu. Le
     point recoit 351/354 = 99,2 %, et le taux publie reste dans
-    occupationPubliee. Decision du proprietaire, 28 septembre 2026."""
+    occupationPubliee. Depuis le 28 septembre 2026."""
     for i, p in enumerate(points):
         for nom, ligne in (p.get("provinces") or {}).items():
             if ligne.get("lits") or not ligne.get("hospitalises"):
@@ -625,8 +624,7 @@ def reporter_lits_taux_recopie(points):
     precedents (a defaut, dans les sept suivants) ; le taux du bulletin reste
     dans occupationPubliee, et le point est marque litsReportes. Seules les
     lignes a deux definitions sont concernees — un taux qui porte deja sur
-    tous les patients reste tel quel. Decision du proprietaire, 12 octobre
-    2026.
+    tous les patients reste tel quel. Depuis le 12 octobre 2026.
 
     Meme traitement pour un taux RECOPIE a l'identique du bulletin precedent
     alors que le nombre de patients a change : le 136 (27 septembre) ecrit
@@ -714,7 +712,7 @@ def recouper_lits_precedents(points):
       patients, recopie du 135, quand 345/354 = 97,5 %) : il passe en
       occupationPubliee, et la serie a definition constante prend la capacite
       de la veille, comme encadrer_lits le fait pour un taux recopie
-      (decision du proprietaire du 28 septembre 2026).
+      (depuis le 28 septembre 2026).
     Le bulletin suivant tranche : ce point n'est plus le dernier, et
     encadrer_lits le reprend ou le laisse sans lits. Seul le dernier point
     est concerne — l'historique garde ses taux publies."""

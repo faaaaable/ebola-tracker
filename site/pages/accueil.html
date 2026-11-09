@@ -67,8 +67,7 @@
                 <button type="button" class="map-btn map-zoom-btn" id="btnZoomOut" aria-label="{{i18n.mapZoomOut}}" title="{{i18n.mapZoomOut}}">&minus;</button>
               </span>
               <!-- Les pays touches hors de RDC et leurs cas confirmes, juste
-                   apres le bouton « Hors RDC » qui les dessine (21 octobre 2026,
-                   option 4 de tmp/proto-hors-rdc-1021). -->
+                   apres le bouton « Hors RDC » qui les dessine (21 octobre 2026). -->
 {{seed.cartoHors}}
             </div>
             <span class="map-timeline-date" id="timelineDate">{{timelineLatest}}</span>
@@ -93,8 +92,7 @@
         <div class="name" id="cartoName">{{seed.cartoAsOf}}</div>
         {{seed.cartoSitrep}}
         <div class="note" id="cartoNote"></div>
-        <!-- « RDC » au-dessus des deux chiffres (21 octobre 2026, demande de
-             Fable : l'epidemie est nee en RDC, elle n'y est plus seule). Les
+        <!-- « RDC » au-dessus des deux chiffres (21 octobre 2026 : l'epidemie est nee en RDC, elle n'y est plus seule). Les
              autres pays sont dans la barre sous la carte. -->
         <div class="cd-pays">{{t.cartoPaysRdc}}</div>
 {{panelStats}}
@@ -148,8 +146,7 @@
       <h2 class="section-title">{{t.teaserProvincesTitle}}</h2>
     </div>
     <div>
-      <!-- Une ligne par province (13 octobre 2026, maquette
-           tmp/proto-provinces-accueil-1013, habillage k3 et effet h3) : remplace la
+      <!-- Une ligne par province (13 octobre 2026, habillage k3 et effet h3) : remplace la
            mosaique et la liste telephone. Toute la ligne mene a la page de la
            province ; au survol, les autres lignes s'estompent
            (province_lignes_html). -->
@@ -179,7 +176,7 @@
 
   <div class="sep" aria-hidden="true"></div>
 
-  <!-- Riposte et defis (13 octobre 2026, maquette tmp/proto-accueil-face-1013,
+  <!-- Riposte et defis (13 octobre 2026,
        option g3) : remplace le carrousel de cinq cartes du 4 octobre. Ni
        graphique ni carrousel : la courbe des cas cumules separe les deux
        camps, la riposte au-dessus, les defis en dessous, trois chiffres cles
@@ -195,14 +192,14 @@
 
   <div class="sep" aria-hidden="true"></div>
 
-  <!-- La Lettre (3 novembre 2026, maquette tmp/proto-lettre-accueil-1103,
+  <!-- La Lettre (3 novembre 2026,
        option 3b) : la derniere lettre posee sur la pile, et l'abonnement
        (vrai formulaire Brevo de la langue). scripts/lettre_accueil.py. -->
   {{lettre.accueil}}
 
   <div class="sep" aria-hidden="true"></div>
 
-  <!-- Visuels (13 octobre 2026, maquette tmp/proto-accueil-vitrine-1013,
+  <!-- Visuels (13 octobre 2026,
        option 3 « le ruban ») : a la place de la Chronologie, qui garde sa
        page et son entree de menu ; derniere section de l'accueil depuis le
        13 octobre 2026 (apres la riposte et ses defis). Six visuels de la page

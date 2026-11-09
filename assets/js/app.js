@@ -768,7 +768,7 @@ function renderKPIs(){
     }
     if(!entry) return null;
     /* Le dernier bulletin : les nouveaux cas et deces qu'il ANNONCE, pas
-       l'ecart entre deux cumuls (choix du proprietaire, 24 octobre 2026). Au
+       l'ecart entre deux cumuls (24 octobre 2026). Au
        SitRep 160, le cumul de Beni recule de 553 a 552 malgre 9 nouveaux cas
        annonces : l'ecart donnait +61 cas et +40 deces, le bulletin +71 et +41,
        comme la Lettre. Si le suivant corrige Beni, l'ecart donnerait un +81
@@ -874,12 +874,12 @@ const moisAnnee = iso => `${tr('months')[parseInt(iso.slice(5, 7), 10) - 1]} ${i
      pas touches (10 351 + 63 = 10 414). Rattrapage des DECES SEULEMENT, dont
      la part du jour est cette fois publiee : `jour: null` (pas de rattrapage
      de cas), `deces` la part du jour au niveau national, `provincesDeces`
-     celle des provinces concernees (choix du proprietaire, 1er novembre 2026).
+     celle des provinces concernees (1er novembre 2026).
    - 31 octobre (SitRep 170) : le bulletin defait cette harmonisation sans
      l'annoncer. Les deces de l'Ituri font 3 769 - 314 + 28 = 3 483, ceux du
      pays 5 372 - 314 + 45 = 5 103 ; la ligne « A ventiler » (493) revient et
      chaque zone retrouve la base du 168. Le rattrapage du 30 n'a donc plus
-     de sens et il est retire (choix du proprietaire, 2 novembre 2026) : ce
+     de sens et il est retire (2 novembre 2026) : ce
      n'est plus une entree de RATTRAPAGE_ADMIN. Les deux journees portent
      leurs seuls deces annonces, en pleine teinte, et la courbe de cumul,
      celle des bulletins, monte puis redescend. */
@@ -948,8 +948,7 @@ function partsQuotidiennes(s, champ, partConnue){
     /* La barre d'un bulletin reprend les nouveaux cas et deces qu'il ANNONCE,
        comme le « + » de l'en-tete et la Lettre, plutot que l'ecart entre deux
        cumuls : au SitRep 160, +71 et +41 et non +61 et +40. L'annonce est
-       conservee par date dans sitreps.json depuis le 160 (choix du
-       proprietaire, 24 octobre 2026), si bien que la barre ne change plus au
+       conservee par date dans sitreps.json depuis le 160 (24 octobre 2026), si bien que la barre ne change plus au
        bulletin suivant ; avant, seul le dernier bulletin la portait, via
        latest.json, ce qui reste le repli. Au niveau national seulement — une
        province (partConnue === false) passe par son propre bloc. Ni un jour
@@ -1322,7 +1321,7 @@ const largeurSemaine = {
     /* Les points des courbes (positivite du laboratoire, moyenne du lieu du
        deces) suivent la partie coloree : pose au centre de l'emprise entiere,
        le point de la semaine en cours flottait au-dessus du gris des jours a
-       venir. Demande du proprietaire, 4 septembre 2026. */
+       venir. 4 septembre 2026. */
     if(premierBarres === null) return;
     const barres = chart.getDatasetMeta(premierBarres).data;
     chart.data.datasets.forEach((jeu, di) => {
@@ -1499,14 +1498,13 @@ function reglerInfobulles(){
   Chart.defaults.plugins.tooltip.footerColor = PALETTE.ink;
   Chart.defaults.plugins.tooltip.footerFont = { family: PALETTE.font, weight: '500' };
   Chart.defaults.plugins.tooltip.footerMarginTop = 8;
-  /* Modele standard des graphiques (5 octobre 2026, option A de la maquette
+  /* Modele standard des graphiques (5 octobre 2026
      graphiques) : la legende est TOUJOURS en haut, alignee a gauche, sous le
      titre du cadre — jamais en dessous ni centree. Les graphiques qui
      posaient position:'bottom' sont ramenes ici, avant leur premier rendu. */
   Chart.defaults.plugins.legend.position = 'top';
   Chart.defaults.plugins.legend.align = 'center';
-  /* Titres fixes par type de graphique (6 octobre 2026, demande du
-     proprietaire) : ils priment sur le titre du cadre, qui ne dit pas
+  /* Titres fixes par type de graphique (6 octobre 2026) : ils priment sur le titre du cadre, qui ne dit pas
      toujours ce que montre le graphique (« Nouveaux deces » au-dessus du
      lieu du deces, « Ou » au-dessus des cas par province, « La riposte »
      sur les pages province). Les cas par province prennent « (%) » dans la
@@ -1572,7 +1570,7 @@ function reglerInfobulles(){
   reglerInfobulles.fait = true;
 }
 
-/* LES DEUX PHRASES STANDARD (27 septembre 2026, demande du proprietaire) :
+/* LES DEUX PHRASES STANDARD (27 septembre 2026) :
    sous tout graphique qui montre un trou, « Un espace vide signifie une
    absence de donnees ou une donnee incomplete, jamais un zero » ; sous tout
    graphique qui trace des pointilles de liaison, « Les pointilles sont
@@ -1590,7 +1588,7 @@ function annoterTrous(canvas, mode){
   const wrap = canvas.closest('.chart-panel-wrap');
   const noteEl = wrap ? wrap.querySelector('.chart-note') : null;
   if(!chart || !noteEl) return;
-  // Accueil (2 octobre 2026, demande du proprietaire) : pas de phrase standard sous le graphique des cas.
+  // Accueil (2 octobre 2026) : pas de phrase standard sous le graphique des cas.
   if(canvas.id === 'epiChart') return;
   let trou = false, pont = false;
   chart.data.datasets.forEach((ds, i) => {
@@ -1611,7 +1609,7 @@ function annoterTrous(canvas, mode){
 /* Jour sans bulletin reconstitue par soustraction (6 octobre 2026) : le
    SitRep 142 n'a jamais ete publie, ses chiffres sont ceux du 143 moins ses
    « 24 h » (data/jours-calcules.json, marques `calcule` dans les historiques).
-   Depuis le 2 novembre 2026 (demande du proprietaire), plus de phrase sous
+   Depuis le 2 novembre 2026, plus de phrase sous
    les graphiques : une barre sur 170, et un chiffre exact, pas une
    estimation. C'est l'infobulle de cette barre qui le dit, la ou le lecteur
    la regarde. */
@@ -1883,8 +1881,7 @@ function renderOneChartBrut(canvas, chartMode){
       const parDate = {}; points.forEach(p => { parDate[p.date] = p; });
       const serie = (cle) => jours.map(d => (parDate[d] && parDate[d][cle] !== null && parDate[d][cle] !== undefined) ? parDate[d][cle] : null);
 
-      /* ---- Volume jour par jour (22 septembre 2026, demande du
-         proprietaire, apres la meme vue sur le laboratoire). Les alertes
+      /* ---- Volume jour par jour (22 septembre 2026, apres la meme vue sur le laboratoire). Les alertes
          sont la serie la mieux tenue du bulletin : 95 journees relevees sur
          105, contre 98 sur 110 au laboratoire, et la vue par semaine y cache
          donc peu de choses — sauf l'a-coup du jour, de 257 a 2 819
@@ -1923,7 +1920,7 @@ function renderOneChartBrut(canvas, chartMode){
 
       const maxi = Math.max(100, ...serie('partVerifiee').filter(v=>v!==null), ...serie('partValidee').filter(v=>v!==null));
       /* Les deux parts et, sous chacune, son pont en pointilles au-dessus des
-         jours sans bulletin (demande du proprietaire, 5 septembre 2026) :
+         jours sans bulletin (5 septembre 2026) :
          meme idiome que les contacts et les CTE — un repere, jamais une
          valeur, ignore par la legende et l'infobulle. Plafond null : la
          part verifiee depasse 100 % jusqu'a debut aout. */
@@ -2050,8 +2047,7 @@ function renderOneChartBrut(canvas, chartMode){
           scales:{ x:axeX(true), y:{ beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
         dessiner('bar', dataP, optsP);
         noterPeriode(slot, joursP[0], joursP[joursP.length-1]);
-        /* Les trous expliques par les bulletins (29 octobre 2026, demande de
-           Fable), entre le premier et le dernier releve de la province :
+        /* Les trous expliques par les bulletins (29 octobre 2026), entre le premier et le dernier releve de la province :
            les bulletins de suite sans sa colonne — « ne figure plus dans le
            tableau » quand tous ont un tableau (le Haut-Uele du 23 septembre
            au 11 octobre), « aucun chiffre » quand certains n'en donnent que
@@ -2122,7 +2118,7 @@ function renderOneChartBrut(canvas, chartMode){
     /* ---- Laboratoire : echantillons par semaine, positivite en courbe ---- */
     if(chartMode === 'laboratoire'){
       /* Le pied de l'infobulle donne le nombre d'echantillons analyses
-         (22 septembre 2026, demande du proprietaire). Positifs + negatifs
+         (22 septembre 2026). Positifs + negatifs
          redonnent par construction le total analyse : autant le nommer.
          `totalEmpile` ecrivait « Total : 362 », vrai mais muet, et se taisait
          des qu'une seule des deux barres portait — un jour a zero positif
@@ -2202,8 +2198,7 @@ function renderOneChartBrut(canvas, chartMode){
                                 : points.map(p => p.partiel ? { date:p.date, echantillons:null, positifs:null, separe:false } : p);
       if(!pointsLus.length){ vide(); return; }
 
-      /* ---- Sous-onglet « Par jour » (22 septembre 2026, demande du
-         proprietaire). Les memes echantillons, releve par releve, la ou la
+      /* ---- Sous-onglet « Par jour » (22 septembre 2026). Les memes echantillons, releve par releve, la ou la
          vue par semaine lisse les a-coups de publication : le laboratoire
          de Goma a analyse 673 echantillons un jour et 292 un autre de la
          meme semaine, et c'est cette irregularite-la qui se lit ici.
@@ -2217,8 +2212,7 @@ function renderOneChartBrut(canvas, chartMode){
          et compte zero ». Les pointillés relient les deux bords d'un trou :
          un trace illustratif, jamais une valeur — la note le repete. */
       if(vueDe(canvas, 'jour') === 'jour'){
-        /* La vue par jour commence au 2 juin (demande du proprietaire,
-           22 septembre 2026). Avant cette date, la source ne donne que
+        /* La vue par jour commence au 2 juin (22 septembre 2026). Avant cette date, la source ne donne que
            quatre releves isoles — 20, 29, 30 et 31 mai — separes par des
            semaines entieres sans rien : sur un axe calendaire, ils tiraient
            un tiers de la largeur pour quatre barres, et leur positivite de
@@ -2242,7 +2236,7 @@ function renderOneChartBrut(canvas, chartMode){
            = tout le pays, creux = les provinces comptees. L'ecart avec le
            taux national, estime en rendant a la province absente le volume
            qu'elle declare les journees voisines, va de 0,2 a 5 points
-           (mesure du 22 septembre 2026, detail dans CLAUDE.md). Une premiere
+           (mesure du 22 septembre 2026). Une premiere
            estimation par la mediane de la province sur toute la periode
            donnait 13 a 16 points en juin : elle pretait au Nord-Kivu de juin
            les 93 echantillons quotidiens qu'il n'analysera qu'en aout. */
@@ -2385,12 +2379,11 @@ function renderOneChartBrut(canvas, chartMode){
          graduations s'arretent a 100 % : l'air est pour l'oeil, pas pour
          l'axe — une part ne depasse pas 100. A 110, les 24 px de blanc ne se
          voyaient pas ; a 120 il y en a une cinquantaine, et ca se voit.
-         Choix du proprietaire, 28 aout, apres avoir vu les deux et la
-         graduation « 110 % » ecrite. */
+         Retenu le 28 aout, plutot qu'une graduation « 110 % » ecrite. */
       /* La grille garde les multiples de 20 jusqu'a 100, plus une ligne
          muette tout en haut, a 120 : elle ferme la bande de blanc sans lui
          donner de valeur — le chiffre « 120 % » n'est pas ecrit, une part ne
-         depasse pas 100 (demande du proprietaire, 28 aout). */
+         depasse pas 100 (28 aout). */
       const graduation = v => (v <= 100 && v % 20 === 0);
       const axeAvecAir = Object.assign(axePct(120), {
         ticks:Object.assign({}, axeTexte, { callback:v=>(graduation(v) ? v + '%' : ''), stepSize:20 }),
@@ -2497,13 +2490,13 @@ function renderOneChartBrut(canvas, chartMode){
       }
       /* Pas de ligne « Toutes provinces » : du 7 au 12 aout elle ne valait
          que l'Ituri, et une moyenne qui change de perimetre sans le dire
-         ment. Retiree a la demande du proprietaire, 28 aout. */
+         ment. Retiree, 28 aout. */
       const maxi = Math.max(100, ...datasets.flatMap(ds => ds.data.filter(v => v !== null)));
       const data = { labels:jours.map(frDate), datasets };
       const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
                   /* Le titre dans le graphique, comme « Nombre de personnes
-                     vaccinees » (demande du proprietaire, 28 septembre 2026) :
+                     vaccinees » (28 septembre 2026) :
                      l'axe ne disait que des pourcentages, sans dire de quoi. */
                   title:{ display:true, text:tr('cteChartTitre'), align:'center',
                           color:PALETTE.ink, padding:{ bottom:16 },
@@ -2584,8 +2577,7 @@ function renderOneChartBrut(canvas, chartMode){
 
     /* ---- Vaccination : le cumul des vaccines, jour apres jour ----
        Une aire empilee et non des barres par zone : ce que la partie doit
-       montrer, c'est l'EVOLUTION — combien, et quand (demande du
-       proprietaire, 21 septembre 2026). Deux couches seulement, une par
+       montrer, c'est l'EVOLUTION — combien, et quand (21 septembre 2026). Deux couches seulement, une par
        province, parce que huit zones de sante demanderaient huit teintes
        separables sur une meme rampe et qu'aucune ne passe le controle.
 
@@ -2612,8 +2604,7 @@ function renderOneChartBrut(canvas, chartMode){
          LA COURBE PORTE DONC LA VALEUR REVISEE, y compris a la date ou le
          bulletin en donnait une autre : c'est la correction de la source
          appliquee retroactivement a sa propre serie, comme le fait toute
-         donnee de sante publique revisee. Choix du proprietaire, 23 septembre
-         2026, apres une premiere version qui sortait le point du trace et le
+         donnee de sante publique revisee. Retenu le 23 septembre 2026, apres une premiere version qui sortait le point du trace et le
          laissait en cercle creux : deux chiffres pour un meme jour se
          contredisaient a l'oeil, et la note suffit a dire ce qui s'est passe.
 
@@ -2669,8 +2660,7 @@ function renderOneChartBrut(canvas, chartMode){
         label:nom, data:series[nom],
         borderColor:PROVINCE_COLORS[nom] || PALETTE.inkDim,
         backgroundColor:PROVINCE_COLORS[nom] || PALETTE.inkDim,
-        /* Trace progressif et non en escalier (choix du proprietaire,
-           21 septembre 2026). Le report des cumuls fait deja le plat des
+        /* Trace progressif et non en escalier (21 septembre 2026). Le report des cumuls fait deja le plat des
            jours sans publication — le 12 septembre garde la valeur du 11 —
            et la montee vers le releve suivant reste une interpolation : la
            note sous le graphique dit lesquels ne sont pas mesures. */
@@ -2688,11 +2678,8 @@ function renderOneChartBrut(canvas, chartMode){
                           color:PALETTE.ink, padding:{ bottom:16 },
                           font:{ family:PALETTE.font, size:16, weight:'700' } },
                   /* La bande grisee « aucun chiffre publie » du 28 aout au
-                     2 septembre est retiree (27 septembre 2026, demande du
-                     proprietaire) : la note dit ce trou de publication. */
-                  /* PAS D'ETIQUETTE DE BOUT SUR TELEPHONE (23 septembre
-                     2026, le proprietaire les a vues s'afficher par-dessus
-                     l'axe). A 360 px le nom et le chiffre se posent sur les
+                     2 septembre est retiree (27 septembre 2026) : la note dit ce trou de publication. */
+                  /* PAS D'ETIQUETTE DE BOUT SUR TELEPHONE (23 septembre 2026 : elles s'affichaient par-dessus l'axe). A 360 px le nom et le chiffre se posent sur les
                      graduations et sur la mention « aucun chiffre publie »,
                      et les 104 px reserves pour eux mangent un tiers de la
                      largeur de trace. La legende porte deja les deux noms,
@@ -2700,7 +2687,7 @@ function renderOneChartBrut(canvas, chartMode){
                      grand ecran ne coute rien ici. Meme seuil que le reste
                      du site. */
                   /* Le chiffre seul au bout de chaque courbe (29 octobre
-                     2026, demande de Fable) : la legende nomme deja les
+                     2026) : la legende nomme deja les
                      provinces. */
                   boutsDeCourbe:{ actif: !surTelephone(), sansNom:true },
                   tooltip:infobulle({ callbacks:{
@@ -2725,8 +2712,7 @@ function renderOneChartBrut(canvas, chartMode){
                     },
                   } }) },
         layout:{ padding:{ right: surTelephone() ? 8 : 60 } },
-        /* Une marge au-dessus du plus haut cumul (28 octobre 2026, demande
-           du proprietaire) : sans elle, sur une page province, la courbe
+        /* Une marge au-dessus du plus haut cumul (28 octobre 2026) : sans elle, sur une page province, la courbe
            finissait collee au bord haut du graphique. */
         scales:{ x:axeX(true),
                  y:{ beginAtZero:true, grace:'15%',
@@ -3336,11 +3322,10 @@ function renderOneChartBrut(canvas, chartMode){
        part qui alarme. */
     /* Barres de largeur EGALE depuis le 29 aout : la partie pleine au prorata
        des RELEVES et le gris hachure des jours sans releve faisaient grossir
-       la derniere barre de bulletin en bulletin, et le proprietaire ne
-       voulait plus de ce mouvement ; les jours sans releve sont dans la note.
+       la derniere barre de bulletin en bulletin, un mouvement trompeur ; les jours sans releve sont dans la note.
        Depuis le 4 septembre, la SEMAINE EN COURS recoit en revanche le gris
        uni des jours a venir, au prorata du calendrier, comme tous les autres
-       graphiques hebdomadaires du site (demande du proprietaire). */
+       graphiques hebdomadaires du site. */
     const derniereLieu = DECES_LIEU.parDate
       .reduce((d, r) => (r.date > d ? r.date : d), DECES_LIEU.parDate[0].date);
     const ouverteL = serie.length > 0 && serie[serie.length - 1].finSemaine > derniereLieu;
@@ -3933,8 +3918,7 @@ function renderOneChartBrut(canvas, chartMode){
         { label: tr('catchupLabel'), data: rattrape, backgroundColor: tint(teinte, .35),
           borderRadius: 2, minBarLength: 2, stack: 'd',
           categoryPercentage: 1, barPercentage: .96 }
-        /* Plus de courbes de cumul des cas et des deces (29 octobre 2026,
-           demande de Fable) : les barres seules, et un seul axe. */
+        /* Plus de courbes de cumul des cas et des deces (29 octobre 2026) : les barres seules, et un seul axe. */
       ]
     };
     const opts = {
@@ -4402,7 +4386,7 @@ function renderOneChartBrut(canvas, chartMode){
          (/donnees/), rien ne change. */
       /* Le 30 octobre, la courbe des deces cumules ne compte pas les 314 de
          l'harmonisation, retires par le bulletin du lendemain : 5 058 et non
-         les 5 372 du SitRep 169 (demande du proprietaire, 2 novembre 2026).
+         les 5 372 du SitRep 169 (2 novembre 2026).
          Seule la courbe est touchee ; tableaux et base gardent le bulletin. */
       if(canvas.dataset.cumul === '1'){
         const horsHarm = r => deces ? (CUMUL_HORS_HARMONISATION[r.date] || 0) : 0;
@@ -4416,7 +4400,7 @@ function renderOneChartBrut(canvas, chartMode){
       optsN.plugins.tooltip.callbacks.title = items => frDate(s[items[0].dataIndex].date);
       optsN.plugins.tooltip.callbacks.afterTitle = items => tipJourCalcule(s[items[0].dataIndex].date);
       /* Les journees de rattrapage rognees, comme a l'accueil et sur les
-         pages province (demande du proprietaire, 25 septembre 2026) : meme
+         pages province (25 septembre 2026) : meme
          plafond, meme coupe dentelee, meme etiquette du total. La regle ne
          se declenche que si une barre de rattrapage ecrase les autres. */
       const plafondN = plafondSansRattrapage(parts.rapporte, parts.rattrapage);
@@ -4446,8 +4430,7 @@ function renderOneChartBrut(canvas, chartMode){
     /* LA PERIODE EN COURS EST TRACEE, SEMAINE COMME MOIS. Jusqu'au
        4 septembre 2026 la semaine en cours etait masquee (a un jour sur sept,
        sa barre ne montrait que 14 % d'elle-meme et se lisait comme une chute)
-       et seul le mois en cours etait trace. Le proprietaire a demande la
-       semaine aussi, pour suivre l'epidemie au jour le jour : elle recoit le
+       et seul le mois en cours etait trace. La semaine l'est aussi, pour suivre l'epidemie au jour le jour : elle recoit le
        meme traitement que le mois, et la note comme l'infobulle disent que la
        barre est ouverte.
 
@@ -4620,7 +4603,7 @@ function renderOneChartBrut(canvas, chartMode){
   // Le cumul vient se poser sur le quotidien, sur son propre axe : les deux
   // ordres de grandeur ne se comparent pas (une centaine contre plusieurs
   // milliers), un axe unique ecraserait les barres.
-  /* data-sans-cumul (12 octobre 2026, demande du proprietaire) : sur l'accueil,
+  /* data-sans-cumul (12 octobre 2026) : sur l'accueil,
      les barres du quotidien suffisent — le total est dans les chiffres du jour,
      juste au-dessus, et deux axes sans rapport se lisaient mal. Plus de courbe
      des cas cumules, plus d'axe de droite. La page « Ensemble du pays » et les
@@ -4657,7 +4640,7 @@ function renderOneChartBrut(canvas, chartMode){
       spanGaps: true,
       order: 0
     });
-    /* 2 octobre 2026, demande du proprietaire : le graphique de l'accueil ne
+    /* 2 octobre 2026 : le graphique de l'accueil ne
        garde que les cas — plus de courbe rouge des deces cumules. Les deces ont
        leur graphique sur la page Donnees. */
   }
@@ -4704,8 +4687,7 @@ function renderOneChartBrut(canvas, chartMode){
        Sans plafond sur les barres, rien de tout cela n'a lieu d'etre et l'axe
        repart de zero.
 
-       ABANDONNE SUR L'ACCUEIL LE 25 SEPTEMBRE 2026 (demande du proprietaire :
-       « je n'aime pas que la courbe des cumules parte plus haut ») : les deux
+       ABANDONNE SUR L'ACCUEIL LE 25 SEPTEMBRE 2026 (la courbe des cumuls partait plus haut que les autres) : les deux
        courbes partent de zero, au pied du cadre, quitte a croiser les barres.
        Idem sur les pages province. */
     opts.scales.y1 = {
@@ -4872,7 +4854,7 @@ const FORMAT_CADRE_CARTE = 1.55;
    — elles suivent donc le curseur du temps, via majCouleursVignette(), appelee
    a chaque renderMap — et un cadre qui suit ce que la grande carte montre.
    Rien d'interactif. (4 octobre 2026 : les zones etaient d'abord toutes
-   grises ; Fable veut y voir les couleurs.) */
+   grises, elles portent desormais les couleurs.) */
 function setupMapVignette(svg){
   const hote = document.getElementById('mapVignette');
   if(!hote || !map || !map.emprise) return;
@@ -4989,8 +4971,7 @@ function initMap(){
      (760 px). Decision du 27 aout. */
   if(window.matchMedia && window.matchMedia('(max-width:760px)').matches){
     zoomToProvince('Ituri');
-    /* « Epicentre » existe aussi sur telephone (8 octobre 2026, demande du
-       proprietaire) : il ramene a ce cadrage d'ouverture sur l'Ituri. */
+    /* « Epicentre » existe aussi sur telephone (8 octobre 2026) : il ramene a ce cadrage d'ouverture sur l'Ituri. */
     if(outbreak){
       outbreak.addEventListener('click', ()=>{
         zoomToProvince('Ituri');
@@ -5279,7 +5260,7 @@ function majBoutonsZoom(){
   if(moins) moins.disabled = map.view.w >= (map.view.monde ? map.mondeW : map.full.w) - 0.5;
 }
 
-/* La vue « Pays touches » (8 octobre 2026, en local) : la carte recule
+/* La vue « Pays touches » (8 octobre 2026) : la carte recule
    jusqu'a l'Ouganda et au Kenya (la France est retiree). Le fond des pays voisins
    et la couche des pays touches sont dans le SVG (scripts/hors_rdc.py) et ne
    s'affichent qu'avec .is-monde sur le cadre. L'Ouganda et le Kenya y sont
@@ -5400,8 +5381,7 @@ function setupMonde(svg, btn){
   if(location.hash === '#pays-touches') setTimeout(()=>btn.click(), 300);
 }
 
-/* Vue « Hors RDC » sans curseur du temps (21 octobre 2026, demande de
-   Fable) : les pays hors RDC sont dessines avec leur situation du jour, sans
+/* Vue « Hors RDC » sans curseur du temps (21 octobre 2026) : les pays hors RDC sont dessines avec leur situation du jour, sans
    historique date (les deces de l'Ouganda n'ont pas de date). En entrant
    dans la vue, la lecture s'arrete et la carte revient a la derniere date ;
    le curseur, Lecture et la note se cachent (.is-vue-monde, site.css). En
@@ -5631,7 +5611,7 @@ function latestAvailableDateLabel(){
   }
   return latestDate ? (frDate(latestDate) + ' ' + latestDate.slice(0,4)) : '\u2014';
 }
-/* Telephone (8 octobre 2026, option 3 du proprietaire) : la date du curseur
+/* Telephone (8 octobre 2026) : la date du curseur
    n'occupe plus de ligne. Au repos elle est cachee — le panneau dessous dit
    deja « Situation au … » ; des qu'on touche le curseur ou qu'on lance la
    lecture, une bulle suit la poignee avec la date, puis s'efface 1,5 s apres
@@ -7011,15 +6991,14 @@ document.getElementById('btnShare')?.addEventListener('click', handleShare);
     if(setupMenuMobile.niveau1) setupMenuMobile.niveau1();
     if(!ouvert) return;
     mesurerEntete();
-    /* Les provinces NE sont PAS depliees a l'ouverture (demande du
-       proprietaire, 4 septembre) : sept lignes de plus repoussaient les
+    /* Les provinces NE sont PAS depliees a l'ouverture (4 septembre) : sept lignes de plus repoussaient les
        rubriques suivantes hors de l'ecran, et l'on ouvrait le menu pour voir
        les huit pages, pas les six provinces. Le chevron les ouvre d'un tap.
        L'etat vient donc du generateur : deplie sur /donnees/ et sur les pages
        province, ou il montre ou l'on se trouve, replie partout ailleurs. */
   }
 
-  /* Menu a deux niveaux (8 octobre 2026, demande du proprietaire) : le menu
+  /* Menu a deux niveaux (8 octobre 2026) : le menu
      ne montre d'abord que les onglets principaux ; toucher l'un d'eux
      n'affiche que ses pages, sous « ‹ Retour » (en haut a gauche) et le nom
      de l'onglet. La croix du bouton de menu, en haut a droite, ferme tout. */
@@ -7520,8 +7499,7 @@ function initTimelineScroller(){
 
 /* Bande « Visuels » de l'accueil (13 octobre 2026) : six vignettes sans
    texte, en BOUCLE SANS FIN dans les deux sens — apres la sixieme revient la
-   premiere, au defilement automatique comme au glisser et aux fleches
-   (demande du proprietaire). La serie est recopiee autant de fois qu'il faut
+   premiere, au defilement automatique comme au glisser et aux fleches. La serie est recopiee autant de fois qu'il faut
    pour couvrir l'ecran plus une serie, et la rangee est deplacee de
    (decalage modulo largeur d'une serie) : la suite etant periodique, aucun
    raccord ne se voit. Defile seule a 32 px/s ; s'arrete au survol, au focus,
@@ -7611,7 +7589,7 @@ function initVitrineVisuels(){
 
 /* « La riposte et ses defis » de l'accueil (13 octobre 2026) : la courbe des
    cas se devoile de gauche a droite AU FIL DU DEFILEMENT, et recule si l'on
-   remonte (choix du proprietaire). La progression --p va de 0, quand le bloc
+   remonte. La progression --p va de 0, quand le bloc
    est entierement a l'ecran, a 1, quand il est remonte vers le haut ; sur telephone, on suit la petite courbe. Les chiffres de la
    riposte apparaissent au debut du trace, ceux des defis a la fin, le point
    rouge quand la courbe touche le dernier bulletin. Si le systeme demande
@@ -7660,7 +7638,7 @@ function initRiposteCarousel(){
   const piste = document.getElementById('crTrack');
   if(!piste) return;
   /* Sur telephone, la grille des Defis est retiree du carrousel (8 octobre
-     2026, demande du proprietaire) : illisible a cette largeur. Retiree du
+     2026) : illisible a cette largeur. Retiree du
      DOM, et non masquee, pour que la boucle ne compte que les cartes vues. */
   if(window.matchMedia && window.matchMedia('(max-width:760px)').matches){
     piste.querySelectorAll('.cr-card-grille').forEach(c=>c.remove());
@@ -7669,7 +7647,7 @@ function initRiposteCarousel(){
   const N = cartes.length;
   if(N < 2) return;
   piste.classList.add('is-ready');
-  /* Carte centree au chargement (7 octobre 2026, demande du proprietaire) :
+  /* Carte centree au chargement (7 octobre 2026) :
      les alertes quotidiennes, marquees data-cr-depart ; la grille des Defis
      reste a sa gauche. */
   const depart = cartes.findIndex(c => c.hasAttribute('data-cr-depart'));

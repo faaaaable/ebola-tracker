@@ -72,6 +72,7 @@ ne les modifie jamais à la main.
 reports/         bulletins INSP (PDF) et rapports OMS (reports/who/) : les sources
 data/            données extraites des bulletins, et la base publiée
 scripts/         extraction des PDF, contrôles, génération des pages
+scripts/archives scripts d'enquête ponctuels, hors de la mise à jour
 site/            gabarits des pages, textes en trois langues (strings.json)
 assets/          feuilles de style, JavaScript, polices, images
 .github/         automatisations (génération, envoi de la Lettre)

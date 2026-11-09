@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""« La Lettre » sur l'accueil (3 novembre 2026, maquettes
-tmp/proto-lettre-accueil-1103, option 3b retenue par Fable), entre « La
+"""« La Lettre » sur l'accueil (3 novembre 2026), entre « La
 riposte et ses defis » et « L'epidemie en images ».
 
 A gauche, la derniere lettre posee sur la pile des deux precedentes, dessinee
