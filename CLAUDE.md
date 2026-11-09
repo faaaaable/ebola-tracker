@@ -492,9 +492,12 @@ chiffré si possible, y compris un désaccord. Plusieurs bonnes décisions de
 cette journée sont venues d'un « non, et voilà pourquoi » — la lecture par
 province abandonnée au profit du temps, ou l'inverse pour les dates d'arrivée.
 
-**Les messages de commit sont longs et détaillés**, en français sans accents.
-Ils citent les passages de bulletin qui fondent chaque décision, gardent les
-mesures qui ont tranché, et consignent ce qui a été écarté.
+**Les messages de commit décrivent ce qui change sur le site, et pourquoi**,
+en français sans accents. Ils citent les passages de bulletin qui fondent un
+chiffre et les mesures qui ont tranché. **Jamais nos échanges** : ni « demande
+du propriétaire », ni maquettes montrées, ni allers-retours, ni pistes essayées
+puis abandonnées. Les messages sont publics et lus par des visiteurs du dépôt.
+Le suivi du travail a sa place ailleurs, hors du dépôt.
 
 ---
 
