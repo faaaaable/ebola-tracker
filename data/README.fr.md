@@ -6,8 +6,8 @@ Tout ce dossier est produit à partir des bulletins archivés dans [`../reports/
 sauf mention contraire ci-dessous. Licence : [CC BY 4.0](../LICENSE-DATA.md).
 
 **Pour réutiliser les chiffres, partez de la base** : elle réunit tout le reste en
-un seul tableau, avec un dictionnaire des colonnes sur la page
-[Base de données](https://ebola-tracker.org/base-de-donnees/).
+un seul tableau, avec son dictionnaire des colonnes. Les lignes du pays, des provinces
+et des zones se recouvrent : filtrer sur la colonne `niveau` avant d'additionner.
 
 ## La base
 
@@ -15,6 +15,10 @@ un seul tableau, avec un dictionnaire des colonnes sur la page
 |---|---|
 | `base-ebola-rdc.csv`, `base-ebola-rdc.json` | la base en français : un relevé par jour et par niveau (pays, province, zone de santé), épidémie et riposte |
 | `ebola-drc-database.csv`, `ebola-drc-database.json` | la même base, colonnes et valeurs en anglais |
+| `base-ebola-rdc-dictionnaire.csv`, `ebola-drc-database-dictionary.csv` | le dictionnaire des colonnes : unité, valeur publiée ou calculée, définition |
+
+Le CSV est le format le plus léger. Le JSON donne chaque ligne avec le nom de ses
+champs (une case vide y vaut `null`), et le dictionnaire dans son en-tête (`meta`).
 
 ## L'épidémie
 
@@ -65,4 +69,5 @@ Ces fichiers ne viennent pas des bulletins ; chacun nomme sa source dans son en-
 `bulletin-notes.json` et `lettres/` (textes de la Lettre), `envois-*.json`,
 `envoi-test.json` et `mail-accueil.json` (envoi des mails), `actus.json`,
 `social-updates.json` et `community-deaths-daily.json` (fonctions retirées, gardées
-pour l'historique), `diagnostic_report.json` (contrôle d'extraction).
+pour l'historique), `diagnostic_report.json` (contrôle d'extraction), `base-page.json`
+(la base sous une forme compacte, lue par la page Base de données).

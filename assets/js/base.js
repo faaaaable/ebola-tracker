@@ -5,7 +5,8 @@
 'use strict';
 /* La base de donnees (/base-de-donnees/, 9 octobre 2026) : toutes les donnees
    du site, une ligne par date et par territoire, epidemie et riposte, avec le
-   bulletin source. Lit data/base-ebola-rdc.json, ecrit par
+   bulletin source. Lit data/base-page.json (forme compacte, a part des
+   fichiers telecharges depuis le 10 novembre 2026), ecrit par
    scripts/base_donnees.py a chaque generation. Remplace, au chargement, le
    tableau du dernier bulletin que le generateur a ecrit en dur dans #bddApp.
 
@@ -36,6 +37,7 @@ const TXT = {
        cte_hospitalises:['Hospitalisés'], cte_lits:['Lits'], cte_occupation:['Occupation'], contacts_a_suivre:['À suivre'], contacts_vus:['Vus'], contacts_vus_pct:['Vus','%'], vaccines_cumul:['Vaccinés','cumul']},
     g:{epi:'Épidémie', lieu:'Lieu du décès', surv:'Surveillance', labo:'Laboratoire', cte:'Prise en charge (CTE)', ct:'Contacts', vac:'Vaccination'},
     calc:'calc.', calcT:'Ligne reconstituée : SitRep non publié', rat:'R', ratT:'Rattrapage : l’écart couvre plus d’une journée',
+    har:'H', harT:(p, n) => `Harmonisation par la source : ${n > 0 ? 'ajout de ' + n + ' décès anciens' : 'retrait de ' + (-n) + ' décès anciens'} en ${p}. L’écart du jour ne correspond pas à des décès nouveaux.`,
     sur:n => `${n} j`, surT:n => `Écart sur ${n} jours : pas de relevé pour ce territoire entre-temps`, neg:'Révision à la baisse par la source', oms:'OMS',
     erreur:'La base n’a pas pu être chargée. Les fichiers restent téléchargeables ci-dessus.',
   },
@@ -54,6 +56,7 @@ const TXT = {
        cte_hospitalises:['Hospitalised'], cte_lits:['Beds'], cte_occupation:['Occupancy'], contacts_a_suivre:['To follow'], contacts_vus:['Seen'], contacts_vus_pct:['Seen','%'], vaccines_cumul:['Vaccinated','total']},
     g:{epi:'Outbreak', lieu:'Place of death', surv:'Surveillance', labo:'Laboratory', cte:'Treatment (ETC)', ct:'Contacts', vac:'Vaccination'},
     calc:'calc.', calcT:'Reconstructed row: SitRep not published', rat:'C', ratT:'Catch-up: the difference covers more than one day',
+    har:'H', harT:(p, n) => `Harmonisation by the source: ${n > 0 ? n + ' earlier deaths added' : (-n) + ' earlier deaths removed'} in ${p}. The day’s difference does not reflect new deaths.`,
     sur:n => `${n} d`, surT:n => `Difference over ${n} days: no reading for this area in between`, neg:'Downward revision by the source', oms:'WHO',
     erreur:'The database could not be loaded. The files remain available for download above.',
   },
@@ -72,6 +75,7 @@ const TXT = {
        cte_hospitalises:['Waliolazwa'], cte_lits:['Vitanda'], cte_occupation:['Vitanda vilivyojaa'], contacts_a_suivre:['Wa kufuatiliwa'], contacts_vus:['Walioonekana'], contacts_vus_pct:['Walioonekana','%'], vaccines_cumul:['Waliochanjwa','jumla']},
     g:{epi:'Mlipuko', lieu:'Mahali pa kifo', surv:'Ufuatiliaji', labo:'Maabara', cte:'Matibabu (CTE)', ct:'Watu wa karibu', vac:'Chanjo'},
     calc:'calc.', calcT:'Mstari uliojengwa upya: SitRep haikuchapishwa', rat:'R', ratT:'Ucheleweshaji: tofauti inajumuisha zaidi ya siku moja',
+    har:'H', harT:(p, n) => `Marekebisho ya chanzo: vifo vya zamani ${Math.abs(n)} ${n > 0 ? 'vimeongezwa' : 'vimeondolewa'} ${p}. Tofauti ya siku si vifo vipya.`,
     sur:n => `siku ${n}`, surT:n => `Tofauti ya siku ${n}: hakuna takwimu za eneo hili katikati`, neg:'Marekebisho ya kupunguza na chanzo', oms:'WHO',
     erreur:'Hifadhidata haikuweza kupakiwa. Faili bado zinaweza kupakuliwa hapo juu.',
   },
@@ -100,11 +104,13 @@ const COLS = [
   {k:'vaccines_cumul', t:'n', grp:'vac', vue:'rip'},
 ];
 
-let LIGNES = [], META = null, COLV = 'epi', NIVEAU = 'pays', TRI = {k:'date', sens:-1}, VUES = [];
+let LIGNES = [], META = null, DEFS = {}, COLV = 'epi', NIVEAU = 'pays', TRI = {k:'date', sens:-1}, VUES = [];
 // Vue Zones : Epidemie, plus le lieu du deces, seule colonne de riposte qui
 // existe par zone (deces-lieu-zones.json, 4 novembre 2026).
 const colonnes = () => COLS.filter(c => (!c.vue || COLV === 'tout' || c.vue === COLV || (NIVEAU === 'zone' && c.grp === 'lieu')) &&
-  !((NIVEAU === 'pays' || NIVEAU === 'province') && (c.k === 'zone' || c.k === 'niveau')));
+  !((NIVEAU === 'pays' || NIVEAU === 'province') && c.k === 'zone') &&
+  // La colonne Niveau ne sert que dans la vue Tout, ou les niveaux se melangent.
+  !(NIVEAU !== 'tous' && c.k === 'niveau'));
 
 function interface_(){
   const provs = [...new Set(LIGNES.filter(o => o.province).map(o => o.province))].sort((a, b) => a.localeCompare(b));
@@ -140,6 +146,7 @@ function filtrer(){
   });
   document.getElementById('bddCompte').innerHTML = T('lignes')(fmt(VUES.length), fmt(LIGNES.length));
   document.getElementById('bddGrille').classList.toggle('is-melange', NIVEAU === 'tous');
+  document.getElementById('bddGrille').classList.toggle('is-zone', NIVEAU === 'zone');
   entete(); dessiner(true); adresse();
 }
 
@@ -154,7 +161,10 @@ function entete(){
   });
   document.getElementById('bddThead').innerHTML = `<tr class="groupes">${rg}</tr><tr class="cols">` + cols.map((c, k) => {
     const l = lib[c.k], [t, sous] = Array.isArray(l) ? l : [l];
-    return `<th class="${c.g ? 'g' : ''} ${c.fixe ? 'fixe ' + c.fixe : ''} ${k && c.grp && c.grp !== cols[k - 1].grp ? 'bdd-sep' : ''}" data-k="${c.k}" ${TRI.k === c.k ? `aria-sort="${TRI.sens > 0 ? 'ascending' : 'descending'}"` : ''}>${t}${sous ? `<small>${sous}</small>` : ''}</th>`;
+    // La definition de la colonne en bulle (10 novembre 2026), tiree du
+    // dictionnaire de scripts/base_donnees.py.
+    const d = DEFS[c.k];
+    return `<th ${d ? `title="${esc(d)}"` : ''} class="${c.g ? 'g' : ''} ${c.fixe ? 'fixe ' + c.fixe : ''} ${k && c.grp && c.grp !== cols[k - 1].grp ? 'bdd-sep' : ''}" data-k="${c.k}" ${TRI.k === c.k ? `aria-sort="${TRI.sens > 0 ? 'ascending' : 'descending'}"` : ''}>${t}${sous ? `<small>${sous}</small>` : ''}</th>`;
   }).join('') + '</tr>';
 }
 
@@ -169,6 +179,10 @@ function cellule(o, c){
       let h = f && !m.includes('reconstitue') ? `<a class="pdf" href="${f}" target="_blank" rel="noopener">n° ${v}</a>` : `n° ${v}`;
       if(m.includes('reconstitue')) h += `<span class="rec" title="${T('calcT')}">${T('calc')}</span>`;
       if(m.includes('rattrapage')) h += `<span class="rat" title="${T('ratT')}">${T('rat')}</span>`;
+      // Harmonisation par la source (30 et 31 octobre 2026, Ituri) : sans
+      // etiquette, le +346 deces du 30 se lisait comme une flambee.
+      if(m.includes('harmonisation')){ const x = (META.harmonisations || {})[o.date] || {};
+        h += `<span class="har" title="${esc(T('harT')(x.province || '', x.deces || 0))}">${T('har')}</span>`; }
       return h;
     }
     case 'prov': return v ? (COULEURS[v] ? `<i class="pt" style="background:${COULEURS[v]}"></i>` : '') + esc(v) : (o.niveau === 'pays' ? T('rdc') : '');
@@ -214,10 +228,11 @@ function adresse(){
 const choisirSeg = (id, v) => document.querySelectorAll(`#${id} button`).forEach(b => b.setAttribute('aria-pressed', b.dataset.v === v));
 
 async function demarrer(){
-  const r = await fetch('/data/base-ebola-rdc.json', {cache:'no-store'});
+  const r = await fetch('/data/base-page.json', {cache:'no-store'});
   if(!r.ok) throw new Error(r.status);
   const doc = await r.json();
   META = doc.meta;
+  META.colonnes.forEach(c => { if(c.definition) DEFS[c.cle] = c.definition[LANG] || c.definition.fr; });
   const cles = META.colonnes.map(c => c.cle);
   LIGNES = doc.lignes.map(l => Object.fromEntries(cles.map((k, i) => [k, l[i]])));
   const q = new URLSearchParams(location.search);

@@ -7,8 +7,8 @@ Everything in this folder is produced from the bulletins archived in
 [CC BY 4.0](../LICENSE-DATA.md).
 
 **To reuse the figures, start from the database**: it brings everything else together
-in a single table, with a column dictionary on the
-[Database](https://ebola-tracker.org/en/database/) page.
+in a single table, with its column dictionary. Country, province and zone rows
+overlap: filter on the `level` column before adding up.
 
 File names are in French; the English database has English column names and values.
 
@@ -18,6 +18,10 @@ File names are in French; the English database has English column names and valu
 |---|---|
 | `ebola-drc-database.csv`, `ebola-drc-database.json` | the database in English: one record per day and per level (country, province, health zone), outbreak and response |
 | `base-ebola-rdc.csv`, `base-ebola-rdc.json` | the same database, with French column names and values |
+| `ebola-drc-database-dictionary.csv`, `base-ebola-rdc-dictionnaire.csv` | the column dictionary: unit, published or computed value, definition |
+
+The CSV is the lightest format. The JSON gives each row with its field names (an
+empty cell is `null`), and the dictionary in its header (`meta`).
 
 ## The outbreak
 
@@ -68,4 +72,5 @@ These files do not come from the bulletins; each one names its source in its hea
 `bulletin-notes.json` and `lettres/` (texts of the Letter), `envois-*.json`,
 `envoi-test.json` and `mail-accueil.json` (email sending), `actus.json`,
 `social-updates.json` and `community-deaths-daily.json` (retired features, kept for
-the record), `diagnostic_report.json` (extraction check).
+the record), `diagnostic_report.json` (extraction check), `base-page.json` (the
+database in a compact form, read by the Database page).

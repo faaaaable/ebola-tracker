@@ -45,9 +45,13 @@ télécharge en CSV ou en JSON, en français ou en anglais :
 |---|---|---|
 | CSV | [`data/base-ebola-rdc.csv`](data/base-ebola-rdc.csv) | [`data/ebola-drc-database.csv`](data/ebola-drc-database.csv) |
 | JSON | [`data/base-ebola-rdc.json`](data/base-ebola-rdc.json) | [`data/ebola-drc-database.json`](data/ebola-drc-database.json) |
+| Dictionnaire des colonnes | [`data/base-ebola-rdc-dictionnaire.csv`](data/base-ebola-rdc-dictionnaire.csv) | [`data/ebola-drc-database-dictionary.csv`](data/ebola-drc-database-dictionary.csv) |
 
-Le dictionnaire des colonnes est sur la page
-[Base de données](https://ebola-tracker.org/base-de-donnees/). Les autres fichiers
+Les lignes du pays, des provinces et des zones se recouvrent : **filtrer sur la
+colonne `niveau` avant d'additionner**. Le dictionnaire donne, pour chaque colonne,
+son unité, si la valeur est publiée par le bulletin ou calculée, et sa définition ;
+il figure aussi sur la page [Base de données](https://ebola-tracker.org/base-de-donnees/).
+Les autres fichiers
 de [`data/`](data/) sont décrits dans [`data/README.fr.md`](data/README.fr.md).
 
 ## Licences

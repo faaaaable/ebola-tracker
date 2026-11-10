@@ -7,10 +7,16 @@ Ecrit a chaque generation par build_pages.py, a partir des fichiers de data/
 deja produits par le pipeline : aucune nouvelle lecture de PDF.
 - data/base-ebola-rdc.csv  : virgule, point decimal, UTF-8 (format standard,
   celui que lisent R, Python, Google Dataset Search) ;
-- data/base-ebola-rdc.json : la meme chose en colonnes + lignes, plus les
-  metadonnees (licence, source, periode). La page /base-de-donnees/ le lit.
-- data/ebola-drc-database.csv et .json : la version anglaise (4 novembre
-  2026), colonnes et libelles traduits, offerte sur les pages en et sw.
+- data/base-ebola-rdc.json : la meme chose, un objet a champs nommes par
+  ligne (une case vide y vaut null), plus les metadonnees (licence, source,
+  periode, avertissement, dictionnaire des colonnes) ;
+- data/base-ebola-rdc-dictionnaire.csv : une ligne par colonne (unite,
+  origine publiee ou calculee, definition) ;
+- data/ebola-drc-database.csv, .json et -dictionary.csv : la version anglaise
+  (4 novembre 2026), colonnes et libelles traduits, offerte sur les pages en
+  et sw ;
+- data/base-page.json : la forme compacte que lit la page /base-de-donnees/
+  (10 novembre 2026), pour qu'elle reste legere.
 
 Regles, a garder alignees sur la page et sur le reste du site :
 - une zone = sa cle normalisee (jamais le nom brut) plus les alias du site
@@ -81,9 +87,156 @@ DICO_CLES = [["date", "niveau", "province", "zone", "sitrep", "source_pdf", "men
              ["labo_echantillons", "labo_positifs", "labo_positivite"],
              ["cte_hospitalises", "cte_lits", "cte_occupation"],
              ["contacts_a_suivre", "contacts_vus", "contacts_vus_pct"], ["vaccines_cumul"]]
+# Le dictionnaire des colonnes (10 novembre 2026) : une seule source pour les
+# fichiers dictionnaire (CSV francais et anglais), le « meta » des JSON
+# telechargeables et les bulles des en-tetes du tableau de la page (trois
+# langues). Unite, origine (« publie » = recopie du bulletin, « calcule » =
+# calcule par le site) et definition. Le swahili n'a pas encore ete relu par
+# un locuteur.
+UNITES = {"date": ("AAAA-MM-JJ", "YYYY-MM-DD"), "txt": ("texte", "text"), "int": ("nombre", "count"),
+          "pct": ("%", "%"), "jours": ("jours", "days")}
+ORIGINES = {"id": ("identification", "identification"), "pub": ("publié", "published"),
+            "calc": ("calculé", "computed"), "pubcalc": ("publié, sinon calculé", "published, otherwise computed")}
+AVERTISSEMENT = {
+    "fr": "Une ligne par date et par territoire. Les lignes du pays, des provinces et des zones se "
+          "recouvrent : filtrer sur la colonne « niveau » avant d'additionner. Une case vide est une "
+          "valeur que le bulletin ne donne pas, jamais un zéro.",
+    "en": "One row per date and area. Country, province and zone rows overlap: filter on the "
+          "\u201clevel\u201d column before adding up. An empty cell is a value the bulletin does not "
+          "give, never a zero.",
+}
+DICTIONNAIRE = {
+    "date": ("date", "id", {
+        "fr": "Date du rapport de situation dont la ligne est tirée.",
+        "en": "Date of the situation report the row is taken from.",
+        "sw": "Tarehe ya ripoti ya hali ambayo mstari umetoka."}),
+    "niveau": ("txt", "id", {
+        "fr": "Niveau de la ligne : pays, province ou zone. Les trois niveaux se recouvrent : filtrer sur cette colonne avant d'additionner.",
+        "en": "Level of the row: country, province or zone. The three levels overlap: filter on this column before adding up.",
+        "sw": "Kiwango cha mstari: nchi, jimbo au eneo. Viwango vitatu vinaingiliana: chuja safu hii kabla ya kujumlisha."}),
+    "province": ("txt", "id", {
+        "fr": "Province. Vide sur les lignes du pays.",
+        "en": "Province. Empty on country rows.",
+        "sw": "Jimbo. Tupu kwenye mistari ya nchi."}),
+    "zone": ("txt", "id", {
+        "fr": "Zone de santé, sous le nom du dernier bulletin. Vide sur les lignes du pays et des provinces.",
+        "en": "Health zone, as named in the latest bulletin. Empty on country and province rows.",
+        "sw": "Eneo la afya, kwa jina la ripoti ya mwisho. Tupu kwenye mistari ya nchi na majimbo."}),
+    "sitrep": ("int", "id", {
+        "fr": "Numéro du rapport de situation (SitRep) de l'INSP dont la ligne est tirée.",
+        "en": "Number of the INSP situation report (SitRep) the row is taken from.",
+        "sw": "Namba ya ripoti ya hali (SitRep) ya INSP ambayo mstari umetoka."}),
+    "source_pdf": ("txt", "id", {
+        "fr": "Adresse du PDF de ce SitRep. Vide sur une ligne reconstituée.",
+        "en": "Address of the PDF of this SitRep. Empty on a reconstructed row.",
+        "sw": "Anwani ya PDF ya SitRep hii. Tupu kwenye mstari uliojengwa upya."}),
+    "mention": ("txt", "id", {
+        "fr": "Signale une ligne à part. « rattrapage » : l'écart couvre plus d'une journée (22 et 30 juillet). "
+              "« reconstitue » : SitRep 142 jamais publié, jour calculé par soustraction à partir du 143. "
+              "« harmonisation » : la source a corrigé ses séries ce jour-là (Ituri : +314 décès anciens le 30 octobre, "
+              "retirés le 31) ; l'écart ne correspond pas à des cas ou décès nouveaux. "
+              "« OMS Weekly Report … (lecture manuelle) » : valeur lue dans un rapport de l'OMS.",
+        "en": "Flags a special row. \u201ccatch-up\u201d: the difference covers more than one day (22 and 30 July). "
+              "\u201creconstructed\u201d: SitRep 142 was never published; the day is computed by subtraction from SitRep 143. "
+              "\u201charmonisation\u201d: the source corrected its series that day (Ituri: +314 earlier deaths on 30 October, "
+              "removed on 31 October); the difference does not reflect new cases or deaths. "
+              "\u201cWHO Weekly Report \u2026 (manual reading)\u201d: value read from a WHO report.",
+        "sw": "Inaonyesha mstari maalum: ucheleweshaji, siku iliyojengwa upya, marekebisho ya chanzo, au thamani kutoka ripoti ya WHO."}),
+    "cas": ("int", "pub", {
+        "fr": "Cas confirmés cumulés depuis le début de l'épidémie, tels que publiés par le bulletin.",
+        "en": "Cumulative confirmed cases since the start of the outbreak, as published by the bulletin.",
+        "sw": "Jumla ya visa vilivyothibitishwa tangu mwanzo wa mlipuko, kama ilivyochapishwa na ripoti."}),
+    "nouveaux_cas": ("int", "calc", {
+        "fr": "Écart de cas cumulés avec le relevé précédent du même territoire. Négatif : révision à la baisse par la source. Peut différer des nouveaux cas annoncés par le bulletin.",
+        "en": "Difference in cumulative cases from the previous reading for the same area. Negative: downward revision by the source. May differ from the new cases announced by the bulletin.",
+        "sw": "Tofauti ya jumla ya visa na takwimu iliyotangulia ya eneo hilo. Hasi: marekebisho ya kupunguza na chanzo."}),
+    "ecart_jours": ("jours", "calc", {
+        "fr": "Nombre de jours couverts par l'écart, depuis le relevé précédent du même territoire (1 = d'un jour au suivant).",
+        "en": "Number of days covered by the difference, since the previous reading for the same area (1 = from one day to the next).",
+        "sw": "Idadi ya siku zinazohusika na tofauti, tangu takwimu iliyotangulia ya eneo hilo."}),
+    "deces": ("int", "pub", {
+        "fr": "Décès cumulés depuis le début de l'épidémie, tels que publiés par le bulletin.",
+        "en": "Cumulative deaths since the start of the outbreak, as published by the bulletin.",
+        "sw": "Jumla ya vifo tangu mwanzo wa mlipuko, kama ilivyochapishwa na ripoti."}),
+    "nouveaux_deces": ("int", "calc", {
+        "fr": "Écart de décès cumulés avec le relevé précédent du même territoire. Négatif : révision à la baisse par la source.",
+        "en": "Difference in cumulative deaths from the previous reading for the same area. Negative: downward revision by the source.",
+        "sw": "Tofauti ya jumla ya vifo na takwimu iliyotangulia ya eneo hilo. Hasi: marekebisho ya kupunguza na chanzo."}),
+    "letalite": ("pct", "calc", {
+        "fr": "Létalité : décès cumulés divisés par cas confirmés cumulés, en pour cent.",
+        "en": "Case fatality rate: cumulative deaths divided by cumulative confirmed cases, in per cent.",
+        "sw": "Kiwango cha vifo: jumla ya vifo kugawanywa kwa jumla ya visa, kwa asilimia."}),
+    "gueris": ("int", "pub", {
+        "fr": "Guéris cumulés, publiés pour le pays seulement.",
+        "en": "Cumulative recoveries, published for the country only.",
+        "sw": "Jumla ya waliopona, kwa nchi tu."}),
+    "deces_communaute": ("int", "pub", {
+        "fr": "Décès confirmés du jour survenus dans la communauté, depuis le 13 juillet.",
+        "en": "Confirmed deaths of the day in the community, since 13 July.",
+        "sw": "Vifo vilivyothibitishwa vya siku katika jamii, tangu 13 Julai."}),
+    "deces_cte": ("int", "pub", {
+        "fr": "Décès confirmés du jour survenus en centre de traitement (CTE), depuis le 13 juillet. Par zone, certains ne sont rattachés à aucune zone et ne figurent qu'à la province.",
+        "en": "Confirmed deaths of the day in a treatment centre (ETC), since 13 July. By zone, some are not assigned to any zone and appear only under the province.",
+        "sw": "Vifo vilivyothibitishwa vya siku katika kituo cha matibabu (CTE), tangu 13 Julai."}),
+    "alertes_recues": ("int", "pub", {
+        "fr": "Alertes reçues ce jour-là, depuis le 1er juin.",
+        "en": "Alerts received that day, since 1 June.",
+        "sw": "Tahadhari zilizopokelewa siku hiyo, tangu 1 Juni."}),
+    "alertes_validees": ("int", "pub", {
+        "fr": "Alertes validées comme cas suspects ce jour-là.",
+        "en": "Alerts validated as suspected cases that day.",
+        "sw": "Tahadhari zilizothibitishwa kama visa vinavyoshukiwa siku hiyo."}),
+    "labo_echantillons": ("int", "pub", {
+        "fr": "Échantillons analysés par les laboratoires ce jour-là.",
+        "en": "Samples tested by laboratories that day.",
+        "sw": "Sampuli zilizochambuliwa na maabara siku hiyo."}),
+    "labo_positifs": ("int", "pub", {
+        "fr": "Échantillons positifs ce jour-là.",
+        "en": "Positive samples that day.",
+        "sw": "Sampuli chanya siku hiyo."}),
+    "labo_positivite": ("pct", "calc", {
+        "fr": "Positifs divisés par échantillons analysés, en pour cent ; seulement quand les deux sont publiés.",
+        "en": "Positive results divided by samples tested, in per cent; only when both are published.",
+        "sw": "Chanya kugawanywa kwa sampuli, kwa asilimia; pale tu zote mbili zinapochapishwa."}),
+    "cte_hospitalises": ("int", "pub", {
+        "fr": "Personnes hospitalisées en centre de traitement (CTE) ce jour-là.",
+        "en": "People hospitalised in treatment centres (ETC) that day.",
+        "sw": "Watu waliolazwa katika vituo vya matibabu (CTE) siku hiyo."}),
+    "cte_lits": ("int", "pub", {
+        "fr": "Lits disponibles dans les CTE.",
+        "en": "Beds available in the ETCs.",
+        "sw": "Vitanda vilivyopo katika CTE."}),
+    "cte_occupation": ("pct", "pubcalc", {
+        "fr": "Taux d'occupation des lits publié par le bulletin ; s'il manque, hospitalisés divisés par lits.",
+        "en": "Bed occupancy rate published by the bulletin; if missing, patients divided by beds.",
+        "sw": "Kiwango cha vitanda vilivyojaa kilichochapishwa na ripoti; kikikosekana, waliolazwa kugawanywa kwa vitanda."}),
+    "contacts_a_suivre": ("int", "pub", {
+        "fr": "Contacts à suivre ce jour-là.",
+        "en": "Contacts to follow up that day.",
+        "sw": "Watu wa karibu wa kufuatiliwa siku hiyo."}),
+    "contacts_vus": ("int", "pub", {
+        "fr": "Contacts vus ce jour-là.",
+        "en": "Contacts seen that day.",
+        "sw": "Watu wa karibu walioonekana siku hiyo."}),
+    "contacts_vus_pct": ("pct", "pub", {
+        "fr": "Part des contacts vus, telle que publiée par le bulletin.",
+        "en": "Share of contacts seen, as published by the bulletin.",
+        "sw": "Sehemu ya watu wa karibu walioonekana, kama ilivyochapishwa na ripoti."}),
+    "vaccines_cumul": ("int", "pub", {
+        "fr": "Personnes vaccinées cumulées, publiées par province.",
+        "en": "Cumulative people vaccinated, published by province.",
+        "sw": "Jumla ya watu waliochanjwa, kwa jimbo."}),
+}
+assert set(DICTIONNAIRE) == set(COLONNES_EN)
 NIVEAUX_EN = {"pays": "country", "province": "province", "zone": "zone"}
 MENTIONS_EN = {"rattrapage": "catch-up", "reconstitue": "reconstructed", "harmonisation": "harmonisation"}
 FICHIERS = {"fr": "base-ebola-rdc", "en": "ebola-drc-database"}
+# Le dictionnaire des colonnes, a cote de chaque base (10 novembre 2026).
+DICOS = {"fr": "base-ebola-rdc-dictionnaire", "en": "ebola-drc-database-dictionary"}
+# Le fichier compact que lit la page, a part des telechargements (10 novembre
+# 2026) : lignes en tableaux de valeurs, sans l'adresse du PDF, pour rester
+# leger sur les connexions lentes.
+PAGE = "base-page"
 
 
 def _mention_en(m):
@@ -277,47 +430,99 @@ def construire(origin="https://ebola-tracker.org"):
     return lignes
 
 
-def _ecrire_fichiers(nom, lignes, cles, entete, meta, origin):
+def _definition(cle, lang):
+    texte = DICTIONNAIRE[cle][2][lang]
+    return texte.replace("'", "\u2019") if lang != "en" else texte
+
+
+def _dico(lang):
+    """Le dictionnaire d'une langue : une entree par colonne, dans l'ordre du
+    fichier, avec le nom de la colonne dans ce fichier."""
+    k = 0 if lang == "fr" else 1
+    nom = (lambda c: c) if lang == "fr" else (lambda c: COLONNES_EN[c])
+    champs = ("colonne", "groupe", "type", "unite", "origine", "definition") if lang == "fr" else \
+             ("column", "group", "type", "unit", "origin", "definition")
+    groupes = {"id": ("identification", "identification"), "epi": ("épidémie", "outbreak"), "rip": ("riposte", "response")}
+    sortie = []
+    for c, g, t in COLONNES:
+        u, o, _ = DICTIONNAIRE[c]
+        sortie.append(dict(zip(champs, (nom(c), groupes[g][k], t, UNITES[u][k], ORIGINES[o][k], _definition(c, lang)))))
+    return sortie
+
+
+def _ecrire(nom, texte, encodage="utf-8"):
+    with io.open(os.path.join(ROOT, "data", nom), "w", encoding=encodage, newline="") as f:
+        f.write(texte)
+
+
+def _csv(entete, rangs):
     sortie = io.StringIO()
     w = csv.writer(sortie, lineterminator="\n")
     w.writerow(entete)
-    for o in lignes:
-        w.writerow(["" if o.get(k) is None else o.get(k) for k in cles])
-    with io.open(os.path.join(ROOT, "data", nom + ".csv"), "w", encoding="utf-8-sig", newline="") as f:
-        f.write(sortie.getvalue())
-    # Le JSON ne repete pas l'adresse du PDF sur chaque ligne (elle doublait
-    # le poids du fichier) : meta.pdf donne le fichier de chaque numero.
+    w.writerows(rangs)
+    return sortie.getvalue()
+
+
+def _ecrire_fichiers(lang, lignes, cles, entete, meta, cle_lignes):
+    """La base d'une langue : CSV, JSON a champs nommes (un objet par ligne de
+    fichier, l'adresse du PDF comprise) et dictionnaire des colonnes en CSV."""
+    nom = FICHIERS[lang]
+    _ecrire(nom + ".csv", _csv(entete, [["" if o.get(k) is None else o.get(k) for k in cles] for o in lignes]),
+            "utf-8-sig")
+    corps = ",\n".join(json.dumps(dict(zip(entete, (None if o.get(k) == "" else o.get(k) for k in cles))), ensure_ascii=False, separators=(",", ":"))
+                       for o in lignes)
+    tete = json.dumps(meta, ensure_ascii=False, indent=1)
+    _ecrire(nom + ".json", '{"meta":%s,\n"%s":[\n%s\n]}\n' % (tete, cle_lignes, corps))
+    dico = _dico(lang)
+    _ecrire(DICOS[lang] + ".csv", _csv(list(dico[0]), [list(d.values()) for d in dico]), "utf-8-sig")
+
+
+def _ecrire_page(lignes, cles, meta, origin):
+    """Le fichier de la page : la forme compacte d'origine (lignes en tableaux
+    de valeurs, sans l'adresse du PDF : meta.pdf donne le fichier de chaque
+    numero), plus la definition de chaque colonne dans les trois langues pour
+    les bulles des en-tetes."""
+    meta = dict(meta)
     meta["pdf"] = {str(o["sitrep"]): o["source_pdf"].replace(origin, "") for o in lignes if o.get("source_pdf")}
+    meta["colonnes"] = [dict(c, definition={lg: _definition(c["cle"], lg) for lg in ("fr", "en", "sw")})
+                        for c in meta["colonnes"]]
+    meta["harmonisations"] = {d: {"province": h["province"], "deces": h["deces"]} for d, h in HARMONISATIONS.items()}
     sans_pdf = [k if k != "source_pdf" else None for k in cles]
-    with io.open(os.path.join(ROOT, "data", nom + ".json"), "w", encoding="utf-8") as f:
-        json.dump({"meta": meta, "lignes": [[o.get(k) if k else None for k in sans_pdf] for o in lignes]}, f,
-                  ensure_ascii=False, separators=(",", ":"))
+    _ecrire(PAGE + ".json", json.dumps(
+        {"meta": meta, "lignes": [[o.get(k) if k else None for k in sans_pdf] for o in lignes]},
+        ensure_ascii=False, separators=(",", ":")))
 
 
 def ecrire(origin="https://ebola-tracker.org"):
-    """Ecrit le CSV et le JSON, en francais et en anglais ; renvoie un resume
-    pour la page."""
+    """Ecrit le CSV, le JSON et le dictionnaire, en francais et en anglais,
+    puis le fichier compact de la page ; renvoie un resume pour la page."""
     lignes = construire(origin)
     cles = [c for c, _, _ in COLONNES]
     dates = sorted({o["date"] for o in lignes})
     zones = sorted({(o["province"], o["zone"]) for o in lignes if o["niveau"] == "zone"})
-    # Le JSON francais est celui que lit la page, dans les trois langues ;
-    # « en » donne a base.js le nom de chaque colonne dans le fichier anglais.
+    commun = {"licence": LICENCE, "debut": dates[0], "fin": dates[-1], "lignes": len(lignes)}
     meta = {
-        "titre": "Base de donnees de l'epidemie d'Ebola Bundibugyo en RDC (2026)",
-        "source": "Rapports de situation (SitRep) de l'Institut national de sante publique (INSP), RDC",
-        "licence": LICENCE, "citation": "Ebola Tracker (ebola-tracker.org), d'apres les SitRep de l'INSP",
+        "titre": "Base de données de l\u2019épidémie d\u2019Ebola Bundibugyo en RDC (2026)",
+        "source": "Rapports de situation (SitRep) de l\u2019Institut national de santé publique (INSP), RDC",
+        "licence": LICENCE, "citation": "Ebola Tracker (ebola-tracker.org), d\u2019après les SitRep de l\u2019INSP",
+        "avertissement": AVERTISSEMENT["fr"],
         "debut": dates[0], "fin": dates[-1], "lignes": len(lignes),
-        "colonnes": [{"cle": c, "en": COLONNES_EN[c], "groupe": g, "type": t} for c, g, t in COLONNES],
+        "dictionnaire": "%s/data/%s.csv" % (origin, DICOS["fr"]),
+        "colonnes": _dico("fr"),
     }
-    _ecrire_fichiers(FICHIERS["fr"], lignes, cles, cles, meta, origin)
+    _ecrire_fichiers("fr", lignes, cles, cles, meta, "lignes")
     meta_en = {
         "title": "Database of the 2026 Bundibugyo Ebola outbreak in the DRC",
         "source": "Situation reports (SitReps) of the National Institute of Public Health (INSP), DRC",
         "licence": LICENCE, "citation": "Ebola Tracker (ebola-tracker.org), from INSP SitReps",
+        "warning": AVERTISSEMENT["en"],
         "start": dates[0], "end": dates[-1], "rows": len(lignes),
-        "columns": [{"key": COLONNES_EN[c], "type": t} for c, g, t in COLONNES],
+        "dictionary": "%s/data/%s.csv" % (origin, DICOS["en"]),
+        "columns": _dico("en"),
     }
-    _ecrire_fichiers(FICHIERS["en"], [_ligne_en(o) for o in lignes], cles,
-                     [COLONNES_EN[c] for c in cles], meta_en, origin)
+    _ecrire_fichiers("en", [_ligne_en(o) for o in lignes], cles, [COLONNES_EN[c] for c in cles], meta_en, "rows")
+    # La page lit ce fichier dans les trois langues ; « en » donne a base.js
+    # le nom de chaque colonne dans le fichier anglais.
+    _ecrire_page(lignes, cles, dict(commun, colonnes=[{"cle": c, "en": COLONNES_EN[c], "groupe": g, "type": t}
+                                                      for c, g, t in COLONNES]), origin)
     return {"lignes": lignes, "dates": dates, "zones": zones}

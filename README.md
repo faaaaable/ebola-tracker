@@ -45,9 +45,12 @@ downloaded as CSV or JSON, in English or in French:
 |---|---|---|
 | CSV | [`data/ebola-drc-database.csv`](data/ebola-drc-database.csv) | [`data/base-ebola-rdc.csv`](data/base-ebola-rdc.csv) |
 | JSON | [`data/ebola-drc-database.json`](data/ebola-drc-database.json) | [`data/base-ebola-rdc.json`](data/base-ebola-rdc.json) |
+| Column dictionary | [`data/ebola-drc-database-dictionary.csv`](data/ebola-drc-database-dictionary.csv) | [`data/base-ebola-rdc-dictionnaire.csv`](data/base-ebola-rdc-dictionnaire.csv) |
 
-The column dictionary is on the [Database](https://ebola-tracker.org/en/database/)
-page. The other files in [`data/`](data/) are described in
+Country, province and zone rows overlap: **filter on the `level` column before
+adding up**. The dictionary gives each column's unit, whether the value is published
+by the bulletin or computed, and its definition; it is also on the
+[Database](https://ebola-tracker.org/en/database/) page. The other files in [`data/`](data/) are described in
 [`data/README.md`](data/README.md).
 
 ## Licences

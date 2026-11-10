@@ -4476,7 +4476,8 @@ def _bdd_fichiers(lang):
     ici, autre = ("fr", "en") if lang == "fr" else ("en", "fr")
     f = lambda v, ext: "/data/%s.%s" % (base_donnees.FICHIERS[v], ext)
     return {"bdd.csv": f(ici, "csv"), "bdd.json": f(ici, "json"),
-            "bdd.autreCsv": f(autre, "csv"), "bdd.autreJson": f(autre, "json")}
+            "bdd.autreCsv": f(autre, "csv"), "bdd.autreJson": f(autre, "json"),
+            "bdd.dicoCsv": "/data/%s.csv" % base_donnees.DICOS[ici]}
 
 
 def _bdd_dico(lang, strings_lang):

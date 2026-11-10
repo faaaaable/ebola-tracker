@@ -1,0 +1,29 @@
+﻿colonne,groupe,type,unite,origine,definition
+date,identification,date,AAAA-MM-JJ,identification,Date du rapport de situation dont la ligne est tirée.
+niveau,identification,txt,texte,identification,"Niveau de la ligne : pays, province ou zone. Les trois niveaux se recouvrent : filtrer sur cette colonne avant d’additionner."
+province,identification,txt,texte,identification,Province. Vide sur les lignes du pays.
+zone,identification,txt,texte,identification,"Zone de santé, sous le nom du dernier bulletin. Vide sur les lignes du pays et des provinces."
+sitrep,identification,int,nombre,identification,Numéro du rapport de situation (SitRep) de l’INSP dont la ligne est tirée.
+source_pdf,identification,txt,texte,identification,Adresse du PDF de ce SitRep. Vide sur une ligne reconstituée.
+mention,identification,txt,texte,identification,"Signale une ligne à part. « rattrapage » : l’écart couvre plus d’une journée (22 et 30 juillet). « reconstitue » : SitRep 142 jamais publié, jour calculé par soustraction à partir du 143. « harmonisation » : la source a corrigé ses séries ce jour-là (Ituri : +314 décès anciens le 30 octobre, retirés le 31) ; l’écart ne correspond pas à des cas ou décès nouveaux. « OMS Weekly Report … (lecture manuelle) » : valeur lue dans un rapport de l’OMS."
+cas,épidémie,int,nombre,publié,"Cas confirmés cumulés depuis le début de l’épidémie, tels que publiés par le bulletin."
+nouveaux_cas,épidémie,int,nombre,calculé,Écart de cas cumulés avec le relevé précédent du même territoire. Négatif : révision à la baisse par la source. Peut différer des nouveaux cas annoncés par le bulletin.
+ecart_jours,épidémie,int,jours,calculé,"Nombre de jours couverts par l’écart, depuis le relevé précédent du même territoire (1 = d’un jour au suivant)."
+deces,épidémie,int,nombre,publié,"Décès cumulés depuis le début de l’épidémie, tels que publiés par le bulletin."
+nouveaux_deces,épidémie,int,nombre,calculé,Écart de décès cumulés avec le relevé précédent du même territoire. Négatif : révision à la baisse par la source.
+letalite,épidémie,pct,%,calculé,"Létalité : décès cumulés divisés par cas confirmés cumulés, en pour cent."
+gueris,épidémie,int,nombre,publié,"Guéris cumulés, publiés pour le pays seulement."
+deces_communaute,riposte,int,nombre,publié,"Décès confirmés du jour survenus dans la communauté, depuis le 13 juillet."
+deces_cte,riposte,int,nombre,publié,"Décès confirmés du jour survenus en centre de traitement (CTE), depuis le 13 juillet. Par zone, certains ne sont rattachés à aucune zone et ne figurent qu’à la province."
+alertes_recues,riposte,int,nombre,publié,"Alertes reçues ce jour-là, depuis le 1er juin."
+alertes_validees,riposte,int,nombre,publié,Alertes validées comme cas suspects ce jour-là.
+labo_echantillons,riposte,int,nombre,publié,Échantillons analysés par les laboratoires ce jour-là.
+labo_positifs,riposte,int,nombre,publié,Échantillons positifs ce jour-là.
+labo_positivite,riposte,pct,%,calculé,"Positifs divisés par échantillons analysés, en pour cent ; seulement quand les deux sont publiés."
+cte_hospitalises,riposte,int,nombre,publié,Personnes hospitalisées en centre de traitement (CTE) ce jour-là.
+cte_lits,riposte,int,nombre,publié,Lits disponibles dans les CTE.
+cte_occupation,riposte,pct,%,"publié, sinon calculé","Taux d’occupation des lits publié par le bulletin ; s’il manque, hospitalisés divisés par lits."
+contacts_a_suivre,riposte,int,nombre,publié,Contacts à suivre ce jour-là.
+contacts_vus,riposte,int,nombre,publié,Contacts vus ce jour-là.
+contacts_vus_pct,riposte,pct,%,publié,"Part des contacts vus, telle que publiée par le bulletin."
+vaccines_cumul,riposte,int,nombre,publié,"Personnes vaccinées cumulées, publiées par province."

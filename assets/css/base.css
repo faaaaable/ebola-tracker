@@ -66,10 +66,11 @@
 .bdd-grille .f0{left:0;min-width:112px;} .bdd-grille .f1{left:112px;min-width:128px;} .bdd-grille .f2{left:240px;min-width:150px;box-shadow:inset -1px 0 0 var(--line);}
 .bdd-grille .vide{color:var(--ink-faint);}
 .bdd-grille .neg{color:var(--accent-critical);font-style:italic;}
-.bdd-grille .sur,.bdd-grille .rat,.bdd-grille .rec{display:inline-block;margin-left:4px;padding:0 4px;border-radius:3px;font-size:10px;font-weight:700;}
+.bdd-grille .sur,.bdd-grille .rat,.bdd-grille .rec,.bdd-grille .har{display:inline-block;margin-left:4px;padding:0 4px;border-radius:3px;font-size:10px;font-weight:700;}
 .bdd-grille .sur{background:#EFECE7;color:var(--ink-dim);}
 .bdd-grille .rat{background:#E9EEF2;color:var(--accent-strong);}
 .bdd-grille .rec{background:#F6E9D9;color:var(--accent-active);}
+.bdd-grille .har{background:#F4E4E1;color:var(--accent-critical);cursor:help;}
 .bdd-grille i.pt{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;}
 .bdd-grille a.pdf{font-weight:600;text-decoration:none;}
 .bdd-grille a.pdf:hover{text-decoration:underline;}
@@ -84,7 +85,12 @@
 @media (max-width:760px){
   .bdd-filtres .bdd-actions{margin-left:0;}
   .bdd-grille{height:70vh;}
-  .bdd-grille .f1{left:112px;min-width:100px;} .bdd-grille .f2{position:static;box-shadow:none;}
+  .bdd-grille .f0{min-width:96px;} .bdd-grille .f1{left:96px;min-width:100px;} .bdd-grille .f2{position:static;box-shadow:none;}
+  /* Vue Zones sur telephone (10 novembre 2026) : la date et la zone restent
+     figees, la province defile ; sinon trois colonnes figees ne laissaient
+     plus voir un seul chiffre. */
+  .bdd-grille.is-zone .f1{position:static;}
+  .bdd-grille.is-zone .f2{position:sticky;left:96px;min-width:104px;box-shadow:inset -1px 0 0 var(--line);}
 }
 
 /* Barres de defilement toujours visibles (9 octobre 2026) : sur Mac elles ne
