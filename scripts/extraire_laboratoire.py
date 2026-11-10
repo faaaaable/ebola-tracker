@@ -95,7 +95,9 @@ def section_laboratoire(texte):
 # « la » / « au ». On découpe la section aux repères.
 # « Le Nord-Kivu a confirmé… » (094) : la majuscule ouvre une phrase du bloc
 # rédigé des 090 a 094.
-REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bL[’']|\b[lL]e |\b[lL]a |\bau |\bà la |\ben )\s*(%s)\b" % PROVINCES_RE)
+# SitRep 178 : « \uf0b7 .Tshopo : 11 prélèvements … » — un point égaré entre
+# la puce et la province ; la Tshopo n'etait pas lue.
+REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bL[’']|\b[lL]e |\b[lL]a |\bau |\bà la |\ben )\s*\.?\s*(%s)\b" % PROVINCES_RE)
 
 ECHANTILLONS_RES = [
     # « 76 nouveaux échantillons collectés dont 39 ont été analysés » (B)
@@ -160,6 +162,8 @@ POSITIFS_RES = [
     re.compile(r"soit\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),
     re.compile(r"parmi\s+lesquels\s+(\d[\d ]{0,4}\d|\d)\s+positifs?", re.I),
     re.compile(r"confirmant\s+(\d[\d ]{0,4}\d|\d)\s+nouveaux\s+cas", re.I),
+    # SitRep 178, Tshopo : « 11 prélèvements (8 vivants, 3 décès), 2 nouveaux confirmés ».
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+nouveaux\s+confirm[ée]s\b", re.I),
     re.compile(r"\bn\s*=\s*(\d+)", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+positifs?\b", re.I),
 ]

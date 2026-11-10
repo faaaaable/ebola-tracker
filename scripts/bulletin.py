@@ -890,7 +890,23 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         if po and po.get("personnes") is not None and po.get("screenesPct") is not None:
             s7 = P("lettrePoeF" if FL else "lettrePoe", personnes=fmt(po["personnes"], lang), pct=pct(po["screenesPct"]))
             if po.get("refusScreening"):
-                s7 += " " + P("lettrePoeRefus", n=fmt(po["refusScreening"], lang))
+                # Par province depuis le 10 novembre 2026 : « 279 personnes
+                # ont refusé ce contrôle » (178) ne valait que pour le
+                # Haut-Uélé et se lisait comme un total national.
+                rp = {k: v for k, v in (po.get("refusParProvince") or {}).items() if v}
+                sp = po.get("refusSansProvince") or 0
+                n_r = fmt(po["refusScreening"], lang)
+                items_r = [P("lettreDecesItem", n=fmt(v, lang), the=forms(k)["the"], **{"in": forms(k)["in"]})
+                           for k, v in sorted(rp.items(), key=lambda x: -x[1])]
+                if "refusParProvince" not in po:
+                    s7 += " " + P("lettrePoeRefus", n=n_r)
+                elif not rp:
+                    s7 += " " + P("lettrePoeRefusSans", n=n_r)
+                elif len(rp) == 1 and not sp:
+                    k = next(iter(rp))
+                    s7 += " " + maj(P("lettrePoeRefusUne", n=n_r, the=forms(k)["the"], **{"in": forms(k)["in"]}))
+                else:
+                    s7 += " " + P("lettrePoeRefusDont" if sp else "lettrePoeRefusToutes", n=n_r, liste=_liste(items_r, et))
             # Les alertes et les corps interceptes aux postes, lus dans le
             # tableau PoE/PoC du bulletin ; la province qui fait au moins la
             # moitie des alertes est nommee (13 sur 18 au Bas-Uele le 24 oct.).

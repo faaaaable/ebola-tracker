@@ -1256,5 +1256,25 @@
         "Nord-Ubangi": 0
       }
     }
+  },
+  {
+    "date": "2026-11-08",
+    "confirmed": 10990,
+    "deaths": 5354,
+    "recovered": 2951,
+    "annonce": {
+      "cas": 70,
+      "deces": 31,
+      "provinces": {
+        "Ituri": 40,
+        "Nord-Kivu": 23,
+        "Haut-Uélé": 5,
+        "Tshopo": 2,
+        "Sud-Kivu": 0,
+        "Bas-Uélé": 0,
+        "Sud-Ubangi": 0,
+        "Nord-Ubangi": 0
+      }
+    }
   }
 ]

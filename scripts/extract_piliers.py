@@ -516,6 +516,12 @@ def lire_vaccination(corps, texte_entier):
         m = re.search(r"au cumul,?\s+" + NUM + r"\s+personnes\s+sur\s+\d[\d  ]*\s+ciblées\s*\([^)]*\)\s+ont\s+été\s+vaccinées", phr)
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
+        # « Nord Kivu : 2 599 vaccinés dans 4 ZS (Beni 75,9 %) … Stock épuisé
+        # (2 600 doses reçues, 2 599 utilisées) » (178) : un cumul provincial,
+        # le stock recu depuis le debut l'atteste.
+        m = re.search(NUM + r" vaccinés dans \d+ ZS\b", phr)
+        if m:
+            pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         m = re.search(r"au profit de " + NUM + r" personnes", phr)
         if m and ("vaccin" in phr.lower()):
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
@@ -525,7 +531,7 @@ def lire_vaccination(corps, texte_entier):
         if m and phr[max(0, m.start() - 1):m.start()] != "/":
             pose(_province_ici(m), entier(m.group(1)))
         prec = phr
-    rupture = bool(re.search(r"[Rr]upture de stock d[’']Ervebo|stock résiduel à zéro", t))
+    rupture = bool(re.search(r"[Rr]upture de stock d[’']Ervebo|stock résiduel à zéro|[Ss]tock épuisé", t))
     detail = lire_vaccination_detail(corps)
     # Le cumul detaille fait foi quand il existe : il vient de la tournure
     # explicite « N ont été vaccinées à ce jour », la plus sure des deux.
@@ -597,10 +603,63 @@ def lire_poe(corps):
         p = re.findall(r"([\d,]+)\s*%", m.group(1))
         if p:
             pct = float(p[-1].replace(",", "."))
-    refus = sum(entier(x) for x in re.findall(NUM + r" refus de (?:screening|dépistage)", " ".join(t.split())))
+    refus_prov, sans_prov = lire_refus(t)
+    refus = sum(refus_prov.values()) + sans_prov
     if personnes is None and pct is None and not refus:
         return None
-    return {"personnes": personnes, "screenesPct": pct, "refusScreening": refus or 0}
+    out = {"personnes": personnes, "screenesPct": pct, "refusScreening": refus or 0}
+    if refus:
+        out["refusParProvince"] = refus_prov
+        out["refusSansProvince"] = sans_prov
+    return out
+
+
+# Les refus de screening, PAR PROVINCE (10 novembre 2026). La somme seule
+# faisait dire a la lettre « 279 personnes ont refusé ce contrôle » quand le
+# 178 ne citait que le Haut-Uélé : on croyait lire un total national. Le
+# bulletin place la province apres le nombre (« 2 139 refus de screening
+# (2,64 %) ont été enregistrés au Nord-Kivu, 465 (1 %) au Haut-Uélé … et 4
+# (0,08 %) à la Tshopo », 091) ou en tete de la proposition (« au Nord-Kivu,
+# les 18 sites ont rapporté (100 %) avec 2 100 refus », 089 ; « Haut-Uele :
+# 17 293 voyageurs … 279 refus de screening », 178). Les nombres qui suivent
+# avec leur province (« et 58 au Haut-Uélé », 095) n'etaient pas comptes.
+# Sans province lisible (« 48 refus de screening (1,2 %) ont été
+# enregistrés », 089), le nombre reste a part : le site ne l'attribue pas.
+_PROV_REFUS = r"(Ituri|Nord.Kivu|Sud.Kivu|Haut.U[ée]l[ée]|Bas.U[ée]l[ée]|Tshopo|Sud.Ubangi|Nord.Ubangi)"
+_PREP = r"(?:au|à la|en|dans le|dans la)\s+"
+
+
+def _prov_refus(nom):
+    n = nom.replace(" ", "-").replace("Uele", "Uélé").replace("Uelé", "Uélé").replace("Uéle", "Uélé")
+    return n if n in ("Ituri", "Nord-Kivu", "Sud-Kivu", "Haut-Uélé", "Bas-Uélé", "Tshopo", "Sud-Ubangi", "Nord-Ubangi") else None
+
+
+def lire_refus(corps):
+    t = " ".join(corps.split())
+    t = re.sub(r"\b(Bas|Haut|Nord|Sud)-\s+(?=[A-ZÉ])", r"\1-", t)
+    par, sans = {}, 0
+    def ajoute(prov, n):
+        par[prov] = par.get(prov, 0) + n
+    for m in re.finditer(NUM + r" refus de (?:screening|dépistage)", t):
+        n = entier(m.group(1))
+        apres = t[m.end():m.end() + 120]
+        f = re.match(r"\s*(?:\([^)]*\)\s*)?(?:ont été enregistrés\s+)?(?:et " + NUM + r" refus de lavage des mains\s+)?" + _PREP + _PROV_REFUS, apres)
+        prov = _prov_refus(f.group(f.lastindex)) if f else None
+        if prov is None:
+            tete = re.split(r"[;•\uf0b7]|\.\s", t[max(0, m.start() - 400):m.start()])[-1]
+            p = re.search(_PROV_REFUS, tete)
+            prov = _prov_refus(p.group(1)) if p else None
+        if prov:
+            ajoute(prov, n)
+        else:
+            sans += n
+        # Les nombres suivants de la meme phrase, chacun avec sa province.
+        suite = re.split(r";|motivés|\.\s", t[m.end():m.end() + 400])[0]
+        for s2 in re.finditer(r"(?:,|\bet)\s+" + NUM + r"\s*(?:\([^)]*%\)\s*)?" + _PREP + _PROV_REFUS, suite):
+            p2 = _prov_refus(s2.group(2))
+            if p2:
+                ajoute(p2, entier(s2.group(1)))
+    return par, sans
 
 
 def extraire(num, chemin, date):

@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-11-07"
+  "fin": "2026-11-08"
  },
  "parDate": [
   {
@@ -1077,7 +1077,11 @@
    "poe": {
     "personnes": null,
     "screenesPct": null,
-    "refusScreening": 2148
+    "refusScreening": 2148,
+    "refusParProvince": {
+     "Nord-Kivu": 2100
+    },
+    "refusSansProvince": 48
    },
    "rings": null,
    "eds": {
@@ -1122,7 +1126,12 @@
    "poe": {
     "personnes": null,
     "screenesPct": null,
-    "refusScreening": 86
+    "refusScreening": 124,
+    "refusParProvince": {
+     "Haut-Uélé": 86,
+     "Tshopo": 38
+    },
+    "refusSansProvince": 0
    },
    "rings": {
     "ouverts": 25,
@@ -1170,7 +1179,13 @@
    "poe": {
     "personnes": null,
     "screenesPct": null,
-    "refusScreening": 2139
+    "refusScreening": 2608,
+    "refusParProvince": {
+     "Nord-Kivu": 2139,
+     "Haut-Uélé": 465,
+     "Tshopo": 4
+    },
+    "refusSansProvince": 0
    },
    "rings": {
     "ouverts": 23,
@@ -1214,7 +1229,11 @@
    "poe": {
     "personnes": null,
     "screenesPct": null,
-    "refusScreening": 2035
+    "refusScreening": 2035,
+    "refusParProvince": {
+     "Nord-Kivu": 2035
+    },
+    "refusSansProvince": 0
    },
    "rings": null,
    "eds": {
@@ -1259,7 +1278,11 @@
    "poe": {
     "personnes": null,
     "screenesPct": 97.5,
-    "refusScreening": 2187
+    "refusScreening": 2187,
+    "refusParProvince": {
+     "Nord-Kivu": 2187
+    },
+    "refusSansProvince": 0
    },
    "rings": null,
    "eds": {
@@ -1300,7 +1323,11 @@
    "poe": {
     "personnes": null,
     "screenesPct": 96.4,
-    "refusScreening": 2373
+    "refusScreening": 2373,
+    "refusParProvince": {
+     "Nord-Kivu": 2373
+    },
+    "refusSansProvince": 0
    },
    "rings": null,
    "eds": {
@@ -1341,7 +1368,12 @@
    "poe": {
     "personnes": null,
     "screenesPct": 97.5,
-    "refusScreening": 2383
+    "refusScreening": 2441,
+    "refusParProvince": {
+     "Nord-Kivu": 2383,
+     "Haut-Uélé": 58
+    },
+    "refusSansProvince": 0
    },
    "rings": {
     "ouverts": 7,
@@ -2066,7 +2098,11 @@
    "poe": {
     "personnes": 255169,
     "screenesPct": 98.1,
-    "refusScreening": 209
+    "refusScreening": 209,
+    "refusParProvince": {
+     "Haut-Uélé": 209
+    },
+    "refusSansProvince": 0
    },
    "rings": {
     "ouverts": 20,
@@ -2166,7 +2202,12 @@
    "poe": {
     "personnes": 258604,
     "screenesPct": 98.2,
-    "refusScreening": 2809
+    "refusScreening": 2809,
+    "refusParProvince": {
+     "Ituri": 2581,
+     "Haut-Uélé": 228
+    },
+    "refusSansProvince": 0
    },
    "rings": {
     "ouverts": 31,
@@ -5866,6 +5907,52 @@
    "rings": null,
    "eds": null,
    "vaccination": null,
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-11-08",
+   "sitrepNumber": "178",
+   "poe": {
+    "personnes": 276403,
+    "screenesPct": 98.0,
+    "refusScreening": 279,
+    "refusParProvince": {
+     "Haut-Uélé": 279
+    },
+    "refusSansProvince": 0
+   },
+   "rings": null,
+   "eds": {
+    "alertes": null,
+    "realisees": 77,
+    "swabes": 125,
+    "nonSwabes": null,
+    "provinces": {
+     "realisees": 1,
+     "swabes": 3
+    },
+    "provincesNoms": [
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "realisees": [
+      "Ituri"
+     ],
+     "swabes": [
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Nord-Kivu": 2599
+    },
+    "rupture": true
+   },
    "source": "SitRep INSP (automatique)"
   }
  ]

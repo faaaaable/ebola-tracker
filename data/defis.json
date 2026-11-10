@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-07"
+    "fin": "2026-11-08"
   },
   "parDate": [
     {
@@ -9001,6 +9001,84 @@
             "Haut-Uélé",
             "Bas-Uélé"
           ]
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-08",
+      "sitrepNumber": "178",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "Insécurité sur l’axe Bolebole, salaires impayés, absence d’ambulance, et pression des services étatiques à PK6 qui laissent passer les voyageurs sans dépistage"
+          ],
+          "provinces": []
+        },
+        {
+          "pilier": "laboratoire",
+          "titre": "Laboratoire",
+          "items": [
+            "pré-rupture de gasoil (incinérateur et groupe), rupture de réactif (tampon MVE) et SWAB invalides persistants."
+          ],
+          "provinces": [
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "Rupture de sang. Grève du personnel du CTE Kasenyi (impaiement)."
+          ],
+          "provinces": [
+            "Ituri"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique",
+          "items": [
+            "démotivation (non-paiement), réseau, intrants nutritionnels, eau et énergie."
+          ],
+          "provinces": [
+            "Haut-Uélé"
+          ]
+        },
+        {
+          "pilier": "crec",
+          "titre": "Communication sur les risques et engagement communautaire (CREC)",
+          "items": [
+            "démotivation des acteurs (axe Nizi) et fiches de rapportage insuffisantes."
+          ],
+          "provinces": [
+            "Ituri"
+          ]
+        },
+        {
+          "pilier": "crec",
+          "titre": "Communication sur les risques et engagement communautaire (CREC)",
+          "items": [
+            "mobilité et kit informatique."
+          ],
+          "provinces": [
+            "Haut-Uélé"
+          ]
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Insécurité : ADF à Mabalako (44 corps recensés, tentative d’incendie du CTE de Beni), Bafwasende en Tshopo (activités suspendues), axe Bolebole. Au Haut-Uélé ; grèves dans les quatre provinces en raison des salaires impayés"
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Tshopo",
+            "Haut-Uélé"
+          ],
+          "horsDefis": "2.9.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"

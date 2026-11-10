@@ -12488,6 +12488,92 @@
 "contacts"
 ]
 }
+],
+"démotivation des acteurs axe nizi et fiches de rapportage insuffisantes": [
+{
+"obstacles": [
+"impayes",
+"ruptures"
+],
+"province": "Ituri"
+}
+],
+"démotivation non paiement réseau intrants nutritionnels eau et énergie": [
+{
+"obstacles": [
+"impayes",
+"ruptures"
+],
+"province": "Haut-Uélé"
+}
+],
+"insécurité adf à mabalako # corps recensés tentative d incendie du cte de beni bafwasende en tshopo activités suspendues axe bolebole au haut uélé grèves dans les quatre provinces en raison des salaires impayés": [
+{
+"obstacles": [
+"attaques",
+"insecurite"
+],
+"province": "Nord-Kivu"
+},
+{
+"obstacles": [
+"insecurite"
+],
+"province": "Tshopo"
+},
+{
+"obstacles": [
+"insecurite"
+],
+"province": "Haut-Uélé"
+},
+{
+"obstacles": [
+"impayes"
+],
+"province": "aucune"
+}
+],
+"insécurité sur l axe bolebole salaires impayés absence d ambulance et pression des services étatiques à pk# qui laissent passer les voyageurs sans dépistage": [
+{
+"obstacles": [
+"insecurite"
+],
+"province": "Haut-Uélé"
+},
+{
+"obstacles": [
+"impayes",
+"poc",
+"ruptures"
+],
+"province": "aucune"
+}
+],
+"mobilité et kit informatique": [
+{
+"obstacles": [
+"ruptures"
+],
+"province": "Haut-Uélé"
+}
+],
+"pré rupture de gasoil incinérateur et groupe rupture de réactif tampon mve et swab invalides persistants": [
+{
+"obstacles": [
+"ruptures"
+],
+"province": "Tshopo"
+}
+],
+"rupture de sang grève du personnel du cte kasenyi impaiement": [
+{
+"obstacles": [
+"impayes",
+"ruptures"
+],
+"province": "Ituri"
+}
 ]
 }
 }

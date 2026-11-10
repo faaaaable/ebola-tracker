@@ -76,6 +76,9 @@ TITRE_CAPITALES = re.compile(r'(?m)^\s*(?:[•▪]\s*)?[A-ZÉÈÀÇ][A-ZÉÈÀÇ
 # SitRep 175 : le titre « Laboratoire » arrive seul sur sa ligne, sans
 # numero, et se collait a la fin du defi PoE/PoC qui le precede.
 TITRE_SEUL = re.compile(r'(?m)^[ \t]*Laboratoire[ \t]*$')
+# SitRep 178 : « Défis : » seul sur sa ligne sous les PoE/PoC, suivi du
+# « Tableau 5. … » que le bloc avalait en entier.
+TITRE_TABLEAU = re.compile(r'(?m)^[ \t]*Tableau[ \t]+\d+\.')
 
 
 def sans_accent(t):
@@ -127,6 +130,12 @@ def titre_parent(texte, position):
         if t.startswith(("•", "▪")) or len(t.split()) > 14:
             continue
         parent = t
+    # SitRep 178 : le defi Tshopo du laboratoire suit « Laboratoire » seul sur
+    # sa ligne, sans numero ; sans cela il tombait sous les PoE/PoC.
+    for m in TITRE_SEUL.finditer(texte, 0, position):
+        if not any(x.start() > m.start() for x in TITRE_NUMEROTE.finditer(texte, m.end(), position)
+                   if not sans_accent(propre(x.group(2))).lower().startswith(("principales action", "defi"))):
+            parent = "Laboratoire"
     return parent
 
 
@@ -147,7 +156,8 @@ def fin_du_bloc(texte, debut):
     premier vrai titre."""
     fins = [x.start() for x in (TITRE_NUMEROTE.search(texte, debut),
                                 TITRE_CAPITALES.search(texte, debut),
-                                TITRE_SEUL.search(texte, debut)) if x]
+                                TITRE_SEUL.search(texte, debut),
+                                TITRE_TABLEAU.search(texte, debut)) if x]
     fin = min(fins) if fins else len(texte)
     vide = not re.sub(r'(?m)^\s*\d{1,2}\s*$', '', texte[debut:fin]).strip()
     m = TITRE_NUMEROTE.match(texte, fin) if vide else None
@@ -159,7 +169,16 @@ def fin_du_bloc(texte, debut):
     return fin, None
 
 
-INLINE_DEFI = re.compile(r'(?<![\w])D[ée]fis?\s*:\s*([^\n]*(?:\n(?!\s*(?:\d+(?:\.\d+)+\.?\s|[•▪]))[^\n]*)*)')
+INLINE_DEFI = re.compile(r'(?<![\w])D[ée]fis?\s*:\s*([^\n]*(?:\n(?!\s*(?:\d+(?:\.\d+)+\.?\s|[•▪\uf0b7]))[^\n]*)*)')
+
+
+def province_de_la_puce(texte, position):
+    """SitRep 178 : « Haut-Uele : … Défis : mobilité … » — la province est
+    en tete de la puce, pas dans la phrase du defi."""
+    debut = max(texte.rfind(c, 0, position) for c in ("\uf0b7", "•", "▪"))
+    tete = texte[debut + 1:debut + 40] if debut >= 0 else ""
+    tete = tete.split(":", 1)[0] if ":" in tete else ""
+    return provinces_citees(tete)
 
 
 VIDES = []   # (titre) des sections « Defis » sans aucun texte : une perte a signaler
@@ -199,14 +218,18 @@ def blocs_defis(texte):
     for m in INLINE_DEFI.finditer(texte):
         if any(a <= m.start() < b for a, b in plages):
             continue
-        phrase = propre(m.group(1))
-        cut = re.search(r'\.(?:\s|$)', phrase)
+        brut = m.group(1)
+        # SitRep 178 : « Défi : Rupture de sang. Grève du personnel … » — la
+        # phrase s'arrete au point de fin de ligne, pas au premier point.
+        fin_ligne = re.search(r'\.[ \t]*(?:\n|$)', brut)
+        phrase = propre(brut[:fin_ligne.start() + 1]) if fin_ligne else propre(brut)
+        cut = None if fin_ligne else re.search(r'\.(?:\s|$)', phrase)
         phrase = phrase[:cut.end()].strip() if cut else phrase
         if len(phrase) < 25:
             continue
         parent = titre_parent(texte, m.start())
         sorties.append({"pilier": pilier_du_titre(parent), "titre": parent, "items": [phrase],
-                        "provinces": provinces_citees(phrase)})
+                        "provinces": provinces_citees(phrase) or province_de_la_puce(texte, m.start())})
     return sorties
 
 
