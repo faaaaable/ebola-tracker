@@ -2651,11 +2651,40 @@ function renderOneChartBrut(canvas, chartMode){
       }
       /* Le dernier cumul connu est reporte tant que le bulletin n'en publie
          pas de nouveau — meme report que la lettre. */
-      const report = {};
+      /* SAUF AU-DELA DE 14 JOURS SANS CHIFFRE (11 novembre 2026) : la Tshopo
+         ne publie aucun cumul du 27 septembre (4 953) au 6 novembre
+         (13 036). Reporte a plat, le 4 953 faisait un palier de 40 jours
+         puis une marche de 8 000 en un jour, lue comme une flambee. Les
+         jours du trou restent vides, la courbe relie les deux releves en
+         pointilles (segment ci-dessous) et la note nomme la periode. */
+      /* 14 et non 7 : a 7, six trous de 7 a 13 jours (Bas-Uele, Ituri,
+         Nord-Kivu) chargeaient la note sans fausser la lecture. */
+      const TROU_JOURS = 14;
+      const report = {}, dernierePub = {}, trous = [];
       const series = {}; noms.forEach(n => { series[n] = []; });
-      jours.forEach(d => {
-        Object.assign(report, parDate[d] || {});
-        noms.forEach(n => series[n].push(report[n] === undefined ? null : report[n]));
+      jours.forEach((d, i) => {
+        const pub = parDate[d] || {};
+        noms.forEach(n => {
+          if(pub[n] !== undefined){
+            if(dernierePub[n] !== undefined && i - dernierePub[n] > TROU_JOURS)
+              trous.push({ nom:n, du:jours[dernierePub[n] + 1], au:jours[i - 1] });
+            dernierePub[n] = i;
+          }
+        });
+        Object.assign(report, pub);
+        noms.forEach(n => series[n].push(report[n] === undefined || (dernierePub[n] !== undefined && i - dernierePub[n] > TROU_JOURS) ? null : report[n]));
+      });
+      /* Les jours du trou portent une droite entre les deux releves, tracee
+         en pointilles (segment ci-dessous) et muette a l'infobulle : ce ne
+         sont pas des chiffres, seulement le trait qui les relie. */
+      const interp = {}; noms.forEach(n => { interp[n] = new Set(); });
+      trous.forEach(t => {
+        const i0 = jours.indexOf(t.du), i1 = jours.indexOf(t.au);
+        const a = series[t.nom][i0 - 1], b = series[t.nom][i1 + 1];
+        for(let i = i0; i <= i1; i++){
+          series[t.nom][i] = (a == null || b == null) ? null : a + (b - a) * (i - i0 + 1) / (i1 - i0 + 2);
+          interp[t.nom].add(i);
+        }
       });
       const data = { labels:jours.map(frDate), datasets:noms.map(nom => ({
         label:nom, data:series[nom],
@@ -2670,6 +2699,8 @@ function renderOneChartBrut(canvas, chartMode){
            releves seulement, la courbe lissee passait sous le premier chiffre
            — un cumul qui recule. */
         cubicInterpolationMode: provRip ? 'monotone' : 'default',
+        /* Le trou de publication : relie en pointilles. */
+        segment:{ borderDash: ctx => (interp[nom].has(ctx.p0DataIndex) || interp[nom].has(ctx.p1DataIndex) ? [5, 4] : undefined) },
       })) };
 
       const opts = { responsive:true, maintainAspectRatio:false,
@@ -2691,7 +2722,8 @@ function renderOneChartBrut(canvas, chartMode){
                      2026) : la legende nomme deja les
                      provinces. */
                   boutsDeCourbe:{ actif: !surTelephone(), sansNom:true },
-                  tooltip:infobulle({ callbacks:{
+                  tooltip:infobulle({ filter:it => !interp[data.datasets[it.datasetIndex].label].has(it.dataIndex),
+                    callbacks:{
                     label:c => c.dataset.label + ' : ' + fmt(c.parsed.y),
                     /* La revision passe de la note a l'infobulle du point
                        (5 novembre 2026, notes reduites a l'essentiel) : le
@@ -2731,6 +2763,9 @@ function renderOneChartBrut(canvas, chartMode){
         if(debutSerie < '2026-08-28') bouts.push(tr('chartNoteVaccGap')());
         if(provRip === 'Bas-Uélé') bouts.push(tr('chartNoteVaccButa')());
       }
+      trous.filter(t => !provRip || nomProvinceCanonique(t.nom) === provRip).forEach(t => {
+        bouts.push(tr('vaccChartTrouNote')(provRip ? null : t.nom, frDate(t.du), frDate(t.au)));
+      });
       revisions.filter(r => !provRip || nomProvinceCanonique(r.nom) === provRip).forEach(r => {
         bouts.push(tr('vaccChartRevision')(frDate(r.date), r.nom, fmt(r.publie), fmt(r.retenu)));
       });

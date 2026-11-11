@@ -21,7 +21,8 @@ ni chiffre ne l'accompagnent. Le point rouge du dernier bulletin est un
 element HTML : un cercle dans un SVG etire deviendrait une ellipse.
 
 Les centres de traitement : le calcul du site (tous les patients / lits
-declares, regle du 20 septembre), pour la province la plus chargee — les
+declares, regle du 20 septembre), pour le Nord-Kivu (depuis le 11 novembre
+2026 ; avant, la province la plus chargee du dernier bulletin) — les
 bulletins ne donnent pas les lits centre par centre. Affiche en « patients pour
 100 lits », sans « % » (regle du 12 octobre 2026) : le pourcentage reste
 reserve au taux d'occupation imprime par le bulletin, sinon deux chiffres
@@ -42,6 +43,7 @@ PROV_NOM = {"en": {"Nord-Kivu": "North Kivu", "Sud-Kivu": "South Kivu"},
 # finit en haut a droite ; sans fond, elle part du bord de la colonne
 # (13 octobre 2026), le point garde un peu de marge a droite
 X0, X1, Y_DEB, Y_FIN = 0, 975, 920, 180
+PROV_SATURATION = "Nord-Kivu"
 
 
 def _j(chemin):
@@ -58,12 +60,25 @@ def chiffres():
     """Les six chiffres, au dernier bulletin."""
     latest = _j("data/latest.json")["national"]
     cf = _j("data/contacts-followup.json")[-1]["contacts"]
-    cte = _j("data/cte.json")["parDate"][-1]
+    points = _j("data/cte.json")["parDate"]
     sitreps = [x for x in _j("data/sitreps.json") if x.get("confirmed") is not None]
-    # la province ou les centres sont le plus charges
-    charges = [(100 * p["hospitalises"] / p["lits"], nom) for nom, p in cte["provinces"].items()
-               if p.get("lits") and p.get("hospitalises") is not None]
-    p100, prov = max(charges) if charges else (None, None)
+    # Toujours le Nord-Kivu (11 novembre 2026) : la province la plus chargee
+    # du dernier bulletin devenait la Tshopo (12 pour 100 lits au 179) quand
+    # les bulletins cessaient de publier les lits du Nord-Kivu et de l'Ituri.
+    # Son dernier chiffre calculable de moins de 7 jours, date s'il n'est pas
+    # du dernier bulletin ; au-dela, rien. Jamais des lits d'un bulletin
+    # rapportes aux patients d'un autre.
+    p100, date_p100 = None, None
+    fin = D(points[-1]["date"])
+    for pt in reversed(points):
+        if (fin - D(pt["date"])).days >= 7:
+            break
+        nk = pt["provinces"].get(PROV_SATURATION) or {}
+        if nk.get("lits") and nk.get("hospitalises") is not None:
+            p100 = 100 * nk["hospitalises"] / nk["lits"]
+            date_p100 = None if pt is points[-1] else D(pt["date"])
+            break
+    prov = PROV_SATURATION
     # Les bulletins ne comptent pas les attaques, ils les decrivent : on compte
     # les bulletins dont la section « Defis » en signale (obstacle « attaques »
     # du codage a la main, data/defis-codage.json).
@@ -72,12 +87,12 @@ def chiffres():
     att = len({e[1] for e in ent if any("attaques" in a["obstacles"] for a in e[3])})
     return {
         "vus": cf["vus"], "nonVus": cf["aSuivre"] - cf["vus"], "taux": latest.get("contactsFollowUpRate"),
-        "p100": p100, "prov": prov, "attaques": att, "bulletins": len({e[1] for e in ent}),
+        "p100": p100, "prov": prov, "dateP100": date_p100, "attaques": att, "bulletins": len({e[1] for e in ent}),
         "serie": [(D(x["date"]), x["confirmed"]) for x in sitreps],
     }
 
 
-def section_html(lang, t, vaccines, url_riposte, url_defis):
+def section_html(lang, t, vaccines, url_riposte, url_defis, mois=None):
     """Le bloc des deux camps et de la courbe. `t` : chaines de la langue ;
     `vaccines` : le total deja calcule et formate pour la page Riposte
     (vaccination_seed de build_pages), pour que les deux pages disent le meme.
@@ -86,6 +101,8 @@ def section_html(lang, t, vaccines, url_riposte, url_defis):
     c = chiffres(); nb = lambda n: _nb(n, lang)
     pc = lambda v: "%d%s" % (round(v), "\u202f%" if lang == "fr" else "%")
     prov = PROV_NOM.get(lang, {}).get(c["prov"], c["prov"])
+    if c["dateP100"] and mois:
+        prov += ", %d %s" % (c["dateP100"].day, mois[c["dateP100"].month - 1])
     r = [(nb(c["vus"]), t["faKVus"]), (pc(c["taux"]) if c["taux"] is not None else "—", t["faKTaux"]), (vaccines or "—", t["faKVacc"])]
     d = [(nb(c["nonVus"]), t["faKNonVus"]),
          (nb(c["p100"]) if c["p100"] is not None else "—", t["faKP100"].replace("{p}", prov or "")),

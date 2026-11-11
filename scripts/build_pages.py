@@ -5291,7 +5291,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         # six vignettes sans texte, dessinees dans la langue de la page.
         values["vis.vitrine"] = visuels.vitrine_html(lang, i18n_lang["months"], urls.path("visuels", lang))
         values["face.html"] = face_accueil.section_html(lang, strings_lang, values.get("seed.ripVaccines"),
-                                                        urls.path("riposte", lang), urls.path("defis", lang))
+                                                        urls.path("riposte", lang), urls.path("defis", lang),
+                                                        i18n_lang["months"])
         # La Lettre (3 novembre 2026,
         # option 3b) : la derniere lettre en encart et le formulaire Brevo.
         values["lettre.accueil"] = lettre_accueil.section_html(
