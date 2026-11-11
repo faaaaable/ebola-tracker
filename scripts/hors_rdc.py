@@ -23,6 +23,7 @@ import hashlib
 import io
 import json
 import os
+import re
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 MOIS = {
@@ -647,3 +648,40 @@ def resumes_html(lang, liens):
     relie = doc.get("relie")
     lien = ('<h2 class="pp-t">%s</h2><p>%s</p>' % (_esc(relie["titre"][lang]), _esc(relie["texte"][lang]))) if relie else ""
     return '<div class="ap2-resumes">%s</div>%s' % (pays, lien)
+
+
+# ---- Chapitres numerotes des pages pays (11 novembre 2026) -----------------
+# Comme Le virus, Riposte et les provinces : un numero dans la barre des
+# parties et, en tete de chaque section, l'en-tete .chap-ouv (grand numero,
+# titre, chapeau). Le titre et le chapeau sont repris du HTML existant
+# (h2 + p.pp-st), rien n'est redige en plus.
+_TITRE = re.compile(r'<h2(?: class="[^"]*")?>(.*?)</h2>(?:\s*<p class="pp-st">(.*?)</p>)?', re.S)
+
+
+def chap_tete(html, num):
+    """(en-tete numerote, reste du HTML sans son titre)."""
+    m = _TITRE.search(html)
+    if not m:
+        return "", html
+    # Un chapeau commence par une majuscule (« cas confirmés cumulés… »).
+    chapo = '<p class="chap-chapo">%s</p>' % (m.group(2)[:1].upper() + m.group(2)[1:]) if m.group(2) else ""
+    tete = ('    <header class="chap-ouv"><span class="chap-num">%02d</span><div><h2 class="chap-t">%s</h2>%s</div></header>\n'
+            % (num, m.group(1), chapo))
+    return tete, html[:m.start()] + html[m.end():]
+
+
+def chap_section(html, num):
+    """Une section complete (<section ...>...</section>) passee en chapitre :
+    classe chap, en-tete numerote, corps dans .chap-corps."""
+    m = re.match(r'(\s*<section class=")([^"]*)("[^>]*>)(.*)(</section>\s*)$', html, re.S)
+    if not m:
+        return html
+    tete, corps = chap_tete(m.group(4), num)
+    # Centrage et colonne de lecture vont au corps : l'en-tete reste cale a
+    # gauche, comme sur les autres pages.
+    classes = m.group(2).split()
+    corps_cl = [c for c in classes if c in ("pp-centre", "pp-lire")]
+    section_cl = [c for c in classes if c not in corps_cl] + ["chap"]
+    return '%s%s%s\n%s    <div class="%s">%s</div>\n  %s' % (
+        m.group(1), " ".join(section_cl), m.group(3), tete, " ".join(["chap-corps"] + corps_cl), corps, m.group(5))
+

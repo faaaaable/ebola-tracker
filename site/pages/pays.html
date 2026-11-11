@@ -3,32 +3,40 @@
        « Situation au », chiffres, carte), chronologie « Jour apres jour »,
        escalier des cas, recit complet (deplie), questions (FAQPage), sources. Barre des parties sous l'en-tete et, pour le
        Kenya, carte du parcours du premier malade (20 octobre 2026).
-       Contenu : data/autres-pays.json, rendu par scripts/hors_rdc.py. -->
+       Contenu : data/autres-pays.json, rendu par scripts/hors_rdc.py. Chapitres
+       numerotes depuis le 11 novembre 2026 (hors_rdc.chap_tete / chap_section). -->
 {{pays.entete}}
 {{pays.sousnav}}
 {{pays.parcours}}
 
-  <section class="section pp-lire" id="chronologie">
+  <section class="section chap" id="chronologie">
+{{pays.chronologieTete}}    <div class="chap-corps pp-lire">
 {{pays.chronologie}}
+    </div>
   </section>
 {{pays.courbe}}
-  <section class="section pp-lire" id="recit">
+  <section class="section chap" id="recit">
+{{pays.recitTete}}    <div class="chap-corps pp-lire">
 {{pays.recit}}
-  </section>
-
-  <section class="section" id="questions">
-    <h2 class="ap-q-titre">{{t.paysQuestions}}</h2>
-    <div class="faq-f1">
-{{pays.questions}}
     </div>
   </section>
 
-  <section class="section pp-lire" id="sources">
+  <section class="section chap" id="questions">
+{{pays.questionsTete}}    <div class="chap-corps">
+    <div class="faq-f1">
+{{pays.questions}}
+    </div>
+    </div>
+  </section>
+
+  <section class="section chap" id="sources">
+{{pays.sourcesTete}}    <div class="chap-corps pp-lire">
 {{pays.sources}}
     <div class="faq-fin ap-voir">
       <h2>{{t.paysVoirAussi}}</h2>
 {{pays.poe}}
       <p>{{pays.autres}} <a href="{{url.autres-pays}}">{{t.autresPaysLienAccueil}} →</a> <a href="{{url.chronologie}}">{{t.navTimeline}} →</a>{{pays.carte}}</p>
+    </div>
     </div>
   </section>
 

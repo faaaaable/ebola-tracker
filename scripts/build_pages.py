@@ -5258,8 +5258,22 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         parties += [("cas", hors_rdc.LIB[lang]["courbe"])] if courbe else []
         parties += [("recit", hors_rdc.LIB[lang]["recit"]), ("questions", strings_lang["paysQuestions"]),
                     ("sources", strings_lang["autresPaysSources"])]
-        values["pays.sousnav"] = ('  <nav class="pp-sousnav" aria-label="%s"><div>%s</div></nav>'
-                                  % (esc(meta["h1"]), "".join('<a href="#%s">%s</a>' % (i, esc(l)) for i, l in parties)))
+        # Chapitres numerotes (11 novembre 2026), comme Le virus, Riposte et
+        # les provinces : le numero suit l'ordre de la barre, sans trou d'un
+        # pays a l'autre (le Kenya seul a « Les cas », Kenya et Nigeria un
+        # parcours).
+        num = {i: n for n, (i, _) in enumerate(parties, 1)}
+        values["pays.sousnav"] = ('  <nav class="pp-sousnav chap-nav" aria-label="%s"><div>%s</div></nav>'
+                                  % (esc(meta["h1"]), "".join('<a href="#%s"><b class="chap-nav-n">%02d</b>%s</a>' % (i, num[i], esc(l))
+                                                              for i, l in parties)))
+        if values["pays.parcours"]:
+            values["pays.parcours"] = hors_rdc.chap_section(values["pays.parcours"], num["parcours"])
+        if courbe:
+            values["pays.courbe"] = hors_rdc.chap_section(values["pays.courbe"], num["cas"])
+        values["pays.chronologieTete"], values["pays.chronologie"] = hors_rdc.chap_tete(values["pays.chronologie"], num["chronologie"])
+        values["pays.recitTete"], values["pays.recit"] = hors_rdc.chap_tete(values["pays.recit"], num["recit"])
+        values["pays.sourcesTete"], values["pays.sources"] = hors_rdc.chap_tete(values["pays.sources"], num["sources"])
+        values["pays.questionsTete"], _ = hors_rdc.chap_tete('<h2>%s</h2>' % esc(strings_lang["paysQuestions"]), num["questions"])
         values["pays.autres"] = " ".join(
             '<a href="%s">%s →</a>' % (urls.path(x["id"], lang), esc(x["meta"][lang]["h1"]))
             for x in config["pages"] if x.get("pays") and x["id"] != page["id"])
