@@ -35,6 +35,7 @@ import json
 import os
 import re
 import sys
+import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from textes_pdf import ROOT, rapports, numero, texte_du_rapport, entier, pourcent  # noqa: E402
@@ -236,7 +237,58 @@ SANS_SORTIE_RE = re.compile(r"sans\s+aucune\s+sortie|aucune\s+sortie\s+n[’']a\
 # « dont 23 guérisons », « (78 non-cas, 11 guérisons et 7 décès) », « : 14
 # guérisons », « dont 12 patients guéris » ; jamais un nombre isolé, qui
 # pourrait venir d'une autre phrase.
-GUERIS_RE = re.compile(r"(?:dont|:|\(|,)\s*%s\s+(?:patients?\s+)?gu[ée]ri(?:s|sons?)?\b" % _N, re.I)
+# « 118 sorties, incluant 15 guérisons » (179 Nord-Kivu) : « incluant » et
+# « y compris » s'ajoutent le 11 novembre 2026.
+GUERIS_RE = re.compile(r"(?:dont|:|\(|,|incluant|y\s+compris)\s*%s\s+(?:patients?\s+)?gu[ée]ri(?:s|sons?)?\b" % _N, re.I)
+# Un nombre de guéris dans le bilan du traitement expérimental n'est pas un
+# flux du jour : « 679 cas ont reçu le traitement expérimental (dont 67
+# confirmés, 48 guéris, 17 décès) » (179 Tshopo) était lu comme 48 guéris.
+TRAITEMENT_RE = re.compile(r"traitement\s+exp[ée]rimental|th[ée]rapeutique|mol[ée]cule|anticorps", re.I)
+
+# Guéris du jour par province, dans les faits saillants (depuis le 131,
+# 22 septembre 2026) : « 39 patients (15 au Nord-Kivu, 2 au Haut-Uélé et 22
+# en Ituri) ont été déclarés guéris », parfois « ont été (37,6%) déclarés
+# guéris ». La somme des provinces doit retomber sur le total.
+# Parenthese fermante parfois oubliee (141 : « (14 au Nord-Kivu, 9 en Ituri
+# et 8 au Haut-Uélé ont été déclarés guéris »).
+GUERIS_FS_RE = re.compile(r"(\d[\d\s]{0,6})\s*patients?\s*\(([^()]{3,200}?)\)?\s*(?:\([\d,.\s]+%\)\s*)?ont\s+[ée]t[ée]\s*"
+                          r"(?:\([\d,.\s]+%\)\s*)?d[ée]clar[ée]s?\s*(?:\([\d,.\s]+%\)\s*)?gu[ée]ri", re.I)
+PROVINCES_COMPACTES = {"Ituri": "ituri", "Nord-Kivu": "nordkivu", "Sud-Kivu": "sudkivu", "Haut-Uélé": "hautuele",
+                       "Bas-Uélé": "basuele", "Tshopo": "tshopo", "Sud-Ubangi": "sudubangi", "Nord-Ubangi": "nordubangi"}
+
+
+def _compact(t):
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]", "", t)
+
+
+def gueris_faits_saillants(texte):
+    """({province: guéris du jour}, total, methode) ou None. Le texte du PDF
+    coupe mots et nombres (« It uri », « 1 7 au Nord-Kivu ») : on compacte,
+    puis chaque province prend le nombre colle devant son nom. Si une seule
+    province nommee reste sans nombre (158 : « 2 à 2 46 Aires de santé la
+    Tshopo », colonnes entrelacees), elle prend la difference."""
+    m = GUERIS_FS_RE.search(re.sub(r"\s+", " ", texte))
+    if not m:
+        return None
+    total = int(_compact(m.group(1)) or 0)
+    c = _compact(m.group(2))
+    res, sans_nombre = {}, []
+    for nom, k in PROVINCES_COMPACTES.items():
+        if k not in c:
+            continue
+        mm = re.search(r"(\d+)(?:en|au|aux|ala|a|dansla|dansle|la|le)?" + k, c)
+        if mm:
+            res[nom] = int(mm.group(1))
+        else:
+            sans_nombre.append(nom)
+    somme = sum(res.values())
+    if not sans_nombre and somme == total:
+        return res, total, "faits saillants"
+    if len(sans_nombre) == 1 and total > somme:
+        res[sans_nombre[0]] = total - somme
+        return res, total, "faits saillants (une province par difference)"
+    return None
 
 
 def nombre_ou_un(t):
@@ -351,9 +403,11 @@ def lire_prose(morceau):
         ligne["sorties"] = nombre_ou_un(m.group(1))
     elif SANS_SORTIE_RE.search(morceau):
         ligne["sorties"] = 0
-    m = GUERIS_RE.search(morceau)
-    if m:
+    for m in GUERIS_RE.finditer(morceau):
+        if TRAITEMENT_RE.search(morceau[max(0, m.start() - 160):m.start()]):
+            continue
         ligne["gueris"] = nombre_ou_un(m.group(1))
+        break
     return ligne
 
 
@@ -814,14 +868,21 @@ def lire_rapport(chemin):
         total["lits"] = sum(p["lits"] for p in avec_lits)
         total["hospitalisesAvecLits"] = sum(numerateur(p) for p in avec_lits)
         total["occupation"] = round(total["hospitalisesAvecLits"] / total["lits"] * 100, 1)
-    return {
+    point = {
         "date": meta["reportingDate"],
         "sitrepNumber": meta["sitrepNumber"],
         "methode": methode,
         "provinces": provinces,
         "total": total,
         "source": "SitRep INSP (automatique)",
-    }, alertes
+    }
+    # Guéris du jour par province d'après les faits saillants (11 novembre
+    # 2026) : la source a retenir quand elle existe ; le « gueris » des lignes
+    # de province (partie Prise en charge) reste pour les bulletins d'avant.
+    fs = gueris_faits_saillants(texte)
+    if fs:
+        point["gueris"] = {"provinces": fs[0], "total": fs[1], "methode": fs[2]}
+    return point, alertes
 
 
 def main():
