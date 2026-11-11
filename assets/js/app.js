@@ -6215,6 +6215,17 @@ function renderProvinceSummary(){
   }).join('');
 }
 
+/* Nom de zone du tableau national = lien vers le graphique de ses nouveaux
+   cas quotidiens, sur la page de sa province (11 novembre 2026). La page
+   province lit ?zone= (zonesJour) : elle choisit la zone et descend au
+   graphique, ou au tableau pour les provinces sans graphique. */
+function lienZone(z){
+  const base = (window.PROVINCE_LINKS || {})[z.province];
+  if(!base) return z.name;
+  const nom = String(z.name).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  return `<a class="z-lien" href="${base}?zone=${encodeURIComponent(z.name)}">${nom}</a>`;
+}
+
 function renderZonesTable(){
   initZonesTableControls();
   renderProvinceSummary();
@@ -6274,7 +6285,7 @@ function renderZonesTable(){
       const dotColor = PROVINCE_COLORS[z.province] || 'var(--ink-faint)';
       return `
       <tr>
-        <td><span class="zdot" style="background:${dotColor};"></span>${z.name}</td>
+        <td><span class="zdot" style="background:${dotColor};"></span>${lienZone(z)}</td>
         <td>${z.province}</td>
         <td class="zt z-cas">${fmt(z.cases)}</td>
         <td>${plus(z.newCases24h || 0)}</td>
@@ -7981,6 +7992,13 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
     const JOURS = []; for(let s = ajout(D.debut, 1); s <= FIN; s = ajout(s, 1)) JOURS.push(s);
     let champ = 'c', periode = 14, triK = 'pC', triAsc = false;
     let choisie = null;
+    /* Pas de temps du grand graphique (11 novembre 2026) : 'jour' a
+       l'ouverture, 'semaine' (lundi-dimanche) ou 'mois', comme les graphiques
+       des provinces. Agrege, un jour qui reunit plusieurs journees repasse en
+       couleur pleine (sa periode les contient) ; seul le vrai rattrapage
+       (x.ratt) reste clair. La periode en cours ne montre que sa part courue,
+       le reste en gris « jours a venir » (largeurSemaine). */
+    let pas = 'jour';
     /* Repli du tableau (11 novembre 2026) : au-dela de REPLI_SEUIL zones,
        seules les REPLI_LIGNES premieres du tri en cours restent, puis un
        bouton « Voir les N autres zones ». Ituri (28) et Nord-Kivu (17) sont
@@ -8043,8 +8061,12 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
         else { delete th.dataset.s; th.removeAttribute('aria-sort'); }
       });
       const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+      /* Avec graphique, le nom est un vrai lien (?zone=, comme depuis
+         Ensemble du pays) : clavier, lecteur d'ecran, nouvel onglet. Le clic
+         simple reste dans la page et ne touche pas a l'adresse (11 nov. 2026). */
+      const nomZone = n => AVEC_GRAPHE ? `<a class="zs-lien" href="?zone=${encodeURIComponent(n)}">${esc(n)}</a>` : esc(n);
       tab.tBodies[0].innerHTML = lignes.map(l =>
-        `<tr data-nom="${esc(l.nom)}"${l.nom === choisie ? ' class="choisie"' : ''}><td>${esc(l.nom)}</td>` +
+        `<tr data-nom="${esc(l.nom)}"${l.nom === choisie ? ' class="choisie"' : ''}><td>${nomZone(l.nom)}</td>` +
         `<td class="zt z-cas">${fmt(l.cumC)}</td><td class="zs-24 c">${jour(l.j24C)}</td><td class="zs-b">${barre('c', l.pC, maxC)}</td>` +
         `<td class="zt z-dec">${fmt(l.cumD)}</td><td class="zs-24 d">${jour(l.j24D)}</td><td class="zs-b">${barre('d', l.pD, maxD)}</td>` +
         `<td>${l.cumC ? fmtCfr(l.cumD / l.cumC * 100) : '–'}</td></tr>`).join('');
@@ -8096,9 +8118,26 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
       if(b) l.push(tr('zjTipBaisse')(fmt(b)));
       return l;
     }
+    function agregee(z){
+      const parMois = pas === 'mois', debutDe = parMois ? premierDuMois : lundiDe;
+      const finDe = parMois ? dernierDuMois : dimancheDe, map = new Map();
+      for(const s of JOURS){
+        if(deces() && s < D.premiersDeces) continue;
+        const cle = debutDe(s);
+        const p = map.get(cle) || { debut: cle, fin: finDe(cle), cas: 0, ratt: 0, releves: 0 };
+        map.set(cle, p);
+        const x = valeur(z, s); if(x === null) continue;
+        p.releves++;
+        if(z.j[s] && z.j[s].ratt) p.ratt += x; else p.cas += x;
+      }
+      const premier = deces() && D.premiersDeces > JOURS[0] ? D.premiersDeces : JOURS[0];
+      return [...map.values()].map(p => Object.assign(p, {
+        jours: nbJours(p.debut < premier ? premier : p.debut, p.fin > FIN ? FIN : p.fin) }));
+    }
     let grand = null;
     function dessinerGrand(){
       const z = zones.find(x => x.nom === choisie) || zones[0];
+      if(pas !== 'jour') return dessinerAgregee(z);
       const { rapporte, rattrape } = series(z);
       const pl = plafond(rapporte, rattrape);
       const lib = tr(deces() ? 'zjDec' : 'zjCas');
@@ -8127,8 +8166,49 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
           x: { ticks: { ...ticks, maxRotation: 45, minRotation: 45, autoSkip: true, maxTicksLimit: 20 }, grid: { display: false } },
           y: { max: pl.max, beginAtZero: true, ticks: { ...ticks, precision: 0, callback: n => fmt(n) }, grid: { color: PALETTE.lineSoft } }
         } };
+      poser(data, opts);
+    }
+    function poser(data, opts){
       if(grand){ grand.data = data; grand.options = opts; grand.update(); }
-      else grand = new Chart($('.zs-grand'), { type: 'bar', data, options: opts, plugins: [ruptureRattrapage] });
+      else grand = new Chart($('.zs-grand'), { type: 'bar', data, options: opts, plugins: [ruptureRattrapage, largeurSemaine] });
+    }
+    function dessinerAgregee(z){
+      const parMois = pas === 'mois', serie = agregee(z);
+      const ouverte = serie.length > 0 && serie[serie.length - 1].fin > FIN;
+      const ratios = ouverte ? serie.map((p, i) => i < serie.length - 1 ? 1 : nbJours(p.debut, FIN) / nbJours(p.debut, p.fin)) : null;
+      const rapporte = serie.map(p => p.cas), rattrape = serie.map(p => p.ratt || null);
+      const pl = plafond(rapporte, rattrape);
+      const lib = tr(deces() ? 'zjDec' : 'zjCas');
+      $('.zs-g-titre').textContent = tr('zjTitre')(lib, z.nom);
+      $('.zs-chiffres').innerHTML = tr('zjChiffres')(fmt(cumul(z)), tr('zjUnite')(deces()), fmt(recent(z)));
+      const avant = deces() ? z.decesAvant : z.casAvant;
+      const enCours = ouverte ? tr(parMois ? 'chartMonthOngoing' : 'chartWeekOngoing')(frDate(FIN)) : '';
+      const noteA = [avant ? tr('zjAvant')(fmt(avant), deces(), avant) : '', enCours].filter(Boolean).join(' · ');
+      $('.zs-g-note').textContent = noteA.charAt(0).toUpperCase() + noteA.slice(1);
+      const commun = { borderRadius: 2, minBarLength: 2, stack: 'z', categoryPercentage: 1, barPercentage: .96 };
+      const data = { labels: serie.map(p => parMois ? moisAnnee(p.debut) : [frDate(p.debut), '\u2192 ' + frDate(p.fin)]),
+        datasets: [{ ...commun, label: tr(deces() ? 'chartWeeklyDeaths' : 'chartWeeklyCases'), data: rapporte, backgroundColor: teinte() }]
+          .concat(rattrape.some(v => v) ? [{ ...commun, label: tr('catchupLabel'), data: rattrape, backgroundColor: tint(teinte(), .35) }] : []) };
+      const ticks = { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 } };
+      let legende = { labels: { color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 }, boxWidth: 10, usePointStyle: true } };
+      if(ratios) legende = legendeAVenir(legende);
+      const opts = { responsive: true, maintainAspectRatio: false, animation: { duration: 300 },
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: legende,
+          tooltip: { ...tooltip, filter: it => it.parsed.y !== null && !(it.datasetIndex > 0 && !it.parsed.y), callbacks: {
+            title: it => { const i = it[0].dataIndex, p = serie[i];
+              const t = parMois ? moisAnnee(p.debut) : tr('chartDeathPlaceWeekLabel')(frDate(p.debut), frDate(p.fin));
+              return t + (ouverte && i === serie.length - 1 ? ' \u00b7 ' + enCours : '') + ' \u00b7 ' + tr('chartPeriodDays')(p.releves, p.jours); },
+            label: it => tr('zjTipVal')(deces(), fmt(it.parsed.y)) } },
+          ruptureRattrapage: { coupees: pl.coupees },
+          largeurSemaine: ratios ? { ratios, futurs: ratios.map(r => 1 - r) } : {}
+        },
+        scales: {
+          x: { ticks: { ...ticks, maxRotation: 0, minRotation: 0, autoSkip: true }, grid: { display: false } },
+          y: { max: pl.max, beginAtZero: true, ticks: { ...ticks, precision: 0, callback: n => fmt(n) }, grid: { color: PALETTE.lineSoft } }
+        } };
+      poser(data, opts);
     }
 
     /* ---- Les petits graphiques ---- */
@@ -8193,11 +8273,34 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
     if(!AVEC_GRAPHE){ choisie = null; $('.zs-graphe').remove(); }
     else {
       bloc.classList.add('zs-js');
+      /* Les onglets du pas de temps rejoignent ceux du champ, sur une ligne. */
+      const ligne = document.createElement('div'), navPas = document.createElement('nav');
+      ligne.className = 'zs-onglets';
+      navPas.className = 'subtab-nav zs-pas';
+      navPas.setAttribute('aria-label', tr('zjPasAria'));
+      navPas.innerHTML = [['jour', 'chartVueDaily'], ['semaine', 'chartVueWeekly'], ['mois', 'chartVueMonthly']].map(([v, k]) =>
+        `<button type="button" class="subtab-btn${v === pas ? ' active' : ''}" data-pas="${v}" aria-pressed="${v === pas}">${tr(k)}</button>`).join('');
+      $('.zs-champ').before(ligne); ligne.append($('.zs-champ'), navPas);
+      navPas.addEventListener('click', ev => {
+        const b = ev.target.closest('button'); if(!b || b.dataset.pas === pas) return;
+        navPas.querySelectorAll('button').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        pas = b.dataset.pas; dessinerGrand();
+      });
       $('.zs-clic').hidden = false;
       $('.zs-graphe').hidden = false;
     }
+    /* Arrivee depuis le tableau national (?zone=Mandima) : la zone est
+       choisie et la page descend a son graphique ; sans graphique, au
+       tableau, deplie si la zone est dans les lignes repliees. */
+    const demandee = new URLSearchParams(location.search).get('zone');
+    const cible = demandee && zones.find(z => z.nom === demandee);
+    if(cible){ choisie = cible.nom; deplie = !AVEC_GRAPHE; }
     rendreTableau();
     if(AVEC_GRAPHE){ dessinerGrand(); rendreMinis(); }
+    if(cible) setTimeout(() => {
+      const ou = AVEC_GRAPHE ? $('.zs-champ') : tab.querySelector('tr.choisie') || tab;
+      ou.scrollIntoView({ block: AVEC_GRAPHE ? 'start' : 'center', behavior: 'instant' });
+    }, 350);
 
     $('.zs-periode').addEventListener('click', ev => {
       const b = ev.target.closest('button'); if(!b) return;
@@ -8211,7 +8314,14 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
       th.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); trier(); } });
     });
     if(!AVEC_GRAPHE) return;
-    tab.tBodies[0].addEventListener('click', ev => { const r = ev.target.closest('tr'); if(r) choisir(r.dataset.nom, true); });
+    tab.tBodies[0].addEventListener('click', ev => {
+      const r = ev.target.closest('tr'); if(!r) return;
+      if(ev.target.closest('a')){
+        if(ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button !== 0) return;   // nouvel onglet
+        ev.preventDefault();
+      }
+      choisir(r.dataset.nom, true);
+    });
     $('.zs-champ').addEventListener('click', ev => {
       const b = ev.target.closest('button'); if(!b || b.dataset.champ === champ) return;
       b.parentNode.querySelectorAll('button').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });

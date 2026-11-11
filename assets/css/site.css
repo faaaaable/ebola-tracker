@@ -5615,6 +5615,9 @@ main:has(.prov-hero-b) .zs-bloc + .drill{text-align:left;margin-top:36px;}
 .zs-l.d i{background:var(--accent-critical);} .zs-l.d span{color:var(--accent-critical);}
 .zs-l.vide span{color:var(--ink-faint);font-weight:500;}
 .zs-champ{margin:34px 0 6px;}
+/* Champ (cas / deces) a gauche, pas de temps a droite (11 nov. 2026). */
+.zs-onglets{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 18px;margin:34px 0 6px;}
+.zs-onglets .subtab-nav{margin:0;}
 .zs-tete{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;}
 .zs-chiffres{font-size:13px;color:var(--ink-dim);font-variant-numeric:tabular-nums;}
 .zs-chiffres b{color:var(--ink);}
@@ -5631,6 +5634,17 @@ main:has(.prov-hero-b) .zs-bloc + .drill{text-align:left;margin-top:36px;}
 .zs-recent b{font-weight:700;}
 .zs-mini{height:64px;position:relative;}
 .zs-mini canvas{width:100% !important;height:100% !important;}
+/* Arrivee par ?zone= : la cible s'arrete sous l'en-tete fixe. */
+.zs-champ,.zs-tab tbody tr{scroll-margin-top:130px;}
+/* Noms en lien des tableaux d'Ensemble du pays (11 nov. 2026) : provinces
+   vers leur page, zones vers le graphique de la zone. Meme habit pour les
+   deux : texte noir (le bleu y dit deja « cas »), souligne gris toujours
+   visible, bleu au survol. */
+#provinceSummaryTable td:first-child a,.zones-detail a.z-lien{color:var(--ink);text-decoration:underline;text-decoration-color:var(--ink-faint);text-decoration-thickness:1px;text-underline-offset:3px;}
+#provinceSummaryTable td:first-child a:hover,#provinceSummaryTable td:first-child a:focus-visible,.zones-detail a.z-lien:hover,.zones-detail a.z-lien:focus-visible,.zs-tab a.zs-lien:hover,.zs-tab a.zs-lien:focus-visible,.zs-tab tr.choisie a.zs-lien{color:var(--accent-strong);text-decoration-color:currentColor;}
+/* Page province : noms sans souligne (la note sous le tableau dit qu'on
+   peut cliquer), bleus au survol ; la zone affichee garde son nom en bleu. */
+.zs-tab a.zs-lien{color:var(--ink);text-decoration:none;}
 /* Repli du tableau des zones (11 nov. 2026) : bouton pleine largeur sous
    le tableau, derniere ligne visible pâlie tant qu'il est replie. */
 .zs-tab tbody tr.zs-fondu td{opacity:.45;}
