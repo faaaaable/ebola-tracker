@@ -2677,12 +2677,23 @@ function renderOneChartBrut(canvas, chartMode){
       /* Les jours du trou portent une droite entre les deux releves, tracee
          en pointilles (segment ci-dessous) et muette a l'infobulle : ce ne
          sont pas des chiffres, seulement le trait qui les relie. */
+      /* Quand le bulletin date une rupture de vaccin et la reprise, le trait
+         suit ce qu'il dit : a plat jusqu'a la reprise, puis la montee
+         jusqu'au releve suivant. Tshopo : « la rupture de vaccin persiste »
+         (137, 28 septembre), « la vaccination a démarré dans les ZS de
+         Makiso-Kisangani et de Mangobo » (144, 5 octobre). Aucun chiffre
+         entre les deux releves : seulement la forme que le texte decrit. */
+      const REPRISES = { 'Tshopo':'2026-10-05' };
       const interp = {}; noms.forEach(n => { interp[n] = new Set(); });
       trous.forEach(t => {
         const i0 = jours.indexOf(t.du), i1 = jours.indexOf(t.au);
         const a = series[t.nom][i0 - 1], b = series[t.nom][i1 + 1];
+        const r = REPRISES[nomProvinceCanonique(t.nom)];
+        const ir = (r && r > t.du && r <= t.au) ? jours.indexOf(r) : i0 - 1;
+        if(ir !== i0 - 1) t.reprise = r;
         for(let i = i0; i <= i1; i++){
-          series[t.nom][i] = (a == null || b == null) ? null : a + (b - a) * (i - i0 + 1) / (i1 - i0 + 2);
+          series[t.nom][i] = (a == null || b == null) ? null
+            : (i <= ir ? a : a + (b - a) * (i - ir) / (i1 + 1 - ir));
           interp[t.nom].add(i);
         }
       });
@@ -2764,7 +2775,7 @@ function renderOneChartBrut(canvas, chartMode){
         if(provRip === 'Bas-Uélé') bouts.push(tr('chartNoteVaccButa')());
       }
       trous.filter(t => !provRip || nomProvinceCanonique(t.nom) === provRip).forEach(t => {
-        bouts.push(tr('vaccChartTrouNote')(provRip ? null : t.nom, frDate(t.du), frDate(t.au)));
+        bouts.push(tr('vaccChartTrouNote')(provRip ? null : t.nom, frDate(t.du), frDate(t.au), t.reprise ? frDate(t.reprise) : null));
       });
       revisions.filter(r => !provRip || nomProvinceCanonique(r.nom) === provRip).forEach(r => {
         bouts.push(tr('vaccChartRevision')(frDate(r.date), r.nom, fmt(r.publie), fmt(r.retenu)));
