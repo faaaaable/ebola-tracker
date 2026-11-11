@@ -483,10 +483,10 @@ ul,ol{margin:0;padding:0;}
 .kpi{background:var(--bg-panel);padding:16px 18px;}
 /* Pages province : trois cases a la largeur de leur contenu (plancher 150 px),
    le cadre cale dessus — le meme principe que les tableaux en panel-fit. */
-.kpis-province{width:fit-content;max-width:100%;grid-template-columns:repeat(3,minmax(150px,max-content));}
+.kpis-province{width:fit-content;max-width:100%;grid-template-columns:repeat(4,minmax(150px,max-content));}
 .kpis-province .kpi{padding-right:28px;}
 @media (max-width:760px){
-  .kpis-province{width:auto;grid-template-columns:repeat(3,1fr);}
+  .kpis-province{width:auto;grid-template-columns:repeat(2,1fr);}
   .kpis-province .kpi{padding-right:12px;}
 }
 /* Ensemble du pays : cinq cases (13 octobre 2026) — cas, deces, gueris,
@@ -4031,7 +4031,7 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .prov-hero-b .kpis-province .label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);}
 .prov-hero-b .kpis-province .value{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-size:52px;font-weight:700;line-height:1.05;letter-spacing:-.03em;margin:6px 0 4px;color:var(--ink);}
 /* Ensemble du pays (13 octobre 2026) : gueris en vert, isolement en dore. */
-.prov-hero-b .kpis-pays .kpi.recovered .value{color:var(--accent-stable);}
+.prov-hero-b .kpis-province .kpi.recovered .value{color:var(--accent-stable);}
 .prov-hero-b .kpis-pays .kpi.active .value{color:var(--accent-active);}
 .prov-hero-b .kpis-province .confirmed .value{color:var(--accent-info);}
 .prov-hero-b .kpis-province .deaths .value{color:var(--accent-critical);}
@@ -4454,7 +4454,7 @@ main:has(.prov-hero-b) .drill,main:has(.prov-hero-b) .dn-more{background:none;bo
 .zq td:first-child{text-align:left;font:600 16px var(--font-serif);white-space:normal;}
 .zq tbody tr:hover td{background:#fff !important;}
 .zq td.zt{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:17px;letter-spacing:-.02em;}
-.zq td.z-cas{color:var(--accent-info);} .zq td.z-dec{color:var(--accent-critical);}
+.zq td.z-cas{color:var(--accent-info);} .zq td.z-dec{color:var(--accent-critical);} .zq td.z-gue{color:var(--accent-stable);}
 .zq td.zs{text-align:center;} .z-spark{vertical-align:middle;}
 .z-spark rect{fill:color-mix(in srgb,var(--accent-info) 45%,transparent);} .z-spark rect.is-der{fill:var(--accent-info);}
 .z-plus{font-weight:700;} .z-zero{color:var(--ink-faint);}
@@ -4727,6 +4727,11 @@ html.js .cr-track:not(.is-ready){visibility:hidden;display:block;height:calc(var
      la ligne ; sans le retrait ni le filet gauche des cases voisines. */
   .kpis-province .kpi.cfr{flex-basis:100%;padding-left:0;border-left:0;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);}
   .kpis-province.kpis-pays .kpi.cfr{flex-basis:auto;padding-left:revert-layer;border-left:revert-layer;margin-top:0;padding-top:0;border-top:0;}
+  /* Provinces (11 novembre 2026) : quatre cases, deux lignes de deux ;
+     letalite et gueris sous le filet. */
+  .kpis-province:not(.kpis-pays) .kpi{flex:0 0 50%;box-sizing:border-box;}
+  .kpis-province:not(.kpis-pays) .kpi.cfr{flex-basis:50%;}
+  .kpis-province:not(.kpis-pays) .kpi.recovered{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);}
   /* Boutons de la carte : une ligne chacun. */
   .map-controls .map-btn{white-space:nowrap;padding:0 11px;}
   /* Petites cases de provinces de l'accueil, deux par ligne : la vignette de

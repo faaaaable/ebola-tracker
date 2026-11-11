@@ -1776,6 +1776,75 @@ def rebuild_reports_list(current_reports):
     return reports
 
 
+# Le cumul national des guéris avant la bande lue par extract_kpi_band (avant
+# le SitRep 087, 9 août 2026), sous ses trois formes (11 novembre 2026) :
+#  021-058  ligne de chiffres de la page 1, colonne « Nombre cumulé des
+#           guéris » : « 8 75* 202(23,1%) 379(87,5%) 67 192 (46 décès) ** 71,6% »
+#           = cas, décès (létalité), isolement (hospitalisation), GUÉRIS,
+#           suspects du jour ; et, dans le texte, « le cumul des guéris passe
+#           de 22 à 30 », « le cumul des patients guéris est de 122 » ;
+#  059-083  bandeau « PATIENTS EN ISOLEMENT GUÉRIS — CUMUL [SUIVI DES
+#           CONTACTS — NATIONAL] 725 390 » : isolement, puis GUÉRIS ;
+#  084-086  en-tête « … 45,5% / CTE 828 8 (D 3 u , 4 Jo u % r) » : le cumul suit
+#           « CTE », dont les lettres sont parfois mêlées à l'isolement
+#           (084 : « C 72 T 1 E 810 »).
+# Les lettres « CTE » et le texte des cumuls par province (« le cumul des
+# guéris de la province atteint 1 836 ») sont écartés.
+# Ligne de chiffres des 021-058, lue juste après « Date de publication » :
+# décès suivis de leur létalité « 82 (18,1%) », isolement (« 379(87,5%) » ou
+# « 680 »), puis le cumul des guéris. Les valeurs sont parfois coupées sur
+# plusieurs lignes (055 : « 295\n227\n78,6% ») ou précédées des suspects (057).
+# Deux formes : isolement suivi de son taux d'hospitalisation (« 379(87,5%) »,
+# « 1 408(81,0%) » au 040, où un « 1 » égaré colle aux décès), sinon isolement
+# seul (« 680 », « 258 »).
+LIGNE_KPI_ANCIENNE_RES = [
+    re.compile(r"\d+\s*\(\s*[\d,.]+\s*%\s*\)\s*\d[\d ]{0,5}?\s*\(\s*[\d,.]+\s*%\s*\)\s+(\d{1,3})\b"),
+    re.compile(r"\d+\s*\(\s*[\d,.]+\s*%\s*\)\s*\d{1,4}\s+(\d{1,3})\b"),
+]
+# 017 et 018 : colonne « Guéris » juste avant « Taux de suivi » ; la valeur
+# précède le dernier pourcentage de la ligne (« 344 * 60 116* 173 6 43,9% »).
+LIGNE_GUERIS_AVANT_TAUX_RE = re.compile(r"(\d{1,3})\s+[\d,.]+\s*%\s*$")
+# Premiers bulletins (jusqu'au 015) : « Guéris » suit les deux taux
+# d'occupation, chiffrés ou « ND » (013 : « 70,1% 8,7% 1 ND » ; 015 :
+# « ND ND 2 »).
+LIGNE_GUERIS_APRES_OCCUPATION_RE = re.compile(r"(?:[\d,.]+\s*%|ND)\s+(?:[\d,.]+\s*%|ND)\s+(\d{1,3})\b")
+BANDEAU_GUERIS_RE = re.compile(r"GU[ÉE]RIS\s*[—–-]\s*CUMUL\s*(?:SUIVI\s+DES\s+CONTACTS\s*[—–-]\s*(?:\d\s*PROV\.|NATIONAL)\s*)?"
+                               r"(\d{2,3})\s+(\d{2,3})\b")
+ENTETE_CTE_RE = re.compile(r"LETALITE\s+ISOLEMENT\s*/?\s*(?:CTE\s+)?GU[ÉE]RIS.{0,120}?[\d,]+\s*%\s*((?:[/CTE]\s*|\d+\s*)+?)\s+\d\s*\(\s*D", re.S)
+TEXTE_CUMUL_RE = re.compile(r"cumul\s+des\s+(?:patients\s+)?gu[ée]ris,?\s+(?:passe\s+de\s+\d+\s+à\s+|est\s+de\s+)(\d[\d ]{0,5}\d|\d)\b", re.I)
+
+
+def cumul_gueris_ancien(texte):
+    """(valeur, forme) du cumul national des guéris, ou (None, None)."""
+    t = re.sub(r"[ \t]+", " ", texte)
+    d = re.search(r"Date\s+de\s+publication[^\n]*\n", t)
+    f = t.find("Cumul cas", d.end()) if d else -1
+    if d and 0 < f - d.end() < 300:
+        ligne = t[d.end():f]
+        for R in LIGNE_KPI_ANCIENNE_RES:
+            m = R.search(ligne)
+            if m:
+                return int(m.group(1)), "ligne de chiffres"
+        m = LIGNE_GUERIS_AVANT_TAUX_RE.search(ligne.split("\n")[0].strip())
+        if m and re.search(r"Gu[ée]ris\s+Taux\s+de\s+suivi", t[f:f + 200]):
+            return int(m.group(1)), "ligne de chiffres"
+        m = LIGNE_GUERIS_APRES_OCCUPATION_RE.search(ligne)
+        if m and re.search(r"occupation", t[f:f + 300]) and re.search(r"Gu[ée]ris", t[f:f + 300]):
+            return int(m.group(1)), "ligne de chiffres"
+    m = BANDEAU_GUERIS_RE.search(t)
+    if m:
+        return int(m.group(2)), "bandeau"
+    m = ENTETE_CTE_RE.search(re.sub(r"\s+", " ", texte))
+    if m:
+        nombres = re.findall(r"\d+", re.sub(r"[/CTE]", " ", m.group(1)))
+        if nombres and len(nombres[-1]) >= 2:
+            return int(nombres[-1]), "en-tête"
+    m = TEXTE_CUMUL_RE.search(re.sub(r"\s+", " ", texte))
+    if m:
+        return int(m.group(1).replace(" ", "")), "texte"
+    return None, None
+
+
 def completer_gueris(sitreps, reports):
     """Complete les guéris manquants de sitreps.json depuis les PDF.
 
@@ -1802,7 +1871,13 @@ def completer_gueris(sitreps, reports):
             with pdfplumber.open(rapport["file"]) as pdf:
                 valeur = extract_kpi_band(pdf.pages[0]).get("recovered")
         except Exception:
-            continue
+            valeur = None
+        if valeur is None:
+            from textes_pdf import texte_du_rapport
+            try:
+                valeur, _forme = cumul_gueris_ancien(texte_du_rapport(rapport["file"]))
+            except Exception:
+                valeur = None
         if valeur is None:
             continue
         avant = next((x["recovered"] for x in reversed(sitreps[:i]) if x.get("recovered") is not None), None)

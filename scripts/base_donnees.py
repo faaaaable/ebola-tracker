@@ -53,6 +53,7 @@ COLONNES = [
     ("sitrep", "id", "int"), ("source_pdf", "id", "txt"), ("mention", "id", "txt"),
     ("cas", "epi", "int"), ("nouveaux_cas", "epi", "int"), ("ecart_jours", "epi", "int"),
     ("deces", "epi", "int"), ("nouveaux_deces", "epi", "int"), ("letalite", "epi", "pct"), ("gueris", "epi", "int"),
+    ("nouveaux_gueris", "epi", "int"),
     ("deces_communaute", "rip", "int"), ("deces_cte", "rip", "int"),
     ("alertes_recues", "rip", "int"), ("alertes_validees", "rip", "int"),
     ("labo_echantillons", "rip", "int"), ("labo_positifs", "rip", "int"), ("labo_positivite", "rip", "pct"),
@@ -70,7 +71,7 @@ COLONNES_EN = {
     "date": "date", "niveau": "level", "province": "province", "zone": "zone",
     "sitrep": "sitrep", "source_pdf": "source_pdf", "mention": "note",
     "cas": "cases", "nouveaux_cas": "new_cases", "ecart_jours": "days_covered",
-    "deces": "deaths", "nouveaux_deces": "new_deaths", "letalite": "cfr", "gueris": "recovered",
+    "deces": "deaths", "nouveaux_deces": "new_deaths", "letalite": "cfr", "gueris": "recovered", "nouveaux_gueris": "new_recoveries",
     "deces_communaute": "community_deaths", "deces_cte": "etc_deaths",
     "alertes_recues": "alerts_received", "alertes_validees": "alerts_validated",
     "labo_echantillons": "lab_samples", "labo_positifs": "lab_positives", "labo_positivite": "lab_positivity",
@@ -82,7 +83,7 @@ assert set(COLONNES_EN) == {c for c, _, _ in COLONNES}
 # Les colonnes que decrit chaque ligne du dictionnaire de la page, dans
 # l'ordre de bddDico (strings.json, onze lignes dans les trois langues).
 DICO_CLES = [["date", "niveau", "province", "zone", "sitrep", "source_pdf", "mention"], ["cas", "deces"],
-             ["nouveaux_cas", "nouveaux_deces", "ecart_jours"], ["letalite"], ["gueris"],
+             ["nouveaux_cas", "nouveaux_deces", "ecart_jours"], ["letalite"], ["gueris", "nouveaux_gueris"],
              ["deces_communaute", "deces_cte"], ["alertes_recues", "alertes_validees"],
              ["labo_echantillons", "labo_positifs", "labo_positivite"],
              ["cte_hospitalises", "cte_lits", "cte_occupation"],
@@ -135,11 +136,15 @@ DICTIONNAIRE = {
               "« reconstitue » : SitRep 142 jamais publié, jour calculé par soustraction à partir du 143. "
               "« harmonisation » : la source a corrigé ses séries ce jour-là (Ituri : +314 décès anciens le 30 octobre, "
               "retirés le 31) ; l'écart ne correspond pas à des cas ou décès nouveaux. "
+              "« guéris contradictoires » : deux passages du bulletin donnent des guéris du jour différents. "
+              "« guéris annoncés ≠ cumul » : les guéris annoncés pour la journée ne font pas la hausse du cumul national depuis la veille. "
               "« OMS Weekly Report … (lecture manuelle) » : valeur lue dans un rapport de l'OMS.",
         "en": "Flags a special row. \u201ccatch-up\u201d: the difference covers more than one day (22 and 30 July). "
               "\u201creconstructed\u201d: SitRep 142 was never published; the day is computed by subtraction from SitRep 143. "
               "\u201charmonisation\u201d: the source corrected its series that day (Ituri: +314 earlier deaths on 30 October, "
               "removed on 31 October); the difference does not reflect new cases or deaths. "
+              "\u201cconflicting recoveries\u201d: two passages of the bulletin give different recoveries for the day. "
+              "\u201cannounced recoveries \u2260 total\u201d: the recoveries announced for the day do not match the rise in the national total since the day before. "
               "\u201cWHO Weekly Report \u2026 (manual reading)\u201d: value read from a WHO report.",
         "sw": "Inaonyesha mstari maalum: ucheleweshaji, siku iliyojengwa upya, marekebisho ya chanzo, au thamani kutoka ripoti ya WHO."}),
     "cas": ("int", "pub", {
@@ -167,9 +172,23 @@ DICTIONNAIRE = {
         "en": "Case fatality rate: cumulative deaths divided by cumulative confirmed cases, in per cent.",
         "sw": "Kiwango cha vifo: jumla ya vifo kugawanywa kwa jumla ya visa, kwa asilimia."}),
     "gueris": ("int", "pub", {
-        "fr": "Guéris cumulés, publiés pour le pays seulement.",
-        "en": "Cumulative recoveries, published for the country only.",
+        "fr": "Guéris cumulés, publiés pour le pays seulement, depuis le 21 mai (SitRep 007).",
+        "en": "Cumulative recoveries, published for the country only, since 21 May (SitRep 007).",
         "sw": "Jumla ya waliopona, kwa nchi tu."}),
+    "nouveaux_gueris": ("int", "pub", {
+        "fr": "Guéris déclarés ce jour-là par les structures de prise en charge (CTE, centres de transit, hôpitaux), "
+              "pour le pays et chaque province, depuis le 4 juin. Lus dans le bulletin : tableau « Mouvement des patients », "
+              "faits saillants ou rubrique Prise en charge ; la somme des provinces retombe sur le total du jour. "
+              "0 pour une province que le bulletin ne nomme pas ce jour-là. Pas de cumul par province : "
+              "des bulletins manquent. « guéris contradictoires » : deux passages du bulletin ne s'accordent pas.",
+        "en": "Recoveries declared that day by treatment facilities (ETCs, transit centres, hospitals), "
+              "for the country and each province, since 4 June. Read in the bulletin: \u201cpatient movement\u201d table, "
+              "highlights or treatment section; the provinces add up to the day\u2019s total. "
+              "0 for a province the bulletin does not name that day. No provincial total: some bulletins are missing. "
+              "\u201cconflicting recoveries\u201d: two passages of the bulletin disagree.",
+        "sw": "Waliopona waliotangazwa siku hiyo na vituo vya matibabu (CTE, vituo vya mpito, hospitali), "
+              "kwa nchi na kila jimbo, tangu 4 Juni. Jumla ya majimbo inalingana na jumla ya siku. "
+              "Hakuna jumla kwa jimbo: baadhi ya ripoti hazipo."}),
     "deces_communaute": ("int", "pub", {
         "fr": "Décès confirmés du jour survenus dans la communauté, depuis le 13 juillet.",
         "en": "Confirmed deaths of the day in the community, since 13 July.",
@@ -229,7 +248,9 @@ DICTIONNAIRE = {
 }
 assert set(DICTIONNAIRE) == set(COLONNES_EN)
 NIVEAUX_EN = {"pays": "country", "province": "province", "zone": "zone"}
-MENTIONS_EN = {"rattrapage": "catch-up", "reconstitue": "reconstructed", "harmonisation": "harmonisation"}
+MENTIONS_EN = {"rattrapage": "catch-up", "reconstitue": "reconstructed", "harmonisation": "harmonisation",
+               "guéris contradictoires": "conflicting recoveries",
+               "guéris annoncés ≠ cumul": "announced recoveries ≠ total"}
 FICHIERS = {"fr": "base-ebola-rdc", "en": "ebola-drc-database"}
 # Le dictionnaire des colonnes, a cote de chaque base (10 novembre 2026).
 DICOS = {"fr": "base-ebola-rdc-dictionnaire", "en": "ebola-drc-database-dictionary"}
@@ -422,6 +443,55 @@ def construire(origin="https://ebola-tracker.org"):
                 o[k] = v[k]
         if v.get("_autre"):
             o["mention"].append(v["_autre"])
+
+    # Guéris du jour par province (data/gueris-provinces.json, 11 novembre
+    # 2026). Une province qui a une ligne ce jour-la sans etre nommee par le
+    # bulletin recoit 0 : la ventilation retombe sur le total du jour.
+    if os.path.exists(os.path.join(ROOT, "data", "gueris-provinces.json")):
+        index = {(o["date"], o["province"] if o["niveau"] == "province" else ""): o
+                 for o in lignes if o["niveau"] != "zone"}
+        par_date = {}
+        for o in lignes:
+            if o["niveau"] == "province":
+                par_date.setdefault(o["date"], []).append(o)
+        # Reconciliation avec le cumul national : d'un jour au suivant, sans
+        # bulletin manquant, les gueris annonces doivent egaler la hausse du
+        # cumul (160 : 32 annonces, cumul +23 ; 162 : 28, +11).
+        cumul = sorted((s["date"], s["recovered"]) for s in _lire("sitreps.json")
+                       if s.get("date") and s.get("recovered") is not None)
+        veille = {b: (a, ca, cb) for (a, ca), (b, cb) in zip(cumul, cumul[1:])}
+        for b in _lire("gueris-provinces.json")["parBulletin"]:
+            d = b["date"]
+            o = index.get((d, ""))
+            if o is None:
+                num, pdf, mention = source(d)
+                o = {"date": d, "niveau": "pays", "province": "", "zone": "",
+                     "sitrep": num, "source_pdf": pdf, "mention": list(mention)}
+                lignes.append(o)
+                index[(d, "")] = o
+            o["nouveaux_gueris"] = b["total"]
+            v = veille.get(d)
+            if v and _jours(v[0], d) == 1 and v[2] - v[1] != b["total"]:
+                o["mention"].append("guéris annoncés ≠ cumul")
+            contradictoires = {p for v in (b.get("desaccord") or {}).values()
+                               for p in set(v) | set(b["provinces"]) if v.get(p, 0) != b["provinces"].get(p, 0)}
+            if b.get("desaccord"):
+                o["mention"].append("guéris contradictoires")
+            for p, n in b["provinces"].items():
+                op = index.get((d, p))
+                if op is None:
+                    num, pdf, mention = source(d)
+                    op = {"date": d, "niveau": "province", "province": p, "zone": "",
+                          "sitrep": num, "source_pdf": pdf, "mention": list(mention)}
+                    lignes.append(op)
+                    index[(d, p)] = op
+                    par_date.setdefault(d, []).append(op)
+                op["nouveaux_gueris"] = n
+            for op in par_date.get(d, []):
+                if op.get("nouveaux_gueris") is None:
+                    op["nouveaux_gueris"] = 0
+                if op["province"] in contradictoires and b.get("desaccord") and "guéris contradictoires" not in op["mention"]:
+                    op["mention"].append("guéris contradictoires")
 
     ordre = {"pays": 0, "province": 1, "zone": 2}
     lignes.sort(key=lambda o: (o["date"], ordre[o["niveau"]], o["province"], o["zone"]))

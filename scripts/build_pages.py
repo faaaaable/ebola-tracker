@@ -837,6 +837,46 @@ def gueris_24h_line(lang, strings_lang):
     return esc(interp(strings_lang["provinceNewDeaths"], {"n": fmt(max(0, b["recovered"] - a["recovered"]), lang)}))
 
 
+def gueris_provinces():
+    """Gueris par province : la somme des gueris declares bulletin par
+    bulletin (data/gueris-provinces.json, depuis le 4 juin), aucun cumul par
+    province n'etant publie ; ceux du dernier bulletin s'il est celui du jour
+    (sinon None) ; et ce qui, du cumul national, n'est attribue a aucune
+    province (jours sans bulletin, avant le 4 juin...)."""
+    chemin = os.path.join(ROOT, "data", "gueris-provinces.json")
+    if not os.path.exists(chemin):
+        return {}, None, None
+    bulletins = read_json(chemin).get("parBulletin") or []
+    if not bulletins:
+        return {}, None, None
+    cumuls = {}
+    for b in bulletins:
+        for nom, v in (b.get("provinces") or {}).items():
+            cumuls[nom] = cumuls.get(nom, 0) + (v or 0)
+    serie = [x for x in read_json(os.path.join(ROOT, "data", "sitreps.json")) if x.get("recovered") is not None]
+    jour = (bulletins[-1].get("provinces") or {}) if serie and bulletins[-1].get("date") == serie[-1]["date"] else None
+    reste = serie[-1]["recovered"] - sum(cumuls.values()) if serie else None
+    return cumuls, jour, reste
+
+
+def gueris_province(name, lang, strings_lang):
+    """Les deux chiffres de la case « Gueris » de l'en-tete d'une province."""
+    cumuls, jour, _ = gueris_provinces()
+    if not cumuls:
+        return "", ""
+    ligne = "" if jour is None else esc(interp(strings_lang["provinceNewDeaths"],
+                                               {"n": fmt(jour.get(name) or 0, lang)}))
+    return fmt(cumuls.get(name) or 0, lang), ligne
+
+
+def note_gueris_pays(strings_lang, lang):
+    """Sous le tableau par province d'Ensemble du pays : d'ou viennent les
+    gueris par province, et combien n'en sont attribues a aucune."""
+    _, _, reste = gueris_provinces()
+    if reste is None:
+        return ""
+    return '<p class="map-note">%s</p>' % esc(interp(strings_lang["paysNoteGueris"], {"n": fmt(reste, lang)}))
+
 def zones_sub(national, meta, lang, i18n_lang, strings_lang):
     """Reproduit tr('zonesTableSub')(n, total, num, date) de app.js."""
     zones = (national or {}).get("healthZonesAffected") or {}
@@ -905,7 +945,8 @@ def province_rows_html(provinces, national, lang, province_history=None, strings
     """Lignes du tableau « par province » d'Ensemble du pays, sur le modele du
     tableau des zones des pages province (7 octobre 2026) : province, cas
     cumules, part du pays, nouveaux cas 24 h, courbe des nouveaux cas sur 30
-    jours, deces cumules, nouveaux deces 24 h, letalite, zones touchees.
+    jours, deces cumules, nouveaux deces 24 h, letalite, gueris (somme des
+    declares), gueris 24 h, zones touchees.
     Triable (table.zq.tri). renderProvinceSummary d'app.js ne le reecrit pas."""
     from datetime import date as _d, timedelta as _td
     total = (national or {}).get("confirmed")
@@ -953,9 +994,12 @@ def province_rows_html(provinces, national, lang, province_history=None, strings
                     % (i * bw + .5, h - haut(v), max(bw - 1, .6), haut(v),
                        ' class="is-der"' if i == len(vals) - 1 else "") for i, (_, v) in enumerate(vals))))
 
+    g_cumuls, g_jour, _ = gueris_provinces()
     rows = []
     for province in sorted(provinces, key=lambda p: -(p.get("confirmed") or 0)):
         nom = province["name"]
+        g = g_cumuls.get(nom) or 0
+        g24 = (g_jour or {}).get(nom) or 0
         color = PROVINCE_COLORS.get(nom, "var(--ink-faint)")
         zones = province.get("healthZonesAffected")
         zones_text = "%s / %s" % (zones["n"], zones["total"]) if zones else "—"
@@ -970,11 +1014,13 @@ def province_rows_html(provinces, national, lang, province_history=None, strings
             '              <tr><td><span class="zdot" style="background:%s;"></span>%s</td>'
             '<td class="zt z-cas" data-v="%d">%s</td><td data-v="%.1f">%s</td><td data-v="%d">%s</td>'
             '<td class="zs" data-v="%d">%s</td><td class="zt z-dec" data-v="%d">%s</td><td data-v="%d">%s</td>'
-            '<td data-v="%.1f">%s</td><td data-v="%d">%s</td></tr>' % (
+            '<td data-v="%.1f">%s</td><td class="zt z-gue" data-v="%d">%s</td><td data-v="%d">%s</td>'
+            '<td data-v="%d">%s</td></tr>' % (
                 color, ('<a href="%s">%s</a>' % (urls.province_path(nom, lang), esc(nom))) if urls else esc(nom), province.get("confirmed") or 0, fmt(province.get("confirmed"), lang),
                 part, fmt_cfr(part, lang) if total else "—", n24, plus(n24), n30, spark(nv, color, titre),
                 province.get("deaths") or 0, fmt(province.get("deaths"), lang), d24, plus(d24),
                 province.get("cfr") or 0, fmt_cfr(province.get("cfr"), lang),
+                g, fmt(g, lang), g24, plus(g24) if g_jour is not None else "—",
                 (zones or {}).get("n") or 0, zones_text))
     return "\n".join(rows)
 
@@ -4788,6 +4834,7 @@ def main():
                 "zones": fmt(len(latest.get("healthZones", [])), lang)})),
             "mapHint": hint_pair(strings_lang, "cartoHint", "cartoHintTouch"),
             "seed.provinceRows": province_rows_html(provinces, national, lang, province_history, strings_lang, urls),
+            "seed.noteGueris": note_gueris_pays(strings_lang, lang),
             "seed.noteAjouts": note_ajouts(ajouts, None, sitreps, national, meta_data, lang, strings_lang),
             "seed.agesRows": ages_rows_html(demographie, lang, strings_lang),
             "seed.agesPapillon": ages_papillon_html(demographie, lang, strings_lang),
@@ -5347,6 +5394,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.cases": fmt(province.get("confirmed"), lang),
             "province.deaths": fmt(province.get("deaths"), lang),
             "province.cfr": fmt_cfr(province.get("cfr"), lang),
+            "province.recovered": gueris_province(name, lang, strings_lang)[0],
+            "province.newRecovered": gueris_province(name, lang, strings_lang)[1],
             "province.shareSentence": esc(share),
             "province.newDeaths": esc(interp(strings_lang["provinceNewDeaths"],
                                              {"n": fmt(new_deaths, lang)})),

@@ -3321,17 +3321,7 @@
         "hospitalisesAvecLits": 878,
         "occupation": 58.8
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 6,
-          "Nord-Kivu": 5,
-          "Haut-Uélé": 4,
-          "Tshopo": 1
-        },
-        "total": 16,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-09-23",
@@ -3371,16 +3361,7 @@
         "hospitalisesAvecLits": 871,
         "occupation": 59.6
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 7,
-          "Nord-Kivu": 5,
-          "Haut-Uélé": 3
-        },
-        "total": 15,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-09-24",
@@ -3425,17 +3406,7 @@
         "hospitalisesAvecLits": 827,
         "occupation": 54.4
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 27,
-          "Nord-Kivu": 6,
-          "Haut-Uélé": 1,
-          "Tshopo": 1
-        },
-        "total": 35,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-09-25",
@@ -3475,17 +3446,7 @@
         "hospitalisesAvecLits": 805,
         "occupation": 53.4
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 22,
-          "Nord-Kivu": 7,
-          "Haut-Uélé": 2,
-          "Bas-Uélé": 1
-        },
-        "total": 32,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-09-26",
@@ -3603,16 +3564,7 @@
         "hospitalisesAvecLits": 747,
         "occupation": 54.6
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 11,
-          "Bas-Uélé": 2,
-          "Tshopo": 4
-        },
-        "total": 17,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-09-29",
@@ -3656,16 +3608,7 @@
         "hospitalisesAvecLits": 827,
         "occupation": 54.9
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 12,
-          "Nord-Kivu": 3,
-          "Haut-Uélé": 1
-        },
-        "total": 16,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-09-30",
@@ -3709,17 +3652,7 @@
         "hospitalisesAvecLits": 827,
         "occupation": 54.9
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 27,
-          "Nord-Kivu": 7,
-          "Haut-Uélé": 5,
-          "Tshopo": 2
-        },
-        "total": 41,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-01",
@@ -3763,15 +3696,7 @@
         "hospitalisesAvecLits": 851,
         "occupation": 56.5
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 19,
-          "Nord-Kivu": 1
-        },
-        "total": 20,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-02",
@@ -3825,16 +3750,7 @@
         "hospitalisesAvecLits": 830,
         "occupation": 54.0
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 9,
-          "Nord-Kivu": 14,
-          "Haut-Uélé": 8
-        },
-        "total": 31,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-04",
@@ -3887,15 +3803,7 @@
         "hospitalisesAvecLits": 844,
         "occupation": 54.9
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 4,
-          "Haut-Uélé": 1
-        },
-        "total": 5,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-05",
@@ -3946,18 +3854,7 @@
         "hospitalisesAvecLits": 861,
         "occupation": 54.9
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 17,
-          "Nord-Kivu": 1,
-          "Haut-Uélé": 3,
-          "Bas-Uélé": 2,
-          "Sud-Ubangi": 1
-        },
-        "total": 24,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-07",
@@ -4011,15 +3908,7 @@
         "hospitalisesAvecLits": 970,
         "occupation": 61.5
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 15,
-          "Nord-Kivu": 8
-        },
-        "total": 23,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-08",
@@ -4076,16 +3965,7 @@
         "hospitalisesAvecLits": 924,
         "occupation": 60.1
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 14,
-          "Nord-Kivu": 11,
-          "Haut-Uélé": 3
-        },
-        "total": 28,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-09",
@@ -4183,16 +4063,7 @@
         "hospitalisesAvecLits": 851,
         "occupation": 59.7
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 11,
-          "Haut-Uélé": 5,
-          "Tshopo": 2
-        },
-        "total": 18,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-11",
@@ -4241,17 +4112,7 @@
         "hospitalisesAvecLits": 868,
         "occupation": 55.5
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 16,
-          "Nord-Kivu": 10,
-          "Haut-Uélé": 5,
-          "Tshopo": 2
-        },
-        "total": 33,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-12",
@@ -4302,17 +4163,7 @@
         "hospitalisesAvecLits": 503,
         "occupation": 86.9
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 13,
-          "Nord-Kivu": 13,
-          "Haut-Uélé": 2,
-          "Tshopo": 1
-        },
-        "total": 29,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-13",
@@ -4361,17 +4212,7 @@
         "hospitalisesAvecLits": 529,
         "occupation": 91.4
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 13,
-          "Nord-Kivu": 14,
-          "Haut-Uélé": 2,
-          "Tshopo": 1
-        },
-        "total": 30,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-14",
@@ -4421,16 +4262,7 @@
         "hospitalisesAvecLits": 916,
         "occupation": 56.8
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 18,
-          "Nord-Kivu": 15,
-          "Haut-Uélé": 5
-        },
-        "total": 38,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-15",
@@ -4480,15 +4312,7 @@
         "hospitalisesAvecLits": 529,
         "occupation": 88.6
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 11,
-          "Nord-Kivu": 10
-        },
-        "total": 21,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-16",
@@ -4532,15 +4356,7 @@
         "hospitalisesAvecLits": 442,
         "occupation": 36.2
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 14,
-          "Tshopo": 1
-        },
-        "total": 15,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-17",
@@ -4590,15 +4406,7 @@
         "hospitalisesAvecLits": 529,
         "occupation": 86.0
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 7,
-          "Nord-Kivu": 1
-        },
-        "total": 8,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-18",
@@ -4638,16 +4446,7 @@
         "hospitalisesAvecLits": 466,
         "occupation": 104.5
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 12,
-          "Nord-Kivu": 7,
-          "Tshopo": 1
-        },
-        "total": 20,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-19",
@@ -4701,17 +4500,7 @@
         "hospitalisesAvecLits": 982,
         "occupation": 60.2
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 5,
-          "Nord-Kivu": 10,
-          "Haut-Uélé": 7,
-          "Tshopo": 2
-        },
-        "total": 24,
-        "methode": "faits saillants (une province par difference)"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-20",
@@ -4759,15 +4548,7 @@
         "hospitalisesAvecLits": 500,
         "occupation": 112.1
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 15,
-          "Nord-Kivu": 6
-        },
-        "total": 21,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-21",
@@ -4812,15 +4593,7 @@
         "hospitalisesAvecLits": 477,
         "occupation": 107.0
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 21,
-          "Nord-Kivu": 11
-        },
-        "total": 32,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-22",
@@ -4874,15 +4647,7 @@
         "hospitalisesAvecLits": 1024,
         "occupation": 62.2
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 8,
-          "Nord-Kivu": 9
-        },
-        "total": 17,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-23",
@@ -4934,15 +4699,7 @@
         "hospitalisesAvecLits": 503,
         "occupation": 83.3
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 17,
-          "Nord-Kivu": 11
-        },
-        "total": 28,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-24",
@@ -4987,16 +4744,7 @@
         "hospitalisesAvecLits": 536,
         "occupation": 94.4
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 9,
-          "Nord-Kivu": 12,
-          "Bas-Uélé": 3
-        },
-        "total": 24,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-25",
@@ -5042,16 +4790,7 @@
         "hospitalisesAvecLits": 906,
         "occupation": 63.6
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 9,
-          "Nord-Kivu": 4,
-          "Tshopo": 1
-        },
-        "total": 14,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-26",
@@ -5110,17 +4849,7 @@
         "hospitalisesAvecLits": 999,
         "occupation": 62.0
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 14,
-          "Nord-Kivu": 7,
-          "Haut-Uélé": 1,
-          "Tshopo": 2
-        },
-        "total": 24,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-27",
@@ -5167,16 +4896,7 @@
         "hospitalisesAvecLits": 577,
         "occupation": 97.0
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 23,
-          "Nord-Kivu": 17,
-          "Haut-Uélé": 1
-        },
-        "total": 41,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-28",
@@ -5223,15 +4943,7 @@
         "hospitalisesAvecLits": 560,
         "occupation": 92.1
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 7,
-          "Nord-Kivu": 10
-        },
-        "total": 17,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-29",
@@ -5272,16 +4984,7 @@
         "hospitalisesAvecLits": 565,
         "occupation": 126.7
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 9,
-          "Nord-Kivu": 10,
-          "Tshopo": 3
-        },
-        "total": 22,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-30",
@@ -5329,16 +5032,7 @@
         "hospitalisesAvecLits": 553,
         "occupation": 91.0
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 12,
-          "Nord-Kivu": 2,
-          "Haut-Uélé": 1
-        },
-        "total": 15,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-10-31",
@@ -5386,16 +5080,7 @@
         "hospitalisesAvecLits": 545,
         "occupation": 89.6
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 12,
-          "Nord-Kivu": 8,
-          "Haut-Uélé": 1
-        },
-        "total": 21,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-11-01",
@@ -5435,16 +5120,7 @@
         "hospitalisesAvecLits": 555,
         "occupation": 120.7
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 4,
-          "Nord-Kivu": 4,
-          "Tshopo": 2
-        },
-        "total": 10,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-11-03",
@@ -5558,17 +5234,7 @@
         "hospitalisesAvecLits": 979,
         "occupation": 60.9
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 4,
-          "Nord-Kivu": 1,
-          "Haut-Uélé": 1,
-          "Tshopo": 1
-        },
-        "total": 7,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-11-05",
@@ -5623,16 +5289,7 @@
         "hospitalisesAvecLits": 972,
         "occupation": 58.8
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 7,
-          "Nord-Kivu": 16,
-          "Haut-Uélé": 1
-        },
-        "total": 24,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-11-06",
@@ -5667,15 +5324,7 @@
         "hospitalisesAvecLits": 922,
         "occupation": 63.6
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 16,
-          "Nord-Kivu": 7
-        },
-        "total": 23,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-11-07",
@@ -5700,16 +5349,7 @@
         "hospitalises": 917,
         "provinces": 2
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 3,
-          "Nord-Kivu": 1,
-          "Tshopo": 1
-        },
-        "total": 5,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-11-08",
@@ -5729,17 +5369,7 @@
         "hospitalises": 882,
         "provinces": 2
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 6,
-          "Nord-Kivu": 1,
-          "Bas-Uélé": 2,
-          "Tshopo": 2
-        },
-        "total": 11,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-11-09",
@@ -5769,16 +5399,7 @@
         "hospitalisesAvecLits": 5,
         "occupation": 12.5
       },
-      "source": "SitRep INSP (automatique)",
-      "gueris": {
-        "provinces": {
-          "Ituri": 22,
-          "Nord-Kivu": 15,
-          "Haut-Uélé": 2
-        },
-        "total": 39,
-        "methode": "faits saillants"
-      }
+      "source": "SitRep INSP (automatique)"
     }
   ]
 }

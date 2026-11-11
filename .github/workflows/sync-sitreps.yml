@@ -52,6 +52,7 @@ jobs:
           python scripts/extraire_alertes.py
           python scripts/extraire_laboratoire.py
           python scripts/extraire_cte.py
+          python scripts/extraire_gueris.py
           python scripts/extraire_defis.py
           python scripts/extract_piliers.py
           python scripts/extract_poe.py

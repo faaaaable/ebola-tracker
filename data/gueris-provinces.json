@@ -1,0 +1,1898 @@
+{
+  "description": "Guéris déclarés chaque jour par les structures de prise en charge (CTE, centres de transit, hôpitaux), par province, lus dans les SitRep de l'INSP (tableau « Mouvement des patients », faits saillants, rubrique Prise en charge). Les cumuls par province sont ceux que les bulletins publient, sans reconstitution.",
+  "periode": {
+    "debut": "2026-06-04",
+    "fin": "2026-11-09"
+  },
+  "parBulletin": [
+    {
+      "sitrep": "021",
+      "date": "2026-06-04",
+      "provinces": {
+        "Ituri": 1
+      },
+      "total": 1,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "022",
+      "date": "2026-06-05",
+      "provinces": {
+        "Ituri": 1
+      },
+      "total": 1,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "023",
+      "date": "2026-06-06",
+      "provinces": {
+        "Ituri": 2,
+        "Nord-Kivu": 1
+      },
+      "total": 3,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "024",
+      "date": "2026-06-07",
+      "provinces": {
+        "Ituri": 7
+      },
+      "total": 7,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "025",
+      "date": "2026-06-08",
+      "provinces": {
+        "Ituri": 3
+      },
+      "total": 3,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "026",
+      "date": "2026-06-09",
+      "provinces": {
+        "Ituri": 8
+      },
+      "total": 8,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "027",
+      "date": "2026-06-10",
+      "provinces": {
+        "Ituri": 2
+      },
+      "total": 2,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "030",
+      "date": "2026-06-13",
+      "provinces": {
+        "Ituri": 5
+      },
+      "total": 5,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "031",
+      "date": "2026-06-14",
+      "provinces": {
+        "Ituri": 8,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 8,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "032",
+      "date": "2026-06-15",
+      "provinces": {
+        "Ituri": 1,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 1,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "033",
+      "date": "2026-06-16",
+      "provinces": {
+        "Ituri": 18,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 18,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "034",
+      "date": "2026-06-17",
+      "provinces": {
+        "Ituri": 11,
+        "Nord-Kivu": 0
+      },
+      "total": 11,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "035",
+      "date": "2026-06-18",
+      "provinces": {
+        "Ituri": 2,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 2,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "036",
+      "date": "2026-06-19",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 0
+      },
+      "total": 12,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "037",
+      "date": "2026-06-20",
+      "provinces": {
+        "Ituri": 6,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 2
+      },
+      "total": 8,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "038",
+      "date": "2026-06-21",
+      "provinces": {
+        "Ituri": 9,
+        "Nord-Kivu": 3,
+        "Sud-Kivu": 0
+      },
+      "total": 12,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "039",
+      "date": "2026-06-22",
+      "provinces": {
+        "Ituri": 3,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 3,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "040",
+      "date": "2026-06-23",
+      "provinces": {
+        "Ituri": 7,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 7,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "041",
+      "date": "2026-06-24",
+      "provinces": {
+        "Ituri": 16,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 16,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "042",
+      "date": "2026-06-25",
+      "provinces": {
+        "Ituri": 10,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 10,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "044",
+      "date": "2026-06-27",
+      "provinces": {
+        "Ituri": 15,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 15,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "046",
+      "date": "2026-06-29",
+      "provinces": {
+        "Ituri": 3,
+        "Nord-Kivu": 2,
+        "Sud-Kivu": 0
+      },
+      "total": 5,
+      "source": "tableau",
+      "desaccord": {
+        "faits saillants": {
+          "Ituri": 6,
+          "Nord-Kivu": 3
+        }
+      }
+    },
+    {
+      "sitrep": "047",
+      "date": "2026-06-30",
+      "provinces": {
+        "Ituri": 19
+      },
+      "total": 19,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "048",
+      "date": "2026-07-01",
+      "provinces": {
+        "Ituri": 19,
+        "Nord-Kivu": 2
+      },
+      "total": 21,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "049",
+      "date": "2026-07-02",
+      "provinces": {
+        "Ituri": 15,
+        "Nord-Kivu": 1
+      },
+      "total": 16,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "050",
+      "date": "2026-07-03",
+      "provinces": {
+        "Ituri": 9,
+        "Nord-Kivu": 1
+      },
+      "total": 10,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "051",
+      "date": "2026-07-04",
+      "provinces": {
+        "Ituri": 15
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "052",
+      "date": "2026-07-05",
+      "provinces": {
+        "Ituri": 20,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 20,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "053",
+      "date": "2026-07-06",
+      "provinces": {
+        "Ituri": 7,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 7,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "054",
+      "date": "2026-07-07",
+      "provinces": {
+        "Ituri": 5,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 5,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "055",
+      "date": "2026-07-08",
+      "provinces": {
+        "Ituri": 8,
+        "Nord-Kivu": 2,
+        "Sud-Kivu": 0
+      },
+      "total": 10,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "056",
+      "date": "2026-07-09",
+      "provinces": {
+        "Ituri": 4,
+        "Nord-Kivu": 1,
+        "Sud-Kivu": 0
+      },
+      "total": 5,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "057",
+      "date": "2026-07-10",
+      "provinces": {
+        "Ituri": 6,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 6,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "058",
+      "date": "2026-07-11",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 0,
+        "Sud-Kivu": 0
+      },
+      "total": 12,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "059",
+      "date": "2026-07-12",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 2
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "060",
+      "date": "2026-07-13",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 2,
+        "Sud-Kivu": 0,
+        "Haut-Uélé": 0
+      },
+      "total": 15,
+      "source": "tableau",
+      "desaccord": {
+        "prise en charge": {
+          "Ituri": 11
+        }
+      }
+    },
+    {
+      "sitrep": "061",
+      "date": "2026-07-14",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 2,
+        "Tshopo": 0
+      },
+      "total": 15,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "062",
+      "date": "2026-07-15",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 0,
+        "Tshopo": 0
+      },
+      "total": 13,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "064",
+      "date": "2026-07-17",
+      "provinces": {
+        "Ituri": 32
+      },
+      "total": 32,
+      "source": "faits saillants",
+      "forme": "bandeau"
+    },
+    {
+      "sitrep": "065",
+      "date": "2026-07-18",
+      "provinces": {
+        "Ituri": 21,
+        "Nord-Kivu": 1,
+        "Tshopo": 0
+      },
+      "total": 22,
+      "source": "tableau",
+      "desaccord": {
+        "prise en charge": {
+          "Ituri": 22
+        }
+      }
+    },
+    {
+      "sitrep": "066",
+      "date": "2026-07-19",
+      "provinces": {
+        "Ituri": 3,
+        "Nord-Kivu": 0
+      },
+      "total": 3,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "067",
+      "date": "2026-07-20",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 0
+      },
+      "total": 13,
+      "source": "tableau",
+      "desaccord": {
+        "prise en charge": {
+          "Ituri": 3
+        }
+      }
+    },
+    {
+      "sitrep": "068",
+      "date": "2026-07-21",
+      "provinces": {
+        "Ituri": 23,
+        "Nord-Kivu": 1
+      },
+      "total": 24,
+      "source": "tableau",
+      "desaccord": {
+        "prise en charge": {
+          "Ituri": 24
+        }
+      }
+    },
+    {
+      "sitrep": "069",
+      "date": "2026-07-22",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 1,
+        "Tshopo": 0
+      },
+      "total": 13,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "070",
+      "date": "2026-07-23",
+      "provinces": {
+        "Ituri": 20,
+        "Nord-Kivu": 1,
+        "Tshopo": 0
+      },
+      "total": 21,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "071",
+      "date": "2026-07-24",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 4,
+        "Tshopo": 0
+      },
+      "total": 16,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "072",
+      "date": "2026-07-25",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 2
+      },
+      "total": 15,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "073",
+      "date": "2026-07-26",
+      "provinces": {
+        "Ituri": 11,
+        "Nord-Kivu": 1
+      },
+      "total": 12,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "074",
+      "date": "2026-07-27",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 1
+      },
+      "total": 14,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "077",
+      "date": "2026-07-30",
+      "provinces": {
+        "Ituri": 25,
+        "Nord-Kivu": 0,
+        "Haut-Uélé": 0,
+        "Tshopo": 0
+      },
+      "total": 25,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "078",
+      "date": "2026-07-31",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 2,
+        "Tshopo": 0
+      },
+      "total": 15,
+      "source": "tableau"
+    },
+    {
+      "sitrep": "079",
+      "date": "2026-08-01",
+      "provinces": {
+        "Ituri": 38,
+        "Nord-Kivu": 4,
+        "Haut-Uélé": 0,
+        "Tshopo": 0
+      },
+      "total": 42,
+      "source": "tableau",
+      "note": "case Ensemble du tableau a 15, somme des provinces retenue"
+    },
+    {
+      "sitrep": "080",
+      "date": "2026-08-02",
+      "provinces": {
+        "Ituri": 17,
+        "Nord-Kivu": 2
+      },
+      "total": 19,
+      "source": "faits saillants",
+      "forme": "bandeau"
+    },
+    {
+      "sitrep": "081",
+      "date": "2026-08-03",
+      "provinces": {
+        "Ituri": 21,
+        "Haut-Uélé": 1
+      },
+      "total": 22,
+      "source": "faits saillants",
+      "forme": "bandeau"
+    },
+    {
+      "sitrep": "082",
+      "date": "2026-08-04",
+      "provinces": {
+        "Ituri": 25,
+        "Nord-Kivu": 2
+      },
+      "total": 27,
+      "source": "faits saillants",
+      "forme": "bandeau"
+    },
+    {
+      "sitrep": "083",
+      "date": "2026-08-05",
+      "provinces": {
+        "Ituri": 15,
+        "Haut-Uélé": 2
+      },
+      "total": 17,
+      "source": "faits saillants",
+      "forme": "bandeau"
+    },
+    {
+      "sitrep": "085",
+      "date": "2026-08-07",
+      "provinces": {
+        "Ituri": 14,
+        "Nord-Kivu": 4
+      },
+      "total": 18,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "086",
+      "date": "2026-08-08",
+      "provinces": {
+        "Ituri": 21
+      },
+      "total": 21,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "087",
+      "date": "2026-08-09",
+      "provinces": {
+        "Ituri": 17,
+        "Nord-Kivu": 3
+      },
+      "total": 20,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "088",
+      "date": "2026-08-10",
+      "provinces": {
+        "Ituri": 16,
+        "Nord-Kivu": 1
+      },
+      "total": 17,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "089",
+      "date": "2026-08-11",
+      "provinces": {
+        "Ituri": 29,
+        "Nord-Kivu": 2,
+        "Tshopo": 1
+      },
+      "total": 32,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "090",
+      "date": "2026-08-12",
+      "provinces": {
+        "Ituri": 42,
+        "Nord-Kivu": 5
+      },
+      "total": 47,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "091",
+      "date": "2026-08-13",
+      "provinces": {
+        "Ituri": 11
+      },
+      "total": 11,
+      "source": "faits saillants",
+      "forme": "province seule"
+    },
+    {
+      "sitrep": "092",
+      "date": "2026-08-14",
+      "provinces": {
+        "Ituri": 27,
+        "Nord-Kivu": 3
+      },
+      "total": 30,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "093",
+      "date": "2026-08-15",
+      "provinces": {
+        "Ituri": 34
+      },
+      "total": 34,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "094",
+      "date": "2026-08-16",
+      "provinces": {
+        "Ituri": 18,
+        "Nord-Kivu": 2,
+        "Haut-Uélé": 1
+      },
+      "total": 21,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "095",
+      "date": "2026-08-17",
+      "provinces": {
+        "Ituri": 27,
+        "Haut-Uélé": 3
+      },
+      "total": 30,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "096",
+      "date": "2026-08-18",
+      "provinces": {
+        "Ituri": 22,
+        "Nord-Kivu": 2
+      },
+      "total": 24,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "097",
+      "date": "2026-08-19",
+      "provinces": {
+        "Ituri": 36,
+        "Nord-Kivu": 1
+      },
+      "total": 37,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "098",
+      "date": "2026-08-20",
+      "provinces": {
+        "Ituri": 9,
+        "Nord-Kivu": 2,
+        "Haut-Uélé": 4
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "099",
+      "date": "2026-08-21",
+      "provinces": {
+        "Ituri": 9,
+        "Nord-Kivu": 4,
+        "Haut-Uélé": 2
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "100",
+      "date": "2026-08-22",
+      "provinces": {
+        "Ituri": 14,
+        "Nord-Kivu": 3,
+        "Tshopo": 1
+      },
+      "total": 18,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "101",
+      "date": "2026-08-23",
+      "provinces": {
+        "Ituri": 13,
+        "Haut-Uélé": 2
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "102",
+      "date": "2026-08-24",
+      "provinces": {
+        "Ituri": 23,
+        "Nord-Kivu": 4,
+        "Haut-Uélé": 3
+      },
+      "total": 30,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "103",
+      "date": "2026-08-25",
+      "provinces": {
+        "Ituri": 20,
+        "Nord-Kivu": 3,
+        "Haut-Uélé": 1
+      },
+      "total": 24,
+      "source": "faits saillants",
+      "forme": "B",
+      "desaccord": {
+        "prise en charge": {
+          "Ituri": 20,
+          "Haut-Uélé": 3
+        }
+      }
+    },
+    {
+      "sitrep": "104",
+      "date": "2026-08-26",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 1,
+        "Haut-Uélé": 11
+      },
+      "total": 24,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "105",
+      "date": "2026-08-27",
+      "provinces": {
+        "Ituri": 22,
+        "Nord-Kivu": 1,
+        "Haut-Uélé": 2
+      },
+      "total": 25,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "106",
+      "date": "2026-08-28",
+      "provinces": {
+        "Ituri": 8,
+        "Nord-Kivu": 1
+      },
+      "total": 9,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "107",
+      "date": "2026-08-29",
+      "provinces": {
+        "Ituri": 34,
+        "Haut-Uélé": 5
+      },
+      "total": 39,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "108",
+      "date": "2026-08-30",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 3,
+        "Tshopo": 1
+      },
+      "total": 17,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "109",
+      "date": "2026-08-31",
+      "provinces": {
+        "Ituri": 16,
+        "Nord-Kivu": 6,
+        "Haut-Uélé": 4
+      },
+      "total": 26,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "110",
+      "date": "2026-09-01",
+      "provinces": {
+        "Ituri": 27,
+        "Nord-Kivu": 2,
+        "Tshopo": 1
+      },
+      "total": 30,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "111",
+      "date": "2026-09-02",
+      "provinces": {
+        "Ituri": 28,
+        "Nord-Kivu": 6,
+        "Haut-Uélé": 2
+      },
+      "total": 36,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "112",
+      "date": "2026-09-03",
+      "provinces": {
+        "Ituri": 18,
+        "Nord-Kivu": 2
+      },
+      "total": 20,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "113",
+      "date": "2026-09-04",
+      "provinces": {
+        "Ituri": 19,
+        "Nord-Kivu": 2
+      },
+      "total": 21,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "114",
+      "date": "2026-09-05",
+      "provinces": {
+        "Ituri": 21,
+        "Nord-Kivu": 2,
+        "Haut-Uélé": 8,
+        "Tshopo": 1
+      },
+      "total": 32,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "115",
+      "date": "2026-09-06",
+      "provinces": {
+        "Ituri": 11,
+        "Nord-Kivu": 1,
+        "Haut-Uélé": 3
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "116",
+      "date": "2026-09-07",
+      "provinces": {
+        "Ituri": 21,
+        "Nord-Kivu": 2,
+        "Haut-Uélé": 4
+      },
+      "total": 27,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "117",
+      "date": "2026-09-08",
+      "provinces": {
+        "Ituri": 9,
+        "Nord-Kivu": 1,
+        "Haut-Uélé": 11
+      },
+      "total": 21,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "118",
+      "date": "2026-09-09",
+      "provinces": {
+        "Ituri": 32,
+        "Nord-Kivu": 1,
+        "Haut-Uélé": 1,
+        "Tshopo": 2
+      },
+      "total": 36,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "119",
+      "date": "2026-09-10",
+      "provinces": {
+        "Ituri": 21,
+        "Nord-Kivu": 3
+      },
+      "total": 24,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "120",
+      "date": "2026-09-11",
+      "provinces": {
+        "Ituri": 11,
+        "Nord-Kivu": 4,
+        "Haut-Uélé": 6
+      },
+      "total": 21,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "121",
+      "date": "2026-09-12",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 2,
+        "Haut-Uélé": 5
+      },
+      "total": 20,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "122",
+      "date": "2026-09-13",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 2
+      },
+      "total": 14,
+      "source": "faits saillants",
+      "forme": "respectivement"
+    },
+    {
+      "sitrep": "123",
+      "date": "2026-09-14",
+      "provinces": {
+        "Ituri": 17,
+        "Nord-Kivu": 6,
+        "Haut-Uélé": 4
+      },
+      "total": 27,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "124",
+      "date": "2026-09-15",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 4,
+        "Haut-Uélé": 6
+      },
+      "total": 23,
+      "source": "faits saillants",
+      "forme": "phrase ancienne"
+    },
+    {
+      "sitrep": "125",
+      "date": "2026-09-16",
+      "provinces": {
+        "Ituri": 18,
+        "Nord-Kivu": 2,
+        "Haut-Uélé": 2
+      },
+      "total": 22,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "126",
+      "date": "2026-09-17",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 6,
+        "Haut-Uélé": 7
+      },
+      "total": 25,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "127",
+      "date": "2026-09-18",
+      "provinces": {
+        "Ituri": 30,
+        "Nord-Kivu": 3,
+        "Haut-Uélé": 6,
+        "Tshopo": 2
+      },
+      "total": 41,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "128",
+      "date": "2026-09-19",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 2
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "129",
+      "date": "2026-09-20",
+      "provinces": {
+        "Ituri": 10,
+        "Nord-Kivu": 10,
+        "Haut-Uélé": 3
+      },
+      "total": 23,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "130",
+      "date": "2026-09-21",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 17,
+        "Haut-Uélé": 4
+      },
+      "total": 33,
+      "source": "faits saillants",
+      "forme": "B"
+    },
+    {
+      "sitrep": "131",
+      "date": "2026-09-22",
+      "provinces": {
+        "Ituri": 6,
+        "Nord-Kivu": 5,
+        "Haut-Uélé": 4,
+        "Tshopo": 1
+      },
+      "total": 16,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "132",
+      "date": "2026-09-23",
+      "provinces": {
+        "Ituri": 7,
+        "Nord-Kivu": 5,
+        "Haut-Uélé": 3
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "133",
+      "date": "2026-09-24",
+      "provinces": {
+        "Ituri": 27,
+        "Nord-Kivu": 6,
+        "Haut-Uélé": 1,
+        "Tshopo": 1
+      },
+      "total": 35,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "134",
+      "date": "2026-09-25",
+      "provinces": {
+        "Ituri": 22,
+        "Nord-Kivu": 7,
+        "Haut-Uélé": 2,
+        "Bas-Uélé": 1
+      },
+      "total": 32,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "135",
+      "date": "2026-09-26",
+      "provinces": {
+        "Ituri": 14,
+        "Nord-Kivu": 17,
+        "Haut-Uélé": 5,
+        "Bas-Uélé": 1
+      },
+      "total": 37,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "136",
+      "date": "2026-09-27",
+      "provinces": {
+        "Ituri": 7,
+        "Nord-Kivu": 6,
+        "Haut-Uélé": 3,
+        "Tshopo": 2
+      },
+      "total": 18,
+      "source": "prise en charge"
+    },
+    {
+      "sitrep": "137",
+      "date": "2026-09-28",
+      "provinces": {
+        "Ituri": 11,
+        "Bas-Uélé": 2,
+        "Tshopo": 4
+      },
+      "total": 17,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "138",
+      "date": "2026-09-29",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 3,
+        "Haut-Uélé": 1
+      },
+      "total": 16,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "139",
+      "date": "2026-09-30",
+      "provinces": {
+        "Ituri": 27,
+        "Nord-Kivu": 7,
+        "Haut-Uélé": 5,
+        "Tshopo": 2
+      },
+      "total": 41,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "140",
+      "date": "2026-10-01",
+      "provinces": {
+        "Ituri": 19,
+        "Nord-Kivu": 1
+      },
+      "total": 20,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "141",
+      "date": "2026-10-02",
+      "provinces": {
+        "Ituri": 9,
+        "Nord-Kivu": 14,
+        "Haut-Uélé": 8
+      },
+      "total": 31,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "143",
+      "date": "2026-10-04",
+      "provinces": {
+        "Ituri": 4,
+        "Haut-Uélé": 1
+      },
+      "total": 5,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "144",
+      "date": "2026-10-05",
+      "provinces": {
+        "Ituri": 17,
+        "Nord-Kivu": 1,
+        "Haut-Uélé": 3,
+        "Bas-Uélé": 2,
+        "Sud-Ubangi": 1
+      },
+      "total": 24,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "145",
+      "date": "2026-10-06",
+      "provinces": {
+        "Ituri": 4,
+        "Nord-Kivu": 2,
+        "Haut-Uélé": 4
+      },
+      "total": 10,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "146",
+      "date": "2026-10-07",
+      "provinces": {
+        "Ituri": 15,
+        "Nord-Kivu": 8
+      },
+      "total": 23,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "147",
+      "date": "2026-10-08",
+      "provinces": {
+        "Ituri": 14,
+        "Nord-Kivu": 11,
+        "Haut-Uélé": 3
+      },
+      "total": 28,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "148",
+      "date": "2026-10-09",
+      "provinces": {
+        "Ituri": 18
+      },
+      "total": 18,
+      "source": "faits saillants",
+      "forme": "tous"
+    },
+    {
+      "sitrep": "149",
+      "date": "2026-10-10",
+      "provinces": {
+        "Ituri": 11,
+        "Haut-Uélé": 5,
+        "Tshopo": 2
+      },
+      "total": 18,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "150",
+      "date": "2026-10-11",
+      "provinces": {
+        "Ituri": 16,
+        "Nord-Kivu": 10,
+        "Haut-Uélé": 5,
+        "Tshopo": 2
+      },
+      "total": 33,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "151",
+      "date": "2026-10-12",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 13,
+        "Haut-Uélé": 2,
+        "Tshopo": 1
+      },
+      "total": 29,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "152",
+      "date": "2026-10-13",
+      "provinces": {
+        "Ituri": 13,
+        "Nord-Kivu": 14,
+        "Haut-Uélé": 2,
+        "Tshopo": 1
+      },
+      "total": 30,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "153",
+      "date": "2026-10-14",
+      "provinces": {
+        "Ituri": 18,
+        "Nord-Kivu": 15,
+        "Haut-Uélé": 5
+      },
+      "total": 38,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "154",
+      "date": "2026-10-15",
+      "provinces": {
+        "Ituri": 11,
+        "Nord-Kivu": 10
+      },
+      "total": 21,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "155",
+      "date": "2026-10-16",
+      "provinces": {
+        "Ituri": 14,
+        "Tshopo": 1
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "156",
+      "date": "2026-10-17",
+      "provinces": {
+        "Ituri": 7,
+        "Nord-Kivu": 1
+      },
+      "total": 8,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "157",
+      "date": "2026-10-18",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 7,
+        "Tshopo": 1
+      },
+      "total": 20,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "158",
+      "date": "2026-10-19",
+      "provinces": {
+        "Ituri": 5,
+        "Nord-Kivu": 10,
+        "Haut-Uélé": 7,
+        "Tshopo": 2
+      },
+      "total": 24,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "159",
+      "date": "2026-10-20",
+      "provinces": {
+        "Ituri": 15,
+        "Nord-Kivu": 6
+      },
+      "total": 21,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "160",
+      "date": "2026-10-21",
+      "provinces": {
+        "Ituri": 21,
+        "Nord-Kivu": 11
+      },
+      "total": 32,
+      "source": "faits saillants",
+      "forme": "A",
+      "hausseCumulNational": 23
+    },
+    {
+      "sitrep": "161",
+      "date": "2026-10-22",
+      "provinces": {
+        "Ituri": 8,
+        "Nord-Kivu": 9
+      },
+      "total": 17,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "162",
+      "date": "2026-10-23",
+      "provinces": {
+        "Ituri": 17,
+        "Nord-Kivu": 11
+      },
+      "total": 28,
+      "source": "faits saillants",
+      "forme": "A",
+      "hausseCumulNational": 11
+    },
+    {
+      "sitrep": "163",
+      "date": "2026-10-24",
+      "provinces": {
+        "Ituri": 9,
+        "Nord-Kivu": 12,
+        "Bas-Uélé": 3
+      },
+      "total": 24,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "164",
+      "date": "2026-10-25",
+      "provinces": {
+        "Ituri": 9,
+        "Nord-Kivu": 4,
+        "Tshopo": 1
+      },
+      "total": 14,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "165",
+      "date": "2026-10-26",
+      "provinces": {
+        "Ituri": 14,
+        "Nord-Kivu": 7,
+        "Haut-Uélé": 1,
+        "Tshopo": 2
+      },
+      "total": 24,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "166",
+      "date": "2026-10-27",
+      "provinces": {
+        "Ituri": 23,
+        "Nord-Kivu": 17,
+        "Haut-Uélé": 1
+      },
+      "total": 41,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "167",
+      "date": "2026-10-28",
+      "provinces": {
+        "Ituri": 7,
+        "Nord-Kivu": 10
+      },
+      "total": 17,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "168",
+      "date": "2026-10-29",
+      "provinces": {
+        "Ituri": 9,
+        "Nord-Kivu": 10,
+        "Tshopo": 3
+      },
+      "total": 22,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "169",
+      "date": "2026-10-30",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 2,
+        "Haut-Uélé": 1
+      },
+      "total": 15,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "170",
+      "date": "2026-10-31",
+      "provinces": {
+        "Ituri": 12,
+        "Nord-Kivu": 8,
+        "Haut-Uélé": 1
+      },
+      "total": 21,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "171",
+      "date": "2026-11-01",
+      "provinces": {
+        "Ituri": 4,
+        "Nord-Kivu": 4,
+        "Tshopo": 2
+      },
+      "total": 10,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "173",
+      "date": "2026-11-03",
+      "provinces": {
+        "Ituri": 16,
+        "Nord-Kivu": 3,
+        "Haut-Uélé": 1,
+        "Tshopo": 2
+      },
+      "total": 22,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "174",
+      "date": "2026-11-04",
+      "provinces": {
+        "Ituri": 4,
+        "Nord-Kivu": 1,
+        "Haut-Uélé": 1,
+        "Tshopo": 1
+      },
+      "total": 7,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "175",
+      "date": "2026-11-05",
+      "provinces": {
+        "Ituri": 7,
+        "Nord-Kivu": 16,
+        "Haut-Uélé": 1
+      },
+      "total": 24,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "176",
+      "date": "2026-11-06",
+      "provinces": {
+        "Ituri": 16,
+        "Nord-Kivu": 7
+      },
+      "total": 23,
+      "source": "faits saillants",
+      "forme": "A",
+      "desaccord": {
+        "prise en charge": {
+          "Ituri": 7,
+          "Nord-Kivu": 12
+        }
+      }
+    },
+    {
+      "sitrep": "177",
+      "date": "2026-11-07",
+      "provinces": {
+        "Ituri": 3,
+        "Nord-Kivu": 1,
+        "Tshopo": 1
+      },
+      "total": 5,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "178",
+      "date": "2026-11-08",
+      "provinces": {
+        "Ituri": 6,
+        "Nord-Kivu": 1,
+        "Bas-Uélé": 2,
+        "Tshopo": 2
+      },
+      "total": 11,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "179",
+      "date": "2026-11-09",
+      "provinces": {
+        "Ituri": 22,
+        "Nord-Kivu": 15,
+        "Haut-Uélé": 2
+      },
+      "total": 39,
+      "source": "faits saillants",
+      "forme": "A"
+    }
+  ],
+  "cumulsPublies": [
+    {
+      "sitrep": "024",
+      "date": "2026-06-07",
+      "provinces": {
+        "Nord-Kivu": 2,
+        "Ituri": 17
+      }
+    },
+    {
+      "sitrep": "025",
+      "date": "2026-06-08",
+      "provinces": {
+        "Nord-Kivu": 2,
+        "Ituri": 20
+      }
+    },
+    {
+      "sitrep": "026",
+      "date": "2026-06-09",
+      "provinces": {
+        "Nord-Kivu": 2,
+        "Ituri": 28
+      }
+    },
+    {
+      "sitrep": "040",
+      "date": "2026-06-23",
+      "provinces": {
+        "Ituri": 113,
+        "Nord-Kivu": 7,
+        "Sud-Kivu": 2
+      }
+    },
+    {
+      "sitrep": "041",
+      "date": "2026-06-24",
+      "provinces": {
+        "Ituri": 129,
+        "Nord-Kivu": 7,
+        "Sud-Kivu": 2
+      }
+    },
+    {
+      "sitrep": "042",
+      "date": "2026-06-25",
+      "provinces": {
+        "Ituri": 139,
+        "Nord-Kivu": 7,
+        "Sud-Kivu": 2
+      }
+    },
+    {
+      "sitrep": "044",
+      "date": "2026-06-27",
+      "provinces": {
+        "Ituri": 168,
+        "Nord-Kivu": 8,
+        "Sud-Kivu": 2
+      }
+    },
+    {
+      "sitrep": "046",
+      "date": "2026-06-29",
+      "provinces": {
+        "Ituri": 176,
+        "Nord-Kivu": 11,
+        "Sud-Kivu": 2
+      }
+    },
+    {
+      "sitrep": "064",
+      "date": "2026-07-17",
+      "provinces": {
+        "Ituri": 406
+      }
+    },
+    {
+      "sitrep": "078",
+      "date": "2026-07-31",
+      "provinces": {
+        "Ituri": 611
+      }
+    },
+    {
+      "sitrep": "079",
+      "date": "2026-08-01",
+      "provinces": {
+        "Ituri": 649
+      }
+    },
+    {
+      "sitrep": "093",
+      "date": "2026-08-15",
+      "provinces": {
+        "Ituri": 955
+      }
+    },
+    {
+      "sitrep": "128",
+      "date": "2026-09-19",
+      "provinces": {
+        "Haut-Uélé": 102
+      }
+    },
+    {
+      "sitrep": "146",
+      "date": "2026-10-07",
+      "provinces": {
+        "Ituri": 1836
+      }
+    },
+    {
+      "sitrep": "147",
+      "date": "2026-10-08",
+      "provinces": {
+        "Ituri": 1850
+      }
+    },
+    {
+      "sitrep": "148",
+      "date": "2026-10-09",
+      "provinces": {
+        "Ituri": 1868
+      }
+    },
+    {
+      "sitrep": "150",
+      "date": "2026-10-11",
+      "provinces": {
+        "Ituri": 1895
+      }
+    },
+    {
+      "sitrep": "151",
+      "date": "2026-10-12",
+      "provinces": {
+        "Ituri": 1908,
+        "Haut-Uélé": 157
+      }
+    },
+    {
+      "sitrep": "152",
+      "date": "2026-10-13",
+      "provinces": {
+        "Haut-Uélé": 157
+      }
+    }
+  ]
+}

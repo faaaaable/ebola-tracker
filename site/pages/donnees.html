@@ -169,7 +169,7 @@
         <div class="table-scroll">
           <table class="province-summary zq tri" id="provinceSummaryTable">
             <caption class="visually-hidden">{{i18n.zonesViewProvince}}</caption>
-            <thead><tr><th data-i18n="provinceTh1">{{i18n.provinceTh1}}</th><th>{{t.provinceThCases}}</th><th>{{t.paysThPart}}</th><th>{{t.zonesTh24h}}</th><th>{{t.zonesTh30}}</th><th>{{t.provinceThDeaths}}</th><th>{{t.zonesThDec24h}}</th><th>{{t.provinceThCfr}}</th><th>{{t.paysThZones}}</th></tr></thead>
+            <thead><tr><th data-i18n="provinceTh1">{{i18n.provinceTh1}}</th><th>{{t.provinceThCases}}</th><th>{{t.paysThPart}}</th><th>{{t.zonesTh24h}}</th><th>{{t.zonesTh30}}</th><th>{{t.provinceThDeaths}}</th><th>{{t.zonesThDec24h}}</th><th>{{t.provinceThCfr}}</th><th>{{t.paysThGueris}}</th><th>{{t.paysThGueris24h}}</th><th>{{t.paysThZones}}</th></tr></thead>
             <tbody id="provinceSummaryBody">
 {{seed.provinceRows}}
             </tbody>
@@ -178,6 +178,7 @@
       </div>
       <!-- Sous le tableau, le lien vers la lecture des chiffres (27 septembre
            2026) : les en-tetes disent ce qui est cumule et ce qui est du jour. -->
+      {{seed.noteGueris}}
       {{seed.noteAjouts}}
       <p class="map-note dn-more"><a href="{{url.methodologie}}">{{t.dataNoteMore}} →</a></p>
 
