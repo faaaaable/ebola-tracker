@@ -6612,7 +6612,7 @@ async function exporterTableau(table, titre, sousTitre, note){
     texte: th.innerText.trim().replace(/\s+/g, ' ').replace(/\s*[\u25b2\u25bc]$/, ''),
     nombre: th.classList.contains('is-num')
   }));
-  const lignes = [...table.querySelectorAll('tbody tr')].map(
+  const lignes = [...table.querySelectorAll('tbody tr')].filter(tr => !tr.hidden).map(
     tr => [...tr.children].map(td => td.textContent.trim().replace(/\s+/g, ' ')));
   if(!entetes.length || !lignes.length) return null;
 
@@ -6772,8 +6772,10 @@ function legendesDuTableau(table){
   const arrete = periodeTexte({ fin: currentMeta && currentMeta.reportingDate });
   if(arrete) bouts.push(arrete);
   const noteEl = bloc ? bloc.querySelector('.zones-note') : null;
-  return { titre, sousTitre: bouts.join(' · '),
-           note: noteEl ? noteEl.textContent.trim() : '' };
+  /* Tableau replie (zones des provinces) : l'image dit ce qu'elle laisse. */
+  const replie = Number(table.dataset.replie) || 0;
+  const note = [replie ? tr('zjToutImage')(replie) : '', noteEl ? noteEl.textContent.trim() : ''].filter(Boolean).join(' ');
+  return { titre, sousTitre: bouts.join(' · '), note };
 }
 
 async function partagerTableau(btn, table){
@@ -7979,6 +7981,14 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
     const JOURS = []; for(let s = ajout(D.debut, 1); s <= FIN; s = ajout(s, 1)) JOURS.push(s);
     let champ = 'c', periode = 14, triK = 'pC', triAsc = false;
     let choisie = null;
+    /* Repli du tableau (11 novembre 2026) : au-dela de REPLI_SEUIL zones,
+       seules les REPLI_LIGNES premieres du tri en cours restent, puis un
+       bouton « Voir les N autres zones ». Ituri (28) et Nord-Kivu (17) sont
+       concernes ; les autres provinces gardent tout. Le partage en image ne
+       prend que les lignes visibles (exporterTableau) et le signale au pied
+       (legendesDuTableau, data-replie). Un changement de periode replie. */
+    const REPLI_SEUIL = 12, REPLI_LIGNES = 10;
+    let deplie = false;
     const deces = () => champ === 'd';
     const teinte = () => deces() ? PALETTE.critical : PALETTE.info;
     const v = (x, ch) => (x && x[ch || champ]) || 0;
@@ -8038,6 +8048,30 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
         `<td class="zt z-cas">${fmt(l.cumC)}</td><td class="zs-24 c">${jour(l.j24C)}</td><td class="zs-b">${barre('c', l.pC, maxC)}</td>` +
         `<td class="zt z-dec">${fmt(l.cumD)}</td><td class="zs-24 d">${jour(l.j24D)}</td><td class="zs-b">${barre('d', l.pD, maxD)}</td>` +
         `<td>${l.cumC ? fmtCfr(l.cumD / l.cumC * 100) : '–'}</td></tr>`).join('');
+      replier();
+    }
+    let boutonRepli = null;
+    function replier(){
+      const rangs = [...tab.tBodies[0].rows];
+      const coupe = rangs.length > REPLI_SEUIL, n = rangs.length - REPLI_LIGNES;
+      if(!coupe){ delete tab.dataset.replie; if(boutonRepli) boutonRepli.hidden = true; return; }
+      if(!boutonRepli){
+        boutonRepli = document.createElement('button');
+        boutonRepli.type = 'button'; boutonRepli.className = 'zs-tout';
+        boutonRepli.setAttribute('aria-controls', tab.id);
+        tab.closest('.zs-defil').after(boutonRepli);
+        boutonRepli.addEventListener('click', () => {
+          const fermer = deplie; deplie = !deplie; replier();
+          if(fermer) tab.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        });
+      }
+      rangs.forEach((r, i) => { r.hidden = !deplie && i >= REPLI_LIGNES; r.classList.toggle('zs-fondu', !deplie && i === REPLI_LIGNES - 1); });
+      if(deplie) delete tab.dataset.replie; else tab.dataset.replie = n;
+      const calmes = rangs.slice(REPLI_LIGNES).filter(r => r.querySelectorAll('.zs-l.vide').length === 2).length;
+      boutonRepli.hidden = false;
+      boutonRepli.setAttribute('aria-expanded', deplie ? 'true' : 'false');
+      boutonRepli.innerHTML = deplie ? `<span>${tr('zjReduire')} ↑</span>`
+        : `<span>${tr('zjToutVoir')(n)} ↓</span>` + (calmes ? `<small>${tr('zjToutCalmes')(calmes)}</small>` : '');
     }
 
     /* ---- Le grand graphique ---- */
@@ -8168,7 +8202,7 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
     $('.zs-periode').addEventListener('click', ev => {
       const b = ev.target.closest('button'); if(!b) return;
       b.parentNode.querySelectorAll('button').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-      periode = Number(b.dataset.p); rendreTableau();
+      periode = Number(b.dataset.p); deplie = false; rendreTableau();
     });
     tab.querySelectorAll('thead th').forEach(th => {
       th.setAttribute('role', 'button'); th.tabIndex = 0;

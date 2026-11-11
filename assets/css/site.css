@@ -5631,6 +5631,13 @@ main:has(.prov-hero-b) .zs-bloc + .drill{text-align:left;margin-top:36px;}
 .zs-recent b{font-weight:700;}
 .zs-mini{height:64px;position:relative;}
 .zs-mini canvas{width:100% !important;height:100% !important;}
+/* Repli du tableau des zones (11 nov. 2026) : bouton pleine largeur sous
+   le tableau, derniere ligne visible pâlie tant qu'il est replie. */
+.zs-tab tbody tr.zs-fondu td{opacity:.45;}
+.zs-tout{display:flex;flex-direction:column;align-items:center;gap:2px;width:100%;margin:6px 0 0;padding:10px 14px;border:0;border-top:1px solid var(--line);background:none;font:600 13.5px var(--font-sans);color:var(--accent-strong);cursor:pointer;}
+.zs-tout:hover{background:var(--bg);}
+.zs-tout small{font-weight:500;font-size:12px;color:var(--ink-faint);}
+.zs-tout[hidden]{display:none;}
 .zs-plus{display:none;margin:14px 0 0;padding:8px 14px;border:1px solid var(--line);border-radius:6px;background:var(--bg-panel);font:600 13px var(--font-sans);color:var(--accent-strong);cursor:pointer;}
 details.zs-calmes summary{cursor:pointer;font:600 13px var(--font-sans);color:var(--accent-strong);margin:24px 0 0;}
 .zs-note{margin-top:26px;}
