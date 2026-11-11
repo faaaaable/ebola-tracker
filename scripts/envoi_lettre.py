@@ -8,7 +8,8 @@ et part a la liste unique de chaque langue (site.brevoEnvoiLettre : 3 fr,
 4 en depuis le 23 octobre 2026), ou arrivent les inscriptions de la page
 Etre prevenu comme celles de l'encadre au bas de chaque Lettre. Dessin : le nom du site et son favicon au-dessus, l'en-tete de la
 Lettre, le titre et le chapeau, les cinq chiffres en bandeau, la courbe des
-30 derniers jours, trois liens (carte, ensemble de la RDC, hors RDC) et le
+30 derniers jours, les provinces touchees au cumul des cas (liens texte,
+11 nov. 2026), trois liens (carte, ensemble de la RDC, hors RDC) et le
 bouton vers la lettre. Tout est lu dans la lettre generee
 (lettre/NNN/index.html, en/letter/NNN/index.html). La courbe est dessinee
 en tableau HTML, pas en image : les messageries n'affichent pas le SVG, et
@@ -24,7 +25,7 @@ La cle API est lue dans BREVO_API_KEY (secret GitHub), sinon dans
 ~/.config/ebola-tracker/brevo.key. Sans cle ou sans listes : rien n'est
 envoye et le script sort sans erreur.
 """
-import base64, html, json, os, re, sys, time, urllib.request, urllib.error
+import base64, html, json, os, re, sys, time, unicodedata, urllib.request, urllib.error
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 ETAT = os.path.join(ROOT, "data", "envois-lettre.json")
@@ -35,10 +36,12 @@ INK, DIM, FAINT, LINE = "#1F1A13", "#5A544C", "#777068", "#DEDAD5"
 TEINTE = {"is-cas": "#005E82", "is-deces": "#993A2E", "is-gueris": "#327957", "is-cte": "#A06F30"}
 T = {"fr": dict(marque="La lettre", objet="La Lettre n° %s · %s", bouton="Lire la Lettre en entier",
                 liens=[("La carte", ""), ("L’ensemble de la RDC", "donnees/"), ("Hors RDC", "autres-pays/")],
+                provinces="Les provinces touchées", base_prov="donnees/",
                 source="Résumé du bulletin officiel de l’Institut national de santé publique (INSP) de la RDC.",
                 desinscr="Se désinscrire"),
      "en": dict(marque="The letter", objet="The Letter no. %s · %s", bouton="Read the full Letter",
                 liens=[("The map", "en/"), ("All of the DRC", "en/data/"), ("Outside the DRC", "en/other-countries/")],
+                provinces="Affected provinces", base_prov="en/data/",
                 source="Summary of the official bulletin of the DRC National Institute of Public Health (INSP).",
                 desinscr="Unsubscribe")}
 # Le favicon du site en PNG (assets/img/mail-favicon.png, 96 px) : les
@@ -95,6 +98,19 @@ def lettre(num, lang):
                 r'<div class="lq-chiffre ?([a-z-]*)"><b>(.*?)</b><span>(.*?)</span></div>', s, re.S)]}
 
 
+def slug(nom):
+    nom = unicodedata.normalize("NFKD", nom).encode("ascii", "ignore").decode()
+    return nom.lower().replace(" ", "-")
+
+
+def provinces_touchees():
+    """Toutes les provinces touchees, au cumul des cas depuis le debut
+    (11 novembre 2026) : un ordre stable d'un mail a l'autre, celui du
+    tableau par province du site."""
+    P = lire_json(os.path.join(ROOT, "data", "latest.json"))["provinces"]
+    return [p["name"] for p in sorted(P, key=lambda p: -p["confirmed"]) if p["confirmed"] > 0]
+
+
 def mail(num, lang):
     """(objet, apercu, html) du mail d'une lettre."""
     d, t = lettre(num, lang), T[lang]
@@ -118,6 +134,15 @@ def mail(num, lang):
                      for h, der in d["barres"])
     liens = "".join(f'<a href="{ORIGINE}{u}" style="display:inline-block;margin:0 5px 8px;padding:10px 16px;border:1.5px solid #005073;'
                     f'border-radius:10px;color:#005073;font:700 14px {SANS};text-decoration:none;">{esc(l)} →</a>' for l, u in t["liens"])
+    # Ligne des provinces touchees, au-dessus des trois boutons : liens texte,
+    # pour laisser au bouton « Lire la Lettre » sa place d'action principale.
+    sep = ' <span style="color:#B9B4AE;padding:0 4px;">·</span> '
+    provinces = sep.join(f'<a href="{ORIGINE}{t["base_prov"]}{slug(n)}/" style="color:#005073;font:700 15px {SANS};'
+                         f'text-decoration:underline;text-underline-offset:3px;white-space:nowrap;">{esc(n)}</a>'
+                         for n in provinces_touchees())
+    ligne_prov = (f' <tr><td align="center" style="padding:22px 28px 0;">'
+                  f'<div style="font:700 11px/1.4 {SANS};letter-spacing:1.5px;text-transform:uppercase;color:{FAINT};margin-bottom:8px;">{t["provinces"]}</div>'
+                  f'<div style="line-height:1.9;">{provinces}</div></td></tr>\n') if provinces else ""
     objet = t["objet"] % (num, d["titre"])
     apercu = premiere_phrase(d["chapo"])
     accueil = ORIGINE + ("en/" if lang == "en" else "")
@@ -142,7 +167,7 @@ def mail(num, lang):
  <tr><td style="padding:18px 28px 0;"><div style="border-top:2px solid {INK};border-bottom:1px solid {LINE};text-align:center;font-size:0;">{bandeau}</div></td></tr>
  <tr><td style="padding:18px 28px 0;"><a href="{d["url"]}#bilan" style="text-decoration:none;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="height:110px;border:1px solid {LINE};border-radius:8px;padding:8px 6px 0;"><tr>{barres}</tr></table></a>
   <div style="font:13px/1.4 {SANS};color:{FAINT};margin-top:6px;">{esc(d["legende"])}</div></td></tr>
- <tr><td align="center" style="padding:20px 28px 0;">{liens}</td></tr>
+{ligne_prov} <tr><td align="center" style="padding:{16 if ligne_prov else 20}px 28px 0;">{liens}</td></tr>
  <tr><td align="center" style="padding:18px 28px 30px;"><a href="{d["url"]}" style="display:inline-block;background:#005073;color:#ffffff;font:700 15px {SANS};text-decoration:none;padding:14px 26px;border-radius:10px;">{t["bouton"]} →</a></td></tr>
 </table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;"><tr><td style="padding:16px 26px;font:12px/1.6 {SANS};color:{FAINT};text-align:center;">
