@@ -139,9 +139,38 @@ HOSPITALISES_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*(?:\(\s*\d[^)]{0,90}\)\s*)?sont\s+pris\s+en\s+charge\b", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s*\(\s*\d[^)]{0,90}\)\s*hospitalis", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)(?:\s+(?:suspects|confirm[ée]s))?\s+demeurent\s+en\s+(?:isolement|hospitalisation)", re.I),
+    # « Six suspects restent isolés (Dakwa 1, Viadana 2 et Ganga 3) avec 2
+    # confirmés » (153 Bas-Uele) : les deux.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+suspects\s+restent\s+isol[ée]s\s*\([^)]{0,60}\)\s*avec\s+(\d[\d ]{0,4}\d|\d)\s+confirm", re.I),
     # « 47 suspects restent isolés dans les ESS faute de CTE fonctionnel »
     # (173 et 174, Bas-Uele).
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+suspects\s+restent\s+isol[ée]s", re.I),
+    # Tournures relevees le 11 novembre 2026 en recoupant la somme des
+    # provinces avec le chiffre national du bandeau, bulletin par bulletin :
+    # « 6 patients (1 confirmé à Ganga et 5 suspects) demeurent en isolement »
+    # (132-135 Bas-Uele), « 16 patients suspects étaient en isolement » (141),
+    # « 12 patients (5 confirmés et 7 suspects) sont isolés » (175
+    # Nord-Ubangi), « Au total, 68 patients demeuraient en 6 isolement » (149
+    # Haut-Uele, numero de page colle dans la phrase).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)(?:\s+(?:suspects|confirm[ée]s))?\s*(?:\(\s*\d[^)]{0,90}\)\s*)?"
+               r"(?:demeurent|demeuraient|[ée]taient|restent|sont)\s+(?:en\s+(?:\d{1,2}\s+)?isolement|isol[ée]s)", re.I),
+    # « 29 suspects demeuraient en isolement » (144 Bas-Uele), « 10 cas
+    # suspects sont isolés » (146 Bas-Uele).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:cas\s+)?suspects\s+(?:demeurent|demeuraient|restent|sont)\s+(?:en\s+isolement|isol[ée]s)", re.I),
+    # « et 52 en isolement à la fin de la journée » (143 Bas-Uele).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+en\s+isolement\s+[àa]\s+la\s+fin\s+de\s+la\s+journ[ée]e", re.I),
+    # « au total, 26 patients sont rapportés en isolement » (148 Bas-Uele).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+sont\s+rapport[ée]s\s+en\s+isolement", re.I),
+    # « portant à 106 le nombre de suspects isolés » (167, 169-171 Bas-Uele),
+    # « ramenant à 38 le nombre… » (168).
+    re.compile(r"(?:portant|ramenant)\s+[àa]\s+(\d[\d ]{0,4}\d|\d)\s+le\s+nombre\s+de\s+(?:suspects|patients|cas)\s+(?:isol|en\s+isolement|hospitalis)", re.I),
+    # « Le total des patients actuellement en isolement s'élève à 18 cas
+    # suspects » (179 Bas-Uele).
+    re.compile(r"total\s+des\s+patients\s+(?:actuellement\s+)?en\s+isolement\s+s[’']\s*[ée]l[eè]ve\s+[àa]\s+(\d[\d ]{0,4}\d|\d)", re.I),
+    # « 6 patients (2 confirmés, 4 suspects) au CTE Météo » (178 Tshopo).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s*\(\s*\d[^)]{0,60}\)\s*aux?\s+(?:CTE|CT|lits)\b", re.I),
+    # « 21 confirmés et 34 suspects aux lits » (178 Haut-Uele) : la somme.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+confirm[ée]s\s+et\s+(\d[\d ]{0,4}\d|\d)\s+suspects\s+aux\s+lits\b", re.I),
     # « 364 patients aux lits (124 confirmés, 240 suspects) » (Ituri, 178 et
     # 179 ; Nord-Kivu au 178) : jamais lu, l'Ituri disparaissait du
     # graphique. En dernier : au 147, « 523 patients demeuraient en
@@ -274,11 +303,37 @@ def premier(regexes, texte):
             # patients des centres de traitement.
             if re.match(r"\w*\s+hors\b", texte[m.end():m.end() + 30]):
                 continue
-            return entier(m.group(1))
+            # Deux groupes : « 21 confirmés et 34 suspects aux lits » (178
+            # Haut-Uele), la somme est le nombre de patients.
+            vals = [entier(g) for g in m.groups() if g]
+            return sum(v for v in vals if v is not None) if vals else None
     return None
 
 
+# Les nombres en toutes lettres (11 novembre 2026) : « Treize patients
+# demeuraient en isolement » (136 a 140 Tshopo et Bas-Uele), « Seize (16)
+# patients … sont en isolement » (132 Tshopo), « Six suspects restent
+# isoles » (153 Bas-Uele). Le mot suivi de son chiffre entre parentheses
+# garde le chiffre ; seul, il devient chiffre devant patients, suspects,
+# cas ou confirmes.
+NOMBRES_MOTS = {
+    "un": 1, "une": 1, "deux": 2, "trois": 3, "quatre": 4, "cinq": 5, "six": 6,
+    "sept": 7, "huit": 8, "neuf": 9, "dix": 10, "onze": 11, "douze": 12,
+    "treize": 13, "quatorze": 14, "quinze": 15, "seize": 16, "dix-sept": 17,
+    "dix-huit": 18, "dix-neuf": 19, "vingt": 20,
+}
+_MOTS = "|".join(sorted(NOMBRES_MOTS, key=len, reverse=True))
+MOT_PARENTHESE_RE = re.compile(r"\b(?:%s)\s*\((\d+)\)" % _MOTS, re.I)
+MOT_SEUL_RE = re.compile(r"\b(%s)\s+(?=(?:patients?|malades|suspects?|cas|confirm[ée]s?)\b)" % _MOTS, re.I)
+
+
+def chiffrer(morceau):
+    morceau = MOT_PARENTHESE_RE.sub(r"\1", morceau)
+    return MOT_SEUL_RE.sub(lambda m: "%d " % NOMBRES_MOTS[m.group(1).lower()], morceau)
+
+
 def lire_prose(morceau):
+    morceau = chiffrer(morceau)
     hosp = premier(HOSPITALISES_RES, morceau)
     if hosp is None:
         return None
@@ -382,6 +437,12 @@ def section_prose(texte):
     # des relevés : au 174, « au Nord-Kivu, … 210 patients sont pris en
     # charge hors CTE/CT » y etait lu comme la ligne du Nord-Kivu
     # (6 novembre 2026).
+    # La rubrique suivante peut suivre sans retour a la ligne : « … contre 1
+    # sortie. 2.5. Vaccination 2.5.1. » (176) ; sans cette coupe, la Tshopo
+    # de la vaccination passait pour celle de la prise en charge.
+    v = re.search(r"\b\d\.\d{1,2}\.?\s+Vaccination\b", reste)
+    if v:
+        reste = reste[:v.start()]
     d = re.search(r"\n[\d.\s]{0,12}D[ée]fis\b", reste)
     if d:
         reste = reste[:d.start()]
@@ -493,7 +554,11 @@ def lire_par_tableau(texte):
     mp = PATIENTS_LIGNE_RE.search(texte)
     if not mp:
         return {}
-    avant = texte[:mp.start()]
+    # +1 : le retour a la ligne qui clot l'en-tete est aussi celui qui ouvre
+    # la ligne des patients ; sans lui, l'en-tete colle au tableau (059,
+    # « Indicateur Ituri Nord-Kivu Sud-Kivu Ensemble ») n'etait pas vu et
+    # celui du tableau des alertes, a cinq colonnes, etait pris (11 novembre 2026).
+    avant = texte[:mp.start() + 1]
     entetes = list(ENTETE_RE.finditer(avant))
     if not entetes:
         return {}
@@ -552,6 +617,52 @@ def lire_par_tableau(texte):
             ligne["occupationCalculee"] = True
         provinces[canon(nom)] = ligne
     return provinces
+
+
+# ------------------------------------------------------- bandeau (059-083)
+# Le bandeau de tete des SitReps 059 a 083 ventile les patients en
+# isolement : « PATIENTS EN ISOLEMENT … 717 … Ituri 471 · N-Kivu 196 ·
+# Haut-Uélé 31 · +22 guéris (Ituri 21 · Haut-Uélé 1) Tshopo 3 · Sud-Kivu 16
+# 14 300 / 18 243 vus » (081). Aux 081-083 la prose ne donne que l'Ituri :
+# le bandeau complete les autres provinces, s'il retombe sur son total
+# (11 novembre 2026). Jamais a la place d'une lecture du tableau ou de la prose.
+BANDEAU_NOMS = [("Ituri", r"Ituri"), ("Nord-Kivu", r"N(?:ord)?[\s-]+Kivu"),
+                ("Haut-Uélé", r"H(?:aut)?[\s-]+U[ée]l[ée]"), ("Tshopo", r"Tshopo"),
+                ("Sud-Kivu", r"S(?:ud)?[\s-]+Kivu"), ("Bas-Uélé", r"B(?:as)?[\s-]+U[ée]l[ée]")]
+
+
+def lire_bandeau(texte):
+    i = texte.find("PATIENTS EN ISOLEMENT")
+    if i < 0:
+        return {}
+    seg = texte[i:i + 500]
+    # Un seul bloc de chiffres : « 717 749 » sont les patients puis les guéris
+    # (le bandeau n'a jamais depasse 999 patients a cette epoque).
+    mt = re.search(r"\n\s*(\d{1,4})\b", seg)
+    if not mt:
+        return {}
+    total = entier(mt.group(1))
+    seg = seg[mt.end():]
+    seg = re.sub(r"\+\s*\d+\s+gu[ée]ris\s*(?:\([^)]*\))?", " ", seg)
+    # Fin : la fraction des contacts vus (« 14 300 / 18 243 »), sans manger
+    # le « 16 » du Sud-Kivu qui la precede.
+    fin = re.search(r"cumul|\b\d{1,2} \d{3}\s*/|\b\d{3,6}\s*/|vus|Faits", seg, re.I)
+    seg = seg[:fin.start()] if fin else seg
+    provinces, autres = {}, 0
+    motif = "|".join("(?P<p%d>%s)" % (k, rx) for k, (_, rx) in enumerate(BANDEAU_NOMS))
+    for m in re.finditer(r"(?:%s|(?P<autres>autres))\s+(\d{1,4}|ND)\b" % motif, seg):
+        v = m.group(m.lastindex)
+        if m.group("autres"):
+            autres = entier(v) or 0
+            continue
+        nom = next(BANDEAU_NOMS[k][0] for k in range(len(BANDEAU_NOMS)) if m.group("p%d" % k))
+        if nom in provinces:
+            break
+        provinces[nom] = None if v == "ND" else entier(v)
+    lus = {k: v for k, v in provinces.items() if v is not None}
+    if not lus or total is None or sum(lus.values()) + autres != total:
+        return {}
+    return {k: {"hospitalises": v, "bandeau": True} for k, v in lus.items()}
 
 
 # ----------------------------------------------------------------- commun
@@ -807,6 +918,12 @@ def lire_rapport(chemin):
     if not provinces:
         provinces = lire_par_prose(texte)
         methode = "prose"
+    bandeau = lire_bandeau(texte)
+    if bandeau and not provinces:
+        methode = "bandeau"
+    for nom, ligne in bandeau.items():
+        if nom not in provinces:
+            provinces[nom] = ligne
     for nom, ligne in LECTURES_NOMMEES.get(meta["sitrepNumber"], {}).items():
         if nom not in provinces:
             provinces[nom] = dict(ligne)

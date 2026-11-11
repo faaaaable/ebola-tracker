@@ -812,6 +812,51 @@
       "source": "SitRep INSP (automatique)"
     },
     {
+      "date": "2026-07-12",
+      "sitrepNumber": "059",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 549
+        },
+        "Nord-Kivu": {
+          "hospitalises": 170
+        },
+        "Sud-Kivu": {
+          "hospitalises": 17
+        }
+      },
+      "total": {
+        "hospitalises": 736,
+        "provinces": 3
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-07-13",
+      "sitrepNumber": "060",
+      "methode": "tableau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 553
+        },
+        "Nord-Kivu": {
+          "hospitalises": 170
+        },
+        "Sud-Kivu": {
+          "hospitalises": 27
+        },
+        "Haut-Uélé": {
+          "hospitalises": 3
+        }
+      },
+      "total": {
+        "hospitalises": 753,
+        "provinces": 4
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
       "date": "2026-07-14",
       "sitrepNumber": "061",
       "methode": "tableau",
@@ -821,11 +866,14 @@
         },
         "Nord-Kivu": {
           "hospitalises": 188
+        },
+        "Tshopo": {
+          "hospitalises": 4
         }
       },
       "total": {
-        "hospitalises": 732,
-        "provinces": 2
+        "hospitalises": 736,
+        "provinces": 3
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -845,14 +893,20 @@
           "lits": 141,
           "occupation": 121.3,
           "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 5,
+          "lits": 12,
+          "occupation": 41.7,
+          "occupationCalculee": true
         }
       },
       "total": {
-        "hospitalises": 720,
-        "provinces": 2,
-        "lits": 834,
-        "hospitalisesAvecLits": 720,
-        "occupation": 86.3
+        "hospitalises": 725,
+        "provinces": 3,
+        "lits": 846,
+        "hospitalisesAvecLits": 725,
+        "occupation": 85.7
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -1333,40 +1387,88 @@
     {
       "date": "2026-08-03",
       "sitrepNumber": "081",
-      "methode": "prose",
+      "methode": "bandeau",
       "provinces": {
         "Ituri": {
           "hospitalises": 471,
-          "lits": 833,
-          "occupation": 56.5
+          "bandeau": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 196,
+          "bandeau": true
+        },
+        "Haut-Uélé": {
+          "hospitalises": 31,
+          "bandeau": true
+        },
+        "Tshopo": {
+          "hospitalises": 3,
+          "bandeau": true
+        },
+        "Sud-Kivu": {
+          "hospitalises": 16,
+          "bandeau": true
         }
       },
       "total": {
-        "hospitalises": 471,
-        "provinces": 1,
-        "lits": 833,
-        "hospitalisesAvecLits": 471,
-        "occupation": 56.5
+        "hospitalises": 717,
+        "provinces": 5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-08-04",
+      "sitrepNumber": "082",
+      "methode": "bandeau",
+      "provinces": {
+        "Ituri": {
+          "hospitalises": 468,
+          "bandeau": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 186,
+          "bandeau": true
+        },
+        "Tshopo": {
+          "hospitalises": 3,
+          "bandeau": true
+        },
+        "Sud-Kivu": {
+          "hospitalises": 17,
+          "bandeau": true
+        }
+      },
+      "total": {
+        "hospitalises": 674,
+        "provinces": 4
       },
       "source": "SitRep INSP (automatique)"
     },
     {
       "date": "2026-08-05",
       "sitrepNumber": "083",
-      "methode": "prose",
+      "methode": "bandeau",
       "provinces": {
         "Ituri": {
           "hospitalises": 468,
-          "lits": 833,
-          "occupation": 56.0
+          "bandeau": true
+        },
+        "Nord-Kivu": {
+          "hospitalises": 205,
+          "bandeau": true
+        },
+        "Tshopo": {
+          "hospitalises": 4,
+          "bandeau": true
+        },
+        "Sud-Kivu": {
+          "hospitalises": 17,
+          "bandeau": true
         }
       },
       "total": {
-        "hospitalises": 468,
-        "provinces": 1,
-        "lits": 833,
-        "hospitalisesAvecLits": 468,
-        "occupation": 56.2
+        "hospitalises": 694,
+        "provinces": 4
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -1523,14 +1625,16 @@
         "Tshopo": {
           "hospitalises": 5,
           "occupation": 41.7,
-          "admissions": 2
+          "admissions": 2,
+          "lits": 12,
+          "litsRecoupes": true
         }
       },
       "total": {
         "hospitalises": 676,
         "provinces": 4,
-        "lits": 1051,
-        "hospitalisesAvecLits": 491,
+        "lits": 1063,
+        "hospitalisesAvecLits": 496,
         "occupation": 46.7
       },
       "source": "SitRep INSP (automatique)"
@@ -1561,15 +1665,17 @@
         "Tshopo": {
           "hospitalises": 8,
           "occupation": 66.7,
-          "admissions": 6
+          "admissions": 6,
+          "lits": 12,
+          "litsRecoupes": true
         }
       },
       "total": {
         "hospitalises": 743,
         "provinces": 4,
-        "lits": 1275,
-        "hospitalisesAvecLits": 735,
-        "occupation": 57.6
+        "lits": 1287,
+        "hospitalisesAvecLits": 743,
+        "occupation": 57.7
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -1661,14 +1767,19 @@
           "occupation": 82.5,
           "admissions": 48,
           "gueris": 2
+        },
+        "Tshopo": {
+          "hospitalises": 5,
+          "lits": 12,
+          "occupation": 41.7
         }
       },
       "total": {
-        "hospitalises": 747,
-        "provinces": 2,
-        "lits": 1197,
-        "hospitalisesAvecLits": 747,
-        "occupation": 62.4
+        "hospitalises": 752,
+        "provinces": 3,
+        "lits": 1209,
+        "hospitalisesAvecLits": 752,
+        "occupation": 62.2
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -1930,6 +2041,9 @@
           "occupation": 50.0,
           "admissions": 4
         },
+        "Sud-Kivu": {
+          "hospitalises": 30
+        },
         "Haut-Uélé": {
           "hospitalises": 72,
           "lits": 130,
@@ -1939,8 +2053,8 @@
         }
       },
       "total": {
-        "hospitalises": 815,
-        "provinces": 4,
+        "hospitalises": 845,
+        "provinces": 5,
         "lits": 1315,
         "hospitalisesAvecLits": 815,
         "occupation": 62.0
@@ -2076,11 +2190,14 @@
           "occupation": 105.5,
           "sorties": 42,
           "gueris": 1
+        },
+        "Sud-Kivu": {
+          "hospitalises": 26
         }
       },
       "total": {
-        "hospitalises": 754,
-        "provinces": 2,
+        "hospitalises": 780,
+        "provinces": 3,
         "lits": 1198,
         "hospitalisesAvecLits": 754,
         "occupation": 62.9
@@ -2654,14 +2771,22 @@
           "admissions": 1,
           "sorties": 4,
           "gueris": 2
+        },
+        "Sud-Kivu": {
+          "hospitalises": 18,
+          "admissions": 1,
+          "lits": 25,
+          "litsEncadres": true,
+          "occupation": 72.0,
+          "occupationCalculee": true
         }
       },
       "total": {
-        "hospitalises": 805,
-        "provinces": 4,
-        "lits": 1368,
-        "hospitalisesAvecLits": 805,
-        "occupation": 58.8
+        "hospitalises": 823,
+        "provinces": 5,
+        "lits": 1393,
+        "hospitalisesAvecLits": 823,
+        "occupation": 59.1
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -2697,14 +2822,23 @@
           "occupation": 29.0,
           "admissions": 1,
           "sorties": 0
+        },
+        "Sud-Kivu": {
+          "hospitalises": 18,
+          "occupation": 72.0,
+          "admissions": 1,
+          "lits": 25,
+          "litsEncadres": true,
+          "occupationPubliee": 72.0,
+          "occupationCalculee": true
         }
       },
       "total": {
-        "hospitalises": 819,
-        "provinces": 4,
-        "lits": 1390,
-        "hospitalisesAvecLits": 819,
-        "occupation": 58.9
+        "hospitalises": 837,
+        "provinces": 5,
+        "lits": 1415,
+        "hospitalisesAvecLits": 837,
+        "occupation": 59.2
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -2744,14 +2878,23 @@
           "occupation": 29.0,
           "admissions": 2,
           "sorties": 1
+        },
+        "Sud-Kivu": {
+          "hospitalises": 16,
+          "occupation": 64.0,
+          "admissions": 1,
+          "lits": 25,
+          "litsEncadres": true,
+          "occupationPubliee": 64.0,
+          "occupationCalculee": true
         }
       },
       "total": {
-        "hospitalises": 839,
-        "provinces": 5,
-        "lits": 1172,
-        "hospitalisesAvecLits": 516,
-        "occupation": 44.0
+        "hospitalises": 855,
+        "provinces": 6,
+        "lits": 1197,
+        "hospitalisesAvecLits": 532,
+        "occupation": 44.4
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -2798,7 +2941,8 @@
         "Sud-Kivu": {
           "hospitalises": 17,
           "lits": 25,
-          "occupation": 68.0
+          "occupation": 68.0,
+          "admissions": 1
         }
       },
       "total": {
@@ -2838,7 +2982,9 @@
           "sorties": 3
         },
         "Bas-Uélé": {
-          "hospitalises": 7
+          "hospitalises": 7,
+          "admissions": 1,
+          "sorties": 1
         },
         "Tshopo": {
           "hospitalises": 8,
@@ -2890,12 +3036,16 @@
           "sorties": 15
         },
         "Bas-Uélé": {
-          "hospitalises": 7
+          "hospitalises": 7,
+          "admissions": 1,
+          "sorties": 1
         },
         "Tshopo": {
           "hospitalises": 6,
           "lits": 31,
-          "occupation": 19.4
+          "occupation": 19.4,
+          "admissions": 1,
+          "sorties": 5
         },
         "Sud-Kivu": {
           "hospitalises": 16,
@@ -2946,6 +3096,7 @@
         },
         "Bas-Uélé": {
           "hospitalises": 11,
+          "admissions": 5,
           "sorties": 1
         },
         "Tshopo": {
@@ -3000,12 +3151,15 @@
           "sorties": 2
         },
         "Bas-Uélé": {
-          "hospitalises": 5
+          "hospitalises": 5,
+          "admissions": 1,
+          "sorties": 1
         },
         "Tshopo": {
           "hospitalises": 7,
           "lits": 31,
-          "occupation": 22.6
+          "occupation": 22.6,
+          "admissions": 1
         },
         "Sud-Kivu": {
           "hospitalises": 13,
@@ -3352,14 +3506,25 @@
           "occupation": 44.9,
           "admissions": 12,
           "sorties": 3
+        },
+        "Tshopo": {
+          "hospitalises": 16,
+          "lits": 31,
+          "occupation": 51.6,
+          "admissions": 1
+        },
+        "Bas-Uélé": {
+          "hospitalises": 6,
+          "admissions": 2,
+          "sorties": 4
         }
       },
       "total": {
-        "hospitalises": 871,
-        "provinces": 3,
-        "lits": 1461,
-        "hospitalisesAvecLits": 871,
-        "occupation": 59.6
+        "hospitalises": 893,
+        "provinces": 5,
+        "lits": 1492,
+        "hospitalisesAvecLits": 887,
+        "occupation": 59.5
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3397,14 +3562,24 @@
           "lits": 12,
           "occupation": 16.7,
           "admissions": 1
+        },
+        "Tshopo": {
+          "hospitalises": 15,
+          "lits": 31,
+          "occupation": 48.4
+        },
+        "Bas-Uélé": {
+          "hospitalises": 6,
+          "admissions": 4,
+          "sorties": 3
         }
       },
       "total": {
-        "hospitalises": 827,
-        "provinces": 4,
-        "lits": 1519,
-        "hospitalisesAvecLits": 827,
-        "occupation": 54.4
+        "hospitalises": 848,
+        "provinces": 6,
+        "lits": 1550,
+        "hospitalisesAvecLits": 842,
+        "occupation": 54.3
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3437,13 +3612,26 @@
           "occupation": 50.0,
           "admissions": 10,
           "sorties": 5
+        },
+        "Tshopo": {
+          "hospitalises": 17,
+          "lits": 31,
+          "occupation": 54.8,
+          "admissions": 4,
+          "sorties": 0
+        },
+        "Bas-Uélé": {
+          "hospitalises": 6,
+          "admissions": 2,
+          "sorties": 1,
+          "gueris": 1
         }
       },
       "total": {
-        "hospitalises": 805,
-        "provinces": 3,
-        "lits": 1507,
-        "hospitalisesAvecLits": 805,
+        "hospitalises": 828,
+        "provinces": 5,
+        "lits": 1538,
+        "hospitalisesAvecLits": 822,
         "occupation": 53.4
       },
       "source": "SitRep INSP (automatique)"
@@ -3476,11 +3664,17 @@
           "occupation": 43.5,
           "admissions": 11,
           "sorties": 18
+        },
+        "Bas-Uélé": {
+          "hospitalises": 5,
+          "admissions": 1,
+          "sorties": 3,
+          "gueris": 1
         }
       },
       "total": {
-        "hospitalises": 768,
-        "provinces": 3,
+        "hospitalises": 773,
+        "provinces": 4,
         "lits": 1507,
         "hospitalisesAvecLits": 768,
         "occupation": 51.0
@@ -3520,11 +3714,20 @@
           "gueris": 3,
           "lits": 138,
           "litsRecoupes": true
+        },
+        "Tshopo": {
+          "hospitalises": 13,
+          "admissions": 1,
+          "gueris": 2
+        },
+        "Bas-Uélé": {
+          "hospitalises": 9,
+          "admissions": 5
         }
       },
       "total": {
-        "hospitalises": 781,
-        "provinces": 3,
+        "hospitalises": 803,
+        "provinces": 5,
         "lits": 1507,
         "hospitalisesAvecLits": 781,
         "occupation": 51.8
@@ -3555,14 +3758,27 @@
           "sorties": 48,
           "lits": 354,
           "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 9,
+          "occupation": 29.0,
+          "admissions": 6,
+          "lits": 31,
+          "litsRecoupes": true
+        },
+        "Bas-Uélé": {
+          "hospitalises": 3,
+          "admissions": 2,
+          "sorties": 4,
+          "gueris": 2
         }
       },
       "total": {
-        "hospitalises": 747,
-        "provinces": 2,
-        "lits": 1369,
-        "hospitalisesAvecLits": 747,
-        "occupation": 54.6
+        "hospitalises": 759,
+        "provinces": 4,
+        "lits": 1400,
+        "hospitalisesAvecLits": 756,
+        "occupation": 54.0
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3591,6 +3807,19 @@
           "lits": 354,
           "occupationCalculee": true
         },
+        "Tshopo": {
+          "hospitalises": 13,
+          "occupation": 41.9,
+          "admissions": 1,
+          "sorties": 0,
+          "lits": 31,
+          "litsRecoupes": true
+        },
+        "Bas-Uélé": {
+          "hospitalises": 11,
+          "admissions": 4,
+          "sorties": 0
+        },
         "Haut-Uélé": {
           "hospitalises": 70,
           "occupation": 50.7,
@@ -3602,11 +3831,11 @@
         }
       },
       "total": {
-        "hospitalises": 827,
-        "provinces": 3,
-        "lits": 1507,
-        "hospitalisesAvecLits": 827,
-        "occupation": 54.9
+        "hospitalises": 851,
+        "provinces": 5,
+        "lits": 1538,
+        "hospitalisesAvecLits": 840,
+        "occupation": 54.6
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3635,6 +3864,19 @@
           "lits": 354,
           "occupationCalculee": true
         },
+        "Tshopo": {
+          "hospitalises": 4,
+          "occupation": 12.9,
+          "admissions": 1,
+          "sorties": 3,
+          "lits": 31,
+          "litsRecoupes": true
+        },
+        "Bas-Uélé": {
+          "hospitalises": 11,
+          "admissions": 10,
+          "sorties": 4
+        },
         "Haut-Uélé": {
           "hospitalises": 69,
           "occupation": 50.0,
@@ -3646,11 +3888,11 @@
         }
       },
       "total": {
-        "hospitalises": 827,
-        "provinces": 3,
-        "lits": 1507,
-        "hospitalisesAvecLits": 827,
-        "occupation": 54.9
+        "hospitalises": 842,
+        "provinces": 5,
+        "lits": 1538,
+        "hospitalisesAvecLits": 831,
+        "occupation": 54.0
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3681,6 +3923,19 @@
           "litsReportes": true,
           "occupationCalculee": true
         },
+        "Tshopo": {
+          "hospitalises": 12,
+          "occupation": 38.7,
+          "admissions": 2,
+          "sorties": 0,
+          "lits": 31,
+          "litsRecoupes": true
+        },
+        "Bas-Uélé": {
+          "hospitalises": 6,
+          "admissions": 2,
+          "sorties": 3
+        },
         "Haut-Uélé": {
           "hospitalises": 74,
           "occupation": 53.6,
@@ -3690,11 +3945,11 @@
         }
       },
       "total": {
-        "hospitalises": 851,
-        "provinces": 3,
-        "lits": 1507,
-        "hospitalisesAvecLits": 851,
-        "occupation": 56.5
+        "hospitalises": 869,
+        "provinces": 5,
+        "lits": 1538,
+        "hospitalisesAvecLits": 863,
+        "occupation": 56.1
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -3733,6 +3988,9 @@
           "lits": 31,
           "litsRecoupes": true
         },
+        "Bas-Uélé": {
+          "hospitalises": 16
+        },
         "Haut-Uélé": {
           "hospitalises": 74,
           "occupation": 53.6,
@@ -3744,8 +4002,8 @@
         }
       },
       "total": {
-        "hospitalises": 830,
-        "provinces": 4,
+        "hospitalises": 846,
+        "provinces": 5,
         "lits": 1538,
         "hospitalisesAvecLits": 830,
         "occupation": 54.0
@@ -3786,6 +4044,10 @@
           "lits": 31,
           "litsRecoupes": true
         },
+        "Bas-Uélé": {
+          "hospitalises": 52,
+          "admissions": 6
+        },
         "Haut-Uélé": {
           "hospitalises": 70,
           "occupation": 50.7,
@@ -3797,8 +4059,8 @@
         }
       },
       "total": {
-        "hospitalises": 844,
-        "provinces": 4,
+        "hospitalises": 896,
+        "provinces": 5,
         "lits": 1538,
         "hospitalisesAvecLits": 844,
         "occupation": 54.9
@@ -3839,6 +4101,11 @@
           "admissions": 3,
           "sorties": 2
         },
+        "Bas-Uélé": {
+          "hospitalises": 29,
+          "admissions": 29,
+          "sorties": 2
+        },
         "Haut-Uélé": {
           "hospitalises": 60,
           "lits": 153,
@@ -3848,8 +4115,8 @@
         }
       },
       "total": {
-        "hospitalises": 861,
-        "provinces": 4,
+        "hospitalises": 890,
+        "provinces": 5,
         "lits": 1569,
         "hospitalisesAvecLits": 861,
         "occupation": 54.9
@@ -3899,11 +4166,14 @@
           "occupationCalculee": true,
           "admissions": 1,
           "sorties": 7
+        },
+        "Bas-Uélé": {
+          "hospitalises": 10
         }
       },
       "total": {
-        "hospitalises": 970,
-        "provinces": 4,
+        "hospitalises": 980,
+        "provinces": 5,
         "lits": 1578,
         "hospitalisesAvecLits": 970,
         "occupation": 61.5
@@ -4005,11 +4275,16 @@
           "occupation": 41.7,
           "admissions": 1,
           "sorties": 0
+        },
+        "Bas-Uélé": {
+          "hospitalises": 26,
+          "admissions": 16,
+          "sorties": 0
         }
       },
       "total": {
-        "hospitalises": 925,
-        "provinces": 4,
+        "hospitalises": 951,
+        "provinces": 5,
         "lits": 1425,
         "hospitalisesAvecLits": 854,
         "occupation": 59.9
@@ -4040,6 +4315,17 @@
           "occupationPubliee": 94.9,
           "occupationCalculee": true
         },
+        "Haut-Uélé": {
+          "hospitalises": 68,
+          "lits": 153,
+          "hospitalisesNormes": 45,
+          "occupationPubliee": 29.4,
+          "occupation": 44.4,
+          "occupationCalculee": true,
+          "admissions": 7,
+          "sorties": 13,
+          "gueris": 5
+        },
         "Tshopo": {
           "hospitalises": 14,
           "lits": 36,
@@ -4057,11 +4343,11 @@
         }
       },
       "total": {
-        "hospitalises": 877,
-        "provinces": 4,
-        "lits": 1425,
-        "hospitalisesAvecLits": 851,
-        "occupation": 59.7
+        "hospitalises": 945,
+        "provinces": 5,
+        "lits": 1578,
+        "hospitalisesAvecLits": 919,
+        "occupation": 58.2
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -4253,11 +4539,14 @@
           "occupation": 36.1,
           "admissions": 4,
           "sorties": 5
+        },
+        "Bas-Uélé": {
+          "hospitalises": 8
         }
       },
       "total": {
-        "hospitalises": 916,
-        "provinces": 4,
+        "hospitalises": 924,
+        "provinces": 5,
         "lits": 1612,
         "hospitalisesAvecLits": 916,
         "occupation": 56.8
@@ -4934,11 +5223,15 @@
           "occupation": 19.1,
           "admissions": 6,
           "sorties": 3
+        },
+        "Bas-Uélé": {
+          "hospitalises": 106,
+          "sorties": 52
         }
       },
       "total": {
-        "hospitalises": 946,
-        "provinces": 4,
+        "hospitalises": 1052,
+        "provinces": 5,
         "lits": 608,
         "hospitalisesAvecLits": 560,
         "occupation": 92.1
@@ -4975,11 +5268,15 @@
           "admissions": 5,
           "sorties": 5,
           "gueris": 3
+        },
+        "Bas-Uélé": {
+          "hospitalises": 38,
+          "sorties": 75
         }
       },
       "total": {
-        "hospitalises": 987,
-        "provinces": 3,
+        "hospitalises": 1025,
+        "provinces": 4,
         "lits": 446,
         "hospitalisesAvecLits": 565,
         "occupation": 126.7
@@ -5023,11 +5320,15 @@
           "admissions": 11,
           "sorties": 2,
           "gueris": 1
+        },
+        "Bas-Uélé": {
+          "hospitalises": 48,
+          "sorties": 0
         }
       },
       "total": {
-        "hospitalises": 954,
-        "provinces": 4,
+        "hospitalises": 1002,
+        "provinces": 5,
         "lits": 608,
         "hospitalisesAvecLits": 553,
         "occupation": 91.0
@@ -5071,11 +5372,14 @@
           "admissions": 7,
           "sorties": 3,
           "gueris": 1
+        },
+        "Bas-Uélé": {
+          "hospitalises": 50
         }
       },
       "total": {
-        "hospitalises": 930,
-        "provinces": 4,
+        "hospitalises": 980,
+        "provinces": 5,
         "lits": 608,
         "hospitalisesAvecLits": 545,
         "occupation": 89.6
@@ -5111,11 +5415,14 @@
           "occupation": 38.9,
           "admissions": 1,
           "sorties": 2
+        },
+        "Bas-Uélé": {
+          "hospitalises": 51
         }
       },
       "total": {
-        "hospitalises": 910,
-        "provinces": 3,
+        "hospitalises": 961,
+        "provinces": 4,
         "lits": 460,
         "hospitalisesAvecLits": 555,
         "occupation": 120.7
@@ -5280,11 +5587,14 @@
           "hospitalises": 36,
           "admissions": 4,
           "sorties": 15
+        },
+        "Nord-Ubangi": {
+          "hospitalises": 12
         }
       },
       "total": {
-        "hospitalises": 1008,
-        "provinces": 5,
+        "hospitalises": 1020,
+        "provinces": 6,
         "lits": 1652,
         "hospitalisesAvecLits": 972,
         "occupation": 58.8
@@ -5363,11 +5673,24 @@
         "Nord-Kivu": {
           "hospitalises": 535,
           "gueris": 1
+        },
+        "Tshopo": {
+          "hospitalises": 6,
+          "lits": 40,
+          "litsEncadres": true,
+          "occupation": 15.0,
+          "occupationCalculee": true
+        },
+        "Haut-Uélé": {
+          "hospitalises": 55
         }
       },
       "total": {
-        "hospitalises": 882,
-        "provinces": 2
+        "hospitalises": 943,
+        "provinces": 4,
+        "lits": 40,
+        "hospitalisesAvecLits": 6,
+        "occupation": 15.0
       },
       "source": "SitRep INSP (automatique)"
     },
@@ -5390,11 +5713,14 @@
           "lits": 40,
           "occupation": 12.5,
           "occupationCalculee": true
+        },
+        "Bas-Uélé": {
+          "hospitalises": 18
         }
       },
       "total": {
-        "hospitalises": 904,
-        "provinces": 3,
+        "hospitalises": 922,
+        "provinces": 4,
         "lits": 40,
         "hospitalisesAvecLits": 5,
         "occupation": 12.5

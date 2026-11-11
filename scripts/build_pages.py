@@ -869,6 +869,28 @@ def gueris_province(name, lang, strings_lang):
     return fmt(cumuls.get(name) or 0, lang), ligne
 
 
+def isolement_province(name, lang, strings_lang, i18n_lang):
+    """La case « Patients en isolement » d'une province : son chiffre dans
+    data/cte.json au dernier bulletin, sinon le dernier connu s'il a moins
+    de 7 jours, toujours date ; au-dela, rien (« non publie »). Jamais un
+    chiffre comble (11 novembre 2026)."""
+    chemin = os.path.join(ROOT, "data", "cte.json")
+    if not os.path.exists(chemin):
+        return "—", esc(strings_lang["provinceIsolNd"])
+    points = read_json(chemin).get("parDate") or []
+    if not points:
+        return "—", esc(strings_lang["provinceIsolNd"])
+    fin = date.fromisoformat(points[-1]["date"])
+    for p in reversed(points):
+        v = ((p.get("provinces") or {}).get(name) or {}).get("hospitalises")
+        if v is None:
+            continue
+        if (fin - date.fromisoformat(p["date"])).days >= 7:
+            break
+        return fmt(v, lang), esc(interp(strings_lang["provinceIsolAu"], {"date": short_date(p["date"], i18n_lang)}))
+    return "—", esc(strings_lang["provinceIsolNd"])
+
+
 def note_gueris_pays(strings_lang, lang):
     """Sous le tableau par province d'Ensemble du pays : d'ou viennent les
     gueris par province, et combien n'en sont attribues a aucune."""
@@ -5394,6 +5416,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.cases": fmt(province.get("confirmed"), lang),
             "province.deaths": fmt(province.get("deaths"), lang),
             "province.cfr": fmt_cfr(province.get("cfr"), lang),
+            "province.isolement": isolement_province(name, lang, strings_lang, i18n_lang)[0],
+            "province.isolementDate": isolement_province(name, lang, strings_lang, i18n_lang)[1],
             "province.recovered": gueris_province(name, lang, strings_lang)[0],
             "province.newRecovered": gueris_province(name, lang, strings_lang)[1],
             "province.shareSentence": esc(share),
