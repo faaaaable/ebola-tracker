@@ -14,6 +14,7 @@ source sont signalés mais ne bloquent pas.
 import io
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -517,7 +518,58 @@ else:
     check("zones-jour : une serie par zone du dernier bulletin", _n == len(_der["zones"]),
           "%d vs %d" % (_n, len(_der["zones"])))
 
+print("\nSauts entre les deux derniers bulletins (data/lettres, 11 novembre 2026)")
+# Un chiffre qui bondit ou chute d'un bulletin a l'autre n'est pas forcement
+# faux, mais il doit etre regarde avant la mise en ligne : le SitRep 179
+# imprimait 651 patients en CTE (966 la veille) quand son propre detail en
+# comptait 973. Rien de bloquant : la liste s'affiche a part, « A REGARDER ».
+sauts = []
+_lettres = sorted(f for f in os.listdir(os.path.join(ROOT, "data", "lettres")) if re.match(r"\d{3}\.json$", f))
+if len(_lettres) >= 2:
+    _a, _b = (read(os.path.join("lettres", f)) for f in _lettres[-2:])
+    _na, _nb = _a.get("national", {}), _b.get("national", {})
+    _num = _lettres[-1][:3]
+
+    def _saut(lib, va, vb, rel=None, absolu=None, baisse=False):
+        if va is None or vb is None:
+            return
+        d = vb - va
+        if baisse and d < 0:
+            sauts.append("%s %s : %s -> %s (recul d'un cumul)" % (_num, lib, va, vb))
+        elif rel is not None and va and abs(d) / abs(va) >= rel and abs(d) >= (absolu or 0):
+            sauts.append("%s %s : %s -> %s (%+.0f %%)" % (_num, lib, va, vb, 100.0 * d / va))
+        elif rel is None and absolu is not None and abs(d) >= absolu:
+            sauts.append("%s %s : %s -> %s (%+g)" % (_num, lib, va, vb, d))
+    for k in ("confirmed", "deaths", "recovered"):
+        _saut("national " + k, _na.get(k), _nb.get(k), baisse=True)
+    _saut("national patients en CTE", _na.get("inCTE"), _nb.get("inCTE"), rel=0.2, absolu=100)
+    _saut("national suivi des contacts (pts)", _na.get("contactsFollowUpRate"), _nb.get("contactsFollowUpRate"), absolu=10)
+    _saut("national nouveaux cas 24 h", _na.get("newCases24h"), _nb.get("newCases24h"), rel=1.0, absolu=50)
+    _saut("national zones touchees", (_na.get("healthZonesAffected") or {}).get("n"),
+          (_nb.get("healthZonesAffected") or {}).get("n"), baisse=True)
+    _pa = {p["name"]: p for p in _a.get("provinces", [])}
+    for _p in _b.get("provinces", []):
+        _q = _pa.get(_p["name"])
+        if _q:
+            for k in ("confirmed", "deaths"):
+                _saut("%s %s" % (_p["name"], k), _q.get(k), _p.get(k), baisse=True)
+    # Patients des CTE par province (data/cte.json) et vaccines (piliers).
+    _cte = _lire_optionnel("cte.json") or {}
+    _rows = _cte.get("parDate", _cte) if isinstance(_cte, dict) else _cte
+    _rows = [r for r in (_rows or []) if isinstance(r, dict)]
+    if len(_rows) >= 2:
+        _ca, _cb = _rows[-2].get("provinces", {}), _rows[-1].get("provinces", {})
+        for _prov, _v in _cb.items():
+            _saut("%s patients en CTE" % _prov, (_ca.get(_prov) or {}).get("hospitalises"),
+                  _v.get("hospitalises"), rel=0.3, absolu=50)
+check("sauts entre les deux derniers bulletins", True)
+
 print()
+if sauts:
+    print("%d saut(s) A REGARDER avant la mise en ligne :" % len(sauts))
+    for n in sauts:
+        print("  - %s" % n)
+    print()
 if notes:
     print("%d écart(s) non bloquant(s), connus de la source :" % len(notes))
     for n in notes:

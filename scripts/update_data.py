@@ -271,6 +271,18 @@ DATES_RAPPORT_CORRIGEES = {
     "150": "2026-10-11",
 }
 
+# Chiffres de la bande de tete qu'un bulletin contredit lui-meme. Le SitRep
+# 179 imprime « PATIENTS EN ISOLEMENT/CTE (Du Jour) 651 » (966 la veille),
+# mais sa section « 2.5. Prise en charge » detaille 364 patients aux lits en
+# Ituri, 535 hospitalises au Nord-Kivu, 5 a la Tshopo, 51 au Haut-Uele et 18
+# suspects isoles au Bas-Uele, soit 973 — le meme calcul retombe sur 966 au
+# 178. On retient le detail ; le chiffre imprime est garde a cote
+# (national.inCTEPublie) pour que la Lettre le dise. Ne s'applique que si la
+# bande porte bien la valeur citee.
+KPI_CORRIGES = {
+    "179": {"inCTE": (651, 973)},
+}
+
 
 def extract_meta(full_text, fallback_number=None):
     compact = re.sub(r"\s+", "", full_text)
@@ -2343,6 +2355,11 @@ def main():
         "newDeathsCommunity24h": norm_int(detail_total_row[4]) if detail_total_row and len(detail_total_row) > 4 else None,
         "newDeathsIntraCTE24h": norm_int(detail_total_row[5]) if detail_total_row and len(detail_total_row) > 5 else None,
     }
+    for _champ, (_publie, _retenu) in KPI_CORRIGES.get(meta.get("sitrepNumber") or "", {}).items():
+        if national.get(_champ) == _publie:
+            national[_champ] = _retenu
+            national[_champ + "Publie"] = _publie
+            print(f"  ! {_champ} : {_publie} imprime en tete, {_retenu} retenu (detail des provinces, KPI_CORRIGES).")
 
     # Repli sur la ligne « Total » du tableau détaillé quand la lecture par
     # colonnes n'a rien donné : elle porte les mêmes chiffres, en clair.

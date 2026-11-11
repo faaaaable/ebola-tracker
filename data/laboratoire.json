@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-05-20",
-    "fin": "2026-11-08"
+    "fin": "2026-11-09"
   },
   "parDate": [
     {
@@ -5402,6 +5402,41 @@
         "echantillons": 614,
         "positifs": 70,
         "positivite": 11.4
+      }
+    },
+    {
+      "date": "2026-11-09",
+      "sitrepNumber": "179",
+      "provinces": {
+        "Ituri": {
+          "echantillons": 264,
+          "positifs": null,
+          "positivite": 15.8
+        },
+        "Tshopo": {
+          "echantillons": null,
+          "positifs": 1
+        },
+        "Haut-Uélé": {
+          "echantillons": null,
+          "positifs": 5,
+          "positivite": 19.7
+        },
+        "Bas-Uélé": {
+          "echantillons": null,
+          "positifs": 0
+        }
+      },
+      "total": {
+        "provinces": 4,
+        "echantillons": null,
+        "positifs": null
+      },
+      "source": "SitRep INSP (automatique)",
+      "national": {
+        "echantillons": 557,
+        "positifs": 52,
+        "positivite": 9.3
       }
     }
   ]

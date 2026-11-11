@@ -428,6 +428,10 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             txt += " " + g.rstrip(",") + "."
         elif nat.get("inCTE") is not None:
             txt += " " + P("lettreCteSeulF", n=fmt(nat.get("inCTE"), lang))
+        # Bande de tete contredite par le detail des provinces (SitRep 179,
+        # KPI_CORRIGES d'update_data) : on dit les deux chiffres.
+        if nat.get("inCTEPublie") is not None and nat.get("inCTE") is not None:
+            txt += " " + P("lettreCteCorrigeF", publie=fmt(nat["inCTEPublie"], lang), n=fmt(nat["inCTE"], lang))
         if None not in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec):
             mc, mcp, md, mdp = (round(v) for v in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec))
             if mc == mcp and md == mdp:

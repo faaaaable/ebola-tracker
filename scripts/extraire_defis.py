@@ -233,12 +233,35 @@ def blocs_defis(texte):
     return sorties
 
 
+# Defis dont le texte du PDF s'entrelace avec le titre d'un tableau pose sur
+# la meme ligne : l'extraction brute melange les deux phrases lettre a
+# lettre, et le tableau qui suit se colle au defi. (bulletin, debut du defi,
+# indice du melange) -> texte relu dans le PDF, caractere par caractere,
+# en separant les polices (Arial 9 pour le defi, Arial Narrow gras pour
+# « Tableau 5 »).
+ENTRELACES = {
+    ("179", "Paiements : salaires de septembre impayés", "Sceitsu actoionntr"):
+        "Paiements : salaires de septembre impayés (Ituri, Haut-Uélé), 3 mois de retard au "
+        "Nord-Kivu, grève à Viadana. Sécurité : menaces contre les prestataires sur l’axe "
+        "Butembo (Nord-Kivu) et l’axe Bolebole (Haut-Uélé).",
+}
+
+
+def demeler(numero_bulletin, piliers):
+    for p in piliers:
+        for i, item in enumerate(p.get("items", [])):
+            for (num, debut, indice), texte in ENTRELACES.items():
+                if num == numero_bulletin and debut in item[:80] and indice in item:
+                    p["items"][i] = texte
+    return piliers
+
+
 def lire_rapport(chemin):
     if int(numero(chemin)) < PREMIER_BULLETIN:
         return None
     texte = texte_du_rapport(chemin)
     meta = extract_meta(texte)
-    piliers = blocs_defis(texte)
+    piliers = demeler(meta["sitrepNumber"], blocs_defis(texte))
     if not piliers:
         return {"date": meta["reportingDate"], "sitrepNumber": meta["sitrepNumber"],
                 "piliers": [], "source": "SitRep INSP (automatique)"}

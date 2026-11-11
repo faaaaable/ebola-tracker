@@ -142,6 +142,11 @@ HOSPITALISES_RES = [
     # « 47 suspects restent isolés dans les ESS faute de CTE fonctionnel »
     # (173 et 174, Bas-Uele).
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+suspects\s+restent\s+isol[ée]s", re.I),
+    # « 364 patients aux lits (124 confirmés, 240 suspects) » (Ituri, 178 et
+    # 179 ; Nord-Kivu au 178) : jamais lu, l'Ituri disparaissait du
+    # graphique. En dernier : au 147, « 523 patients demeuraient en
+    # isolement (…325 patients aux lits des CTE/CT…) », le total passe avant.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+aux\s+lits\b", re.I),
 ]
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits|atteint\s+\d[\d ]{0,4}\s+lits\s+sur\s+(\d[\d ]{0,4}\d|\d)", re.I)
 # « taux d'occupation global de 51,7% (120 lits) » (110 Haut-Uele) : les lits
@@ -255,8 +260,11 @@ def numerateur(ligne):
 
 def premier(regexes, texte):
     for rx in regexes:
-        m = rx.search(texte)
-        if m:
+        for m in rx.finditer(texte):
+            # « 155 patients sont hospitalisés hors CTE/CT » (178) : pas des
+            # patients des centres de traitement.
+            if re.match(r"\w*\s+hors\b", texte[m.end():m.end() + 30]):
+                continue
             return entier(m.group(1))
     return None
 

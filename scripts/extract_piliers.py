@@ -479,6 +479,15 @@ def lire_vaccination(corps, texte_entier):
         # ont été vaccinées au cours des dernières 24 heures »).
         if re.search(r"derni[èe]res 24 ?h", phr):
             prec = phr; continue
+        # « Ituri : 99 personnes vaccinées aujourd’hui (65 hommes, 34
+        # femmes). Cumul de 3 368, dont 31 femmes enceintes » (179) : le
+        # chiffre du jour donnait 99 vaccines a l'Ituri (3 023 la veille) ;
+        # le cumul est dans la phrase suivante, sans le mot « vaccin ».
+        if re.search(r"vaccinée?s\s+aujourd[’']hui", phr):
+            m = re.search(r"aujourd[’']hui[^.]*\.\s*Cumul\s+de\s+" + NUM, t[t.find(phr):t.find(phr) + len(phr) + 120])
+            if m:
+                pose(_province(phr) or _province(prec), entier(m.group(1)))
+            prec = phr; continue
         # Un total national n'est le cumul d'aucune province (137 : « À la
         # Tshopo, la rupture de vaccin persiste. Au niveau national, 6 897
         # personnes ont été vaccinées » donnait 6 897 vaccines a la Tshopo,
@@ -519,6 +528,14 @@ def lire_vaccination(corps, texte_entier):
         # « Nord Kivu : 2 599 vaccinés dans 4 ZS (Beni 75,9 %) … Stock épuisé
         # (2 600 doses reçues, 2 599 utilisées) » (178) : un cumul provincial,
         # le stock recu depuis le debut l'atteste.
+        # « Tshopo : 13 310 vaccinés (13 391 selon DHIS2, écart de 81), soit
+        # 89 % de la cible » (179), « TSHOPO : 13 036 personnes vaccinées
+        # dans les six zones de santé » (176, jamais lu : la province en
+        # capitales) : le cumul provincial, nomme juste avant.
+        m = re.search(r"(Ituri|Nord.Kivu|Sud.Kivu|Haut.U[ée]l[ée]|Bas.U[ée]l[ée]|Tshopo|Sud.Ubangi|Nord.Ubangi)\s*:\s*"
+                      + NUM + r"\s+(?:vaccinés\s+\(|personnes\s+vaccinées\s+dans\s+les)", phr, re.I)
+        if m:
+            pose(_province(m.group(1)) or _province(m.group(1).title()), entier(m.group(2))); prec = phr; continue
         m = re.search(NUM + r" vaccinés dans \d+ ZS\b", phr)
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
