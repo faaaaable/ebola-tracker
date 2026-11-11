@@ -224,9 +224,11 @@ def grille_province(province, lang, i18n_lang, long_date, esc, lien_riposte, pre
         return t.get(L) or t["fr"]
     themes = [(t, mentions(t, ent)) for t in S["themes"]]
     themes.sort(key=lambda tm: tm[1]["premier"][0] if tm[1] else "9999-99-99")
-    titre = {"fr": "Les principaux défis mentionnés dans les bulletins officiels",
-             "en": "The main challenges mentioned in the official bulletins",
-             "sw": "Changamoto kuu zilizotajwa katika ripoti rasmi"}[L]
+    # Le chapeau du chapitre dit deja « que les bulletins de l'INSP
+    # signalent… semaine apres semaine » (11 novembre 2026).
+    titre = {"fr": "Obstacle par obstacle",
+             "en": "Obstacle by obstacle",
+             "sw": "Kikwazo kwa kikwazo"}[L]
     sub = {"fr": "%s : une case par semaine, teintée selon la part des bulletins qui citent l'obstacle dans la province",
            "en": "%s: one cell per week, shaded by the share of bulletins citing the obstacle in the province",
            "sw": "%s: kisanduku kimoja kwa wiki, rangi kulingana na sehemu ya ripoti zinazotaja kikwazo katika jimbo"}[L] % prep_lien

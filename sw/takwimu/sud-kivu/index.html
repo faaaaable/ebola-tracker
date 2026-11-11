@@ -69,7 +69,7 @@
       "url": "https://www.who.int/"
     }
   ],
-  "dateModified": "2026-11-10"
+  "dateModified": "2026-11-11"
 }
 </script>
 <script type="application/ld+json">
@@ -113,7 +113,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=4e1748988c">
+<link rel="stylesheet" href="/assets/css/site.css?v=2bd6f36eb9">
 </head>
 <body>
 
@@ -285,7 +285,7 @@
       <div class="section-sub">Hali kufikia 8 Nov. 2026</div>
     </div>
 
-    <p class="lede">Hadi 8 Nov. 2026, jimbo ya Sud-Kivu limerekodi <strong>visa 3 vilivyothibitishwa</strong> na <strong>vifo 1</strong> tangu mlipuko uanze, yaani kiwango cha vifo cha 33.3 %. Visa vyote viko katika eneo moja tu kati ya 34 ya afya ya jimbo hili: Miti-Murhesa (3).</p>
+    <p class="lede">Hadi 8 Nov. 2026, jimbo ya Sud-Kivu limerekodi <strong>visa 3 vilivyothibitishwa</strong> na <strong>vifo 1</strong> tangu mlipuko uanze, yaani kiwango cha vifo cha 33.3 %. Visa vyote viko katika eneo moja tu kati ya 34 ya afya ya jimbo hili: Miti-Murhesa (3). Hakuna kisa kipya katika siku 14 zilizopita.</p>
     <p class="page-intro">Jimbo la 7 kwa kuathirika zaidi kati ya 8, likiwa na chini ya 0.1 % ya visa vilivyothibitishwa nchini. Kisa cha kwanza kilichothibitishwa tarehe 21 Mei 2026. Kisa cha mwisho kiliripotiwa tarehe 29 Mei 2026.</p>
 
     <!-- Cinq cases (trois jusqu'au 16 septembre 2026) calees sur leur contenu, pas sur la largeur de la page :
@@ -313,43 +313,76 @@
   </section>
 
   <!-- La page en chapitres (4 novembre 2026, maquette 2b) : le menu a
-       ancres de la page Kenya, numerote, puis Evolution, Lieu des deces,
-       Zones de sante, Riposte, Defis, Chronologie — seulement ceux que la
+       ancres de la page Kenya, numerote, puis Evolution, Zones de sante,
+       Lieu des deces (inverses le 11 novembre 2026), Riposte, Defis, Chronologie — seulement ceux que la
        province a (province_numeros). Styles « .chap » de site.css. -->
   <nav class="pp-sousnav chap-nav" aria-label="Ebola katika Sud-Kivu"><div><a href="#zones"><b class="chap-nav-n">01</b>Maeneo ya afya</a><a href="#chronologie"><b class="chap-nav-n">02</b>Matukio</a></div></nav>
 
-  <!-- Evolution (cas puis deces) et Lieu des deces : province_chart_html(). -->
+  <!-- Evolution (cas puis deces) : province_chart_html(). -->
 
   <section class="section chap" id="zones">
-    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">Maeneo ya afya</h2><p class="chap-chapo">Maeneo ya afya yaliyoathirika katika Sud-Kivu: visa, vifo na kiwango cha vifo, eneo kwa eneo.</p></div></header>
+    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">Maeneo ya afya</h2><p class="chap-chapo">Mahali mlipuko unaposonga katika Sud-Kivu, eneo la afya kwa eneo la afya.</p></div></header>
     <div class="chap-corps">
-    <div class="zones-block">
-      <div class="panel panel-fit" style="padding:16px;">
+    <!-- Les zones jour par jour (10 novembre 2026) : le tableau des zones,
+         nouveaux cas et deces de la periode en barres (24 h a 30 jours), puis
+         le grand graphique d'une zone (onglets cas / deces) et les petits
+         graphiques de toutes les zones (provinces d'au moins quatre zones).
+         Donnees : data/zones-jour.json (scripts/zones_jour.py) ; app.js,
+         zonesJour. Sans JavaScript, le tableau reste, sur 14 jours. -->
+    <div class="zones-block zs-bloc" id="zonesJour" data-province="Sud-Kivu" data-minis="0" data-graphe="0">
+      <div class="zs-tab-tete">
+        <h3 class="frame-title">Mwenendo kwa eneo la afya</h3>
+        <nav class="subtab-nav zs-periode" aria-label="Kipindi cha visa na vifo vipya" hidden><button type="button" class="subtab-btn" data-p="1" aria-pressed="false">Saa 24</button><button type="button" class="subtab-btn" data-p="7" aria-pressed="false">Siku 7</button><button type="button" class="subtab-btn active" data-p="14" aria-pressed="true">Siku 14</button><button type="button" class="subtab-btn" data-p="30" aria-pressed="false">Siku 30</button></nav>
+      </div>
+      <div class="panel zs-cadre">
         <!-- Le tableau se partage en image, note comprise, comme les figures. -->
-        <div class="chart-actions" data-export-table="zonesProvinceTable">
+        <div class="chart-actions" data-export-table="zonesJourTable">
           <button type="button" class="share-btn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
             <span data-i18n="chartShareBtn">Shiriki</span>
           </button>
         </div>
-      <div class="table-scroll">
-        <table class="zones-province zq tri" id="zonesProvinceTable">
+      <div class="zs-defil">
+        <table class="zq zs-tab" id="zonesJourTable">
           <caption class="visually-hidden">Maeneo ya afya yaliyoathirika katika Sud-Kivu</caption>
-          <thead><tr><th>Eneo la afya</th><th>Visa vilivyokusanywa</th><th>Visa vipya, saa 24</th><th>Visa vipya, siku 30</th><th>Vifo vilivyokusanywa</th><th>Vifo vipya, saa 24</th><th>Kiwango cha vifo</th></tr></thead>
+          <thead><tr><th data-k="nom">Eneo la afya</th><th data-k="cumC">Visa vilivyokusanywa</th><th data-k="j24C">Visa saa 24</th><th data-k="pC" class="zs-b on" data-s="d" aria-sort="descending">Visa vipya<small class="zs-per">siku 14 zilizopita</small></th><th data-k="cumD">Vifo vilivyokusanywa</th><th data-k="j24D">Vifo saa 24</th><th data-k="pD" class="zs-b">Vifo vipya<small class="zs-per">siku 14 zilizopita</small></th><th data-k="let">Kiwango cha vifo</th></tr></thead>
           <tbody>
-            <tr><td>Miti-Murhesa</td><td class="zt z-cas" data-v="3">3</td><td data-v="0"><span class="z-zero">0</span></td><td class="zs" data-v="0"><svg class="z-spark" viewBox="0 0 140 28" width="140" height="28" role="img" aria-label="Miti-Murhesa: visa vipya 0 katika siku 30 zilizopita"><rect x="0.5" y="28.0" width="3.7" height="0.0"/><rect x="5.2" y="28.0" width="3.7" height="0.0"/><rect x="9.8" y="28.0" width="3.7" height="0.0"/><rect x="14.5" y="28.0" width="3.7" height="0.0"/><rect x="19.2" y="28.0" width="3.7" height="0.0"/><rect x="23.8" y="28.0" width="3.7" height="0.0"/><rect x="28.5" y="28.0" width="3.7" height="0.0"/><rect x="33.2" y="28.0" width="3.7" height="0.0"/><rect x="37.8" y="28.0" width="3.7" height="0.0"/><rect x="42.5" y="28.0" width="3.7" height="0.0"/><rect x="47.2" y="28.0" width="3.7" height="0.0"/><rect x="51.8" y="28.0" width="3.7" height="0.0"/><rect x="56.5" y="28.0" width="3.7" height="0.0"/><rect x="61.2" y="28.0" width="3.7" height="0.0"/><rect x="65.8" y="28.0" width="3.7" height="0.0"/><rect x="70.5" y="28.0" width="3.7" height="0.0"/><rect x="75.2" y="28.0" width="3.7" height="0.0"/><rect x="79.8" y="28.0" width="3.7" height="0.0"/><rect x="84.5" y="28.0" width="3.7" height="0.0"/><rect x="89.2" y="28.0" width="3.7" height="0.0"/><rect x="93.8" y="28.0" width="3.7" height="0.0"/><rect x="98.5" y="28.0" width="3.7" height="0.0"/><rect x="103.2" y="28.0" width="3.7" height="0.0"/><rect x="107.8" y="28.0" width="3.7" height="0.0"/><rect x="112.5" y="28.0" width="3.7" height="0.0"/><rect x="117.2" y="28.0" width="3.7" height="0.0"/><rect x="121.8" y="28.0" width="3.7" height="0.0"/><rect x="126.5" y="28.0" width="3.7" height="0.0"/><rect x="131.2" y="28.0" width="3.7" height="0.0"/><rect x="135.8" y="28.0" width="3.7" height="0.0" class="is-der"/></svg></td><td class="zt z-dec" data-v="1">1</td><td data-v="0"><span class="z-zero">0</span></td><td data-v="33.3">33.3%</td></tr>
+            <tr data-nom="Miti-Murhesa"><td>Miti-Murhesa</td><td class="zt z-cas">3</td><td class="zs-24 c"><span class="vide">–</span></td><td class="zs-b"><div class="zs-l vide"><span>–</span></div></td><td class="zt z-dec">1</td><td class="zs-24 d"><span class="vide">–</span></td><td class="zs-b"><div class="zs-l vide"><span>–</span></div></td><td>33.3%</td></tr>
           </tbody>
         </table>
       </div>
+        <p class="map-note zones-note">Jumla ya jimbo inaweza kuzidi jumla ya maeneo: ripoti huhesabu kando visa ambavyo bado havijaunganishwa na eneo.</p>
+        <p class="map-note zs-clic" hidden>Bofya eneo ili kulionyesha kwenye grafu iliyo hapa chini.</p>
+        
       </div>
-      <p class="map-note zones-note">Jumla ya jimbo inaweza kutofautiana na jumla ya maeneo yake ya afya: ripoti huhesabu kando visa na vifo ambavyo bado havijaunganishwa na eneo. Tovuti huviacha pale chanzo kinapoviweka.</p>
-      
+      <div class="zs-graphe" hidden>
+        <nav class="subtab-nav zs-champ" aria-label="Visa vipya au vifo vipya">
+          <button type="button" class="subtab-btn active" data-champ="c" aria-pressed="true">Visa vipya</button>
+          <button type="button" class="subtab-btn" data-champ="d" aria-pressed="false">Vifo vipya</button>
+        </nav>
+        <div class="section-head chap-fig zs-tete"><h3 class="frame-title zs-g-titre"></h3><span class="zs-chiffres"></span></div>
+        <div class="panel chart-panel-wrap">
+          <div class="chart-panel"><canvas class="zs-grand" data-sans-titre></canvas></div>
+          <div class="map-note chart-note zs-g-note"></div>
+        </div>
+        <div class="zs-minis">
+          <p class="zs-sous"></p>
+          <div class="zs-grille zs-actives"></div>
+          <button type="button" class="zs-plus" hidden></button>
+          <details class="zs-calmes"><summary></summary><div class="zs-grille"></div></details>
+        </div>
+      </div>
     </div>
-    <p class="drill"><a href="/sw/takwimu/?province=Sud-Kivu">Fungua jedwali kamili la maeneo, likichujwa kwa Sud-Kivu →</a> <span aria-hidden="true">·</span>
-      <!-- Vers la base de donnees, filtree sur la province (9 octobre 2026). -->
-      <a href="/sw/hifadhidata/?niveau=zone&amp;province=Sud-Kivu">Takwimu zote ya Sud-Kivu, siku kwa siku →</a></p>
+    <!-- Vers la base de donnees, filtree sur la province (9 octobre 2026).
+         Le lien vers le tableau national des zones est retire le 11 novembre
+         2026 : le tableau du chapitre fait deja ce travail. -->
+    <p class="drill"><a href="/sw/hifadhidata/?niveau=zone&amp;province=Sud-Kivu">Takwimu za kila eneo, taarifa kwa taarifa, za kupakua →</a></p>
     </div>
   </section>
+
+  <!-- Lieu des deces (province_chart_html, partie="lieu"), apres les zones
+       depuis le 11 novembre 2026. -->
+
 
   <!-- LA FICHE D'UN TERRITOIRE (28 septembre 2026) : meme plan que
        « Ensemble du pays ». Le lieu du deces est passe sous la courbe des
@@ -567,8 +600,8 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=cf68403494"></script>
-<script defer src="/assets/js/app.js?v=1d2dfe1cd0"></script>
+<script defer src="/assets/js/i18n.js?v=ade4867b1a"></script>
+<script defer src="/assets/js/app.js?v=bddea459eb"></script>
 
 </body>
 </html>

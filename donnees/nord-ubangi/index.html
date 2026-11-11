@@ -69,7 +69,7 @@
       "url": "https://www.who.int/"
     }
   ],
-  "dateModified": "2026-11-10"
+  "dateModified": "2026-11-11"
 }
 </script>
 <script type="application/ld+json">
@@ -113,7 +113,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=4e1748988c">
+<link rel="stylesheet" href="/assets/css/site.css?v=2bd6f36eb9">
 </head>
 <body>
 
@@ -285,7 +285,7 @@
       <div class="section-sub">Situation au 8 nov. 2026</div>
     </div>
 
-    <p class="lede">Au 8 nov. 2026, la province du Nord-Ubangi comptabilise <strong>9 cas confirmés</strong> et <strong>1 décès</strong> depuis le début de l'épidémie, soit un taux de létalité de 11,1 %. Les cas se répartissent sur 2 des 11 zones de santé de la province : Wapinda (5) et Yakoma (4).</p>
+    <p class="lede">Au 8 nov. 2026, la province du Nord-Ubangi compte <strong>9 cas confirmés</strong> et <strong>1 décès</strong> depuis le début de l'épidémie, soit un taux de létalité de 11,1 %. Les cas se répartissent sur 2 des 11 zones de santé de la province : Wapinda (5) et Yakoma (4). Ces 14 derniers jours : <strong>6 nouveaux cas</strong>, à Yakoma (4) et Wapinda (2).</p>
     <p class="page-intro">6ᵉ province la plus touchée sur 8, avec moins de 0,1 % des cas confirmés du pays. Premiers cas confirmés le 16 octobre 2026. Dernier cas signalé le 6 nov. 2026.</p>
 
     <!-- Cinq cases (trois jusqu'au 16 septembre 2026) calees sur leur contenu, pas sur la largeur de la page :
@@ -313,44 +313,77 @@
   </section>
 
   <!-- La page en chapitres (4 novembre 2026, maquette 2b) : le menu a
-       ancres de la page Kenya, numerote, puis Evolution, Lieu des deces,
-       Zones de sante, Riposte, Defis, Chronologie — seulement ceux que la
+       ancres de la page Kenya, numerote, puis Evolution, Zones de sante,
+       Lieu des deces (inverses le 11 novembre 2026), Riposte, Defis, Chronologie — seulement ceux que la
        province a (province_numeros). Styles « .chap » de site.css. -->
   <nav class="pp-sousnav chap-nav" aria-label="Ebola dans le Nord-Ubangi"><div><a href="#zones"><b class="chap-nav-n">01</b>Zones de santé</a><a href="#chronologie"><b class="chap-nav-n">02</b>Chronologie</a></div></nav>
 
-  <!-- Evolution (cas puis deces) et Lieu des deces : province_chart_html(). -->
+  <!-- Evolution (cas puis deces) : province_chart_html(). -->
 
   <section class="section chap" id="zones">
-    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">Zones de santé</h2><p class="chap-chapo">Les zones de santé touchées dans le Nord-Ubangi : cas, décès et létalité, zone par zone.</p></div></header>
+    <header class="chap-ouv"><span class="chap-num">01</span><div><h2 class="chap-t">Zones de santé</h2><p class="chap-chapo">Où l'épidémie progresse dans le Nord-Ubangi, zone de santé par zone de santé.</p></div></header>
     <div class="chap-corps">
-    <div class="zones-block">
-      <div class="panel panel-fit" style="padding:16px;">
+    <!-- Les zones jour par jour (10 novembre 2026) : le tableau des zones,
+         nouveaux cas et deces de la periode en barres (24 h a 30 jours), puis
+         le grand graphique d'une zone (onglets cas / deces) et les petits
+         graphiques de toutes les zones (provinces d'au moins quatre zones).
+         Donnees : data/zones-jour.json (scripts/zones_jour.py) ; app.js,
+         zonesJour. Sans JavaScript, le tableau reste, sur 14 jours. -->
+    <div class="zones-block zs-bloc" id="zonesJour" data-province="Nord-Ubangi" data-minis="0" data-graphe="0">
+      <div class="zs-tab-tete">
+        <h3 class="frame-title">La dynamique par zone de santé</h3>
+        <nav class="subtab-nav zs-periode" aria-label="Période des nouveaux cas et décès" hidden><button type="button" class="subtab-btn" data-p="1" aria-pressed="false">24 h</button><button type="button" class="subtab-btn" data-p="7" aria-pressed="false">7 jours</button><button type="button" class="subtab-btn active" data-p="14" aria-pressed="true">14 jours</button><button type="button" class="subtab-btn" data-p="30" aria-pressed="false">30 jours</button></nav>
+      </div>
+      <div class="panel zs-cadre">
         <!-- Le tableau se partage en image, note comprise, comme les figures. -->
-        <div class="chart-actions" data-export-table="zonesProvinceTable">
+        <div class="chart-actions" data-export-table="zonesJourTable">
           <button type="button" class="share-btn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
             <span data-i18n="chartShareBtn">Partager</span>
           </button>
         </div>
-      <div class="table-scroll">
-        <table class="zones-province zq tri" id="zonesProvinceTable">
+      <div class="zs-defil">
+        <table class="zq zs-tab" id="zonesJourTable">
           <caption class="visually-hidden">Zones de santé touchées dans le Nord-Ubangi</caption>
-          <thead><tr><th>Zone de santé</th><th>Cas cumulés</th><th>Nouveaux cas, 24 h</th><th>Nouveaux cas, 30 jours</th><th>Décès cumulés</th><th>Nouveaux décès, 24 h</th><th>Létalité</th></tr></thead>
+          <thead><tr><th data-k="nom">Zone de santé</th><th data-k="cumC">Cas cumulés</th><th data-k="j24C">Cas 24 h</th><th data-k="pC" class="zs-b on" data-s="d" aria-sort="descending">Nouveaux cas<small class="zs-per">14 derniers jours</small></th><th data-k="cumD">Décès cumulés</th><th data-k="j24D">Décès 24 h</th><th data-k="pD" class="zs-b">Nouveaux décès<small class="zs-per">14 derniers jours</small></th><th data-k="let">Létalité</th></tr></thead>
           <tbody>
-            <tr><td>Wapinda</td><td class="zt z-cas" data-v="5">5</td><td data-v="0"><span class="z-zero">0</span></td><td class="zs" data-v="5"><svg class="z-spark" viewBox="0 0 140 28" width="140" height="28" role="img" aria-label="Wapinda : 5 nouveaux cas sur les 30 derniers jours"><rect x="0.5" y="28.0" width="3.7" height="0.0"/><rect x="5.2" y="28.0" width="3.7" height="0.0"/><rect x="9.8" y="28.0" width="3.7" height="0.0"/><rect x="14.5" y="28.0" width="3.7" height="0.0"/><rect x="19.2" y="28.0" width="3.7" height="0.0"/><rect x="23.8" y="28.0" width="3.7" height="0.0"/><rect x="28.5" y="6.8" width="3.7" height="21.2"/><rect x="33.2" y="28.0" width="3.7" height="0.0"/><rect x="37.8" y="28.0" width="3.7" height="0.0"/><rect x="42.5" y="13.0" width="3.7" height="15.0"/><rect x="47.2" y="28.0" width="3.7" height="0.0"/><rect x="51.8" y="28.0" width="3.7" height="0.0"/><rect x="56.5" y="28.0" width="3.7" height="0.0"/><rect x="61.2" y="28.0" width="3.7" height="0.0"/><rect x="65.8" y="28.0" width="3.7" height="0.0"/><rect x="70.5" y="28.0" width="3.7" height="0.0"/><rect x="75.2" y="28.0" width="3.7" height="0.0"/><rect x="79.8" y="28.0" width="3.7" height="0.0"/><rect x="84.5" y="28.0" width="3.7" height="0.0"/><rect x="89.2" y="28.0" width="3.7" height="0.0"/><rect x="93.8" y="28.0" width="3.7" height="0.0"/><rect x="98.5" y="28.0" width="3.7" height="0.0"/><rect x="103.2" y="28.0" width="3.7" height="0.0"/><rect x="107.8" y="6.8" width="3.7" height="21.2"/><rect x="112.5" y="28.0" width="3.7" height="0.0"/><rect x="117.2" y="28.0" width="3.7" height="0.0"/><rect x="121.8" y="28.0" width="3.7" height="0.0"/><rect x="126.5" y="28.0" width="3.7" height="0.0"/><rect x="131.2" y="28.0" width="3.7" height="0.0"/><rect x="135.8" y="28.0" width="3.7" height="0.0" class="is-der"/></svg></td><td class="zt z-dec" data-v="1">1</td><td data-v="0"><span class="z-zero">0</span></td><td data-v="20.0">20,0 %</td></tr>
-            <tr><td>Yakoma</td><td class="zt z-cas" data-v="4">4</td><td data-v="0"><span class="z-zero">0</span></td><td class="zs" data-v="4"><svg class="z-spark" viewBox="0 0 140 28" width="140" height="28" role="img" aria-label="Yakoma : 4 nouveaux cas sur les 30 derniers jours"><rect x="0.5" y="28.0" width="3.7" height="0.0"/><rect x="5.2" y="28.0" width="3.7" height="0.0"/><rect x="9.8" y="28.0" width="3.7" height="0.0"/><rect x="14.5" y="28.0" width="3.7" height="0.0"/><rect x="19.2" y="28.0" width="3.7" height="0.0"/><rect x="23.8" y="28.0" width="3.7" height="0.0"/><rect x="28.5" y="28.0" width="3.7" height="0.0"/><rect x="33.2" y="28.0" width="3.7" height="0.0"/><rect x="37.8" y="28.0" width="3.7" height="0.0"/><rect x="42.5" y="28.0" width="3.7" height="0.0"/><rect x="47.2" y="28.0" width="3.7" height="0.0"/><rect x="51.8" y="28.0" width="3.7" height="0.0"/><rect x="56.5" y="28.0" width="3.7" height="0.0"/><rect x="61.2" y="28.0" width="3.7" height="0.0"/><rect x="65.8" y="28.0" width="3.7" height="0.0"/><rect x="70.5" y="28.0" width="3.7" height="0.0"/><rect x="75.2" y="28.0" width="3.7" height="0.0"/><rect x="79.8" y="28.0" width="3.7" height="0.0"/><rect x="84.5" y="2.0" width="3.7" height="26.0"/><rect x="89.2" y="28.0" width="3.7" height="0.0"/><rect x="93.8" y="28.0" width="3.7" height="0.0"/><rect x="98.5" y="28.0" width="3.7" height="0.0"/><rect x="103.2" y="28.0" width="3.7" height="0.0"/><rect x="107.8" y="28.0" width="3.7" height="0.0"/><rect x="112.5" y="28.0" width="3.7" height="0.0"/><rect x="117.2" y="28.0" width="3.7" height="0.0"/><rect x="121.8" y="28.0" width="3.7" height="0.0"/><rect x="126.5" y="13.0" width="3.7" height="15.0"/><rect x="131.2" y="28.0" width="3.7" height="0.0"/><rect x="135.8" y="28.0" width="3.7" height="0.0" class="is-der"/></svg></td><td class="zt z-dec" data-v="0">0</td><td data-v="0"><span class="z-zero">0</span></td><td data-v="0.0">0,0 %</td></tr>
+            <tr data-nom="Yakoma"><td>Yakoma</td><td class="zt z-cas">4</td><td class="zs-24 c"><span class="vide">–</span></td><td class="zs-b"><div class="zs-l c"><i style="width:calc(1.000 * (100% - 44px))"></i><span>4</span></div></td><td class="zt z-dec">0</td><td class="zs-24 d"><span class="vide">–</span></td><td class="zs-b"><div class="zs-l vide"><span>–</span></div></td><td>0,0 %</td></tr>
+            <tr data-nom="Wapinda"><td>Wapinda</td><td class="zt z-cas">5</td><td class="zs-24 c"><span class="vide">–</span></td><td class="zs-b"><div class="zs-l c"><i style="width:calc(0.500 * (100% - 44px))"></i><span>2</span></div></td><td class="zt z-dec">1</td><td class="zs-24 d"><span class="vide">–</span></td><td class="zs-b"><div class="zs-l vide"><span>–</span></div></td><td>20,0 %</td></tr>
           </tbody>
         </table>
       </div>
+        <p class="map-note zones-note">Le total de la province peut dépasser la somme des zones : les bulletins comptent à part les cas qui ne sont pas encore rattachés à une zone.</p>
+        <p class="map-note zs-clic" hidden>Cliquer sur une zone l'affiche dans le graphique ci-dessous.</p>
+        
       </div>
-      <p class="map-note zones-note">Le total d'une province peut différer de la somme de ses zones de santé : les bulletins comptent à part les cas et décès qui ne sont pas encore rattachés à une zone. Le site les laisse là où la source les place.</p>
-      
+      <div class="zs-graphe" hidden>
+        <nav class="subtab-nav zs-champ" aria-label="Nouveaux cas ou nouveaux décès">
+          <button type="button" class="subtab-btn active" data-champ="c" aria-pressed="true">Nouveaux cas</button>
+          <button type="button" class="subtab-btn" data-champ="d" aria-pressed="false">Nouveaux décès</button>
+        </nav>
+        <div class="section-head chap-fig zs-tete"><h3 class="frame-title zs-g-titre"></h3><span class="zs-chiffres"></span></div>
+        <div class="panel chart-panel-wrap">
+          <div class="chart-panel"><canvas class="zs-grand" data-sans-titre></canvas></div>
+          <div class="map-note chart-note zs-g-note"></div>
+        </div>
+        <div class="zs-minis">
+          <p class="zs-sous"></p>
+          <div class="zs-grille zs-actives"></div>
+          <button type="button" class="zs-plus" hidden></button>
+          <details class="zs-calmes"><summary></summary><div class="zs-grille"></div></details>
+        </div>
+      </div>
     </div>
-    <p class="drill"><a href="/donnees/?province=Nord-Ubangi">Ouvrir le tableau complet des zones, filtré sur le Nord-Ubangi →</a> <span aria-hidden="true">·</span>
-      <!-- Vers la base de donnees, filtree sur la province (9 octobre 2026). -->
-      <a href="/base-de-donnees/?niveau=zone&amp;province=Nord-Ubangi">Toutes les données du Nord-Ubangi, jour par jour →</a></p>
+    <!-- Vers la base de donnees, filtree sur la province (9 octobre 2026).
+         Le lien vers le tableau national des zones est retire le 11 novembre
+         2026 : le tableau du chapitre fait deja ce travail. -->
+    <p class="drill"><a href="/base-de-donnees/?niveau=zone&amp;province=Nord-Ubangi">Les chiffres de chaque zone, bulletin par bulletin, à télécharger →</a></p>
     </div>
   </section>
+
+  <!-- Lieu des deces (province_chart_html, partie="lieu"), apres les zones
+       depuis le 11 novembre 2026. -->
+
 
   <!-- LA FICHE D'UN TERRITOIRE (28 septembre 2026) : meme plan que
        « Ensemble du pays ». Le lieu du deces est passe sous la courbe des
@@ -580,8 +613,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=cf68403494"></script>
-<script defer src="/assets/js/app.js?v=1d2dfe1cd0"></script>
+<script defer src="/assets/js/i18n.js?v=ade4867b1a"></script>
+<script defer src="/assets/js/app.js?v=bddea459eb"></script>
 
 </body>
 </html>

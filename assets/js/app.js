@@ -1248,7 +1248,8 @@ const ruptureRattrapage = {
     if(premierBarres < 0) return;
     const barres = chart.getDatasetMeta(premierBarres).data;
     ctx.save();
-    ctx.font = '600 10.5px ' + PALETTE.font;
+    const petit = !!opts.petit;   // petits graphiques des zones (10 novembre 2026)
+    ctx.font = (petit ? '600 9.5px ' : '600 10.5px ') + PALETTE.font;
     /* Les totaux se placent d'abord, centres sur leur barre, puis s'ecartent
        s'ils se touchent : sur mobile le 22 et le 30 juillet ne sont qu'a une
        vingtaine de pixels, et « 369 » en fait autant — les deux chiffres se
@@ -1270,9 +1271,9 @@ const ruptureRattrapage = {
     coupees.forEach(({ index }) => {
       const el = barres[index];
       if(!el) return;
-      const demi = Math.max(el.width, 7) / 2 + 1;
+      const demi = Math.max(el.width, petit ? 4 : 7) / 2 + 1;
       const g = el.x - demi, d = el.x + demi;
-      const yc = aire.top + 24, amp = 3, dents = 3;
+      const yc = aire.top + (petit ? 14 : 24), amp = petit ? 2 : 3, dents = 3;
       /* Le haut de la barre est efface jusqu'au bord du cadre, et la coupe
          dentelee. Une pointe unique se lisait comme une fleche « ca monte
          encore » ; la dent de scie, elle, est le signe recu d'une rupture —
@@ -1294,7 +1295,7 @@ const ruptureRattrapage = {
        ici, le rapprochement se fait sans legende. */
     ctx.fillStyle = PALETTE.inkDim;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    etiquettes.forEach(e => ctx.fillText(e.texte, e.x, aire.top + 11));
+    etiquettes.forEach(e => ctx.fillText(e.texte, e.x, aire.top + (petit ? 6 : 11)));
     ctx.restore();
   },
 };
@@ -7788,7 +7789,7 @@ safeRun(initBulleEntete, 'bulleEntete');
 safeRun(initCourbeChiffresCles, 'courbeChiffresCles');
 /* L'historique des zones ne sert qu'au curseur des cartes et aux tableaux
    de zones : les autres pages ne le chargent plus (5 septembre 2026). */
-const besoinHistorique = !!document.querySelector('#timelineSlider, #zonesDetailTable, #zonesProvinceTable');
+const besoinHistorique = !!document.querySelector('#timelineSlider, #zonesDetailTable, #zonesJour');
 // allSettled : un chargement qui echoue n'empeche pas le rendu des autres.
 Promise.allSettled([loadRemoteSitreps(), loadRemoteLatest(), besoinHistorique ? loadZonesHistory() : Promise.resolve(), loadCommunityDeathsDaily(), loadRemoteWhoReports(), loadSocialUpdates(), loadContactsFollowup(), loadProvinceHistory(), loadDemographie(), loadDecesLieu(), loadRiposte()]).then(()=>{
   safeRun(mergeHealthZonesWithHistory, 'mergeHealthZonesWithHistory');
@@ -7893,7 +7894,8 @@ document.addEventListener('DOMContentLoaded', function(){
   // Ni sur la page Visuels, ni sur l'accueil (5 novembre 2026).
   if(!url || location.pathname.indexOf(url) === 0 || /^\/((en|sw)\/)?(index\.html)?$/.test(location.pathname)) return;
   document.querySelectorAll('.chart-panel-wrap').forEach(function(w){
-    if(!w.querySelector('canvas') || (w.nextElementSibling && w.nextElementSibling.classList.contains('vers-visuels'))) return;
+    // Pas sous le grand graphique des zones, au milieu de son chapitre.
+    if(!w.querySelector('canvas') || w.closest('.zs-graphe') || (w.nextElementSibling && w.nextElementSibling.classList.contains('vers-visuels'))) return;
     var p = document.createElement('p');
     p.className = 'vers-visuels';
     var a = document.createElement('a');
@@ -7919,3 +7921,268 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
   montre(actif.getAttribute('data-mois'));
   btns.forEach(function(b){ b.addEventListener('click', function(){ montre(b.getAttribute('data-mois')); }); });
 });
+
+/* Chapitre « Zones de sante » des provinces, jour par jour (10 novembre
+   2026). Donnees : data/zones-jour.json, ecrit par scripts/zones_jour.py a
+   chaque generation — l'ecart de deux cumuls de la zone, comme les
+   graphiques des provinces (partsQuotidiennes), baisses ramenees a zero,
+   jours reunis et rattrapages annonces en teinte claire.
+   Trois lectures, dans cet ordre : le tableau des zones (rendu par le
+   generateur sur 14 jours, reecrit ici a l'identique quand on change de
+   periode ou de tri), le grand graphique d'une zone (onglets cas / deces),
+   les petits graphiques de toutes les zones (provinces d'au moins quatre
+   zones ; six sur telephone, puis « Voir les N autres »). */
+(function(){
+  const bloc = document.getElementById('zonesJour');
+  // Sans graphique (provinces sans courbe d'evolution), le tableau seul :
+  // periodes et tri, sans Chart.js.
+  const AVEC_GRAPHE = !!bloc && bloc.dataset.graphe !== '0';
+  if(!bloc || !bloc.querySelector('#zonesJourTable') || (AVEC_GRAPHE && typeof Chart === 'undefined')) return;
+  const PROVINCE = bloc.dataset.province, AVEC_MINIS = AVEC_GRAPHE && bloc.dataset.minis === '1';
+  const $ = sel => bloc.querySelector(sel);
+
+  const dDe = s => new Date(s + 'T00:00:00Z');
+  const ajout = (s, n) => { const d = dDe(s); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+
+  /* Plafond de l'axe : celui des graphiques des provinces (MARGE_PLAFOND,
+     DECLENCHE_RUPTURE), pose sur une graduation — pas de 1, 2 ou 5 x 10^n,
+     huit au plus — pour que l'axe finisse sur un trait. Toujours de l'air
+     au-dessus de la plus haute barre, et plus encore pour les petits
+     nombres : jusqu'a un pic de 10, l'axe monte a une fois et demie le pic,
+     5 au moins (Mahagi, un cas, ne remplit pas le cadre). Une barre de
+     rattrapage qui ecraserait le reste sort du cadre, coupee, son total
+     ecrit au-dessus (ruptureRattrapage). */
+  const rond = brut => { for(let e = 1; ; e *= 10) for(const m of [1, 2, 5]){ const pas = m * e; if(brut / pas <= 8) return Math.ceil(brut / pas) * pas; } };
+  function plafond(rapporte, rattrape){
+    let ordinaire = 0, plusHaute = 0;
+    for(let i = 0; i < rapporte.length; i++){
+      const r = rapporte[i] || 0, c = rattrape[i] || 0;
+      plusHaute = Math.max(plusHaute, r + c);
+      if(!c) ordinaire = Math.max(ordinaire, r);
+    }
+    if(!plusHaute) return { max: 5, coupees: [] };
+    const rupture = ordinaire && plusHaute >= ordinaire * DECLENCHE_RUPTURE;
+    const pic = rupture ? ordinaire : plusHaute;
+    const max = rond(pic <= 10 ? Math.max(pic * 1.5, 5) : pic * MARGE_PLAFOND);
+    const coupees = [];
+    if(rupture) for(let i = 0; i < rapporte.length; i++){
+      const t = (rapporte[i] || 0) + (rattrape[i] || 0);
+      if(t > max) coupees.push({ index: i, total: t });
+    }
+    return { max, coupees };
+  }
+
+  fetch('/data/zones-jour.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(D => {
+    const zones = D && D.provinces && D.provinces[PROVINCE];
+    if(!zones || !zones.length) return;
+    const FIN = D.fin, SANS = new Set(D.sansBulletin || []);
+    const JOURS = []; for(let s = ajout(D.debut, 1); s <= FIN; s = ajout(s, 1)) JOURS.push(s);
+    let champ = 'c', periode = 14, triK = 'pC', triAsc = false;
+    let choisie = null;
+    const deces = () => champ === 'd';
+    const teinte = () => deces() ? PALETTE.critical : PALETTE.info;
+    const v = (x, ch) => (x && x[ch || champ]) || 0;
+
+    /* Combien de journees une barre couvre : un bulletin apres un jour sans
+       bulletin, ou des deces apres un bulletin sans deces par zone (087). */
+    const empan = x => !x ? 1 : Math.max(x.n || 1, deces() ? (x.nd || 1) : 1);
+    const clair = x => x && (empan(x) > 1 || x.ratt);
+    function valeur(z, s){
+      if(!D.sitrep[s]) return null;                   // pas de bulletin : un blanc
+      if(deces() && s < D.premiersDeces) return null; // deces par zone des le 1er juin
+      return v(z.j[s]);
+    }
+    function series(z){
+      const rapporte = [], rattrape = [];
+      for(const s of JOURS){
+        const x = valeur(z, s);
+        if(x !== null && clair(z.j[s])){ rapporte.push(null); rattrape.push(x); }
+        else { rapporte.push(x); rattrape.push(null); }
+      }
+      return { rapporte, rattrape };
+    }
+    function surPeriode(z, jours){
+      const deb = ajout(FIN, -(jours - 1)); let c = 0, d = 0;
+      for(const [k, x] of Object.entries(z.j)) if(k >= deb){ c += x.c || 0; d += x.d || 0; }
+      return { c, d };
+    }
+    const recent = z => surPeriode(z, 14)[champ];
+    const dernierCas = z => Object.keys(z.j).filter(k => z.j[k].c > 0).sort().pop() || null;
+    const cumul = z => deces() ? z.deces : z.cas;
+
+    /* ---- Le tableau ---- */
+    const tab = bloc.querySelector('#zonesJourTable');
+    function rendreTableau(){
+      const lignes = zones.map(z => { const p = surPeriode(z, periode);
+        const j = z.j[FIN] || {};
+        return { nom: z.nom, cumC: z.cas, cumD: z.deces, j24C: j.c || 0, j24D: j.d || 0, pC: p.c, pD: p.d, let: z.cas ? z.deces / z.cas : -1 }; });
+      lignes.sort((a, b) => {
+        const r = triK === 'nom' ? a.nom.localeCompare(b.nom, tr('locale')) : (a[triK] - b[triK]) || (a.cumC - b.cumC);
+        return triAsc ? r : -r;
+      });
+      const maxC = Math.max(1, ...lignes.map(l => l.pC)), maxD = Math.max(1, ...lignes.map(l => l.pD));
+      const barre = (cl, n, mx) => n
+        ? `<div class="zs-l ${cl}"><i style="width:calc(${(n / mx).toFixed(3)} * (100% - 44px))"></i><span>${fmt(n)}</span></div>`
+        : '<div class="zs-l vide"><span>–</span></div>';
+      const jour = n => n ? '+' + fmt(n) : '<span class="vide">–</span>';
+      tab.querySelectorAll('.zs-per').forEach(e => { e.textContent = tr('zjPer')(periode); });
+      tab.querySelectorAll('thead th').forEach(th => {
+        const on = th.dataset.k === triK;
+        th.classList.toggle('on', on);
+        if(on){ th.dataset.s = triAsc ? 'a' : 'd'; th.setAttribute('aria-sort', triAsc ? 'ascending' : 'descending'); }
+        else { delete th.dataset.s; th.removeAttribute('aria-sort'); }
+      });
+      const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+      tab.tBodies[0].innerHTML = lignes.map(l =>
+        `<tr data-nom="${esc(l.nom)}"${l.nom === choisie ? ' class="choisie"' : ''}><td>${esc(l.nom)}</td>` +
+        `<td class="zt z-cas">${fmt(l.cumC)}</td><td class="zs-24 c">${jour(l.j24C)}</td><td class="zs-b">${barre('c', l.pC, maxC)}</td>` +
+        `<td class="zt z-dec">${fmt(l.cumD)}</td><td class="zs-24 d">${jour(l.j24D)}</td><td class="zs-b">${barre('d', l.pD, maxD)}</td>` +
+        `<td>${l.cumC ? fmtCfr(l.cumD / l.cumC * 100) : '–'}</td></tr>`).join('');
+    }
+
+    /* ---- Le grand graphique ---- */
+    const tooltip = {
+      backgroundColor: PALETTE.panel, borderColor: PALETTE.line, borderWidth: 1,
+      titleColor: PALETTE.ink, bodyColor: PALETTE.ink, footerColor: PALETTE.inkDim,
+      titleFont: { family: PALETTE.font }, bodyFont: { family: PALETTE.font }, footerFont: { family: PALETTE.font, weight: 'normal' },
+      filter: it => it.parsed.y !== null
+    };
+    function pied(z, s){
+      const x = z.j[s] || {}, l = [], n = empan(x);
+      if(n > 1){
+        const sansB = [], sansD = [];
+        for(let k = n - 1; k >= 1; k--){ const d = ajout(s, -k); (SANS.has(d) ? sansB : sansD).push(frDate(d)); }
+        const bouts = [];
+        if(sansB.length) bouts.push(tr('zjTipSansBulletin')(sansB));
+        if(sansD.length) bouts.push(tr('zjTipSansDeces')(sansD));
+        l.push(tr('zjTipReunit')(n) + (bouts.length ? ', ' + bouts.join(' ; ') : ''));
+      } else if(x.ratt) l.push(tr('zjTipRatt'));
+      if(x.annonce && deces()) l.push(tr('zjTipAnnonce'));
+      const b = x.baisse && x.baisse[deces() ? 1 : 0];
+      if(b) l.push(tr('zjTipBaisse')(fmt(b)));
+      return l;
+    }
+    let grand = null;
+    function dessinerGrand(){
+      const z = zones.find(x => x.nom === choisie) || zones[0];
+      const { rapporte, rattrape } = series(z);
+      const pl = plafond(rapporte, rattrape);
+      const lib = tr(deces() ? 'zjDec' : 'zjCas');
+      $('.zs-g-titre').textContent = tr('zjTitre')(lib, z.nom);
+      $('.zs-chiffres').innerHTML = tr('zjChiffres')(fmt(cumul(z)), tr('zjUnite')(deces()), fmt(recent(z)));
+      const avant = deces() ? z.decesAvant : z.casAvant;
+      $('.zs-g-note').textContent = avant ? tr('zjAvant')(fmt(avant), deces(), avant) : '';
+      const commun = { borderRadius: 2, minBarLength: 2, stack: 'z', categoryPercentage: 1, barPercentage: .96 };
+      const data = { labels: JOURS.map(frDate), datasets: [
+        { ...commun, label: tr(deces() ? 'zjDecJour' : 'zjCasJour'), data: rapporte, backgroundColor: teinte() },
+        { ...commun, label: tr('catchupLabel'), data: rattrape, backgroundColor: tint(teinte(), .35) }
+      ] };
+      const ticks = { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 } };
+      const opts = { responsive: true, maintainAspectRatio: false, animation: { duration: 300 },
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { labels: { color: PALETTE.inkDim, font: { family: PALETTE.font, size: 11 }, boxWidth: 10, usePointStyle: true,
+            filter: (it, d) => d.datasets[it.datasetIndex].data.some(x => x !== null) } },
+          tooltip: { ...tooltip, callbacks: {
+            title: it => { const s = JOURS[it[0].dataIndex]; return tr('zjTipTitre')(frDate(s), D.sitrep[s]); },
+            label: it => tr('zjTipVal')(deces(), fmt(it.parsed.y)),
+            footer: it => pied(z, JOURS[it[0].dataIndex]) } },
+          ruptureRattrapage: { coupees: pl.coupees }
+        },
+        scales: {
+          x: { ticks: { ...ticks, maxRotation: 45, minRotation: 45, autoSkip: true, maxTicksLimit: 20 }, grid: { display: false } },
+          y: { max: pl.max, beginAtZero: true, ticks: { ...ticks, precision: 0, callback: n => fmt(n) }, grid: { color: PALETTE.lineSoft } }
+        } };
+      if(grand){ grand.data = data; grand.options = opts; grand.update(); }
+      else grand = new Chart($('.zs-grand'), { type: 'bar', data, options: opts, plugins: [ruptureRattrapage] });
+    }
+
+    /* ---- Les petits graphiques ---- */
+    const minis = [];
+    function choisir(nom, defiler){
+      choisie = nom;
+      bloc.querySelectorAll('.zs-carte').forEach(c => c.setAttribute('aria-current', c.dataset.nom === nom ? 'true' : 'false'));
+      dessinerGrand(); rendreTableau();
+      if(defiler) $('.zs-g-titre').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function carte(z){
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'zs-carte'; b.dataset.nom = z.nom;
+      b.setAttribute('aria-current', z.nom === choisie ? 'true' : 'false');
+      const r = recent(z), der = dernierCas(z);
+      b.innerHTML = '<div class="zs-carte-t"><b></b><span></span></div><p class="zs-recent"></p><div class="zs-mini"><canvas data-sans-titre></canvas></div>';
+      b.querySelector('b').textContent = z.nom;
+      b.querySelector('span').textContent = `${fmt(cumul(z))} ${tr('zjUnite')(deces())}`;
+      b.querySelector('.zs-recent').innerHTML = r ? tr('zjRecent')(fmt(r)).replace('<b>', `<b style="color:${teinte()}">`)
+        : (!deces() && der ? tr('zjDernierCas')(frDate(der)) : tr('zjAucun'));
+      b.addEventListener('click', () => choisir(z.nom, true));
+      const { rapporte, rattrape } = series(z);
+      const pl = plafond(rapporte, rattrape);
+      /* Pas de trait pour une journee a zero dans les petits graphiques : on
+         n'y lit que la forme, et Chart.js elargit chaque barre d'un tiers de
+         pixel (inflateAmount), ce qui dessinait une ligne au pied de chaque
+         carte. Le grand graphique garde le trait « compte, et compte zero ». */
+      const sansZero = v => v.map(x => x === 0 ? null : x);
+      requestAnimationFrame(() => minis.push(new Chart(b.querySelector('canvas'), { type: 'bar',
+        data: { labels: JOURS, datasets: [
+          { data: sansZero(rapporte), backgroundColor: teinte(), stack: 'z', categoryPercentage: 1, barPercentage: 1 },
+          { data: sansZero(rattrape), backgroundColor: tint(teinte(), .35), stack: 'z', categoryPercentage: 1, barPercentage: 1 } ] },
+        options: { responsive: true, maintainAspectRatio: false, animation: false, events: [],
+          layout: { padding: { top: pl.coupees.length ? 12 : 0 } },
+          plugins: { legend: { display: false }, tooltip: { enabled: false }, ruptureRattrapage: { coupees: pl.coupees, petit: true } },
+          scales: { x: { display: false }, y: { display: false, beginAtZero: true, max: pl.max } } },
+        plugins: [ruptureRattrapage] })));
+      return b;
+    }
+    function rendreMinis(){
+      minis.splice(0).forEach(c => c.destroy());
+      if(!AVEC_MINIS){ $('.zs-minis').hidden = true; return; }
+      const actives = [], calmes = [], seuil = ajout(FIN, -20);
+      for(const z of zones){ const d = dernierCas(z); (d && d >= seuil ? actives : calmes).push(z); }
+      actives.sort((a, b) => recent(b) - recent(a) || cumul(b) - cumul(a));
+      calmes.sort((a, b) => (dernierCas(b) || '').localeCompare(dernierCas(a) || ''));
+      $('.zs-sous').textContent = actives.length === 1 ? tr('zjActive1')(deces()) : tr('zjActives')(actives.length, deces());
+      $('.zs-sous').hidden = !actives.length;
+      $('.zs-actives').replaceChildren(...actives.map(carte));
+      const plus = $('.zs-plus');
+      plus.hidden = actives.length <= 6 || $('.zs-actives').classList.contains('tout');
+      plus.textContent = tr('zjVoirPlus')(actives.length - 6);
+      const det = $('.zs-calmes');
+      det.hidden = !calmes.length;
+      det.querySelector('summary').textContent = tr('zjCalmes')(calmes.length);
+      det.querySelector('.zs-grille').replaceChildren(...calmes.map(carte));
+    }
+
+    /* ---- Mise en route ---- */
+    choisie = zones.slice().sort((a, b) => surPeriode(b, 14).c - surPeriode(a, 14).c || b.cas - a.cas)[0].nom;
+    $('.zs-periode').hidden = false;
+    if(!AVEC_GRAPHE){ choisie = null; $('.zs-graphe').remove(); }
+    else {
+      bloc.classList.add('zs-js');
+      $('.zs-clic').hidden = false;
+      $('.zs-graphe').hidden = false;
+    }
+    rendreTableau();
+    if(AVEC_GRAPHE){ dessinerGrand(); rendreMinis(); }
+
+    $('.zs-periode').addEventListener('click', ev => {
+      const b = ev.target.closest('button'); if(!b) return;
+      b.parentNode.querySelectorAll('button').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      periode = Number(b.dataset.p); rendreTableau();
+    });
+    tab.querySelectorAll('thead th').forEach(th => {
+      th.setAttribute('role', 'button'); th.tabIndex = 0;
+      const trier = () => { if(th.dataset.k === triK) triAsc = !triAsc; else { triK = th.dataset.k; triAsc = triK === 'nom'; } rendreTableau(); };
+      th.addEventListener('click', trier);
+      th.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); trier(); } });
+    });
+    if(!AVEC_GRAPHE) return;
+    tab.tBodies[0].addEventListener('click', ev => { const r = ev.target.closest('tr'); if(r) choisir(r.dataset.nom, true); });
+    $('.zs-champ').addEventListener('click', ev => {
+      const b = ev.target.closest('button'); if(!b || b.dataset.champ === champ) return;
+      b.parentNode.querySelectorAll('button').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      champ = b.dataset.champ; dessinerGrand(); rendreMinis();
+    });
+    $('.zs-plus').addEventListener('click', () => { $('.zs-actives').classList.add('tout'); $('.zs-plus').hidden = true; });
+  }).catch(e => console.warn('data/zones-jour.json indisponible : le tableau reste sur 14 jours.', e));
+})();

@@ -1,5 +1,5 @@
 {
-  "_comment": "Harmonisations de donnees annoncees par les bulletins (1er novembre 2026). Au SitRep 169 (30 octobre 2026), l'Ituri a « harmonise ses donnees » le 29 avec le pilier Gestion des donnees, sur 97 % de ses zones : ses deces passent de 3 436 a 3 750 (+314), le total du pays a 5 372 ; la ligne « A ventiler » (493 deces) disparait et les cas sont redistribues entre les zones, sans changer le total de la province (7 346 + 34 = 7 380). Le site ne corrige pas les cumuls publies : il traite ce jour comme un rattrapage. « deces » : deces entres par l'harmonisation, hors deces du jour (32 au pays, 19 en Ituri). « zones » : pour chaque zone, cumul du jour - cumul de la veille - nouveaux cas annonces ; ce qui n'appartient a aucune journee. Les ecarts entre deux dates qui encadrent l'harmonisation s'en retranchent (nouveaux cas sur 30 jours, zones actives, zone apres zone). Meme date dans RATTRAPAGE_ADMIN (assets/js/app.js) et RATTRAPAGES_DECES (scripts/visuels.py). Au SitRep 170 (31 octobre 2026), le bulletin defait cette harmonisation sans l'annoncer (la note du 29 reste imprimee) : deces de l'Ituri 3 769 - 314 + 28 = 3 483, du pays 5 372 - 314 + 45 = 5 103 ; la ligne « A ventiler » (493) revient ; chaque zone retrouve exactement la base du 168 plus ses nouveaux cas. Seconde entree, de signe oppose (2 novembre 2026) : « deces » negatif, ajustements de zones inverses ; les ecarts qui encadrent les deux dates s'annulent.",
+  "_comment": "Harmonisations de donnees annoncees par les bulletins (1er novembre 2026). Au SitRep 169 (30 octobre 2026), l'Ituri a « harmonise ses donnees » le 29 avec le pilier Gestion des donnees, sur 97 % de ses zones : ses deces passent de 3 436 a 3 750 (+314), le total du pays a 5 372 ; la ligne « A ventiler » (493 deces) disparait et les cas sont redistribues entre les zones, sans changer le total de la province (7 346 + 34 = 7 380). Le site ne corrige pas les cumuls publies : il traite ce jour comme un rattrapage. « deces » : deces entres par l'harmonisation, hors deces du jour (32 au pays, 19 en Ituri). « zones » : pour chaque zone, cumul du jour - cumul de la veille - nouveaux cas annonces ; ce qui n'appartient a aucune journee. Les ecarts entre deux dates qui encadrent l'harmonisation s'en retranchent (nouveaux cas sur 30 jours, zones actives, zone apres zone). Meme date dans RATTRAPAGE_ADMIN (assets/js/app.js) et RATTRAPAGES_DECES (scripts/visuels.py). Au SitRep 170 (31 octobre 2026), le bulletin defait cette harmonisation sans l'annoncer (la note du 29 reste imprimee) : deces de l'Ituri 3 769 - 314 + 28 = 3 483, du pays 5 372 - 314 + 45 = 5 103 ; la ligne « A ventiler » (493) revient ; chaque zone retrouve exactement la base du 168 plus ses nouveaux cas. Seconde entree, de signe oppose (2 novembre 2026) : « deces » negatif, ajustements de zones inverses ; les ecarts qui encadrent les deux dates s'annulent. « decesJourZones » (10 novembre 2026) : les deces du jour de chaque zone de l'Ituri, colonne « Total » des deces du tableau 2 de ces deux bulletins (19 puis 28) ; l'ecart des cumuls de zone ne dit rien de ces journees. Lus par scripts/zones_jour.py (graphiques par zone des pages province).",
   "2026-10-30": {
     "sitrep": "169",
     "province": "Ituri",
@@ -31,6 +31,15 @@
       "Rwampara": 65,
       "Tchomia": 1,
       "Nyankunde": 15
+    },
+    "decesJourZones": {
+      "Bunia": 6,
+      "Lita": 1,
+      "Lolwa": 1,
+      "Mambasa": 3,
+      "Mandima": 5,
+      "Mongbwalu": 1,
+      "Nizi": 2
     }
   },
   "2026-10-31": {
@@ -64,6 +73,15 @@
       "Tchomia": -1,
       "Kambala": -2,
       "Rimba": -2
+    },
+    "decesJourZones": {
+      "Bunia": 7,
+      "Lolwa": 1,
+      "Mambasa": 6,
+      "Mandima": 8,
+      "Mongbwalu": 1,
+      "Nizi": 2,
+      "Rwampara": 3
     }
   }
 }

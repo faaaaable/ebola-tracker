@@ -491,6 +491,32 @@ if _ap and _hr:
             check("%s : en cours, situation de moins de 7 jours" % p["id"], age <= 7,
                   "au %s, il y a %d jours" % (sit, age), blocking_if_false=False)
 
+print("\nZones jour par jour (data/zones-jour.json, 10 novembre 2026)")
+# Les barres des graphiques par zone des pages province : pour chaque zone,
+# le premier cumul hors barres, plus les barres, moins les baisses non
+# retranchees, doit retomber sur le cumul du dernier bulletin, en cas comme
+# en deces. Un ecart veut dire qu'une journee a ete perdue ou comptee deux
+# fois. Et chaque zone du dernier bulletin a sa serie.
+_zj = _lire_optionnel("zones-jour.json")
+if not _zj:
+    check("zones-jour.json present", False, "fichier absent (build_pages.py)")
+else:
+    _hz = read("zones-history.json")
+    _der = max(_hz, key=lambda h: h["date"])
+    check("zones-jour.json au dernier bulletin des zones", _zj.get("fin") == _der["date"],
+          "%s vs %s" % (_zj.get("fin"), _der["date"]))
+    _faux = []
+    for _prov, _zs in _zj["provinces"].items():
+        for _z in _zs:
+            _c = _z["casAvant"] + sum(x.get("c", 0) + (x.get("baisse") or [0, 0])[0] for x in _z["j"].values())
+            _d = _z["decesAvant"] + sum(x.get("d", 0) + (x.get("baisse") or [0, 0])[1] for x in _z["j"].values())
+            if (_c, _d) != (_z["cas"], _z["deces"]):
+                _faux.append("%s %s (%d/%d cas, %d/%d deces)" % (_prov, _z["nom"], _c, _z["cas"], _d, _z["deces"]))
+    check("zones-jour : barres + hors barres = cumul de chaque zone", not _faux, ", ".join(_faux[:4]))
+    _n = sum(len(v) for v in _zj["provinces"].values())
+    check("zones-jour : une serie par zone du dernier bulletin", _n == len(_der["zones"]),
+          "%d vs %d" % (_n, len(_der["zones"])))
+
 print()
 if notes:
     print("%d écart(s) non bloquant(s), connus de la source :" % len(notes))

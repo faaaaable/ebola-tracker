@@ -20,8 +20,8 @@
 "published": "2026-10-08"
 },
 "base-de-donnees/index.html": {
-"hash": "6ca0afb8c39fdd13",
-"modified": "2026-11-10",
+"hash": "09b5f79c4fef49f7",
+"modified": "2026-11-11",
 "published": "2026-10-08"
 },
 "chronologie/index.html": {
@@ -45,48 +45,48 @@
 "published": "2026-10-08"
 },
 "donnees/bas-uele/index.html": {
-"hash": "77903ae8144472b7",
-"modified": "2026-11-10",
+"hash": "65ee08197101efdd",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "donnees/haut-uele/index.html": {
-"hash": "c6fbfc96a412e92c",
-"modified": "2026-11-10",
+"hash": "88abcfc6c44c1f8d",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "donnees/index.html": {
-"hash": "8a0586ba096883fd",
+"hash": "aa2bf13da4861db3",
 "modified": "2026-11-10",
 "published": "2026-08-22"
 },
 "donnees/ituri/index.html": {
-"hash": "a9cee2403093586b",
-"modified": "2026-11-10",
+"hash": "81a1333a8e1519a7",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "donnees/nord-kivu/index.html": {
-"hash": "3f6a7e9c67b167ec",
-"modified": "2026-11-10",
+"hash": "9b3ac1f8a0e721a3",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "donnees/nord-ubangi/index.html": {
-"hash": "b27c33c7c92f495d",
-"modified": "2026-11-10",
+"hash": "9f0a64c5748eac21",
+"modified": "2026-11-11",
 "published": "2026-10-18"
 },
 "donnees/sud-kivu/index.html": {
-"hash": "33b4ebe5824bd1df",
-"modified": "2026-11-10",
+"hash": "58c3a59da69d6b48",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "donnees/sud-ubangi/index.html": {
-"hash": "48a3bc48c7b03165",
-"modified": "2026-11-10",
+"hash": "2720258a6b66e5c9",
+"modified": "2026-11-11",
 "published": "2026-09-11"
 },
 "donnees/tshopo/index.html": {
-"hash": "f7a8a7747ee298de",
-"modified": "2026-11-10",
+"hash": "159fe54c901048b5",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "en/about/index.html": {
@@ -120,53 +120,53 @@
 "published": "2026-10-19"
 },
 "en/data/bas-uele/index.html": {
-"hash": "547f20718615e96d",
-"modified": "2026-11-10",
+"hash": "0e53abf4a3bfaeaa",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "en/data/haut-uele/index.html": {
-"hash": "e4836b95b7e0db78",
-"modified": "2026-11-10",
+"hash": "70a7e9498e0a994e",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "en/data/index.html": {
-"hash": "4c85e5725418594c",
+"hash": "aa5b7af75c85c3bf",
 "modified": "2026-11-10",
 "published": "2026-08-22"
 },
 "en/data/ituri/index.html": {
-"hash": "58e552231c6133d4",
-"modified": "2026-11-10",
+"hash": "71bdbb0f320b10ea",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "en/data/nord-kivu/index.html": {
-"hash": "4083db5ca289eb37",
-"modified": "2026-11-10",
+"hash": "73c6d4a02caa0a84",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "en/data/nord-ubangi/index.html": {
-"hash": "abaeaa82a7431390",
-"modified": "2026-11-10",
+"hash": "19c2e365dabe88c7",
+"modified": "2026-11-11",
 "published": "2026-10-18"
 },
 "en/data/sud-kivu/index.html": {
-"hash": "d0f440e524907ddd",
-"modified": "2026-11-10",
+"hash": "78c1cdb05a249610",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "en/data/sud-ubangi/index.html": {
-"hash": "b16ca71e3ba11abd",
-"modified": "2026-11-10",
+"hash": "709ce731ca195c42",
+"modified": "2026-11-11",
 "published": "2026-09-11"
 },
 "en/data/tshopo/index.html": {
-"hash": "91c767f90f2d5c4c",
-"modified": "2026-11-10",
+"hash": "8daf67247eeb37a4",
+"modified": "2026-11-11",
 "published": "2026-08-22"
 },
 "en/database/index.html": {
-"hash": "06e7b82e1e904e59",
-"modified": "2026-11-10",
+"hash": "bfb868faf28f3548",
+"modified": "2026-11-11",
 "published": "2026-10-08"
 },
 "en/faq/index.html": {
@@ -1645,8 +1645,8 @@
 "published": "2026-10-19"
 },
 "sw/hifadhidata/index.html": {
-"hash": "c9f41500053b5557",
-"modified": "2026-11-10",
+"hash": "e7773c6f697c5b54",
+"modified": "2026-11-11",
 "published": "2026-10-08"
 },
 "sw/index.html": {
@@ -1720,48 +1720,48 @@
 "published": "2026-11-02"
 },
 "sw/takwimu/bas-uele/index.html": {
-"hash": "2d7f92de3e220408",
-"modified": "2026-11-10",
+"hash": "35269b4a65762084",
+"modified": "2026-11-11",
 "published": "2026-08-25"
 },
 "sw/takwimu/haut-uele/index.html": {
-"hash": "2222ea754b57120d",
-"modified": "2026-11-10",
+"hash": "5f7350d1323a9132",
+"modified": "2026-11-11",
 "published": "2026-08-25"
 },
 "sw/takwimu/index.html": {
-"hash": "4266bbf06eb405ce",
+"hash": "2e8a04a62f5bf245",
 "modified": "2026-11-10",
 "published": "2026-08-25"
 },
 "sw/takwimu/ituri/index.html": {
-"hash": "0665fa3378d8c128",
-"modified": "2026-11-10",
+"hash": "81cf3e2638014c54",
+"modified": "2026-11-11",
 "published": "2026-08-25"
 },
 "sw/takwimu/nord-kivu/index.html": {
-"hash": "e38d92552bee506e",
-"modified": "2026-11-10",
+"hash": "ef4451a037afaff8",
+"modified": "2026-11-11",
 "published": "2026-08-25"
 },
 "sw/takwimu/nord-ubangi/index.html": {
-"hash": "0886565b394638f8",
-"modified": "2026-11-10",
+"hash": "62556c31a60e5800",
+"modified": "2026-11-11",
 "published": "2026-10-18"
 },
 "sw/takwimu/sud-kivu/index.html": {
-"hash": "948655989d345076",
-"modified": "2026-11-10",
+"hash": "dfda818f3f9bac0e",
+"modified": "2026-11-11",
 "published": "2026-08-25"
 },
 "sw/takwimu/sud-ubangi/index.html": {
-"hash": "3cd49bb40a9be9dd",
-"modified": "2026-11-10",
+"hash": "b8ea79d6d63dbc8d",
+"modified": "2026-11-11",
 "published": "2026-09-11"
 },
 "sw/takwimu/tshopo/index.html": {
-"hash": "201a65a068eb7763",
-"modified": "2026-11-10",
+"hash": "08badd71462ef0f9",
+"modified": "2026-11-11",
 "published": "2026-08-25"
 },
 "sw/ufaransa/index.html": {

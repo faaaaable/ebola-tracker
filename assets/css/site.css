@@ -5560,3 +5560,83 @@ main:has(.chap-nav) .rip-volet{scroll-margin-top:130px;}
 @media (max-width:1100px){.fi{grid-template-columns:repeat(3,minmax(0,1fr));}.fi-c:nth-child(4){border-left:0;padding-left:0;}.fi-c:nth-child(n+4){border-top:1px solid var(--line);}}
 @media (max-width:900px){.fi-bas{grid-template-columns:1fr;gap:28px;}.vt{grid-template-columns:1fr;}.vt-c,.vt-c:first-child{border-left:0;padding:22px 0 8px;}.vt-c + .vt-c{border-top:1px solid var(--line);margin-top:20px;}.vl-res{grid-template-columns:1fr;}.vl-res li,.vl-res li:first-child{border-left:0;padding:18px 0 20px;}.vl-res li + li{border-top:1px solid var(--line);}}
 @media (max-width:640px){.fi{grid-template-columns:1fr;}.fi-c,.fi-c:nth-child(n){border-left:0;padding:16px 0 18px;border-top:1px solid var(--line);}.fi-c:first-child{border-top:0;}.fi dt{margin-bottom:6px;}.fi dd b{font-size:28px;margin-bottom:4px;}}
+
+/* Chapitre « Zones de sante » des provinces, jour par jour (10 novembre
+   2026) : tableau des zones a barres (periode 24 h a 30 jours), grand
+   graphique d'une zone, petits graphiques de toutes les zones. app.js,
+   zonesJour. Le tableau garde le style .zq. */
+.zones-block.zs-bloc{width:100%;max-width:none;}
+main:has(.prov-hero-b) .zs-bloc + .drill{text-align:left;margin-top:36px;}
+.zs-tab-tete{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px;margin:0 0 10px;}
+.zs-tab-tete .frame-title{margin:0;}
+.zs-cadre{width:100%;padding:16px;}
+.zs-cadre .zones-note,.zs-bloc .zones-note{width:auto;min-width:0;text-align:left;margin:12px 0 0;}
+.zs-clic{margin:4px 0 0;}
+.zs-defil{overflow-x:auto;}
+.zs-tab{width:100%;}
+.zs-tab th{vertical-align:bottom;}
+.zs-tab th small{display:block;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink-faint);}
+/* Fleche de tri sans saut : dans les colonnes a barres, ou le sous-titre
+   est sur sa propre ligne, elle suit « 14 derniers jours » ; la colonne
+   est large, rien ne bouge. */
+/* Fleche suspendue hors du texte (largeur nette nulle) : titres et chiffres
+   gardent le meme bord. A droite du nom, a gauche des titres alignes a
+   droite, pour ne jamais deborder du tableau. */
+.zs-tab th.on::after{content:none;}
+.zs-tab th:first-child.on::after{content:"↓";display:inline-block;width:1em;margin-right:-1em;text-align:right;}
+.zs-tab th:first-child.on[data-s="a"]::after{content:"↑";}
+.zs-tab th:not(:first-child):not(.zs-b).on::before{content:"↓";display:inline-block;width:1em;margin-left:-1em;text-align:left;}
+.zs-tab th:not(:first-child):not(.zs-b).on[data-s="a"]::before{content:"↑";}
+.zs-tab th.zs-b.on::after{content:none;}
+.zs-tab th.zs-b.on small::after{content:" ↓";color:var(--accent-strong);}
+.zs-tab th.zs-b.on[data-s="a"] small::after{content:" ↑";}
+.zs-tab td{padding-top:5px;padding-bottom:5px;}
+.zs-tab th.zs-b,.zs-tab td.zs-b{text-align:left;padding-left:14px;}
+.zs-tab td.zs-b{min-width:170px;}
+.zs-tab td.zs-24{font-weight:600;}
+/* Les chiffres du jour collent a leur cumul : alignes a gauche, titre compris. */
+.zs-tab td.zs-24,.zs-tab th[data-k^="j24"]{text-align:left;padding-left:10px;}
+.zs-tab th[data-k^="j24"]:not(:first-child):not(.zs-b).on::before{content:none;}
+.zs-tab th[data-k^="j24"].on::after{content:"↓";display:inline-block;width:1em;margin-right:-1em;text-align:right;}
+.zs-tab th[data-k^="j24"].on[data-s="a"]::after{content:"↑";}
+.zs-tab td.zs-24{color:var(--ink);}
+.zs-tab td.zs-24 .vide{color:var(--ink-faint);font-weight:500;}
+/* Colonnes de texte et de chiffres a la largeur de leur contenu : la place
+   restante va aux barres, et les cumuls ne flottent plus loin des noms. */
+.zs-tab th:not(.zs-b){width:1%;}
+.zs-tab th:first-child{padding-right:28px;}
+.zs-tab th:first-child,.zs-tab td:first-child{position:sticky;left:0;background:var(--bg-panel) !important;z-index:1;}
+.zs-js .zs-tab tbody tr{cursor:pointer;}
+.zs-tab tbody tr.choisie td:first-child{color:var(--accent-strong);}
+.zs-l{display:flex;align-items:center;gap:7px;height:18px;}
+.zs-l i{display:block;height:16px;border-radius:2px;min-width:2px;flex:none;}
+.zs-l span{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-weight:700;font-size:15px;letter-spacing:-.01em;}
+.zs-l.c i{background:var(--accent-info);} .zs-l.c span{color:var(--accent-info);}
+.zs-l.d i{background:var(--accent-critical);} .zs-l.d span{color:var(--accent-critical);}
+.zs-l.vide span{color:var(--ink-faint);font-weight:500;}
+.zs-champ{margin:34px 0 6px;}
+.zs-tete{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;}
+.zs-chiffres{font-size:13px;color:var(--ink-dim);font-variant-numeric:tabular-nums;}
+.zs-chiffres b{color:var(--ink);}
+.zs-g-note:empty{display:none;}
+.zs-sous{font:600 12px var(--font-sans);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:26px 0 0;}
+.zs-grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:10px;}
+.zs-carte{background:var(--bg-panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px 6px;cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%;}
+.zs-carte:hover{border-color:var(--ink-faint);}
+.zs-carte[aria-current="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);}
+.zs-carte-t{display:flex;justify-content:space-between;align-items:baseline;gap:8px;}
+.zs-carte-t b{font:600 15.5px var(--font-serif);}
+.zs-carte-t span{font-size:12px;color:var(--ink-faint);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.zs-recent{font-size:12px;color:var(--ink-dim);margin:1px 0 4px;font-variant-numeric:tabular-nums;}
+.zs-recent b{font-weight:700;}
+.zs-mini{height:64px;position:relative;}
+.zs-mini canvas{width:100% !important;height:100% !important;}
+.zs-plus{display:none;margin:14px 0 0;padding:8px 14px;border:1px solid var(--line);border-radius:6px;background:var(--bg-panel);font:600 13px var(--font-sans);color:var(--accent-strong);cursor:pointer;}
+details.zs-calmes summary{cursor:pointer;font:600 13px var(--font-sans);color:var(--accent-strong);margin:24px 0 0;}
+.zs-note{margin-top:26px;}
+@media (max-width:640px){
+  .zs-grille{grid-template-columns:1fr;}
+  .zs-graphe .chart-panel{padding:12px 8px 12px 6px;height:300px;}
+  .zs-actives:not(.tout) > .zs-carte:nth-child(n+7){display:none;}
+  .zs-plus:not([hidden]){display:inline-block;}
+}

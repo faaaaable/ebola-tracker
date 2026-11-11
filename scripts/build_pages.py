@@ -33,6 +33,7 @@ from datetime import date, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import harmonisations  # ecarts par zone hors harmonisation (SitRep 169)
+import zones_jour  # nouveaux cas et deces par zone, jour par jour (10 novembre 2026)
 import defis_synthese  # maquette « Riposte & defis », seconde partie redigee
 import base_donnees  # la base de donnees unifiee (9 octobre 2026)
 import face_accueil  # la riposte et ses defis, sur l'accueil (13 octobre 2026)
@@ -2844,104 +2845,83 @@ def province_map_values(province_maps, name, zones, config, lang, strings_lang, 
     }
 
 
-def province_zones_table_html(zones, forms, lang, strings_lang, i18n_lang, zones_history=None, province=None):
-    """Le tableau des zones touchees d'une province, en « mini-courbes »
-    (7 octobre 2026) : la zone, ses cas cumules, la
-    courbe de ses nouveaux cas sur les 30 derniers jours, ses deces cumules,
-    la letalite et ses cas des 7 derniers jours. Les nouveaux cas d'un jour
-    sont l'ecart de cumul entre deux instantanes de zones-history.json (un
-    recul est ramene a zero, comme sur les graphiques). Triable par colonne
-    (app.js, table.zq.tri).
+ZONES_PERIODES = (1, 7, 14, 30)
+ZONES_PERIODE_DEFAUT = 14
+# En deca, une province n'a pas de petits graphiques : le grand suffit.
+ZONES_MINIS_DES = 4
 
-    La note sur la somme des zones (`zonesSumNote`) reste rendue par le
-    gabarit, sous le tableau."""
-    if not zones:
+
+def zones_periodes_html(strings_lang):
+    """Les onglets de periode du tableau des zones : 24 h, 7, 14, 30 jours."""
+    return "".join(
+        '<button type="button" class="subtab-btn%s" data-p="%d" aria-pressed="%s">%s</button>'
+        % (" active" if p == ZONES_PERIODE_DEFAUT else "", p,
+           "true" if p == ZONES_PERIODE_DEFAUT else "false",
+           esc(strings_lang["zonesPer1"] if p == 1 else interp(strings_lang["zonesPerJours"], {"n": p})))
+        for p in ZONES_PERIODES)
+
+
+def province_zones_table_html(zones_jour_prov, fin, forms, lang, strings_lang):
+    """Le tableau des zones d'une province (10 novembre 2026) : les colonnes
+    de l'ancien tableau (cas et deces cumules, letalite), et les nouveaux cas
+    et deces de la periode choisie en barres (24 h, 7, 14 ou 30 jours,
+    14 a l'ouverture). Les nouveaux cas d'un jour sont l'ecart de deux cumuls
+    de la zone (scripts/zones_jour.py), comme les graphiques des provinces.
+    Ouvert sur les nouveaux cas de la periode, du plus grand au plus petit :
+    on lit d'abord ou l'epidemie progresse. Toutes les zones restent, « – »
+    quand la periode n'a rien.
+
+    Rendu ici pour l'ouverture et sans JavaScript ; app.js le reecrit a
+    l'identique quand on change de periode ou de tri (zonesJour). La note
+    sur la somme des zones reste dans le gabarit, sous le tableau."""
+    if not zones_jour_prov:
         return ('      <p class="map-note">%s</p>'
                 % esc(strings_lang["provinceZonesEmpty"]))
-    from datetime import date as _d, timedelta as _td
+    lignes = []
+    for z in zones_jour_prov:
+        c, d = zones_jour.periode(z, fin, ZONES_PERIODE_DEFAUT)
+        lignes.append((z, c, d))
+    lignes.sort(key=lambda x: (-x[1], -x[0]["cas"], x[0]["nom"]))
 
-    def cle(z):
-        return normalise_zone(z.get("name"))
+    def jour(v):
+        # Les chiffres du dernier bulletin, fixes quelle que soit la periode.
+        return "+" + fmt(v, lang) if v else '<span class="vide">–</span>'
+    max_c = max([x[1] for x in lignes] + [1])
+    max_d = max([x[2] for x in lignes] + [1])
 
-    # Cumuls anterieurs a une harmonisation remis sur sa base (SitRep 169,
-    # Ituri) : les barres ne comptent que les nouveaux cas.
-    hist = sorted(harmonisations.rebaser(zones_history or []), key=lambda h: h["date"])
-    fin = hist[-1]["date"] if hist else None
-    debut = (_d.fromisoformat(fin) - _td(days=30)).isoformat() if fin else None
-    # Avant sa premiere ligne, une zone est a zero (meme raison que pour les
-    # provinces : Wapinda, SitRep 155, n'aurait sinon aucune barre).
-    premier = {}
-    for h in hist:
-        for z in h["zones"]:
-            if z.get("province") == province:
-                premier.setdefault(cle(z), h["date"])
-    series = {}
-    for h in hist:
-        if h["date"] < debut:
-            continue
-        for k, d0 in premier.items():
-            if d0 > h["date"] and d0 >= debut:
-                series.setdefault(k, []).append((h["date"], 0))
-        for z in h["zones"]:
-            if z.get("province") == province:
-                series.setdefault(cle(z), []).append((h["date"], z.get("cases") or 0))
-
-    def nouveaux(k):
-        pts = series.get(k, [])
-        return [(pts[i][0], max(0, pts[i][1] - pts[i - 1][1])) for i in range(1, len(pts))]
-
-    # Echelle COMMUNE au tableau, compressee en racine carree (7 octobre
-    # 2026) : une barre de 1 cas reste petite a cote d'une barre de 20 dans
-    # une autre zone, sans que les petites zones disparaissent.
-    mx_commun = max([v for k in series for _, v in nouveaux(k)] + [1])
-
-    def spark(vals, titre):
-        if not vals:
-            return ""
-        w, h = 140, 28
-        mx = mx_commun ** .5
-        bw = w / float(len(vals))
-        def haut(v):
-            return max(1.5, v ** .5 / mx * (h - 2)) if v else 0
-        barres = "".join('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f"%s/>'
-                         % (i * bw + .5, h - haut(v), max(bw - 1, .6), haut(v),
-                            ' class="is-der"' if i == len(vals) - 1 else "")
-                         for i, (_, v) in enumerate(vals))
-        return ('<svg class="z-spark" viewBox="0 0 %d %d" width="%d" height="%d" role="img" aria-label="%s">%s</svg>'
-                % (w, h, w, h, esc(titre), barres))
-
-    def plus(v):
-        return ('<span class="z-plus">+%s</span>' % fmt(v, lang)) if v else '<span class="z-zero">0</span>'
+    def barre(cl, v, mx):
+        if not v:
+            return '<div class="zs-l vide"><span>–</span></div>'
+        return ('<div class="zs-l %s"><i style="width:calc(%.3f * (100%% - 44px))"></i><span>%s</span></div>'
+                % (cl, v / float(mx), fmt(v, lang)))
 
     rows = []
-    for zone in sorted(zones, key=lambda z: -(z.get("cases") or 0)):
-        nv = nouveaux(cle(zone))
-        n30 = sum(v for _, v in nv)
-        n24 = max(0, zone.get("newCases24h") or 0)
-        d24 = max(0, zone_new_deaths(zone) or 0)
-        # Ordre du 7 octobre 2026  : cumul, 24 h, 30 jours pour
-        # les cas ; cumul et 24 h pour les deces ; puis la letalite.
+    for z, c, d in lignes:
+        c24 = z["j"].get(fin, {}).get("c", 0)
+        d24 = z["j"].get(fin, {}).get("d", 0)
+        cfr = (z["deces"] * 100.0 / z["cas"]) if z["cas"] else None
         rows.append(
-            '            <tr><td>%s</td><td class="zt z-cas" data-v="%d">%s</td><td data-v="%d">%s</td>'
-            '<td class="zs" data-v="%d">%s</td><td class="zt z-dec" data-v="%d">%s</td><td data-v="%d">%s</td>'
-            '<td data-v="%.1f">%s</td></tr>' % (
-                esc(zone["name"]), zone.get("cases") or 0, fmt(zone.get("cases"), lang), n24, plus(n24),
-                n30, spark(nv, interp(strings_lang["zonesSparkTitle"], {"zone": zone["name"], "n": fmt(n30, lang)})),
-                zone.get("deaths") or 0, fmt(zone.get("deaths"), lang), d24, plus(d24),
-                zone.get("cfr") or 0, fmt_cfr(zone.get("cfr"), lang)))
-
-    entetes = "".join('<th>%s</th>' % esc(x) for x in [
-        strings_lang["provinceThZone"], strings_lang["provinceThCases"], strings_lang["zonesTh24h"],
-        strings_lang["zonesTh30"], strings_lang["provinceThDeaths"], strings_lang["zonesThDec24h"],
-        strings_lang["provinceThCfr"]])
+            '            <tr data-nom="%s"><td>%s</td><td class="zt z-cas">%s</td><td class="zs-24 c">%s</td><td class="zs-b">%s</td>'
+            '<td class="zt z-dec">%s</td><td class="zs-24 d">%s</td><td class="zs-b">%s</td><td>%s</td></tr>'
+            % (esc(z["nom"]), esc(z["nom"]), fmt(z["cas"], lang), jour(c24), barre("c", c, max_c),
+               fmt(z["deces"], lang), jour(d24), barre("d", d, max_d), fmt_cfr(cfr, lang) if cfr is not None else "–"))
+    per = '<small class="zs-per">%s</small>' % esc(interp(strings_lang["zonesPerN"], {"n": ZONES_PERIODE_DEFAUT}))
+    entetes = [("nom", strings_lang["provinceThZone"], ""), ("cumC", strings_lang["provinceThCases"], ""),
+               ("j24C", strings_lang["zonesThCas24"], ""), ("pC", strings_lang["zonesThNouvCas"], per), ("cumD", strings_lang["provinceThDeaths"], ""),
+               ("j24D", strings_lang["zonesThDec24"], ""), ("pD", strings_lang["zonesThNouvDec"], per), ("let", strings_lang["provinceThCfr"], "")]
+    thead = "".join(
+        '<th data-k="%s"%s%s>%s%s</th>'
+        % (k, ' class="zs-b on" data-s="d" aria-sort="descending"' if k == "pC" else (' class="zs-b"' if k == "pD" else ""),
+           "", esc(lib), extra)
+        for k, lib, extra in entetes)
     return (
-        '      <div class="table-scroll">\n'
-        '        <table class="zones-province zq tri" id="zonesProvinceTable">\n'
+        '      <div class="zs-defil">\n'
+        '        <table class="zq zs-tab" id="zonesJourTable">\n'
         '          <caption class="visually-hidden">%s</caption>\n'
         '          <thead><tr>%s</tr></thead>\n'
         '          <tbody>\n%s\n          </tbody>\n'
         '        </table>\n'
-        '      </div>' % (esc(interp(strings_lang["provinceZonesTitle"], forms)), entetes, "\n".join(rows)))
+        '      </div>' % (esc(interp(strings_lang["provinceZonesTitle"], forms)), thead, "\n".join(rows)))
 
 
 # --------------------------------------------------------------------------
@@ -3067,10 +3047,45 @@ PROVINCES_LIEU_DECES = ("Ituri", "Nord-Kivu", "Haut-Uélé")
 PROVINCES_RIPOSTE = ("Ituri", "Nord-Kivu")
 
 
+def province_tendance(name, province_history, zj, lang, strings_lang):
+    """La phrase des 14 derniers jours de l'introduction d'une province
+    (11 novembre 2026) : les nouveaux cas, ecart du cumul de la province
+    entre le dernier bulletin et celui d'il y a 14 jours (deux SitRep de
+    l'INSP), puis les deux zones qui en comptent le plus, chiffres du
+    tableau des zones (scripts/zones_jour.py). Le total de la province, et
+    non la somme des zones : un reclassement d'une zone a l'autre (Biena et
+    Beni) gonflerait la somme."""
+    hist = sorted(province_history or [], key=lambda h: h["date"])
+    fin = zj["fin"]
+    debut = (date.fromisoformat(fin) - timedelta(days=ZONES_PERIODE_DEFAUT)).isoformat()
+
+    def cumul(h):
+        q = next((x for x in h.get("provinces", []) if x.get("name") == name), None)
+        return (q or {}).get("confirmed") or 0
+    der = next((h for h in reversed(hist) if h["date"] <= fin), None)
+    ref = next((h for h in reversed(hist) if h["date"] <= debut), None)
+    if not der:
+        return ""
+    n = max(0, cumul(der) - (cumul(ref) if ref else 0))
+    if not n:
+        return esc(strings_lang["provinceTendanceAucun"])
+    zones = [(zones_jour.periode(z, fin, ZONES_PERIODE_DEFAUT)[0], z["nom"])
+             for z in zj["provinces"].get(name, [])]
+    zones = sorted([x for x in zones if x[0] > 0], key=lambda x: (-x[0], x[1]))
+    tete = zones[:2]
+    if not tete:
+        return esc(strings_lang["provinceTendanceAucun"])
+    noms = strings_lang["provinceTendanceEt"].join(
+        "%s (%s)" % (esc(nom), fmt(v, lang)) for v, nom in tete)
+    cle = "provinceTendanceA" if len(zones) == len(tete) else "provinceTendanceSurtout"
+    phrase = strings_lang["provinceTendanceUn" if n == 1 else "provinceTendance"]
+    return interp(phrase, {"n": fmt(n, lang), "zones": strings_lang[cle].replace("{z}", noms)})
+
+
 def province_numeros(province):
     """Les numeros des chapitres d'une page province, dans l'ordre de la
-    page (mise en page en chapitres du 4 novembre 2026) : Evolution, Lieu
-    des deces, Zones de sante, Riposte, Defis, Chronologie — seulement ceux
+    page (mise en page en chapitres du 4 novembre 2026) : Evolution, Zones
+    de sante, Lieu des deces (inverses le 11 novembre 2026), Riposte, Defis, Chronologie — seulement ceux
     que la province a. Un seul calcul pour le menu a ancres et pour chaque
     chapitre."""
     n, nums = 0, {}
@@ -3080,9 +3095,9 @@ def province_numeros(province):
         nums[cle] = "%02d" % n
     if a_une_courbe(province):
         suivant("courbe")
-        if province.get("name") in PROVINCES_LIEU_DECES:
-            suivant("lieu")
     suivant("zones")
+    if a_une_courbe(province) and province.get("name") in PROVINCES_LIEU_DECES:
+        suivant("lieu")
     if a_une_riposte(province) or province.get("name") in VACCIN_PROVINCES | POE_PROVINCES:
         suivant("riposte")
     if province.get("name") in PROVINCES_OBSTACLES:
@@ -3093,8 +3108,8 @@ def province_numeros(province):
 
 # Les chapitres (4 novembre 2026, maquette 2b) : id d'ancre et cle du titre
 # de chaque chapitre d'une page province, dans l'ordre de province_numeros.
-CHAPITRES_PROVINCE = [("courbe", "evolution", "chapEvolution"), ("lieu", "lieu", "chapLieu"),
-                      ("zones", "zones", "chapZones"), ("riposte", "riposte", "chapRiposte"),
+CHAPITRES_PROVINCE = [("courbe", "evolution", "chapEvolution"), ("zones", "zones", "chapZones"),
+                      ("lieu", "lieu", "chapLieu"), ("riposte", "riposte", "chapRiposte"),
                       ("obstacles", "defis", "chapDefis"), ("chrono", "chronologie", "chapChrono")]
 
 
@@ -3296,9 +3311,11 @@ def lieu_deces_zones_html(province, lang, strings_lang, i18n_lang, url_base):
     if a_ventiler and pt_ and st and abs(sc / st - pc / pt_) * 100 >= 3:
         notes.append(interp(strings_lang["lzNoteVentiler"],
                             {"n": fmt(a_ventiler, lang), "p": fmt_cfr(round(pc / pt_ * 100, 1), lang)}))
-    notes.append(strings_lang["lzNoteSource"])
-    html.append('<p class="lz-note">%s <a href="%s">%s →</a></p>'
-                % (esc(" ".join(notes)), esc(url_base), esc(strings_lang["lzLienBase"])))
+    # La phrase sur la source et le lien « Le detail jour par jour » sont
+    # retires le 10 novembre 2026 : la base de donnees est deja liee sous le
+    # chapitre des zones.
+    if notes:
+        html.append('<p class="lz-note">%s</p>' % esc(" ".join(notes)))
     html.append('</div>')
     return "\n".join(html) + "\n"
 
@@ -3377,23 +3394,29 @@ def _cadre_courbe_province(province, strings_lang, i18n_lang, canvas_id, champ,
             % (esc(i18n_lang["chartVueDaily"]), esc(i18n_lang["chartVueWeekly"]), esc(i18n_lang["chartVueMonthly"]),
                canvas_id, attrs))
 
-def province_chart_html(province, strings_lang, i18n_lang, lang="fr", url_base="", dans=""):
-    """Les chapitres « Evolution » (cas puis deces, 28 septembre 2026) et
-    « Lieu des deces » d'une page province, pour les provinces qui ont une
-    courbe. dans = « en Ituri », « au Nord-Kivu »... pour le chapeau."""
+def province_chart_html(province, strings_lang, i18n_lang, lang="fr", url_base="", dans="",
+                        partie="evolution"):
+    """Le chapitre « Evolution » (cas puis deces, 28 septembre 2026) ou,
+    avec partie="lieu", le chapitre « Lieu des deces » d'une page province,
+    pour les provinces qui ont une courbe. Les zones de sante passent entre
+    les deux depuis le 11 novembre 2026. dans = « en Ituri », « au
+    Nord-Kivu »... pour le chapeau."""
     if not a_une_courbe(province):
         return ""
     nums = province_numeros(province)
-    out = chapitre_html(
-        "evolution", nums["courbe"], esc(strings_lang["chapEvolution"]),
-        esc(strings_lang["chapEvolutionChapoProv"].replace("{in}", dans)),
-        _cadre_courbe_province(province, strings_lang, i18n_lang, "provinceChart", "confirmed",
-                               "provinceChartTitle", "provinceChartSub")
-        + _cadre_courbe_province(province, strings_lang, i18n_lang, "provinceDeathsChart", "deaths",
-                                 "provinceDeathsChartTitle", "provinceDeathsChartSub"))
-    if "lieu" in nums:
+    out = ""
+    if partie == "evolution":
+        out = chapitre_html(
+            "evolution", nums["courbe"], esc(strings_lang["chapEvolution"]),
+            esc(strings_lang["chapEvolutionChapoProv"].replace("{in}", dans)),
+            _cadre_courbe_province(province, strings_lang, i18n_lang, "provinceChart", "confirmed",
+                                   "provinceChartTitle", "provinceChartSub")
+            + _cadre_courbe_province(province, strings_lang, i18n_lang, "provinceDeathsChart", "deaths",
+                                     "provinceDeathsChartTitle", "provinceDeathsChartSub"))
+    if partie == "lieu" and "lieu" in nums:
         out += chapitre_html(
-            "lieu", nums["lieu"], esc(strings_lang["chapLieu"]), esc(strings_lang["riposteDecesLede"]),
+            "lieu", nums["lieu"], esc(strings_lang["chapLieu"]),
+            esc(strings_lang["chapLieuChapoProv"].replace("{in}", dans)),
             # Titre du graphique, sur le modele de « Par zone de sante » en
             # dessous (4 novembre 2026).
             '<div class="lz lz-prov"><div class="lz-tete"><h4 class="lz-t">%s</h4><span class="lz-s">%s</span></div></div>\n'
@@ -4099,7 +4122,8 @@ def chaine_riposte_html(kpis, strings_lang, vers=None):
 
 
 def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
-                       graphiques="", extraits="", avec_defis=True, sous_titre=None, chaine=False):
+                       graphiques="", extraits="", avec_defis=True, sous_titre=None, chaine=False,
+                       chapo=None):
     """Le cadre « La riposte » d'une fiche : des chiffres (liste de
     (classe, libelle, valeur, sous-titre), deja echappes), les difficultes du
     dernier bulletin, leur source, puis les liens vers la page qui detaille."""
@@ -4120,7 +4144,9 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
         # chapeau (7 octobre 2026), puis la chaine et les
         # graphiques.
         return chapitre_html(
-            "riposte", esc(numero), esc(strings_lang["chapRiposte"]), esc(strings_lang["ficheRiposteLede"]),
+            "riposte", esc(numero), esc(strings_lang["chapRiposte"]),
+            # Sur une page province, le chapeau nomme la province (11 novembre 2026).
+            esc(chapo or strings_lang["ficheRiposteLede"]),
             bloc_kpis + graphiques
             + ('      <p class="drill">%s</p>\n' % " · ".join(
                 '<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens) if liens else ""))
@@ -4140,7 +4166,7 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
            " · ".join('<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens)))
 
 
-def _cadre_vaccination_seule(province, riposte, meta_data, lang, strings_lang, i18n_lang):
+def _cadre_vaccination_seule(province, riposte, meta_data, lang, strings_lang, i18n_lang, dans=""):
     """Le cadre « La riposte » des provinces qui vaccinent sans avoir la fiche
     complete (Tshopo, Bas-Uele ; 29 septembre 2026) : le chiffre des personnes
     vaccinees, puis la courbe de la vaccination de la province."""
@@ -4157,7 +4183,8 @@ def _cadre_vaccination_seule(province, riposte, meta_data, lang, strings_lang, i
             else "ficheRiposteSubVaccin" if vaccine else "ficheRiposteSubPoe")
     return fiche_riposte_html(
         province_numeros(province)["riposte"], [], "", "", [], strings_lang,
-        graphiques=graph, avec_defis=False, sous_titre=strings_lang[sous], chaine=True)
+        graphiques=graph, avec_defis=False, sous_titre=strings_lang[sous], chaine=True,
+        chapo=strings_lang["ficheRiposteLedeProv"].replace("{in}", dans))
 
 
 # La riposte developpee sur la fiche (28 septembre 2026 : « que chaque page province, en commencant par les 4 plus
@@ -4357,11 +4384,11 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
         # Le tableau des zones vaccinees n'est plus pose sous la courbe
         # (7 octobre 2026) ; il ne reste que si la province
         # n'a pas encore de courbe (branche suivante).
-        out.append(bloc("riposteVaccinTitle", "riposteVaccinSub", "provVaccinChart", "vaccination"))
+        out.append(bloc("riposteVaccinTitle", "riposteVaccinSubProv", "provVaccinChart", "vaccination"))
     elif zones:
         out.append('      <div class="section-head" style="margin-top:32px;">\n'
                    '        <h3 class="frame-title">%s</h3>\n        <span class="section-sub">%s</span>\n      </div>\n%s%s'
-                   % (esc(strings_lang["riposteVaccinTitle"]), esc(strings_lang["riposteVaccinSub"]),
+                   % (esc(strings_lang["riposteVaccinTitle"]), esc(strings_lang["riposteVaccinSubProv"]),
                       lede("riposteVaccinLede"), zones))
     # Les points de controle (26 octobre 2026) : sur les seules fiches a cadre
     # riposte developpe, apres la vaccination comme sur la page Riposte. Le
@@ -4632,6 +4659,9 @@ def main():
 
     latest = read_json(os.path.join(ROOT, "data", "latest.json"))
     zones_history = read_json(os.path.join(ROOT, "data", "zones-history.json"))
+    # Nouveaux cas et deces par zone, jour par jour (data/zones-jour.json,
+    # 10 novembre 2026) : chapitre « Zones de sante » des provinces.
+    zones_jour_donnees = zones_jour.ecrire(zones_history)
     sitreps = read_json(os.path.join(ROOT, "data", "sitreps.json"))
     who_reports = read_json(os.path.join(ROOT, "data", "who-reports.json"))
     chemin_actus = os.path.join(ROOT, "data", "actus.json")
@@ -4882,7 +4912,7 @@ def main():
                             if k.isdigit() and (v.get("defis") or {}).get(lang)), key=int)
         note = notes_bulletins[num_notes[-1]] if num_notes else {}
         common_seed["provinceFiche"] = {}
-        common_seed["zonesHistory"] = zones_history   # tableau des zones des provinces
+        common_seed["zonesJour"] = zones_jour_donnees   # chapitre des zones des provinces
         for _p in provinces:
             _n = _p["name"]
             _serie = []
@@ -4922,9 +4952,12 @@ def main():
                 "province.point": fiche_point_html(_serie, lang, strings_lang),
                 "province.riposteIci": fiche_riposte_html(
                     province_numeros(_p)["riposte"], _kpis, "", "", [], strings_lang,
-                    graphiques=_graph, extraits=_extr, avec_defis=False, chaine=True)
+                    graphiques=_graph, extraits=_extr, avec_defis=False, chaine=True,
+                    chapo=strings_lang["ficheRiposteLedeProv"].replace(
+                        "{in}", province_forms(config, _n, lang)["in"]))
                 if a_une_riposte(_p) else _cadre_vaccination_seule(
-                    _p, riposte, meta_data, lang, strings_lang, i18n_lang),
+                    _p, riposte, meta_data, lang, strings_lang, i18n_lang,
+                    dans=province_forms(config, _n, lang)["in"]),
             }
         # Le pays : meme plan, memes cases que l'ancien « Que fait-on ».
         common_seed["seed.point"] = fiche_point_html(
@@ -5291,7 +5324,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
             "province.name": esc(name),
             "province.color": PROVINCE_COLORS.get(name, "var(--ink-faint)"),
             "province.intro": interp(strings_lang["provinceIntro"], dict(
-                sentence, zonesSentence=esc(zones_sentence))),
+                sentence, zonesSentence=esc(zones_sentence)))
+                + " " + province_tendance(name, province_history, common_seed["zonesJour"], lang, strings_lang),
             # La carte de la province en fond de l'en-tete (5 octobre 2026,
             # option B de la maquette entete-province).
             "province.heroMap": province_mini_map((province_maps or {}).get(name), name, zones,
@@ -5307,8 +5341,18 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                                             {"n": fmt(province.get("newCases24h") or 0, lang)})),
             "province.zonesTitle": esc(interp(strings_lang["provinceZonesTitle"], forms)),
             "province.zonesTable": province_zones_table_html(
-                zones, forms, lang, strings_lang, i18n_lang, zones_history=common_seed.get("zonesHistory"), province=name),
-            "province.fullTable": esc(interp(strings_lang["provinceOpenFullTable"], forms)),
+                (common_seed["zonesJour"]["provinces"].get(name) or []), common_seed["zonesJour"]["fin"],
+                forms, lang, strings_lang),
+            "province.zonesPeriodes": zones_periodes_html(strings_lang),
+            # Pas de graphique par zone pour une province sans courbe
+            # d'evolution (Nord-Ubangi, Sud-Kivu... : quelques cas, des
+            # barres isolees) ; le tableau suffit (11 novembre 2026).
+            "province.zonesGraphe": "1" if a_une_courbe(province) else "0",
+            "province.zonesMinis": "1" if len(common_seed["zonesJour"]["provinces"].get(name) or []) >= ZONES_MINIS_DES else "0",
+            # Seule l'Ituri garde une note sous les graphiques des zones : les
+            # deces du 30 et du 31 octobre, et ceux « a ventiler ».
+            "province.zonesJourNote": ('        <p class="map-note zs-note">%s</p>\n'
+                                       % esc(strings_lang["zonesJourNoteIturi"]) if name == "Ituri" else ""),
             "province.noteAjouts": common_seed.get("notesAjouts", {}).get(name, ""),
             "province.baseLien": esc(interp(strings_lang["provinceBaseLien"], forms)),
             **province_map_values(province_maps, name, zones, config, lang,
@@ -5318,9 +5362,14 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
                 url_base="%s?niveau=zone&province=%s" % (urls.path("base-de-donnees", lang),
                                                           name.replace(" ", "%20")),
                 dans=province_forms(config, name, lang)["in"]),
+            "province.lieu": province_chart_html(
+                province, strings_lang, i18n_lang, lang=lang,
+                url_base="%s?niveau=zone&province=%s" % (urls.path("base-de-donnees", lang),
+                                                          name.replace(" ", "%20")),
+                dans=province_forms(config, name, lang)["in"], partie="lieu"),
             # Le menu a ancres et le chapeau des zones (chapitres, 4 novembre 2026).
             "province.chapNavLiens": chap_nav_liens_province(province, strings_lang),
-            "province.zonesChapo": esc(strings_lang["chapZonesChapo"].replace(
+            "province.zonesChapo": esc(strings_lang["chapZonesChapo" if a_une_courbe(province) else "chapZonesChapoCourt"].replace(
                 "{in}", province_forms(config, name, lang)["in"])),
             **common_seed.get("provinceFiche", {}).get(name, {}),
             "province.zonesNum": province_numeros(province)["zones"],
@@ -5372,7 +5421,11 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
     # Le cadre « La riposte » (29 septembre 2026) peut porter un graphique
     # (la vaccination du Bas-Uele) sans que la province ait de courbe des cas.
     if (is_province and "chart" in besoins and not values.get("province.chart")
-            and "<canvas" not in (values.get("province.riposteIci") or "")):
+            and "<canvas" not in (values.get("province.riposteIci") or "")
+            # Le grand graphique des zones (10 novembre 2026), des qu'une
+            # zone est publiee : le Sud-Kivu n'a pas d'autre graphique.
+            and not ("zonesJourTable" in (values.get("province.zonesTable") or "")
+                     and values.get("province.zonesGraphe") == "1")):
         besoins.remove("chart")
 
     canonical = urls.absolute(path)
