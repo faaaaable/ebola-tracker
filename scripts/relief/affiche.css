@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
+
+:root {
+  --nuit: #050E15;
+  --nuit-2: #0A1B26;
+  --glace: #D5ECF8;
+  --ciel: #B7D3E1;
+  --bleu: #5693AF;
+  --accent: #1B6C8C;
+  --encre-dim: #7F98A6;
+  --ambre: #E3A55A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #02070B; }
+body { font-family: 'Public Sans', sans-serif; color: var(--glace); padding: 16px; }
+.cadre { display: flex; justify-content: center; }
+.affiche {
+  position: relative; width: 1600px; height: 2000px; flex: none;
+  transform-origin: top center; overflow: hidden; background: var(--nuit);
+}
+html.export body { padding: 0; }
+html.export .affiche { transform: none; }
+.affiche canvas { position: absolute; inset: 0; width: 1600px; height: 2000px; }
+.txt { position: absolute; }
+.surtitre {
+  font-size: 22px; letter-spacing: .22em; text-transform: uppercase;
+  font-weight: 600; color: var(--ciel);
+}
+.titre {
+  font-family: 'Source Serif 4', serif; font-weight: 300; font-size: 104px;
+  line-height: 1.0; letter-spacing: -.015em; color: #F2F8FB; margin-top: 18px;
+}
+.titre em { font-style: italic; font-weight: 400; color: var(--ciel); }
+.chapeau {
+  font-family: 'Source Serif 4', serif; font-size: 30px; line-height: 1.38;
+  color: #C3D6E0; margin-top: 26px; max-width: 980px; font-weight: 300;
+}
+.chapeau b { font-weight: 600; color: #F2F8FB; }
+.pied {
+  position: absolute; left: 80px; right: 80px; bottom: 56px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  font-size: 17px; line-height: 1.5; color: var(--encre-dim);
+  border-top: 1px solid rgba(183, 211, 225, .18); padding-top: 22px;
+}
+.pied .site { font-size: 24px; font-weight: 600; color: var(--glace); letter-spacing: .02em; }
+.pied .source { max-width: 1060px; }
+.etiq { position: absolute; font-size: 17px; color: var(--glace); white-space: nowrap; }
+.legende { position: absolute; font-size: 18px; color: #C3D6E0; line-height: 1.4; }
+.legende .t { font-size: 15px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--ciel); margin-bottom: 12px; }
+.chiffre { font-family: 'Source Serif 4', serif; font-weight: 400; color: #F2F8FB; }
+
+/* habillage clair, façon site */
+.affiche.clair { background: #F7F3EE; }
+.affiche.clair .surtitre { color: #1B6C8C; }
+.affiche.clair .titre { color: #1F1A13; }
+.affiche.clair .titre em { color: #005073; }
+.affiche.clair .chapeau { color: #4D473F; }
+.affiche.clair .chapeau b { color: #1F1A13; }
+.affiche.clair .legende { color: #4D473F; }
+.affiche.clair .legende .t { color: #1B6C8C; }
+.affiche.clair .pied { color: #635D54; border-top-color: #DEDAD5; }
+.affiche.clair .pied .site { color: #005073; }
+
+/* Chapeau et pied un peu plus gros (OPT grand, 23 octobre 2026). */
+.affiche.grand .chapeau { font-size: 34px; }
+.affiche.grand .pied { font-size: 20px; }
+.affiche.grand .pied .site { font-size: 28px; }

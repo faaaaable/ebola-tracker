@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ebola, l’Est en relief</title>
+<link rel="stylesheet" href="affiche.css">
+</head>
+<body>
+<div class="cadre"><div class="affiche">
+  <canvas></canvas>
+  <div class="txt" id="tete" style="left:80px;top:84px;width:900px">
+    <div class="surtitre">RDC · 17ᵉ épidémie</div>
+    <div class="titre">Ebola,<br><em>l’Est en relief</em></div>
+    <div class="chapeau" id="chapeau"></div>
+  </div>
+  <div class="legende" id="leg" style="left:80px;top:1660px;width:1000px"></div>
+  <div class="legende" id="leg2" style="right:80px;top:1660px;width:440px;text-align:right"></div>
+  <div class="pied">
+    <div class="source" id="source"></div>
+    <div class="site">ebola-tracker.org</div>
+  </div>
+</div></div>
+<script>window.OPT = {nu: true, clair: true, force: .45, tilt: .58, grand: true, datee: true, net: true, fondu: 1690, villes: [], villeTaille: 28, villeDessus: true, courte: true, legende: false, sourceCourte: true, zones: []};</script>
+<script src="data/carto.js"></script>
+<script src="commun.js"></script>
+<script>
+(async function () {
+  const { C, fmt, dateFr, cadre, anneau, trait, zone, pays, chargerRelief, ombrage, lisse, masque, affiche, fini, NB,
+    incline, rendreRelief, prisme, hasard, dedans, kmEntre, texte, colonne, theme } = CARTE;
+  const ctx = affiche();
+  const $ = id => document.getElementById(id);
+  const N = C.national;
+  const touchees = C.zones.filter(z => z.cases).sort((a, b) => b.cases - a.cases);
+  const max = touchees[0].cases;
+  const bunia = C.places.find(p => p.n === 'Bunia').c;
+  const court = d => dateFr(d).replace(' 2026', '');
+  ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  /* Variante 1 : les colonnes posées sur le relief. Réglages (window.OPT) :
+     tilt (inclinaison, 0.5 par défaut), clair (habillage façon site),
+     chiffres (nombre de cas dans les étiquettes), force (intensité du relief,
+     1 par défaut : ombrage ramené vers le gris moyen, hauteur réduite), villes
+     (noms posés au sol) et zones (étiquettes : liste de noms, sinon les 7 plus
+     touchées), courte (chapeau d'une seule phrase) et villeTaille (corps des
+     noms de villes, 17 px par défaut), villeDessus (nom au-dessus du point),
+     legende (bloc « Lire la carte ») et sourceCourte (zones, cas, date et
+     SitRep seulement) fondu (hauteur où commence le fondu du bas, 1560 px) et grand (chapeau et
+     pied un peu plus gros), datee (date des données dans l'avant-titre), net
+     (version claire : fond uni hors RDC et ombre légère sous le pays ; les
+     zones touchées plus soutenues au sol, essayées le 23 octobre, ont été
+     retirées : elles faisaient ressortir la surface des zones, pas leurs cas). */
+  const O = Object.assign({ tilt: .5, clair: false, chiffres: true, relief: true, force: 1,
+    villes: ['Kinshasa', 'Kisangani', 'Mbandaka', 'Kananga', 'Lubumbashi', 'Goma'], zones: null,
+    courte: false, villeTaille: 17, villeDessus: false, legende: true, sourceCourte: false, fondu: 1560, grand: false, datee: false, net: false, lang: 'fr', nu: false }, window.OPT || {});
+  const EN = O.lang === 'en';
+  const MOIS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const F = EN ? n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : fmt;
+  const D = EN ? iso => { const [y, m, d] = iso.split('-').map(Number); return d + ' ' + MOIS_EN[m - 1] + ' ' + y; } : dateFr;
+  const T = theme(O.clair ? 'clair' : 'nuit');
+  if (O.clair) document.querySelector('.affiche').classList.add('clair');
+  if (O.grand) document.querySelector('.affiche').classList.add('grand');
+  if (O.nu) ['tete', 'leg', 'leg2'].concat([]).forEach(id => { const e = document.getElementById(id); if (e) e.style.visibility = 'hidden'; }), document.querySelector('.pied').style.visibility = 'hidden';
+  if (O.datee) document.querySelector('.surtitre').textContent += ' · ' + D(C.meta.reportingDate);
+  const FOND = O.clair ? [247, 243, 238] : [3, 8, 12];
+  const fond = a => `rgba(${FOND.join(',')},${a})`;
+
+  $('chapeau').innerHTML = EN && O.courte
+    ? `Each column${O.clair ? '' : ' of light'} is a health zone, its height proportional to its confirmed cases.`
+    : O.courte
+    ? `Chaque colonne ${O.clair ? '' : 'de lumière '}est une zone de santé, d’une hauteur proportionnelle à ses cas confirmés.`
+    : `Chaque colonne ${O.clair ? '' : 'de lumière '}est une zone de santé, haute de ses cas confirmés. `
+    + (O.relief ? `Elles se dressent sur les plateaux de l'Est, au pied du rift Albertin.` : `Presque toutes se dressent à l'est, en Ituri et au Nord-Kivu.`);
+  $('source').innerHTML = EN && O.sourceCourte
+    ? `${N.healthZonesAffected.n} health zones affected, ${F(N.confirmed)} confirmed cases as of ${D(C.meta.reportingDate)} (INSP SitRep no. ${C.meta.sitrepNumber}).`
+    : `${N.healthZonesAffected.n} zones de santé touchées, ${fmt(N.confirmed)} cas confirmés au ${dateFr(C.meta.reportingDate)} `
+    + `(SitRep INSP n°${C.meta.sitrepNumber}).` + (O.sourceCourte ? '' : ` ${O.relief ? `Relief : SRTM et GMTED via Terrarium, exagéré ${Math.round(30 * Math.sqrt(O.force))} fois. ` : ''}Contours : OCHA RDC.`);
+
+  const { w: GW, h: GH } = C.dem;
+  const Z = await chargerRelief();
+  /* sans relief : sol plat (altitude nulle) et éclairage uniforme */
+  const ZL = O.relief ? lisse(Z, GW, GH, 2) : new Float32Array(GW * GH);
+  const SH0 = !O.relief ? new Float32Array(GW * GH).fill(0.5) : O.clair ? ombrage(lisse(Z, GW, GH, 3), GW, GH, 80, 315, 30) : ombrage(Z, GW, GH, 66, 315, 30);
+  const SH = O.force === 1 ? SH0 : SH0.map(v => 0.5 + (v - 0.5) * O.force);
+  const mA = masque((c, f) => {
+    c.fillStyle = '#f00'; pays(c, f, 'COD'); c.fill();
+    touchees.forEach(z => { c.fillStyle = `rgba(255,${Math.round(80 + 175 * Math.sqrt(z.cases / max))},0,1)`; zone(c, f, z); c.fill(); });
+  });
+  /* ombre portée : le pays flouté et décalé vers le sud (en bas sur la carte) */
+  const mS = O.net ? masque((c, f) => { c.filter = 'blur(5px)'; c.translate(0, 5); c.fillStyle = '#f00'; pays(c, f, 'COD'); c.fill(); }) : null;
+  const mB = masque((c, f) => {
+    c.strokeStyle = '#f00'; c.lineWidth = 2; pays(c, f, 'COD'); c.stroke();
+    c.strokeStyle = '#0f0'; c.lineWidth = 1; C.provBorders.forEach(l => { c.beginPath(); trait(c, f, l); c.stroke(); });
+  });
+
+  ctx.fillStyle = `rgb(${FOND.join(',')})`; ctx.fillRect(0, 0, 1600, 2000);
+  const BB = [12.0, -13.6, 31.6, 5.6];
+  /* moins incliné, le pays prend plus de hauteur : on le rétrécit un peu */
+  const plat = O.tilt > .6;
+  const f = plat ? incline(BB, 140, 1320, 660, O.tilt) : incline(BB, 0, 1600, 900, O.tilt);
+  const KZ = O.relief ? 0.022 * Math.sqrt(O.force) : 0;
+  const mix = (a, b, t) => a.map((v, k) => v + (b[k] - v) * t);
+  const alt = rendreRelief(ctx, {
+    f, kz: KZ, ZL, SH,
+    couleur: (e, sh, i, lat) => {
+      const inR = mA[i * 4] / 255, aff = inR ? mA[i * 4 + 1] / 255 : 0;
+      const d = (lat - BB[1]) / (BB[3] - BB[1]);
+      if (O.clair) {
+        /* sol crème, reliefs dans les bleus foncés du site */
+        /* sol plat : sh ≈ 0,5 ; seules les pentes à l'ombre foncent, en bleu */
+        const ombre = Math.min(1, Math.max(0, (0.46 - sh) * 2.2)), lumiere = Math.max(0, (sh - 0.5) * 1.2);
+        let c = inR ? mix(mix([238, 234, 228], [255, 253, 250], lumiere), [0, 52, 85], Math.pow(ombre, .9) * .85)
+          : O.net ? mix(FOND, [176, 168, 157], mS[i * 4] / 255 * .32) : mix(FOND, [99, 93, 84], ombre * .1);
+        if (aff) c = mix(c, mix([183, 211, 225], [0, 50, 75], ombre * .8), .3 + aff * .5);
+        if (mB[i * 4]) c = mix(c, [0, 80, 115], mB[i * 4] / 255 * .9);
+        else if (mB[i * 4 + 1] && inR) c = mix(c, [27, 108, 140], mB[i * 4 + 1] / 255 * .35);
+        return inR ? mix(c, FOND, d * d * .3) : c;
+      }
+      const l = 0.12 + 0.95 * Math.pow(sh, 1.3);
+      let c = inR ? [14 * l + 6, 34 * l + 12, 48 * l + 18] : [6 * l + 3, 14 * l + 7, 20 * l + 10];
+      if (aff) c = c.map((v, k) => v + [30, 90, 130][k] * aff * (0.5 + l));
+      if (mB[i * 4]) c = c.map((v, k) => v + [120, 170, 200][k] * mB[i * 4] / 255 * .7);
+      else if (mB[i * 4 + 1] && inR) c = c.map((v, k) => v + [50, 75, 90][k] * mB[i * 4 + 1] / 255 * .5);
+      return c.map(v => v * (1 - d * d * .35));
+    },
+  });
+  const TOPF = plat ? 660 : 900;
+  const gh = ctx.createLinearGradient(0, 380, 0, TOPF);
+  gh.addColorStop(0, fond(1)); gh.addColorStop(1, fond(0));
+  ctx.fillStyle = gh; ctx.fillRect(0, 0, 1600, TOPF);
+
+  /* colonnes, du fond vers l'avant, posées à l'altitude du sol */
+  const HMAX = plat ? 520 : 700;
+  const H = z => Math.max(6, HMAX * z.cases / max);
+  const base = z => f.p(z.c[0], z.c[1], alt(z.c[0], z.c[1]) * KZ);
+  const ordre = touchees.slice().sort((a, b) => f.p(...a.c)[1] - f.p(...b.c)[1]);
+  ctx.save(); if (!O.clair) ctx.globalCompositeOperation = 'lighter';
+  ordre.forEach(z => {
+    const [x, y] = base(z), r = 26 + 30 * Math.sqrt(z.cases / max);
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, O.clair ? 'rgba(0,80,115,.22)' : 'rgba(120,200,240,.45)'); g.addColorStop(1, O.clair ? 'rgba(0,80,115,0)' : 'rgba(120,200,240,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(x, y, r, r * O.tilt, 0, 0, 7); ctx.fill();
+  });
+  ctx.restore();
+  const [g1a, g1b, g2a, g2b] = O.clair ? ['#00324B', '#267294', '#015174', '#7EACC3'] : ['rgba(27,108,140,.95)', 'rgba(183,225,245,.95)', 'rgba(86,170,215,1)', 'rgba(242,250,255,1)'];
+  ordre.forEach(z => {
+    const [x, y] = base(z), h = H(z), w = 4 + 12 * Math.sqrt(z.cases / max), py = w * O.tilt;
+    const gl = ctx.createLinearGradient(0, y, 0, y - h);
+    gl.addColorStop(0, g1a); gl.addColorStop(1, g1b);
+    ctx.fillStyle = gl; ctx.beginPath(); ctx.moveTo(x - w, y); ctx.lineTo(x, y + py); ctx.lineTo(x, y - h); ctx.closePath(); ctx.fill();
+    const gr = ctx.createLinearGradient(0, y, 0, y - h);
+    gr.addColorStop(0, g2a); gr.addColorStop(1, g2b);
+    ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(x + w, y); ctx.lineTo(x, y + py); ctx.lineTo(x, y - h); ctx.closePath(); ctx.fill();
+  });
+  await document.fonts.ready;
+  const lab = (O.zones ? touchees.filter(z => O.zones.includes(z.name)) : touchees.slice(0, 7)).map(z => { const [x, y] = base(z); return { x, y: y - H(z), nom: z.name, val: O.chiffres ? F(z.cases) : '' }; });
+  colonne(ctx, lab, Math.min(...lab.map(l => l.x)) - 90, -1, O.chiffres ? 64 : 40);
+  for (const n of O.villes) {
+    const p = C.places.find(q => q.n === n); const [x, y] = f.p(p.c[0], p.c[1], alt(...p.c) * KZ);
+    ctx.fillStyle = T.point; ctx.beginPath(); ctx.arc(x, y, 2.5, 0, 7); ctx.fill();
+    /* nom au-dessus : un filet le relie au point, comme les étiquettes des zones */
+    if (O.villeDessus) { ctx.strokeStyle = T.filet; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, y - 5); ctx.lineTo(x - 22, y - 58); ctx.stroke(); }
+    texte(ctx, O.villeDessus ? x - 22 : x, O.villeDessus ? y - 66 : y + 10 + O.villeTaille * .8, [[n, `400 ${O.villeTaille}px "Public Sans"`, T.ville, 0]], 'center');
+  }
+  const gb = ctx.createLinearGradient(0, O.fondu, 0, O.fondu + 160);
+  gb.addColorStop(0, fond(0)); gb.addColorStop(1, fond(1));
+  ctx.fillStyle = gb; ctx.fillRect(0, O.fondu, 1600, 2000 - O.fondu);
+  if (!O.legende) $('leg').style.display = 'none';
+  $('leg').innerHTML = `<div class="t">Lire la carte</div>Hauteur des colonnes proportionnelle aux cas confirmés cumulés de chaque zone. `
+    + `Au sol, les zones touchées sont ${O.clair ? 'teintées' : 'éclairées'}, d'autant plus qu'elles comptent de cas.`;
+  fini();
+})();
+</script>
+</body>
+</html>

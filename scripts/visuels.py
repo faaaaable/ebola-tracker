@@ -242,7 +242,7 @@ TXT = {
 PAGE = {
  "fr": dict(
   h1a="Visuels", h1b="de l'épidémie",
-  c_section="Images fixes", c_titre="Ebola, l’Est en relief", c_sous="Carte figée au SitRep n°{n} · données au {d}",
+  c_section="Image fixe", c_titre="Ebola, l’Est en relief", c_sous="Carte du SitRep n°{n} · données au {d}, redessinée à chaque bulletin",
   lede="Les images de l'épidémie, redessinées au fil des bulletins : à chaque nouveau bulletin, chaque lundi pour la dernière semaine complète, et au début de chaque mois. Chacune se télécharge, avec sa date et sa source.",
   b_eyebrow="À chaque bulletin", b_titre="L'épidémie au dernier bulletin", b_sous="SitRep n°{n} · données au {d}", b_rythme="mis à jour à chaque nouveau bulletin",
   s_eyebrow="Chaque semaine", s_titre="La semaine du {a} au {b}", s_sous="Dernière semaine complète, du lundi au dimanche.", s_rythme="mis à jour le lundi",
@@ -262,7 +262,7 @@ PAGE = {
  ),
  "en": dict(
   h1a="Visuals", h1b="of the outbreak",
-  c_section="Fixed images", c_titre="Ebola, the East in relief", c_sous="Map frozen at SitRep No. {n} · data as of {d}",
+  c_section="Fixed image", c_titre="Ebola, the East in relief", c_sous="Map from SitRep No. {n} · data as of {d}, redrawn with each bulletin",
   lede="Images of the outbreak, redrawn as the bulletins come in: with every new bulletin, each Monday for the last complete week, and at the start of each month. Each one can be downloaded, with its date and source.",
   b_eyebrow="With every bulletin", b_titre="The outbreak at the latest bulletin", b_sous="SitRep No. {n} · data as of {d}", b_rythme="updated with every new bulletin",
   s_eyebrow="Every week", s_titre="The week of {a} to {b}", s_sous="Last complete week, Monday to Sunday.", s_rythme="updated on Mondays",
@@ -282,7 +282,7 @@ PAGE = {
  ),
  "sw": dict(
   h1a="Michoro", h1b="ya mlipuko",
-  c_section="Picha zisizobadilika", c_titre="Ebola, the East in relief", c_sous="Ramani ya SitRep Na. {n} · takwimu kufikia {d} (kwa Kiingereza)",
+  c_section="Picha isiyobadilika", c_titre="Ebola, the East in relief", c_sous="Ramani ya SitRep Na. {n} · takwimu kufikia {d}, huchorwa upya kila ripoti (kwa Kiingereza)",
   lede="Picha za mlipuko, zinazochorwa upya kadiri ripoti zinavyotoka: kwa kila ripoti mpya, kila Jumatatu kwa wiki kamili ya mwisho, na mwanzoni mwa kila mwezi. Kila moja inaweza kupakuliwa, pamoja na tarehe na chanzo chake.",
   b_eyebrow="Kwa kila ripoti", b_titre="Mlipuko katika ripoti ya mwisho", b_sous="SitRep Na. {n} · takwimu kufikia {d}", b_rythme="husasishwa kwa kila ripoti mpya",
   s_eyebrow="Kila wiki", s_titre="Wiki ya {a} hadi {b}", s_sous="Wiki kamili ya mwisho, Jumatatu hadi Jumapili.", s_rythme="husasishwa Jumatatu",
@@ -873,6 +873,7 @@ RIP = {
   vaTitre="{n} personnes vaccinées", vaSous="Cumul des personnes vaccinées avec l'ERVEBO, province par province, depuis le début de la campagne, le {a}.",
   vaPhrase="Au {d} : {l}.", vaItem="{p} {v}",
   vaNote="Sans nouveau chiffre, le dernier cumul connu est reporté.",
+  vaTrou="Pointillés : aucun cumul publié pour {p} du {du} au {au}", vaRupture=" ; vaccin en rupture jusqu’au {r}",
   lire=dict(alertes="Le volume de signalements et ce que la surveillance en retient : les à-coups du jour, que la vue par semaine lisse.",
             labo="L'irrégularité des analyses d'un jour à l'autre, et la part de positifs : un positif n'est pas toujours un malade de plus.",
             contacts="Combien de personnes exposées sont vues chaque jour : quand la part baisse, des chaînes de transmission échappent au suivi.",
@@ -902,6 +903,7 @@ RIP = {
   vaTitre="{n} people vaccinated", vaSous="Cumulative number of people vaccinated with ERVEBO, province by province, since the campaign began on {a}.",
   vaPhrase="As of {d}: {l}.", vaItem="{p} {v}",
   vaNote="Without a new figure, the last known total is carried forward.",
+  vaTrou="Dotted line: no total published for {p} from {du} to {au}", vaRupture="; vaccine out of stock until {r}",
   lire=dict(alertes="The volume of reports and what surveillance keeps from them: the day-to-day jolts that the weekly view smooths out.",
             labo="How uneven testing is from one day to the next, and the share of positives: a positive is not always one more patient.",
             contacts="How many exposed people are seen each day: when the share drops, chains of transmission escape follow-up.",
@@ -931,6 +933,7 @@ RIP = {
   vaTitre="Watu {n} waliochanjwa", vaSous="Jumla ya watu waliochanjwa kwa ERVEBO, jimbo kwa jimbo, tangu kampeni ilipoanza tarehe {a}.",
   vaPhrase="Kufikia {d}: {l}.", vaItem="{p} {v}",
   vaNote="Bila takwimu mpya, jumla ya mwisho inayojulikana hubaki.",
+  vaTrou="Mstari wa nukta: hakuna jumla iliyochapishwa kwa {p} kuanzia {du} hadi {au}", vaRupture="; chanjo iliisha hadi {r}",
   lire=dict(alertes="Wingi wa taarifa na kile ufuatiliaji unachohifadhi: mabadiliko ya kila siku ambayo mwonekano wa wiki unalainisha.",
             labo="Jinsi vipimo vinavyobadilika siku hadi siku, na sehemu ya chanya: chanya si mara zote mgonjwa mwingine.",
             contacts="Watu wangapi walioathirika wanaonwa kila siku: sehemu inaposhuka, minyororo ya maambukizi inakwepa ufuatiliaji.",
@@ -1193,6 +1196,10 @@ def r_cte(c):
     return c.carte(r["ctTitre"], r["ctSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
 
 
+VA_TROU_JOURS = 14
+VA_REPRISES = {"Tshopo": "2026-10-05"}
+
+
 def r_vaccin(c):
     r = c.r
     cum = [dict(date=p["date"], prov={_prov_canon(k): v for k, v in ((p.get("vaccination") or {}).get("cumulParProvince") or {}).items()})
@@ -1208,23 +1215,52 @@ def r_vaccin(c):
                 retenu[n] = v
     jours = _calendrier(cum[0]["date"], cum[-1]["date"]); par = {D(x["date"]): x["prov"] for x in cum}
     noms = [n for n in PROV if any(n in x["prov"] for x in cum)]
+    # Au-dela de 14 jours sans chiffre (comme le graphique du site, app.js,
+    # 11 novembre 2026), le dernier cumul n'est plus reporte : les deux releves
+    # sont relies en pointilles, a plat jusqu'a la reprise quand un bulletin
+    # la date (Tshopo, rupture de vaccin jusqu'au 5 octobre), et la note
+    # nomme la periode (12 novembre 2026).
+    # Seuls les trous ENTRE deux releves passent en pointilles ; apres le
+    # dernier releve d'une province, son cumul reste reporte.
+    trous, dans_trou = [], set()
+    for n in noms:
+        idx = [i for i, d in enumerate(jours) if n in par.get(d, {})]
+        for p0, p1 in zip(idx, idx[1:]):
+            if p1 - p0 - 1 > VA_TROU_JOURS:
+                trous.append((n, p0 + 1, p1 - 1)); dans_trou |= {(n, i) for i in range(p0 + 1, p1)}
     report, series = {}, {n: [] for n in noms}
-    for d in jours:
+    for i, d in enumerate(jours):
         report.update(par.get(d, {}))
-        for n in noms: series[n].append(report.get(n))
+        for n in noms:
+            series[n].append(None if (n, i) in dans_trou else report.get(n))
+    ponts = {n: [None] * len(jours) for n in noms}
+    for n, i0, i1 in trous:
+        a_, b_ = series[n][i0 - 1], series[n][i1 + 1]
+        rep = VA_REPRISES.get(n); ir = i0 - 1
+        if rep and jours[i0] < D(rep) <= jours[i1]: ir = jours.index(D(rep))
+        for i in range(i0 - 1, i1 + 2):
+            ponts[n][i] = a_ if i <= ir else a_ + (b_ - a_) * (i - ir) / (i1 + 1 - ir)
     mx = max(v for s in series.values() for v in s if v is not None)
     R = Repere(c, jours, mx * 1.08)
     nom = lambda n: PROV_NOM.get(c.lang, {}).get(n, n)
     out = [c.legende(R.X0, 262, [(nom(n), PROV[n]) for n in noms]), R.grille(c.nb)]
     for n in noms:
         out.append(R.courbe(series[n], PROV[n], 2.8))
+        if any(v is not None for v in ponts[n]):
+            out.append(R.courbe(ponts[n], PROV[n], 2.4, pointille=True))
         v = series[n][-1]
         if v is not None:
             out.append('<circle cx="%.1f" cy="%.1f" r="4" fill="%s"/>' % (R.x(len(jours) - 1), R.y(v), PROV[n]))
     tot = sum(series[n][-1] or 0 for n in noms)
     items = [r["vaItem"].format(v=c.nb(series[n][-1]), p=nom(n)) for n in sorted(noms, key=lambda n: -(series[n][-1] or 0)) if series[n][-1]]
     out.append(_phrase(c, r["vaPhrase"].format(d=_jour(c, jours[-1]), l=", ".join(items))))
-    out.append(_notes(c, [r["vaNote"]]))
+    notes = [r["vaNote"]]
+    for n, i0, i1 in trous:
+        rep = VA_REPRISES.get(n)
+        rep = rep if rep and jours[i0] < D(rep) <= jours[i1] else None
+        txt = r["vaTrou"].format(p=nom(n), du=c.dc(jours[i0]), au=c.dc(jours[i1])) + (r["vaRupture"].format(r=c.dc(D(rep))) if rep else "")
+        notes.append(txt.rstrip(".") + ".")
+    out.append(_notes(c, [" ".join(notes)]))
     return c.carte(r["vaTitre"].format(n=c.nb(tot)), r["vaSous"].format(a=c.dl_(jours[0])), "".join(out), h=1160)
 
 
@@ -1335,7 +1371,7 @@ def _province(c, nom, champ):
     pnom = PROV_NOM.get(c.lang, {}).get(nom, nom); teinte = RED if deces else PROV.get(nom, BLUE)
     pts, jours, rap, rat, trous, multi, calculees = _serie_province(c, nom, champ)
     releves = dict(pts)
-    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec"] if deces else r["jour"], r["ratt"])
+    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec"] if deces else r["jour"], r["ratt"], MARGE_HAUTE.get(nom, 1.06))
     k = max(i for i, v in enumerate(rap) if v is not None)
     d = jours[k]; avant = [v for dd, v in pts if dd <= d - dt.timedelta(7)]
     sept = releves[d] - avant[-1] if avant else releves[d]
@@ -1346,8 +1382,8 @@ def _province(c, nom, champ):
     blancs = sum(1 for d in jours if d not in releves and d not in calculees)
     if blancs: notes.append(r["blancsDec" if deces else "blancs"].format(n=blancs))
     if trous: notes.append(r["trouDec" if deces else "trou"].format(p=" ; ".join(trous)))
-    if multi or any(d.isoformat() in RATTRAPAGES for d, _ in pts): notes.append(a["provRattDec"] if deces else r["rattNote"])
-    if deces: notes += _harm_notes(c, "clair", jours[0], jours[-1], nom)
+    # Rattrapages : nommes par la pastille de la legende ; harmonisation du
+    # 30 octobre : plus de phrase (12 novembre 2026).
     out.append(_notes(c, [" ".join(notes)]))
     if deces:
         return c.carte(a["provDecTitre"].format(p=pnom), a["provDecSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
@@ -1459,7 +1495,12 @@ AJ = {
  ),
 }
 SEUIL_COURBE = 50          # SEUIL_COURBE_PROVINCE de build_pages.py
-def _quotidien(c, jours, rap, rat, teinte, lab_jour, lab_ratt):
+# Provinces a petits nombres : plus d'air au-dessus des barres, pour qu'une
+# journee a 3 cas ne monte pas jusqu'en haut du cadre (12 novembre 2026).
+MARGE_HAUTE = {"Tshopo": 1.6, "Haut-Uélé": 1.6}
+
+
+def _quotidien(c, jours, rap, rat, teinte, lab_jour, lab_ratt, marge=1.06):
     """Barres du jour et du rattrapage, axe plafonne au pic ordinaire quand un
     rattrapage l'ecraserait (meme regle que r_province et app.js)."""
     ordinaire = max((v for v, k in zip(rap, rat) if v is not None and not k), default=0)
@@ -1468,14 +1509,21 @@ def _quotidien(c, jours, rap, rat, teinte, lab_jour, lab_ratt):
     if ordinaire and plus_haute >= ordinaire * DECLENCHE_RUPTURE:
         brut = ordinaire * MARGE_PLAFOND; pas = 10 ** (math.floor(math.log10(brut)) - 1) * 2
         plafond = math.ceil(brut / pas) * pas
-    ymax = plafond or (plus_haute * 1.06) or 1
+    ymax = plafond or (plus_haute * marge) or 1
+    # Des effectifs : graduations entieres (un pas de 2,5 s'affichait « 2 »),
+    # et l'axe des provinces aerees s'arrete sur une graduation.
+    pas = _pas(ymax)
+    if pas != int(pas):
+        pas = max(1, pas * 0.8)
+    if not plafond and marge != 1.06:
+        ymax = math.ceil(ymax / pas) * pas
     R = Repere(c, jours, ymax)
     # Le plafond vaut pour la pile entiere : la part du jour, puis le
     # rattrapage dans ce qui reste sous l'axe.
     rap_c = [None if v is None else min(v, ymax) for v in rap]
     rat_c = [None if v is None else min(v, ymax - (r or 0)) for v, r in zip(rat, rap_c)]
     legende = [(lab_jour, teinte)] + ([(lab_ratt, _tint(teinte, .35))] if any(rat) else [])
-    out = [c.legende(R.X0, 262, legende), R.grille(c.nb), R.barres([(rap_c, teinte), (rat_c, _tint(teinte, .35))])]
+    out = [c.legende(R.X0, 262, legende), R.grille(c.nb, pas=pas), R.barres([(rap_c, teinte), (rat_c, _tint(teinte, .35))])]
     coupees = [(i, (a or 0) + (b or 0)) for i, (a, b) in enumerate(zip(rap, rat)) if (a or 0) + (b or 0) > ymax]
     for i, tot in coupees:
         x, y = R.x(i), R.Y0
@@ -1517,10 +1565,8 @@ def r_national(c, champ):
     notes = []
     blancs = sum(1 for d in jours if d not in c.jours)
     if blancs: notes.append(a["blancs"].format(n=blancs))
-    if deces: notes.append(" ".join([a["rattDec"]] + _harm_notes(c, "clair", jours[0], jours[-1])))
-    else:
-        r = [c.jours.get(D(x), (0, 0))[0] - v for x, v in sorted(RATTRAPAGES.items())]
-        notes.append(a["rattCas"].format(r1=c.nb(r[0]), r2=c.nb(r[1])))
+    # Pas de note des rattrapages : la pastille de la legende les nomme deja
+    # (12 novembre 2026). Plus de phrase sur l'harmonisation du 30 octobre.
     out.append(_notes(c, notes))
     return c.carte(a["decTitre" if deces else "casTitre"],
                    a["decSous" if deces else "casSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
@@ -1755,8 +1801,11 @@ LISTE = [
 # chaque bulletin : la section dit le SitRep et la date de leurs donnees.
 # PNG haute definition (3200 px) a telecharger, JPEG reduits pour la page ;
 # le swahili montre la version anglaise.
-CARTE_RELIEF = {"sitrep": "159", "date": "2026-10-20",
-                "fichier": {"fr": "ebola-est-en-relief-fr", "en": "ebola-east-in-relief-en", "sw": "ebola-east-in-relief-en"}}
+# Depuis le 12 novembre 2026 : portrait 4:5 seulement, redessine a chaque
+# bulletin par scripts/carte_relief.py, qui note SitRep et date dans
+# data/carte-relief.json.
+CARTE_RELIEF = dict(json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "carte-relief.json"), encoding="utf-8")),
+                    fichier={"fr": "ebola-est-en-relief-fr", "en": "ebola-east-in-relief-en", "sw": "ebola-east-in-relief-en"})
 CARTE_DOSSIER = "/assets/img/visuels/"
 
 
@@ -1765,11 +1814,11 @@ def cartes_html(c, lang):
     formats sans legende, seulement le lien de telechargement."""
     p = c.p; f = CARTE_DOSSIER + CARTE_RELIEF["fichier"][lang]
     figs = []
-    for fmt, (w, h) in (("4x5", (1000, 1250)), ("16x9", (1600, 900))):
+    for fmt, (w, h) in (("4x5", (1000, 1250)),):
         figs.append('<figure class="vx-fig" id="relief-%s"><div class="vx-img" data-vx-nom="relief-%s" role="button" tabindex="0" aria-label="%s">'
-                    '<img src="%s-%s-web.jpg" width="%d" height="%d" alt="%s" loading="lazy"></div>'
-                    '<figcaption><span></span><a class="vx-png" href="%s-%s.png" download>%s</a></figcaption></figure>'
-                    % (fmt, fmt, esc(p["agrandir"] + " : " + p["c_titre"]), f, fmt, w, h, esc(p["c_titre"]), f, fmt, esc(p["png"])))
+                    '<img src="%s-%s-web.jpg?v=%s" width="%d" height="%d" alt="%s" loading="lazy"></div>'
+                    '<figcaption><span></span><a class="vx-png" href="%s-%s.png?v=%s" download>%s</a></figcaption></figure>'
+                    % (fmt, fmt, esc(p["agrandir"] + " : " + p["c_titre"]), f, fmt, CARTE_RELIEF["sitrep"], w, h, esc(p["c_titre"]), f, fmt, CARTE_RELIEF["sitrep"], esc(p["png"])))
     return ('<section class="vx-etage" id="relief"><div class="vx-tete"><div><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div></div>'
             '<div class="vx-grille">%s</div></section>'
             % (esc(p["c_section"]), esc(p["c_sous"].format(n=CARTE_RELIEF["sitrep"], d=c.dl_(dt.date.fromisoformat(CARTE_RELIEF["date"])))),
@@ -1845,8 +1894,8 @@ def vitrine_html(lang, mois_courts, href):
     c = Contexte(lang, mois_courts)
     # En tete de bande, la carte « Ebola, l'Est en relief » (23 octobre 2026) :
     # une image, la carte seule, sans titre ni etiquette (900 x 801).
-    out = ['<a class="vtr-t" href="%s#relief" style="--r:%.4f" aria-label="%s"><img src="%svitrine-relief.jpg" alt=""></a>'
-           % (esc(href), 900 / 801, esc(c.p["c_titre"]), CARTE_DOSSIER)]
+    out = ['<a class="vtr-t" href="%s#relief" style="--r:%.4f" aria-label="%s"><img src="%svitrine-relief.jpg?v=%s" alt=""></a>'
+           % (esc(href), CARTE_RELIEF["vignette"][0] / CARTE_RELIEF["vignette"][1], esc(c.p["c_titre"]), CARTE_DOSSIER, CARTE_RELIEF["sitrep"])]
     for n, (ident, fn, (x, y, w, h)) in enumerate(VITRINE):
         if callable(ident):
             ident = ident(c)
