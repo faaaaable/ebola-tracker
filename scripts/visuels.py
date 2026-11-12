@@ -1066,7 +1066,14 @@ def _tint(col, t):
     return hexmix(col, "#FFFFFF", 1 - t)
 
 
+# Singulier quand le nombre vaut 1 : « 1 nouveau décès », « 1 new death ».
+ACCORD_UN = [(r"(?<![\d\u202f,.])1 nouveaux (cas|décès)", r"1 nouveau \1"),
+             (r"(?<![\d\u202f,.])1 new (case|death)s\b", r"1 new \1")]
+
+
 def _phrase(c, txt, y=965):
+    for motif, rempl in ACCORD_UN:
+        txt = re.sub(motif, rempl, txt)
     return c.T(60, y, txt, 24, INK, fam=SERIF)
 
 

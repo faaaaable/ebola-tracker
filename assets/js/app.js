@@ -8188,7 +8188,7 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
       const pl = plafond(rapporte, rattrape);
       const lib = tr(deces() ? 'zjDec' : 'zjCas');
       $('.zs-g-titre').textContent = tr('zjTitre')(lib, z.nom);
-      $('.zs-chiffres').innerHTML = tr('zjChiffres')(fmt(cumul(z)), tr('zjUnite')(deces()), fmt(recent(z)));
+      $('.zs-chiffres').innerHTML = tr('zjChiffres')(fmt(cumul(z)), tr('zjUnite')(deces(), cumul(z)), fmt(recent(z)));
       const avant = deces() ? z.decesAvant : z.casAvant;
       $('.zs-g-note').textContent = avant ? tr('zjAvant')(fmt(avant), deces(), avant) : '';
       const commun = { borderRadius: 2, minBarLength: 2, stack: 'z', categoryPercentage: 1, barPercentage: .96 };
@@ -8226,7 +8226,7 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
       const pl = plafond(rapporte, rattrape);
       const lib = tr(deces() ? 'zjDec' : 'zjCas');
       $('.zs-g-titre').textContent = tr('zjTitre')(lib, z.nom);
-      $('.zs-chiffres').innerHTML = tr('zjChiffres')(fmt(cumul(z)), tr('zjUnite')(deces()), fmt(recent(z)));
+      $('.zs-chiffres').innerHTML = tr('zjChiffres')(fmt(cumul(z)), tr('zjUnite')(deces(), cumul(z)), fmt(recent(z)));
       const avant = deces() ? z.decesAvant : z.casAvant;
       const enCours = ouverte ? tr(parMois ? 'chartMonthOngoing' : 'chartWeekOngoing')(frDate(FIN)) : '';
       const noteA = [avant ? tr('zjAvant')(fmt(avant), deces(), avant) : '', enCours].filter(Boolean).join(' · ');
@@ -8272,7 +8272,7 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
       const r = recent(z), der = dernierCas(z);
       b.innerHTML = '<div class="zs-carte-t"><b></b><span></span></div><p class="zs-recent"></p><div class="zs-mini"><canvas data-sans-titre></canvas></div>';
       b.querySelector('b').textContent = z.nom;
-      b.querySelector('span').textContent = `${fmt(cumul(z))} ${tr('zjUnite')(deces())}`;
+      b.querySelector('span').textContent = `${fmt(cumul(z))} ${tr('zjUnite')(deces(), cumul(z))}`;
       b.querySelector('.zs-recent').innerHTML = r ? tr('zjRecent')(fmt(r)).replace('<b>', `<b style="color:${teinte()}">`)
         : (!deces() && der ? tr('zjDernierCas')(frDate(der)) : tr('zjAucun'));
       b.addEventListener('click', () => choisir(z.nom, true));

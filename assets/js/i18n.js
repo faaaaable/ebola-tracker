@@ -545,7 +545,7 @@ const I18N = {
     zjCas:"New cases", zjDec:"New deaths",
     zjCasJour:"New cases per day", zjDecJour:"New deaths per day",
     zjTitre:(lib, zone)=>`${lib} in ${zone}`,
-    zjUnite:(dec)=> dec ? 'deaths' : 'cases',
+    zjUnite:(dec, n)=> (dec ? 'death' : 'case') + (n === 1 ? '' : 's'),
     zjChiffres:(cumul, u, n)=>`<b>${cumul}</b> ${u} in total · <b>+${n}</b> over the last 14 days`,
     zjAvant:(n, dec, k)=>`Not in the bars: ${n} ${dec ? (k > 1 ? 'deaths' : 'death') : (k > 1 ? 'cases' : 'case')} already counted on ${dec ? '1 June' : '21 May'}, the zone's first published total.`,
     zjTipTitre:(jour, n)=>`${jour} · SitRep no. ${n}`,
