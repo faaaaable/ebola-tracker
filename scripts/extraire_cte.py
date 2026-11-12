@@ -71,6 +71,9 @@ FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Communication|CREC|Logistique|S[ée]curit[
 # Nord-Kivu. Corrige le 4 septembre 2026.
 REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bEn |\bAu |\bÀ la |\bA la |\bau |\ben |\bà la |\bLe |\bL[’'])\s*(%s)\b" % PROVINCES_RE)
 
+CAS_CONF_SUSP_RE = re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+et\s+(\d[\d ]{0,4}\d|\d)\s+cas\s+suspects\s+"
+                              r"(?:sont\s+(?:actuellement\s+)?hospitalis|isol[ée]s)", re.I)
+SOMME_RES = (CAS_CONF_SUSP_RE,)
 HOSPITALISES_RES = [
     # SitRep 150 (11 octobre 2026, Nord-Kivu) : « 471 patients dont 67
     # enfants de moins de 5 ans) sont hospitalisés : 330 dans les CTE/CT pour
@@ -176,6 +179,14 @@ HOSPITALISES_RES = [
     # graphique. En dernier : au 147, « 523 patients demeuraient en
     # isolement (…325 patients aux lits des CTE/CT…) », le total passe avant.
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+aux\s+lits\b", re.I),
+    # Tournures du 180 (10 novembre 2026) : « 376 patients au total (128
+    # confirmés et 248 suspects) » (Ituri) ; « 22 cas confirmés et 37 cas
+    # suspects sont actuellement hospitalisés » (Haut-Uele) ; « 4 cas
+    # confirmés et 15 cas suspects isolés à l'HGR Wapinda […] Et Yakoma : 2
+    # cas confirmés et 12 cas suspects isolés au CTE Yakoma » (Nord-Ubangi,
+    # deux sites : SOMME_RES les additionne).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+au\s+total\s*\(\s*\d", re.I),
+    CAS_CONF_SUSP_RE,
 ]
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits|atteint\s+\d[\d ]{0,4}\s+lits\s+sur\s+(\d[\d ]{0,4}\d|\d)", re.I)
 # « taux d'occupation global de 51,7% (120 lits) » (110 Haut-Uele) : les lits
@@ -301,8 +312,12 @@ def premier(regexes, texte):
         for m in rx.finditer(texte):
             # « 155 patients sont hospitalisés hors CTE/CT » (178) : pas des
             # patients des centres de traitement.
-            if re.match(r"\w*\s+hors\b", texte[m.end():m.end() + 30]):
+            # « 252 patients sont pris en charge en dehors des CTE/CT (dans
+            # des ESS non structurés) » (180 Nord-Kivu) : de même.
+            if re.match(r"\w*\s+(?:en\s+dehors|hors)\b", texte[m.end():m.end() + 30]):
                 continue
+            if rx in SOMME_RES:
+                return sum(entier(g) or 0 for mm in rx.finditer(texte) for g in mm.groups() if g)
             # Deux groupes : « 21 confirmés et 34 suspects aux lits » (178
             # Haut-Uele), la somme est le nombre de patients.
             vals = [entier(g) for g in m.groups() if g]
@@ -373,6 +388,11 @@ def lire_prose(morceau):
     occ = None
     for rx in OCCUPATION_RES:
         mo = rx.search(morceau)
+        # « 7 % de taux d'occupation global (50 % pour les suspects et 24 %
+        # pour les confirmés) » (180 Ituri) : le premier taux trouve apres le
+        # mot est celui des seuls suspects, pas un taux global.
+        if mo and re.match(r"\s*pour\s+les\s+(?:cas\s+)?(?:suspects|confirm)", morceau[mo.end():mo.end() + 40], re.I):
+            continue
         if mo:
             occ = pourcent(mo.group(1))
             break

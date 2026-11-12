@@ -100,6 +100,10 @@ def section_laboratoire(texte):
 REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bL[’']|\b[lL]e |\b[lL]a |\bau |\bà la |\ben )\s*\.?\s*(%s)\b" % PROVINCES_RE)
 
 ECHANTILLONS_RES = [
+    # « 255 échantillons reçus et 254 analysés au laboratoire » (180
+    # Nord-Kivu) et « 11 prélèvements reçus et analysés ce jour » (180 Tshopo).
+    re.compile(r"[ée]chantillons\s+re[çc]us\s+et\s+(\d[\d ]{0,6}\d|\d)\s+analys[ée]s", re.I),
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s+pr[ée]l[èe]vements\s+re[çc]us\s+et\s+analys[ée]s", re.I),
     # « 76 nouveaux échantillons collectés dont 39 ont été analysés » (B)
     # « dont 1 swab analyse » (106 Tshopo) : « swab » peut s'intercaler, l'accent manquer
     re.compile(r"[ée]chantillons?\s+(?:ont\s+[ée]t[ée]\s+)?(?:collect[ée]s?|re[çc]us?|pr[ée]lev[ée]s?)\s*,?\s*dont\s+(\d[\d ]{0,6}\d|\d)\s+(?:swabs?\s+)?(?:ont\s+[ée]t[ée]\s+)?analys[ée]s?", re.I),
@@ -257,6 +261,14 @@ def lire_province(morceau):
         if int(mr.group(2)) + int(mr.group(3)) == n and total >= n and (
                 positivite is None or abs(n / total * 100 - positivite) <= 0.15):
             echantillons, positifs = total, n
+    # « positivité globale de 8 % pour les nouveaux prélèvements (13/165), de
+    # 9 % pour les re prélèvements (3/34), et de 15 % pour les échantillons
+    # issus de décès (8/55) » (180 Nord-Kivu) : quand les dénominateurs
+    # retombent exactement sur les échantillons analysés, les positifs sont la
+    # somme des numérateurs (24 sur 254).
+    fr = [(int(a), int(b)) for a, b in re.findall(r"\((\d+)\s*/\s*(\d+)\)", morceau)]
+    if positifs is None and echantillons and len(fr) >= 2 and sum(b for _, b in fr) == echantillons:
+        positifs = sum(a for a, _ in fr)
     if positifs is None and NEGATIFS_RE.search(morceau):
         positifs = 0
     # « 1 échantillon reçu et testé (1 vivant), s'est révélé positif » (120,

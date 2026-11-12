@@ -2,7 +2,7 @@
   "description": "Guéris déclarés chaque jour par les structures de prise en charge (CTE, centres de transit, hôpitaux), par province, lus dans les SitRep de l'INSP (tableau « Mouvement des patients », faits saillants, rubrique Prise en charge). Les cumuls par province sont ceux que les bulletins publient, sans reconstitution.",
   "periode": {
     "debut": "2026-06-04",
-    "fin": "2026-11-09"
+    "fin": "2026-11-10"
   },
   "parBulletin": [
     {
@@ -84,7 +84,8 @@
       },
       "total": 5,
       "source": "faits saillants",
-      "forme": "phrase ancienne"
+      "forme": "phrase ancienne",
+      "hausseCumulNational": 8
     },
     {
       "sitrep": "031",
@@ -225,7 +226,8 @@
         "Sud-Kivu": 0
       },
       "total": 15,
-      "source": "tableau"
+      "source": "tableau",
+      "hausseCumulNational": 30
     },
     {
       "sitrep": "046",
@@ -237,6 +239,7 @@
       },
       "total": 5,
       "source": "tableau",
+      "hausseCumulNational": 11,
       "desaccord": {
         "faits saillants": {
           "Ituri": 6,
@@ -263,7 +266,8 @@
       },
       "total": 21,
       "source": "faits saillants",
-      "forme": "phrase ancienne"
+      "forme": "phrase ancienne",
+      "hausseCumulNational": 5
     },
     {
       "sitrep": "049",
@@ -306,7 +310,8 @@
         "Sud-Kivu": 0
       },
       "total": 20,
-      "source": "tableau"
+      "source": "tableau",
+      "hausseCumulNational": 19
     },
     {
       "sitrep": "053",
@@ -396,6 +401,7 @@
       },
       "total": 15,
       "source": "tableau",
+      "hausseCumulNational": 33,
       "desaccord": {
         "prise en charge": {
           "Ituri": 11
@@ -411,7 +417,8 @@
         "Tshopo": 0
       },
       "total": 15,
-      "source": "tableau"
+      "source": "tableau",
+      "hausseCumulNational": 11
     },
     {
       "sitrep": "062",
@@ -432,7 +439,8 @@
       },
       "total": 32,
       "source": "faits saillants",
-      "forme": "bandeau"
+      "forme": "bandeau",
+      "hausseCumulNational": 22
     },
     {
       "sitrep": "065",
@@ -444,6 +452,7 @@
       },
       "total": 22,
       "source": "tableau",
+      "hausseCumulNational": 54,
       "desaccord": {
         "prise en charge": {
           "Ituri": 22
@@ -563,7 +572,8 @@
         "Tshopo": 0
       },
       "total": 25,
-      "source": "tableau"
+      "source": "tableau",
+      "hausseCumulNational": 54
     },
     {
       "sitrep": "078",
@@ -1742,6 +1752,18 @@
         "Haut-Uélé": 2
       },
       "total": 39,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "180",
+      "date": "2026-11-10",
+      "provinces": {
+        "Ituri": 4,
+        "Nord-Kivu": 36,
+        "Haut-Uélé": 1
+      },
+      "total": 41,
       "source": "faits saillants",
       "forme": "A"
     }

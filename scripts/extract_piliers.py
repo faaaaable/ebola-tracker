@@ -142,6 +142,11 @@ def lire_pci(corps):
             if re.search(r"cumul\b[^.;]{0,30}$", p[max(0, m.start() - 40):m.start()]):
                 continue
             rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(2))
+        # « 46/54 rings ouverts » (180 Ituri), « 18/27 rings ouverts » (178
+        # Nord-Kivu), « 19 anneaux (rings) ouverts sur 35 » (178 Ituri).
+        for m in list(re.finditer(r"(\d+)\s*/\s*(\d+) rings? ouverts?", p)) + list(
+                re.finditer(r"(\d+) anneaux \(rings?\) ouverts? sur (\d+)", p)):
+            rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(2))
         m = re.search(r"les (\d+) rings attendus ont tous été ouverts", p)
         if m:
             rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(1))
@@ -185,9 +190,13 @@ def lire_pci(corps):
                          # les corps.
                          r"swab\w*\s+sur (\d+) alertes"]),
             # « 1 EDS complet réalisé » (Tshopo, 175 et 176).
+            # « 102 alertes EDS reçues, 75 réalisées (74 %) » (180 Ituri).
             ("realisees", [r"(\d+) EDS (?:complets? )?(?:ont [ée]t[ée] |a [ée]t[ée] )?r[ée]alis",
+                           r"alertes(?: EDS)? re[çc]ues,\s+(\d+) r[ée]alis[ée]e?s",
                            r"r[ée]alis[ée] (?:les )?(\d+) EDS"]),
+            # « la sécurisation et le prélèvement (swab) de 16 corps » (180 Ituri).
             ("swabes", [r"(\d+) corps (?:ont [ée]t[ée] |a [ée]t[ée] )?(?:pr[ée]lev|swab|[ée]couvillonn)",
+                        r"pr[ée]l[èe]vement \(swab\) de (\d+) corps",
                         r"(\d+) corps (?:ont [ée]t[ée] )?swab",
                         r"swab[ée] (?:les )?(\d+) corps",
                         r"les (\d+) corps ont [ée]t[ée] swab",
@@ -205,6 +214,10 @@ def lire_pci(corps):
                     continue
                 for motif in motifs:
                     m = re.search(motif, txt, re.IGNORECASE)
+                    # « le cumul provincial s'élevant à 7 EDS et 7 corps swabés
+                    # depuis le début » (180 Sud-Ubangi) : un cumul, pas le jour.
+                    if m and re.search(r"\bcumul\b[^.;]{0,50}$", txt[max(0, m.start() - 60):m.start()], re.IGNORECASE):
+                        break
                     if m:
                         v = nombre_ou_mot(m.group(1))
                         if v is not None:

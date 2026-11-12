@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-09"
+    "fin": "2026-11-10"
   },
   "parDate": [
     {
@@ -9158,6 +9158,40 @@
             "Ituri"
           ],
           "horsDefis": "2.8.1. Principales actions"
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-10",
+      "sitrepNumber": "180",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            " Les principaux défis résident dans le besoin urgent de formations pour les équipes et d'un renforcement de l'appui logistique (moyens de transport)."
+          ],
+          "provinces": []
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "équipes insuffisantes à Mangala et Mandima, intrants manquants à Mandima et Mambasa, grève à Tchomia."
+          ],
+          "provinces": []
+        },
+        {
+          "pilier": "securite",
+          "titre": "Sécurité (cité dans « Principales actions »)",
+          "items": [
+            "Tshopo : Insécurité et menaces persistantes contre les équipes de riposte dans certaines zones (notamment à Bafwasende, Kabondo et Mangobo)."
+          ],
+          "provinces": [
+            "Tshopo"
+          ],
+          "horsDefis": "2.11.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"

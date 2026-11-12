@@ -51,15 +51,15 @@ INDICATEURS = [
     ("alertes", r"alertes notifi[ée]es|alertes remont[ée]es"),
     ("corpsInterceptes", r"corps sans vie intercept"),
     ("contactsInterceptes", r"contacts .*intercept"),
-    ("suspectsTransferes", r"(transf[ée]r[ée]s|r[ée]f[ée]r[ée]es) au"),
+    ("suspectsTransferes", r"(transf[ée]r[ée]e?s|r[ée]f[ée]r[ée]es) au"),
     ("corpsSwabes", r"swab"),
-    ("suspectsInvestigues24h", r"investigu[ée]s dans"),
+    ("suspectsInvestigues24h", r"investigu[ée]e?s dans"),
     ("positifsReferes", r"r[ée]sultats? positifs?"),
 ]
 
 VIDE = {"", "nd", "na", "s.o.", "so", "-", "–", "n/a"}
 PROVINCES = ["Ituri", "Nord-Kivu", "Sud-Kivu", "Haut-Uélé", "Bas-Uélé", "Tshopo",
-             "Kinshasa", "Sud-Ubangi", "Tanganyika", "Global"]
+             "Kinshasa", "Sud-Ubangi", "Nord-Ubangi", "Tanganyika", "Global"]
 
 
 def propre(c):
@@ -135,6 +135,9 @@ def tableaux_poe(pdf):
             # Les cellules vides de mise en page (SitRep 060) decalent les
             # colonnes : on les retire, la ligne garde ses seules valeurs.
             rangs = [[c for c in r if c] for r in rangs]
+            # 179 (9 novembre 2026) : une colonne « N° » precede le libelle
+            # (« 3 | Nombre des voyageurs passés | 156 812 … »).
+            rangs = [r[1:] if len(r) > 2 and re.match(r"^\d{1,2}$", r[0]) else r for r in rangs]
             rangs = [r for r in rangs if r]
             if not any(cle_indicateur(r[0]) in ("screenes", "personnes", "alertes") for r in rangs):
                 # suite d'un tableau coupe par le saut de page
@@ -353,9 +356,11 @@ def lire_tableau(pdf):
         if any(c.endswith("-") for c in cellules) and i + 1 < len(lignes):
             suite = list(lignes[i + 1])
             cellules = [c + suite.pop(0) if c.endswith("-") and suite else c for c in cellules]
-        for depart in (0, 1):  # 094 : pas de cellule « Indicateurs »
+        # 179 : « N° | Indicateurs | ITURI | … | NORD- UBANGI », huit
+        # provinces et plus de colonne Global : admis des quatre provinces.
+        for depart in (0, 1, 2):  # 094 : pas de cellule « Indicateurs »
             provs = [province(c) for c in cellules[depart:]]
-            if provs and all(provs) and "Global" in provs:
+            if provs and all(provs) and ("Global" in provs or len(provs) >= 4):
                 colonnes = provs
                 break
         if colonnes:

@@ -2,9 +2,9 @@
  "source": "SitRep INSP, tableau 2, colonnes « Situation du jour (24h) »",
  "periode": {
   "debut": "2026-07-13",
-  "fin": "2026-11-08"
+  "fin": "2026-11-10"
  },
- "releves": 113,
+ "releves": 115,
  "bulletinsSansVentilation": [
   "087"
  ],
@@ -12,66 +12,66 @@
   {
    "province": "Ituri",
    "zone": "Bunia",
-   "communautaires": 443,
-   "intraCte": 131,
+   "communautaires": 457,
+   "intraCte": 135,
    "nonVentiles": 0,
-   "jours": 105
+   "jours": 107
   },
   {
    "province": "Nord-Kivu",
    "zone": "Beni",
-   "communautaires": 380,
-   "intraCte": 93,
+   "communautaires": 388,
+   "intraCte": 100,
    "nonVentiles": 0,
-   "jours": 90
+   "jours": 92
   },
   {
    "province": "Nord-Kivu",
    "zone": "Katwa",
-   "communautaires": 246,
-   "intraCte": 95,
+   "communautaires": 247,
+   "intraCte": 99,
    "nonVentiles": 0,
-   "jours": 94
+   "jours": 96
   },
   {
    "province": "Ituri",
    "zone": "Mandima",
-   "communautaires": 224,
+   "communautaires": 232,
    "intraCte": 55,
    "nonVentiles": 0,
-   "jours": 54
+   "jours": 56
   },
   {
    "province": "Ituri",
    "zone": "Rwampara",
-   "communautaires": 120,
-   "intraCte": 114,
+   "communautaires": 122,
+   "intraCte": 117,
    "nonVentiles": 0,
-   "jours": 79
+   "jours": 81
   },
   {
    "province": "Ituri",
    "zone": "Nizi",
    "communautaires": 175,
-   "intraCte": 46,
+   "intraCte": 48,
    "nonVentiles": 0,
-   "jours": 65
+   "jours": 67
   },
   {
    "province": "Nord-Kivu",
    "zone": "Butembo",
-   "communautaires": 102,
-   "intraCte": 54,
+   "communautaires": 103,
+   "intraCte": 56,
    "nonVentiles": 0,
-   "jours": 68
+   "jours": 70
   },
   {
    "province": "Ituri",
    "zone": "Nia-Nia",
    "communautaires": 109,
-   "intraCte": 45,
+   "intraCte": 47,
    "nonVentiles": 0,
-   "jours": 63
+   "jours": 64
   },
   {
    "province": "Ituri",
@@ -91,6 +91,14 @@
   },
   {
    "province": "Ituri",
+   "zone": "Lita",
+   "communautaires": 79,
+   "intraCte": 22,
+   "nonVentiles": 0,
+   "jours": 56
+  },
+  {
+   "province": "Ituri",
    "zone": "Komanda",
    "communautaires": 81,
    "intraCte": 19,
@@ -98,44 +106,44 @@
    "jours": 48
   },
   {
-   "province": "Ituri",
-   "zone": "Lita",
-   "communautaires": 77,
-   "intraCte": 22,
-   "nonVentiles": 0,
-   "jours": 54
-  },
-  {
    "province": "Nord-Kivu",
    "zone": "Musienene",
-   "communautaires": 49,
+   "communautaires": 51,
    "intraCte": 16,
    "nonVentiles": 0,
-   "jours": 42
-  },
-  {
-   "province": "Haut-Uélé",
-   "zone": "Pawa",
-   "communautaires": 26,
-   "intraCte": 35,
-   "nonVentiles": 0,
-   "jours": 38
+   "jours": 44
   },
   {
    "province": "Ituri",
    "zone": "Mambasa",
-   "communautaires": 44,
-   "intraCte": 17,
+   "communautaires": 46,
+   "intraCte": 18,
    "nonVentiles": 0,
-   "jours": 30
+   "jours": 31
+  },
+  {
+   "province": "Haut-Uélé",
+   "zone": "Pawa",
+   "communautaires": 27,
+   "intraCte": 35,
+   "nonVentiles": 0,
+   "jours": 39
   },
   {
    "province": "Haut-Uélé",
    "zone": "Isiro",
-   "communautaires": 21,
+   "communautaires": 22,
    "intraCte": 28,
    "nonVentiles": 0,
-   "jours": 33
+   "jours": 34
+  },
+  {
+   "province": "Nord-Kivu",
+   "zone": "Kalunguta",
+   "communautaires": 30,
+   "intraCte": 18,
+   "nonVentiles": 0,
+   "jours": 35
   },
   {
    "province": "Haut-Uélé",
@@ -147,11 +155,11 @@
   },
   {
    "province": "Nord-Kivu",
-   "zone": "Kalunguta",
-   "communautaires": 30,
-   "intraCte": 17,
+   "zone": "Oicha",
+   "communautaires": 27,
+   "intraCte": 18,
    "nonVentiles": 0,
-   "jours": 34
+   "jours": 31
   },
   {
    "province": "Ituri",
@@ -160,14 +168,6 @@
    "intraCte": 12,
    "nonVentiles": 0,
    "jours": 25
-  },
-  {
-   "province": "Nord-Kivu",
-   "zone": "Oicha",
-   "communautaires": 23,
-   "intraCte": 17,
-   "nonVentiles": 0,
-   "jours": 29
   },
   {
    "province": "Nord-Kivu",
@@ -180,10 +180,10 @@
   {
    "province": "Nord-Kivu",
    "zone": "Mutwanga",
-   "communautaires": 20,
-   "intraCte": 3,
+   "communautaires": 21,
+   "intraCte": 4,
    "nonVentiles": 0,
-   "jours": 13
+   "jours": 14
   },
   {
    "province": "Nord-Kivu",
@@ -197,9 +197,9 @@
    "province": "Nord-Kivu",
    "zone": "Vuhovi",
    "communautaires": 7,
-   "intraCte": 12,
+   "intraCte": 13,
    "nonVentiles": 0,
-   "jours": 17
+   "jours": 18
   },
   {
    "province": "Haut-Uélé",
@@ -211,6 +211,14 @@
   },
   {
    "province": "Ituri",
+   "zone": "Nyankunde",
+   "communautaires": 4,
+   "intraCte": 14,
+   "nonVentiles": 0,
+   "jours": 16
+  },
+  {
+   "province": "Ituri",
    "zone": "Fataki",
    "communautaires": 16,
    "intraCte": 2,
@@ -218,20 +226,12 @@
    "jours": 9
   },
   {
-   "province": "Ituri",
-   "zone": "Nyankunde",
-   "communautaires": 3,
-   "intraCte": 14,
-   "nonVentiles": 0,
-   "jours": 15
-  },
-  {
    "province": "Nord-Kivu",
    "zone": "Lubero",
    "communautaires": 12,
-   "intraCte": 4,
+   "intraCte": 5,
    "nonVentiles": 0,
-   "jours": 12
+   "jours": 13
   },
   {
    "province": "Nord-Kivu",
@@ -291,6 +291,14 @@
   },
   {
    "province": "Ituri",
+   "zone": "Kilo",
+   "communautaires": 6,
+   "intraCte": 0,
+   "nonVentiles": 0,
+   "jours": 6
+  },
+  {
+   "province": "Ituri",
    "zone": "Tchomia",
    "communautaires": 3,
    "intraCte": 3,
@@ -302,14 +310,6 @@
    "zone": "Mangobo",
    "communautaires": 3,
    "intraCte": 3,
-   "nonVentiles": 0,
-   "jours": 5
-  },
-  {
-   "province": "Ituri",
-   "zone": "Kilo",
-   "communautaires": 5,
-   "intraCte": 0,
    "nonVentiles": 0,
    "jours": 5
   },
@@ -13035,6 +13035,288 @@
      "ecartLectures": {
       "colonnes": 0,
       "pipeline": 1
+     }
+    }
+   }
+  },
+  {
+   "date": "2026-11-09",
+   "sitrep": "179",
+   "provinces": {
+    "Haut-Uélé": {
+     "province": {
+      "communautaires": 1,
+      "intraCte": 0,
+      "source": "deces-lieu"
+     },
+     "lecture": "pipeline",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Isiro",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      }
+     ],
+     "ecartLectures": {
+      "colonnes": 0,
+      "pipeline": 1
+     }
+    },
+    "Ituri": {
+     "province": {
+      "communautaires": 10,
+      "intraCte": 5,
+      "source": "deces-lieu"
+     },
+     "lecture": "pipeline",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Bunia",
+       "total": 5,
+       "communautaires": 3,
+       "intraCte": 2
+      },
+      {
+       "zone": "Lita",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      },
+      {
+       "zone": "Mambasa",
+       "total": 3,
+       "communautaires": 2,
+       "intraCte": 1
+      },
+      {
+       "zone": "Mandima",
+       "total": 4,
+       "communautaires": 4,
+       "intraCte": 0
+      },
+      {
+       "zone": "Nizi",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Rwampara",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      }
+     ],
+     "ecartLectures": {
+      "colonnes": 0,
+      "pipeline": 15
+     }
+    },
+    "Nord-Kivu": {
+     "province": {
+      "communautaires": 8,
+      "intraCte": 9,
+      "source": "deces-lieu"
+     },
+     "lecture": "pipeline",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Beni",
+       "total": 9,
+       "communautaires": 6,
+       "intraCte": 3
+      },
+      {
+       "zone": "Butembo",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Kalunguta",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Katwa",
+       "total": 2,
+       "communautaires": 0,
+       "intraCte": 2
+      },
+      {
+       "zone": "Musienene",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      },
+      {
+       "zone": "Oicha",
+       "total": 2,
+       "communautaires": 1,
+       "intraCte": 1
+      },
+      {
+       "zone": "Vuhovi",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      }
+     ],
+     "ecartLectures": {
+      "colonnes": 0,
+      "pipeline": 17
+     }
+    }
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "sitrep": "180",
+   "provinces": {
+    "Haut-Uélé": {
+     "province": {
+      "communautaires": 1,
+      "intraCte": 0,
+      "source": "deces-lieu"
+     },
+     "lecture": "pipeline",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Pawa",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      }
+     ],
+     "ecartLectures": {
+      "colonnes": 0,
+      "pipeline": 1
+     }
+    },
+    "Ituri": {
+     "province": {
+      "communautaires": 20,
+      "intraCte": 7,
+      "source": "deces-lieu"
+     },
+     "lecture": "pipeline",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Bunia",
+       "total": 13,
+       "communautaires": 11,
+       "intraCte": 2
+      },
+      {
+       "zone": "Kilo",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      },
+      {
+       "zone": "Lita",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      },
+      {
+       "zone": "Mandima",
+       "total": 4,
+       "communautaires": 4,
+       "intraCte": 0
+      },
+      {
+       "zone": "Nia-Nia",
+       "total": 2,
+       "communautaires": 0,
+       "intraCte": 2
+      },
+      {
+       "zone": "Nizi",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Nyankunde",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      },
+      {
+       "zone": "Rwampara",
+       "total": 4,
+       "communautaires": 2,
+       "intraCte": 2
+      }
+     ],
+     "ecartLectures": {
+      "colonnes": 0,
+      "pipeline": 27
+     }
+    },
+    "Nord-Kivu": {
+     "province": {
+      "communautaires": 9,
+      "intraCte": 9,
+      "source": "deces-lieu"
+     },
+     "lecture": "pipeline",
+     "concordeProvince": true,
+     "zones": [
+      {
+       "zone": "Beni",
+       "total": 6,
+       "communautaires": 2,
+       "intraCte": 4
+      },
+      {
+       "zone": "Butembo",
+       "total": 2,
+       "communautaires": 1,
+       "intraCte": 1
+      },
+      {
+       "zone": "Katwa",
+       "total": 3,
+       "communautaires": 1,
+       "intraCte": 2
+      },
+      {
+       "zone": "Lubero",
+       "total": 1,
+       "communautaires": 0,
+       "intraCte": 1
+      },
+      {
+       "zone": "Musienene",
+       "total": 1,
+       "communautaires": 1,
+       "intraCte": 0
+      },
+      {
+       "zone": "Mutwanga",
+       "total": 2,
+       "communautaires": 1,
+       "intraCte": 1
+      },
+      {
+       "zone": "Oicha",
+       "total": 3,
+       "communautaires": 3,
+       "intraCte": 0
+      }
+     ],
+     "ecartLectures": {
+      "colonnes": 0,
+      "pipeline": 18
      }
     }
    }

@@ -163,7 +163,13 @@ def lire_D(texte):
     if not m:
         return None
     section = texte[m.end():m.end() + 1800]
-    dix = bool(NON_INVESTIGUES_RE.search(section[:section.find("\n", LIGNE_D_RE.search(section).start() + 1)]
+    # 180 (10 novembre 2026) : les noms de province sur deux lignes, les
+    # chiffres entre les deux moities — « Haut-⏎81 4 85 … 9⏎Uélé »,
+    # « Nord⏎36 0 36 … 5⏎Ubangi ». On recolle « Haut-Uélé 81 4 85 … ».
+    section = re.sub(r"\n\s*(Haut|Nord|Sud|Bas)(-?)\s*\n([\d   ]+(?:\s+(?:ND|NA))*)\s*\n\s*(U[ée]l[ée]|Kivu|Ubangi)\b",
+                     lambda r: "\n%s%s%s %s" % (r.group(1), r.group(2) or " ", r.group(4), r.group(3).strip()),
+                     section)
+    dix =bool(NON_INVESTIGUES_RE.search(section[:section.find("\n", LIGNE_D_RE.search(section).start() + 1)]
                                          if LIGNE_D_RE.search(section) else section))
     provinces = {}
     for lm in LIGNE_D_RE.finditer(section):

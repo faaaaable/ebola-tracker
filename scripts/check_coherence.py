@@ -85,6 +85,12 @@ EXCEPTIONS_SOURCE = {
     # ventilation, seule Ganga bouge : la source s'est corrigee. Le
     # graphique porte la valeur revisee (decision du 23 septembre 2026).
     ("vaccination_recul", "129", "Bas-Uélé"): (874, 987),
+    # 179 : « 99 personnes vaccinées aujourd'hui [...] Cumul de 3 368 » ;
+    # 180 : « Cumul de la vaccination (du 19/09 au 09/11/2026) : 3 346
+    # personnes vaccinées ». Le 180 donne un cumul arrete au 9 novembre,
+    # sur une periode bornee au 19 septembre : la source a change de
+    # decompte, les donnees restent celles du bulletin.
+    ("vaccination_recul", "180", "Ituri"): (3346, 3368),
     # 150 : le tableau recapitulatif (p. 2) imprime « Haut-Uélé 4 382 162
     # 42,6% » ; le tableau detaille (p. 3) « Haut-Uélé 383 162 42,3% » et le
     # 149 comptait 379 cas : 379 + 4 = 383. 162/382 = 42,4 %, 162/383 =
