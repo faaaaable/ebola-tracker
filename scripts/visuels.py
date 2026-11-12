@@ -644,7 +644,6 @@ def h_part(c):
     out.append(c.legende(110, 262, [(p, PROV.get(p, INK_DIM)) for p in ordre], gap=14))
     nk = hp.get("Nord-Kivu", [0] * n); t0 = sum(max(hp[p][0], 0) for p in ordre) or 1; t1 = sum(max(hp[p][-1], 0) for p in ordre) or 1
     out.append(c.T(60, 975, t["partPhrase"].format(a=c.pc(100 * max(nk[0], 0) / t0), da=c.dc(c.semaines[0][0]), b=c.pc(100 * max(nk[-1], 0) / t1), db=c.dc(c.semaines[-1][0])), 24, INK, fam=SERIF))
-    out.append(c.T(60, 1008, t["partNote"], 15, INK_DIM))
     return c.carte(t["partTitre"], t["partSous"], "".join(out), h=1110, pied=c.pied_semaine())
 
 
@@ -693,7 +692,6 @@ def h_lieu(c):
     out.append(c.legende(110, 262, [(t["lieuCom"], RED), (t["lieuCte"], "#E5B7AE")]))
     a, b, co, ct = [d for d in data if d[2] + d[3]][-1]
     out.append(c.T(60, 960, t["lieuPhrase"].format(a=c.dc(a), b=c.dc(b), p=c.pc(100 * co / (co + ct)), c=co, t=co + ct), 24, INK, fam=SERIF))
-    out.append(c.T(60, 994, t["lieuNote"], 15, INK_DIM))
     return c.carte(t["lieuTitre"], t["lieuSous"], "".join(out), h=1110, pied=c.pied_semaine())
 
 
