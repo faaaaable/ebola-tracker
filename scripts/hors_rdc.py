@@ -540,7 +540,8 @@ def recit_html(pid, lang):
     # page legere : le premier paragraphe en chapeau, et la date qui ouvre un
     # paragraphe (« Le 16 octobre 2026, ») en gras, pour reperer les etapes.
     import re
-    date_tete = re.compile(r"^((?:Le|Les|Au|On|As of|By|Tarehe|Kufikia tarehe) \d{1,2}(?: (?:et|and|na) \d{1,2})? \w+ 20\d\d)(,?)")
+    # « Le 1er novembre », et les periodes « Du 2 au 11 novembre » (13 novembre 2026).
+    date_tete = re.compile(r"^((?:Le|Les|Au|Du|On|As of|By|From|Tarehe|Kufikia tarehe|Kuanzia tarehe) \d{1,2}(?:er)?(?: (?:et|and|na|au|to|hadi) \d{1,2})? \w+ 20\d\d)(,?)")
     def para(i, t):
         t = _esc(t) if i == 0 else date_tete.sub(lambda m: "<strong>%s</strong>%s" % (m.group(1), m.group(2)), _esc(t), count=1)
         return '<p%s>%s</p>' % (' class="pp-chapeau"' if i == 0 else "", t)
