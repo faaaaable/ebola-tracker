@@ -695,6 +695,63 @@ def h_lieu(c):
     return c.carte(t["lieuTitre"], t["lieuSous"], "".join(out), h=1110, pied=c.pied_semaine())
 
 
+# Le lieu des deces par zone de sante (13 novembre 2026), etage « au dernier
+# bulletin » : la part des deces en communaute et en centre de traitement de
+# chaque zone depuis le 13 juillet (data/deces-lieu-zones.json, la meme
+# matiere que le bloc des pages des provinces), pour les zones qui comptent au
+# moins LZ_SEUIL deces — sous ce seuil, comme sur les pages des provinces, un
+# deces de plus change trop la part.
+LZ_SEUIL = 20
+LZ = {
+ "fr": dict(titre="Décès en communauté ou en centre de traitement, zone par zone",
+            sous="Part des décès en communauté et en centre de traitement, depuis le {d}",
+            sur="sur {n}", phrase="Dans {p} de ces {n} zones, plus de la moitié des malades sont morts hors d'un centre de traitement.",
+            note="Zones de santé comptant au moins {s} décès depuis le {d} ; sous ce seuil, un décès de plus change beaucoup la part.",
+            lire="Zone par zone, la part des malades morts sans avoir été pris en charge dans un centre de traitement."),
+ "en": dict(titre="Deaths in the community or in a treatment centre, zone by zone",
+            sous="Share of deaths in the community and in treatment centres, since {d}",
+            sur="of {n}", phrase="In {p} of these {n} zones, more than half of patients died outside a treatment centre.",
+            note="Health zones with at least {s} deaths since {d}; below that, one more death changes the share a lot.",
+            lire="Zone by zone, the share of patients who died without being cared for in a treatment centre."),
+ "sw": dict(titre="Vifo katika jamii au katika kituo cha matibabu, kanda kwa kanda",
+            sous="Sehemu ya vifo katika jamii na katika vituo vya matibabu, tangu {d}",
+            sur="kati ya {n}", phrase="Katika kanda {p} kati ya hizi {n}, zaidi ya nusu ya wagonjwa walikufa nje ya kituo cha matibabu.",
+            note="Kanda za afya zenye angalau vifo {s} tangu {d}; chini ya hapo, kifo kimoja zaidi kinabadilisha sehemu sana.",
+            lire="Kanda kwa kanda, sehemu ya wagonjwa waliokufa bila kuhudumiwa katika kituo cha matibabu."),
+}
+
+
+def lieu_zones(c):
+    t = c.t; z = LZ[c.lang]
+    d = _j("data/deces-lieu-zones.json"); debut = D(d["periode"]["debut"])
+    zz = [x for x in d["zones"] if x["communautaires"] + x["intraCte"] >= LZ_SEUIL]
+    if not zz:
+        return None
+    zz.sort(key=lambda x: (-x["communautaires"] / (x["communautaires"] + x["intraCte"]), -(x["communautaires"] + x["intraCte"])))
+    noms = PROV_NOM.get(c.lang, {})
+    # Un titre long passe sur deux lignes dans carte() (meme calcul) : le
+    # graphique descend d'autant, juste sous le sous-titre.
+    import textwrap
+    dy = 46 * (len(textwrap.wrap(z["titre"], 46)) - 1) if len(z["titre"]) > 50 else 0
+    X0, X1, Y0, rh = 330, 1010, 222 + dy, 27
+    out = [c.legende(X0, 200 + dy, [(t["lieuCom"], RED), (t["lieuCte"], "#E5B7AE")])]
+    for i, x in enumerate(zz):
+        tot = x["communautaires"] + x["intraCte"]; part = x["communautaires"] / tot
+        y = Y0 + i * rh; w = (X1 - X0) * part
+        out.append(c.T(60, y + 18, noms.get(x["province"], x["province"]), 13, INK_FAINT))
+        out.append(c.T(X0 - 14, y + 18, x["zone"], 16, INK, "end", 600))
+        out.append('<rect x="%d" y="%d" width="%.1f" height="%d" fill="%s"><title>%s : %d / %d</title></rect>' % (X0, y + 3, w, rh - 6, RED, esc(x["zone"]), x["communautaires"], tot))
+        out.append('<rect x="%.1f" y="%d" width="%.1f" height="%d" fill="#E5B7AE"/>' % (X0 + w + 2, y + 3, max(0, X1 - X0 - w - 2), rh - 6))
+        if w > 46:
+            out.append(c.T(X0 + 8, y + 18, c.pc(100 * part), 13, "#fff", "start", 700))
+        out.append(c.T(X1 + 14, y + 18, z["sur"].format(n=c.nb(tot)), 14, INK_DIM))
+    yb = Y0 + len(zz) * rh
+    plus = sum(1 for x in zz if x["communautaires"] * 2 > x["communautaires"] + x["intraCte"])
+    out.append(c.T(60, yb + 70, z["phrase"].format(p=plus, n=len(zz)), 24, INK, fam=SERIF))
+    out.append(c.T(60, yb + 104, z["note"].format(s=LZ_SEUIL, d=c.dl_(debut)), 15, INK_DIM))
+    return c.carte(z["titre"], z["sous"].format(d=c.dl_(debut)), "".join(out), h=yb + 230)
+
+
 def h_zones(c):
     t = c.t; data = []
     for a, b in c.semaines:
@@ -1787,7 +1844,8 @@ def epidemies_rdc(c):
 LISTE = [
     ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"),
            ("nouveaux-cas-jour", None, lambda c: r_national(c, "confirmed"), "nat"), ("nouveaux-deces-jour", None, lambda c: r_national(c, "deaths"), "natdec"),
-           ("provinces", None, carte_provinces, "provinces"), ("dix-sept-epidemies", None, epidemies_rdc, "epi")] + PROVINCES_JOUR),
+           ("provinces", None, carte_provinces, "provinces"), ("dix-sept-epidemies", None, epidemies_rdc, "epi"),
+           ("lieu-deces-zones", None, lieu_zones, "lieuzones")] + PROVINCES_JOUR),
     ("r", [("alertes-jour", None, r_alertes, "alertes"), ("laboratoire-jour", None, r_labo, "labo"), ("contacts-jour", None, r_contacts, "contacts"),
            ("cte-jour", None, r_cte, "cte"), ("vaccination-jour", None, r_vaccin, "vaccin"),
            ("voyageurs-jour", None, r_voyageurs, "voy"), ("alertes-postes-semaine", None, r_alertes_postes, "apost")]),
@@ -1853,7 +1911,7 @@ def page_html(lang, mois_courts):
             titre = html.unescape(" ".join(m)) if m else ident
             figs.append('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
                         '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
-                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else PJ[lang]["lire"])), esc(p["png"])))
+                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else LZ[lang]["lire"] if lire == "lieuzones" else PJ[lang]["lire"])), esc(p["png"])))
         out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
                    '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
     out.append(cartes_html(c, lang))
