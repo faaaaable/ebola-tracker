@@ -1979,20 +1979,17 @@ def epidemies_rdc(c):
 # charge au choix. Seul le premier (la zone au plus fort cumul) est dans la page.
 ZJ = {
  "fr": dict(titre="{z} : les nouveaux cas, jour par jour",
-            sous="Nouveaux cas confirmés déclarés chaque jour dans la zone de santé de {z} ({p}), du {a} au {b}.",
-            phrase="{s} cas en sept jours, {c} depuis le début.",
+            sous="Nouveaux cas confirmés déclarés chaque jour dans la zone de santé de {z} ({p}), du {a} au {b}, soit {c} au total.",
             h3="Zone par zone : les nouveaux cas, jour par jour", label="Zone de santé", opt="{z} ({n} cas)",
             prec="Zone précédente", suiv="Zone suivante", lien="Voir sur la page {p}",
             lire="Choisissez une zone de santé : sa courbe quotidienne, comme sur la page de sa province."),
  "en": dict(titre="{z}: new cases, day by day",
-            sous="New confirmed cases reported each day in {z} health zone ({p}), {a} to {b}.",
-            phrase="{s} cases in seven days, {c} since the start.",
+            sous="New confirmed cases reported each day in {z} health zone ({p}), {a} to {b}: {c} in total.",
             h3="Zone by zone: new cases, day by day", label="Health zone", opt="{z} ({n} cases)",
             prec="Previous zone", suiv="Next zone", lien="See on the {p} page",
             lire="Pick a health zone: its daily curve, as on its province page."),
  "sw": dict(titre="{z}: visa vipya, siku kwa siku",
-            sous="Visa vipya vilivyothibitishwa vinavyoripotiwa kila siku katika kanda ya afya ya {z} ({p}), {a} hadi {b}.",
-            phrase="Visa {s} katika siku saba, {c} tangu mwanzo.",
+            sous="Visa vipya vilivyothibitishwa vinavyoripotiwa kila siku katika kanda ya afya ya {z} ({p}), {a} hadi {b}: jumla {c}.",
             h3="Kanda kwa kanda: visa vipya, siku kwa siku", label="Kanda ya afya", opt="{z} (visa {n})",
             prec="Kanda iliyotangulia", suiv="Kanda inayofuata", lien="Tazama kwenye ukurasa wa {p}",
             lire="Chagua kanda ya afya: mkondo wake wa kila siku, kama kwenye ukurasa wa jimbo lake."),
@@ -2018,14 +2015,12 @@ def _zone_jour(c, Dz, jours, prov, z):
         rap.append(None if clair else v); rat.append(v if clair else None)
     pn = PROV_NOM.get(c.lang, {}).get(prov, prov)
     titre = t["titre"].format(z=z["nom"])
-    sous = t["sous"].format(z=z["nom"], p=pn, a=c.dc(jours[0]), b=c.dl_(fin))
+    sous = t["sous"].format(z=z["nom"], p=pn, a=c.dc(jours[0]), b=c.dl_(fin), c=c.nb(z["cas"]))
     haut = _haut(titre, sous)
     pic = max(((a or 0) + (b or 0) for a, b in zip(rap, rat)), default=0)
     marge = max(1.5, 5 / pic) if 0 < pic <= 10 else 1.06   # comme app.js : un axe a 5 au moins
     R, out, _ = _quotidien(c, jours, rap, rat, PROV.get(prov, BLUE), pj["jour"], pj["ratt"], marge=marge, haut=haut)
-    sept = sum((a or 0) + (b or 0) for d, a, b in zip(jours, rap, rat) if d > fin - dt.timedelta(7))
-    out.append(_phrase(c, t["phrase"].format(s=c.nb(sept), c=c.nb(z["cas"])), y=R.Y1 + 84))
-    return c.carte(titre, sous, "".join(out), h=1160 - haut - 120)
+    return c.carte(titre, sous, "".join(out), h=1160 - haut - 170)
 
 
 def zones_menu_html(c, liens):
