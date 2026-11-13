@@ -178,8 +178,10 @@ def lire_pci(corps):
             ("alertes", [MOT + r" alertes?(?: EDS)?(?: de d[ée]c[èe]s)? (?:ont|a) [ée]t[ée] (?:enregistr|re[çc]u)",
                          r"re[çc]u " + MOT + r" alertes?",
                          r"EDS r[ée]alis\w+ sur (\d+) alertes",
-                         MOT + r" alertes?(?: EDS)? re[çc]ues?",
-                         MOT + r" alertes? de d[ée]c[èe]s",
+                         # « 79 alertes d'EDS reçues » (181 Ituri), « sur 6
+                         # alertes décès » (181 Haut-Uele).
+                         MOT + r" alertes?(?: EDS| d[’']EDS)? re[çc]ues?",
+                         MOT + r" alertes? (?:de )?d[ée]c[èe]s",
                          # « Sur 71 alertes EDS (dont 11 reports), 47 EDS ont
                          # été réalisés » (Ituri, 150 a 162) : jamais lu, les
                          # alertes ne comptaient que les provinces qui ecrivent
@@ -192,7 +194,7 @@ def lire_pci(corps):
             # « 1 EDS complet réalisé » (Tshopo, 175 et 176).
             # « 102 alertes EDS reçues, 75 réalisées (74 %) » (180 Ituri).
             ("realisees", [r"(\d+) EDS (?:complets? )?(?:ont [ée]t[ée] |a [ée]t[ée] )?r[ée]alis",
-                           r"alertes(?: EDS)? re[çc]ues,\s+(\d+) r[ée]alis[ée]e?s",
+                           r"alertes(?: EDS| d[’']EDS)? re[çc]ues,\s+(\d+) r[ée]alis[ée]e?s",
                            r"r[ée]alis[ée] (?:les )?(\d+) EDS"]),
             # « la sécurisation et le prélèvement (swab) de 16 corps » (180 Ituri).
             ("swabes", [r"(\d+) corps (?:ont [ée]t[ée] |a [ée]t[ée] )?(?:pr[ée]lev|swab|[ée]couvillonn)",
@@ -545,8 +547,10 @@ def lire_vaccination(corps, texte_entier):
         # 89 % de la cible » (179), « TSHOPO : 13 036 personnes vaccinées
         # dans les six zones de santé » (176, jamais lu : la province en
         # capitales) : le cumul provincial, nomme juste avant.
+        # « TSHOPO : 13 655 personnes vaccinées, atteignant une couverture
+        # provinciale de 91,3 % » (181) : lu sinon au Sud-Ubangi, cite avant.
         m = re.search(r"(Ituri|Nord.Kivu|Sud.Kivu|Haut.U[ée]l[ée]|Bas.U[ée]l[ée]|Tshopo|Sud.Ubangi|Nord.Ubangi)\s*:\s*"
-                      + NUM + r"\s+(?:vaccinés\s+\(|personnes\s+vaccinées\s+dans\s+les)", phr, re.I)
+                      + NUM + r"\s+(?:vaccinés\s+\(|personnes\s+vaccinées\s+dans\s+les|personnes\s+vaccinées,\s+atteignant)", phr, re.I)
         if m:
             pose(_province(m.group(1)) or _province(m.group(1).title()), entier(m.group(2))); prec = phr; continue
         m = re.search(NUM + r" vaccinés dans \d+ ZS\b", phr)

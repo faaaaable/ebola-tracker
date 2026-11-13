@@ -146,6 +146,13 @@ ECHANTILLONS_RES = [
     # « ont reçu 279 échantillons et en ont analysé 2 32 (positivité : 13,8%) »
     # (175, Nord-Kivu) : 32 sur 232 font les 13,8 % imprimés
     re.compile(r"en\s+ont\s+analys[ée]\s+(\d[\d ]{0,6}\d|\d)\s*\(", re.I),
+    # Tournures du 181 (11 novembre 2026), en dernier : « 19 nouveaux
+    # prélèvements analysés : 5 positifs » (Haut-Uele), « 23 échantillons
+    # réceptionnés » (Tshopo), « 1 échantillon de sang total reçu et analysé »
+    # (Bas-Uele).
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?pr[ée]l[èe]vements\s+analys[ée]s", re.I),
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons?\s+r[ée]ceptionn[ée]s?\b", re.I),
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons?\s+de\s+sang(?:\s+total)?\s+re[çc]us?\s+et\s+analys[ée]s?", re.I),
 ]
 POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux?\s+)?r[ée]sultats?\s+positifs?", re.I),
@@ -170,6 +177,8 @@ POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+nouveaux\s+confirm[ée]s\b", re.I),
     re.compile(r"\bn\s*=\s*(\d+)", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+positifs?\b", re.I),
+    # « 8 cas négatifs réprélevés et 7 cas positifs réprélevés » (181 Tshopo).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+positifs?\s+r[ée]-?\s?pr[ée]lev[ée]s", re.I),
 ]
 DE_PLUS_RE = re.compile(r"De\s+plus\s*,\s*(\d[\d ]{0,4}\d|\d)\s+(?:r[ée])?pr[ée]l[èe]vements\s+sont\s+revenus\s+positifs\s+"
                         r"parmi\s+(\d[\d ]{0,6}\d|\d)\s+[ée]chantillons\s+analys[ée]s\.?", re.I)
@@ -230,6 +239,10 @@ COUPURE_RE = re.compile(r"\bcumul\b|\bAu total\b|\n(?=(?:Les |La |Le |Dans |FIGU
 
 def lire_province(morceau):
     """Les nombres d'un morceau de section consacré à une province."""
+    # « 311 échantillons reçus au total, dont 308 analysés » (181 Nord-Kivu),
+    # « reçus et testés au total » (181 Ituri) : ce « au total » n'ouvre pas
+    # une synthese, la coupure ci-dessous emportait toute la ligne.
+    morceau = re.sub(r"\b((?:re[çc]u|test[ée]|analys[ée]|r[ée]ceptionn[ée])s?)\s+au\s+total\b", r"\1", morceau, flags=re.I)
     c = COUPURE_RE.search(morceau)
     if c:
         morceau = morceau[:c.start()]

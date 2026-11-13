@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-10"
+    "fin": "2026-11-11"
   },
   "parDate": [
     {
@@ -9192,6 +9192,69 @@
             "Tshopo"
           ],
           "horsDefis": "2.11.1. Principales actions"
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-11",
+      "sitrepNumber": "181",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "Non-fonctionnalité de certains PoE/PoC en raison de l'insécurité (ex. Avakubi en Tshopo ou Butuhe au Nord-Kivu), de grèves ou de retards de paiement, et manque d'infrastructures d'isolement adéquates dans plusieurs ports et barrières (notamment au Sud-Kivu)."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Sud-Kivu",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "laboratoire",
+          "titre": "Laboratoire",
+          "items": [
+            "Rupture de réactif (Tampon MVE) et pré-rupture de gasoil pour le fonctionnement de l'incinérateur et du générateur"
+          ],
+          "provinces": []
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "Manque d'accès à l'eau potable et de capacité de stockage (48h) dans les ESS, faible proportion de PPL formés en PCI, et absence de zones de triage."
+          ],
+          "provinces": []
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "16/20 ESS prioritaires sans zone de triage fonctionnelle, 20/20 ESS sans matelas garnis, 17/20 ESS sans approvisionnement d'eau sur 72h, et absence de zones de gestion des déchets conformes."
+          ],
+          "provinces": [
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique (PEC)",
+          "items": [
+            "Grève des prestataires du CTE Kasenyi suite à l'impaiement et 14 patients non alimentés dans la ZS de Mandima."
+          ],
+          "provinces": [
+            "Nord-Ubangi"
+          ]
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "Risque de péremption/perte de 195 doses de vaccins et mise en marche nécessaire des unités de chaîne de froid (UCC)."
+          ],
+          "provinces": []
         }
       ],
       "source": "SitRep INSP (automatique)"

@@ -279,8 +279,15 @@ DATES_RAPPORT_CORRIGEES = {
 # 178. On retient le detail ; le chiffre imprime est garde a cote
 # (national.inCTEPublie) pour que la Lettre le dise. Ne s'applique que si la
 # bande porte bien la valeur citee.
+# Retenu a None quand le detail ne permet pas de recompter : le SitRep 181
+# imprime 1 676 (981 la veille), quand ses provinces detaillent 540
+# hospitalises au Nord-Kivu (plus 212 hors CTE), environ 380 en Ituri
+# (« 366 patients sur 380 »), 60 au Haut-Uele, 33 au Nord-Ubangi et une
+# vingtaine de suspects au Bas-Uele, sans total pour l'Ituri ni la Tshopo.
+# Aucun recomptage ne s'approche de 1 676 : le chiffre n'est pas repris.
 KPI_CORRIGES = {
     "179": {"inCTE": (651, 973)},
+    "181": {"inCTE": (1676, None)},
 }
 
 
@@ -2434,7 +2441,7 @@ def main():
         if national.get(_champ) == _publie:
             national[_champ] = _retenu
             national[_champ + "Publie"] = _publie
-            print(f"  ! {_champ} : {_publie} imprime en tete, {_retenu} retenu (detail des provinces, KPI_CORRIGES).")
+            print(f"  ! {_champ} : {_publie} imprime en tete, {_retenu if _retenu is not None else 'rien'} retenu (detail des provinces, KPI_CORRIGES).")
 
     # Repli sur la ligne « Total » du tableau détaillé quand la lecture par
     # colonnes n'a rien donné : elle porte les mêmes chiffres, en clair.

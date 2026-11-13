@@ -12668,6 +12668,77 @@
 "insecurite"
 ]
 }
+],
+"non fonctionnalité de certains poe poc en raison de l insécurité ex avakubi en tshopo ou butuhe au nord kivu de grèves ou de retards de paiement et manque d infrastructures d isolement adéquates dans plusieurs ports et barrières notamment au sud kivu": [
+{
+"province": "Tshopo",
+"obstacles": [
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Nord-Kivu",
+"obstacles": [
+"poc",
+"insecurite"
+]
+},
+{
+"province": "Sud-Kivu",
+"obstacles": [
+"poc",
+"ruptures"
+]
+},
+{
+"province": "aucune",
+"obstacles": [
+"poc",
+"impayes"
+]
+}
+],
+"rupture de réactif tampon mve et pré rupture de gasoil pour le fonctionnement de l incinérateur et du générateur": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"manque d accès à l eau potable et de capacité de stockage #h dans les ess faible proportion de ppl formés en pci et absence de zones de triage": [
+{
+"province": "Tshopo",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"# # ess prioritaires sans zone de triage fonctionnelle # # ess sans matelas garnis # # ess sans approvisionnement d eau sur #h et absence de zones de gestion des déchets conformes": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
+],
+"grève des prestataires du cte kasenyi suite à l impaiement et # patients non alimentés dans la zs de mandima": [
+{
+"province": "Ituri",
+"obstacles": [
+"impayes",
+"ruptures"
+]
+}
+],
+"risque de péremption perte de # doses de vaccins et mise en marche nécessaire des unités de chaîne de froid ucc": [
+{
+"province": "Bas-Uélé",
+"obstacles": [
+"ruptures"
+]
+}
 ]
 }
 }

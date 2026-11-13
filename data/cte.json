@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-11-10"
+    "fin": "2026-11-11"
   },
   "parDate": [
     {
@@ -5765,6 +5765,28 @@
         "lits": 40,
         "hospitalisesAvecLits": 6,
         "occupation": 15.0
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-11",
+      "sitrepNumber": "181",
+      "methode": "prose",
+      "provinces": {
+        "Nord-Kivu": {
+          "hospitalises": 540,
+          "admissions": 604
+        },
+        "Haut-Uélé": {
+          "hospitalises": 60
+        },
+        "Nord-Ubangi": {
+          "hospitalises": 33
+        }
+      },
+      "total": {
+        "hospitalises": 633,
+        "provinces": 3
       },
       "source": "SitRep INSP (automatique)"
     }

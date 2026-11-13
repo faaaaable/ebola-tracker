@@ -93,7 +93,11 @@ def lettre(num, lang):
             "barres": [(float(h), "is-der" in r) for r, h in re.findall(r'(<rect [^>]*height="([\d.]+)"[^>]*>)', mini)],
             "legende": txt(re.search(r"</svg>\s*<span>(.*?)</span>", mini, re.S).group(1)),
             "titre": txt(re.search(r'class="lq-titre">(.*?)</h1>', s, re.S).group(1)),
-            "chapo": txt(re.search(r'class="lq-chapo">(.*?)</p>', s, re.S).group(1)),
+            # Sans la comparaison a la moyenne de la semaine (span.lq-niveau).
+            "chapo": re.sub(r"\s{2,}", " ", txt(re.sub(r'<span class="lq-niveau">.*?</span>', "",
+                            re.search(r'class="lq-chapo">(.*?)</p>', s, re.S).group(1), flags=re.S))),
+            # Zone ou province touchee pour la premiere fois (span.lq-nouveau).
+            "nouveau": txt((re.search(r'<span class="lq-nouveau">(.*?)</span>', s, re.S) or [None, ""])[1]),
             "chiffres": [(txt(b), txt(sp), cls) for cls, b, sp in re.findall(
                 r'<div class="lq-chiffre ?([a-z-]*)"><b>(.*?)</b><span>(.*?)</span></div>', s, re.S)]}
 
@@ -145,6 +149,9 @@ def mail(num, lang):
                   f'<div style="line-height:1.9;">{provinces}</div></td></tr>\n') if provinces else ""
     objet = t["objet"] % (num, d["titre"])
     apercu = premiere_phrase(d["chapo"])
+    # Une zone ou une province nouvelle se lit des la boite de reception.
+    if d["nouveau"]:
+        apercu += " " + d["nouveau"]
     accueil = ORIGINE + ("en/" if lang == "en" else "")
     corps = f"""<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(objet)}</title></head>
 <body style="margin:0;padding:0;background:#F7F3EE;">

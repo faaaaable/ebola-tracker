@@ -169,7 +169,12 @@ def fin_du_bloc(texte, debut):
     return fin, None
 
 
-INLINE_DEFI = re.compile(r'(?<![\w])D[ée]fis?\s*:\s*([^\n]*(?:\n(?!\s*(?:\d+(?:\.\d+)+\.?\s|[•▪\uf0b7]))[^\n]*)*)')
+# SitRep 181 : « Défis : Rupture de réactif … du générateur » suivi, sans
+# puce, de « Haut-Uélé : 19 nouveaux prélèvements analysés … » : une ligne
+# qui s'ouvre sur « Province : » ferme aussi le defi.
+_PROVINCE_TETE = r'(?:Ituri|Nord[- ]?Kivu|Sud[- ]?Kivu|Haut[- ]?U[ée]l[ée]|Bas[- ]?U[ée]l[ée]|Tshopo|TSHOPO|Sud[- ]?Ubangi|Nord[- ]?Ubangi)\s*:'
+# « Défis majeurs : Grève des prestataires du CTE Kasenyi … » (181).
+INLINE_DEFI = re.compile(r'(?<![\w])D[ée]fis?(?:\s+majeurs?)?\s*:\s*([^\n]*(?:\n(?!\s*(?:\d+(?:\.\d+)+\.?\s|[•▪\uf0b7]|' + _PROVINCE_TETE + r'))[^\n]*)*)')
 
 
 def province_de_la_puce(texte, position):

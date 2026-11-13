@@ -72,7 +72,9 @@ FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Communication|CREC|Logistique|S[ée]curit[
 REPERE_RE = re.compile(r"(?:^|[\n•→▪\-\uf000-\uf0ff]|\bEn |\bAu |\bÀ la |\bA la |\bau |\ben |\bà la |\bLe |\bL[’'])\s*(%s)\b" % PROVINCES_RE)
 
 CAS_CONF_SUSP_RE = re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+et\s+(\d[\d ]{0,4}\d|\d)\s+cas\s+suspects\s+"
-                              r"(?:sont\s+(?:actuellement\s+)?hospitalis|isol[ée]s)", re.I)
+                              r"(?:(?:sont\s+)?actuellement\s+hospitalis|sont\s+hospitalis|isol[ée]s)", re.I)
+# « 22 cas confirmés et 38 cas suspects actuellement hospitalisés » (181
+# Haut-Uele) : sans « sont ».
 SOMME_RES = (CAS_CONF_SUSP_RE,)
 HOSPITALISES_RES = [
     # SitRep 150 (11 octobre 2026, Nord-Kivu) : « 471 patients dont 67

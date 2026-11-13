@@ -24,6 +24,19 @@ import harmonisations
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+def chapo_html(t, esc):
+    """Le chapo de la lettre. Deux phrases y sont marquees pour le mail : la
+    comparaison a la moyenne de la semaine (span.lq-niveau, que le mail
+    retire) et les zones ou provinces nouvelles (span.lq-nouveau, que le mail
+    reprend en apercu)."""
+    out = esc(t.get("jour") or "")
+    for cle, classe in (("jour_niveau", "lq-niveau"), ("jour_nouveau", "lq-nouveau")):
+        phrase = esc(t.get(cle) or "")
+        if phrase and out.count(phrase) == 1:
+            out = out.replace(phrase, '<span class="%s">%s</span>' % (classe, phrase))
+    return out
+
+
 def _lire(chemin):
     with io.open(os.path.join(ROOT, chemin), encoding="utf-8") as fh:
         return json.load(fh)
@@ -314,10 +327,20 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
 
     # ---------------------------------------------------------------- zones nouvelles
     nouvelles = []
+    jour_nouveau = ""
+    jour_niveau = ""
     zi = next((i for i, z in enumerate(zh) if z["date"] == date), None)
     if zi:
         avant = {_cle_zone(z) for z in zh[zi - 1]["zones"]}
         nouvelles = [z for z in zh[zi]["zones"] if _cle_zone(z) not in avant]
+    # Provinces touchees pour la premiere fois ce jour-la (13 novembre 2026) :
+    # dites en tete de la phrase des zones, dans la lettre et dans le mail.
+    nouvelles_prov = []
+    if zi:
+        prov_avant = {z.get("province") for z in zh[zi - 1]["zones"]}
+        for z in nouvelles:
+            if z.get("province") and z["province"] not in prov_avant and z["province"] not in nouvelles_prov:
+                nouvelles_prov.append(z["province"])
     # Date de la derniere zone nouvelle, pour ecrire « aucune nouvelle zone
     # depuis le ... » (8 septembre 2026).
     derniere_nouvelle = None
@@ -371,11 +394,19 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                 r = n_ / moy_cas if moy_cas else 2
                 cle = ("lettreNiveauPlusF" if r > 1.1 else "lettreNiveauUnPeuPlusF" if n_ > m_ else
                        "lettreNiveauMoinsF" if r < 0.9 else "lettreNiveauUnPeuMoinsF")
-            jour += " " + P(cle, moy=fmt(m_, lang))
+            jour_niveau = P(cle, moy=fmt(m_, lang))
+            jour += " " + jour_niveau
         if nouvelles:
-            jour += " " + P("lettreZonesNewF" if len(nouvelles) == 1 else "lettreZonesNewPlF",
-                            zones=_liste(["%s (%s)" % (z["name"], z["province"]) for z in nouvelles], et),
-                            n=fmt(zt.get("n"), lang), prov=fmt(nb_prov, lang))
+            # « la zone de santé de Watsa », « … d'Isiro » : la preposition
+            # francaise, elidee devant une voyelle, va devant chaque nom.
+            de = (lambda n: ("d'" if n[:1].lower() in "aeiouéèêâîôû" else "de ") + n) if lang == "fr" else (lambda n: n)
+            jour_nouveau = P("lettreZonesNewF" if len(nouvelles) == 1 else "lettreZonesNewPlF",
+                             zones=_liste([de("%s (%s)" % (z["name"], z["province"])) for z in nouvelles], et),
+                             n=fmt(zt.get("n"), lang), prov=fmt(nb_prov, lang))
+            if nouvelles_prov:
+                jour_nouveau = P("lettreProvNewF" if len(nouvelles_prov) == 1 else "lettreProvNewPlF",
+                                 provinces=_liste([forms(p_)["the"] for p_ in nouvelles_prov], et)) + " " + jour_nouveau
+            jour += " " + jour_nouveau
         elif derniere_nouvelle:
             jour += " " + P("lettreZonesDepuisF", date=jour_mois(derniere_nouvelle), n=fmt(zt.get("n"), lang), prov=fmt(nb_prov, lang))
         else:
@@ -432,6 +463,10 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # KPI_CORRIGES d'update_data) : on dit les deux chiffres.
         if nat.get("inCTEPublie") is not None and nat.get("inCTE") is not None:
             txt += " " + P("lettreCteCorrigeF", publie=fmt(nat["inCTEPublie"], lang), n=fmt(nat["inCTE"], lang))
+        # Chiffre imprime que le detail ne retrouve pas, sans recomptage
+        # possible (SitRep 181) : on le cite, sans le reprendre.
+        elif nat.get("inCTEPublie") is not None:
+            txt += " " + P("lettreCteEcarteF", publie=fmt(nat["inCTEPublie"], lang))
         if None not in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec):
             mc, mcp, md, mdp = (round(v) for v in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec))
             if mc == mcp and md == mdp:
@@ -1060,11 +1095,12 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                         % (fmt(nat.get("recovered"), lang), esc(S["lettreUneGueris"]),
                            (" · " + plus(gueris_delta)) if gueris_delta is not None else "")
                         if nat.get("recovered") is not None else "")
+        # Sans chiffre retenu (SitRep 181, bande de tete ecartee), la case
+        # reste, avec un tiret, comme sur la page Ensemble du pays.
         une["extra"] += ('<div class="lq-chiffre is-cte"><b>%s</b><span>%s</span></div>'
-                         % (fmt(nat.get("inCTE"), lang), esc(S["lettreUneCte"]))
-                         if nat.get("inCTE") is not None else "")
+                         % (fmt(nat.get("inCTE"), lang) if nat.get("inCTE") is not None else "—", esc(S["lettreUneCte"])))
     tete = {"une": une, "num": num, "date": long_date(date, i18n_lang), "publie": long_date(meta.get("publicationDate") or date, i18n_lang),
-            "objet": objet, "jour": jour, "ref": meta.get("sitrepRef") or "", "pdf": pdf, "pied": pied, "pied_html": pied_html, "sous": sous_titre,
+            "objet": objet, "jour": jour, "jour_nouveau": jour_nouveau, "jour_niveau": jour_niveau, "ref": meta.get("sitrepRef") or "", "pdf": pdf, "pied": pied, "pied_html": pied_html, "sous": sous_titre,
             "nav_html": nav_html, "archive_html": archive_html, "abo_html": _abonnement(lang, S, esc)}
     return {"seed.bulletinAgence": assembler_agence(tete, chapitres, S, esc, interp)}
 
@@ -1100,7 +1136,7 @@ def assembler_agence(t, chapitres, S, esc, interp):
            % (esc(S["lettreEyebrow"]), esc(S["agEdition"] % t["num"]), esc(interp(S["lettreSituationAu"], {"date": t["date"]})), esc(t["sous"]), lien, t["nav_html"]),
            '<div class="lq-grille"><div class="lq-principal" id="%s"><div class="lq-eyebrow">%s</div><h1 class="lq-titre">%s</h1>'
            '<p class="lq-chapo">%s</p>%s</div>'
-           % (premier[0], esc(S["lettreUneEyebrow"]), esc(u["titre"]), esc(t["jour"]), premier[3]),
+           % (premier[0], esc(S["lettreUneEyebrow"]), esc(u["titre"]), chapo_html(t, esc), premier[3]),
            # Avec les cases gueris et CTE, les chiffres passent sur deux
            # colonnes : cas | deces, gueris | CTE, puis la letalite seule.
            ('<aside class="lq-encadre" aria-label="%s"><div class="lq-deux">'
