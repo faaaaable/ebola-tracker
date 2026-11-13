@@ -1972,6 +1972,105 @@ def epidemies_rdc(c):
     return svg.replace('<line x1="60" x2="%d" y1="%d" y2="%d" stroke="%s"/>' % (W - 60, h - 92, h - 92, LINE), "")
 
 
+# ================================================================ zone par zone
+# Le graphique jour par jour de chaque zone de sante, comme sur la page de sa
+# province (13 novembre 2026, maquette tmp/proto-zones-menu-1113) : un menu
+# deroulant, un SVG par zone ecrit dans assets/img/visuels/zones/<langue>/ et
+# charge au choix. Seul le premier (la zone au plus fort cumul) est dans la page.
+ZJ = {
+ "fr": dict(titre="{z} : les nouveaux cas, jour par jour",
+            sous="Nouveaux cas confirmés déclarés chaque jour dans la zone de santé de {z} ({p}), du {a} au {b}.",
+            phrase="{s} cas en sept jours, {c} depuis le début.",
+            h3="Zone par zone : les nouveaux cas, jour par jour", label="Zone de santé", opt="{z} ({n} cas)",
+            prec="Zone précédente", suiv="Zone suivante", lien="Voir sur la page {p}",
+            lire="Choisissez une zone de santé : sa courbe quotidienne, comme sur la page de sa province."),
+ "en": dict(titre="{z}: new cases, day by day",
+            sous="New confirmed cases reported each day in {z} health zone ({p}), {a} to {b}.",
+            phrase="{s} cases in seven days, {c} since the start.",
+            h3="Zone by zone: new cases, day by day", label="Health zone", opt="{z} ({n} cases)",
+            prec="Previous zone", suiv="Next zone", lien="See on the {p} page",
+            lire="Pick a health zone: its daily curve, as on its province page."),
+ "sw": dict(titre="{z}: visa vipya, siku kwa siku",
+            sous="Visa vipya vilivyothibitishwa vinavyoripotiwa kila siku katika kanda ya afya ya {z} ({p}), {a} hadi {b}.",
+            phrase="Visa {s} katika siku saba, {c} tangu mwanzo.",
+            h3="Kanda kwa kanda: visa vipya, siku kwa siku", label="Kanda ya afya", opt="{z} (visa {n})",
+            prec="Kanda iliyotangulia", suiv="Kanda inayofuata", lien="Tazama kwenye ukurasa wa {p}",
+            lire="Chagua kanda ya afya: mkondo wake wa kila siku, kama kwenye ukurasa wa jimbo lake."),
+}
+ZJ_DOSSIER = "/assets/img/visuels/zones/"
+
+
+def _slug_zone(n):
+    s = "".join(ch for ch in unicodedata.normalize("NFD", n.lower()) if unicodedata.category(ch) != "Mn")
+    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+
+
+def _zone_jour(c, Dz, jours, prov, z):
+    """Une zone, jour par jour : barre pleine = un jour, teinte claire = jours
+    reunis ou rattrapage (data/zones-jour.json, comme app.js)."""
+    t = ZJ[c.lang]; pj = PJ[c.lang]; fin = jours[-1]
+    rap, rat = [], []
+    for d in jours:
+        s = d.isoformat(); x = z["j"].get(s) or {}
+        if not Dz["sitrep"].get(s):
+            rap.append(None); rat.append(None); continue
+        v = x.get("c", 0); clair = (x.get("n") or 1) > 1 or x.get("ratt")
+        rap.append(None if clair else v); rat.append(v if clair else None)
+    pn = PROV_NOM.get(c.lang, {}).get(prov, prov)
+    titre = t["titre"].format(z=z["nom"])
+    sous = t["sous"].format(z=z["nom"], p=pn, a=c.dc(jours[0]), b=c.dl_(fin))
+    haut = _haut(titre, sous)
+    pic = max(((a or 0) + (b or 0) for a, b in zip(rap, rat)), default=0)
+    marge = max(1.5, 5 / pic) if 0 < pic <= 10 else 1.06   # comme app.js : un axe a 5 au moins
+    R, out, _ = _quotidien(c, jours, rap, rat, PROV.get(prov, BLUE), pj["jour"], pj["ratt"], marge=marge, haut=haut)
+    sept = sum((a or 0) + (b or 0) for d, a, b in zip(jours, rap, rat) if d > fin - dt.timedelta(7))
+    out.append(_phrase(c, t["phrase"].format(s=c.nb(sept), c=c.nb(z["cas"])), y=R.Y1 + 84))
+    return c.carte(titre, sous, "".join(out), h=1160 - haut - 120)
+
+
+def zones_menu_html(c, liens):
+    """La figure « Zone par zone » : menu, premier graphique dans la page, les
+    autres ecrits a cote, en fichiers."""
+    from urllib.parse import quote
+    t = ZJ[c.lang]; p = c.p; noms = PROV_NOM.get(c.lang, {})
+    Dz = _j("data/zones-jour.json")
+    deb, fin = D(Dz["debut"]) + dt.timedelta(1), D(Dz["fin"])
+    jours = [deb + dt.timedelta(i) for i in range((fin - deb).days + 1)]
+    dossier = os.path.join(ROOT, *ZJ_DOSSIER.strip("/").split("/"), c.lang)
+    os.makedirs(dossier, exist_ok=True)
+    groupes, premier, faits = [], None, set()
+    for prov, zs in sorted(Dz["provinces"].items(), key=lambda kv: -sum(z["cas"] for z in kv[1])):
+        o = []
+        for z in sorted(zs, key=lambda z: (-z["cas"], z["nom"])):
+            sl = _slug_zone(z["nom"]); svg = _zone_jour(c, Dz, jours, prov, z)
+            with open(os.path.join(dossier, sl + ".svg"), "w", encoding="utf-8") as f:
+                f.write(svg)
+            faits.add(sl + ".svg")
+            lien = (liens or {}).get(prov)
+            lien = "%s?zone=%s" % (lien, quote(z["nom"])) if lien else ""
+            if premier is None:
+                premier = (sl, svg, lien, noms.get(prov, prov), z["nom"])
+            o.append('<option value="%s" data-lien="%s" data-prov="%s">%s</option>'
+                     % (sl, esc(lien), esc(noms.get(prov, prov)), esc(t["opt"].format(z=z["nom"], n=c.nb(z["cas"])))))
+        groupes.append('<optgroup label="%s">%s</optgroup>' % (esc(noms.get(prov, prov)), "".join(o)))
+    for f in os.listdir(dossier):   # zone disparue du tableau : son fichier part
+        if f.endswith(".svg") and f not in faits:
+            os.remove(os.path.join(dossier, f))
+    if premier is None:
+        return ""
+    sl, svg, lien, pn, zn = premier
+    return ('<figure class="vx-fig vx-zj" id="zone-par-zone" data-dossier="%s%s/" data-v="%s" data-agrandir="%s" data-lien-txt="%s">'
+            '<div class="vx-zj-bar"><label for="vxZj">%s</label><select id="vxZj">%s</select>'
+            '<button type="button" class="vx-zj-pas" data-pas="-1" aria-label="%s">←</button>'
+            '<button type="button" class="vx-zj-pas" data-pas="1" aria-label="%s">→</button></div>'
+            '<div class="vx-img" data-vx-nom="zone-%s" role="button" tabindex="0" aria-label="%s">%s</div>'
+            '<figcaption><div><h3>%s</h3><p>%s <a class="vx-zj-lien" href="%s">%s →</a></p></div>'
+            '<button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
+            % (ZJ_DOSSIER, c.lang, esc(str(c.SITREP)), esc(p["agrandir"]), esc(t["lien"]), esc(t["label"]), "".join(groupes),
+               esc(t["prec"]), esc(t["suiv"]), sl, esc(p["agrandir"] + " : " + t["titre"].format(z=zn)), svg,
+               esc(t["h3"]), esc(t["lire"]), esc(lien), esc(t["lien"].format(p=pn)), esc(p["png"])))
+
+
 LISTE = [
     ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"),
            ("nouveaux-cas-jour", None, lambda c: r_national(c, "confirmed"), "nat"), ("nouveaux-deces-jour", None, lambda c: r_national(c, "deaths"), "natdec"),
@@ -2019,7 +2118,7 @@ def cartes_html(c, lang):
                "".join(figs)))
 
 
-def page_html(lang, mois_courts):
+def page_html(lang, mois_courts, liens_prov=None):
     """Le corps de la page Visuels pour une langue : trois etages, chacun avec
     ses visuels, leur titre, leur texte de lecture et le bouton PNG."""
     c = Contexte(lang, mois_courts); p = c.p
@@ -2043,6 +2142,8 @@ def page_html(lang, mois_courts):
             figs.append('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
                         '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
                         % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else LZ[lang]["lire"] if lire == "lieuzones" else TZ[lang]["lire"] if lire == "topzones" else DZ[lang]["lire"] if lire == "dynzones" else PJ[lang]["lire"])), esc(p["png"])))
+        if etage == "b":
+            figs.append(zones_menu_html(c, liens_prov))
         out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
                    '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
     out.append(cartes_html(c, lang))

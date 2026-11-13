@@ -5285,7 +5285,8 @@ def render_page(page, province, lang, config, strings, strings_lang, i18n_lang,
         # Les douze visuels, dessines en SVG dans la langue de la page a
         # chaque generation (scripts/visuels.py). Pas d'echappement : c'est du
         # balisage, construit et echappe par le module.
-        values["vis.html"] = visuels.page_html(lang, i18n_lang["months"])
+        values["vis.html"] = visuels.page_html(lang, i18n_lang["months"],
+                                                {p: urls.province_path(p, lang) for p in urls.province_slugs})
     if page.get("id") == "accueil":
         # La bande « Visuels » (13 octobre 2026), a la place de la Chronologie :
         # six vignettes sans texte, dessinees dans la langue de la page.
