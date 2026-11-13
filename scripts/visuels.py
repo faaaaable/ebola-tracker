@@ -1433,23 +1433,28 @@ def _province(c, nom, champ):
     pnom = PROV_NOM.get(c.lang, {}).get(nom, nom); teinte = RED if deces else PROV.get(nom, BLUE)
     pts, jours, rap, rat, trous, multi, calculees = _serie_province(c, nom, champ)
     releves = dict(pts)
-    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec"] if deces else r["jour"], r["ratt"], MARGE_HAUTE.get(nom, 1.06))
+    if deces:
+        titre = a["provDecTitre"].format(p=pnom); sous = a["provDecSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1]))
+    else:
+        titre = r["titre"].format(p=pnom); sous = r["sous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1]))
+    haut = _haut(titre, sous)
+    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec"] if deces else r["jour"], r["ratt"], MARGE_HAUTE.get(nom, 1.06), haut=haut)
     k = max(i for i, v in enumerate(rap) if v is not None)
     d = jours[k]; avant = [v for dd, v in pts if dd <= d - dt.timedelta(7)]
     sept = releves[d] - avant[-1] if avant else releves[d]
     if deces:
         sept -= sum(h["deces"] for iso, h in HARM.items() if h["province"] == nom and d - dt.timedelta(7) < D(iso) <= d)
-    out.append(_phrase(c, (a["provDecPhrase"] if deces else r["phrase"]).format(d=c.dc(d), n=c.nb(rap[k]), s=c.nb(sept), c=c.nb(releves[d]))))
+    out.append(_phrase(c, (a["provDecPhrase"] if deces else r["phrase"]).format(d=c.dc(d), n=c.nb(rap[k]), s=c.nb(sept), c=c.nb(releves[d])), y=R.Y1 + 84))
     notes = []
     blancs = sum(1 for d in jours if d not in releves and d not in calculees)
     if blancs: notes.append(r["blancsDec" if deces else "blancs"].format(n=blancs))
     if trous: notes.append(r["trouDec" if deces else "trou"].format(p=" ; ".join(trous)))
     # Rattrapages : nommes par la pastille de la legende ; harmonisation du
     # 30 octobre : plus de phrase (12 novembre 2026).
-    out.append(_notes(c, [" ".join(notes)]))
-    if deces:
-        return c.carte(a["provDecTitre"].format(p=pnom), a["provDecSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
-    return c.carte(r["titre"].format(p=pnom), r["sous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1190)
+    out.append(_notes(c, [" ".join(notes)], y=R.Y1 + 121))
+    import textwrap   # le pied suit les lignes de note (4 au plus)
+    nl = min(4, len(textwrap.wrap(" ".join(notes), 140)))
+    return c.carte(titre, sous, "".join(out), h=1160 - haut - 50 + 22 * max(0, nl - 1))
 
 
 def r_province(c, rang):
@@ -1562,7 +1567,7 @@ SEUIL_COURBE = 50          # SEUIL_COURBE_PROVINCE de build_pages.py
 MARGE_HAUTE = {"Tshopo": 1.6, "Haut-Uélé": 1.6}
 
 
-def _quotidien(c, jours, rap, rat, teinte, lab_jour, lab_ratt, marge=1.06):
+def _quotidien(c, jours, rap, rat, teinte, lab_jour, lab_ratt, marge=1.06, haut=0):
     """Barres du jour et du rattrapage, axe plafonne au pic ordinaire quand un
     rattrapage l'ecraserait (meme regle que r_province et app.js)."""
     ordinaire = max((v for v, k in zip(rap, rat) if v is not None and not k), default=0)
@@ -1580,18 +1585,32 @@ def _quotidien(c, jours, rap, rat, teinte, lab_jour, lab_ratt, marge=1.06):
     if not plafond and marge != 1.06:
         ymax = math.ceil(ymax / pas) * pas
     R = Repere(c, jours, ymax)
+    if haut:    # cadre remonte d'autant (graphiques nationaux)
+        R.Y0, R.Y1 = R.Y0 - haut, R.Y1 - haut
     # Le plafond vaut pour la pile entiere : la part du jour, puis le
     # rattrapage dans ce qui reste sous l'axe.
     rap_c = [None if v is None else min(v, ymax) for v in rap]
     rat_c = [None if v is None else min(v, ymax - (r or 0)) for v, r in zip(rat, rap_c)]
     legende = [(lab_jour, teinte)] + ([(lab_ratt, _tint(teinte, .35))] if any(rat) else [])
-    out = [c.legende(R.X0, 262, legende), R.grille(c.nb, pas=pas), R.barres([(rap_c, teinte), (rat_c, _tint(teinte, .35))])]
+    out = [c.legende(R.X0, 262 - haut, legende), R.grille(c.nb, pas=pas), R.barres([(rap_c, teinte), (rat_c, _tint(teinte, .35))])]
     coupees = [(i, (a or 0) + (b or 0)) for i, (a, b) in enumerate(zip(rap, rat)) if (a or 0) + (b or 0) > ymax]
     for i, tot in coupees:
         x, y = R.x(i), R.Y0
         out.append('<path d="M%.1f %.1f l%.1f -5 M%.1f %.1f l%.1f -5" stroke="%s" stroke-width="2"/>' % (x - 6, y + 12, 12, x - 6, y + 18, 12, BG))
         out.append(c.T(x, y - 8, c.nb(tot), 13, INK, "middle", 700))
     return R, out, coupees
+
+
+HAUT_NAT = 64   # moins de blanc sous le sous-titre des graphiques quotidiens
+
+
+def _haut(titre, sous):
+    """Remontee du cadre sous l'en-tete, reduite quand le titre ou le
+    sous-titre passent sur deux lignes (memes coupures que carte())."""
+    import textwrap
+    lt = len(textwrap.wrap(titre, 46)) if len(titre) > 50 else 1
+    ls = min(2, len(textwrap.wrap(sous, 96)))
+    return max(0, HAUT_NAT - 46 * (lt - 1) - 26 * (ls - 1))
 
 
 def r_national(c, champ):
@@ -1616,22 +1635,24 @@ def r_national(c, champ):
             rap.append(None); rat.append(v)
         else:
             part = min(RATTRAPAGES[iso], v); rap.append(part); rat.append(v - part)
-    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec" if deces else "jourCas"], a["ratt"])
+    titre = a["decTitre" if deces else "casTitre"]
+    sous = a["decSous" if deces else "casSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1]))
+    haut = _haut(titre, sous)
+    R, out, coupees = _quotidien(c, jours, rap, rat, teinte, a["jourDec" if deces else "jourCas"], a["ratt"], haut=haut)
     i = max(j for j, d in enumerate(jours) if (rap[j] is not None or rat[j] is not None))
     d = jours[i]; cum = c.au(d)[champ]; avant = c.au(d - dt.timedelta(7))[champ]
     n = (rap[i] or 0) + (rat[i] or 0)
     if deces:   # les deces d'une harmonisation n'appartiennent a aucune journee
         if d.isoformat() in HARM: n = rap[i] or 0
         avant += harmonisations.deces_entre((d - dt.timedelta(7)).isoformat(), d.isoformat())
-    out.append(_phrase(c, a["phraseDec" if deces else "phraseCas"].format(d=c.dc(d), n=c.nb(n), s=c.nb(cum - avant), c=c.nb(cum))))
+    out.append(_phrase(c, a["phraseDec" if deces else "phraseCas"].format(d=c.dc(d), n=c.nb(n), s=c.nb(cum - avant), c=c.nb(cum)), y=R.Y1 + 84))
     notes = []
     blancs = sum(1 for d in jours if d not in c.jours)
     if blancs: notes.append(a["blancs"].format(n=blancs))
     # Pas de note des rattrapages : la pastille de la legende les nomme deja
     # (12 novembre 2026). Plus de phrase sur l'harmonisation du 30 octobre.
-    out.append(_notes(c, notes))
-    return c.carte(a["decTitre" if deces else "casTitre"],
-                   a["decSous" if deces else "casSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
+    out.append(_notes(c, notes, y=R.Y1 + 121))
+    return c.carte(titre, sous, "".join(out), h=1160 - haut - 50)
 
 
 def provinces_a_courbe(c):
