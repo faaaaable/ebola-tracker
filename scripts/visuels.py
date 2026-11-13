@@ -701,6 +701,116 @@ def h_lieu(c):
 # matiere que le bloc des pages des provinces), pour les zones qui comptent au
 # moins LZ_SEUIL deces — sous ce seuil, comme sur les pages des provinces, un
 # deces de plus change trop la part.
+# Les 20 zones de sante qui comptent le plus de cas confirmes, en barres
+# horizontales, couleur par province (13 novembre 2026, maquette 1 de
+# tmp/proto-zones-cas-1113 ; la province n'est plus sous le nom : la legende).
+TZ_N = 20
+TZ = {
+ "fr": dict(titre="Les {n} zones de santé les plus touchées",
+            sous="Cas confirmés par zone de santé, depuis le début de l'épidémie, au {d}",
+            phrase="{n} zones de santé concentrent {p} des {t} cas confirmés.",
+            note="Sur {z} zones de santé touchées.", cas="cas",
+            lire="Les zones de santé qui comptent le plus de cas confirmés depuis le début, et leur province."),
+ "en": dict(titre="The {n} hardest-hit health zones",
+            sous="Confirmed cases by health zone since the start of the outbreak, as of {d}",
+            phrase="{n} health zones account for {p} of the {t} confirmed cases.",
+            note="Out of {z} affected health zones.", cas="cases",
+            lire="The health zones with the most confirmed cases since the start, and their province."),
+ "sw": dict(titre="Kanda {n} za afya zilizoathirika zaidi",
+            sous="Wagonjwa waliothibitishwa kwa kila kanda ya afya tangu mwanzo wa mlipuko, hadi {d}",
+            phrase="Kanda {n} za afya zina {p} ya wagonjwa {t} waliothibitishwa.",
+            note="Kati ya kanda {z} za afya zilizoathirika.", cas="wagonjwa",
+            lire="Kanda za afya zenye wagonjwa wengi zaidi waliothibitishwa tangu mwanzo, na mkoa wao."),
+}
+
+
+def top_zones(c):
+    z = TZ[c.lang]; noms = PROV_NOM.get(c.lang, {})
+    zones = [x for x in c.latest["healthZones"] if x.get("cases")]
+    if len(zones) < 2:
+        return None
+    tot = sum(x["cases"] for x in zones)
+    zz = sorted(zones, key=lambda x: (-x["cases"], x["name"]))[:TZ_N]
+    provs = []
+    for x in zz:
+        if x["province"] not in provs: provs.append(x["province"])
+    X0, X1, Y0, rh = 230, 1060, 232, 30
+    mx = zz[0]["cases"]
+    out = [c.legende(60, 200, [(noms.get(p, p), PROV.get(p, INK_DIM)) for p in provs])]
+    for i, x in enumerate(zz):
+        y = Y0 + i * rh; w = (X1 - X0) * x["cases"] / mx; col = PROV.get(x["province"], INK_DIM)
+        out.append(c.T(X0 - 14, y + 20, x["name"], 17, INK, "end", 600))
+        out.append('<rect x="%d" y="%d" width="%.1f" height="%d" fill="%s"><title>%s (%s) : %s %s</title></rect>'
+                   % (X0, y + 4, w, rh - 8, col, esc(x["name"]), esc(noms.get(x["province"], x["province"])), c.nb(x["cases"]), z["cas"]))
+        out.append(c.T(X0 + w + 10, y + 20, c.nb(x["cases"]), 15, INK, "start", 700))
+    yb = Y0 + len(zz) * rh
+    part = c.pc(100 * sum(x["cases"] for x in zz) / tot)
+    out.append(c.T(60, yb + 62, z["phrase"].format(n=len(zz), p=part, t=c.nb(tot)), 24, INK, fam=SERIF))
+    out.append(c.T(60, yb + 98, z["note"].format(z=len(zones)), 15, INK_DIM))
+    return c.carte(z["titre"].format(n=len(zz)), z["sous"].format(d=c.dl_(c.FIN)), "".join(out), h=yb + 98 + 158)
+
+
+# Les 20 zones avec le plus de nouveaux cas sur 7, 14 et 30 jours, trois
+# classements cote a cote (13 novembre 2026, maquette A de tmp/proto-zones-dyn-1113).
+DZ_PER = (7, 14, 30)
+DZ = {
+ "fr": dict(titre="Les nouveaux cas par zone, sur 7, 14 et 30 jours",
+            sous="Les {n} zones de santé avec le plus de nouveaux cas, sur trois périodes, au {d}",
+            col="{n} derniers jours", cas="cas",
+            lire="Trois classements côte à côte : les zones où les cas se concentrent cette semaine, ces deux semaines et ce mois."),
+ "en": dict(titre="New cases by health zone over 7, 14 and 30 days",
+            sous="The {n} health zones with the most new cases, over three periods, as of {d}",
+            col="Last {n} days", cas="cases",
+            lire="Three rankings side by side: where cases are concentrated this week, these two weeks and this month."),
+ "sw": dict(titre="Wagonjwa wapya kwa kanda, kwa siku 7, 14 na 30",
+            sous="Kanda {n} za afya zenye wagonjwa wapya wengi zaidi, kwa vipindi vitatu, hadi {d}",
+            col="Siku {n} zilizopita", cas="wagonjwa",
+            lire="Orodha tatu kando kwa kando: kanda ambazo wagonjwa wamejikita wiki hii, wiki hizi mbili na mwezi huu."),
+}
+
+
+def _cle_zone(n):
+    import unicodedata
+    return "".join(ch for ch in unicodedata.normalize("NFD", n.lower()) if unicodedata.category(ch) != "Mn").replace("-", " ").strip()
+
+
+def dyn_zones(c):
+    z = DZ[c.lang]; noms = PROV_NOM.get(c.lang, {})
+    hist = _j("data/zones-history.json")
+    if len(hist) < 2:
+        return None
+    fin = D(hist[-1]["date"]); now = {_cle_zone(x["name"]): x for x in hist[-1]["zones"]}
+    tops = {}
+    for n in DZ_PER:
+        avant = [h for h in hist if D(h["date"]) <= fin - dt.timedelta(n)]
+        if not avant:
+            return None
+        av = {_cle_zone(x["name"]): x["cases"] or 0 for x in avant[-1]["zones"]}
+        nv = [(k, (x["cases"] or 0) - av.get(k, 0)) for k, x in now.items()]
+        tops[n] = sorted([kv for kv in nv if kv[1] > 0], key=lambda kv: (-kv[1], now[kv[0]]["name"]))[:TZ_N]
+    if not tops[DZ_PER[0]]:
+        return None
+    provs = []
+    for n in DZ_PER:
+        for k, _ in tops[n]:
+            if now[k]["province"] not in provs: provs.append(now[k]["province"])
+    import textwrap   # titre sur deux lignes dans carte() : on descend d'autant
+    dy = 46 * (len(textwrap.wrap(z["titre"], 46)) - 1) if len(z["titre"]) > 50 else 0
+    LN, BW, Y0, rh = 128, 200, 262 + dy, 30
+    out = [c.legende(60, 200 + dy, [(noms.get(p, p), PROV.get(p, INK_DIM)) for p in provs])]
+    for j, n in enumerate(DZ_PER):
+        x0 = 60 + 380 * j; mx = tops[n][0][1]
+        out.append(c.T(x0 + (LN + BW + 40) / 2, Y0 - 18, z["col"].format(n=n), 17, INK, "middle", 700))
+        for i, (k, v) in enumerate(tops[n]):
+            x = now[k]; y = Y0 + i * rh; w = BW * v / mx
+            out.append(c.T(x0 + LN - 10, y + 20, x["name"], 15, INK, "end", 600))
+            out.append('<rect x="%d" y="%d" width="%.1f" height="%d" fill="%s"><title>%s (%s) : %s %s</title></rect>'
+                       % (x0 + LN, y + 5, w, rh - 10, PROV.get(x["province"], INK_DIM), esc(x["name"]), esc(noms.get(x["province"], x["province"])), c.nb(v), z["cas"]))
+            out.append(c.T(x0 + LN + w + 6, y + 20, c.nb(v), 13, INK, weight=700))
+    yb = Y0 + max(len(t) for t in tops.values()) * rh
+    return c.carte(z["titre"], z["sous"].format(n=TZ_N, d=c.dl_(fin)), "".join(out), h=yb + 130)
+
+
 LZ_SEUIL = 20
 LZ = {
  "fr": dict(titre="Décès en communauté ou en centre de traitement, zone par zone",
@@ -1866,7 +1976,7 @@ LISTE = [
     ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"),
            ("nouveaux-cas-jour", None, lambda c: r_national(c, "confirmed"), "nat"), ("nouveaux-deces-jour", None, lambda c: r_national(c, "deaths"), "natdec"),
            ("provinces", None, carte_provinces, "provinces"), ("dix-sept-epidemies", None, epidemies_rdc, "epi"),
-           ("lieu-deces-zones", None, lieu_zones, "lieuzones")] + PROVINCES_JOUR),
+           ("zones-plus-touchees", None, top_zones, "topzones"), ("zones-dynamique", None, dyn_zones, "dynzones"), ("lieu-deces-zones", None, lieu_zones, "lieuzones")] + PROVINCES_JOUR),
     ("r", [("alertes-jour", None, r_alertes, "alertes"), ("laboratoire-jour", None, r_labo, "labo"), ("contacts-jour", None, r_contacts, "contacts"),
            ("cte-jour", None, r_cte, "cte"), ("vaccination-jour", None, r_vaccin, "vaccin"),
            ("voyageurs-jour", None, r_voyageurs, "voy"), ("alertes-postes-semaine", None, r_alertes_postes, "apost")]),
@@ -1932,7 +2042,7 @@ def page_html(lang, mois_courts):
             titre = html.unescape(" ".join(m)) if m else ident
             figs.append('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
                         '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
-                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else LZ[lang]["lire"] if lire == "lieuzones" else PJ[lang]["lire"])), esc(p["png"])))
+                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else LZ[lang]["lire"] if lire == "lieuzones" else TZ[lang]["lire"] if lire == "topzones" else DZ[lang]["lire"] if lire == "dynzones" else PJ[lang]["lire"])), esc(p["png"])))
         out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
                    '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
     out.append(cartes_html(c, lang))
