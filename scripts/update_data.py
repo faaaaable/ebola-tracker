@@ -285,14 +285,16 @@ DATES_RAPPORT_CORRIGEES = {
 # (« 366 patients sur 380 »), 60 au Haut-Uele, 33 au Nord-Ubangi et une
 # vingtaine de suspects au Bas-Uele, sans total pour l'Ituri ni la Tshopo.
 # Aucun recomptage ne s'approche de 1 676 : le chiffre n'est pas repris.
-# Le SitRep 182 imprime 1 538 ; ses provinces detaillent toutes leurs
-# patients : 413 aux lits en Ituri, 520 « actuellement aux lits » au
-# Nord-Kivu, 99 au Haut-Uele, 33 suspects isoles au Bas-Uele, 35 au
-# Nord-Ubangi, 10 a la Tshopo et 3 au Sud-Ubangi, soit 1 113 (981 au 180).
+# Le SitRep 182 imprime 1 538 quand toutes ses provinces sont chiffrees :
+# 413 en Ituri, 520 aux lits au Nord-Kivu plus 183 hors CTE, 99 au Haut-Uele,
+# 33 suspects isoles au Bas-Uele, 35 au Nord-Ubangi, 10 a la Tshopo et 3 au
+# Sud-Ubangi, soit 1 296 avec la definition de la bande (qui compte le hors
+# CTE du Nord-Kivu et les isoles du Bas-Uele : 173 a 175 y retombent
+# exactement). Le chiffre imprime n'est pas repris, comme au 181.
 KPI_CORRIGES = {
     "179": {"inCTE": (651, 973)},
     "181": {"inCTE": (1676, None)},
-    "182": {"inCTE": (1538, 1113)},
+    "182": {"inCTE": (1538, None)},
 }
 
 
