@@ -824,7 +824,8 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             cle = "lettreEds" if memes else "lettreEdsPartiel"
             s5 = P(cle, alertes=fmt(ed["alertes"], lang), realisees=fmt(ed["realisees"], lang), swabes=fmt(ed.get("swabes"), lang) if ed.get("swabes") is not None else "—")
             if ed.get("nonSwabes"):
-                s5 += " " + P("lettreEdsRefus", n=fmt(ed["nonSwabes"], lang))
+                s5 += " " + (P("lettreEdsRefus1") if ed["nonSwabes"] == 1
+                             else P("lettreEdsRefus", n=fmt(ed["nonSwabes"], lang)))
             phrases.append(s5)
             sous = (P("lettreKpiEdsSub", realisees=fmt(ed["realisees"], lang), alertes=fmt(ed["alertes"], lang))
                     if memes else P("lettreKpiEdsSubSeul", realisees=fmt(ed["realisees"], lang)))

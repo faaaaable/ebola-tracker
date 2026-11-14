@@ -282,7 +282,11 @@ def lire_province(morceau):
     fr = [(int(a), int(b)) for a, b in re.findall(r"\((\d+)\s*/\s*(\d+)\)", morceau)]
     if positifs is None and echantillons and len(fr) >= 2 and sum(b for _, b in fr) == echantillons:
         positifs = sum(a for a, _ in fr)
-    if positifs is None and NEGATIFS_RE.search(morceau):
+    # « 12 cas positifs MVE reprélevés pour suivi virologique, et 14 cas
+    # négatifs MVE reprélevés » (182 Tshopo) : des négatifs cités à côté de
+    # positifs ne disent pas « aucun positif ».
+    if (positifs is None and NEGATIFS_RE.search(morceau)
+            and not re.search(r"\d+\s+cas\s+positifs?\b", morceau, re.I)):
         positifs = 0
     # « 1 échantillon reçu et testé (1 vivant), s'est révélé positif » (120,
     # Bas-Uélé et Tshopo), « 3 échantillons reçus et testés (vivants) tous se

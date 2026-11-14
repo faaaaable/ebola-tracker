@@ -351,6 +351,21 @@ def lire_tableau(pdf):
     colonnes = None
     for i, r in enumerate(lignes):
         cellules = list(r)
+        # 182 : « ITURI | ITURI | NORD | SUD | TSHOPO | HAUT- | BAS- | SUD- |
+        # NORD- », la fin des noms sur la ligne suivante (« KIVU | KIVU | UELE
+        # | UELE | UBANGI | UBANGI »), et la premiere province repetee dans la
+        # colonne des libelles.
+        suite = [c for c in (lignes[i + 1] if i + 1 < len(lignes) else []) if c]
+        if suite and all(re.match(r"^(?:KIVU|U[EÉ]L[EÉ]|UBANGI)$", c, re.I) for c in suite):
+            suite, noms = list(suite), []
+            for c in cellules:
+                if re.match(r"^(?:NORD|SUD|HAUT|BAS)\s*-?$", c or "", re.I) and suite:
+                    noms.append(c.rstrip("- ") + "-" + suite.pop(0))
+                else:
+                    noms.append(c)
+            if len(noms) > 2 and province(noms[0]) and noms[0] == noms[1]:
+                noms = noms[1:]
+            cellules = noms
         # SitRep 100 : « Nord- », « Sud- », « Haut- », « Bas- » en en-tete, la
         # fin du nom sur la ligne suivante (« Kivu », « Kivu », « Uélé »…).
         if any(c.endswith("-") for c in cellules) and i + 1 < len(lignes):
@@ -368,11 +383,20 @@ def lire_tableau(pdf):
     if colonnes is None:
         colonnes = ["Global"]  # tableau a une colonne « Resultats » (SitRep 022)
     out, ecarts = {}, []
-    for r in lignes:
+    for k, r in enumerate(lignes):
         cle = cle_indicateur(r[0]) if r else None
         if not cle or cle in out:
             continue
-        vals = r[1:]
+        vals = list(r[1:])
+        # 182 : « 94% | 95% | 56% (5/9) | … » puis, ligne suivante, les
+        # fractions seules « (58/62) | (20/21) | … » : rendues dans l'ordre
+        # aux taux qui n'en ont pas.
+        frac = [c for c in (lignes[k + 1] if k + 1 < len(lignes) else []) if c]
+        if frac and all(re.match(r"^\(\s*\d+\s*/\s*\d+\s*\)$", c) for c in frac):
+            sans = [j for j, v in enumerate(vals) if re.match(r"^[\d,.]+\s*%$", propre(v))]
+            if len(sans) == len(frac):
+                for j, f in zip(sans, frac):
+                    vals[j] = propre(vals[j]) + " " + f
         if len(vals) != len(colonnes):
             ecarts.append("%s : %d valeurs pour %d colonnes" % (cle, len(vals), len(colonnes)))
             continue
@@ -423,6 +447,50 @@ VALEURS_ECARTEES = [
 ]
 
 
+# Tableaux recopies a l'identique du bulletin precedent (14 novembre 2026) :
+# les SitRep 176, 177 et 178 impriment le tableau PoE/PoC du 175 chiffre pour
+# chiffre (147 103 voyageurs en Ituri, 95 793 au Nord-Kivu, 57/62 rapports…).
+# Ce ne sont pas des mesures du jour : les valeurs passent a null, la chaine
+# « brut » reste, et l'entree porte « recopieDe ». Liste nominative, apres
+# relecture des PDF.
+TABLEAUX_RECOPIES = {"176": "175", "177": "175", "178": "175"}
+
+
+def recopie(entree):
+    source = TABLEAUX_RECOPIES.get(entree["sitrepNumber"])
+    if not source:
+        return
+    entree["recopieDe"] = source
+    for cellules in entree["indicateurs"].values():
+        for v in cellules.values():
+            v["valeur"] = None
+
+
+def global_calcule(entree):
+    """Depuis le 179, le tableau ne porte plus de colonne « Global » : huit
+    provinces, pas de total. La vue nationale de la page Riposte n'avait plus
+    rien a tracer. Le total est alors la somme des provinces qui publient le
+    chiffre (les « ND » n'y entrent pas), marque « calcule » ; la completude
+    additionne les postes rapporteurs et les postes attendus. Les taux
+    (screening, lavage des mains…) ne se somment pas : pas de total."""
+    provs = [p for p in entree["colonnes"] if p != "Global"]
+    if "Global" in entree["colonnes"] or len(provs) < 4:
+        return
+    ind = entree["indicateurs"]
+    for cle in ("personnes", "alertes", "alertesVivantesValidees", "corpsInterceptes"):
+        vs = [ind.get(cle, {}).get(p, {}).get("valeur") for p in provs]
+        vs = [v for v in vs if isinstance(v, int)]
+        if vs and cle in ind:
+            ind[cle]["Global"] = {"valeur": sum(vs), "brut": None, "calcule": True}
+    if "completude" in ind:
+        fr = [ind["completude"].get(p, {}).get("valeur") for p in provs]
+        fr = [v for v in fr if isinstance(v, dict) and v.get("den")]
+        if fr:
+            num, den = sum(v["num"] for v in fr), sum(v["den"] for v in fr)
+            ind["completude"]["Global"] = {"valeur": {"pct": round(num / den * 100, 1), "num": num, "den": den},
+                                           "brut": None, "calcule": True}
+
+
 def ecarter(entree):
     for num, cle, colonnes, motif in VALEURS_ECARTEES:
         if entree["sitrepNumber"] != num:
@@ -462,6 +530,8 @@ def main(argv):
         e.update(t)
         e["ecarts"] = t["ecarts"] + controle_somme(e)
         ecarter(e)
+        global_calcule(e)
+        recopie(e)
         e["source"] = "SitRep INSP, tableau PoE/PoC"
         existant[num] = e
     par_date = sorted(existant.values(), key=lambda e: (e["date"], e["sitrepNumber"]))

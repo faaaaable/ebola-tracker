@@ -1963,7 +1963,14 @@ function renderOneChartBrut(canvas, chartMode){
         if(v && v.ecarte && c !== 'Global' && (!provRip || nomProvinceCanonique(c) === provRip))
           ecartes.push(tr('poeEcarteItem')(c, fmt(Number(String(v.brut).replace(/\D/g, ''))), frDate(e.date)));
       }));
-      const noteEcartes = ecartes.length ? tr('chartNotePoeEcartes')(ecartes.join(', ')) : '';
+      /* Tableaux recopies a l'identique du bulletin precedent (176-178,
+         14 novembre 2026) : laisses en blanc, la note les nomme. */
+      const recopies = pts.filter(e => e.recopieDe);
+      const noteRecopies = recopies.length
+        ? tr('chartNotePoeRecopies')(recopies.map(e => frDate(e.date)).join(', '),
+            frDate((pts.find(x => x.sitrepNumber === recopies[0].recopieDe) || {}).date || recopies[0].date))
+        : '';
+      const noteEcartes = (ecartes.length ? tr('chartNotePoeEcartes')(ecartes.join(', ')) : '') + noteRecopies;
 
       if(vue === 'alertes'){
         /* Les trois series n'ont pas la meme profondeur (les alertes
@@ -1992,7 +1999,7 @@ function renderOneChartBrut(canvas, chartMode){
           scales:{ x:axeX(false), y:{ beginAtZero:true, ticks:Object.assign({}, axeTexte, { precision:0, callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
         dessiner('bar', data, opts);
         noterPeriode(slot, semaines[0].debut, ouverte ? ouverte.derniere : semaines[semaines.length-1].fin);
-        noter(tr('chartNotePoeAlertes')(semaines.filter(w=>w.releves).length) + noteOuverte(ouverte));
+        noter(tr('chartNotePoeAlertes')(semaines.filter(w=>w.releves).length) + noteOuverte(ouverte) + noteRecopies);
         return;
       }
 
@@ -2022,7 +2029,7 @@ function renderOneChartBrut(canvas, chartMode){
                    y2:{ position:'right', beginAtZero:true, grid:{ display:false }, ticks:Object.assign({}, axeTexte, { precision:0, callback:v=>fmt(v) }) } } };
         dessiner('line', data, opts);
         noterPeriode(slot, jours[0], jours[jours.length-1]);
-        noter(tr('chartNotePoeRapports')(lus, jours.length));
+        noter(tr('chartNotePoeRapports')(lus, jours.length) + noteRecopies);
         return;
       }
 

@@ -2,7 +2,7 @@
   "description": "Guéris déclarés chaque jour par les structures de prise en charge (CTE, centres de transit, hôpitaux), par province, lus dans les SitRep de l'INSP (tableau « Mouvement des patients », faits saillants, rubrique Prise en charge). Les cumuls par province sont ceux que les bulletins publient, sans reconstitution.",
   "periode": {
     "debut": "2026-06-04",
-    "fin": "2026-11-11"
+    "fin": "2026-11-12"
   },
   "parBulletin": [
     {
@@ -1776,6 +1776,17 @@
         "Haut-Uélé": 1
       },
       "total": 14,
+      "source": "faits saillants",
+      "forme": "A"
+    },
+    {
+      "sitrep": "182",
+      "date": "2026-11-12",
+      "provinces": {
+        "Ituri": 7,
+        "Nord-Kivu": 2
+      },
+      "total": 9,
       "source": "faits saillants",
       "forme": "A"
     }

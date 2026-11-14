@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-11-11"
+  "fin": "2026-11-12"
  },
  "parDate": [
   {
@@ -280,16 +280,20 @@
    "eds": {
     "alertes": null,
     "realisees": 3,
-    "swabes": null,
+    "swabes": 8,
     "nonSwabes": null,
     "provinces": {
-     "realisees": 1
+     "realisees": 1,
+     "swabes": 1
     },
     "provincesNoms": [
      "Nord-Kivu"
     ],
     "couverture": {
      "realisees": [
+      "Nord-Kivu"
+     ],
+     "swabes": [
       "Nord-Kivu"
      ]
     }
@@ -302,7 +306,23 @@
    "sitrepNumber": "038",
    "poe": null,
    "rings": null,
-   "eds": null,
+   "eds": {
+    "alertes": null,
+    "realisees": null,
+    "swabes": 8,
+    "nonSwabes": null,
+    "provinces": {
+     "swabes": 1
+    },
+    "provincesNoms": [
+     "Nord-Kivu"
+    ],
+    "couverture": {
+     "swabes": [
+      "Nord-Kivu"
+     ]
+    }
+   },
    "vaccination": null,
    "source": "SitRep INSP (automatique)"
   },
@@ -549,16 +569,20 @@
    "eds": {
     "alertes": null,
     "realisees": 22,
-    "swabes": null,
+    "swabes": 27,
     "nonSwabes": null,
     "provinces": {
-     "realisees": 1
+     "realisees": 1,
+     "swabes": 1
     },
     "provincesNoms": [
      "Nord-Kivu"
     ],
     "couverture": {
      "realisees": [
+      "Nord-Kivu"
+     ],
+     "swabes": [
       "Nord-Kivu"
      ]
     }
@@ -6074,12 +6098,12 @@
    "eds": {
     "alertes": 179,
     "realisees": 132,
-    "swabes": 67,
+    "swabes": 78,
     "nonSwabes": null,
     "provinces": {
      "alertes": 5,
      "realisees": 5,
-     "swabes": 4
+     "swabes": 5
     },
     "provincesNoms": [
      "Bas-Uélé",
@@ -6104,6 +6128,7 @@
       "Tshopo"
      ],
      "swabes": [
+      "Bas-Uélé",
       "Haut-Uélé",
       "Ituri",
       "Nord-Kivu",
@@ -6116,6 +6141,66 @@
      "Ituri": 3346,
      "Bas-Uélé": 2211,
      "Tshopo": 13655
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-11-12",
+   "sitrepNumber": "182",
+   "poe": null,
+   "rings": {
+    "ouverts": 59,
+    "attendus": 78
+   },
+   "eds": {
+    "alertes": 76,
+    "realisees": 110,
+    "swabes": 98,
+    "nonSwabes": 1,
+    "provinces": {
+     "alertes": 4,
+     "realisees": 4,
+     "swabes": 4,
+     "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "nonSwabes": [
+      "Haut-Uélé"
+     ]
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 3930,
+     "Haut-Uélé": 1809,
+     "Nord-Kivu": 2795
     },
     "rupture": false
    },

@@ -145,7 +145,9 @@ def lire_pci(corps):
         # « 46/54 rings ouverts » (180 Ituri), « 18/27 rings ouverts » (178
         # Nord-Kivu), « 19 anneaux (rings) ouverts sur 35 » (178 Ituri).
         for m in list(re.finditer(r"(\d+)\s*/\s*(\d+) rings? ouverts?", p)) + list(
-                re.finditer(r"(\d+) anneaux \(rings?\) ouverts? sur (\d+)", p)):
+                re.finditer(r"(\d+) anneaux \(rings?\) ouverts? sur (\d+)", p)) + list(
+                # « 47 sur 47 rings ouverts (100 %) » (182 Ituri).
+                re.finditer(r"(\d+) sur (\d+) rings? ouverts?", p)):
             rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(2))
         m = re.search(r"les (\d+) rings attendus ont tous été ouverts", p)
         if m:
@@ -195,7 +197,10 @@ def lire_pci(corps):
             # « 102 alertes EDS reçues, 75 réalisées (74 %) » (180 Ituri).
             ("realisees", [r"(\d+) EDS (?:complets? )?(?:ont [ée]t[ée] |a [ée]t[ée] )?r[ée]alis",
                            r"alertes(?: EDS| d[’']EDS)? re[çc]ues,\s+(\d+) r[ée]alis[ée]e?s",
-                           r"r[ée]alis[ée] (?:les )?(\d+) EDS"]),
+                           r"r[ée]alis[ée] (?:les )?(\d+) EDS",
+                           # « 64 enterrements réalisés au total, comprenant
+                           # 57 corps swabés » (182 Nord-Kivu).
+                           r"(\d+) enterrements r[ée]alis"]),
             # « la sécurisation et le prélèvement (swab) de 16 corps » (180 Ituri).
             ("swabes", [r"(\d+) corps (?:ont [ée]t[ée] |a [ée]t[ée] )?(?:pr[ée]lev|swab|[ée]couvillonn)",
                         r"pr[ée]l[èe]vement \(swab\) de (\d+) corps",
@@ -203,7 +208,9 @@ def lire_pci(corps):
                         r"swab[ée] (?:les )?(\d+) corps",
                         r"les (\d+) corps ont [ée]t[ée] swab",
                         r"(\d+) ont [ée]t[ée] swab",
-                        r"(\d+) corps pr[ée]lev"]),
+                        r"(\d+) corps pr[ée]lev",
+                        # « 3 swabs réalisés, mais 0 EDS réalisé » (182 Bas-Uele).
+                        r"(\d+) swabs? r[ée]alis"]),
             ("nonSwabes", [r"(\d+) corps n[’']ayant pu",
                            r"(\d+) corps non swab",
                            r"(\d+) corps n[’']ont pu [êe]tre swab",

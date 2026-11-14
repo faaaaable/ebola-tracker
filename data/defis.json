@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-11"
+    "fin": "2026-11-12"
   },
   "parDate": [
     {
@@ -9255,6 +9255,64 @@
             "Risque de péremption/perte de 195 doses de vaccins et mise en marche nécessaire des unités de chaîne de froid (UCC)."
           ],
           "provinces": []
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-12",
+      "sitrepNumber": "182",
+      "piliers": [
+        {
+          "pilier": "poe_poc",
+          "titre": "Point sur les activités de points de contrôle et points d’entrées (PoE/PoC)",
+          "items": [
+            "Non-fonctionnalité de certains PoE/PoC en raison de l'insécurité (ex. Avakubi en Tshopo ou Butuhe au Nord-Kivu), de grèves ou de retards de paiement, et manque d'infrastructures d'isolement adéquates dans plusieurs ports et barrières (notamment au Sud-Kivu)."
+          ],
+          "provinces": [
+            "Nord-Kivu",
+            "Sud-Kivu",
+            "Tshopo"
+          ]
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "Manque d'accès à l'eau potable et de capacité de stockage (48h) dans les ESS, faible proportion de PPL formés en PCI, et absence de zones de triage."
+          ],
+          "provinces": []
+        },
+        {
+          "pilier": "pci_eds",
+          "titre": "Prévention et Contrôle de l'Infection (PCI/EDS)",
+          "items": [
+            "16/20 ESS prioritaires sans zone de triage fonctionnelle, 20/20 ESS sans matelas garnis, 17/20 ESS sans approvisionnement d'eau sur 72h, et absence de zones de gestion des déchets conformes."
+          ],
+          "provinces": [
+            "Bas-Uélé"
+          ]
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique (PEC)",
+          "items": [
+            "Grève des prestataires du CTE Kasenyi suite à l'impaiement et 13 patients non alimentés dans la ZS de Mandima."
+          ],
+          "provinces": [
+            "Sud-Ubangi"
+          ]
+        },
+        {
+          "pilier": "poe_poc",
+          "titre": "PoE/PoC (cité dans « Principales actions »)",
+          "items": [
+            "Ituri : Incident majeur au PoC de Mudzi Bala : un corps sans vie en provenance de Mongbwalu pour Bunia a franchi la barrière sans contrôle, avec des menaces proférées par la foule à l'encontre des prestataires."
+          ],
+          "provinces": [
+            "Ituri"
+          ],
+          "horsDefis": "2.2.1. Principales actions"
         }
       ],
       "source": "SitRep INSP (automatique)"

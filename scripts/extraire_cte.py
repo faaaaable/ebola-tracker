@@ -77,6 +77,10 @@ CAS_CONF_SUSP_RE = re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+et\s
 # Haut-Uele) : sans « sont ».
 SOMME_RES = (CAS_CONF_SUSP_RE,)
 HOSPITALISES_RES = [
+    # « 6 cas confirmés et 29 cas suspects hospitalisés au total » (182
+    # Nord-Ubangi) : la somme, avant que « 29 cas suspects hospitalisés »
+    # ne soit lu seul.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+et\s+(\d[\d ]{0,4}\d|\d)\s+cas\s+suspects\s+hospitalis[ée]s\s+au\s+total", re.I),
     # SitRep 150 (11 octobre 2026, Nord-Kivu) : « 471 patients dont 67
     # enfants de moins de 5 ans) sont hospitalisés : 330 dans les CTE/CT pour
     # 374 lits » — une incise en « dont », parenthese ouvrante oubliee.
@@ -180,7 +184,9 @@ HOSPITALISES_RES = [
     # 179 ; Nord-Kivu au 178) : jamais lu, l'Ituri disparaissait du
     # graphique. En dernier : au 147, « 523 patients demeuraient en
     # isolement (…325 patients aux lits des CTE/CT…) », le total passe avant.
-    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+aux\s+lits\b", re.I),
+    # « 520 malades actuellement aux lits » (182 Nord-Kivu, apres « 540
+    # patients au total aux lits » recopie mot pour mot du 181).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+(?:actuellement\s+)?aux\s+lits\b", re.I),
     # Tournures du 180 (10 novembre 2026) : « 376 patients au total (128
     # confirmés et 248 suspects) » (Ituri) ; « 22 cas confirmés et 37 cas
     # suspects sont actuellement hospitalisés » (Haut-Uele) ; « 4 cas
@@ -188,6 +194,14 @@ HOSPITALISES_RES = [
     # cas confirmés et 12 cas suspects isolés au CTE Yakoma » (Nord-Ubangi,
     # deux sites : SOMME_RES les additionne).
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+au\s+total\s*\(\s*\d", re.I),
+    # Tournures du 182 (12 novembre 2026) : « 94 patients suspects et 5
+    # patients confirmés actuellement hospitalisés » (Haut-Uele), « 0 cas
+    # confirmé hospitalisé, mais 33 cas suspects pris en charge en isolement »
+    # (Bas-Uele), « 3 patients suspects actuellement hospitalisés »
+    # (Sud-Ubangi).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+suspects\s+et\s+(\d[\d ]{0,4}\d|\d)\s+patients\s+confirm[ée]s\s+(?:actuellement\s+)?hospitalis", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+suspects\s+pris\s+en\s+charge\s+en\s+isolement", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+(?:patients|malades)\s+(?:suspects|confirm[ée]s)\s+actuellement\s+hospitalis", re.I),
     CAS_CONF_SUSP_RE,
 ]
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits|atteint\s+\d[\d ]{0,4}\s+lits\s+sur\s+(\d[\d ]{0,4}\d|\d)", re.I)
@@ -317,6 +331,10 @@ def premier(regexes, texte):
             # « 252 patients sont pris en charge en dehors des CTE/CT (dans
             # des ESS non structurés) » (180 Nord-Kivu) : de même.
             if re.match(r"\w*\s+(?:en\s+dehors|hors)\b", texte[m.end():m.end() + 30]):
+                continue
+            # « 183 patients sont pris en charge dans des formations
+            # sanitaires (ESS) qui ne sont pas des CTE/CT » (182 Nord-Kivu).
+            if re.match(r"[^.;]{0,80}?qui\s+ne\s+sont\s+pas\s+des\s+CTE", texte[m.end():m.end() + 110]):
                 continue
             if rx in SOMME_RES:
                 return sum(entier(g) or 0 for mm in rx.finditer(texte) for g in mm.groups() if g)
