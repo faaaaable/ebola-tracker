@@ -69,7 +69,7 @@
       "url": "https://www.who.int/"
     }
   ],
-  "dateModified": "2026-11-14"
+  "dateModified": "2026-11-15"
 }
 </script>
 <script type="application/ld+json">
@@ -346,7 +346,7 @@
         <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">Kwa mwezi</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="provinceChart" data-chart="provinceEpidemic" data-sans-titre></canvas>
+        <canvas id="provinceChart" data-chart="provinceEpidemic" data-y-marge="1.3" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
@@ -364,7 +364,7 @@
         <button type="button" class="subtab-btn" data-vue="mensuel" data-i18n="chartVueMonthly">Kwa mwezi</button>
       </nav>
       <div class="chart-panel">
-        <canvas id="provinceDeathsChart" data-chart="provinceEpidemic" data-champ="deaths" data-sans-titre></canvas>
+        <canvas id="provinceDeathsChart" data-chart="provinceEpidemic" data-y-marge="1.3" data-champ="deaths" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
@@ -775,7 +775,7 @@ window.DATA_PAGE_URL = "/sw/takwimu/";
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
 <script defer src="/assets/js/i18n.js?v=2db638facc"></script>
-<script defer src="/assets/js/app.js?v=3dac872db4"></script>
+<script defer src="/assets/js/app.js?v=3878675fd5"></script>
 
 </body>
 </html>

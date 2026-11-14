@@ -1,4 +1,145 @@
 {
+  "2026-05-22": {
+    "sitrep": "008",
+    "apres": "009",
+    "provincesSeulement": true,
+    "methode": "provinces : cumul du 21 mai plus (cumul du SitRep 009 moins le 21 mai, moins les nouveaux cas que le 009 annonce par province : Ituri 9, Nord-Kivu 1). Le SitRep 008 recopie le tableau du 007. Décès par province non publiés à ces dates.",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 85,
+        "deaths": null
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 5,
+        "deaths": null
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 1,
+        "deaths": null
+      }
+    ]
+  },
+  "2026-06-12": {
+    "sitrep": "029",
+    "apres": "030",
+    "methode": "cumul du SitRep 030 moins ses nouveaux cas de 24 h (Ituri 56, Nord-Kivu 16) ; décès du jour publiés pour le pays seulement (29), pas par province ; guéris : 5",
+    "national": {
+      "confirmed": 710,
+      "deaths": 152,
+      "recovered": 35
+    },
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 661,
+        "deaths": null
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 46,
+        "deaths": null
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      }
+    ]
+  },
+  "2026-06-26": {
+    "sitrep": "043",
+    "apres": "044",
+    "methode": "cumul du SitRep 044 moins ses 24 h : Ituri 45 cas, 11 décès parmi les nouveaux cas et 10 en CTE ; Nord-Kivu 2 cas, 1 décès ; guéris : 15",
+    "national": {
+      "confirmed": 1227,
+      "deaths": 338,
+      "recovered": 163
+    },
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1120,
+        "deaths": 280
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 104,
+        "deaths": 57
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      }
+    ]
+  },
+  "2026-06-28": {
+    "sitrep": "045",
+    "apres": "046",
+    "methode": "cumul du SitRep 046 moins ses 24 h : Ituri 17 cas, 4 décès parmi les nouveaux cas et 13 en CTE ; Nord-Kivu 9 cas, 4 décès et 1 en CTE ; guéris : 9",
+    "national": {
+      "confirmed": 1307,
+      "deaths": 377,
+      "recovered": 180
+    },
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1197,
+        "deaths": 318
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 107,
+        "deaths": 58
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      }
+    ]
+  },
+  "2026-07-16": {
+    "sitrep": "063",
+    "apres": "064",
+    "methode": "cumul du SitRep 064 moins ses 24 h par province (Ituri 75 cas et 25 décès, Nord-Kivu 7 et 4, Haut-Uélé 4 et 0, Tshopo et Sud-Kivu 0) ; guéris non repris : 412 moins 32 tomberait sous les 390 du 15 juillet",
+    "national": {
+      "confirmed": 2181,
+      "deaths": 864,
+      "recovered": null
+    },
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1948,
+        "deaths": 720
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 207,
+        "deaths": 126
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 18,
+        "deaths": 13
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 5,
+        "deaths": 4
+      }
+    ]
+  },
   "2026-10-03": {
     "sitrep": "142",
     "apres": "143",

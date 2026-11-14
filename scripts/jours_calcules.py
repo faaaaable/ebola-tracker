@@ -136,22 +136,33 @@ def appliquer():
     for jour, j in sorted(figes.items()):
         marque = {"calcule": True, "sitrep": j["sitrep"], "apres": j["apres"]}
 
-        sit = lire("sitreps.json")
-        if any(s["date"] == jour and not s.get("calcule") for s in sit):
-            print("  (jour %s : un vrai bulletin existe, jour calculé ignoré)" % jour)
-            continue
-        sit = [s for s in sit if s["date"] != jour]
-        sit.append(dict({"date": jour}, **j["national"], **marque))
-        ecrire("sitreps.json", sorted(sit, key=lambda s: s["date"]))
+        # Jours de mai a juillet reconstitues le 15 novembre 2026 (22 mai, 12,
+        # 26 et 28 juin, 16 juillet) : provinces seulement quand le pays a deja
+        # son chiffre (22 mai), pas de zones quand le bulletin suivant ne
+        # donne pas leurs 24 h, deces a null quand ils ne sont publies que
+        # pour le pays (12 juin).
+        if "national" in j:
+            sit = lire("sitreps.json")
+            if any(s["date"] == jour and not s.get("calcule") for s in sit):
+                print("  (jour %s : un vrai bulletin existe, jour calculé ignoré)" % jour)
+                continue
+            sit = [s for s in sit if s["date"] != jour]
+            sit.append(dict({"date": jour}, **j["national"], **marque))
+            ecrire("sitreps.json", sorted(sit, key=lambda s: s["date"]))
 
-        ph = [h for h in lire("province-history.json") if h["date"] != jour]
+        ph = lire("province-history.json")
+        if any(h["date"] == jour and not h.get("calcule") for h in ph):
+            print("  (jour %s : provinces deja lues dans un vrai bulletin, jour calculé ignoré)" % jour)
+            continue
+        ph = [h for h in ph if h["date"] != jour]
         ph.append(dict({"date": jour, "provinces": j["provinces"]}, **marque))
         ecrire("province-history.json", sorted(ph, key=lambda h: h["date"]))
 
-        zh = [e for e in lire("zones-history.json") if e["date"] != jour]
-        zh.append({"sitrep": j["sitrep"], "date": jour, "zones": j["zones"], "calcule": True, "apres": j["apres"]})
-        ecrire("zones-history.json", sorted(zh, key=lambda e: e["date"]))
-        print("  jour %s (SitRep %s) calculé et inséré dans les trois historiques." % (jour, j["sitrep"]))
+        if "zones" in j:
+            zh = [e for e in lire("zones-history.json") if e["date"] != jour]
+            zh.append({"sitrep": j["sitrep"], "date": jour, "zones": j["zones"], "calcule": True, "apres": j["apres"]})
+            ecrire("zones-history.json", sorted(zh, key=lambda e: e["date"]))
+        print("  jour %s (SitRep %s) calculé et inséré." % (jour, j["sitrep"]))
 
 
 if __name__ == "__main__":

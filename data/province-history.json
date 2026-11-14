@@ -35,6 +35,29 @@
     ]
   },
   {
+    "date": "2026-05-22",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 85,
+        "deaths": null
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 5,
+        "deaths": null
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 1,
+        "deaths": null
+      }
+    ],
+    "calcule": true,
+    "sitrep": "008",
+    "apres": "009"
+  },
+  {
     "date": "2026-05-23",
     "provinces": [
       {
@@ -415,6 +438,29 @@
     ]
   },
   {
+    "date": "2026-06-12",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 661,
+        "deaths": null
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 46,
+        "deaths": null
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      }
+    ],
+    "calcule": true,
+    "sitrep": "029",
+    "apres": "030"
+  },
+  {
     "date": "2026-06-13",
     "provinces": [
       {
@@ -675,6 +721,29 @@
     ]
   },
   {
+    "date": "2026-06-26",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1120,
+        "deaths": 280
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 104,
+        "deaths": 57
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      }
+    ],
+    "calcule": true,
+    "sitrep": "043",
+    "apres": "044"
+  },
+  {
     "date": "2026-06-27",
     "provinces": [
       {
@@ -693,6 +762,29 @@
         "deaths": 1
       }
     ]
+  },
+  {
+    "date": "2026-06-28",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1197,
+        "deaths": 318
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 107,
+        "deaths": 58
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      }
+    ],
+    "calcule": true,
+    "sitrep": "045",
+    "apres": "046"
   },
   {
     "date": "2026-06-29",
@@ -1093,6 +1185,39 @@
         "deaths": 3
       }
     ]
+  },
+  {
+    "date": "2026-07-16",
+    "provinces": [
+      {
+        "name": "Ituri",
+        "confirmed": 1948,
+        "deaths": 720
+      },
+      {
+        "name": "Nord-Kivu",
+        "confirmed": 207,
+        "deaths": 126
+      },
+      {
+        "name": "Sud-Kivu",
+        "confirmed": 3,
+        "deaths": 1
+      },
+      {
+        "name": "Haut-Uélé",
+        "confirmed": 18,
+        "deaths": 13
+      },
+      {
+        "name": "Tshopo",
+        "confirmed": 5,
+        "deaths": 4
+      }
+    ],
+    "calcule": true,
+    "sitrep": "063",
+    "apres": "064"
   },
   {
     "date": "2026-07-17",

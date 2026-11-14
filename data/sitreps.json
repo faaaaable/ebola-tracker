@@ -156,6 +156,15 @@
     "recovered": 32
   },
   {
+    "date": "2026-06-12",
+    "confirmed": 710,
+    "deaths": 152,
+    "recovered": 35,
+    "calcule": true,
+    "sitrep": "029",
+    "apres": "030"
+  },
+  {
     "date": "2026-06-13",
     "confirmed": 782,
     "deaths": 181,
@@ -234,10 +243,28 @@
     "recovered": 148
   },
   {
+    "date": "2026-06-26",
+    "confirmed": 1227,
+    "deaths": 338,
+    "recovered": 163,
+    "calcule": true,
+    "sitrep": "043",
+    "apres": "044"
+  },
+  {
     "date": "2026-06-27",
     "confirmed": 1274,
     "deaths": 360,
     "recovered": 178
+  },
+  {
+    "date": "2026-06-28",
+    "confirmed": 1307,
+    "deaths": 377,
+    "recovered": 180,
+    "calcule": true,
+    "sitrep": "045",
+    "apres": "046"
   },
   {
     "date": "2026-06-29",
@@ -340,6 +367,15 @@
     "confirmed": 2124,
     "deaths": 828,
     "recovered": 390
+  },
+  {
+    "date": "2026-07-16",
+    "confirmed": 2181,
+    "deaths": 864,
+    "recovered": null,
+    "calcule": true,
+    "sitrep": "063",
+    "apres": "064"
   },
   {
     "date": "2026-07-17",

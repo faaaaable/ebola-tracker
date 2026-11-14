@@ -4069,6 +4069,12 @@ function renderOneChartBrut(canvas, chartMode){
       };
       delete opts.scales.y1;
       opts.plugins.tooltip.filter = item => item.parsed.y !== 0;
+      /* `data-y-marge` vaut aussi pour la vue mensuelle (15 novembre 2026). */
+      const margeM = Number(canvas.dataset.yMarge) || 1;
+      if(parMois && margeM > 1){
+        const hautM = Math.max(0, ...serie.map(p => (p.cas || 0) + (p.rattrapage || 0)));
+        if(hautM > 0) opts.scales.y.max = Math.ceil(hautM * margeM);
+      }
       if(ratios){
         opts.plugins.legend = legendeAVenir(opts.plugins.legend);
         opts.plugins.largeurSemaine = { ratios, futurs: ratios.map(r => 1 - r) };
@@ -4130,11 +4136,17 @@ function renderOneChartBrut(canvas, chartMode){
        petits nombres — la Tshopo, axe a 10 (28 septembre 2026). Il ne vaut
        qu'en vue quotidienne : ce bloc n'est atteint qu'apres le retour des
        vues agregees. */
+    /* `data-y-marge` (15 novembre 2026) : de l'air au-dessus des barres,
+       l'axe monte d'autant au-dessus du plus haut jour (Haut-Uele, 1,3). */
+    const marge = Number(canvas.dataset.yMarge) || 1;
     if(canvas.dataset.yMax){
       opts.scales.y.max = Number(canvas.dataset.yMax);
     } else if(plafondP){
-      opts.scales.y.max = plafondP;
-      opts.plugins.ruptureRattrapage = { coupees: barresCoupees(rapporte, rattrape, plafondP) };
+      opts.scales.y.max = Math.ceil(plafondP * marge);
+      opts.plugins.ruptureRattrapage = { coupees: barresCoupees(rapporte, rattrape, opts.scales.y.max) };
+    } else if(marge > 1){
+      const haut = Math.max(0, ...rapporte.map((v, i) => (v || 0) + (rattrape[i] || 0)));
+      if(haut > 0) opts.scales.y.max = Math.ceil(haut * marge);
     }
     slot.chart = new Chart(canvas.getContext('2d'),
       { type: 'bar', data, options: opts, plugins: [ruptureRattrapage] });

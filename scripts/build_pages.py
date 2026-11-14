@@ -3050,6 +3050,9 @@ SEUIL_COURBE_PROVINCE = 50
 # l'autre. Le seuil general, lui, reste a 50 ; les vues par semaine et par mois
 # gardent leur axe automatique (une semaine peut depasser 10).
 COURBE_PROVINCE_FORCEE = {"Tshopo": 10}
+# Air au-dessus des barres quotidiennes (cas et deces), par province : le
+# plafond de l'axe est multiplie d'autant (15 novembre 2026, Haut-Uele).
+MARGE_HAUTE_PROVINCE = {"Haut-Uélé": 1.3}
 
 
 # Les provinces dont la fiche porte le cadre « La riposte » (28 septembre 2026). D'abord un seuil a 40 cas, qui ecartait
@@ -3441,6 +3444,9 @@ def _cadre_courbe_province(province, strings_lang, i18n_lang, canvas_id, champ,
     (data-sans-titre) ; le cadre des deces porte le rouge du site."""
     plafond = COURBE_PROVINCE_FORCEE.get(province.get("name"))
     attrs = ' data-y-max="%d"' % plafond if plafond else ""
+    marge = MARGE_HAUTE_PROVINCE.get(province.get("name"))
+    if marge:
+        attrs += ' data-y-marge="%s"' % marge
     if champ != "confirmed":
         attrs += ' data-champ="%s"' % champ
     # Le titre porte le nom de la province : sans lui, il serait mot pour mot
