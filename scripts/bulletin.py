@@ -797,39 +797,29 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     # enterrements securises et rings, vaccination, points de controle.
     # Chaque phrase n'existe que si le bulletin donne le chiffre.
     pp = _point(piliers_data, date) if piliers_data else None
+    refus_eds = None
     if pp:
         rg, ed, va, po = pp.get("rings"), pp.get("eds"), pp.get("vaccination"), pp.get("poe")
-        # EDS realises sans l'Ituri OU sans le Nord-Kivu : pas un chiffre du
-        # pays (176 : Haut-Uele et Tshopo seuls, « 4 realises sur 4 deces
-        # signales » ; 102 : Nord-Kivu seul, 44). Regle commune pays_entier.
-        couv_eds = ((ed or {}).get("couverture") or {}).get("realisees")
-        if ed and couv_eds is not None and not pays_entier(couv_eds):
-            ed = None
-        if ed and ed.get("alertes") is not None and ed.get("realisees") is not None:
-            # Les trois nombres ne couvrent pas toujours les memes provinces :
-            # au 111, seul l'Ituri publie ses signalements quand le Nord-Kivu
-            # ne donne que ses enterrements, si bien que les EDS realises
-            # depassent les deces signales sans que rien soit faux. Les aligner
-            # dans une meme phrase, ou ecrire « N realises sur M signales »,
-            # ferait lire un rapport qui n'existe pas (19 septembre 2026).
-            couv = ed.get("provinces") or {}
-            memes = len({couv.get(k) for k in ("alertes", "realisees", "swabes") if couv.get(k)}) <= 1
-            # Depuis le 8 novembre 2026, les PROVINCES de chaque nombre : au
-            # 175, 106 alertes (Ituri, Haut-Uele) et 137 EDS (Ituri,
-            # Nord-Kivu, Haut-Uele) tenaient dans une seule puce, et la
-            # lettre ecrivait « 137 realises sur 106 deces signales ».
-            parchamp = ed.get("couverture")
-            if parchamp:
-                memes = len({tuple(parchamp.get(k) or ()) for k in ("alertes", "realisees", "swabes") if parchamp.get(k)}) <= 1
-            cle = "lettreEds" if memes else "lettreEdsPartiel"
-            s5 = P(cle, alertes=fmt(ed["alertes"], lang), realisees=fmt(ed["realisees"], lang), swabes=fmt(ed.get("swabes"), lang) if ed.get("swabes") is not None else "—")
-            if ed.get("nonSwabes"):
-                s5 += " " + (P("lettreEdsRefus1") if ed["nonSwabes"] == 1
-                             else P("lettreEdsRefus", n=fmt(ed["nonSwabes"], lang)))
-            phrases.append(s5)
-            sous = (P("lettreKpiEdsSub", realisees=fmt(ed["realisees"], lang), alertes=fmt(ed["alertes"], lang))
-                    if memes else P("lettreKpiEdsSubSeul", realisees=fmt(ed["realisees"], lang)))
-            cases += kpi("eds", S["lettreKpiEds"], fmt(ed["realisees"], lang), sous)
+        # Enterrements securises (15 novembre 2026) : plus de case chiffree.
+        # Sur les bulletins 168 a 182, la moitie ne chiffrent rien et le total
+        # change avec les provinces qui publient (138, 5, 77, 153…) : ce n'est
+        # pas une serie. Une phrase seulement quand les deces signales et les
+        # enterrements viennent des MEMES provinces, Ituri et Nord-Kivu
+        # comprises (regle pays_entier) : la part est alors lisible. Sinon
+        # rien, plutot qu'une phrase d'excuse. Les corps non preleves passent
+        # a « Les difficultes rencontrees » (refus_eds, plus bas).
+        couv = (ed or {}).get("couverture") or {}
+        if (ed and ed.get("alertes") and ed.get("realisees") is not None
+                and couv.get("alertes") and couv.get("alertes") == couv.get("realisees")
+                and pays_entier(couv["realisees"])):
+            if ed["realisees"] <= ed["alertes"]:
+                phrases.append(P("lettreEdsTaux", realisees=fmt(ed["realisees"], lang), alertes=fmt(ed["alertes"], lang),
+                                 taux=pct(round(ed["realisees"] / ed["alertes"] * 100))))
+            else:
+                phrases.append(P("lettreEdsSurAlertes", realisees=fmt(ed["realisees"], lang), alertes=fmt(ed["alertes"], lang)))
+        if ed and ed.get("nonSwabes"):
+            refus_eds = (P("lettreEdsRefus1") if ed["nonSwabes"] == 1
+                         else P("lettreEdsRefus", n=fmt(ed["nonSwabes"], lang)))
         if rg and rg.get("attendus"):
             phrases.append(P("lettreRings", ouverts=fmt(rg.get("ouverts") or 0, lang), attendus=fmt(rg["attendus"], lang)))
         # Vaccination : le bulletin ne donne que des cumuls, par province ou
@@ -980,13 +970,14 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         resume = ((notes.get(num) or {}).get("defis") or {}).get(lang)
         if resume:
             # Le resume des Defis, redige quand le bulletin est integre (data/bulletin-notes.json).
-            corps = prose(esc(resume))
+            corps = prose(esc(resume + ("\n\n" + refus_eds if refus_eds else "")))
             # La mention « Resume redige le ... d'apres les n piliers » a ete
             # retiree le 8 septembre 2026.
         else:
             # Sans resume : le sommaire compose, piliers et provinces citees.
             sommaire = _liste([S.get("defiPilier_" + b["pilier"], b["pilier"]) + ((" (%s)" % ", ".join(b["provinces"])) if b.get("provinces") else "") for b in piliers], et)
-            corps = prose(esc(P("lettreDefisSommaire", n=fmt(len(piliers), lang), liste=sommaire)))
+            corps = prose(esc(P("lettreDefisSommaire", n=fmt(len(piliers), lang), liste=sommaire)
+                              + ("\n\n" + refus_eds if refus_eds else "")))
         # Les neuf piliers en entier ont ete retires le 8 septembre 2026 : le resume suffit, le PDF est en tete.
     else:
         corps = prose(esc(S["bulDefisNone"]))
