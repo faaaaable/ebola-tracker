@@ -1496,6 +1496,25 @@ function noterPeriode(slot, debut, fin){
    pour les cles que ceux-ci portent, et la correction ne prenait pas. */
 function reglerInfobulles(){
   if(typeof Chart === 'undefined' || reglerInfobulles.fait) return;
+  /* Infobulle vide (15 novembre 2026). Quand le filtre ecarte tous les
+     elements survoles (barre a zero), Chart.js appelle quand meme les
+     rappels de titre avec une liste vide : `items[0].dataIndex` levait une
+     erreur et l'infobulle restait figee sur la barre precedente, sans plus
+     s'ouvrir ailleurs (Ituri, Nord-Kivu). Les rappels recoivent desormais
+     une liste vide sans etre appeles, et l'infobulle vide n'est pas dessinee. */
+  const ClasseInfobulle = Chart.Tooltip && Chart.Tooltip._element;
+  if(ClasseInfobulle && !ClasseInfobulle.prototype.__sansVide){
+    ['getTitle', 'getBeforeBody', 'getAfterBody', 'getFooter'].forEach(m => {
+      const orig = ClasseInfobulle.prototype[m];
+      if(typeof orig !== 'function') return;
+      ClasseInfobulle.prototype[m] = function(items, opts){
+        return items && items.length ? orig.call(this, items, opts) : [];
+      };
+    });
+    ClasseInfobulle.prototype.__sansVide = true;
+  }
+  Chart.register({ id: 'infobulleSansVide',
+    beforeTooltipDraw: (chart, args) => !(args.tooltip && args.tooltip.dataPoints && args.tooltip.dataPoints.length === 0) });
   Chart.defaults.plugins.tooltip.footerColor = PALETTE.ink;
   Chart.defaults.plugins.tooltip.footerFont = { family: PALETTE.font, weight: '500' };
   Chart.defaults.plugins.tooltip.footerMarginTop = 8;
