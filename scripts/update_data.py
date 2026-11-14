@@ -292,7 +292,14 @@ DATES_RAPPORT_CORRIGEES = {
 # CTE du Nord-Kivu et les isoles du Bas-Uele : 173 a 175 y retombent
 # exactement). Le chiffre imprime n'est pas repris, comme au 181.
 KPI_CORRIGES = {
+    # Le SitRep 180 imprime 981 quand ses provinces, toutes chiffrees, en
+    # detaillent 1 353 : 376 en Ituri, 604 aux lits au Nord-Kivu plus 252
+    # hors CTE, 6 a la Tshopo, 59 au Haut-Uele, 23 isoles au Bas-Uele, 33 au
+    # Nord-Ubangi (1 101 sans le hors CTE). Ecarte apres coup (14 novembre
+    # 2026), dans data/lettres/180.json : depuis le 179, la bande ne retombe
+    # plus jamais sur le detail.
     "179": {"inCTE": (651, 973)},
+    "180": {"inCTE": (981, None)},
     "181": {"inCTE": (1676, None)},
     "182": {"inCTE": (1538, None)},
 }

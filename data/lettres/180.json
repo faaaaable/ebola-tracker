@@ -12,7 +12,7 @@
   "deaths": 5433,
   "recovered": 3031,
   "cfr": 48.9,
-  "inCTE": 981,
+  "inCTE": null,
   "contactsFollowUpRate": 85.5,
   "provincesAffected": 8,
   "healthZonesAffected": {
@@ -26,7 +26,8 @@
   "newCases24h": 72,
   "newDeaths24h": 46,
   "newDeathsCommunity24h": 30,
-  "newDeathsIntraCTE24h": 16
+  "newDeathsIntraCTE24h": 16,
+  "inCTEPublie": 981
  },
  "provinces": [
   {
