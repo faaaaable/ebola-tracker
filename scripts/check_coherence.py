@@ -524,6 +524,63 @@ else:
     check("zones-jour : une serie par zone du dernier bulletin", _n == len(_der["zones"]),
           "%d vs %d" % (_n, len(_der["zones"])))
 
+print("\nBase de donnees = ce que montre le site (15 novembre 2026)")
+# La base (data/base-ebola-rdc.*) est reconstruite ici depuis data/, comme le
+# fait build_pages.py, puis comparee a ce que le site affiche : chiffre de
+# tete des patients en isolement (data/lettres, ecarts compris), cumuls du
+# pays et des provinces, mentions des jours reconstitues et harmonises. Les
+# valeurs invraisemblables s'affichent a part, « A REGARDER ».
+a_regarder_base = []
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+import base_donnees as _bd
+_base = _bd.construire()
+_pays = {o["date"]: o for o in _base if o["niveau"] == "pays"}
+_prov = {(o["date"], o["province"]): o for o in _base if o["niveau"] == "province"}
+_faux = ["%s (%s) base %s, site %s" % (t["sitrep"], d, (_pays.get(d) or {}).get("cte_hospitalises"), t["retenu"])
+         for d, t in _bd.tetes_isolement().items()
+         if (_pays.get(d) or {}).get("cte_hospitalises") != t["retenu"]]
+check("base : patients en isolement du pays = site", not _faux, ", ".join(_faux[:4]))
+_faux = [d for d, o in _pays.items() if o.get("cte_lits") is not None or o.get("cte_occupation") is not None]
+check("base : ni lits ni occupation pour le pays", not _faux, ", ".join(_faux[:4]))
+_faux = []
+for _s in read("sitreps.json"):
+    _o = _pays.get(_s.get("date"))
+    if _o and (_o.get("cas"), _o.get("deces")) != (_s.get("confirmed"), _s.get("deaths")):
+        _faux.append(_s["date"])
+for _h in read("province-history.json"):
+    for _p in _h.get("provinces", []):
+        _o = _prov.get((_h["date"], _p["name"]))
+        if _o and (_o.get("cas"), _o.get("deces")) != (_p.get("confirmed"), _p.get("deaths")):
+            _faux.append("%s %s" % (_h["date"], _p["name"]))
+check("base : cumuls du pays et des provinces = site", not _faux, ", ".join(_faux[:4]))
+_calc = _lire_optionnel("jours-calcules.json") or {}
+_faux = []
+for _d, _j in _calc.items():
+    _lignes = [o for o in _base if o["date"] == _d and o["niveau"] == "province"]
+    if not _j.get("provincesSeulement"):
+        _lignes.append(_pays.get(_d) or {"mention": "", "province": "pays"})
+    _faux += ["%s %s" % (_d, o.get("province") or "pays") for o in _lignes if "reconstitue" not in (o.get("mention") or "")]
+check("base : jours reconstitues signales", not _faux, ", ".join(_faux[:4]))
+_faux = [d for d in _bd.HARMONISATIONS if "harmonisation" not in ((_pays.get(d) or {}).get("mention") or "")]
+check("base : harmonisations signalees", not _faux, ", ".join(_faux[:4]))
+# Invraisemblances : une baisse de cumul sans mention, une occupation au-dela
+# de 150 %, des lits qui doublent ou fondent de moitie d'un releve a l'autre.
+_lits = {}
+for _o in sorted(_base, key=lambda o: o["date"]):
+    _ou = (_o["province"] or "pays") + (" " + _o["zone"] if _o["zone"] else "")
+    if (_o.get("nouveaux_cas") or 0) < 0 and not _o.get("mention") and _o["niveau"] != "zone":
+        a_regarder_base.append("%s %s : cumul des cas en baisse (%+d) sans mention" % (_o["date"], _ou, _o["nouveaux_cas"]))
+    if _o["niveau"] == "province":
+        if (_o.get("cte_occupation") or 0) > 150:
+            a_regarder_base.append("%s %s : occupation des lits %s %%" % (_o["date"], _ou, _o["cte_occupation"]))
+        _l = _o.get("cte_lits")
+        if _l:
+            _av = _lits.get(_o["province"])
+            if _av and (_l >= 2 * _av or 2 * _l <= _av):
+                a_regarder_base.append("%s %s : lits %d -> %d" % (_o["date"], _ou, _av, _l))
+            _lits[_o["province"]] = _l
+check("base : valeurs invraisemblables", True)
+
 print("\nSauts entre les deux derniers bulletins (data/lettres, 11 novembre 2026)")
 # Un chiffre qui bondit ou chute d'un bulletin a l'autre n'est pas forcement
 # faux, mais il doit etre regarde avant la mise en ligne : le SitRep 179
@@ -574,6 +631,11 @@ print()
 if sauts:
     print("%d saut(s) A REGARDER avant la mise en ligne :" % len(sauts))
     for n in sauts:
+        print("  - %s" % n)
+    print()
+if a_regarder_base:
+    print("%d valeur(s) de la base A REGARDER :" % len(a_regarder_base))
+    for n in a_regarder_base:
         print("  - %s" % n)
     print()
 if notes:

@@ -25,8 +25,13 @@ Regles, a garder alignees sur la page et sur le reste du site :
 - « nouveaux » = ecart de cumul avec le releve precedent du meme territoire,
   NEGATIF COMPRIS (une revision a la baisse se voit) ; ecart_jours dit combien
   de journees il couvre ;
-- les rattrapages des 22 et 30 juillet et le jour reconstitue du 3 octobre
-  (SitRep 142 absent) portent une mention ;
+- les rattrapages des 22 et 30 juillet et les jours reconstitues par
+  soustraction (data/jours-calcules.json : SitRep 142 et 172 absents, jours
+  ou une province manquait) portent une mention ;
+- patients en isolement du pays = chiffre de tete du bulletin tel que le site
+  le retient (data/lettres, ecarte quand il contredit le detail des
+  provinces) ; avant le SitRep 090, somme des provinces detaillees. Lits et
+  occupation : par province seulement (15 novembre 2026) ;
 - un releve de riposte rejoint la ligne du pays ou de la province du meme jour ;
 - une case vide est une valeur que la source ne donne pas. Licence CC BY 4.0.
 """
@@ -133,14 +138,16 @@ DICTIONNAIRE = {
         "sw": "Anwani ya PDF ya SitRep hii. Tupu kwenye mstari uliojengwa upya."}),
     "mention": ("txt", "id", {
         "fr": "Signale une ligne à part. « rattrapage » : l'écart couvre plus d'une journée (22 et 30 juillet). "
-              "« reconstitue » : SitRep 142 jamais publié, jour calculé par soustraction à partir du 143. "
+              "« reconstitue » : jour calculé par soustraction à partir du bulletin suivant (SitRep 142 et 172 jamais publiés, "
+              "ou jours où une province manquait ou recopiait la veille : 22 mai, 12, 26 et 28 juin, 16 juillet). "
               "« harmonisation » : la source a corrigé ses séries ce jour-là (Ituri : +314 décès anciens le 30 octobre, "
               "retirés le 31) ; l'écart ne correspond pas à des cas ou décès nouveaux. "
               "« guéris contradictoires » : deux passages du bulletin donnent des guéris du jour différents. "
               "« guéris annoncés ≠ cumul » : les guéris annoncés pour la journée ne font pas la hausse du cumul national depuis la veille. "
               "« OMS Weekly Report … (lecture manuelle) » : valeur lue dans un rapport de l'OMS.",
         "en": "Flags a special row. \u201ccatch-up\u201d: the difference covers more than one day (22 and 30 July). "
-              "\u201creconstructed\u201d: SitRep 142 was never published; the day is computed by subtraction from SitRep 143. "
+              "\u201creconstructed\u201d: the day is computed by subtraction from the next bulletin (SitReps 142 and 172 were never published, "
+              "or a province was missing or copied from the day before: 22 May, 12, 26 and 28 June, 16 July). "
               "\u201charmonisation\u201d: the source corrected its series that day (Ituri: +314 earlier deaths on 30 October, "
               "removed on 31 October); the difference does not reflect new cases or deaths. "
               "\u201cconflicting recoveries\u201d: two passages of the bulletin give different recoveries for the day. "
@@ -218,13 +225,17 @@ DICTIONNAIRE = {
         "en": "Positive results divided by samples tested, in per cent; only when both are published.",
         "sw": "Chanya kugawanywa kwa sampuli, kwa asilimia; pale tu zote mbili zinapochapishwa."}),
     "cte_hospitalises": ("int", "pub", {
-        "fr": "Personnes hospitalisées en centre de traitement (CTE) ce jour-là.",
-        "en": "People hospitalised in treatment centres (ETC) that day.",
-        "sw": "Watu waliolazwa katika vituo vya matibabu (CTE) siku hiyo."}),
+        "fr": "Patients en isolement, confirmés ou suspects, ce jour-là. Pour le pays : le chiffre de tête du bulletin, "
+              "laissé vide quand il contredit le détail des provinces (SitRep 180 à 182) ; avant le SitRep 090, "
+              "somme des provinces que détaille le bulletin.",
+        "en": "Patients in isolation, confirmed or suspected, that day. For the country: the bulletin's headline figure, "
+              "left empty when it contradicts the provincial breakdown (SitReps 180 to 182); before SitRep 090, "
+              "sum of the provinces detailed by the bulletin.",
+        "sw": "Wagonjwa waliotengwa, waliothibitishwa au wanaoshukiwa, siku hiyo. Kwa nchi: tarakimu kuu ya ripoti, tupu inapopingana na takwimu za mikoa (SitRep 180 hadi 182)."}),
     "cte_lits": ("int", "pub", {
-        "fr": "Lits disponibles dans les CTE.",
-        "en": "Beds available in the ETCs.",
-        "sw": "Vitanda vilivyopo katika CTE."}),
+        "fr": "Lits disponibles dans les CTE de la province. Vide pour le pays : aucun bulletin ne donne le total national.",
+        "en": "Beds available in the province's ETCs. Empty for the country: no bulletin gives the national total.",
+        "sw": "Vitanda vilivyopo katika CTE za mkoa. Tupu kwa nchi: hakuna ripoti inayotoa jumla ya kitaifa."}),
     "cte_occupation": ("pct", "pubcalc", {
         "fr": "Taux d'occupation des lits publié par le bulletin ; s'il manque, hospitalisés divisés par lits.",
         "en": "Bed occupancy rate published by the bulletin; if missing, patients divided by beds.",
@@ -299,7 +310,11 @@ def construire(origin="https://ebola-tracker.org"):
     rapports = {r["reportingDate"]: r for r in latest.get("reports", []) if r.get("reportingDate")}
     calcules = _lire("jours-calcules.json") if os.path.exists(os.path.join(ROOT, "data", "jours-calcules.json")) else {}
 
-    def source(d):
+    def source(d, niveau="pays"):
+        # Jour ou seules les provinces sont reconstituees (22 mai 2026 : le
+        # SitRep 008 recopie le tableau du 007) : le pays garde son bulletin.
+        if d in calcules and calcules[d].get("provincesSeulement") and niveau == "province":
+            return int(calcules[d]["sitrep"]), "", ["reconstitue"]
         if d in rapports:
             r = rapports[d]
             return int(r["sitrepNumber"]), origin + "/" + r["file"].lstrip("/"), []
@@ -312,7 +327,7 @@ def construire(origin="https://ebola-tracker.org"):
     def ajoute(niveau, province, zone, serie):
         pc = pd = pdate = None
         for x in sorted(serie, key=lambda s: s["date"]):
-            num, pdf, mention = source(x["date"])
+            num, pdf, mention = source(x["date"], niveau)
             o = {"date": x["date"], "niveau": niveau, "province": province, "zone": zone,
                  "sitrep": num, "source_pdf": pdf, "mention": list(mention),
                  "cas": x.get("cas"), "deces": x.get("deces"), "gueris": x.get("gueris")}
@@ -369,11 +384,23 @@ def construire(origin="https://ebola-tracker.org"):
             labo(r(x["date"], ""), x["total"])
     def cte(o, v):
         o["cte_hospitalises"], o["cte_lits"], o["cte_occupation"] = v.get("hospitalises"), v.get("lits"), v.get("occupation")
+    # Le pays (15 novembre 2026). Le « total » de cte.json additionne les
+    # seules provinces que le bulletin detaille ce jour-la (2 a 7) : ce n'est
+    # pas le chiffre national, et ses lits se reduisaient parfois a ceux de la
+    # Tshopo (40 lits pour tout le pays, SitRep 179 et 180). Le pays prend le
+    # chiffre de tete que retient le site (data/lettres, null quand il est
+    # ecarte) ; avant les lettres (SitRep 090), la somme des provinces. Ni
+    # lits ni occupation au niveau du pays : aucun bulletin ne les donne.
+    tetes = tetes_isolement()
     for x in _lire("cte.json")["parDate"]:
         for p, v in (x.get("provinces") or {}).items():
             cte(r(x["date"], p), v)
-        if x.get("total"):
-            cte(r(x["date"], ""), x["total"])
+        if x["date"] in tetes:
+            r(x["date"], "")["cte_hospitalises"] = tetes[x["date"]]["retenu"]
+        elif x.get("total") and x["date"] < PREMIERE_LETTRE:
+            r(x["date"], "")["cte_hospitalises"] = x["total"].get("hospitalises")
+    for d, t in tetes.items():
+        r(d, "")["cte_hospitalises"] = t["retenu"]
     for x in _lire("contacts-followup.json"):
         for p, v in (x.get("provinces") or {}).items():
             o = r(x["date"], p)
@@ -500,6 +527,29 @@ def construire(origin="https://ebola-tracker.org"):
     return lignes
 
 
+PREMIERE_LETTRE = "2026-08-12"
+
+
+def tetes_isolement():
+    """Patients en isolement du pays, par date : le chiffre de tete retenu
+    par le site (data/lettres/N.json, national.inCTE) et celui qu'imprimait
+    le bulletin quand il a ete ecarte ou corrige (inCTEPublie)."""
+    dossier = os.path.join(ROOT, "data", "lettres")
+    sortie = {}
+    if not os.path.isdir(dossier):
+        return sortie
+    for f in sorted(os.listdir(dossier)):
+        if not f.endswith(".json"):
+            continue
+        with io.open(os.path.join(dossier, f), encoding="utf-8") as fh:
+            l = json.load(fh)
+        d = (l.get("meta") or {}).get("reportingDate")
+        n = l.get("national") or {}
+        if d:
+            sortie[d] = {"sitrep": f[:3], "retenu": n.get("inCTE"), "publie": n.get("inCTEPublie")}
+    return sortie
+
+
 def _definition(cle, lang):
     texte = DICTIONNAIRE[cle][2][lang]
     return texte.replace("'", "\u2019") if lang != "en" else texte
@@ -579,6 +629,11 @@ def ecrire(origin="https://ebola-tracker.org"):
         "debut": dates[0], "fin": dates[-1], "lignes": len(lignes),
         "dictionnaire": "%s/data/%s.csv" % (origin, DICOS["fr"]),
         "colonnes": _dico("fr"),
+        # Chiffres du bulletin que le site n'a pas repris tels quels (15
+        # novembre 2026) : la valeur imprimee reste lisible ici.
+        "valeursCorrigees": [{"date": d, "sitrep": int(t["sitrep"]), "niveau": "pays", "colonne": "cte_hospitalises",
+                              "publie": t["publie"], "retenu": t["retenu"]}
+                             for d, t in sorted(tetes_isolement().items()) if t["publie"] is not None],
     }
     _ecrire_fichiers("fr", lignes, cles, cles, meta, "lignes")
     meta_en = {
@@ -589,6 +644,9 @@ def ecrire(origin="https://ebola-tracker.org"):
         "start": dates[0], "end": dates[-1], "rows": len(lignes),
         "dictionary": "%s/data/%s.csv" % (origin, DICOS["en"]),
         "columns": _dico("en"),
+        "correctedValues": [{"date": d, "sitrep": int(t["sitrep"]), "level": "country", "column": COLONNES_EN["cte_hospitalises"],
+                             "published": t["publie"], "retained": t["retenu"]}
+                            for d, t in sorted(tetes_isolement().items()) if t["publie"] is not None],
     }
     _ecrire_fichiers("en", [_ligne_en(o) for o in lignes], cles, [COLONNES_EN[c] for c in cles], meta_en, "rows")
     # La page lit ce fichier dans les trois langues ; « en » donne a base.js

@@ -24,6 +24,14 @@ SitRep de l'INSP (data/zones-history.json).
   Une zone qui apparait plus tard part de zero : sa premiere barre est son
   premier cumul, comme dans le tableau des zones.
 
+- Les nouveaux cas (et deces) du jour par zone que publient certains
+  bulletins (data/zones-jour-annonces.json, scripts/extraire_zones_annonces.py,
+  15 novembre 2026) separent la journee du reste, province par province et
+  seulement quand la somme des zones retombe sur l'annonce de la province :
+  une seule journee manquante devient la barre de la veille, calculee par
+  soustraction (« calc », « nc »/« nd » = 1 journee) ; sinon la part du
+  jour (« ca », « da ») est pleine et seul le reste reste en rattrapage.
+
 Seules les journees non nulles sont ecrites. Un jour sans bulletin n'a pas
 de barre ; il se retrouve dans « sansBulletin »."""
 import json
@@ -136,13 +144,77 @@ def calculer(zones_history):
                     sortie["j"][h["date"]] = rec
         prev_date = h["date"]
 
+    sitreps = {h["date"]: h.get("sitrep") for h in hist}
+    for veille, num in appliquer_annonces(provinces).items():
+        if veille in sans:
+            sans.remove(veille)
+        sitreps.setdefault(veille, num)
+
     return {
         "debut": dates[0], "fin": dates[-1], "premiersDeces": premiers_deces,
         "sansBulletin": sans,
-        "sitrep": {h["date"]: h.get("sitrep") for h in hist},
+        "sitrep": dict(sorted(sitreps.items())),
         "provinces": {prov: sorted(zones.values(), key=lambda z: (-z["cas"], z["nom"]))
                       for prov, zones in provinces.items()},
     }
+
+
+def appliquer_annonces(provinces):
+    """Separe les journees reunies d'apres les nouveaux cas et deces du jour
+    publies par zone. Renvoie {veille calculee: numero du SitRep}."""
+    chemin = os.path.join(ROOT, "data", "zones-jour-annonces.json")
+    if not os.path.exists(chemin):
+        return {}
+    with open(chemin, encoding="utf-8") as f:
+        annonces = json.load(f)
+    veilles = {}
+    for d, e in sorted(annonces.items()):
+        veille = (date.fromisoformat(d) - timedelta(1)).isoformat()
+        for prov, b in e["provinces"].items():
+            zones = provinces.get(prov)
+            if not zones:
+                continue
+            ann = {cle(n): v for n, v in b["zones"].items()}
+            for champ, valide, part, empan in (("c", "casValides", "ca", "nc"), ("d", "decesValides", "da", "nd")):
+                if not b.get(valide):
+                    continue
+                # Toutes les zones de la province ou aucune : un reste
+                # negatif (cumul revu a la baisse) laisse la province entiere
+                # en rattrapage.
+                restes = {}
+                for k, z in zones.items():
+                    x = z["j"].get(d) or {}
+                    restes[k] = x.get(champ, 0) - (ann.get(k) or {}).get(champ, 0)
+                if any(r < 0 for r in restes.values()):
+                    continue
+                for k, z in zones.items():
+                    x = z["j"].get(d)
+                    if not x:
+                        continue
+                    n = x.get(empan) or x.get("n") or 1
+                    if n <= 1 and not x.get("ratt"):
+                        continue
+                    a, r = x.get(champ, 0) - restes[k], restes[k]
+                    if n == 2 and not x.get("ratt"):
+                        # Une seule journee manque : elle prend le reste.
+                        if r:
+                            v = z["j"].setdefault(veille, {"c": 0})
+                            v[champ] = r
+                            v["calc"] = 1
+                            veilles[veille] = "%03d" % (int(e["sitrep"]) - 1)
+                        x[champ] = a
+                        x[empan] = 1
+                    else:
+                        # Part du jour pleine, reste en rattrapage (aucun
+                        # reste : la barre est pleine en entier).
+                        x[part] = a
+                for k, z in zones.items():
+                    x = z["j"].get(d)
+                    if x and not x.get("c") and not x.get("d") and "baisse" not in x:
+                        del z["j"][d]
+    for z in (z for zs in provinces.values() for z in zs.values()):
+        z["j"] = dict(sorted(z["j"].items()))
+    return veilles
 
 
 def periode(zone, fin, jours):

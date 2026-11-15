@@ -1,0 +1,1388 @@
+{
+ "2026-05-29": {
+  "sitrep": "015",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Aru": {
+      "c": 0
+     },
+     "Aungba": {
+      "c": 0
+     },
+     "Bambu": {
+      "c": 0
+     },
+     "Bunia": {
+      "c": 21
+     },
+     "Damas": {
+      "c": 0
+     },
+     "Gety": {
+      "c": 0
+     },
+     "Kilo": {
+      "c": 0
+     },
+     "Komanda": {
+      "c": 0
+     },
+     "Lita": {
+      "c": 1
+     },
+     "Mangala": {
+      "c": 0
+     },
+     "Mongbwalu": {
+      "c": 8
+     },
+     "Nizi": {
+      "c": 0
+     },
+     "Nyankunde": {
+      "c": 2
+     },
+     "Rwampara": {
+      "c": 12
+     }
+    },
+    "annonceCas": 52,
+    "casValides": true
+   },
+   "Nord-Kivu": {
+    "zones": {
+     "Beni": {
+      "c": 0
+     },
+     "Butembo": {
+      "c": 0
+     },
+     "Goma": {
+      "c": 0
+     },
+     "Kalunguta": {
+      "c": 0
+     },
+     "Katwa": {
+      "c": 0
+     },
+     "Kyondo": {
+      "c": 0
+     },
+     "Oicha": {
+      "c": 0
+     }
+    },
+    "annonceCas": 0,
+    "casValides": true
+   },
+   "Sud-Kivu": {
+    "zones": {
+     "Miti-Murhesa": {
+      "c": 2
+     }
+    },
+    "annonceCas": 2,
+    "casValides": true
+   }
+  }
+ },
+ "2026-06-01": {
+  "sitrep": "018",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Bunia": {
+      "c": 6
+     },
+     "Komanda": {
+      "c": 1
+     },
+     "Mambasa": {
+      "c": 2
+     },
+     "Mongbwalu": {
+      "c": 11
+     },
+     "Rwampara": {
+      "c": 3
+     }
+    },
+    "annonceCas": 23,
+    "casValides": true
+   }
+  }
+ },
+ "2026-06-13": {
+  "sitrep": "030",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Bunia": {
+      "c": 13
+     },
+     "Damas": {
+      "c": 1
+     },
+     "Komanda": {
+      "c": 3
+     },
+     "Mongbwalu": {
+      "c": 25
+     },
+     "Nia Nia": {
+      "c": 1
+     },
+     "Nizi": {
+      "c": 2
+     },
+     "Nyankunde": {
+      "c": 5
+     },
+     "Rwampara": {
+      "c": 6
+     }
+    },
+    "annonceCas": 56,
+    "casValides": true
+   },
+   "Nord-Kivu": {
+    "zones": {
+     "Butembo": {
+      "c": 11
+     },
+     "Katwa": {
+      "c": 4
+     },
+     "Mabalako": {
+      "c": 1
+     }
+    },
+    "annonceCas": 16,
+    "casValides": true
+   }
+  }
+ },
+ "2026-06-17": {
+  "sitrep": "034",
+  "provinces": {
+   "Nord-Kivu": {
+    "zones": {
+     "Beni": {
+      "c": 2
+     },
+     "Butembo": {
+      "c": 1
+     },
+     "Katwa": {
+      "c": 2
+     }
+    },
+    "annonceCas": 5,
+    "casValides": true
+   },
+   "Ituri": {
+    "zones": {
+     "Bunia": {
+      "c": 4
+     },
+     "Kilo": {
+      "c": 1
+     },
+     "Komanda": {
+      "c": 1
+     },
+     "Lita": {
+      "c": 2
+     },
+     "Mangala": {
+      "c": 1
+     },
+     "Mongbwalu": {
+      "c": 4
+     },
+     "Nizi": {
+      "c": 2
+     },
+     "Nyankunde": {
+      "c": 1
+     }
+    },
+    "annonceCas": 16,
+    "casValides": true
+   }
+  }
+ },
+ "2026-06-27": {
+  "sitrep": "044",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Bambu": {
+      "c": 2
+     },
+     "Bunia": {
+      "c": 6
+     },
+     "Damas": {
+      "c": 1
+     },
+     "Drodro": {
+      "c": 2
+     },
+     "Komanda": {
+      "c": 3
+     },
+     "Lita": {
+      "c": 1
+     },
+     "Mandima": {
+      "c": 1
+     },
+     "Mangala": {
+      "c": 1
+     },
+     "Mongbwalu": {
+      "c": 5
+     },
+     "Nizi": {
+      "c": 3
+     },
+     "Nyankunde": {
+      "c": 1
+     },
+     "Rwampara": {
+      "c": 19
+     }
+    },
+    "annonceCas": 45,
+    "casValides": true
+   },
+   "Nord-Kivu": {
+    "zones": {
+     "Katwa": {
+      "c": 2
+     }
+    },
+    "annonceCas": 2,
+    "casValides": true
+   }
+  }
+ },
+ "2026-06-29": {
+  "sitrep": "046",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Bunia": {
+      "c": 14
+     },
+     "Lita": {
+      "c": 1
+     },
+     "Nizi": {
+      "c": 2
+     }
+    },
+    "annonceCas": 17,
+    "casValides": true
+   },
+   "Nord-Kivu": {
+    "zones": {
+     "Butembo": {
+      "c": 1
+     },
+     "Katwa": {
+      "c": 7
+     },
+     "Musienene": {
+      "c": 1
+     }
+    },
+    "annonceCas": 9,
+    "casValides": true
+   }
+  }
+ },
+ "2026-07-17": {
+  "sitrep": "064",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Ariwara": {
+      "c": 2,
+      "d": 0
+     },
+     "Aru": {
+      "c": 1,
+      "d": 0
+     },
+     "Aungba": {
+      "c": 0,
+      "d": 0
+     },
+     "Bambu": {
+      "c": 5,
+      "d": 1
+     },
+     "Boga": {
+      "c": 0,
+      "d": 0
+     },
+     "Bunia": {
+      "c": 25,
+      "d": 4
+     },
+     "Damas": {
+      "c": 0,
+      "d": 0
+     },
+     "Drodro": {
+      "c": 0,
+      "d": 0
+     },
+     "Fataki": {
+      "c": 3,
+      "d": 1
+     },
+     "Gety": {
+      "c": 0,
+      "d": 0
+     },
+     "Kambala": {
+      "c": 0,
+      "d": 0
+     },
+     "Kilo": {
+      "c": 1,
+      "d": 1
+     },
+     "Komanda": {
+      "c": 0,
+      "d": 0
+     },
+     "Lita": {
+      "c": 10,
+      "d": 1
+     },
+     "Logo": {
+      "c": 0,
+      "d": 1
+     },
+     "Lolwa": {
+      "c": 0,
+      "d": 0
+     },
+     "Mahagi": {
+      "c": 0,
+      "d": 0
+     },
+     "Mambasa": {
+      "c": 3,
+      "d": 1
+     },
+     "Mandima": {
+      "c": 0,
+      "d": 0
+     },
+     "Mangala": {
+      "c": 1,
+      "d": 1
+     },
+     "Mongbwalu": {
+      "c": 8,
+      "d": 3
+     },
+     "Nia Nia": {
+      "c": 5,
+      "d": 2
+     },
+     "Nizi": {
+      "c": 9,
+      "d": 4
+     },
+     "Nyankunde": {
+      "c": 0,
+      "d": 1
+     },
+     "Rimba": {
+      "c": 0,
+      "d": 0
+     },
+     "Rwampara": {
+      "c": 0,
+      "d": 3
+     },
+     "Tchomia": {
+      "c": 2,
+      "d": 1
+     }
+    },
+    "annonceCas": 75,
+    "casValides": true,
+    "annonceDeces": 25,
+    "decesValides": true
+   },
+   "Nord-Kivu": {
+    "zones": {
+     "Beni": {
+      "c": 0,
+      "d": 0
+     },
+     "Butembo": {
+      "c": 2,
+      "d": 0
+     },
+     "Goma": {
+      "c": 0,
+      "d": 0
+     },
+     "Kalunguta": {
+      "c": 0,
+      "d": 0
+     },
+     "Katwa": {
+      "c": 5,
+      "d": 4
+     },
+     "Kyondo": {
+      "c": 0,
+      "d": 0
+     },
+     "Mabalako": {
+      "c": 0,
+      "d": 0
+     },
+     "Masereka": {
+      "c": 0,
+      "d": 0
+     },
+     "Musienene": {
+      "c": 0,
+      "d": 0
+     },
+     "Oicha": {
+      "c": 0,
+      "d": 0
+     },
+     "Vuhovi": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 7,
+    "casValides": true,
+    "annonceDeces": 4,
+    "decesValides": true
+   },
+   "Haut-Uélé": {
+    "zones": {
+     "Boma Mangbetu": {
+      "c": 0,
+      "d": 0
+     },
+     "Isiro": {
+      "c": 0,
+      "d": 0
+     },
+     "Pawa": {
+      "c": 0,
+      "d": 0
+     },
+     "Wamba": {
+      "c": 4,
+      "d": 0
+     }
+    },
+    "annonceCas": 4,
+    "casValides": true,
+    "annonceDeces": 0,
+    "decesValides": true
+   },
+   "Tshopo": {
+    "zones": {
+     "Lubunga": {
+      "c": 0,
+      "d": 0
+     },
+     "Makiso-Kisangani": {
+      "c": 0,
+      "d": 0
+     },
+     "Mangobo": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 0,
+    "casValides": true,
+    "annonceDeces": 0,
+    "decesValides": true
+   },
+   "Sud-Kivu": {
+    "zones": {
+     "Miti-Murhesa": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 0,
+    "casValides": true,
+    "annonceDeces": 0,
+    "decesValides": true
+   }
+  }
+ },
+ "2026-07-22": {
+  "sitrep": "069",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Adja": {
+      "c": 0,
+      "d": 0
+     },
+     "Ariwara": {
+      "c": 0,
+      "d": 0
+     },
+     "Aru": {
+      "c": 0,
+      "d": 0
+     },
+     "Aungba": {
+      "c": 0,
+      "d": 0
+     },
+     "Bambu": {
+      "c": 4,
+      "d": 4
+     },
+     "Boga": {
+      "c": 0,
+      "d": 0
+     },
+     "Bunia": {
+      "c": 10,
+      "d": 7
+     },
+     "Damas": {
+      "c": 0,
+      "d": 0
+     },
+     "Drodro": {
+      "c": 0,
+      "d": 0
+     },
+     "Fataki": {
+      "c": 4,
+      "d": 1
+     },
+     "Gety": {
+      "c": 0,
+      "d": 0
+     },
+     "Kambala": {
+      "c": 0,
+      "d": 0
+     },
+     "Kilo": {
+      "c": 0,
+      "d": 0
+     },
+     "Komanda": {
+      "c": 1,
+      "d": 1
+     },
+     "Lita": {
+      "c": 2,
+      "d": 3
+     },
+     "Logo": {
+      "c": 2,
+      "d": 0
+     },
+     "Lolwa": {
+      "c": 0,
+      "d": 0
+     },
+     "Mahagi": {
+      "c": 0,
+      "d": 0
+     },
+     "Mambasa": {
+      "c": 0,
+      "d": 0
+     },
+     "Mandima": {
+      "c": 0,
+      "d": 0
+     },
+     "Mangala": {
+      "c": 2,
+      "d": 2
+     },
+     "Mongbwalu": {
+      "c": 2,
+      "d": 4
+     },
+     "Nia Nia": {
+      "c": 8,
+      "d": 3
+     },
+     "Nizi": {
+      "c": 24,
+      "d": 19
+     },
+     "Nyankunde": {
+      "c": 0,
+      "d": 0
+     },
+     "Rimba": {
+      "c": 0,
+      "d": 0
+     },
+     "Rwampara": {
+      "c": 14,
+      "d": 1
+     },
+     "Tchomia": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 73,
+    "casValides": true,
+    "annonceDeces": 45,
+    "decesValides": true
+   },
+   "Nord-Kivu": {
+    "zones": {
+     "Beni": {
+      "c": 1,
+      "d": 3
+     },
+     "Butembo": {
+      "c": 4,
+      "d": 2
+     },
+     "Goma": {
+      "c": 0,
+      "d": 0
+     },
+     "Kalunguta": {
+      "c": 0,
+      "d": 2
+     },
+     "Katwa": {
+      "c": 9,
+      "d": 7
+     },
+     "Kyondo": {
+      "c": 0,
+      "d": 0
+     },
+     "Mabalako": {
+      "c": 0,
+      "d": 0
+     },
+     "Masereka": {
+      "c": 0,
+      "d": 0
+     },
+     "Musienene": {
+      "c": 4,
+      "d": 0
+     },
+     "Oicha": {
+      "c": 0,
+      "d": 0
+     },
+     "Vuhovi": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 18,
+    "casValides": true,
+    "annonceDeces": 14,
+    "decesValides": true
+   },
+   "Haut-Uélé": {
+    "zones": {
+     "Boma Mangbetu": {
+      "c": 2,
+      "d": 0
+     },
+     "Isiro": {
+      "c": 0,
+      "d": 1
+     },
+     "Pawa": {
+      "c": 4,
+      "d": 2
+     },
+     "Wamba": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 6,
+    "casValides": true,
+    "annonceDeces": 3,
+    "decesValides": true
+   },
+   "Tshopo": {
+    "zones": {
+     "Lubunga": {
+      "c": 0,
+      "d": 0
+     },
+     "Makiso-Kisangani": {
+      "c": 0,
+      "d": 0
+     },
+     "Mangobo": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": null,
+    "casValides": false,
+    "annonceDeces": null,
+    "decesValides": false
+   },
+   "Sud-Kivu": {
+    "zones": {
+     "Miti-Murhesa": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": null,
+    "casValides": false,
+    "annonceDeces": null,
+    "decesValides": false
+   }
+  }
+ },
+ "2026-07-30": {
+  "sitrep": "077",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Adja": {
+      "c": 0,
+      "d": 0
+     },
+     "Ariwara": {
+      "c": 0,
+      "d": 0
+     },
+     "Aru": {
+      "c": 0,
+      "d": 0
+     },
+     "Aungba": {
+      "c": 3,
+      "d": 1
+     },
+     "Bambu": {
+      "c": 1,
+      "d": 0
+     },
+     "Boga": {
+      "c": 0,
+      "d": 0
+     },
+     "Bunia": {
+      "c": 32,
+      "d": 9
+     },
+     "Damas": {
+      "c": 1,
+      "d": 0
+     },
+     "Drodro": {
+      "c": 0,
+      "d": 1
+     },
+     "Fataki": {
+      "c": 0,
+      "d": 0
+     },
+     "Gety": {
+      "c": 0,
+      "d": 0
+     },
+     "Kambala": {
+      "c": 0,
+      "d": 0
+     },
+     "Kilo": {
+      "c": 1,
+      "d": 0
+     },
+     "Komanda": {
+      "c": 0,
+      "d": 0
+     },
+     "Lita": {
+      "c": 2,
+      "d": 3
+     },
+     "Logo": {
+      "c": 0,
+      "d": 0
+     },
+     "Lolwa": {
+      "c": 0,
+      "d": 0
+     },
+     "Mahagi": {
+      "c": 0,
+      "d": 0
+     },
+     "Mambasa": {
+      "c": 0,
+      "d": 0
+     },
+     "Mandima": {
+      "c": 0,
+      "d": 0
+     },
+     "Mangala": {
+      "c": 1,
+      "d": 0
+     },
+     "Mongbwalu": {
+      "c": 1,
+      "d": 1
+     },
+     "Nia Nia": {
+      "c": 1,
+      "d": 1
+     },
+     "Nizi": {
+      "c": 1,
+      "d": 1
+     },
+     "Nyankunde": {
+      "c": 0,
+      "d": 0
+     },
+     "Rimba": {
+      "c": 1,
+      "d": 0
+     },
+     "Rwampara": {
+      "c": 7,
+      "d": 3
+     },
+     "Tchomia": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 52,
+    "casValides": true,
+    "annonceDeces": 20,
+    "decesValides": true
+   },
+   "Nord-Kivu": {
+    "zones": {
+     "Beni": {
+      "c": 0,
+      "d": 0
+     },
+     "Butembo": {
+      "c": 4,
+      "d": 1
+     },
+     "Goma": {
+      "c": 0,
+      "d": 0
+     },
+     "Kalunguta": {
+      "c": 0,
+      "d": 0
+     },
+     "Katwa": {
+      "c": 8,
+      "d": 2
+     },
+     "Kyondo": {
+      "c": 1,
+      "d": 1
+     },
+     "Mabalako": {
+      "c": 0,
+      "d": 0
+     },
+     "Masereka": {
+      "c": 0,
+      "d": 0
+     },
+     "Musienene": {
+      "c": 2,
+      "d": 0
+     },
+     "Oicha": {
+      "c": 0,
+      "d": 0
+     },
+     "Vuhovi": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 15,
+    "casValides": true,
+    "annonceDeces": 4,
+    "decesValides": true
+   },
+   "Haut-Uélé": {
+    "zones": {
+     "Boma Mangbetu": {
+      "c": 4,
+      "d": 0
+     },
+     "Isiro": {
+      "c": 2,
+      "d": 0
+     },
+     "Pawa": {
+      "c": 0,
+      "d": 0
+     },
+     "Rungu": {
+      "c": 0,
+      "d": 0
+     },
+     "Wamba": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 6,
+    "casValides": true,
+    "annonceDeces": 0,
+    "decesValides": true
+   },
+   "Tshopo": {
+    "zones": {
+     "Kabondo": {
+      "c": 0,
+      "d": 0
+     },
+     "Lubunga": {
+      "c": 0,
+      "d": 0
+     },
+     "Makiso-Kisangani": {
+      "c": 0,
+      "d": 0
+     },
+     "Mangobo": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 0,
+    "casValides": true,
+    "annonceDeces": 0,
+    "decesValides": true
+   },
+   "Sud-Kivu": {
+    "zones": {
+     "Miti-Murhesa": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 0,
+    "casValides": true,
+    "annonceDeces": 0,
+    "decesValides": true
+   }
+  }
+ },
+ "2026-08-09": {
+  "sitrep": "087",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Aru": {
+      "c": 1
+     },
+     "Bunia": {
+      "c": 12
+     },
+     "Drodro": {
+      "c": 0
+     },
+     "Fataki": {
+      "c": 9
+     },
+     "Komanda": {
+      "c": 0
+     },
+     "Lita": {
+      "c": 6
+     },
+     "Logo": {
+      "c": 0
+     },
+     "Lolwa": {
+      "c": 0
+     },
+     "Mambasa": {
+      "c": 0
+     },
+     "Mandima": {
+      "c": 0
+     },
+     "Mangala": {
+      "c": 6
+     },
+     "Mongbwalu": {
+      "c": 1
+     },
+     "Nia-Nia": {
+      "c": 4
+     },
+     "Nizi": {
+      "c": 9
+     },
+     "Nyankunde": {
+      "c": 1
+     },
+     "Rwampara": {
+      "c": 6
+     },
+     "Tchomia": {
+      "c": 2
+     }
+    },
+    "annonceCas": 57,
+    "casValides": true
+   },
+   "Nord-Kivu": {
+    "zones": {
+     "Beni": {
+      "c": 6
+     },
+     "Butembo": {
+      "c": 2
+     },
+     "Kalunguta": {
+      "c": 1
+     },
+     "Katwa": {
+      "c": 5
+     },
+     "Masereka": {
+      "c": 1
+     },
+     "Musienene": {
+      "c": 0
+     }
+    },
+    "annonceCas": 15,
+    "casValides": true
+   },
+   "Haut-Uélé": {
+    "zones": {
+     "Boma Mangbetu": {
+      "c": 0
+     },
+     "Gombari": {
+      "c": 0
+     },
+     "Isiro": {
+      "c": 1
+     },
+     "Pawa": {
+      "c": 0
+     },
+     "Rungu": {
+      "c": 0
+     },
+     "Wamba": {
+      "c": 14
+     }
+    },
+    "annonceCas": 15,
+    "casValides": true
+   },
+   "Sud-Kivu": {
+    "zones": {},
+    "annonceCas": 0,
+    "casValides": true
+   },
+   "Tshopo": {
+    "zones": {},
+    "annonceCas": 0,
+    "casValides": true
+   }
+  }
+ },
+ "2026-08-10": {
+  "sitrep": "088",
+  "provinces": {
+   "Ituri": {
+    "zones": {
+     "Adja": {
+      "c": 0,
+      "d": 0
+     },
+     "Ariwara": {
+      "c": 0,
+      "d": 0
+     },
+     "Aru": {
+      "c": 0,
+      "d": 0
+     },
+     "Aungba": {
+      "c": 0,
+      "d": 0
+     },
+     "Bambu": {
+      "c": 1,
+      "d": 0
+     },
+     "Boga": {
+      "c": 0,
+      "d": 0
+     },
+     "Bunia": {
+      "c": 22,
+      "d": 7
+     },
+     "Damas": {
+      "c": 0,
+      "d": 0
+     },
+     "Drodro": {
+      "c": 0,
+      "d": 0
+     },
+     "Fataki": {
+      "c": 1,
+      "d": 0
+     },
+     "Gety": {
+      "c": 0,
+      "d": 0
+     },
+     "Kambala": {
+      "c": 0,
+      "d": 0
+     },
+     "Kilo": {
+      "c": 0,
+      "d": 0
+     },
+     "Komanda": {
+      "c": 0,
+      "d": 0
+     },
+     "Lita": {
+      "c": 0,
+      "d": 0
+     },
+     "Logo": {
+      "c": 0,
+      "d": 0
+     },
+     "Lolwa": {
+      "c": 0,
+      "d": 0
+     },
+     "Mahagi": {
+      "c": 0,
+      "d": 0
+     },
+     "Mambasa": {
+      "c": 0,
+      "d": 0
+     },
+     "Mandima": {
+      "c": 0,
+      "d": 0
+     },
+     "Mangala": {
+      "c": 0,
+      "d": 0
+     },
+     "Mongbwalu": {
+      "c": 10,
+      "d": 6
+     },
+     "Nia Nia": {
+      "c": 4,
+      "d": 2
+     },
+     "Nizi": {
+      "c": 10,
+      "d": 4
+     },
+     "Nyankunde": {
+      "c": 0,
+      "d": 0
+     },
+     "Rimba": {
+      "c": 0,
+      "d": 0
+     },
+     "Rwampara": {
+      "c": 5,
+      "d": 2
+     },
+     "Tchomia": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 53,
+    "casValides": true,
+    "annonceDeces": 33,
+    "decesValides": true
+   },
+   "Tshopo": {
+    "zones": {
+     "Bafwasende": {
+      "c": 0,
+      "d": 0
+     },
+     "Kabondo": {
+      "c": 0,
+      "d": 0
+     },
+     "Lubunga": {
+      "c": 0,
+      "d": 0
+     },
+     "Makiso-Kisangani": {
+      "c": 0,
+      "d": 0
+     },
+     "Mangobo": {
+      "c": 0,
+      "d": 0
+     },
+     "Wanie-Rukula": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 0,
+    "casValides": true,
+    "annonceDeces": 0,
+    "decesValides": true
+   },
+   "Nord-Kivu": {
+    "zones": {
+     "Beni": {
+      "c": 2,
+      "d": 3
+     },
+     "Butembo": {
+      "c": 2,
+      "d": 3
+     },
+     "Goma": {
+      "c": 0,
+      "d": 0
+     },
+     "Kalunguta": {
+      "c": 0,
+      "d": 0
+     },
+     "Katwa": {
+      "c": 10,
+      "d": 10
+     },
+     "Kyondo": {
+      "c": 0,
+      "d": 0
+     },
+     "Lubero": {
+      "c": 0,
+      "d": 0
+     },
+     "Mabalako": {
+      "c": 0,
+      "d": 0
+     },
+     "Masereka": {
+      "c": 0,
+      "d": 0
+     },
+     "Musienene": {
+      "c": 1,
+      "d": 1
+     },
+     "Oicha": {
+      "c": 0,
+      "d": 0
+     },
+     "Vuhovi": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 15,
+    "casValides": true,
+    "annonceDeces": 17,
+    "decesValides": true
+   },
+   "Haut-Uélé": {
+    "zones": {
+     "Boma Mangbetu": {
+      "c": 0,
+      "d": 0
+     },
+     "Gombari": {
+      "c": 0,
+      "d": 0
+     },
+     "Isiro": {
+      "c": 0,
+      "d": 0
+     },
+     "Pawa": {
+      "c": 0,
+      "d": 0
+     },
+     "Rungu": {
+      "c": 0,
+      "d": 0
+     },
+     "Wamba": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": null,
+    "casValides": false,
+    "annonceDeces": null,
+    "decesValides": false
+   },
+   "Sud-Kivu": {
+    "zones": {
+     "Miti-Murhesa": {
+      "c": 0,
+      "d": 0
+     }
+    },
+    "annonceCas": 0,
+    "casValides": true,
+    "annonceDeces": 0,
+    "decesValides": true
+   }
+  }
+ }
+}

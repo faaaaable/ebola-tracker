@@ -8097,8 +8097,13 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
 
     /* Combien de journees une barre couvre : un bulletin apres un jour sans
        bulletin, ou des deces apres un bulletin sans deces par zone (087). */
-    const empan = x => !x ? 1 : Math.max(x.n || 1, deces() ? (x.nd || 1) : 1);
+    /* « nc »/« nd » (15 novembre 2026, scripts/zones_jour.py) : journee
+       separee d'apres les cas et deces du jour publies par zone. « ca »/« da » :
+       part du jour, pleine ; le reste seul est en rattrapage. « calc » : veille
+       calculee par soustraction. */
+    const empan = x => !x ? 1 : (deces() ? (x.nd || x.n || 1) : (x.nc || x.n || 1));
     const clair = x => x && (empan(x) > 1 || x.ratt);
+    const partJour = x => x ? (deces() ? x.da : x.ca) : undefined;
     function valeur(z, s){
       if(!D.sitrep[s]) return null;                   // pas de bulletin : un blanc
       if(deces() && s < D.premiersDeces) return null; // deces par zone des le 1er juin
@@ -8107,8 +8112,9 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
     function series(z){
       const rapporte = [], rattrape = [];
       for(const s of JOURS){
-        const x = valeur(z, s);
-        if(x !== null && clair(z.j[s])){ rapporte.push(null); rattrape.push(x); }
+        const x = valeur(z, s), part = partJour(z.j[s]);
+        if(x !== null && part !== undefined){ rapporte.push(part || null); rattrape.push(x - part || null); }
+        else if(x !== null && clair(z.j[s])){ rapporte.push(null); rattrape.push(x); }
         else { rapporte.push(x); rattrape.push(null); }
       }
       return { rapporte, rattrape };
@@ -8197,6 +8203,7 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
         if(sansD.length) bouts.push(tr('zjTipSansDeces')(sansD));
         l.push(tr('zjTipReunit')(n) + (bouts.length ? ', ' + bouts.join(' ; ') : ''));
       } else if(x.ratt) l.push(tr('zjTipRatt'));
+      if(x.calc && x[deces() ? 'd' : 'c']) l.push(tr('zjTipCalc'));
       if(x.annonce && deces()) l.push(tr('zjTipAnnonce'));
       const b = x.baisse && x.baisse[deces() ? 1 : 0];
       if(b) l.push(tr('zjTipBaisse')(fmt(b)));
@@ -8212,7 +8219,9 @@ document.querySelectorAll('.ag-toutes').forEach(function(box){
         map.set(cle, p);
         const x = valeur(z, s); if(x === null) continue;
         p.releves++;
-        if(z.j[s] && z.j[s].ratt) p.ratt += x; else p.cas += x;
+        const part = partJour(z.j[s]);
+        if(z.j[s] && z.j[s].ratt){ const a = part !== undefined ? part : 0; p.cas += a; p.ratt += x - a; }
+        else p.cas += x;
       }
       const premier = deces() && D.premiersDeces > JOURS[0] ? D.premiersDeces : JOURS[0];
       return [...map.values()].map(p => Object.assign(p, {

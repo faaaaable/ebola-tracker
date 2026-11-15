@@ -2011,7 +2011,10 @@ def _zone_jour(c, Dz, jours, prov, z):
         s = d.isoformat(); x = z["j"].get(s) or {}
         if not Dz["sitrep"].get(s):
             rap.append(None); rat.append(None); continue
-        v = x.get("c", 0); clair = (x.get("n") or 1) > 1 or x.get("ratt")
+        v = x.get("c", 0)
+        if "ca" in x:   # part du jour pleine, reste en rattrapage (zones_jour.py)
+            rap.append(x["ca"] or None); rat.append(v - x["ca"] or None); continue
+        clair = (x.get("nc") or x.get("n") or 1) > 1 or x.get("ratt")
         rap.append(None if clair else v); rat.append(v if clair else None)
     pn = PROV_NOM.get(c.lang, {}).get(prov, prov)
     titre = t["titre"].format(z=z["nom"])

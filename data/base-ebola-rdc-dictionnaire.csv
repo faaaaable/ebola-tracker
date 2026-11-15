@@ -5,7 +5,7 @@ province,identification,txt,texte,identification,Province. Vide sur les lignes d
 zone,identification,txt,texte,identification,"Zone de santé, sous le nom du dernier bulletin. Vide sur les lignes du pays et des provinces."
 sitrep,identification,int,nombre,identification,Numéro du rapport de situation (SitRep) de l’INSP dont la ligne est tirée.
 source_pdf,identification,txt,texte,identification,Adresse du PDF de ce SitRep. Vide sur une ligne reconstituée.
-mention,identification,txt,texte,identification,"Signale une ligne à part. « rattrapage » : l’écart couvre plus d’une journée (22 et 30 juillet). « reconstitue » : SitRep 142 jamais publié, jour calculé par soustraction à partir du 143. « harmonisation » : la source a corrigé ses séries ce jour-là (Ituri : +314 décès anciens le 30 octobre, retirés le 31) ; l’écart ne correspond pas à des cas ou décès nouveaux. « guéris contradictoires » : deux passages du bulletin donnent des guéris du jour différents. « guéris annoncés ≠ cumul » : les guéris annoncés pour la journée ne font pas la hausse du cumul national depuis la veille. « OMS Weekly Report … (lecture manuelle) » : valeur lue dans un rapport de l’OMS."
+mention,identification,txt,texte,identification,"Signale une ligne à part. « rattrapage » : l’écart couvre plus d’une journée (22 et 30 juillet). « reconstitue » : jour calculé par soustraction à partir du bulletin suivant (SitRep 142 et 172 jamais publiés, ou jours où une province manquait ou recopiait la veille : 22 mai, 12, 26 et 28 juin, 16 juillet). « harmonisation » : la source a corrigé ses séries ce jour-là (Ituri : +314 décès anciens le 30 octobre, retirés le 31) ; l’écart ne correspond pas à des cas ou décès nouveaux. « guéris contradictoires » : deux passages du bulletin donnent des guéris du jour différents. « guéris annoncés ≠ cumul » : les guéris annoncés pour la journée ne font pas la hausse du cumul national depuis la veille. « OMS Weekly Report … (lecture manuelle) » : valeur lue dans un rapport de l’OMS."
 cas,épidémie,int,nombre,publié,"Cas confirmés cumulés depuis le début de l’épidémie, tels que publiés par le bulletin."
 nouveaux_cas,épidémie,int,nombre,calculé,Écart de cas cumulés avec le relevé précédent du même territoire. Négatif : révision à la baisse par la source. Peut différer des nouveaux cas annoncés par le bulletin.
 ecart_jours,épidémie,int,jours,calculé,"Nombre de jours couverts par l’écart, depuis le relevé précédent du même territoire (1 = d’un jour au suivant)."
@@ -21,8 +21,8 @@ alertes_validees,riposte,int,nombre,publié,Alertes validées comme cas suspects
 labo_echantillons,riposte,int,nombre,publié,Échantillons analysés par les laboratoires ce jour-là.
 labo_positifs,riposte,int,nombre,publié,Échantillons positifs ce jour-là.
 labo_positivite,riposte,pct,%,calculé,"Positifs divisés par échantillons analysés, en pour cent ; seulement quand les deux sont publiés."
-cte_hospitalises,riposte,int,nombre,publié,Personnes hospitalisées en centre de traitement (CTE) ce jour-là.
-cte_lits,riposte,int,nombre,publié,Lits disponibles dans les CTE.
+cte_hospitalises,riposte,int,nombre,publié,"Patients en isolement, confirmés ou suspects, ce jour-là. Pour le pays : le chiffre de tête du bulletin, laissé vide quand il contredit le détail des provinces (SitRep 180 à 182) ; avant le SitRep 090, somme des provinces que détaille le bulletin."
+cte_lits,riposte,int,nombre,publié,Lits disponibles dans les CTE de la province. Vide pour le pays : aucun bulletin ne donne le total national.
 cte_occupation,riposte,pct,%,"publié, sinon calculé","Taux d’occupation des lits publié par le bulletin ; s’il manque, hospitalisés divisés par lits."
 contacts_a_suivre,riposte,int,nombre,publié,Contacts à suivre ce jour-là.
 contacts_vus,riposte,int,nombre,publié,Contacts vus ce jour-là.
