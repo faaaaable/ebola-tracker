@@ -2069,10 +2069,161 @@ def zones_menu_html(c, liens):
                esc(t["h3"]), esc(t["lire"]), esc(lien), esc(t["lien"].format(p=pn)), esc(p["png"])))
 
 
+# ================================================================ comparaison avec 2014
+# Les deux epidemies calees sur le jour de leur declaration (15 novembre 2026,
+# maquette tmp/proto-comparaison-2014-1115) : la RDC (cas ou deces confirmes,
+# SitRep) et l'Afrique de l'Ouest 2014-2016 (Guinee, Liberia, Sierra Leone ;
+# confirmes, probables et suspects, la definition du bilan de l'OMS du
+# 2 juin 2016 : 28 616 cas, 11 310 deces), jusqu'au jour du dernier bulletin.
+# 2014 a la DATE DES DONNEES de chaque pays (data/afrique-ouest-2014.csv,
+# scripts/afrique_ouest_2014.py) : au jour 181, le rapport de l'OMS du
+# 22 septembre 2014 (5 843 cas, 2 803 deces). Un cumul de 2014 que l'OMS
+# revoit ensuite a la baisse (Liberia, 12 septembre 2014 : 1 224 -> 1 137
+# deces) est reporte sur les releves precedents : la courbe ne redescend
+# pas. Les deces de la RDC sans l'harmonisation de l'Ituri (SitRep 169,
+# defaite au 170), comme le reste du site.
+D0_2026, D0_2014 = dt.date(2026, 5, 15), dt.date(2014, 3, 23)
+CMP = {
+ "fr": dict(
+  titre="Après {m} mois, {f} plus de {q} qu’en Afrique de l’Ouest en 2014",
+  titreMoins="Après {m} mois, moins de {q} qu’en Afrique de l’Ouest en 2014",
+  deux="deux fois", presque="presque deux fois", fois="{r} fois",
+  mois=["un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze"],
+  q={"cas": "cas", "deces": "décès"},
+  sous="{Q} cumulés, depuis la déclaration de chaque épidémie",
+  rdc="RDC, 2026 — {q} confirmés", ao="Afrique de l’Ouest, 2014-2016 — {q} confirmés, probables et suspects",
+  axe="jours depuis la déclaration de l’épidémie", jour="jour {j}, {d}", jourAo="jour {j}, données au {d}",
+  rapport="(rapport OMS du {d})", rivers="(C. Rivers, d’après l’OMS)",
+  note1="Jour 0 : 23 mars 2014 (notification par la Guinée) ; 15 mai 2026 (déclaration en RDC). 2014-2016 : Guinée, Liberia, Sierra Leone.",
+  note2="La RDC ne publie en cumul que les {q} confirmés : la comparaison minore l’épidémie actuelle.",
+  source="", plus=" ; OMS ; C. Rivers",
+  lire="Les deux épidémies calées sur le jour de leur déclaration. 2014-2016 : confirmés, probables et suspects, à la date des données des rapports de l’OMS (C. Rivers avant le 25 août 2014), la définition du bilan de 28 616 cas et 11 310 décès. RDC : confirmés seuls."),
+ "en": dict(
+  titre="After {m} months, {f} {q} as in West Africa in 2014",
+  titreMoins="After {m} months, fewer {q} than in West Africa in 2014",
+  deux="twice as many", presque="nearly twice as many", fois="{r} times as many",
+  mois=["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"],
+  q={"cas": "cases", "deces": "deaths"},
+  sous="Cumulative {q}, since each outbreak was declared",
+  rdc="DRC, 2026 — confirmed {q}", ao="West Africa, 2014-2016 — confirmed, probable and suspected {q}",
+  axe="days since the outbreak was declared", jour="day {j}, {d}", jourAo="day {j}, data as of {d}",
+  rapport="(WHO report of {d})", rivers="(C. Rivers, from WHO)",
+  note1="Day 0: 23 March 2014 (notified by Guinea); 15 May 2026 (declared in the DRC). 2014-2016: Guinea, Liberia, Sierra Leone.",
+  note2="The DRC only publishes cumulative confirmed {q}: the comparison understates the current outbreak.",
+  plus="; WHO; C. Rivers",
+  lire="Both outbreaks aligned on the day they were declared. 2014-2016: confirmed, probable and suspected, by data date of the WHO reports (C. Rivers before 25 August 2014), the definition of the final count of 28,616 cases and 11,310 deaths. DRC: confirmed only."),
+ "sw": dict(
+  titre="Baada ya miezi {m}, {f} ya {q} vya Afrika Magharibi mwaka 2014",
+  titreMoins="Baada ya miezi {m}, {q} vichache kuliko Afrika Magharibi mwaka 2014",
+  deux="mara mbili", presque="karibu mara mbili", fois="mara {r}",
+  mois=["mmoja", "miwili", "mitatu", "minne", "mitano", "sita", "saba", "minane", "tisa", "kumi", "kumi na mmoja", "kumi na miwili"],
+  q={"cas": "visa", "deces": "vifo"},
+  sous="Jumla ya {q}, tangu kila mlipuko ulipotangazwa",
+  rdc="DRC, 2026 — {q} vilivyothibitishwa", ao="Afrika Magharibi, 2014-2016 — {q} vilivyothibitishwa, vinavyowezekana na vinavyoshukiwa",
+  axe="siku tangu mlipuko ulipotangazwa", jour="siku {j}, {d}", jourAo="siku {j}, takwimu kufikia {d}",
+  rapport="(ripoti ya WHO ya {d})", rivers="(C. Rivers, kutoka WHO)",
+  note1="Siku 0: 23 Machi 2014 (Guinea iliarifu); 15 Mei 2026 (ilitangazwa DRC). 2014-2016: Guinea, Liberia, Sierra Leone.",
+  note2="DRC inachapisha jumla ya {q} vilivyothibitishwa pekee: ulinganisho unapunguza mlipuko wa sasa.",
+  plus="; WHO; C. Rivers",
+  lire="Milipuko yote miwili imepangwa kwa siku ilipotangazwa. 2014-2016: vilivyothibitishwa, vinavyowezekana na vinavyoshukiwa, kwa tarehe ya takwimu za ripoti za WHO (C. Rivers kabla ya 25 Agosti 2014). DRC: vilivyothibitishwa pekee."),
+}
+
+
+def _ao_2014():
+    """Cumuls 2014 des trois pays a la date des donnees : liste de (jour, cas,
+    deces, date_donnees, rapport, source), chaque pays reporte tel quel tant
+    qu'un releve plus recent ne le remplace pas ; corrige a rebours."""
+    import csv
+    lignes = list(csv.DictReader(open(os.path.join(ROOT, "data", "afrique-ouest-2014.csv"), encoding="utf-8")))
+    etat, serie = {}, []
+    for r in lignes:
+        prev = etat.get(r["pays"], {})
+        etat[r["pays"]] = dict(r, deces=r["deces"] or prev.get("deces") or "0")
+        d = D(r["date_donnees"])
+        pt = ((d - D0_2014).days, sum(int(x["cas"]) for x in etat.values()), sum(int(x["deces"]) for x in etat.values()),
+              d, max((x["rapport_oms"] for x in etat.values()), default=""), {x["source"] for x in etat.values()})
+        if serie and serie[-1][0] == pt[0]:
+            serie[-1] = pt
+        else:
+            serie.append(pt)
+    out, pc, pd = [], float("inf"), float("inf")
+    for j, ca, de, d, rp, so in reversed(serie):
+        pc, pd = min(pc, ca), min(pd, de)
+        out.append((max(j, 0), pc, pd, d, rp, so))
+    return out[::-1]
+
+
+def comparaison_2014(c, champ):
+    import textwrap
+    e = CMP[c.lang]; q = e["q"][champ]; cle = 1 if champ == "cas" else 2
+    coul = BLUE if champ == "cas" else RED
+    harm = {k: h["deces"] for k, h in HARM.items()}
+    rdc = []
+    for r in c.sitreps:
+        v = r["confirmed"] if champ == "cas" else r["deaths"]
+        if v is None: continue
+        if champ == "deces":
+            v -= sum(x for k, x in harm.items() if k <= r["date"])
+        rdc.append((max((D(r["date"]) - D0_2026).days, 0), v))
+    ao = _ao_2014()
+    jf, vf = rdc[-1]
+    pts = [p for p in ao if p[0] <= jf]
+    ja, va, da, rp, so = pts[-1][0], pts[-1][cle], pts[-1][3], pts[-1][4], pts[-1][5]
+    r = vf / va
+    nm = round(jf / 30.44)
+    mots = e["mois"][nm - 1] if 1 <= nm <= 12 else str(nm)
+    if r < 1:
+        titre = e["titreMoins"].format(m=mots, q=q)
+    else:
+        f = e["deux"] if 1.95 <= r < 2.05 else e["presque"] if 1.75 <= r < 1.95 else e["fois"].format(r=("%.1f" % r).replace(".", "," if c.lang == "fr" else "."))
+        titre = e["titre"].format(m=mots, f=f, q=q)
+    sous = e["sous"].format(Q=q[0].upper() + q[1:], q=q)
+    dy = 46 * (len(textwrap.wrap(titre, 46)) - 1 if len(titre) > 50 else 0)
+    X0, X1, Y0, Y1 = 110, 1080, 262 + dy, 700 + dy
+    mx = max(vf, va) * 1.12
+    pas_y = _pas(mx, 8); ymax = pas_y * math.ceil(mx / pas_y)
+    pas_x = 25 if jf <= 250 else 50 if jf <= 500 else 100
+    sx = lambda j: X0 + (X1 - X0) * j / jf
+    sy = lambda v: Y1 - (Y1 - Y0) * v / ymax
+    o = ['<rect x="60" y="%d" width="28" height="5" rx="2" fill="%s"/>' % (180 + dy, coul),
+         c.T(98, 189 + dy, e["rdc"].format(q=q), 16, INK, weight=600),
+         '<rect x="60" y="%d" width="28" height="5" rx="2" fill="%s"/>' % (208 + dy, "#8C857C"),
+         c.T(98, 217 + dy, e["ao"].format(q=q), 16, INK, weight=600)]
+    v = 0
+    while v <= ymax:
+        o.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="%s" stroke-width="%s"/>' % (X0, X1, sy(v), sy(v), LINE, 1.5 if v == 0 else 1))
+        o.append(c.T(X0 - 12, sy(v) + 5, c.nb(v), 14, INK_LABEL, "end"))
+        v += pas_y
+    j = 0
+    while j <= jf:
+        if jf - j >= pas_x / 3:
+            o.append(c.T(sx(j), Y1 + 26, str(j), 14, INK_LABEL, "middle"))
+        j += pas_x
+    o.append(c.T(sx(jf), Y1 + 26, str(jf), 14, INK, "middle", 700))
+    o.append(c.T((X0 + X1) / 2, Y1 + 54, e["axe"], 14, INK_LABEL, "middle"))
+    trace = lambda serie, col, ep: '<path d="M%s" fill="none" stroke="%s" stroke-width="%s" stroke-linejoin="round"/>' % (
+        "L".join("%.1f,%.1f" % (sx(a), sy(b)) for a, b in serie), col, ep)
+    o.append(trace([(p[0], p[cle]) for p in pts], "#8C857C", 3))
+    o.append(trace([p for p in rdc if p[0] <= jf], coul, 4))
+    xa = sx(jf)
+    o.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%d" stroke="%s" stroke-dasharray="3 4" stroke-width="1"/>' % (xa, xa, Y0 - 8, Y1, INK))
+    o.append('<circle cx="%.1f" cy="%.1f" r="7" fill="%s" stroke="%s" stroke-width="2"/>' % (xa, sy(vf), coul, BG))
+    o.append('<circle cx="%.1f" cy="%.1f" r="6" fill="#8C857C" stroke="%s" stroke-width="2"/>' % (xa, sy(va), BG))
+    o.append(c.T(xa - 16, sy(vf) - 30, c.nb(vf), 30, coul, "end", 700, CHIFFRES))
+    o.append(c.T(xa - 16, sy(vf) - 10, e["jour"].format(j=jf, d=c.dl_(c.FIN)), 14, INK_LABEL, "end"))
+    o.append(c.T(xa - 16, sy(va) - 66, c.nb(va), 24, INK_DIM, "end", 700, CHIFFRES))
+    o.append(c.T(xa - 16, sy(va) - 44, e["jourAo"].format(j=ja, d=c.dl_(da)), 14, INK_LABEL, "end"))
+    o.append(c.T(xa - 16, sy(va) - 26, e["rapport"].format(d=c.dl_(D(rp))) if rp and "OMS" in so else e["rivers"], 13, INK_LABEL, "end"))
+    o.append(c.T(60, Y1 + 92, e["note1"], 13, INK_LABEL))
+    o.append(c.T(60, Y1 + 114, e["note2"].format(q=q), 13, INK_LABEL))
+    return c.carte(titre, sous, "".join(o), h=Y1 + 230, source_plus=e["plus"])
+
+
 LISTE = [
     ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"),
            ("nouveaux-cas-jour", None, lambda c: r_national(c, "confirmed"), "nat"), ("nouveaux-deces-jour", None, lambda c: r_national(c, "deaths"), "natdec"),
            ("provinces", None, carte_provinces, "provinces"), ("dix-sept-epidemies", None, epidemies_rdc, "epi"),
+           ("comparaison-2014-cas", None, lambda c: comparaison_2014(c, "cas"), "cmp"), ("comparaison-2014-deces", None, lambda c: comparaison_2014(c, "deces"), "cmp"),
            ("zones-plus-touchees", None, top_zones, "topzones"), ("zones-dynamique", None, dyn_zones, "dynzones"), ("lieu-deces-zones", None, lieu_zones, "lieuzones")] + PROVINCES_JOUR),
     ("r", [("alertes-jour", None, r_alertes, "alertes"), ("laboratoire-jour", None, r_labo, "labo"), ("contacts-jour", None, r_contacts, "contacts"),
            ("cte-jour", None, r_cte, "cte"), ("vaccination-jour", None, r_vaccin, "vaccin"),
@@ -2139,7 +2290,7 @@ def page_html(lang, mois_courts, liens_prov=None):
             titre = html.unescape(" ".join(m)) if m else ident
             figs.append('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
                         '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
-                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else LZ[lang]["lire"] if lire == "lieuzones" else TZ[lang]["lire"] if lire == "topzones" else DZ[lang]["lire"] if lire == "dynzones" else PJ[lang]["lire"])), esc(p["png"])))
+                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else CMP[lang]["lire"] if lire == "cmp" else LZ[lang]["lire"] if lire == "lieuzones" else TZ[lang]["lire"] if lire == "topzones" else DZ[lang]["lire"] if lire == "dynzones" else PJ[lang]["lire"])), esc(p["png"])))
         if etage == "b":
             figs.append(zones_menu_html(c, liens_prov))
         out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
