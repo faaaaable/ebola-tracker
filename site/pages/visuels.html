@@ -6,8 +6,11 @@
        (dernier mois clos). Le PNG se fabrique dans le navigateur, au clic :
        le SVG est dessine sur un canevas de 2 400 px, polices du site
        integrees, sans rien ajouter au poids de la page. -->
+  <!-- En chapitres depuis le 15 novembre 2026 (maquette
+       tmp/proto-visuels-ordre-1115) : visuels classes par question, menu a
+       ancres numerote comme Ensemble du pays, pastille de rythme sur chaque
+       visuel, visuels empiles sur deux colonnes dans chaque chapitre. -->
   <section class="section vx-page">
-    <p class="vx-eyebrow">{{t.navGrpExplore}}</p>
     {{vis.html}}
   </section>
 
@@ -61,6 +64,13 @@ a.vx-png{text-decoration:none}
 .vx-zj-pas:hover{border-color:var(--accent-strong)}
 .vx-zj-lien{color:var(--accent-strong);white-space:nowrap}
 @media (max-width:860px){.vx-grille{grid-template-columns:minmax(0,1fr)}}
+/* Chapitres (15 novembre 2026) : pastille de rythme, menu des provinces,
+   empilement (le script donne a chaque visuel sa hauteur en rangees de 2 px) */
+.vx-fig{scroll-margin-top:130px}
+.vx-ry{display:table;font:600 11px var(--font-sans);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-dim);background:var(--line-soft);border-radius:4px;padding:2px 6px;margin:0 0 6px}
+.vx-pmenu .vx-zj-bar select{margin-right:12px}.vx-pv[hidden]{display:none}
+.vx-grille.vx-pile{grid-auto-rows:2px;row-gap:0}
+.pp-sousnav a.on{color:var(--accent-strong);border-bottom-color:var(--accent-strong)}
 </style>
 <script>
 (function(){
@@ -94,6 +104,35 @@ a.vx-png{text-decoration:none}
     sel.addEventListener('change',voir);
     zj.querySelectorAll('.vx-zj-pas').forEach(function(b){ b.addEventListener('click',function(){
       var k=sel.options.length; sel.selectedIndex=(sel.selectedIndex+ +b.dataset.pas+k)%k; voir(); }); });
+  }
+
+  /* Province par province (15 novembre 2026) : une courbe visible, choisie au
+     menu ; un lien vers une courbe cachee (#nouveaux-cas-province-2) l'ouvre. */
+  var pv=document.getElementById('vxProv'), pc=document.getElementById('vxChamp');
+  function montrer(){ document.querySelectorAll('.vx-pv').forEach(function(d){ d.hidden=!(d.dataset.p===pv.value&&d.dataset.c===pc.value); }); }
+  function ouvrirAncre(){
+    var m=/^#nouveaux-(cas|deces)-province-(\d+)$/.exec(location.hash); if(!m||!pv) return;
+    pv.value=m[2]; pc.value=m[1]; montrer(); pile();
+    var f=document.getElementById(location.hash.slice(1)); if(f) setTimeout(function(){ f.scrollIntoView(); },0);
+  }
+  if(pv){ pv.addEventListener('change',function(){ montrer(); pile(); }); pc.addEventListener('change',function(){ montrer(); pile(); }); }
+
+  /* Empilement (15 novembre 2026) : deux colonnes, chaque visuel sous le
+     precedent de sa colonne, sans attendre la fin de la rangee voisine. */
+  var grilles=[].slice.call(document.querySelectorAll('.chap-corps .vx-grille'));
+  function pile(){
+    grilles.forEach(function(g){ g.classList.add('vx-pile'); [].forEach.call(g.children,function(x){
+      x.style.gridRowEnd=''; x.style.gridRowEnd='span '+Math.ceil((x.getBoundingClientRect().height+22)/2); }); });
+  }
+  pile(); window.addEventListener('load',pile); window.addEventListener('resize',pile);
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(function(){ pile(); }); grilles.forEach(function(g){ [].forEach.call(g.children,function(x){ ro.observe(x); }); }); }
+  ouvrirAncre(); window.addEventListener('hashchange',ouvrirAncre); window.addEventListener('load',ouvrirAncre);
+
+  /* Menu a ancres : le chapitre lu est souligne */
+  var liens=[].slice.call(document.querySelectorAll('.chap-nav a'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) liens.forEach(function(a){ a.classList.toggle('on',a.hash==='#'+e.target.id); }); }); },{rootMargin:'-140px 0px -60% 0px'});
+    document.querySelectorAll('section.chap').forEach(function(x){ io.observe(x); });
   }
 
   // Polices du site, integrees une fois en data: URI pour que le PNG garde sa

@@ -243,7 +243,7 @@ PAGE = {
  "fr": dict(
   h1a="Visuels", h1b="de l'épidémie",
   c_section="Image fixe", c_titre="Ebola, l’Est en relief", c_sous="Carte du SitRep n°{n} · données au {d}, redessinée à chaque bulletin",
-  lede="Les images de l'épidémie, redessinées au fil des bulletins : à chaque nouveau bulletin, chaque lundi pour la dernière semaine complète, et au début de chaque mois. Chacune se télécharge, avec sa date et sa source.",
+  lede="Les images de l'épidémie, redessinées au fil des bulletins. Chacune se télécharge, avec sa date et sa source.",
   b_eyebrow="À chaque bulletin", b_titre="L'épidémie au dernier bulletin", b_sous="SitRep n°{n} · données au {d}", b_rythme="mis à jour à chaque nouveau bulletin",
   s_eyebrow="Chaque semaine", s_titre="La semaine du {a} au {b}", s_sous="Dernière semaine complète, du lundi au dimanche.", s_rythme="mis à jour le lundi",
   m_eyebrow="Chaque mois", m_titre="{M}", m_sous="Dernier mois clos, comparé aux précédents.", m_rythme="mis à jour au début du mois",
@@ -263,7 +263,7 @@ PAGE = {
  "en": dict(
   h1a="Visuals", h1b="of the outbreak",
   c_section="Fixed image", c_titre="Ebola, the East in relief", c_sous="Map from SitRep No. {n} · data as of {d}, redrawn with each bulletin",
-  lede="Images of the outbreak, redrawn as the bulletins come in: with every new bulletin, each Monday for the last complete week, and at the start of each month. Each one can be downloaded, with its date and source.",
+  lede="Images of the outbreak, redrawn as the bulletins come in. Each one can be downloaded, with its date and source.",
   b_eyebrow="With every bulletin", b_titre="The outbreak at the latest bulletin", b_sous="SitRep No. {n} · data as of {d}", b_rythme="updated with every new bulletin",
   s_eyebrow="Every week", s_titre="The week of {a} to {b}", s_sous="Last complete week, Monday to Sunday.", s_rythme="updated on Mondays",
   m_eyebrow="Every month", m_titre="{M}", m_sous="Last closed month, compared with the previous ones.", m_rythme="updated at the start of the month",
@@ -283,7 +283,7 @@ PAGE = {
  "sw": dict(
   h1a="Michoro", h1b="ya mlipuko",
   c_section="Picha isiyobadilika", c_titre="Ebola, the East in relief", c_sous="Ramani ya SitRep Na. {n} · takwimu kufikia {d}, huchorwa upya kila ripoti (kwa Kiingereza)",
-  lede="Picha za mlipuko, zinazochorwa upya kadiri ripoti zinavyotoka: kwa kila ripoti mpya, kila Jumatatu kwa wiki kamili ya mwisho, na mwanzoni mwa kila mwezi. Kila moja inaweza kupakuliwa, pamoja na tarehe na chanzo chake.",
+  lede="Picha za mlipuko, zinazochorwa upya kadiri ripoti zinavyotoka. Kila moja inaweza kupakuliwa, pamoja na tarehe na chanzo chake.",
   b_eyebrow="Kwa kila ripoti", b_titre="Mlipuko katika ripoti ya mwisho", b_sous="SitRep Na. {n} · takwimu kufikia {d}", b_rythme="husasishwa kwa kila ripoti mpya",
   s_eyebrow="Kila wiki", s_titre="Wiki ya {a} hadi {b}", s_sous="Wiki kamili ya mwisho, Jumatatu hadi Jumapili.", s_rythme="husasishwa Jumatatu",
   m_eyebrow="Kila mwezi", m_titre="{M}", m_sous="Mwezi wa mwisho uliokamilika, ukilinganishwa na iliyotangulia.", m_rythme="husasishwa mwanzoni mwa mwezi",
@@ -2252,8 +2252,9 @@ CARTE_DOSSIER = "/assets/img/visuels/"
 
 
 def cartes_html(c, lang):
-    """Section « Images fixes », en bas de page (23 octobre 2026) : les deux
-    formats sans legende, seulement le lien de telechargement."""
+    """La carte en relief, sans legende, seulement le lien de telechargement :
+    premiere figure du chapitre 01 depuis le 15 novembre 2026 (avant :
+    section « Images fixes » en bas de page, 23 octobre 2026)."""
     p = c.p; f = CARTE_DOSSIER + CARTE_RELIEF["fichier"][lang]
     figs = []
     for fmt, (w, h) in (("4x5", (1000, 1250)),):
@@ -2261,41 +2262,112 @@ def cartes_html(c, lang):
                     '<img src="%s-%s-web.jpg?v=%s" width="%d" height="%d" alt="%s" loading="lazy"></div>'
                     '<figcaption><span></span><a class="vx-png" href="%s-%s.png?v=%s" download>%s</a></figcaption></figure>'
                     % (fmt, fmt, esc(p["agrandir"] + " : " + p["c_titre"]), f, fmt, CARTE_RELIEF["sitrep"], w, h, esc(p["c_titre"]), f, fmt, CARTE_RELIEF["sitrep"], esc(p["png"])))
-    return ('<section class="vx-etage" id="relief"><div class="vx-tete"><div><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div></div>'
-            '<div class="vx-grille">%s</div></section>'
-            % (esc(p["c_section"]), esc(p["c_sous"].format(n=CARTE_RELIEF["sitrep"], d=c.dl_(dt.date.fromisoformat(CARTE_RELIEF["date"])))),
-               "".join(figs)))
+    return "".join(figs)
+
+
+# La page en chapitres (15 novembre 2026, maquette tmp/proto-visuels-ordre-1115) :
+# les visuels classes par question, plus par rythme ; menu a ancres numerote et
+# chapitres comme Ensemble du pays (styles « .chap » de site.css) ; une
+# pastille dit le rythme de chaque visuel ; les courbes des provinces passent
+# dans un menu (province, cas ou deces) ; dans chaque chapitre les visuels
+# s'empilent sur deux colonnes (script de la page, site/pages/visuels.html).
+# Chaque visuel de LISTE doit avoir sa place ici, sinon la generation s'arrete.
+CHAPITRES = [
+    ("essentiel", ["relief-4x5", "nouveaux-cas-jour", "nouveaux-deces-jour", "calendrier", "code-barre"]),
+    ("histoire", ["dix-sept-epidemies", "comparaison-2014-cas", "comparaison-2014-deces"]),
+    ("rythme", ["cas-semaine", "cas-semaine-provinces", "part-provinces", "cas-par-mois", "deces-par-mois", "part-par-mois"]),
+    ("par-province", ["provinces", "@provinces"]),
+    ("zones", ["zones-plus-touchees", "zones-dynamique", "zones-actives", "zone-apres-zone", "zones-par-mois", "@zone-par-zone"]),
+    ("deces", ["lieu-deces", "lieu-deces-zones"]),
+    ("riposte", ["alertes-jour", "laboratoire-jour", "contacts-jour", "cte-jour", "vaccination-jour", "voyageurs-jour", "alertes-postes-semaine"]),
+]
+# (lien du menu, titre, chapeau) par chapitre ; rythme des pastilles ; menu des provinces
+CH = {
+ "fr": dict(nav="Visuels", ry=dict(b="chaque bulletin", s="chaque lundi", m="chaque mois"),
+            prov="Province", aff="Afficher", cas="les nouveaux cas", deces="les nouveaux décès",
+            t=dict(essentiel=("En un coup d’œil", "L’épidémie en un coup d’œil", "Où en est l’épidémie, au dernier bulletin."),
+                   histoire=("Épidémies passées", "Face aux épidémies passées", "L’épidémie actuelle à l’échelle de l’histoire d’Ebola."),
+                   rythme=("Semaines et mois", "Semaine après semaine, mois après mois", "Le rythme de l’épidémie, dernière semaine complète et dernier mois clos."),
+                   **{"par-province": ("Provinces", "Province par province", "Les provinces touchées, et la courbe de chacune.")},
+                   zones=("Zones de santé", "Zone par zone", "Les zones de santé, des plus touchées aux plus calmes."),
+                   deces=("Lieu des décès", "Où meurent les malades", "En communauté ou dans un centre de traitement."),
+                   riposte=("Riposte", "La riposte", "Surveillance, laboratoire, contacts, soins, vaccination, frontières."))),
+ "en": dict(nav="Visuals", ry=dict(b="every bulletin", s="every Monday", m="every month"),
+            prov="Province", aff="Show", cas="new cases", deces="new deaths",
+            t=dict(essentiel=("At a glance", "The outbreak at a glance", "Where the outbreak stands at the latest bulletin."),
+                   histoire=("Past outbreaks", "Against past outbreaks", "The current outbreak on the scale of Ebola’s history."),
+                   rythme=("Weeks and months", "Week after week, month after month", "The pace of the outbreak: last complete week and last closed month."),
+                   **{"par-province": ("Provinces", "Province by province", "The affected provinces, and the curve for each.")},
+                   zones=("Health zones", "Zone by zone", "Health zones, from the hardest hit to the quietest."),
+                   deces=("Place of death", "Where patients die", "In the community or in a treatment centre."),
+                   riposte=("Response", "The response", "Surveillance, laboratory, contacts, care, vaccination, borders."))),
+ "sw": dict(nav="Michoro", ry=dict(b="kila ripoti", s="kila Jumatatu", m="kila mwezi"),
+            prov="Jimbo", aff="Onyesha", cas="visa vipya", deces="vifo vipya",
+            t=dict(essentiel=("Kwa mtazamo mmoja", "Mlipuko kwa mtazamo mmoja", "Hali ya mlipuko katika ripoti ya mwisho."),
+                   histoire=("Milipuko iliyopita", "Ukilinganisha na milipuko iliyopita", "Mlipuko wa sasa katika historia ya Ebola."),
+                   rythme=("Wiki na miezi", "Wiki baada ya wiki, mwezi baada ya mwezi", "Kasi ya mlipuko: wiki kamili ya mwisho na mwezi wa mwisho uliokamilika."),
+                   **{"par-province": ("Majimbo", "Jimbo kwa jimbo", "Majimbo yaliyoathirika, na mkondo wa kila moja.")},
+                   zones=("Kanda za afya", "Kanda kwa kanda", "Kanda za afya, kuanzia zilizoathirika zaidi hadi zilizotulia."),
+                   deces=("Mahali pa vifo", "Wagonjwa wanafariki wapi", "Katika jamii au katika kituo cha matibabu."),
+                   riposte=("Mapambano", "Mapambano dhidi ya mlipuko", "Ufuatiliaji, maabara, watu wa karibu, matibabu, chanjo, mipaka."))),
+}
+
+
+def _pastille(fig, txt):
+    """La pastille de rythme, au-dessus du titre du visuel."""
+    sp = '<span class="vx-ry">%s</span>' % esc(txt)
+    if "<figcaption><div>" in fig:
+        return fig.replace("<figcaption><div>", "<figcaption><div>" + sp, 1)
+    return fig.replace("<figcaption><span></span>", "<figcaption>" + sp, 1)
 
 
 def page_html(lang, mois_courts, liens_prov=None):
-    """Le corps de la page Visuels pour une langue : trois etages, chacun avec
-    ses visuels, leur titre, leur texte de lecture et le bouton PNG."""
-    c = Contexte(lang, mois_courts); p = c.p
-    a, b = c.semaines[-1]; ym = c.mois[-1][0]
-    tetes = {
-        "b": (p["b_eyebrow"], p["b_titre"], p["b_sous"].format(n=c.SITREP, d=c.dl_(c.FIN)), p["b_rythme"]),
-        "r": (c.r["eyebrow"], c.r["titre"], c.r["sous"].format(n=c.SITREP), c.r["rythme"]),
-        "s": (p["s_eyebrow"], p["s_titre"].format(a=c.dc(a), b=c.dl_(b)), p["s_sous"], p["s_rythme"]),
-        "m": (p["m_eyebrow"], p["m_titre"].format(M="%s %d" % (c.M(ym), ym[0])), p["m_sous"], p["m_rythme"]),
-    }
-    out = ['<h1 class="vx-h1">%s <em>%s</em></h1><p class="vx-lede">%s</p>' % (esc(p["h1a"]), esc(p["h1b"]), esc(p["lede"]))]
+    """Le corps de la page Visuels pour une langue : menu a ancres et sept
+    chapitres numerotes, chacun avec ses visuels, leur titre, leur texte de
+    lecture et le bouton PNG."""
+    c = Contexte(lang, mois_courts); p = c.p; t = CH[lang]
+    figs, rythme = {}, {}
     for etage, items in LISTE:
-        eb, ti, so, ry = tetes[etage]
-        figs = []
         for ident, _, fn, lire in items:
             svg = fn(c)
             if svg is None:
                 continue
             m = re.findall(r'<text x="60\.0" y="(?:110|156)\.0"[^>]*font-size="(?:42|38)"[^>]*>([^<]*)</text>', svg)
             titre = html.unescape(" ".join(m)) if m else ident
-            figs.append('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
-                        '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
-                        % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else CMP[lang]["lire"] if lire == "cmp" else LZ[lang]["lire"] if lire == "lieuzones" else TZ[lang]["lire"] if lire == "topzones" else DZ[lang]["lire"] if lire == "dynzones" else PJ[lang]["lire"])), esc(p["png"])))
-        if etage == "b":
-            figs.append(zones_menu_html(c, liens_prov))
-        out.append('<section class="vx-etage" id="vx-%s"><div class="vx-tete"><div><p class="vx-eyebrow">%s</p><h2 class="vx-h2">%s</h2><p class="vx-sous">%s</p></div>'
-                   '<span class="vx-rythme">%s</span></div><div class="vx-grille">%s</div></section>' % (etage, esc(eb), esc(ti), esc(so), esc(ry), "".join(figs)))
-    out.append(cartes_html(c, lang))
+            figs[ident] = ('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
+                           '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
+                           % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else CMP[lang]["lire"] if lire == "cmp" else LZ[lang]["lire"] if lire == "lieuzones" else TZ[lang]["lire"] if lire == "topzones" else DZ[lang]["lire"] if lire == "dynzones" else PJ[lang]["lire"])), esc(p["png"])))
+            rythme[ident] = t["ry"]["b" if etage == "r" else etage]
+    figs["relief-4x5"] = cartes_html(c, lang); rythme["relief-4x5"] = t["ry"]["b"]
+    figs["@zone-par-zone"] = zones_menu_html(c, liens_prov); rythme["@zone-par-zone"] = t["ry"]["b"]
+    # les courbes des provinces : un menu, une seule courbe visible
+    provs = c.ordre_provinces(); noms = PROV_NOM.get(lang, {})
+    opts, corps = [], []
+    for n in range(len(provs)):
+        if not any("nouveaux-%s-province-%d" % (k, n + 1) in figs for k in ("cas", "deces")):
+            continue
+        opts.append('<option value="%d">%s</option>' % (n + 1, esc(noms.get(provs[n], provs[n]))))
+        for k in ("cas", "deces"):
+            ident = "nouveaux-%s-province-%d" % (k, n + 1)
+            if ident in figs:
+                corps.append('<div class="vx-pv" data-p="%d" data-c="%s"%s>%s</div>'
+                             % (n + 1, k, "" if not corps else " hidden", _pastille(figs.pop(ident), rythme[ident])))
+    figs["@provinces"] = ('<div class="vx-pmenu"><div class="vx-zj-bar"><label for="vxProv">%s</label><select id="vxProv">%s</select>'
+                          '<label for="vxChamp">%s</label><select id="vxChamp"><option value="cas">%s</option><option value="deces">%s</option></select></div>%s</div>'
+                          % (esc(t["prov"]), "".join(opts), esc(t["aff"]), esc(t["cas"]), esc(t["deces"]), "".join(corps))) if corps else ""
+    places = [i for _, ids in CHAPITRES for i in ids]
+    oublies = [i for i in figs if i not in places]
+    if oublies:
+        raise SystemExit("visuels.py : visuels sans chapitre dans CHAPITRES : %s" % ", ".join(oublies))
+    out = ['<h1 class="vx-h1">%s <em>%s</em></h1><p class="vx-lede">%s</p>' % (esc(p["h1a"]), esc(p["h1b"]), esc(p["lede"])),
+           '<nav class="pp-sousnav chap-nav" aria-label="%s"><div>%s</div></nav>'
+           % (esc(t["nav"]), "".join('<a href="#%s"><b class="chap-nav-n">%02d</b>%s</a>' % (a, k + 1, esc(t["t"][a][0])) for k, (a, _) in enumerate(CHAPITRES)))]
+    for k, (ancre, ids) in enumerate(CHAPITRES):
+        corps = "".join(figs[i] if i == "@provinces" else _pastille(figs[i], rythme[i]) for i in ids if figs.get(i))
+        _, titre, chapo = t["t"][ancre]
+        out.append('<section class="chap" id="%s"><header class="chap-ouv"><span class="chap-num">%02d</span><div><h2 class="chap-t">%s</h2>'
+                   '<p class="chap-chapo">%s</p></div></header><div class="chap-corps"><div class="vx-grille">%s</div></div></section>'
+                   % (ancre, k + 1, esc(titre), esc(chapo), corps))
     out.append('<div class="vx-lb" id="vxLb" hidden><button type="button" class="vx-fermer" aria-label="%s">×</button><div class="vx-lb-in"></div></div>' % esc(p["fermer"]))
     return "".join(out)
 
@@ -2338,7 +2410,7 @@ def vitrine_html(lang, mois_courts, href):
     c = Contexte(lang, mois_courts)
     # En tete de bande, la carte « Ebola, l'Est en relief » (23 octobre 2026) :
     # une image, la carte seule, sans titre ni etiquette (900 x 801).
-    out = ['<a class="vtr-t" href="%s#relief" style="--r:%.4f" aria-label="%s"><img src="%svitrine-relief.jpg?v=%s" alt=""></a>'
+    out = ['<a class="vtr-t" href="%s#relief-4x5" style="--r:%.4f" aria-label="%s"><img src="%svitrine-relief.jpg?v=%s" alt=""></a>'
            % (esc(href), CARTE_RELIEF["vignette"][0] / CARTE_RELIEF["vignette"][1], esc(c.p["c_titre"]), CARTE_DOSSIER, CARTE_RELIEF["sitrep"])]
     for n, (ident, fn, (x, y, w, h)) in enumerate(VITRINE):
         if callable(ident):
