@@ -279,22 +279,43 @@ OCCUPATION_RES = [
     # le saut de ligne entre « en » et « sursaturation » echappe au motif
     # precedent, qui interdit \n ; le mot lui-meme suffit a ancrer le taux.
     re.compile(r"sursaturation\s*\((\d+(?:[,.]\d+)?)\s*%", re.I),
+    # Notes courtes du 178 et du 179 (15 novembre 2026) : « Occupation des
+    # lits 34 % », « Occupation des lits de 36 % » (Ituri), « occupation de
+    # 18,8 % » (178 Tshopo), « Occupation globale de 12,5 % (5/40) » (179
+    # Tshopo). En dernier, apres toutes les tournures en « taux ».
+    re.compile(r"\boccupation\s+(?:des\s+lits\s+|globale?\s+)?(?:de\s+)?(\d+(?:[,.]\d+)?)\s*%", re.I),
 ]
 
 
-_N = r"(\d[\d ]{0,4}\d|\d|une?)"
+# Le nombre commence un mot : sans cela, « aucune sortie » se lisait « une
+# sortie » (113, 117, 121, 124, 125 ; corrige le 15 novembre 2026).
+_N = r"(?<![\w’'])(\d[\d ]{0,4}\d|\d|une?)"
 # « 63 nouvelles admissions », « 1 nouvelle admission », « 16 nouveaux cas
 # suspects ont été admis » (148 Bas-Uele).
 ADMISSIONS_RE = re.compile(r"%s\s+nouvel(?:le)?s?\s+admissions?|%s\s+nouveaux\s+cas\s+suspects\s+ont\s+[ée]t[ée]\s+admis"
                            % (_N, _N), re.I)
 SORTIES_RE = re.compile(r"contre\s+%s\s+sorties?\b" % _N, re.I)
-SANS_SORTIE_RE = re.compile(r"sans\s+aucune\s+sortie|aucune\s+sortie\s+n[’']a\s+[ée]t[ée]", re.I)
+# Notes courtes depuis le 178 (15 novembre 2026), lues seulement si les
+# tournures ci-dessus n'ont rien donne : « 56 admissions », « 129 admissions
+# du jour », « 16 admissions (7 confirmés, 9 suspects) » ; « 70 sorties »,
+# « ainsi que 118 sorties », « 33 sorties enregistrées », « 77 sortants »,
+# « 8 sorties déclarées « non cas » » (Bas-Uele, toutes ses sorties). Pas
+# « 3 sorties sans avis médical », qui n'en sont qu'une partie.
+ADMISSIONS_COURTES_RE = re.compile(r"%s\s+admissions?\b(?!\s+cumul)" % _N, re.I)  # pas « 219 admissions cumulées » (089)
+SORTIES_COURTES_RE = re.compile(r"%s\s+(?:sorties?|sortants)\b(?!\s+sans\s+avis)" % _N, re.I)
+# « 2 guérisons et 13 sorties de patients non-cas » (179 Haut-Uele) : les
+# deux font les sorties du jour.
+SORTIES_SOMME_RE = re.compile(r"%s\s+gu[ée]risons?\s+et\s+%s\s+sorties\s+de\s+patients\s+non[\s-]cas" % (_N, _N), re.I)
+SANS_SORTIE_RE = re.compile(r"sans\s+aucune\s+sortie|aucune\s+sortie\s+n[’']a\s+[ée]t[ée]|aucune\s+sortie\b|\bni\s+(?:aucune\s+)?sortie\b(?!\s+de\s+gu)", re.I)
+# « aucune nouvelle admission n'a été enregistrée », « aucune admission »
+# (15 novembre 2026) : zero, et non une valeur manquante.
+SANS_ADMISSION_RE = re.compile(r"\baucune\s+(?:nouvelles?\s+)?admissions?\b", re.I)
 # « dont 23 guérisons », « (78 non-cas, 11 guérisons et 7 décès) », « : 14
 # guérisons », « dont 12 patients guéris » ; jamais un nombre isolé, qui
 # pourrait venir d'une autre phrase.
 # « 118 sorties, incluant 15 guérisons » (179 Nord-Kivu) : « incluant » et
 # « y compris » s'ajoutent le 11 novembre 2026.
-GUERIS_RE = re.compile(r"(?:dont|:|\(|,|incluant|y\s+compris)\s*%s\s+(?:patients?\s+)?gu[ée]ri(?:s|sons?)?\b" % _N, re.I)
+GUERIS_RE = re.compile(r"(?:dont|:|\(|,|incluant|y\s+compris|comprenant)\s*%s\s+(?:patients?\s+)?gu[ée]ri(?:s|sons?)?\b(?!\s+cumul)" % _N, re.I)
 # Un nombre de guéris dans le bilan du traitement expérimental n'est pas un
 # flux du jour : « 679 cas ont reçu le traitement expérimental (dont 67
 # confirmés, 48 guéris, 17 décès) » (179 Tshopo) était lu comme 48 guéris.
@@ -447,14 +468,23 @@ def lire_prose(morceau):
     # sorties, dont 23 guérisons », « sans aucune sortie »). Les décès en CTE,
     # trop variables (« 11 décès (dont 8 confirmés) », « 1 décès confirmé à
     # Paw »), ne sont pas lus : la série des décès intra-CTE vient d'ailleurs.
-    m = ADMISSIONS_RE.search(morceau)
+    m = ADMISSIONS_RE.search(morceau) or ADMISSIONS_COURTES_RE.search(morceau)
     if m:
-        ligne["admissions"] = nombre_ou_un(m.group(1) or m.group(2))
+        ligne["admissions"] = nombre_ou_un(next(g for g in m.groups() if g))
+    elif SANS_ADMISSION_RE.search(morceau):
+        ligne["admissions"] = 0
     m = SORTIES_RE.search(morceau)
+    ms = SORTIES_SOMME_RE.search(morceau)
     if m:
         ligne["sorties"] = nombre_ou_un(m.group(1))
     elif SANS_SORTIE_RE.search(morceau):
         ligne["sorties"] = 0
+    elif ms:
+        ligne["sorties"] = nombre_ou_un(ms.group(1)) + nombre_ou_un(ms.group(2))
+    else:
+        m = SORTIES_COURTES_RE.search(morceau)
+        if m:
+            ligne["sorties"] = nombre_ou_un(m.group(1))
     for m in GUERIS_RE.finditer(morceau):
         if TRAITEMENT_RE.search(morceau[max(0, m.start() - 160):m.start()]):
             continue
@@ -945,6 +975,64 @@ LECTURES_NOMMEES = {
 }
 
 
+# STOCKS RECOPIES (15 novembre 2026). Le 176 reprend mot pour mot la phrase
+# de stock du 175 pour l'Ituri et le Nord-Kivu (« 578 patients … (595 la
+# veille) … 90,8 % (394/434 lits) ») alors que ses admissions et sorties sont
+# nouvelles : le bulletin se contredit (la veille, le 175 disait 578, pas
+# 595). Le nombre imprime reste, le taux et les lits sont retires : la
+# courbe ne trace pas deux fois le meme jour. Liste nominative.
+STOCKS_RECOPIES = {"176": {"Ituri": "175", "Nord-Kivu": "175"}}
+# VALEURS QUE LE BULLETIN CONTREDIT LUI-MEME (15 novembre 2026), nominatives :
+VALEURS_ECARTEES = {
+    # « 14 patients en report, 604 nouvelles admissions (132 confirmés et 472
+    # suspects), et 200 sorties … 540 patients hospitalisés » : 604, 132 et
+    # 472 sont le stock du 180 ; 14 + 604 − 200 ne fait pas 540.
+    ("181", "Nord-Kivu"): ("admissions",),
+    # « 33 sorties enregistrées (dont 36 guéris et 10 décès) » : plus de
+    # guéris que de sorties.
+    ("180", "Nord-Kivu"): ("sorties", "gueris"),
+    # « 77 sortants (74 guéris, 61 non-cas reclassés, et 12 décès) » : le
+    # detail fait 147.
+    ("180", "Ituri"): ("sorties", "gueris"),
+}
+
+
+def taux_imprime_d_abord(points):
+    """Un taux imprime l'emporte sur des lits empruntes qui le contredisent
+    (15 novembre 2026) : au 182, le Haut-Uele imprime 36 % pour 99 patients
+    et les 163 lits repris d'un bulletin precedent donnaient 60,7 — la
+    province a ouvert des lits que le bulletin ne chiffre pas. Les lits
+    empruntes sont retires, le taux imprime est trace."""
+    # Sauf le Nord-Kivu : son taux imprime ne compte que les patients des
+    # lits des CTE/CT, sa courbe tous ses patients (definition constante).
+    for p in points:
+        for nom, v in p["provinces"].items():
+            pub = v.get("occupationPubliee")
+            if nom == "Nord-Kivu":
+                continue
+            if (pub is not None and v.get("occupation") is not None and (v.get("litsReportes") or v.get("litsEncadres"))
+                    and not v.get("hospitalisesNormes") and abs(v["occupation"] - pub) > 1.5):
+                for cle in ("lits", "litsReportes", "litsEncadres", "occupationCalculee"):
+                    v.pop(cle, None)
+                v["occupation"] = pub
+
+
+def appliquer_ecarts(points):
+    for p in points:
+        n = p["sitrepNumber"]
+        for nom, source in STOCKS_RECOPIES.get(n, {}).items():
+            v = p["provinces"].get(nom)
+            if v:
+                for cle in ("lits", "occupation", "occupationPubliee", "occupationCalculee", "hospitalisesNormes",
+                            "litsReportes", "litsEncadres", "litsRecoupes", "litsDeduits"):
+                    v.pop(cle, None)
+                v["stockRecopie"] = source
+        for (num, nom), cles in VALEURS_ECARTEES.items():
+            v = p["provinces"].get(nom) if num == n else None
+            for cle in cles if v else ():
+                v.pop(cle, None)
+
+
 def lire_rapport(chemin):
     texte = texte_du_rapport(chemin)
     meta = extract_meta(texte, fallback_number=numero(chemin))
@@ -1015,6 +1103,8 @@ def main():
     reporter_lits_taux_recopie(final)
     recouper_lits_historique(final)
     recouper_lits_precedents(final)
+    taux_imprime_d_abord(final)
+    appliquer_ecarts(final)
     for p in final:
         recalculer_total(p)
     sortie = {

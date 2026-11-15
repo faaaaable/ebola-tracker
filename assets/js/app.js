@@ -2432,7 +2432,11 @@ function renderOneChartBrut(canvas, chartMode){
     /* ---- CTE : occupation par province ---- */
     if(chartMode === 'cte'){
       if(!CTE || !CTE.parDate.length){ vide(); return; }
-      const avecLits = CTE.parDate.filter(p => (p.total || {}).occupation !== undefined);
+      /* Un jour compte des qu'une province a son taux, imprime ou calcule
+         (15 novembre 2026) : filtrer sur le total national, qui ne se fait
+         qu'avec des lits, perdait les 7 et 8 novembre, ou l'Ituri imprime
+         son taux sans ses lits. */
+      const avecLits = CTE.parDate.filter(p => Object.values(p.provinces || {}).some(v => v && v.occupation != null));
       if(!avecLits.length){ vide(); return; }
       const jours = calendrier(avecLits[0].date, avecLits[avecLits.length-1].date);
       const parDate = {}; avecLits.forEach(p => { parDate[p.date] = p; });
@@ -2459,7 +2463,7 @@ function renderOneChartBrut(canvas, chartMode){
       const ordre = Object.keys(PROVINCE_COLORS);
       noms.sort((a, b) => ordre.indexOf(a) - ordre.indexOf(b));
       const serieProv = nom => jours.map(d => (parDate[d] && lisible(parDate[d].provinces[nom])) ? parDate[d].provinces[nom].occupation : null);
-      const ensemble = jours.map(d => parDate[d] ? parDate[d].total.occupation : null);
+      const ensemble = jours.map(d => parDate[d] && parDate[d].total.occupation != null ? parDate[d].total.occupation : null);
       /* Ponts sur les trous de cinq jours au plus. Le Nord-Kivu passe de
          141 a 206 lits pendant son trou du 3 au 12 aout : un pointille de
          130 % vers 73 % dessinerait une decrue qui est une extension de

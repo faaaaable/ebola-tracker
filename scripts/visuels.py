@@ -1326,7 +1326,9 @@ def r_contacts(c):
 
 
 def r_cte(c):
-    r = c.r; pts = [p for p in _j("data/cte.json")["parDate"] if "occupation" in (p.get("total") or {})]
+    # un jour compte des qu'une province a son taux (15 novembre 2026 : les 7
+    # et 8 novembre, l'Ituri imprime son taux sans ses lits)
+    r = c.r; pts = [p for p in _j("data/cte.json")["parDate"] if any((v or {}).get("occupation") is not None for v in (p.get("provinces") or {}).values())]
     jours = _calendrier(pts[0]["date"], pts[-1]["date"])
     par = {D(p["date"]): {_prov_canon(k): v for k, v in (p.get("provinces") or {}).items()} for p in pts}
     lisible = lambda v: bool(v) and v.get("occupation") is not None and (v.get("lits") or v.get("hospitalises") or 0) >= 20
