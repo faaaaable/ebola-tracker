@@ -3773,8 +3773,24 @@ def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
     else:
         out["ripContacts"], out["ripContactsSub"] = vide["value"], vide["sub"]
 
-    k = dernier(riposte["cte"], garde=lambda p: (p.get("total") or {}).get("occupation") is not None)
-    if k:
+    # Patients pour 100 lits du pays (16 novembre 2026) : seulement si, au
+    # dernier bulletin, l'Ituri ET le Nord-Kivu impriment leurs lits, sans
+    # lits repris, deduits ou recoupes, sans stock recopie ni taux contredit.
+    # Sinon « — » : depuis novembre le total ne tenait plus qu'au Nord-Kivu
+    # (128 au 183) et se lisait comme un chiffre national.
+    DOUTEUX = ("litsReportes", "litsEncadres", "litsDeduits", "litsRecoupes", "stockRecopie", "tauxContredit")
+    def lits_surs(v):
+        return bool(v) and v.get("lits") and v.get("hospitalises") is not None and not any(v.get(c) for c in DOUTEUX)
+    src_cte = riposte["cte"] or {}
+    pts_cte = [p for p in (src_cte.get("parDate", []) if isinstance(src_cte, dict) else src_cte) if p.get("date")]
+    k = pts_cte[-1] if pts_cte else None
+    if k and not (k.get("date") == date_bulletin
+                  and all(lits_surs((k.get("provinces") or {}).get(n)) for n in ("Ituri", "Nord-Kivu"))
+                  and (k.get("total") or {}).get("occupation") is not None):
+        out["ripOccupation"] = vide["value"]
+        out["ripOccupationSub"] = esc(strings_lang["riposteKpiOccupationIncomplet"])
+        k = None
+    elif k:
         t = k["total"]
         out["ripOccupation"] = fmt(round(t["occupation"]), lang)  # patients pour 100 lits (12 oct. 2026)
         sub = interp(strings_lang["riposteKpiOccupationSub"], {

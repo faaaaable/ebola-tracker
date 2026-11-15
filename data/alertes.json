@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-11-12"
+    "fin": "2026-11-13"
   },
   "parDate": [
     {
@@ -7769,6 +7769,73 @@
         "transferes": 210,
         "partVerifiee": 100.0,
         "partValidee": 14.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-13",
+      "sitrepNumber": "183",
+      "methode": "tableau par province (D)",
+      "provinces": {
+        "Haut-Uélé": {
+          "recues": 83,
+          "verifiees": 83,
+          "validees": 14,
+          "suspectsInvestigues": 14,
+          "transferes": 6
+        },
+        "Bas-Uélé": {
+          "recues": 117,
+          "verifiees": 117,
+          "validees": 18,
+          "suspectsInvestigues": 18,
+          "transferes": 0
+        },
+        "Ituri": {
+          "recues": 1561,
+          "verifiees": 1561,
+          "validees": 230,
+          "suspectsInvestigues": 230,
+          "transferes": 111
+        },
+        "Nord-Kivu": {
+          "recues": 2451,
+          "verifiees": 2451,
+          "validees": 310,
+          "suspectsInvestigues": 310,
+          "transferes": 153
+        },
+        "Nord-Ubangi": {
+          "recues": 22,
+          "verifiees": 22,
+          "validees": 0,
+          "suspectsInvestigues": 0,
+          "transferes": 0
+        },
+        "Sud-Ubangi": {
+          "recues": 120,
+          "verifiees": 120,
+          "validees": 16,
+          "suspectsInvestigues": 16,
+          "transferes": 4
+        },
+        "Tshopo": {
+          "recues": 30,
+          "verifiees": 30,
+          "validees": 24,
+          "suspectsInvestigues": 24,
+          "transferes": 3
+        }
+      },
+      "total": {
+        "recues": 4384,
+        "verifiees": 4384,
+        "validees": 612,
+        "suspectsInvestigues": 612,
+        "transferes": 277,
+        "calcule": true,
+        "partVerifiee": 100.0,
+        "partValidee": 14.0
       },
       "source": "SitRep INSP (automatique)"
     }

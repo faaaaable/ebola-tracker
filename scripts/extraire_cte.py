@@ -77,6 +77,9 @@ CAS_CONF_SUSP_RE = re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+et\s
 # Haut-Uele) : sans « sont ».
 SOMME_RES = (CAS_CONF_SUSP_RE,)
 HOSPITALISES_RES = [
+    # « 419 patients au total dans les structures, dont 146 cas confirmés »
+    # (183 Ituri).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+au\s+total\s+dans\s+les\s+structures", re.I),
     # « 6 cas confirmés et 29 cas suspects hospitalisés au total » (182
     # Nord-Ubangi) : la somme, avant que « 29 cas suspects hospitalisés »
     # ne soit lu seul.
@@ -207,7 +210,8 @@ HOSPITALISES_RES = [
 LITS_RE = re.compile(r"pour\s+(\d[\d ]{0,4}\d|\d)\s+lits|atteint\s+\d[\d ]{0,4}\s+lits\s+sur\s+(\d[\d ]{0,4}\d|\d)", re.I)
 # « taux d'occupation global de 51,7% (120 lits) » (110 Haut-Uele) : les lits
 # entre parentheses apres le taux, sans « pour ».
-LITS_PARENTHESE_RE = re.compile(r"\((?:\d[\d ]{0,4}\d?\s*/\s*)?(\d[\d ]{0,4}\d|\d)\s+lits\)", re.I)
+# « (277/434 lits occupés dans les CTE/CT) » (183 Nord-Kivu).
+LITS_PARENTHESE_RE = re.compile(r"\((?:\d[\d ]{0,4}\d?\s*/\s*)?(\d[\d ]{0,4}\d|\d)\s+lits(?:\s+occup[ée]s\s+dans\s+les\s+CTE(?:/CT)?)?\)", re.I)
 # « (18/36 lits) », « (60/153 lits) » (144) : la fraction hospitalises/lits
 # entre parentheses ; le motif ci-dessus la lit aussi, par son denominateur.
 # « en sursaturation (118,6 % ; 220 lits disponibles) » (111 Nord-Kivu) : les
@@ -260,7 +264,7 @@ HOSPITALISES_NORMES_RE = re.compile(
 # Bas-Uele), et le Haut-Uele du 146 imprime « 49,7 % (54/153) » quand 54/153
 # fait 35,3 % — fraction fausse, ignoree.
 HOSPITALISES_AUX_LITS_RE = re.compile(
-    r"occupation[^%;]{0,60}?(\d+(?:[,.]\d+)?)\s*%\s*:?\s*\(\s*(\d[\d ]{0,4}\d|\d)\s*(?:/|patients\s+aux\s+lits[^)]{0,40}?sur)\s*(\d[\d ]{0,4}\d|\d)\s*(?:lits)?\s*\)", re.I)
+    r"occupation[^%;]{0,60}?(\d+(?:[,.]\d+)?)\s*%\s*:?\s*\(\s*(\d[\d ]{0,4}\d|\d)\s*(?:/|patients\s+aux\s+lits[^)]{0,40}?sur)\s*(\d[\d ]{0,4}\d|\d)\s*(?:lits(?:\s+occup[ée]s\s+dans\s+les\s+CTE(?:/CT)?)?)?\s*\)", re.I)
 CTE_FRACTION_RE = re.compile(
     r"\(\s*(\d+(?:[,.]\d+)?)\s*%\s*dans\s+les\s+CTE[^;)]{0,12};\s*(\d[\d ]{0,4}\d|\d)\s*/\s*(\d[\d ]{0,4}\d|\d)\s+lits\s*\)", re.I)
 # « dont 184 hors CTE/CT, les CTE/CT étant occupés à 90,8 % (394/434 lits) »
@@ -283,7 +287,8 @@ OCCUPATION_RES = [
     # lits 34 % », « Occupation des lits de 36 % » (Ituri), « occupation de
     # 18,8 % » (178 Tshopo), « Occupation globale de 12,5 % (5/40) » (179
     # Tshopo). En dernier, apres toutes les tournures en « taux ».
-    re.compile(r"\boccupation\s+(?:des\s+lits\s+|globale?\s+)?(?:de\s+)?(\d+(?:[,.]\d+)?)\s*%", re.I),
+    # « Occupation des lits : Taux global de 41% (277/434 …) » (183 Nord-Kivu).
+    re.compile(r"\boccupation\s+(?:des\s+lits\s*:?\s*(?:taux\s+global\s+)?|globale?\s+)?(?:de\s+)?(\d+(?:[,.]\d+)?)\s*%", re.I),
 ]
 
 
@@ -433,6 +438,11 @@ def lire_prose(morceau):
         # pour les confirmés) » (180 Ituri) : le premier taux trouve apres le
         # mot est celui des seuls suspects, pas un taux global.
         if mo and re.match(r"\s*pour\s+les\s+(?:cas\s+)?(?:suspects|confirm)", morceau[mo.end():mo.end() + 40], re.I):
+            continue
+        # « dont 146 cas confirmés (taux d'occupation des lits de 27 %) et 273
+        # cas suspects (taux d'occupation de 54 %) » (183 Ituri) : le taux
+        # entre parentheses apres un groupe de patients ne vaut que pour lui.
+        if mo and re.search(r"(?:confirm[ée]s|suspects)\s*\(\s*(?:taux\s+d[’']\s*)?$", morceau[max(0, mo.start() - 40):mo.start()], re.I):
             continue
         if mo:
             occ = pourcent(mo.group(1))
@@ -981,7 +991,10 @@ LECTURES_NOMMEES = {
 # nouvelles : le bulletin se contredit (la veille, le 175 disait 578, pas
 # 595). Le nombre imprime reste, le taux et les lits sont retires : la
 # courbe ne trace pas deux fois le meme jour. Liste nominative.
-STOCKS_RECOPIES = {"176": {"Ituri": "175", "Nord-Kivu": "175"}}
+# Le 183 reprend de meme tout le paragraphe du Haut-Uele du 182 (« 94 patients
+# suspects et 5 patients confirmés … 36 % … avortement … CTE Pawa ») quand la
+# province annonce 13 nouveaux cas.
+STOCKS_RECOPIES = {"176": {"Ituri": "175", "Nord-Kivu": "175"}, "183": {"Haut-Uélé": "182"}}
 # VALEURS QUE LE BULLETIN CONTREDIT LUI-MEME (15 novembre 2026), nominatives :
 VALEURS_ECARTEES = {
     # « 14 patients en report, 604 nouvelles admissions (132 confirmés et 472
@@ -995,6 +1008,10 @@ VALEURS_ECARTEES = {
     # detail fait 147.
     ("180", "Ituri"): ("sorties", "gueris"),
 }
+# TAUX QUE LE BULLETIN CONTREDIT, la courbe reprend patients / lits : « Taux
+# global de 41% (277/434 lits occupés dans les CTE/CT) » (183 Nord-Kivu) —
+# 277/434 font 63,8 %. Le taux imprime reste en occupationPubliee.
+TAUX_CONTREDITS = {("183", "Nord-Kivu")}
 
 
 def taux_imprime_d_abord(points):
@@ -1027,6 +1044,13 @@ def appliquer_ecarts(points):
                             "litsReportes", "litsEncadres", "litsRecoupes", "litsDeduits"):
                     v.pop(cle, None)
                 v["stockRecopie"] = source
+        for num, nom in TAUX_CONTREDITS:
+            v = p["provinces"].get(nom) if num == n else None
+            if v and v.get("lits") and v.get("hospitalises"):
+                v["occupationPubliee"] = v.get("occupationPubliee", v.get("occupation"))
+                v["occupation"] = round(v["hospitalises"] / v["lits"] * 100, 1)
+                v["occupationCalculee"] = True
+                v["tauxContredit"] = True
         for (num, nom), cles in VALEURS_ECARTEES.items():
             v = p["provinces"].get(nom) if num == n else None
             for cle in cles if v else ():

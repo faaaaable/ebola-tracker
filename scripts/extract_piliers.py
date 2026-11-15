@@ -104,6 +104,21 @@ def lire_pci(corps):
     """Rings ouverts / attendus et EDS (alertes, realisees, corps preleves,
     corps non preleves), sommes des provinces qui donnent le chiffre."""
     rings_o = rings_a = None
+    # La province de chaque ring (15 novembre 2026) : au 183, seul le
+    # Nord-Kivu chiffre ses rings (7 sur 21) et la lettre l'ecrivait comme un
+    # chiffre du pays.
+    rings_prov, rings_sans = {}, [0]
+
+    def add_ring(p, debut, o, a):
+        nonlocal rings_o, rings_a
+        rings_o = (rings_o or 0) + o; rings_a = (rings_a or 0) + a
+        noms = list(PROVINCE_EDS_RE.finditer(p[:debut])) or list(PROVINCE_EDS_RE.finditer(p))
+        if not noms:
+            rings_sans[0] += 1
+            return
+        nom = canon_eds(noms[-1].group(0) if noms[-1].start() < debut else noms[0].group(0))
+        r = rings_prov.setdefault(nom, {"ouverts": 0, "attendus": 0})
+        r["ouverts"] += o; r["attendus"] += a
     eds = {"alertes": None, "realisees": None, "swabes": None, "nonSwabes": None}
     # Combien de provinces alimentent chaque champ. Les trois nombres ne
     # couvrent PAS forcement les memes : au 111, seul l'Ituri publie ses
@@ -141,17 +156,17 @@ def lire_pci(corps):
         for m in re.finditer(r"(\d+) rings?(?: ouverts?)? (?:(?:ont|a) été )?ouverts? (?:sur les|autour des|sur) (\d+)", p):
             if re.search(r"cumul\b[^.;]{0,30}$", p[max(0, m.start() - 40):m.start()]):
                 continue
-            rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(2))
+            add_ring(p, m.start(), int(m.group(1)), int(m.group(2)))
         # « 46/54 rings ouverts » (180 Ituri), « 18/27 rings ouverts » (178
         # Nord-Kivu), « 19 anneaux (rings) ouverts sur 35 » (178 Ituri).
         for m in list(re.finditer(r"(\d+)\s*/\s*(\d+) rings? ouverts?", p)) + list(
                 re.finditer(r"(\d+) anneaux \(rings?\) ouverts? sur (\d+)", p)) + list(
                 # « 47 sur 47 rings ouverts (100 %) » (182 Ituri).
                 re.finditer(r"(\d+) sur (\d+) rings? ouverts?", p)):
-            rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(2))
+            add_ring(p, m.start(), int(m.group(1)), int(m.group(2)))
         m = re.search(r"les (\d+) rings attendus ont tous été ouverts", p)
         if m:
-            rings_o = (rings_o or 0) + int(m.group(1)); rings_a = (rings_a or 0) + int(m.group(1))
+            add_ring(p, m.start(), int(m.group(1)), int(m.group(1)))
         # Le sigle ne suffit pas : au 103, la Tshopo ecrit « Deux alertes de
         # deces ont ete recues et 2 corps swabes » sans jamais dire « EDS »,
         # et la puce entiere etait sautee.
@@ -249,6 +264,10 @@ def lire_pci(corps):
             lire_phrase(phrase, restantes)
 
     rings = {"ouverts": rings_o, "attendus": rings_a} if rings_a else None
+    if rings:
+        rings["provinces"] = rings_prov
+        if rings_sans[0]:
+            rings["sansProvince"] = rings_sans[0]
     if any(v is not None for v in eds.values()):
         eds["provinces"] = {k: len(v) for k, v in eds_prov.items() if v}
         eds["provincesNoms"] = sorted(eds_noms)

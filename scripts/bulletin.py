@@ -821,7 +821,17 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             refus_eds = (P("lettreEdsRefus1") if ed["nonSwabes"] == 1
                          else P("lettreEdsRefus", n=fmt(ed["nonSwabes"], lang)))
         if rg and rg.get("attendus"):
-            phrases.append(P("lettreRings", ouverts=fmt(rg.get("ouverts") or 0, lang), attendus=fmt(rg["attendus"], lang)))
+            # Rings d'une partie du pays seulement (15 novembre 2026) : la
+            # phrase nomme les provinces (183 : le seul Nord-Kivu, 7 sur 21).
+            rprov = sorted(rg.get("provinces") or {})
+            if rprov and not rg.get("sansProvince") and not pays_entier(rprov):
+                et = {"fr": " et ", "en": " and ", "sw": " na "}.get(lang, " et ")
+                lieux = [forms(n)["in"] for n in rprov]
+                dans = (", ".join(lieux[:-1]) + et + lieux[-1]) if len(lieux) > 1 else lieux[0]
+                phrases.append(P("lettreRingsProv", dans=dans[:1].upper() + dans[1:],
+                                 ouverts=fmt(rg.get("ouverts") or 0, lang), attendus=fmt(rg["attendus"], lang)))
+            else:
+                phrases.append(P("lettreRings", ouverts=fmt(rg.get("ouverts") or 0, lang), attendus=fmt(rg["attendus"], lang)))
         # Vaccination : le bulletin ne donne que des cumuls, par province ou
         # par zone (voir extract_piliers.lire_vaccination). On additionne le
         # dernier cumul connu de chaque province a la date de la lettre, en

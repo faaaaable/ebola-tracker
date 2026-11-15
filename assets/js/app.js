@@ -2602,6 +2602,16 @@ function renderOneChartBrut(canvas, chartMode){
       }
       if(avecNormees) bouts.push(tr('chartNoteCteNormees'));
       if(noms.some(nom => jours.some(d => emprunte(parDate[d] && parDate[d].provinces[nom])))) bouts.push(tr('chartNoteCteEmpruntes'));
+      /* Trous recents (15 novembre 2026) : depuis le 176, des provinces
+         publient leurs patients sans lits ni taux, ou recopient la veille.
+         La phrase ne parait que tant que trois des huit derniers bulletins
+         ont un tel trou. */
+      if(!provRip){
+        const derniers = Object.keys(parDate).sort().slice(-8);
+        const troues = derniers.filter(d => Object.values(parDate[d].provinces || {}).some(v =>
+          v && v.hospitalises != null && v.occupation == null)).length;
+        if(troues >= 3) bouts.push(tr('chartNoteCteTrous'));
+      }
       noter(bouts.join(' '));
       return;
     }

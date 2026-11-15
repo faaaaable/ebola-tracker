@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-11-12"
+  "fin": "2026-11-13"
  },
  "parDate": [
   {
@@ -1163,7 +1163,17 @@
    },
    "rings": {
     "ouverts": 25,
-    "attendus": 153
+    "attendus": 153,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 19,
+      "attendus": 143
+     },
+     "Tshopo": {
+      "ouverts": 6,
+      "attendus": 10
+     }
+    }
    },
    "eds": {
     "alertes": 140,
@@ -1217,7 +1227,17 @@
    },
    "rings": {
     "ouverts": 23,
-    "attendus": 167
+    "attendus": 167,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 19,
+      "attendus": 163
+     },
+     "Haut-Uélé": {
+      "ouverts": 4,
+      "attendus": 4
+     }
+    }
    },
    "eds": {
     "alertes": 81,
@@ -1405,7 +1425,13 @@
    },
    "rings": {
     "ouverts": 7,
-    "attendus": 152
+    "attendus": 152,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 7,
+      "attendus": 152
+     }
+    }
    },
    "eds": {
     "alertes": 85,
@@ -1451,7 +1477,13 @@
    },
    "rings": {
     "ouverts": 19,
-    "attendus": 74
+    "attendus": 74,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 19,
+      "attendus": 74
+     }
+    }
    },
    "eds": {
     "alertes": 157,
@@ -1495,7 +1527,13 @@
    },
    "rings": {
     "ouverts": 19,
-    "attendus": 70
+    "attendus": 70,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 19,
+      "attendus": 70
+     }
+    }
    },
    "eds": {
     "alertes": 134,
@@ -1544,7 +1582,13 @@
    },
    "rings": {
     "ouverts": 17,
-    "attendus": 52
+    "attendus": 52,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 17,
+      "attendus": 52
+     }
+    }
    },
    "eds": {
     "alertes": 131,
@@ -1591,7 +1635,13 @@
    },
    "rings": {
     "ouverts": 21,
-    "attendus": 80
+    "attendus": 80,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 21,
+      "attendus": 80
+     }
+    }
    },
    "eds": {
     "alertes": 136,
@@ -1642,7 +1692,13 @@
    },
    "rings": {
     "ouverts": 14,
-    "attendus": 57
+    "attendus": 57,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 14,
+      "attendus": 57
+     }
+    }
    },
    "eds": {
     "alertes": 3,
@@ -1682,7 +1738,13 @@
    },
    "rings": {
     "ouverts": 18,
-    "attendus": 79
+    "attendus": 79,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 18,
+      "attendus": 79
+     }
+    }
    },
    "eds": {
     "alertes": 121,
@@ -1734,7 +1796,13 @@
    },
    "rings": {
     "ouverts": 23,
-    "attendus": 59
+    "attendus": 59,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 23,
+      "attendus": 59
+     }
+    }
    },
    "eds": {
     "alertes": 44,
@@ -1770,7 +1838,13 @@
    "poe": null,
    "rings": {
     "ouverts": 21,
-    "attendus": 101
+    "attendus": 101,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 21,
+      "attendus": 101
+     }
+    }
    },
    "eds": {
     "alertes": 125,
@@ -1817,7 +1891,13 @@
    },
    "rings": {
     "ouverts": 31,
-    "attendus": 50
+    "attendus": 50,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 31,
+      "attendus": 50
+     }
+    }
    },
    "eds": {
     "alertes": 141,
@@ -1866,7 +1946,17 @@
    },
    "rings": {
     "ouverts": 28,
-    "attendus": 74
+    "attendus": 74,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 27,
+      "attendus": 52
+     },
+     "Nord-Kivu": {
+      "ouverts": 1,
+      "attendus": 22
+     }
+    }
    },
    "eds": {
     "alertes": 150,
@@ -1915,7 +2005,13 @@
    },
    "rings": {
     "ouverts": 29,
-    "attendus": 33
+    "attendus": 33,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 29,
+      "attendus": 33
+     }
+    }
    },
    "eds": null,
    "vaccination": null,
@@ -1931,7 +2027,17 @@
    },
    "rings": {
     "ouverts": 35,
-    "attendus": 50
+    "attendus": 50,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 33,
+      "attendus": 45
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 5
+     }
+    }
    },
    "eds": null,
    "vaccination": null,
@@ -1947,7 +2053,13 @@
    },
    "rings": {
     "ouverts": 18,
-    "attendus": 41
+    "attendus": 41,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 18,
+      "attendus": 41
+     }
+    }
    },
    "eds": {
     "alertes": 87,
@@ -1999,7 +2111,17 @@
    },
    "rings": {
     "ouverts": 17,
-    "attendus": 35
+    "attendus": 35,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 16,
+      "attendus": 30
+     },
+     "Bas-Uélé": {
+      "ouverts": 1,
+      "attendus": 5
+     }
+    }
    },
    "eds": {
     "alertes": 93,
@@ -2044,7 +2166,17 @@
    },
    "rings": {
     "ouverts": 29,
-    "attendus": 75
+    "attendus": 75,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 19,
+      "attendus": 45
+     },
+     "Nord-Kivu": {
+      "ouverts": 10,
+      "attendus": 30
+     }
+    }
    },
    "eds": {
     "alertes": 126,
@@ -2087,7 +2219,17 @@
    },
    "rings": {
     "ouverts": 37,
-    "attendus": 93
+    "attendus": 93,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 18,
+      "attendus": 55
+     },
+     "Nord-Kivu": {
+      "ouverts": 19,
+      "attendus": 38
+     }
+    }
    },
    "eds": {
     "alertes": 91,
@@ -2134,7 +2276,13 @@
    },
    "rings": {
     "ouverts": 20,
-    "attendus": 27
+    "attendus": 27,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 20,
+      "attendus": 27
+     }
+    }
    },
    "eds": {
     "alertes": 129,
@@ -2185,7 +2333,13 @@
    },
    "rings": {
     "ouverts": 12,
-    "attendus": 41
+    "attendus": 41,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 12,
+      "attendus": 41
+     }
+    }
    },
    "eds": {
     "alertes": 124,
@@ -2239,7 +2393,21 @@
    },
    "rings": {
     "ouverts": 31,
-    "attendus": 93
+    "attendus": 93,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 18,
+      "attendus": 60
+     },
+     "Nord-Kivu": {
+      "ouverts": 10,
+      "attendus": 30
+     },
+     "Haut-Uélé": {
+      "ouverts": 3,
+      "attendus": 3
+     }
+    }
    },
    "eds": {
     "alertes": 152,
@@ -2304,7 +2472,13 @@
    },
    "rings": {
     "ouverts": 15,
-    "attendus": 69
+    "attendus": 69,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 15,
+      "attendus": 69
+     }
+    }
    },
    "eds": {
     "alertes": 133,
@@ -2351,7 +2525,21 @@
    },
    "rings": {
     "ouverts": 62,
-    "attendus": 110
+    "attendus": 110,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 25,
+      "attendus": 70
+     },
+     "Nord-Kivu": {
+      "ouverts": 31,
+      "attendus": 34
+     },
+     "Haut-Uélé": {
+      "ouverts": 6,
+      "attendus": 6
+     }
+    }
    },
    "eds": {
     "alertes": 148,
@@ -2410,7 +2598,17 @@
    },
    "rings": {
     "ouverts": 42,
-    "attendus": 89
+    "attendus": 89,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 15,
+      "attendus": 59
+     },
+     "Nord-Kivu": {
+      "ouverts": 27,
+      "attendus": 30
+     }
+    }
    },
    "eds": {
     "alertes": 117,
@@ -2477,7 +2675,17 @@
    },
    "rings": {
     "ouverts": 71,
-    "attendus": 131
+    "attendus": 131,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 24,
+      "attendus": 77
+     },
+     "Nord-Kivu": {
+      "ouverts": 47,
+      "attendus": 54
+     }
+    }
    },
    "eds": {
     "alertes": 139,
@@ -2552,7 +2760,21 @@
    },
    "rings": {
     "ouverts": 59,
-    "attendus": 119
+    "attendus": 119,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 25,
+      "attendus": 83
+     },
+     "Nord-Kivu": {
+      "ouverts": 28,
+      "attendus": 30
+     },
+     "Haut-Uélé": {
+      "ouverts": 6,
+      "attendus": 6
+     }
+    }
    },
    "eds": {
     "alertes": 158,
@@ -2630,7 +2852,25 @@
    },
    "rings": {
     "ouverts": 64,
-    "attendus": 127
+    "attendus": 127,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 26,
+      "attendus": 71
+     },
+     "Nord-Kivu": {
+      "ouverts": 31,
+      "attendus": 49
+     },
+     "Haut-Uélé": {
+      "ouverts": 6,
+      "attendus": 6
+     },
+     "Bas-Uélé": {
+      "ouverts": 1,
+      "attendus": 1
+     }
+    }
    },
    "eds": {
     "alertes": 134,
@@ -2704,7 +2944,25 @@
    },
    "rings": {
     "ouverts": 65,
-    "attendus": 121
+    "attendus": 121,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 28,
+      "attendus": 66
+     },
+     "Nord-Kivu": {
+      "ouverts": 31,
+      "attendus": 48
+     },
+     "Bas-Uélé": {
+      "ouverts": 1,
+      "attendus": 1
+     },
+     "Haut-Uélé": {
+      "ouverts": 5,
+      "attendus": 6
+     }
+    }
    },
    "eds": {
     "alertes": 158,
@@ -2755,7 +3013,25 @@
    },
    "rings": {
     "ouverts": 57,
-    "attendus": 111
+    "attendus": 111,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 25,
+      "attendus": 61
+     },
+     "Nord-Kivu": {
+      "ouverts": 29,
+      "attendus": 44
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 5
+     },
+     "Bas-Uélé": {
+      "ouverts": 1,
+      "attendus": 1
+     }
+    }
    },
    "eds": {
     "alertes": 129,
@@ -2833,7 +3109,25 @@
    },
    "rings": {
     "ouverts": 113,
-    "attendus": 189
+    "attendus": 189,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 21,
+      "attendus": 57
+     },
+     "Nord-Kivu": {
+      "ouverts": 89,
+      "attendus": 126
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 5
+     },
+     "Bas-Uélé": {
+      "ouverts": 1,
+      "attendus": 1
+     }
+    }
    },
    "eds": {
     "alertes": 140,
@@ -2907,7 +3201,25 @@
    },
    "rings": {
     "ouverts": 49,
-    "attendus": 80
+    "attendus": 80,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 26,
+      "attendus": 42
+     },
+     "Nord-Kivu": {
+      "ouverts": 15,
+      "attendus": 27
+     },
+     "Haut-Uélé": {
+      "ouverts": 6,
+      "attendus": 9
+     },
+     "Bas-Uélé": {
+      "ouverts": 2,
+      "attendus": 2
+     }
+    }
    },
    "eds": {
     "alertes": 148,
@@ -2981,7 +3293,21 @@
    },
    "rings": {
     "ouverts": 41,
-    "attendus": 47
+    "attendus": 47,
+    "provinces": {
+     "Nord-Kivu": {
+      "ouverts": 27,
+      "attendus": 33
+     },
+     "Haut-Uélé": {
+      "ouverts": 12,
+      "attendus": 12
+     },
+     "Bas-Uélé": {
+      "ouverts": 2,
+      "attendus": 2
+     }
+    }
    },
    "eds": {
     "alertes": 64,
@@ -3061,7 +3387,17 @@
    },
    "rings": {
     "ouverts": 58,
-    "attendus": 85
+    "attendus": 85,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 29,
+      "attendus": 41
+     },
+     "Nord-Kivu": {
+      "ouverts": 29,
+      "attendus": 44
+     }
+    }
    },
    "eds": {
     "alertes": 76,
@@ -3141,7 +3477,17 @@
    },
    "rings": {
     "ouverts": 37,
-    "attendus": 46
+    "attendus": 46,
+    "provinces": {
+     "Nord-Kivu": {
+      "ouverts": 31,
+      "attendus": 40
+     },
+     "Haut-Uélé": {
+      "ouverts": 6,
+      "attendus": 6
+     }
+    }
    },
    "eds": {
     "alertes": 110,
@@ -3301,7 +3647,17 @@
    },
    "rings": {
     "ouverts": 30,
-    "attendus": 67
+    "attendus": 67,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 13,
+      "attendus": 41
+     },
+     "Nord-Kivu": {
+      "ouverts": 17,
+      "attendus": 26
+     }
+    }
    },
    "eds": {
     "alertes": 128,
@@ -3369,7 +3725,17 @@
    },
    "rings": {
     "ouverts": 104,
-    "attendus": 144
+    "attendus": 144,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 21,
+      "attendus": 41
+     },
+     "Nord-Kivu": {
+      "ouverts": 83,
+      "attendus": 103
+     }
+    }
    },
    "eds": {
     "alertes": 152,
@@ -3437,7 +3803,17 @@
    },
    "rings": {
     "ouverts": 42,
-    "attendus": 80
+    "attendus": 80,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 16,
+      "attendus": 44
+     },
+     "Nord-Kivu": {
+      "ouverts": 26,
+      "attendus": 36
+     }
+    }
    },
    "eds": {
     "alertes": 158,
@@ -3506,7 +3882,17 @@
    },
    "rings": {
     "ouverts": 51,
-    "attendus": 76
+    "attendus": 76,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 15,
+      "attendus": 30
+     },
+     "Nord-Kivu": {
+      "ouverts": 36,
+      "attendus": 46
+     }
+    }
    },
    "eds": {
     "alertes": 150,
@@ -3582,7 +3968,17 @@
    },
    "rings": {
     "ouverts": 18,
-    "attendus": 33
+    "attendus": 33,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 16,
+      "attendus": 27
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 6
+     }
+    }
    },
    "eds": {
     "alertes": 78,
@@ -3629,7 +4025,13 @@
    },
    "rings": {
     "ouverts": 26,
-    "attendus": 38
+    "attendus": 38,
+    "provinces": {
+     "Nord-Kivu": {
+      "ouverts": 26,
+      "attendus": 38
+     }
+    }
    },
    "eds": {
     "alertes": 58,
@@ -3711,7 +4113,13 @@
    },
    "rings": {
     "ouverts": 21,
-    "attendus": 25
+    "attendus": 25,
+    "provinces": {
+     "Nord-Kivu": {
+      "ouverts": 21,
+      "attendus": 25
+     }
+    }
    },
    "eds": {
     "alertes": 40,
@@ -3781,7 +4189,17 @@
    },
    "rings": {
     "ouverts": 53,
-    "attendus": 73
+    "attendus": 73,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 23,
+      "attendus": 37
+     },
+     "Nord-Kivu": {
+      "ouverts": 30,
+      "attendus": 36
+     }
+    }
    },
    "eds": {
     "alertes": null,
@@ -3844,7 +4262,21 @@
    },
    "rings": {
     "ouverts": 36,
-    "attendus": 64
+    "attendus": 64,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 14,
+      "attendus": 33
+     },
+     "Nord-Kivu": {
+      "ouverts": 20,
+      "attendus": 27
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 4
+     }
+    }
    },
    "eds": {
     "alertes": 143,
@@ -3908,7 +4340,21 @@
    },
    "rings": {
     "ouverts": 34,
-    "attendus": 56
+    "attendus": 56,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 19,
+      "attendus": 34
+     },
+     "Nord-Kivu": {
+      "ouverts": 12,
+      "attendus": 19
+     },
+     "Haut-Uélé": {
+      "ouverts": 3,
+      "attendus": 3
+     }
+    }
    },
    "eds": {
     "alertes": 136,
@@ -3973,7 +4419,21 @@
    },
    "rings": {
     "ouverts": 40,
-    "attendus": 64
+    "attendus": 64,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 23,
+      "attendus": 41
+     },
+     "Nord-Kivu": {
+      "ouverts": 15,
+      "attendus": 21
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 2
+     }
+    }
    },
    "eds": {
     "alertes": 127,
@@ -4035,7 +4495,21 @@
    },
    "rings": {
     "ouverts": 36,
-    "attendus": 49
+    "attendus": 49,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 18,
+      "attendus": 29
+     },
+     "Nord-Kivu": {
+      "ouverts": 16,
+      "attendus": 18
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 2
+     }
+    }
    },
    "eds": {
     "alertes": 102,
@@ -4092,7 +4566,21 @@
    },
    "rings": {
     "ouverts": 39,
-    "attendus": 68
+    "attendus": 68,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 21,
+      "attendus": 39
+     },
+     "Nord-Kivu": {
+      "ouverts": 15,
+      "attendus": 25
+     },
+     "Haut-Uélé": {
+      "ouverts": 3,
+      "attendus": 4
+     }
+    }
    },
    "eds": {
     "alertes": 130,
@@ -4153,7 +4641,17 @@
    },
    "rings": {
     "ouverts": 32,
-    "attendus": 57
+    "attendus": 57,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 20,
+      "attendus": 32
+     },
+     "Nord-Kivu": {
+      "ouverts": 12,
+      "attendus": 25
+     }
+    }
    },
    "eds": {
     "alertes": 94,
@@ -4206,7 +4704,17 @@
    },
    "rings": {
     "ouverts": 65,
-    "attendus": 103
+    "attendus": 103,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 20,
+      "attendus": 40
+     },
+     "Nord-Kivu": {
+      "ouverts": 45,
+      "attendus": 63
+     }
+    }
    },
    "eds": {
     "alertes": 143,
@@ -4264,7 +4772,13 @@
    },
    "rings": {
     "ouverts": 20,
-    "attendus": 40
+    "attendus": 40,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 20,
+      "attendus": 40
+     }
+    }
    },
    "eds": {
     "alertes": 108,
@@ -4322,7 +4836,17 @@
    },
    "rings": {
     "ouverts": 56,
-    "attendus": 72
+    "attendus": 72,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 31,
+      "attendus": 34
+     },
+     "Nord-Kivu": {
+      "ouverts": 25,
+      "attendus": 38
+     }
+    }
    },
    "eds": {
     "alertes": 110,
@@ -4379,7 +4903,17 @@
    },
    "rings": {
     "ouverts": 24,
-    "attendus": 48
+    "attendus": 48,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 12,
+      "attendus": 23
+     },
+     "Nord-Kivu": {
+      "ouverts": 12,
+      "attendus": 25
+     }
+    }
    },
    "eds": {
     "alertes": 161,
@@ -4434,7 +4968,17 @@
    },
    "rings": {
     "ouverts": 48,
-    "attendus": 80
+    "attendus": 80,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 22,
+      "attendus": 34
+     },
+     "Nord-Kivu": {
+      "ouverts": 26,
+      "attendus": 46
+     }
+    }
    },
    "eds": {
     "alertes": 96,
@@ -4487,7 +5031,21 @@
    },
    "rings": {
     "ouverts": 52,
-    "attendus": 79
+    "attendus": 79,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 25,
+      "attendus": 42
+     },
+     "Nord-Kivu": {
+      "ouverts": 26,
+      "attendus": 36
+     },
+     "Haut-Uélé": {
+      "ouverts": 1,
+      "attendus": 1
+     }
+    }
    },
    "eds": {
     "alertes": 114,
@@ -4544,7 +5102,17 @@
    },
    "rings": {
     "ouverts": 31,
-    "attendus": 54
+    "attendus": 54,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 8,
+      "attendus": 22
+     },
+     "Nord-Kivu": {
+      "ouverts": 23,
+      "attendus": 32
+     }
+    }
    },
    "eds": {
     "alertes": 133,
@@ -4605,7 +5173,25 @@
    },
    "rings": {
     "ouverts": 44,
-    "attendus": 83
+    "attendus": 83,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 26,
+      "attendus": 55
+     },
+     "Nord-Kivu": {
+      "ouverts": 13,
+      "attendus": 22
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 2
+     },
+     "Bas-Uélé": {
+      "ouverts": 3,
+      "attendus": 4
+     }
+    }
    },
    "eds": {
     "alertes": 184,
@@ -4673,7 +5259,21 @@
    },
    "rings": {
     "ouverts": 29,
-    "attendus": 75
+    "attendus": 75,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 9,
+      "attendus": 49
+     },
+     "Nord-Kivu": {
+      "ouverts": 18,
+      "attendus": 24
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 2
+     }
+    }
    },
    "eds": {
     "alertes": 164,
@@ -4736,7 +5336,17 @@
    },
    "rings": {
     "ouverts": 22,
-    "attendus": 38
+    "attendus": 38,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 20,
+      "attendus": 36
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 2
+     }
+    }
    },
    "eds": {
     "alertes": 103,
@@ -4793,7 +5403,17 @@
    },
    "rings": {
     "ouverts": 33,
-    "attendus": 48
+    "attendus": 48,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 16,
+      "attendus": 26
+     },
+     "Nord-Kivu": {
+      "ouverts": 17,
+      "attendus": 22
+     }
+    }
    },
    "eds": {
     "alertes": 159,
@@ -4855,7 +5475,17 @@
    },
    "rings": {
     "ouverts": 28,
-    "attendus": 60
+    "attendus": 60,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 13,
+      "attendus": 41
+     },
+     "Nord-Kivu": {
+      "ouverts": 15,
+      "attendus": 19
+     }
+    }
    },
    "eds": {
     "alertes": 203,
@@ -4915,7 +5545,21 @@
    },
    "rings": {
     "ouverts": 50,
-    "attendus": 67
+    "attendus": 67,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 27,
+      "attendus": 35
+     },
+     "Haut-Uélé": {
+      "ouverts": 1,
+      "attendus": 1
+     },
+     "Nord-Kivu": {
+      "ouverts": 22,
+      "attendus": 31
+     }
+    }
    },
    "eds": {
     "alertes": 149,
@@ -4973,7 +5617,17 @@
    },
    "rings": {
     "ouverts": 26,
-    "attendus": 42
+    "attendus": 42,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 20,
+      "attendus": 26
+     },
+     "Nord-Kivu": {
+      "ouverts": 6,
+      "attendus": 16
+     }
+    }
    },
    "eds": {
     "alertes": 134,
@@ -5019,7 +5673,21 @@
    },
    "rings": {
     "ouverts": 40,
-    "attendus": 63
+    "attendus": 63,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 29,
+      "attendus": 38
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 3
+     },
+     "Nord-Kivu": {
+      "ouverts": 9,
+      "attendus": 22
+     }
+    }
    },
    "eds": {
     "alertes": 181,
@@ -5081,7 +5749,17 @@
    "poe": null,
    "rings": {
     "ouverts": 34,
-    "attendus": 52
+    "attendus": 52,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 21,
+      "attendus": 31
+     },
+     "Nord-Kivu": {
+      "ouverts": 13,
+      "attendus": 21
+     }
+    }
    },
    "eds": {
     "alertes": 159,
@@ -5145,7 +5823,17 @@
    },
    "rings": {
     "ouverts": 58,
-    "attendus": 97
+    "attendus": 97,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 29,
+      "attendus": 46
+     },
+     "Nord-Kivu": {
+      "ouverts": 29,
+      "attendus": 51
+     }
+    }
    },
    "eds": {
     "alertes": 163,
@@ -5207,7 +5895,21 @@
    },
    "rings": {
     "ouverts": 42,
-    "attendus": 70
+    "attendus": 70,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 25,
+      "attendus": 41
+     },
+     "Nord-Kivu": {
+      "ouverts": 16,
+      "attendus": 28
+     },
+     "Haut-Uélé": {
+      "ouverts": 1,
+      "attendus": 1
+     }
+    }
    },
    "eds": {
     "alertes": 143,
@@ -5265,7 +5967,17 @@
    },
    "rings": {
     "ouverts": 53,
-    "attendus": 80
+    "attendus": 80,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 24,
+      "attendus": 29
+     },
+     "Nord-Kivu": {
+      "ouverts": 29,
+      "attendus": 51
+     }
+    }
    },
    "eds": {
     "alertes": 154,
@@ -5331,7 +6043,21 @@
    },
    "rings": {
     "ouverts": 51,
-    "attendus": 62
+    "attendus": 62,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 35,
+      "attendus": 38
+     },
+     "Nord-Kivu": {
+      "ouverts": 14,
+      "attendus": 22
+     },
+     "Haut-Uélé": {
+      "ouverts": 2,
+      "attendus": 2
+     }
+    }
    },
    "eds": {
     "alertes": 143,
@@ -5437,7 +6163,17 @@
    },
    "rings": {
     "ouverts": 47,
-    "attendus": 90
+    "attendus": 90,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 23,
+      "attendus": 30
+     },
+     "Nord-Kivu": {
+      "ouverts": 24,
+      "attendus": 60
+     }
+    }
    },
    "eds": {
     "alertes": 202,
@@ -5496,7 +6232,21 @@
    "poe": null,
    "rings": {
     "ouverts": 64,
-    "attendus": 75
+    "attendus": 75,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 28,
+      "attendus": 34
+     },
+     "Nord-Kivu": {
+      "ouverts": 33,
+      "attendus": 37
+     },
+     "Haut-Uélé": {
+      "ouverts": 3,
+      "attendus": 4
+     }
+    }
    },
    "eds": {
     "alertes": 174,
@@ -5591,7 +6341,17 @@
    },
    "rings": {
     "ouverts": 47,
-    "attendus": 59
+    "attendus": 59,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 31,
+      "attendus": 35
+     },
+     "Nord-Kivu": {
+      "ouverts": 16,
+      "attendus": 24
+     }
+    }
    },
    "eds": {
     "alertes": 133,
@@ -5803,7 +6563,17 @@
    },
    "rings": {
     "ouverts": 24,
-    "attendus": 45
+    "attendus": 45,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 15,
+      "attendus": 29
+     },
+     "Nord-Kivu": {
+      "ouverts": 9,
+      "attendus": 16
+     }
+    }
    },
    "eds": {
     "alertes": 106,
@@ -5872,7 +6642,13 @@
    },
    "rings": {
     "ouverts": 17,
-    "attendus": 20
+    "attendus": 20,
+    "provinces": {
+     "Nord-Kivu": {
+      "ouverts": 17,
+      "attendus": 20
+     }
+    }
    },
    "eds": {
     "alertes": 4,
@@ -5952,7 +6728,21 @@
    },
    "rings": {
     "ouverts": 38,
-    "attendus": 63
+    "attendus": 63,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 19,
+      "attendus": 35
+     },
+     "Nord-Kivu": {
+      "ouverts": 18,
+      "attendus": 27
+     },
+     "Haut-Uélé": {
+      "ouverts": 1,
+      "attendus": 1
+     }
+    }
    },
    "eds": {
     "alertes": null,
@@ -6001,7 +6791,13 @@
    },
    "rings": {
     "ouverts": 41,
-    "attendus": 46
+    "attendus": 46,
+    "provinces": {
+     "Ituri": {
+      "ouverts": 41,
+      "attendus": 46
+     }
+    }
    },
    "eds": {
     "alertes": 14,
@@ -6051,7 +6847,17 @@
    "poe": null,
    "rings": {
     "ouverts": 48,
-    "attendus": 71
+    "attendus": 71,
+    "provinces": {
+     "Nord-Kivu": {
+      "ouverts": 2,
+      "attendus": 17
+     },
+     "Ituri": {
+      "ouverts": 46,
+      "attendus": 54
+     }
+    }
    },
    "eds": {
     "alertes": 102,
@@ -6152,7 +6958,17 @@
    "poe": null,
    "rings": {
     "ouverts": 59,
-    "attendus": 78
+    "attendus": 78,
+    "provinces": {
+     "Nord-Kivu": {
+      "ouverts": 12,
+      "attendus": 31
+     },
+     "Ituri": {
+      "ouverts": 47,
+      "attendus": 47
+     }
+    }
    },
    "eds": {
     "alertes": 76,
@@ -6201,6 +7017,71 @@
      "Ituri": 3930,
      "Haut-Uélé": 1809,
      "Nord-Kivu": 2795
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-11-13",
+   "sitrepNumber": "183",
+   "poe": null,
+   "rings": {
+    "ouverts": 7,
+    "attendus": 21,
+    "provinces": {
+     "Nord-Kivu": {
+      "ouverts": 7,
+      "attendus": 21
+     }
+    }
+   },
+   "eds": {
+    "alertes": 93,
+    "realisees": 125,
+    "swabes": 45,
+    "nonSwabes": 7,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 1,
+     "swabes": 1,
+     "nonSwabes": 1
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Bas-Uélé",
+      "Ituri"
+     ],
+     "nonSwabes": [
+      "Haut-Uélé",
+      "Nord-Kivu"
+     ]
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Ituri": 3930,
+     "Nord-Kivu": 3061
     },
     "rupture": false
    },

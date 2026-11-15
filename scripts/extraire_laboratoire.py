@@ -258,6 +258,15 @@ def lire_province(morceau):
         morceau = morceau[:md.start()] + morceau[md.end():]
     mp = POSITIVITE_RE.search(morceau)
     positivite = pourcent(mp.group(1)) if mp else None
+    # « Taux de positivité de 4 % pour les nouveaux, 17 % pour les repilages
+    # et 16 % pour les décès » (183 Nord-Kivu, 150 échantillons) : un taux par
+    # catégorie, aucun sur l'ensemble. Le premier ne vaut que pour les 78
+    # nouveaux ; applique aux 150, il déduisait 6 positifs. Un taux « global »
+    # suivi du détail (« global de 8,3 % (18,3 % pour les nouveaux… », 180
+    # Ituri) reste lu.
+    if (len(re.findall(r"\d+(?:[,.]\d+)?\s*%\s+pour\s+les\b", morceau, re.I)) >= 2
+            and not re.search(r"\bglobale?\s+(?:est\s+)?(?:de\s+)?\d+(?:[,.]\d+)?\s*%(?!\s+pour\s+les)", morceau, re.I)):
+        positivite = None
     echantillons, positifs = choisir(candidats(ECHANTILLONS_RES, morceau),
                                      candidats(POSITIFS_RES, morceau), positivite)
     # « Nord-Kivu : 21 échantillons reçus et testés (14 vivants et 7 décès) sur
@@ -527,6 +536,13 @@ def lire_tableau(section):
 NOTE_EQUIPE_RE = re.compile(r"\s*\(\s*[ÀA]\s+l[’']\s*[ée]quipe\s*:[^()]*(?:\([^()]*\)[^()]*)*\)", re.I)
 
 
+# PARAGRAPHES RECOPIES (15 novembre 2026), nominatifs : le 183 reprend mot
+# pour mot le Haut-Uele du 182 (« 20 échantillons … 4 positifs … taux global
+# de l'épidémie s'établissant à 19,4 % ») ; ses 4 positifs sont les 4
+# nouveaux cas du 182, le 183 en annonce 13.
+PARAGRAPHES_RECOPIES = {"183": {"Haut-Uélé": "182"}}
+
+
 def lire_rapport(chemin):
     texte = NOTE_EQUIPE_RE.sub("", texte_du_rapport(chemin))
     meta = extract_meta(texte, fallback_number=numero(chemin))
@@ -559,6 +575,9 @@ def lire_rapport(chemin):
             continue
         alertes.extend(avertissements(nom, ligne))
         provinces[nom] = ligne
+    # Paragraphes recopies d'un bulletin precedent, retires (liste nominative).
+    for nom in PARAGRAPHES_RECOPIES.get(meta["sitrepNumber"], {}):
+        provinces.pop(nom, None)
     if not provinces:
         # Repli : le point ecrit en toutes lettres, province par province.
         provinces = provinces_redigees(section)
