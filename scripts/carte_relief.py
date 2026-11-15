@@ -6,7 +6,8 @@ Le dessin vit dans scripts/relief/ (pages fr, en et vignette sans texte,
 commun.js) ; le fond (relief, fleuves, routes, pays, villes, CTE) est fige
 dans relief/data/fond.json et dem.png. Ce script :
   1. ecrit relief/data/carto.js (fond + zones, cas et totaux du dernier bulletin) ;
-  2. capture les trois pages dans Chrome sans fenetre (capture_page.mjs) ;
+  2. capture les trois pages dans Chrome sans fenetre (relief/capture.mjs :
+     canevas lu par tranches, texte par-dessus) ;
   3. ecrit dans assets/img/visuels/ le PNG portrait 4:5 (3200 x 4000), son
      JPEG reduit pour la page Visuels et la vignette de l'accueil ;
   4. note le SitRep et la date dans data/carte-relief.json (lu par visuels.py).
@@ -111,7 +112,10 @@ def ecrire_carto(latest):
 
 
 def capturer(dossier):
-    """Les trois pages a taille reelle (?export), echelle 2 : 3200 x 4000."""
+    """Les trois pages a taille reelle (?export), 3200 x 4000 : le canevas lu
+    pixel pour pixel, le texte par-dessus (relief/capture.mjs, 15 novembre
+    2026 ; avant, une capture d'ecran entiere a l'echelle 2 par
+    verif/capture_page.mjs, figee depuis le SitRep 181 : voir capture.mjs)."""
     class Muet(http.server.SimpleHTTPRequestHandler):
         def log_message(self, *a):
             pass
@@ -120,22 +124,17 @@ def capturer(dossier):
     port = srv.server_address[1]
     try:
         for page in ("fr", "en", "vignette"):
-            out = os.path.join(dossier, page + ".png")
-            subprocess.run(["node", "--experimental-websocket", os.path.join(ROOT, "scripts", "verif", "capture_page.mjs"),
-                            "http://127.0.0.1:%d/%s.html?export" % (port, page), out, ".affiche", "1616", "2"],
-                           check=True, timeout=180, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            if not os.path.exists(out):
-                sys.exit("capture manquee : " + page)
+            base = os.path.join(dossier, page)
+            subprocess.run(["node", "--experimental-websocket", os.path.join(REL, "capture.mjs"),
+                            "http://127.0.0.1:%d/%s.html?export" % (port, page), base],
+                           check=True, timeout=180, stdout=subprocess.DEVNULL)
+            fond = Image.open(base + "-canevas.png").convert("RGBA")
+            texte = Image.open(base + "-texte.png").convert("RGBA")
+            if texte.size != fond.size:
+                texte = texte.resize(fond.size, Image.LANCZOS)
+            Image.alpha_composite(fond, texte).convert("RGB").save(base + ".png")
     finally:
         srv.shutdown()
-
-
-def affiche(chemin):
-    """L'affiche seule, sans le fond sombre de la page autour."""
-    im = Image.open(chemin).convert("RGB"); w, h = im.size; px = im.load(); clair = lambda p: sum(p) > 600
-    x0 = next(x for x in range(w) if clair(px[x, h // 2])); x1 = next(x for x in range(w - 1, -1, -1) if clair(px[x, h // 2]))
-    y0 = next(y for y in range(h) if clair(px[w // 2, y])); y1 = next(y for y in range(h - 1, -1, -1) if clair(px[w // 2, y]))
-    return im.crop((x0, y0, x1 + 1, y1 + 1))
 
 
 def contenu(a, marge):
@@ -149,13 +148,13 @@ def main():
     with tempfile.TemporaryDirectory() as d:
         capturer(d)
         for lang, nom in NOMS.items():
-            hd = affiche(os.path.join(d, lang + ".png"))
+            hd = Image.open(os.path.join(d, lang + ".png"))
             print(lang, "affiche", hd.size)
             if hd.size != (3200, 4000):
                 hd = hd.resize((3200, 4000), Image.LANCZOS)
             hd.save(os.path.join(SORTIE, nom + "-4x5.png"), optimize=True)
             hd.resize((1000, 1250), Image.LANCZOS).save(os.path.join(SORTIE, nom + "-4x5-web.jpg"), quality=86, optimize=True, progressive=True)
-        v = contenu(affiche(os.path.join(d, "vignette.png")), 10)
+        v = contenu(Image.open(os.path.join(d, "vignette.png")), 10)
         v.thumbnail((900, 900), Image.LANCZOS)
         v.save(os.path.join(SORTIE, "vitrine-relief.jpg"), quality=86, optimize=True, progressive=True)
     meta = {"sitrep": str(latest["meta"]["sitrepNumber"]), "date": latest["meta"]["reportingDate"], "vignette": list(v.size)}
