@@ -4471,11 +4471,47 @@ function renderOneChartBrut(canvas, chartMode){
       Object.assign(optsN.scales.x.ticks,
                     { maxRotation: 45, minRotation: 45, autoSkip: true, maxTicksLimit: 20 });
       const fin = (jeu) => Object.assign(jeu, { borderRadius: 2, maxBarThickness: 18 });
+      /* CALENDRIER JOUR PAR JOUR (16 novembre 2026), comme les pages province
+         depuis le 21 septembre et les visuels : l'axe ne portait que les jours
+         de bulletin, colles, et les 15, 16 et 18 mai, 28 et 29 juillet
+         disparaissaient — la barre du 30 juillet semblait suivre celle du 27.
+         Un jour sans bulletin est desormais un blanc de la largeur d'une
+         barre. Le bulletin qui suit un blanc reunit plusieurs journees : sa
+         barre passe en teinte claire, comme un rattrapage, et l'infobulle le
+         dit. L'accueil (mode « epidemic ») garde l'axe des bulletins. */
+      const indexDe = new Map(s.map((r, i) => [r.date, i]));
+      const joursCal = [];
+      for(let d = dateDe(s[0].date), der = dateDe(s[s.length - 1].date); d <= der; d.setDate(d.getDate() + 1))
+        joursCal.push(isoDe(d));
+      const reunies = new Map();     // date du bulletin -> journees reunies
+      /* L'ecart se compte depuis le dernier bulletin qui porte le champ : les
+         17 et 19 mai n'ont pas de total de deces. */
+      let precedent = null;
+      s.forEach(r => {
+        if(r[champ] === null || r[champ] === undefined) return;
+        if(precedent && !RATTRAPAGE_ADMIN[r.date]){
+          const ecart = Math.round((dateDe(r.date) - dateDe(precedent)) / 864e5);
+          if(ecart > 1) reunies.set(r.date, ecart);
+        }
+        precedent = r.date;
+      });
+      const rapCal = [], ratCal = [];
+      joursCal.forEach(iso => {
+        const i = indexDe.get(iso);
+        if(i === undefined){ rapCal.push(null); ratCal.push(null); return; }
+        let rap = parts.rapporte[i], rat = parts.rattrapage[i];
+        if(reunies.has(iso) && rap !== null && rap !== undefined){ rat = (rat || 0) + rap; rap = 0; }
+        /* Une seule serie porte la journee, l'autre est nulle : un zero vaut
+           un trait au ras de l'axe (minBarLength), le blanc dit « on ne sait
+           pas ». */
+        if(rat) rapCal.push(rap || null); else rapCal.push(rap === undefined ? null : rap);
+        ratCal.push(rat ? rat : null);
+      });
       const dataJ = {
-        labels: s.map(r => (r.approx ? '≈ ' : '') + frDate(r.date)),
+        labels: joursCal.map(iso => { const i = indexDe.get(iso); return (i !== undefined && s[i].approx ? '≈ ' : '') + frDate(iso); }),
         datasets: [
-          fin(barre(tr(deces ? 'dailyDeathsLabel' : 'dailyChartLabel'), parts.rapporte, teinte)),
-          fin(barre(tr('catchupLabel'), parts.rattrapage, tint(teinte, .35)))
+          fin(Object.assign(barre(tr(deces ? 'dailyDeathsLabel' : 'dailyChartLabel'), rapCal, teinte), { minBarLength: 2 })),
+          fin(barre(tr('catchupLabel'), ratCal, tint(teinte, .35)))
         ]
       };
       /* data-cumul="1" sur le canevas : la courbe de cumul de la meme serie,
@@ -4490,25 +4526,31 @@ function renderOneChartBrut(canvas, chartMode){
       if(canvas.dataset.cumul === '1'){
         const horsHarm = r => deces ? (CUMUL_HORS_HARMONISATION[r.date] || 0) : 0;
         dataJ.datasets.push({ type: 'line', label: tr(deces ? 'chartCumulativeDeathsLabel' : 'chartCumulativeLabel'),
-          data: s.map(r => (r[champ] === null || r[champ] === undefined) ? null : r[champ] - horsHarm(r)), yAxisID: 'y1',
+          data: joursCal.map(iso => { const r = s[indexDe.get(iso)];
+            return (!r || r[champ] === null || r[champ] === undefined) ? null : r[champ] - horsHarm(r); }), yAxisID: 'y1',
           borderColor: teinte, borderWidth: 2, tension: .25, pointRadius: 0, fill: false, spanGaps: true, order: 0 });
         optsN.scales.y1 = { position: 'right', beginAtZero: true,
           ticks: { color: PALETTE.inkFaint, font: { family: PALETTE.font, size: 10 }, callback: v => fmt(v) },
           grid: { drawOnChartArea: false } };
       }
-      optsN.plugins.tooltip.callbacks.title = items => frDate(s[items[0].dataIndex].date);
-      optsN.plugins.tooltip.callbacks.afterTitle = items => tipJourCalcule(s[items[0].dataIndex].date);
+      const filtreJour = optsN.plugins.tooltip.filter;
+      optsN.plugins.tooltip.filter = item => item.parsed.y !== null && (item.dataset.type === 'line' || filtreJour(item));
+      optsN.plugins.tooltip.callbacks.title = items => frDate(joursCal[items[0].dataIndex]);
+      optsN.plugins.tooltip.callbacks.afterTitle = items => {
+        const iso = joursCal[items[0].dataIndex];
+        return reunies.has(iso) ? tr('chartMultiDayTip')(reunies.get(iso)) : tipJourCalcule(iso);
+      };
       /* Les journees de rattrapage rognees, comme a l'accueil et sur les
          pages province (25 septembre 2026) : meme
          plafond, meme coupe dentelee, meme etiquette du total. La regle ne
          se declenche que si une barre de rattrapage ecrase les autres. */
-      const plafondN = plafondSansRattrapage(parts.rapporte, parts.rattrapage);
+      const plafondN = plafondSansRattrapage(rapCal, ratCal);
       if(plafondN){
         optsN.scales.y.max = plafondN;
         /* Un plafond hors du pas de la grille (76 decès pour des graduations
            de 10) s'etiquetterait colle a la derniere graduation : il se tait. */
         if(plafondN % 10) optsN.scales.y.ticks.callback = v => v === plafondN ? '' : fmt(v);
-        optsN.plugins.ruptureRattrapage = { coupees: barresCoupees(parts.rapporte, parts.rattrapage, plafondN) };
+        optsN.plugins.ruptureRattrapage = { coupees: barresCoupees(rapCal, ratCal, plafondN) };
       }
       slot.chart = new Chart(ctx0Epi(canvas), { type: 'bar', data: dataJ, options: optsN,
                                                 plugins: [ruptureRattrapage] });
