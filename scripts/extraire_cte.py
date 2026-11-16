@@ -77,6 +77,10 @@ CAS_CONF_SUSP_RE = re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+et\s
 # Haut-Uele) : sans « sont ».
 SOMME_RES = (CAS_CONF_SUSP_RE,)
 HOSPITALISES_RES = [
+    # « 33 patients suspects en cours d'isolement dans les structures » (184
+    # Bas-Uele), « portant le total de patients aux lits à 16 » (184 Tshopo).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+(?:suspects\s+)?en\s+cours\s+d[’']isolement", re.I),
+    re.compile(r"total\s+de\s+patients\s+aux\s+lits\s+[àa]\s+(\d[\d ]{0,4}\d|\d)", re.I),
     # « 419 patients au total dans les structures, dont 146 cas confirmés »
     # (183 Ituri).
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+au\s+total\s+dans\s+les\s+structures", re.I),

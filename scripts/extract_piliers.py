@@ -48,7 +48,11 @@ def dates_par_numero():
 
 def texte_pdf(chemin):
     with pdfplumber.open(chemin) as pdf:
-        return "\n".join((p.extract_text() or "") for p in pdf.pages)
+        texte = "\n".join((p.extract_text() or "") for p in pdf.pages)
+    # « 𝐈𝐭𝐮𝐫𝐢 : 73 alertes reçues … » (184) : caracteres gras mathematiques
+    # ramenes aux lettres ordinaires, comme dans textes_pdf.
+    from textes_pdf import _sans_gras
+    return _sans_gras(texte)
 
 
 def sections(txt):
@@ -159,7 +163,7 @@ def lire_pci(corps):
             add_ring(p, m.start(), int(m.group(1)), int(m.group(2)))
         # « 46/54 rings ouverts » (180 Ituri), « 18/27 rings ouverts » (178
         # Nord-Kivu), « 19 anneaux (rings) ouverts sur 35 » (178 Ituri).
-        for m in list(re.finditer(r"(\d+)\s*/\s*(\d+) rings? ouverts?", p)) + list(
+        for m in list(re.finditer(r"(\d+)\s*/\s*(\d+)\s*rings? ouverts?", p)) + list(
                 re.finditer(r"(\d+) anneaux \(rings?\) ouverts? sur (\d+)", p)) + list(
                 # « 47 sur 47 rings ouverts (100 %) » (182 Ituri).
                 re.finditer(r"(\d+) sur (\d+) rings? ouverts?", p)):

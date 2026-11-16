@@ -267,6 +267,11 @@ def lire_province(morceau):
     if (len(re.findall(r"\d+(?:[,.]\d+)?\s*%\s+pour\s+les\b", morceau, re.I)) >= 2
             and not re.search(r"\bglobale?\s+(?:est\s+)?(?:de\s+)?\d+(?:[,.]\d+)?\s*%(?!\s+pour\s+les)", morceau, re.I)):
         positivite = None
+    # « taux de positivité global de 15,0 % pour les nouveaux échantillons
+    # vivants » (184 Ituri, 275 échantillons) : un taux d'une partie
+    # seulement, malgre le mot « global ».
+    if mp and re.match(r"\s*pour\s+les\s+(?:\d+\s+)?(?:nouveaux|re\s*pr|r[ée]pr|d[ée]c[èe]s|vivants)", morceau[mp.end():mp.end() + 40], re.I):
+        positivite = None
     echantillons, positifs = choisir(candidats(ECHANTILLONS_RES, morceau),
                                      candidats(POSITIFS_RES, morceau), positivite)
     # « Nord-Kivu : 21 échantillons reçus et testés (14 vivants et 7 décès) sur

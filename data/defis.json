@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-13"
+    "fin": "2026-11-14"
   },
   "parDate": [
     {
@@ -9304,6 +9304,14 @@
           ]
         },
         {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "retards et insuffisance des frais de transport remboursés par l'OMS."
+          ],
+          "provinces": []
+        },
+        {
           "pilier": "poe_poc",
           "titre": "PoE/PoC (cité dans « Principales actions »)",
           "items": [
@@ -9346,6 +9354,29 @@
           "titre": "Prise en charge holistique (PEC)",
           "items": [
             "Grève des prestataires du CTE Kasenyi suite à l'impaiement et 16 patients non alimentés dans la ZS de Mandima."
+          ],
+          "provinces": []
+        },
+        {
+          "pilier": "vaccination",
+          "titre": "Vaccination",
+          "items": [
+            "retards et insuffisance des frais de transport remboursés par l'OMS."
+          ],
+          "provinces": []
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-14",
+      "sitrepNumber": "184",
+      "piliers": [
+        {
+          "pilier": "securite",
+          "titre": "Sécurité",
+          "items": [
+            "Absence de guérites aux sites sécurisés (exposant les policiers et militaires aux intempéries), manque de mobilité et difficultés de communication pour les forces de sécurité."
           ],
           "provinces": []
         }

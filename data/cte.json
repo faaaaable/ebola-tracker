@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-11-13"
+    "fin": "2026-11-14"
   },
   "parDate": [
     {
@@ -6008,6 +6008,42 @@
         "lits": 434,
         "hospitalisesAvecLits": 554,
         "occupation": 127.6
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-14",
+      "sitrepNumber": "184",
+      "methode": "prose",
+      "provinces": {
+        "Nord-Kivu": {
+          "hospitalises": 482,
+          "lits": 434,
+          "hospitalisesNormes": 153,
+          "occupationPubliee": 35.0,
+          "occupation": 111.1,
+          "occupationCalculee": true,
+          "admissions": 78,
+          "sorties": 141,
+          "gueris": 4
+        },
+        "Bas-Uélé": {
+          "hospitalises": 33,
+          "sorties": 4
+        },
+        "Tshopo": {
+          "hospitalises": 16,
+          "occupation": 40.0,
+          "lits": 40,
+          "litsRecoupes": true
+        }
+      },
+      "total": {
+        "hospitalises": 531,
+        "provinces": 3,
+        "lits": 474,
+        "hospitalisesAvecLits": 498,
+        "occupation": 105.1
       },
       "source": "SitRep INSP (automatique)"
     }

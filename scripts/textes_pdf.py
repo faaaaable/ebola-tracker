@@ -18,6 +18,7 @@ texte : un PDF remplacé par une autre version est relu.
 import glob
 import os
 import re
+import unicodedata
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REPORTS_DIR = os.path.join(ROOT, "reports")
@@ -34,6 +35,16 @@ def numero(chemin):
     return m.group(1) if m else None
 
 
+# Caracteres « gras mathematiques » (U+1D400-U+1D7FF) : le 184 ecrit
+# « 𝟏𝟓𝟔 𝟔𝟎𝟎 voyageurs », « 𝐈𝐭𝐮𝐫𝐢 : » (et le 051 quelques mots). Ramenes aux
+# lettres et chiffres ordinaires, sinon aucun motif ne les reconnait.
+_GRAS_RE = re.compile("[\U0001D400-\U0001D7FF]")
+
+
+def _sans_gras(texte):
+    return _GRAS_RE.sub(lambda m: unicodedata.normalize("NFKC", m.group(0)), texte)
+
+
 def texte_du_rapport(chemin):
     """Le texte de toutes les pages, séparées par un saut de ligne."""
     os.makedirs(CACHE_DIR, exist_ok=True)
@@ -41,13 +52,13 @@ def texte_du_rapport(chemin):
     cache = os.path.join(CACHE_DIR, "%s.%d.txt" % (os.path.basename(chemin), taille))
     if os.path.exists(cache):
         with open(cache, encoding="utf-8") as fh:
-            return fh.read()
+            return _sans_gras(fh.read())
     import pdfplumber  # importé ici : inutile quand tout est en cache
     with pdfplumber.open(chemin) as pdf:
         texte = "\n".join((p.extract_text() or "") for p in pdf.pages)
     with open(cache, "w", encoding="utf-8") as fh:
         fh.write(texte)
-    return texte
+    return _sans_gras(texte)
 
 
 def texte_par_couches(chemin):

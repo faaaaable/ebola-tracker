@@ -302,6 +302,12 @@ KPI_CORRIGES = {
     "180": {"inCTE": (981, None)},
     "181": {"inCTE": (1676, None)},
     "182": {"inCTE": (1538, None)},
+    # Le SitRep 184 imprime 1 681 (1 055 la veille) quand le Nord-Kivu
+    # descend de 554 a 482 et qu'aucune province ne monte de plus de six :
+    # 482 au Nord-Kivu, 33 au Bas-Uele, 16 a la Tshopo, et l'Ituri non
+    # chiffree (419 la veille). Meme avec la veille pour l'Ituri et le
+    # Haut-Uele, le detail ne passe pas 1 090.
+    "184": {"inCTE": (1681, None)},
 }
 
 

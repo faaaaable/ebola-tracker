@@ -174,7 +174,9 @@ def fin_du_bloc(texte, debut):
 # qui s'ouvre sur « Province : » ferme aussi le defi.
 _PROVINCE_TETE = r'(?:Ituri|Nord[- ]?Kivu|Sud[- ]?Kivu|Haut[- ]?U[ée]l[ée]|Bas[- ]?U[ée]l[ée]|Tshopo|TSHOPO|Sud[- ]?Ubangi|Nord[- ]?Ubangi)\s*:'
 # « Défis majeurs : Grève des prestataires du CTE Kasenyi … » (181).
-INLINE_DEFI = re.compile(r'(?<![\w])D[ée]fis?(?:\s+majeurs?)?\s*:\s*([^\n]*(?:\n(?!\s*(?:\d+(?:\.\d+)+\.?\s|[•▪\uf0b7]|' + _PROVINCE_TETE + r'))[^\n]*)*)')
+# « Défis notés : » (183 Ituri), « Défis logistiques et opérationnels : »
+# (184 Sécurité) : un a trois mots en minuscules entre « Défis » et « : ».
+INLINE_DEFI = re.compile(r'(?<![\w])D[ée]fis?(?:\s+[a-zéèêàôç]+(?:\s+(?:et\s+)?[a-zéèêàôç]+){0,2})?\s*:\s*([^\n]*(?:\n(?!\s*(?:\d+(?:\.\d+)+\.?\s|[•▪\uf0b7]|' + _PROVINCE_TETE + r'))[^\n]*)*)')
 
 
 def province_de_la_puce(texte, position):
