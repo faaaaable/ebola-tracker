@@ -2241,38 +2241,46 @@ ISO = {
             sous="Le chiffre de tête de chaque bulletin de l'INSP, et la somme des provinces qu'il détaille, du {a} au {b}.",
             tete="Chiffre de tête du bulletin", somme="Somme des provinces détaillées",
             note="Sans trait : 16 octobre (Nord-Kivu non chiffré) et 14 novembre (Ituri non chiffrée). Pointillé : Ituri comptée pour 380 le 11 novembre, chiffre incertain.",
-            lire="Le nombre de patients en isolement annoncé en tête de chaque bulletin, et ce qu'en détaillent ses provinces : depuis le 9 novembre, les deux ne se rejoignent plus."),
+            lire="Le nombre de patients en isolement annoncé en tête de chaque bulletin, et ce qu'en détaillent ses provinces : depuis début novembre, les deux ne se rejoignent plus."),
  "en": dict(titre="Patients in isolation, day by day",
             sous="The headline figure of each INSP bulletin, and the sum of the provinces it details, {a} to {b}.",
             tete="Bulletin headline figure", somme="Sum of the detailed provinces",
             note="No line: 16 October (North Kivu not reported) and 14 November (Ituri not reported). Dotted: Ituri counted as 380 on 11 November, an uncertain figure.",
-            lire="The number of patients in isolation given at the top of each bulletin, and what its provinces detail: since 9 November the two no longer match."),
+            lire="The number of patients in isolation given at the top of each bulletin, and what its provinces detail: since early November the two no longer match."),
  "sw": dict(titre="Wagonjwa waliotengwa, siku kwa siku",
             sous="Idadi kuu ya kila ripoti ya INSP, na jumla ya majimbo inayoyaeleza, {a} hadi {b}.",
             tete="Idadi kuu ya ripoti", somme="Jumla ya majimbo yaliyoelezwa",
             note="Bila mstari: 16 Oktoba (Kivu Kaskazini haikuhesabiwa) na 14 Novemba (Ituri haikuhesabiwa). Nukta: Ituri imehesabiwa 380 tarehe 11 Novemba, idadi isiyo na uhakika.",
-            lire="Idadi ya wagonjwa waliotengwa inayotangazwa juu ya kila ripoti, na kile majimbo yake yanachoeleza: tangu 9 Novemba, hizi mbili hazilingani tena."),
+            lire="Idadi ya wagonjwa waliotengwa inayotangazwa juu ya kila ripoti, na kile majimbo yake yanachoeleza: tangu mwanzoni mwa Novemba, hizi mbili hazilingani tena."),
 }
 
 
-def r_isolement(c):
-    z = ISO[c.lang]
+def isolement_points():
+    """Un point par bulletin : chiffre de tete, provinces chiffrees, somme
+    (None quand elle ne represente pas le jour), provinces incertaines."""
     cte = {x["sitrepNumber"]: x for x in _j("data/cte.json")["parDate"]}
     dossier = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "lettres")
-    pts = {}
+    out = []
     for f in sorted(os.listdir(dossier)):
         if not f.endswith(".json"):
             continue
         l = json.load(open(os.path.join(dossier, f), encoding="utf-8")); n = f[:3]; nat = l.get("national") or {}
         tete = nat["inCTEPublie"] if nat.get("inCTEPublie") is not None else nat.get("inCTE")
-        provs = {k: v["hospitalises"] for k, v in ((cte.get(n) or {}).get("provinces") or {}).items() if v.get("hospitalises") is not None}
-        doute = False
+        provs = {_prov_canon(k): v["hospitalises"] for k, v in ((cte.get(n) or {}).get("provinces") or {}).items() if v.get("hospitalises") is not None}
+        incertain = []
         for k, v in ISO_INCERTAIN.get(n, {}).items():
             if k not in provs:
-                provs[k] = v; doute = True
+                provs[k] = v; incertain.append(k)
         somme = None if n in ISO_SANS_TRAIT or not provs else sum(provs.values())
         if tete is not None or somme is not None:
-            pts[D(l["meta"]["reportingDate"])] = (tete, somme, doute)
+            out.append({"date": l["meta"]["reportingDate"], "sitrep": n, "tete": tete, "somme": somme,
+                        "sansTrait": n in ISO_SANS_TRAIT, "provinces": provs, "incertain": incertain})
+    return out
+
+
+def r_isolement(c):
+    z = ISO[c.lang]
+    pts = {D(p["date"]): (p["tete"], p["somme"], bool(p["incertain"])) for p in isolement_points()}
     if not pts:
         return None
     jours = _calendrier(min(pts), max(pts))
