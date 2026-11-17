@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-14"
+    "fin": "2026-11-15"
   },
   "parDate": [
     {
@@ -9371,6 +9371,21 @@
     {
       "date": "2026-11-14",
       "sitrepNumber": "184",
+      "piliers": [
+        {
+          "pilier": "securite",
+          "titre": "Sécurité",
+          "items": [
+            "Absence de guérites aux sites sécurisés (exposant les policiers et militaires aux intempéries), manque de mobilité et difficultés de communication pour les forces de sécurité."
+          ],
+          "provinces": []
+        }
+      ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-15",
+      "sitrepNumber": "185",
       "piliers": [
         {
           "pilier": "securite",

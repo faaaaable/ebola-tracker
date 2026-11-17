@@ -11,6 +11,7 @@ source sont signalés mais ne bloquent pas.
 
     python scripts/check_coherence.py
 """
+import glob
 import io
 import json
 import os
@@ -91,6 +92,14 @@ EXCEPTIONS_SOURCE = {
     # sur une periode bornee au 19 septembre : la source a change de
     # decompte, les donnees restent celles du bulletin.
     ("vaccination_recul", "180", "Ituri"): (3346, 3368),
+    # 182 : « Données cumulées : 3 930 personnes vaccinées au total dans la
+    # province de l'Ituri » ; 185 : « Le cumul s'élève à 426 personnes
+    # vaccinées (382 à Bunia et 43 à Mongbwalu) ». Le 185 ne compte plus que
+    # deux zones : autre decompte, les donnees restent celles du bulletin.
+    ("vaccination_recul", "185", "Ituri"): (426, 3930),
+    # 185, tableau des zones : « Lubunga 1 2** 200,0% », renvoi « **En cours
+    # d'harmonisation ». La source imprime plus de deces que de cas.
+    ("zone_deces", "185", "Lubunga"): (1, 2),
     # 150 : le tableau recapitulatif (p. 2) imprime « Haut-Uélé 4 382 162
     # 42,6% » ; le tableau detaille (p. 3) « Haut-Uélé 383 162 42,3% » et le
     # 149 comptait 379 cas : 379 + 4 = 383. 162/382 = 42,4 %, 162/383 =
@@ -227,8 +236,12 @@ for p_ in provinces:
 negative = [z["name"] for z in zones if (z.get("cases") or 0) < 0
             or (z.get("deaths") or 0) < 0]
 check("aucun effectif négatif", not negative, ", ".join(negative[:5]))
-worse = [z["name"] for z in zones if (z.get("deaths") or 0) > (z.get("cases") or 0)]
+_num = str((latest.get("meta") or {}).get("sitrepNumber") or "")
+worse, worse_connus = trier("zone_deces", [(_num, z["name"], ((z.get("cases") or 0), (z.get("deaths") or 0)), z["name"])
+                                           for z in zones if (z.get("deaths") or 0) > (z.get("cases") or 0)])
 check("décès <= cas dans chaque zone", not worse, ", ".join(worse[:5]))
+if worse_connus:
+    check("décès > cas dans une zone, imprime par la source", False, ", ".join(worse_connus[:5]), blocking_if_false=False)
 
 print("\n4. Historiques")
 last_sitrep = sitreps[-1] if sitreps else {}
@@ -627,7 +640,149 @@ if len(_lettres) >= 2:
                   _v.get("hospitalises"), rel=0.3, absolu=50)
 check("sauts entre les deux derniers bulletins", True)
 
+print("\nCopies et trous (15 novembre 2026)")
+# Demande du proprietaire : signaler des donnees qui semblent copiees-collees
+# d'un SitRep a l'un des deux precedents, et une serie de graphique vide plus
+# de deux SitRep d'affilee. Rien de bloquant : liste « A REGARDER ».
+# Cas d'ecole : le 176 reprend 41 phrases chiffrees du 175 (dont le stock des
+# CTE de l'Ituri et du Nord-Kivu) ; le 182 reprend « 540 … 127 … 413 » du
+# Nord-Kivu du 181 dans une autre phrase.
+copies, trous = [], []
+
+
+def _texte_sitrep(num):
+    for f in glob.glob(os.path.join(ROOT, ".cache", "textes", "SITREP_MVE_%s.pdf.*.txt" % num)):
+        if "couches" not in f:
+            with io.open(f, encoding="utf-8") as fh:
+                return fh.read()
+    return None
+
+
+# Passages qui restent identiques d'un jour a l'autre sans etre des copies :
+# cumuls, tableaux de zones, en-tetes.
+_STABLE = re.compile(r"cumul|au total depuis|depuis le d[ée]but|zones? de sant[ée] sur|L[ée]talit|touch[ée]es|Task|Minist", re.I)
+_DONNEE = re.compile(r"patients?|lits|admission|sorties|[ée]chantillons|alertes|contacts|vaccin|voyageurs|cas\b|d[ée]c[eè]s|isol|hospitalis|EDS|corps|PoC|PoE", re.I)
+
+
+def _segments(t):
+    t = re.sub(r"[ \t]+", " ", t)
+    t = re.sub(r"(?<=[a-zé,;(])\s*\n\s*(?=[a-zé0-9(])", " ", t)
+    for p in re.split(r"(?<=[.;!?])\s+|\n\s*[•▪→\--]\s*|\n{2,}", t):
+        p = " ".join(p.split())
+        if 50 <= len(p) <= 450 and not _STABLE.search(p):
+            yield p
+
+
+def _nombres(s):
+    return [int(x.replace(" ", "")) for x in re.findall(r"(?<![\d,.\w])\d{1,3}(?: \d{3})*(?![\d,.%\w])", s)]
+
+
+def _copies_texte(num_b, num_a):
+    ta, tb = _texte_sitrep(num_a), _texte_sitrep(num_b)
+    if not ta or not tb:
+        return [], []
+    sa, sb = set(_segments(ta)), set(_segments(tb))
+    phrases = sorted(p for p in sb & sa if len(_nombres(p)) >= 3)
+    suites_a = {}
+    for p in sa:
+        n = _nombres(p)
+        for i in range(len(n) - 2):
+            tr = tuple(n[i:i + 3])
+            if min(tr) >= 10 and len(set(tr)) == 3:
+                suites_a[tr] = p
+    suites = []
+    for p in sb - sa:
+        if not _DONNEE.search(p):
+            continue
+        n = _nombres(p)
+        for i in range(len(n) - 2):
+            tr = tuple(n[i:i + 3])
+            if tr in suites_a and _DONNEE.search(suites_a[tr]):
+                suites.append((tr, p))
+                break
+    return phrases, suites
+
+
+_ordre = sorted({str(p.get("sitrepNumber")) for f in ("laboratoire.json", "cte.json", "alertes.json")
+                 for p in ((_lire_optionnel(f) or {}).get("parDate") or []) if p.get("sitrepNumber")})
+if _ordre:
+    _der = _ordre[-1]
+    for _av in _ordre[-3:-1][::-1]:
+        _ph, _su = _copies_texte(_der, _av)
+        if len(_ph) >= 5:
+            copies.append("%s reprend %d phrases chiffrees du %s, mot pour mot (ex. « %s… »)" % (_der, len(_ph), _av, _ph[0][:90]))
+        else:
+            for _p in _ph:
+                copies.append("%s = %s, phrase identique : « %s… »" % (_der, _av, _p[:110]))
+        for _tr, _p in _su:
+            copies.append("%s reprend la suite %s du %s : « %s… »" % (_der, "-".join(map(str, _tr)), _av, _p[:110]))
+
+
+# Donnees extraites identiques d'un bulletin a l'autre, province par province
+# (au moins deux valeurs non nulles, toutes egales) : stock des CTE,
+# laboratoire, alertes, contacts.
+def _par_sitrep(nom, cle_liste="parDate"):
+    d = _lire_optionnel(nom)
+    rows = d.get(cle_liste) if isinstance(d, dict) else d
+    return {str(r.get("sitrepNumber")): r for r in (rows or []) if isinstance(r, dict) and r.get("sitrepNumber")}
+
+
+_SERIES_COPIE = [
+    ("cte.json", "patients en CTE", ("hospitalises", "lits", "occupation")),
+    ("laboratoire.json", "laboratoire", ("echantillons", "positifs", "positivite")),
+    ("alertes.json", "alertes", ("recues", "verifiees", "validees")),
+    ("contacts-followup.json", "contacts", ("vus", "aSuivre", "taux")),
+]
+if _ordre and len(_ordre) >= 2:
+    _der, _av = _ordre[-1], _ordre[-2]
+    for _f, _lib, _cles in _SERIES_COPIE:
+        _s = _par_sitrep(_f)
+        _b, _a = (_s.get(_der) or {}).get("provinces") or {}, (_s.get(_av) or {}).get("provinces") or {}
+        for _prov, _vb in _b.items():
+            _va = _a.get(_prov) or {}
+            _vals = [(_vb.get(k), _va.get(k)) for k in _cles if _vb.get(k) is not None]
+            if len([v for v, _ in _vals if v]) >= 2 and all(v == w for v, w in _vals):
+                copies.append("%s %s %s : memes valeurs qu'au %s (%s)" % (_der, _prov, _lib, _av,
+                              ", ".join("%s %s" % (k, _vb.get(k)) for k in _cles if _vb.get(k) is not None)))
+
+# Trous : une serie tracee, province par province, vide aux 3 derniers
+# SitRep ou plus, alors que la province la publiait (3 fois au moins sur les
+# 10 bulletins d'avant). Seuls les trous en cours sont signales.
+_SERIES_TROU = [
+    ("cte.json", "taux d'occupation des CTE", lambda v: v.get("occupation")),
+    ("cte.json", "patients en CTE", lambda v: v.get("hospitalises")),
+    ("laboratoire.json", "echantillons du laboratoire", lambda v: v.get("echantillons")),
+    ("laboratoire.json", "positifs du laboratoire", lambda v: v.get("positifs")),
+    ("alertes.json", "alertes recues", lambda v: v.get("recues")),
+    ("contacts-followup.json", "suivi des contacts", lambda v: v.get("taux")),
+]
+for _f, _lib, _lire in _SERIES_TROU:
+    _s = _par_sitrep(_f)
+    # un SitRep lu par les autres series mais absent de celle-ci compte aussi
+    # comme un trou : la liste de reference est celle de toutes les series
+    _nums = _ordre
+    _provs = {p for n in _nums[-13:] for p in ((_s.get(n) or {}).get("provinces") or {})}
+    for _prov in sorted(_provs):
+        _vals = [_lire(((_s.get(n) or {}).get("provinces") or {}).get(_prov) or {}) for n in _nums]
+        _k = 0
+        while _k < len(_vals) and _vals[-1 - _k] is None:
+            _k += 1
+        _avant = _vals[-_k - 10:-_k] if _k else []
+        if _k >= 3 and sum(v is not None for v in _avant) >= 3:
+            trous.append("%s, %s : aucune valeur depuis %d SitRep (%s a %s)" % (_prov, _lib, _k, _nums[-_k], _nums[-1]))
+check("copies et trous", True)
+
 print()
+if copies:
+    print("%d copie(s) possible(s) A REGARDER :" % len(copies))
+    for n in copies:
+        print("  - %s" % n)
+    print()
+if trous:
+    print("%d trou(s) de plus de deux SitRep A REGARDER :" % len(trous))
+    for n in trous:
+        print("  - %s" % n)
+    print()
 if sauts:
     print("%d saut(s) A REGARDER avant la mise en ligne :" % len(sauts))
     for n in sauts:

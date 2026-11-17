@@ -119,7 +119,7 @@ ECHANTILLONS_RES = [
     re.compile(r"parmi\s+(?:les\s+)?(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons", re.I),
     re.compile(r"\((\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+analys[ée]s\)", re.I),
     re.compile(r"[ée]chantillons\s+(?:re[çc]us|pr[ée]lev[ée]s)\s*,?\s*dont\s+(\d[\d ]{0,6}\d|\d)\s+(?:ont\s+[ée]t[ée]\s+)?analys[ée]s", re.I),
-    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+ont\s+[ée]t[ée]\s+analys[ée]s", re.I),
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+(?:\([^)]{0,40}\)\s*)?ont\s+[ée]t[ée]\s+analys[ée]s", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons\s+re[çc]us\b(?=[^.]*positi)", re.I),
     # « 1 échantillon analysé » au singulier (119 Sud-Ubangi, « sur l'échantillon analysé » réécrit en amont)
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillon\s+analys[ée]\b", re.I),
@@ -194,6 +194,26 @@ RECUS_TESTES_SUR_RE = re.compile(
 TOUS_POSITIFS_RE = re.compile(r"(?:s[’']est\s+r[ée]v[ée]l[ée]\s+positif\b|tous\s+se\s+sont\s+r[ée]v[ée]l[ée]s\s+positifs|tous\s+(?:sont\s+)?revenus\s+positifs)", re.I)
 
 
+# « au total 39 échantillons positifs au total sur 185 testés (21,1 %), dont
+# 27 nouveaux diagnostics positifs » (185 Nord-Kivu) : la synthese de la
+# province, apres trois taux par categorie. Lue avant la coupure sur « au
+# total », qui l'emportait.
+AU_TOTAL_POSITIFS_RE = re.compile(
+    r"au\s+total\s+(\d[\d ]{0,4}\d|\d)\s+[ée]chantillons\s+positifs(?:\s+au\s+total)?\s+sur\s+(\d[\d ]{0,5}\d|\d)\s+test[ée]s\s*"
+    r"\((\d+(?:[,.]\d+)?)\s*%\)\s*,?\s*dont\s+(\d[\d ]{0,4}\d|\d)\s+nouveaux\s+diagnostics\s+positifs", re.I)
+# « Nouveaux échantillons : 100 testés (84 négatifs et 16 positifs …),
+# Reprélèvements : 78 testés (65 négatifs et 13 positifs …) et Échantillons
+# en cours : 60 testés (53 négatifs et 7 positifs …) » (185 Ituri) : une
+# ligne par categorie ; les testes et les positifs s'additionnent, le
+# premier bloc « Nouveaux » donne les nouveaux cas.
+CATEGORIE_TESTES_RE = re.compile(
+    r"([A-ZÉa-zéèêç ]{3,30}?)\s*:\s*(\d[\d ]{0,5}\d|\d)\s+test[ée]s\s*\(\s*(\d[\d ]{0,5}\d|\d)\s+n[ée]gatifs\s+et\s+(\d[\d ]{0,4}\d|\d)\s+positifs", re.I)
+# « 1 nouveau cas confirmé et validé (vivants) sur 8 nouveaux suspects
+# testés » (185 Tshopo).
+CONFIRME_VALIDE_SUR_RE = re.compile(
+    r"(\d+)\s+nouveaux?\s+cas\s+confirm[ée]s?\s+et\s+valid[ée]s?\s*(?:\([^)]{0,30}\)\s*)?sur\s+(\d[\d ]{0,4}\d|\d)\s+nouveaux\s+suspects\s+test[ée]s", re.I)
+
+
 def candidats(regexes, texte):
     """Tous les nombres que les motifs trouvent, dans l'ordre des motifs."""
     out = []
@@ -243,6 +263,8 @@ def lire_province(morceau):
     # « reçus et testés au total » (181 Ituri) : ce « au total » n'ouvre pas
     # une synthese, la coupure ci-dessous emportait toute la ligne.
     morceau = re.sub(r"\b((?:re[çc]u|test[ée]|analys[ée]|r[ée]ceptionn[ée])s?)\s+au\s+total\b", r"\1", morceau, flags=re.I)
+    synthese = AU_TOTAL_POSITIFS_RE.search(morceau)
+    categories = CATEGORIE_TESTES_RE.findall(morceau)
     c = COUPURE_RE.search(morceau)
     if c:
         morceau = morceau[:c.start()]
@@ -328,6 +350,21 @@ def lire_province(morceau):
         brut = echantillons * positivite / 100
         if abs(brut - round(brut)) < 0.05:
             positifs, deduit = int(round(brut)), True
+    nouveaux_n = None
+    if synthese:
+        positifs, echantillons = entier(synthese.group(1)), entier(synthese.group(2))
+        positivite, nouveaux_n = pourcent(synthese.group(3)), entier(synthese.group(4))
+    elif len(categories) >= 2:
+        testes = sum(entier(t) for _, t, _, _ in categories)
+        if echantillons is None or testes == echantillons:
+            echantillons, positifs = testes, sum(entier(p) for _, _, _, p in categories)
+            positivite = None
+            if re.search(r"nouveaux", categories[0][0], re.I):
+                nouveaux_n = entier(categories[0][3])
+    mcv = CONFIRME_VALIDE_SUR_RE.search(morceau)
+    if mcv and positifs is None:
+        positifs, echantillons = entier(mcv.group(1)), entier(mcv.group(2))
+        nouveaux_n = positifs
     nouveaux = NOUVEAUX_CAS_RE.search(morceau)
     m = VIVANTS_DECES_RE.search(morceau)
     vivants, deces = (int(m.group(1)), int(m.group(2))) if m else (None, None)
@@ -344,6 +381,8 @@ def lire_province(morceau):
         # Positifs = nouveaux cas + réprélèvements : les seconds ne sont pas des
         # cas. On garde les deux, le graphique ne trace que les nouveaux.
         ligne["nouveauxCas"] = int(nouveaux.group(1))
+    if nouveaux_n is not None:
+        ligne["nouveauxCas"] = nouveaux_n
     if vivants is not None:
         ligne["vivants"], ligne["deces"] = vivants, deces
     if positivite is not None:

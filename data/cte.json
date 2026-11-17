@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-11-14"
+    "fin": "2026-11-15"
   },
   "parDate": [
     {
@@ -6019,7 +6019,6 @@
         "Nord-Kivu": {
           "hospitalises": 482,
           "lits": 434,
-          "hospitalisesNormes": 153,
           "occupationPubliee": 35.0,
           "occupation": 111.1,
           "occupationCalculee": true,
@@ -6044,6 +6043,64 @@
         "lits": 474,
         "hospitalisesAvecLits": 498,
         "occupation": 105.1
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-15",
+      "sitrepNumber": "185",
+      "methode": "prose",
+      "provinces": {
+        "Nord-Kivu": {
+          "hospitalises": 514,
+          "lits": 434,
+          "hospitalisesNormes": 343,
+          "occupationPubliee": 79.0,
+          "occupation": 118.4,
+          "occupationCalculee": true,
+          "admissions": 116,
+          "sorties": 84,
+          "gueris": 8
+        },
+        "Tshopo": {
+          "hospitalises": 18,
+          "occupation": 53.1,
+          "admissions": 2,
+          "occupationPubliee": 53.1
+        },
+        "Ituri": {
+          "hospitalises": 383,
+          "occupation": 36.0,
+          "admissions": 59,
+          "sorties": 69,
+          "gueris": 10,
+          "occupationPubliee": 36.0
+        },
+        "Haut-Uélé": {
+          "hospitalises": 65,
+          "occupation": 40.0,
+          "lits": 163,
+          "litsRecoupes": true
+        },
+        "Bas-Uélé": {
+          "hospitalises": 25,
+          "admissions": 1,
+          "sorties": 9
+        },
+        "Nord-Ubangi": {
+          "hospitalises": 40,
+          "lits": 25,
+          "occupation": 160.0,
+          "admissions": 3,
+          "sorties": 3
+        }
+      },
+      "total": {
+        "hospitalises": 1045,
+        "provinces": 6,
+        "lits": 622,
+        "hospitalisesAvecLits": 619,
+        "occupation": 99.5
       },
       "source": "SitRep INSP (automatique)"
     }

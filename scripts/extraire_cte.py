@@ -243,8 +243,9 @@ LITS_FRACTION_RE = re.compile(r"%\s*(?:;|\()\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,
 # Le 125 glisse le numero de page au milieu de la tournure — « capacité
 # d'accueil 6 de 228 lits » — d'ou l'ancrage sur « lits » et non sur « de ».
 # « portant la capacité provinciale à 130 lits » (097, Haut-Uele).
+# « pour une capacité déclarée de 25 lits disponibles » (185, Nord-Ubangi).
 LITS_CAPACITE_RE = re.compile(
-    r"capacit[ée]\s+(?:d[’']\s*accueil|provinciale\s+à)[^.;%]{0,24}?(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
+    r"capacit[ée]\s+(?:d[’']\s*accueil|provinciale\s+à|d[ée]clar[ée]e)[^.;%]{0,24}?(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
 # Le denominateur du taux quand la province distingue les deux : « dont 224
 # dans les structures normées », « dont 216 dans les structures dédiées »,
 # « dont 250 dans les structures de prise en charge normées » (132, sans
@@ -275,6 +276,11 @@ CTE_FRACTION_RE = re.compile(
 # (175, Nord-Kivu) : meme lecture que CTE_FRACTION_RE, autre tournure.
 CTE_OCCUPES_RE = re.compile(
     r"CTE/CT\s+[ée]tant\s+occup[ée]s\s+[àa]\s+(\d+(?:[,.]\d+)?)\s*%\s*\(\s*(\d[\d ]{0,4}\d|\d)\s*/\s*(\d[\d ]{0,4}\d|\d)\s+lits\s*\)", re.I)
+# « Sur les 514 patients, 343 sont en CTE/CT (taux d'occupation global de
+# 79 % sur 434 lits » (185 Nord-Kivu). Sans ce motif, LITS_FRACTION_RE prenait
+# « 100 % (5/5) des enfants » pour 5 lits. Groupes : patients aux lits, taux, lits.
+CTE_SUR_LITS_RE = re.compile(
+    r"(\d[\d ]{0,4}\d|\d)\s+sont\s+en\s+CTE(?:/CT)?\s*\(\s*taux\s+d[’']occupation\s+global\s+de\s+(\d+(?:[,.]\d+)?)\s*%\s+sur\s+(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
 OCCUPATION_RES = [
     re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
@@ -420,6 +426,13 @@ def lire_prose(morceau):
     # « soit un taux d'occupation global de 108,8 % (90,8 % dans les CTE/CT ;
     # 385/424 lits) » (173 et 174, Nord-Kivu) : patients aux lits des CTE/CT
     # et lits, retenus si la fraction retombe sur le taux a 1,5 point pres.
+    ms = CTE_SUR_LITS_RE.search(morceau)
+    if ms and "hospitalisesNormes" not in ligne:
+        aux_lits, taux_c, lits_c = entier(ms.group(1)), pourcent(ms.group(2)), entier(ms.group(3))
+        if aux_lits is not None and lits_c and aux_lits <= hosp and taux_c is not None and abs(aux_lits / lits_c * 100 - taux_c) <= 1.5:
+            ligne["hospitalisesNormes"] = aux_lits
+            ligne["lits"] = lits_c
+            ligne["_occCte"] = taux_c
     mc = CTE_FRACTION_RE.search(morceau) or CTE_OCCUPES_RE.search(morceau)
     if mc and "hospitalisesNormes" not in ligne:
         taux_c, aux_lits, lits_c = pourcent(mc.group(1)), entier(mc.group(2)), entier(mc.group(3))
@@ -1011,6 +1024,11 @@ VALEURS_ECARTEES = {
     # « 77 sortants (74 guéris, 61 non-cas reclassés, et 12 décès) » : le
     # detail fait 147.
     ("180", "Ituri"): ("sorties", "gueris"),
+    # « 482 patients hospitalisés … Taux d'occupation global des lits : 35 %
+    # (153/434 lits). 153 patients pris en charge dans des ESS hors CTE/CT » :
+    # le meme 153 est donne dans les CTE et hors CTE, et 153 + 153 ne fait
+    # pas 482. Les patients des CTE sont ecartes, le point manque.
+    ("184", "Nord-Kivu"): ("hospitalisesNormes",),
 }
 # TAUX QUE LE BULLETIN CONTREDIT, la courbe reprend patients / lits : « Taux
 # global de 41% (277/434 lits occupés dans les CTE/CT) » (183 Nord-Kivu) —
