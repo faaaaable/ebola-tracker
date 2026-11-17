@@ -2221,6 +2221,81 @@ def comparaison_2014(c, champ):
     return c.carte(titre, sous, "".join(o), h=Y1 + 230, source_plus=e["plus"])
 
 
+# ================================================================ patients en isolement
+# (17 novembre 2026) Barres : le chiffre de tete de chaque bulletin (« Patients
+# en isolement/CTE (du jour) », tel qu'imprime : national.inCTEPublie, sinon
+# inCTE, de data/lettres). Trait rouge : la somme des provinces que le meme
+# bulletin chiffre (cte.json, hospitalises). Depuis le 179, les deux ne se
+# rejoignent plus. Exceptions nominatives :
+# - 155 (16 oct.) et 184 (14 nov.) : pas de trait. « l'absence de données […]
+#   pour le 16 octobre » au Nord-Kivu ; au 184, l'Ituri n'a aucun paragraphe.
+#   La somme ne represente pas le jour.
+# - 181 (11 nov.) : l'Ituri ne chiffre pas ses hospitalises ; « 366 patients
+#   sur 380 (96 %) ont bénéficié d'un repas chaud » : 380 repris, trait en
+#   pointille (au 155 et au 185 ce denominateur differe des hospitalises).
+ISO_SANS_TRAIT = {"155", "184"}
+ISO_INCERTAIN = {"181": {"Ituri": 380}}
+ISO_BARRE = "#9DBFCF"
+ISO = {
+ "fr": dict(titre="Patients en isolement, jour par jour",
+            sous="Le chiffre de tête de chaque bulletin de l'INSP, et la somme des provinces qu'il détaille, du {a} au {b}.",
+            tete="Chiffre de tête du bulletin", somme="Somme des provinces détaillées",
+            note="Sans trait : 16 octobre (Nord-Kivu non chiffré) et 14 novembre (Ituri non chiffrée). Pointillé : Ituri comptée pour 380 le 11 novembre, chiffre incertain.",
+            lire="Le nombre de patients en isolement annoncé en tête de chaque bulletin, et ce qu'en détaillent ses provinces : depuis le 9 novembre, les deux ne se rejoignent plus."),
+ "en": dict(titre="Patients in isolation, day by day",
+            sous="The headline figure of each INSP bulletin, and the sum of the provinces it details, {a} to {b}.",
+            tete="Bulletin headline figure", somme="Sum of the detailed provinces",
+            note="No line: 16 October (North Kivu not reported) and 14 November (Ituri not reported). Dotted: Ituri counted as 380 on 11 November, an uncertain figure.",
+            lire="The number of patients in isolation given at the top of each bulletin, and what its provinces detail: since 9 November the two no longer match."),
+ "sw": dict(titre="Wagonjwa waliotengwa, siku kwa siku",
+            sous="Idadi kuu ya kila ripoti ya INSP, na jumla ya majimbo inayoyaeleza, {a} hadi {b}.",
+            tete="Idadi kuu ya ripoti", somme="Jumla ya majimbo yaliyoelezwa",
+            note="Bila mstari: 16 Oktoba (Kivu Kaskazini haikuhesabiwa) na 14 Novemba (Ituri haikuhesabiwa). Nukta: Ituri imehesabiwa 380 tarehe 11 Novemba, idadi isiyo na uhakika.",
+            lire="Idadi ya wagonjwa waliotengwa inayotangazwa juu ya kila ripoti, na kile majimbo yake yanachoeleza: tangu 9 Novemba, hizi mbili hazilingani tena."),
+}
+
+
+def r_isolement(c):
+    z = ISO[c.lang]
+    cte = {x["sitrepNumber"]: x for x in _j("data/cte.json")["parDate"]}
+    dossier = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "lettres")
+    pts = {}
+    for f in sorted(os.listdir(dossier)):
+        if not f.endswith(".json"):
+            continue
+        l = json.load(open(os.path.join(dossier, f), encoding="utf-8")); n = f[:3]; nat = l.get("national") or {}
+        tete = nat["inCTEPublie"] if nat.get("inCTEPublie") is not None else nat.get("inCTE")
+        provs = {k: v["hospitalises"] for k, v in ((cte.get(n) or {}).get("provinces") or {}).items() if v.get("hospitalises") is not None}
+        doute = False
+        for k, v in ISO_INCERTAIN.get(n, {}).items():
+            if k not in provs:
+                provs[k] = v; doute = True
+        somme = None if n in ISO_SANS_TRAIT or not provs else sum(provs.values())
+        if tete is not None or somme is not None:
+            pts[D(l["meta"]["reportingDate"])] = (tete, somme, doute)
+    if not pts:
+        return None
+    jours = _calendrier(min(pts), max(pts))
+    tete = [pts[d][0] if d in pts else None for d in jours]
+    somme = [pts[d][1] if d in pts else None for d in jours]
+    doute = [d in pts and pts[d][2] for d in jours]
+    mx = max(v for v in tete + somme if v is not None); pas = _pas(mx)
+    R = Repere(c, jours, (int(mx / pas) + 1) * pas)
+    x, y = R.X0, 262
+    out = ['<rect x="%d" y="%d" width="14" height="14" rx="3" fill="%s"/>' % (x, y - 12, ISO_BARRE) + c.T(x + 22, y, z["tete"], 15, INK_DIM)]
+    x += 44 + int(len(z["tete"]) * 8.2)
+    out.append('<line x1="%d" x2="%d" y1="%d" y2="%d" stroke="%s" stroke-width="3"/>' % (x, x + 18, y - 5, y - 5, RED) + c.T(x + 26, y, z["somme"], 15, INK_DIM))
+    out.append(R.grille(lambda v: c.nb(v), pas=pas))
+    out.append(R.barres([(tete, ISO_BARRE)]))
+    w = max(R.bw * 0.86, 0.8) + 2
+    for i, v in enumerate(somme):
+        if v is not None:
+            out.append('<line x1="%.2f" x2="%.2f" y1="%.1f" y2="%.1f" stroke="%s" stroke-width="2.6"%s/>'
+                       % (R.x(i) - w / 2, R.x(i) + w / 2, R.y(v), R.y(v), RED, ' stroke-dasharray="3 2"' if doute[i] else ""))
+    out.append(_notes(c, [z["note"]], y=900))
+    return c.carte(z["titre"], z["sous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1050)
+
+
 LISTE = [
     ("b", [("calendrier", "calTitre", calendrier, "calendrier"), ("code-barre", "rayTitre", rayures, "rayures"),
            ("nouveaux-cas-jour", None, lambda c: r_national(c, "confirmed"), "nat"), ("nouveaux-deces-jour", None, lambda c: r_national(c, "deaths"), "natdec"),
@@ -2228,7 +2303,7 @@ LISTE = [
            ("comparaison-2014-cas", None, lambda c: comparaison_2014(c, "cas"), "cmp"), ("comparaison-2014-deces", None, lambda c: comparaison_2014(c, "deces"), "cmp"),
            ("zones-plus-touchees", None, top_zones, "topzones"), ("zones-dynamique", None, dyn_zones, "dynzones"), ("lieu-deces-zones", None, lieu_zones, "lieuzones")] + PROVINCES_JOUR),
     ("r", [("alertes-jour", None, r_alertes, "alertes"), ("laboratoire-jour", None, r_labo, "labo"), ("contacts-jour", None, r_contacts, "contacts"),
-           ("cte-jour", None, r_cte, "cte"), ("vaccination-jour", None, r_vaccin, "vaccin"),
+           ("cte-jour", None, r_cte, "cte"), ("isolement-jour", None, r_isolement, "isolement"), ("vaccination-jour", None, r_vaccin, "vaccin"),
            ("voyageurs-jour", None, r_voyageurs, "voy"), ("alertes-postes-semaine", None, r_alertes_postes, "apost")]),
     ("s", [("part-provinces", "partTitre", h_part, "part"), ("cas-semaine", "casTitre", h_cas, "cas"),
            ("cas-semaine-provinces", None, h_cas_provinces, "spcas"), ("lieu-deces", "lieuTitre", h_lieu, "lieu"),
@@ -2281,7 +2356,7 @@ CHAPITRES = [
     ("par-province", ["provinces", "@provinces"]),
     ("zones", ["zones-plus-touchees", "zones-dynamique", "zones-actives", "zone-apres-zone", "zones-par-mois", "@zone-par-zone"]),
     ("deces", ["lieu-deces", "lieu-deces-zones"]),
-    ("riposte", ["alertes-jour", "laboratoire-jour", "contacts-jour", "cte-jour", "vaccination-jour", "voyageurs-jour", "alertes-postes-semaine"]),
+    ("riposte", ["alertes-jour", "laboratoire-jour", "contacts-jour", "cte-jour", "isolement-jour", "vaccination-jour", "voyageurs-jour", "alertes-postes-semaine"]),
 ]
 # (lien du menu, titre, chapeau) par chapitre ; rythme des pastilles ; menu des provinces
 CH = {
@@ -2338,7 +2413,7 @@ def page_html(lang, mois_courts, liens_prov=None):
             titre = html.unescape(" ".join(m)) if m else ident
             figs[ident] = ('<figure class="vx-fig" id="%s"><div class="vx-img" data-vx-nom="%s" role="button" tabindex="0" aria-label="%s">%s</div>'
                            '<figcaption><div><h3>%s</h3><p>%s</p></div><button type="button" class="vx-png" title="%s">PNG ↓</button></figcaption></figure>'
-                           % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else CMP[lang]["lire"] if lire == "cmp" else LZ[lang]["lire"] if lire == "lieuzones" else TZ[lang]["lire"] if lire == "topzones" else DZ[lang]["lire"] if lire == "dynzones" else PJ[lang]["lire"])), esc(p["png"])))
+                           % (ident, ident, esc(p["agrandir"] + " : " + titre), svg, esc(titre), esc(p["lire"].get(lire) or c.r["lire"].get(lire) or AJ[lang]["lire"].get(lire) or (EPI[lang]["lire"] if lire == "epi" else CMP[lang]["lire"] if lire == "cmp" else LZ[lang]["lire"] if lire == "lieuzones" else ISO[lang]["lire"] if lire == "isolement" else TZ[lang]["lire"] if lire == "topzones" else DZ[lang]["lire"] if lire == "dynzones" else PJ[lang]["lire"])), esc(p["png"])))
             rythme[ident] = t["ry"]["b" if etage == "r" else etage]
     figs["relief-4x5"] = cartes_html(c, lang); rythme["relief-4x5"] = t["ry"]["b"]
     figs["@zone-par-zone"] = zones_menu_html(c, liens_prov); rythme["@zone-par-zone"] = t["ry"]["b"]
