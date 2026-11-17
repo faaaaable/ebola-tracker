@@ -72,6 +72,11 @@ WHO_REPORTS = [
     ("21", "2026-10-04", "https://iris.who.int/bitstreams/1f28125a-3712-4b7c-a31d-434adf5a6152/download"),
     ("22", "2026-10-11", "https://iris.who.int/bitstreams/0d84cbfc-f4f5-4ed9-915d-fa09d4c6dc70/download"),
     ("23", "2026-10-19", "https://iris.who.int/bitstreams/b1d5141b-f884-4fef-ac8a-151afe71259d/download"),
+    # 24 et 25 : retrouves le 17 novembre 2026 par la meme API IRIS (items
+    # 0e5efb2a, 81f65787, mis en ligne les 6 et 10 novembre). Donnees au
+    # 1er novembre (24) et au 7 novembre (25, un samedi). 20 toujours absent.
+    ("24", "2026-11-01", "https://iris.who.int/bitstreams/c09f292b-cd7e-42a5-bdd4-7a031c606fc9/download"),
+    ("25", "2026-11-07", "https://iris.who.int/bitstreams/eb1ff8a3-b3b3-420f-b505-e372a5a38a21/download"),
 ]
 
 
