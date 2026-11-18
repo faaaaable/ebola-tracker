@@ -4209,6 +4209,23 @@ footer{margin-top:72px;padding:44px 0 56px;border-top:1px solid var(--line);}
 .pa-c{text-align:center;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-label);}
 .vb-sexes{max-width:620px;margin:30px auto 0;}
 .vb-sexes .frame-title{text-align:center;}
+/* Les enfants (18 novembre 2026) : papillon UNICEF a deux lignes, puis les
+   chiffres cles en cases a filets, comme la tete d'Ensemble du pays. */
+.vb-enfants{margin:44px auto 0;}
+.vb-enfants .frame-title{text-align:center;}
+.vb-enfants .vb-src a{color:inherit;}
+.vb-chiffres{display:flex;flex-wrap:wrap;justify-content:center;row-gap:18px;margin:26px auto 0;}
+.vb-chiffres .kpi{background:transparent;border:0;border-left:1px solid var(--line);border-radius:0;box-shadow:none;padding:0 26px;min-width:0;}
+.vb-chiffres .kpi:first-child{border-left:0;}
+.vb-chiffres .label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-label);}
+.vb-chiffres .value{font-family:'Bricolage Grotesque',var(--font-sans);font-variation-settings:"opsz" 72,"wdth" 87.5;font-size:38px;font-weight:700;line-height:1.05;letter-spacing:-.03em;margin:6px 0 4px;}
+.vb-chiffres .delta{font-size:12px;color:var(--ink-faint);}
+@media (max-width:760px){
+  .vb-chiffres{justify-content:flex-start;}
+  .vb-chiffres .kpi{flex:0 0 50%;box-sizing:border-box;padding:0 0 0 14px;}
+  .vb-chiffres .kpi:nth-child(odd){border-left:0;padding-left:0;}
+  .vb-chiffres .value{font-size:30px;}
+}
 .vb-texte{max-width:720px;margin:26px auto 0;font:400 16px/1.65 var(--font-serif);color:var(--ink-dim);text-align:center;}
 .vb-texte p{margin:0 0 12px;}
 .vb-genomes{max-width:860px;margin:0 auto;}

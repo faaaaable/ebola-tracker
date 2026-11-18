@@ -47,7 +47,7 @@
     "url": "https://ebola-tracker.org/"
   },
   "datePublished": "2026-08-22",
-  "dateModified": "2026-11-17"
+  "dateModified": "2026-11-18"
 }
 </script>
 <script type="application/ld+json">
@@ -85,7 +85,7 @@
 </script>
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=31629d1f5e">
 
-<link rel="stylesheet" href="/assets/css/site.css?v=3ea9015950">
+<link rel="stylesheet" href="/assets/css/site.css?v=c8c6c56a64">
 </head>
 <body>
 
@@ -342,7 +342,7 @@
     <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">Cases <em>and</em> deaths, by age</h2><p class="chap-chapo">Cases and deaths are not distributed the same way. Comparing the two shows which age groups die more often than they fall ill.</p></div></header>
     <div class="chap-corps">
     <div class="ax-tete pa-tete"><span>Share of cases</span><span></span><span>Share of deaths</span></div>
-    <div class="pa"><div class="pa-l"><div class="pa-g"><span>10.0%</span><i style="width:28.4%"></i></div><div class="pa-c">0–4 years</div><div class="pa-d"><i style="width:54.0%"></i><span>19.0%</span></div></div><div class="pa-l"><div class="pa-g"><span>13.2%</span><i style="width:37.5%"></i></div><div class="pa-c">5–17 years</div><div class="pa-d"><i style="width:36.4%"></i><span>12.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>26.5%</span><i style="width:75.3%"></i></div><div class="pa-c">18–29 years</div><div class="pa-d"><i style="width:70.5%"></i><span>24.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>35.2%</span><i style="width:100.0%"></i></div><div class="pa-c">30–49 years</div><div class="pa-d"><i style="width:77.3%"></i><span>27.2%</span></div></div><div class="pa-l"><div class="pa-g"><span>15.1%</span><i style="width:42.9%"></i></div><div class="pa-c">50 and over</div><div class="pa-d"><i style="width:46.0%"></i><span>16.2%</span></div></div></div>
+    <div class="pa"><div class="pa-l"><div class="pa-g"><span>10.0%</span><i style="width:calc((100% - 64px) * 0.284)"></i></div><div class="pa-c">0–4 years</div><div class="pa-d"><i style="width:calc((100% - 64px) * 0.540)"></i><span>19.0%</span></div></div><div class="pa-l"><div class="pa-g"><span>13.2%</span><i style="width:calc((100% - 64px) * 0.375)"></i></div><div class="pa-c">5–17 years</div><div class="pa-d"><i style="width:calc((100% - 64px) * 0.364)"></i><span>12.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>26.5%</span><i style="width:calc((100% - 64px) * 0.753)"></i></div><div class="pa-c">18–29 years</div><div class="pa-d"><i style="width:calc((100% - 64px) * 0.705)"></i><span>24.8%</span></div></div><div class="pa-l"><div class="pa-g"><span>35.2%</span><i style="width:calc((100% - 64px) * 1.000)"></i></div><div class="pa-c">30–49 years</div><div class="pa-d"><i style="width:calc((100% - 64px) * 0.773)"></i><span>27.2%</span></div></div><div class="pa-l"><div class="pa-g"><span>15.1%</span><i style="width:calc((100% - 64px) * 0.429)"></i></div><div class="pa-c">50 and over</div><div class="pa-d"><i style="width:calc((100% - 64px) * 0.460)"></i><span>16.2%</span></div></div></div>
     <div class="vb-sexes">
       <h3 class="frame-title">Women and men</h3>
       <div class="sexes">
@@ -367,6 +367,16 @@
       </div>
     </div>
     <p class="vb-src">As of 5 Aug 2026, the latest published breakdown. Based on the 3,454 cases and 1,124 deaths with known age and sex (85.2% of cases, 60.8% of deaths).</p>
+    <!-- Les enfants (18 novembre 2026) : bilan de l'UNICEF au 4 novembre,
+         papillon a la meme echelle que les tranches d'age, puis les chiffres
+         cles. Donnees : data/enfants-unicef.json. -->
+    <div class="vb-enfants">
+      <h3 class="frame-title">Children</h3>
+      <div class="ax-tete pa-tete"><span>Share of cases</span><span></span><span>Share of deaths</span></div>
+      <div class="pa"><div class="pa-l"><div class="pa-g"><span>28%</span><i style="width:calc((100% - 64px) * 0.795)"></i></div><div class="pa-c">Under 18</div><div class="pa-d"><i style="width:calc((100% - 64px) * 0.994)"></i><span>35%</span></div></div><div class="pa-l"><div class="pa-g"><span>14%</span><i style="width:calc((100% - 64px) * 0.398)"></i></div><div class="pa-c">Under 5</div><div class="pa-d"><i style="width:calc((100% - 64px) * 0.597)"></i><span>21%</span></div></div></div>
+      <p class="vb-src">UNICEF, as of 4 Nov 2026, among all confirmed cases (<a href="https://www.unicef.org/drcongo/recits/le-bilan-de-l%C3%A9pid%C3%A9mie-ebola-sur-les-enfants-six-mois-apr%C3%A8s-le-d%C3%A9but-de-l%C3%A9pid%C3%A9mie-et-notre" rel="noopener">report published on 13 Nov 2026</a>). “All ages”: INSP, fatality rate on the same day, deaths outside treatment centres since 13 Jul 2026.</p>
+      <div class="vb-chiffres"><div class="kpi confirmed"><div class="label">Children infected</div><div class="value">2,959</div><div class="delta">under 18</div></div><div class="kpi deaths"><div class="label">Children who died</div><div class="value">1,737</div><div class="delta">under 18</div></div><div class="kpi deaths"><div class="label">Died outside an ETC</div><div class="value">80%</div><div class="delta">vs 64% all ages</div></div><div class="kpi cfr"><div class="label">Fatality rate, under 5</div><div class="value">72%</div><div class="delta">vs 48.7% all ages</div></div><div class="kpi deaths"><div class="label">Died within 24 h in an ETC</div><div class="value">1 in 3</div><div class="delta">children under 5 admitted</div></div></div>
+    </div>
     </div>
   </section>
 

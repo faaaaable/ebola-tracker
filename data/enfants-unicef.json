@@ -1,0 +1,10 @@
+{
+  "_note": "Bilan de l'UNICEF sur les enfants, six mois après le début de l'épidémie. Chiffres recopiés à la main depuis la page de l'UNICEF (publiée le 13 novembre 2026, situation au 4 novembre 2026, sur l'ensemble des cas confirmés). L'UNICEF ne détaille que les moins de 18 ans et les moins de 5 ans. Page Le virus, chapitre des âges.",
+  "source": "UNICEF",
+  "url": "https://www.unicef.org/drcongo/recits/le-bilan-de-l%C3%A9pid%C3%A9mie-ebola-sur-les-enfants-six-mois-apr%C3%A8s-le-d%C3%A9but-de-l%C3%A9pid%C3%A9mie-et-notre",
+  "publie": "2026-11-13",
+  "date": "2026-11-04",
+  "moins18": {"cas": 2959, "deces": 1737, "partCas": 28, "partDeces": 35},
+  "moins5": {"partCas": 14, "partDeces": 21, "letalite": 72, "mortsEn24hCteSur": 3},
+  "partDecesHorsCte": 80
+}

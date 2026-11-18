@@ -1984,11 +1984,69 @@ def ages_papillon_html(demographie, lang, strings_lang):
         libelle = t["tranche"]
         libelle = ("%s %s" % (libelle.replace("-", "–"), strings_lang["virusAgesUnit"])) \
             if re.match(r'^\d+-\d+$', libelle) else strings_lang["virusAgesOpenEnded"]
-        lignes.append('<div class="pa-l"><div class="pa-g"><span>%s</span><i style="width:%.1f%%"></i></div>'
-                      '<div class="pa-c">%s</div><div class="pa-d"><i style="width:%.1f%%"></i><span>%s</span></div></div>'
-                      % (fmt_cfr(t["partCas"], lang), t["partCas"] / plafond * 100, esc(libelle),
-                         t["partDeces"] / plafond * 100, fmt_cfr(t["partDeces"], lang)))
+        lignes.append('<div class="pa-l"><div class="pa-g"><span>%s</span><i style="width:calc((100%% - 64px) * %.3f)"></i></div>'
+                      '<div class="pa-c">%s</div><div class="pa-d"><i style="width:calc((100%% - 64px) * %.3f)"></i><span>%s</span></div></div>'
+                      % (fmt_cfr(t["partCas"], lang), t["partCas"] / plafond, esc(libelle),
+                         t["partDeces"] / plafond, fmt_cfr(t["partDeces"], lang)))
     return '<div class="pa">%s</div>' % "".join(lignes)
+
+
+def enfants_html(enfants, demographie, sitreps, deces_lieu, lang, strings_lang, i18n_lang):
+    """Les enfants (18 novembre 2026), sous les ages et les sexes de la page
+    Le virus : bilan de l'UNICEF au 4 novembre (data/enfants-unicef.json),
+    moins de 18 ans et moins de 5 ans, part des cas et des deces en papillon
+    a la meme echelle que celui des tranches d'age ; puis les chiffres cles.
+    Les deux reperes « tous ages » sortent de nos donnees INSP : la letalite
+    du jour du bilan (sitreps.json) et la part des deces hors CTE sur toute la
+    periode de deces-lieu.json."""
+    if not enfants:
+        return ""
+    s = strings_lang
+
+    def pc(v):
+        return "%d%s" % (v, loc(lang, "percent"))
+
+    plafond = max(max(t["partCas"], t["partDeces"]) for t in demographie["tranches"]) or 1
+    m18, m5 = enfants["moins18"], enfants["moins5"]
+    lignes = []
+    for lib, v in ((s["virusEnfantsMoins18"], m18), (s["virusEnfantsMoins5"], m5)):
+        lignes.append('<div class="pa-l"><div class="pa-g"><span>%s</span><i style="width:calc((100%% - 64px) * %.3f)"></i></div>'
+                      '<div class="pa-c">%s</div><div class="pa-d"><i style="width:calc((100%% - 64px) * %.3f)"></i><span>%s</span></div></div>'
+                      % (pc(v["partCas"]), v["partCas"] / plafond, esc(lib),
+                         v["partDeces"] / plafond, pc(v["partDeces"])))
+    jour = next((r for r in sitreps if r.get("date") == enfants["date"]), None)
+    let_tous = fmt_cfr(jour["deaths"] / jour["confirmed"] * 100, lang) if jour and jour.get("confirmed") else None
+    provs = (deces_lieu or {}).get("provinces", [])
+    comm, tot = sum(p["communautaires"] for p in provs), sum(p["total"] for p in provs)
+    hors_tous = pc(round(comm / tot * 100)) if tot else None
+    debut = (deces_lieu or {}).get("periode", {}).get("debut")
+
+    def case(cls, label, valeur, sous):
+        return ('<div class="kpi %s"><div class="label">%s</div><div class="value">%s</div>'
+                '<div class="delta">%s</div></div>' % (cls, esc(label), valeur, esc(sous)))
+    cases = [
+        case("confirmed", s["virusEnfantsMalades"], fmt(m18["cas"], lang), s["virusEnfantsMoins18Sub"]),
+        case("deaths", s["virusEnfantsMorts"], fmt(m18["deces"], lang), s["virusEnfantsMoins18Sub"]),
+        case("deaths", s["virusEnfantsHorsCte"], pc(enfants["partDecesHorsCte"]),
+             interp(s["virusEnfantsContreTous"], {"v": hors_tous}) if hors_tous else ""),
+        case("cfr", s["virusEnfantsLet5"], pc(m5["letalite"]),
+             interp(s["virusEnfantsContreTous"], {"v": let_tous}) if let_tous else ""),
+        case("deaths", s["virusEnfants24h"], interp(s["virusEnfants24hV"], {"n": m5["mortsEn24hCteSur"]}),
+             s["virusEnfants24hSub"]),
+    ]
+    note = interp(s["virusEnfantsNote"], {
+        "date": long_date(enfants["date"], i18n_lang),
+        "publie": long_date(enfants["publie"], i18n_lang),
+        "url": esc(enfants["url"]),
+        "debut": long_date(debut, i18n_lang) if debut else ""})
+    return ('<div class="vb-enfants">\n'
+            '      <h3 class="frame-title">%s</h3>\n'
+            '      <div class="ax-tete pa-tete"><span>%s</span><span></span><span>%s</span></div>\n'
+            '      <div class="pa">%s</div>\n'
+            '      <p class="vb-src">%s</p>\n'
+            '      <div class="vb-chiffres">%s</div>\n'
+            '    </div>' % (esc(s["virusEnfantsTitre"]), esc(s["virusAgesCases"]), esc(s["virusAgesDeaths"]),
+                            "".join(lignes), note, "".join(cases)))
 
 
 def ages_rows_html(demographie, lang, strings_lang):
@@ -4765,6 +4823,10 @@ def main():
     # Repartition par age : instantane fige au 5 aout 2026, l'INSP ayant
     # cesse de publier la figure ensuite. Voir scripts/demographie_figures.py.
     demographie = read_json(os.path.join(ROOT, "data", "demographie.json"))
+    # Les enfants : bilan de l'UNICEF au 4 novembre 2026, recopie a la main.
+    enfants_unicef = read_json(os.path.join(ROOT, "data", "enfants-unicef.json"))
+    enfants_sitreps = read_json(os.path.join(ROOT, "data", "sitreps.json"))
+    enfants_deces_lieu = read_json(os.path.join(ROOT, "data", "deces-lieu.json"))
     # Genomes sequences (Pathoplexus, agregats) : data/genomes.json, a la main.
     genomes = read_json(os.path.join(ROOT, "data", "genomes.json"))
     # Les epidemies d'Ebola passees (CDC), pour la frise du virus (RDC et monde).
@@ -4883,6 +4945,7 @@ def main():
             "seed.agesRows": ages_rows_html(demographie, lang, strings_lang),
             "seed.agesPapillon": ages_papillon_html(demographie, lang, strings_lang),
             "seed.sexRows": sex_rows_html(demographie, lang, strings_lang),
+            "seed.enfants": enfants_html(enfants_unicef, demographie, enfants_sitreps, enfants_deces_lieu, lang, strings_lang, i18n_lang),
             "seed.agesFrozen": esc(interp(strings_lang["ddAgesFrozen"], {
                 "date": long_date(demographie["date"], i18n_lang)})),
             "seed.agesNote": interp(strings_lang["virusAgesNote"], {
