@@ -836,7 +836,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # par zone (voir extract_piliers.lire_vaccination). On additionne le
         # dernier cumul connu de chaque province a la date de la lettre, en
         # datant ceux qui viennent d'un bulletin anterieur.
-        connus, avant, debut = {}, {}, None
+        connus, avant, debut, plus_haut = {}, {}, None, {}
         # Dernier total national publie (7 octobre 2026) : il
         # l'emporte sur la somme des provinces tant que celle-ci ne le depasse
         # pas, pour qu'un total cumule ne baisse jamais.
@@ -854,6 +854,12 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                 # porte sur plusieurs jours, et la lettre le dit.
                 if prov in connus and connus[prov][0] != v:
                     avant[prov] = connus[prov]
+                    # Le cumul precedent le plus haut, pas le dernier lu : un
+                    # cumul ne recule pas, un recul est une coquille ou une
+                    # revision (Ituri, 185 : 426 au lieu de 3 930 ; le 186 a
+                    # 4 326 se lisait alors comme 3 900 vaccines de plus).
+                    if prov in plus_haut and plus_haut[prov][0] > avant[prov][0]:
+                        avant[prov] = plus_haut[prov]
                 elif prov in connus:
                     # Cumul inchange (« le cumul reste de 2 448 », Ituri, SitRep
                     # 171) : la journee n'ajoute rien. Sans cet oubli, l'ecart
@@ -861,6 +867,8 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                     # un ajout « en deux jours » (corrige le 3 novembre 2026).
                     avant.pop(prov, None)
                 connus[prov] = (v, e["date"]); debut = debut or e["date"]
+                if v >= plus_haut.get(prov, (-1, None))[0]:
+                    plus_haut[prov] = (v, e["date"])
         if connus or (va and va.get("rupture")):
             s6 = ""
             if connus:

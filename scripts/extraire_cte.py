@@ -230,7 +230,9 @@ LITS_DISPONIBLES_RE = re.compile(r"%\s*;\s*(\d[\d ]{0,4}\d|\d)\s+lits\s+disponib
 # la fraction du 108 ET le « lits disponibles » du 111 dans la meme parenthese.
 # Sans ce motif, le 117 sortait avec l'occupation mais sans les lits, et la
 # lettre plantait sur la province saturee.
-LITS_FRACTION_RE = re.compile(r"%\s*(?:;|\()\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*(?:\)|lits\s+disponibles)")
+# « 97 % (359/372) des patients ont reçu des repas chauds » (186 Ituri) :
+# une fraction de patients, pas de lits ; elle donnait 372 lits a l'Ituri.
+LITS_FRACTION_RE = re.compile(r"%\s*(?:;|\()\s*\d[\d ]{0,4}\d?\s*/\s*(\d[\d ]{0,4}\d|\d)\s*(?:\)(?!\s*des\s+(?:patients|malades))|lits\s+disponibles)")
 # « 74,2 % (271/365) » (144 Nord-Kivu) : la fraction suit le taux entre
 # parentheses, sans point-virgule ; meme lecture, denominateur = lits.
 # « 392 patients sont hospitalisés dont 224 dans les structures normées avec

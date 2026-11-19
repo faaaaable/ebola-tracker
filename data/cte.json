@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-06-01",
-    "fin": "2026-11-15"
+    "fin": "2026-11-16"
   },
   "parDate": [
     {
@@ -6065,16 +6065,14 @@
         "Tshopo": {
           "hospitalises": 18,
           "occupation": 53.1,
-          "admissions": 2,
-          "occupationPubliee": 53.1
+          "admissions": 2
         },
         "Ituri": {
           "hospitalises": 383,
           "occupation": 36.0,
           "admissions": 59,
           "sorties": 69,
-          "gueris": 10,
-          "occupationPubliee": 36.0
+          "gueris": 10
         },
         "Haut-Uélé": {
           "hospitalises": 65,
@@ -6101,6 +6099,68 @@
         "lits": 622,
         "hospitalisesAvecLits": 619,
         "occupation": 99.5
+      },
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-16",
+      "sitrepNumber": "186",
+      "methode": "prose",
+      "provinces": {
+        "Nord-Kivu": {
+          "hospitalises": 521,
+          "occupation": 120.0,
+          "admissions": 98,
+          "sorties": 85,
+          "gueris": 17,
+          "lits": 434,
+          "litsReportes": true,
+          "occupationPubliee": 72.0,
+          "occupationCalculee": true
+        },
+        "Tshopo": {
+          "hospitalises": 17,
+          "occupation": 42.5,
+          "admissions": 6,
+          "sorties": 5,
+          "lits": 40,
+          "litsRecoupes": true
+        },
+        "Ituri": {
+          "hospitalises": 394,
+          "occupation": 37.0,
+          "admissions": 95,
+          "sorties": 81,
+          "gueris": 16,
+          "occupationPubliee": 37.0
+        },
+        "Sud-Ubangi": {
+          "hospitalises": 3,
+          "occupation": 5.0,
+          "admissions": 0,
+          "sorties": 0,
+          "gueris": 1
+        },
+        "Haut-Uélé": {
+          "hospitalises": 65,
+          "occupation": 40.0,
+          "admissions": 11,
+          "sorties": 19,
+          "lits": 163,
+          "litsRecoupes": true
+        },
+        "Nord-Ubangi": {
+          "hospitalises": 37,
+          "occupation": 119.4,
+          "occupationPubliee": 119.4
+        }
+      },
+      "total": {
+        "hospitalises": 1037,
+        "provinces": 6,
+        "lits": 637,
+        "hospitalisesAvecLits": 603,
+        "occupation": 94.7
       },
       "source": "SitRep INSP (automatique)"
     }

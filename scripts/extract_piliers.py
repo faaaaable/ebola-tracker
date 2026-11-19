@@ -564,6 +564,13 @@ def lire_vaccination(corps, texte_entier):
         m = re.search(r"cumul (?:des )?personnes vaccinées\s*:\s*" + NUM, phr)
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
+        # « Nord-Kivu : 285 personnes vaccinées (120 à Beni/AS Butsili, [...])
+        # et le Bilan cumulé (base extraite au 16/11) : 3 637 personnes
+        # vaccinées dans 6 ZS » (186) : le chiffre du jour venait en premier
+        # et se lisait comme le cumul (285 apres 3 352).
+        m = re.search(r"[Bb]ilan cumulé[^:]{0,60}:\s*" + NUM + r"\s+personnes\s+vaccinées", phr)
+        if m:
+            pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         # « au cumul, 1 972 personnes sur 13 202 ciblées (14,9 %) ont été
         # vaccinées dans la province » (Bas-Uele, 171) : la cible s'intercale
         # entre le nombre et « vaccinées », jamais lu (3 novembre 2026).

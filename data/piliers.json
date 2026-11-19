@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-11-15"
+  "fin": "2026-11-16"
  },
  "parDate": [
   {
@@ -7222,6 +7222,62 @@
     "cumulParProvince": {
      "Nord-Kivu": 3352,
      "Ituri": 426
+    },
+    "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-11-16",
+   "sitrepNumber": "186",
+   "poe": null,
+   "rings": null,
+   "eds": {
+    "alertes": 144,
+    "realisees": 63,
+    "swabes": 168,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 2,
+     "realisees": 2,
+     "swabes": 1
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Nord-Ubangi",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Ubangi",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Nord-Kivu",
+      "Nord-Ubangi",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Nord-Kivu": 3637,
+     "Ituri": 4326,
+     "Tshopo": 14228
     },
     "rupture": false
    },
