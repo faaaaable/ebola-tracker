@@ -45,17 +45,17 @@
 "published": "2026-10-08"
 },
 "donnees/bas-uele/index.html": {
-"hash": "1dc97bf0f9277662",
+"hash": "b1f5a5aea984d39b",
 "modified": "2026-11-19",
 "published": "2026-08-22"
 },
 "donnees/haut-uele/index.html": {
-"hash": "e4139ab9d700faba",
+"hash": "213e192e6a8cb7b2",
 "modified": "2026-11-19",
 "published": "2026-08-22"
 },
 "donnees/index.html": {
-"hash": "145e0dc4bc39e217",
+"hash": "9d6bbd45f0bbe518",
 "modified": "2026-11-19",
 "published": "2026-08-22"
 },
@@ -120,17 +120,17 @@
 "published": "2026-10-19"
 },
 "en/data/bas-uele/index.html": {
-"hash": "5cac655284f756b3",
+"hash": "1a7d41d0a17dfbcc",
 "modified": "2026-11-19",
 "published": "2026-08-22"
 },
 "en/data/haut-uele/index.html": {
-"hash": "9bde2fbef434e352",
+"hash": "6040e4b42a91c2c5",
 "modified": "2026-11-19",
 "published": "2026-08-22"
 },
 "en/data/index.html": {
-"hash": "da7958e967791182",
+"hash": "2924f620ee0b61d9",
 "modified": "2026-11-19",
 "published": "2026-08-22"
 },
@@ -185,7 +185,7 @@
 "published": "2026-09-10"
 },
 "en/index.html": {
-"hash": "bf2e43b520170ed8",
+"hash": "c5d66c0fca866df5",
 "modified": "2026-11-19",
 "published": "2026-08-14"
 },
@@ -670,12 +670,12 @@
 "published": "2026-11-17"
 },
 "en/letter/186/index.html": {
-"hash": "3d7612e620658eed",
+"hash": "ecb351a6d7dc757f",
 "modified": "2026-11-19",
 "published": "2026-11-19"
 },
 "en/letter/index.html": {
-"hash": "3d7612e620658eed",
+"hash": "ecb351a6d7dc757f",
 "modified": "2026-11-19",
 "published": "2026-09-08"
 },
@@ -700,7 +700,7 @@
 "published": "2026-08-22"
 },
 "en/response/index.html": {
-"hash": "86939c9a08c7e65f",
+"hash": "6e6ca8ec63090876",
 "modified": "2026-11-19",
 "published": "2026-08-28"
 },
@@ -720,7 +720,7 @@
 "published": "2026-10-09"
 },
 "en/visuals/index.html": {
-"hash": "1b402547c317e5dd",
+"hash": "fe0fad850d5dff90",
 "modified": "2026-11-19",
 "published": "2026-10-12"
 },
@@ -740,7 +740,7 @@
 "published": "2026-09-10"
 },
 "index.html": {
-"hash": "2e75a04060a2b299",
+"hash": "b255fdc416081462",
 "modified": "2026-11-19",
 "published": "2026-08-11"
 },
@@ -1225,12 +1225,12 @@
 "published": "2026-11-17"
 },
 "lettre/186/index.html": {
-"hash": "87719de5fd0a2bb9",
+"hash": "8ca1a1a960d39370",
 "modified": "2026-11-19",
 "published": "2026-11-19"
 },
 "lettre/index.html": {
-"hash": "87719de5fd0a2bb9",
+"hash": "8ca1a1a960d39370",
 "modified": "2026-11-19",
 "published": "2026-09-08"
 },
@@ -1260,7 +1260,7 @@
 "published": "2026-08-22"
 },
 "riposte/index.html": {
-"hash": "bdcf0b7b8a09a3b7",
+"hash": "284c204e3d0cfc4c",
 "modified": "2026-11-19",
 "published": "2026-08-28"
 },
@@ -1745,12 +1745,12 @@
 "published": "2026-11-17"
 },
 "sw/barua/186/index.html": {
-"hash": "81255334035d1cbe",
+"hash": "e0a25e5b16469c90",
 "modified": "2026-11-19",
 "published": "2026-11-19"
 },
 "sw/barua/index.html": {
-"hash": "81255334035d1cbe",
+"hash": "e0a25e5b16469c90",
 "modified": "2026-11-19",
 "published": "2026-09-08"
 },
@@ -1770,7 +1770,7 @@
 "published": "2026-10-08"
 },
 "sw/index.html": {
-"hash": "68f9977fbd6f2c3d",
+"hash": "ca229dd0dbb9c0d7",
 "modified": "2026-11-19",
 "published": "2026-08-25"
 },
@@ -1790,7 +1790,7 @@
 "published": "2026-08-25"
 },
 "sw/mapambano/index.html": {
-"hash": "ab0eb90bea3cb566",
+"hash": "8eea7503100e6fb7",
 "modified": "2026-11-19",
 "published": "2026-08-28"
 },
@@ -1815,7 +1815,7 @@
 "published": "2026-10-17"
 },
 "sw/michoro/index.html": {
-"hash": "75137bfed71fee0e",
+"hash": "616d73cf3238c3ec",
 "modified": "2026-11-19",
 "published": "2026-10-12"
 },
@@ -1840,17 +1840,17 @@
 "published": "2026-11-02"
 },
 "sw/takwimu/bas-uele/index.html": {
-"hash": "a5529815d72e2c89",
+"hash": "389cf18bef039fd3",
 "modified": "2026-11-19",
 "published": "2026-08-25"
 },
 "sw/takwimu/haut-uele/index.html": {
-"hash": "df9c451282eaa288",
+"hash": "1a631acadda2f5b6",
 "modified": "2026-11-19",
 "published": "2026-08-25"
 },
 "sw/takwimu/index.html": {
-"hash": "3d92219987c458d5",
+"hash": "b8bd4c5a7e7b6dba",
 "modified": "2026-11-19",
 "published": "2026-08-25"
 },
@@ -1900,7 +1900,7 @@
 "published": "2026-08-25"
 },
 "visuels/index.html": {
-"hash": "ae67b3e91f360987",
+"hash": "ff1a0a9a0bbda36c",
 "modified": "2026-11-19",
 "published": "2026-10-12"
 }
