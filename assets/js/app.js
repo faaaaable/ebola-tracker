@@ -2655,6 +2655,30 @@ function renderOneChartBrut(canvas, chartMode){
          Le test est generique et se fait en remontant le temps : tout point
          publie superieur a un point publie POSTERIEUR a ete revise. Si le cas
          se reproduit sur une autre province, il sera traite tout seul. */
+      /* LA COQUILLE N'EST PAS UNE REVISION (19 novembre 2026). Le SitRep 185
+         donne 426 vaccines en Ituri ; 3 930 la veille, 4 326 le lendemain, et
+         le bulletin lui-meme ne tombe pas juste (382 + 43 font 425). Par la
+         regle ci-dessous, ce 426 ramenait toute la courbe anterieure a 426 :
+         un plat de deux mois puis un bond de 3 900 en un jour. Un recul
+         isole de plus de moitie, que le releve suivant de la province dement
+         en repassant au-dessus du cumul d'avant, est donc une coquille (un
+         chiffre saute) : elle sort du trace, reste dans les donnees, et la
+         note la nomme. La revision du Bas-Uele (987 puis 874, -11 %) reste
+         une revision. */
+      const coquilles = [];
+      const suiteParProv = {};
+      cumuls.forEach(p => Object.keys(p.prov).forEach(n => { (suiteParProv[n] = suiteParProv[n] || []).push(p); }));
+      Object.keys(suiteParProv).forEach(n => {
+        const s = suiteParProv[n];
+        for(let i = 1; i < s.length - 1; i++){
+          const avant = s[i - 1].prov[n], ici = s[i].prov[n], apres = s[i + 1].prov[n];
+          if(ici < avant / 2 && apres >= avant){
+            coquilles.push({ date:s[i].date, nom:n, publie:ici, avant:avant, apres:apres });
+            delete s[i].prov[n];
+          }
+        }
+      });
+      coquilles.sort((x, y) => x.date < y.date ? -1 : 1);
       const revisions = [];
       const dernierRetenu = {};
       for(let i = cumuls.length - 1; i >= 0; i--){
@@ -2819,6 +2843,9 @@ function renderOneChartBrut(canvas, chartMode){
       });
       revisions.filter(r => !provRip || nomProvinceCanonique(r.nom) === provRip).forEach(r => {
         bouts.push(tr('vaccChartRevision')(frDate(r.date), r.nom, fmt(r.publie), fmt(r.retenu)));
+      });
+      coquilles.filter(r => !provRip || nomProvinceCanonique(r.nom) === provRip).forEach(r => {
+        bouts.push(tr('vaccChartCoquille')(frDate(r.date), provRip ? null : r.nom, fmt(r.publie), fmt(r.avant), fmt(r.apres)));
       });
       noter(bouts.join(' '));
       return;
