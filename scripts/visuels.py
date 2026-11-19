@@ -1038,7 +1038,7 @@ RIP = {
   vaTitre="{n} personnes vaccinées", vaSous="Cumul des personnes vaccinées avec l'ERVEBO, province par province, depuis le début de la campagne, le {a}.",
   vaPhrase="Au {d} : {l}.", vaItem="{p} {v}",
   vaNote="Sans nouveau chiffre, le dernier cumul connu est reporté.",
-  vaTrou="Pointillés : aucun cumul publié pour {p} du {du} au {au}", vaRupture=" ; vaccin en rupture jusqu’au {r}",
+  vaTrou="Pointillés : aucun cumul publié pour {p} du {du} au {au}", vaCoquille="{p}, {d} : {v} publié, coquille du bulletin ({av} la veille, {ap} ensuite), non tracé.", vaRupture=" ; vaccin en rupture jusqu’au {r}",
   lire=dict(alertes="Le volume de signalements et ce que la surveillance en retient : les à-coups du jour, que la vue par semaine lisse.",
             labo="L'irrégularité des analyses d'un jour à l'autre, et la part de positifs : un positif n'est pas toujours un malade de plus.",
             contacts="Combien de personnes exposées sont vues chaque jour : quand la part baisse, des chaînes de transmission échappent au suivi.",
@@ -1068,7 +1068,7 @@ RIP = {
   vaTitre="{n} people vaccinated", vaSous="Cumulative number of people vaccinated with ERVEBO, province by province, since the campaign began on {a}.",
   vaPhrase="As of {d}: {l}.", vaItem="{p} {v}",
   vaNote="Without a new figure, the last known total is carried forward.",
-  vaTrou="Dotted line: no total published for {p} from {du} to {au}", vaRupture="; vaccine out of stock until {r}",
+  vaTrou="Dotted line: no total published for {p} from {du} to {au}", vaCoquille="{p}, {d}: {v} published, a bulletin typo ({av} before, {ap} after), not plotted.", vaRupture="; vaccine out of stock until {r}",
   lire=dict(alertes="The volume of reports and what surveillance keeps from them: the day-to-day jolts that the weekly view smooths out.",
             labo="How uneven testing is from one day to the next, and the share of positives: a positive is not always one more patient.",
             contacts="How many exposed people are seen each day: when the share drops, chains of transmission escape follow-up.",
@@ -1098,7 +1098,7 @@ RIP = {
   vaTitre="Watu {n} waliochanjwa", vaSous="Jumla ya watu waliochanjwa kwa ERVEBO, jimbo kwa jimbo, tangu kampeni ilipoanza tarehe {a}.",
   vaPhrase="Kufikia {d}: {l}.", vaItem="{p} {v}",
   vaNote="Bila takwimu mpya, jumla ya mwisho inayojulikana hubaki.",
-  vaTrou="Mstari wa nukta: hakuna jumla iliyochapishwa kwa {p} kuanzia {du} hadi {au}", vaRupture="; chanjo iliisha hadi {r}",
+  vaTrou="Mstari wa nukta: hakuna jumla iliyochapishwa kwa {p} kuanzia {du} hadi {au}", vaCoquille="{p}, {d}: {v} imechapishwa, kosa la uchapaji la ripoti ({av} kabla, {ap} baadaye), haijachorwa.", vaRupture="; chanjo iliisha hadi {r}",
   lire=dict(alertes="Wingi wa taarifa na kile ufuatiliaji unachohifadhi: mabadiliko ya kila siku ambayo mwonekano wa wiki unalainisha.",
             labo="Jinsi vipimo vinavyobadilika siku hadi siku, na sehemu ya chanya: chanya si mara zote mgonjwa mwingine.",
             contacts="Watu wangapi walioathirika wanaonwa kila siku: sehemu inaposhuka, minyororo ya maambukizi inakwepa ufuatiliaji.",
@@ -1379,6 +1379,20 @@ def r_vaccin(c):
     cum = [dict(date=p["date"], prov={_prov_canon(k): v for k, v in ((p.get("vaccination") or {}).get("cumulParProvince") or {}).items()})
            for p in _j("data/piliers.json")["parDate"]]
     cum = [x for x in cum if x["prov"]]
+    # La coquille n'est pas une revision (19 novembre 2026, comme app.js) :
+    # un recul de plus de moitie que le releve suivant dement (Ituri, 185 :
+    # 426 entre 3 930 et 4 326) sort du trace et la note le nomme ; sans
+    # cela, la regle suivante ramenait toute la courbe anterieure a 426.
+    coquilles, suite = [], {}
+    for x in cum:
+        for n in x["prov"]:
+            suite.setdefault(n, []).append(x)
+    for n, s_ in suite.items():
+        for i in range(1, len(s_) - 1):
+            av, ici, ap = s_[i - 1]["prov"][n], s_[i]["prov"][n], s_[i + 1]["prov"][n]
+            if ici < av / 2 and ap >= av:
+                coquilles.append((s_[i]["date"], n, ici, av, ap)); del s_[i]["prov"][n]
+    coquilles.sort()
     # un cumul ne recule pas : le point revise porte la valeur corrigee
     revisions, retenu = [], {}
     for x in reversed(cum):
@@ -1434,6 +1448,8 @@ def r_vaccin(c):
         rep = rep if rep and jours[i0] < D(rep) <= jours[i1] else None
         txt = r["vaTrou"].format(p=nom(n), du=c.dc(jours[i0]), au=c.dc(jours[i1])) + (r["vaRupture"].format(r=c.dc(D(rep))) if rep else "")
         notes.append(txt.rstrip(".") + ".")
+    for d_, n, ici, av, ap in coquilles:
+        notes.append(r["vaCoquille"].format(p=nom(n), d=c.dc(D(d_)), v=c.nb(ici), av=c.nb(av), ap=c.nb(ap)))
     out.append(_notes(c, [" ".join(notes)]))
     return c.carte(r["vaTitre"].format(n=c.nb(tot)), r["vaSous"].format(a=c.dl_(jours[0])), "".join(out), h=1160)
 
