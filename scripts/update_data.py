@@ -308,6 +308,12 @@ KPI_CORRIGES = {
     # chiffree (419 la veille). Meme avec la veille pour l'Ituri et le
     # Haut-Uele, le detail ne passe pas 1 090.
     "184": {"inCTE": (1681, None)},
+    # Le SitRep 187 imprime 1 743, le chiffre du 186 a l'unite pres, quand
+    # ses sept provinces chiffrees en detaillent 1 132 avec la definition de
+    # la bande : 577 au Nord-Kivu (dont 263 hors CTE/CT), 397 en Ituri, 73 au
+    # Haut-Uele, 42 suspects isoles au Bas-Uele, 28 au Nord-Ubangi, 12 a la
+    # Tshopo et 3 au Sud-Ubangi.
+    "187": {"inCTE": (1743, None)},
 }
 
 

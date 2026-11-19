@@ -153,6 +153,12 @@ ECHANTILLONS_RES = [
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?pr[ée]l[èe]vements\s+analys[ée]s", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons?\s+r[ée]ceptionn[ée]s?\b", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons?\s+de\s+sang(?:\s+total)?\s+re[çc]us?\s+et\s+analys[ée]s?", re.I),
+    # Tournures du 187 : « 303 échantillons reçus et tous testés » (Ituri),
+    # « 13 échantillons initiaux ont été prélevés et réceptionnés » (Tshopo),
+    # « 2 nouveaux échantillons de sang total reçus et analysés » (Bas-Uélé).
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux?\s+)?[ée]chantillons?\s+re[çc]us?\s+et\s+tous\s+(?:test[ée]s|analys[ée]s)", re.I),
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons?\s+initiaux\s+ont\s+[ée]t[ée]\s+(?:pr[ée]lev[ée]s|re[çc]us|analys[ée]s)", re.I),
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*nouveaux\s+[ée]chantillons?\s+de\s+sang(?:\s+total)?\s+re[çc]us?\s+et\s+analys[ée]s?", re.I),
 ]
 POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux?\s+)?r[ée]sultats?\s+positifs?", re.I),
@@ -179,6 +185,13 @@ POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+positifs?\b", re.I),
     # « 8 cas négatifs réprélevés et 7 cas positifs réprélevés » (181 Tshopo).
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+positifs?\s+r[ée]-?\s?pr[ée]lev[ée]s", re.I),
+    # Tournures du 187 : « révélant 79 échantillons positifs » (Nord-Kivu),
+    # « 30 échantillons positifs au total » (Ituri), « 2 échantillons initiaux
+    # de sang total se sont révélés positifs » (Haut-Uélé), « dont 1 s'est
+    # révélé positif » (Tshopo).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+[ée]chantillons\s+positifs\b", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+[ée]chantillons?\s+(?:initiaux\s+)?(?:de\s+sang(?:\s+total)?\s+)?se\s+sont\s+r[ée]v[ée]l[ée]s\s+positifs", re.I),
+    re.compile(r"dont\s+(\d+)\s+s[’']est\s+r[ée]v[ée]l[ée]\s+positif\b", re.I),
 ]
 DE_PLUS_RE = re.compile(r"De\s+plus\s*,\s*(\d[\d ]{0,4}\d|\d)\s+(?:r[ée])?pr[ée]l[èe]vements\s+sont\s+revenus\s+positifs\s+"
                         r"parmi\s+(\d[\d ]{0,6}\d|\d)\s+[ée]chantillons\s+analys[ée]s\.?", re.I)
@@ -254,7 +267,10 @@ def choisir(cands_e, cands_p, positivite):
 # Un morceau s'arrête avant un cumul (« cumul 238 analysés, 3 positifs »),
 # une synthèse (« Au total, 516 échantillons… ») ou un paragraphe de
 # commentaire : ces nombres ne sont pas ceux de la journée.
-COUPURE_RE = re.compile(r"\bcumul\b|\bAu total\b|\n(?=(?:Les |La |Le |Dans |FIGURE|TABLEAU|Figure|\d+\.\d))", re.I)
+# Les articles en tete de ligne ne coupent qu'avec leur majuscule : au 187,
+# « (provenant de⏎la ZS de Buta), tous deux négatifs » (Bas-Uele) etait coupe
+# avant « négatifs » et les positifs du jour restaient vides.
+COUPURE_RE = re.compile(r"\bcumul\b|\bAu total\b|\n(?=(?-i:Les |La |Le |Dans )|(?:FIGURE|TABLEAU|Figure|\d+\.\d))", re.I)
 
 
 def lire_province(morceau):

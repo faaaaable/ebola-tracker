@@ -281,6 +281,16 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     notes = _lire("data/bulletin-notes.json") if os.path.exists(os.path.join(ROOT, "data", "bulletin-notes.json")) else {}
     index = _lire("reports/_index.json") if os.path.exists(os.path.join(ROOT, "reports", "_index.json")) else {}
     fiche_pdf = index.get(num, {})
+    # Date de mise en ligne sur insp.cd (depuis le 187, voir
+    # download_all_sitreps), a l'heure de Kinshasa (UTC+1) ; sinon la date
+    # imprimee dans le PDF. Le 187 se dit publie le 18 et n'a paru que le 19.
+    en_ligne = fiche_pdf.get("misEnLigne")
+    if en_ligne:
+        import datetime as _dt
+        _t = _dt.datetime.strptime(en_ligne, "%Y-%m-%dT%H:%M:%SZ") + _dt.timedelta(hours=1)
+        date_publie = _t.strftime("%Y-%m-%d")
+    else:
+        date_publie = meta.get("publicationDate") or date
     et = S["timelineListAnd"]
     P = lambda _cle, **v: interp(S[_cle], dict(v))
     def maj(phrase):
@@ -380,7 +390,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     # ---------------------------------------------------------------- en-tete : objet + jour en une phrase
     objet = P("lettreObjet", date=long_date(date, i18n_lang), cas=fmt(nat.get("newCases24h"), lang), deces=fmt(nat.get("newDeaths24h"), lang), zones=zones_phrase)
     if FL:
-        pub = meta.get("publicationDate") or date
+        pub = date_publie
         ecart_pub = _nb_jours(date, pub) if pub != date else 0
         publie = (S["lettrePublieMemeJour"] if ecart_pub == 0 else S["lettrePublieLendemain"] if ecart_pub == 1
                   else P("lettrePublieLe", date=jour_mois(pub)))
@@ -412,7 +422,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         else:
             jour += " " + P("lettreZonesNoneF", n=fmt(zt.get("n"), lang), prov=fmt(nb_prov, lang))
     else:
-        jour = P("lettreJour", rapport=long_date(date, i18n_lang), publie=long_date(meta.get("publicationDate") or date, i18n_lang),
+        jour = P("lettreJour", rapport=long_date(date, i18n_lang), publie=long_date(date_publie, i18n_lang),
                  cas=fmt(nat.get("newCases24h"), lang), deces=fmt(nat.get("newDeaths24h"), lang))
     if not FL and moy_cas is not None and nat.get("newCases24h") is not None:
         r = nat["newCases24h"] / moy_cas if moy_cas else None
@@ -997,6 +1007,11 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             corps = prose(esc(P("lettreDefisSommaire", n=fmt(len(piliers), lang), liste=sommaire)
                               + ("\n\n" + refus_eds if refus_eds else "")))
         # Les neuf piliers en entier ont ete retires le 8 septembre 2026 : le resume suffit, le PDF est en tete.
+    elif ((notes.get(num) or {}).get("defis") or {}).get(lang):
+        # Sans section Defis lisible (186, 187), le resume redige reste la
+        # source : il dit lui-meme que la section manque et ce que les autres
+        # rubriques signalent.
+        corps = prose(esc(notes[num]["defis"][lang] + ("\n\n" + refus_eds if refus_eds else "")))
     else:
         corps = prose(esc(S["bulDefisNone"]))
     p_de = corps[:corps.index('    <details')] if '    <details' in corps else corps
@@ -1109,7 +1124,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # reste, avec un tiret, comme sur la page Ensemble du pays.
         une["extra"] += ('<div class="lq-chiffre is-cte"><b>%s</b><span>%s</span></div>'
                          % (fmt(nat.get("inCTE"), lang) if nat.get("inCTE") is not None else "—", esc(S["lettreUneCte"])))
-    tete = {"une": une, "num": num, "date": long_date(date, i18n_lang), "publie": long_date(meta.get("publicationDate") or date, i18n_lang),
+    tete = {"une": une, "num": num, "date": long_date(date, i18n_lang), "publie": long_date(date_publie, i18n_lang),
             "objet": objet, "jour": jour, "jour_nouveau": jour_nouveau, "jour_niveau": jour_niveau, "ref": meta.get("sitrepRef") or "", "pdf": pdf, "pied": pied, "pied_html": pied_html, "sous": sous_titre,
             "nav_html": nav_html, "archive_html": archive_html, "abo_html": _abonnement(lang, S, esc)}
     return {"seed.bulletinAgence": assembler_agence(tete, chapitres, S, esc, interp)}

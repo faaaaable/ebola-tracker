@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-16"
+    "fin": "2026-11-17"
   },
   "parDate": [
     {
@@ -9401,6 +9401,12 @@
     {
       "date": "2026-11-16",
       "sitrepNumber": "186",
+      "piliers": [],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-17",
+      "sitrepNumber": "187",
       "piliers": [],
       "source": "SitRep INSP (automatique)"
     }

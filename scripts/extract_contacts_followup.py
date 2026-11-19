@@ -448,7 +448,15 @@ def rate_from_lines(full_text):
     if start is None:
         return None, None, None
 
-    for line in lines[start:start + 10]:
+    # SitRep 187 : chaque nom de province est seul sur sa ligne, ses chiffres
+    # sur la suivante (« Total⏎33 019 27 278 82,6% ») — le tableau tient
+    # deux fois plus de lignes, et « Total » se recolle a ses chiffres. Sans
+    # cela la grille du tableau des alertes, sur la meme page, faisait foi
+    # (« Total Général 4 133 125 » : 3,1 %).
+    zone = lines[start:start + 24]
+    for k, line in enumerate(zone):
+        if re.match(r"^\s*Total\s*\**\s*$", line) and k + 1 < len(zone):
+            line = "Total " + zone[k + 1]
         m = TOTAL_LINE_RE.match(line)
         if not m:
             continue

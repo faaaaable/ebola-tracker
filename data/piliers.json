@@ -1,7 +1,7 @@
 {
  "periode": {
   "debut": "2026-05-20",
-  "fin": "2026-11-16"
+  "fin": "2026-11-17"
  },
  "parDate": [
   {
@@ -7282,6 +7282,78 @@
      "Tshopo": 14228
     },
     "rupture": false
+   },
+   "source": "SitRep INSP (automatique)"
+  },
+  {
+   "date": "2026-11-17",
+   "sitrepNumber": "187",
+   "poe": null,
+   "rings": {
+    "ouverts": 28,
+    "attendus": 48,
+    "provinces": {
+     "Nord-Kivu": {
+      "ouverts": 12,
+      "attendus": 22
+     },
+     "Ituri": {
+      "ouverts": 16,
+      "attendus": 26
+     }
+    }
+   },
+   "eds": {
+    "alertes": 217,
+    "realisees": 152,
+    "swabes": 149,
+    "nonSwabes": null,
+    "provinces": {
+     "alertes": 1,
+     "realisees": 1,
+     "swabes": 1
+    },
+    "provincesNoms": [
+     "Bas-Uélé",
+     "Haut-Uélé",
+     "Ituri",
+     "Nord-Kivu",
+     "Tshopo"
+    ],
+    "couverture": {
+     "alertes": [
+      "Bas-Uélé",
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "realisees": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ],
+     "swabes": [
+      "Haut-Uélé",
+      "Ituri",
+      "Nord-Kivu",
+      "Tshopo"
+     ]
+    }
+   },
+   "vaccination": {
+    "cumulParProvince": {
+     "Nord-Kivu": 3901,
+     "Haut-Uélé": 2653
+    },
+    "rupture": false,
+    "cumulEcarte": {
+     "Ituri": {
+      "publie": 443,
+      "raison": "4 326 au SitRep 186, plus 10 vaccines du jour : chiffre saute"
+     }
+    }
    },
    "source": "SitRep INSP (automatique)"
   }

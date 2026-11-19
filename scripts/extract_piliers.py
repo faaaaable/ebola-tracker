@@ -23,7 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "piliers.json")
 
 NUM = r"(\d{1,3}(?:[   ]\d{3})+|\d+)"
-MOTS = {"un": 1, "une": 1, "deux": 2, "trois": 3, "quatre": 4, "cinq": 5, "six": 6, "sept": 7,
+MOTS = {"unique": 1, "un": 1, "une": 1, "deux": 2, "trois": 3, "quatre": 4, "cinq": 5, "six": 6, "sept": 7,
         "huit": 8, "neuf": 9, "dix": 10, "onze": 11, "douze": 12, "quinze": 15, "vingt": 20}
 
 
@@ -166,7 +166,11 @@ def lire_pci(corps):
         for m in list(re.finditer(r"(\d+)\s*/\s*(\d+)\s*rings? ouverts?", p)) + list(
                 re.finditer(r"(\d+) anneaux \(rings?\) ouverts? sur (\d+)", p)) + list(
                 # « 47 sur 47 rings ouverts (100 %) » (182 Ituri).
-                re.finditer(r"(\d+) sur (\d+) rings? ouverts?", p)):
+                re.finditer(r"(\d+) sur (\d+) rings? ouverts?", p)) + list(
+                # « 12 des 22 anneaux prévus ont été ouverts » (187 Nord-Kivu),
+                # « l'ouverture de 16 anneaux sur les 26 prévus » (187 Ituri).
+                re.finditer(r"(\d+) des (\d+) anneaux (?:pr[ée]vus )?ont [ée]t[ée] ouverts", p)) + list(
+                re.finditer(r"ouverture de (\d+) anneaux sur les (\d+)", p)):
             add_ring(p, m.start(), int(m.group(1)), int(m.group(2)))
         m = re.search(r"les (\d+) rings attendus ont tous été ouverts", p)
         if m:
@@ -196,7 +200,12 @@ def lire_pci(corps):
         # ecouvillonnage » (084 a 100).
         MOT = r"(\d+|[A-Za-zéÉ]+)"
         MOTIFS = (
-            ("alertes", [MOT + r" alertes?(?: EDS)?(?: de d[ée]c[èe]s)? (?:ont|a) [ée]t[ée] (?:enregistr|re[çc]u)",
+            ("alertes", [# « Sur un total de 95 alertes d'Enterrement Digne et
+                         # Sécurisé (EDS) enregistrées », « Sur les 11 alertes
+                         # d'Enterrement… », « Sur l'unique alerte d'Enterrement » (187).
+                         MOT + r" alertes? d[’']Enterrement",
+                         r"l[’'](unique) alerte d[’']Enterrement",
+                         MOT + r" alertes?(?: EDS)?(?: de d[ée]c[èe]s)? (?:ont|a) [ée]t[ée] (?:enregistr|re[çc]u)",
                          r"re[çc]u " + MOT + r" alertes?",
                          r"EDS r[ée]alis\w+ sur (\d+) alertes",
                          # « 79 alertes d'EDS reçues » (181 Ituri), « sur 6
@@ -221,7 +230,10 @@ def lire_pci(corps):
                            # 57 corps swabés » (182 Nord-Kivu).
                            r"(\d+) enterrements r[ée]alis"]),
             # « la sécurisation et le prélèvement (swab) de 16 corps » (180 Ituri).
-            ("swabes", [r"(\d+) corps (?:ont [ée]t[ée] |a [ée]t[ée] )?(?:pr[ée]lev|swab|[ée]couvillonn)",
+            ("swabes", [# « 69 corps sur 94 ont été swabés » (187 Ituri) : sans ce
+                        # motif, « 94 ont été swabés » etait lu.
+                        r"(\d+) corps sur \d+ ont [ée]t[ée] swab",
+                        r"(\d+) corps (?:ont [ée]t[ée] |a [ée]t[ée] )?(?:pr[ée]lev|swab|[ée]couvillonn)",
                         r"pr[ée]l[èe]vement \(swab\) de (\d+) corps",
                         r"(\d+) corps (?:ont [ée]t[ée] )?swab",
                         r"swab[ée] (?:les )?(\d+) corps",
@@ -579,7 +591,9 @@ def lire_vaccination(corps, texte_entier):
         # « Haut-Uélé : Sur 3 300 PPL préenregistrés (1 787 hommes et 1 513
         # femmes), 2 485 ont été vaccinés » (186) : le nombre vient apres les
         # preenregistres, sans « personnes » devant « ont été vaccinés ».
-        m = re.search(r"préenregistrée?s\s*(?:\([^)]{0,80}\))?\s*,\s*" + NUM + r"\s+ont\s+été\s+vaccinée?s", phr)
+        # « Sur 3 300 PPL pré-enregistrés (…), 2 653 ont été vaccinés » (187) :
+        # avec un trait d'union.
+        m = re.search(r"pr[ée]-?\s?enregistrée?s\s*(?:\([^)]{0,80}\))?\s*,\s*" + NUM + r"\s+ont\s+été\s+vaccinée?s", phr)
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         # « au cumul, 1 972 personnes sur 13 202 ciblées (14,9 %) ont été
@@ -601,7 +615,10 @@ def lire_vaccination(corps, texte_entier):
                       + NUM + r"\s+(?:vaccinés\s+\(|personnes\s+vaccinées\s+dans\s+les|personnes\s+vaccinées,\s+atteignant)", phr, re.I)
         if m:
             pose(_province(m.group(1)) or _province(m.group(1).title()), entier(m.group(2))); prec = phr; continue
-        m = re.search(NUM + r" vaccinés dans \d+ ZS\b", phr)
+        # « 264 personnes vaccinées (… BRAVO), comprenant 206 PPL …, 3 901
+        # personnes vaccinées dans 7 ZS et 20 AS » (187, Nord-Kivu) : le cumul
+        # est le nombre suivi de ses zones de sante, pas le premier de la phrase.
+        m = re.search(NUM + r"\s+(?:personnes\s+)?vaccinée?s\s+dans\s+\d+\s+ZS\b", phr)
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         m = re.search(r"au profit de " + NUM + r" personnes", phr)
@@ -769,11 +786,32 @@ def extraire(num, chemin, date):
     if vac:
         vac = re.sub(r"\b(Bas|Haut|Nord|Sud)-\s+(?=[A-ZÉ])", r"\1-", vac)
     rings, eds = lire_pci(pci) if pci else (None, None)
+    vaccination = lire_vaccination(vac, txt)
+    # Cumuls que le bulletin dement lui-meme, ecartes nommement : la valeur
+    # publiee reste dans cumulEcarte, aucune page ne l'additionne ni ne la trace.
+    for (n_, prov), (publie, raison) in VACCINATION_ECARTEE.items():
+        cumul = (vaccination or {}).get("cumulParProvince") or {}
+        if n_ == num and cumul.get(prov) == publie:
+            del cumul[prov]
+            vaccination.setdefault("cumulEcarte", {})[prov] = {"publie": publie, "raison": raison}
     return {"date": date, "sitrepNumber": num,
             "poe": lire_poe(poe) if poe else None,
             "rings": rings, "eds": eds,
-            "vaccination": lire_vaccination(vac, txt),
+            "vaccination": vaccination,
             "source": "SitRep INSP (automatique)"}
+
+
+# Un cumul de vaccines que le bulletin dement, cle (bulletin, province) :
+# (valeur publiee, raison). Pas de correction : la province garde son dernier
+# cumul retenu, comme un jour sans chiffre.
+VACCINATION_ECARTEE = {
+    # « Ituri : 10 personnes vaccinées ce jour (7 à Bunia et 3 à Mongbwalu),
+    # portant le cumul à 443 personnes vaccinées » (187), quand le 186 ecrit
+    # « 10 personnes vaccinées dans la journée […], portant le cumul à 4 326
+    # personnes vaccinées (3 876 à Bunia et 450 à Mongbwalu) ». 4 326 + 10 :
+    # un chiffre saute, comme au 185 (426 entre 3 930 et 4 326).
+    ("187", "Ituri"): (443, "4 326 au SitRep 186, plus 10 vaccines du jour : chiffre saute"),
+}
 
 
 def main(argv):

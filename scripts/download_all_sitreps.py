@@ -123,6 +123,35 @@ def extract_pdf_url_from_article(article_url: str) -> str | None:
     return None
 
 
+# Date de mise en ligne relevee a partir de ce SitRep seulement : les
+# anciens gardent la date imprimee dans le PDF.
+MISE_EN_LIGNE_DEPUIS = "187"
+
+
+def dates_mise_en_ligne() -> dict[str, str]:
+    """Date de mise en ligne des derniers SitRep sur insp.cd, par l'API
+    WordPress (champ date_gmt, en UTC), une seule requete sur les 20 articles
+    les plus recents. La page de liste n'affiche que la date de derniere
+    modification, et la date imprimee dans le PDF (« Date de publication »)
+    precede parfois la mise en ligne : le 187, date du 18 novembre, n'a paru
+    que le 19 a 12 h 32 UTC."""
+    resp = requests.get(f"{BASE}/wp-json/wp/v2/posts", headers=HEADERS, timeout=30,
+                        params={"search": "SitRep", "per_page": 20, "_fields": "title,date_gmt"})
+    resp.raise_for_status()
+    out: dict[str, str] = {}
+    for post in resp.json():
+        titre = BeautifulSoup((post.get("title") or {}).get("rendered", ""), "html.parser").get_text()
+        if "sitrep" not in titre.lower() or not post.get("date_gmt"):
+            continue
+        num = guess_sitrep_number(titre)
+        if num.isdigit() and num >= MISE_EN_LIGNE_DEPUIS:
+            d = post["date_gmt"] + "Z"
+            # Deux articles pour un numero : le premier paru fait foi.
+            if num not in out or d < out[num]:
+                out[num] = d
+    return out
+
+
 def guess_sitrep_number(title: str) -> str:
     m = SITREP_NUM_RE.search(title)
     if m:
@@ -220,6 +249,14 @@ def main():
             print(f"  [X]  Échec pour {title} ({article_url}): {e}")
             failed += 1
         time.sleep(args.sleep)
+
+    try:
+        for num, d in dates_mise_en_ligne().items():
+            # Relevee une fois : une republication ne la deplace pas.
+            if num in index and not index[num].get("misEnLigne"):
+                index[num]["misEnLigne"] = d
+    except Exception as e:
+        print(f"  [!] Dates de mise en ligne non relevées ({e}).")
 
     INDEX_PATH.write_text(json.dumps(index, indent=2, ensure_ascii=False, sort_keys=True))
 

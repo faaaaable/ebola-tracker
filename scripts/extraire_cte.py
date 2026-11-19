@@ -64,7 +64,11 @@ def canon(nom):
 # « holistique » la distingue du « Prise en charge » des epoques B et C, qui
 # reste exclu.
 DEBUT_RE = re.compile(r"(?:^|\n)[^\n]{0,12}(?:Continuit[ée] des soins|Prise en charge holistique)[^\n]{0,60}\n", re.IGNORECASE)
-FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Communication|CREC|Logistique|S[ée]curit[ée]|Recherche)", re.IGNORECASE)
+# La rubrique suivante, par son titre : majuscule initiale ou tout en capitales.
+# Insensible a la casse, le motif prenait au 187 une ligne de prose qui
+# commencait par « logistique, 23 ambulances » (Ituri) : le Haut-Uele, le
+# Sud-Ubangi, le Bas-Uele et le Nord-Ubangi qui suivaient etaient perdus.
+FIN_RE = re.compile(r"\n[^\n]{0,12}(?:Communication|CREC|Logistique|S[ée]curit[ée]|Recherche|COMMUNICATION|LOGISTIQUE|S[ÉE]CURIT[ÉE]|RECHERCHE)")
 # « Le Nord-Kivu suit avec 8 patients en isolement », « Le Sud-Kivu maintient
 # une file active de 5 patients » (SitRep 018) : sans « Le », ces phrases
 # restaient dans le morceau de l'Ituri, qui recevait les 8 patients du
@@ -281,6 +285,12 @@ CTE_OCCUPES_RE = re.compile(
 # « Sur les 514 patients, 343 sont en CTE/CT (taux d'occupation global de
 # 79 % sur 434 lits » (185 Nord-Kivu). Sans ce motif, LITS_FRACTION_RE prenait
 # « 100 % (5/5) des enfants » pour 5 lits. Groupes : patients aux lits, taux, lits.
+# « Le taux d'occupation global des lits s'établit à 72 % (314 lits occupés
+# sur 434, soit 55 % pour les confirmés … » (187 Nord-Kivu, 577 hospitalises
+# dont 263 hors CTE/CT). Groupes comme HOSPITALISES_AUX_LITS_RE : taux,
+# patients aux lits, lits.
+LITS_OCCUPES_SUR_RE = re.compile(
+    r"occupation[^%;]{0,60}?(\d+(?:[,.]\d+)?)\s*%\s*\(\s*(\d[\d ]{0,4}\d|\d)\s+lits\s+occup[ée]s\s+sur\s+(\d[\d ]{0,4}\d|\d)\b", re.I)
 CTE_SUR_LITS_RE = re.compile(
     r"(\d[\d ]{0,4}\d|\d)\s+sont\s+en\s+CTE(?:/CT)?\s*\(\s*taux\s+d[’']occupation\s+global\s+de\s+(\d+(?:[,.]\d+)?)\s*%\s+sur\s+(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
 OCCUPATION_RES = [
@@ -442,7 +452,7 @@ def lire_prose(morceau):
             ligne["hospitalisesNormes"] = aux_lits
             ligne["lits"] = lits_c
             ligne["_occCte"] = taux_c
-    ma = HOSPITALISES_AUX_LITS_RE.search(morceau)
+    ma = HOSPITALISES_AUX_LITS_RE.search(morceau) or LITS_OCCUPES_SUR_RE.search(morceau)
     if ma and "hospitalisesNormes" not in ligne:
         taux_frac, aux_lits, lits_frac = pourcent(ma.group(1)), entier(ma.group(2)), entier(ma.group(3))
         if (aux_lits is not None and lits_frac and aux_lits < hosp and taux_frac is not None
@@ -528,7 +538,11 @@ def section_prose(texte):
         return None
     reste = texte[m.end():]
     f = FIN_RE.search(reste)
-    reste = (reste[:f.start()] if f else reste[:3000])[:4000]
+    # Plafond porte de 4 000 a 8 000 caracteres au 187 : un long paragraphe par
+    # province (Nord-Kivu, Tshopo, Ituri) repoussait le Haut-Uele, le Bas-Uele
+    # et le Nord-Ubangi au-dela. La coupe sur « Vaccination » plus bas borne
+    # la section de toute facon.
+    reste = (reste[:f.start()] if f else reste[:3000])[:8000]
     # Le bilan national qui clot la section (« Au total, 146 nouvelles
     # admissions … Ainsi, 803 patients demeuraient en isolement », 136) serait
     # sinon lu comme la ligne de la derniere province citee.
@@ -1031,6 +1045,13 @@ VALEURS_ECARTEES = {
     # le meme 153 est donne dans les CTE et hors CTE, et 153 + 153 ne fait
     # pas 482. Les patients des CTE sont ecartes, le point manque.
     ("184", "Nord-Kivu"): ("hospitalisesNormes",),
+    # « comprenant 24 reports auxquels s'ajoutent 20 ⏎ 9 ⏎ nouvelles
+    # admissions » : le numero de la page 9 s'intercale entre le nombre et
+    # « nouvelles admissions », et 9 est lu. 24 + 20 − 2 = 42, le stock publie.
+    ("187", "Bas-Uélé"): ("admissions",),
+    # « portant le cumul du CTE à 56 patients pris en charge (… comprenant
+    # 3 guéris …) » : un cumul depuis l'ouverture, pas les gueris du jour.
+    ("187", "Nord-Ubangi"): ("gueris",),
 }
 # TAUX QUE LE BULLETIN CONTREDIT, la courbe reprend patients / lits : « Taux
 # global de 41% (277/434 lits occupés dans les CTE/CT) » (183 Nord-Kivu) —
