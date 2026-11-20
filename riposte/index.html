@@ -282,7 +282,7 @@
     <i aria-hidden="true">→</i>
     <a class="rc-e" href="#contacts"><span class="rc-v">Suivre</span><b class="rc-n is-contacts">82,6 %</b><em>Contacts vus (7 derniers relevés)</em></a>
     <i aria-hidden="true">→</i>
-    <a class="rc-e" href="#cte"><span class="rc-v">Soigner</span><b class="rc-n is-cte">—</b><em>Patients pour 100 lits</em></a>
+    <a class="rc-e" href="#cte"><span class="rc-v">Soigner</span><b class="rc-n is-cte">1 333</b><em>Patients en isolement</em></a>
     <i aria-hidden="true">→</i>
     <a class="rc-e" href="#vaccination"><span class="rc-v">Protéger</span><b class="rc-n is-vaccin">27 956</b><em>Personnes vaccinées</em></a>
     <i aria-hidden="true">→</i>
@@ -391,11 +391,11 @@
   </section>
 
   <section class="section chap rip-volet" id="cte">
-    <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">Les centres de traitement</h2><p class="chap-chapo">patients hospitalisés et lits disponibles</p></div></header>
+    <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">Les centres de traitement</h2><p class="chap-chapo">patients en isolement, province par province</p></div></header>
     <div class="chap-corps"><div class="rp-v">
     <div class="rp-g">
-      <div class="rp-ch"><b class="rc-n is-cte">—</b><span>Patients pour 100 lits</span><small>données incomplètes</small></div>
-      <p class="fiche-texte">Un centre de traitement saturé renvoie les malades vers la communauté, où les décès échappent à la prise en charge. Le site compte les patients hospitalisés — confirmés et suspects — pour 100 lits que le bulletin déclare ; au-delà de 100, il y a plus de malades que de lits, et le surplus est soigné hors des lits prévus. Ce n'est pas le taux d'occupation du bulletin, qui ne compte que les malades couchés dans les lits.</p>
+      <div class="rp-ch"><b class="rc-n is-cte">1 333</b><span>Patients en isolement</span><small>dans les 6 provinces détaillées, pas de chiffre pour Haut-Uélé</small></div>
+      <p class="fiche-texte">Un centre de traitement saturé renvoie les malades vers la communauté, où les décès échappent à la prise en charge. Le graphique additionne les patients en isolement — confirmés et suspects, en centre de traitement ou ailleurs — que le bulletin détaille province par province. Le taux d'occupation des lits figure sur la page de chaque province, quand le bulletin publie ses lits. Ce total diffère souvent du chiffre annoncé en tête du bulletin.</p>
     </div>
     <div class="rp-d">
     <div class="panel chart-panel-wrap">
@@ -406,7 +406,7 @@
         </button>
       </div>
       <div class="chart-panel">
-        <canvas id="cteChart" data-chart="cte" data-sans-titre></canvas>
+        <canvas id="cteChart" data-chart="isolement" data-sans-titre></canvas>
       </div>
       <div class="map-note chart-note"></div>
     </div>
@@ -666,8 +666,8 @@ window.DATA_PAGE_URL = "/donnees/";
      globales, et doit passer en premier.
      La carte, elle, ne depend plus d'aucune bibliotheque : c'est un SVG ecrit
      dans la page. -->
-<script defer src="/assets/js/i18n.js?v=c144e5ed5a"></script>
-<script defer src="/assets/js/app.js?v=e487b95494"></script>
+<script defer src="/assets/js/i18n.js?v=c043ccc7fb"></script>
+<script defer src="/assets/js/app.js?v=f0d91c3413"></script>
 
 </body>
 </html>

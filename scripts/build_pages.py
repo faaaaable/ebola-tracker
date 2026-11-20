@@ -823,7 +823,7 @@ PROVINCE_COLORS = {
     "Sud-Ubangi": "#B0487D",
     # Huitieme province, SitRep 155 (16 octobre 2026) : un brun, la teinte
     # sobre la plus separee des sept autres (ΔE 14,1 au pire, toutes visions).
-    "Nord-Ubangi": "#7E4800",
+    "Nord-Ubangi": "#7D8A1F",
 }
 
 
@@ -3856,6 +3856,33 @@ def riposte_seed(riposte, meta_data, lang, strings_lang, i18n_lang):
         out["ripOccupationSub"] = esc(sub + au(k["date"]))
     else:
         out["ripOccupation"], out["ripOccupationSub"] = vide["value"], vide["sub"]
+
+    # Patients en isolement du pays (20 novembre 2026), case de la page
+    # Riposte : la somme des provinces que le dernier bulletin detaille, si
+    # l'Ituri ET le Nord-Kivu y sont chiffres ; sinon « — ». Le chiffre de
+    # tete du bulletin n'est pas repris : depuis le 179 il ne retombe plus sur
+    # le detail. Les provinces non chiffrees sont nommees.
+    PROV_ISO = ("Ituri", "Nord-Kivu", "Haut-Uélé", "Tshopo", "Bas-Uélé", "Nord-Ubangi", "Sud-Ubangi", "Sud-Kivu")
+    k_iso = pts_cte[-1] if pts_cte else None
+    hosp = {}
+    if k_iso and k_iso.get("date") == date_bulletin:
+        for n_, v_ in (k_iso.get("provinces") or {}).items():
+            if v_ and v_.get("hospitalises") is not None:
+                hosp[n_.replace(" ", "-")] = v_["hospitalises"]
+    if all(n_ in hosp for n_ in ("Ituri", "Nord-Kivu")):
+        out["ripIsolement"] = fmt(sum(hosp.values()), lang)
+        sub = interp(strings_lang["riposteKpiIsolementSub"], {"n": fmt(len(hosp), lang)})
+        # Les provinces chiffrees au bulletin precedent qui manquent au
+        # dernier : au 188, le Haut-Uele.
+        prec = {n_.replace(" ", "-") for n_, v_ in ((pts_cte[-2].get("provinces") or {}).items() if len(pts_cte) > 1 else [])
+                if v_ and v_.get("hospitalises") is not None}
+        manquent = [n_ for n_ in PROV_ISO if n_ in prec and n_ not in hosp]
+        if manquent:
+            sub += ", " + interp(strings_lang["riposteKpiIsolementSans"], {"p": ", ".join(manquent)})
+        out["ripIsolementSub"] = esc(sub)
+    else:
+        out["ripIsolement"] = vide["value"]
+        out["ripIsolementSub"] = esc(strings_lang["riposteKpiOccupationIncomplet"])
 
     out.update(vaccination_seed(riposte.get("piliers"), date_bulletin, lang,
                                 strings_lang, i18n_lang, vide, au))

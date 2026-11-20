@@ -134,7 +134,7 @@ const T = k => (TXT[LANG] && TXT[LANG][k] !== undefined) ? TXT[LANG][k] : TXT.fr
    ====================================================================== */
 const COULEURS = {"Ituri":"#005E82","Nord-Kivu":"#A06F30","Haut-Uélé":"#327957","Tshopo":"#6B5CA5",
                   "Sud-Kivu":"#5A544C","Bas-Uélé":"#993A2E","Sud-Ubangi":"#B0487D",
-                  "Nord-Ubangi":"#7E4800"};
+                  "Nord-Ubangi":"#7D8A1F"};
 const SLUGS = {"Ituri":"ituri","Nord-Kivu":"nord-kivu","Haut-Uélé":"haut-uele","Tshopo":"tshopo",
                "Sud-Kivu":"sud-kivu","Bas-Uélé":"bas-uele","Sud-Ubangi":"sud-ubangi","Nord-Ubangi":"nord-ubangi"};
 /* Les deux rattrapages administratifs documentes dans app.js (22 et 30

@@ -38,7 +38,7 @@ BLUE, BLUE_STRONG, RED, GREEN, AMBER = "#005E82", "#005073", "#993A2E", "#327957
 MAP = ["#EAE7E3", "#B7D3E1", "#88B3C8", "#5693AF", "#267294", "#015174", "#00324B"]
 REDS = ["#F3E4E0", "#E5B7AE", "#D08A7D", "#B95F50", "#993A2E", "#6E271E"]
 PROV = {"Ituri": BLUE, "Nord-Kivu": AMBER, "Haut-Uélé": GREEN, "Tshopo": "#6B5CA5",
-        "Sud-Kivu": INK_DIM, "Bas-Uélé": RED, "Sud-Ubangi": "#B0487D", "Nord-Ubangi": "#7E4800"}
+        "Sud-Kivu": INK_DIM, "Bas-Uélé": RED, "Sud-Ubangi": "#B0487D", "Nord-Ubangi": "#7D8A1F"}
 SERIF = "'Source Serif 4',Georgia,serif"
 SANS = "'Public Sans',Helvetica,Arial,sans-serif"
 CHIFFRES = "'Bricolage Grotesque','Public Sans',Helvetica,Arial,sans-serif"
@@ -1058,10 +1058,12 @@ RIP = {
   coPhrase="Le {d} : {p} des {n} contacts à suivre ont été vus.",
   coNote="Cible de l'OMS : 95 %. Pointillés : jours sans relevé.",
   ctTitre="Patients pour 100 lits des CTE", ctSous="Patients hospitalisés, confirmés et suspects, rapportés aux lits que le bulletin déclare, province par province, du {a} au {b}.",
-  ctNormees="Nord-Kivu, patients dans les lits des CTE",
+  ctNormees="Nord-Kivu, patients en CTE",
   ctPhrase="Le {d} : {l}.", ctItem="{p} {v}",
   ctNote="Au-dessus de 100 : plus de malades que de lits.",
-  ctNote2="Zone teintée : au Nord-Kivu, les malades soignés hors des CTE.",
+  ctNote2="Zone teintée : au Nord-Kivu, les patients en structures non normées.",
+  ipTitre="Patients en isolement, province par province", ipSous="Patients confirmés et suspects, en centre de traitement ou ailleurs, tels que chaque bulletin les détaille, du {a} au {b}.",
+  ipNote="Pas de barre quand l'Ituri ou le Nord-Kivu n'est pas chiffré.", ipPhrase="Le {d} : {n} patients dans les provinces détaillées.",
   vaTitre="{n} personnes vaccinées", vaSous="Cumul des personnes vaccinées avec l'ERVEBO, province par province, depuis le début de la campagne, le {a}.",
   vaPhrase="Au {d} : {l}.", vaItem="{p} {v}",
   vaNote="Sans nouveau chiffre, le dernier cumul connu est reporté.",
@@ -1070,6 +1072,7 @@ RIP = {
             labo="L'irrégularité des analyses d'un jour à l'autre, et la part de positifs : un positif n'est pas toujours un malade de plus.",
             contacts="Combien de personnes exposées sont vues chaque jour : quand la part baisse, des chaînes de transmission échappent au suivi.",
             cte="La pression sur les centres de traitement : au-dessus de 100, plus de malades que de lits.",
+            isoprov="La charge des centres de traitement et des structures d'isolement, province par province, sans taux : les lits manquent trop souvent pour en calculer un pour le pays.",
             vaccin="La campagne de vaccination, province par province : combien, et quand."),
  ),
  "en": dict(
@@ -1088,10 +1091,12 @@ RIP = {
   coPhrase="On {d}: {p} of the {n} contacts to follow were seen.",
   coNote="WHO target: 95%. Dotted lines: days without a record.",
   ctTitre="Patients per 100 treatment-centre beds", ctSous="Hospitalised patients, confirmed and suspected, relative to the beds the bulletin declares, province by province, {a} to {b}.",
-  ctNormees="North Kivu, patients in treatment-centre beds",
+  ctNormees="North Kivu, patients in treatment centres",
   ctPhrase="On {d}: {l}.", ctItem="{p} {v}",
   ctNote="Above 100: more patients than beds.",
-  ctNote2="Shaded area: in North Kivu, patients cared for outside treatment centres.",
+  ctNote2="Shaded area: in North Kivu, patients in non-standard facilities.",
+  ipTitre="Patients in isolation, province by province", ipSous="Confirmed and suspected patients, in treatment centres or elsewhere, as each bulletin details them, {a} to {b}.",
+  ipNote="No bar when Ituri or North Kivu is not reported.", ipPhrase="On {d}: {n} patients in the detailed provinces.",
   vaTitre="{n} people vaccinated", vaSous="Cumulative number of people vaccinated with ERVEBO, province by province, since the campaign began on {a}.",
   vaPhrase="As of {d}: {l}.", vaItem="{p} {v}",
   vaNote="Without a new figure, the last known total is carried forward.",
@@ -1100,6 +1105,7 @@ RIP = {
             labo="How uneven testing is from one day to the next, and the share of positives: a positive is not always one more patient.",
             contacts="How many exposed people are seen each day: when the share drops, chains of transmission escape follow-up.",
             cte="The pressure on treatment centres: above 100, more patients than beds.",
+            isoprov="The load on treatment centres and isolation facilities, province by province, without a rate: beds are too often missing to compute one for the country.",
             vaccin="The vaccination campaign, province by province: how many, and when."),
  ),
  "sw": dict(
@@ -1118,10 +1124,12 @@ RIP = {
   coPhrase="Tarehe {d}: {p} ya walioguswa {n} wa kufuatiliwa walionwa.",
   coNote="Lengo la WHO: 95%. Vitone: siku bila rekodi.",
   ctTitre="Wagonjwa kwa kila vitanda 100 vya vituo vya matibabu", ctSous="Wagonjwa waliolazwa, waliothibitishwa na wanaoshukiwa, ikilinganishwa na vitanda vinavyotangazwa na ripoti, jimbo kwa jimbo, {a} hadi {b}.",
-  ctNormees="Kivu Kaskazini, wagonjwa katika vitanda vya vituo vya matibabu",
+  ctNormees="Kivu Kaskazini, wagonjwa katika vituo vya matibabu",
   ctPhrase="Tarehe {d}: {l}.", ctItem="{p} {v}",
   ctNote="Zaidi ya 100: wagonjwa wengi kuliko vitanda.",
-  ctNote2="Eneo lenye rangi: Kivu Kaskazini, wagonjwa wanaotibiwa nje ya vituo.",
+  ctNote2="Eneo lenye rangi: Kivu Kaskazini, wagonjwa katika majengo yasiyokidhi viwango.",
+  ipTitre="Wagonjwa waliotengwa, jimbo kwa jimbo", ipSous="Wagonjwa waliothibitishwa na wanaoshukiwa, katika vituo vya matibabu au kwingineko, kama kila ripoti inavyowaeleza, {a} hadi {b}.",
+  ipNote="Hakuna mstari wakati Ituri au Kivu Kaskazini haijahesabiwa.", ipPhrase="Tarehe {d}: wagonjwa {n} katika majimbo yaliyoelezwa.",
   vaTitre="Watu {n} waliochanjwa", vaSous="Jumla ya watu waliochanjwa kwa ERVEBO, jimbo kwa jimbo, tangu kampeni ilipoanza tarehe {a}.",
   vaPhrase="Kufikia {d}: {l}.", vaItem="{p} {v}",
   vaNote="Bila takwimu mpya, jumla ya mwisho inayojulikana hubaki.",
@@ -1130,6 +1138,7 @@ RIP = {
             labo="Jinsi vipimo vinavyobadilika siku hadi siku, na sehemu ya chanya: chanya si mara zote mgonjwa mwingine.",
             contacts="Watu wangapi walioathirika wanaonwa kila siku: sehemu inaposhuka, minyororo ya maambukizi inakwepa ufuatiliaji.",
             cte="Shinikizo kwa vituo vya matibabu: zaidi ya 100, wagonjwa wengi kuliko vitanda.",
+            isoprov="Mzigo wa vituo vya matibabu na majengo ya kutenga, jimbo kwa jimbo, bila kiwango: vitanda havipatikani mara nyingi mno kuweza kukokotoa kiwango cha nchi.",
             vaccin="Kampeni ya chanjo, jimbo kwa jimbo: wangapi, na lini."),
  ),
 }
@@ -1395,6 +1404,33 @@ def r_cte(c):
     out.append(_phrase(c, r["ctPhrase"].format(d=_jour(c, der), l=", ".join(items))))
     out.append(_notes(c, [r["ctNote"]] + ([r["ctNote2"]] if normees else [])))
     return c.carte(r["ctTitre"], r["ctSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
+
+
+def r_iso_prov(c):
+    """Patients en isolement, province par province (20 novembre 2026) : le
+    meme graphique que la page Riposte (mode « isolement » d'app.js). Pas de
+    barre quand l'Ituri ou le Nord-Kivu n'est pas chiffre."""
+    r = c.r
+    pts = []
+    for p in _j("data/cte.json")["parDate"]:
+        v = {_prov_canon(k): x["hospitalises"] for k, x in (p.get("provinces") or {}).items() if x and x.get("hospitalises") is not None}
+        pts.append((D(p["date"]), v, all(n in v for n in ("Ituri", "Nord-Kivu"))))
+    tenus = [(d, v) for d, v, ok in pts if ok]
+    if not tenus:
+        return None
+    par = dict(tenus)
+    jours = _calendrier(tenus[0][0], pts[-1][0])
+    noms = [n for n in PROV if any(n in v for _, v in tenus)]
+    piles = [([par[d].get(n) if d in par else None for d in jours], PROV[n]) for n in noms]
+    tot = [sum(par[d].values()) if d in par else None for d in jours]
+    mx = max(t for t in tot if t is not None); pas = _pas(mx)
+    R = Repere(c, jours, (int(mx / pas) + 1) * pas)
+    nom = lambda n: PROV_NOM.get(c.lang, {}).get(n, n)
+    out = [c.legende(R.X0, 262, [(nom(n), PROV[n]) for n in noms], 18), R.grille(lambda v: c.nb(v), pas=pas), R.barres(piles)]
+    der = tenus[-1][0]
+    out.append(_phrase(c, r["ipPhrase"].format(d=_jour(c, der), n=c.nb(sum(par[der].values())))))
+    out.append(_notes(c, [r["ipNote"]]))
+    return c.carte(r["ipTitre"], r["ipSous"].format(a=c.dc(jours[0]), b=c.dl_(jours[-1])), "".join(out), h=1160)
 
 
 VA_TROU_JOURS = 14
@@ -2354,7 +2390,7 @@ LISTE = [
            ("comparaison-2014-cas", None, lambda c: comparaison_2014(c, "cas"), "cmp"), ("comparaison-2014-deces", None, lambda c: comparaison_2014(c, "deces"), "cmp"),
            ("zones-plus-touchees", None, top_zones, "topzones"), ("zones-dynamique", None, dyn_zones, "dynzones"), ("lieu-deces-zones", None, lieu_zones, "lieuzones")] + PROVINCES_JOUR),
     ("r", [("alertes-jour", None, r_alertes, "alertes"), ("laboratoire-jour", None, r_labo, "labo"), ("contacts-jour", None, r_contacts, "contacts"),
-           ("cte-jour", None, r_cte, "cte"), ("isolement-jour", None, r_isolement, "isolement"), ("vaccination-jour", None, r_vaccin, "vaccin"),
+           ("isolement-provinces", None, r_iso_prov, "isoprov"), ("isolement-jour", None, r_isolement, "isolement"), ("vaccination-jour", None, r_vaccin, "vaccin"),
            ("voyageurs-jour", None, r_voyageurs, "voy"), ("alertes-postes-semaine", None, r_alertes_postes, "apost")]),
     ("s", [("part-provinces", "partTitre", h_part, "part"), ("cas-semaine", "casTitre", h_cas, "cas"),
            ("deces-semaine", "decTitre", h_deces, "sdeces"),
@@ -2408,7 +2444,7 @@ CHAPITRES = [
     ("par-province", ["provinces", "@provinces"]),
     ("zones", ["zones-plus-touchees", "zones-dynamique", "zones-actives", "zone-apres-zone", "zones-par-mois", "@zone-par-zone"]),
     ("deces", ["lieu-deces", "lieu-deces-zones"]),
-    ("riposte", ["alertes-jour", "laboratoire-jour", "contacts-jour", "cte-jour", "isolement-jour", "vaccination-jour", "voyageurs-jour", "alertes-postes-semaine"]),
+    ("riposte", ["alertes-jour", "laboratoire-jour", "contacts-jour", "isolement-provinces", "isolement-jour", "vaccination-jour", "voyageurs-jour", "alertes-postes-semaine"]),
 ]
 # (lien du menu, titre, chapeau) par chapitre ; rythme des pastilles ; menu des provinces
 CH = {

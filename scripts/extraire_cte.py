@@ -1030,6 +1030,15 @@ def recalculer_total(point):
 # (302 confirmés, 169 suspects) sur 833 lits, soit 56,5 % … d'occupation ».
 # Aucun motif ne s'y fie sans risque ; lus a la main (audit du 27 septembre
 # 2026) et ajoutes s'ils manquent.
+# LECTURES QUI REMPLACENT LA LECTURE AUTOMATIQUE (20 novembre 2026). Au 046,
+# le tableau de prise en charge sort decale du PDF : chaque libelle suit ses
+# chiffres (« Total sorties 451 135 23 609 Patients en isolement (Fin J) »),
+# et la ligne lue comme « patients de la veille » donnait 68, 11 et 3. Les
+# 451, 135 et 23 font les 609 « Patients en isolement » de la page de garde.
+LECTURES_FORCEES = {
+    "046": {"Ituri": {"hospitalises": 451}, "Nord-Kivu": {"hospitalises": 135}, "Sud-Kivu": {"hospitalises": 23}},
+}
+
 LECTURES_NOMMEES = {
     "081": {"Ituri": {"hospitalises": 471, "lits": 833, "occupation": 56.5}},
     # « 468 patients en isolement … pour 833 lits (56 %), dont 271 confirmés et
@@ -1141,6 +1150,10 @@ def lire_rapport(chemin):
     for nom, ligne in bandeau.items():
         if nom not in provinces:
             provinces[nom] = ligne
+    forcees = LECTURES_FORCEES.get(meta["sitrepNumber"])
+    if forcees:
+        provinces = {nom: dict(ligne) for nom, ligne in forcees.items()}
+        methode = "lecture nommée"
     for nom, ligne in LECTURES_NOMMEES.get(meta["sitrepNumber"], {}).items():
         if nom not in provinces:
             provinces[nom] = dict(ligne)

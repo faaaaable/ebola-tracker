@@ -1705,7 +1705,7 @@ function renderOneChartBrut(canvas, chartMode){
      qu'elle n'est pas finie — meme regle que « Nouveaux cas ». Les taux
      restent quotidiens, sur un calendrier jour par jour pour que les trous
      aient leur vraie largeur — meme idiome que le suivi des contacts. */
-  const RIPOSTE_MODES = ['alertes', 'laboratoire', 'contactsRiposte', 'cte', 'vaccination', 'pointsControle'];
+  const RIPOSTE_MODES = ['alertes', 'laboratoire', 'contactsRiposte', 'cte', 'isolement', 'vaccination', 'pointsControle'];
   if(RIPOSTE_MODES.includes(chartMode)){
     /* UNE PROVINCE (16 septembre 2026) : sur les pages de l'Ituri, du
        Nord-Kivu et du Haut-Uele, le canevas porte data-province et chaque
@@ -1844,7 +1844,7 @@ function renderOneChartBrut(canvas, chartMode){
       const ci = legend.chart, ds = ci.data.datasets, idx = item.datasetIndex;
       const visible = ci.isDatasetVisible(idx);
       ci.setDatasetVisibility(idx, !visible);
-      ds.forEach((d, i) => { if(d.pont && d.pour === ds[idx].label) ci.setDatasetVisibility(i, !visible); });
+      ds.forEach((d, i) => { if(d.pont && d.pour === (ds[idx].prov || ds[idx].label)) ci.setDatasetVisibility(i, !visible); });
       ci.update();
     };
     const sansPonts = { legend:{ labels:{ filter:(item, data)=>!data.datasets[item.datasetIndex].pont }, onClick:basculerAvecPont },
@@ -2430,6 +2430,50 @@ function renderOneChartBrut(canvas, chartMode){
     }
 
     /* ---- CTE : occupation par province ---- */
+    /* ---- Patients en isolement, province par province (20 novembre 2026).
+       Remplace sur Riposte le graphique « patients pour 100 lits » : les
+       lits manquent trop souvent (Ituri, Nord-Kivu) pour un taux du pays,
+       et les petites provinces y dessinaient des pics de quelques suspects.
+       Ici, des nombres de patients, tels que le bulletin les detaille ; pas
+       de barre quand l'Ituri ou le Nord-Kivu n'est pas chiffre, la pile ne
+       representerait pas le jour. ---- */
+    if(chartMode === 'isolement'){
+      if(!CTE || !CTE.parDate.length){ vide(); return; }
+      const PRINCIPALES = ['Ituri', 'Nord-Kivu'];
+      const lus = CTE.parDate.map(p => {
+        const v = {};
+        Object.entries(p.provinces || {}).forEach(([n, x]) => {
+          if(x && x.hospitalises !== null && x.hospitalises !== undefined) v[nomProvinceCanonique(n)] = x.hospitalises;
+        });
+        return { date:p.date, v, complet:PRINCIPALES.every(n => v[n] !== undefined) };
+      });
+      const tenus = lus.filter(p => p.complet);
+      if(!tenus.length){ vide(); return; }
+      const jours = calendrier(tenus[0].date, lus[lus.length-1].date);
+      const parDate = {}; tenus.forEach(p => { parDate[p.date] = p.v; });
+      const ordre = Object.keys(PROVINCE_COLORS);
+      const noms = [...new Set(tenus.flatMap(p => Object.keys(p.v)))].sort((a, b) => ordre.indexOf(a) - ordre.indexOf(b));
+      const sansBarre = lus.filter(p => !p.complet && p.date >= tenus[0].date).length;
+      const data = { labels:jours.map(frDate), datasets:noms.map(n => ({
+        label:n, data:jours.map(d => parDate[d] ? (parDate[d][n] ?? null) : null),
+        backgroundColor:PROVINCE_COLORS[n] || PALETTE.inkDim, stack:'a', order:2,
+        categoryPercentage:1, barPercentage:.96 })) };
+      const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+        plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels) }),
+                  tooltip:infobulle({ filter:item => item.parsed.y !== null, callbacks:{
+                    label:c=>c.dataset.label + ' : ' + fmt(c.parsed.y),
+                    footer:(items) => {
+                      const barres = items.filter(i => Number.isFinite(i.parsed && i.parsed.y));
+                      return barres.length ? tr('isolementTotal')(fmt(barres.reduce((t, i) => t + i.parsed.y, 0))) : '';
+                    } } }) },
+        scales:{ x:Object.assign(axeX(true), { stacked:true }),
+                 y:{ stacked:true, beginAtZero:true, ticks:Object.assign({}, axeTexte, { callback:v=>fmt(v) }), grid:{ color:PALETTE.lineSoft } } } };
+      dessiner('bar', data, opts);
+      noterPeriode(slot, jours[0], jours[jours.length-1]);
+      noter(tr('chartNoteIsolement')(sansBarre));
+      return;
+    }
+
     if(chartMode === 'cte'){
       if(!CTE || !CTE.parDate.length){ vide(); return; }
       /* Un jour compte des qu'une province a son taux, imprime ou calcule
@@ -2481,7 +2525,7 @@ function renderOneChartBrut(canvas, chartMode){
         const vals = serieProv(nom), couleur = PROVINCE_COLORS[nom] || PALETTE.inkDim;
         const creux = jours.map(d => emprunte(parDate[d] && parDate[d].provinces[nom]));
         indexPrincipal[nom] = datasets.length;
-        datasets.push({ label:nom, data:vals, borderColor:couleur, borderWidth:1.6,
+        datasets.push({ label:nom, prov:nom, data:vals, borderColor:couleur, borderWidth:1.6,
           pointRadius:creux.map(c => c ? 3 : 1.6), pointBorderWidth:creux.map(c => c ? 1.4 : 1),
           pointBackgroundColor:creux.map(c => c ? PALETTE.bg : couleur), pointBorderColor:couleur,
           tension:.15, spanGaps:false, order:1 });
@@ -2512,7 +2556,13 @@ function renderOneChartBrut(canvas, chartMode){
             const n = parseInt(hex.slice(1), 16);
             return 'rgba(' + (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')';
           };
-          datasets.push({ label:tr('cteNormeesLabel'), data:valsN, normees:true,
+          /* Sur la page du Nord-Kivu, les deux courbes se nomment par ce
+             qu'elles comptent (20 novembre 2026) : la foncee, tous les
+             patients ; la claire, ceux des CTE ; la bande entre les deux, les
+             structures non normees. Sur Riposte, la foncee garde le nom de la
+             province, comme les autres. */
+          if(provRip) datasets[indexPrincipal[NORMEES]].label = tr('cteToutesLabelProv');
+          datasets.push({ label:tr(provRip ? 'cteNormeesLabelProv' : 'cteNormeesLabel'), data:valsN, normees:true,
             borderColor:rgba(base, .5), borderWidth:1.4, pointRadius:1, pointBackgroundColor:rgba(base, .6),
             tension:.15, spanGaps:false, order:2,
             fill:{ target:indexPrincipal[NORMEES], above:rgba(base, .16), below:rgba(base, .16) } });
@@ -2536,10 +2586,14 @@ function renderOneChartBrut(canvas, chartMode){
           const p = parDate[jours[c.dataIndex]];
           if(c.dataset.normees){
             const nk = p.provinces[NORMEES];
-            return c.dataset.label + ' : ' + tr('ctePour100')(fmt(Math.round(c.parsed.y))) + (nk ? ' (' + fmt(nk.hospitalisesNormes) + ' / ' + fmt(nk.lits) + ') · '
+            /* Patients en CTE sur les lits des CTE : un vrai taux
+               d'occupation, celui du bulletin (20 novembre 2026). La courbe
+               foncee, qui compte aussi les structures non normees, reste en
+               « pour 100 lits ». */
+            return c.dataset.label + ' : ' + tr('cteTauxOcc')(fmt(Math.round(c.parsed.y))) + (nk ? ' (' + fmt(nk.hospitalisesNormes) + ' / ' + fmt(nk.lits) + ') · '
               + fmt(nk.hospitalises - nk.hospitalisesNormes) + ' ' + tr('cteHorsNormees') : '');
           }
-          const src = p.provinces[c.dataset.label];
+          const src = p.provinces[c.dataset.prov || c.dataset.label];
           /* Tous les hospitalises sur les lits declares — la definition que
              la courbe tient d'un bout a l'autre, y compris la ou le bulletin
              ne compte plus que ses structures normees. */
@@ -6184,7 +6238,7 @@ let zonesSearchVal = '';
 const PROVINCE_COLORS = {
   "Ituri":PALETTE.info, "Nord-Kivu":PALETTE.active, "Haut-Uélé":PALETTE.stable,
   "Tshopo":"#6B5CA5", "Sud-Kivu":PALETTE.inkDim, "Bas-Uélé":PALETTE.critical,
-  "Sud-Ubangi":"#B0487D", "Nord-Ubangi":"#7E4800"
+  "Sud-Ubangi":"#B0487D", "Nord-Ubangi":"#7D8A1F"
 };
 function cfrBadgeClass(cfr){
   if(cfr < 30) return 'zone-badge-low';
