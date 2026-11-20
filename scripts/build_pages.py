@@ -4183,11 +4183,16 @@ def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lan
                          {"hospitalises": fmt(v["hospitalises"], lang)})
         else:
             sub = ""
-        out["province.ripOccupation"] = fmt(round(v["occupation"]), lang)
+        # Taux d'occupation (20 novembre 2026) partout sauf au Nord-Kivu, ou le
+        # calcul compte aussi les patients des structures non normees : la
+        # il reste en « pour 100 lits », sans %.
+        out["province.ripOccupation"] = (fmt(round(v["occupation"]), lang) if name == "Nord-Kivu"
+                                         else fmt(round(v["occupation"]), lang) + ("%" if lang == "en" else " %"))
         out["province.ripOccupationSub"] = esc((sub + au(date)).lstrip(" ·"))
     else:
         out["province.ripOccupation"] = "—"
         out["province.ripOccupationSub"] = esc(strings_lang["riposteKpiNone"])
+    out["province.ripOccupationLabel"] = esc(strings_lang["riposteKpiOccupation" if name == "Nord-Kivu" else "riposteKpiTauxOcc"])
     if name in PROVINCES_SANS_CASES_RIPOSTE:
         return dict(out, **{"province.ripKpis": "", "province.ripKpisClass": ""})
     return dict(out, **{
@@ -4204,7 +4209,7 @@ def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lan
             '        <div class="delta">%s</div>\n'
             '      </div>\n'
             % (esc(strings_lang["riposteKpiContacts"]), out["province.ripContacts"], out["province.ripContactsSub"],
-               esc(strings_lang["riposteKpiOccupation"]), out["province.ripOccupation"], out["province.ripOccupationSub"]))})
+               out["province.ripOccupationLabel"], out["province.ripOccupation"], out["province.ripOccupationSub"]))})
 
 
 # --------------------------------------------------------------------------
@@ -4341,6 +4346,12 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
            " · ".join('<a href="%s">%s →</a>' % (esc(h), esc(t)) for h, t in liens)))
 
 
+# Provinces sans fiche riposte complete qui montrent quand meme le graphique
+# des CTE (20 novembre 2026, demande de l'utilisateur) : la Tshopo publie
+# lits et patients depuis juillet.
+CTE_SANS_FICHE = {"Tshopo"}
+
+
 def _cadre_vaccination_seule(province, riposte, meta_data, lang, strings_lang, i18n_lang, dans=""):
     """Le cadre « La riposte » des provinces qui vaccinent sans avoir la fiche
     complete (Tshopo, Bas-Uele ; 29 septembre 2026) : le chiffre des personnes
@@ -4352,7 +4363,7 @@ def _cadre_vaccination_seule(province, riposte, meta_data, lang, strings_lang, i
     vac, vac_sub = vaccines_province(riposte, nom, meta_data, lang, strings_lang, i18n_lang)
     # Chaque volet porte son chiffre a cote de son graphique, sans chaine.
     # Les controles aux points d'entree s'y ajoutent le 29 octobre 2026.
-    graph = riposte_graphiques_province(riposte, nom, lang, strings_lang, i18n_lang, seulement={"vaccination", "pointsControle"},
+    graph = riposte_graphiques_province(riposte, nom, lang, strings_lang, i18n_lang, seulement={"vaccination", "pointsControle"} | ({"cte"} if nom in CTE_SANS_FICHE else set()),
                                         chiffres={"vaccination": (vac, esc(strings_lang["ficheKpiVaccines"]), vac_sub)})
     sous = ("ficheRiposteSubVaccinPoe" if vaccine and controle
             else "ficheRiposteSubVaccin" if vaccine else "ficheRiposteSubPoe")
@@ -4548,7 +4559,11 @@ def riposte_graphiques_province(riposte, name, lang, strings_lang, i18n_lang, se
     if voulu("contacts") and sum(1 for p in contacts if ((p.get("provinces") or {}).get(name) or {}).get("taux") is not None) >= RELEVES_MIN_GRAPHIQUE:
         out.append(bloc("riposteContactsTitle", "riposteContactsSub", "provContactsChart", "contactsRiposte"))
     if voulu("cte") and _releves(riposte["cte"], name, "hospitalises") >= RELEVES_MIN_GRAPHIQUE:
-        out.append(bloc("riposteCteTitle", "riposteCteSub", "provCteChart", "cte"))
+        # Sur les pages province, le graphique reste en patients pour 100 lits :
+        # son sous-titre et son texte d'avant (20 novembre 2026), pas ceux de
+        # la page Riposte, passee aux patients en isolement.
+        out.append(bloc("riposteCteTitle", "riposteCteSubProv", "provCteChart", "cte",
+                        lede_cle="riposteCteLedeProv" if name == "Nord-Kivu" else "riposteCteLedeTaux"))
     pil = riposte["piliers"]
     pts = pil.get("parDate", []) if isinstance(pil, dict) else []
     n_vacc = sum(1 for p in pts if ((p.get("vaccination") or {}).get("cumulParProvince") or {}).get(name))
@@ -5109,7 +5124,7 @@ def main():
                 _kpis = [
                     ("contacts", esc(strings_lang["riposteKpiContacts"]),
                      _rs["province.ripContacts"], _rs["province.ripContactsSub"]),
-                    ("cte", esc(strings_lang["riposteKpiOccupation"]),
+                    ("cte", _rs["province.ripOccupationLabel"],
                      _rs["province.ripOccupation"], _rs["province.ripOccupationSub"]),
                     ("labo", esc(strings_lang["riposteKpiPositivite"]), _pos, _pos_sub),
                     ("vaccin", esc(strings_lang["ficheKpiVaccines"]), _vac, _vac_sub)]

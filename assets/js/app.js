@@ -2573,13 +2573,18 @@ function renderOneChartBrut(canvas, chartMode){
          que l'Ituri, et une moyenne qui change de perimetre sans le dire
          ment. Retiree, 28 aout. */
       const maxi = Math.max(100, ...datasets.flatMap(ds => ds.data.filter(v => v !== null)));
+      /* Taux d'occupation (20 novembre 2026) sur les pages province sauf le
+         Nord-Kivu : les patients comptes y sont ceux des CTE, et le taux
+         imprime par le bulletin est repris d'abord. Au Nord-Kivu, la courbe
+         foncee compte aussi les structures non normees : « pour 100 lits ». */
+      const enTaux = !!provRip && provRip !== NORMEES;
       const data = { labels:jours.map(frDate), datasets };
       const opts = { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:Object.assign({}, legende, { labels:Object.assign({}, legende.labels, sansPonts.legend.labels), onClick:sansPonts.legend.onClick }),
                   /* Le titre dans le graphique, comme « Nombre de personnes
                      vaccinees » (28 septembre 2026) :
                      l'axe ne disait que des pourcentages, sans dire de quoi. */
-                  title:{ display:true, text:tr('cteChartTitre'), align:'center',
+                  title:{ display:true, text:tr(enTaux ? 'cteChartTitreTaux' : 'cteChartTitre'), align:'center',
                           color:PALETTE.ink, padding:{ bottom:16 },
                           font:{ family:PALETTE.font, size:16, weight:'700' } },
                   tooltip:infobulle({ filter:sansPonts.tooltip.filter, callbacks:{ label:c=>{
@@ -2597,13 +2602,13 @@ function renderOneChartBrut(canvas, chartMode){
           /* Tous les hospitalises sur les lits declares — la definition que
              la courbe tient d'un bout a l'autre, y compris la ou le bulletin
              ne compte plus que ses structures normees. */
-          return c.dataset.label + ' : ' + tr('ctePour100')(fmt(Math.round(c.parsed.y))) + (src && src.lits ? ' (' + fmt(src.hospitalises) + ' / ' + fmt(src.lits) + ')' : '')
+          return c.dataset.label + ' : ' + tr(enTaux ? 'cteTauxOcc' : 'ctePour100')(fmt(Math.round(c.parsed.y))) + (src && src.lits ? ' (' + fmt(src.hospitalises) + ' / ' + fmt(src.lits) + ')' : '')
             + (emprunte(src) ? ' · ' + tr('cteLitsEmpruntes') : '');
         } } }) },
         /* Patients pour 100 lits, pas un pourcentage : au-dela de 100 ce ne
            sont pas des lits occupes, ce sont des malades de plus que de lits
            (12 octobre 2026). */
-        scales:{ x:axeX(true), y:Object.assign(axePct(Math.ceil(maxi/20)*20), { ticks:Object.assign({}, axeTexte, { callback:v=>v }) }) } };
+        scales:{ x:axeX(true), y:Object.assign(axePct(Math.ceil(maxi/20)*20), { ticks:Object.assign({}, axeTexte, { callback:v=>enTaux ? v + '%' : v }) }) } };
       dessiner('line', data, opts);
       noterPeriode(slot, jours[0], jours[jours.length-1]);
       /* UNE CAPACITE QUI SAUTE FAIT BAISSER UN TAUX SANS QUE RIEN NE SE
