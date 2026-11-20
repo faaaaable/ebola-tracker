@@ -4188,6 +4188,11 @@ def province_riposte_seed(riposte, name, meta_data, lang, strings_lang, i18n_lan
         # il reste en « pour 100 lits », sans %.
         out["province.ripOccupation"] = (fmt(round(v["occupation"]), lang) if name == "Nord-Kivu"
                                          else fmt(round(v["occupation"]), lang) + ("%" if lang == "en" else " %"))
+        # Nord-Kivu (20 novembre 2026) : a cote des patients pour 100 lits,
+        # le taux d'occupation des seuls CTE, celui que le bulletin imprime.
+        if name == "Nord-Kivu" and v.get("hospitalisesNormes") is not None and v.get("lits"):
+            sub += " · " + interp(strings_lang["provinceKpiOccCte"],
+                                  {"taux": fmt(round(v["hospitalisesNormes"] / v["lits"] * 100), lang)})
         out["province.ripOccupationSub"] = esc((sub + au(date)).lstrip(" ·"))
     else:
         out["province.ripOccupation"] = "—"
@@ -4349,7 +4354,7 @@ def fiche_riposte_html(numero, kpis, difficultes, source, liens, strings_lang,
 # Provinces sans fiche riposte complete qui montrent quand meme le graphique
 # des CTE (20 novembre 2026, demande de l'utilisateur) : la Tshopo publie
 # lits et patients depuis juillet.
-CTE_SANS_FICHE = {"Tshopo"}
+CTE_SANS_FICHE = {"Tshopo", "Haut-Uélé"}
 
 
 def _cadre_vaccination_seule(province, riposte, meta_data, lang, strings_lang, i18n_lang, dans=""):

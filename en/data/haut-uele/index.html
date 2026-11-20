@@ -69,7 +69,7 @@
       "url": "https://www.who.int/"
     }
   ],
-  "dateModified": "2026-11-20"
+  "dateModified": "2026-11-21"
 }
 </script>
 <script type="application/ld+json">
@@ -475,6 +475,24 @@
   <section class="section chap" id="riposte">
     <header class="chap-ouv"><span class="chap-num">04</span><div><h2 class="chap-t">Response</h2><p class="chap-chapo">What the response is doing in Haut-Uélé: finding, testing and treating patients, following up their contacts, vaccinating those most at risk.</p></div></header>
     <div class="chap-corps">
+      <div class="rp-v" id="rip-cte"><div class="rp-g">
+        <h3>Treatment centres</h3>
+        <p class="rp-sub">patients hospitalised and beds available</p>
+      <p class="fiche-texte">A saturated treatment centre pushes patients back into the community, where deaths occur outside care. The occupancy rate relates hospitalised patients, confirmed and suspected, to the beds the bulletin declares; above 100% there are more patients than beds.</p>
+      </div><div class="rp-d">
+      <div class="panel chart-panel-wrap">
+      <div class="chart-actions" data-export-chart="provCteChart">
+        <button type="button" class="share-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+          <span data-i18n="chartShareBtn">Share</span>
+        </button>
+      </div>
+        <div class="chart-panel">
+          <canvas id="provCteChart" data-chart="cte" data-province="Haut-Uélé" data-sans-titre></canvas>
+        </div>
+        <div class="map-note chart-note"></div>
+      </div>
+      </div></div>
       <div class="rp-v" id="rip-vaccin"><div class="rp-g">
         <h3>Vaccination</h3>
         <p class="rp-sub">who is vaccinated, and how many</p>

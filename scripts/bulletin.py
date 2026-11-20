@@ -797,6 +797,9 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             s4 += " " + P("lettreCteSature", liste=_liste([
                 (P("lettreCteItem", the=forms(nom)["the"], hospitalises=fmt(v["hospitalises"], lang), lits=fmt(v["lits"], lang))
                  if v.get("lits") is not None else
+                 # Taux d'occupation pour une province sans ses lits (20 novembre
+                 # 2026), comme sur sa page ; le Nord-Kivu, dont le calcul compte
+                 # les structures non normees, garde les lits (lettreCteItem).
                  P("lettreCteItemTaux", the=forms(nom)["the"], hospitalises=fmt(v["hospitalises"], lang), taux=fmt(round(v["occupation"]), lang)))
                 for nom, v in satures], et))
         phrases.append(s4)
