@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-17"
+    "fin": "2026-11-18"
   },
   "parDate": [
     {
@@ -9408,6 +9408,29 @@
       "date": "2026-11-17",
       "sitrepNumber": "187",
       "piliers": [],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-18",
+      "sitrepNumber": "188",
+      "piliers": [
+        {
+          "pilier": "laboratoire",
+          "titre": "Laboratoire",
+          "items": [
+            "Insuffisance d'équipes EDS dans certaines zones (Damas, Mambasa, Gety) et manque d'intrants PCI à Mandima, Nyankunde, Mambasa, ainsi qu'une grève signalée à Tchomia."
+          ],
+          "provinces": []
+        },
+        {
+          "pilier": "soins",
+          "titre": "Prise en charge holistique (PEC)",
+          "items": [
+            "Capacité d'accueil insuffisante dans certains CTE/CT (notamment à Kilo, Mangala, Mandima et Biakato), ainsi que 12 patients n'ayant pas bénéficié d'un soutien alimentaire dans la ZS de Mandima."
+          ],
+          "provinces": []
+        }
+      ],
       "source": "SitRep INSP (automatique)"
     }
   ]

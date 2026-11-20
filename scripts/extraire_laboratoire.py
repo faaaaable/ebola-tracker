@@ -158,6 +158,14 @@ ECHANTILLONS_RES = [
     # « 2 nouveaux échantillons de sang total reçus et analysés » (Bas-Uélé).
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux?\s+)?[ée]chantillons?\s+re[çc]us?\s+et\s+tous\s+(?:test[ée]s|analys[ée]s)", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons?\s+initiaux\s+ont\s+[ée]t[ée]\s+(?:pr[ée]lev[ée]s|re[çc]us|analys[ée]s)", re.I),
+    # « Le laboratoire a réceptionné et analysé la totalité des 236
+    # échantillons » (188, Nord-Kivu).
+    # « Sur 67 échantillons reçus, 58 ont été analysés » (188, Haut-Uélé) ;
+    # « a réceptionné 35 nouveaux échantillons … et en a analysé 20 » (188,
+    # Nord-Ubangi).
+    re.compile(r"[ée]chantillons\s+re[çc]us\s*,\s*(\d[\d ]{0,6}\d|\d)\s+ont\s+[ée]t[ée]\s+analys[ée]s", re.I),
+    re.compile(r"en\s+a\s+analys[ée]\s+(\d[\d ]{0,6}\d|\d)\b", re.I),
+    re.compile(r"analys[ée]\s+la\s+totalit[ée]\s+des\s+(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons", re.I),
     re.compile(r"(\d[\d ]{0,6}\d|\d)\s*nouveaux\s+[ée]chantillons?\s+de\s+sang(?:\s+total)?\s+re[çc]us?\s+et\s+analys[ée]s?", re.I),
 ]
 POSITIFS_RES = [
@@ -227,6 +235,11 @@ CONFIRME_VALIDE_SUR_RE = re.compile(
     r"(\d+)\s+nouveaux?\s+cas\s+confirm[ée]s?\s+et\s+valid[ée]s?\s*(?:\([^)]{0,30}\)\s*)?sur\s+(\d[\d ]{0,4}\d|\d)\s+nouveaux\s+suspects\s+test[ée]s", re.I)
 
 
+COMPRENANT_RE = re.compile(
+    r"[ée]chantillons\s+ont\s+[ée]t[ée]\s+re[çc]us\s*,\s*comprenant\s+(\d[\d ]{0,5}\d|\d)\s+nouveaux\s+pr[ée]l[èe]vements\s*,\s*(\d[\d ]{0,5}\d|\d)\s+r[ée]?\s?pr[ée]l[èe]vements", re.I)
+MOYENNE_GENERALE_RE = re.compile(r"moyenne\s+g[ée]n[ée]rale\s+de\s+(\d+(?:[,.]\d+)?)\s*%", re.I)
+
+
 def candidats(regexes, texte):
     """Tous les nombres que les motifs trouvent, dans l'ordre des motifs."""
     out = []
@@ -279,6 +292,18 @@ def lire_province(morceau):
     # « reçus et testés au total » (181 Ituri) : ce « au total » n'ouvre pas
     # une synthese, la coupure ci-dessous emportait toute la ligne.
     morceau = re.sub(r"\b((?:re[çc]u|test[ée]|analys[ée]|r[ée]ceptionn[ée])s?)\s+au\s+total\b", r"\1", morceau, flags=re.I)
+    # « Au total, 289 échantillons ont été reçus, comprenant 128 nouveaux
+    # prélèvements, 20 reprélèvements et 141 échantillons en cours ou testés
+    # … pour une moyenne générale de 16,7 % » (188, Ituri) : le taux porte sur
+    # les nouveaux et les reprélèvements (148) ; les positifs ne sont pas
+    # imprimés et 148 × 16,7 % ne tombe pas sur un entier, ils restent vides.
+    mc = COMPRENANT_RE.search(morceau)
+    if mc:
+        ligne = {"echantillons": entier(mc.group(1)) + entier(mc.group(2)), "positifs": None}
+        mg = MOYENNE_GENERALE_RE.search(morceau)
+        if mg:
+            ligne["positivite"] = pourcent(mg.group(1))
+        return ligne
     synthese = AU_TOTAL_POSITIFS_RE.search(morceau)
     categories = CATEGORIE_TESTES_RE.findall(morceau)
     c = COUPURE_RE.search(morceau)
@@ -332,8 +357,17 @@ def lire_province(morceau):
     # retombent exactement sur les échantillons analysés, les positifs sont la
     # somme des numérateurs (24 sur 254).
     fr = [(int(a), int(b)) for a, b in re.findall(r"\((\d+)\s*/\s*(\d+)\)", morceau)]
+    fractions_nouveaux = None
     if positifs is None and echantillons and len(fr) >= 2 and sum(b for _, b in fr) == echantillons:
         positifs = sum(a for a, _ in fr)
+        # « 10,8 % sur les nouveaux prélèvements (16/148), de 13 % sur les
+        # prélèvements de contrôle (5/40) … » (188 Nord-Kivu) : le premier
+        # taux ne vaut que pour les nouveaux, qui donnent les nouveaux cas.
+        if positivite is not None and abs(positifs / echantillons * 100 - positivite) > 1.5:
+            positivite = None
+        mn = re.search(r"nouveaux\s+pr[ée]l[èe]vements\s*\((\d+)\s*/\s*\d+\)", morceau, re.I)
+        if mn:
+            fractions_nouveaux = int(mn.group(1))
     # « 12 cas positifs MVE reprélevés pour suivi virologique, et 14 cas
     # négatifs MVE reprélevés » (182 Tshopo) : des négatifs cités à côté de
     # positifs ne disent pas « aucun positif ».
@@ -397,6 +431,8 @@ def lire_province(morceau):
         # Positifs = nouveaux cas + réprélèvements : les seconds ne sont pas des
         # cas. On garde les deux, le graphique ne trace que les nouveaux.
         ligne["nouveauxCas"] = int(nouveaux.group(1))
+    if nouveaux_n is None and fractions_nouveaux is not None:
+        nouveaux_n = fractions_nouveaux
     if nouveaux_n is not None:
         ligne["nouveauxCas"] = nouveaux_n
     if vivants is not None:

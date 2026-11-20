@@ -225,7 +225,7 @@ def lire_pci(corps):
             # « 102 alertes EDS reçues, 75 réalisées (74 %) » (180 Ituri).
             ("realisees", [r"(\d+) EDS (?:complets? )?(?:ont [ée]t[ée] |a [ée]t[ée] )?r[ée]alis",
                            r"alertes(?: EDS| d[’']EDS)? re[çc]ues,\s+(\d+) r[ée]alis[ée]e?s",
-                           r"r[ée]alis[ée] (?:les )?(\d+) EDS",
+                           r"r[ée]alis(?:[ée]|er) (?:les )?(\d+) EDS",  # « permettant de réaliser 72 EDS » (188)
                            # « 64 enterrements réalisés au total, comprenant
                            # 57 corps swabés » (182 Nord-Kivu).
                            r"(\d+) enterrements r[ée]alis"]),
@@ -536,6 +536,11 @@ def lire_vaccination(corps, texte_entier):
         # ont été vaccinées au cours des dernières 24 heures »).
         if re.search(r"derni[èe]res 24 ?h", phr):
             prec = phr; continue
+        # « À Bunia, 38 personnes ont été vaccinées au cours de la journée »
+        # (188 Ituri) : le jour seul, sans cumul dans la phrase.
+        if (re.search(r"au cours de la journ[ée]e", phr)
+                and not re.search(r"cumul|au total|à ce jour", phr, re.I)):
+            prec = phr; continue
         # « Ituri : 99 personnes vaccinées aujourd’hui (65 hommes, 34
         # femmes). Cumul de 3 368, dont 31 femmes enceintes » (179) : le
         # chiffre du jour donnait 99 vaccines a l'Ituri (3 023 la veille) ;
@@ -766,6 +771,15 @@ def extraire(num, chemin, date):
     secs = sections(txt)
     poe = trouver(secs, "point", "contr") or trouver(secs, "poc/poe")
     pci = trouver(secs, "pci") or trouver(secs, "prévention")
+    # SitRep 188 : le titre « Prévention et Contrôle de l'Infection (PCI/EDS) »
+    # a perdu son numéro et tombe dans « 2.3. Laboratoire » ; les rings et
+    # les EDS sortaient vides. On le cherche alors comme simple ligne, jusqu'a
+    # la rubrique numerotee suivante.
+    if pci is None:
+        m = re.search(r"\n[^\n\d]{0,12}Pr[ée]vention et Contr[ôo]le de l[’']Infection[^\n]*\n", txt)
+        if m:
+            fin = re.search(r"\n\s*\d\.\d{1,2}\.\s+(?!Principales|D[ée]fis)", txt[m.end():], re.I)
+            pci = txt[m.start():m.end() + (fin.start() if fin else 4000)]
     vac = trouver(secs, "vaccination")
     # SitRep 160 (24 octobre 2026) : « 2.6. Vaccination » suivi aussitot de
     # « 2.7. Principales actions », qui porte le texte de la vaccination

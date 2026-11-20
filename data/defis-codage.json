@@ -12763,6 +12763,25 @@
 "province": "Ituri",
 "obstacles": []
 }
+],
+"capacité d accueil insuffisante dans certains cte ct notamment à kilo mangala mandima et biakato ainsi que # patients n ayant pas bénéficié d un soutien alimentaire dans la zs de mandima": [
+{
+"province": "Ituri",
+"obstacles": [
+"saturation",
+"ruptures"
+]
+}
+],
+"insuffisance d équipes eds dans certaines zones damas mambasa gety et manque d intrants pci à mandima nyankunde mambasa ainsi qu une grève signalée à tchomia": [
+{
+"province": "Ituri",
+"obstacles": [
+"eds",
+"ruptures",
+"impayes"
+]
+}
 ]
 }
 }

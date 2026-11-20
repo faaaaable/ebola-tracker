@@ -81,6 +81,13 @@ CAS_CONF_SUSP_RE = re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+et\s
 # Haut-Uele) : sans « sont ».
 SOMME_RES = (CAS_CONF_SUSP_RE,)
 HOSPITALISES_RES = [
+    # 188 : « On dénombre 3 patients suspects aux lits » (Sud-Ubangi),
+    # « 43 cas suspects (et 0 cas confirmé) demeurent en isolement »
+    # (Bas-Uele), « Vingt-neuf (29) patients sont actuellement sous
+    # observation au lit » (Nord-Ubangi).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+suspects\s+aux\s+lits\b", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+suspects\s*\(\s*et\s+(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s?\s*\)\s*demeurent\s+en\s+isolement", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+sont\s+actuellement\s+sous\s+observation\s+au\s+lit", re.I),
     # « 33 patients suspects en cours d'isolement dans les structures » (184
     # Bas-Uele), « portant le total de patients aux lits à 16 » (184 Tshopo).
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+(?:suspects\s+)?en\s+cours\s+d[’']isolement", re.I),
@@ -287,10 +294,11 @@ CTE_OCCUPES_RE = re.compile(
 # « 100 % (5/5) des enfants » pour 5 lits. Groupes : patients aux lits, taux, lits.
 # « Le taux d'occupation global des lits s'établit à 72 % (314 lits occupés
 # sur 434, soit 55 % pour les confirmés … » (187 Nord-Kivu, 577 hospitalises
+# ; « 82,7 % (pour 359 lits occupés sur 434) », 188
 # dont 263 hors CTE/CT). Groupes comme HOSPITALISES_AUX_LITS_RE : taux,
 # patients aux lits, lits.
 LITS_OCCUPES_SUR_RE = re.compile(
-    r"occupation[^%;]{0,60}?(\d+(?:[,.]\d+)?)\s*%\s*\(\s*(\d[\d ]{0,4}\d|\d)\s+lits\s+occup[ée]s\s+sur\s+(\d[\d ]{0,4}\d|\d)\b", re.I)
+    r"occupation[^%;]{0,60}?(\d+(?:[,.]\d+)?)\s*%\s*\(\s*(?:pour\s+)?(\d[\d ]{0,4}\d|\d)\s+lits\s+occup[ée]s\s+sur\s+(\d[\d ]{0,4}\d|\d)\b", re.I)
 CTE_SUR_LITS_RE = re.compile(
     r"(\d[\d ]{0,4}\d|\d)\s+sont\s+en\s+CTE(?:/CT)?\s*\(\s*taux\s+d[’']occupation\s+global\s+de\s+(\d+(?:[,.]\d+)?)\s*%\s+sur\s+(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
 OCCUPATION_RES = [
@@ -453,12 +461,14 @@ def lire_prose(morceau):
             ligne["lits"] = lits_c
             ligne["_occCte"] = taux_c
     ma = HOSPITALISES_AUX_LITS_RE.search(morceau) or LITS_OCCUPES_SUR_RE.search(morceau)
-    if ma and "hospitalisesNormes" not in ligne:
+    if ma and ("hospitalisesNormes" not in ligne or ligne.get("lits") == ligne.get("hospitalisesNormes")):
         taux_frac, aux_lits, lits_frac = pourcent(ma.group(1)), entier(ma.group(2)), entier(ma.group(3))
         if (aux_lits is not None and lits_frac and aux_lits < hosp and taux_frac is not None
                 and abs(aux_lits / lits_frac * 100 - taux_frac) <= 1.5):
             ligne["hospitalisesNormes"] = aux_lits
-            if not ligne.get("lits"):
+            # « 82,7 % (pour 359 lits occupés sur 434) » (188) : LITS_RE a
+            # pris les 359 lits occupes pour la capacite.
+            if not ligne.get("lits") or ligne.get("lits") == aux_lits:
                 ligne["lits"] = lits_frac
     occ = None
     for rx in OCCUPATION_RES:
@@ -556,9 +566,19 @@ def section_prose(texte):
     v = re.search(r"\b\d\.\d{1,2}\.?\s+Vaccination\b", reste)
     if v:
         reste = reste[:v.start()]
-    d = re.search(r"\n[\d.\s]{0,12}D[ée]fis\b", reste)
-    if d:
-        reste = reste[:d.start()]
+    # « Défis majeurs : … » au milieu de la rubrique, suivi d'autres provinces
+    # en tete de ligne (« Sud-Ubangi : … », 188) : on saute ce paragraphe au
+    # lieu de couper, sinon le Sud-Ubangi, le Haut-Uele, le Bas-Uele et le
+    # Nord-Ubangi disparaissaient.
+    while True:
+        d = re.search(r"\n[\d.\s]{0,12}D[ée]fis\b", reste)
+        if not d:
+            break
+        suite = re.search(r"\n\s*(?:%s)\s*:?\s" % PROVINCES_RE, reste[d.end():d.end() + 600])
+        if re.match(r"\n\s*\d", d.group(0)) or not suite:
+            reste = reste[:d.start()]
+            break
+        reste = reste[:d.start()] + reste[d.end() + suite.start():]
     g = re.search(r"\n\s*Au total,\s*\d[\d ]*\s+nouvelles\s+admissions", reste)
     return reste[:g.start()] if g else reste
 

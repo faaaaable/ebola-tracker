@@ -314,6 +314,12 @@ KPI_CORRIGES = {
     # Haut-Uele, 42 suspects isoles au Bas-Uele, 28 au Nord-Ubangi, 12 a la
     # Tshopo et 3 au Sud-Ubangi.
     "187": {"inCTE": (1743, None)},
+    # Le SitRep 188 imprime 1 722 quand ses six provinces chiffrees en
+    # detaillent 1 333 : 638 au Nord-Kivu (359 aux lits et 279 hors CTE/CT),
+    # 607 en Ituri, 43 suspects isoles au Bas-Uele, 29 au Nord-Ubangi, 13 a la
+    # Tshopo et 3 au Sud-Ubangi. Meme avec les 73 du Haut-Uele de la veille,
+    # le detail ne passe pas 1 406.
+    "188": {"inCTE": (1722, None)},
 }
 
 
