@@ -125,6 +125,9 @@ TXT = {
   casTitre="Les nouveaux cas, semaine après semaine", casSous="Cas confirmés déclarés chaque semaine, du lundi au dimanche, depuis la semaine du {d}.",
   casPhrase="Du {a} au {b} : {n} nouveaux cas, {v} par rapport à la semaine précédente.",
   casNote="Semaines des 20 et 27 juillet : rattrapages administratifs ({r1} et {r2} cas).",
+  decTitre="Les décès, semaine après semaine", decSous="Décès déclarés chaque semaine, du lundi au dimanche, depuis la semaine du {d}.",
+  decPhrase="Du {a} au {b} : {n} décès, {v} par rapport à la semaine précédente.",
+  decNote="Semaines des 20 et 27 juillet : rattrapages de décès les 22 et 30 juillet.",
   lieuTitre="Où meurent les malades", lieuSous="Part des décès survenus dans la communauté et en centre de traitement, semaine par semaine, depuis que les bulletins la publient.",
   lieuCom="décès dans la communauté", lieuCte="décès dans un centre de traitement",
   lieuPhrase="Du {a} au {b}, {p} des décès sont survenus hors d'un centre de traitement ({c} sur {t}).",
@@ -171,6 +174,9 @@ TXT = {
   casTitre="New cases, week by week", casSous="Confirmed cases reported each week, Monday to Sunday, since the week of {d}.",
   casPhrase="{a} to {b}: {n} new cases, {v} on the previous week.",
   casNote="Weeks of 20 and 27 July: administrative catch-ups ({r1} and {r2} cases).",
+  decTitre="Deaths, week by week", decSous="Deaths reported each week, Monday to Sunday, since the week of {d}.",
+  decPhrase="{a} to {b}: {n} deaths, {v} on the previous week.",
+  decNote="Weeks of 20 and 27 July: death catch-ups on 22 and 30 July.",
   lieuTitre="Where patients die", lieuSous="Share of deaths in the community and in treatment centres, week by week, since the bulletins started publishing it.",
   lieuCom="deaths in the community", lieuCte="deaths in a treatment centre",
   lieuPhrase="From {a} to {b}, {p} of deaths happened outside a treatment centre ({c} of {t}).",
@@ -216,6 +222,9 @@ TXT = {
   casTitre="Visa vipya, wiki baada ya wiki", casSous="Visa vilivyothibitishwa vilivyotangazwa kila wiki, Jumatatu hadi Jumapili, tangu wiki ya {d}.",
   casPhrase="{a} hadi {b}: visa vipya {n}, {v} ikilinganishwa na wiki iliyotangulia.",
   casNote="Wiki za 20 na 27 Julai: marekebisho ya kiutawala (visa {r1} na {r2}).",
+  decTitre="Vifo, wiki baada ya wiki", decSous="Vifo vilivyotangazwa kila wiki, Jumatatu hadi Jumapili, tangu wiki ya {d}.",
+  decPhrase="{a} hadi {b}: vifo {n}, {v} ikilinganishwa na wiki iliyotangulia.",
+  decNote="Wiki za 20 na 27 Julai: marekebisho ya vifo tarehe 22 na 30 Julai.",
   lieuTitre="Wagonjwa wanafia wapi", lieuSous="Sehemu ya vifo vilivyotokea katika jamii na katika vituo vya matibabu, wiki baada ya wiki, tangu ripoti zianze kuichapisha.",
   lieuCom="vifo katika jamii", lieuCte="vifo katika kituo cha matibabu",
   lieuPhrase="Kuanzia {a} hadi {b}, {p} ya vifo vilitokea nje ya kituo cha matibabu ({c} kati ya {t}).",
@@ -253,6 +262,7 @@ PAGE = {
             provinces="L'épidémie reste concentrée dans le nord-est : les autres provinces du pays n'ont déclaré aucun cas.",
             part="La part de chaque province dans les cas de chaque semaine : on y voit monter le Nord-Kivu face à l'Ituri.",
             cas="La tendance sans le bruit des jours : une semaine pleine lisse les jours sans bulletin.",
+            sdeces="Les décès suivent les cas avec quelques jours de retard : la semaine lisse ce décalage.",
             lieu="Un décès dans la communauté est un malade qui n'a pas été isolé à temps : c'est ce qui échappe à la riposte.",
             zones="Une zone calme depuis trois semaines n'a plus de chaîne de transmission connue.",
             tapis="Une ligne par zone, dans l'ordre d'arrivée du virus : l'escalier dit l'extension, la teinte l'intensité.",
@@ -273,6 +283,7 @@ PAGE = {
             provinces="The outbreak remains concentrated in the north-east: the country's other provinces have reported no cases.",
             part="Each province's share of each week's cases: North Kivu rising against Ituri.",
             cas="The trend without the day-to-day noise: a full week smooths out the days without a bulletin.",
+            sdeces="Deaths follow cases a few days later: a full week smooths out that lag.",
             lieu="A death in the community is a patient who was not isolated in time: what escapes the response.",
             zones="A zone quiet for three weeks no longer has a known chain of transmission.",
             tapis="One row per zone, in the order the virus arrived: the staircase shows the spread, the shade the intensity.",
@@ -293,6 +304,7 @@ PAGE = {
             provinces="Mlipuko bado umejikita kaskazini-mashariki: majimbo mengine ya nchi hayajatangaza kisa chochote.",
             part="Sehemu ya kila jimbo katika visa vya kila wiki: Kivu Kaskazini inapanda dhidi ya Ituri.",
             cas="Mwelekeo bila kelele za kila siku: wiki nzima inalainisha siku zisizo na ripoti.",
+            sdeces="Vifo hufuata visa kwa siku chache: wiki nzima inalainisha tofauti hiyo.",
             lieu="Kifo katika jamii ni mgonjwa ambaye hakutengwa kwa wakati: kile kinachokwepa mapambano.",
             zones="Kanda iliyotulia kwa wiki tatu haina tena mnyororo wa maambukizi unaojulikana.",
             tapis="Mstari mmoja kwa kila kanda, kwa mpangilio wa kufika kwa virusi: ngazi zinaonyesha kuenea, rangi inaonyesha ukali.",
@@ -647,25 +659,40 @@ def h_part(c):
     return c.carte(t["partTitre"], t["partSous"], "".join(out), h=1110, pied=c.pied_semaine())
 
 
-def h_cas(c):
+def _h_barres(c, champ, teintes, cle):
+    """Barres par semaine (cas ou deces), du lundi au dimanche."""
     t = c.t
-    vals = [c.au(b)["confirmed"] - c.au(a - dt.timedelta(1))["confirmed"] for a, b in c.semaines]
+    vals = [(c.au(b)[champ] or 0) - (c.au(a - dt.timedelta(1))[champ] or 0) for a, b in c.semaines]
     X0, X1, Y0, Y1 = 110, 1140, 290, 840
     mx = max(vals); bw = (X1 - X0) / len(vals); out = []
-    for v in range(0, mx + 1, 100 if mx > 400 else 50):
+    pas = 100 if mx > 400 else (50 if mx > 150 else 20)
+    for v in range(0, mx + 1, pas):
         y = Y1 - (Y1 - Y0) * v / mx
         out.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="%s"/>' % (X0, X1, y, y, LINE_SOFT) + c.T(X0 - 12, y + 5, c.nb(v), 13, INK_FAINT, "end"))
     for i, ((a, b), v) in enumerate(zip(c.semaines, vals)):
         x = X0 + i * bw + 3; h = (Y1 - Y0) * v / mx
-        col = BLUE if i == len(vals) - 1 else ("#7EACC3" if i == len(vals) - 2 else "#B7D3E1")
+        col = teintes[0] if i == len(vals) - 1 else (teintes[1] if i == len(vals) - 2 else teintes[2])
         out.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="2" fill="%s"><title>%s → %s : %s</title></rect>' % (x, Y1 - h, bw - 6, h, col, esc(c.dc(a)), esc(c.dc(b)), c.nb(v)))
         out.append(c.T(x + (bw - 6) / 2, Y1 - h - 7, c.nb(v), 12, INK if i >= len(vals) - 2 else INK_DIM, "middle", 700 if i == len(vals) - 1 else 500))
     out.append(c.axe_semaines(X0, bw, Y1, c.semaines))
     a, b = c.semaines[-1]
-    out.append(c.T(60, 975, t["casPhrase"].format(a=c.dc(a), b=c.dc(b), n=c.nb(vals[-1]), v=c.var(vals[-1], vals[-2])), 24, INK, fam=SERIF))
+    out.append(c.T(60, 975, t[cle + "Phrase"].format(a=c.dc(a), b=c.dc(b), n=c.nb(vals[-1]), v=c.var(vals[-1], vals[-2])), 24, INK, fam=SERIF))
+    return vals, out
+
+
+def h_cas(c):
+    t = c.t
+    vals, out = _h_barres(c, "confirmed", (BLUE, "#7EACC3", "#B7D3E1"), "cas")
     r = [c.jours.get(D(k), (0, 0))[0] - v for k, v in sorted(RATTRAPAGES.items())]
     out.append(c.T(60, 1008, t["casNote"].format(r1=c.nb(r[0]), r2=c.nb(r[1])), 15, INK_DIM))
     return c.carte(t["casTitre"], t["casSous"].format(d=c.dc(c.semaines[0][0])), "".join(out), h=1110, pied=c.pied_semaine())
+
+
+def h_deces(c):
+    t = c.t
+    vals, out = _h_barres(c, "deaths", (RED, REDS[2], REDS[1]), "dec")
+    out.append(c.T(60, 1008, t["decNote"], 15, INK_DIM))
+    return c.carte(t["decTitre"], t["decSous"].format(d=c.dc(c.semaines[0][0])), "".join(out), h=1110, pied=c.pied_semaine())
 
 
 def h_lieu(c):
@@ -2330,6 +2357,7 @@ LISTE = [
            ("cte-jour", None, r_cte, "cte"), ("isolement-jour", None, r_isolement, "isolement"), ("vaccination-jour", None, r_vaccin, "vaccin"),
            ("voyageurs-jour", None, r_voyageurs, "voy"), ("alertes-postes-semaine", None, r_alertes_postes, "apost")]),
     ("s", [("part-provinces", "partTitre", h_part, "part"), ("cas-semaine", "casTitre", h_cas, "cas"),
+           ("deces-semaine", "decTitre", h_deces, "sdeces"),
            ("cas-semaine-provinces", None, h_cas_provinces, "spcas"), ("lieu-deces", "lieuTitre", h_lieu, "lieu"),
            ("zones-actives", "zonTitre", h_zones, "zones"), ("zone-apres-zone", "tapTitre", h_tapis, "tapis")]),
     ("m", [("zones-par-mois", None, m_zones, "mzones"), ("cas-par-mois", None, m_cas, "mcas"), ("deces-par-mois", None, m_deces, "mdeces"), ("part-par-mois", None, m_part, "mpart")]),
@@ -2376,7 +2404,7 @@ def cartes_html(c, lang):
 CHAPITRES = [
     ("essentiel", ["relief-4x5", "nouveaux-cas-jour", "nouveaux-deces-jour", "calendrier", "code-barre"]),
     ("histoire", ["dix-sept-epidemies", "comparaison-2014-cas", "comparaison-2014-deces"]),
-    ("rythme", ["cas-semaine", "cas-semaine-provinces", "part-provinces", "cas-par-mois", "deces-par-mois", "part-par-mois"]),
+    ("rythme", ["cas-semaine", "cas-semaine-provinces", "deces-semaine", "part-provinces", "cas-par-mois", "deces-par-mois", "part-par-mois"]),
     ("par-province", ["provinces", "@provinces"]),
     ("zones", ["zones-plus-touchees", "zones-dynamique", "zones-actives", "zone-apres-zone", "zones-par-mois", "@zone-par-zone"]),
     ("deces", ["lieu-deces", "lieu-deces-zones"]),
