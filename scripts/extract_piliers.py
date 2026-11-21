@@ -23,7 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "piliers.json")
 
 NUM = r"(\d{1,3}(?:[   ]\d{3})+|\d+)"
-MOTS = {"unique": 1, "un": 1, "une": 1, "deux": 2, "trois": 3, "quatre": 4, "cinq": 5, "six": 6, "sept": 7,
+MOTS = {"aucun": 0, "unique": 1, "un": 1, "une": 1, "deux": 2, "trois": 3, "quatre": 4, "cinq": 5, "six": 6, "sept": 7,
         "huit": 8, "neuf": 9, "dix": 10, "onze": 11, "douze": 12, "quinze": 15, "vingt": 20}
 
 
@@ -170,7 +170,9 @@ def lire_pci(corps):
                 # « 12 des 22 anneaux prévus ont été ouverts » (187 Nord-Kivu),
                 # « l'ouverture de 16 anneaux sur les 26 prévus » (187 Ituri).
                 re.finditer(r"(\d+) des (\d+) anneaux (?:pr[ée]vus )?ont [ée]t[ée] ouverts", p)) + list(
-                re.finditer(r"ouverture de (\d+) anneaux sur les (\d+)", p)):
+                re.finditer(r"ouverture de (\d+) anneaux sur les (\d+)", p)) + list(
+                # « 55 rings sur 59 sont ouverts (93,2 %) » (189 Nord-Kivu).
+                re.finditer(r"(\d+) rings? sur (\d+) sont ouverts", p)):
             add_ring(p, m.start(), int(m.group(1)), int(m.group(2)))
         m = re.search(r"les (\d+) rings attendus ont tous été ouverts", p)
         if m:
@@ -228,7 +230,12 @@ def lire_pci(corps):
                            r"r[ée]alis(?:[ée]|er) (?:les )?(\d+) EDS",  # « permettant de réaliser 72 EDS » (188)
                            # « 64 enterrements réalisés au total, comprenant
                            # 57 corps swabés » (182 Nord-Kivu).
-                           r"(\d+) enterrements r[ée]alis"]),
+                           r"(\d+) enterrements r[ée]alis",
+                           # « 67 alertes de décès ont généré la réalisation de
+                           # 59 EDS » (189 Nord-Kivu), « aucun EDS n'a pu être
+                           # réalisé » (189 Nord-Ubangi).
+                           r"r[ée]alisation de (\d+) EDS",
+                           r"(aucun) EDS n[’']a pu [êe]tre r[ée]alis"]),
             # « la sécurisation et le prélèvement (swab) de 16 corps » (180 Ituri).
             ("swabes", [# « 69 corps sur 94 ont été swabés » (187 Ituri) : sans ce
                         # motif, « 94 ont été swabés » etait lu.
@@ -241,7 +248,9 @@ def lire_pci(corps):
                         r"(\d+) ont [ée]t[ée] swab",
                         r"(\d+) corps pr[ée]lev",
                         # « 3 swabs réalisés, mais 0 EDS réalisé » (182 Bas-Uele).
-                        r"(\d+) swabs? r[ée]alis"]),
+                        r"(\d+) swabs? r[ée]alis",
+                        # « un seul corps a toutefois pu être swabé » (189 Nord-Ubangi).
+                        r"(un) seul corps a (?:toutefois )?pu [êe]tre swab"]),
             ("nonSwabes", [r"(\d+) corps n[’']ayant pu",
                            r"(\d+) corps non swab",
                            r"(\d+) corps n[’']ont pu [êe]tre swab",
@@ -258,6 +267,12 @@ def lire_pci(corps):
                     # depuis le début » (180 Sud-Ubangi) : un cumul, pas le jour.
                     if m and re.search(r"\bcumul\b[^.;]{0,50}$", txt[max(0, m.start() - 60):m.start()], re.IGNORECASE):
                         break
+                    # « la CREC a facilité […] la réalisation de 40 EDS sur 43 »
+                    # (175), « Appui aux autres piliers : PCI : réalisation de
+                    # 8 EDS » (036) : les EDS du pilier PCI, deja comptes.
+                    if m and motif.startswith("r[ée]alisation") and re.search(
+                            r"\bCREC\b|appui aux autres piliers", txt[:m.start()], re.IGNORECASE):
+                        continue
                     if m:
                         v = nombre_ou_mot(m.group(1))
                         if v is not None:
@@ -601,6 +616,11 @@ def lire_vaccination(corps, texte_entier):
         m = re.search(r"pr[ée]-?\s?enregistrée?s\s*(?:\([^)]{0,80}\))?\s*,\s*" + NUM + r"\s+ont\s+été\s+vaccinée?s", phr)
         if m:
             pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
+        # « 4 428 personnes pré-enregistrées et 3 388 personnes effectivement
+        # vaccinées (1 827 hommes et 1 561 femmes) » (189 Haut-Uele).
+        m = re.search(r"pr[ée]-?\s?enregistrée?s\s+et\s+" + NUM + r"\s+personnes\s+effectivement\s+vaccinée?s", phr)
+        if m:
+            pose(_province_ici(m), entier(m.group(1))); prec = phr; continue
         # « au cumul, 1 972 personnes sur 13 202 ciblées (14,9 %) ont été
         # vaccinées dans la province » (Bas-Uele, 171) : la cible s'intercale
         # entre le nombre et « vaccinées », jamais lu (3 novembre 2026).
@@ -744,7 +764,8 @@ def lire_refus(corps):
     par, sans = {}, 0
     def ajoute(prov, n):
         par[prov] = par.get(prov, 0) + n
-    for m in re.finditer(NUM + r" refus de (?:screening|dépistage)", t):
+    # « 282 personnes ont refusé le screening (1,2 %) » (189 Tshopo).
+    for m in re.finditer(NUM + r"(?: refus de (?:screening|dépistage)| personnes ont refusé le (?:screening|dépistage))", t):
         n = entier(m.group(1))
         apres = t[m.end():m.end() + 120]
         f = re.match(r"\s*(?:\([^)]*\)\s*)?(?:ont été enregistrés\s+)?(?:et " + NUM + r" refus de lavage des mains\s+)?" + _PREP + _PROV_REFUS, apres)
@@ -776,7 +797,9 @@ def extraire(num, chemin, date):
     # les EDS sortaient vides. On le cherche alors comme simple ligne, jusqu'a
     # la rubrique numerotee suivante.
     if pci is None:
-        m = re.search(r"\n[^\n\d]{0,12}Pr[ée]vention et Contr[ôo]le de l[’']Infection[^\n]*\n", txt)
+        # SitRep 189 : « 3. Prévention et Contrôle de l'Infection (PCI/EDS) »,
+        # numero a un seul chiffre devant le titre.
+        m = re.search(r"\n\s*(?:\d\.\s*)?[^\n\d]{0,12}Pr[ée]vention et Contr[ôo]le de l[’']Infection[^\n]*\n", txt)
         if m:
             fin = re.search(r"\n\s*\d\.\d{1,2}\.\s+(?!Principales|D[ée]fis)", txt[m.end():], re.I)
             pci = txt[m.start():m.end() + (fin.start() if fin else 4000)]

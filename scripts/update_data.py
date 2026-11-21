@@ -320,6 +320,11 @@ KPI_CORRIGES = {
     # Tshopo et 3 au Sud-Ubangi. Meme avec les 73 du Haut-Uele de la veille,
     # le detail ne passe pas 1 406.
     "188": {"inCTE": (1722, None)},
+    # Le SitRep 189 imprime 2 079 quand ses six provinces chiffrees en
+    # detaillent 1 161 : 604 au Nord-Kivu (361 aux lits et 243 hors CTE/CT),
+    # 415 en Ituri, 54 au Haut-Uele, 48 suspects isoles au Bas-Uele, 27 au
+    # Nord-Ubangi et 13 a la Tshopo (12 au CTE Meteo, 1 au CT Kongakonga).
+    "189": {"inCTE": (2079, None)},
 }
 
 

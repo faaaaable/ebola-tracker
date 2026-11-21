@@ -81,6 +81,13 @@ CAS_CONF_SUSP_RE = re.compile(r"(\d[\d ]{0,4}\d|\d)\s+cas\s+confirm[ée]s\s+et\s
 # Haut-Uele) : sans « sont ».
 SOMME_RES = (CAS_CONF_SUSP_RE,)
 HOSPITALISES_RES = [
+    # 189 : « compte 12 patients actifs (9 suspects et 3 confirmés), auxquels
+    # s'ajoute 1 patient au CT Kongakonga » (Tshopo, 13 au total), « 48
+    # patients suspects sont actuellement pris en charge en isolement »
+    # (Bas-Uele), « Au total, 27 patients sont alités » (Nord-Ubangi).
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+actifs\s*\([^)]{0,60}\)\s*,?\s*auxquels\s+s[’']ajoute(?:nt)?\s+(\d[\d ]{0,4}\d|\d)\s+patients?\b", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+(?:suspects\s+)?sont\s+actuellement\s+pris\s+en\s+charge\s+en\s+isolement", re.I),
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+patients\s+sont\s+alit[ée]s\b", re.I),
     # 188 : « On dénombre 3 patients suspects aux lits » (Sud-Ubangi),
     # « 43 cas suspects (et 0 cas confirmé) demeurent en isolement »
     # (Bas-Uele), « Vingt-neuf (29) patients sont actuellement sous
@@ -302,7 +309,9 @@ LITS_OCCUPES_SUR_RE = re.compile(
 CTE_SUR_LITS_RE = re.compile(
     r"(\d[\d ]{0,4}\d|\d)\s+sont\s+en\s+CTE(?:/CT)?\s*\(\s*taux\s+d[’']occupation\s+global\s+de\s+(\d+(?:[,.]\d+)?)\s*%\s+sur\s+(\d[\d ]{0,4}\d|\d)\s+lits", re.I)
 OCCUPATION_RES = [
-    re.compile(r"taux\s+d[’']occupation[^%\d]{0,30}?(\d+(?:[,.]\d+)?)\s*%", re.I),
+    # « le taux d'occupation global des lits est affiché à 83,2 % » (189
+    # Nord-Kivu) : 31 caracteres entre le mot et le taux, d'ou 40.
+    re.compile(r"taux\s+d[’']occupation[^%\d]{0,40}?(\d+(?:[,.]\d+)?)\s*%", re.I),
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+d[’']occupation", re.I),
     # « 68 patients sont en isolement, soit 56,7% des lits occupés » (104)
     re.compile(r"(\d+(?:[,.]\d+)?)\s*%\s+des\s+lits\s+occup", re.I),

@@ -457,6 +457,11 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
         # Un retrait (SitRep 170 : les 314 du 169 sortent du total) a sa phrase.
         cle = "lettreBilanHarmonisationRetrait" if harm["deces"] < 0 else "lettreBilanHarmonisation"
         txt += " " + maj(P(cle, the=forms(harm["province"])["the"], n=fmt(abs(harm["deces"]), lang), jour=fmt(harm["decesJour"], lang)))
+    # Patients en isolement : la Lettre donne toujours le chiffre de la page
+    # de garde du bulletin, et signale quand il differe de la somme des
+    # provinces (inCTEPublie, ecrit par KPI_CORRIGES d'update_data).
+    cte_lettre = nat.get("inCTEPublie") if nat.get("inCTEPublie") is not None else nat.get("inCTE")
+    cte_ecart = nat.get("inCTEPublie") is not None
     if FL:
         # Gueris et malades en CTE dans une seule phrase.
         if nat.get("recovered") is not None:
@@ -464,19 +469,13 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             dont = gueris_delta is not None and gueris_delta > 0
             if dont:
                 g += P("lettreGuerisDontF", n=fmt(gueris_delta, lang))
-            if nat.get("inCTE") is not None:
-                g = g + (", " if dont else " ") + P("lettreCteEtF", n=fmt(nat.get("inCTE"), lang))
+            if cte_lettre is not None:
+                g = g + (", " if dont else " ") + P("lettreCteEtF", n=fmt(cte_lettre, lang))
             txt += " " + g.rstrip(",") + "."
-        elif nat.get("inCTE") is not None:
-            txt += " " + P("lettreCteSeulF", n=fmt(nat.get("inCTE"), lang))
-        # Bande de tete contredite par le detail des provinces (SitRep 179,
-        # KPI_CORRIGES d'update_data) : on dit les deux chiffres.
-        if nat.get("inCTEPublie") is not None and nat.get("inCTE") is not None:
-            txt += " " + P("lettreCteCorrigeF", publie=fmt(nat["inCTEPublie"], lang), n=fmt(nat["inCTE"], lang))
-        # Chiffre imprime que le detail ne retrouve pas, sans recomptage
-        # possible (SitRep 181) : on le cite, sans le reprendre.
-        elif nat.get("inCTEPublie") is not None:
-            txt += " " + P("lettreCteEcarteF", publie=fmt(nat["inCTEPublie"], lang))
+        elif cte_lettre is not None:
+            txt += " " + P("lettreCteSeulF", n=fmt(cte_lettre, lang))
+        if cte_ecart:
+            txt += " " + P("lettreCteEcartProvincesF")
         if None not in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec):
             mc, mcp, md, mdp = (round(v) for v in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec))
             if mc == mcp and md == mdp:
@@ -492,8 +491,8 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                     v_ = "lettreVerdictCasBasDecesHautF" if sc < 0 else "lettreVerdictCasHautDecesBasF"
                 txt += " " + P("lettreTendanceF", verdict=S[v_], cas=fmt(mc, lang), deces=fmt(md, lang),
                                casPrec=fmt(mcp, lang), decesPrec=fmt(mdp, lang))
-    elif nat.get("inCTE") is not None:
-        txt += " " + P("lettreBilanCte", n=fmt(nat.get("inCTE"), lang))
+    elif cte_lettre is not None:
+        txt += " " + P("lettreBilanCte", n=fmt(cte_lettre, lang))
     if not FL and None not in (moy_cas, moy_cas_prec, moy_dec, moy_dec_prec):
         txt += " " + P("lettreTendance", cas=un_dec(moy_cas), deces=un_dec(moy_dec), casPrec=un_dec(moy_cas_prec), decesPrec=un_dec(moy_dec_prec))
     corps = prose(esc(txt))
@@ -501,7 +500,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
     corps += kpi("confirmed", i18n_lang["labelConfirmed"], fmt(nat.get("confirmed"), lang), P("bulDelta", n=plus(nat.get("newCases24h"))))
     corps += kpi("deaths", i18n_lang["labelDeaths"], fmt(nat.get("deaths"), lang), P("bulDelta", n=plus(nat.get("newDeaths24h"))))
     corps += kpi("recovered", i18n_lang["labelRecovered"], fmt(nat.get("recovered"), lang), P("bulDelta", n=plus(gueris_delta)) if gueris_delta is not None else "")
-    corps += kpi("cte", i18n_lang["labelIsolation"], fmt(nat.get("inCTE"), lang), "")
+    corps += kpi("cte", i18n_lang["labelIsolation"], fmt(cte_lettre, lang), "")
     corps += kpi("cfr", i18n_lang["labelCfr"], fmt_cfr(nat.get("cfr"), lang), "")
     corps += kpi("zones", S["bulZonesLabel"], fmt(zt.get("n"), lang), P("bulZonesOf", total=fmt(zt.get("total"), lang)))
     corps += '    </section>\n'
@@ -948,9 +947,30 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
             if va and va.get("rupture"):
                 s6 = (s6 + " " if s6 else "") + S["lettreVaccinationRupture"]
             phrases.append(s6)
-        if po and po.get("personnes") is not None and po.get("screenesPct") is not None:
-            s7 = P("lettrePoeF" if FL else "lettrePoe", personnes=fmt(po["personnes"], lang), pct=pct(po["screenesPct"]))
-            if po.get("refusScreening"):
+        # Depuis le 179 le tableau n'a plus de total des voyageurs : les refus
+        # gardent alors leur phrase, ecrite pour se lire seule (« Seul »).
+        voy = bool(po) and po.get("personnes") is not None and po.get("screenesPct") is not None
+        # Sans total imprime (depuis le 179), les voyageurs sont la somme des
+        # provinces du tableau PoE/PoC (Global « calcule » d'extract_poe), dite
+        # comme telle ; pas de part controlee, que le bulletin ne donne que
+        # province par province, arrondie.
+        somme_voy = None
+        pp0 = _point(poe_data, date) if (poe_data and num.isdigit() and int(num) >= POE_ALERTES_DEPUIS) else None
+        if not voy and pp0 and pp0.get("date") == date:
+            ind0 = (pp0.get("indicateurs") or {}).get("personnes") or {}
+            g0 = ind0.get("Global") or {}
+            if g0.get("calcule") and isinstance(g0.get("valeur"), int) and g0["valeur"] > 0:
+                nprov = sum(1 for c, v in ind0.items() if c != "Global" and isinstance((v or {}).get("valeur"), int))
+                somme_voy = (g0["valeur"], nprov)
+        if voy or somme_voy or (po and po.get("refusScreening")):
+            if voy:
+                s7 = P("lettrePoeF" if FL else "lettrePoe", personnes=fmt(po["personnes"], lang), pct=pct(po["screenesPct"]))
+            elif somme_voy:
+                s7 = P("lettrePoeSommeF", personnes=fmt(somme_voy[0], lang), n=fmt(somme_voy[1], lang))
+            else:
+                s7 = ""
+            sf = "" if voy else "Seul"
+            if po and po.get("refusScreening"):
                 # Par province depuis le 10 novembre 2026 : « 279 personnes
                 # ont refusé ce contrôle » (178) ne valait que pour le
                 # Haut-Uélé et se lisait comme un total national.
@@ -960,14 +980,15 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                 items_r = [P("lettreDecesItem", n=fmt(v, lang), the=forms(k)["the"], **{"in": forms(k)["in"]})
                            for k, v in sorted(rp.items(), key=lambda x: -x[1])]
                 if "refusParProvince" not in po:
-                    s7 += " " + P("lettrePoeRefus", n=n_r)
+                    s7 += " " + P("lettrePoeRefus" + sf, n=n_r)
                 elif not rp:
-                    s7 += " " + P("lettrePoeRefusSans", n=n_r)
+                    s7 += " " + P("lettrePoeRefusSans" + sf, n=n_r)
                 elif len(rp) == 1 and not sp:
                     k = next(iter(rp))
-                    s7 += " " + maj(P("lettrePoeRefusUne", n=n_r, the=forms(k)["the"], **{"in": forms(k)["in"]}))
+                    s7 += " " + maj(P("lettrePoeRefusUne" + sf, n=n_r, the=forms(k)["the"], **{"in": forms(k)["in"]}))
                 else:
-                    s7 += " " + P("lettrePoeRefusDont" if sp else "lettrePoeRefusToutes", n=n_r, liste=_liste(items_r, et))
+                    s7 += " " + P(("lettrePoeRefusDont" if sp else "lettrePoeRefusToutes") + sf, n=n_r, liste=_liste(items_r, et))
+                s7 = s7.strip()
             # Les alertes et les corps interceptes aux postes, lus dans le
             # tableau PoE/PoC du bulletin ; la province qui fait au moins la
             # moitie des alertes est nommee (13 sur 18 au Bas-Uele le 24 oct.).
@@ -988,7 +1009,7 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                             if n * 2 >= na and n < na:
                                 detail = P("lettrePoeAlertesDont", n=fmt(n, lang), **{"in": forms(c)["in"]})
                         s7 += " " + P("lettrePoeAlertesF" if FL else "lettrePoeAlertes", alertes=fmt(na, lang), corps=fmt(nc, lang), detail=detail)
-            phrases.append(s7)
+            phrases.append(s7.strip())
     p_ri = prose(esc(("\n\n" if FL else " ").join(phrases)))
     c_ri = '    <section class="kpis kpis-riposte" aria-label="%s">\n%s    </section>\n' % (esc(S["bulRiposteTitle"]), cases)
     c_ri += '    <p class="drill"><a href="%s">%s</a></p>\n' % (urls.path("riposte", lang), esc(S["provinceRiposteLinkBul"]))
@@ -1123,10 +1144,10 @@ def _lettre(latest, prec_num, suiv_num, nums, lang, S, i18n_lang, fmt, fmt_decim
                         % (fmt(nat.get("recovered"), lang), esc(S["lettreUneGueris"]),
                            (" · " + plus(gueris_delta)) if gueris_delta is not None else "")
                         if nat.get("recovered") is not None else "")
-        # Sans chiffre retenu (SitRep 181, bande de tete ecartee), la case
-        # reste, avec un tiret, comme sur la page Ensemble du pays.
+        # Le chiffre de la page de garde, comme dans le texte ; tiret si le
+        # bulletin n'en imprime aucun.
         une["extra"] += ('<div class="lq-chiffre is-cte"><b>%s</b><span>%s</span></div>'
-                         % (fmt(nat.get("inCTE"), lang) if nat.get("inCTE") is not None else "—", esc(S["lettreUneCte"])))
+                         % (fmt(cte_lettre, lang) if cte_lettre is not None else "—", esc(S["lettreUneCte"])))
     tete = {"une": une, "num": num, "date": long_date(date, i18n_lang), "publie": long_date(date_publie, i18n_lang),
             "objet": objet, "jour": jour, "jour_nouveau": jour_nouveau, "jour_niveau": jour_niveau, "ref": meta.get("sitrepRef") or "", "pdf": pdf, "pied": pied, "pied_html": pied_html, "sous": sous_titre,
             "nav_html": nav_html, "archive_html": archive_html, "abo_html": _abonnement(lang, S, esc)}

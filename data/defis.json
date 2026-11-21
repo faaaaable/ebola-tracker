@@ -1,7 +1,7 @@
 {
   "periode": {
     "debut": "2026-08-06",
-    "fin": "2026-11-18"
+    "fin": "2026-11-19"
   },
   "parDate": [
     {
@@ -9431,6 +9431,12 @@
           "provinces": []
         }
       ],
+      "source": "SitRep INSP (automatique)"
+    },
+    {
+      "date": "2026-11-19",
+      "sitrepNumber": "189",
+      "piliers": [],
       "source": "SitRep INSP (automatique)"
     }
   ]

@@ -166,7 +166,10 @@ ECHANTILLONS_RES = [
     re.compile(r"[ée]chantillons\s+re[çc]us\s*,\s*(\d[\d ]{0,6}\d|\d)\s+ont\s+[ée]t[ée]\s+analys[ée]s", re.I),
     re.compile(r"en\s+a\s+analys[ée]\s+(\d[\d ]{0,6}\d|\d)\b", re.I),
     re.compile(r"analys[ée]\s+la\s+totalit[ée]\s+des\s+(\d[\d ]{0,6}\d|\d)\s*[ée]chantillons", re.I),
-    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*nouveaux\s+[ée]chantillons?\s+de\s+sang(?:\s+total)?\s+re[çc]us?\s+et\s+analys[ée]s?", re.I),
+    re.compile(r"(\d[\d ]{0,6}\d|\d)\s*nouveaux\s+[ée]chantillons?\s+de\s+sang(?:\s+total)?\s+re[çc]us?\s+et\s+analys[ée]s?", re.I),    # « Le laboratoire a réceptionné et analysé 258 nouveaux échantillons »
+    # (189 Nord-Kivu), « … 8 nouveaux échantillons sanguins (100 % négatifs) »
+    # (189 Bas-Uele).
+    re.compile(r"r[ée]ceptionn[ée]\s+et\s+analys[ée]\s+(\d[\d ]{0,6}\d|\d)\s*(?:nouveaux\s+)?[ée]chantillons", re.I),
 ]
 POSITIFS_RES = [
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s*(?:nouveaux?\s+)?r[ée]sultats?\s+positifs?", re.I),
@@ -199,7 +202,9 @@ POSITIFS_RES = [
     # révélé positif » (Tshopo).
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+[ée]chantillons\s+positifs\b", re.I),
     re.compile(r"(\d[\d ]{0,4}\d|\d)\s+[ée]chantillons?\s+(?:initiaux\s+)?(?:de\s+sang(?:\s+total)?\s+)?se\s+sont\s+r[ée]v[ée]l[ée]s\s+positifs", re.I),
-    re.compile(r"dont\s+(\d+)\s+s[’']est\s+r[ée]v[ée]l[ée]\s+positif\b", re.I),
+    re.compile(r"dont\s+(\d+)\s+s[’']est\s+r[ée]v[ée]l[ée]\s+positif\b", re.I),    # « et 1 échantillon s'est révélé positif » (189 Haut-Uele) : sans ce
+    # motif, TOUS_POSITIFS_RE comptait les 14 analyses pour positifs.
+    re.compile(r"(\d[\d ]{0,4}\d|\d)\s+[ée]chantillons?\s+s[’']est\s+r[ée]v[ée]l[ée]\s+positif\b", re.I),
 ]
 DE_PLUS_RE = re.compile(r"De\s+plus\s*,\s*(\d[\d ]{0,4}\d|\d)\s+(?:r[ée])?pr[ée]l[èe]vements\s+sont\s+revenus\s+positifs\s+"
                         r"parmi\s+(\d[\d ]{0,6}\d|\d)\s+[ée]chantillons\s+analys[ée]s\.?", re.I)

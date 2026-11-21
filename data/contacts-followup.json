@@ -5196,5 +5196,47 @@
         "aSuivre": 112
       }
     }
+  },
+  {
+    "date": "2026-11-19",
+    "sitrepNumber": "189",
+    "contactsFollowUpRate": 85.3,
+    "source": "SitRep INSP (automatique)",
+    "contacts": {
+      "aSuivre": 29891,
+      "vus": 25501
+    },
+    "provinces": {
+      "Ituri": {
+        "taux": 91.9,
+        "vus": 11880,
+        "aSuivre": 12927
+      },
+      "Haut-Uélé": {
+        "taux": 77.4,
+        "vus": 1716,
+        "aSuivre": 2216
+      },
+      "Nord-Kivu": {
+        "taux": 80.1,
+        "vus": 10822,
+        "aSuivre": 13519
+      },
+      "Tshopo": {
+        "taux": 84.1,
+        "vus": 772,
+        "aSuivre": 918
+      },
+      "Nord-Ubangi": {
+        "taux": 100.0,
+        "vus": 163,
+        "aSuivre": 163
+      },
+      "Sud-Ubangi": {
+        "taux": 100.0,
+        "vus": 148,
+        "aSuivre": 148
+      }
+    }
   }
 ]
